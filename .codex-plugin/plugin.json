@@ -1,0 +1,25 @@
+{
+  "name": "token-context-optimizer",
+  "version": "0.1.0",
+  "description": "Codex plugin for safer token-efficient artifact indexing, bounded retrieval, and exact-data preservation.",
+  "author": {
+    "name": "Codex Local"
+  },
+  "license": "MIT",
+  "keywords": ["codex", "mcp", "token-efficiency", "context"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Token Context Optimizer",
+    "shortDescription": "Safely reduce Codex context size with source-backed excerpts.",
+    "longDescription": "Indexes local artifacts, estimates context size, and returns bounded source-backed excerpts while preserving exact-sensitive data.",
+    "developerName": "Codex Local",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": [
+      "Optimize a large artifact before loading it into Codex.",
+      "Classify this context before summarizing it.",
+      "Index this file and retrieve source-backed excerpts."
+    ]
+  }
+}
