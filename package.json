@@ -12,6 +12,8 @@
     "build:bundle": "node scripts/build-bundle.mjs",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "install:local": "node scripts/install-local-plugin.mjs",
+    "verify:installed": "node scripts/verify-installed-plugin.mjs",
     "validate:plugin": "node scripts/validate-plugin.mjs",
     "benchmark": "node dist/benchmarks/run.js",
     "smoke:mcp": "node scripts/smoke-mcp.mjs"

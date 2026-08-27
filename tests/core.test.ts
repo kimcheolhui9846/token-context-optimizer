@@ -1,7 +1,16 @@
 import { createHash } from "node:crypto";
-import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import {
+  access,
+  mkdir,
+  mkdtemp,
+  readFile,
+  symlink,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { promisify } from "node:util";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -16,6 +25,8 @@ import {
 } from "../src/core/policy.js";
 import { parseCompleteJsonMessages } from "../src/server/smoke-output-parser.js";
 import { estimateContext } from "../src/core/token-estimator.js";
+
+const execFileAsync = promisify(execFile);
 
 describe("artifact indexing and retrieval", () => {
   it("indexes source text with stable hash and line source map", async () => {
@@ -618,6 +629,160 @@ describe("token estimation", () => {
 });
 
 describe("project configuration", () => {
+  it("installs only runtime plugin files into a target directory", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-install-target-"));
+
+    const { stdout } = await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+    ]);
+    const result = JSON.parse(stdout);
+
+    expect(result.target).toBe(target);
+    expect(result.copiedFiles).toEqual([
+      ".codex-plugin/plugin.json",
+      ".mcp.json",
+      "bin/token-context-optimizer.mjs",
+      "skills/optimize-context/SKILL.md",
+    ]);
+    for (const runtimeFile of result.copiedFiles) {
+      await expect(access(join(target, runtimeFile))).resolves.toBeUndefined();
+    }
+    await expect(access(join(target, "node_modules"))).rejects.toThrow();
+    await expect(access(join(target, "dist"))).rejects.toThrow();
+    await expect(access(join(target, ".git"))).rejects.toThrow();
+  });
+
+  it("verifies an installed plugin can index a separate allowed workspace", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-target-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+    ]);
+
+    const { stdout } = await execFileAsync(process.execPath, [
+      "scripts/verify-installed-plugin.mjs",
+      "--plugin-root",
+      target,
+    ]);
+    const result = JSON.parse(stdout);
+
+    expect(result.ok).toBe(true);
+    expect(result.pluginRoot).toBe(target);
+    expect(result.indexedLineCount).toBe(2);
+    expect(result.indexedPath).toContain("artifact.txt");
+  });
+
+  it("rejects an existing target that does not belong to this plugin", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-conflicting-target-"));
+    const mcpPath = join(target, ".mcp.json");
+    await writeFile(mcpPath, "{\"unrelated\":true}", "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+      ]),
+    ).rejects.toThrow();
+    await expect(readFile(mcpPath, "utf8")).resolves.toBe("{\"unrelated\":true}");
+  });
+
+  it("preflights every runtime source before modifying an existing install", async () => {
+    const source = await mkdtemp(join(tmpdir(), "tco-missing-source-"));
+    await mkdir(join(source, ".codex-plugin"), { recursive: true });
+    await mkdir(join(source, "skills", "optimize-context"), { recursive: true });
+    await writeFile(
+      join(source, ".codex-plugin", "plugin.json"),
+      "{\"name\":\"token-context-optimizer\",\"version\":\"0.1.0\"}",
+      "utf8",
+    );
+    await writeFile(join(source, ".mcp.json"), "{\"replacement\":true}", "utf8");
+    await writeFile(
+      join(source, "skills", "optimize-context", "SKILL.md"),
+      "# replacement",
+      "utf8",
+    );
+
+    const target = await mkdtemp(join(tmpdir(), "tco-existing-install-"));
+    await mkdir(join(target, ".codex-plugin"), { recursive: true });
+    await writeFile(
+      join(target, ".codex-plugin", "plugin.json"),
+      "{\"name\":\"token-context-optimizer\",\"version\":\"0.1.0\"}",
+      "utf8",
+    );
+    await writeFile(join(target, ".mcp.json"), "{\"original\":true}", "utf8");
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        [
+          join(process.cwd(), "scripts", "install-local-plugin.mjs"),
+          "--target",
+          target,
+        ],
+        { cwd: source },
+      ),
+    ).rejects.toThrow();
+    await expect(readFile(join(target, ".mcp.json"), "utf8")).resolves.toBe(
+      "{\"original\":true}",
+    );
+  });
+
+  it("rejects symlinked destination components when the platform can create them", async () => {
+    const realParent = await mkdtemp(join(tmpdir(), "tco-real-parent-"));
+    const linkParent = `${realParent}-link`;
+    try {
+      await symlink(realParent, linkParent, "junction");
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "EPERM") {
+        return;
+      }
+      throw error;
+    }
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        join(linkParent, "plugin"),
+      ]),
+    ).rejects.toThrow();
+  });
+
+  it("rejects nested symlinked install components before copying runtime files", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-owned-symlink-target-"));
+    await mkdir(join(target, ".codex-plugin"), { recursive: true });
+    await writeFile(
+      join(target, ".codex-plugin", "plugin.json"),
+      "{\"name\":\"token-context-optimizer\",\"version\":\"0.1.0\"}",
+      "utf8",
+    );
+
+    const externalBin = await mkdtemp(join(tmpdir(), "tco-external-bin-"));
+    const externalBundle = join(externalBin, "token-context-optimizer.mjs");
+    await writeFile(externalBundle, "external sentinel", "utf8");
+    try {
+      await symlink(externalBin, join(target, "bin"), "junction");
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "EPERM") {
+        return;
+      }
+      throw error;
+    }
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+      ]),
+    ).rejects.toThrow(/symlinked path component/);
+    await expect(readFile(externalBundle, "utf8")).resolves.toBe("external sentinel");
+  });
+
   it("points Codex and npm launch paths at the checked-in bundled server", async () => {
     const packageJson = JSON.parse(await readFile("package.json", "utf8"));
     const mcpConfig = JSON.parse(await readFile(".mcp.json", "utf8"));

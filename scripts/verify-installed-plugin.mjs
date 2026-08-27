@@ -1,12 +1,19 @@
 import { spawn } from "node:child_process";
-import { cp, mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { access, mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { join, resolve } from "node:path";
 
-const pluginRoot = await mkdtemp(join(tmpdir(), "tco-installed-plugin-"));
-const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-workspace-"));
-await copyRuntimeFiles(pluginRoot);
+const REQUIRED_FILES = [
+  ".codex-plugin/plugin.json",
+  ".mcp.json",
+  "bin/token-context-optimizer.mjs",
+  "skills/optimize-context/SKILL.md",
+];
 
+const pluginRoot = resolvePluginRoot(process.argv.slice(2), process.env);
+await assertInstalledRuntime(pluginRoot);
+
+const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
 const workspaceFile = join(workspaceRoot, "artifact.txt");
 await writeFile(
   workspaceFile,
@@ -37,13 +44,62 @@ child.stderr.on("data", (chunk) => {
   stderr += chunk;
 });
 
+try {
+  send({
+    jsonrpc: "2.0",
+    id: 1,
+    method: "initialize",
+    params: {
+      protocolVersion: "2025-06-18",
+      capabilities: {},
+      clientInfo: { name: "verify-installed-plugin", version: "0.1.0" },
+    },
+  });
+  await waitFor((message) => message.id === 1 && message.result);
+
+  send({ jsonrpc: "2.0", method: "notifications/initialized", params: {} });
+  send({ jsonrpc: "2.0", id: 2, method: "tools/list", params: {} });
+  const tools = await waitFor((message) => message.id === 2 && message.result?.tools);
+  const toolNames = tools.result.tools.map((tool) => tool.name);
+  if (!toolNames.includes("index_artifact")) {
+    throw new Error("Installed MCP server did not expose index_artifact");
+  }
+
+  send({
+    jsonrpc: "2.0",
+    id: 3,
+    method: "tools/call",
+    params: {
+      name: "index_artifact",
+      arguments: { path: workspaceFile },
+    },
+  });
+  const indexed = await waitFor((message) => message.id === 3 && message.result);
+  const payload = JSON.parse(indexed.result.content[0].text);
+  if (payload.path !== workspaceFile || payload.lineCount !== 2) {
+    throw new Error(`Installed plugin verification failed: ${JSON.stringify(payload)}`);
+  }
+
+  console.log(
+    JSON.stringify({
+      ok: true,
+      pluginRoot,
+      workspaceRoot,
+      indexedPath: payload.path,
+      indexedLineCount: payload.lineCount,
+    }),
+  );
+} finally {
+  await stopChild();
+}
+
 function send(message) {
   child.stdin.write(`${JSON.stringify(message)}\n`);
 }
 
 function waitFor(predicate, timeoutMs = 5000) {
   const start = Date.now();
-  return new Promise((resolve, reject) => {
+  return new Promise((resolveResult, reject) => {
     const interval = setInterval(() => {
       if (childError) {
         clearInterval(interval);
@@ -68,7 +124,7 @@ function waitFor(predicate, timeoutMs = 5000) {
       const found = lines.find(predicate);
       if (found) {
         clearInterval(interval);
-        resolve(found);
+        resolveResult(found);
       } else if (Date.now() - start > timeoutMs) {
         clearInterval(interval);
         reject(new Error(`Timed out waiting for MCP response. stderr=${stderr}`));
@@ -77,76 +133,13 @@ function waitFor(predicate, timeoutMs = 5000) {
   });
 }
 
-try {
-  send({
-    jsonrpc: "2.0",
-    id: 1,
-    method: "initialize",
-    params: {
-      protocolVersion: "2025-06-18",
-      capabilities: {},
-      clientInfo: { name: "smoke-mcp", version: "0.1.0" },
-    },
-  });
-
-  await waitFor((message) => message.id === 1 && message.result);
-
-  send({
-    jsonrpc: "2.0",
-    method: "notifications/initialized",
-    params: {},
-  });
-  send({ jsonrpc: "2.0", id: 2, method: "tools/list", params: {} });
-
-  const tools = await waitFor((message) => message.id === 2 && message.result?.tools);
-  const toolNames = tools.result.tools.map((tool) => tool.name);
-  for (const expected of [
-    "estimate_context",
-    "classify_context",
-    "index_artifact",
-    "query_artifact",
-    "summarize_artifact",
-  ]) {
-    if (!toolNames.includes(expected)) {
-      throw new Error(`Missing MCP tool: ${expected}`);
+async function assertInstalledRuntime(root) {
+  for (const requiredFile of REQUIRED_FILES) {
+    try {
+      await access(join(root, requiredFile));
+    } catch {
+      throw new Error(`Installed plugin is missing runtime file: ${requiredFile}`);
     }
-  }
-
-  send({
-    jsonrpc: "2.0",
-    id: 3,
-    method: "tools/call",
-    params: {
-      name: "index_artifact",
-      arguments: { path: workspaceFile },
-    },
-  });
-
-  const indexed = await waitFor((message) => message.id === 3 && message.result);
-  const payload = JSON.parse(indexed.result.content[0].text);
-  if (payload.path !== workspaceFile || payload.lineCount !== 2) {
-    throw new Error(`Installed-layout index check failed: ${JSON.stringify(payload)}`);
-  }
-
-  console.log("mcp smoke ok");
-} finally {
-  await stopChild();
-}
-
-async function copyRuntimeFiles(destination) {
-  for (const relativePath of [
-    ".codex-plugin/plugin.json",
-    ".mcp.json",
-    "bin/token-context-optimizer.mjs",
-    "skills/optimize-context/SKILL.md",
-  ]) {
-    await mkdir(dirname(join(destination, relativePath)), { recursive: true });
-    await cp(relativePath, join(destination, relativePath));
-  }
-
-  const bundle = await readFile(join(destination, "bin/token-context-optimizer.mjs"), "utf8");
-  if (/(?:from|import)\s+["'][^"']*(?:node_modules|dist\/src\/server)/u.test(bundle)) {
-    throw new Error("Bundled server still references development-only paths");
   }
 }
 
@@ -162,7 +155,7 @@ function parseCompleteJsonMessages(input) {
     }
     try {
       messages.push(JSON.parse(line));
-    } catch (error) {
+    } catch {
       throw new Error(`Malformed MCP stdout line: ${line}`);
     }
   }
@@ -209,4 +202,33 @@ function terminateChild(signal, timeoutMs) {
       resolveTerminated(child.exitCode !== null);
     }
   });
+}
+
+function resolvePluginRoot(args, env) {
+  const pluginRootArg = readOption(args, "--plugin-root");
+  if (pluginRootArg) {
+    return resolve(pluginRootArg);
+  }
+  if (env.TCO_PLUGIN_INSTALL_DIR) {
+    return resolve(env.TCO_PLUGIN_INSTALL_DIR);
+  }
+  if (env.CODEX_HOME) {
+    return resolve(env.CODEX_HOME, "plugins", "local", "token-context-optimizer");
+  }
+  if (env.USERPROFILE) {
+    return resolve(env.USERPROFILE, ".codex", "plugins", "local", "token-context-optimizer");
+  }
+  throw new Error("Cannot resolve plugin root. Set --plugin-root or TCO_PLUGIN_INSTALL_DIR.");
+}
+
+function readOption(args, name) {
+  const index = args.indexOf(name);
+  if (index === -1) {
+    return null;
+  }
+  const value = args[index + 1];
+  if (!value || value.startsWith("--")) {
+    throw new Error(`${name} requires a value`);
+  }
+  return value;
 }
