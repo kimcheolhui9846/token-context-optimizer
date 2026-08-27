@@ -1,0 +1,32 @@
+{
+  "name": "token-context-optimizer",
+  "version": "0.1.0",
+  "description": "Codex plugin and local MCP server for safer token-efficient context handling.",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "token-context-optimizer": "./bin/token-context-optimizer.mjs"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build-bundle.mjs",
+    "build:bundle": "node scripts/build-bundle.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "validate:plugin": "node scripts/validate-plugin.mjs",
+    "benchmark": "node dist/benchmarks/run.js",
+    "smoke:mcp": "node scripts/smoke-mcp.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "token-context-optimizer": {
+      "command": "node",
+      "args": ["./bin/token-context-optimizer.mjs"],
+      "cwd": ".",
+      "env_vars": ["TCO_ALLOWED_ROOTS"]
+    }
+  }
+}
