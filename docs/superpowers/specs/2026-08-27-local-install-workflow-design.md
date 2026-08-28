@@ -28,7 +28,7 @@ The installer creates the destination when needed. It accepts empty destinations
 
 ## Marketplace
 
-Default installs create or update `%USERPROFILE%\.agents\plugins\marketplace.json` with a local entry for `token-context-optimizer`. The entry points at the installed plugin directory using a `./`-prefixed `source.path` relative to the marketplace root. `--marketplace <path>` and `TCO_PLUGIN_MARKETPLACE_PATH` override the marketplace file, and `--no-marketplace` keeps tests and staging installs from mutating user-global plugin discovery state.
+Default installs create or update a personal marketplace with a local entry for `token-context-optimizer`. When `CODEX_HOME` is set, the marketplace lives at `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the plugin target remains inside the marketplace root. Otherwise it lives at `%USERPROFILE%\.agents\plugins\marketplace.json`. The entry points at the installed plugin directory using a `./`-prefixed `source.path` relative to the marketplace root. `--marketplace <path>` and `TCO_PLUGIN_MARKETPLACE_PATH` override the marketplace file, and `--no-marketplace` keeps tests and staging installs from mutating user-global plugin discovery state.
 
 ## Verification
 

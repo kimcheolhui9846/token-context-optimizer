@@ -1,12 +1,30 @@
-import { cp, lstat, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
+import {
+  cp,
+  lstat,
+  mkdir,
+  readdir,
+  readFile,
+  rename,
+  rm,
+  rmdir,
+  stat,
+  writeFile,
+} from "node:fs/promises";
 import { basename, dirname, isAbsolute, parse, join, relative, resolve } from "node:path";
 
-import { PLUGIN_NAME, RUNTIME_FILES } from "./plugin-runtime.mjs";
+import {
+  PLUGIN_NAME,
+  RUNTIME_FILES,
+  readOption,
+  resolveDefaultMarketplacePath,
+  resolvePluginRoot,
+} from "./plugin-runtime.mjs";
 
 const args = process.argv.slice(2);
-const target = resolveInstallTarget(args, process.env);
+const target = resolvePluginRoot(args, process.env, "--target");
 const marketplacePath = resolveMarketplacePath(args, process.env);
 const simulateCopyFailureAfter = readIntegerOption(args, "--simulate-copy-failure-after");
+const simulateMarketplaceWriteFailure = args.includes("--simulate-marketplace-write-failure");
 
 await preflightSources();
 await preflightTarget(target);
@@ -27,10 +45,12 @@ try {
     }
   }
   if (marketplacePath) {
-    marketplaceEntry = await updateMarketplace(marketplacePath, target);
+    marketplaceEntry = await updateMarketplace(marketplacePath, target, {
+      simulateWriteFailure: simulateMarketplaceWriteFailure,
+    });
   }
 } catch (error) {
-  await restoreRuntimeDestinations(snapshots);
+  await restoreRuntimeDestinations(target, snapshots);
   throw error;
 }
 
@@ -154,13 +174,35 @@ async function snapshotRuntimeDestinations(path) {
   return snapshots;
 }
 
-async function restoreRuntimeDestinations(snapshots) {
+async function restoreRuntimeDestinations(root, snapshots) {
   for (const snapshot of snapshots) {
     if (snapshot.existed) {
       await writeFile(snapshot.path, snapshot.content);
     } else {
       await rm(snapshot.path, { force: true });
+      await removeEmptyParents(root, dirname(snapshot.path));
     }
+  }
+}
+
+async function removeEmptyParents(root, start) {
+  const absoluteRoot = resolve(root);
+  let current = resolve(start);
+  while (current !== absoluteRoot && isInsideRoot(absoluteRoot, current)) {
+    try {
+      await rmdir(current);
+    } catch (error) {
+      if (
+        error &&
+        typeof error === "object" &&
+        "code" in error &&
+        (error.code === "ENOENT" || error.code === "ENOTEMPTY" || error.code === "EPERM")
+      ) {
+        return;
+      }
+      throw error;
+    }
+    current = dirname(current);
   }
 }
 
@@ -169,7 +211,7 @@ async function preflightMarketplace(path) {
   await assertExistingDestinationIsFile(path);
 }
 
-async function updateMarketplace(path, pluginRoot) {
+async function updateMarketplace(path, pluginRoot, options) {
   const marketplaceRoot = resolveMarketplaceRoot(path);
   const sourcePath = toMarketplaceSourcePath(marketplaceRoot, pluginRoot);
   let marketplace;
@@ -222,9 +264,25 @@ async function updateMarketplace(path, pluginRoot) {
     marketplace.plugins[existingIndex] = entry;
   }
 
-  await mkdir(dirname(path), { recursive: true });
-  await writeFile(path, `${JSON.stringify(marketplace, null, 2)}\n`, "utf8");
+  await writeJsonFileAtomically(path, `${JSON.stringify(marketplace, null, 2)}\n`, options);
   return entry;
+}
+
+async function writeJsonFileAtomically(path, content, options) {
+  await mkdir(dirname(path), { recursive: true });
+  const tempPath = join(
+    dirname(path),
+    `.${basename(path)}.${process.pid}.${Date.now()}.tmp`,
+  );
+  try {
+    await writeFile(tempPath, content, "utf8");
+    if (options?.simulateWriteFailure) {
+      throw new Error("Simulated marketplace write failure");
+    }
+    await rename(tempPath, path);
+  } finally {
+    await rm(tempPath, { force: true });
+  }
 }
 
 function resolveMarketplaceRoot(path) {
@@ -238,10 +296,15 @@ function resolveMarketplaceRoot(path) {
 
 function toMarketplaceSourcePath(marketplaceRoot, pluginRoot) {
   const relativePath = relative(marketplaceRoot, pluginRoot).replace(/\\/g, "/");
-  if (!relativePath || relativePath.startsWith("../") || relativePath === ".." || isAbsolute(relativePath)) {
+  if (!relativePath || !isInsideRoot(marketplaceRoot, pluginRoot)) {
     throw new Error("Marketplace source.path must stay inside the marketplace root");
   }
   return `./${relativePath}`;
+}
+
+function isInsideRoot(root, path) {
+  const relativePath = relative(resolve(root), resolve(path));
+  return relativePath !== ".." && !relativePath.startsWith(`..${"/"}`) && !relativePath.startsWith(`..${"\\"}`) && !isAbsolute(relativePath);
 }
 
 async function rejectSymlinkedComponents(path) {
@@ -270,26 +333,6 @@ async function rejectSymlinkedComponents(path) {
   }
 }
 
-function resolveInstallTarget(args, env) {
-  const targetArg = readOption(args, "--target");
-  if (targetArg) {
-    return resolve(targetArg);
-  }
-  if (env.TCO_PLUGIN_INSTALL_DIR) {
-    return resolve(env.TCO_PLUGIN_INSTALL_DIR);
-  }
-  if (env.CODEX_HOME) {
-    return resolve(env.CODEX_HOME, "plugins", PLUGIN_NAME);
-  }
-  if (env.USERPROFILE) {
-    return resolve(env.USERPROFILE, ".codex", "plugins", PLUGIN_NAME);
-  }
-  if (env.HOME) {
-    return resolve(env.HOME, ".codex", "plugins", PLUGIN_NAME);
-  }
-  throw new Error("Cannot resolve install target. Set --target or TCO_PLUGIN_INSTALL_DIR.");
-}
-
 function resolveMarketplacePath(args, env) {
   if (args.includes("--no-marketplace")) {
     return null;
@@ -304,25 +347,7 @@ function resolveMarketplacePath(args, env) {
   if (readOption(args, "--target") || env.TCO_PLUGIN_INSTALL_DIR) {
     return null;
   }
-  if (env.USERPROFILE) {
-    return resolve(env.USERPROFILE, ".agents", "plugins", "marketplace.json");
-  }
-  if (env.HOME) {
-    return resolve(env.HOME, ".agents", "plugins", "marketplace.json");
-  }
-  throw new Error("Cannot resolve marketplace path. Set --marketplace or --no-marketplace.");
-}
-
-function readOption(args, name) {
-  const index = args.indexOf(name);
-  if (index === -1) {
-    return null;
-  }
-  const value = args[index + 1];
-  if (!value || value.startsWith("--")) {
-    throw new Error(`${name} requires a value`);
-  }
-  return value;
+  return resolveDefaultMarketplacePath(env);
 }
 
 function readIntegerOption(args, name) {

@@ -35,7 +35,7 @@ npm.cmd run install:local
 npm.cmd run verify:installed
 ```
 
-The default install copies the plugin to `%CODEX_HOME%\plugins\token-context-optimizer` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.codex\plugins\token-context-optimizer`. It also creates or updates the personal marketplace at `%USERPROFILE%\.agents\plugins\marketplace.json` so the ChatGPT desktop app can surface the plugin from a local source.
+The default install copies the plugin to `%CODEX_HOME%\plugins\token-context-optimizer` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.codex\plugins\token-context-optimizer`. It also creates or updates a personal marketplace so the ChatGPT desktop app can surface the plugin from a local source.
 
 After the default install, restart the ChatGPT desktop app, open the Plugins Directory, select the personal marketplace source, and install or refresh `token-context-optimizer`. Start a new chat after reinstalling so Codex picks up the updated skills and bundled MCP server.
 
@@ -64,7 +64,8 @@ Marketplace resolution order:
 1. `--no-marketplace` disables marketplace writes.
 2. `--marketplace <path>`.
 3. `TCO_PLUGIN_MARKETPLACE_PATH`.
-4. `%USERPROFILE%\.agents\plugins\marketplace.json` for default installs without `--target` or `TCO_PLUGIN_INSTALL_DIR`.
+4. `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` for default installs when `CODEX_HOME` is set.
+5. `%USERPROFILE%\.agents\plugins\marketplace.json` for default installs without `CODEX_HOME`, `--target`, or `TCO_PLUGIN_INSTALL_DIR`.
 
 The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`.
 

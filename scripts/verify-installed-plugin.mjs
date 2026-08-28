@@ -1,13 +1,19 @@
 import { spawn } from "node:child_process";
-import { access, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { access, lstat, mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { isAbsolute, join, relative, resolve } from "node:path";
+import { isAbsolute, join, parse, relative, resolve } from "node:path";
 
-import { PLUGIN_NAME, RUNTIME_FILES } from "./plugin-runtime.mjs";
+import {
+  BUNDLED_SERVER_ENTRYPOINT,
+  PLUGIN_NAME,
+  RUNTIME_FILES,
+  resolvePluginRoot,
+} from "./plugin-runtime.mjs";
 
-const pluginRoot = resolvePluginRoot(process.argv.slice(2), process.env);
+const pluginRoot = resolvePluginRoot(process.argv.slice(2), process.env, "--plugin-root");
 await assertInstalledRuntime(pluginRoot);
 const serverConfig = await readInstalledServerConfig(pluginRoot);
+const launchConfig = await resolveInstalledLaunchConfig(pluginRoot, serverConfig);
 
 const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
 const workspaceFile = join(workspaceRoot, "artifact.txt");
@@ -17,8 +23,8 @@ await writeFile(
   "utf8",
 );
 
-const child = spawn(resolveCommand(serverConfig.command), serverConfig.args ?? [], {
-  cwd: resolve(pluginRoot, serverConfig.cwd ?? "."),
+const child = spawn(launchConfig.command, launchConfig.args, {
+  cwd: launchConfig.cwd,
   stdio: ["pipe", "pipe", "pipe"],
   env: { ...process.env, ...(serverConfig.env ?? {}), TCO_ALLOWED_ROOTS: workspaceRoot },
 });
@@ -86,7 +92,8 @@ try {
     },
   });
   const denied = await waitFor((message) => message.id === 4 && message.result);
-  if (denied.result?.isError !== true) {
+  const deniedText = denied.result?.content?.map((item) => item.text).join("\n") ?? "";
+  if (denied.result?.isError !== true || !deniedText.includes("outside allowed roots")) {
     throw new Error("Installed plugin allowed indexing from the plugin root");
   }
 
@@ -184,16 +191,73 @@ async function readInstalledServerConfig(root) {
   return server;
 }
 
+async function resolveInstalledLaunchConfig(root, server) {
+  if (server.command !== "node" && resolve(server.command) !== process.execPath) {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server must launch node`);
+  }
+
+  const cwd = resolve(root, server.cwd ?? ".");
+  assertInsideRoot(root, cwd, "Installed MCP cwd must stay inside the plugin root");
+  await rejectSymlinkedComponents(cwd);
+
+  const args = server.args ?? [];
+  if (args.length === 0 || typeof args[0] !== "string") {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server must launch the installed bundle`);
+  }
+  const entrypoint = resolve(cwd, args[0]);
+  const installedBundle = resolve(root, BUNDLED_SERVER_ENTRYPOINT);
+  if (entrypoint !== installedBundle) {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server must launch the installed bundle`);
+  }
+  await rejectSymlinkedComponents(installedBundle);
+
+  return {
+    command: process.execPath,
+    args,
+    cwd,
+  };
+}
+
 function resolveManifestPath(root, path) {
   if (!path.startsWith("./")) {
     throw new Error("Manifest component paths must start with ./");
   }
   const resolved = resolve(root, path);
-  const relativePath = relative(resolve(root), resolved);
-  if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
-    throw new Error("Manifest component paths must stay inside the plugin root");
-  }
+  assertInsideRoot(root, resolved, "Manifest component paths must stay inside the plugin root");
   return resolved;
+}
+
+function assertInsideRoot(root, path, message) {
+  const relativePath = relative(resolve(root), resolve(path));
+  if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
+    throw new Error(message);
+  }
+}
+
+async function rejectSymlinkedComponents(path) {
+  const absolute = resolve(path);
+  const parsed = parse(absolute);
+  const relativeParts = absolute
+    .slice(parsed.root.length)
+    .split(/[\\/]+/u)
+    .filter(Boolean);
+
+  let current = parsed.root;
+  for (const part of relativeParts) {
+    current = resolve(current, part);
+    let currentStat;
+    try {
+      currentStat = await lstat(current);
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+        return;
+      }
+      throw error;
+    }
+    if (currentStat.isSymbolicLink()) {
+      throw new Error(`Installed MCP path contains a symlinked component: ${current}`);
+    }
+  }
 }
 
 function selectServerMap(config) {
@@ -207,10 +271,6 @@ function selectServerMap(config) {
     return config.mcp_servers;
   }
   return config;
-}
-
-function resolveCommand(command) {
-  return command === "node" ? process.execPath : command;
 }
 
 function parseCompleteJsonMessages(input) {
@@ -272,33 +332,4 @@ function terminateChild(signal, timeoutMs) {
       resolveTerminated(child.exitCode !== null);
     }
   });
-}
-
-function resolvePluginRoot(args, env) {
-  const pluginRootArg = readOption(args, "--plugin-root");
-  if (pluginRootArg) {
-    return resolve(pluginRootArg);
-  }
-  if (env.TCO_PLUGIN_INSTALL_DIR) {
-    return resolve(env.TCO_PLUGIN_INSTALL_DIR);
-  }
-  if (env.CODEX_HOME) {
-    return resolve(env.CODEX_HOME, "plugins", "local", "token-context-optimizer");
-  }
-  if (env.USERPROFILE) {
-    return resolve(env.USERPROFILE, ".codex", "plugins", "local", "token-context-optimizer");
-  }
-  throw new Error("Cannot resolve plugin root. Set --plugin-root or TCO_PLUGIN_INSTALL_DIR.");
-}
-
-function readOption(args, name) {
-  const index = args.indexOf(name);
-  if (index === -1) {
-    return null;
-  }
-  const value = args[index + 1];
-  if (!value || value.startsWith("--")) {
-    throw new Error(`${name} requires a value`);
-  }
-  return value;
 }

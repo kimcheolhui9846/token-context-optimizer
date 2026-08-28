@@ -13,7 +13,7 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install commits: `2bd5189`, `bd95ea1`
+- Local install commits: `2bd5189`, `bd95ea1`, `30dda09`
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -64,11 +64,26 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
     - Add marketplace registration so local install maps to Codex/ChatGPT plugin discovery.
     - Make installed verification read `plugin.json` and `.mcp.json` instead of hardcoding the bundle command.
     - Confirm `TCO_ALLOWED_ROOTS` keeps plugin-root files outside the indexing boundary.
-- Current remediation in progress:
+- First PR #2 remediation completed:
   - Added RED tests for marketplace entry generation, non-file destination preflight, rollback, `.mcp.json` parsing, exact installed tree, and plugin-root denial.
   - Implemented installer marketplace registration, destination file-type preflight, runtime restore on failed copy, and shared runtime inventory.
   - Implemented verifier metadata-driven MCP launch and plugin-root denial check.
   - Updated README, design spec, implementation plan, and this handoff for marketplace-backed local install.
+- PR #2 re-review completed:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Blocking remediation scope:
+    - Use the same default root rules for install and verify.
+    - Keep default `CODEX_HOME` installs inside the matching marketplace root.
+    - Prevent verifier from accepting `.mcp.json` configs that launch an external server instead of the installed bundle.
+    - Preserve marketplace JSON on write failure and leave installs retryable.
+    - Refresh handoff, plan, and PR body to current verification state.
+- Re-review remediation completed locally:
+  - Added RED tests for no-argument USERPROFILE install/verify parity, `CODEX_HOME` marketplace-root alignment, marketplace write-failure retryability, and external MCP server rejection.
+  - Moved shared plugin root/default marketplace resolution into `scripts/plugin-runtime.mjs`.
+  - Verifier now requires the configured server to launch Node with the installed `bin/token-context-optimizer.mjs` entrypoint from a cwd inside the plugin root.
+  - Verifier checks launch path components for symlinks and verifies plugin-root denial reports `outside allowed roots`.
+  - Marketplace updates now use same-directory temp-file replacement and preserve the original file on simulated write failure.
 
 ## Design Summary
 
@@ -85,7 +100,8 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
 - Default marketplace registration:
   - Skipped when `--no-marketplace` is passed.
   - Uses `--marketplace <path>` or `TCO_PLUGIN_MARKETPLACE_PATH` when set.
-  - For default installs without `--target`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
+  - For default installs with `CODEX_HOME`, writes `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the installed plugin remains inside the marketplace root.
+  - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
 - Verifier reads the installed manifest and declared `.mcp.json`, launches the configured `token-context-optimizer` server, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, and confirms plugin-root indexing is denied.
 
@@ -139,6 +155,22 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
   - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-gate\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+- PR #2 re-review remediation RED:
+  - `npm.cmd test` - 4 expected failures covering default install/verify path mismatch, default `CODEX_HOME` marketplace-root mismatch, marketplace write-failure simulation, and external MCP server verifier bypass.
+- PR #2 re-review remediation targeted GREEN:
+  - `npm.cmd test` - 107 tests passed.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\smoke-mcp.mjs` - exit 0.
+- PR #2 re-review remediation full gate:
+  - `npm.cmd run build` - exit 0.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-gate\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -159,10 +191,11 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
 
 ## Next Steps
 
-1. Run `git diff --check`, commit, and push the PR #2 remediation.
-2. Rerun independent `code-reviewer` and `architect` review.
-3. If both review lanes clear, mark PR #2 ready for review.
-4. Do not merge PR #2 without explicit user approval.
+1. Run `git diff --check`, commit, and push the PR #2 re-review remediation.
+2. Update PR #2 body from 99/103-test draft state to the 107-test gate.
+3. Rerun independent `code-reviewer` and `architect` review.
+4. If both review lanes clear, mark PR #2 ready for review.
+5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

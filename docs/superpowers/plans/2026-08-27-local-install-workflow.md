@@ -14,7 +14,7 @@
 - Default install path is `${CODEX_HOME}\plugins\token-context-optimizer` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.codex\plugins\token-context-optimizer`.
 - `--target` overrides the install destination for tests and manual use.
 - `TCO_PLUGIN_INSTALL_DIR` overrides the install destination when `--target` is omitted.
-- Default installs must create or update a personal marketplace entry at `%USERPROFILE%\.agents\plugins\marketplace.json`.
+- Default installs must create or update a personal marketplace entry under `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.agents\plugins\marketplace.json`.
 - `--marketplace` or `TCO_PLUGIN_MARKETPLACE_PATH` overrides the marketplace file path.
 - `--no-marketplace` disables marketplace writes for staging-only tests.
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
@@ -290,3 +290,37 @@ Installer, verifier, and smoke harness now share `scripts/plugin-runtime.mjs` fo
 - [ ] **Step 5: Full gate, commit, push, and re-review**
 
 Run the full verification gate, commit the remediation, push to PR #2, and rerun independent `code-reviewer` plus `architect` review lanes.
+
+### Task 6: PR #2 Re-review Remediation
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: RED tests for re-review blockers**
+
+Added tests for no-argument USERPROFILE install/verify parity, default CODEX_HOME marketplace root alignment, marketplace rollback/retry after simulated write failure, and verifier rejection when `.mcp.json` points at an external working server instead of the installed bundle.
+
+- [x] **Step 2: Shared root and marketplace resolution**
+
+Moved plugin root resolution into `scripts/plugin-runtime.mjs`. Installer and verifier now use the same root rules. Default marketplace path follows the parent of `CODEX_HOME` when `CODEX_HOME` is set so local `source.path` remains inside the marketplace root.
+
+- [x] **Step 3: Verifier launch constraints**
+
+Verifier now requires the configured server to launch Node with the installed `bin/token-context-optimizer.mjs` entrypoint from a cwd inside the plugin root, checks launch path components for symlinks, and verifies the plugin-root denial error is specifically an `outside allowed roots` error.
+
+- [x] **Step 4: Marketplace write hardening**
+
+Marketplace updates now write a temp file in the same directory and replace the destination after a complete write. Simulated marketplace write failures preserve the original marketplace and leave the install retryable.
+
+- [ ] **Step 5: Full gate, commit, push, PR body update, and final re-review**
+
+Run the full verification gate, commit and push the re-review remediation, update PR #2 body to the 107-test state, then rerun independent review lanes.
+
+Status: RED and GREEN cycles are complete locally. Full gate passed with 107 tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, and installed verification. Commit, push, PR body update, and final re-review remain.
