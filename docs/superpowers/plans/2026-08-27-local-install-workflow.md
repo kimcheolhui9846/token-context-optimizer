@@ -328,3 +328,5 @@ Status: RED and GREEN cycles are complete locally. Full gate passed with 107 tes
 - [ ] **Step 6: Final independent re-review**
 
 Rerun independent `code-reviewer` and `architect` review lanes against the latest PR #2 head. If both lanes clear, mark PR #2 ready for review.
+
+Status: attempted against PR #2 head `0cce2a1`, but both native subagent review lanes failed with a usage-limit error before returning evidence. PR #2 remains draft until review can be rerun.
