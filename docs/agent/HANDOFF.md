@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish, push, and independently re-review the installed runtime ownership remediation for PR #2.
+Rerun independent review for PR #2 after the native subagent usage limit resets.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish, push, and independently re-review the installed runtime ownership remedi
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, and CLI/env handoff commit `c0567d6`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, and installed ownership remediation commit `c580694`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -165,6 +165,15 @@ Finish, push, and independently re-review the installed runtime ownership remedi
   - Installer and verifier now share the managed runtime directory inventory and reject unexpected files under `.codex-plugin`, `bin`, and `skills`.
   - Verifier now requires the installed manifest to point at the installed `.mcp.json`, validates launch args inside the cleanup scope, and always removes its temporary workspace.
   - Installer and verifier now treat only `ENOENT` as missing-file inspection; other filesystem failures are surfaced with cause.
+- Installed runtime ownership remediation PR update:
+  - Committed `fix: close installed runtime ownership gaps` as `c580694`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 130-test verification state.
+- Independent review attempt against `c580694`:
+  - Spawned `code-reviewer` agent `01a048f2-6b29-7dc3-85bc-fb58a22603dd` and `architect` agent `01a048f2-6bd9-7300-955d-8a912b058d92`.
+  - Both lanes errored with native subagent usage limit before returning evidence: retry after 4:32 AM.
+  - The agents were closed after the failure.
+  - PR #2 remains draft and must not be treated as independently approved.
 
 ## Design Summary
 
@@ -345,11 +354,10 @@ Finish, push, and independently re-review the installed runtime ownership remedi
 
 ## Next Steps
 
-1. Commit and push the installed runtime ownership remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the latest verification state.
-3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-4. If both review lanes clear, mark PR #2 ready for review.
-5. Do not merge PR #2 without explicit user approval.
+1. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head after the subagent limit resets.
+2. If both review lanes clear, mark PR #2 ready for review.
+3. If either lane returns `REQUEST CHANGES` or `BLOCK`, implement the next remediation with RED/GREEN tests and update this handoff again.
+4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

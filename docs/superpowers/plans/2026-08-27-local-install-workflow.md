@@ -453,4 +453,4 @@ Verifier now requires `plugin.json` to point at the installed `.mcp.json`, valid
 
 Run the full gate with 130 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
 
-Status: targeted remediation verification and the full local gate are complete with 130 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.
+Status: targeted remediation verification, full local gate, commit, push, and PR body update are complete. Remediation was committed as `c580694` and PR #2 now records the 130-test verification state. Independent re-review was attempted with `code-reviewer` and `architect` lanes, but both errored with the native subagent usage limit before returning evidence. Retry the independent re-review after the usage limit resets.
