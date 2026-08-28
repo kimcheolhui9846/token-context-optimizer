@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Commit, push, and rerun independent review for the post-final-review boundary remediation on branch `feature/local-install-workflow`.
+Update PR #2 metadata if needed and rerun independent review for the latest `feature/local-install-workflow` head.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Commit, push, and rerun independent review for the post-final-review boundary re
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install commits through last pushed PR head: `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, and boundary remediation commit `d183297`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -122,6 +122,9 @@ Commit, push, and rerun independent review for the post-final-review boundary re
   - Added RED tests for direct/snake-case MCP maps, loader env hooks, JSON-RPC error surfacing, hard-linked runtime destinations, and linked caller-cwd source files.
   - Installer now copies from the checked-in repository root, validates physical source containment, and rejects hard-linked destinations.
   - Verifier now canonicalizes plugin root, validates runtime and manifest physical containment, accepts only standard `mcpServers`, rejects configured MCP `env`, strips inherited Node and loader hooks, and fails immediately on JSON-RPC errors.
+- Boundary remediation PR update:
+  - Committed `fix: close install boundary gaps` as `d183297`.
+  - Pushed `feature/local-install-workflow` to origin.
 
 ## Design Summary
 
@@ -266,12 +269,10 @@ Commit, push, and rerun independent review for the post-final-review boundary re
 
 ## Next Steps
 
-1. Run `git diff --check`, stage the boundary remediation, and run `git diff --cached --check`.
-2. Commit and push the boundary remediation.
-3. Update PR #2 body to the 116-test state and latest head.
-4. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-5. If both review lanes clear, mark PR #2 ready for review.
-6. Do not merge PR #2 without explicit user approval.
+1. Confirm PR #2 body reflects the latest pushed head and the 116-test verification state.
+2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+3. If both review lanes clear, mark PR #2 ready for review.
+4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

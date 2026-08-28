@@ -390,4 +390,4 @@ Verifier now canonicalizes plugin root, requires runtime/manifest paths to physi
 
 Run the full gate with 116 tests, commit and push the boundary remediation, update PR #2, then rerun independent review lanes.
 
-Status: boundary remediation is locally implemented and verified through tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, and installed verification. Commit, push, PR body update, and independent re-review are still pending.
+Status: boundary remediation was locally implemented, verified, committed as `d183297`, and pushed to PR #2. PR body update and independent re-review are still pending.
