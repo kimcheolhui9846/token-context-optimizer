@@ -422,4 +422,4 @@ Verifier now rejects configured `env` whenever it is defined, validates `env_var
 
 Run the full gate with 125 tests and JS-including typecheck, commit and push the remediation, update PR #2, then rerun independent review lanes.
 
-Status: implementation and targeted verification are complete locally. Full gate, commit, push, PR update, and final independent re-review are pending.
+Status: implementation, targeted verification, full gate, commit, and push are complete. Remediation was committed as `0c89042` and pushed to PR #2. PR body update and final independent re-review are pending.
