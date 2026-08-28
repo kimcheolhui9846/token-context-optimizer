@@ -21,11 +21,11 @@
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
 - Installed verification must read `.codex-plugin/plugin.json` and the declared `.mcp.json` instead of hardcoding the bundle command.
 - Installed verification must require every installed runtime entry to be a regular file before launching the MCP server.
-- Installed verification must reject configured Node execution hooks and must not inherit `NODE_OPTIONS`, `NODE_PATH`, or `npm_config_node_options`.
-- Installer must preflight every runtime source as a regular file before creating or modifying the target.
+- Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
+- Installer must preflight every runtime source from the checked-in repository root as a regular physical file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
 - Installer must reject symlinked install target components and every existing component of each runtime destination path before copying.
-- Installer must reject non-file runtime destinations before copying and restore existing runtime files if a later copy fails.
+- Installer must reject non-file and hard-linked runtime destinations before copying and restore existing runtime files if a later copy fails.
 - Update `docs/agent/HANDOFF.md` after completing each implementation task.
 
 ---
@@ -361,4 +361,33 @@ Verifier now builds a constrained child environment, strips inherited Node execu
 
 Run the full gate with 110 tests, commit and push the final remediation, update PR #2, then rerun independent review lanes.
 
-Status: final remediation is locally implemented and verified. Full gate passed with 110 tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, installed verification, and `git diff --check`. Commit, push, PR body update, and final independent re-review are still pending.
+Status: final remediation was committed and pushed as `b329b2d`, and PR #2 body was updated to the 110-test state. Independent re-review against `b329b2d` returned `REQUEST CHANGES` / `BLOCK`, so Task 8 tracks the next remediation.
+
+### Task 8: Post-Final Review Boundary Remediation
+
+**Files:**
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: RED tests for remaining review blockers**
+
+Added tests for unsupported direct/snake-case MCP maps, loader env hooks, JSON-RPC error surfacing, hard-linked runtime destinations, and linked caller-cwd source files.
+
+- [x] **Step 2: Installer physical source and destination hardening**
+
+Installer now copies from the checked-in repository root, rejects linked source components, verifies runtime sources physically remain inside that root, and rejects hard-linked runtime destinations before copy.
+
+- [x] **Step 3: Verifier metadata and execution hardening**
+
+Verifier now canonicalizes plugin root, requires runtime/manifest paths to physically remain inside it, accepts only standard `mcpServers` metadata, rejects configured MCP `env`, strips inherited Node and loader execution hooks, and surfaces JSON-RPC errors immediately.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and final re-review**
+
+Run the full gate with 116 tests, commit and push the boundary remediation, update PR #2, then rerun independent review lanes.
+
+Status: boundary remediation is locally implemented and verified through tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, and installed verification. Commit, push, PR body update, and independent re-review are still pending.

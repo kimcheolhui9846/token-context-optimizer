@@ -32,12 +32,13 @@ Default installs create or update a personal marketplace with a local entry for 
 
 ## Verification
 
-The verifier resolves the installed plugin root from `--plugin-root <path>`, `TCO_PLUGIN_INSTALL_DIR`, or the same default destination rules as the installer. It then:
+The verifier resolves the installed plugin root from `--plugin-root <path>`, `TCO_PLUGIN_INSTALL_DIR`, or the same default destination rules as the installer, then canonicalizes the root before trusting installed metadata. It then:
 
-- Confirms the required runtime files exist as regular files.
-- Reads `.codex-plugin/plugin.json` and resolves the declared `.mcp.json`.
+- Confirms the required runtime files exist as regular files physically inside the plugin root.
+- Reads `.codex-plugin/plugin.json` and resolves the declared `.mcp.json` through physical containment checks.
+- Requires `.mcp.json` to use the same standard `mcpServers` shape that plugin validation accepts.
 - Starts the configured `token-context-optimizer` MCP server from the installed plugin root.
-- Rejects configured Node execution hooks and does not inherit `NODE_OPTIONS`, `NODE_PATH`, or `npm_config_node_options`.
+- Rejects configured MCP `env` and does not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
 - Creates a temporary workspace fixture outside the plugin root.
 - Sets `TCO_ALLOWED_ROOTS` to that temporary workspace.
 - Calls MCP `initialize`, `tools/list`, and `index_artifact`.
@@ -53,7 +54,7 @@ Both commands are Node scripts and remain cross-platform inside the project-supp
 
 ## Safety
 
-The installer validates every runtime source as a regular file before creating or modifying the destination. It rejects non-file runtime destinations and symlinked destination path components so writes cannot be redirected outside the lexical target. It refuses to copy from missing runtime sources, and restores existing runtime files if copy or marketplace update fails. The verifier does not require access to user project files because it creates its own temporary fixture.
+The installer validates every runtime source from the checked-in repository root as a regular physical file before creating or modifying the destination. It rejects non-file and hard-linked runtime destinations plus symlinked destination path components so writes cannot be redirected outside the target. It refuses to copy from missing runtime sources, and restores existing runtime files if copy or marketplace update fails. The verifier does not require access to user project files because it creates its own temporary fixture.
 
 ## Documentation
 

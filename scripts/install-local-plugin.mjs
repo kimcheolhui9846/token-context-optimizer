@@ -7,9 +7,10 @@ import {
   rename,
   rm,
   rmdir,
-  stat,
+  realpath,
   writeFile,
 } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import { basename, dirname, isAbsolute, parse, join, relative, resolve } from "node:path";
 
 import {
@@ -20,6 +21,7 @@ import {
   resolvePluginRoot,
 } from "./plugin-runtime.mjs";
 
+const sourceRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const target = resolvePluginRoot(args, process.env, "--target");
 const marketplacePath = resolveMarketplacePath(args, process.env);
@@ -37,9 +39,10 @@ const snapshots = await snapshotRuntimeDestinations(target);
 let marketplaceEntry = null;
 try {
   for (const [index, runtimeFile] of RUNTIME_FILES.entries()) {
+    const source = join(sourceRoot, runtimeFile);
     const destination = join(target, runtimeFile);
     await mkdir(dirname(destination), { recursive: true });
-    await cp(runtimeFile, destination);
+    await cp(source, destination);
     if (simulateCopyFailureAfter !== null && index + 1 === simulateCopyFailureAfter) {
       throw new Error("Simulated copy failure after runtime file copy");
     }
@@ -65,14 +68,23 @@ console.log(
 
 async function preflightSources() {
   for (const runtimeFile of RUNTIME_FILES) {
+    const source = join(sourceRoot, runtimeFile);
+    await rejectSymlinkedComponents(source, "Runtime source contains a symlinked path component");
     let fileStat;
     try {
-      fileStat = await stat(runtimeFile);
+      fileStat = await lstat(source);
     } catch {
       throw new Error(`Missing runtime file. Run npm.cmd run build first: ${runtimeFile}`);
     }
     if (!fileStat.isFile()) {
       throw new Error(`Runtime source is not a regular file: ${runtimeFile}`);
+    }
+    if (fileStat.nlink > 1) {
+      throw new Error(`Runtime source is hard-linked and not safe to copy: ${runtimeFile}`);
+    }
+    const physicalSource = await realpath(source);
+    if (!isInsideRoot(sourceRoot, physicalSource)) {
+      throw new Error(`Runtime source escapes repository root: ${runtimeFile}`);
     }
   }
 }
@@ -130,6 +142,9 @@ async function assertExistingDestinationIsFile(path) {
   }
   if (!currentStat.isFile()) {
     throw new Error(`Runtime destination is not a regular file: ${path}`);
+  }
+  if (currentStat.nlink > 1) {
+    throw new Error(`Runtime destination is hard-linked and not safe to overwrite: ${path}`);
   }
 }
 
@@ -307,7 +322,7 @@ function isInsideRoot(root, path) {
   return relativePath !== ".." && !relativePath.startsWith(`..${"/"}`) && !relativePath.startsWith(`..${"\\"}`) && !isAbsolute(relativePath);
 }
 
-async function rejectSymlinkedComponents(path) {
+async function rejectSymlinkedComponents(path, message = "Install target contains a symlinked path component") {
   const absolute = resolve(path);
   const parsed = parse(absolute);
   const relativeParts = absolute
@@ -328,7 +343,7 @@ async function rejectSymlinkedComponents(path) {
       throw error;
     }
     if (currentStat.isSymbolicLink()) {
-      throw new Error(`Install target contains a symlinked path component: ${current}`);
+      throw new Error(`${message}: ${current}`);
     }
   }
 }

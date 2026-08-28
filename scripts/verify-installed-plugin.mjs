@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { lstat, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { lstat, mkdtemp, readFile, realpath, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, parse, relative, resolve } from "node:path";
 
@@ -10,7 +10,9 @@ import {
   resolvePluginRoot,
 } from "./plugin-runtime.mjs";
 
-const pluginRoot = resolvePluginRoot(process.argv.slice(2), process.env, "--plugin-root");
+const pluginRoot = await resolvePhysicalPluginRoot(
+  resolvePluginRoot(process.argv.slice(2), process.env, "--plugin-root"),
+);
 await assertInstalledRuntime(pluginRoot);
 const serverConfig = await readInstalledServerConfig(pluginRoot);
 const launchConfig = await resolveInstalledLaunchConfig(pluginRoot, serverConfig);
@@ -26,7 +28,7 @@ await writeFile(
 const child = spawn(launchConfig.command, launchConfig.args, {
   cwd: launchConfig.cwd,
   stdio: ["pipe", "pipe", "pipe"],
-  env: buildVerifierEnv(process.env, serverConfig.env ?? {}, workspaceRoot),
+  env: buildVerifierEnv(process.env, workspaceRoot),
 });
 
 let buffer = "";
@@ -139,6 +141,12 @@ function waitFor(predicate, timeoutMs = 5000) {
         reject(error);
         return;
       }
+      const failed = lines.find((message) => message.error);
+      if (failed) {
+        clearInterval(interval);
+        reject(new Error(`MCP error response: ${failed.error.message ?? JSON.stringify(failed.error)}`));
+        return;
+      }
       const found = lines.find(predicate);
       if (found) {
         clearInterval(interval);
@@ -154,6 +162,7 @@ function waitFor(predicate, timeoutMs = 5000) {
 async function assertInstalledRuntime(root) {
   for (const requiredFile of RUNTIME_FILES) {
     const path = join(root, requiredFile);
+    await rejectSymlinkedComponents(path);
     let fileStat;
     try {
       fileStat = await lstat(path);
@@ -163,6 +172,8 @@ async function assertInstalledRuntime(root) {
     if (!fileStat.isFile()) {
       throw new Error(`Installed plugin runtime file is not a regular runtime file: ${requiredFile}`);
     }
+    const physicalPath = await realpath(path);
+    assertInsideRoot(root, physicalPath, "Installed runtime files must stay inside the plugin root");
   }
 }
 
@@ -174,7 +185,7 @@ async function readInstalledServerConfig(root) {
   if (typeof manifest.mcpServers !== "string" || manifest.mcpServers.length === 0) {
     throw new Error("Installed plugin manifest must point to bundled MCP servers");
   }
-  const mcpPath = resolveManifestPath(root, manifest.mcpServers);
+  const mcpPath = await resolveManifestPath(root, manifest.mcpServers);
   const mcpConfig = JSON.parse(await readFile(mcpPath, "utf8"));
   const serverMap = selectServerMap(mcpConfig);
   const server = serverMap[PLUGIN_NAME];
@@ -197,11 +208,12 @@ async function readInstalledServerConfig(root) {
     if (isNodeExecutionHook(key)) {
       throw new Error(`Node execution hook is not allowed in installed MCP env: ${key}`);
     }
+    throw new Error(`Configured MCP env is not allowed during installed verification: ${key}`);
   }
   return server;
 }
 
-function buildVerifierEnv(inheritedEnv, configuredEnv, allowedRoots) {
+function buildVerifierEnv(inheritedEnv, allowedRoots) {
   const allowedInheritedKeys = [
     "ALLUSERSPROFILE",
     "APPDATA",
@@ -229,19 +241,22 @@ function buildVerifierEnv(inheritedEnv, configuredEnv, allowedRoots) {
       env[key] = inheritedEnv[key];
     }
   }
-  for (const [key, value] of Object.entries(configuredEnv)) {
-    if (isNodeExecutionHook(key)) {
-      throw new Error(`Node execution hook is not allowed in installed MCP env: ${key}`);
-    }
-    env[key] = value;
-  }
   env.TCO_ALLOWED_ROOTS = allowedRoots;
   return env;
 }
 
 function isNodeExecutionHook(key) {
   const normalized = key.toUpperCase();
-  return normalized === "NODE_OPTIONS" || normalized === "NODE_PATH" || normalized === "NPM_CONFIG_NODE_OPTIONS";
+  return (
+    normalized === "NODE_OPTIONS" ||
+    normalized === "NODE_PATH" ||
+    normalized === "NPM_CONFIG_NODE_OPTIONS" ||
+    normalized === "LD_PRELOAD" ||
+    normalized === "LD_AUDIT" ||
+    normalized === "LD_LIBRARY_PATH" ||
+    normalized === "DYLD_INSERT_LIBRARIES" ||
+    normalized === "DYLD_LIBRARY_PATH"
+  );
 }
 
 async function resolveInstalledLaunchConfig(root, server) {
@@ -271,12 +286,24 @@ async function resolveInstalledLaunchConfig(root, server) {
   };
 }
 
-function resolveManifestPath(root, path) {
+async function resolvePhysicalPluginRoot(root) {
+  await rejectSymlinkedComponents(root);
+  const rootStat = await lstat(root);
+  if (!rootStat.isDirectory()) {
+    throw new Error("Installed plugin root must be a directory");
+  }
+  return realpath(root);
+}
+
+async function resolveManifestPath(root, path) {
   if (!path.startsWith("./")) {
     throw new Error("Manifest component paths must start with ./");
   }
   const resolved = resolve(root, path);
   assertInsideRoot(root, resolved, "Manifest component paths must stay inside the plugin root");
+  await rejectSymlinkedComponents(resolved);
+  const physicalPath = await realpath(resolved);
+  assertInsideRoot(root, physicalPath, "Manifest component paths must stay inside the plugin root");
   return resolved;
 }
 
@@ -320,10 +347,7 @@ function selectServerMap(config) {
   if (config.mcpServers && typeof config.mcpServers === "object" && !Array.isArray(config.mcpServers)) {
     return config.mcpServers;
   }
-  if (config.mcp_servers && typeof config.mcp_servers === "object" && !Array.isArray(config.mcp_servers)) {
-    return config.mcp_servers;
-  }
-  return config;
+  throw new Error("Installed MCP config must contain a mcpServers object");
 }
 
 function parseCompleteJsonMessages(input) {

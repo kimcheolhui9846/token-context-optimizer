@@ -69,9 +69,9 @@ Marketplace resolution order:
 
 The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`.
 
-For safety, the installer preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
+For safety, the installer copies runtime files from the checked-in repository root, not the caller's current directory. It preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects hard-linked or non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
 
-The installed verifier requires each runtime entry to be a regular file, reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node execution hooks, rejects configured `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options`, indexes a temporary workspace file, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
+The installed verifier requires each runtime entry to be a regular file physically inside the plugin root, reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, requires standard `mcpServers` metadata, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node execution hooks, rejects configured MCP `env`, indexes a temporary workspace file, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
 
 ## Superpowers Use
 
