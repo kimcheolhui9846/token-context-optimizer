@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 import { basename, dirname, isAbsolute, parse, join, relative, resolve } from "node:path";
 
 import {
+  MANAGED_RUNTIME_DIRECTORIES,
   PLUGIN_NAME,
   RUNTIME_FILES,
   readOption,
@@ -78,8 +79,11 @@ async function preflightSources() {
     let fileStat;
     try {
       fileStat = await lstat(source);
-    } catch {
-      throw new Error(`Missing runtime file. Run npm.cmd run build first: ${runtimeFile}`);
+    } catch (error) {
+      if (isNotFoundError(error)) {
+        throw new Error(`Missing runtime file. Run npm.cmd run build first: ${runtimeFile}`);
+      }
+      throw new Error(`Unable to inspect runtime source: ${runtimeFile}`, { cause: error });
     }
     if (!fileStat.isFile()) {
       throw new Error(`Runtime source is not a regular file: ${runtimeFile}`);
@@ -111,19 +115,20 @@ async function preflightTarget(path) {
     return;
   }
 
-  const manifestPath = join(path, ".codex-plugin", "plugin.json");
+  let manifest;
   try {
-    const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
-    if (manifest.name === PLUGIN_NAME) {
-      return;
-    }
+    manifest = JSON.parse(await readFile(join(path, ".codex-plugin", "plugin.json"), "utf8"));
   } catch {
     throw new Error(
       "Install target is not empty and does not contain a readable token-context-optimizer manifest.",
     );
   }
 
-  throw new Error("Install target belongs to a different plugin.");
+  if (manifest.name !== PLUGIN_NAME) {
+    throw new Error("Install target belongs to a different plugin.");
+  }
+
+  await assertNoUnexpectedManagedRuntimeFiles(path);
 }
 
 async function preflightDestinationPaths(path) {
@@ -255,7 +260,7 @@ async function updateMarketplace(path, pluginRoot, options) {
   if (typeof marketplace.name !== "string" || marketplace.name.length === 0) {
     marketplace.name = "personal";
   }
-  if (!marketplace.interface || typeof marketplace.interface !== "object") {
+  if (!marketplace.interface || typeof marketplace.interface !== "object" || Array.isArray(marketplace.interface)) {
     marketplace.interface = { displayName: "Personal" };
   }
   if (typeof marketplace.interface.displayName !== "string") {
@@ -327,6 +332,38 @@ function isInsideRoot(root, path) {
   return relativePath !== ".." && !relativePath.startsWith(`..${"/"}`) && !relativePath.startsWith(`..${"\\"}`) && !isAbsolute(relativePath);
 }
 
+async function assertNoUnexpectedManagedRuntimeFiles(root) {
+  const expectedFiles = new Set(RUNTIME_FILES);
+  for (const managedDirectory of MANAGED_RUNTIME_DIRECTORIES) {
+    await visitManagedRuntimeDirectory(root, managedDirectory, expectedFiles);
+  }
+}
+
+async function visitManagedRuntimeDirectory(root, relativeDirectory, expectedFiles) {
+  const absoluteDirectory = join(root, relativeDirectory);
+  let entries;
+  try {
+    entries = await readdir(absoluteDirectory, { withFileTypes: true });
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      return;
+    }
+    throw error;
+  }
+
+  for (const entry of entries) {
+    const relativePath = `${relativeDirectory}/${entry.name}`.replace(/\\/g, "/");
+    const absolutePath = join(root, relativePath);
+    if (entry.isDirectory()) {
+      await visitManagedRuntimeDirectory(root, relativePath, expectedFiles);
+    } else if (!expectedFiles.has(relativePath)) {
+      throw new Error(`Unexpected managed runtime file: ${relativePath}`);
+    } else {
+      await rejectSymlinkedComponents(absolutePath);
+    }
+  }
+}
+
 async function rejectSymlinkedComponents(path, message = "Install target contains a symlinked path component") {
   const absolute = resolve(path);
   const parsed = parse(absolute);
@@ -385,4 +422,8 @@ function readIntegerOption(args, name) {
     throw new Error(`${name} requires a non-negative integer`);
   }
   return parsed;
+}
+
+function isNotFoundError(error) {
+  return error && typeof error === "object" && "code" in error && error.code === "ENOENT";
 }

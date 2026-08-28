@@ -737,6 +737,30 @@ describe("project configuration", () => {
     expect(marketplace.plugins[0]).toEqual(result.marketplaceEntry);
   });
 
+  it("normalizes array marketplace interface metadata", async () => {
+    const marketplaceRoot = await mkdtemp(join(tmpdir(), "tco-marketplace-array-interface-"));
+    const target = join(marketplaceRoot, ".codex", "plugins", "token-context-optimizer");
+    const marketplacePath = join(marketplaceRoot, ".agents", "plugins", "marketplace.json");
+    await mkdir(join(marketplaceRoot, ".agents", "plugins"), { recursive: true });
+    await writeFile(
+      marketplacePath,
+      JSON.stringify({ name: "personal", interface: [], plugins: [] }),
+      "utf8",
+    );
+
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--marketplace",
+      marketplacePath,
+    ]);
+    const marketplace = JSON.parse(await readFile(marketplacePath, "utf8"));
+
+    expect(Array.isArray(marketplace.interface)).toBe(false);
+    expect(marketplace.interface.displayName).toBe("Personal");
+  });
+
   it("requires an explicit marketplace or staging opt-out for custom targets", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-custom-target-"));
 
@@ -1096,6 +1120,27 @@ describe("project configuration", () => {
     await expect(readFile(externalBundle, "utf8")).resolves.toBe("external sentinel");
   });
 
+  it("rejects stale managed files in owned install targets", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-stale-managed-target-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await mkdir(join(target, "skills", "stale"), { recursive: true });
+    await writeFile(join(target, "skills", "stale", "SKILL.md"), "# stale", "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/Unexpected managed runtime file/);
+  });
+
   it("verifier rejects installed MCP configs without the plugin server", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-installed-invalid-mcp-"));
     await execFileAsync(process.execPath, [
@@ -1208,6 +1253,41 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/installed bundle/);
+  });
+
+  it("verifier requires the installed manifest to point at .mcp.json", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-alternate-mcp-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    const manifest = JSON.parse(await readFile(join(target, ".codex-plugin", "plugin.json"), "utf8"));
+    manifest.mcpServers = "./alternate.mcp.json";
+    await writeFile(join(target, ".codex-plugin", "plugin.json"), JSON.stringify(manifest), "utf8");
+    await writeFile(join(target, ".mcp.json"), "{\"mcpServers\":{}}", "utf8");
+    await writeFile(
+      join(target, "alternate.mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          "token-context-optimizer": {
+            command: "node",
+            args: ["./bin/token-context-optimizer.mjs"],
+            cwd: ".",
+          },
+        },
+      }),
+      "utf8",
+    );
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/installed \.mcp\.json/);
   });
 
   it("verifier rejects Node execution hooks from installed MCP config env", async () => {
@@ -1399,6 +1479,63 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/regular runtime file/);
+  });
+
+  it("verifier rejects stale managed runtime files", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-stale-managed-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await mkdir(join(target, "skills", "stale"), { recursive: true });
+    await writeFile(join(target, "skills", "stale", "SKILL.md"), "# stale", "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/Unexpected managed runtime file/);
+  });
+
+  it("cleans verifier temporary workspaces after setup failures", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-setup-failure-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await writeFile(
+      join(target, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          "token-context-optimizer": {
+            command: "node",
+            args: ["./bin/token-context-optimizer.mjs", {}],
+            cwd: ".",
+          },
+        },
+      }),
+      "utf8",
+    );
+    const before = new Set(
+      (await readdir(tmpdir())).filter((entry) => entry.startsWith("tco-installed-workspace-")),
+    );
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow();
+
+    const after = (await readdir(tmpdir())).filter((entry) => entry.startsWith("tco-installed-workspace-"));
+    expect(after.filter((entry) => !before.has(entry))).toEqual([]);
   });
 
   it("rejects hard-linked runtime destinations before copying", async () => {

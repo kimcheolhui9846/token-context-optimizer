@@ -9,6 +9,12 @@ export const RUNTIME_FILES = Object.freeze([
   "skills/optimize-context/SKILL.md",
 ]);
 
+export const MANAGED_RUNTIME_DIRECTORIES = Object.freeze([
+  ".codex-plugin",
+  "bin",
+  "skills",
+]);
+
 export const BUNDLED_SERVER_ENTRYPOINT = "./bin/token-context-optimizer.mjs";
 
 export function resolvePluginRoot(args, env, optionName) {

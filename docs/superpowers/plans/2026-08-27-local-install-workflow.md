@@ -19,8 +19,9 @@
 - `--no-marketplace` disables marketplace writes for staging-only tests.
 - Custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs must pass exactly one CLI marketplace mode, `--marketplace` or `--no-marketplace`; inherited marketplace environment variables are not consent for custom installs.
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
-- Installed verification must read `.codex-plugin/plugin.json` and the declared `.mcp.json` instead of hardcoding the bundle command.
+- Installed verification must read `.codex-plugin/plugin.json` and require its MCP reference to point at the installed `.mcp.json` instead of hardcoding or accepting alternate MCP files.
 - Installed verification must require every installed runtime entry to be a regular file before launching the MCP server.
+- Installed verification and owned-target reinstalls must reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, and `skills`.
 - Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, allow only `TCO_ALLOWED_ROOTS` in `env_vars`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
 - Installer must preflight every runtime source from the checked-in repository root as a regular physical file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
@@ -423,3 +424,33 @@ Verifier now rejects configured `env` whenever it is defined, validates `env_var
 Run the full gate with 125 tests and JS-including typecheck, commit and push the remediation, update PR #2, then rerun independent review lanes.
 
 Status: implementation, targeted verification, full gate, commit, and push are complete. Remediation was committed as `0c89042` and pushed to PR #2. PR body update and final independent re-review are pending.
+
+### Task 10: Installed Runtime Ownership Remediation
+
+**Files:**
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: RED tests for latest review blockers**
+
+Added tests for array marketplace interface metadata, stale files surviving in owned install targets, verifier acceptance of an alternate manifest-declared MCP file, stale managed files in installed runtimes, and verifier temp cleanup on setup failures before protocol initialization.
+
+- [x] **Step 2: Close managed runtime ownership**
+
+Installer and verifier now share the managed runtime directory inventory and reject unexpected files under `.codex-plugin`, `bin`, and `skills` for owned installs. This keeps stale or foreign runtime files from surviving a refresh.
+
+- [x] **Step 3: Tighten installed metadata and setup cleanup**
+
+Verifier now requires `plugin.json` to point at the installed `.mcp.json`, validates launch args inside the cleanup scope, and removes temporary workspaces even when setup fails before JSON-RPC protocol initialization. Installer and verifier now translate missing-file inspection errors separately from other filesystem failures.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Run the full gate with 130 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
+
+Status: targeted remediation verification and the full local gate are complete with 130 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.

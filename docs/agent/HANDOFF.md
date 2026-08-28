@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Update PR #2 metadata and rerun independent review for the latest pushed CLI/env metadata remediation.
+Finish, push, and independently re-review the installed runtime ownership remediation for PR #2.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Update PR #2 metadata and rerun independent review for the latest pushed CLI/env
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, and CLI/env metadata remediation commit `0c89042`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, and CLI/env handoff commit `c0567d6`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -147,6 +147,24 @@ Update PR #2 metadata and rerun independent review for the latest pushed CLI/env
 - CLI/env metadata remediation PR update:
   - Committed `fix: validate install cli and env metadata` as `0c89042`.
   - Pushed `feature/local-install-workflow` to origin.
+- CLI/env metadata handoff update:
+  - Committed `docs: record cli env remediation handoff` as `c0567d6`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 125-test and JS typecheck state.
+- Independent review completed against `c0567d6`:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Remaining remediation scope:
+    - Require the installed manifest MCP reference to point at the installed `.mcp.json`.
+    - Reject array-valued marketplace `interface` metadata instead of treating arrays as valid objects.
+    - Re-throw non-ENOENT filesystem inspection failures instead of masking them as missing files.
+    - Reject stale or foreign files inside managed runtime directories on owned installs and installed verification.
+    - Clean verifier temporary workspaces even when setup fails before JSON-RPC protocol initialization.
+- Installed runtime ownership remediation completed locally:
+  - Added RED/GREEN tests for array marketplace interface normalization, stale managed files in owned targets and verifier roots, alternate manifest-declared MCP files, and verifier cleanup on setup failures.
+  - Installer and verifier now share the managed runtime directory inventory and reject unexpected files under `.codex-plugin`, `bin`, and `skills`.
+  - Verifier now requires the installed manifest to point at the installed `.mcp.json`, validates launch args inside the cleanup scope, and always removes its temporary workspace.
+  - Installer and verifier now treat only `ENOENT` as missing-file inspection; other filesystem failures are surfaced with cause.
 
 ## Design Summary
 
@@ -166,8 +184,9 @@ Update PR #2 metadata and rerun independent review for the latest pushed CLI/env
   - For default installs with `CODEX_HOME`, writes `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the installed plugin remains inside the marketplace root.
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
-- Verifier reads the installed manifest and declared `.mcp.json`, requires standard `mcpServers`, allowlists inherited `env_vars` to `TCO_ALLOWED_ROOTS`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
-- Verifier requires every installed runtime entry and manifest path to be a regular physical file inside the plugin root before launching the MCP server.
+- Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, and `skills`.
+- Verifier reads the installed manifest, requires the manifest MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers`, allowlists inherited `env_vars` to `TCO_ALLOWED_ROOTS`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
+- Verifier requires every installed runtime entry and manifest path to be a regular physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
 
 ## Latest Verification
 
@@ -289,6 +308,23 @@ Update PR #2 metadata and rerun independent review for the latest pushed CLI/env
   - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-final-gate-20260828-2349\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-final-gate-20260828-2349\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-final-gate-20260828-2349\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+- PR #2 installed runtime ownership remediation RED/GREEN:
+  - RED before implementation: targeted tests failed for array marketplace interface metadata, stale managed install files, alternate manifest-declared MCP file, stale managed verifier files, and verifier setup-failure cleanup.
+  - `npm.cmd test -- --run tests/core.test.ts -t "normalizes array marketplace|stale managed|manifest to point at .mcp.json|setup failures"` - 5 tests passed.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `npm.cmd run typecheck` - exit 0.
+- PR #2 installed runtime ownership remediation full gate:
+  - `npm.cmd test` - 130 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-ownership-gate-20260829-0013\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-ownership-gate-20260829-0013\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-ownership-gate-20260829-0013\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -309,10 +345,11 @@ Update PR #2 metadata and rerun independent review for the latest pushed CLI/env
 
 ## Next Steps
 
-1. Update PR #2 body to the 125-test and JS typecheck state.
-2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-3. If both review lanes clear, mark PR #2 ready for review.
-4. Do not merge PR #2 without explicit user approval.
+1. Commit and push the installed runtime ownership remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the latest verification state.
+3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+4. If both review lanes clear, mark PR #2 ready for review.
+5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

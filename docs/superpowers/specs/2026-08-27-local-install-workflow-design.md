@@ -24,7 +24,7 @@ The installer resolves the destination in this order:
 3. `${CODEX_HOME}\plugins\token-context-optimizer` when `CODEX_HOME` is set.
 4. `%USERPROFILE%\.codex\plugins\token-context-optimizer` on Windows.
 
-The installer creates the destination when needed. It accepts empty destinations and existing destinations that already contain a readable `token-context-optimizer` manifest. It overwrites the plugin runtime files it owns but leaves unrelated files in an owned destination untouched. It rejects non-empty destinations that do not identify as this plugin.
+The installer creates the destination when needed. It accepts empty destinations and existing destinations that already contain a readable `token-context-optimizer` manifest. It overwrites the plugin runtime files it owns, leaves unrelated files outside managed runtime directories untouched, and rejects unexpected files inside `.codex-plugin`, `bin`, or `skills`. It rejects non-empty destinations that do not identify as this plugin.
 
 ## Marketplace
 
@@ -35,7 +35,8 @@ Default installs create or update a personal marketplace with a local entry for 
 The verifier resolves the installed plugin root from `--plugin-root <path>`, `TCO_PLUGIN_INSTALL_DIR`, or the same default destination rules as the installer, then canonicalizes the root before trusting installed metadata. It then:
 
 - Confirms the required runtime files exist as regular files physically inside the plugin root.
-- Reads `.codex-plugin/plugin.json` and resolves the declared `.mcp.json` through physical containment checks.
+- Rejects unexpected files inside managed runtime directories.
+- Reads `.codex-plugin/plugin.json` and requires its MCP reference to point at the installed `.mcp.json` through physical containment checks.
 - Requires `.mcp.json` to use the same standard `mcpServers` shape that plugin validation accepts.
 - Starts the configured `token-context-optimizer` MCP server from the installed plugin root.
 - Rejects configured MCP `env`, allows only `TCO_ALLOWED_ROOTS` in `env_vars`, and does not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
@@ -55,7 +56,7 @@ Both commands are Node scripts and remain cross-platform inside the project-supp
 
 ## Safety
 
-The installer validates every runtime source from the checked-in repository root as a regular physical file before creating or modifying the destination. It rejects non-file and hard-linked runtime destinations plus symlinked destination path components so writes cannot be redirected outside the target. It refuses to copy from missing runtime sources, and restores existing runtime files if copy or marketplace update fails. Local install is a single-writer, quiescent-reader maintenance operation; stop or restart ChatGPT desktop around install/refresh so plugin readers do not observe an in-place update. The verifier does not require access to user project files because it creates its own temporary fixture.
+The installer validates every runtime source from the checked-in repository root as a regular physical file before creating or modifying the destination. It rejects non-file and hard-linked runtime destinations plus symlinked destination path components so writes cannot be redirected outside the target. For owned installs, managed runtime directories are closed over the expected runtime inventory so stale or foreign plugin code cannot survive a refresh. It refuses to copy from missing runtime sources, and restores existing runtime files if copy or marketplace update fails. Local install is a single-writer, quiescent-reader maintenance operation; stop or restart ChatGPT desktop around install/refresh so plugin readers do not observe an in-place update. The verifier does not require access to user project files because it creates its own temporary fixture.
 
 ## Documentation
 

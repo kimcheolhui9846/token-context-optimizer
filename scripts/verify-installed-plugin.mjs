@@ -1,10 +1,11 @@
 import { spawn } from "node:child_process";
-import { lstat, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
+import { lstat, mkdtemp, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, parse, relative, resolve } from "node:path";
 
 import {
   BUNDLED_SERVER_ENTRYPOINT,
+  MANAGED_RUNTIME_DIRECTORIES,
   PLUGIN_NAME,
   RUNTIME_FILES,
   resolvePluginRoot,
@@ -20,44 +21,48 @@ await assertInstalledRuntime(pluginRoot);
 const serverConfig = await readInstalledServerConfig(pluginRoot);
 const launchConfig = await resolveInstalledLaunchConfig(pluginRoot, serverConfig);
 
-const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
-const workspaceFile = join(workspaceRoot, "artifact.txt");
-await writeFile(
-  workspaceFile,
-  "Alpha context explains the planning outcome clearly.\nBeta context explains the review outcome clearly.",
-  "utf8",
-);
-
-const child = spawn(launchConfig.command, launchConfig.args, {
-  cwd: launchConfig.cwd,
-  stdio: ["pipe", "pipe", "pipe"],
-  env: buildVerifierEnv(process.env, workspaceRoot),
-});
-if (!child.stdin || !child.stdout || !child.stderr) {
-  throw new Error("MCP verifier requires piped child stdio");
-}
-const childStdin = child.stdin;
-const childStdout = child.stdout;
-const childStderr = child.stderr;
-
+let workspaceRoot = null;
+let child = null;
+let childStdin = null;
 let buffer = "";
 let stderr = "";
 let consumedLines = 0;
 let childError = null;
 
-childStdout.setEncoding("utf8");
-childStderr.setEncoding("utf8");
-child.once("error", (error) => {
-  childError = error;
-});
-childStdout.on("data", (chunk) => {
-  buffer += chunk;
-});
-childStderr.on("data", (chunk) => {
-  stderr += chunk;
-});
-
 try {
+  workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
+  const workspaceFile = join(workspaceRoot, "artifact.txt");
+  await writeFile(
+    workspaceFile,
+    "Alpha context explains the planning outcome clearly.\nBeta context explains the review outcome clearly.",
+    "utf8",
+  );
+  assertLaunchArgsAreStrings(launchConfig.args);
+
+  child = spawn(launchConfig.command, launchConfig.args, {
+    cwd: launchConfig.cwd,
+    stdio: ["pipe", "pipe", "pipe"],
+    env: buildVerifierEnv(process.env, workspaceRoot),
+  });
+  if (!child.stdin || !child.stdout || !child.stderr) {
+    throw new Error("MCP verifier requires piped child stdio");
+  }
+  childStdin = child.stdin;
+  const childStdout = child.stdout;
+  const childStderr = child.stderr;
+
+  childStdout.setEncoding("utf8");
+  childStderr.setEncoding("utf8");
+  child.once("error", (error) => {
+    childError = error;
+  });
+  childStdout.on("data", (chunk) => {
+    buffer += chunk;
+  });
+  childStderr.on("data", (chunk) => {
+    stderr += chunk;
+  });
+
   send({
     jsonrpc: "2.0",
     id: 1,
@@ -122,11 +127,16 @@ try {
   try {
     await stopChild();
   } finally {
-    await rm(workspaceRoot, { recursive: true, force: true });
+    if (workspaceRoot) {
+      await rm(workspaceRoot, { recursive: true, force: true });
+    }
   }
 }
 
 function send(message) {
+  if (!childStdin) {
+    throw new Error("MCP verifier child stdin is not available");
+  }
   childStdin.write(`${JSON.stringify(message)}\n`);
 }
 
@@ -134,12 +144,13 @@ function waitFor(predicate, timeoutMs = 5000) {
   const start = Date.now();
   return new Promise((resolveResult, reject) => {
     const interval = setInterval(() => {
+      const activeChild = child;
       if (childError) {
         clearInterval(interval);
         reject(childError);
         return;
       }
-      if (child.exitCode !== null) {
+      if (!activeChild || activeChild.exitCode !== null) {
         clearInterval(interval);
         reject(new Error(`MCP server exited before expected response. stderr=${stderr}`));
         return;
@@ -179,8 +190,11 @@ async function assertInstalledRuntime(root) {
     let fileStat;
     try {
       fileStat = await lstat(path);
-    } catch {
-      throw new Error(`Installed plugin is missing runtime file: ${requiredFile}`);
+    } catch (error) {
+      if (isNotFoundError(error)) {
+        throw new Error(`Installed plugin is missing runtime file: ${requiredFile}`);
+      }
+      throw new Error(`Unable to inspect installed runtime file: ${requiredFile}`, { cause: error });
     }
     if (!fileStat.isFile()) {
       throw new Error(`Installed plugin runtime file is not a regular runtime file: ${requiredFile}`);
@@ -188,6 +202,7 @@ async function assertInstalledRuntime(root) {
     const physicalPath = await realpath(path);
     assertInsideRoot(root, physicalPath, "Installed runtime files must stay inside the plugin root");
   }
+  await assertNoUnexpectedManagedRuntimeFiles(root);
 }
 
 async function readInstalledServerConfig(root) {
@@ -199,6 +214,9 @@ async function readInstalledServerConfig(root) {
     throw new Error("Installed plugin manifest must point to bundled MCP servers");
   }
   const mcpPath = await resolveManifestPath(root, manifest.mcpServers);
+  if (mcpPath !== resolve(root, ".mcp.json")) {
+    throw new Error("Installed plugin manifest must point to the installed .mcp.json");
+  }
   const mcpConfig = JSON.parse(await readFile(mcpPath, "utf8"));
   const serverMap = selectServerMap(mcpConfig);
   const server = serverMap[PLUGIN_NAME];
@@ -315,6 +333,14 @@ async function resolveInstalledLaunchConfig(root, server) {
   };
 }
 
+function assertLaunchArgsAreStrings(args) {
+  for (const arg of args) {
+    if (typeof arg !== "string") {
+      throw new Error(`Installed MCP ${PLUGIN_NAME} server args must be strings`);
+    }
+  }
+}
+
 async function resolvePhysicalPluginRoot(root) {
   await rejectSymlinkedComponents(root);
   const rootStat = await lstat(root);
@@ -340,6 +366,38 @@ function assertInsideRoot(root, path, message) {
   const relativePath = relative(resolve(root), resolve(path));
   if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
     throw new Error(message);
+  }
+}
+
+async function assertNoUnexpectedManagedRuntimeFiles(root) {
+  const expectedFiles = new Set(RUNTIME_FILES);
+  for (const managedDirectory of MANAGED_RUNTIME_DIRECTORIES) {
+    await visitManagedRuntimeDirectory(root, managedDirectory, expectedFiles);
+  }
+}
+
+async function visitManagedRuntimeDirectory(root, relativeDirectory, expectedFiles) {
+  const absoluteDirectory = join(root, relativeDirectory);
+  let entries;
+  try {
+    entries = await readdir(absoluteDirectory, { withFileTypes: true });
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      return;
+    }
+    throw error;
+  }
+
+  for (const entry of entries) {
+    const relativePath = `${relativeDirectory}/${entry.name}`.replace(/\\/g, "/");
+    const absolutePath = join(root, relativePath);
+    if (entry.isDirectory()) {
+      await visitManagedRuntimeDirectory(root, relativePath, expectedFiles);
+    } else if (!expectedFiles.has(relativePath)) {
+      throw new Error(`Unexpected managed runtime file: ${relativePath}`);
+    } else {
+      await rejectSymlinkedComponents(absolutePath);
+    }
   }
 }
 
@@ -400,7 +458,8 @@ function parseCompleteJsonMessages(input) {
 }
 
 function stopChild() {
-  if (child.exitCode !== null) {
+  const activeChild = child;
+  if (!activeChild || activeChild.exitCode !== null) {
     return Promise.resolve();
   }
   return terminateChild("SIGTERM", 1000).then(async (terminated) => {
@@ -416,7 +475,8 @@ function stopChild() {
 
 function terminateChild(signal, timeoutMs) {
   return new Promise((resolveTerminated) => {
-    if (child.exitCode !== null) {
+    const activeChild = child;
+    if (!activeChild || activeChild.exitCode !== null) {
       resolveTerminated(true);
       return;
     }
@@ -430,12 +490,16 @@ function terminateChild(signal, timeoutMs) {
     };
     const cleanup = () => {
       clearTimeout(timeout);
-      child.off("exit", onExit);
+      activeChild.off("exit", onExit);
     };
-    child.once("exit", onExit);
-    if (!child.kill(signal)) {
+    activeChild.once("exit", onExit);
+    if (!activeChild.kill(signal)) {
       cleanup();
-      resolveTerminated(child.exitCode !== null);
+      resolveTerminated(activeChild.exitCode !== null);
     }
   });
+}
+
+function isNotFoundError(error) {
+  return error && typeof error === "object" && "code" in error && error.code === "ENOENT";
 }
