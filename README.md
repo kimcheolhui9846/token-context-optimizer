@@ -35,23 +35,42 @@ npm.cmd run install:local
 npm.cmd run verify:installed
 ```
 
+The default install copies the plugin to `%CODEX_HOME%\plugins\token-context-optimizer` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.codex\plugins\token-context-optimizer`. It also creates or updates the personal marketplace at `%USERPROFILE%\.agents\plugins\marketplace.json` so the ChatGPT desktop app can surface the plugin from a local source.
+
+After the default install, restart the ChatGPT desktop app, open the Plugins Directory, select the personal marketplace source, and install or refresh `token-context-optimizer`. Start a new chat after reinstalling so Codex picks up the updated skills and bundled MCP server.
+
 Use an explicit destination for testing or custom installs:
 
 ```powershell
-npm.cmd run install:local -- --target C:\path\to\token-context-optimizer
+npm.cmd run install:local -- --target C:\path\to\token-context-optimizer --marketplace C:\path\to\.agents\plugins\marketplace.json
 npm.cmd run verify:installed -- --plugin-root C:\path\to\token-context-optimizer
+```
+
+For staging-only tests that must not write a marketplace file, pass `--no-marketplace`:
+
+```powershell
+npm.cmd run install:local -- --target C:\path\to\token-context-optimizer --no-marketplace
 ```
 
 Destination resolution order:
 
 1. `--target` for install or `--plugin-root` for verification.
 2. `TCO_PLUGIN_INSTALL_DIR`.
-3. `%CODEX_HOME%\plugins\local\token-context-optimizer`.
-4. `%USERPROFILE%\.codex\plugins\local\token-context-optimizer`.
+3. `%CODEX_HOME%\plugins\token-context-optimizer`.
+4. `%USERPROFILE%\.codex\plugins\token-context-optimizer`.
+
+Marketplace resolution order:
+
+1. `--no-marketplace` disables marketplace writes.
+2. `--marketplace <path>`.
+3. `TCO_PLUGIN_MARKETPLACE_PATH`.
+4. `%USERPROFILE%\.agents\plugins\marketplace.json` for default installs without `--target` or `TCO_PLUGIN_INSTALL_DIR`.
 
 The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`.
 
-For safety, the installer preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, and rejects non-empty unrelated targets or symlinked destination components.
+For safety, the installer preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
+
+The installed verifier reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, launches the configured `token-context-optimizer` server, indexes a temporary workspace file, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
 
 ## Superpowers Use
 

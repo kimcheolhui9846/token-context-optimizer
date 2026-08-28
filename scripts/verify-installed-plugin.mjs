@@ -1,17 +1,13 @@
 import { spawn } from "node:child_process";
-import { access, mkdtemp, writeFile } from "node:fs/promises";
+import { access, mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { isAbsolute, join, relative, resolve } from "node:path";
 
-const REQUIRED_FILES = [
-  ".codex-plugin/plugin.json",
-  ".mcp.json",
-  "bin/token-context-optimizer.mjs",
-  "skills/optimize-context/SKILL.md",
-];
+import { PLUGIN_NAME, RUNTIME_FILES } from "./plugin-runtime.mjs";
 
 const pluginRoot = resolvePluginRoot(process.argv.slice(2), process.env);
 await assertInstalledRuntime(pluginRoot);
+const serverConfig = await readInstalledServerConfig(pluginRoot);
 
 const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
 const workspaceFile = join(workspaceRoot, "artifact.txt");
@@ -21,10 +17,10 @@ await writeFile(
   "utf8",
 );
 
-const child = spawn(process.execPath, ["./bin/token-context-optimizer.mjs"], {
-  cwd: pluginRoot,
+const child = spawn(resolveCommand(serverConfig.command), serverConfig.args ?? [], {
+  cwd: resolve(pluginRoot, serverConfig.cwd ?? "."),
   stdio: ["pipe", "pipe", "pipe"],
-  env: { ...process.env, TCO_ALLOWED_ROOTS: workspaceRoot },
+  env: { ...process.env, ...(serverConfig.env ?? {}), TCO_ALLOWED_ROOTS: workspaceRoot },
 });
 
 let buffer = "";
@@ -80,6 +76,20 @@ try {
     throw new Error(`Installed plugin verification failed: ${JSON.stringify(payload)}`);
   }
 
+  send({
+    jsonrpc: "2.0",
+    id: 4,
+    method: "tools/call",
+    params: {
+      name: "index_artifact",
+      arguments: { path: join(pluginRoot, ".codex-plugin", "plugin.json") },
+    },
+  });
+  const denied = await waitFor((message) => message.id === 4 && message.result);
+  if (denied.result?.isError !== true) {
+    throw new Error("Installed plugin allowed indexing from the plugin root");
+  }
+
   console.log(
     JSON.stringify({
       ok: true,
@@ -87,6 +97,7 @@ try {
       workspaceRoot,
       indexedPath: payload.path,
       indexedLineCount: payload.lineCount,
+      deniedPluginRootIndex: true,
     }),
   );
 } finally {
@@ -134,13 +145,72 @@ function waitFor(predicate, timeoutMs = 5000) {
 }
 
 async function assertInstalledRuntime(root) {
-  for (const requiredFile of REQUIRED_FILES) {
+  for (const requiredFile of RUNTIME_FILES) {
     try {
       await access(join(root, requiredFile));
     } catch {
       throw new Error(`Installed plugin is missing runtime file: ${requiredFile}`);
     }
   }
+}
+
+async function readInstalledServerConfig(root) {
+  const manifest = JSON.parse(await readFile(join(root, ".codex-plugin", "plugin.json"), "utf8"));
+  if (manifest.name !== PLUGIN_NAME) {
+    throw new Error(`Installed plugin manifest name must be ${PLUGIN_NAME}`);
+  }
+  if (typeof manifest.mcpServers !== "string" || manifest.mcpServers.length === 0) {
+    throw new Error("Installed plugin manifest must point to bundled MCP servers");
+  }
+  const mcpPath = resolveManifestPath(root, manifest.mcpServers);
+  const mcpConfig = JSON.parse(await readFile(mcpPath, "utf8"));
+  const serverMap = selectServerMap(mcpConfig);
+  const server = serverMap[PLUGIN_NAME];
+  if (!server || typeof server !== "object") {
+    throw new Error(`Installed MCP config missing ${PLUGIN_NAME} server`);
+  }
+  if (typeof server.command !== "string" || server.command.length === 0) {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server missing command`);
+  }
+  if (server.args !== undefined && !Array.isArray(server.args)) {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server args must be an array`);
+  }
+  if (server.cwd !== undefined && typeof server.cwd !== "string") {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server cwd must be a string`);
+  }
+  if (server.env !== undefined && (typeof server.env !== "object" || Array.isArray(server.env))) {
+    throw new Error(`Installed MCP ${PLUGIN_NAME} server env must be an object`);
+  }
+  return server;
+}
+
+function resolveManifestPath(root, path) {
+  if (!path.startsWith("./")) {
+    throw new Error("Manifest component paths must start with ./");
+  }
+  const resolved = resolve(root, path);
+  const relativePath = relative(resolve(root), resolved);
+  if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
+    throw new Error("Manifest component paths must stay inside the plugin root");
+  }
+  return resolved;
+}
+
+function selectServerMap(config) {
+  if (!config || typeof config !== "object" || Array.isArray(config)) {
+    throw new Error("Installed MCP config must be a JSON object");
+  }
+  if (config.mcpServers && typeof config.mcpServers === "object" && !Array.isArray(config.mcpServers)) {
+    return config.mcpServers;
+  }
+  if (config.mcp_servers && typeof config.mcp_servers === "object" && !Array.isArray(config.mcp_servers)) {
+    return config.mcp_servers;
+  }
+  return config;
+}
+
+function resolveCommand(command) {
+  return command === "node" ? process.execPath : command;
 }
 
 function parseCompleteJsonMessages(input) {

@@ -2,22 +2,27 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add a repeatable local install and installed-layout verification workflow for the Codex plugin.
+**Goal:** Add a repeatable local install, marketplace registration, and installed-layout verification workflow for the Codex plugin.
 
-**Architecture:** Create small Node scripts under `scripts/` and keep reusable path/copy/MCP helpers in those scripts until duplication justifies extraction. The installer copies only runtime plugin files. The verifier starts the installed bundle from the plugin root and indexes a fixture from a separate allowed workspace.
+**Architecture:** Create small Node scripts under `scripts/`. The installer copies only runtime plugin files, optionally registers the plugin in a local marketplace, and restores existing runtime files on copy failure. The verifier reads the installed plugin manifest and bundled MCP config, starts the configured server from the plugin root, and indexes a fixture from a separate allowed workspace.
 
 **Tech Stack:** Node.js ESM scripts, existing TypeScript build output, Vitest for behavior coverage, GitHub PR flow.
 
 ## Global Constraints
 
 - Do not copy `node_modules/`, `dist/`, `.git/`, source PDFs, generated artifacts, or tests into the plugin install directory.
-- Default install path is `${CODEX_HOME}\plugins\local\token-context-optimizer` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.codex\plugins\local\token-context-optimizer`.
+- Default install path is `${CODEX_HOME}\plugins\token-context-optimizer` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.codex\plugins\token-context-optimizer`.
 - `--target` overrides the install destination for tests and manual use.
 - `TCO_PLUGIN_INSTALL_DIR` overrides the install destination when `--target` is omitted.
+- Default installs must create or update a personal marketplace entry at `%USERPROFILE%\.agents\plugins\marketplace.json`.
+- `--marketplace` or `TCO_PLUGIN_MARKETPLACE_PATH` overrides the marketplace file path.
+- `--no-marketplace` disables marketplace writes for staging-only tests.
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
+- Installed verification must read `.codex-plugin/plugin.json` and the declared `.mcp.json` instead of hardcoding the bundle command.
 - Installer must preflight every runtime source as a regular file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
 - Installer must reject symlinked install target components and every existing component of each runtime destination path before copying.
+- Installer must reject non-file runtime destinations before copying and restore existing runtime files if a later copy fails.
 - Update `docs/agent/HANDOFF.md` after completing each implementation task.
 
 ---
@@ -224,7 +229,7 @@ Expected: all exit 0.
 
 Request code review. If no blocking findings, commit, push `feature/local-install-workflow`, and create a PR against `main`.
 
-Status: implementation was committed and draft PR #2 was opened. Final independent review is still pending because the native review subagent returned a usage-limit error.
+Status: implementation was committed and draft PR #2 was opened. A later independent review returned `REQUEST CHANGES` / `BLOCK`, so remediation is in progress.
 
 ### Task 4: Review Remediation
 
@@ -253,3 +258,35 @@ Ran the full verification gate, staged changes, committed, pushed, and opened dr
 - [ ] **Step 5: Independent review and ready-for-review transition**
 
 Rerun the independent code review when subagent usage is available. If no blocking findings remain, mark PR #2 ready for review.
+
+### Task 5: PR #2 Review Remediation
+
+**Files:**
+- Create: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/smoke-mcp.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+
+- [x] **Step 1: RED tests for review findings**
+
+Added tests for exact installed tree enumeration, personal marketplace entry creation, non-file runtime destination preflight, runtime rollback after simulated copy failure, verifier rejection of invalid MCP config, and plugin-root indexing denial.
+
+- [x] **Step 2: Installer safety remediation**
+
+Installer now supports `--marketplace`, `TCO_PLUGIN_MARKETPLACE_PATH`, and `--no-marketplace`, writes a local marketplace entry for default installs, rejects non-file runtime destinations before copying, and restores existing runtime files if copy or marketplace update fails.
+
+- [x] **Step 3: Metadata-driven verifier**
+
+Verifier now reads installed `plugin.json`, resolves the declared `.mcp.json`, selects the `token-context-optimizer` server from `mcpServers`, `mcp_servers`, or a direct server map, launches that configured server, and verifies plugin-root files are outside `TCO_ALLOWED_ROOTS`.
+
+- [x] **Step 4: Shared executable runtime inventory**
+
+Installer, verifier, and smoke harness now share `scripts/plugin-runtime.mjs` for plugin name and runtime file inventory. Tests keep an independent expected list as the oracle.
+
+- [ ] **Step 5: Full gate, commit, push, and re-review**
+
+Run the full verification gate, commit the remediation, push to PR #2, and rerun independent `code-reviewer` plus `architect` review lanes.

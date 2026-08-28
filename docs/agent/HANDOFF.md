@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Implement the local install workflow for `token-context-optimizer` on branch `feature/local-install-workflow`.
+Remediate PR #2 review findings for the `token-context-optimizer` local install workflow on branch `feature/local-install-workflow`.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install commit: `2bd5189`
+- Local install commits: `2bd5189`, `bd95ea1`
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -54,6 +54,21 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
   - Committed `feat: add local plugin install workflow`.
   - Pushed `feature/local-install-workflow` to origin.
   - Opened draft PR #2 against `main`.
+- PR #2 independent review completed:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Blocking remediation scope:
+    - Reject non-file runtime destinations before any copy.
+    - Restore existing runtime files if a later copy fails.
+    - Add exact installed-tree coverage instead of trusting installer output.
+    - Add marketplace registration so local install maps to Codex/ChatGPT plugin discovery.
+    - Make installed verification read `plugin.json` and `.mcp.json` instead of hardcoding the bundle command.
+    - Confirm `TCO_ALLOWED_ROOTS` keeps plugin-root files outside the indexing boundary.
+- Current remediation in progress:
+  - Added RED tests for marketplace entry generation, non-file destination preflight, rollback, `.mcp.json` parsing, exact installed tree, and plugin-root denial.
+  - Implemented installer marketplace registration, destination file-type preflight, runtime restore on failed copy, and shared runtime inventory.
+  - Implemented verifier metadata-driven MCP launch and plugin-root denial check.
+  - Updated README, design spec, implementation plan, and this handoff for marketplace-backed local install.
 
 ## Design Summary
 
@@ -65,9 +80,14 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
 - Default destination order:
   1. `--target <path>`
   2. `TCO_PLUGIN_INSTALL_DIR`
-  3. `${CODEX_HOME}\plugins\local\token-context-optimizer`
-  4. `%USERPROFILE%\.codex\plugins\local\token-context-optimizer`
-- Verifier starts the installed bundle from the plugin root and indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`.
+  3. `${CODEX_HOME}\plugins\token-context-optimizer`
+  4. `%USERPROFILE%\.codex\plugins\token-context-optimizer`
+- Default marketplace registration:
+  - Skipped when `--no-marketplace` is passed.
+  - Uses `--marketplace <path>` or `TCO_PLUGIN_MARKETPLACE_PATH` when set.
+  - For default installs without `--target`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
+  - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
+- Verifier reads the installed manifest and declared `.mcp.json`, launches the configured `token-context-optimizer` server, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, and confirms plugin-root indexing is denied.
 
 ## Latest Verification
 
@@ -103,6 +123,22 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
   - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
   - `npm.cmd run install:local -- --target $env:TEMP\tco-local-install-gate` - copied runtime files.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-local-install-gate` - `ok: true`, `indexedLineCount: 2`.
+- PR #2 remediation RED:
+  - `npm.cmd test` - 5 expected failures covering marketplace registration, metadata-driven verifier, non-file destination preflight, rollback, and plugin-root denial.
+- PR #2 remediation targeted GREEN:
+  - `npm.cmd test` - 103 tests passed.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\smoke-mcp.mjs` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+- PR #2 remediation full gate:
+  - `npm.cmd run build` - exit 0.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-gate\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -123,9 +159,9 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
 
 ## Next Steps
 
-1. Push this handoff update to PR #2.
-2. Request or rerun independent review when subagent usage is available again.
-3. If independent review passes, mark PR #2 ready for review.
+1. Run `git diff --check`, commit, and push the PR #2 remediation.
+2. Rerun independent `code-reviewer` and `architect` review.
+3. If both review lanes clear, mark PR #2 ready for review.
 4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands

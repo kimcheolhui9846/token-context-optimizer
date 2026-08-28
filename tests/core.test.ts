@@ -5,6 +5,7 @@ import {
   mkdir,
   mkdtemp,
   readFile,
+  readdir,
   symlink,
   writeFile,
 } from "node:fs/promises";
@@ -631,22 +632,25 @@ describe("token estimation", () => {
 describe("project configuration", () => {
   it("installs only runtime plugin files into a target directory", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-"));
+    const expectedRuntimeFiles = [
+      ".codex-plugin/plugin.json",
+      ".mcp.json",
+      "bin/token-context-optimizer.mjs",
+      "skills/optimize-context/SKILL.md",
+    ];
 
     const { stdout } = await execFileAsync(process.execPath, [
       "scripts/install-local-plugin.mjs",
       "--target",
       target,
+      "--no-marketplace",
     ]);
     const result = JSON.parse(stdout);
 
     expect(result.target).toBe(target);
-    expect(result.copiedFiles).toEqual([
-      ".codex-plugin/plugin.json",
-      ".mcp.json",
-      "bin/token-context-optimizer.mjs",
-      "skills/optimize-context/SKILL.md",
-    ]);
-    for (const runtimeFile of result.copiedFiles) {
+    expect(result.copiedFiles).toEqual(expectedRuntimeFiles);
+    expect(await listFiles(target)).toEqual(expectedRuntimeFiles);
+    for (const runtimeFile of expectedRuntimeFiles) {
       await expect(access(join(target, runtimeFile))).resolves.toBeUndefined();
     }
     await expect(access(join(target, "node_modules"))).rejects.toThrow();
@@ -660,6 +664,7 @@ describe("project configuration", () => {
       "scripts/install-local-plugin.mjs",
       "--target",
       target,
+      "--no-marketplace",
     ]);
 
     const { stdout } = await execFileAsync(process.execPath, [
@@ -673,6 +678,41 @@ describe("project configuration", () => {
     expect(result.pluginRoot).toBe(target);
     expect(result.indexedLineCount).toBe(2);
     expect(result.indexedPath).toContain("artifact.txt");
+    expect(result.deniedPluginRootIndex).toBe(true);
+  });
+
+  it("writes a marketplace entry for the installed plugin", async () => {
+    const marketplaceRoot = await mkdtemp(join(tmpdir(), "tco-marketplace-root-"));
+    const target = join(marketplaceRoot, ".codex", "plugins", "token-context-optimizer");
+    const marketplacePath = join(marketplaceRoot, ".agents", "plugins", "marketplace.json");
+
+    const { stdout } = await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--marketplace",
+      marketplacePath,
+    ]);
+    const result = JSON.parse(stdout);
+    const marketplace = JSON.parse(await readFile(marketplacePath, "utf8"));
+
+    expect(result.marketplacePath).toBe(marketplacePath);
+    expect(result.marketplaceEntry).toMatchObject({
+      name: "token-context-optimizer",
+      source: {
+        source: "local",
+        path: "./.codex/plugins/token-context-optimizer",
+      },
+      policy: {
+        installation: "AVAILABLE",
+        authentication: "ON_INSTALL",
+      },
+      category: "Productivity",
+    });
+    expect(marketplace.name).toBe("personal");
+    expect(marketplace.interface.displayName).toBe("Personal");
+    expect(marketplace.plugins).toHaveLength(1);
+    expect(marketplace.plugins[0]).toEqual(result.marketplaceEntry);
   });
 
   it("rejects an existing target that does not belong to this plugin", async () => {
@@ -731,6 +771,80 @@ describe("project configuration", () => {
     );
   });
 
+  it("rejects non-file runtime destinations before modifying an existing install", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-non-file-destination-"));
+    await mkdir(join(target, ".codex-plugin"), { recursive: true });
+    const manifestPath = join(target, ".codex-plugin", "plugin.json");
+    await writeFile(
+      manifestPath,
+      "{\"name\":\"token-context-optimizer\",\"version\":\"0.1.0\",\"sentinel\":\"original\"}",
+      "utf8",
+    );
+    await mkdir(join(target, ".mcp.json"));
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/regular file/);
+    await expect(readFile(manifestPath, "utf8")).resolves.toContain("\"sentinel\":\"original\"");
+  });
+
+  it("restores existing runtime files when a later copy fails", async () => {
+    const source = await mkdtemp(join(tmpdir(), "tco-failing-copy-source-"));
+    await mkdir(join(source, ".codex-plugin"), { recursive: true });
+    await mkdir(join(source, "bin"), { recursive: true });
+    await mkdir(join(source, "skills", "optimize-context"), { recursive: true });
+    await writeFile(
+      join(source, ".codex-plugin", "plugin.json"),
+      "{\"name\":\"token-context-optimizer\",\"version\":\"0.1.0\",\"sentinel\":\"replacement\"}",
+      "utf8",
+    );
+    await writeFile(join(source, ".mcp.json"), "{\"replacement\":true}", "utf8");
+    await writeFile(join(source, "bin", "token-context-optimizer.mjs"), "replacement", "utf8");
+    await writeFile(
+      join(source, "skills", "optimize-context", "SKILL.md"),
+      "# replacement",
+      "utf8",
+    );
+
+    const target = await mkdtemp(join(tmpdir(), "tco-existing-install-rollback-"));
+    await mkdir(join(target, ".codex-plugin"), { recursive: true });
+    await mkdir(join(target, "bin"), { recursive: true });
+    await mkdir(join(target, "skills", "optimize-context"), { recursive: true });
+    const sentinels = new Map([
+      [".codex-plugin/plugin.json", "{\"name\":\"token-context-optimizer\",\"version\":\"0.1.0\",\"sentinel\":\"original\"}"],
+      [".mcp.json", "{\"original\":true}"],
+      ["bin/token-context-optimizer.mjs", "original bundle"],
+      ["skills/optimize-context/SKILL.md", "# original"],
+    ]);
+    for (const [runtimeFile, content] of sentinels) {
+      await writeFile(join(target, runtimeFile), content, "utf8");
+    }
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        [
+          join(process.cwd(), "scripts", "install-local-plugin.mjs"),
+          "--target",
+          target,
+          "--no-marketplace",
+          "--simulate-copy-failure-after",
+          "1",
+        ],
+        { cwd: source },
+      ),
+    ).rejects.toThrow(/Simulated copy failure/);
+
+    for (const [runtimeFile, content] of sentinels) {
+      await expect(readFile(join(target, runtimeFile), "utf8")).resolves.toBe(content);
+    }
+  });
+
   it("rejects symlinked destination components when the platform can create them", async () => {
     const realParent = await mkdtemp(join(tmpdir(), "tco-real-parent-"));
     const linkParent = `${realParent}-link`;
@@ -778,9 +892,29 @@ describe("project configuration", () => {
         "scripts/install-local-plugin.mjs",
         "--target",
         target,
+        "--no-marketplace",
       ]),
     ).rejects.toThrow(/symlinked path component/);
     await expect(readFile(externalBundle, "utf8")).resolves.toBe("external sentinel");
+  });
+
+  it("verifier rejects installed MCP configs without the plugin server", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-invalid-mcp-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await writeFile(join(target, ".mcp.json"), "{\"other\":{\"command\":\"node\"}}", "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/token-context-optimizer server/);
   });
 
   it("points Codex and npm launch paths at the checked-in bundled server", async () => {
@@ -829,3 +963,23 @@ describe("project configuration", () => {
     expect(parsed.consumedLines).toBe(0);
   });
 });
+
+async function listFiles(root: string): Promise<string[]> {
+  const output: string[] = [];
+
+  async function visit(relativeRoot: string): Promise<void> {
+    const absoluteRoot = join(root, relativeRoot);
+    const entries = await readdir(absoluteRoot, { withFileTypes: true });
+    for (const entry of entries) {
+      const relativePath = relativeRoot ? `${relativeRoot}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        await visit(relativePath);
+      } else {
+        output.push(relativePath);
+      }
+    }
+  }
+
+  await visit("");
+  return output.sort();
+}

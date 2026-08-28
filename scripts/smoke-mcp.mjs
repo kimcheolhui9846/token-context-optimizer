@@ -3,6 +3,8 @@ import { cp, mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
+import { RUNTIME_FILES } from "./plugin-runtime.mjs";
+
 const pluginRoot = await mkdtemp(join(tmpdir(), "tco-installed-plugin-"));
 const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-workspace-"));
 await copyRuntimeFiles(pluginRoot);
@@ -134,12 +136,7 @@ try {
 }
 
 async function copyRuntimeFiles(destination) {
-  for (const relativePath of [
-    ".codex-plugin/plugin.json",
-    ".mcp.json",
-    "bin/token-context-optimizer.mjs",
-    "skills/optimize-context/SKILL.md",
-  ]) {
+  for (const relativePath of RUNTIME_FILES) {
     await mkdir(dirname(join(destination, relativePath)), { recursive: true });
     await cp(relativePath, join(destination, relativePath));
   }
