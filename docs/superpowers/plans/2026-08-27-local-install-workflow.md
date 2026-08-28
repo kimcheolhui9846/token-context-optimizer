@@ -224,6 +224,8 @@ Expected: all exit 0.
 
 Request code review. If no blocking findings, commit, push `feature/local-install-workflow`, and create a PR against `main`.
 
+Status: implementation was committed and draft PR #2 was opened. Final independent review is still pending because the native review subagent returned a usage-limit error.
+
 ### Task 4: Review Remediation
 
 **Files:**
@@ -244,6 +246,10 @@ Added regressions for symlinked target ancestors and nested owned-target compone
 
 Verifier and smoke scripts now wait for child process exit after `SIGTERM` or `SIGKILL` and surface child spawn errors.
 
-- [ ] **Step 4: Final gate, final review, and PR**
+- [x] **Step 4: Final gate, commit, push, and draft PR**
 
-Run the full verification gate, stage changes, request final review, then commit, push, and create the pull request if review passes.
+Ran the full verification gate, staged changes, committed, pushed, and opened draft PR #2. The PR remains draft until independent review can be rerun or another GitHub review approves the change.
+
+- [ ] **Step 5: Independent review and ready-for-review transition**
+
+Rerun the independent code review when subagent usage is available. If no blocking findings remain, mark PR #2 ready for review.

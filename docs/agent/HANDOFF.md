@@ -12,6 +12,8 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
 - GitHub repo: `https://github.com/kimcheolhui9846/token-context-optimizer`
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
+- Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
+- Local install commit: `2bd5189`
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -48,6 +50,10 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
   - Review did not complete because the native subagent surface returned a usage-limit error.
   - `omx code-review --help` could not run because `omx` is not on PATH in this shell.
   - Treat the branch as verified but not independently approved; open the PR for review rather than marking it merge-ready.
+- PR handoff:
+  - Committed `feat: add local plugin install workflow`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Opened draft PR #2 against `main`.
 
 ## Design Summary
 
@@ -117,10 +123,10 @@ Implement the local install workflow for `token-context-optimizer` on branch `fe
 
 ## Next Steps
 
-1. Stage the latest handoff and test formatting update, then run `git diff --cached --check`.
-2. Commit with per-command author.
-3. Push branch and open a PR against `main` with the independent-review limitation clearly called out.
-4. Request or rerun independent review when subagent usage is available again.
+1. Push this handoff update to PR #2.
+2. Request or rerun independent review when subagent usage is available again.
+3. If independent review passes, mark PR #2 ready for review.
+4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 
