@@ -28,15 +28,16 @@ The installer creates the destination when needed. It accepts empty destinations
 
 ## Marketplace
 
-Default installs create or update a personal marketplace with a local entry for `token-context-optimizer`. When `CODEX_HOME` is set, the marketplace lives at `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the plugin target remains inside the marketplace root. Otherwise it lives at `%USERPROFILE%\.agents\plugins\marketplace.json`. The entry points at the installed plugin directory using a `./`-prefixed `source.path` relative to the marketplace root. `--marketplace <path>` and `TCO_PLUGIN_MARKETPLACE_PATH` override the marketplace file, and `--no-marketplace` keeps tests and staging installs from mutating user-global plugin discovery state.
+Default installs create or update a personal marketplace with a local entry for `token-context-optimizer`. When `CODEX_HOME` is set, the marketplace lives at `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the plugin target remains inside the marketplace root. Otherwise it lives at `%USERPROFILE%\.agents\plugins\marketplace.json`. The entry points at the installed plugin directory using a `./`-prefixed `source.path` relative to the marketplace root. `--marketplace <path>` and `TCO_PLUGIN_MARKETPLACE_PATH` override the marketplace file, and `--no-marketplace` keeps tests and staging installs from mutating user-global plugin discovery state. Custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs must use `--marketplace` or `--no-marketplace`; the installer must not silently skip discovery.
 
 ## Verification
 
 The verifier resolves the installed plugin root from `--plugin-root <path>`, `TCO_PLUGIN_INSTALL_DIR`, or the same default destination rules as the installer. It then:
 
-- Confirms the required runtime files exist.
+- Confirms the required runtime files exist as regular files.
 - Reads `.codex-plugin/plugin.json` and resolves the declared `.mcp.json`.
 - Starts the configured `token-context-optimizer` MCP server from the installed plugin root.
+- Rejects configured Node execution hooks and does not inherit `NODE_OPTIONS`, `NODE_PATH`, or `npm_config_node_options`.
 - Creates a temporary workspace fixture outside the plugin root.
 - Sets `TCO_ALLOWED_ROOTS` to that temporary workspace.
 - Calls MCP `initialize`, `tools/list`, and `index_artifact`.

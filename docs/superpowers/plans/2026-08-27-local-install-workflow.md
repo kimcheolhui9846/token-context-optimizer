@@ -17,8 +17,11 @@
 - Default installs must create or update a personal marketplace entry under `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.agents\plugins\marketplace.json`.
 - `--marketplace` or `TCO_PLUGIN_MARKETPLACE_PATH` overrides the marketplace file path.
 - `--no-marketplace` disables marketplace writes for staging-only tests.
+- Custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs must pass `--marketplace` or `--no-marketplace`; they must not silently skip marketplace discovery.
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
 - Installed verification must read `.codex-plugin/plugin.json` and the declared `.mcp.json` instead of hardcoding the bundle command.
+- Installed verification must require every installed runtime entry to be a regular file before launching the MCP server.
+- Installed verification must reject configured Node execution hooks and must not inherit `NODE_OPTIONS`, `NODE_PATH`, or `npm_config_node_options`.
 - Installer must preflight every runtime source as a regular file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
 - Installer must reject symlinked install target components and every existing component of each runtime destination path before copying.
@@ -330,3 +333,32 @@ Status: RED and GREEN cycles are complete locally. Full gate passed with 107 tes
 Rerun independent `code-reviewer` and `architect` review lanes against the latest PR #2 head. If both lanes clear, mark PR #2 ready for review.
 
 Status: attempted against PR #2 head `0cce2a1`, but both native subagent review lanes failed with a usage-limit error before returning evidence. PR #2 remains draft until review can be rerun.
+
+### Task 7: Final Review Remediation
+
+**Files:**
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: RED tests for final blockers**
+
+Added tests requiring custom targets to explicitly choose `--marketplace` or `--no-marketplace`, and requiring verifier rejection of configured `NODE_OPTIONS`/`NODE_PATH`.
+
+- [x] **Step 2: Discovery intent enforcement**
+
+Installer now rejects `--target` and `TCO_PLUGIN_INSTALL_DIR` installs unless a marketplace path or staging opt-out is supplied.
+
+- [x] **Step 3: Verifier environment hardening**
+
+Verifier now builds a constrained child environment, strips inherited Node execution hooks, and rejects configured `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options`.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and final re-review**
+
+Run the full gate with 110 tests, commit and push the final remediation, update PR #2, then rerun independent review lanes.
+
+Status: final remediation is locally implemented and verified. Full gate passed with 110 tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, installed verification, and `git diff --check`. Commit, push, PR body update, and final independent re-review are still pending.

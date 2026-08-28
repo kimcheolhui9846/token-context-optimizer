@@ -7,6 +7,7 @@ import {
   mkdtemp,
   readFile,
   readdir,
+  rm,
   symlink,
   writeFile,
 } from "node:fs/promises";
@@ -716,6 +717,18 @@ describe("project configuration", () => {
     expect(marketplace.plugins[0]).toEqual(result.marketplaceEntry);
   });
 
+  it("requires an explicit marketplace or staging opt-out for custom targets", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-custom-target-"));
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+      ]),
+    ).rejects.toThrow(/--marketplace or --no-marketplace/);
+  });
+
   it("uses the same USERPROFILE default root for install and verification", async () => {
     const userRoot = await mkdtemp(join(tmpdir(), "tco-default-userprofile-"));
     const env = {
@@ -781,6 +794,7 @@ describe("project configuration", () => {
         "scripts/install-local-plugin.mjs",
         "--target",
         target,
+        "--no-marketplace",
       ]),
     ).rejects.toThrow();
     await expect(readFile(mcpPath, "utf8")).resolves.toBe("{\"unrelated\":true}");
@@ -818,6 +832,7 @@ describe("project configuration", () => {
           join(process.cwd(), "scripts", "install-local-plugin.mjs"),
           "--target",
           target,
+          "--no-marketplace",
         ],
         { cwd: source },
       ),
@@ -955,6 +970,7 @@ describe("project configuration", () => {
         "scripts/install-local-plugin.mjs",
         "--target",
         join(linkParent, "plugin"),
+        "--no-marketplace",
       ]),
     ).rejects.toThrow();
   });
@@ -1043,6 +1059,62 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/installed bundle/);
+  });
+
+  it("verifier rejects Node execution hooks from installed MCP config env", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-node-options-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await writeFile(
+      join(target, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          "token-context-optimizer": {
+            command: "node",
+            args: ["./bin/token-context-optimizer.mjs"],
+            cwd: ".",
+            env: {
+              NODE_OPTIONS: "--import C:/outside/preload.mjs",
+              NODE_PATH: "C:/outside/node_modules",
+            },
+          },
+        },
+      }),
+      "utf8",
+    );
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/Node execution hook/);
+  });
+
+  it("verifier rejects non-regular installed runtime files", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-runtime-directory-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    const installedSkill = join(target, "skills", "optimize-context", "SKILL.md");
+    await rm(installedSkill, { force: true });
+    await mkdir(installedSkill);
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/regular runtime file/);
   });
 
   it("points Codex and npm launch paths at the checked-in bundled server", async () => {

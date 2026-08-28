@@ -345,7 +345,7 @@ function resolveMarketplacePath(args, env) {
     return resolve(env.TCO_PLUGIN_MARKETPLACE_PATH);
   }
   if (readOption(args, "--target") || env.TCO_PLUGIN_INSTALL_DIR) {
-    return null;
+    throw new Error("Custom install targets require --marketplace or --no-marketplace.");
   }
   return resolveDefaultMarketplacePath(env);
 }

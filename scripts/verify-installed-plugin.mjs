@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { access, lstat, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { lstat, mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, parse, relative, resolve } from "node:path";
 
@@ -26,7 +26,7 @@ await writeFile(
 const child = spawn(launchConfig.command, launchConfig.args, {
   cwd: launchConfig.cwd,
   stdio: ["pipe", "pipe", "pipe"],
-  env: { ...process.env, ...(serverConfig.env ?? {}), TCO_ALLOWED_ROOTS: workspaceRoot },
+  env: buildVerifierEnv(process.env, serverConfig.env ?? {}, workspaceRoot),
 });
 
 let buffer = "";
@@ -153,10 +153,15 @@ function waitFor(predicate, timeoutMs = 5000) {
 
 async function assertInstalledRuntime(root) {
   for (const requiredFile of RUNTIME_FILES) {
+    const path = join(root, requiredFile);
+    let fileStat;
     try {
-      await access(join(root, requiredFile));
+      fileStat = await lstat(path);
     } catch {
       throw new Error(`Installed plugin is missing runtime file: ${requiredFile}`);
+    }
+    if (!fileStat.isFile()) {
+      throw new Error(`Installed plugin runtime file is not a regular runtime file: ${requiredFile}`);
     }
   }
 }
@@ -188,7 +193,55 @@ async function readInstalledServerConfig(root) {
   if (server.env !== undefined && (typeof server.env !== "object" || Array.isArray(server.env))) {
     throw new Error(`Installed MCP ${PLUGIN_NAME} server env must be an object`);
   }
+  for (const key of Object.keys(server.env ?? {})) {
+    if (isNodeExecutionHook(key)) {
+      throw new Error(`Node execution hook is not allowed in installed MCP env: ${key}`);
+    }
+  }
   return server;
+}
+
+function buildVerifierEnv(inheritedEnv, configuredEnv, allowedRoots) {
+  const allowedInheritedKeys = [
+    "ALLUSERSPROFILE",
+    "APPDATA",
+    "ComSpec",
+    "HOME",
+    "LOCALAPPDATA",
+    "PATH",
+    "PATHEXT",
+    "Path",
+    "PROCESSOR_ARCHITECTURE",
+    "ProgramData",
+    "ProgramFiles",
+    "ProgramFiles(x86)",
+    "SystemDrive",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "USERPROFILE",
+    "windir",
+    "WINDIR",
+  ];
+  const env = {};
+  for (const key of allowedInheritedKeys) {
+    if (inheritedEnv[key] !== undefined && !isNodeExecutionHook(key)) {
+      env[key] = inheritedEnv[key];
+    }
+  }
+  for (const [key, value] of Object.entries(configuredEnv)) {
+    if (isNodeExecutionHook(key)) {
+      throw new Error(`Node execution hook is not allowed in installed MCP env: ${key}`);
+    }
+    env[key] = value;
+  }
+  env.TCO_ALLOWED_ROOTS = allowedRoots;
+  return env;
+}
+
+function isNodeExecutionHook(key) {
+  const normalized = key.toUpperCase();
+  return normalized === "NODE_OPTIONS" || normalized === "NODE_PATH" || normalized === "NPM_CONFIG_NODE_OPTIONS";
 }
 
 async function resolveInstalledLaunchConfig(root, server) {

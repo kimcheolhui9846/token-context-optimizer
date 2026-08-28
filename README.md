@@ -46,7 +46,7 @@ npm.cmd run install:local -- --target C:\path\to\token-context-optimizer --marke
 npm.cmd run verify:installed -- --plugin-root C:\path\to\token-context-optimizer
 ```
 
-For staging-only tests that must not write a marketplace file, pass `--no-marketplace`:
+Custom targets must declare their discovery intent. Use `--marketplace` to write a marketplace entry, or pass `--no-marketplace` for staging-only tests that must not write a marketplace file:
 
 ```powershell
 npm.cmd run install:local -- --target C:\path\to\token-context-optimizer --no-marketplace
@@ -71,7 +71,7 @@ The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.m
 
 For safety, the installer preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
 
-The installed verifier reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, launches the configured `token-context-optimizer` server, indexes a temporary workspace file, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
+The installed verifier requires each runtime entry to be a regular file, reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node execution hooks, rejects configured `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options`, indexes a temporary workspace file, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
 
 ## Superpowers Use
 

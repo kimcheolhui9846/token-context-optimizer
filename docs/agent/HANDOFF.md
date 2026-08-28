@@ -13,7 +13,7 @@ Await final independent review for the remediated `token-context-optimizer` loca
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install commits: `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`
+- Local install commits: `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -92,6 +92,18 @@ Await final independent review for the remediated `token-context-optimizer` loca
   - Spawned `code-reviewer` and `architect` review lanes against PR #2 head `0cce2a1`.
   - Both lanes failed before returning review evidence because the native subagent surface hit the usage limit.
   - PR #2 remains draft and must not be treated as independently approved.
+- Final review completed after usage reset:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Remaining remediation scope:
+    - Reject custom installs that omit both `--marketplace` and `--no-marketplace`.
+    - Prevent verifier from approving an external implementation through `NODE_OPTIONS`, `NODE_PATH`, or related Node execution hooks.
+    - Refresh handoff, plan, and PR body after the final remediation.
+- Final review remediation completed locally:
+  - Added RED tests for custom target discovery intent and verifier rejection of configured Node execution hooks.
+  - Installer now requires custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs to pass `--marketplace` or `--no-marketplace`.
+  - Verifier now uses a constrained child environment, strips inherited Node execution hooks, and rejects configured `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options`.
+  - Added RED/GREEN coverage for non-regular installed runtime files so verifier no longer accepts directories or symlinks in required runtime slots.
 
 ## Design Summary
 
@@ -112,6 +124,7 @@ Await final independent review for the remediated `token-context-optimizer` loca
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
 - Verifier reads the installed manifest and declared `.mcp.json`, launches the configured `token-context-optimizer` server, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, and confirms plugin-root indexing is denied.
+- Verifier requires every installed runtime entry to be a regular file before launching the MCP server.
 
 ## Latest Verification
 
@@ -179,6 +192,25 @@ Await final independent review for the remediated `token-context-optimizer` loca
   - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-gate\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-gate\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+- PR #2 final review remediation RED:
+  - `npm.cmd test` - 2 expected failures before final review remediation, covering custom target discovery intent and configured Node execution hooks.
+  - `npm.cmd test -- --run tests/core.test.ts -t "verifier rejects non-regular installed runtime files"` - expected failure before runtime file-type hardening.
+- PR #2 final review remediation targeted GREEN:
+  - `npm.cmd test -- --run tests/core.test.ts -t "verifier rejects non-regular installed runtime files"` - 1 test passed.
+  - `npm.cmd test` - 110 tests passed.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\smoke-mcp.mjs` - exit 0.
+- PR #2 final review remediation full gate:
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-final-gate-20260828-1853\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-final-gate-20260828-1853\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-final-gate-20260828-1853\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -199,10 +231,11 @@ Await final independent review for the remediated `token-context-optimizer` loca
 
 ## Next Steps
 
-1. Commit and push this handoff update.
-2. Rerun independent `code-reviewer` and `architect` review against PR #2 head `0cce2a1` when subagent usage is available again.
-3. If both review lanes clear, mark PR #2 ready for review.
-4. Do not merge PR #2 without explicit user approval.
+1. Commit and push the final review remediation.
+2. Update PR #2 body to the 110-test state and latest head.
+3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+4. If both review lanes clear, mark PR #2 ready for review.
+5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 
