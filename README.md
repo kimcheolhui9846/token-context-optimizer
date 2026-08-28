@@ -67,11 +67,13 @@ Marketplace resolution order:
 4. `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` for default installs when `CODEX_HOME` is set.
 5. `%USERPROFILE%\.agents\plugins\marketplace.json` for default installs without `CODEX_HOME`, `--target`, or `TCO_PLUGIN_INSTALL_DIR`.
 
-The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`.
+The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`. Unknown CLI options, duplicate options, and unexpected positional arguments fail before any default install path is used.
 
 For safety, the installer copies runtime files from the checked-in repository root, not the caller's current directory. It preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects hard-linked or non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
 
-The installed verifier requires each runtime entry to be a regular file physically inside the plugin root, reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, requires standard `mcpServers` metadata, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node execution hooks, rejects configured MCP `env`, indexes a temporary workspace file, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
+Run local installs as a single-writer maintenance operation while ChatGPT desktop is not loading the plugin, then restart the app after install or refresh.
+
+The installed verifier requires each runtime entry to be a regular file physically inside the plugin root, reads `.codex-plugin/plugin.json`, resolves the declared `.mcp.json`, requires standard `mcpServers` metadata, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node and platform loader execution hooks, rejects configured MCP `env`, allows only `TCO_ALLOWED_ROOTS` in `env_vars`, indexes a temporary workspace file, cleans up that fixture, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
 
 ## Superpowers Use
 

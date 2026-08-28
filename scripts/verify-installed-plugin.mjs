@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { lstat, mkdtemp, readFile, realpath, writeFile } from "node:fs/promises";
+import { lstat, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, parse, relative, resolve } from "node:path";
 
@@ -8,10 +8,13 @@ import {
   PLUGIN_NAME,
   RUNTIME_FILES,
   resolvePluginRoot,
+  validateCliArgs,
 } from "./plugin-runtime.mjs";
 
+const args = process.argv.slice(2);
+validateCliArgs(args, { valueOptions: ["--plugin-root"] });
 const pluginRoot = await resolvePhysicalPluginRoot(
-  resolvePluginRoot(process.argv.slice(2), process.env, "--plugin-root"),
+  resolvePluginRoot(args, process.env, "--plugin-root"),
 );
 await assertInstalledRuntime(pluginRoot);
 const serverConfig = await readInstalledServerConfig(pluginRoot);
@@ -30,21 +33,27 @@ const child = spawn(launchConfig.command, launchConfig.args, {
   stdio: ["pipe", "pipe", "pipe"],
   env: buildVerifierEnv(process.env, workspaceRoot),
 });
+if (!child.stdin || !child.stdout || !child.stderr) {
+  throw new Error("MCP verifier requires piped child stdio");
+}
+const childStdin = child.stdin;
+const childStdout = child.stdout;
+const childStderr = child.stderr;
 
 let buffer = "";
 let stderr = "";
 let consumedLines = 0;
 let childError = null;
 
-child.stdout.setEncoding("utf8");
-child.stderr.setEncoding("utf8");
+childStdout.setEncoding("utf8");
+childStderr.setEncoding("utf8");
 child.once("error", (error) => {
   childError = error;
 });
-child.stdout.on("data", (chunk) => {
+childStdout.on("data", (chunk) => {
   buffer += chunk;
 });
-child.stderr.on("data", (chunk) => {
+childStderr.on("data", (chunk) => {
   stderr += chunk;
 });
 
@@ -110,11 +119,15 @@ try {
     }),
   );
 } finally {
-  await stopChild();
+  try {
+    await stopChild();
+  } finally {
+    await rm(workspaceRoot, { recursive: true, force: true });
+  }
 }
 
 function send(message) {
-  child.stdin.write(`${JSON.stringify(message)}\n`);
+  childStdin.write(`${JSON.stringify(message)}\n`);
 }
 
 function waitFor(predicate, timeoutMs = 5000) {
@@ -201,18 +214,34 @@ async function readInstalledServerConfig(root) {
   if (server.cwd !== undefined && typeof server.cwd !== "string") {
     throw new Error(`Installed MCP ${PLUGIN_NAME} server cwd must be a string`);
   }
-  if (server.env !== undefined && (typeof server.env !== "object" || Array.isArray(server.env))) {
-    throw new Error(`Installed MCP ${PLUGIN_NAME} server env must be an object`);
-  }
-  for (const key of Object.keys(server.env ?? {})) {
-    if (isNodeExecutionHook(key)) {
-      throw new Error(`Node execution hook is not allowed in installed MCP env: ${key}`);
+  if (server.env !== undefined) {
+    if (server.env && typeof server.env === "object" && !Array.isArray(server.env)) {
+      for (const key of Object.keys(server.env)) {
+        if (isNodeExecutionHook(key)) {
+          throw new Error(`Node execution hook is not allowed in installed MCP env: ${key}`);
+        }
+      }
     }
-    throw new Error(`Configured MCP env is not allowed during installed verification: ${key}`);
+    throw new Error("Configured MCP env is not allowed during installed verification");
+  }
+  if (server.env_vars !== undefined) {
+    if (!Array.isArray(server.env_vars) || server.env_vars.some((key) => typeof key !== "string")) {
+      throw new Error(`Installed MCP ${PLUGIN_NAME} server env_vars must be an array of strings`);
+    }
+    for (const key of server.env_vars) {
+      if (isNodeExecutionHook(key) || key !== "TCO_ALLOWED_ROOTS") {
+        throw new Error("Installed MCP env_vars may only inherit TCO_ALLOWED_ROOTS");
+      }
+    }
   }
   return server;
 }
 
+/**
+ * @param {NodeJS.ProcessEnv} inheritedEnv
+ * @param {string} allowedRoots
+ * @returns {NodeJS.ProcessEnv}
+ */
 function buildVerifierEnv(inheritedEnv, allowedRoots) {
   const allowedInheritedKeys = [
     "ALLUSERSPROFILE",
@@ -235,7 +264,7 @@ function buildVerifierEnv(inheritedEnv, allowedRoots) {
     "windir",
     "WINDIR",
   ];
-  const env = {};
+  const env = /** @type {NodeJS.ProcessEnv} */ ({});
   for (const key of allowedInheritedKeys) {
     if (inheritedEnv[key] !== undefined && !isNodeExecutionHook(key)) {
       env[key] = inheritedEnv[key];

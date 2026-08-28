@@ -55,3 +55,30 @@ export function readOption(args, name) {
   }
   return value;
 }
+
+export function validateCliArgs(args, config) {
+  const valueOptions = new Set(config.valueOptions ?? []);
+  const flags = new Set(config.flags ?? []);
+  const seen = new Set();
+
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (!arg.startsWith("--")) {
+      throw new Error(`Unexpected positional argument: ${arg}`);
+    }
+    if (!valueOptions.has(arg) && !flags.has(arg)) {
+      throw new Error(`Unknown option: ${arg}`);
+    }
+    if (seen.has(arg)) {
+      throw new Error(`Duplicate option: ${arg}`);
+    }
+    seen.add(arg);
+    if (valueOptions.has(arg)) {
+      const value = args[index + 1];
+      if (!value || value.startsWith("--")) {
+        throw new Error(`${arg} requires a value`);
+      }
+      index += 1;
+    }
+  }
+}

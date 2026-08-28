@@ -19,10 +19,15 @@ import {
   readOption,
   resolveDefaultMarketplacePath,
   resolvePluginRoot,
+  validateCliArgs,
 } from "./plugin-runtime.mjs";
 
 const sourceRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
+validateCliArgs(args, {
+  valueOptions: ["--target", "--marketplace", "--simulate-copy-failure-after"],
+  flags: ["--no-marketplace", "--simulate-marketplace-write-failure"],
+});
 const target = resolvePluginRoot(args, process.env, "--target");
 const marketplacePath = resolveMarketplacePath(args, process.env);
 const simulateCopyFailureAfter = readIntegerOption(args, "--simulate-copy-failure-after");
@@ -349,18 +354,23 @@ async function rejectSymlinkedComponents(path, message = "Install target contain
 }
 
 function resolveMarketplacePath(args, env) {
-  if (args.includes("--no-marketplace")) {
+  const noMarketplace = args.includes("--no-marketplace");
+  const marketplaceArg = readOption(args, "--marketplace");
+  if (noMarketplace && marketplaceArg) {
+    throw new Error("Choose exactly one marketplace mode: --marketplace or --no-marketplace.");
+  }
+  const customTarget = readOption(args, "--target") !== null || Boolean(env.TCO_PLUGIN_INSTALL_DIR);
+  if (customTarget && !noMarketplace && !marketplaceArg) {
+    throw new Error("Custom install targets require --marketplace or --no-marketplace.");
+  }
+  if (noMarketplace) {
     return null;
   }
-  const marketplaceArg = readOption(args, "--marketplace");
   if (marketplaceArg) {
     return resolve(marketplaceArg);
   }
   if (env.TCO_PLUGIN_MARKETPLACE_PATH) {
     return resolve(env.TCO_PLUGIN_MARKETPLACE_PATH);
-  }
-  if (readOption(args, "--target") || env.TCO_PLUGIN_INSTALL_DIR) {
-    throw new Error("Custom install targets require --marketplace or --no-marketplace.");
   }
   return resolveDefaultMarketplacePath(env);
 }

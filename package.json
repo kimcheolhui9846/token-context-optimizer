@@ -11,7 +11,7 @@
     "build": "tsc -p tsconfig.json && node scripts/build-bundle.mjs",
     "build:bundle": "node scripts/build-bundle.mjs",
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json",
     "install:local": "node scripts/install-local-plugin.mjs",
     "verify:installed": "node scripts/verify-installed-plugin.mjs",
     "validate:plugin": "node scripts/validate-plugin.mjs",

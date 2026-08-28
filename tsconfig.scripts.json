@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": [
+    "scripts/install-local-plugin.mjs",
+    "scripts/plugin-runtime.mjs",
+    "scripts/smoke-mcp.mjs",
+    "scripts/verify-installed-plugin.mjs"
+  ]
+}

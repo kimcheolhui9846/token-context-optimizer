@@ -17,11 +17,11 @@
 - Default installs must create or update a personal marketplace entry under `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` when `CODEX_HOME` is set, otherwise `%USERPROFILE%\.agents\plugins\marketplace.json`.
 - `--marketplace` or `TCO_PLUGIN_MARKETPLACE_PATH` overrides the marketplace file path.
 - `--no-marketplace` disables marketplace writes for staging-only tests.
-- Custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs must pass `--marketplace` or `--no-marketplace`; they must not silently skip marketplace discovery.
+- Custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs must pass exactly one CLI marketplace mode, `--marketplace` or `--no-marketplace`; inherited marketplace environment variables are not consent for custom installs.
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
 - Installed verification must read `.codex-plugin/plugin.json` and the declared `.mcp.json` instead of hardcoding the bundle command.
 - Installed verification must require every installed runtime entry to be a regular file before launching the MCP server.
-- Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
+- Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, allow only `TCO_ALLOWED_ROOTS` in `env_vars`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
 - Installer must preflight every runtime source from the checked-in repository root as a regular physical file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
 - Installer must reject symlinked install target components and every existing component of each runtime destination path before copying.
@@ -357,7 +357,7 @@ Installer now rejects `--target` and `TCO_PLUGIN_INSTALL_DIR` installs unless a 
 
 Verifier now builds a constrained child environment, strips inherited Node execution hooks, and rejects configured `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options`.
 
-- [ ] **Step 4: Full gate, commit, push, PR body update, and final re-review**
+- [x] **Step 4: Full gate, commit, push, PR body update, and final re-review**
 
 Run the full gate with 110 tests, commit and push the final remediation, update PR #2, then rerun independent review lanes.
 
@@ -390,4 +390,36 @@ Verifier now canonicalizes plugin root, requires runtime/manifest paths to physi
 
 Run the full gate with 116 tests, commit and push the boundary remediation, update PR #2, then rerun independent review lanes.
 
-Status: boundary remediation was locally implemented, verified, committed as `d183297`, and pushed to PR #2. PR body update and independent re-review are still pending.
+Status: boundary remediation was locally implemented, verified, committed as `d183297`, pushed to PR #2, and followed by handoff commit `5d91f29`. PR body was updated to the 116-test state. Independent re-review against `5d91f29` returned `REQUEST CHANGES` / `BLOCK`, so Task 9 tracks the next remediation.
+
+### Task 9: Final CLI And Env Metadata Remediation
+
+**Files:**
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `package.json`
+- Create: `tsconfig.scripts.json`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: RED tests for latest review blockers**
+
+Added tests for inherited marketplace paths with custom targets, `TCO_PLUGIN_INSTALL_DIR` custom targets, conflicting marketplace modes, unsafe `env_vars`, empty/null configured `env`, unknown installer/verifier CLI options, and verifier temp cleanup.
+
+- [x] **Step 2: CLI marketplace intent and argument parsing**
+
+Installer now rejects unknown/duplicate/unexpected CLI arguments, requires custom installs to use exactly one CLI marketplace mode, and applies inherited `TCO_PLUGIN_MARKETPLACE_PATH` only to default installs.
+
+- [x] **Step 3: Verifier env metadata, temp cleanup, and JS typecheck**
+
+Verifier now rejects configured `env` whenever it is defined, validates `env_vars` with a `TCO_ALLOWED_ROOTS` allowlist, removes temporary verification workspaces, and passes script-level `checkJs`. Project `typecheck` now includes the runtime scripts through `tsconfig.scripts.json`.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and final re-review**
+
+Run the full gate with 125 tests and JS-including typecheck, commit and push the remediation, update PR #2, then rerun independent review lanes.
+
+Status: implementation and targeted verification are complete locally. Full gate, commit, push, PR update, and final independent re-review are pending.

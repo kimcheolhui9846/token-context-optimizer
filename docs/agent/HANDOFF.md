@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Update PR #2 metadata if needed and rerun independent review for the latest `feature/local-install-workflow` head.
+Run the final gate, commit, push, update PR #2 metadata, and rerun independent review for the latest CLI/env metadata remediation.
 
 ## Workspace
 
@@ -125,6 +125,25 @@ Update PR #2 metadata if needed and rerun independent review for the latest `fea
 - Boundary remediation PR update:
   - Committed `fix: close install boundary gaps` as `d183297`.
   - Pushed `feature/local-install-workflow` to origin.
+- Boundary remediation handoff update:
+  - Committed `docs: record boundary remediation handoff` as `5d91f29`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 116-test verification state.
+- Independent review completed against `5d91f29`:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Remaining remediation scope:
+    - Validate `env_vars`, allow only `TCO_ALLOWED_ROOTS`, and reject configured `env` even when empty or null.
+    - Reject unknown, duplicate, and positional CLI arguments before defaulting.
+    - Include runtime scripts in typecheck via `checkJs`.
+    - Clean up verifier temporary workspaces.
+    - Require custom installs to choose a CLI marketplace mode; inherited `TCO_PLUGIN_MARKETPLACE_PATH` is not consent.
+- CLI/env metadata remediation completed locally:
+  - Added RED tests for inherited marketplace env with custom targets, `TCO_PLUGIN_INSTALL_DIR` custom targets, conflicting marketplace modes, unsafe `env_vars`, empty/null configured `env`, unknown installer/verifier CLI options, and verifier temp cleanup.
+  - Added shared CLI argument validation in `scripts/plugin-runtime.mjs`.
+  - Installer now requires custom installs to use exactly one CLI marketplace mode and applies inherited marketplace paths only to default installs.
+  - Verifier now rejects configured `env`, allowlists `env_vars` to `TCO_ALLOWED_ROOTS`, strips inherited Node and loader execution hooks, cleans up temporary workspaces, and passes script-level `checkJs`.
+  - Added `tsconfig.scripts.json` and wired `npm.cmd run typecheck` to check runtime scripts.
 
 ## Design Summary
 
@@ -144,7 +163,7 @@ Update PR #2 metadata if needed and rerun independent review for the latest `fea
   - For default installs with `CODEX_HOME`, writes `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the installed plugin remains inside the marketplace root.
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
-- Verifier reads the installed manifest and declared `.mcp.json`, requires standard `mcpServers`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, and confirms plugin-root indexing is denied.
+- Verifier reads the installed manifest and declared `.mcp.json`, requires standard `mcpServers`, allowlists inherited `env_vars` to `TCO_ALLOWED_ROOTS`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
 - Verifier requires every installed runtime entry and manifest path to be a regular physical file inside the plugin root before launching the MCP server.
 
 ## Latest Verification
@@ -249,6 +268,24 @@ Update PR #2 metadata if needed and rerun independent review for the latest `fea
   - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-final-gate-20260828-1916\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-final-gate-20260828-1916\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-final-gate-20260828-1916\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+- PR #2 latest review remediation RED:
+  - `npm.cmd test -- --run tests/core.test.ts -t "inherited marketplace paths as custom target consent|TCO_PLUGIN_INSTALL_DIR custom targets|conflicting marketplace cli modes|inherited marketplace paths for default installs only|unsafe env_vars|empty or null|unknown cli options"` - 7 expected failures before CLI/env metadata remediation.
+  - `npx.cmd tsc --allowJs --checkJs --noEmit --module NodeNext --moduleResolution NodeNext --target ES2022 --types node scripts\install-local-plugin.mjs scripts\verify-installed-plugin.mjs scripts\plugin-runtime.mjs scripts\smoke-mcp.mjs` - 6 expected diagnostics before JS check hardening.
+- PR #2 latest review remediation targeted GREEN:
+  - `npm.cmd test -- --run tests/core.test.ts -t "cleans up verifier|inherited marketplace paths as custom target consent|TCO_PLUGIN_INSTALL_DIR custom targets|conflicting marketplace cli modes|inherited marketplace paths for default installs only|unsafe env_vars|empty or null|unknown cli options"` - 9 tests passed.
+  - `npm.cmd run typecheck` - exit 0 and now includes `tsconfig.scripts.json`.
+  - `npm.cmd test` - 125 tests passed.
+- PR #2 latest review remediation partial full gate:
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\smoke-mcp.mjs` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-final-gate-20260828-2349\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-final-gate-20260828-2349\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-final-gate-20260828-2349\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -269,10 +306,12 @@ Update PR #2 metadata if needed and rerun independent review for the latest `fea
 
 ## Next Steps
 
-1. Confirm PR #2 body reflects the latest pushed head and the 116-test verification state.
-2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-3. If both review lanes clear, mark PR #2 ready for review.
-4. Do not merge PR #2 without explicit user approval.
+1. Run `git diff --check`, stage the CLI/env metadata remediation, and run `git diff --cached --check`.
+2. Commit and push the CLI/env metadata remediation.
+3. Update PR #2 body to the 125-test and JS typecheck state.
+4. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+5. If both review lanes clear, mark PR #2 ready for review.
+6. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

@@ -684,6 +684,25 @@ describe("project configuration", () => {
     expect(result.deniedPluginRootIndex).toBe(true);
   });
 
+  it("cleans up verifier temporary workspaces after installed verification", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-cleanup-target-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+
+    const { stdout } = await execFileAsync(process.execPath, [
+      "scripts/verify-installed-plugin.mjs",
+      "--plugin-root",
+      target,
+    ]);
+    const result = JSON.parse(stdout);
+
+    await expect(access(result.workspaceRoot)).rejects.toThrow();
+  });
+
   it("writes a marketplace entry for the installed plugin", async () => {
     const marketplaceRoot = await mkdtemp(join(tmpdir(), "tco-marketplace-root-"));
     const target = join(marketplaceRoot, ".codex", "plugins", "token-context-optimizer");
@@ -728,6 +747,56 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/--marketplace or --no-marketplace/);
+  });
+
+  it("does not treat inherited marketplace paths as custom target consent", async () => {
+    const root = await mkdtemp(join(tmpdir(), "tco-custom-marketplace-env-"));
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        [
+          "scripts/install-local-plugin.mjs",
+          "--target",
+          join(root, ".codex", "plugins", "token-context-optimizer"),
+        ],
+        {
+          env: {
+            ...process.env,
+            TCO_PLUGIN_MARKETPLACE_PATH: join(root, ".agents", "plugins", "marketplace.json"),
+          },
+        },
+      ),
+    ).rejects.toThrow(/--marketplace or --no-marketplace/);
+  });
+
+  it("requires cli marketplace consent for TCO_PLUGIN_INSTALL_DIR custom targets", async () => {
+    const root = await mkdtemp(join(tmpdir(), "tco-env-install-marketplace-env-"));
+
+    await expect(
+      execFileAsync(process.execPath, ["scripts/install-local-plugin.mjs"], {
+        env: {
+          ...process.env,
+          TCO_PLUGIN_INSTALL_DIR: join(root, ".codex", "plugins", "token-context-optimizer"),
+          TCO_PLUGIN_MARKETPLACE_PATH: join(root, ".agents", "plugins", "marketplace.json"),
+        },
+      }),
+    ).rejects.toThrow(/--marketplace or --no-marketplace/);
+  });
+
+  it("rejects conflicting marketplace cli modes", async () => {
+    const root = await mkdtemp(join(tmpdir(), "tco-conflicting-marketplace-mode-"));
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        join(root, ".codex", "plugins", "token-context-optimizer"),
+        "--marketplace",
+        join(root, ".agents", "plugins", "marketplace.json"),
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/Choose exactly one/);
   });
 
   it("uses the same USERPROFILE default root for install and verification", async () => {
@@ -783,6 +852,26 @@ describe("project configuration", () => {
     expect(result.target).toBe(join(codexHome, "plugins", "token-context-optimizer"));
     expect(result.marketplacePath).toBe(join(root, ".agents", "plugins", "marketplace.json"));
     expect(marketplace.plugins[0].source.path).toBe("./custom-codex/plugins/token-context-optimizer");
+  });
+
+  it("uses inherited marketplace paths for default installs only", async () => {
+    const root = await mkdtemp(join(tmpdir(), "tco-default-marketplace-env-"));
+    const userProfile = join(root, "profile");
+    const marketplacePath = join(root, ".agents", "plugins", "marketplace.json");
+
+    const { stdout } = await execFileAsync(process.execPath, ["scripts/install-local-plugin.mjs"], {
+      env: {
+        ...process.env,
+        USERPROFILE: userProfile,
+        CODEX_HOME: "",
+        TCO_PLUGIN_INSTALL_DIR: "",
+        TCO_PLUGIN_MARKETPLACE_PATH: marketplacePath,
+      },
+    });
+    const result = JSON.parse(stdout);
+
+    expect(result.marketplacePath).toBe(marketplacePath);
+    expect(result.marketplaceEntry.source.path).toBe("./profile/.codex/plugins/token-context-optimizer");
   });
 
   it("rejects an existing target that does not belong to this plugin", async () => {
@@ -1156,6 +1245,72 @@ describe("project configuration", () => {
     ).rejects.toThrow(/Node execution hook/);
   });
 
+  it("verifier rejects unsafe env_vars inheritance metadata", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-unsafe-env-vars-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await writeFile(
+      join(target, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          "token-context-optimizer": {
+            command: "node",
+            args: ["./bin/token-context-optimizer.mjs"],
+            cwd: ".",
+            env_vars: ["TCO_ALLOWED_ROOTS", "NODE_OPTIONS", "LD_PRELOAD"],
+          },
+        },
+      }),
+      "utf8",
+    );
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/env_vars/);
+  });
+
+  it("verifier rejects configured env even when empty or null", async () => {
+    for (const envValue of [{}, null]) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-empty-env-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      await writeFile(
+        join(target, ".mcp.json"),
+        JSON.stringify({
+          mcpServers: {
+            "token-context-optimizer": {
+              command: "node",
+              args: ["./bin/token-context-optimizer.mjs"],
+              cwd: ".",
+              env: envValue,
+            },
+          },
+        }),
+        "utf8",
+      );
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/Configured MCP env/);
+    }
+  });
+
   it("verifier rejects loader execution hooks from installed MCP config env", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-installed-loader-env-"));
     await execFileAsync(process.execPath, [
@@ -1315,6 +1470,44 @@ describe("project configuration", () => {
     await expect(readFile(join(target, "bin", "token-context-optimizer.mjs"), "utf8")).resolves.not.toBe(
       "external",
     );
+  });
+
+  it("installer rejects unknown cli options before defaulting", async () => {
+    const userRoot = await mkdtemp(join(tmpdir(), "tco-install-unknown-option-"));
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        ["scripts/install-local-plugin.mjs", "--taget", join(userRoot, "intended")],
+        {
+          env: {
+            ...process.env,
+            USERPROFILE: userRoot,
+            CODEX_HOME: "",
+            TCO_PLUGIN_INSTALL_DIR: "",
+            TCO_PLUGIN_MARKETPLACE_PATH: "",
+          },
+        },
+      ),
+    ).rejects.toThrow(/Unknown option/);
+  });
+
+  it("verifier rejects unknown cli options before defaulting", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-verify-unknown-option-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        ["scripts/verify-installed-plugin.mjs", "--plugin-rooot", target],
+        { env: { ...process.env, TCO_PLUGIN_INSTALL_DIR: target } },
+      ),
+    ).rejects.toThrow(/Unknown option/);
   });
 
   it("points Codex and npm launch paths at the checked-in bundled server", async () => {
