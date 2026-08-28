@@ -319,8 +319,12 @@ Verifier now requires the configured server to launch Node with the installed `b
 
 Marketplace updates now write a temp file in the same directory and replace the destination after a complete write. Simulated marketplace write failures preserve the original marketplace and leave the install retryable.
 
-- [ ] **Step 5: Full gate, commit, push, PR body update, and final re-review**
+- [x] **Step 5: Full gate, commit, push, and PR body update**
 
 Run the full verification gate, commit and push the re-review remediation, update PR #2 body to the 107-test state, then rerun independent review lanes.
 
-Status: RED and GREEN cycles are complete locally. Full gate passed with 107 tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, and installed verification. Commit, push, PR body update, and final re-review remain.
+Status: RED and GREEN cycles are complete locally. Full gate passed with 107 tests, build, typecheck, smoke, manifest validation, benchmark, marketplace install, and installed verification. Remediation commit `3b856cd` was pushed and PR #2 body was updated.
+
+- [ ] **Step 6: Final independent re-review**
+
+Rerun independent `code-reviewer` and `architect` review lanes against the latest PR #2 head. If both lanes clear, mark PR #2 ready for review.

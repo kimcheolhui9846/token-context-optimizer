@@ -13,7 +13,7 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install commits: `2bd5189`, `bd95ea1`, `30dda09`
+- Local install commits: `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -84,6 +84,10 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
   - Verifier now requires the configured server to launch Node with the installed `bin/token-context-optimizer.mjs` entrypoint from a cwd inside the plugin root.
   - Verifier checks launch path components for symlinks and verifies plugin-root denial reports `outside allowed roots`.
   - Marketplace updates now use same-directory temp-file replacement and preserve the original file on simulated write failure.
+- Re-review remediation PR update:
+  - Committed `fix: align local install verification roots` as `3b856cd`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 107-test verification state.
 
 ## Design Summary
 
@@ -191,11 +195,10 @@ Remediate PR #2 review findings for the `token-context-optimizer` local install 
 
 ## Next Steps
 
-1. Run `git diff --check`, commit, and push the PR #2 re-review remediation.
-2. Update PR #2 body from 99/103-test draft state to the 107-test gate.
-3. Rerun independent `code-reviewer` and `architect` review.
-4. If both review lanes clear, mark PR #2 ready for review.
-5. Do not merge PR #2 without explicit user approval.
+1. Commit and push this handoff update.
+2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+3. If both review lanes clear, mark PR #2 ready for review.
+4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 
