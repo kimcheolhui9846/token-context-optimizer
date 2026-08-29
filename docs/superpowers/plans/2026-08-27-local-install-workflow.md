@@ -577,4 +577,33 @@ Added `parseJsonObjectRejectingDuplicateKeys` in `scripts/plugin-runtime.mjs` an
 
 Targeted duplicate raw-key checks, smoke cleanup checks, script syntax checks, and `npm.cmd run typecheck` pass locally with 146 tests collected. Next: run the full gate, commit and push the remediation, update PR #2, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.
 
-Status: full local gate is complete with 146 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Remediation was committed as `31836ef`, pushed to PR #2, and the PR body was updated to the 146-test state. A handoff-only status update is being committed before independent re-review.
+Status: full local gate completed with 146 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Remediation was committed as `31836ef`, pushed to PR #2, followed by handoff commit `e63d8b7`, and the PR body was updated to the 146-test state. Independent re-review returned `REQUEST CHANGES` from the code-reviewer lane and `BLOCK` from the architect lane, so Task 15 tracks the remaining trust-bearing JSON and workspace isolation remediation.
+
+### Task 15: Manifest, Marketplace, And Workspace Boundary Remediation
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/validate-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent re-review against PR #2 head `e63d8b7` returned `REQUEST CHANGES` from the code-reviewer lane and `BLOCK` from the architect lane. Blocking scope: reject duplicate raw `plugin.json` members, reject duplicate raw marketplace JSON members before rewrite, ensure verifier temporary workspaces are outside the plugin root, expand installer duplicate-key coverage, and refresh stale handoff/plan state.
+
+- [x] **Step 2: RED tests for remaining parser and workspace boundaries**
+
+Added tests for duplicate raw plugin manifest `name`, `skills`, and `mcpServers` members in source validation and installed verification; duplicate raw target ownership manifests; duplicate raw marketplace `plugins` members; all three duplicate raw MCP forms in installer preflight; verifier rejection and cleanup when `TEMP`, `TMP`, and `TMPDIR` point at the plugin root; and direct parser coverage for escaped-equivalent keys, nested duplicates, and excessive nesting depth.
+
+- [x] **Step 3: Shared parser expansion and workspace containment**
+
+Source validation and installed verification now read `plugin.json` through `parseJsonObjectRejectingDuplicateKeys`. Installer source preflight, target ownership preflight, and marketplace mutation now use the same duplicate-key rejection. The parser has size and depth bounds. The verifier canonicalizes its temporary workspace and rejects verification before launch if the workspace is equal to or contained by the plugin root.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Full local gate is complete with 152 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.

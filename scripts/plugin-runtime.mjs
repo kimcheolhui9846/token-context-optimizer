@@ -171,20 +171,28 @@ function isPlainObject(value) {
 }
 
 function rejectDuplicateJsonObjectKeys(source, context) {
+  const maxLength = 1024 * 1024;
+  const maxDepth = 128;
+  if (source.length > maxLength) {
+    throw new Error(`${context} is too large to validate safely`);
+  }
   let index = 0;
 
-  parseValue();
+  parseValue(0);
   skipWhitespace();
 
-  function parseValue() {
+  function parseValue(depth) {
+    if (depth > maxDepth) {
+      throw new Error(`${context} exceeds maximum JSON nesting depth`);
+    }
     skipWhitespace();
     const char = source[index];
     if (char === "{") {
-      parseObject();
+      parseObject(depth + 1);
       return;
     }
     if (char === "[") {
-      parseArray();
+      parseArray(depth + 1);
       return;
     }
     if (char === "\"") {
@@ -194,7 +202,7 @@ function rejectDuplicateJsonObjectKeys(source, context) {
     skipPrimitive();
   }
 
-  function parseObject() {
+  function parseObject(depth) {
     index += 1;
     skipWhitespace();
     const keys = new Set();
@@ -219,7 +227,7 @@ function rejectDuplicateJsonObjectKeys(source, context) {
         return;
       }
       index += 1;
-      parseValue();
+      parseValue(depth);
       skipWhitespace();
 
       if (source[index] === "}") {
@@ -233,7 +241,7 @@ function rejectDuplicateJsonObjectKeys(source, context) {
     }
   }
 
-  function parseArray() {
+  function parseArray(depth) {
     index += 1;
     skipWhitespace();
     if (source[index] === "]") {
@@ -242,7 +250,7 @@ function rejectDuplicateJsonObjectKeys(source, context) {
     }
 
     while (index < source.length) {
-      parseValue();
+      parseValue(depth);
       skipWhitespace();
       if (source[index] === "]") {
         index += 1;

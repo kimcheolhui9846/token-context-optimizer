@@ -36,6 +36,10 @@ let childError = null;
 
 try {
   workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
+  const physicalWorkspaceRoot = await realpath(workspaceRoot);
+  if (isEqualOrInsideRoot(pluginRoot, physicalWorkspaceRoot)) {
+    throw new Error("Installed verification workspace must be outside the plugin root");
+  }
   const workspaceFile = join(workspaceRoot, "artifact.txt");
   await writeFile(
     workspaceFile,
@@ -214,7 +218,10 @@ async function assertInstalledRuntime(root) {
 }
 
 async function readInstalledServerConfig(root) {
-  const manifest = JSON.parse(await readFile(join(root, ".codex-plugin", "plugin.json"), "utf8"));
+  const manifest = parseJsonObjectRejectingDuplicateKeys(
+    await readFile(join(root, ".codex-plugin", "plugin.json"), "utf8"),
+    "Installed plugin.json",
+  );
   if (manifest.name !== PLUGIN_NAME) {
     throw new Error(`Installed plugin manifest name must be ${PLUGIN_NAME}`);
   }
@@ -379,6 +386,11 @@ function assertInsideRoot(root, path, message) {
   if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
     throw new Error(message);
   }
+}
+
+function isEqualOrInsideRoot(root, path) {
+  const relativePath = relative(resolve(root), resolve(path));
+  return relativePath === "" || (!relativePath.startsWith("..") && !isAbsolute(relativePath));
 }
 
 async function assertNoUnexpectedManagedRuntimeFiles(root) {

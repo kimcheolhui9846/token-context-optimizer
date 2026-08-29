@@ -104,6 +104,10 @@ async function preflightSources() {
     "Source .mcp.json",
   );
   assertCanonicalMcpConfig(sourceMcpConfig, "Source .mcp.json");
+  parseJsonObjectRejectingDuplicateKeys(
+    await readFile(join(sourceRoot, ".codex-plugin", "plugin.json"), "utf8"),
+    "Source plugin.json",
+  );
 }
 
 async function preflightTarget(path) {
@@ -125,8 +129,14 @@ async function preflightTarget(path) {
 
   let manifest;
   try {
-    manifest = JSON.parse(await readFile(join(path, ".codex-plugin", "plugin.json"), "utf8"));
-  } catch {
+    manifest = parseJsonObjectRejectingDuplicateKeys(
+      await readFile(join(path, ".codex-plugin", "plugin.json"), "utf8"),
+      "Installed target plugin.json",
+    );
+  } catch (error) {
+    if (!isNotFoundError(error)) {
+      throw error;
+    }
     throw new Error(
       "Install target is not empty and does not contain a readable token-context-optimizer manifest.",
     );
@@ -249,7 +259,10 @@ async function updateMarketplace(path, pluginRoot, options) {
   const sourcePath = toMarketplaceSourcePath(marketplaceRoot, pluginRoot);
   let marketplace;
   try {
-    marketplace = JSON.parse(await readFile(path, "utf8"));
+    marketplace = parseJsonObjectRejectingDuplicateKeys(
+      await readFile(path, "utf8"),
+      "Marketplace file",
+    );
   } catch (error) {
     if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
       marketplace = {

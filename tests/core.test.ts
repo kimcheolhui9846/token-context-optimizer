@@ -114,6 +114,52 @@ function duplicateLaunchFieldMcpConfigJson(): string {
   ].join("");
 }
 
+function pluginManifestWithDuplicateField(field: string, firstValue: unknown, secondValue: unknown): string {
+  const manifestFields: Record<string, unknown> = {
+    name: "token-context-optimizer",
+    version: "0.1.0",
+    description: "Codex plugin for safer token-efficient artifact indexing, bounded retrieval, and exact-data preservation.",
+    skills: "./skills/",
+    mcpServers: "./.mcp.json",
+    interface: {
+      displayName: "Token Context Optimizer",
+      shortDescription: "Safely reduce Codex context size with source-backed excerpts.",
+      longDescription:
+        "Indexes local artifacts, estimates context size, and returns bounded source-backed excerpts while preserving exact-sensitive data.",
+      developerName: "Codex Local",
+      category: "Productivity",
+      defaultPrompt: [
+        "Optimize a large artifact before loading it into Codex.",
+        "Classify this context before summarizing it.",
+        "Index this file and retrieve source-backed excerpts.",
+      ],
+    },
+  };
+  delete manifestFields[field];
+  const entries = [
+    `"${field}":${JSON.stringify(firstValue)}`,
+    `"${field}":${JSON.stringify(secondValue)}`,
+    ...Object.entries(manifestFields).map(([key, value]) => `"${key}":${JSON.stringify(value)}`),
+  ];
+  return `{${entries.join(",")}}`;
+}
+
+function duplicatePluginsMarketplaceJson(): string {
+  return [
+    "{",
+    "\"name\":\"personal\",",
+    "\"plugins\":[{\"name\":\"discarded\",\"source\":{\"source\":\"local\",\"path\":\"./discarded\"}}],",
+    "\"plugins\":[{\"name\":\"existing\",\"source\":{\"source\":\"local\",\"path\":\"./existing\"}}]",
+    "}",
+  ].join("");
+}
+
+const duplicateManifestJsonCases = [
+  pluginManifestWithDuplicateField("name", "other-plugin", "token-context-optimizer"),
+  pluginManifestWithDuplicateField("skills", "./evil-skills/", "./skills/"),
+  pluginManifestWithDuplicateField("mcpServers", "./evil.mcp.json", "./.mcp.json"),
+];
+
 function optimizerServer(config: McpConfigFixture): Record<string, unknown> {
   return config.mcpServers["token-context-optimizer"];
 }
@@ -1547,6 +1593,20 @@ describe("project configuration", () => {
     }
   });
 
+  it("source validator rejects duplicate raw plugin manifest members", async () => {
+    for (const rawManifest of duplicateManifestJsonCases) {
+      const root = await mkdtemp(join(tmpdir(), "tco-source-duplicate-manifest-"));
+      await copyValidationFixture(root);
+      await writeFile(join(root, ".codex-plugin", "plugin.json"), rawManifest, "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [join(process.cwd(), "scripts/validate-plugin.mjs")], {
+          cwd: root,
+        }),
+      ).rejects.toThrow(/duplicate/i);
+    }
+  });
+
   it("installer rejects noncanonical source MCP descriptors before copying", async () => {
     const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-noncanonical-mcp-"));
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-noncanonical-mcp-"));
@@ -1570,23 +1630,68 @@ describe("project configuration", () => {
   });
 
   it("installer rejects duplicate raw source MCP descriptors before copying", async () => {
-    const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-duplicate-mcp-"));
-    const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-mcp-"));
-    await copyValidationFixture(sourceRoot);
-    await mkdir(join(sourceRoot, "scripts"), { recursive: true });
-    await cp("scripts/install-local-plugin.mjs", join(sourceRoot, "scripts", "install-local-plugin.mjs"));
-    await cp("scripts/plugin-runtime.mjs", join(sourceRoot, "scripts", "plugin-runtime.mjs"));
-    await writeFile(join(sourceRoot, ".mcp.json"), duplicateTopLevelMcpConfigJson(), "utf8");
+    for (const rawConfig of [
+      duplicateTopLevelMcpConfigJson(),
+      duplicateServerNameMcpConfigJson(),
+      duplicateLaunchFieldMcpConfigJson(),
+    ]) {
+      const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-duplicate-mcp-"));
+      const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-mcp-"));
+      await copyValidationFixture(sourceRoot);
+      await mkdir(join(sourceRoot, "scripts"), { recursive: true });
+      await cp("scripts/install-local-plugin.mjs", join(sourceRoot, "scripts", "install-local-plugin.mjs"));
+      await cp("scripts/plugin-runtime.mjs", join(sourceRoot, "scripts", "plugin-runtime.mjs"));
+      await writeFile(join(sourceRoot, ".mcp.json"), rawConfig, "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+          "--target",
+          target,
+          "--no-marketplace",
+        ]),
+      ).rejects.toThrow(/duplicate/i);
+      await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
+    }
+  });
+
+  it("installer rejects duplicate raw target ownership manifests before copying", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-manifest-"));
+    await mkdir(join(target, ".codex-plugin"), { recursive: true });
+    await writeFile(
+      join(target, ".codex-plugin", "plugin.json"),
+      pluginManifestWithDuplicateField("name", "other-plugin", "token-context-optimizer"),
+      "utf8",
+    );
 
     await expect(
       execFileAsync(process.execPath, [
-        join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+        "scripts/install-local-plugin.mjs",
         "--target",
         target,
         "--no-marketplace",
       ]),
     ).rejects.toThrow(/duplicate/i);
     await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
+  });
+
+  it("installer rejects duplicate raw marketplace members before rewriting", async () => {
+    const marketplaceRoot = await mkdtemp(join(tmpdir(), "tco-marketplace-duplicate-raw-"));
+    const target = join(marketplaceRoot, ".codex", "plugins", "token-context-optimizer");
+    const marketplacePath = join(marketplaceRoot, ".agents", "plugins", "marketplace.json");
+    await mkdir(join(marketplaceRoot, ".agents", "plugins"), { recursive: true });
+    await writeFile(marketplacePath, duplicatePluginsMarketplaceJson(), "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--marketplace",
+        marketplacePath,
+      ]),
+    ).rejects.toThrow(/duplicate/i);
+    await expect(readFile(marketplacePath, "utf8")).resolves.toBe(duplicatePluginsMarketplaceJson());
   });
 
   it("verifier rejects duplicate raw installed MCP descriptor members", async () => {
@@ -1612,6 +1717,50 @@ describe("project configuration", () => {
         ]),
       ).rejects.toThrow(/duplicate/i);
     }
+  });
+
+  it("verifier rejects duplicate raw installed plugin manifest members", async () => {
+    for (const rawManifest of duplicateManifestJsonCases) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-duplicate-manifest-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      await writeFile(join(target, ".codex-plugin", "plugin.json"), rawManifest, "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/duplicate/i);
+    }
+  });
+
+  it("verifier rejects temporary workspaces inside the plugin root", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-contained-workspace-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ], {
+        env: { ...process.env, TEMP: target, TMP: target, TMPDIR: target },
+      }),
+    ).rejects.toThrow(/outside the plugin root/);
+    expect(
+      (await readdir(target)).filter((entry) => entry.startsWith("tco-installed-workspace-")),
+    ).toEqual([]);
   });
 
   it("verifier requires the installed manifest to point at .mcp.json", async () => {
@@ -2177,6 +2326,22 @@ describe("project configuration", () => {
         consumedLines: 0,
       }),
     ).toThrow(/Malformed MCP stdout line: not-json/);
+  });
+
+  it("rejects escaped-equivalent, nested, and deeply nested duplicate JSON keys", async () => {
+    await execFileAsync(process.execPath, [
+      "--input-type=module",
+      "-e",
+      [
+        "import { parseJsonObjectRejectingDuplicateKeys } from './scripts/plugin-runtime.mjs';",
+        "for (const input of ['{\"a\":1,\"\\\\u0061\":2}', '{\"outer\":{\"x\":1,\"x\":2}}']) {",
+        "  try { parseJsonObjectRejectingDuplicateKeys(input, 'probe'); process.exit(10); }",
+        "  catch (error) { if (!/duplicate/i.test(error.message)) throw error; }",
+        "}",
+        "try { parseJsonObjectRejectingDuplicateKeys('['.repeat(130) + '0' + ']'.repeat(130), 'probe'); process.exit(11); }",
+        "catch (error) { if (!/nesting depth/i.test(error.message)) throw error; }",
+      ].join("\n"),
+    ]);
   });
 
   it("waits for complete MCP stdout lines before parsing", () => {

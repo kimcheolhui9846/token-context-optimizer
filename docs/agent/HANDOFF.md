@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Rerun independent review lanes for PR #2 after the raw MCP duplicate-key remediation.
+Commit, push, update PR #2, and rerun independent review lanes after the manifest, marketplace, and workspace boundary remediation.
 
 ## Workspace
 
@@ -241,6 +241,23 @@ Rerun independent review lanes for PR #2 after the raw MCP duplicate-key remedia
   - Committed `fix: reject duplicate mcp descriptor keys` as `31836ef`.
   - Pushed `feature/local-install-workflow` to origin.
   - Updated PR #2 body to the 146-test verification state.
+- Raw MCP duplicate-key handoff update:
+  - Committed `docs: record duplicate key remediation handoff` as `e63d8b7`.
+  - Pushed `feature/local-install-workflow` to origin.
+- Independent re-review completed against `e63d8b7`:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Remaining remediation scope:
+    - Reject duplicate raw JSON object members in `plugin.json` for source validation, target ownership, and installed verification.
+    - Reject duplicate raw marketplace JSON members before rewriting the shared registry.
+    - Reject verifier temporary workspaces that are equal to or contained by the plugin root.
+    - Expand installer duplicate raw MCP coverage and refresh stale handoff/plan state.
+- Manifest, marketplace, and workspace boundary remediation completed locally:
+  - Added RED/GREEN tests for duplicate raw plugin manifest `name`, `skills`, and `mcpServers` members in source validation and installed verification.
+  - Added tests for duplicate raw target ownership manifests, duplicate raw marketplace `plugins` members, all three duplicate raw MCP forms in installer preflight, verifier rejection/cleanup when temp roots point inside the plugin root, and direct parser coverage for escaped-equivalent keys, nested duplicates, and excessive nesting depth.
+  - Source validation, installer source preflight, installer target ownership preflight, installed verification, and marketplace rewriting now use `parseJsonObjectRejectingDuplicateKeys` for trust-bearing JSON.
+  - The duplicate-key parser now has size and nesting-depth bounds.
+  - Installed verification now canonicalizes its temporary workspace and rejects it before launch if it is inside the plugin root.
 
 ## Design Summary
 
@@ -261,7 +278,7 @@ Rerun independent review lanes for PR #2 after the raw MCP duplicate-key remedia
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
 - Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, `hooks`, and `skills`.
-- Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, rejects duplicate raw JSON object members in `.mcp.json`, requires a canonical descriptor with exactly one `mcpServers` map and one exact `token-context-optimizer` server, launches only that installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
+- Verifier reads the installed manifest with duplicate-key rejection, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, rejects duplicate raw JSON object members in `.mcp.json`, requires a canonical descriptor with exactly one `mcpServers` map and one exact `token-context-optimizer` server, launches only that installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS` only after proving that fixture is outside the plugin root, cleans that fixture up, and confirms plugin-root indexing is denied.
 - Verifier requires every installed runtime entry and manifest path to be a regular, non-hard-linked physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
 
 ## Latest Verification
@@ -472,6 +489,26 @@ Rerun independent review lanes for PR #2 after the raw MCP duplicate-key remedia
   - `npm.cmd run install:local -- --target $env:TEMP\tco-raw-duplicate-gate-20260829-1654\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-raw-duplicate-gate-20260829-1654\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-raw-duplicate-gate-20260829-1654\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - `git diff --check` - exit 0.
+- PR #2 manifest/marketplace/workspace boundary remediation RED:
+  - `npm.cmd test -- --run tests/core.test.ts -t "duplicate raw plugin manifest|target ownership manifests|marketplace members|temporary workspaces inside|duplicate raw source MCP"` - 4 expected failures before implementation, covering source manifest duplicate acceptance, target ownership duplicate acceptance, marketplace duplicate acceptance, and verifier contained workspace acceptance.
+- PR #2 manifest/marketplace/workspace boundary remediation targeted GREEN:
+  - `npm.cmd test -- --run tests/core.test.ts -t "duplicate raw plugin manifest|target ownership manifests|marketplace members|temporary workspaces inside|duplicate raw source MCP|duplicate raw installed plugin manifest"` - 6 tests passed.
+  - `npm.cmd test -- --run tests/core.test.ts -t "escaped-equivalent|duplicate raw plugin manifest|target ownership manifests|marketplace members|temporary workspaces inside"` - 5 tests passed.
+  - `npm.cmd run typecheck` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\validate-plugin.mjs` - exit 0.
+- PR #2 manifest/marketplace/workspace boundary remediation full gate:
+  - `npm.cmd test` - 152 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-manifest-boundary-gate-20260829-1717\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-manifest-boundary-gate-20260829-1717\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-manifest-boundary-gate-20260829-1717\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -492,10 +529,11 @@ Rerun independent review lanes for PR #2 after the raw MCP duplicate-key remedia
 
 ## Next Steps
 
-1. Commit and push this handoff-only status update.
-2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-3. If both review lanes clear, mark PR #2 ready for review.
-4. Do not merge PR #2 without explicit user approval.
+1. Commit and push the manifest/marketplace/workspace boundary remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the latest 152-test verification state.
+3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+4. If both review lanes clear, mark PR #2 ready for review.
+5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

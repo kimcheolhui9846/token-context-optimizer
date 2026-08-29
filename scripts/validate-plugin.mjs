@@ -10,7 +10,10 @@ import {
 
 const root = process.cwd();
 const manifestPath = join(root, ".codex-plugin", "plugin.json");
-const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+const manifest = parseJsonObjectRejectingDuplicateKeys(
+  await readFile(manifestPath, "utf8"),
+  "plugin.json",
+);
 const mcpPath = join(root, ".mcp.json");
 const mcpConfig = parseJsonObjectRejectingDuplicateKeys(
   await readFile(mcpPath, "utf8"),
