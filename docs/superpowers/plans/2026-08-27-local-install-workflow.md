@@ -628,6 +628,6 @@ Added a verifier regression where `TEMP`, `TMP`, and `TMPDIR` point at `pluginRo
 
 Verifier containment now treats only `..`, `../...`, and `..\...` as parent-relative paths, so names like `..temp` remain correctly classified as children of the plugin root.
 
-- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+- [x] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
-Full local gate completed with 156 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Next: commit and push the remediation, update PR #2 to the 156-test verification state, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.
+Status: full local gate completed with 156 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Containment remediation was committed as `7f0e4b9`, pushed to `feature/local-install-workflow`, and PR #2 body now records the 156-test verification state. Independent code review against `7f0e4b9` found no remaining code blockers, but requested this committed handoff/plan state refresh before final readiness. Next: rerun independent `code-reviewer` and `architect` lanes against the latest PR #2 head; if both clear, mark PR #2 ready for review. Do not merge without explicit user approval.
