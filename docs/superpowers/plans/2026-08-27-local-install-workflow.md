@@ -606,4 +606,28 @@ Source validation and installed verification now read `plugin.json` through `par
 
 - [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
-Full local gate is complete with 152 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.
+Status: full local gate completed with 152 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Remediation was committed as `533c984`, pushed to `feature/local-install-workflow`, and PR #2 body now records the 152-test verification state. Independent re-review against PR #2 head `533c984` is in progress; if both review lanes clear, mark PR #2 ready for review. Do not merge without explicit user approval.
+
+### Task 16: Containment And Installer Coverage Re-review Remediation
+
+**Files:**
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent re-review against PR #2 head `533c984` returned an architect `BLOCK` for stale handoff/plan state and a code-reviewer `With fixes` verdict. Blocking remediation scope: correct verifier containment for child names beginning with `..`, add installer-specific coverage for duplicate source manifests, symlinked runtime source components, and hard-linked runtime sources, and refresh handoff/plan state.
+
+- [x] **Step 2: RED tests for containment and installer source coverage**
+
+Added a verifier regression where `TEMP`, `TMP`, and `TMPDIR` point at `pluginRoot\..temp`, plus installer-source tests for duplicate raw source `plugin.json`, symlinked runtime source components, and hard-linked runtime source files. RED verification failed for the expected containment reason: verifier accepted a workspace under `pluginRoot\..temp`.
+
+- [x] **Step 3: Parent-segment containment fix**
+
+Verifier containment now treats only `..`, `../...`, and `..\...` as parent-relative paths, so names like `..temp` remain correctly classified as children of the plugin root.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Full local gate completed with 156 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Next: commit and push the remediation, update PR #2 to the 156-test verification state, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.

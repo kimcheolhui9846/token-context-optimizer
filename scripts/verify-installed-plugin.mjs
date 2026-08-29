@@ -383,14 +383,18 @@ async function resolveManifestPath(root, path) {
 
 function assertInsideRoot(root, path, message) {
   const relativePath = relative(resolve(root), resolve(path));
-  if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
+  if (isParentRelativePath(relativePath) || isAbsolute(relativePath)) {
     throw new Error(message);
   }
 }
 
 function isEqualOrInsideRoot(root, path) {
   const relativePath = relative(resolve(root), resolve(path));
-  return relativePath === "" || (!relativePath.startsWith("..") && !isAbsolute(relativePath));
+  return relativePath === "" || (!isParentRelativePath(relativePath) && !isAbsolute(relativePath));
+}
+
+function isParentRelativePath(relativePath) {
+  return relativePath === ".." || relativePath.startsWith("../") || relativePath.startsWith("..\\");
 }
 
 async function assertNoUnexpectedManagedRuntimeFiles(root) {

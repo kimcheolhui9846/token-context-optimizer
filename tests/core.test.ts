@@ -171,6 +171,12 @@ async function copyValidationFixture(root: string): Promise<void> {
   await cp(".mcp.json", join(root, ".mcp.json"));
 }
 
+async function copyInstallerFixture(root: string): Promise<void> {
+  await mkdir(join(root, "scripts"), { recursive: true });
+  await cp("scripts/install-local-plugin.mjs", join(root, "scripts", "install-local-plugin.mjs"));
+  await cp("scripts/plugin-runtime.mjs", join(root, "scripts", "plugin-runtime.mjs"));
+}
+
 async function expectDirectoryEmpty(root: string): Promise<void> {
   await expect(readdir(root)).resolves.toEqual([]);
 }
@@ -1611,9 +1617,7 @@ describe("project configuration", () => {
     const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-noncanonical-mcp-"));
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-noncanonical-mcp-"));
     await copyValidationFixture(sourceRoot);
-    await mkdir(join(sourceRoot, "scripts"), { recursive: true });
-    await cp("scripts/install-local-plugin.mjs", join(sourceRoot, "scripts", "install-local-plugin.mjs"));
-    await cp("scripts/plugin-runtime.mjs", join(sourceRoot, "scripts", "plugin-runtime.mjs"));
+    await copyInstallerFixture(sourceRoot);
     const config = canonicalMcpConfig();
     config.mcpServers.sibling = { command: "node", args: ["./server.mjs"], cwd: "." };
     await writeFile(join(sourceRoot, ".mcp.json"), JSON.stringify(config), "utf8");
@@ -1638,9 +1642,7 @@ describe("project configuration", () => {
       const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-duplicate-mcp-"));
       const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-mcp-"));
       await copyValidationFixture(sourceRoot);
-      await mkdir(join(sourceRoot, "scripts"), { recursive: true });
-      await cp("scripts/install-local-plugin.mjs", join(sourceRoot, "scripts", "install-local-plugin.mjs"));
-      await cp("scripts/plugin-runtime.mjs", join(sourceRoot, "scripts", "plugin-runtime.mjs"));
+      await copyInstallerFixture(sourceRoot);
       await writeFile(join(sourceRoot, ".mcp.json"), rawConfig, "utf8");
 
       await expect(
@@ -1652,6 +1654,26 @@ describe("project configuration", () => {
         ]),
       ).rejects.toThrow(/duplicate/i);
       await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
+    }
+  });
+
+  it("installer rejects duplicate raw source plugin manifests before copying", async () => {
+    for (const rawManifest of duplicateManifestJsonCases) {
+      const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-duplicate-manifest-"));
+      const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-manifest-source-"));
+      await copyValidationFixture(sourceRoot);
+      await copyInstallerFixture(sourceRoot);
+      await writeFile(join(sourceRoot, ".codex-plugin", "plugin.json"), rawManifest, "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+          "--target",
+          target,
+          "--no-marketplace",
+        ]),
+      ).rejects.toThrow(/duplicate/i);
+      await expect(access(join(target, ".codex-plugin", "plugin.json"))).rejects.toThrow();
     }
   });
 
@@ -1760,6 +1782,31 @@ describe("project configuration", () => {
     ).rejects.toThrow(/outside the plugin root/);
     expect(
       (await readdir(target)).filter((entry) => entry.startsWith("tco-installed-workspace-")),
+    ).toEqual([]);
+  });
+
+  it("verifier rejects temporary workspaces in dot-dot-prefixed plugin directories", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-dotdot-contained-workspace-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    const tempParent = join(target, "..temp");
+    await mkdir(tempParent);
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ], {
+        env: { ...process.env, TEMP: tempParent, TMP: tempParent, TMPDIR: tempParent },
+      }),
+    ).rejects.toThrow(/outside the plugin root/);
+    expect(
+      (await readdir(tempParent)).filter((entry) => entry.startsWith("tco-installed-workspace-")),
     ).toEqual([]);
   });
 
@@ -2238,6 +2285,62 @@ describe("project configuration", () => {
     await expect(readFile(join(target, "bin", "token-context-optimizer.mjs"), "utf8")).resolves.not.toBe(
       "external",
     );
+  });
+
+  it("installer rejects symlinked runtime source components before copying", async () => {
+    const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-symlink-source-"));
+    const target = await mkdtemp(join(tmpdir(), "tco-install-symlink-source-target-"));
+    await copyValidationFixture(sourceRoot);
+    await copyInstallerFixture(sourceRoot);
+    await rm(join(sourceRoot, "bin"), { recursive: true, force: true });
+    const externalBin = await mkdtemp(join(tmpdir(), "tco-install-symlink-source-bin-"));
+    await writeFile(join(externalBin, "token-context-optimizer.mjs"), "external", "utf8");
+    try {
+      await symlink(externalBin, join(sourceRoot, "bin"), "junction");
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "EPERM") {
+        return;
+      }
+      throw error;
+    }
+
+    await expect(
+      execFileAsync(process.execPath, [
+        join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/symlinked path component/);
+    await expect(access(join(target, "bin", "token-context-optimizer.mjs"))).rejects.toThrow();
+  });
+
+  it("installer rejects hard-linked runtime sources before copying", async () => {
+    const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-hardlink-source-"));
+    const target = await mkdtemp(join(tmpdir(), "tco-install-hardlink-source-target-"));
+    await copyValidationFixture(sourceRoot);
+    await copyInstallerFixture(sourceRoot);
+    const externalMcp = join(await mkdtemp(join(tmpdir(), "tco-install-hardlink-source-external-")), ".mcp.json");
+    await writeFile(externalMcp, await readFile(join(sourceRoot, ".mcp.json"), "utf8"), "utf8");
+    await rm(join(sourceRoot, ".mcp.json"), { force: true });
+    try {
+      await link(externalMcp, join(sourceRoot, ".mcp.json"));
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "EPERM") {
+        return;
+      }
+      throw error;
+    }
+
+    await expect(
+      execFileAsync(process.execPath, [
+        join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/hard-linked/);
+    await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
   });
 
   it("installer rejects unknown cli options before defaulting", async () => {
