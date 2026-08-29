@@ -577,4 +577,4 @@ Added `parseJsonObjectRejectingDuplicateKeys` in `scripts/plugin-runtime.mjs` an
 
 Targeted duplicate raw-key checks, smoke cleanup checks, script syntax checks, and `npm.cmd run typecheck` pass locally with 146 tests collected. Next: run the full gate, commit and push the remediation, update PR #2, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.
 
-Status: full local gate is complete with 146 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.
+Status: full local gate is complete with 146 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Remediation was committed as `31836ef`, pushed to PR #2, and the PR body was updated to the 146-test state. A handoff-only status update is being committed before independent re-review.

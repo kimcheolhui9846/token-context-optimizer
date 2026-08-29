@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish the raw MCP duplicate-key remediation for PR #2, run the full verification gate, commit/push, update the PR body, and rerun independent review lanes.
+Rerun independent review lanes for PR #2 after the raw MCP duplicate-key remediation.
 
 ## Workspace
 
@@ -237,6 +237,10 @@ Finish the raw MCP duplicate-key remediation for PR #2, run the full verificatio
   - Added `parseJsonObjectRejectingDuplicateKeys` in `scripts/plugin-runtime.mjs`.
   - `scripts/validate-plugin.mjs`, `scripts/install-local-plugin.mjs`, and `scripts/verify-installed-plugin.mjs` now reject duplicate raw `.mcp.json` object members before running canonical descriptor validation.
   - Smoke cleanup subprocess tests now set `TEMP`, `TMP`, and `TMPDIR` to the dedicated temp parent.
+- Raw MCP duplicate-key remediation PR update:
+  - Committed `fix: reject duplicate mcp descriptor keys` as `31836ef`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 146-test verification state.
 
 ## Design Summary
 
@@ -488,11 +492,10 @@ Finish the raw MCP duplicate-key remediation for PR #2, run the full verificatio
 
 ## Next Steps
 
-1. Commit and push the raw MCP duplicate-key remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the latest 146-test verification state.
-3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-4. If both review lanes clear, mark PR #2 ready for review.
-5. Do not merge PR #2 without explicit user approval.
+1. Commit and push this handoff-only status update.
+2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+3. If both review lanes clear, mark PR #2 ready for review.
+4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 
