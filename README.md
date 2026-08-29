@@ -73,7 +73,7 @@ For safety, the installer copies runtime files from the checked-in repository ro
 
 Run local installs as a single-writer maintenance operation while ChatGPT desktop is not loading the plugin, then restart the app after install or refresh.
 
-The installed verifier requires each runtime entry to be a regular file physically inside the plugin root, rejects unexpected files inside managed runtime directories, reads `.codex-plugin/plugin.json`, requires its MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers` metadata, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node and platform loader execution hooks, rejects configured MCP `env`, allows only `TCO_ALLOWED_ROOTS` in `env_vars`, indexes a temporary workspace file, cleans up that fixture, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
+The installed verifier requires each runtime entry to be a regular, non-hard-linked file physically inside the plugin root, rejects unexpected files inside managed runtime directories, reads `.codex-plugin/plugin.json`, requires `skills` to point at the installed `./skills/` directory, rejects manifest `hooks`, requires its MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers` metadata, requires the configured server to launch the installed bundle from inside the plugin root, strips inherited Node and platform loader execution hooks, rejects configured MCP `env`, requires `env_vars` to be exactly `["TCO_ALLOWED_ROOTS"]`, indexes a temporary workspace file, cleans up that fixture, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere.
 
 ## Superpowers Use
 

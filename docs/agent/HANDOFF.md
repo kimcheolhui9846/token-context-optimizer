@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Rerun independent review for PR #2 after the native subagent usage limit resets.
+Finish, push, and independently re-review the installed metadata contract remediation for PR #2.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Rerun independent review for PR #2 after the native subagent usage limit resets.
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, and installed ownership remediation commit `c580694`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, and ownership wait-state commit `1f035fb`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -174,6 +174,18 @@ Rerun independent review for PR #2 after the native subagent usage limit resets.
   - Both lanes errored with native subagent usage limit before returning evidence: retry after 4:32 AM.
   - The agents were closed after the failure.
   - PR #2 remains draft and must not be treated as independently approved.
+- Independent review completed against `1f035fb`:
+  - `architect` returned `BLOCK`.
+  - Replacement `code-reviewer` returned `REQUEST CHANGES`; the first code-reviewer lane timed out without evidence and was closed.
+  - Remaining remediation scope:
+    - Validate installed manifest `skills` and reject manifest `hooks`.
+    - Require installed MCP `env_vars` to be exactly `["TCO_ALLOWED_ROOTS"]` instead of synthesizing a valid environment for broken metadata.
+    - Reject hard-linked installed runtime files in the verifier.
+- Installed metadata contract remediation completed locally:
+  - Added RED/GREEN tests for installed manifest `skills` drift, manifest `hooks`, missing/empty/duplicate `env_vars`, and hard-linked installed `.mcp.json` or bundle files.
+  - Added shared runtime metadata constants in `scripts/plugin-runtime.mjs`.
+  - Verifier now requires exact `skills`, exact installed `.mcp.json`, no manifest hooks, exact `env_vars: ["TCO_ALLOWED_ROOTS"]`, and non-hard-linked runtime files.
+  - Source validator now uses the same runtime metadata constants.
 
 ## Design Summary
 
@@ -194,8 +206,8 @@ Rerun independent review for PR #2 after the native subagent usage limit resets.
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
 - Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, and `skills`.
-- Verifier reads the installed manifest, requires the manifest MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers`, allowlists inherited `env_vars` to `TCO_ALLOWED_ROOTS`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
-- Verifier requires every installed runtime entry and manifest path to be a regular physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
+- Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers`, requires exact `env_vars: ["TCO_ALLOWED_ROOTS"]`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
+- Verifier requires every installed runtime entry and manifest path to be a regular, non-hard-linked physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
 
 ## Latest Verification
 
@@ -334,6 +346,21 @@ Rerun independent review for PR #2 after the native subagent usage limit resets.
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-ownership-gate-20260829-0013\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-ownership-gate-20260829-0013\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-ownership-gate-20260829-0013\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - `git diff --check` - exit 0.
+- PR #2 installed metadata contract remediation RED/GREEN:
+  - RED before implementation: targeted tests failed because verifier returned `ok: true` for manifest `skills` drift, manifest `hooks`, missing/empty/duplicate `env_vars`, and hard-linked installed runtime files.
+  - `npm.cmd test -- --run tests/core.test.ts -t "bundled skills directory|declare hooks|exactly inherit TCO_ALLOWED_ROOTS|hard-linked installed runtime"` - 4 tests passed.
+  - Follow-up targeted check: `npm.cmd test -- --run tests/core.test.ts -t "outside the installed bundle|manifest to point at .mcp.json|bundled skills directory|declare hooks|exactly inherit TCO_ALLOWED_ROOTS|hard-linked installed runtime"` - 6 tests passed.
+- PR #2 installed metadata contract remediation full gate:
+  - `npm.cmd test` - 134 tests passed.
+  - `npm.cmd run typecheck` - exit 0.
+  - Initial parallel `npm.cmd run build` failed because Windows locked `bin\token-context-optimizer.mjs` while the test suite was reading/installing it; sequential rerun passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-contract-gate-20260829-1106\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-contract-gate-20260829-1106\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-contract-gate-20260829-1106\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -354,10 +381,11 @@ Rerun independent review for PR #2 after the native subagent usage limit resets.
 
 ## Next Steps
 
-1. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head after the subagent limit resets.
-2. If both review lanes clear, mark PR #2 ready for review.
-3. If either lane returns `REQUEST CHANGES` or `BLOCK`, implement the next remediation with RED/GREEN tests and update this handoff again.
-4. Do not merge PR #2 without explicit user approval.
+1. Commit and push the installed metadata contract remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the latest verification state.
+3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+4. If both review lanes clear, mark PR #2 ready for review.
+5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

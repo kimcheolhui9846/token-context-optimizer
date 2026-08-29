@@ -16,6 +16,9 @@ export const MANAGED_RUNTIME_DIRECTORIES = Object.freeze([
 ]);
 
 export const BUNDLED_SERVER_ENTRYPOINT = "./bin/token-context-optimizer.mjs";
+export const PLUGIN_SKILLS_PATH = "./skills/";
+export const PLUGIN_MCP_SERVERS_PATH = "./.mcp.json";
+export const REQUIRED_MCP_ENV_VARS = Object.freeze(["TCO_ALLOWED_ROOTS"]);
 
 export function resolvePluginRoot(args, env, optionName) {
   const rootArg = readOption(args, optionName);

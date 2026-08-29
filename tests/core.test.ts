@@ -1240,6 +1240,7 @@ describe("project configuration", () => {
             command: "node",
             args: [externalBundle],
             cwd: ".",
+            env_vars: ["TCO_ALLOWED_ROOTS"],
           },
         },
       }),
@@ -1288,6 +1289,48 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/installed \.mcp\.json/);
+  });
+
+  it("verifier requires the installed manifest to point at the bundled skills directory", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-alternate-skills-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    const manifest = JSON.parse(await readFile(join(target, ".codex-plugin", "plugin.json"), "utf8"));
+    manifest.skills = "./missing-skills/";
+    await writeFile(join(target, ".codex-plugin", "plugin.json"), JSON.stringify(manifest), "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/skills/);
+  });
+
+  it("verifier rejects installed manifests that declare hooks", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-manifest-hooks-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    const manifest = JSON.parse(await readFile(join(target, ".codex-plugin", "plugin.json"), "utf8"));
+    manifest.hooks = "./hooks.json";
+    await writeFile(join(target, ".codex-plugin", "plugin.json"), JSON.stringify(manifest), "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/hooks/);
   });
 
   it("verifier rejects Node execution hooks from installed MCP config env", async () => {
@@ -1355,6 +1398,33 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/env_vars/);
+  });
+
+  it("verifier requires installed MCP env_vars to exactly inherit TCO_ALLOWED_ROOTS", async () => {
+    for (const envVars of [undefined, [], ["TCO_ALLOWED_ROOTS", "TCO_ALLOWED_ROOTS"]]) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-exact-env-vars-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      const mcpConfig = JSON.parse(await readFile(join(target, ".mcp.json"), "utf8"));
+      if (envVars === undefined) {
+        delete mcpConfig.mcpServers["token-context-optimizer"].env_vars;
+      } else {
+        mcpConfig.mcpServers["token-context-optimizer"].env_vars = envVars;
+      }
+      await writeFile(join(target, ".mcp.json"), JSON.stringify(mcpConfig), "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/env_vars/);
+    }
   });
 
   it("verifier rejects configured env even when empty or null", async () => {
@@ -1479,6 +1549,40 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/regular runtime file/);
+  });
+
+  it("verifier rejects hard-linked installed runtime files", async () => {
+    for (const runtimeFile of [".mcp.json", "bin/token-context-optimizer.mjs"]) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-hardlink-runtime-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      const externalFile = join(
+        await mkdtemp(join(tmpdir(), "tco-installed-hardlink-external-")),
+        runtimeFile.replace(/[\\/]/gu, "-"),
+      );
+      await writeFile(externalFile, await readFile(join(target, runtimeFile)));
+      await rm(join(target, runtimeFile), { force: true });
+      try {
+        await link(externalFile, join(target, runtimeFile));
+      } catch (error) {
+        if (error && typeof error === "object" && "code" in error && error.code === "EPERM") {
+          return;
+        }
+        throw error;
+      }
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/hard-linked/);
+    }
   });
 
   it("verifier rejects stale managed runtime files", async () => {

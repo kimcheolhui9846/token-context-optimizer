@@ -19,10 +19,10 @@
 - `--no-marketplace` disables marketplace writes for staging-only tests.
 - Custom `--target` or `TCO_PLUGIN_INSTALL_DIR` installs must pass exactly one CLI marketplace mode, `--marketplace` or `--no-marketplace`; inherited marketplace environment variables are not consent for custom installs.
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
-- Installed verification must read `.codex-plugin/plugin.json` and require its MCP reference to point at the installed `.mcp.json` instead of hardcoding or accepting alternate MCP files.
-- Installed verification must require every installed runtime entry to be a regular file before launching the MCP server.
+- Installed verification must read `.codex-plugin/plugin.json`, require `skills` to point at `./skills/`, reject `hooks`, and require its MCP reference to point at the installed `.mcp.json` instead of hardcoding or accepting alternate MCP files.
+- Installed verification must require every installed runtime entry to be a regular, non-hard-linked file before launching the MCP server.
 - Installed verification and owned-target reinstalls must reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, and `skills`.
-- Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, allow only `TCO_ALLOWED_ROOTS` in `env_vars`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
+- Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, require `env_vars` to be exactly `["TCO_ALLOWED_ROOTS"]`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
 - Installer must preflight every runtime source from the checked-in repository root as a regular physical file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
 - Installer must reject symlinked install target components and every existing component of each runtime destination path before copying.
@@ -454,3 +454,33 @@ Verifier now requires `plugin.json` to point at the installed `.mcp.json`, valid
 Run the full gate with 130 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
 
 Status: targeted remediation verification, full local gate, commit, push, and PR body update are complete. Remediation was committed as `c580694` and PR #2 now records the 130-test verification state. Independent re-review was attempted with `code-reviewer` and `architect` lanes, but both errored with the native subagent usage limit before returning evidence. Retry the independent re-review after the usage limit resets.
+
+### Task 11: Installed Metadata Contract Remediation
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/validate-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: Independent review findings**
+
+Independent re-review against PR #2 head `1f035fb` returned `REQUEST CHANGES` from the code-reviewer lane and `BLOCK` from the architect lane. The remaining blocker is that installed verification did not fully prove the manifest-selected runtime contract: `skills`, `hooks`, exact `env_vars`, and hard-linked installed runtime files.
+
+- [x] **Step 2: RED tests for installed metadata contract**
+
+Added tests for installed manifest `skills` drift, manifest `hooks`, missing/empty/duplicate `env_vars`, and hard-linked installed `.mcp.json` or bundle files. These tests failed before implementation because the verifier returned `ok: true`.
+
+- [x] **Step 3: Canonical verifier and source validator contract**
+
+Added shared runtime metadata constants. The installed verifier now requires exact `skills`, exact installed `.mcp.json`, no manifest hooks, exact `env_vars: ["TCO_ALLOWED_ROOTS"]`, and non-hard-linked runtime files. The source validator now uses the same constants.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Run the full gate with 134 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
+
+Status: targeted RED/GREEN verification and the full local gate are complete with 134 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.

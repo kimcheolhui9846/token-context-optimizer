@@ -34,12 +34,12 @@ Default installs create or update a personal marketplace with a local entry for 
 
 The verifier resolves the installed plugin root from `--plugin-root <path>`, `TCO_PLUGIN_INSTALL_DIR`, or the same default destination rules as the installer, then canonicalizes the root before trusting installed metadata. It then:
 
-- Confirms the required runtime files exist as regular files physically inside the plugin root.
+- Confirms the required runtime files exist as regular, non-hard-linked files physically inside the plugin root.
 - Rejects unexpected files inside managed runtime directories.
-- Reads `.codex-plugin/plugin.json` and requires its MCP reference to point at the installed `.mcp.json` through physical containment checks.
+- Reads `.codex-plugin/plugin.json`, requires `skills` to point at the installed `./skills/` directory, rejects `hooks`, and requires the MCP reference to point at the installed `.mcp.json` through physical containment checks.
 - Requires `.mcp.json` to use the same standard `mcpServers` shape that plugin validation accepts.
 - Starts the configured `token-context-optimizer` MCP server from the installed plugin root.
-- Rejects configured MCP `env`, allows only `TCO_ALLOWED_ROOTS` in `env_vars`, and does not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
+- Rejects configured MCP `env`, requires `env_vars` to be exactly `["TCO_ALLOWED_ROOTS"]`, and does not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
 - Creates a temporary workspace fixture outside the plugin root.
 - Sets `TCO_ALLOWED_ROOTS` to that temporary workspace.
 - Calls MCP `initialize`, `tools/list`, and `index_artifact`.

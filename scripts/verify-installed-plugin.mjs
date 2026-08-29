@@ -6,7 +6,10 @@ import { isAbsolute, join, parse, relative, resolve } from "node:path";
 import {
   BUNDLED_SERVER_ENTRYPOINT,
   MANAGED_RUNTIME_DIRECTORIES,
+  PLUGIN_MCP_SERVERS_PATH,
   PLUGIN_NAME,
+  PLUGIN_SKILLS_PATH,
+  REQUIRED_MCP_ENV_VARS,
   RUNTIME_FILES,
   resolvePluginRoot,
   validateCliArgs,
@@ -199,6 +202,9 @@ async function assertInstalledRuntime(root) {
     if (!fileStat.isFile()) {
       throw new Error(`Installed plugin runtime file is not a regular runtime file: ${requiredFile}`);
     }
+    if (fileStat.nlink > 1) {
+      throw new Error(`Installed plugin runtime file is hard-linked and not safe to trust: ${requiredFile}`);
+    }
     const physicalPath = await realpath(path);
     assertInsideRoot(root, physicalPath, "Installed runtime files must stay inside the plugin root");
   }
@@ -210,8 +216,25 @@ async function readInstalledServerConfig(root) {
   if (manifest.name !== PLUGIN_NAME) {
     throw new Error(`Installed plugin manifest name must be ${PLUGIN_NAME}`);
   }
+  if (manifest.hooks !== undefined) {
+    throw new Error("Installed plugin manifest must not declare hooks");
+  }
+  if (manifest.skills !== PLUGIN_SKILLS_PATH) {
+    throw new Error(`Installed plugin manifest skills must point to ${PLUGIN_SKILLS_PATH}`);
+  }
+  const skillsPath = await resolveManifestPath(root, manifest.skills);
+  if (skillsPath !== resolve(root, "skills")) {
+    throw new Error("Installed plugin manifest skills must point to the installed skills directory");
+  }
+  const skillsStat = await lstat(skillsPath);
+  if (!skillsStat.isDirectory()) {
+    throw new Error("Installed plugin manifest skills path must be a directory");
+  }
   if (typeof manifest.mcpServers !== "string" || manifest.mcpServers.length === 0) {
     throw new Error("Installed plugin manifest must point to bundled MCP servers");
+  }
+  if (manifest.mcpServers !== PLUGIN_MCP_SERVERS_PATH) {
+    throw new Error(`Installed plugin manifest must point to the installed .mcp.json (${PLUGIN_MCP_SERVERS_PATH})`);
   }
   const mcpPath = await resolveManifestPath(root, manifest.mcpServers);
   if (mcpPath !== resolve(root, ".mcp.json")) {
@@ -242,15 +265,12 @@ async function readInstalledServerConfig(root) {
     }
     throw new Error("Configured MCP env is not allowed during installed verification");
   }
-  if (server.env_vars !== undefined) {
-    if (!Array.isArray(server.env_vars) || server.env_vars.some((key) => typeof key !== "string")) {
-      throw new Error(`Installed MCP ${PLUGIN_NAME} server env_vars must be an array of strings`);
-    }
-    for (const key of server.env_vars) {
-      if (isNodeExecutionHook(key) || key !== "TCO_ALLOWED_ROOTS") {
-        throw new Error("Installed MCP env_vars may only inherit TCO_ALLOWED_ROOTS");
-      }
-    }
+  if (
+    !Array.isArray(server.env_vars) ||
+    server.env_vars.length !== REQUIRED_MCP_ENV_VARS.length ||
+    server.env_vars.some((key, index) => key !== REQUIRED_MCP_ENV_VARS[index])
+  ) {
+    throw new Error("Installed MCP env_vars must exactly inherit TCO_ALLOWED_ROOTS");
   }
   return server;
 }
