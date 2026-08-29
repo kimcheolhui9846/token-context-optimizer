@@ -12,6 +12,7 @@ import {
   REQUIRED_MCP_ENV_VARS,
   RUNTIME_FILES,
   assertCanonicalMcpConfig,
+  parseJsonObjectRejectingDuplicateKeys,
   resolvePluginRoot,
   validateCliArgs,
 } from "./plugin-runtime.mjs";
@@ -241,7 +242,10 @@ async function readInstalledServerConfig(root) {
   if (mcpPath !== resolve(root, ".mcp.json")) {
     throw new Error("Installed plugin manifest must point to the installed .mcp.json");
   }
-  const mcpConfig = JSON.parse(await readFile(mcpPath, "utf8"));
+  const mcpConfig = parseJsonObjectRejectingDuplicateKeys(
+    await readFile(mcpPath, "utf8"),
+    "Installed .mcp.json",
+  );
   const server = selectPluginServerForUnsafeEnvInspection(mcpConfig);
   if (server.env !== undefined) {
     if (server.env && typeof server.env === "object" && !Array.isArray(server.env)) {

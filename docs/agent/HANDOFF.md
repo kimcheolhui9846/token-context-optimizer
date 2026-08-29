@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish the canonical MCP descriptor and cleanup remediation for PR #2, run the full verification gate, commit/push, update the PR body, and rerun independent review lanes.
+Finish the raw MCP duplicate-key remediation for PR #2, run the full verification gate, commit/push, update the PR body, and rerun independent review lanes.
 
 ## Workspace
 
@@ -221,6 +221,22 @@ Finish the canonical MCP descriptor and cleanup remediation for PR #2, run the f
   - Installed verification preserves specific unsafe `env` / `env_vars` diagnostics, then enforces the full canonical descriptor before launch.
   - Marketplace updates now leave unrelated entries intact and rewrite duplicate `token-context-optimizer` entries into one canonical local entry.
   - `smoke-mcp.mjs` now cleans both temporary roots in a top-level `finally` and supports `--simulate-copy-failure-after` for cleanup regression coverage.
+- Canonical MCP descriptor remediation PR update:
+  - Committed `fix: enforce canonical mcp descriptor` as `4c50dd8`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 143-test verification state.
+- Independent re-review completed against `4c50dd8`:
+  - `architect` returned `WATCH` with no blocker; it recommended future consolidation of canonical descriptor representations and manifest contract checks.
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - Remaining remediation scope:
+    - Reject duplicate raw JSON object members before `.mcp.json` semantic validation so duplicate `mcpServers`, server names, or launch fields cannot be collapsed by `JSON.parse`.
+    - Set `TMPDIR` as well as `TEMP` and `TMP` in smoke cleanup subprocess tests.
+    - Refresh handoff state after pushed head `4c50dd8`.
+- Raw MCP duplicate-key remediation completed locally:
+  - Added RED/GREEN tests for duplicate top-level `mcpServers`, duplicate `token-context-optimizer` server keys, and duplicate launch fields across source validation, installer preflight, and installed verification.
+  - Added `parseJsonObjectRejectingDuplicateKeys` in `scripts/plugin-runtime.mjs`.
+  - `scripts/validate-plugin.mjs`, `scripts/install-local-plugin.mjs`, and `scripts/verify-installed-plugin.mjs` now reject duplicate raw `.mcp.json` object members before running canonical descriptor validation.
+  - Smoke cleanup subprocess tests now set `TEMP`, `TMP`, and `TMPDIR` to the dedicated temp parent.
 
 ## Design Summary
 
@@ -241,7 +257,7 @@ Finish the canonical MCP descriptor and cleanup remediation for PR #2, run the f
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
 - Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, `hooks`, and `skills`.
-- Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, requires a canonical `.mcp.json` descriptor with exactly one `mcpServers` map and one exact `token-context-optimizer` server, launches only that installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
+- Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, rejects duplicate raw JSON object members in `.mcp.json`, requires a canonical descriptor with exactly one `mcpServers` map and one exact `token-context-optimizer` server, launches only that installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
 - Verifier requires every installed runtime entry and manifest path to be a regular, non-hard-linked physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
 
 ## Latest Verification
@@ -433,6 +449,25 @@ Finish the canonical MCP descriptor and cleanup remediation for PR #2, run the f
   - `npm.cmd run install:local -- --target $env:TEMP\tco-canonical-gate-20260829-1150\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-canonical-gate-20260829-1150\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-canonical-gate-20260829-1150\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - `git diff --check` - exit 0.
+- PR #2 raw MCP duplicate-key remediation RED:
+  - `npm.cmd test -- --run tests/core.test.ts -t "duplicate raw|smoke MCP temporary roots"` - 3 expected failures before implementation for source validator, installer preflight, and installed verifier duplicate raw-key acceptance; smoke cleanup tests passed with `TEMP`, `TMP`, and `TMPDIR`.
+- PR #2 raw MCP duplicate-key remediation targeted GREEN:
+  - `npm.cmd test -- --run tests/core.test.ts -t "duplicate raw|noncanonical MCP descriptors|noncanonical installed MCP launch metadata|smoke MCP temporary roots|env_vars|configured env"` - 10 tests passed.
+  - `npm.cmd run typecheck` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\validate-plugin.mjs` - exit 0.
+- PR #2 raw MCP duplicate-key remediation full gate:
+  - `npm.cmd test` - 146 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-raw-duplicate-gate-20260829-1654\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-raw-duplicate-gate-20260829-1654\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-raw-duplicate-gate-20260829-1654\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -453,8 +488,8 @@ Finish the canonical MCP descriptor and cleanup remediation for PR #2, run the f
 
 ## Next Steps
 
-1. Commit and push the canonical MCP descriptor remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the latest 143-test verification state.
+1. Commit and push the raw MCP duplicate-key remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the latest 146-test verification state.
 3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
 4. If both review lanes clear, mark PR #2 ready for review.
 5. Do not merge PR #2 without explicit user approval.

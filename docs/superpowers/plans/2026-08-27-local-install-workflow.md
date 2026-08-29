@@ -546,4 +546,35 @@ Added `assertCanonicalMcpConfig` and canonical descriptor constants in `scripts/
 
 Targeted regression checks, `tests/core.test.ts`, script syntax checks, and `npm.cmd run typecheck` pass locally with 143 tests. Next: run the full gate, commit and push the remediation, update PR #2, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.
 
-Status: full local gate is complete with 143 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.
+Status: full local gate completed with 143 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Remediation was committed as `4c50dd8`, pushed to PR #2, and the PR body was updated to the 143-test state. Independent re-review returned `WATCH` from the architect lane but `REQUEST CHANGES` from the code-reviewer lane because duplicate raw JSON object members were still collapsed before canonical MCP validation. Task 14 tracks that final raw descriptor remediation.
+
+### Task 14: Raw MCP Duplicate-Key Remediation
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/validate-plugin.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent re-review against PR #2 head `4c50dd8` returned `REQUEST CHANGES` from the code-reviewer lane and `WATCH` from the architect lane. Blocking scope: reject duplicate raw JSON object members before `.mcp.json` semantic validation, set `TMPDIR` in smoke cleanup subprocess tests, and refresh handoff state after the pushed head.
+
+- [x] **Step 2: RED tests for duplicate raw descriptor members**
+
+Added tests proving source validation, installer preflight, and installed verification reject duplicate top-level `mcpServers`, duplicate `token-context-optimizer` server keys, and duplicate launch fields before `JSON.parse` can collapse them. RED verification failed for the expected current-code reasons while `TMPDIR`-aware smoke cleanup tests passed.
+
+- [x] **Step 3: Shared raw parser and smoke test portability**
+
+Added `parseJsonObjectRejectingDuplicateKeys` in `scripts/plugin-runtime.mjs` and wired it into source validation, installer preflight, and installed verification for `.mcp.json`. Updated smoke cleanup subprocess tests to set `TEMP`, `TMP`, and `TMPDIR`.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Targeted duplicate raw-key checks, smoke cleanup checks, script syntax checks, and `npm.cmd run typecheck` pass locally with 146 tests collected. Next: run the full gate, commit and push the remediation, update PR #2, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.
+
+Status: full local gate is complete with 146 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.

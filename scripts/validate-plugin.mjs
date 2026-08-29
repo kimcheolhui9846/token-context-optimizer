@@ -5,13 +5,17 @@ import {
   PLUGIN_NAME,
   PLUGIN_SKILLS_PATH,
   assertCanonicalMcpConfig,
+  parseJsonObjectRejectingDuplicateKeys,
 } from "./plugin-runtime.mjs";
 
 const root = process.cwd();
 const manifestPath = join(root, ".codex-plugin", "plugin.json");
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const mcpPath = join(root, ".mcp.json");
-const mcpConfig = JSON.parse(await readFile(mcpPath, "utf8"));
+const mcpConfig = parseJsonObjectRejectingDuplicateKeys(
+  await readFile(mcpPath, "utf8"),
+  ".mcp.json",
+);
 const required = [
   ["name", "string"],
   ["version", "string"],

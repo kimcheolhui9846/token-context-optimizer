@@ -19,6 +19,7 @@ import {
   PLUGIN_NAME,
   RUNTIME_FILES,
   assertCanonicalMcpConfig,
+  parseJsonObjectRejectingDuplicateKeys,
   readOption,
   resolveDefaultMarketplacePath,
   resolvePluginRoot,
@@ -98,8 +99,9 @@ async function preflightSources() {
       throw new Error(`Runtime source escapes repository root: ${runtimeFile}`);
     }
   }
-  const sourceMcpConfig = JSON.parse(
+  const sourceMcpConfig = parseJsonObjectRejectingDuplicateKeys(
     await readFile(join(sourceRoot, PLUGIN_MCP_SERVERS_PATH), "utf8"),
+    "Source .mcp.json",
   );
   assertCanonicalMcpConfig(sourceMcpConfig, "Source .mcp.json");
 }

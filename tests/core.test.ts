@@ -67,6 +67,53 @@ function canonicalMcpConfig(): McpConfigFixture {
   };
 }
 
+function canonicalMcpServerJson(): string {
+  return [
+    "{",
+    "\"command\":\"node\",",
+    "\"args\":[\"./bin/token-context-optimizer.mjs\"],",
+    "\"cwd\":\".\",",
+    "\"env_vars\":[\"TCO_ALLOWED_ROOTS\"]",
+    "}",
+  ].join("");
+}
+
+function duplicateTopLevelMcpConfigJson(): string {
+  return [
+    "{",
+    "\"mcpServers\":{\"sibling\":{\"command\":\"node\",\"args\":[\"./server.mjs\"],\"cwd\":\".\"}},",
+    `"mcpServers":{"token-context-optimizer":${canonicalMcpServerJson()}}`,
+    "}",
+  ].join("");
+}
+
+function duplicateServerNameMcpConfigJson(): string {
+  return [
+    "{",
+    "\"mcpServers\":{",
+    "\"token-context-optimizer\":{\"command\":\"node\",\"args\":[\"./evil.mjs\"],\"cwd\":\".\",\"env_vars\":[\"TCO_ALLOWED_ROOTS\"]},",
+    `"token-context-optimizer":${canonicalMcpServerJson()}`,
+    "}",
+    "}",
+  ].join("");
+}
+
+function duplicateLaunchFieldMcpConfigJson(): string {
+  return [
+    "{",
+    "\"mcpServers\":{",
+    "\"token-context-optimizer\":{",
+    "\"command\":\"node\",",
+    "\"args\":[\"./evil.mjs\"],",
+    "\"args\":[\"./bin/token-context-optimizer.mjs\"],",
+    "\"cwd\":\".\",",
+    "\"env_vars\":[\"TCO_ALLOWED_ROOTS\"]",
+    "}",
+    "}",
+    "}",
+  ].join("");
+}
+
 function optimizerServer(config: McpConfigFixture): Record<string, unknown> {
   return config.mcpServers["token-context-optimizer"];
 }
@@ -1482,6 +1529,24 @@ describe("project configuration", () => {
     }
   });
 
+  it("source validator rejects duplicate raw MCP descriptor members", async () => {
+    for (const rawConfig of [
+      duplicateTopLevelMcpConfigJson(),
+      duplicateServerNameMcpConfigJson(),
+      duplicateLaunchFieldMcpConfigJson(),
+    ]) {
+      const root = await mkdtemp(join(tmpdir(), "tco-source-duplicate-mcp-"));
+      await copyValidationFixture(root);
+      await writeFile(join(root, ".mcp.json"), rawConfig, "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [join(process.cwd(), "scripts/validate-plugin.mjs")], {
+          cwd: root,
+        }),
+      ).rejects.toThrow(/duplicate/i);
+    }
+  });
+
   it("installer rejects noncanonical source MCP descriptors before copying", async () => {
     const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-noncanonical-mcp-"));
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-noncanonical-mcp-"));
@@ -1502,6 +1567,51 @@ describe("project configuration", () => {
       ]),
     ).rejects.toThrow(/canonical MCP/);
     await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
+  });
+
+  it("installer rejects duplicate raw source MCP descriptors before copying", async () => {
+    const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-duplicate-mcp-"));
+    const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-mcp-"));
+    await copyValidationFixture(sourceRoot);
+    await mkdir(join(sourceRoot, "scripts"), { recursive: true });
+    await cp("scripts/install-local-plugin.mjs", join(sourceRoot, "scripts", "install-local-plugin.mjs"));
+    await cp("scripts/plugin-runtime.mjs", join(sourceRoot, "scripts", "plugin-runtime.mjs"));
+    await writeFile(join(sourceRoot, ".mcp.json"), duplicateTopLevelMcpConfigJson(), "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/duplicate/i);
+    await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
+  });
+
+  it("verifier rejects duplicate raw installed MCP descriptor members", async () => {
+    for (const rawConfig of [
+      duplicateTopLevelMcpConfigJson(),
+      duplicateServerNameMcpConfigJson(),
+      duplicateLaunchFieldMcpConfigJson(),
+    ]) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-duplicate-mcp-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      await writeFile(join(target, ".mcp.json"), rawConfig, "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/duplicate/i);
+    }
   });
 
   it("verifier requires the installed manifest to point at .mcp.json", async () => {
@@ -2023,7 +2133,7 @@ describe("project configuration", () => {
     const smokeTmp = await mkdtemp(join(tmpdir(), "tco-smoke-temp-parent-"));
 
     await execFileAsync(process.execPath, ["scripts/smoke-mcp.mjs"], {
-      env: { ...process.env, TEMP: smokeTmp, TMP: smokeTmp },
+      env: { ...process.env, TEMP: smokeTmp, TMP: smokeTmp, TMPDIR: smokeTmp },
     });
 
     await expectDirectoryEmpty(smokeTmp);
@@ -2034,7 +2144,7 @@ describe("project configuration", () => {
 
     await expect(
       execFileAsync(process.execPath, ["scripts/smoke-mcp.mjs", "--simulate-copy-failure-after", "1"], {
-        env: { ...process.env, TEMP: smokeTmp, TMP: smokeTmp },
+        env: { ...process.env, TEMP: smokeTmp, TMP: smokeTmp, TMPDIR: smokeTmp },
       }),
     ).rejects.toThrow(/Simulated copy failure/);
 

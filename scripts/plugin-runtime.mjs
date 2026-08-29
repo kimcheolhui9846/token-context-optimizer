@@ -145,6 +145,11 @@ export function assertCanonicalMcpConfig(config, context = ".mcp.json") {
   return server;
 }
 
+export function parseJsonObjectRejectingDuplicateKeys(source, context = "JSON") {
+  rejectDuplicateJsonObjectKeys(source, context);
+  return JSON.parse(source);
+}
+
 function assertExactKeys(value, expectedKeys, context) {
   const actual = Object.keys(value).sort();
   const expected = [...expectedKeys].sort();
@@ -163,4 +168,120 @@ function arraysEqual(actual, expected) {
 
 function isPlainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function rejectDuplicateJsonObjectKeys(source, context) {
+  let index = 0;
+
+  parseValue();
+  skipWhitespace();
+
+  function parseValue() {
+    skipWhitespace();
+    const char = source[index];
+    if (char === "{") {
+      parseObject();
+      return;
+    }
+    if (char === "[") {
+      parseArray();
+      return;
+    }
+    if (char === "\"") {
+      parseString();
+      return;
+    }
+    skipPrimitive();
+  }
+
+  function parseObject() {
+    index += 1;
+    skipWhitespace();
+    const keys = new Set();
+    if (source[index] === "}") {
+      index += 1;
+      return;
+    }
+
+    while (index < source.length) {
+      skipWhitespace();
+      if (source[index] !== "\"") {
+        return;
+      }
+      const key = parseString();
+      if (keys.has(key)) {
+        throw new Error(`${context} contains duplicate JSON object member: ${key}`);
+      }
+      keys.add(key);
+
+      skipWhitespace();
+      if (source[index] !== ":") {
+        return;
+      }
+      index += 1;
+      parseValue();
+      skipWhitespace();
+
+      if (source[index] === "}") {
+        index += 1;
+        return;
+      }
+      if (source[index] !== ",") {
+        return;
+      }
+      index += 1;
+    }
+  }
+
+  function parseArray() {
+    index += 1;
+    skipWhitespace();
+    if (source[index] === "]") {
+      index += 1;
+      return;
+    }
+
+    while (index < source.length) {
+      parseValue();
+      skipWhitespace();
+      if (source[index] === "]") {
+        index += 1;
+        return;
+      }
+      if (source[index] !== ",") {
+        return;
+      }
+      index += 1;
+    }
+  }
+
+  function parseString() {
+    const start = index;
+    index += 1;
+    while (index < source.length) {
+      const char = source[index];
+      if (char === "\\") {
+        index += 2;
+        continue;
+      }
+      if (char === "\"") {
+        index += 1;
+        return JSON.parse(source.slice(start, index));
+      }
+      index += 1;
+    }
+    return "";
+  }
+
+  function skipPrimitive() {
+    while (index < source.length && !/[\s,\]}]/u.test(source[index])) {
+      index += 1;
+    }
+  }
+
+  function skipWhitespace() {
+    while (index < source.length && /\s/u.test(source[index])) {
+      index += 1;
+    }
+  }
 }
