@@ -32,6 +32,10 @@ import { estimateContext } from "../src/core/token-estimator.js";
 
 const execFileAsync = promisify(execFile);
 const temporaryRoots = new Set<string>();
+type McpConfigFixture = {
+  mcpServers: Record<string, Record<string, unknown>>;
+  [key: string]: unknown;
+};
 
 afterEach(async () => {
   const roots = [...temporaryRoots].sort((left, right) => right.length - left.length);
@@ -41,8 +45,41 @@ afterEach(async () => {
 
 async function mkdtemp(prefix: string): Promise<string> {
   const root = await createTempDir(prefix);
+  trackTemporaryRoot(root);
+  return root;
+}
+
+function trackTemporaryRoot(root: string): string {
   temporaryRoots.add(root);
   return root;
+}
+
+function canonicalMcpConfig(): McpConfigFixture {
+  return {
+    mcpServers: {
+      "token-context-optimizer": {
+        command: "node",
+        args: ["./bin/token-context-optimizer.mjs"],
+        cwd: ".",
+        env_vars: ["TCO_ALLOWED_ROOTS"],
+      },
+    },
+  };
+}
+
+function optimizerServer(config: McpConfigFixture): Record<string, unknown> {
+  return config.mcpServers["token-context-optimizer"];
+}
+
+async function copyValidationFixture(root: string): Promise<void> {
+  await cp(".codex-plugin", join(root, ".codex-plugin"), { recursive: true });
+  await cp("bin", join(root, "bin"), { recursive: true });
+  await cp("skills", join(root, "skills"), { recursive: true });
+  await cp(".mcp.json", join(root, ".mcp.json"));
+}
+
+async function expectDirectoryEmpty(root: string): Promise<void> {
+  await expect(readdir(root)).resolves.toEqual([]);
 }
 
 describe("artifact indexing and retrieval", () => {
@@ -750,6 +787,45 @@ describe("project configuration", () => {
     expect(marketplace.plugins[0]).toEqual(result.marketplaceEntry);
   });
 
+  it("rewrites duplicate marketplace plugin identities to one canonical entry", async () => {
+    const marketplaceRoot = await mkdtemp(join(tmpdir(), "tco-marketplace-duplicates-"));
+    const target = join(marketplaceRoot, ".codex", "plugins", "token-context-optimizer");
+    const marketplacePath = join(marketplaceRoot, ".agents", "plugins", "marketplace.json");
+    await mkdir(join(marketplaceRoot, ".agents", "plugins"), { recursive: true });
+    await writeFile(
+      marketplacePath,
+      JSON.stringify({
+        name: "personal",
+        interface: { displayName: "Personal" },
+        plugins: [
+          { name: "other", source: { source: "local", path: "./plugins/other" } },
+          { name: "token-context-optimizer", source: { source: "local", path: "./stale-a" } },
+          { name: "token-context-optimizer", source: { source: "local", path: "./stale-b" } },
+        ],
+      }),
+      "utf8",
+    );
+
+    const { stdout } = await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--marketplace",
+      marketplacePath,
+    ]);
+    const result = JSON.parse(stdout);
+    const marketplace = JSON.parse(await readFile(marketplacePath, "utf8"));
+    const optimizerEntries = marketplace.plugins.filter(
+      (plugin: { name?: string }) => plugin.name === "token-context-optimizer",
+    );
+
+    expect(marketplace.plugins.map((plugin: { name?: string }) => plugin.name)).toEqual([
+      "other",
+      "token-context-optimizer",
+    ]);
+    expect(optimizerEntries).toEqual([result.marketplaceEntry]);
+  });
+
   it("normalizes array marketplace interface metadata", async () => {
     const marketplaceRoot = await mkdtemp(join(tmpdir(), "tco-marketplace-array-interface-"));
     const target = join(marketplaceRoot, ".codex", "plugins", "token-context-optimizer");
@@ -1081,7 +1157,7 @@ describe("project configuration", () => {
 
   it("rejects symlinked destination components when the platform can create them", async () => {
     const realParent = await mkdtemp(join(tmpdir(), "tco-real-parent-"));
-    const linkParent = `${realParent}-link`;
+    const linkParent = trackTemporaryRoot(`${realParent}-link`);
     try {
       await symlink(realParent, linkParent, "junction");
     } catch (error) {
@@ -1288,6 +1364,144 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/installed bundle/);
+  });
+
+  it("verifier rejects installed MCP configs with sibling servers", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-sibling-mcp-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await writeFile(
+      join(target, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          "token-context-optimizer": {
+            command: "node",
+            args: ["./bin/token-context-optimizer.mjs"],
+            cwd: ".",
+            env_vars: ["TCO_ALLOWED_ROOTS"],
+          },
+          sibling: {
+            command: "node",
+            args: ["C:/outside/server.mjs"],
+            cwd: ".",
+          },
+        },
+      }),
+      "utf8",
+    );
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/exactly one/);
+  });
+
+  it("verifier rejects noncanonical installed MCP launch metadata", async () => {
+    for (const serverPatch of [
+      { args: ["./bin/token-context-optimizer.mjs", "--extra"] },
+      { cwd: "./skills", args: ["../bin/token-context-optimizer.mjs"] },
+      { command: process.execPath },
+      { cwd: undefined },
+      { cwd: "./" },
+      { args: ["bin/token-context-optimizer.mjs"] },
+      { description: "extra metadata" },
+    ]) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-noncanonical-mcp-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      const mcpConfig = JSON.parse(await readFile(join(target, ".mcp.json"), "utf8"));
+      for (const [key, value] of Object.entries(serverPatch)) {
+        if (value === undefined) {
+          delete mcpConfig.mcpServers["token-context-optimizer"][key];
+        } else {
+          mcpConfig.mcpServers["token-context-optimizer"][key] = value;
+        }
+      }
+      await writeFile(join(target, ".mcp.json"), JSON.stringify(mcpConfig), "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/canonical MCP/);
+    }
+  });
+
+  it("source validator rejects noncanonical MCP descriptors", async () => {
+    for (const mutate of [
+      (config: ReturnType<typeof canonicalMcpConfig>) => ({ ...config, extra: true }),
+      (config: ReturnType<typeof canonicalMcpConfig>) => ({
+        mcpServers: {
+          ...config.mcpServers,
+          sibling: { command: "node", args: ["./server.mjs"], cwd: "." },
+        },
+      }),
+      (config: ReturnType<typeof canonicalMcpConfig>) => {
+        delete optimizerServer(config).cwd;
+        return config;
+      },
+      (config: ReturnType<typeof canonicalMcpConfig>) => {
+        optimizerServer(config).cwd = "./";
+        return config;
+      },
+      (config: ReturnType<typeof canonicalMcpConfig>) => {
+        optimizerServer(config).args = ["./bin/token-context-optimizer.mjs", "--extra"];
+        return config;
+      },
+      (config: ReturnType<typeof canonicalMcpConfig>) => {
+        optimizerServer(config).command = process.execPath;
+        return config;
+      },
+      (config: ReturnType<typeof canonicalMcpConfig>) => {
+        optimizerServer(config).env = null;
+        return config;
+      },
+    ]) {
+      const root = await mkdtemp(join(tmpdir(), "tco-source-noncanonical-mcp-"));
+      await copyValidationFixture(root);
+      await writeFile(join(root, ".mcp.json"), JSON.stringify(mutate(canonicalMcpConfig())), "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [join(process.cwd(), "scripts/validate-plugin.mjs")], {
+          cwd: root,
+        }),
+      ).rejects.toThrow(/canonical MCP/);
+    }
+  });
+
+  it("installer rejects noncanonical source MCP descriptors before copying", async () => {
+    const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-noncanonical-mcp-"));
+    const target = await mkdtemp(join(tmpdir(), "tco-install-target-noncanonical-mcp-"));
+    await copyValidationFixture(sourceRoot);
+    await mkdir(join(sourceRoot, "scripts"), { recursive: true });
+    await cp("scripts/install-local-plugin.mjs", join(sourceRoot, "scripts", "install-local-plugin.mjs"));
+    await cp("scripts/plugin-runtime.mjs", join(sourceRoot, "scripts", "plugin-runtime.mjs"));
+    const config = canonicalMcpConfig();
+    config.mcpServers.sibling = { command: "node", args: ["./server.mjs"], cwd: "." };
+    await writeFile(join(sourceRoot, ".mcp.json"), JSON.stringify(config), "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/canonical MCP/);
+    await expect(access(join(target, ".mcp.json"))).rejects.toThrow();
   });
 
   it("verifier requires the installed manifest to point at .mcp.json", async () => {
@@ -1805,21 +2019,35 @@ describe("project configuration", () => {
     ).rejects.toThrow(/Unknown option/);
   });
 
+  it("cleans up smoke MCP temporary roots", async () => {
+    const smokeTmp = await mkdtemp(join(tmpdir(), "tco-smoke-temp-parent-"));
+
+    await execFileAsync(process.execPath, ["scripts/smoke-mcp.mjs"], {
+      env: { ...process.env, TEMP: smokeTmp, TMP: smokeTmp },
+    });
+
+    await expectDirectoryEmpty(smokeTmp);
+  });
+
+  it("cleans up smoke MCP temporary roots after setup failures", async () => {
+    const smokeTmp = await mkdtemp(join(tmpdir(), "tco-smoke-failure-temp-parent-"));
+
+    await expect(
+      execFileAsync(process.execPath, ["scripts/smoke-mcp.mjs", "--simulate-copy-failure-after", "1"], {
+        env: { ...process.env, TEMP: smokeTmp, TMP: smokeTmp },
+      }),
+    ).rejects.toThrow(/Simulated copy failure/);
+
+    await expectDirectoryEmpty(smokeTmp);
+  });
+
   it("points Codex and npm launch paths at the checked-in bundled server", async () => {
     const packageJson = JSON.parse(await readFile("package.json", "utf8"));
     const mcpConfig = JSON.parse(await readFile(".mcp.json", "utf8"));
     const entrypoint = packageJson.bin["token-context-optimizer"];
 
     expect(entrypoint).toBe("./bin/token-context-optimizer.mjs");
-    expect(mcpConfig.mcpServers["token-context-optimizer"]).toMatchObject({
-      command: "node",
-      args: ["./bin/token-context-optimizer.mjs"],
-      cwd: ".",
-    });
-    expect(mcpConfig.mcpServers["token-context-optimizer"].env).toBeUndefined();
-    expect(mcpConfig.mcpServers["token-context-optimizer"].env_vars).toContain(
-      "TCO_ALLOWED_ROOTS",
-    );
+    expect(mcpConfig).toEqual(canonicalMcpConfig());
   });
 
   it("provides starter prompts required by the Codex plugin interface schema", async () => {

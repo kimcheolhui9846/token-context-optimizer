@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish, push, and independently re-review the implicit hooks namespace remediation for PR #2.
+Finish the canonical MCP descriptor and cleanup remediation for PR #2, run the full verification gate, commit/push, update the PR body, and rerun independent review lanes.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish, push, and independently re-review the implicit hooks namespace remediati
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, and metadata handoff commit `cf983a3`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, and hooks remediation commit `641dea2`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -201,6 +201,26 @@ Finish, push, and independently re-review the implicit hooks namespace remediati
   - Added RED/GREEN tests for installer and verifier rejection of implicit `hooks/hooks.json` files.
   - Added `hooks` to `MANAGED_RUNTIME_DIRECTORIES` without adding any runtime hook files.
   - Added test temp-root cleanup with `afterEach` and included `scripts/validate-plugin.mjs` in `tsconfig.scripts.json`.
+- Implicit hooks namespace remediation PR update:
+  - Committed `fix: reject implicit hook namespace` as `641dea2`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - Updated PR #2 body to the 136-test verification state.
+- Reset independent review completed against PR #2 head `641dea2` plus uncommitted test work:
+  - `code-reviewer` returned `REQUEST CHANGES`.
+  - `architect` returned `BLOCK`.
+  - Remaining remediation scope:
+    - Enforce complete canonical ownership of `.mcp.json`, including exactly one `mcpServers` map, exactly one `token-context-optimizer` server, exact launch fields, and no unknown executable metadata.
+    - Reuse that canonical descriptor assertion in source validation, installer preflight, and installed verification.
+    - Make `smoke-mcp.mjs` remove temporary install/workspace roots on success and setup failure.
+    - Collapse duplicate marketplace `token-context-optimizer` entries to one canonical entry.
+    - Refresh stale handoff, plan, README, and design documentation.
+- Canonical MCP descriptor and cleanup remediation completed locally:
+  - Added RED/GREEN tests for sibling MCP servers, noncanonical launch metadata, source validator descriptor mutations, installer source descriptor preflight, duplicate marketplace identities, smoke cleanup on success, smoke cleanup on simulated setup failure, and exact repository `.mcp.json` equality.
+  - Added `CANONICAL_MCP_SERVER`, `CANONICAL_MCP_CONFIG`, and `assertCanonicalMcpConfig` in `scripts/plugin-runtime.mjs`.
+  - Source validation, installer preflight, and installed verification now share the canonical descriptor assertion.
+  - Installed verification preserves specific unsafe `env` / `env_vars` diagnostics, then enforces the full canonical descriptor before launch.
+  - Marketplace updates now leave unrelated entries intact and rewrite duplicate `token-context-optimizer` entries into one canonical local entry.
+  - `smoke-mcp.mjs` now cleans both temporary roots in a top-level `finally` and supports `--simulate-copy-failure-after` for cleanup regression coverage.
 
 ## Design Summary
 
@@ -221,7 +241,7 @@ Finish, push, and independently re-review the implicit hooks namespace remediati
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
 - Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, `hooks`, and `skills`.
-- Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers`, requires exact `env_vars: ["TCO_ALLOWED_ROOTS"]`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
+- Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, requires a canonical `.mcp.json` descriptor with exactly one `mcpServers` map and one exact `token-context-optimizer` server, launches only that installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
 - Verifier requires every installed runtime entry and manifest path to be a regular, non-hard-linked physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
 
 ## Latest Verification
@@ -390,6 +410,29 @@ Finish, push, and independently re-review the implicit hooks namespace remediati
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-hooks-gate-20260829-1119\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-hooks-gate-20260829-1119\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-hooks-gate-20260829-1119\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - `git diff --check` - exit 0.
+- PR #2 canonical MCP descriptor remediation RED:
+  - `npm.cmd test -- --run tests/core.test.ts -t "sibling servers|noncanonical installed MCP launch metadata|smoke MCP temporary roots"` - 3 expected failures before implementation.
+  - `npm.cmd test -- --run tests/core.test.ts -t "duplicate marketplace|noncanonical MCP descriptors|installer rejects noncanonical|smoke MCP temporary roots"` - 5 expected failures before implementation.
+- PR #2 canonical MCP descriptor remediation targeted GREEN:
+  - `npm.cmd test -- --run tests/core.test.ts -t "duplicate marketplace|sibling servers|noncanonical installed MCP launch metadata|noncanonical MCP descriptors|installer rejects noncanonical|smoke MCP temporary roots|env_vars|Node execution hooks|configured env"` - 11 tests passed.
+  - `npm.cmd test -- --run tests/core.test.ts -t "launch outside|noncanonical MCP descriptors|installer rejects noncanonical|smoke MCP temporary roots|duplicate marketplace"` - 6 tests passed.
+  - `npm.cmd test -- --run tests/core.test.ts` - 143 tests passed.
+  - `npm.cmd run typecheck` - exit 0.
+  - `node --check scripts\plugin-runtime.mjs` - exit 0.
+  - `node --check scripts\install-local-plugin.mjs` - exit 0.
+  - `node --check scripts\verify-installed-plugin.mjs` - exit 0.
+  - `node --check scripts\validate-plugin.mjs` - exit 0.
+  - `node --check scripts\smoke-mcp.mjs` - exit 0.
+- PR #2 canonical MCP descriptor remediation full gate:
+  - `npm.cmd test` - 143 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-canonical-gate-20260829-1150\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-canonical-gate-20260829-1150\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-canonical-gate-20260829-1150\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -410,8 +453,8 @@ Finish, push, and independently re-review the implicit hooks namespace remediati
 
 ## Next Steps
 
-1. Commit and push the implicit hooks namespace remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the latest verification state.
+1. Commit and push the canonical MCP descriptor remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the latest 143-test verification state.
 3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
 4. If both review lanes clear, mark PR #2 ready for review.
 5. Do not merge PR #2 without explicit user approval.

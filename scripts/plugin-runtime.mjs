@@ -20,6 +20,17 @@ export const BUNDLED_SERVER_ENTRYPOINT = "./bin/token-context-optimizer.mjs";
 export const PLUGIN_SKILLS_PATH = "./skills/";
 export const PLUGIN_MCP_SERVERS_PATH = "./.mcp.json";
 export const REQUIRED_MCP_ENV_VARS = Object.freeze(["TCO_ALLOWED_ROOTS"]);
+export const CANONICAL_MCP_SERVER = Object.freeze({
+  command: "node",
+  args: Object.freeze([BUNDLED_SERVER_ENTRYPOINT]),
+  cwd: ".",
+  env_vars: REQUIRED_MCP_ENV_VARS,
+});
+export const CANONICAL_MCP_CONFIG = Object.freeze({
+  mcpServers: Object.freeze({
+    [PLUGIN_NAME]: CANONICAL_MCP_SERVER,
+  }),
+});
 
 export function resolvePluginRoot(args, env, optionName) {
   const rootArg = readOption(args, optionName);
@@ -91,4 +102,65 @@ export function validateCliArgs(args, config) {
       index += 1;
     }
   }
+}
+
+export function assertCanonicalMcpConfig(config, context = ".mcp.json") {
+  if (!isPlainObject(config)) {
+    throw new Error(`${context} canonical MCP config must be a JSON object`);
+  }
+  assertExactKeys(config, ["mcpServers"], `${context} canonical MCP config`);
+
+  const serverMap = config.mcpServers;
+  if (!isPlainObject(serverMap)) {
+    throw new Error(`${context} canonical MCP config must contain a mcpServers object`);
+  }
+  const serverNames = Object.keys(serverMap);
+  if (serverNames.length !== 1 || serverNames[0] !== PLUGIN_NAME) {
+    throw new Error(`${context} canonical MCP config must contain exactly one ${PLUGIN_NAME} server`);
+  }
+
+  const server = serverMap[PLUGIN_NAME];
+  if (!isPlainObject(server)) {
+    throw new Error(`${context} canonical MCP ${PLUGIN_NAME} server must be a JSON object`);
+  }
+  assertExactKeys(
+    server,
+    ["command", "args", "cwd", "env_vars"],
+    `${context} canonical MCP ${PLUGIN_NAME} server`,
+  );
+  if (server.command !== CANONICAL_MCP_SERVER.command) {
+    throw new Error(`${context} canonical MCP ${PLUGIN_NAME} command must be node`);
+  }
+  if (!arraysEqual(server.args, CANONICAL_MCP_SERVER.args)) {
+    throw new Error(
+      `${context} canonical MCP ${PLUGIN_NAME} args must exactly launch installed bundle ${BUNDLED_SERVER_ENTRYPOINT}`,
+    );
+  }
+  if (server.cwd !== CANONICAL_MCP_SERVER.cwd) {
+    throw new Error(`${context} canonical MCP ${PLUGIN_NAME} cwd must be .`);
+  }
+  if (!arraysEqual(server.env_vars, CANONICAL_MCP_SERVER.env_vars)) {
+    throw new Error(`${context} canonical MCP ${PLUGIN_NAME} env_vars must exactly inherit TCO_ALLOWED_ROOTS`);
+  }
+  return server;
+}
+
+function assertExactKeys(value, expectedKeys, context) {
+  const actual = Object.keys(value).sort();
+  const expected = [...expectedKeys].sort();
+  if (!arraysEqual(actual, expected)) {
+    throw new Error(`${context} must contain exactly keys: ${expected.join(", ")}`);
+  }
+}
+
+function arraysEqual(actual, expected) {
+  return (
+    Array.isArray(actual) &&
+    actual.length === expected.length &&
+    actual.every((value, index) => value === expected[index])
+  );
+}
+
+function isPlainObject(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
 }

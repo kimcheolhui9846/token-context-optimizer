@@ -11,6 +11,7 @@ import {
   PLUGIN_SKILLS_PATH,
   REQUIRED_MCP_ENV_VARS,
   RUNTIME_FILES,
+  assertCanonicalMcpConfig,
   resolvePluginRoot,
   validateCliArgs,
 } from "./plugin-runtime.mjs";
@@ -241,20 +242,7 @@ async function readInstalledServerConfig(root) {
     throw new Error("Installed plugin manifest must point to the installed .mcp.json");
   }
   const mcpConfig = JSON.parse(await readFile(mcpPath, "utf8"));
-  const serverMap = selectServerMap(mcpConfig);
-  const server = serverMap[PLUGIN_NAME];
-  if (!server || typeof server !== "object") {
-    throw new Error(`Installed MCP config missing ${PLUGIN_NAME} server`);
-  }
-  if (typeof server.command !== "string" || server.command.length === 0) {
-    throw new Error(`Installed MCP ${PLUGIN_NAME} server missing command`);
-  }
-  if (server.args !== undefined && !Array.isArray(server.args)) {
-    throw new Error(`Installed MCP ${PLUGIN_NAME} server args must be an array`);
-  }
-  if (server.cwd !== undefined && typeof server.cwd !== "string") {
-    throw new Error(`Installed MCP ${PLUGIN_NAME} server cwd must be a string`);
-  }
+  const server = selectPluginServerForUnsafeEnvInspection(mcpConfig);
   if (server.env !== undefined) {
     if (server.env && typeof server.env === "object" && !Array.isArray(server.env)) {
       for (const key of Object.keys(server.env)) {
@@ -272,7 +260,7 @@ async function readInstalledServerConfig(root) {
   ) {
     throw new Error("Installed MCP env_vars must exactly inherit TCO_ALLOWED_ROOTS");
   }
-  return server;
+  return assertCanonicalMcpConfig(mcpConfig, "Installed .mcp.json");
 }
 
 /**
@@ -447,12 +435,16 @@ async function rejectSymlinkedComponents(path) {
   }
 }
 
-function selectServerMap(config) {
+function selectPluginServerForUnsafeEnvInspection(config) {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
     throw new Error("Installed MCP config must be a JSON object");
   }
   if (config.mcpServers && typeof config.mcpServers === "object" && !Array.isArray(config.mcpServers)) {
-    return config.mcpServers;
+    const server = config.mcpServers[PLUGIN_NAME];
+    if (!server || typeof server !== "object" || Array.isArray(server)) {
+      throw new Error(`Installed MCP config missing ${PLUGIN_NAME} server`);
+    }
+    return server;
   }
   throw new Error("Installed MCP config must contain a mcpServers object");
 }

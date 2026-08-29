@@ -23,6 +23,8 @@
 - Installed verification must require every installed runtime entry to be a regular, non-hard-linked file before launching the MCP server.
 - Installed verification and owned-target reinstalls must reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, `hooks`, and `skills`.
 - Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, require `env_vars` to be exactly `["TCO_ALLOWED_ROOTS"]`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
+- Source validation, installer preflight, and installed verification must share a canonical `.mcp.json` descriptor assertion: one top-level `mcpServers` map, one `token-context-optimizer` server, exact `command`, `args`, `cwd`, and `env_vars`, and no unknown executable metadata.
+- Marketplace updates must leave unrelated plugins intact while collapsing duplicate `token-context-optimizer` entries into one canonical local entry.
 - Installer must preflight every runtime source from the checked-in repository root as a regular physical file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
 - Installer must reject symlinked install target components and every existing component of each runtime destination path before copying.
@@ -513,3 +515,35 @@ Added `hooks` to `MANAGED_RUNTIME_DIRECTORIES` without adding any runtime hook f
 Run the full gate with 136 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
 
 Status: targeted RED/GREEN verification and the full local gate are complete with 136 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.
+
+### Task 13: Canonical MCP Descriptor And Cleanup Remediation
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/validate-plugin.mjs`
+- Modify: `scripts/smoke-mcp.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: Independent reset review findings**
+
+Independent review against PR #2 head `641dea2` plus the uncommitted test work returned `REQUEST CHANGES` from the code-reviewer lane and `BLOCK` from the architect lane. Blocking scope: close `.mcp.json` ownership over the complete canonical descriptor, make smoke temp cleanup failure-safe, collapse duplicate marketplace identities, and refresh stale handoff/plan docs.
+
+- [x] **Step 2: RED tests for descriptor ownership and cleanup**
+
+Added tests for sibling MCP servers, noncanonical launch metadata, source validator descriptor mutations, installer source descriptor preflight, duplicate marketplace entries, smoke temp cleanup on success, smoke temp cleanup on simulated setup failure, and exact repository `.mcp.json` equality. RED verification failed for the expected current-code reasons.
+
+- [x] **Step 3: Shared canonical descriptor implementation**
+
+Added `assertCanonicalMcpConfig` and canonical descriptor constants in `scripts/plugin-runtime.mjs`. Source validation, installer preflight, and installed verification now reuse the same structural assertion. Installed verification still preserves specific unsafe `env` and `env_vars` diagnostics before enforcing the canonical descriptor. Marketplace updates now remove duplicate plugin identities before appending one canonical entry. `smoke-mcp.mjs` now cleans plugin/workspace roots in a top-level `finally` and supports a setup-failure simulation used by tests.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Targeted regression checks, `tests/core.test.ts`, script syntax checks, and `npm.cmd run typecheck` pass locally with 143 tests. Next: run the full gate, commit and push the remediation, update PR #2, rerun independent `code-reviewer` and `architect` lanes, and keep PR #2 unmerged until explicit user approval.
+
+Status: full local gate is complete with 143 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.

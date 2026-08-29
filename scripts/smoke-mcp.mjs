@@ -1,85 +1,59 @@
 import { spawn } from "node:child_process";
-import { cp, mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
-import { RUNTIME_FILES } from "./plugin-runtime.mjs";
+import { RUNTIME_FILES, readOption, validateCliArgs } from "./plugin-runtime.mjs";
 
-const pluginRoot = await mkdtemp(join(tmpdir(), "tco-installed-plugin-"));
-const workspaceRoot = await mkdtemp(join(tmpdir(), "tco-workspace-"));
-await copyRuntimeFiles(pluginRoot);
+const args = process.argv.slice(2);
+validateCliArgs(args, { valueOptions: ["--simulate-copy-failure-after"] });
+const simulateCopyFailureAfter = readIntegerOption(args, "--simulate-copy-failure-after");
 
-const workspaceFile = join(workspaceRoot, "artifact.txt");
-await writeFile(
-  workspaceFile,
-  "Alpha context explains the planning outcome clearly.\nBeta context explains the review outcome clearly.",
-  "utf8",
-);
-
-const child = spawn(process.execPath, ["./bin/token-context-optimizer.mjs"], {
-  cwd: pluginRoot,
-  stdio: ["pipe", "pipe", "pipe"],
-  env: { ...process.env, TCO_ALLOWED_ROOTS: workspaceRoot },
-});
-
+let pluginRoot = null;
+let workspaceRoot = null;
+let child = null;
+let childStdin = null;
 let buffer = "";
 let stderr = "";
 let consumedLines = 0;
 let childError = null;
 
-child.stdout.setEncoding("utf8");
-child.stderr.setEncoding("utf8");
-child.once("error", (error) => {
-  childError = error;
-});
-child.stdout.on("data", (chunk) => {
-  buffer += chunk;
-});
-child.stderr.on("data", (chunk) => {
-  stderr += chunk;
-});
-
-function send(message) {
-  child.stdin.write(`${JSON.stringify(message)}\n`);
-}
-
-function waitFor(predicate, timeoutMs = 5000) {
-  const start = Date.now();
-  return new Promise((resolve, reject) => {
-    const interval = setInterval(() => {
-      if (childError) {
-        clearInterval(interval);
-        reject(childError);
-        return;
-      }
-      if (child.exitCode !== null) {
-        clearInterval(interval);
-        reject(new Error(`MCP server exited before expected response. stderr=${stderr}`));
-        return;
-      }
-      let lines;
-      try {
-        const parsed = parseCompleteJsonMessages({ buffer, consumedLines });
-        consumedLines = parsed.consumedLines;
-        lines = parsed.messages;
-      } catch (error) {
-        clearInterval(interval);
-        reject(error);
-        return;
-      }
-      const found = lines.find(predicate);
-      if (found) {
-        clearInterval(interval);
-        resolve(found);
-      } else if (Date.now() - start > timeoutMs) {
-        clearInterval(interval);
-        reject(new Error(`Timed out waiting for MCP response. stderr=${stderr}`));
-      }
-    }, 25);
-  });
-}
-
 try {
+  pluginRoot = await mkdtemp(join(tmpdir(), "tco-installed-plugin-"));
+  workspaceRoot = await mkdtemp(join(tmpdir(), "tco-workspace-"));
+  await copyRuntimeFiles(pluginRoot, simulateCopyFailureAfter);
+
+  const workspaceFile = join(workspaceRoot, "artifact.txt");
+  await writeFile(
+    workspaceFile,
+    "Alpha context explains the planning outcome clearly.\nBeta context explains the review outcome clearly.",
+    "utf8",
+  );
+
+  child = spawn(process.execPath, ["./bin/token-context-optimizer.mjs"], {
+    cwd: pluginRoot,
+    stdio: ["pipe", "pipe", "pipe"],
+    env: { ...process.env, TCO_ALLOWED_ROOTS: workspaceRoot },
+  });
+  if (!child.stdin || !child.stdout || !child.stderr) {
+    throw new Error("MCP smoke requires piped child stdio");
+  }
+  childStdin = child.stdin;
+  const childStdout = child.stdout;
+  const childStderr = child.stderr;
+
+  childStdout.setEncoding("utf8");
+  childStderr.setEncoding("utf8");
+  child.once("error", (error) => {
+    childError = error;
+  });
+  childStdout.on("data", (chunk) => {
+    buffer += chunk;
+  });
+  childStderr.on("data", (chunk) => {
+    stderr += chunk;
+  });
+
   send({
     jsonrpc: "2.0",
     id: 1,
@@ -132,13 +106,68 @@ try {
 
   console.log("mcp smoke ok");
 } finally {
-  await stopChild();
+  try {
+    await stopChild();
+  } finally {
+    await Promise.all(
+      [workspaceRoot, pluginRoot]
+        .filter((root) => root !== null)
+        .map((root) => rm(root, { recursive: true, force: true })),
+    );
+  }
 }
 
-async function copyRuntimeFiles(destination) {
-  for (const relativePath of RUNTIME_FILES) {
+function send(message) {
+  if (!childStdin) {
+    throw new Error("MCP smoke child stdin is not available");
+  }
+  childStdin.write(`${JSON.stringify(message)}\n`);
+}
+
+function waitFor(predicate, timeoutMs = 5000) {
+  const start = Date.now();
+  return new Promise((resolveResult, reject) => {
+    const interval = setInterval(() => {
+      const activeChild = child;
+      if (childError) {
+        clearInterval(interval);
+        reject(childError);
+        return;
+      }
+      if (!activeChild || activeChild.exitCode !== null) {
+        clearInterval(interval);
+        reject(new Error(`MCP server exited before expected response. stderr=${stderr}`));
+        return;
+      }
+      let lines;
+      try {
+        const parsed = parseCompleteJsonMessages({ buffer, consumedLines });
+        consumedLines = parsed.consumedLines;
+        lines = parsed.messages;
+      } catch (error) {
+        clearInterval(interval);
+        reject(error);
+        return;
+      }
+      const found = lines.find(predicate);
+      if (found) {
+        clearInterval(interval);
+        resolveResult(found);
+      } else if (Date.now() - start > timeoutMs) {
+        clearInterval(interval);
+        reject(new Error(`Timed out waiting for MCP response. stderr=${stderr}`));
+      }
+    }, 25);
+  });
+}
+
+async function copyRuntimeFiles(destination, failAfter) {
+  for (const [index, relativePath] of RUNTIME_FILES.entries()) {
     await mkdir(dirname(join(destination, relativePath)), { recursive: true });
     await cp(relativePath, join(destination, relativePath));
+    if (failAfter !== null && index + 1 === failAfter) {
+      throw new Error("Simulated copy failure after runtime file copy");
+    }
   }
 
   const bundle = await readFile(join(destination, "bin/token-context-optimizer.mjs"), "utf8");
@@ -159,7 +188,7 @@ function parseCompleteJsonMessages(input) {
     }
     try {
       messages.push(JSON.parse(line));
-    } catch (error) {
+    } catch {
       throw new Error(`Malformed MCP stdout line: ${line}`);
     }
   }
@@ -168,7 +197,8 @@ function parseCompleteJsonMessages(input) {
 }
 
 function stopChild() {
-  if (child.exitCode !== null) {
+  const activeChild = child;
+  if (!activeChild || activeChild.exitCode !== null) {
     return Promise.resolve();
   }
   return terminateChild("SIGTERM", 1000).then(async (terminated) => {
@@ -184,7 +214,8 @@ function stopChild() {
 
 function terminateChild(signal, timeoutMs) {
   return new Promise((resolveTerminated) => {
-    if (child.exitCode !== null) {
+    const activeChild = child;
+    if (!activeChild || activeChild.exitCode !== null) {
       resolveTerminated(true);
       return;
     }
@@ -198,12 +229,24 @@ function terminateChild(signal, timeoutMs) {
     };
     const cleanup = () => {
       clearTimeout(timeout);
-      child.off("exit", onExit);
+      activeChild.off("exit", onExit);
     };
-    child.once("exit", onExit);
-    if (!child.kill(signal)) {
+    activeChild.once("exit", onExit);
+    if (!activeChild.kill(signal)) {
       cleanup();
-      resolveTerminated(child.exitCode !== null);
+      resolveTerminated(activeChild.exitCode !== null);
     }
   });
+}
+
+function readIntegerOption(args, name) {
+  const value = readOption(args, name);
+  if (value === null) {
+    return null;
+  }
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isInteger(parsed) || parsed < 0) {
+    throw new Error(`${name} requires a non-negative integer`);
+  }
+  return parsed;
 }

@@ -15,8 +15,10 @@ import { basename, dirname, isAbsolute, parse, join, relative, resolve } from "n
 
 import {
   MANAGED_RUNTIME_DIRECTORIES,
+  PLUGIN_MCP_SERVERS_PATH,
   PLUGIN_NAME,
   RUNTIME_FILES,
+  assertCanonicalMcpConfig,
   readOption,
   resolveDefaultMarketplacePath,
   resolvePluginRoot,
@@ -96,6 +98,10 @@ async function preflightSources() {
       throw new Error(`Runtime source escapes repository root: ${runtimeFile}`);
     }
   }
+  const sourceMcpConfig = JSON.parse(
+    await readFile(join(sourceRoot, PLUGIN_MCP_SERVERS_PATH), "utf8"),
+  );
+  assertCanonicalMcpConfig(sourceMcpConfig, "Source .mcp.json");
 }
 
 async function preflightTarget(path) {
@@ -282,12 +288,8 @@ async function updateMarketplace(path, pluginRoot, options) {
     },
     category: "Productivity",
   };
-  const existingIndex = marketplace.plugins.findIndex((plugin) => plugin?.name === PLUGIN_NAME);
-  if (existingIndex === -1) {
-    marketplace.plugins.push(entry);
-  } else {
-    marketplace.plugins[existingIndex] = entry;
-  }
+  marketplace.plugins = marketplace.plugins.filter((plugin) => plugin?.name !== PLUGIN_NAME);
+  marketplace.plugins.push(entry);
 
   await writeJsonFileAtomically(path, `${JSON.stringify(marketplace, null, 2)}\n`, options);
   return entry;
