@@ -483,4 +483,4 @@ Added shared runtime metadata constants. The installed verifier now requires exa
 
 Run the full gate with 134 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
 
-Status: targeted RED/GREEN verification and the full local gate are complete with 134 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.
+Status: targeted RED/GREEN verification, full local gate, commit, and push are complete. Remediation was committed as `655037f` and pushed to PR #2. PR body update and independent re-review remain next.

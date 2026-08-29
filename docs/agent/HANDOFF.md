@@ -13,7 +13,7 @@ Finish, push, and independently re-review the installed metadata contract remedi
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, and ownership wait-state commit `1f035fb`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, and installed metadata contract remediation commit `655037f`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -186,6 +186,10 @@ Finish, push, and independently re-review the installed metadata contract remedi
   - Added shared runtime metadata constants in `scripts/plugin-runtime.mjs`.
   - Verifier now requires exact `skills`, exact installed `.mcp.json`, no manifest hooks, exact `env_vars: ["TCO_ALLOWED_ROOTS"]`, and non-hard-linked runtime files.
   - Source validator now uses the same runtime metadata constants.
+- Installed metadata contract remediation PR update:
+  - Committed `fix: validate installed metadata contract` as `655037f`.
+  - Pushed `feature/local-install-workflow` to origin.
+  - PR #2 body update and independent re-review are next.
 
 ## Design Summary
 
@@ -381,10 +385,10 @@ Finish, push, and independently re-review the installed metadata contract remedi
 
 ## Next Steps
 
-1. Commit and push the installed metadata contract remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the latest verification state.
-3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-4. If both review lanes clear, mark PR #2 ready for review.
+1. Update PR #2 body to the latest 134-test verification state.
+2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+3. If both review lanes clear, mark PR #2 ready for review.
+4. If either lane returns `REQUEST CHANGES` or `BLOCK`, implement the next remediation with RED/GREEN tests and update this handoff again.
 5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
