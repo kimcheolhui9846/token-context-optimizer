@@ -5,7 +5,7 @@ import {
   cp,
   link,
   mkdir,
-  mkdtemp,
+  mkdtemp as createTempDir,
   readFile,
   readdir,
   rm,
@@ -15,7 +15,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import {
   MemoryArtifactStore,
@@ -31,6 +31,19 @@ import { parseCompleteJsonMessages } from "../src/server/smoke-output-parser.js"
 import { estimateContext } from "../src/core/token-estimator.js";
 
 const execFileAsync = promisify(execFile);
+const temporaryRoots = new Set<string>();
+
+afterEach(async () => {
+  const roots = [...temporaryRoots].sort((left, right) => right.length - left.length);
+  temporaryRoots.clear();
+  await Promise.all(roots.map((root) => rm(root, { recursive: true, force: true })));
+});
+
+async function mkdtemp(prefix: string): Promise<string> {
+  const root = await createTempDir(prefix);
+  temporaryRoots.add(root);
+  return root;
+}
 
 describe("artifact indexing and retrieval", () => {
   it("indexes source text with stable hash and line source map", async () => {
@@ -1141,6 +1154,27 @@ describe("project configuration", () => {
     ).rejects.toThrow(/Unexpected managed runtime file/);
   });
 
+  it("rejects implicit hook files in owned install targets", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-hook-managed-target-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await mkdir(join(target, "hooks"), { recursive: true });
+    await writeFile(join(target, "hooks", "hooks.json"), "{\"hooks\":[]}", "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]),
+    ).rejects.toThrow(/Unexpected managed runtime file/);
+  });
+
   it("verifier rejects installed MCP configs without the plugin server", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-installed-invalid-mcp-"));
     await execFileAsync(process.execPath, [
@@ -1331,6 +1365,26 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/hooks/);
+  });
+
+  it("verifier rejects implicit installed hook files", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-implicit-hooks-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await mkdir(join(target, "hooks"), { recursive: true });
+    await writeFile(join(target, "hooks", "hooks.json"), "{\"hooks\":[]}", "utf8");
+
+    await expect(
+      execFileAsync(process.execPath, [
+        "scripts/verify-installed-plugin.mjs",
+        "--plugin-root",
+        target,
+      ]),
+    ).rejects.toThrow(/Unexpected managed runtime file/);
   });
 
   it("verifier rejects Node execution hooks from installed MCP config env", async () => {

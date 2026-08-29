@@ -12,6 +12,7 @@ export const RUNTIME_FILES = Object.freeze([
 export const MANAGED_RUNTIME_DIRECTORIES = Object.freeze([
   ".codex-plugin",
   "bin",
+  "hooks",
   "skills",
 ]);
 

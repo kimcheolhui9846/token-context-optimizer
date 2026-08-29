@@ -21,7 +21,7 @@
 - Installed verification must run from the plugin root while `TCO_ALLOWED_ROOTS` points to a separate temporary workspace.
 - Installed verification must read `.codex-plugin/plugin.json`, require `skills` to point at `./skills/`, reject `hooks`, and require its MCP reference to point at the installed `.mcp.json` instead of hardcoding or accepting alternate MCP files.
 - Installed verification must require every installed runtime entry to be a regular, non-hard-linked file before launching the MCP server.
-- Installed verification and owned-target reinstalls must reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, and `skills`.
+- Installed verification and owned-target reinstalls must reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, `hooks`, and `skills`.
 - Installed verification must require standard `mcpServers` metadata, reject configured MCP `env`, require `env_vars` to be exactly `["TCO_ALLOWED_ROOTS"]`, and must not inherit `NODE_OPTIONS`, `NODE_PATH`, `npm_config_node_options`, or platform loader execution hooks.
 - Installer must preflight every runtime source from the checked-in repository root as a regular physical file before creating or modifying the target.
 - Installer must reject non-empty targets unless they already contain a readable `token-context-optimizer` manifest.
@@ -484,3 +484,32 @@ Added shared runtime metadata constants. The installed verifier now requires exa
 Run the full gate with 134 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
 
 Status: targeted RED/GREEN verification, full local gate, commit, and push are complete. Remediation was committed as `655037f` and pushed to PR #2. PR body update and independent re-review remain next.
+
+### Task 12: Implicit Hooks Namespace Remediation
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `tsconfig.scripts.json`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+- Modify: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent re-review against PR #2 head `cf983a3` returned `COMMENT` from the code-reviewer lane and `BLOCK` from the architect lane. The remaining blocker is that implicit `hooks/hooks.json` content could survive owned refreshes and installed verification because `hooks` was not a managed zero-file namespace.
+
+- [x] **Step 2: RED tests for implicit hooks**
+
+Added installer and verifier tests that create `hooks/hooks.json` inside an owned installation. Both tests failed before implementation because install refresh and installed verification returned success.
+
+- [x] **Step 3: Hooks namespace and review hygiene fixes**
+
+Added `hooks` to `MANAGED_RUNTIME_DIRECTORIES` without adding any runtime hook files. This makes both installer and verifier reject implicit hook content. Also added test temp-root cleanup and included `scripts/validate-plugin.mjs` in script typechecking.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Run the full gate with 136 tests, commit and push the remediation, update PR #2, then rerun independent `code-reviewer` and `architect` lanes. If both lanes clear, mark PR #2 ready for review; do not merge without explicit user approval.
+
+Status: targeted RED/GREEN verification and the full local gate are complete with 136 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next.

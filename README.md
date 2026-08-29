@@ -69,7 +69,7 @@ Marketplace resolution order:
 
 The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`. Unknown CLI options, duplicate options, and unexpected positional arguments fail before any default install path is used.
 
-For safety, the installer copies runtime files from the checked-in repository root, not the caller's current directory. It preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects unexpected files inside managed runtime directories (`.codex-plugin`, `bin`, and `skills`), rejects hard-linked or non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
+For safety, the installer copies runtime files from the checked-in repository root, not the caller's current directory. It preflights every runtime source before changing the target. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects unexpected files inside managed runtime directories (`.codex-plugin`, `bin`, `hooks`, and `skills`), rejects hard-linked or non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails.
 
 Run local installs as a single-writer maintenance operation while ChatGPT desktop is not loading the plugin, then restart the app after install or refresh.
 

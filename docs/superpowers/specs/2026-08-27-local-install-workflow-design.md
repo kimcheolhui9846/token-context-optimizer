@@ -24,7 +24,7 @@ The installer resolves the destination in this order:
 3. `${CODEX_HOME}\plugins\token-context-optimizer` when `CODEX_HOME` is set.
 4. `%USERPROFILE%\.codex\plugins\token-context-optimizer` on Windows.
 
-The installer creates the destination when needed. It accepts empty destinations and existing destinations that already contain a readable `token-context-optimizer` manifest. It overwrites the plugin runtime files it owns, leaves unrelated files outside managed runtime directories untouched, and rejects unexpected files inside `.codex-plugin`, `bin`, or `skills`. It rejects non-empty destinations that do not identify as this plugin.
+The installer creates the destination when needed. It accepts empty destinations and existing destinations that already contain a readable `token-context-optimizer` manifest. It overwrites the plugin runtime files it owns, leaves unrelated files outside managed runtime directories untouched, and rejects unexpected files inside `.codex-plugin`, `bin`, `hooks`, or `skills`. It rejects non-empty destinations that do not identify as this plugin.
 
 ## Marketplace
 

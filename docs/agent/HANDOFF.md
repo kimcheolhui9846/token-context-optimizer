@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish, push, and independently re-review the installed metadata contract remediation for PR #2.
+Finish, push, and independently re-review the implicit hooks namespace remediation for PR #2.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish, push, and independently re-review the installed metadata contract remedi
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, and installed metadata contract remediation commit `655037f`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, and metadata handoff commit `cf983a3`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -189,7 +189,18 @@ Finish, push, and independently re-review the installed metadata contract remedi
 - Installed metadata contract remediation PR update:
   - Committed `fix: validate installed metadata contract` as `655037f`.
   - Pushed `feature/local-install-workflow` to origin.
-  - PR #2 body update and independent re-review are next.
+  - PR #2 body update and independent re-review were completed after handoff commit `cf983a3`.
+- Independent re-review completed against `cf983a3`:
+  - `code-reviewer` returned `COMMENT`; no blocking code/spec/security issue remained.
+  - `architect` returned `BLOCK`.
+  - Remaining remediation scope:
+    - Treat implicit `hooks/hooks.json` as part of the effective Codex discovery graph.
+    - Add `hooks` as a zero-file managed namespace so owned refreshes and installed verification reject implicit hook files.
+    - Address non-blocking review hygiene: clean up test temp fixtures and include `scripts/validate-plugin.mjs` in script typecheck.
+- Implicit hooks namespace remediation completed locally:
+  - Added RED/GREEN tests for installer and verifier rejection of implicit `hooks/hooks.json` files.
+  - Added `hooks` to `MANAGED_RUNTIME_DIRECTORIES` without adding any runtime hook files.
+  - Added test temp-root cleanup with `afterEach` and included `scripts/validate-plugin.mjs` in `tsconfig.scripts.json`.
 
 ## Design Summary
 
@@ -209,7 +220,7 @@ Finish, push, and independently re-review the installed metadata contract remedi
   - For default installs with `CODEX_HOME`, writes `<parent-of-CODEX_HOME>\.agents\plugins\marketplace.json` so the installed plugin remains inside the marketplace root.
   - For default installs without `CODEX_HOME`, writes `%USERPROFILE%\.agents\plugins\marketplace.json`.
   - Marketplace entry points at the installed plugin with a `./`-prefixed path relative to the marketplace root.
-- Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, and `skills`.
+- Owned installs reject unexpected files inside managed runtime directories: `.codex-plugin`, `bin`, `hooks`, and `skills`.
 - Verifier reads the installed manifest, requires `skills` to point at `./skills/`, rejects manifest `hooks`, requires the manifest MCP reference to point at the installed `.mcp.json`, requires standard `mcpServers`, requires exact `env_vars: ["TCO_ALLOWED_ROOTS"]`, launches the configured `token-context-optimizer` server only when it resolves to the installed bundle, indexes a temporary workspace fixture through explicit `TCO_ALLOWED_ROOTS`, cleans that fixture up, and confirms plugin-root indexing is denied.
 - Verifier requires every installed runtime entry and manifest path to be a regular, non-hard-linked physical file inside the plugin root before launching the MCP server, and rejects unexpected files inside managed runtime directories.
 
@@ -365,6 +376,20 @@ Finish, push, and independently re-review the installed metadata contract remedi
   - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-contract-gate-20260829-1106\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-contract-gate-20260829-1106\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-contract-gate-20260829-1106\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - `git diff --check` - exit 0.
+- PR #2 implicit hooks namespace remediation RED/GREEN:
+  - RED before implementation: targeted tests failed because installer and verifier returned success when `hooks/hooks.json` existed in an owned install.
+  - `npm.cmd test -- --run tests/core.test.ts -t "implicit hook files|implicit installed hook files"` - 2 tests passed.
+  - `npm.cmd run typecheck` - exit 0 and now includes `scripts/validate-plugin.mjs`.
+- PR #2 implicit hooks namespace remediation full gate:
+  - `npm.cmd test` - 136 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - `npm.cmd run install:local -- --target $env:TEMP\tco-marketplace-hooks-gate-20260829-1119\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-marketplace-hooks-gate-20260829-1119\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-marketplace-hooks-gate-20260829-1119\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -385,10 +410,10 @@ Finish, push, and independently re-review the installed metadata contract remedi
 
 ## Next Steps
 
-1. Update PR #2 body to the latest 134-test verification state.
-2. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-3. If both review lanes clear, mark PR #2 ready for review.
-4. If either lane returns `REQUEST CHANGES` or `BLOCK`, implement the next remediation with RED/GREEN tests and update this handoff again.
+1. Commit and push the implicit hooks namespace remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the latest verification state.
+3. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
+4. If both review lanes clear, mark PR #2 ready for review.
 5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
