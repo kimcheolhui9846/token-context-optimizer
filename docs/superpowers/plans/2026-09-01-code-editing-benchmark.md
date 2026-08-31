@@ -104,7 +104,7 @@ const codeQuery = queryArtifact({
   artifactId: codeArtifact.artifactId,
   query:
     "tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT rejects negative input npm test",
-  maxTokens: 180,
+  maxTokens: 240,
   contextLines: 6,
   store,
 });

@@ -782,6 +782,47 @@ describe("token estimation", () => {
 });
 
 describe("benchmarks", () => {
+  it("applies the code editing fixture from the retrieved implementation text", async () => {
+    const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
+      "../benchmarks/run.js"
+    )) as {
+      applyCodeEditingExcerpt: (
+        source: string,
+        excerpt: string,
+      ) => { source: string; patched: boolean };
+      runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
+    };
+    const brokenSource = [
+      "export function normalizeInput(value: number): number {",
+      "  return value;",
+      "}",
+    ].join("\n");
+    const wrongExcerpt = [
+      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
+      "Failing test: rejects negative input without throwing away zero.",
+      "Replace src/math.ts implementation with:",
+      "export function normalizeInput(value: number): number {",
+      '  if (value > 0) throw new Error("ERR_NEGATIVE_INPUT");',
+      "  return value;",
+      "}",
+    ].join("\n");
+    const correctExcerpt = wrongExcerpt.replace("value > 0", "value < 0");
+
+    const stalePatch = applyCodeEditingExcerpt(brokenSource, "stale excerpt");
+    const wrongPatch = applyCodeEditingExcerpt(brokenSource, wrongExcerpt);
+    const correctPatch = applyCodeEditingExcerpt(brokenSource, correctExcerpt);
+
+    expect(runCodeEditingFixtureTests(brokenSource).passed).toBe(false);
+    expect(stalePatch.patched).toBe(false);
+    expect(wrongPatch.patched).toBe(true);
+    expect(runCodeEditingFixtureTests(wrongPatch.source).passed).toBe(false);
+    expect(correctPatch.patched).toBe(true);
+    expect(runCodeEditingFixtureTests(correctPatch.source)).toEqual({
+      passed: true,
+      failures: [],
+    });
+  });
+
   it("benchmark reports code editing fixture source-backed retrieval", async () => {
     await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
       windowsHide: true,

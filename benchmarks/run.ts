@@ -1,6 +1,7 @@
 import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import {
   MemoryArtifactStore,
@@ -97,7 +98,7 @@ async function main(): Promise<void> {
     artifactId: codeArtifact.artifactId,
     query:
       "tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT rejects negative input npm test",
-    maxTokens: 180,
+    maxTokens: 240,
     contextLines: 6,
     store,
   });
@@ -220,6 +221,8 @@ function codeQueryPassesExactGate(
     "ERR_NEGATIVE_INPUT",
     "rejects negative input without throwing away zero",
     "npm test",
+    "export function normalizeInput(value: number): number {",
+    'throw new Error("ERR_NEGATIVE_INPUT")',
   ];
 
   return (
@@ -229,35 +232,26 @@ function codeQueryPassesExactGate(
   );
 }
 
-function applyCodeEditingExcerpt(
+export function applyCodeEditingExcerpt(
   source: string,
   excerpt: string,
 ): { source: string; patched: boolean } {
-  const replacement = [
-    "export function normalizeInput(value: number): number {",
-    '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
-    "  return value;",
-    "}",
-  ].join("\n");
-  if (
-    !excerpt.includes("src/math.ts") ||
-    !excerpt.includes("export function normalizeInput(value: number): number {") ||
-    !excerpt.includes("ERR_NEGATIVE_INPUT") ||
-    !excerpt.includes('throw new Error("ERR_NEGATIVE_INPUT")')
-  ) {
+  const replacement = extractNormalizeInputImplementation(excerpt);
+  if (!excerpt.includes("src/math.ts") || replacement === null) {
     return { source, patched: false };
   }
 
+  const patchedSource = source.replace(
+    /export function normalizeInput\(value: number\): number \{\n  return value;\n\}/u,
+    replacement,
+  );
   return {
-    source: source.replace(
-      /export function normalizeInput\(value: number\): number \{\n  return value;\n\}/u,
-      replacement,
-    ),
-    patched: true,
+    source: patchedSource,
+    patched: patchedSource !== source,
   };
 }
 
-function runCodeEditingFixtureTests(source: string): { passed: boolean; failures: string[] } {
+export function runCodeEditingFixtureTests(source: string): { passed: boolean; failures: string[] } {
   const failures: string[] = [];
   let normalizeInput: (value: number) => number;
 
@@ -276,14 +270,33 @@ function runCodeEditingFixtureTests(source: string): { passed: boolean; failures
     }
   }
 
-  if (normalizeInput(0) !== 0) {
-    failures.push("zero input was not preserved");
+  try {
+    if (normalizeInput(0) !== 0) {
+      failures.push("zero input was not preserved");
+    }
+  } catch {
+    failures.push("zero input threw unexpectedly");
   }
-  if (normalizeInput(7) !== 7) {
-    failures.push("positive input was not preserved");
+  try {
+    if (normalizeInput(7) !== 7) {
+      failures.push("positive input was not preserved");
+    }
+  } catch {
+    failures.push("positive input threw unexpectedly");
   }
 
   return { passed: failures.length === 0, failures };
+}
+
+function extractNormalizeInputImplementation(excerpt: string): string | null {
+  const normalized = excerpt.replace(/\r\n?/gu, "\n");
+  const match = normalized.match(
+    /export function normalizeInput\(value: number\): number \{\n[\s\S]*?\n\}/u,
+  );
+  if (!match || !match[0].includes("ERR_NEGATIVE_INPUT")) {
+    return null;
+  }
+  return match[0];
 }
 
 function compileNormalizeInput(source: string): (value: number) => number {
@@ -299,4 +312,6 @@ function compileNormalizeInput(source: string): (value: number) => number {
   return candidate as (value: number) => number;
 }
 
-await main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await main();
+}
