@@ -19,6 +19,7 @@ import {
   PLUGIN_NAME,
   RUNTIME_FILES,
   assertCanonicalMcpConfig,
+  assertPluginManifestContract,
   parseJsonObjectRejectingDuplicateKeys,
   readOption,
   resolveDefaultMarketplacePath,
@@ -104,10 +105,11 @@ async function preflightSources() {
     "Source .mcp.json",
   );
   assertCanonicalMcpConfig(sourceMcpConfig, "Source .mcp.json");
-  parseJsonObjectRejectingDuplicateKeys(
+  const sourceManifest = parseJsonObjectRejectingDuplicateKeys(
     await readFile(join(sourceRoot, ".codex-plugin", "plugin.json"), "utf8"),
     "Source plugin.json",
   );
+  assertPluginManifestContract(sourceManifest, "Source plugin.json");
 }
 
 async function preflightTarget(path) {

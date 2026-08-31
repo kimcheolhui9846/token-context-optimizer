@@ -631,3 +631,33 @@ Verifier containment now treats only `..`, `../...`, and `..\...` as parent-rela
 - [x] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
 Status: full local gate completed with 156 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace verification passing, and `git diff --check` passing. Containment remediation was committed as `7f0e4b9`, pushed to `feature/local-install-workflow`, and PR #2 body now records the 156-test verification state. Independent code review against `7f0e4b9` found no remaining code blockers, but requested this committed handoff/plan state refresh before final readiness. Next: rerun independent `code-reviewer` and `architect` lanes against the latest PR #2 head; if both clear, mark PR #2 ready for review. Do not merge without explicit user approval.
+
+### Task 17: Final Review-Readiness Evidence Follow-up
+
+**Files:**
+- Modify: `tests/core.test.ts`
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/install-local-plugin.mjs`
+- Modify: `scripts/validate-plugin.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `README.md`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent `code-reviewer` review against PR #2 head `36c20b6` returned `REQUEST CHANGES` with no Critical/High runtime implementation defects. Remaining scope: refresh the stale handoff objective, strengthen verifier cleanup coverage so failure occurs after a temporary workspace is created, and add direct regression evidence that ambient Node execution hooks are stripped before the installed MCP child is launched.
+
+Independent `architect` review against `36c20b6` returned `WATCH` with no architectural blocker. Follow-up scope selected from the watchlist: document that `verify:installed` validates the staged marketplace source rather than the host cache, and reuse trust-bearing source `plugin.json` semantic validation during installer preflight.
+
+- [x] **Step 2: RED tests for verifier evidence gaps**
+
+Added a direct ambient-hook regression that runs installed verification with `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options` sentinel values plus a PATH shim for `node`. The test fails if any sentinel reaches the spawned MCP child. Added a cleanup regression that keeps canonical MCP metadata, replaces the installed bundle with a failing child, points `TEMP`, `TMP`, and `TMPDIR` at an isolated parent, and proves no verifier workspace remains after post-workspace setup failure. Negative-control verification failed when env filtering and workspace cleanup were intentionally disabled.
+
+- [x] **Step 3: Targeted GREEN and documentation refresh**
+
+Current verifier behavior already satisfied the stronger tests. Added a shared `assertPluginManifestContract` helper and wired installer source preflight, source validation, and installed verification through the same manifest path contract. Targeted verification passed with `npm.cmd test -- --run tests/core.test.ts -t "noncanonical source plugin manifests|ambient Node execution hooks|setup failures"`: 4 tests passed. `npm.cmd run typecheck` also passed. Updated `README.md`, `docs/agent/HANDOFF.md`, and this plan to reflect the current `36c20b6` follow-up state and staged-source verification boundary.
+
+- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Status: full local gate completed with 158 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next. Mark PR #2 ready only if both review lanes clear, and do not merge without explicit user approval.

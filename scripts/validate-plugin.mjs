@@ -5,6 +5,7 @@ import {
   PLUGIN_NAME,
   PLUGIN_SKILLS_PATH,
   assertCanonicalMcpConfig,
+  assertPluginManifestContract,
   parseJsonObjectRejectingDuplicateKeys,
 } from "./plugin-runtime.mjs";
 
@@ -37,19 +38,7 @@ if (!/^\d+\.\d+\.\d+$/.test(manifest.version)) {
   throw new Error("plugin.json version must be strict semver");
 }
 
-if (manifest.hooks !== undefined) {
-  throw new Error("plugin.json must not declare hooks in the safe MVP");
-}
-
-if (manifest.name !== PLUGIN_NAME) {
-  throw new Error(`plugin.json name must be ${PLUGIN_NAME}`);
-}
-if (manifest.skills !== PLUGIN_SKILLS_PATH) {
-  throw new Error(`plugin.json skills must be ${PLUGIN_SKILLS_PATH}`);
-}
-if (manifest.mcpServers !== PLUGIN_MCP_SERVERS_PATH) {
-  throw new Error(`plugin.json mcpServers must be ${PLUGIN_MCP_SERVERS_PATH}`);
-}
+assertPluginManifestContract(manifest, "plugin.json");
 await access(join(root, manifest.skills));
 await access(join(root, manifest.mcpServers));
 

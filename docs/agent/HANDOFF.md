@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish PR #2 re-review remediation after the `533c984` independent review found a verifier containment bug and installer-specific coverage gaps.
+Finish PR #2 final review-readiness follow-up after the `36c20b6` independent code-reviewer pass found stale handoff state and two verifier regression-evidence gaps.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish PR #2 re-review remediation after the `533c984` independent review found 
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, and containment remediation commit `7f0e4b9`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, and handoff refresh commit `36c20b6`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -525,6 +525,23 @@ Finish PR #2 re-review remediation after the `533c984` independent review found 
   - `npm.cmd run install:local -- --target $env:TEMP\tco-containment-gate-20260829-2158\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-containment-gate-20260829-2158\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-containment-gate-20260829-2158\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - `git diff --check` - exit 0.
+- PR #2 final review-readiness follow-up against `36c20b6`:
+  - `code-reviewer` returned `REQUEST CHANGES` with no Critical/High runtime findings.
+  - `architect` returned `WATCH` with no architectural blocker; the watch items were staged-source versus host-cache verification scope, duplicated filesystem policy helpers, and source-manifest semantic validation during installer preflight.
+  - Remaining remediation scope: refresh stale handoff objective, strengthen verifier cleanup failure coverage so failure occurs after workspace creation, add direct regression evidence that ambient `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options` do not reach the launched MCP child, and reuse the trust-bearing source `plugin.json` semantic contract during installer preflight.
+  - RED evidence: ambient hook regression failed when verifier child env filtering was intentionally disabled; setup-failure cleanup regression failed when verifier workspace cleanup was intentionally disabled.
+  - RED evidence: `npm.cmd test -- --run tests/core.test.ts -t "noncanonical source plugin manifests"` failed because the installer accepted noncanonical source manifests before copying.
+  - Targeted GREEN: `npm.cmd test -- --run tests/core.test.ts -t "noncanonical source plugin manifests|ambient Node execution hooks|setup failures"` - 4 tests passed.
+  - Targeted GREEN: `npm.cmd run typecheck` - exit 0.
+  - Full gate: `npm.cmd test` - 158 tests passed.
+  - Full gate: `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - Full gate: `npm.cmd run typecheck` - exit 0.
+  - Full gate: `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - Full gate: `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - Full gate: `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - Full gate: `npm.cmd run install:local -- --target $env:TEMP\tco-readiness-gate-20260831-2008\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-readiness-gate-20260831-2008\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - Full gate: `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-readiness-gate-20260831-2008\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - Full gate: `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -545,9 +562,11 @@ Finish PR #2 re-review remediation after the `533c984` independent review found 
 
 ## Next Steps
 
-1. Rerun independent `code-reviewer` and `architect` review against the latest PR #2 head.
-2. If both review lanes clear, mark PR #2 ready for review.
-3. Do not merge PR #2 without explicit user approval.
+1. Commit and push the regression/doc remediation to `feature/local-install-workflow` if the latest local head is not already on origin.
+2. Update PR #2 body to the 158-test verification state.
+3. Rerun independent `code-reviewer` and `architect` review against the new PR #2 head.
+4. If both review lanes clear, mark PR #2 ready for review.
+5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

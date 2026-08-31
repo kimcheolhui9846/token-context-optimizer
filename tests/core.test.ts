@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import {
   access,
+  chmod,
   cp,
   link,
   mkdir,
@@ -13,7 +14,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { delimiter, join } from "node:path";
 import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 
@@ -1677,6 +1678,43 @@ describe("project configuration", () => {
     }
   });
 
+  it("installer rejects noncanonical source plugin manifests before copying", async () => {
+    const manifestMutations = [
+      (manifest: Record<string, unknown>) => {
+        manifest.name = "other-plugin";
+      },
+      (manifest: Record<string, unknown>) => {
+        manifest.skills = "./other-skills/";
+      },
+      (manifest: Record<string, unknown>) => {
+        manifest.mcpServers = "./other.mcp.json";
+      },
+      (manifest: Record<string, unknown>) => {
+        manifest.hooks = "./hooks/hooks.json";
+      },
+    ];
+
+    for (const mutate of manifestMutations) {
+      const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-noncanonical-manifest-"));
+      const target = await mkdtemp(join(tmpdir(), "tco-install-target-noncanonical-manifest-"));
+      await copyValidationFixture(sourceRoot);
+      await copyInstallerFixture(sourceRoot);
+      const manifest = JSON.parse(await readFile(join(sourceRoot, ".codex-plugin", "plugin.json"), "utf8"));
+      mutate(manifest);
+      await writeFile(join(sourceRoot, ".codex-plugin", "plugin.json"), JSON.stringify(manifest), "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+          "--target",
+          target,
+          "--no-marketplace",
+        ]),
+      ).rejects.toThrow(/plugin.json/);
+      await expect(access(join(target, ".codex-plugin", "plugin.json"))).rejects.toThrow();
+    }
+  });
+
   it("installer rejects duplicate raw target ownership manifests before copying", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-manifest-"));
     await mkdir(join(target, ".codex-plugin"), { recursive: true });
@@ -1842,7 +1880,7 @@ describe("project configuration", () => {
         "--plugin-root",
         target,
       ]),
-    ).rejects.toThrow(/installed \.mcp\.json/);
+    ).rejects.toThrow(/mcpServers.*\.mcp\.json/);
   });
 
   it("verifier requires the installed manifest to point at the bundled skills directory", async () => {
@@ -2070,6 +2108,80 @@ describe("project configuration", () => {
     ).rejects.toThrow(/execution hook/);
   });
 
+  it("verifier strips ambient Node execution hooks before launching the installed MCP server", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-ambient-hooks-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    const hookRoot = await mkdtemp(join(tmpdir(), "tco-ambient-hook-sentinel-"));
+    const markerPath = join(hookRoot, "child-env-hooks.txt");
+    const preloadPath = join(hookRoot, "preload.cjs");
+    await writeFile(
+      preloadPath,
+      [
+        "const fs = require('node:fs');",
+        "const entrypoint = (process.argv[1] || '').replace(/\\\\/g, '/');",
+        "if (entrypoint.endsWith('/bin/token-context-optimizer.mjs')) {",
+        `  fs.appendFileSync(${JSON.stringify(markerPath)}, "preload\\n");`,
+        "}",
+      ].join("\n"),
+      "utf8",
+    );
+
+    const shimDir = await mkdtemp(join(tmpdir(), "tco-node-shim-"));
+    const nodeShim = join(shimDir, process.platform === "win32" ? "node.cmd" : "node");
+    const realNode = process.execPath;
+    if (process.platform === "win32") {
+      await writeFile(
+        nodeShim,
+        [
+          "@echo off",
+          `if defined NODE_OPTIONS echo NODE_OPTIONS>>"${markerPath}"`,
+          `if defined NODE_PATH echo NODE_PATH>>"${markerPath}"`,
+          `if defined npm_config_node_options echo npm_config_node_options>>"${markerPath}"`,
+          `"${realNode}" %*`,
+        ].join("\r\n"),
+        "utf8",
+      );
+    } else {
+      await writeFile(
+        nodeShim,
+        [
+          "#!/bin/sh",
+          `[ -n "$NODE_OPTIONS" ] && echo NODE_OPTIONS >> ${JSON.stringify(markerPath)}`,
+          `[ -n "$NODE_PATH" ] && echo NODE_PATH >> ${JSON.stringify(markerPath)}`,
+          `[ -n "$npm_config_node_options" ] && echo npm_config_node_options >> ${JSON.stringify(markerPath)}`,
+          `exec ${JSON.stringify(realNode)} "$@"`,
+        ].join("\n"),
+        "utf8",
+      );
+      await chmod(nodeShim, 0o755);
+    }
+
+    const inheritedPath = process.env.PATH ?? process.env.Path ?? "";
+    const env = {
+      ...process.env,
+      NODE_OPTIONS: `--require=${preloadPath}`,
+      NODE_PATH: hookRoot,
+      npm_config_node_options: `--require=${preloadPath}`,
+      PATH: `${shimDir}${delimiter}${inheritedPath}`,
+      Path: `${shimDir}${delimiter}${inheritedPath}`,
+    };
+
+    const { stdout } = await execFileAsync(
+      process.execPath,
+      ["scripts/verify-installed-plugin.mjs", "--plugin-root", target],
+      { env },
+    );
+    const result = JSON.parse(stdout);
+
+    expect(result.ok).toBe(true);
+    await expect(access(markerPath)).rejects.toThrow();
+  });
+
   it("verifier surfaces JSON-RPC errors without timing out", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-installed-rpc-error-"));
     await execFileAsync(process.execPath, [
@@ -2188,31 +2300,31 @@ describe("project configuration", () => {
       "--no-marketplace",
     ]);
     await writeFile(
-      join(target, ".mcp.json"),
-      JSON.stringify({
-        mcpServers: {
-          "token-context-optimizer": {
-            command: "node",
-            args: ["./bin/token-context-optimizer.mjs", {}],
-            cwd: ".",
-          },
-        },
-      }),
+      join(target, "bin", "token-context-optimizer.mjs"),
+      "process.exit(42);\n",
       "utf8",
     );
+    const tempParent = await mkdtemp(join(tmpdir(), "tco-installed-setup-failure-parent-"));
     const before = new Set(
-      (await readdir(tmpdir())).filter((entry) => entry.startsWith("tco-installed-workspace-")),
+      (await readdir(tempParent)).filter((entry) => entry.startsWith("tco-installed-workspace-")),
     );
 
     await expect(
-      execFileAsync(process.execPath, [
-        "scripts/verify-installed-plugin.mjs",
-        "--plugin-root",
-        target,
-      ]),
+      execFileAsync(
+        process.execPath,
+        ["scripts/verify-installed-plugin.mjs", "--plugin-root", target],
+        {
+          env: {
+            ...process.env,
+            TEMP: tempParent,
+            TMP: tempParent,
+            TMPDIR: tempParent,
+          },
+        },
+      ),
     ).rejects.toThrow();
 
-    const after = (await readdir(tmpdir())).filter((entry) => entry.startsWith("tco-installed-workspace-"));
+    const after = (await readdir(tempParent)).filter((entry) => entry.startsWith("tco-installed-workspace-"));
     expect(after.filter((entry) => !before.has(entry))).toEqual([]);
   });
 

@@ -39,6 +39,8 @@ The default install copies the plugin to `%CODEX_HOME%\plugins\token-context-opt
 
 After the default install, restart the ChatGPT desktop app, open the Plugins Directory, select the personal marketplace source, and install or refresh `token-context-optimizer`. Start a new chat after reinstalling so Codex picks up the updated skills and bundled MCP server.
 
+`verify:installed` verifies the staged marketplace source directory that this repository writes and launches the MCP server from that directory. It does not prove that ChatGPT has copied the plugin into its cache or loaded the cached copy; use the desktop app install or refresh step above for that host boundary.
+
 Use an explicit destination for testing or custom installs:
 
 ```powershell
@@ -69,7 +71,7 @@ Marketplace resolution order:
 
 The installer copies only runtime plugin files: `.codex-plugin/plugin.json`, `.mcp.json`, `bin/token-context-optimizer.mjs`, and `skills/optimize-context/SKILL.md`. Unknown CLI options, duplicate options, and unexpected positional arguments fail before any default install path is used.
 
-For safety, the installer copies runtime files from the checked-in repository root, not the caller's current directory. It preflights every runtime source before changing the target, including duplicate-key rejection for `plugin.json` and a canonical `.mcp.json` descriptor check. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects unexpected files inside managed runtime directories (`.codex-plugin`, `bin`, `hooks`, and `skills`), rejects hard-linked or non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails. Marketplace updates reject duplicate raw JSON members and replace every existing `token-context-optimizer` entry with one canonical local entry.
+For safety, the installer copies runtime files from the checked-in repository root, not the caller's current directory. It preflights every runtime source before changing the target, including duplicate-key rejection and semantic contract checks for `plugin.json`, plus a canonical `.mcp.json` descriptor check. It accepts new, empty, or already-owned `token-context-optimizer` plugin directories, rejects non-empty unrelated targets, rejects unexpected files inside managed runtime directories (`.codex-plugin`, `bin`, `hooks`, and `skills`), rejects hard-linked or non-file runtime destinations, rejects symlinked destination components, and restores existing runtime files if a later copy fails. Marketplace updates reject duplicate raw JSON members and replace every existing `token-context-optimizer` entry with one canonical local entry.
 
 Run local installs as a single-writer maintenance operation while ChatGPT desktop is not loading the plugin, then restart the app after install or refresh.
 

@@ -145,6 +145,25 @@ export function assertCanonicalMcpConfig(config, context = ".mcp.json") {
   return server;
 }
 
+export function assertPluginManifestContract(manifest, context = "plugin.json") {
+  if (!isPlainObject(manifest)) {
+    throw new Error(`${context} must be a JSON object`);
+  }
+  if (manifest.hooks !== undefined) {
+    throw new Error(`${context} must not declare hooks`);
+  }
+  if (manifest.name !== PLUGIN_NAME) {
+    throw new Error(`${context} name must be ${PLUGIN_NAME}`);
+  }
+  if (manifest.skills !== PLUGIN_SKILLS_PATH) {
+    throw new Error(`${context} skills must be ${PLUGIN_SKILLS_PATH}`);
+  }
+  if (manifest.mcpServers !== PLUGIN_MCP_SERVERS_PATH) {
+    throw new Error(`${context} mcpServers must be ${PLUGIN_MCP_SERVERS_PATH}`);
+  }
+  return manifest;
+}
+
 export function parseJsonObjectRejectingDuplicateKeys(source, context = "JSON") {
   rejectDuplicateJsonObjectKeys(source, context);
   return JSON.parse(source);
