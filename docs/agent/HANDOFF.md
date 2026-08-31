@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish PR #2 final independent re-review against `08033e6` and decide whether PR #2 can be marked ready for review.
+Finish PR #2 final independent re-review against the live PR head and decide whether PR #2 can be marked ready for review.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish PR #2 final independent re-review against `08033e6` and decide whether PR
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, signal-exit commit `3a4376e`, and manifest/lifecycle contract commit `08033e6`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, signal-exit commit `3a4376e`, manifest/lifecycle contract commit `08033e6`, and stale-state docs refresh commit `bfd23d0`. Use `git rev-parse HEAD` and `gh pr view 2 --json headRefOid` for live transport state; do not add docs-only commits solely to record that a just-created docs commit was pushed.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -575,7 +575,11 @@ Finish PR #2 final independent re-review against `08033e6` and decide whether PR
 - PR #2 `08033e6` re-review state:
   - Remediation was committed as `08033e6`, pushed to `feature/local-install-workflow`, and PR #2 body was updated to the 163-test verification state.
   - Fresh `code-reviewer` re-review against `08033e6` returned `COMMENT`: no Critical/High or runtime correctness issue remained; the only issue was stale handoff/plan wording that still said commit/push were pending.
-  - Fresh `architect` re-review against `08033e6` is pending.
+  - The `08033e6` architect lane was superseded by the later docs-refresh review recorded below.
+- PR #2 docs-only refresh against `bfd23d0`:
+  - Stale push-status wording was removed from this handoff and the implementation plan.
+  - Transport state is intentionally resolved through live git/GitHub commands instead of committed next-step prose.
+  - Fresh `architect` review against `bfd23d0` returned `WATCH` with no BLOCK; the only documentation concern was the now-removed volatile push-state wording.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -596,11 +600,10 @@ Finish PR #2 final independent re-review against `08033e6` and decide whether PR
 
 ## Next Steps
 
-1. Commit and push this documentation-only stale-state correction.
-2. Update PR #2 body to reference the documentation refresh commit.
-3. If the pending `architect` lane has no BLOCK, rerun final review only if required by the new documentation-only commit.
-4. If both independent lanes clear or return only WATCH/COMMENT findings, mark PR #2 ready for review.
-5. Do not merge PR #2 without explicit user approval.
+1. Confirm the live local head and PR #2 head match with `git status --short --branch`, `git rev-parse HEAD`, and `gh pr view 2 --json headRefOid,isDraft`.
+2. Run final independent `code-reviewer` and `architect` review against that live head if no current review exists for it.
+3. If review returns no `REQUEST CHANGES` and no architect `BLOCK`, mark PR #2 ready for review.
+4. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
 

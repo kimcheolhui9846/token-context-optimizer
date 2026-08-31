@@ -714,7 +714,7 @@ Extended `assertPluginManifestContract` to validate required fields, strict semv
 
 - [x] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
-Status: full local gate completed with 163 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Remediation was committed as `08033e6`, pushed to PR #2, and the PR body was updated to the 163-test verification state. Fresh `code-reviewer` re-review against `08033e6` returned `COMMENT` with no Critical/High or runtime correctness issue; the only finding was that handoff/plan still described already-completed commit/push work as pending. Fresh `architect` re-review against `08033e6` is pending.
+Status: full local gate completed with 163 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Remediation was committed as `08033e6`, pushed to PR #2, and the PR body was updated to the 163-test verification state. Fresh `code-reviewer` re-review against `08033e6` returned `COMMENT` with no Critical/High or runtime correctness issue; the only finding was that handoff/plan still described already-completed commit/push work as pending. The `08033e6` architect lane was superseded by the later docs-refresh review recorded in Task 20.
 
 ### Task 20: Final Stale-State Documentation Refresh
 
@@ -726,6 +726,6 @@ Status: full local gate completed with 163 tests passing, build/typecheck/smoke/
 
 Independent `code-reviewer` review against PR #2 head `08033e6` returned `COMMENT`. The code/spec/security lane found no Critical/High or runtime correctness issue. Remaining scope: record that `08033e6` was already committed, pushed, and reflected in PR #2, then make independent review/readiness the current next step.
 
-- [ ] **Step 2: Commit, push, PR body update, and readiness decision**
+- [x] **Step 2: Remove volatile transport next steps**
 
-Commit and push this documentation-only stale-state correction. Update PR #2 body to reference the documentation refresh commit. If the pending architect lane has no BLOCK, rerun review only if required by the documentation-only commit; otherwise mark PR #2 ready for review. Do not merge without explicit user approval.
+Recorded the final documentation refresh as durable state and removed self-referential commit/push instructions from the handoff path. Transport state must be checked live with `git status --short --branch`, `git rev-parse HEAD`, and `gh pr view 2 --json headRefOid,isDraft` instead of inferred from committed prose. Next durable action: run or consume final independent `code-reviewer` and `architect` review for the live PR head, then mark PR #2 ready for review only if there is no `REQUEST CHANGES` result and no architect `BLOCK`. Do not merge without explicit user approval.
