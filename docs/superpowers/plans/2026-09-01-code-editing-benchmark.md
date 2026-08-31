@@ -29,15 +29,17 @@
 - Consumes: `npm.cmd run build` and `npm.cmd run benchmark` command output.
 - Produces: A failing Vitest test named `benchmark reports code editing fixture source-backed retrieval`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add this test near the existing project configuration command tests:
 
 ```ts
 it("benchmark reports code editing fixture source-backed retrieval", async () => {
-  await execFileAsync("npm.cmd", ["run", "build"], { windowsHide: true });
+  await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
+    windowsHide: true,
+  });
 
-  const { stdout } = await execFileAsync("npm.cmd", ["run", "benchmark"], {
+  const { stdout } = await execFileAsync(process.execPath, ["dist/benchmarks/run.js"], {
     windowsHide: true,
   });
   const report = JSON.parse(stdout.slice(stdout.indexOf("{")));
@@ -58,7 +60,7 @@ it("benchmark reports code editing fixture source-backed retrieval", async () =>
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run:
 
@@ -66,14 +68,16 @@ Run:
 npm.cmd test -- --run tests/core.test.ts -t "benchmark reports code editing fixture"
 ```
 
-Expected: FAIL because `scenario` is `undefined`.
+Observed: FAIL because `scenario` was `undefined`.
 
-- [ ] **Step 3: Commit the RED test**
+- [x] **Step 3: Commit the RED test**
 
 ```powershell
 git add tests/core.test.ts
 git commit -m "test: require code editing benchmark scenario"
 ```
+
+Committed as `b38f57a`.
 
 ### Task 2: Code Editing Benchmark Scenario
 
@@ -85,7 +89,7 @@ git commit -m "test: require code editing benchmark scenario"
 - Consumes: `queryArtifact(input)` and `estimateTextTokens(text)`.
 - Produces: A `ScenarioResult` with `name: "code editing fixture source-backed retrieval"`.
 
-- [ ] **Step 1: Implement minimal GREEN code**
+- [x] **Step 1: Implement minimal GREEN code**
 
 Extend `ScenarioResult` with `passedTaskGate?: boolean` and add a scenario in `benchmarks/run.ts` that:
 
@@ -109,6 +113,16 @@ const codeQuery = queryArtifact({
   store,
 });
 const codeLatencyMs = Math.round((performance.now() - codeStart) * 100) / 100;
+const brokenSource = [
+  "export function normalizeInput(value: number): number {",
+  "  return value;",
+  "}",
+].join("\n");
+const stalePatch = applyCodeEditingExcerpt(brokenSource, "stale excerpt");
+const retrievedPatch = applyCodeEditingExcerpt(
+  brokenSource,
+  codeQuery.excerpts[0]?.text ?? "",
+);
 results.push({
   name: "code editing fixture source-backed retrieval",
   rawTokens: codeFixtureTokens,
@@ -116,18 +130,10 @@ results.push({
   reductionPercent: percentReduction(codeFixtureTokens, codeQuery.estimatedTokens),
   passedExactGate: codeQueryPassesExactGate(codeFixture, codeQuery),
   passedTaskGate:
-    !runCodeEditingFixtureTests("export function normalizeInput(value: number) { return value; }")
-      .passed &&
-    !applyCodeEditingExcerpt(
-      "export function normalizeInput(value: number) { return value; }",
-      "stale excerpt",
-    ).patched &&
-    runCodeEditingFixtureTests(
-      applyCodeEditingExcerpt(
-        "export function normalizeInput(value: number) { return value; }",
-        codeQuery.excerpts[0]?.text ?? "",
-      ).source,
-    ).passed,
+    !runCodeEditingFixtureTests(brokenSource).passed &&
+    !stalePatch.patched &&
+    retrievedPatch.patched &&
+    runCodeEditingFixtureTests(retrievedPatch.source).passed,
   latencyMs: codeLatencyMs,
   profileVersion: "heuristic-v1",
   warnings: codeQuery.warnings,
@@ -158,7 +164,7 @@ function applyCodeEditingExcerpt(
 ): { source: string; patched: boolean }
 ```
 
-Returns a patched source only when the excerpt contains `export function normalizeInput(value: number): number {` and `throw new Error("ERR_NEGATIVE_INPUT");`.
+Extracts the `normalizeInput` implementation block verbatim from the retrieved excerpt, returns a patched source only when the excerpt names `src/math.ts`, and sets `patched: true` only when `source.replace(...)` actually changes the source.
 
 ```ts
 function runCodeEditingFixtureTests(source: string): { passed: boolean; failures: string[] }
@@ -166,7 +172,7 @@ function runCodeEditingFixtureTests(source: string): { passed: boolean; failures
 
 Runs independent in-process cases for `-1`, `0`, and `7`. It must require negative input to throw `ERR_NEGATIVE_INPUT`, zero to remain zero, and positive input to remain unchanged.
 
-- [ ] **Step 2: Run targeted GREEN check**
+- [x] **Step 2: Run targeted GREEN check**
 
 Run:
 
@@ -176,18 +182,20 @@ npm.cmd run benchmark
 npm.cmd run typecheck
 ```
 
-Expected: targeted test passes; benchmark JSON includes three scenarios and `passed: true`; typecheck exits 0.
+Observed: targeted `code editing fixture` tests passed, benchmark JSON included three scenarios with `passed: true`, and typecheck exited 0.
 
-- [ ] **Step 3: Update docs**
+- [x] **Step 3: Update docs**
 
 Change `docs/benchmarks.md` so the code editing fixture is listed as implemented, and describe that it separately gates exact source-backed retrieval and task success after applying the retrieved edit.
 
-- [ ] **Step 4: Commit GREEN implementation**
+- [x] **Step 4: Commit GREEN implementation**
 
 ```powershell
 git add benchmarks/run.ts docs/benchmarks.md
 git commit -m "feat: add code editing benchmark scenario"
 ```
+
+Committed as `1dcb26b`. Intermediate `test-engineer` review found the first task gate could false-positive because replacement text was hardcoded. Remediation commit `ef927b2` exports the fixture helpers for direct regression coverage, extracts the replacement implementation from the retrieved excerpt, marks `patched: true` only when source changes, and proves stale/wrong excerpts cannot make the fixture pass.
 
 ### Task 3: Verification And PR Handoff
 
@@ -198,7 +206,7 @@ git commit -m "feat: add code editing benchmark scenario"
 - Consumes: latest verification command output and independent review results.
 - Produces: pushed branch and PR against `main`.
 
-- [ ] **Step 1: Run full gate**
+- [x] **Step 1: Run full gate**
 
 Run:
 
@@ -212,7 +220,7 @@ npm.cmd run benchmark
 git diff --check
 ```
 
-Expected: all commands exit 0, with benchmark including the code editing fixture.
+Observed: all commands exited 0. `npm.cmd test` reported 165 passed. `npm.cmd run benchmark` reported the code editing fixture with `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `passedTaskGate: true`, `latencyMs: 1.14`, and `warnings: []`.
 
 - [ ] **Step 2: Run independent review**
 
