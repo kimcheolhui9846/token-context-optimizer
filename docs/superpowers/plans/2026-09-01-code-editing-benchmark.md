@@ -104,8 +104,8 @@ const codeQuery = queryArtifact({
   artifactId: codeArtifact.artifactId,
   query:
     "tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT rejects negative input npm test",
-  maxTokens: 140,
-  contextLines: 3,
+  maxTokens: 180,
+  contextLines: 6,
   store,
 });
 const codeLatencyMs = Math.round((performance.now() - codeStart) * 100) / 100;

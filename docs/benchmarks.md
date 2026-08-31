@@ -11,7 +11,7 @@ npm.cmd run benchmark
 
 - 25K-style build log: retrieve error file, line, code, and diagnostic without corrupting exact data. The scenario must generate at least 25,000 estimated raw tokens before applying retrieval.
 - Repeated semantic document: compare 10-turn raw context against extractive summary reuse.
-- Code editing fixture: future scenario requiring tests to pass with excerpt-based retrieval.
+- Code editing fixture: source-backed retrieval of an exact edit target, error identifier, failing test name, and test command. The scenario separately gates exact excerpt fidelity and task success after applying the retrieved edit.
 
 ## Automated MVP Gates
 
