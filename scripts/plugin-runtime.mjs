@@ -164,6 +164,10 @@ export function assertPluginManifestContract(manifest, context = "plugin.json") 
   return manifest;
 }
 
+export function childHasExited(child) {
+  return child.exitCode !== null || child.signalCode !== null;
+}
+
 export function parseJsonObjectRejectingDuplicateKeys(source, context = "JSON") {
   rejectDuplicateJsonObjectKeys(source, context);
   return JSON.parse(source);

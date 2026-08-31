@@ -2,7 +2,6 @@ import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import {
   access,
-  chmod,
   cp,
   link,
   mkdir,
@@ -14,7 +13,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { delimiter, join } from "node:path";
+import { join } from "node:path";
 import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 
@@ -2131,35 +2130,23 @@ describe("project configuration", () => {
       "utf8",
     );
 
-    const shimDir = await mkdtemp(join(tmpdir(), "tco-node-shim-"));
-    const nodeShim = join(shimDir, process.platform === "win32" ? "node.cmd" : "node");
-    const realNode = process.execPath;
-    if (process.platform === "win32") {
-      await writeFile(
-        nodeShim,
-        [
-          "@echo off",
-          `if defined NODE_OPTIONS echo NODE_OPTIONS>>"${markerPath}"`,
-          `if defined NODE_PATH echo NODE_PATH>>"${markerPath}"`,
-          `if defined npm_config_node_options echo npm_config_node_options>>"${markerPath}"`,
-          `"${realNode}" %*`,
-        ].join("\r\n"),
-        "utf8",
-      );
-    } else {
-      await writeFile(
-        nodeShim,
-        [
-          "#!/bin/sh",
-          `[ -n "$NODE_OPTIONS" ] && echo NODE_OPTIONS >> ${JSON.stringify(markerPath)}`,
-          `[ -n "$NODE_PATH" ] && echo NODE_PATH >> ${JSON.stringify(markerPath)}`,
-          `[ -n "$npm_config_node_options" ] && echo npm_config_node_options >> ${JSON.stringify(markerPath)}`,
-          `exec ${JSON.stringify(realNode)} "$@"`,
-        ].join("\n"),
-        "utf8",
-      );
-      await chmod(nodeShim, 0o755);
-    }
+    const originalBundle = await readFile(join(target, "bin", "token-context-optimizer.mjs"), "utf8");
+    const executableBundle = originalBundle.startsWith("#!")
+      ? originalBundle.replace(/^#![^\n]*(?:\n|$)/u, "")
+      : originalBundle;
+    await writeFile(
+      join(target, "bin", "token-context-optimizer.mjs"),
+      [
+        "import { appendFileSync } from 'node:fs';",
+        "for (const key of ['NODE_OPTIONS', 'NODE_PATH', 'npm_config_node_options']) {",
+        "  if (process.env[key] !== undefined) {",
+        `    appendFileSync(${JSON.stringify(markerPath)}, key + "\\n");`,
+        "  }",
+        "}",
+        executableBundle,
+      ].join("\n"),
+      "utf8",
+    );
 
     const inheritedPath = process.env.PATH ?? process.env.Path ?? "";
     const env = {
@@ -2167,8 +2154,8 @@ describe("project configuration", () => {
       NODE_OPTIONS: `--require=${preloadPath}`,
       NODE_PATH: hookRoot,
       npm_config_node_options: `--require=${preloadPath}`,
-      PATH: `${shimDir}${delimiter}${inheritedPath}`,
-      Path: `${shimDir}${delimiter}${inheritedPath}`,
+      PATH: inheritedPath,
+      Path: inheritedPath,
     };
 
     const { stdout } = await execFileAsync(
@@ -2326,6 +2313,19 @@ describe("project configuration", () => {
 
     const after = (await readdir(tempParent)).filter((entry) => entry.startsWith("tco-installed-workspace-"));
     expect(after.filter((entry) => !before.has(entry))).toEqual([]);
+  });
+
+  it("treats signal-terminated child processes as exited", async () => {
+    const { stdout } = await execFileAsync(process.execPath, [
+      "--input-type=module",
+      "-e",
+      [
+        "import { childHasExited } from './scripts/plugin-runtime.mjs';",
+        "console.log(JSON.stringify({ exited: childHasExited({ exitCode: null, signalCode: 'SIGTERM' }) }));",
+      ].join("\n"),
+    ]);
+
+    expect(JSON.parse(stdout)).toEqual({ exited: true });
   });
 
   it("rejects hard-linked runtime destinations before copying", async () => {

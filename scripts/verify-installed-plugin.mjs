@@ -13,6 +13,7 @@ import {
   RUNTIME_FILES,
   assertCanonicalMcpConfig,
   assertPluginManifestContract,
+  childHasExited,
   parseJsonObjectRejectingDuplicateKeys,
   resolvePluginRoot,
   validateCliArgs,
@@ -160,7 +161,7 @@ function waitFor(predicate, timeoutMs = 5000) {
         reject(childError);
         return;
       }
-      if (!activeChild || activeChild.exitCode !== null) {
+      if (!activeChild || childHasExited(activeChild)) {
         clearInterval(interval);
         reject(new Error(`MCP server exited before expected response. stderr=${stderr}`));
         return;
@@ -478,7 +479,7 @@ function parseCompleteJsonMessages(input) {
 
 function stopChild() {
   const activeChild = child;
-  if (!activeChild || activeChild.exitCode !== null) {
+  if (!activeChild || childHasExited(activeChild)) {
     return Promise.resolve();
   }
   return terminateChild("SIGTERM", 1000).then(async (terminated) => {
@@ -495,7 +496,7 @@ function stopChild() {
 function terminateChild(signal, timeoutMs) {
   return new Promise((resolveTerminated) => {
     const activeChild = child;
-    if (!activeChild || activeChild.exitCode !== null) {
+    if (!activeChild || childHasExited(activeChild)) {
       resolveTerminated(true);
       return;
     }
@@ -514,7 +515,7 @@ function terminateChild(signal, timeoutMs) {
     activeChild.once("exit", onExit);
     if (!activeChild.kill(signal)) {
       cleanup();
-      resolveTerminated(activeChild.exitCode !== null);
+      resolveTerminated(childHasExited(activeChild));
     }
   });
 }

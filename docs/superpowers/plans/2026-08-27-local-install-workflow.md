@@ -658,6 +658,34 @@ Added a direct ambient-hook regression that runs installed verification with `NO
 
 Current verifier behavior already satisfied the stronger tests. Added a shared `assertPluginManifestContract` helper and wired installer source preflight, source validation, and installed verification through the same manifest path contract. Targeted verification passed with `npm.cmd test -- --run tests/core.test.ts -t "noncanonical source plugin manifests|ambient Node execution hooks|setup failures"`: 4 tests passed. `npm.cmd run typecheck` also passed. Updated `README.md`, `docs/agent/HANDOFF.md`, and this plan to reflect the current `36c20b6` follow-up state and staged-source verification boundary.
 
+- [x] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Status: full local gate completed with 158 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Remediation was committed as `1ea0bc2`, pushed to PR #2, and the PR body was updated to the 158-test verification state. Independent `code-reviewer` re-review against `1ea0bc2` returned `REQUEST CHANGES` with no Critical/High findings; remaining issues are tracked in Task 18. Architect re-review against `1ea0bc2` was still pending when Task 18 started, so treat it as stale once the next remediation commit lands.
+
+### Task 18: Signal Exit And Ambient Hook Evidence Follow-up
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/verify-installed-plugin.mjs`
+- Modify: `scripts/smoke-mcp.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent `code-reviewer` review against PR #2 head `1ea0bc2` returned `REQUEST CHANGES` with no Critical/High findings. Remaining scope: treat signal-terminated MCP children as exited in verifier and smoke lifecycle checks, make the ambient-hook regression observe all three inherited variables inside the installed child instead of through a PATH shim, and refresh review-readiness docs after the already-pushed `1ea0bc2` state.
+
+Independent `architect` review against `1ea0bc2` returned `WATCH` with no architectural blocker. The remaining watch items were duplicated filesystem policy helpers, staged-root verification scope, and the now-remediated ambient-hook evidence gap.
+
+- [x] **Step 2: RED tests for signal and ambient-hook gaps**
+
+Added `childHasExited` regression coverage for signal-terminated child-like process state. Reworked the ambient-hook test so the installed bundle itself records leaked `NODE_OPTIONS`, `NODE_PATH`, and `npm_config_node_options`, while a preload sentinel still catches leaked `NODE_OPTIONS` before bundle evaluation. RED verification failed before implementation because `childHasExited` was missing; the first instrumentation attempt also exposed that injected code must preserve the executable bundle's shebang rules.
+
+- [x] **Step 3: Lifecycle helper and targeted GREEN**
+
+Added shared `childHasExited` in `scripts/plugin-runtime.mjs` and used it in `verify-installed-plugin.mjs` and `smoke-mcp.mjs` for `waitFor`, `stopChild`, and `terminateChild`. Targeted verification passed with `npm.cmd test -- --run tests/core.test.ts -t "signal-terminated child|ambient Node execution hooks|setup failures"`: 4 tests passed. `npm.cmd run typecheck` also passed.
+
 - [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
-Status: full local gate completed with 158 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next. Mark PR #2 ready only if both review lanes clear, and do not merge without explicit user approval.
+Status: full local gate completed with 159 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next. Mark PR #2 ready only if both review lanes clear, and do not merge without explicit user approval.
