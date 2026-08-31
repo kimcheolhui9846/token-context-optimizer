@@ -781,6 +781,43 @@ describe("token estimation", () => {
   });
 });
 
+describe("benchmarks", () => {
+  it("benchmark reports code editing fixture source-backed retrieval", async () => {
+    await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
+      windowsHide: true,
+    });
+
+    const { stdout } = await execFileAsync(process.execPath, ["dist/benchmarks/run.js"], {
+      windowsHide: true,
+    });
+    const report = JSON.parse(stdout.slice(stdout.indexOf("{"))) as {
+      results: Array<{
+        name: string;
+        rawTokens: number;
+        reductionPercent: number;
+        latencyMs: number;
+        passedExactGate: boolean;
+        passedTaskGate?: boolean;
+        profileVersion: string;
+        warnings: string[];
+      }>;
+    };
+    const scenario = report.results.find(
+      (result) => result.name === "code editing fixture source-backed retrieval",
+    );
+
+    expect(scenario).toMatchObject({
+      passedExactGate: true,
+      passedTaskGate: true,
+      profileVersion: "heuristic-v1",
+    });
+    expect(scenario?.rawTokens).toBeGreaterThanOrEqual(8000);
+    expect(scenario?.reductionPercent).toBeGreaterThanOrEqual(25);
+    expect(scenario?.latencyMs).toBeLessThanOrEqual(1000);
+    expect(scenario?.warnings).toEqual([]);
+  });
+});
+
 describe("project configuration", () => {
   it("installs only runtime plugin files into a target directory", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-"));
