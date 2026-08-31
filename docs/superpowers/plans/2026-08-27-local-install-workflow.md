@@ -712,6 +712,20 @@ Added installer and verifier regressions for incomplete source/installed manifes
 
 Extended `assertPluginManifestContract` to validate required fields, strict semver version, no hooks, canonical name/skills/mcpServers paths, interface fields, and 1-3 short default prompts. `validate-plugin.mjs`, installer source preflight, and installed verification now use that shared contract. Added `--simulate-child-signal-exit` to `smoke-mcp.mjs` so the smoke lifecycle call sites are exercised. Targeted verification passed with `npm.cmd test -- --run tests/core.test.ts -t "incomplete source plugin manifests|incomplete installed plugin manifests|smoke MCP fails promptly|verifier fails promptly|signal-terminated child"`: 5 tests passed. `npm.cmd run typecheck` also passed.
 
-- [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+- [x] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
-Status: full local gate completed with 163 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next. Mark PR #2 ready only if both review lanes clear, and do not merge without explicit user approval.
+Status: full local gate completed with 163 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Remediation was committed as `08033e6`, pushed to PR #2, and the PR body was updated to the 163-test verification state. Fresh `code-reviewer` re-review against `08033e6` returned `COMMENT` with no Critical/High or runtime correctness issue; the only finding was that handoff/plan still described already-completed commit/push work as pending. Fresh `architect` re-review against `08033e6` is pending.
+
+### Task 20: Final Stale-State Documentation Refresh
+
+**Files:**
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+
+- [x] **Step 1: Independent re-review finding**
+
+Independent `code-reviewer` review against PR #2 head `08033e6` returned `COMMENT`. The code/spec/security lane found no Critical/High or runtime correctness issue. Remaining scope: record that `08033e6` was already committed, pushed, and reflected in PR #2, then make independent review/readiness the current next step.
+
+- [ ] **Step 2: Commit, push, PR body update, and readiness decision**
+
+Commit and push this documentation-only stale-state correction. Update PR #2 body to reference the documentation refresh commit. If the pending architect lane has no BLOCK, rerun review only if required by the documentation-only commit; otherwise mark PR #2 ready for review. Do not merge without explicit user approval.

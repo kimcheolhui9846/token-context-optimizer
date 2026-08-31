@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish PR #2 final review-readiness follow-up after the `3a4376e` independent code-reviewer pass found handoff-state, manifest-contract, and signal-lifecycle evidence gaps.
+Finish PR #2 final independent re-review against `08033e6` and decide whether PR #2 can be marked ready for review.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish PR #2 final review-readiness follow-up after the `3a4376e` independent co
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, and signal-exit commit `3a4376e`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, signal-exit commit `3a4376e`, and manifest/lifecycle contract commit `08033e6`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -572,6 +572,10 @@ Finish PR #2 final review-readiness follow-up after the `3a4376e` independent co
   - Full gate: `npm.cmd run install:local -- --target $env:TEMP\tco-manifest-lifecycle-gate-20260901-0059\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-manifest-lifecycle-gate-20260901-0059\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - Full gate: `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-manifest-lifecycle-gate-20260901-0059\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
   - Full gate: `git diff --check` - exit 0.
+- PR #2 `08033e6` re-review state:
+  - Remediation was committed as `08033e6`, pushed to `feature/local-install-workflow`, and PR #2 body was updated to the 163-test verification state.
+  - Fresh `code-reviewer` re-review against `08033e6` returned `COMMENT`: no Critical/High or runtime correctness issue remained; the only issue was stale handoff/plan wording that still said commit/push were pending.
+  - Fresh `architect` re-review against `08033e6` is pending.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -592,10 +596,10 @@ Finish PR #2 final review-readiness follow-up after the `3a4376e` independent co
 
 ## Next Steps
 
-1. Commit and push the manifest-contract/signal-lifecycle/doc remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the 163-test verification state.
-3. Rerun independent `code-reviewer` and `architect` review against the new PR #2 head.
-4. If both review lanes clear, mark PR #2 ready for review.
+1. Commit and push this documentation-only stale-state correction.
+2. Update PR #2 body to reference the documentation refresh commit.
+3. If the pending `architect` lane has no BLOCK, rerun final review only if required by the new documentation-only commit.
+4. If both independent lanes clear or return only WATCH/COMMENT findings, mark PR #2 ready for review.
 5. Do not merge PR #2 without explicit user approval.
 
 ## Recovery Commands
