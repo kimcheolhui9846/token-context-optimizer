@@ -686,6 +686,32 @@ Added `childHasExited` regression coverage for signal-terminated child-like proc
 
 Added shared `childHasExited` in `scripts/plugin-runtime.mjs` and used it in `verify-installed-plugin.mjs` and `smoke-mcp.mjs` for `waitFor`, `stopChild`, and `terminateChild`. Targeted verification passed with `npm.cmd test -- --run tests/core.test.ts -t "signal-terminated child|ambient Node execution hooks|setup failures"`: 4 tests passed. `npm.cmd run typecheck` also passed.
 
+- [x] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
+
+Status: full local gate completed with 159 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Remediation was committed as `3a4376e`, pushed to PR #2, and the PR body was updated to the 159-test verification state. Independent `code-reviewer` re-review against `3a4376e` returned `REQUEST CHANGES` with no Critical/High findings; remaining issues are tracked in Task 19. Architect re-review against `3a4376e` is still pending and should be treated as stale once the next remediation commit lands.
+
+### Task 19: Complete Manifest Contract And Lifecycle Evidence Follow-up
+
+**Files:**
+- Modify: `scripts/plugin-runtime.mjs`
+- Modify: `scripts/validate-plugin.mjs`
+- Modify: `scripts/smoke-mcp.mjs`
+- Modify: `tests/core.test.ts`
+- Modify: `docs/agent/HANDOFF.md`
+- Modify: `docs/superpowers/plans/2026-08-27-local-install-workflow.md`
+
+- [x] **Step 1: Independent re-review findings**
+
+Independent `code-reviewer` review against PR #2 head `3a4376e` returned `REQUEST CHANGES` with no Critical/High findings. Remaining scope: record that `3a4376e` was already pushed, move complete trust-bearing manifest validation into the shared helper, and make signal-exit regression coverage exercise the verifier and smoke lifecycle call sites rather than only the exported helper.
+
+- [x] **Step 2: RED tests for manifest and lifecycle gaps**
+
+Added installer and verifier regressions for incomplete source/installed manifests, including missing or invalid version, missing description, missing or non-object interface, and invalid `interface.defaultPrompt`. Added verifier and smoke signal-exit integration regressions that fail promptly and verify temporary cleanup. RED verification failed because incomplete manifests were accepted and smoke did not expose a signal-exit fixture.
+
+- [x] **Step 3: Shared manifest validation and targeted GREEN**
+
+Extended `assertPluginManifestContract` to validate required fields, strict semver version, no hooks, canonical name/skills/mcpServers paths, interface fields, and 1-3 short default prompts. `validate-plugin.mjs`, installer source preflight, and installed verification now use that shared contract. Added `--simulate-child-signal-exit` to `smoke-mcp.mjs` so the smoke lifecycle call sites are exercised. Targeted verification passed with `npm.cmd test -- --run tests/core.test.ts -t "incomplete source plugin manifests|incomplete installed plugin manifests|smoke MCP fails promptly|verifier fails promptly|signal-terminated child"`: 5 tests passed. `npm.cmd run typecheck` also passed.
+
 - [ ] **Step 4: Full gate, commit, push, PR body update, and independent re-review**
 
-Status: full local gate completed with 159 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next. Mark PR #2 ready only if both review lanes clear, and do not merge without explicit user approval.
+Status: full local gate completed with 163 tests passing, build/typecheck/smoke/manifest validation/benchmark passing, installed marketplace-source verification passing, and `git diff --check` passing. Commit, push, PR body update, and independent re-review remain next. Mark PR #2 ready only if both review lanes clear, and do not merge without explicit user approval.

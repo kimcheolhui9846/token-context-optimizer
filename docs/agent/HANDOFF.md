@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish PR #2 final review-readiness follow-up after the `1ea0bc2` independent code-reviewer pass found signal-exit handling, ambient-hook regression, and handoff-state gaps.
+Finish PR #2 final review-readiness follow-up after the `3a4376e` independent code-reviewer pass found handoff-state, manifest-contract, and signal-lifecycle evidence gaps.
 
 ## Workspace
 
@@ -13,7 +13,7 @@ Finish PR #2 final review-readiness follow-up after the `1ea0bc2` independent co
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
-- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, and verifier-evidence commit `1ea0bc2`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
+- Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, and signal-exit commit `3a4376e`. Use `git rev-parse HEAD` or `gh pr view 2 --json headRefOid` for the current PR head.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
 ## Completed Work
@@ -557,6 +557,21 @@ Finish PR #2 final review-readiness follow-up after the `1ea0bc2` independent co
   - Full gate: `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
   - Full gate: `npm.cmd run install:local -- --target $env:TEMP\tco-signal-gate-20260831-2025\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-signal-gate-20260831-2025\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
   - Full gate: `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-signal-gate-20260831-2025\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+- PR #2 follow-up re-review against `3a4376e`:
+  - `code-reviewer` returned `REQUEST CHANGES` with no Critical/High issues.
+  - Remaining remediation scope: mark `3a4376e` push/PR update as complete in handoff and plan, move complete trust-bearing manifest validation into shared `assertPluginManifestContract`, add installer and verifier regressions for incomplete manifests, and make signal-exit regressions exercise verifier and smoke lifecycle call sites directly.
+  - RED evidence: `npm.cmd test -- --run tests/core.test.ts -t "incomplete source plugin manifests|incomplete installed plugin manifests|smoke MCP fails promptly|verifier fails promptly"` failed because incomplete manifests were accepted and smoke did not expose a signal-exit fixture.
+  - Targeted GREEN: `npm.cmd test -- --run tests/core.test.ts -t "incomplete source plugin manifests|incomplete installed plugin manifests|smoke MCP fails promptly|verifier fails promptly|signal-terminated child"` - 5 tests passed.
+  - Targeted GREEN: `npm.cmd run typecheck` - exit 0.
+  - Full gate: `npm.cmd test` - 163 tests passed.
+  - Full gate: `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - Full gate: `npm.cmd run typecheck` - exit 0.
+  - Full gate: `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - Full gate: `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - Full gate: `npm.cmd run benchmark` - `rawTokens: 25025`, `passed: true`.
+  - Full gate: `npm.cmd run install:local -- --target $env:TEMP\tco-manifest-lifecycle-gate-20260901-0059\.codex\plugins\token-context-optimizer --marketplace $env:TEMP\tco-manifest-lifecycle-gate-20260901-0059\.agents\plugins\marketplace.json` - created marketplace entry with `source.path: ./.codex/plugins/token-context-optimizer`.
+  - Full gate: `npm.cmd run verify:installed -- --plugin-root $env:TEMP\tco-manifest-lifecycle-gate-20260901-0059\.codex\plugins\token-context-optimizer` - `ok: true`, `indexedLineCount: 2`, `deniedPluginRootIndex: true`.
+  - Full gate: `git diff --check` - exit 0.
 - Local install workflow full gate:
   - `npm.cmd test` - 95 tests passed.
   - `npm.cmd run build` - exit 0.
@@ -577,8 +592,8 @@ Finish PR #2 final review-readiness follow-up after the `1ea0bc2` independent co
 
 ## Next Steps
 
-1. Commit and push the signal-exit/test/doc remediation to `feature/local-install-workflow`.
-2. Update PR #2 body to the 159-test verification state.
+1. Commit and push the manifest-contract/signal-lifecycle/doc remediation to `feature/local-install-workflow`.
+2. Update PR #2 body to the 163-test verification state.
 3. Rerun independent `code-reviewer` and `architect` review against the new PR #2 head.
 4. If both review lanes clear, mark PR #2 ready for review.
 5. Do not merge PR #2 without explicit user approval.

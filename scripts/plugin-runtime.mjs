@@ -149,6 +149,21 @@ export function assertPluginManifestContract(manifest, context = "plugin.json") 
   if (!isPlainObject(manifest)) {
     throw new Error(`${context} must be a JSON object`);
   }
+  const required = [
+    ["name", "string"],
+    ["version", "string"],
+    ["description", "string"],
+    ["skills", "string"],
+    ["mcpServers", "string"],
+  ];
+  for (const [field, type] of required) {
+    if (typeof manifest[field] !== type || manifest[field].length === 0) {
+      throw new Error(`${context} missing ${field}`);
+    }
+  }
+  if (!/^\d+\.\d+\.\d+$/.test(manifest.version)) {
+    throw new Error(`${context} version must be strict semver`);
+  }
   if (manifest.hooks !== undefined) {
     throw new Error(`${context} must not declare hooks`);
   }
@@ -160,6 +175,30 @@ export function assertPluginManifestContract(manifest, context = "plugin.json") 
   }
   if (manifest.mcpServers !== PLUGIN_MCP_SERVERS_PATH) {
     throw new Error(`${context} mcpServers must be ${PLUGIN_MCP_SERVERS_PATH}`);
+  }
+  if (!isPlainObject(manifest.interface)) {
+    throw new Error(`${context} missing interface`);
+  }
+  for (const field of [
+    "displayName",
+    "shortDescription",
+    "longDescription",
+    "developerName",
+    "category",
+  ]) {
+    if (typeof manifest.interface[field] !== "string" || manifest.interface[field].length === 0) {
+      throw new Error(`${context} interface missing ${field}`);
+    }
+  }
+  if (
+    !Array.isArray(manifest.interface.defaultPrompt) ||
+    manifest.interface.defaultPrompt.length === 0 ||
+    manifest.interface.defaultPrompt.length > 3 ||
+    manifest.interface.defaultPrompt.some(
+      (prompt) => typeof prompt !== "string" || prompt.length === 0 || prompt.length > 128,
+    )
+  ) {
+    throw new Error(`${context} interface.defaultPrompt must contain 1-3 short prompts`);
   }
   return manifest;
 }

@@ -6,8 +6,12 @@ import { dirname, join } from "node:path";
 import { RUNTIME_FILES, childHasExited, readOption, validateCliArgs } from "./plugin-runtime.mjs";
 
 const args = process.argv.slice(2);
-validateCliArgs(args, { valueOptions: ["--simulate-copy-failure-after"] });
+validateCliArgs(args, {
+  valueOptions: ["--simulate-copy-failure-after"],
+  flags: ["--simulate-child-signal-exit"],
+});
 const simulateCopyFailureAfter = readIntegerOption(args, "--simulate-copy-failure-after");
+const simulateChildSignalExit = args.includes("--simulate-child-signal-exit");
 
 let pluginRoot = null;
 let workspaceRoot = null;
@@ -22,6 +26,13 @@ try {
   pluginRoot = await mkdtemp(join(tmpdir(), "tco-installed-plugin-"));
   workspaceRoot = await mkdtemp(join(tmpdir(), "tco-workspace-"));
   await copyRuntimeFiles(pluginRoot, simulateCopyFailureAfter);
+  if (simulateChildSignalExit) {
+    await writeFile(
+      join(pluginRoot, "bin/token-context-optimizer.mjs"),
+      "process.kill(process.pid, 'SIGTERM');\n",
+      "utf8",
+    );
+  }
 
   const workspaceFile = join(workspaceRoot, "artifact.txt");
   await writeFile(

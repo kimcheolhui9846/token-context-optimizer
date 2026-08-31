@@ -1714,6 +1714,49 @@ describe("project configuration", () => {
     }
   });
 
+  it("installer rejects incomplete source plugin manifests before copying", async () => {
+    const manifestMutations = [
+      (manifest: Record<string, unknown>) => {
+        delete manifest.version;
+      },
+      (manifest: Record<string, unknown>) => {
+        manifest.version = "0.1";
+      },
+      (manifest: Record<string, unknown>) => {
+        delete manifest.description;
+      },
+      (manifest: Record<string, unknown>) => {
+        delete manifest.interface;
+      },
+      (manifest: Record<string, unknown>) => {
+        manifest.interface = [];
+      },
+      (manifest: Record<string, unknown>) => {
+        (manifest.interface as Record<string, unknown>).defaultPrompt = [];
+      },
+    ];
+
+    for (const mutate of manifestMutations) {
+      const sourceRoot = await mkdtemp(join(tmpdir(), "tco-install-source-incomplete-manifest-"));
+      const target = await mkdtemp(join(tmpdir(), "tco-install-target-incomplete-manifest-"));
+      await copyValidationFixture(sourceRoot);
+      await copyInstallerFixture(sourceRoot);
+      const manifest = JSON.parse(await readFile(join(sourceRoot, ".codex-plugin", "plugin.json"), "utf8"));
+      mutate(manifest);
+      await writeFile(join(sourceRoot, ".codex-plugin", "plugin.json"), JSON.stringify(manifest), "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          join(sourceRoot, "scripts", "install-local-plugin.mjs"),
+          "--target",
+          target,
+          "--no-marketplace",
+        ]),
+      ).rejects.toThrow(/plugin.json/);
+      await expect(access(join(target, ".codex-plugin", "plugin.json"))).rejects.toThrow();
+    }
+  });
+
   it("installer rejects duplicate raw target ownership manifests before copying", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-duplicate-manifest-"));
     await mkdir(join(target, ".codex-plugin"), { recursive: true });
@@ -1901,6 +1944,47 @@ describe("project configuration", () => {
         target,
       ]),
     ).rejects.toThrow(/skills/);
+  });
+
+  it("verifier rejects incomplete installed plugin manifests", async () => {
+    const manifestMutations = [
+      (manifest: Record<string, unknown>) => {
+        delete manifest.version;
+      },
+      (manifest: Record<string, unknown>) => {
+        manifest.version = "0.1";
+      },
+      (manifest: Record<string, unknown>) => {
+        delete manifest.description;
+      },
+      (manifest: Record<string, unknown>) => {
+        delete manifest.interface;
+      },
+      (manifest: Record<string, unknown>) => {
+        (manifest.interface as Record<string, unknown>).defaultPrompt = [];
+      },
+    ];
+
+    for (const mutate of manifestMutations) {
+      const target = await mkdtemp(join(tmpdir(), "tco-installed-incomplete-manifest-"));
+      await execFileAsync(process.execPath, [
+        "scripts/install-local-plugin.mjs",
+        "--target",
+        target,
+        "--no-marketplace",
+      ]);
+      const manifest = JSON.parse(await readFile(join(target, ".codex-plugin", "plugin.json"), "utf8"));
+      mutate(manifest);
+      await writeFile(join(target, ".codex-plugin", "plugin.json"), JSON.stringify(manifest), "utf8");
+
+      await expect(
+        execFileAsync(process.execPath, [
+          "scripts/verify-installed-plugin.mjs",
+          "--plugin-root",
+          target,
+        ]),
+      ).rejects.toThrow(/plugin manifest|plugin\.json/i);
+    }
   });
 
   it("verifier rejects installed manifests that declare hooks", async () => {
@@ -2313,6 +2397,67 @@ describe("project configuration", () => {
 
     const after = (await readdir(tempParent)).filter((entry) => entry.startsWith("tco-installed-workspace-"));
     expect(after.filter((entry) => !before.has(entry))).toEqual([]);
+  });
+
+  it("verifier fails promptly and cleans up when the MCP child exits by signal", async () => {
+    const target = await mkdtemp(join(tmpdir(), "tco-installed-signal-exit-"));
+    await execFileAsync(process.execPath, [
+      "scripts/install-local-plugin.mjs",
+      "--target",
+      target,
+      "--no-marketplace",
+    ]);
+    await writeFile(
+      join(target, "bin", "token-context-optimizer.mjs"),
+      "process.kill(process.pid, 'SIGTERM');\n",
+      "utf8",
+    );
+    const tempParent = await mkdtemp(join(tmpdir(), "tco-installed-signal-exit-parent-"));
+    const startedAt = Date.now();
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        ["scripts/verify-installed-plugin.mjs", "--plugin-root", target],
+        {
+          env: {
+            ...process.env,
+            TEMP: tempParent,
+            TMP: tempParent,
+            TMPDIR: tempParent,
+          },
+        },
+      ),
+    ).rejects.toThrow(/exited before expected response/);
+
+    expect(Date.now() - startedAt).toBeLessThan(2500);
+    const leakedWorkspaces = (await readdir(tempParent)).filter((entry) =>
+      entry.startsWith("tco-installed-workspace-"),
+    );
+    expect(leakedWorkspaces).toEqual([]);
+  });
+
+  it("smoke MCP fails promptly and cleans up when the MCP child exits by signal", async () => {
+    const tempParent = await mkdtemp(join(tmpdir(), "tco-smoke-signal-exit-parent-"));
+    const startedAt = Date.now();
+
+    await expect(
+      execFileAsync(
+        process.execPath,
+        ["scripts/smoke-mcp.mjs", "--simulate-child-signal-exit"],
+        {
+          env: {
+            ...process.env,
+            TEMP: tempParent,
+            TMP: tempParent,
+            TMPDIR: tempParent,
+          },
+        },
+      ),
+    ).rejects.toThrow(/exited before expected response/);
+
+    expect(Date.now() - startedAt).toBeLessThan(2500);
+    await expectDirectoryEmpty(tempParent);
   });
 
   it("treats signal-terminated child processes as exited", async () => {
