@@ -1,4 +1,4 @@
-import { mkdtemp, writeFile } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -20,98 +20,100 @@ export interface ScenarioResult {
   taskGateRequired: boolean;
   passedTaskGate: boolean | null;
   latencyMs: number;
+  sampleCount: number;
+  medianLatencyMs: number;
+  p95LatencyMs: number;
   profileVersion: string;
   warnings: string[];
 }
 
+export interface BenchmarkReport {
+  generatedAt: string;
+  thresholds: {
+    minimumReductionPercent: number;
+    maximumScenarioLatencyMs: number;
+    exactGateRequired: boolean;
+  };
+  results: ScenarioResult[];
+  passed: boolean;
+}
+
+export interface TimedScenarioResult {
+  name: string;
+  rawTokens: number;
+  optimizedTokens: number;
+  reductionPercent: number;
+  passedExactGate: boolean;
+  taskGateRequired: boolean;
+  passedTaskGate: boolean | null;
+  latencyMs: number;
+  profileVersion: string;
+  warnings: string[];
+}
+
+const DEFAULT_LATENCY_SAMPLE_COUNT = 20;
+const MINIMUM_REDUCTION_PERCENT = 25;
+const MAXIMUM_SCENARIO_LATENCY_MS = 1000;
+
 async function main(): Promise<void> {
-  const dir = await mkdtemp(join(tmpdir(), "tco-bench-"));
-  const results: ScenarioResult[] = [];
-
-  const buildLog = buildLargeBuildLog(25_000);
-  const buildLogTokens = estimateTextTokens(buildLog);
-  const buildLogPath = join(dir, "build.log");
-  await writeFile(buildLogPath, buildLog, "utf8");
-  const store = new MemoryArtifactStore();
-  const buildStart = performance.now();
-  const artifact = await indexArtifact({ path: buildLogPath, store, allowedRoots: [dir] });
-  const query = queryArtifact({
-    artifactId: artifact.artifactId,
-    query: "TS2304 missingValue src/index.ts",
-    maxTokens: 80,
-    contextLines: 1,
-    store,
-  });
-  const buildLatencyMs = Math.round((performance.now() - buildStart) * 100) / 100;
-  results.push({
-    name: "25K-style build log exact retrieval",
-    rawTokens: buildLogTokens,
-    optimizedTokens: query.estimatedTokens,
-    reductionPercent: percentReduction(buildLogTokens, query.estimatedTokens),
-    passedExactGate:
-      query.excerpts.length === 1 &&
-      query.excerpts[0].text.includes("src/index.ts:12:5") &&
-      query.excerpts[0].text.includes("TS2304") &&
-      query.excerpts[0].text.includes("Cannot find name 'missingValue'."),
-    taskGateRequired: false,
-    passedTaskGate: null,
-    latencyMs: buildLatencyMs,
-    profileVersion: "heuristic-v1",
-    warnings: query.warnings,
-  });
-
-  const doc = Array.from(
-    { length: 80 },
-    () => "Token efficiency depends on measured task success and careful source preservation.",
-  ).join("\n");
-  const docPath = join(dir, "notes.md");
-  await writeFile(docPath, doc, "utf8");
-  const docStart = performance.now();
-  const docArtifact = await indexArtifact({ path: docPath, store, allowedRoots: [dir] });
-  const summary = summarizeArtifact({
-    artifactId: docArtifact.artifactId,
-    maxTokens: 120,
-    store,
-  });
-  const docLatencyMs = Math.round((performance.now() - docStart) * 100) / 100;
-  results.push({
-    name: "repeated semantic document extractive summary",
-    rawTokens: estimateTextTokens(doc) * 10,
-    optimizedTokens: summary.estimatedTokens * 10,
-    reductionPercent: percentReduction(estimateTextTokens(doc) * 10, summary.estimatedTokens * 10),
-    passedExactGate:
-      summary.fallbackReason === null &&
-      summary.summary.includes("Token efficiency depends on measured task success"),
-    taskGateRequired: false,
-    passedTaskGate: null,
-    latencyMs: docLatencyMs,
-    profileVersion: "heuristic-v1",
-    warnings: summary.warnings,
-  });
-
-  results.push(await runCodeEditingBenchmarkScenario({ dir, store }));
-
-  const failed = results.filter(benchmarkResultFailsGates);
+  const report = await runBenchmarkReport();
 
   console.log(
     JSON.stringify(
-      {
-        generatedAt: new Date().toISOString(),
-        thresholds: {
-          minimumReductionPercent: 25,
-          maximumScenarioLatencyMs: 1000,
-          exactGateRequired: true,
-        },
-        results,
-        passed: failed.length === 0,
-      },
+      report,
       null,
       2,
     ),
   );
 
-  if (failed.length > 0) {
+  if (!report.passed) {
     process.exitCode = 1;
+  }
+}
+
+export async function runBenchmarkReport(
+  input: {
+    sampleCount?: number;
+    scenarioRunners?: Array<() => Promise<TimedScenarioResult>>;
+    tmpRoot?: string;
+    warmupCount?: number;
+  } = {},
+): Promise<BenchmarkReport> {
+  const dir = await mkdtemp(join(input.tmpRoot ?? tmpdir(), "tco-bench-"));
+
+  try {
+    const store = new MemoryArtifactStore();
+    const scenarioRunners =
+      input.scenarioRunners ??
+      [
+        await prepareBuildLogBenchmarkScenario({ dir, store }),
+        await prepareSemanticDocumentBenchmarkScenario({ dir, store }),
+        await prepareCodeEditingBenchmarkScenario({ dir, store }),
+      ];
+    const results: ScenarioResult[] = [];
+    for (const runOnce of scenarioRunners) {
+      results.push(
+        await runSampledScenario({
+          runOnce,
+          sampleCount: input.sampleCount,
+          warmupCount: input.warmupCount,
+        }),
+      );
+    }
+    const failed = results.filter(benchmarkResultFailsGates);
+
+    return {
+      generatedAt: new Date().toISOString(),
+      thresholds: {
+        minimumReductionPercent: MINIMUM_REDUCTION_PERCENT,
+        maximumScenarioLatencyMs: MAXIMUM_SCENARIO_LATENCY_MS,
+        exactGateRequired: true,
+      },
+      results,
+      passed: failed.length === 0,
+    };
+  } finally {
+    await rm(dir, { recursive: true, force: true });
   }
 }
 
@@ -120,6 +122,91 @@ function percentReduction(rawTokens: number, optimizedTokens: number): number {
     return 0;
   }
   return Math.round((1 - optimizedTokens / rawTokens) * 1000) / 10;
+}
+
+function roundLatencyMs(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
+export function nearestRankPercentile(values: number[], percentile: number): number {
+  if (values.length === 0) {
+    throw new Error("latency samples must not be empty");
+  }
+  if (values.some((value) => value < 0)) {
+    throw new Error("latency samples must not be negative");
+  }
+  const sorted = [...values].sort((left, right) => left - right);
+  const rank = Math.min(sorted.length, Math.max(1, Math.ceil(percentile * sorted.length)));
+  return sorted[rank - 1];
+}
+
+export function summarizeLatencySamples(samples: number[]): {
+  sampleCount: number;
+  medianLatencyMs: number;
+  p95LatencyMs: number;
+  latencyMs: number;
+} {
+  if (samples.some((sample) => sample < 0)) {
+    throw new Error("latency samples must not be negative");
+  }
+  const medianLatencyMs = roundLatencyMs(nearestRankPercentile(samples, 0.5));
+  const p95LatencyMs = roundLatencyMs(nearestRankPercentile(samples, 0.95));
+  return {
+    sampleCount: samples.length,
+    medianLatencyMs,
+    p95LatencyMs,
+    latencyMs: medianLatencyMs,
+  };
+}
+
+export async function runSampledScenario(input: {
+  runOnce: () => Promise<TimedScenarioResult>;
+  sampleCount?: number;
+  warmupCount?: number;
+}): Promise<ScenarioResult> {
+  const sampleCount = input.sampleCount ?? DEFAULT_LATENCY_SAMPLE_COUNT;
+  const warmupCount = input.warmupCount ?? 1;
+  let latestResult: TimedScenarioResult | null = null;
+
+  for (let index = 0; index < warmupCount; index += 1) {
+    latestResult = await input.runOnce();
+  }
+
+  const latencySamples: number[] = [];
+  const measuredResults: TimedScenarioResult[] = [];
+  for (let index = 0; index < sampleCount; index += 1) {
+    latestResult = await input.runOnce();
+    measuredResults.push(latestResult);
+    latencySamples.push(latestResult.latencyMs);
+  }
+
+  if (latestResult === null) {
+    throw new Error("benchmark scenario must run at least once");
+  }
+
+  return {
+    ...summarizeMeasuredScenarioResults(measuredResults),
+    ...summarizeLatencySamples(latencySamples),
+  };
+}
+
+function summarizeMeasuredScenarioResults(results: TimedScenarioResult[]): TimedScenarioResult {
+  if (results.length === 0) {
+    throw new Error("latency samples must not be empty");
+  }
+  const latestResult = results[results.length - 1];
+  return {
+    ...latestResult,
+    rawTokens: Math.min(...results.map((result) => result.rawTokens)),
+    optimizedTokens: Math.max(...results.map((result) => result.optimizedTokens)),
+    reductionPercent: Math.min(...results.map((result) => result.reductionPercent)),
+    passedExactGate: results.every((result) => result.passedExactGate),
+    taskGateRequired: results.some((result) => result.taskGateRequired),
+    passedTaskGate: results.some((result) => result.taskGateRequired)
+      ? results.every((result) => !result.taskGateRequired || result.passedTaskGate === true)
+      : null,
+    warnings: [...new Set(results.flatMap((result) => result.warnings))],
+  };
 }
 
 function buildLargeBuildLog(minimumTokens: number): string {
@@ -134,12 +221,125 @@ function buildLargeBuildLog(minimumTokens: number): string {
   return lines.join("\n");
 }
 
+async function prepareBuildLogBenchmarkScenario(input: {
+  dir: string;
+  store: MemoryArtifactStore;
+}): Promise<() => Promise<TimedScenarioResult>> {
+  const buildLog = buildLargeBuildLog(25_000);
+  const buildLogTokens = estimateTextTokens(buildLog);
+  const buildLogPath = join(input.dir, "build.log");
+  await writeFile(buildLogPath, buildLog, "utf8");
+
+  return () =>
+    runBuildLogBenchmarkScenario({
+      dir: input.dir,
+      store: input.store,
+      buildLogTokens,
+      buildLogPath,
+    });
+}
+
+async function runBuildLogBenchmarkScenario(input: {
+  dir: string;
+  store: MemoryArtifactStore;
+  buildLogTokens: number;
+  buildLogPath: string;
+}): Promise<TimedScenarioResult> {
+  const buildStart = performance.now();
+  const artifact = await indexArtifact({
+    path: input.buildLogPath,
+    store: input.store,
+    allowedRoots: [input.dir],
+  });
+  const query = queryArtifact({
+    artifactId: artifact.artifactId,
+    query: "TS2304 missingValue src/index.ts",
+    maxTokens: 80,
+    contextLines: 1,
+    store: input.store,
+  });
+  const buildLatencyMs = roundLatencyMs(performance.now() - buildStart);
+
+  return {
+    name: "25K-style build log exact retrieval",
+    rawTokens: input.buildLogTokens,
+    optimizedTokens: query.estimatedTokens,
+    reductionPercent: percentReduction(input.buildLogTokens, query.estimatedTokens),
+    passedExactGate:
+      query.excerpts.length === 1 &&
+      query.excerpts[0].text.includes("src/index.ts:12:5") &&
+      query.excerpts[0].text.includes("TS2304") &&
+      query.excerpts[0].text.includes("Cannot find name 'missingValue'."),
+    taskGateRequired: false,
+    passedTaskGate: null,
+    latencyMs: buildLatencyMs,
+    profileVersion: "heuristic-v1",
+    warnings: query.warnings,
+  };
+}
+
+async function prepareSemanticDocumentBenchmarkScenario(input: {
+  dir: string;
+  store: MemoryArtifactStore;
+}): Promise<() => Promise<TimedScenarioResult>> {
+  const doc = Array.from(
+    { length: 80 },
+    () => "Token efficiency depends on measured task success and careful source preservation.",
+  ).join("\n");
+  const docTokens = estimateTextTokens(doc);
+  const docPath = join(input.dir, "notes.md");
+  await writeFile(docPath, doc, "utf8");
+
+  return () =>
+    runSemanticDocumentBenchmarkScenario({
+      dir: input.dir,
+      store: input.store,
+      docTokens,
+      docPath,
+    });
+}
+
+async function runSemanticDocumentBenchmarkScenario(input: {
+  dir: string;
+  store: MemoryArtifactStore;
+  docTokens: number;
+  docPath: string;
+}): Promise<TimedScenarioResult> {
+  const docStart = performance.now();
+  const docArtifact = await indexArtifact({
+    path: input.docPath,
+    store: input.store,
+    allowedRoots: [input.dir],
+  });
+  const summary = summarizeArtifact({
+    artifactId: docArtifact.artifactId,
+    maxTokens: 120,
+    store: input.store,
+  });
+  const docLatencyMs = roundLatencyMs(performance.now() - docStart);
+
+  return {
+    name: "repeated semantic document extractive summary",
+    rawTokens: input.docTokens * 10,
+    optimizedTokens: summary.estimatedTokens * 10,
+    reductionPercent: percentReduction(input.docTokens * 10, summary.estimatedTokens * 10),
+    passedExactGate:
+      summary.fallbackReason === null &&
+      summary.summary.includes("Token efficiency depends on measured task success"),
+    taskGateRequired: false,
+    passedTaskGate: null,
+    latencyMs: docLatencyMs,
+    profileVersion: "heuristic-v1",
+    warnings: summary.warnings,
+  };
+}
+
 export function benchmarkResultFailsGates(result: ScenarioResult): boolean {
   return (
     !result.passedExactGate ||
     (result.taskGateRequired && result.passedTaskGate !== true) ||
-    result.reductionPercent < 25 ||
-    result.latencyMs > 1000 ||
+    result.reductionPercent < MINIMUM_REDUCTION_PERCENT ||
+    result.p95LatencyMs > MAXIMUM_SCENARIO_LATENCY_MS ||
     (result.name === "25K-style build log exact retrieval" && result.rawTokens < 25_000)
   );
 }
@@ -149,16 +349,55 @@ export async function runCodeEditingBenchmarkScenario(input: {
   store: MemoryArtifactStore;
   now?: () => number;
   runTests?: typeof runCodeEditingFixtureTests;
-}): Promise<ScenarioResult> {
-  const now = input.now ?? (() => performance.now());
-  const runTests = input.runTests ?? runCodeEditingFixtureTests;
+}): Promise<TimedScenarioResult> {
   const codeFixture = buildCodeEditingFixture(8_000);
   const codeFixtureTokens = estimateTextTokens(codeFixture);
   const codeFixturePath = join(input.dir, "code-editing-fixture.txt");
   await writeFile(codeFixturePath, codeFixture, "utf8");
+  return runPreparedCodeEditingBenchmarkScenario({
+    codeFixture,
+    codeFixturePath,
+    codeFixtureTokens,
+    dir: input.dir,
+    now: input.now,
+    runTests: input.runTests,
+    store: input.store,
+  });
+}
+
+async function prepareCodeEditingBenchmarkScenario(input: {
+  dir: string;
+  store: MemoryArtifactStore;
+}): Promise<() => Promise<TimedScenarioResult>> {
+  const codeFixture = buildCodeEditingFixture(8_000);
+  const codeFixtureTokens = estimateTextTokens(codeFixture);
+  const codeFixturePath = join(input.dir, "code-editing-fixture.txt");
+  await writeFile(codeFixturePath, codeFixture, "utf8");
+
+  return () =>
+    runPreparedCodeEditingBenchmarkScenario({
+      codeFixture,
+      codeFixturePath,
+      codeFixtureTokens,
+      dir: input.dir,
+      store: input.store,
+    });
+}
+
+async function runPreparedCodeEditingBenchmarkScenario(input: {
+  codeFixture: string;
+  codeFixturePath: string;
+  codeFixtureTokens: number;
+  dir: string;
+  store: MemoryArtifactStore;
+  now?: () => number;
+  runTests?: typeof runCodeEditingFixtureTests;
+}): Promise<TimedScenarioResult> {
+  const now = input.now ?? (() => performance.now());
+  const runTests = input.runTests ?? runCodeEditingFixtureTests;
   const codeStart = now();
   const codeArtifact = await indexArtifact({
-    path: codeFixturePath,
+    path: input.codeFixturePath,
     store: input.store,
     allowedRoots: [input.dir],
   });
@@ -187,10 +426,10 @@ export async function runCodeEditingBenchmarkScenario(input: {
 
   return {
     name: "code editing fixture source-backed retrieval",
-    rawTokens: codeFixtureTokens,
+    rawTokens: input.codeFixtureTokens,
     optimizedTokens: codeQuery.estimatedTokens,
-    reductionPercent: percentReduction(codeFixtureTokens, codeQuery.estimatedTokens),
-    passedExactGate: codeQueryPassesExactGate(codeFixture, codeQuery),
+    reductionPercent: percentReduction(input.codeFixtureTokens, codeQuery.estimatedTokens),
+    passedExactGate: codeQueryPassesExactGate(input.codeFixture, codeQuery),
     taskGateRequired: true,
     passedTaskGate:
       !brokenResult.passed &&

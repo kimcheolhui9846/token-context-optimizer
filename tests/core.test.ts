@@ -782,6 +782,27 @@ describe("token estimation", () => {
 });
 
 describe("benchmarks", () => {
+  it("calculates nearest-rank latency percentiles", async () => {
+    const { nearestRankPercentile, summarizeLatencySamples } = await import("../benchmarks/run.js");
+
+    expect(nearestRankPercentile([5, 1, 9, 3], 0.5)).toBe(3);
+    expect(nearestRankPercentile([1, 2, 3, 4, 5], 0.95)).toBe(5);
+    expect(nearestRankPercentile([10], 0.95)).toBe(10);
+    expect(summarizeLatencySamples([8.126, 1.234, 4.555])).toEqual({
+      sampleCount: 3,
+      medianLatencyMs: 4.56,
+      p95LatencyMs: 8.13,
+      latencyMs: 4.56,
+    });
+  });
+
+  it("rejects invalid latency sample sets", async () => {
+    const { nearestRankPercentile, summarizeLatencySamples } = await import("../benchmarks/run.js");
+
+    expect(() => nearestRankPercentile([], 0.95)).toThrow("latency samples must not be empty");
+    expect(() => summarizeLatencySamples([-1, 2])).toThrow("latency samples must not be negative");
+  });
+
   it("applies the code editing fixture from the retrieved implementation text", async () => {
     const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
       "../benchmarks/run.js"
@@ -912,20 +933,92 @@ describe("benchmarks", () => {
     );
   });
 
-  it("benchmark reports code editing fixture source-backed retrieval", async () => {
-    await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
-      windowsHide: true,
-    });
+  it("benchmark report includes latency percentile fields", async () => {
+    const { runBenchmarkReport } = (await import("../benchmarks/run.js")) as {
+      runBenchmarkReport: (input: {
+        sampleCount: number;
+        scenarioRunners: Array<() => Promise<{
+          name: string;
+          rawTokens: number;
+          optimizedTokens: number;
+          reductionPercent: number;
+          passedExactGate: boolean;
+          taskGateRequired: boolean;
+          passedTaskGate: boolean | null;
+          latencyMs: number;
+          profileVersion: string;
+          warnings: string[];
+        }>>;
+      }) => Promise<{
+        passed: boolean;
+        results: Array<{
+          name: string;
+          rawTokens: number;
+          reductionPercent: number;
+          latencyMs: number;
+          sampleCount: number;
+          medianLatencyMs: number;
+          p95LatencyMs: number;
+          passedExactGate: boolean;
+          taskGateRequired: boolean;
+          passedTaskGate: boolean | null;
+          profileVersion: string;
+          warnings: string[];
+        }>;
+      }>;
+    };
+    const makeRunner = (input: {
+      name: string;
+      taskGateRequired: boolean;
+      passedTaskGate: boolean | null;
+    }) => {
+      let calls = 0;
+      return async () => {
+        calls += 1;
+        return {
+          name: input.name,
+          rawTokens: input.name === "code editing fixture source-backed retrieval" ? 8094 : 25_025,
+          optimizedTokens: 100,
+          reductionPercent: 90,
+          passedExactGate: true,
+          taskGateRequired: input.taskGateRequired,
+          passedTaskGate: input.passedTaskGate,
+          latencyMs: calls === 1 ? 999 : calls - 1,
+          profileVersion: "heuristic-v1",
+          warnings: [],
+        };
+      };
+    };
 
-    const { stdout } = await execFileAsync(process.execPath, ["dist/benchmarks/run.js"], {
-      windowsHide: true,
+    const report = await runBenchmarkReport({
+      sampleCount: 20,
+      scenarioRunners: [
+        makeRunner({
+          name: "25K-style build log exact retrieval",
+          taskGateRequired: false,
+          passedTaskGate: null,
+        }),
+        makeRunner({
+          name: "repeated semantic document extractive summary",
+          taskGateRequired: false,
+          passedTaskGate: null,
+        }),
+        makeRunner({
+          name: "code editing fixture source-backed retrieval",
+          taskGateRequired: true,
+          passedTaskGate: true,
+        }),
+      ],
     });
-    const report = JSON.parse(stdout.slice(stdout.indexOf("{"))) as {
+    const typedReport = report as {
       results: Array<{
         name: string;
         rawTokens: number;
         reductionPercent: number;
         latencyMs: number;
+        sampleCount: number;
+        medianLatencyMs: number;
+        p95LatencyMs: number;
         passedExactGate: boolean;
         taskGateRequired: boolean;
         passedTaskGate: boolean | null;
@@ -933,10 +1026,11 @@ describe("benchmarks", () => {
         warnings: string[];
       }>;
     };
-    const scenario = report.results.find(
+    const scenario = typedReport.results.find(
       (result) => result.name === "code editing fixture source-backed retrieval",
     );
 
+    expect(report.passed).toBe(true);
     expect(scenario).toMatchObject({
       passedExactGate: true,
       taskGateRequired: true,
@@ -944,15 +1038,169 @@ describe("benchmarks", () => {
       profileVersion: "heuristic-v1",
     });
     expect(
-      report.results
+      typedReport.results
         .filter((result) => result.name !== "code editing fixture source-backed retrieval")
         .every((result) => !result.taskGateRequired && result.passedTaskGate === null),
     ).toBe(true);
     expect(scenario?.rawTokens).toBeGreaterThanOrEqual(8000);
     expect(scenario?.reductionPercent).toBeGreaterThanOrEqual(25);
     expect(scenario?.latencyMs).toBeLessThanOrEqual(1000);
+    expect(
+      typedReport.results.every(
+        (result) =>
+          result.sampleCount === 20 &&
+          result.medianLatencyMs === result.latencyMs &&
+          result.medianLatencyMs === 10 &&
+          result.p95LatencyMs === 19,
+      ),
+    ).toBe(true);
     expect(scenario?.warnings).toEqual([]);
   });
+
+  it("runs one warm-up before measured latency samples", async () => {
+    const { runSampledScenario } = await import("../benchmarks/run.js");
+    let calls = 0;
+
+    const result = await runSampledScenario({
+      sampleCount: 3,
+      runOnce: async () => {
+        calls += 1;
+        return {
+          name: "repeated semantic document extractive summary",
+          rawTokens: 1000,
+          optimizedTokens: 100,
+          reductionPercent: 90,
+          passedExactGate: true,
+          taskGateRequired: false,
+          passedTaskGate: null,
+          latencyMs: calls === 1 ? 999 : calls - 1,
+          profileVersion: "heuristic-v1",
+          warnings: [],
+        };
+      },
+    });
+
+    expect(calls).toBe(4);
+    expect(result).toMatchObject({
+      sampleCount: 3,
+      latencyMs: 2,
+      medianLatencyMs: 2,
+      p95LatencyMs: 3,
+    });
+  });
+
+  it("fails sampled reports when any measured functional gate fails", async () => {
+    const { runBenchmarkReport } = (await import("../benchmarks/run.js")) as {
+      runBenchmarkReport: (input: {
+        sampleCount: number;
+        scenarioRunners: Array<() => Promise<{
+          name: string;
+          rawTokens: number;
+          optimizedTokens: number;
+          reductionPercent: number;
+          passedExactGate: boolean;
+          taskGateRequired: boolean;
+          passedTaskGate: boolean | null;
+          latencyMs: number;
+          profileVersion: string;
+          warnings: string[];
+        }>>;
+      }) => Promise<{
+        passed: boolean;
+        results: Array<{
+          passedExactGate: boolean;
+          passedTaskGate: boolean | null;
+          reductionPercent: number;
+        }>;
+      }>;
+    };
+    let calls = 0;
+
+    const report = await runBenchmarkReport({
+      sampleCount: 3,
+      scenarioRunners: [
+        async () => {
+          calls += 1;
+          return {
+            name: "repeated semantic document extractive summary",
+            rawTokens: 1000,
+            optimizedTokens: 100,
+            reductionPercent: calls === 3 ? 20 : 90,
+            passedExactGate: calls !== 2,
+            taskGateRequired: true,
+            passedTaskGate: calls !== 4,
+            latencyMs: calls,
+            profileVersion: "heuristic-v1",
+            warnings: calls === 4 ? ["sample warning"] : [],
+          };
+        },
+      ],
+    });
+
+    expect(report.passed).toBe(false);
+    expect(report.results[0]).toMatchObject({
+      passedExactGate: false,
+      passedTaskGate: false,
+      reductionPercent: 20,
+    });
+  });
+
+  it("runs code editing task gates for every default latency sample", async () => {
+    const { runCodeEditingBenchmarkScenario, runCodeEditingFixtureTests, runSampledScenario } =
+      (await import("../benchmarks/run.js")) as {
+        runCodeEditingBenchmarkScenario: (input: {
+          dir: string;
+          store: MemoryArtifactStore;
+          runTests: typeof runCodeEditingFixtureTests;
+        }) => Promise<{
+          name: string;
+          rawTokens: number;
+          optimizedTokens: number;
+          reductionPercent: number;
+          passedExactGate: boolean;
+          taskGateRequired: boolean;
+          passedTaskGate: boolean | null;
+          latencyMs: number;
+          profileVersion: string;
+          warnings: string[];
+        }>;
+        runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
+        runSampledScenario: (input: {
+          runOnce: () => Promise<{
+            name: string;
+            rawTokens: number;
+            optimizedTokens: number;
+            reductionPercent: number;
+            passedExactGate: boolean;
+            taskGateRequired: boolean;
+            passedTaskGate: boolean | null;
+            latencyMs: number;
+            profileVersion: string;
+            warnings: string[];
+          }>;
+        }) => Promise<{ sampleCount: number; passedTaskGate: boolean | null }>;
+      };
+    const dir = await mkdtemp(join(tmpdir(), "tco-bench-sampled-task-gate-"));
+    let taskGateRuns = 0;
+
+    const result = await runSampledScenario({
+      runOnce: () =>
+        runCodeEditingBenchmarkScenario({
+          dir,
+          store: new MemoryArtifactStore(),
+          runTests: (source) => {
+            taskGateRuns += 1;
+            return runCodeEditingFixtureTests(source);
+          },
+        }),
+    });
+
+    expect(result).toMatchObject({
+      sampleCount: 20,
+      passedTaskGate: true,
+    });
+    expect(taskGateRuns).toBe(63);
+  }, 10_000);
 
   it("marks required task gate failures as benchmark failures", async () => {
     const { benchmarkResultFailsGates } = await import("../benchmarks/run.js");
@@ -965,6 +1213,9 @@ describe("benchmarks", () => {
       taskGateRequired: true,
       passedTaskGate: true,
       latencyMs: 1,
+      sampleCount: 20,
+      medianLatencyMs: 1,
+      p95LatencyMs: 1,
       profileVersion: "heuristic-v1",
       warnings: [],
     };
@@ -972,6 +1223,10 @@ describe("benchmarks", () => {
     expect(benchmarkResultFailsGates(result)).toBe(false);
     expect(benchmarkResultFailsGates({ ...result, passedTaskGate: false })).toBe(true);
     expect(benchmarkResultFailsGates({ ...result, passedTaskGate: null })).toBe(true);
+    expect(benchmarkResultFailsGates({ ...result, latencyMs: 1, p95LatencyMs: 1000 })).toBe(false);
+    expect(benchmarkResultFailsGates({ ...result, latencyMs: 1, p95LatencyMs: 1000.01 })).toBe(
+      true,
+    );
     expect(
       benchmarkResultFailsGates({
         ...result,
@@ -1008,6 +1263,43 @@ describe("benchmarks", () => {
 
     expect(result.passedTaskGate).toBe(true);
     expect(result.latencyMs).toBe(375);
+  });
+
+  it("cleans benchmark temporary directory after report generation", async () => {
+    const { runBenchmarkReport } = (await import("../benchmarks/run.js")) as {
+      runBenchmarkReport: (input: { tmpRoot: string }) => Promise<{ passed: boolean }>;
+    };
+    const tempRoot = await mkdtemp(join(tmpdir(), "tco-bench-cleanup-parent-"));
+
+    const report = await runBenchmarkReport({ tmpRoot: tempRoot });
+    const remainingEntries = await readdir(tempRoot);
+
+    expect(report.passed).toBe(true);
+    expect(remainingEntries.filter((entry) => entry.startsWith("tco-bench-"))).toEqual([]);
+  }, 10_000);
+
+  it("cleans benchmark temporary directory after report generation fails", async () => {
+    const { runBenchmarkReport } = (await import("../benchmarks/run.js")) as {
+      runBenchmarkReport: (input: {
+        scenarioRunners: Array<() => Promise<never>>;
+        tmpRoot: string;
+      }) => Promise<{ passed: boolean }>;
+    };
+    const tempRoot = await mkdtemp(join(tmpdir(), "tco-bench-cleanup-failure-parent-"));
+
+    await expect(
+      runBenchmarkReport({
+        tmpRoot: tempRoot,
+        scenarioRunners: [
+          async () => {
+            throw new Error("injected benchmark failure");
+          },
+        ],
+      }),
+    ).rejects.toThrow("injected benchmark failure");
+    const remainingEntries = await readdir(tempRoot);
+
+    expect(remainingEntries.filter((entry) => entry.startsWith("tco-bench-"))).toEqual([]);
   });
 });
 
