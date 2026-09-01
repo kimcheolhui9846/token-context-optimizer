@@ -35,7 +35,7 @@
 - Produces: `nearestRankPercentile(values: number[], percentile: number): number`
 - Produces: `summarizeLatencySamples(samples: number[]): { sampleCount: number; medianLatencyMs: number; p95LatencyMs: number; latencyMs: number }`
 
-- [ ] **Step 1: Write the failing percentile tests**
+- [x] **Step 1: Write the failing percentile tests**
 
 Add tests under `describe("benchmarks", ...)`:
 
@@ -62,7 +62,7 @@ it("rejects invalid latency sample sets", async () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [x] **Step 2: Run RED**
 
 Run:
 
@@ -72,7 +72,7 @@ npm.cmd test -- --run tests/core.test.ts -t "latency percentiles|invalid latency
 
 Expected: FAIL because `nearestRankPercentile` and `summarizeLatencySamples` are not exported.
 
-- [ ] **Step 3: Implement minimal helpers**
+- [x] **Step 3: Implement minimal helpers**
 
 Add exported helpers in `benchmarks/run.ts`:
 
@@ -113,7 +113,7 @@ export function summarizeLatencySamples(samples: number[]): {
 }
 ```
 
-- [ ] **Step 4: Run GREEN**
+- [x] **Step 4: Run GREEN**
 
 Run:
 
@@ -122,7 +122,7 @@ npm.cmd test -- --run tests/core.test.ts -t "latency percentiles|invalid latency
 npm.cmd run typecheck
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add benchmarks/run.ts tests/core.test.ts
@@ -141,7 +141,7 @@ git commit -m "test: cover benchmark latency percentiles"
 - Produces: `runSampledScenario(input): Promise<ScenarioResult>`
 - Produces: JSON scenario results with `sampleCount`, `medianLatencyMs`, `p95LatencyMs`, and `latencyMs`.
 
-- [ ] **Step 1: Write the failing benchmark JSON contract test**
+- [x] **Step 1: Write the failing benchmark JSON contract test**
 
 Extend `benchmark reports code editing fixture source-backed retrieval` so every result requires:
 
@@ -165,7 +165,7 @@ medianLatencyMs: number;
 p95LatencyMs: number;
 ```
 
-- [ ] **Step 2: Run RED**
+- [x] **Step 2: Run RED**
 
 Run:
 
@@ -175,7 +175,7 @@ npm.cmd test -- --run tests/core.test.ts -t "benchmark reports code editing fixt
 
 Expected: FAIL because current JSON results do not include percentile fields.
 
-- [ ] **Step 3: Implement sampling**
+- [x] **Step 3: Implement sampling**
 
 Refactor each scenario into a runner that returns a single `ScenarioResult` with one measured latency. Then add:
 
@@ -205,7 +205,7 @@ async function runSampledScenario(input: {
 
 Use this helper from `main()` for the build-log, semantic document, and code editing scenarios.
 
-- [ ] **Step 4: Update docs**
+- [x] **Step 4: Update docs**
 
 Update `docs/benchmarks.md` to say:
 
@@ -213,7 +213,7 @@ Update `docs/benchmarks.md` to say:
 - `latencyMs` mirrors `medianLatencyMs` for compatibility.
 - The 1000 ms gate applies to `p95LatencyMs`.
 
-- [ ] **Step 5: Run GREEN**
+- [x] **Step 5: Run GREEN**
 
 Run:
 
@@ -241,7 +241,7 @@ git commit -m "feat: add benchmark latency percentiles"
 - Consumes: `benchmarkResultFailsGates(result)`
 - Produces: p95-based failure behavior and temp cleanup evidence.
 
-- [ ] **Step 1: Write failing p95 gate tests**
+- [x] **Step 1: Write failing p95 gate tests**
 
 Add tests:
 
@@ -269,11 +269,11 @@ it("uses p95 latency for benchmark failure gates", async () => {
 });
 ```
 
-- [ ] **Step 2: Write failing cleanup test**
+- [x] **Step 2: Write failing cleanup test**
 
 Add an exported `runBenchmarkReport(options)` test seam, then test it with a failing scenario and an injected temp root. The expected test should assert the temp directory no longer exists after the promise rejects or returns a failed report.
 
-- [ ] **Step 3: Run RED**
+- [x] **Step 3: Run RED**
 
 Run:
 
@@ -283,7 +283,7 @@ npm.cmd test -- --run tests/core.test.ts -t "p95 latency|temporary benchmark"
 
 Expected: FAIL because p95 is not the gate and the cleanup seam does not exist.
 
-- [ ] **Step 4: Implement gate and cleanup**
+- [x] **Step 4: Implement gate and cleanup**
 
 Change `benchmarkResultFailsGates` from `result.latencyMs > 1000` to `result.p95LatencyMs > 1000`.
 
@@ -299,7 +299,7 @@ export async function runBenchmarkReport(options?: {
 
 Keep `main()` responsible only for printing JSON and setting `process.exitCode`.
 
-- [ ] **Step 5: Run GREEN**
+- [x] **Step 5: Run GREEN**
 
 Run:
 

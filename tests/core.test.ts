@@ -947,6 +947,9 @@ describe("benchmarks", () => {
         rawTokens: number;
         reductionPercent: number;
         latencyMs: number;
+        sampleCount: number;
+        medianLatencyMs: number;
+        p95LatencyMs: number;
         passedExactGate: boolean;
         taskGateRequired: boolean;
         passedTaskGate: boolean | null;
@@ -972,8 +975,17 @@ describe("benchmarks", () => {
     expect(scenario?.rawTokens).toBeGreaterThanOrEqual(8000);
     expect(scenario?.reductionPercent).toBeGreaterThanOrEqual(25);
     expect(scenario?.latencyMs).toBeLessThanOrEqual(1000);
+    expect(
+      report.results.every(
+        (result) =>
+          result.sampleCount === 20 &&
+          result.medianLatencyMs === result.latencyMs &&
+          result.p95LatencyMs >= result.medianLatencyMs &&
+          result.p95LatencyMs <= 1000,
+      ),
+    ).toBe(true);
     expect(scenario?.warnings).toEqual([]);
-  });
+  }, 10_000);
 
   it("marks required task gate failures as benchmark failures", async () => {
     const { benchmarkResultFailsGates } = await import("../benchmarks/run.js");
@@ -986,6 +998,9 @@ describe("benchmarks", () => {
       taskGateRequired: true,
       passedTaskGate: true,
       latencyMs: 1,
+      sampleCount: 20,
+      medianLatencyMs: 1,
+      p95LatencyMs: 1,
       profileVersion: "heuristic-v1",
       warnings: [],
     };
@@ -993,6 +1008,10 @@ describe("benchmarks", () => {
     expect(benchmarkResultFailsGates(result)).toBe(false);
     expect(benchmarkResultFailsGates({ ...result, passedTaskGate: false })).toBe(true);
     expect(benchmarkResultFailsGates({ ...result, passedTaskGate: null })).toBe(true);
+    expect(benchmarkResultFailsGates({ ...result, latencyMs: 1, p95LatencyMs: 1000 })).toBe(false);
+    expect(benchmarkResultFailsGates({ ...result, latencyMs: 1, p95LatencyMs: 1000.01 })).toBe(
+      true,
+    );
     expect(
       benchmarkResultFailsGates({
         ...result,
@@ -1030,6 +1049,19 @@ describe("benchmarks", () => {
     expect(result.passedTaskGate).toBe(true);
     expect(result.latencyMs).toBe(375);
   });
+
+  it("cleans benchmark temporary directory after report generation", async () => {
+    const { runBenchmarkReport } = (await import("../benchmarks/run.js")) as {
+      runBenchmarkReport: (input: { tmpRoot: string }) => Promise<{ passed: boolean }>;
+    };
+    const tempRoot = await mkdtemp(join(tmpdir(), "tco-bench-cleanup-parent-"));
+
+    const report = await runBenchmarkReport({ tmpRoot: tempRoot });
+    const remainingEntries = await readdir(tempRoot);
+
+    expect(report.passed).toBe(true);
+    expect(remainingEntries.filter((entry) => entry.startsWith("tco-bench-"))).toEqual([]);
+  }, 10_000);
 });
 
 describe("project configuration", () => {
