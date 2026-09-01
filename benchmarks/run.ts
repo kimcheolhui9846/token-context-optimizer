@@ -122,6 +122,41 @@ function percentReduction(rawTokens: number, optimizedTokens: number): number {
   return Math.round((1 - optimizedTokens / rawTokens) * 1000) / 10;
 }
 
+function roundLatencyMs(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
+export function nearestRankPercentile(values: number[], percentile: number): number {
+  if (values.length === 0) {
+    throw new Error("latency samples must not be empty");
+  }
+  if (values.some((value) => value < 0)) {
+    throw new Error("latency samples must not be negative");
+  }
+  const sorted = [...values].sort((left, right) => left - right);
+  const rank = Math.min(sorted.length, Math.max(1, Math.ceil(percentile * sorted.length)));
+  return sorted[rank - 1];
+}
+
+export function summarizeLatencySamples(samples: number[]): {
+  sampleCount: number;
+  medianLatencyMs: number;
+  p95LatencyMs: number;
+  latencyMs: number;
+} {
+  if (samples.some((sample) => sample < 0)) {
+    throw new Error("latency samples must not be negative");
+  }
+  const medianLatencyMs = roundLatencyMs(nearestRankPercentile(samples, 0.5));
+  const p95LatencyMs = roundLatencyMs(nearestRankPercentile(samples, 0.95));
+  return {
+    sampleCount: samples.length,
+    medianLatencyMs,
+    p95LatencyMs,
+    latencyMs: medianLatencyMs,
+  };
+}
+
 function buildLargeBuildLog(minimumTokens: number): string {
   const lines = ["Compiling workspace"];
   let index = 0;

@@ -782,6 +782,27 @@ describe("token estimation", () => {
 });
 
 describe("benchmarks", () => {
+  it("calculates nearest-rank latency percentiles", async () => {
+    const { nearestRankPercentile, summarizeLatencySamples } = await import("../benchmarks/run.js");
+
+    expect(nearestRankPercentile([5, 1, 9, 3], 0.5)).toBe(3);
+    expect(nearestRankPercentile([1, 2, 3, 4, 5], 0.95)).toBe(5);
+    expect(nearestRankPercentile([10], 0.95)).toBe(10);
+    expect(summarizeLatencySamples([8.126, 1.234, 4.555])).toEqual({
+      sampleCount: 3,
+      medianLatencyMs: 4.56,
+      p95LatencyMs: 8.13,
+      latencyMs: 4.56,
+    });
+  });
+
+  it("rejects invalid latency sample sets", async () => {
+    const { nearestRankPercentile, summarizeLatencySamples } = await import("../benchmarks/run.js");
+
+    expect(() => nearestRankPercentile([], 0.95)).toThrow("latency samples must not be empty");
+    expect(() => summarizeLatencySamples([-1, 2])).toThrow("latency samples must not be negative");
+  });
+
   it("applies the code editing fixture from the retrieved implementation text", async () => {
     const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
       "../benchmarks/run.js"
