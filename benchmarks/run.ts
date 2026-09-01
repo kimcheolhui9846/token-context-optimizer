@@ -51,6 +51,12 @@ export interface TimedScenarioResult {
   warnings: string[];
 }
 
+export interface SemanticDegradationFixture {
+  name: string;
+  source: string;
+  requiredPhrases: string[];
+}
+
 const DEFAULT_LATENCY_SAMPLE_COUNT = 20;
 const MINIMUM_REDUCTION_PERCENT = 25;
 const MAXIMUM_SCENARIO_LATENCY_MS = 1000;
@@ -219,6 +225,41 @@ function buildLargeBuildLog(minimumTokens: number): string {
   lines.push("src/index.ts:12:5 - error TS2304");
   lines.push("Cannot find name 'missingValue'.");
   return lines.join("\n");
+}
+
+export function buildSemanticDegradationFixtures(): SemanticDegradationFixture[] {
+  return [
+    {
+      name: "semantic success phrase",
+      source: "Token efficiency depends on measured task success and careful source preservation.",
+      requiredPhrases: ["Token efficiency depends on measured task success"],
+    },
+    {
+      name: "numeric threshold preservation",
+      source: "Reviewers approve deployment only when p95 latency stays below 1000 ms.",
+      requiredPhrases: ["p95 latency", "below 1000 ms"],
+    },
+    {
+      name: "negation preservation",
+      source: "Operators must not delete source excerpts during cleanup.",
+      requiredPhrases: ["must not delete source excerpts"],
+    },
+    {
+      name: "actor action preservation",
+      source: "The release captain updates the rollback runbook before deployment.",
+      requiredPhrases: ["release captain updates the rollback runbook"],
+    },
+  ];
+}
+
+export function semanticSummaryPassesMeaningGate(
+  summary: { fallbackReason: string | null; summary: string },
+  fixture: SemanticDegradationFixture,
+): boolean {
+  return (
+    summary.fallbackReason === null &&
+    fixture.requiredPhrases.every((required) => summary.summary.includes(required))
+  );
 }
 
 async function prepareBuildLogBenchmarkScenario(input: {

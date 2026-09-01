@@ -803,6 +803,65 @@ describe("benchmarks", () => {
     expect(() => summarizeLatencySamples([-1, 2])).toThrow("latency samples must not be negative");
   });
 
+  it("builds semantic degradation fixtures for numeric, negation, and actor meaning", async () => {
+    const { buildSemanticDegradationFixtures } = await import("../benchmarks/run.js");
+
+    const fixtures = buildSemanticDegradationFixtures();
+
+    expect(fixtures.map((fixture) => fixture.name)).toEqual([
+      "semantic success phrase",
+      "numeric threshold preservation",
+      "negation preservation",
+      "actor action preservation",
+    ]);
+    expect(fixtures.every((fixture) => fixture.requiredPhrases.length > 0)).toBe(true);
+  });
+
+  it("fails semantic meaning gates when required phrases are missing", async () => {
+    const { buildSemanticDegradationFixtures, semanticSummaryPassesMeaningGate } = await import(
+      "../benchmarks/run.js"
+    );
+    const fixtures = buildSemanticDegradationFixtures();
+
+    expect(
+      semanticSummaryPassesMeaningGate(
+        { fallbackReason: null, summary: "Reviewers approve deployment after the latency check." },
+        fixtures.find((fixture) => fixture.name === "numeric threshold preservation")!,
+      ),
+    ).toBe(false);
+    expect(
+      semanticSummaryPassesMeaningGate(
+        { fallbackReason: null, summary: "Operators may delete source excerpts during cleanup." },
+        fixtures.find((fixture) => fixture.name === "negation preservation")!,
+      ),
+    ).toBe(false);
+    expect(
+      semanticSummaryPassesMeaningGate(
+        { fallbackReason: null, summary: "The rollout is paused until the runbook is updated." },
+        fixtures.find((fixture) => fixture.name === "actor action preservation")!,
+      ),
+    ).toBe(false);
+  });
+
+  it("passes semantic meaning gates when all required phrases are present", async () => {
+    const { buildSemanticDegradationFixtures, semanticSummaryPassesMeaningGate } = await import(
+      "../benchmarks/run.js"
+    );
+    const fixture = buildSemanticDegradationFixtures().find(
+      (candidate) => candidate.name === "numeric threshold preservation",
+    )!;
+
+    expect(
+      semanticSummaryPassesMeaningGate(
+        {
+          fallbackReason: null,
+          summary: "Reviewers approve deployment only when p95 latency stays below 1000 ms.",
+        },
+        fixture,
+      ),
+    ).toBe(true);
+  });
+
   it("applies the code editing fixture from the retrieved implementation text", async () => {
     const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
       "../benchmarks/run.js"
