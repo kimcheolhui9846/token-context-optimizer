@@ -825,7 +825,7 @@ describe("benchmarks", () => {
 
     expect(
       semanticSummaryPassesMeaningGate(
-        { fallbackReason: null, summary: "Reviewers approve deployment after the latency check." },
+        { fallbackReason: null, summary: "Reviewers approve launch after the latency check." },
         fixtures.find((fixture) => fixture.name === "numeric threshold preservation")!,
       ),
     ).toBe(false);
@@ -837,7 +837,7 @@ describe("benchmarks", () => {
     ).toBe(false);
     expect(
       semanticSummaryPassesMeaningGate(
-        { fallbackReason: null, summary: "The rollout is paused until the runbook is updated." },
+        { fallbackReason: null, summary: "The opening is paused until the notes are updated." },
         fixtures.find((fixture) => fixture.name === "actor action preservation")!,
       ),
     ).toBe(false);
@@ -855,11 +855,49 @@ describe("benchmarks", () => {
       semanticSummaryPassesMeaningGate(
         {
           fallbackReason: null,
-          summary: "Reviewers approve deployment only when p95 latency stays below 1000 ms.",
+          summary: "Reviewers approve launch only when latency stays below one thousand milliseconds.",
         },
         fixture,
       ),
     ).toBe(true);
+  });
+
+  it("semantic benchmark reports all degradation fixture requirements", async () => {
+    const { runSemanticDegradationBenchmarkScenario } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-semantic-bench-"));
+
+    const result = await runSemanticDegradationBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+    });
+
+    expect(result).toMatchObject({
+      name: "repeated semantic document extractive summary",
+      passedExactGate: true,
+      taskGateRequired: false,
+      passedTaskGate: null,
+      warnings: [],
+    });
+    expect(result.rawTokens).toBeGreaterThanOrEqual(16000);
+    expect(result.reductionPercent).toBeGreaterThanOrEqual(25);
+  });
+
+  it("semantic benchmark fails when one degradation fixture loses required meaning", async () => {
+    const { runSemanticDegradationBenchmarkScenario } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-semantic-bench-failure-"));
+
+    const result = await runSemanticDegradationBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+      summarize: () => ({
+        fallbackReason: null,
+        summary: "Token efficiency depends on measured task success.",
+        estimatedTokens: 20,
+        warnings: [],
+      }),
+    });
+
+    expect(result.passedExactGate).toBe(false);
   });
 
   it("applies the code editing fixture from the retrieved implementation text", async () => {

@@ -33,7 +33,7 @@
 - Produces: `buildSemanticDegradationFixtures(): SemanticDegradationFixture[]`
 - Produces: `semanticSummaryPassesMeaningGate(summary, fixture): boolean`
 
-- [ ] **Step 1: Write failing helper tests**
+- [x] **Step 1: Write failing helper tests**
 
 Add tests under `describe("benchmarks", ...)`:
 
@@ -98,7 +98,7 @@ it("passes semantic meaning gates when all required phrases are present", async 
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [x] **Step 2: Run RED**
 
 Run:
 
@@ -108,7 +108,7 @@ npm.cmd test -- --run tests/core.test.ts -t "semantic degradation fixtures|seman
 
 Expected: FAIL because the semantic fixture helpers are not exported.
 
-- [ ] **Step 3: Implement minimal helpers**
+- [x] **Step 3: Implement minimal helpers**
 
 Add near the semantic benchmark code:
 
@@ -155,7 +155,7 @@ export function semanticSummaryPassesMeaningGate(
 }
 ```
 
-- [ ] **Step 4: Run GREEN**
+- [x] **Step 4: Run GREEN**
 
 Run:
 
@@ -164,7 +164,7 @@ npm.cmd test -- --run tests/core.test.ts -t "semantic degradation fixtures|seman
 npm.cmd run typecheck
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add benchmarks/run.ts tests/core.test.ts
@@ -183,7 +183,7 @@ git commit -m "test: cover semantic meaning gates"
 - Consumes: `semanticSummaryPassesMeaningGate(summary, fixture)`
 - Produces: semantic scenario failure when any semantic fixture fails.
 
-- [ ] **Step 1: Write failing semantic scenario tests**
+- [x] **Step 1: Write failing semantic scenario tests**
 
 Add tests:
 
@@ -227,7 +227,7 @@ it("semantic benchmark fails when one degradation fixture loses required meaning
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [x] **Step 2: Run RED**
 
 Run:
 
@@ -237,7 +237,7 @@ npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark"
 
 Expected: FAIL because `runSemanticDegradationBenchmarkScenario` is not exported.
 
-- [ ] **Step 3: Implement scenario aggregation**
+- [x] **Step 3: Implement scenario aggregation**
 
 Rename or wrap the existing semantic scenario runner as:
 
@@ -262,14 +262,14 @@ Implementation requirements:
 
 Update `prepareSemanticDocumentBenchmarkScenario` to call this exported runner.
 
-- [ ] **Step 4: Update benchmark docs**
+- [x] **Step 4: Update benchmark docs**
 
 Update `docs/benchmarks.md`:
 
 - Say repeated semantic document uses a semantic degradation fixture suite.
 - Say semantic fixture success is reported through the existing benchmark gate field.
 
-- [ ] **Step 5: Run GREEN**
+- [x] **Step 5: Run GREEN**
 
 Run:
 
