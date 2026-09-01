@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Push `feature/code-editing-benchmark` and open its PR against `main`.
+Track PR #3 for `feature/code-editing-benchmark`; do not merge without explicit user approval.
 
 ## Workspace
 
@@ -14,6 +14,7 @@ Push `feature/code-editing-benchmark` and open its PR against `main`.
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
 - Local install PR #2 merged at `cbc67d57015623bfe8487a33ac1d435985a1617a`.
+- Code editing benchmark PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/3`
 - Key code editing benchmark commits include design/plan `1d04b2e`, RED test `b38f57a`, GREEN implementation `1dcb26b`, false-positive remediation `ef927b2`, task-gate accounting `93182d3`, review hardening `39817bc`, and review handoff refresh `ebd167e`. Use `git log --oneline main..HEAD` for the complete current branch tip.
 - Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, signal-exit commit `3a4376e`, manifest/lifecycle contract commit `08033e6`, and stale-state docs refresh commit `bfd23d0`. PR #2 is merged; use live git/GitHub commands for the current branch and new PR state.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
@@ -613,9 +614,9 @@ Push `feature/code-editing-benchmark` and open its PR against `main`.
 
 ## Next Steps
 
-1. Push the branch and create a PR against `main`.
-2. Update the PR body with the verification and review evidence.
-3. Do not merge the new PR without explicit user approval.
+1. Monitor PR #3 checks and review feedback.
+2. Address any PR feedback on `feature/code-editing-benchmark`.
+3. Do not merge PR #3 without explicit user approval.
 
 ## Recovery Commands
 
