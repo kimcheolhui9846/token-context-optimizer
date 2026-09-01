@@ -29,6 +29,9 @@ Integration rules:
 
 - Brainstorming and planning may use indexed source excerpts before requirements are drafted.
 - Debugging may use bounded log excerpts, but exact error lines, paths, and stack frames must be preserved.
+- All future feature work and bug fixes must follow TDD: write the failing test first, observe the expected RED failure, implement the smallest GREEN change, then refactor only while tests stay green.
+- Verification is a separate gate from implementation. Run targeted checks first, then the project full gate before PR handoff.
+- Use role-specialized subagents during testing and verification when the surface is available: `test-engineer` or `verifier` for test adequacy and performance risk, `code-reviewer` for code/spec/security, and `architect` for boundary and long-term design review.
 - TDD and verification gates must receive exact command output when short enough; large output can be indexed and queried with source lines.
 - Code review handoffs should include file paths and source-backed excerpts, not lossy summaries of exact implementation evidence.
 
