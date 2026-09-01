@@ -74,6 +74,10 @@ Continue `feature/benchmark-latency-percentiles` through final documentation re-
   - `code-reviewer` returned `COMMENT`; prior test findings were resolved and only stale handoff next-step wording remained.
   - `architect` returned `BLOCK` only on stale handoff next-step wording; runtime remediation claims were resolved.
   - This handoff refresh removes the stale commit/review-package/full-gate next-step wording and leaves only live transport handoff steps.
+- Final documentation re-review:
+  - `code-reviewer` returned `APPROVE` for the handoff/plan status refresh at `f2f6b1f`.
+  - `architect` returned `CLEAR` after `7acb950`; the stale objective blocker is resolved.
+  - Final finishing test: `npm.cmd test` - 176 tests passed.
 - Merged PR #1 into `main`.
 - Created branch `feature/local-install-workflow`.
 - Added design spec: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`.
@@ -656,8 +660,7 @@ Continue `feature/benchmark-latency-percentiles` through final documentation re-
 
 ## Next Steps
 
-1. Run scoped subagent re-review for this handoff status refresh.
-2. Push `feature/benchmark-latency-percentiles` and open a PR against `main` after review clears.
+1. Push `feature/benchmark-latency-percentiles` and open a PR against `main`.
 3. Do not merge the PR without explicit user approval.
 
 ## Recovery Commands
