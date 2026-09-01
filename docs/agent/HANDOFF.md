@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Continue `feature/benchmark-latency-percentiles` through subagent review, full verification, push, and PR handoff.
+Continue `feature/benchmark-latency-percentiles` through final documentation re-review, push, and PR handoff.
 
 ## Workspace
 
