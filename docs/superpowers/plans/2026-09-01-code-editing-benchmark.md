@@ -195,7 +195,7 @@ git add benchmarks/run.ts docs/benchmarks.md
 git commit -m "feat: add code editing benchmark scenario"
 ```
 
-Committed as `1dcb26b`. Intermediate `test-engineer` review found the first task gate could false-positive because replacement text was hardcoded. Remediation commit `ef927b2` exports the fixture helpers for direct regression coverage, extracts the replacement implementation from the retrieved excerpt, marks `patched: true` only when source changes, and proves stale/wrong excerpts cannot make the fixture pass. Final code-reviewer review then found latency excluded task-gate execution; the follow-up exports `runCodeEditingBenchmarkScenario`, injects a clock/test runner in regression coverage, and records latency after task-gate execution.
+Committed as `1dcb26b`. Intermediate `test-engineer` review found the first task gate could false-positive because replacement text was hardcoded. Remediation commit `ef927b2` exports the fixture helpers for direct regression coverage, extracts the replacement implementation from the retrieved excerpt, marks `patched: true` only when source changes, and proves stale/wrong excerpts cannot make the fixture pass. Final review follow-ups `93182d3` and `39817bc` export `runCodeEditingBenchmarkScenario`, inject a clock/test runner in regression coverage, record latency after broken/stale/retrieved task-gate execution, reject malformed byte bounds before comparing UTF-8 spans, and test the benchmark failure predicate for required task-gate failures.
 
 ### Task 3: Verification And PR Handoff
 
@@ -220,11 +220,11 @@ npm.cmd run benchmark
 git diff --check
 ```
 
-Observed: all commands exited 0. `npm.cmd test` reported 165 passed. `npm.cmd run benchmark` reported the code editing fixture with `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `passedTaskGate: true`, `latencyMs: 1.14`, and `warnings: []`.
+Observed after review hardening: all commands exited 0. `npm.cmd test` reported 169 passed. `npm.cmd run benchmark` reported the code editing fixture with `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `taskGateRequired: true`, `passedTaskGate: true`, `latencyMs: 1.47`, and `warnings: []`.
 
-- [ ] **Step 2: Run independent review**
+- [x] **Step 2: Run independent review**
 
-Dispatch `code-reviewer` and `architect` against the branch diff from `main`. Address any `REQUEST CHANGES` or architect `BLOCK` before PR handoff.
+Dispatched `code-reviewer` and `architect` against the branch diff from `main`. `code-reviewer` returned COMMENT with only stale handoff metadata. `architect` returned WATCH for malformed byte-bound validation and task-gate failure coverage; commit `39817bc` addressed those watch items. Run scoped re-review before PR handoff.
 
 - [ ] **Step 3: Update handoff and create PR**
 
