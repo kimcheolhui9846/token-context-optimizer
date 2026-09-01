@@ -814,6 +814,7 @@ describe("benchmarks", () => {
 
     expect(runCodeEditingFixtureTests(brokenSource).passed).toBe(false);
     expect(stalePatch.patched).toBe(false);
+    expect(runCodeEditingFixtureTests(stalePatch.source).passed).toBe(false);
     expect(wrongPatch.patched).toBe(true);
     expect(runCodeEditingFixtureTests(wrongPatch.source).passed).toBe(false);
     expect(correctPatch.patched).toBe(true);
@@ -864,6 +865,53 @@ describe("benchmarks", () => {
     ).toBe(true);
   });
 
+  it("rejects malformed code editing exact span byte offsets", async () => {
+    const { codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const excerpt = [
+      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
+      "Failing test: rejects negative input without throwing away zero.",
+      "Replace src/math.ts implementation with:",
+      "export function normalizeInput(value: number): number {",
+      '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
+      "  return value;",
+      "}",
+    ].join("\n");
+    const fixture = `prefix\n${excerpt}`;
+    const startByte = Buffer.byteLength("prefix\n", "utf8");
+    const endByte = startByte + Buffer.byteLength(excerpt, "utf8");
+    const makeQuery = (bounds: { startByte: number; endByte: number }) => ({
+      artifactId: "artifact_bounds",
+      sha256: "1".repeat(64),
+      estimatedTokens: 100,
+      confidence: "high" as const,
+      warnings: [],
+      fallbackReason: null,
+      excerpts: [
+        {
+          text: excerpt,
+          sourceMap: {
+            path: "fixture.txt",
+            startLine: 2,
+            endLine: 8,
+            completeSpan: true,
+            ...bounds,
+          },
+        },
+      ],
+    });
+
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte, endByte: endByte + 1 }))).toBe(
+      false,
+    );
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: -1, endByte }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: endByte, endByte }))).toBe(
+      false,
+    );
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: startByte + 1, endByte }))).toBe(
+      false,
+    );
+  });
+
   it("benchmark reports code editing fixture source-backed retrieval", async () => {
     await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
       windowsHide: true,
@@ -906,6 +954,33 @@ describe("benchmarks", () => {
     expect(scenario?.warnings).toEqual([]);
   });
 
+  it("marks required task gate failures as benchmark failures", async () => {
+    const { benchmarkResultFailsGates } = await import("../benchmarks/run.js");
+    const result = {
+      name: "code editing fixture source-backed retrieval",
+      rawTokens: 8094,
+      optimizedTokens: 227,
+      reductionPercent: 97.2,
+      passedExactGate: true,
+      taskGateRequired: true,
+      passedTaskGate: true,
+      latencyMs: 1,
+      profileVersion: "heuristic-v1",
+      warnings: [],
+    };
+
+    expect(benchmarkResultFailsGates(result)).toBe(false);
+    expect(benchmarkResultFailsGates({ ...result, passedTaskGate: false })).toBe(true);
+    expect(benchmarkResultFailsGates({ ...result, passedTaskGate: null })).toBe(true);
+    expect(
+      benchmarkResultFailsGates({
+        ...result,
+        taskGateRequired: false,
+        passedTaskGate: null,
+      }),
+    ).toBe(false);
+  });
+
   it("includes code editing task gate execution in scenario latency", async () => {
     const { runCodeEditingBenchmarkScenario, runCodeEditingFixtureTests } = (await import(
       "../benchmarks/run.js"
@@ -932,7 +1007,7 @@ describe("benchmarks", () => {
     });
 
     expect(result.passedTaskGate).toBe(true);
-    expect(result.latencyMs).toBe(250);
+    expect(result.latencyMs).toBe(375);
   });
 });
 

@@ -91,14 +91,7 @@ async function main(): Promise<void> {
 
   results.push(await runCodeEditingBenchmarkScenario({ dir, store }));
 
-  const failed = results.filter(
-    (result) =>
-      !result.passedExactGate ||
-      (result.taskGateRequired && result.passedTaskGate !== true) ||
-      result.reductionPercent < 25 ||
-      result.latencyMs > 1000 ||
-      (result.name === "25K-style build log exact retrieval" && result.rawTokens < 25_000),
-  );
+  const failed = results.filter(benchmarkResultFailsGates);
 
   console.log(
     JSON.stringify(
@@ -141,6 +134,16 @@ function buildLargeBuildLog(minimumTokens: number): string {
   return lines.join("\n");
 }
 
+export function benchmarkResultFailsGates(result: ScenarioResult): boolean {
+  return (
+    !result.passedExactGate ||
+    (result.taskGateRequired && result.passedTaskGate !== true) ||
+    result.reductionPercent < 25 ||
+    result.latencyMs > 1000 ||
+    (result.name === "25K-style build log exact retrieval" && result.rawTokens < 25_000)
+  );
+}
+
 export async function runCodeEditingBenchmarkScenario(input: {
   dir: string;
   store: MemoryArtifactStore;
@@ -178,6 +181,7 @@ export async function runCodeEditingBenchmarkScenario(input: {
     codeQuery.excerpts[0]?.text ?? "",
   );
   const brokenResult = runTests(brokenSource);
+  const staleResult = runTests(stalePatch.source);
   const retrievedResult = runTests(retrievedPatch.source);
   const codeLatencyMs = Math.round((now() - codeStart) * 100) / 100;
 
@@ -191,6 +195,7 @@ export async function runCodeEditingBenchmarkScenario(input: {
     passedTaskGate:
       !brokenResult.passed &&
       !stalePatch.patched &&
+      !staleResult.passed &&
       retrievedPatch.patched &&
       retrievedResult.passed,
     latencyMs: codeLatencyMs,
@@ -244,13 +249,23 @@ export function codeQueryPassesExactGate(
     "export function normalizeInput(value: number): number {",
     'throw new Error("ERR_NEGATIVE_INPUT")',
   ];
+  const fixtureBuffer = Buffer.from(fixture, "utf8");
+  const { startByte, endByte } = excerpt.sourceMap;
+
+  if (
+    !Number.isInteger(startByte) ||
+    !Number.isInteger(endByte) ||
+    startByte < 0 ||
+    startByte >= endByte ||
+    endByte > fixtureBuffer.length
+  ) {
+    return false;
+  }
 
   return (
     excerpt.sourceMap.completeSpan &&
     requiredStrings.every((required) => excerpt.text.includes(required)) &&
-    Buffer.from(fixture, "utf8")
-      .subarray(excerpt.sourceMap.startByte, excerpt.sourceMap.endByte)
-      .toString("utf8") === excerpt.text
+    fixtureBuffer.subarray(startByte, endByte).toString("utf8") === excerpt.text
   );
 }
 
