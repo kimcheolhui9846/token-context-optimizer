@@ -61,6 +61,19 @@ Continue `feature/benchmark-latency-percentiles` through subagent review, full v
   - `TimedScenarioResult` is exported to make the single-sample versus aggregate-result boundary explicit.
   - `runSampledScenario` now aggregates measured functional fields conservatively: any exact failure fails the aggregate, any required task-gate failure fails the aggregate, reduction uses the worst measured reduction, and warnings are unioned.
   - Benchmark threshold constants are centralized for report metadata and gate evaluation.
+- Latest full gate after review remediation:
+  - `npm.cmd test` - 176 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `passed: true`, build-log p95 `1.66` ms, semantic document p95 `1.71` ms, code editing p95 `0.94` ms.
+  - `git diff --check` - exit 0.
+- Scoped re-review after `a985b6a`:
+  - `test-engineer` returned `PASS`; failure cleanup, warm-up exclusion, default sampling counts, and deterministic report assertions were accepted.
+  - `code-reviewer` returned `COMMENT`; prior test findings were resolved and only stale handoff next-step wording remained.
+  - `architect` returned `BLOCK` only on stale handoff next-step wording; runtime remediation claims were resolved.
+  - This handoff refresh removes the stale commit/review-package/full-gate next-step wording and leaves only live transport handoff steps.
 - Merged PR #1 into `main`.
 - Created branch `feature/local-install-workflow`.
 - Added design spec: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`.
@@ -643,9 +656,9 @@ Continue `feature/benchmark-latency-percentiles` through subagent review, full v
 
 ## Next Steps
 
-1. Commit the subagent review remediation.
-2. Regenerate the review package and run scoped subagent re-review.
-3. Run the full verification gate, push `feature/benchmark-latency-percentiles`, and open a PR against `main`.
+1. Run scoped subagent re-review for this handoff status refresh.
+2. Push `feature/benchmark-latency-percentiles` and open a PR against `main` after review clears.
+3. Do not merge the PR without explicit user approval.
 
 ## Recovery Commands
 

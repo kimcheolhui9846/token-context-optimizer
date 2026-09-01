@@ -338,7 +338,7 @@ git commit -m "fix: gate benchmark latency on p95"
 
 Dispatch a `test-engineer` or `verifier` subagent with the current diff and ask for test adequacy and performance risk review. Address blocking findings through TDD.
 
-- [ ] **Step 2: Run full gate**
+- [x] **Step 2: Run full gate**
 
 Run:
 
@@ -352,7 +352,7 @@ npm.cmd run benchmark
 git diff --check
 ```
 
-- [ ] **Step 3: Run independent code and architecture review**
+- [x] **Step 3: Run independent code and architecture review**
 
 Dispatch `code-reviewer` and `architect` against the branch diff from `main`. Address any `REQUEST CHANGES` or architect `BLOCK` before PR handoff.
 
