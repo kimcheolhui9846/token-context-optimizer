@@ -220,7 +220,7 @@ npm.cmd run benchmark
 git diff --check
 ```
 
-Observed after review hardening: all commands exited 0. `npm.cmd test` reported 169 passed. `npm.cmd run benchmark` reported the code editing fixture with `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `taskGateRequired: true`, `passedTaskGate: true`, `latencyMs: 1.47`, and `warnings: []`.
+Observed after review hardening: all commands exited 0. `npm.cmd test` reported 169 passed. `npm.cmd run benchmark` reported the code editing fixture with `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `taskGateRequired: true`, `passedTaskGate: true`, latency under the 1000 ms threshold, and `warnings: []`.
 
 - [x] **Step 2: Run independent review**
 
