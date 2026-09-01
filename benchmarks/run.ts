@@ -38,7 +38,7 @@ export interface BenchmarkReport {
   passed: boolean;
 }
 
-interface TimedScenarioResult {
+export interface TimedScenarioResult {
   name: string;
   rawTokens: number;
   optimizedTokens: number;
@@ -52,6 +52,8 @@ interface TimedScenarioResult {
 }
 
 const DEFAULT_LATENCY_SAMPLE_COUNT = 20;
+const MINIMUM_REDUCTION_PERCENT = 25;
+const MAXIMUM_SCENARIO_LATENCY_MS = 1000;
 
 async function main(): Promise<void> {
   const report = await runBenchmarkReport();
@@ -69,32 +71,42 @@ async function main(): Promise<void> {
   }
 }
 
-export async function runBenchmarkReport(input: { tmpRoot?: string } = {}): Promise<BenchmarkReport> {
+export async function runBenchmarkReport(
+  input: {
+    sampleCount?: number;
+    scenarioRunners?: Array<() => Promise<TimedScenarioResult>>;
+    tmpRoot?: string;
+    warmupCount?: number;
+  } = {},
+): Promise<BenchmarkReport> {
   const dir = await mkdtemp(join(input.tmpRoot ?? tmpdir(), "tco-bench-"));
 
   try {
     const store = new MemoryArtifactStore();
-    const buildLogScenario = await prepareBuildLogBenchmarkScenario({ dir, store });
-    const semanticDocumentScenario = await prepareSemanticDocumentBenchmarkScenario({ dir, store });
-    const codeEditingScenario = await prepareCodeEditingBenchmarkScenario({ dir, store });
-    const results: ScenarioResult[] = [
-      await runSampledScenario({
-        runOnce: buildLogScenario,
-      }),
-      await runSampledScenario({
-        runOnce: semanticDocumentScenario,
-      }),
-      await runSampledScenario({
-        runOnce: codeEditingScenario,
-      }),
-    ];
+    const scenarioRunners =
+      input.scenarioRunners ??
+      [
+        await prepareBuildLogBenchmarkScenario({ dir, store }),
+        await prepareSemanticDocumentBenchmarkScenario({ dir, store }),
+        await prepareCodeEditingBenchmarkScenario({ dir, store }),
+      ];
+    const results: ScenarioResult[] = [];
+    for (const runOnce of scenarioRunners) {
+      results.push(
+        await runSampledScenario({
+          runOnce,
+          sampleCount: input.sampleCount,
+          warmupCount: input.warmupCount,
+        }),
+      );
+    }
     const failed = results.filter(benchmarkResultFailsGates);
 
     return {
       generatedAt: new Date().toISOString(),
       thresholds: {
-        minimumReductionPercent: 25,
-        maximumScenarioLatencyMs: 1000,
+        minimumReductionPercent: MINIMUM_REDUCTION_PERCENT,
+        maximumScenarioLatencyMs: MAXIMUM_SCENARIO_LATENCY_MS,
         exactGateRequired: true,
       },
       results,
@@ -161,8 +173,10 @@ export async function runSampledScenario(input: {
   }
 
   const latencySamples: number[] = [];
+  const measuredResults: TimedScenarioResult[] = [];
   for (let index = 0; index < sampleCount; index += 1) {
     latestResult = await input.runOnce();
+    measuredResults.push(latestResult);
     latencySamples.push(latestResult.latencyMs);
   }
 
@@ -171,8 +185,27 @@ export async function runSampledScenario(input: {
   }
 
   return {
-    ...latestResult,
+    ...summarizeMeasuredScenarioResults(measuredResults),
     ...summarizeLatencySamples(latencySamples),
+  };
+}
+
+function summarizeMeasuredScenarioResults(results: TimedScenarioResult[]): TimedScenarioResult {
+  if (results.length === 0) {
+    throw new Error("latency samples must not be empty");
+  }
+  const latestResult = results[results.length - 1];
+  return {
+    ...latestResult,
+    rawTokens: Math.min(...results.map((result) => result.rawTokens)),
+    optimizedTokens: Math.max(...results.map((result) => result.optimizedTokens)),
+    reductionPercent: Math.min(...results.map((result) => result.reductionPercent)),
+    passedExactGate: results.every((result) => result.passedExactGate),
+    taskGateRequired: results.some((result) => result.taskGateRequired),
+    passedTaskGate: results.some((result) => result.taskGateRequired)
+      ? results.every((result) => !result.taskGateRequired || result.passedTaskGate === true)
+      : null,
+    warnings: [...new Set(results.flatMap((result) => result.warnings))],
   };
 }
 
@@ -305,8 +338,8 @@ export function benchmarkResultFailsGates(result: ScenarioResult): boolean {
   return (
     !result.passedExactGate ||
     (result.taskGateRequired && result.passedTaskGate !== true) ||
-    result.reductionPercent < 25 ||
-    result.p95LatencyMs > 1000 ||
+    result.reductionPercent < MINIMUM_REDUCTION_PERCENT ||
+    result.p95LatencyMs > MAXIMUM_SCENARIO_LATENCY_MS ||
     (result.name === "25K-style build log exact retrieval" && result.rawTokens < 25_000)
   );
 }

@@ -223,7 +223,7 @@ npm.cmd run benchmark
 npm.cmd run typecheck
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add benchmarks/run.ts tests/core.test.ts docs/benchmarks.md
@@ -309,7 +309,7 @@ npm.cmd run benchmark
 npm.cmd run typecheck
 ```
 
-- [ ] **Step 6: Update handoff**
+- [x] **Step 6: Update handoff**
 
 Update `docs/agent/HANDOFF.md` with:
 
@@ -318,7 +318,7 @@ Update `docs/agent/HANDOFF.md` with:
 - Targeted RED/GREEN evidence and latest gate status.
 - Reminder that next verification uses TDD plus subagent review.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```powershell
 git add benchmarks/run.ts tests/core.test.ts docs/agent/HANDOFF.md
@@ -334,7 +334,7 @@ git commit -m "fix: gate benchmark latency on p95"
 - Consumes: latest verification command output and subagent review results.
 - Produces: pushed branch and PR against `main`.
 
-- [ ] **Step 1: Run test-engineer or verifier review**
+- [x] **Step 1: Run test-engineer or verifier review**
 
 Dispatch a `test-engineer` or `verifier` subagent with the current diff and ask for test adequacy and performance risk review. Address blocking findings through TDD.
 

@@ -48,6 +48,19 @@ Continue `feature/benchmark-latency-percentiles` through subagent review, full v
   - RED: p95 gate and cleanup tests failed because p95 was not used for failure gates and `runBenchmarkReport` did not exist.
   - GREEN: targeted benchmark contract test passed, p95/cleanup targeted tests passed, `npm.cmd run typecheck` exited 0, and `npm.cmd run benchmark` returned `passed: true` with 20 samples per scenario.
   - Latest benchmark evidence: build-log p95 `2.05` ms, semantic document p95 `1.47` ms, code editing p95 `0.8` ms, all below the 1000 ms threshold.
+- First subagent review against `988eef3`:
+  - `test-engineer` returned `REQUEST CHANGES`: add failure-path cleanup coverage, lock warm-up/sample call counts, and reduce flaky full benchmark assertions inside unit tests.
+  - `code-reviewer` returned `COMMENT` with the same cleanup and sampling-count evidence gaps.
+- Review remediation RED/GREEN:
+  - RED: deterministic injected benchmark report test failed because `runBenchmarkReport` ignored `scenarioRunners`; failure cleanup test failed because the injected failure never ran.
+  - RED: sample functional-gate invariant test failed because earlier exact/reduction failures were overwritten by the final measured sample.
+  - GREEN: `npm.cmd test -- --run tests/core.test.ts -t "any measured functional gate|latency percentile fields|one warm-up|every default latency sample|report generation fails|required task gate"` passed 6 tests, `npm.cmd run typecheck` exited 0, and `npm.cmd run benchmark` returned `passed: true`.
+  - Latest remediation benchmark evidence: build-log p95 `2.08` ms, semantic document p95 `2.22` ms, code editing p95 `0.9` ms, all below the 1000 ms threshold.
+- First architect review against `988eef3` returned `BLOCK` on stale handoff/plan next-step state, plus WATCH items for the sample-result boundary and functional gate aggregation.
+- Architect remediation:
+  - `TimedScenarioResult` is exported to make the single-sample versus aggregate-result boundary explicit.
+  - `runSampledScenario` now aggregates measured functional fields conservatively: any exact failure fails the aggregate, any required task-gate failure fails the aggregate, reduction uses the worst measured reduction, and warnings are unioned.
+  - Benchmark threshold constants are centralized for report metadata and gate evaluation.
 - Merged PR #1 into `main`.
 - Created branch `feature/local-install-workflow`.
 - Added design spec: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`.
@@ -630,9 +643,9 @@ Continue `feature/benchmark-latency-percentiles` through subagent review, full v
 
 ## Next Steps
 
-1. Commit and PR this workflow documentation update.
-2. Select and plan the next benchmark/telemetry task from the measurement follow-ups.
-3. Use TDD, targeted checks, full gate, and subagent review before the next PR handoff.
+1. Commit the subagent review remediation.
+2. Regenerate the review package and run scoped subagent re-review.
+3. Run the full verification gate, push `feature/benchmark-latency-percentiles`, and open a PR against `main`.
 
 ## Recovery Commands
 
