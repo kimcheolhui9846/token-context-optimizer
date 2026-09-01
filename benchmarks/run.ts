@@ -11,13 +11,14 @@ import {
 } from "../src/core/artifacts.js";
 import { estimateTextTokens } from "../src/core/token-estimator.js";
 
-interface ScenarioResult {
+export interface ScenarioResult {
   name: string;
   rawTokens: number;
   optimizedTokens: number;
   reductionPercent: number;
   passedExactGate: boolean;
-  passedTaskGate?: boolean;
+  taskGateRequired: boolean;
+  passedTaskGate: boolean | null;
   latencyMs: number;
   profileVersion: string;
   warnings: string[];
@@ -52,6 +53,8 @@ async function main(): Promise<void> {
       query.excerpts[0].text.includes("src/index.ts:12:5") &&
       query.excerpts[0].text.includes("TS2304") &&
       query.excerpts[0].text.includes("Cannot find name 'missingValue'."),
+    taskGateRequired: false,
+    passedTaskGate: null,
     latencyMs: buildLatencyMs,
     profileVersion: "heuristic-v1",
     warnings: query.warnings,
@@ -79,60 +82,19 @@ async function main(): Promise<void> {
     passedExactGate:
       summary.fallbackReason === null &&
       summary.summary.includes("Token efficiency depends on measured task success"),
+    taskGateRequired: false,
+    passedTaskGate: null,
     latencyMs: docLatencyMs,
     profileVersion: "heuristic-v1",
     warnings: summary.warnings,
   });
 
-  const codeFixture = buildCodeEditingFixture(8_000);
-  const codeFixtureTokens = estimateTextTokens(codeFixture);
-  const codeFixturePath = join(dir, "code-editing-fixture.txt");
-  await writeFile(codeFixturePath, codeFixture, "utf8");
-  const codeStart = performance.now();
-  const codeArtifact = await indexArtifact({
-    path: codeFixturePath,
-    store,
-    allowedRoots: [dir],
-  });
-  const codeQuery = queryArtifact({
-    artifactId: codeArtifact.artifactId,
-    query:
-      "tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT rejects negative input npm test",
-    maxTokens: 240,
-    contextLines: 6,
-    store,
-  });
-  const brokenSource = [
-    "export function normalizeInput(value: number): number {",
-    "  return value;",
-    "}",
-  ].join("\n");
-  const stalePatch = applyCodeEditingExcerpt(brokenSource, "stale excerpt");
-  const retrievedPatch = applyCodeEditingExcerpt(
-    brokenSource,
-    codeQuery.excerpts[0]?.text ?? "",
-  );
-  const codeLatencyMs = Math.round((performance.now() - codeStart) * 100) / 100;
-  results.push({
-    name: "code editing fixture source-backed retrieval",
-    rawTokens: codeFixtureTokens,
-    optimizedTokens: codeQuery.estimatedTokens,
-    reductionPercent: percentReduction(codeFixtureTokens, codeQuery.estimatedTokens),
-    passedExactGate: codeQueryPassesExactGate(codeFixture, codeQuery),
-    passedTaskGate:
-      !runCodeEditingFixtureTests(brokenSource).passed &&
-      !stalePatch.patched &&
-      retrievedPatch.patched &&
-      runCodeEditingFixtureTests(retrievedPatch.source).passed,
-    latencyMs: codeLatencyMs,
-    profileVersion: "heuristic-v1",
-    warnings: codeQuery.warnings,
-  });
+  results.push(await runCodeEditingBenchmarkScenario({ dir, store }));
 
   const failed = results.filter(
     (result) =>
       !result.passedExactGate ||
-      result.passedTaskGate === false ||
+      (result.taskGateRequired && result.passedTaskGate !== true) ||
       result.reductionPercent < 25 ||
       result.latencyMs > 1000 ||
       (result.name === "25K-style build log exact retrieval" && result.rawTokens < 25_000),
@@ -179,6 +141,64 @@ function buildLargeBuildLog(minimumTokens: number): string {
   return lines.join("\n");
 }
 
+export async function runCodeEditingBenchmarkScenario(input: {
+  dir: string;
+  store: MemoryArtifactStore;
+  now?: () => number;
+  runTests?: typeof runCodeEditingFixtureTests;
+}): Promise<ScenarioResult> {
+  const now = input.now ?? (() => performance.now());
+  const runTests = input.runTests ?? runCodeEditingFixtureTests;
+  const codeFixture = buildCodeEditingFixture(8_000);
+  const codeFixtureTokens = estimateTextTokens(codeFixture);
+  const codeFixturePath = join(input.dir, "code-editing-fixture.txt");
+  await writeFile(codeFixturePath, codeFixture, "utf8");
+  const codeStart = now();
+  const codeArtifact = await indexArtifact({
+    path: codeFixturePath,
+    store: input.store,
+    allowedRoots: [input.dir],
+  });
+  const codeQuery = queryArtifact({
+    artifactId: codeArtifact.artifactId,
+    query:
+      "tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT rejects negative input npm test",
+    maxTokens: 240,
+    contextLines: 6,
+    store: input.store,
+  });
+  const brokenSource = [
+    "export function normalizeInput(value: number): number {",
+    "  return value;",
+    "}",
+  ].join("\n");
+  const stalePatch = applyCodeEditingExcerpt(brokenSource, "stale excerpt");
+  const retrievedPatch = applyCodeEditingExcerpt(
+    brokenSource,
+    codeQuery.excerpts[0]?.text ?? "",
+  );
+  const brokenResult = runTests(brokenSource);
+  const retrievedResult = runTests(retrievedPatch.source);
+  const codeLatencyMs = Math.round((now() - codeStart) * 100) / 100;
+
+  return {
+    name: "code editing fixture source-backed retrieval",
+    rawTokens: codeFixtureTokens,
+    optimizedTokens: codeQuery.estimatedTokens,
+    reductionPercent: percentReduction(codeFixtureTokens, codeQuery.estimatedTokens),
+    passedExactGate: codeQueryPassesExactGate(codeFixture, codeQuery),
+    taskGateRequired: true,
+    passedTaskGate:
+      !brokenResult.passed &&
+      !stalePatch.patched &&
+      retrievedPatch.patched &&
+      retrievedResult.passed,
+    latencyMs: codeLatencyMs,
+    profileVersion: "heuristic-v1",
+    warnings: codeQuery.warnings,
+  };
+}
+
 function buildCodeEditingFixture(minimumTokens: number): string {
   const lines = [
     "Code editing fixture context",
@@ -206,7 +226,7 @@ function buildCodeEditingFixture(minimumTokens: number): string {
   return lines.join("\n");
 }
 
-function codeQueryPassesExactGate(
+export function codeQueryPassesExactGate(
   fixture: string,
   query: ReturnType<typeof queryArtifact>,
 ): boolean {
@@ -228,7 +248,9 @@ function codeQueryPassesExactGate(
   return (
     excerpt.sourceMap.completeSpan &&
     requiredStrings.every((required) => excerpt.text.includes(required)) &&
-    fixture.slice(excerpt.sourceMap.startByte, excerpt.sourceMap.endByte) === excerpt.text
+    Buffer.from(fixture, "utf8")
+      .subarray(excerpt.sourceMap.startByte, excerpt.sourceMap.endByte)
+      .toString("utf8") === excerpt.text
   );
 }
 

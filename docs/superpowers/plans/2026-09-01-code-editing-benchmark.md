@@ -91,7 +91,7 @@ Committed as `b38f57a`.
 
 - [x] **Step 1: Implement minimal GREEN code**
 
-Extend `ScenarioResult` with `passedTaskGate?: boolean` and add a scenario in `benchmarks/run.ts` that:
+Extend `ScenarioResult` with explicit `taskGateRequired: boolean` and `passedTaskGate: boolean | null`, then add a scenario in `benchmarks/run.ts` that:
 
 ```ts
 const codeFixture = buildCodeEditingFixture(8_000);
@@ -155,7 +155,7 @@ function codeQueryPassesExactGate(
 ): boolean
 ```
 
-Checks one excerpt, `fallbackReason === null`, `completeSpan === true`, required strings, and verifies `fixture.slice(startByte, endByte) === excerpt.text`.
+Checks one excerpt, `fallbackReason === null`, `completeSpan === true`, required strings, and verifies the UTF-8 byte span decodes to `excerpt.text`.
 
 ```ts
 function applyCodeEditingExcerpt(
@@ -195,7 +195,7 @@ git add benchmarks/run.ts docs/benchmarks.md
 git commit -m "feat: add code editing benchmark scenario"
 ```
 
-Committed as `1dcb26b`. Intermediate `test-engineer` review found the first task gate could false-positive because replacement text was hardcoded. Remediation commit `ef927b2` exports the fixture helpers for direct regression coverage, extracts the replacement implementation from the retrieved excerpt, marks `patched: true` only when source changes, and proves stale/wrong excerpts cannot make the fixture pass.
+Committed as `1dcb26b`. Intermediate `test-engineer` review found the first task gate could false-positive because replacement text was hardcoded. Remediation commit `ef927b2` exports the fixture helpers for direct regression coverage, extracts the replacement implementation from the retrieved excerpt, marks `patched: true` only when source changes, and proves stale/wrong excerpts cannot make the fixture pass. Final code-reviewer review then found latency excluded task-gate execution; the follow-up exports `runCodeEditingBenchmarkScenario`, injects a clock/test runner in regression coverage, and records latency after task-gate execution.
 
 ### Task 3: Verification And PR Handoff
 

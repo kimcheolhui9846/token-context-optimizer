@@ -823,6 +823,47 @@ describe("benchmarks", () => {
     });
   });
 
+  it("validates code editing exact spans with UTF-8 byte offsets", async () => {
+    const { codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const prefix = "한글 prefix\n";
+    const excerpt = [
+      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
+      "Failing test: rejects negative input without throwing away zero.",
+      "Replace src/math.ts implementation with:",
+      "export function normalizeInput(value: number): number {",
+      '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
+      "  return value;",
+      "}",
+    ].join("\n");
+    const fixture = `${prefix}${excerpt}`;
+    const startByte = Buffer.byteLength(prefix, "utf8");
+    const endByte = startByte + Buffer.byteLength(excerpt, "utf8");
+
+    expect(
+      codeQueryPassesExactGate(fixture, {
+        artifactId: "artifact_unicode",
+        sha256: "0".repeat(64),
+        estimatedTokens: 100,
+        confidence: "high",
+        warnings: [],
+        fallbackReason: null,
+        excerpts: [
+          {
+            text: excerpt,
+            sourceMap: {
+              path: "fixture.txt",
+              startLine: 2,
+              endLine: 8,
+              startByte,
+              endByte,
+              completeSpan: true,
+            },
+          },
+        ],
+      }),
+    ).toBe(true);
+  });
+
   it("benchmark reports code editing fixture source-backed retrieval", async () => {
     await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
       windowsHide: true,
@@ -838,7 +879,8 @@ describe("benchmarks", () => {
         reductionPercent: number;
         latencyMs: number;
         passedExactGate: boolean;
-        passedTaskGate?: boolean;
+        taskGateRequired: boolean;
+        passedTaskGate: boolean | null;
         profileVersion: string;
         warnings: string[];
       }>;
@@ -849,13 +891,48 @@ describe("benchmarks", () => {
 
     expect(scenario).toMatchObject({
       passedExactGate: true,
+      taskGateRequired: true,
       passedTaskGate: true,
       profileVersion: "heuristic-v1",
     });
+    expect(
+      report.results
+        .filter((result) => result.name !== "code editing fixture source-backed retrieval")
+        .every((result) => !result.taskGateRequired && result.passedTaskGate === null),
+    ).toBe(true);
     expect(scenario?.rawTokens).toBeGreaterThanOrEqual(8000);
     expect(scenario?.reductionPercent).toBeGreaterThanOrEqual(25);
     expect(scenario?.latencyMs).toBeLessThanOrEqual(1000);
     expect(scenario?.warnings).toEqual([]);
+  });
+
+  it("includes code editing task gate execution in scenario latency", async () => {
+    const { runCodeEditingBenchmarkScenario, runCodeEditingFixtureTests } = (await import(
+      "../benchmarks/run.js"
+    )) as {
+      runCodeEditingBenchmarkScenario: (input: {
+        dir: string;
+        store: MemoryArtifactStore;
+        now: () => number;
+        runTests: typeof runCodeEditingFixtureTests;
+      }) => Promise<{ latencyMs: number; passedTaskGate: boolean | null }>;
+      runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
+    };
+    const dir = await mkdtemp(join(tmpdir(), "tco-bench-latency-"));
+    let clock = 100;
+
+    const result = await runCodeEditingBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+      now: () => clock,
+      runTests: (source) => {
+        clock += 125;
+        return runCodeEditingFixtureTests(source);
+      },
+    });
+
+    expect(result.passedTaskGate).toBe(true);
+    expect(result.latencyMs).toBe(250);
   });
 });
 
