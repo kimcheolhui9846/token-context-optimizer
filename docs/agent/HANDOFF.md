@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Track PR #3 for `feature/code-editing-benchmark`; do not merge without explicit user approval.
+Document the TDD/subagent verification operating rule, then start the next feature branch.
 
 ## Workspace
 
@@ -15,6 +15,7 @@ Track PR #3 for `feature/code-editing-benchmark`; do not merge without explicit 
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
 - Local install PR #2 merged at `cbc67d57015623bfe8487a33ac1d435985a1617a`.
 - Code editing benchmark PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/3`
+- Code editing benchmark PR #3 merged at `db17ea9b4d06f428e34d211a72b6c0f7387de199`.
 - Key code editing benchmark commits include design/plan `1d04b2e`, RED test `b38f57a`, GREEN implementation `1dcb26b`, false-positive remediation `ef927b2`, task-gate accounting `93182d3`, review hardening `39817bc`, and review handoff refresh `ebd167e`. Use `git log --oneline main..HEAD` for the complete current branch tip.
 - Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, signal-exit commit `3a4376e`, manifest/lifecycle contract commit `08033e6`, and stale-state docs refresh commit `bfd23d0`. PR #2 is merged; use live git/GitHub commands for the current branch and new PR state.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
@@ -32,6 +33,7 @@ Track PR #3 for `feature/code-editing-benchmark`; do not merge without explicit 
 - Final `architect` WATCH found malformed byte bounds could be accepted and task-gate failure policy lacked direct regression coverage. Commit `39817bc` rejects invalid byte bounds, extracts benchmark failure policy into a tested helper, executes the stale patch source as a negative task-gate control, and includes that execution in latency accounting.
 - Scoped re-review after `39817bc` passed: `code-reviewer` returned APPROVE, and `architect` returned CLEAR.
 - Full gate before PR handoff: `npm.cmd test` 169 passed, `npm.cmd run build` exit 0, `npm.cmd run typecheck` exit 0, `npm.cmd run smoke:mcp` exit 0 (`mcp smoke ok`), `npm.cmd run validate:plugin` exit 0 (`plugin manifest ok`), `npm.cmd run benchmark` passed with code editing `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `taskGateRequired: true`, `passedTaskGate: true`, latency under the 1000 ms threshold, warnings `[]`, and `git diff --check` exit 0.
+- Current operating rule: all future feature work and bug fixes should use TDD RED/GREEN cycles, targeted checks before full gates, and role-specialized subagent review for test adequacy, performance risk, code/spec/security, and architecture when the subagent surface is available.
 - Merged PR #1 into `main`.
 - Created branch `feature/local-install-workflow`.
 - Added design spec: `docs/superpowers/specs/2026-08-27-local-install-workflow-design.md`.
@@ -614,9 +616,9 @@ Track PR #3 for `feature/code-editing-benchmark`; do not merge without explicit 
 
 ## Next Steps
 
-1. Monitor PR #3 checks and review feedback.
-2. Address any PR feedback on `feature/code-editing-benchmark`.
-3. Do not merge PR #3 without explicit user approval.
+1. Commit and PR this workflow documentation update.
+2. Select and plan the next benchmark/telemetry task from the measurement follow-ups.
+3. Use TDD, targeted checks, full gate, and subagent review before the next PR handoff.
 
 ## Recovery Commands
 
