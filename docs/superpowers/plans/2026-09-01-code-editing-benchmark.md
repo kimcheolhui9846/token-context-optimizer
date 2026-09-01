@@ -224,7 +224,7 @@ Observed after review hardening: all commands exited 0. `npm.cmd test` reported 
 
 - [x] **Step 2: Run independent review**
 
-Dispatched `code-reviewer` and `architect` against the branch diff from `main`. `code-reviewer` returned COMMENT with only stale handoff metadata. `architect` returned WATCH for malformed byte-bound validation and task-gate failure coverage; commit `39817bc` addressed those watch items. Run scoped re-review before PR handoff.
+Dispatched `code-reviewer` and `architect` against the branch diff from `main`. `code-reviewer` returned COMMENT with only stale handoff metadata. `architect` returned WATCH for malformed byte-bound validation and task-gate failure coverage; commit `39817bc` addressed those watch items. Scoped re-review then returned `code-reviewer` APPROVE and `architect` CLEAR.
 
 - [ ] **Step 3: Update handoff and create PR**
 

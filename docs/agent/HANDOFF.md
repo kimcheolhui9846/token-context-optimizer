@@ -2,7 +2,7 @@
 
 ## Current Objective
 
-Finish pushing `feature/code-editing-benchmark` and open its PR after scoped re-review.
+Push `feature/code-editing-benchmark` and open its PR against `main`.
 
 ## Workspace
 
@@ -14,7 +14,7 @@ Finish pushing `feature/code-editing-benchmark` and open its PR after scoped re-
 - MVP merge commit: `b5059774caee85c020e284a04e97f22b255162c4`
 - Local install PR: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/2`
 - Local install PR #2 merged at `cbc67d57015623bfe8487a33ac1d435985a1617a`.
-- Current code editing benchmark commits: design/plan `1d04b2e`, RED test `b38f57a`, GREEN implementation `1dcb26b`, false-positive remediation `ef927b2`, handoff refresh `2293b98`, task-gate accounting `93182d3`, and review hardening `39817bc`.
+- Key code editing benchmark commits include design/plan `1d04b2e`, RED test `b38f57a`, GREEN implementation `1dcb26b`, false-positive remediation `ef927b2`, task-gate accounting `93182d3`, review hardening `39817bc`, and review handoff refresh `ebd167e`. Use `git log --oneline main..HEAD` for the complete current branch tip.
 - Local install remediation commits include `2bd5189`, `bd95ea1`, `30dda09`, `3b856cd`, `0cce2a1`, `587240e`, `b329b2d`, `d183297`, `5d91f29`, `0c89042`, `c0567d6`, `c580694`, `1f035fb`, `655037f`, metadata handoff commit `cf983a3`, hooks remediation commit `641dea2`, canonical MCP commit `4c50dd8`, raw MCP duplicate-key commits `31836ef` and `e63d8b7`, manifest/marketplace/workspace boundary commit `533c984`, containment remediation commit `7f0e4b9`, handoff refresh commit `36c20b6`, verifier-evidence commit `1ea0bc2`, signal-exit commit `3a4376e`, manifest/lifecycle contract commit `08033e6`, and stale-state docs refresh commit `bfd23d0`. PR #2 is merged; use live git/GitHub commands for the current branch and new PR state.
 - Source PDF recovery hint: use the only checked-in PDF in the repo root if the filename renders incorrectly.
 
@@ -29,6 +29,7 @@ Finish pushing `feature/code-editing-benchmark` and open its PR after scoped re-
 - Intermediate `test-engineer` review found a HIGH false-positive risk in hardcoded patching; remediation now extracts the replacement implementation from the retrieved excerpt and covers stale, wrong, and correct excerpt cases.
 - Final `code-reviewer` COMMENT found that code editing latency excluded task-gate execution and `docs/benchmarks.md` omitted the task-gate exit condition. Commit `93182d3` added latency accounting coverage, measures after task-gate execution, and documents task-gate failures as non-zero benchmark exits.
 - Final `architect` WATCH found malformed byte bounds could be accepted and task-gate failure policy lacked direct regression coverage. Commit `39817bc` rejects invalid byte bounds, extracts benchmark failure policy into a tested helper, executes the stale patch source as a negative task-gate control, and includes that execution in latency accounting.
+- Scoped re-review after `39817bc` passed: `code-reviewer` returned APPROVE, and `architect` returned CLEAR.
 - Latest full gate on `feature/code-editing-benchmark`: `npm.cmd test` 169 passed, `npm.cmd run build` exit 0, `npm.cmd run typecheck` exit 0, `npm.cmd run smoke:mcp` exit 0 (`mcp smoke ok`), `npm.cmd run validate:plugin` exit 0 (`plugin manifest ok`), `npm.cmd run benchmark` passed with code editing `rawTokens: 8094`, `optimizedTokens: 227`, `reductionPercent: 97.2`, `passedExactGate: true`, `taskGateRequired: true`, `passedTaskGate: true`, `latencyMs: 1.47`, warnings `[]`, and `git diff --check` exit 0.
 - Merged PR #1 into `main`.
 - Created branch `feature/local-install-workflow`.
@@ -612,10 +613,9 @@ Finish pushing `feature/code-editing-benchmark` and open its PR after scoped re-
 
 ## Next Steps
 
-1. Run scoped re-review for the `39817bc` review-hardening commit.
-2. Address any `REQUEST CHANGES` or architect `BLOCK`.
-3. Push the branch and create a PR against `main`.
-4. Do not merge the new PR without explicit user approval.
+1. Push the branch and create a PR against `main`.
+2. Update the PR body with the verification and review evidence.
+3. Do not merge the new PR without explicit user approval.
 
 ## Recovery Commands
 
