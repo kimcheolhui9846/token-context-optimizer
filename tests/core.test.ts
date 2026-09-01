@@ -781,6 +781,236 @@ describe("token estimation", () => {
   });
 });
 
+describe("benchmarks", () => {
+  it("applies the code editing fixture from the retrieved implementation text", async () => {
+    const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
+      "../benchmarks/run.js"
+    )) as {
+      applyCodeEditingExcerpt: (
+        source: string,
+        excerpt: string,
+      ) => { source: string; patched: boolean };
+      runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
+    };
+    const brokenSource = [
+      "export function normalizeInput(value: number): number {",
+      "  return value;",
+      "}",
+    ].join("\n");
+    const wrongExcerpt = [
+      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
+      "Failing test: rejects negative input without throwing away zero.",
+      "Replace src/math.ts implementation with:",
+      "export function normalizeInput(value: number): number {",
+      '  if (value > 0) throw new Error("ERR_NEGATIVE_INPUT");',
+      "  return value;",
+      "}",
+    ].join("\n");
+    const correctExcerpt = wrongExcerpt.replace("value > 0", "value < 0");
+
+    const stalePatch = applyCodeEditingExcerpt(brokenSource, "stale excerpt");
+    const wrongPatch = applyCodeEditingExcerpt(brokenSource, wrongExcerpt);
+    const correctPatch = applyCodeEditingExcerpt(brokenSource, correctExcerpt);
+
+    expect(runCodeEditingFixtureTests(brokenSource).passed).toBe(false);
+    expect(stalePatch.patched).toBe(false);
+    expect(runCodeEditingFixtureTests(stalePatch.source).passed).toBe(false);
+    expect(wrongPatch.patched).toBe(true);
+    expect(runCodeEditingFixtureTests(wrongPatch.source).passed).toBe(false);
+    expect(correctPatch.patched).toBe(true);
+    expect(runCodeEditingFixtureTests(correctPatch.source)).toEqual({
+      passed: true,
+      failures: [],
+    });
+  });
+
+  it("validates code editing exact spans with UTF-8 byte offsets", async () => {
+    const { codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const prefix = "한글 prefix\n";
+    const excerpt = [
+      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
+      "Failing test: rejects negative input without throwing away zero.",
+      "Replace src/math.ts implementation with:",
+      "export function normalizeInput(value: number): number {",
+      '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
+      "  return value;",
+      "}",
+    ].join("\n");
+    const fixture = `${prefix}${excerpt}`;
+    const startByte = Buffer.byteLength(prefix, "utf8");
+    const endByte = startByte + Buffer.byteLength(excerpt, "utf8");
+
+    expect(
+      codeQueryPassesExactGate(fixture, {
+        artifactId: "artifact_unicode",
+        sha256: "0".repeat(64),
+        estimatedTokens: 100,
+        confidence: "high",
+        warnings: [],
+        fallbackReason: null,
+        excerpts: [
+          {
+            text: excerpt,
+            sourceMap: {
+              path: "fixture.txt",
+              startLine: 2,
+              endLine: 8,
+              startByte,
+              endByte,
+              completeSpan: true,
+            },
+          },
+        ],
+      }),
+    ).toBe(true);
+  });
+
+  it("rejects malformed code editing exact span byte offsets", async () => {
+    const { codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const excerpt = [
+      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
+      "Failing test: rejects negative input without throwing away zero.",
+      "Replace src/math.ts implementation with:",
+      "export function normalizeInput(value: number): number {",
+      '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
+      "  return value;",
+      "}",
+    ].join("\n");
+    const fixture = `prefix\n${excerpt}`;
+    const startByte = Buffer.byteLength("prefix\n", "utf8");
+    const endByte = startByte + Buffer.byteLength(excerpt, "utf8");
+    const makeQuery = (bounds: { startByte: number; endByte: number }) => ({
+      artifactId: "artifact_bounds",
+      sha256: "1".repeat(64),
+      estimatedTokens: 100,
+      confidence: "high" as const,
+      warnings: [],
+      fallbackReason: null,
+      excerpts: [
+        {
+          text: excerpt,
+          sourceMap: {
+            path: "fixture.txt",
+            startLine: 2,
+            endLine: 8,
+            completeSpan: true,
+            ...bounds,
+          },
+        },
+      ],
+    });
+
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte, endByte: endByte + 1 }))).toBe(
+      false,
+    );
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: -1, endByte }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: endByte, endByte }))).toBe(
+      false,
+    );
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: startByte + 1, endByte }))).toBe(
+      false,
+    );
+  });
+
+  it("benchmark reports code editing fixture source-backed retrieval", async () => {
+    await execFileAsync(process.execPath, ["node_modules/typescript/bin/tsc", "-p", "tsconfig.json"], {
+      windowsHide: true,
+    });
+
+    const { stdout } = await execFileAsync(process.execPath, ["dist/benchmarks/run.js"], {
+      windowsHide: true,
+    });
+    const report = JSON.parse(stdout.slice(stdout.indexOf("{"))) as {
+      results: Array<{
+        name: string;
+        rawTokens: number;
+        reductionPercent: number;
+        latencyMs: number;
+        passedExactGate: boolean;
+        taskGateRequired: boolean;
+        passedTaskGate: boolean | null;
+        profileVersion: string;
+        warnings: string[];
+      }>;
+    };
+    const scenario = report.results.find(
+      (result) => result.name === "code editing fixture source-backed retrieval",
+    );
+
+    expect(scenario).toMatchObject({
+      passedExactGate: true,
+      taskGateRequired: true,
+      passedTaskGate: true,
+      profileVersion: "heuristic-v1",
+    });
+    expect(
+      report.results
+        .filter((result) => result.name !== "code editing fixture source-backed retrieval")
+        .every((result) => !result.taskGateRequired && result.passedTaskGate === null),
+    ).toBe(true);
+    expect(scenario?.rawTokens).toBeGreaterThanOrEqual(8000);
+    expect(scenario?.reductionPercent).toBeGreaterThanOrEqual(25);
+    expect(scenario?.latencyMs).toBeLessThanOrEqual(1000);
+    expect(scenario?.warnings).toEqual([]);
+  });
+
+  it("marks required task gate failures as benchmark failures", async () => {
+    const { benchmarkResultFailsGates } = await import("../benchmarks/run.js");
+    const result = {
+      name: "code editing fixture source-backed retrieval",
+      rawTokens: 8094,
+      optimizedTokens: 227,
+      reductionPercent: 97.2,
+      passedExactGate: true,
+      taskGateRequired: true,
+      passedTaskGate: true,
+      latencyMs: 1,
+      profileVersion: "heuristic-v1",
+      warnings: [],
+    };
+
+    expect(benchmarkResultFailsGates(result)).toBe(false);
+    expect(benchmarkResultFailsGates({ ...result, passedTaskGate: false })).toBe(true);
+    expect(benchmarkResultFailsGates({ ...result, passedTaskGate: null })).toBe(true);
+    expect(
+      benchmarkResultFailsGates({
+        ...result,
+        taskGateRequired: false,
+        passedTaskGate: null,
+      }),
+    ).toBe(false);
+  });
+
+  it("includes code editing task gate execution in scenario latency", async () => {
+    const { runCodeEditingBenchmarkScenario, runCodeEditingFixtureTests } = (await import(
+      "../benchmarks/run.js"
+    )) as {
+      runCodeEditingBenchmarkScenario: (input: {
+        dir: string;
+        store: MemoryArtifactStore;
+        now: () => number;
+        runTests: typeof runCodeEditingFixtureTests;
+      }) => Promise<{ latencyMs: number; passedTaskGate: boolean | null }>;
+      runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
+    };
+    const dir = await mkdtemp(join(tmpdir(), "tco-bench-latency-"));
+    let clock = 100;
+
+    const result = await runCodeEditingBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+      now: () => clock,
+      runTests: (source) => {
+        clock += 125;
+        return runCodeEditingFixtureTests(source);
+      },
+    });
+
+    expect(result.passedTaskGate).toBe(true);
+    expect(result.latencyMs).toBe(375);
+  });
+});
+
 describe("project configuration", () => {
   it("installs only runtime plugin files into a target directory", async () => {
     const target = await mkdtemp(join(tmpdir(), "tco-install-target-"));
