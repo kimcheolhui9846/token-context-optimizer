@@ -356,6 +356,6 @@ git diff --check
 
 Dispatch `code-reviewer` and `architect` against the branch diff from `main`. Address any `REQUEST CHANGES` or architect `BLOCK` before PR handoff.
 
-- [ ] **Step 4: Update docs and open PR**
+- [x] **Step 4: Update docs and open PR**
 
 Update `docs/agent/HANDOFF.md` with verification, review status, and PR URL once created. Commit, push `feature/benchmark-latency-percentiles`, and open a PR against `main`. Do not merge without explicit user approval.
