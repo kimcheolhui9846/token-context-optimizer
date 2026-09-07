@@ -14,4 +14,6 @@
 - [x] Document ledger format and metric definitions in `docs/research/scoring.md`.
 - [x] Resolve independent test/code review findings with focused regressions.
 - [x] Run full test/build/typecheck/MCP/plugin/benchmark/dataset/scoring/diff checks.
-- [ ] Record merge evidence and new feature evidence in HANDOFF; commit/push/open PR.
+- [x] Record merge evidence and new feature evidence in HANDOFF; commit/push/open PR.
+
+PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/8

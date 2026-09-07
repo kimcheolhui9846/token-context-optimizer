@@ -2,8 +2,8 @@
 
 ## Current Objective
 
-Finish `feature/research-scoring-harness` after independently reviewed offline scoring
-and model-input projection. PRs #6 and #7 have been merged with explicit user approval.
+Offline scoring and model-input projection are verified and independently approved.
+PR #8 is open against main. PRs #6 and #7 were merged with explicit user approval.
 
 ## Integration And Scoring (2026-09-08)
 
@@ -11,6 +11,7 @@ and model-input projection. PRs #6 and #7 have been merged with explicit user ap
 - Before merging, the main agent ran PR #6's 182 tests and full gate, then PR #7's 221 tests and full gate. Both passed. GitHub had no configured CI checks.
 - Local main fast-forwarded to `9c26b12`; its tree matched tested PR #7 exactly (`git diff 680d892 HEAD --stat` empty). Post-merge 221 tests passed.
 - New branch: `feature/research-scoring-harness`, based on `9c26b12`.
+- Pull request: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/8`.
 - Spec/plan: `docs/superpowers/specs/2026-09-08-research-scoring-design.md`, `docs/superpowers/plans/2026-09-08-research-scoring.md`.
 - Implementation: `src/research/scoring.ts`, `scripts/score-research.mjs`; usage: `docs/research/scoring.md`.
 - Model input projection explicitly allowlists public fields. Ledger aggregation is bound to a full dataset fingerprint and accounts for missing, failed and ungraded slots and unknown telemetry.
@@ -756,7 +757,7 @@ and model-input projection. PRs #6 and #7 have been merged with explicit user ap
 
 ## Next Steps
 
-1. Finish independent scoring review and open a PR against main.
+1. Review PR #8: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/8`.
 2. Select the primary contrast and curate the pilot dataset; preserve independent grading/response evidence, add family-clustered analysis and primary research literature before claiming empirical improvements.
 3. Do not merge any PR without explicit user approval.
 
