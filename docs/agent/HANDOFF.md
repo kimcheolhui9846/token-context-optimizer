@@ -39,6 +39,15 @@ Finish `feature/semantic-degradation-fixtures` through final review, push, PR ha
   - Architect remediation GREEN: `npm.cmd run typecheck` exited 0.
   - Architect remediation GREEN: `npm.cmd run build` exited 0.
   - Architect remediation GREEN: `npm.cmd run benchmark` returned `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 1.44`, `passedExactGate: true`, warnings `[]`.
+  - Scoped architect re-review after `10d2652` returned `CLEAR`; no new architecture blocker was found.
+- Final full gate after scoped re-review on 2026-09-07:
+  - `npm.cmd test` - 182 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 1.32`, `passedExactGate: true`, warnings `[]`.
+  - `git diff --check` - exit 0.
 
 ## Workspace
 
@@ -700,11 +709,9 @@ Finish `feature/semantic-degradation-fixtures` through final review, push, PR ha
 
 ## Next Steps
 
-1. Run scoped architect re-review on the latency remediation diff.
-2. Run the full verification gate again after documentation changes.
-3. Commit the handoff, review remediation, and paper-plan documentation.
-4. Push `feature/semantic-degradation-fixtures` and open a PR against `main`.
-5. Do not merge any PR without explicit user approval.
+1. Commit the final handoff update.
+2. Push `feature/semantic-degradation-fixtures` and open a PR against `main`.
+3. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
 
