@@ -900,6 +900,46 @@ describe("benchmarks", () => {
     expect(result.passedExactGate).toBe(false);
   });
 
+  it("semantic benchmark reports maximum fixture latency instead of suite-total latency", async () => {
+    const { buildSemanticDegradationFixtures, runSemanticDegradationBenchmarkScenario } =
+      (await import("../benchmarks/run.js")) as {
+        buildSemanticDegradationFixtures: () => Array<{ source: string }>;
+        runSemanticDegradationBenchmarkScenario: (input: {
+          dir: string;
+          store: MemoryArtifactStore;
+          now: () => number;
+          summarize: () => {
+            fallbackReason: string | null;
+            summary: string;
+            estimatedTokens: number;
+            warnings: string[];
+          };
+        }) => Promise<{ latencyMs: number }>;
+      };
+    const dir = await mkdtemp(join(tmpdir(), "tco-semantic-latency-"));
+    const fixtureSummaries = buildSemanticDegradationFixtures().map((fixture) => fixture.source);
+    const fixtureDurations = [10, 20, 40, 30];
+    let clock = 100;
+    let calls = 0;
+
+    const result = await runSemanticDegradationBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+      now: () => clock,
+      summarize: () => {
+        clock += fixtureDurations[calls];
+        return {
+          fallbackReason: null,
+          summary: fixtureSummaries[calls++],
+          estimatedTokens: 10,
+          warnings: [],
+        };
+      },
+    });
+
+    expect(result.latencyMs).toBe(40);
+  });
+
   it("applies the code editing fixture from the retrieved implementation text", async () => {
     const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
       "../benchmarks/run.js"

@@ -57,6 +57,12 @@ export interface SemanticDegradationFixture {
   requiredPhrases: string[];
 }
 
+export interface PreparedSemanticDegradationFixture {
+  fixture: SemanticDegradationFixture;
+  docPath: string;
+  rawTokens: number;
+}
+
 const DEFAULT_LATENCY_SAMPLE_COUNT = 20;
 const MINIMUM_REDUCTION_PERCENT = 25;
 const MAXIMUM_SCENARIO_LATENCY_MS = 1000;
@@ -330,27 +336,37 @@ async function prepareSemanticDocumentBenchmarkScenario(input: {
   dir: string;
   store: MemoryArtifactStore;
 }): Promise<() => Promise<TimedScenarioResult>> {
+  const preparedFixtures = await prepareSemanticDegradationFixtureDocuments(input.dir);
+
   return () =>
     runSemanticDegradationBenchmarkScenario({
       dir: input.dir,
       store: input.store,
+      preparedFixtures,
     });
 }
 
 export async function runSemanticDegradationBenchmarkScenario(input: {
   dir: string;
   store: MemoryArtifactStore;
+  now?: () => number;
+  preparedFixtures?: PreparedSemanticDegradationFixture[];
   summarize?: SemanticSummarizer;
 }): Promise<TimedScenarioResult> {
+  const now = input.now ?? (() => performance.now());
   const summarize = input.summarize ?? summarizeArtifact;
-  const docStart = performance.now();
-  const fixtureRuns = [];
-  for (const [index, fixture] of buildSemanticDegradationFixtures().entries()) {
-    const doc = Array.from({ length: 80 }, () => fixture.source).join("\n");
-    const docPath = join(input.dir, `semantic-${index}.md`);
-    await writeFile(docPath, doc, "utf8");
+  const preparedFixtures =
+    input.preparedFixtures ?? (await prepareSemanticDegradationFixtureDocuments(input.dir));
+  const fixtureRuns: Array<{
+    fixture: SemanticDegradationFixture;
+    rawTokens: number;
+    summary: ReturnType<SemanticSummarizer>;
+    latencyMs: number;
+  }> = [];
+  for (const preparedFixture of preparedFixtures) {
+    const fixtureStart = now();
     const docArtifact = await indexArtifact({
-      path: docPath,
+      path: preparedFixture.docPath,
       store: input.store,
       allowedRoots: [input.dir],
     });
@@ -360,12 +376,13 @@ export async function runSemanticDegradationBenchmarkScenario(input: {
       store: input.store,
     });
     fixtureRuns.push({
-      fixture,
-      rawTokens: estimateTextTokens(doc),
+      fixture: preparedFixture.fixture,
+      rawTokens: preparedFixture.rawTokens,
       summary,
+      latencyMs: roundLatencyMs(now() - fixtureStart),
     });
   }
-  const docLatencyMs = roundLatencyMs(performance.now() - docStart);
+  const docLatencyMs = Math.max(...fixtureRuns.map((fixtureRun) => fixtureRun.latencyMs));
   const rawTokens = fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.rawTokens, 0) * 10;
   const optimizedTokens =
     fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.summary.estimatedTokens, 0) * 10;
@@ -384,6 +401,23 @@ export async function runSemanticDegradationBenchmarkScenario(input: {
     profileVersion: "heuristic-v1",
     warnings: fixtureRuns.flatMap((fixtureRun) => fixtureRun.summary.warnings),
   };
+}
+
+async function prepareSemanticDegradationFixtureDocuments(
+  dir: string,
+): Promise<PreparedSemanticDegradationFixture[]> {
+  const preparedFixtures = [];
+  for (const [index, fixture] of buildSemanticDegradationFixtures().entries()) {
+    const doc = Array.from({ length: 80 }, () => fixture.source).join("\n");
+    const docPath = join(dir, `semantic-${index}.md`);
+    await writeFile(docPath, doc, "utf8");
+    preparedFixtures.push({
+      fixture,
+      docPath,
+      rawTokens: estimateTextTokens(doc),
+    });
+  }
+  return preparedFixtures;
 }
 
 export function benchmarkResultFailsGates(result: ScenarioResult): boolean {

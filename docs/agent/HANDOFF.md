@@ -2,7 +2,43 @@
 
 ## Current Objective
 
-Continue `feature/benchmark-latency-percentiles` through final documentation re-review, push, and PR handoff.
+Finish `feature/semantic-degradation-fixtures` through final review, push, PR handoff, and paper-plan documentation.
+
+## Current Semantic Degradation Fixture Work
+
+- Branch: `feature/semantic-degradation-fixtures`
+- Base branch: `main`
+- Base commit: `036a8ea5781a8c3cfc1193c6ed0b8c3d0ea28e18`
+- Design spec: `docs/superpowers/specs/2026-09-01-semantic-degradation-fixtures-design.md`
+- Implementation plan: `docs/superpowers/plans/2026-09-01-semantic-degradation-fixtures.md`
+- Paper preparation plan: `docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md`
+- Local commits:
+  - `cc3e927 docs: design semantic degradation fixtures`
+  - `cf52f71 docs: plan semantic degradation fixtures`
+  - `bc33ac7 test: cover semantic meaning gates`
+  - `6d4b150 feat: add semantic degradation fixtures`
+- TDD evidence:
+  - RED: `npm.cmd test -- --run tests/core.test.ts -t "semantic degradation fixtures|semantic meaning gates"` failed because `buildSemanticDegradationFixtures` was not exported.
+  - GREEN: same targeted command passed with 3 tests and `npm.cmd run typecheck` exited 0.
+  - RED: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark"` failed because `runSemanticDegradationBenchmarkScenario` was not exported.
+  - GREEN: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark|semantic degradation fixtures|semantic meaning gates"` passed 5 tests.
+- Full local gate on 2026-09-07:
+  - `npm.cmd test` - 181 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 6.65`, `passedExactGate: true`, warnings `[]`.
+  - `git diff --check` - exit 0.
+- Review state:
+  - Initial `test-engineer` lane failed before review because the native subagent surface hit usage limits.
+  - `code-reviewer` returned `APPROVE` with no blocking findings.
+  - `architect` returned `BLOCK`: semantic scenario latency measured fixture-suite setup and aggregate runtime, unlike the prepared build-log and code-editing scenarios.
+  - Architect remediation RED: `npm.cmd test -- --run tests/core.test.ts -t "maximum fixture latency"` failed because semantic latency ignored the injected `now` clock and returned aggregate wall-clock latency.
+  - Architect remediation GREEN: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark|semantic degradation fixtures|semantic meaning gates|maximum fixture latency"` passed 6 tests.
+  - Architect remediation GREEN: `npm.cmd run typecheck` exited 0.
+  - Architect remediation GREEN: `npm.cmd run build` exited 0.
+  - Architect remediation GREEN: `npm.cmd run benchmark` returned `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 1.44`, `passedExactGate: true`, warnings `[]`.
 
 ## Workspace
 
@@ -664,8 +700,11 @@ Continue `feature/benchmark-latency-percentiles` through final documentation re-
 
 ## Next Steps
 
-1. Review PR #5: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/5`.
-2. Do not merge the PR without explicit user approval.
+1. Run scoped architect re-review on the latency remediation diff.
+2. Run the full verification gate again after documentation changes.
+3. Commit the handoff, review remediation, and paper-plan documentation.
+4. Push `feature/semantic-degradation-fixtures` and open a PR against `main`.
+5. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
 

@@ -279,7 +279,7 @@ npm.cmd run benchmark
 npm.cmd run typecheck
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add benchmarks/run.ts tests/core.test.ts docs/benchmarks.md
@@ -321,6 +321,16 @@ git diff --check
 - [ ] **Step 4: Run independent code and architecture review**
 
 Dispatch `code-reviewer` and `architect` against the branch diff from `main`. Address any `REQUEST CHANGES` or architect `BLOCK` through TDD before PR handoff.
+
+Review remediation status:
+
+- `code-reviewer` returned `APPROVE` with no blocking findings.
+- `architect` returned `BLOCK` because semantic latency measured fixture-suite setup and aggregate runtime instead of stable per-fixture work.
+- RED: `npm.cmd test -- --run tests/core.test.ts -t "maximum fixture latency"` failed because `runSemanticDegradationBenchmarkScenario` reported aggregate wall-clock latency instead of the injected maximum fixture latency.
+- GREEN: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark|semantic degradation fixtures|semantic meaning gates|maximum fixture latency"` passed 6 tests.
+- GREEN: `npm.cmd run typecheck` exited 0.
+- GREEN: `npm.cmd run build` exited 0.
+- GREEN: `npm.cmd run benchmark` returned `passed: true`; semantic fixture suite `p95LatencyMs` was `1.44` ms after moving setup out of measured samples and reporting maximum single-fixture latency.
 
 - [ ] **Step 5: Update docs and open PR**
 
