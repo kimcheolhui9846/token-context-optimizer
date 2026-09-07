@@ -22,10 +22,13 @@ and its character/depth limits; files are read into memory before parsing. Neith
 Never send the full manifest to a model. Authors still need to check that public fields
 do not contain answer leakage; field projection cannot detect leaked answers in prose.
 
-`fingerprintDataset(dataset)` validates and hashes `JSON.stringify(dataset)` with SHA-256.
+`fingerprintDataset(dataset)` hashes a detached, validated schema snapshot with SHA-256
+over its JSON serialization. Projection and scoring also consume validated snapshots;
+caller serialization hooks are not used.
 Use its return value in the ledger's `datasetSha256`. Answer/rubric/source changes invalidate
-the ledger. JSON whitespace is irrelevant after parsing, but property order and record
-order matter. This is a local consistency fingerprint, not a signature or immutable
+the ledger. Object fields are serialized in schema order; input property insertion order
+and JSON whitespace do not matter, but record/list order does. This is a versioned local
+fingerprint rather than a general canonical-JSON scheme, signature or immutable
 preregistration: someone editing both artifacts can recompute it. Freeze and archive the
 plan and dataset independently before collection.
 

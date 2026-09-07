@@ -11,9 +11,11 @@ language, sourceText and question for that split, using an explicit allowlist. R
 answers, facts, prohibited contradictions, provenance, family metadata and rubrics are
 not model inputs. The source/question themselves still require author leakage review.
 
-`fingerprintDataset(dataset)` computes SHA-256 of JSON.stringify on the validated input
-object. This freezes field ordering and record ordering as well as content; reordering
-object keys requires regenerating the fingerprint. No claim of canonical JSON is made.
+`fingerprintDataset(dataset)` computes SHA-256 of the JSON serialization of a detached,
+validated schema snapshot. Object fields use schema order; input insertion order does
+not matter. Record/list ordering and content do matter. Serialization hooks are ignored;
+projection, fingerprinting and scoring all use validated snapshots. This is not general
+canonical JSON and must remain versioned with the schema.
 
 Evaluation v1 fields: schemaVersion, datasetSha256, split, arms, attemptsPerTask and runs.
 Arms are unique lowercase identifiers (1-32); attemptsPerTask is an integer 1-1000.

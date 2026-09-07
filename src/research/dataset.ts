@@ -41,6 +41,13 @@ export type DatasetValidationIssue = {
 };
 export type DatasetValidationResult = { valid: boolean; issues: DatasetValidationIssue[] };
 
+export function parseResearchDataset(input: unknown): ResearchDataset {
+  // Validate consistency on a detached schema snapshot, never on serialization hooks.
+  const parsed = datasetSchema.safeParse(input);
+  if (!parsed.success || !validateDataset(parsed.data).valid) throw new Error("invalid_dataset");
+  return parsed.data;
+}
+
 function sha256(text: string): string {
   return createHash("sha256").update(text, "utf8").digest("hex");
 }

@@ -17,9 +17,10 @@ and model-input projection. PRs #6 and #7 have been merged with explicit user ap
 - No model or fine-tuning job ran. `scoring-demo.json` contains synthetic labels, not empirical results.
 - TDD RED: 23 core assertions failed against the initial stubs; GREEN: all passed.
 - CLI RED: 9 real compiled-entrypoint cases failed against the CLI stub; GREEN: 35 targeted tests passed including added accounting coverage.
-- Local full gate: 257 tests passed after review coverage remediation; build/typecheck/MCP smoke/plugin validation/dataset demo/scoring demo/benchmark passed. Semantic benchmark p95: 1.54 ms.
-- Local scoring spot check: 1,000 task records and 1,000 synthetic run judgments; one warm-up, 20 measurements; median 6.98 ms, p95 8.56 ms. Includes dataset validation/fingerprinting/aggregation; excludes file I/O and model execution. No comparative performance claim.
-- Independent test review requested a direct existing-task/wrong-split regression. Added it; 36 targeted tests passed and scoped review returned `PASS`. Code review is pending.
+- Final local full gate after fingerprint remediation: 259 tests passed; build/typecheck/MCP smoke/plugin validation/dataset demo/scoring demo/benchmark passed. Semantic benchmark p95: 1.50 ms.
+- Final local scoring spot check: 1,000 task records and 1,000 synthetic run judgments; one warm-up, 20 measurements; median 8.24 ms, p95 10.15 ms. Includes dataset validation/snapshot/fingerprinting/aggregation; excludes file I/O and model execution. No comparative performance claim.
+- Independent test review requested a direct existing-task/wrong-split regression. Added it; 36 targeted tests passed and scoped review returned `PASS`.
+- Code review found a programmatic `toJSON` fingerprint bypass. Two RED regressions reproduced it and property-order sensitivity. Added a detached validated schema snapshot shared by projection/fingerprinting/scoring; GREEN: 38 targeted tests. Scoped code re-review pending.
 
 ## Current Research Dataset Validator Work
 

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import * as z from "zod/v4";
-import { validateDataset, type ResearchDataset } from "./dataset.js";
+import { parseResearchDataset, type ResearchDataset } from "./dataset.js";
 
 const identifier = z.string().regex(/^[a-z0-9][a-z0-9._-]*$/).refine((value) => value === value.trim());
 const splitSchema = z.enum(["train", "development", "test"]);
@@ -27,17 +27,12 @@ const evaluationSchema = z.strictObject({
   })),
 });
 
-function requireDataset(input: unknown): ResearchDataset {
-  if (!validateDataset(input).valid) throw new Error("invalid_dataset");
-  return input as ResearchDataset;
-}
-
 function digest(dataset: ResearchDataset): string {
   return createHash("sha256").update(JSON.stringify(dataset), "utf8").digest("hex");
 }
 
 export function buildModelInputs(input: unknown, split: string) {
-  const dataset = requireDataset(input);
+  const dataset = parseResearchDataset(input);
   if (!splitSchema.safeParse(split).success) throw new Error("invalid_split");
   return dataset.records.filter((record) => record.split === split).map((record) => ({
     id: record.id, language: record.language, sourceText: record.source.text, question: record.question,
@@ -45,11 +40,11 @@ export function buildModelInputs(input: unknown, split: string) {
 }
 
 export function fingerprintDataset(input: unknown): string {
-  return digest(requireDataset(input));
+  return digest(parseResearchDataset(input));
 }
 
 export function scoreEvaluation(input: unknown, evaluation: unknown) {
-  const dataset = requireDataset(input);
+  const dataset = parseResearchDataset(input);
   const parsed = evaluationSchema.safeParse(evaluation);
   if (!parsed.success) throw new Error("invalid_evaluation");
   const ledger = parsed.data;

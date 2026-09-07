@@ -51,6 +51,21 @@ describe("research scoring", () => {
     expect(() => scoreEvaluation(data, ledger)).toThrow("dataset_fingerprint_mismatch");
   });
 
+  it("ignores serialization hooks when binding the full dataset", () => {
+    const data = dataset();
+    Object.defineProperty(data, "toJSON", { value: () => ({ fixed: true }) });
+    const ledger = evaluation(data);
+    data.records[0].answerKey = "changed-secret-answer";
+    expect(fingerprintDataset(data)).not.toBe(ledger.datasetSha256);
+    expect(() => scoreEvaluation(data, ledger)).toThrow("dataset_fingerprint_mismatch");
+  });
+
+  it("fingerprints validated content independently of object property insertion order", () => {
+    const data = dataset();
+    const reordered = { records: data.records, datasetId: data.datasetId, schemaVersion: data.schemaVersion };
+    expect(fingerprintDataset(reordered)).toBe(fingerprintDataset(data));
+  });
+
   it("counts a fully judged successful run", () => {
     expect(scoreEvaluation(dataset(), evaluation()).arms[0]).toMatchObject({ arm: "baseline", planned: 1, submitted: 1, missing: 0, ungraded: 0,
       successes: 1, failures: 0, complete: true, successRate: 1, totalCostUsd: 0.01, costPerSuccessUsd: 0.01,
