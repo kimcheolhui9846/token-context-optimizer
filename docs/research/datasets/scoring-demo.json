@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "datasetSha256": "cc2ccec43f9a00db51c87ec433acae512c25f5727da0ee6902abc521f63abe85",
+  "split": "development",
+  "arms": ["synthetic-demo"],
+  "attemptsPerTask": 1,
+  "runs": [
+    {
+      "taskId": "negation-en-1",
+      "arm": "synthetic-demo",
+      "attempt": 1,
+      "status": "completed",
+      "latencyMs": null,
+      "costUsd": null,
+      "judgment": {
+        "graderId": "synthetic-not-human-evidence",
+        "coveredFacts": [true],
+        "contradiction": false,
+        "exactCheckPassed": null
+      }
+    }
+  ]
+}
