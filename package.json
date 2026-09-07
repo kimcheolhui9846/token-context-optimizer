@@ -15,6 +15,7 @@
     "install:local": "node scripts/install-local-plugin.mjs",
     "verify:installed": "node scripts/verify-installed-plugin.mjs",
     "validate:plugin": "node scripts/validate-plugin.mjs",
+    "validate:dataset": "node scripts/validate-dataset.mjs",
     "benchmark": "node dist/benchmarks/run.js",
     "smoke:mcp": "node scripts/smoke-mcp.mjs"
   },

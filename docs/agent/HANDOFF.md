@@ -2,7 +2,27 @@
 
 ## Current Objective
 
-Implementation, independent review, and paper-plan documentation are complete for `feature/semantic-degradation-fixtures`; PR #6 is the integration handoff.
+Dataset validator implementation and independent review are complete. PR #7 is the
+stacked integration handoff against `feature/semantic-degradation-fixtures` (PR #6 remains unmerged).
+
+## Current Research Dataset Validator Work
+
+- Branch: `feature/research-dataset-validation`; base commit `90a4370`.
+- Pull request: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/7`.
+- Spec: `docs/superpowers/specs/2026-09-07-research-dataset-validation-design.md`.
+- Plan: `docs/superpowers/plans/2026-09-07-research-dataset-validation.md`.
+- Format and limits: `docs/research/dataset-format.md`; runnable example: `docs/research/datasets/format-demo.json`.
+- Pure validator: `src/research/dataset.ts`; CLI: `scripts/validate-dataset.mjs`.
+- TDD RED: 23 validation assertions failed against the initial all-valid stub.
+- TDD GREEN: 26 schema/identity tests passed; an initial test assumed exactly one schema diagnostic and was corrected to allow all invalid fields to be reported.
+- CLI RED: 6 real-process assertions failed against the all-valid CLI stub. The first esbuild invocation was sandbox-blocked; the approved retry exposed the intended behavior failures.
+- CLI GREEN and test-review coverage additions: 39 targeted tests passed, including escaped duplicate JSON members, canary diagnostics, exact Korean/CRLF/BOM hashes and nonadjacent family leakage.
+- Final full gate on 2026-09-07 after entrypoint remediation: 221 tests passed; build, typecheck, MCP smoke, plugin validation and benchmark exited 0. Semantic local benchmark p95: 2.06 ms; exact/task gates passed.
+- `npm.cmd run validate:dataset -- docs/research/datasets/format-demo.json` exited 0 and returned `valid: true`.
+- Local performance spot check: one warm-up, 20 runs of 1,000 same-family format-demo variants with unique IDs; pure validator median 4.09 ms, p95 5.73 ms. Excludes file reading and CLI startup; diagnostic evidence only, not a regression budget or LLM measurement.
+- Initial test-engineer review clarified normalization, split identity, source hashes, shape and diagnostic confidentiality; implementation and tests cover these boundaries.
+- Test-engineer found a CLI linkage coverage blocker: source substitution bypassed production imports. Tests now copy the unchanged CLI/parser and run real project `tsc` into an isolated directory. Negative control with `--noEmit` caused 9 CLI failures; normal emission passed all 39 targeted tests. Scoped re-review: `PASS`.
+- Independent code/spec/security/performance review: `APPROVE`, no blockers; reviewer also ran 39 targeted tests and TypeScript diagnostics.
 
 ## Current Semantic Degradation Fixture Work
 
@@ -62,7 +82,7 @@ Implementation, independent review, and paper-plan documentation are complete fo
 ## Workspace
 
 - Path: `C:\Users\00\Desktop\codex_plugin_and_skill`
-- Current branch: `feature/semantic-degradation-fixtures`
+- Current branch: `feature/research-dataset-validation`
 - Base branch: `main`
 - GitHub repo: `https://github.com/kimcheolhui9846/token-context-optimizer`
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
@@ -719,8 +739,8 @@ Implementation, independent review, and paper-plan documentation are complete fo
 
 ## Next Steps
 
-1. Review PR #6: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/6`.
-2. Use `docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md` to select the primary contrast and freeze the pilot dataset manifest; add primary research literature before claiming novelty.
+1. Review PR #7. After PR #6 lands, retarget PR #7 to `main` and verify its diff and integration checks.
+2. Select the primary contrast and curate the pilot dataset; then implement a separate scoring harness with answer-key isolation and failure accounting. Add primary research literature before claiming novelty.
 3. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands

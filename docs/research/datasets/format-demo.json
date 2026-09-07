@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "format-demo-not-pilot",
+  "records": [
+    {
+      "id": "negation-en-1",
+      "familyId": "source-preservation-demo",
+      "split": "development",
+      "language": "en",
+      "category": "negation",
+      "source": {
+        "text": "Operators must not delete source excerpts.",
+        "sha256": "4978d11ec16f294d44e34f7a760ee2bf5f415a71ccbe10f84c3ada2205b700a8",
+        "provenance": "Author-created synthetic format example; not research evidence.",
+        "license": "CC0-1.0"
+      },
+      "question": "What must operators avoid?",
+      "answerKey": "Deleting source excerpts.",
+      "requiredFacts": ["Operators are prohibited from deleting source excerpts."],
+      "prohibitedContradictions": ["Operators may delete source excerpts."],
+      "acceptableParaphrases": ["Operators must preserve source excerpts."],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require the correct actor, action and prohibition; reject permission to delete. Accept faithful paraphrases."
+      }
+    }
+  ]
+}
