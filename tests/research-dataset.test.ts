@@ -1,10 +1,8 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { promisify } from "node:util";
-import { build } from "esbuild";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { validateDataset } from "../src/research/dataset.js";
 
@@ -126,18 +124,14 @@ describe("research dataset CLI", () => {
   const exec = promisify(execFile);
 
   beforeAll(async () => {
-    root = await mkdtemp(join(tmpdir(), "tco-dataset-test-"));
-    cli = join(root, "validate.mjs");
-    await build({
-      entryPoints: [resolve("scripts/validate-dataset.mjs")], outfile: cli,
-      bundle: true, platform: "node", format: "esm",
-      plugins: [{
-        name: "current-dataset-source",
-        setup(builder) {
-          builder.onResolve({ filter: /^\.\.\/dist\/src\/research\/dataset\.js$/ }, () => ({ path: resolve("src/research/dataset.ts") }));
-        },
-      }],
-    });
+    await mkdir(resolve(".artifacts"), { recursive: true });
+    root = await mkdtemp(join(resolve(".artifacts"), "dataset-test-"));
+    await mkdir(join(root, "scripts"));
+    cli = join(root, "scripts", "validate-dataset.mjs");
+    await copyFile(resolve("scripts/validate-dataset.mjs"), cli);
+    await copyFile(resolve("scripts/plugin-runtime.mjs"), join(root, "scripts", "plugin-runtime.mjs"));
+    // Keep the actual CLI import unchanged; isolate compilation from the workspace dist.
+    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.json"), "--outDir", join(root, "dist")]);
   });
   afterAll(async () => {
     if (root) await rm(root, { recursive: true, force: true });

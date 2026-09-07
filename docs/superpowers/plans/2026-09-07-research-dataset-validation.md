@@ -27,9 +27,9 @@
 
 ## Task 3: Review And Handoff
 
-- [ ] Obtain bounded independent code review including malformed data, leakage,
+- [x] Obtain bounded independent code review including malformed data, leakage,
   diagnostics and performance complexity. Address blockers with regression tests first.
 - [x] Run full test/build/typecheck/MCP smoke/plugin validation/benchmark/diff gates.
-- [ ] Update handoff with RED/GREEN, review evidence and remaining research milestones.
+- [x] Update handoff with RED/GREEN, review evidence and remaining research milestones.
 - [ ] Commit, push `feature/research-dataset-validation`, create stacked PR against
   `feature/semantic-degradation-fixtures`; do not merge without explicit approval.

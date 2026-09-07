@@ -15,11 +15,13 @@ Finish `feature/research-dataset-validation` as a stacked PR against
 - TDD RED: 23 validation assertions failed against the initial all-valid stub.
 - TDD GREEN: 26 schema/identity tests passed; an initial test assumed exactly one schema diagnostic and was corrected to allow all invalid fields to be reported.
 - CLI RED: 6 real-process assertions failed against the all-valid CLI stub. The first esbuild invocation was sandbox-blocked; the approved retry exposed the intended behavior failures.
-- CLI GREEN and test-review coverage additions: 39 targeted tests passed, including current-source CLI bundling, escaped duplicate JSON members, canary diagnostics, exact Korean/CRLF/BOM hashes and nonadjacent family leakage.
-- Full gate on 2026-09-07: 221 tests passed; build, typecheck, MCP smoke, plugin validation and benchmark exited 0. Semantic local benchmark p95: 1.72 ms; exact/task gates passed.
+- CLI GREEN and test-review coverage additions: 39 targeted tests passed, including escaped duplicate JSON members, canary diagnostics, exact Korean/CRLF/BOM hashes and nonadjacent family leakage.
+- Final full gate on 2026-09-07 after entrypoint remediation: 221 tests passed; build, typecheck, MCP smoke, plugin validation and benchmark exited 0. Semantic local benchmark p95: 2.06 ms; exact/task gates passed.
 - `npm.cmd run validate:dataset -- docs/research/datasets/format-demo.json` exited 0 and returned `valid: true`.
 - Local performance spot check: one warm-up, 20 runs of 1,000 same-family format-demo variants with unique IDs; pure validator median 4.09 ms, p95 5.73 ms. Excludes file reading and CLI startup; diagnostic evidence only, not a regression budget or LLM measurement.
-- Initial test-engineer review clarified normalization, split identity, source hashes, shape and diagnostic confidentiality; implementation and tests cover these boundaries. Final review pending.
+- Initial test-engineer review clarified normalization, split identity, source hashes, shape and diagnostic confidentiality; implementation and tests cover these boundaries.
+- Test-engineer found a CLI linkage coverage blocker: source substitution bypassed production imports. Tests now copy the unchanged CLI/parser and run real project `tsc` into an isolated directory. Negative control with `--noEmit` caused 9 CLI failures; normal emission passed all 39 targeted tests. Scoped re-review: `PASS`.
+- Independent code/spec/security/performance review: `APPROVE`, no blockers; reviewer also ran 39 targeted tests and TypeScript diagnostics.
 
 ## Current Semantic Degradation Fixture Work
 

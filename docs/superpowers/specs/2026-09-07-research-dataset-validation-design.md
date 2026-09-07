@@ -36,7 +36,8 @@ errors). Reuse the existing duplicate-key-rejecting JSON parser, including its
 Use existing Zod v4 and TypeScript/Vitest. Keep research logic in `src/research/` and
 dedicated tests in `tests/research-dataset.test.ts`. Add `validate:dataset` after build.
 The CLI lives in `scripts/validate-dataset.mjs` beside the shared JSON parser and loads
-the compiled validator; tests bundle current source to avoid stale build results.
+the compiled validator; tests compile with the project TypeScript configuration into
+an isolated directory and run the unmodified CLI against that output.
 Do not wire research data or answer keys into the distributable MCP server.
 Publish a small synthetic example clearly labeled as a format demo, not the 120-family
 pilot, and document manual leakage and scoring review requirements.
