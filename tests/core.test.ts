@@ -803,6 +803,143 @@ describe("benchmarks", () => {
     expect(() => summarizeLatencySamples([-1, 2])).toThrow("latency samples must not be negative");
   });
 
+  it("builds semantic degradation fixtures for numeric, negation, and actor meaning", async () => {
+    const { buildSemanticDegradationFixtures } = await import("../benchmarks/run.js");
+
+    const fixtures = buildSemanticDegradationFixtures();
+
+    expect(fixtures.map((fixture) => fixture.name)).toEqual([
+      "semantic success phrase",
+      "numeric threshold preservation",
+      "negation preservation",
+      "actor action preservation",
+    ]);
+    expect(fixtures.every((fixture) => fixture.requiredPhrases.length > 0)).toBe(true);
+  });
+
+  it("fails semantic meaning gates when required phrases are missing", async () => {
+    const { buildSemanticDegradationFixtures, semanticSummaryPassesMeaningGate } = await import(
+      "../benchmarks/run.js"
+    );
+    const fixtures = buildSemanticDegradationFixtures();
+
+    expect(
+      semanticSummaryPassesMeaningGate(
+        { fallbackReason: null, summary: "Reviewers approve launch after the latency check." },
+        fixtures.find((fixture) => fixture.name === "numeric threshold preservation")!,
+      ),
+    ).toBe(false);
+    expect(
+      semanticSummaryPassesMeaningGate(
+        { fallbackReason: null, summary: "Operators may delete source excerpts during cleanup." },
+        fixtures.find((fixture) => fixture.name === "negation preservation")!,
+      ),
+    ).toBe(false);
+    expect(
+      semanticSummaryPassesMeaningGate(
+        { fallbackReason: null, summary: "The opening is paused until the notes are updated." },
+        fixtures.find((fixture) => fixture.name === "actor action preservation")!,
+      ),
+    ).toBe(false);
+  });
+
+  it("passes semantic meaning gates when all required phrases are present", async () => {
+    const { buildSemanticDegradationFixtures, semanticSummaryPassesMeaningGate } = await import(
+      "../benchmarks/run.js"
+    );
+    const fixture = buildSemanticDegradationFixtures().find(
+      (candidate) => candidate.name === "numeric threshold preservation",
+    )!;
+
+    expect(
+      semanticSummaryPassesMeaningGate(
+        {
+          fallbackReason: null,
+          summary: "Reviewers approve launch only when latency stays below one thousand milliseconds.",
+        },
+        fixture,
+      ),
+    ).toBe(true);
+  });
+
+  it("semantic benchmark reports all degradation fixture requirements", async () => {
+    const { runSemanticDegradationBenchmarkScenario } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-semantic-bench-"));
+
+    const result = await runSemanticDegradationBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+    });
+
+    expect(result).toMatchObject({
+      name: "repeated semantic document extractive summary",
+      passedExactGate: true,
+      taskGateRequired: false,
+      passedTaskGate: null,
+      warnings: [],
+    });
+    expect(result.rawTokens).toBeGreaterThanOrEqual(16000);
+    expect(result.reductionPercent).toBeGreaterThanOrEqual(25);
+  });
+
+  it("semantic benchmark fails when one degradation fixture loses required meaning", async () => {
+    const { runSemanticDegradationBenchmarkScenario } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-semantic-bench-failure-"));
+
+    const result = await runSemanticDegradationBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+      summarize: () => ({
+        fallbackReason: null,
+        summary: "Token efficiency depends on measured task success.",
+        estimatedTokens: 20,
+        warnings: [],
+      }),
+    });
+
+    expect(result.passedExactGate).toBe(false);
+  });
+
+  it("semantic benchmark reports maximum fixture latency instead of suite-total latency", async () => {
+    const { buildSemanticDegradationFixtures, runSemanticDegradationBenchmarkScenario } =
+      (await import("../benchmarks/run.js")) as {
+        buildSemanticDegradationFixtures: () => Array<{ source: string }>;
+        runSemanticDegradationBenchmarkScenario: (input: {
+          dir: string;
+          store: MemoryArtifactStore;
+          now: () => number;
+          summarize: () => {
+            fallbackReason: string | null;
+            summary: string;
+            estimatedTokens: number;
+            warnings: string[];
+          };
+        }) => Promise<{ latencyMs: number }>;
+      };
+    const dir = await mkdtemp(join(tmpdir(), "tco-semantic-latency-"));
+    const fixtureSummaries = buildSemanticDegradationFixtures().map((fixture) => fixture.source);
+    const fixtureDurations = [10, 20, 40, 30];
+    let clock = 100;
+    let calls = 0;
+
+    const result = await runSemanticDegradationBenchmarkScenario({
+      dir,
+      store: new MemoryArtifactStore(),
+      now: () => clock,
+      summarize: () => {
+        clock += fixtureDurations[calls];
+        return {
+          fallbackReason: null,
+          summary: fixtureSummaries[calls++],
+          estimatedTokens: 10,
+          warnings: [],
+        };
+      },
+    });
+
+    expect(result.latencyMs).toBe(40);
+  });
+
   it("applies the code editing fixture from the retrieved implementation text", async () => {
     const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
       "../benchmarks/run.js"

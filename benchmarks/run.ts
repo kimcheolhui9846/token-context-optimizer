@@ -51,6 +51,18 @@ export interface TimedScenarioResult {
   warnings: string[];
 }
 
+export interface SemanticDegradationFixture {
+  name: string;
+  source: string;
+  requiredPhrases: string[];
+}
+
+export interface PreparedSemanticDegradationFixture {
+  fixture: SemanticDegradationFixture;
+  docPath: string;
+  rawTokens: number;
+}
+
 const DEFAULT_LATENCY_SAMPLE_COUNT = 20;
 const MINIMUM_REDUCTION_PERCENT = 25;
 const MAXIMUM_SCENARIO_LATENCY_MS = 1000;
@@ -221,6 +233,48 @@ function buildLargeBuildLog(minimumTokens: number): string {
   return lines.join("\n");
 }
 
+export function buildSemanticDegradationFixtures(): SemanticDegradationFixture[] {
+  return [
+    {
+      name: "semantic success phrase",
+      source: "Token efficiency depends on measured task success and careful source preservation.",
+      requiredPhrases: ["Token efficiency depends on measured task success"],
+    },
+    {
+      name: "numeric threshold preservation",
+      source: "Reviewers approve launch only when latency stays below one thousand milliseconds.",
+      requiredPhrases: ["latency", "below one thousand milliseconds"],
+    },
+    {
+      name: "negation preservation",
+      source: "Operators must not delete source excerpts during cleanup.",
+      requiredPhrases: ["must not delete source excerpts"],
+    },
+    {
+      name: "actor action preservation",
+      source: "The shift captain updates the readiness notes before opening hour.",
+      requiredPhrases: ["shift captain updates the readiness notes"],
+    },
+  ];
+}
+
+export function semanticSummaryPassesMeaningGate(
+  summary: { fallbackReason: string | null; summary: string },
+  fixture: SemanticDegradationFixture,
+): boolean {
+  return (
+    summary.fallbackReason === null &&
+    fixture.requiredPhrases.every((required) => summary.summary.includes(required))
+  );
+}
+
+type SemanticSummarizer = (input: Parameters<typeof summarizeArtifact>[0]) => {
+  fallbackReason: string | null;
+  summary: string;
+  estimatedTokens: number;
+  warnings: string[];
+};
+
 async function prepareBuildLogBenchmarkScenario(input: {
   dir: string;
   store: MemoryArtifactStore;
@@ -282,56 +336,88 @@ async function prepareSemanticDocumentBenchmarkScenario(input: {
   dir: string;
   store: MemoryArtifactStore;
 }): Promise<() => Promise<TimedScenarioResult>> {
-  const doc = Array.from(
-    { length: 80 },
-    () => "Token efficiency depends on measured task success and careful source preservation.",
-  ).join("\n");
-  const docTokens = estimateTextTokens(doc);
-  const docPath = join(input.dir, "notes.md");
-  await writeFile(docPath, doc, "utf8");
+  const preparedFixtures = await prepareSemanticDegradationFixtureDocuments(input.dir);
 
   return () =>
-    runSemanticDocumentBenchmarkScenario({
+    runSemanticDegradationBenchmarkScenario({
       dir: input.dir,
       store: input.store,
-      docTokens,
-      docPath,
+      preparedFixtures,
     });
 }
 
-async function runSemanticDocumentBenchmarkScenario(input: {
+export async function runSemanticDegradationBenchmarkScenario(input: {
   dir: string;
   store: MemoryArtifactStore;
-  docTokens: number;
-  docPath: string;
+  now?: () => number;
+  preparedFixtures?: PreparedSemanticDegradationFixture[];
+  summarize?: SemanticSummarizer;
 }): Promise<TimedScenarioResult> {
-  const docStart = performance.now();
-  const docArtifact = await indexArtifact({
-    path: input.docPath,
-    store: input.store,
-    allowedRoots: [input.dir],
-  });
-  const summary = summarizeArtifact({
-    artifactId: docArtifact.artifactId,
-    maxTokens: 120,
-    store: input.store,
-  });
-  const docLatencyMs = roundLatencyMs(performance.now() - docStart);
+  const now = input.now ?? (() => performance.now());
+  const summarize = input.summarize ?? summarizeArtifact;
+  const preparedFixtures =
+    input.preparedFixtures ?? (await prepareSemanticDegradationFixtureDocuments(input.dir));
+  const fixtureRuns: Array<{
+    fixture: SemanticDegradationFixture;
+    rawTokens: number;
+    summary: ReturnType<SemanticSummarizer>;
+    latencyMs: number;
+  }> = [];
+  for (const preparedFixture of preparedFixtures) {
+    const fixtureStart = now();
+    const docArtifact = await indexArtifact({
+      path: preparedFixture.docPath,
+      store: input.store,
+      allowedRoots: [input.dir],
+    });
+    const summary = summarize({
+      artifactId: docArtifact.artifactId,
+      maxTokens: 120,
+      store: input.store,
+    });
+    fixtureRuns.push({
+      fixture: preparedFixture.fixture,
+      rawTokens: preparedFixture.rawTokens,
+      summary,
+      latencyMs: roundLatencyMs(now() - fixtureStart),
+    });
+  }
+  const docLatencyMs = Math.max(...fixtureRuns.map((fixtureRun) => fixtureRun.latencyMs));
+  const rawTokens = fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.rawTokens, 0) * 10;
+  const optimizedTokens =
+    fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.summary.estimatedTokens, 0) * 10;
 
   return {
     name: "repeated semantic document extractive summary",
-    rawTokens: input.docTokens * 10,
-    optimizedTokens: summary.estimatedTokens * 10,
-    reductionPercent: percentReduction(input.docTokens * 10, summary.estimatedTokens * 10),
-    passedExactGate:
-      summary.fallbackReason === null &&
-      summary.summary.includes("Token efficiency depends on measured task success"),
+    rawTokens,
+    optimizedTokens,
+    reductionPercent: percentReduction(rawTokens, optimizedTokens),
+    passedExactGate: fixtureRuns.every((fixtureRun) =>
+      semanticSummaryPassesMeaningGate(fixtureRun.summary, fixtureRun.fixture),
+    ),
     taskGateRequired: false,
     passedTaskGate: null,
     latencyMs: docLatencyMs,
     profileVersion: "heuristic-v1",
-    warnings: summary.warnings,
+    warnings: fixtureRuns.flatMap((fixtureRun) => fixtureRun.summary.warnings),
   };
+}
+
+async function prepareSemanticDegradationFixtureDocuments(
+  dir: string,
+): Promise<PreparedSemanticDegradationFixture[]> {
+  const preparedFixtures = [];
+  for (const [index, fixture] of buildSemanticDegradationFixtures().entries()) {
+    const doc = Array.from({ length: 80 }, () => fixture.source).join("\n");
+    const docPath = join(dir, `semantic-${index}.md`);
+    await writeFile(docPath, doc, "utf8");
+    preparedFixtures.push({
+      fixture,
+      docPath,
+      rawTokens: estimateTextTokens(doc),
+    });
+  }
+  return preparedFixtures;
 }
 
 export function benchmarkResultFailsGates(result: ScenarioResult): boolean {

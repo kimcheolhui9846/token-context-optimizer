@@ -2,12 +2,67 @@
 
 ## Current Objective
 
-Continue `feature/benchmark-latency-percentiles` through final documentation re-review, push, and PR handoff.
+Implementation, independent review, and paper-plan documentation are complete for `feature/semantic-degradation-fixtures`; PR #6 is the integration handoff.
+
+## Current Semantic Degradation Fixture Work
+
+### Paper Protocol Follow-Up (2026-09-07)
+
+- Added `docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md` with five opened official sources and a proposed controlled evaluation design.
+- The protocol separates instruction content, skill delivery, context optimization, MCP transport, plugin packaging, and fine-tuning contrasts. No hosted model experiment or training job has run.
+- Official SFT documentation now reports no new-user access during platform wind-down; account eligibility remains unverified.
+- Fresh gate: 182 tests passed; build, typecheck, MCP smoke, plugin validation and benchmark exited 0. Semantic local p95 was 1.58 ms; this is regression evidence, not a hosted performance result.
+- Documentation-only follow-up: no runtime changes or new unit tests.
+- Independent architect review identified three methods blockers (matched context controls, operational analysis units, training variance). All were addressed; scoped re-review returned `CLEAR`.
+
+- Branch: `feature/semantic-degradation-fixtures`
+- Base branch: `main`
+- Base commit: `036a8ea5781a8c3cfc1193c6ed0b8c3d0ea28e18`
+- Design spec: `docs/superpowers/specs/2026-09-01-semantic-degradation-fixtures-design.md`
+- Implementation plan: `docs/superpowers/plans/2026-09-01-semantic-degradation-fixtures.md`
+- Paper preparation plan: `docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md`
+- Pull request: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/6`
+- Local commits:
+  - `cc3e927 docs: design semantic degradation fixtures`
+  - `cf52f71 docs: plan semantic degradation fixtures`
+  - `bc33ac7 test: cover semantic meaning gates`
+  - `6d4b150 feat: add semantic degradation fixtures`
+- TDD evidence:
+  - RED: `npm.cmd test -- --run tests/core.test.ts -t "semantic degradation fixtures|semantic meaning gates"` failed because `buildSemanticDegradationFixtures` was not exported.
+  - GREEN: same targeted command passed with 3 tests and `npm.cmd run typecheck` exited 0.
+  - RED: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark"` failed because `runSemanticDegradationBenchmarkScenario` was not exported.
+  - GREEN: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark|semantic degradation fixtures|semantic meaning gates"` passed 5 tests.
+- Full local gate on 2026-09-07:
+  - `npm.cmd test` - 181 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 6.65`, `passedExactGate: true`, warnings `[]`.
+  - `git diff --check` - exit 0.
+- Review state:
+  - Initial `test-engineer` lane failed before review because the native subagent surface hit usage limits.
+  - `code-reviewer` returned `APPROVE` with no blocking findings.
+  - `architect` returned `BLOCK`: semantic scenario latency measured fixture-suite setup and aggregate runtime, unlike the prepared build-log and code-editing scenarios.
+  - Architect remediation RED: `npm.cmd test -- --run tests/core.test.ts -t "maximum fixture latency"` failed because semantic latency ignored the injected `now` clock and returned aggregate wall-clock latency.
+  - Architect remediation GREEN: `npm.cmd test -- --run tests/core.test.ts -t "semantic benchmark|semantic degradation fixtures|semantic meaning gates|maximum fixture latency"` passed 6 tests.
+  - Architect remediation GREEN: `npm.cmd run typecheck` exited 0.
+  - Architect remediation GREEN: `npm.cmd run build` exited 0.
+  - Architect remediation GREEN: `npm.cmd run benchmark` returned `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 1.44`, `passedExactGate: true`, warnings `[]`.
+  - Scoped architect re-review after `10d2652` returned `CLEAR`; no new architecture blocker was found.
+- Final full gate after scoped re-review on 2026-09-07:
+  - `npm.cmd test` - 182 tests passed.
+  - `npm.cmd run build` - exit 0; bundled `bin\token-context-optimizer.mjs` 771.1kb.
+  - `npm.cmd run typecheck` - exit 0.
+  - `npm.cmd run smoke:mcp` - `mcp smoke ok`.
+  - `npm.cmd run validate:plugin` - `plugin manifest ok`.
+  - `npm.cmd run benchmark` - `passed: true`; semantic fixture suite `rawTokens: 58000`, `optimizedTokens: 3950`, `reductionPercent: 93.2`, `p95LatencyMs: 1.32`, `passedExactGate: true`, warnings `[]`.
+  - `git diff --check` - exit 0.
 
 ## Workspace
 
 - Path: `C:\Users\00\Desktop\codex_plugin_and_skill`
-- Current branch: `feature/benchmark-latency-percentiles`
+- Current branch: `feature/semantic-degradation-fixtures`
 - Base branch: `main`
 - GitHub repo: `https://github.com/kimcheolhui9846/token-context-optimizer`
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
@@ -664,8 +719,9 @@ Continue `feature/benchmark-latency-percentiles` through final documentation re-
 
 ## Next Steps
 
-1. Review PR #5: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/5`.
-2. Do not merge the PR without explicit user approval.
+1. Review PR #6: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/6`.
+2. Use `docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md` to select the primary contrast and freeze the pilot dataset manifest; add primary research literature before claiming novelty.
+3. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
 
