@@ -6,6 +6,15 @@ Implementation, independent review, and paper-plan documentation are complete fo
 
 ## Current Semantic Degradation Fixture Work
 
+### Paper Protocol Follow-Up (2026-09-07)
+
+- Added `docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md` with five opened official sources and a proposed controlled evaluation design.
+- The protocol separates instruction content, skill delivery, context optimization, MCP transport, plugin packaging, and fine-tuning contrasts. No hosted model experiment or training job has run.
+- Official SFT documentation now reports no new-user access during platform wind-down; account eligibility remains unverified.
+- Fresh gate: 182 tests passed; build, typecheck, MCP smoke, plugin validation and benchmark exited 0. Semantic local p95 was 1.58 ms; this is regression evidence, not a hosted performance result.
+- Documentation-only follow-up: no runtime changes or new unit tests.
+- Independent architect review identified three methods blockers (matched context controls, operational analysis units, training variance). All were addressed; scoped re-review returned `CLEAR`.
+
 - Branch: `feature/semantic-degradation-fixtures`
 - Base branch: `main`
 - Base commit: `036a8ea5781a8c3cfc1193c6ed0b8c3d0ea28e18`
@@ -711,7 +720,7 @@ Implementation, independent review, and paper-plan documentation are complete fo
 ## Next Steps
 
 1. Review PR #6: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/6`.
-2. Continue paper preparation from `docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md`; validate bibliography targets before citing them as evidence.
+2. Use `docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md` to select the primary contrast and freeze the pilot dataset manifest; add primary research literature before claiming novelty.
 3. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands

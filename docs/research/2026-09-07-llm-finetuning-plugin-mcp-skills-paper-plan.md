@@ -17,6 +17,12 @@ LLM application quality is not determined only by base-model or fine-tuned weigh
 
 ## Source Baseline
 
+Verified sources and a controlled comparison design are recorded in the
+[evaluation protocol](2026-09-07-layered-adaptation-evaluation-protocol.md).
+That register supersedes the unverified bibliography targets below. As of 2026-09-07,
+the official SFT guide announces a wind-down and no new-user access; a real fine-tuning
+experiment is conditional on confirmed access or a separately controlled alternative.
+
 - OpenAI fine-tuning API reference: fine-tuning jobs tailor a model from uploaded training data; current model availability must be checked against current fine-tuning documentation and organization limits.
 - OpenAI Plugins in ChatGPT and Codex: plugins package reusable instructions, connected tools, apps, app templates, and workflow capabilities; plugin installation does not bypass app authorization or workspace permissions.
 - OpenAI Skills in ChatGPT: skills are reusable workflows made of instructions, examples, supporting resources, and code that can be automatically used when helpful.
@@ -29,7 +35,7 @@ LLM application quality is not determined only by base-model or fine-tuned weigh
 | --- | --- | --- | --- | --- |
 | Fine-tuning | Model behavior adaptation from examples or preferences | Yes | No | eval sets, overfit checks, task accuracy, regression safety |
 | Skill | Repeatable procedural guidance and reusable local assets | No | Usually no, unless scripts run locally | instruction compliance, task repeatability, review gates |
-| MCP server | Tool/resource/prompt interface between host and external/local capabilities | No | Yes | schema contract, authorization, exactness, side effects, failure handling |
+| MCP server | Tool/resource/prompt interface between host and external/local capabilities | No | Shared with host and operating system | schema contract, authorization, exactness, side effects, failure handling |
 | Plugin | Packaging and distribution boundary for skills, apps, templates, and MCP-backed capability | No | Through included apps/MCP servers | install policy, permissions, manifest integrity, capability discovery |
 | Token-context optimizer | Case-study control layer for bounded retrieval and summarization | No | Local filesystem only | exact gates, semantic gates, latency p95, cleanup, plugin validation |
 
