@@ -2,8 +2,26 @@
 
 ## Current Objective
 
-Dataset validator implementation and independent review are complete. PR #7 is the
-stacked integration handoff against `feature/semantic-degradation-fixtures` (PR #6 remains unmerged).
+Offline scoring and model-input projection are verified and independently approved.
+PR #8 is open against main. PRs #6 and #7 were merged with explicit user approval.
+
+## Integration And Scoring (2026-09-08)
+
+- PR #6 merged as `2c231e9`; PR #7 retargeted to main and merged as `9c26b12`.
+- Before merging, the main agent ran PR #6's 182 tests and full gate, then PR #7's 221 tests and full gate. Both passed. GitHub had no configured CI checks.
+- Local main fast-forwarded to `9c26b12`; its tree matched tested PR #7 exactly (`git diff 680d892 HEAD --stat` empty). Post-merge 221 tests passed.
+- New branch: `feature/research-scoring-harness`, based on `9c26b12`.
+- Pull request: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/8`.
+- Spec/plan: `docs/superpowers/specs/2026-09-08-research-scoring-design.md`, `docs/superpowers/plans/2026-09-08-research-scoring.md`.
+- Implementation: `src/research/scoring.ts`, `scripts/score-research.mjs`; usage: `docs/research/scoring.md`.
+- Model input projection explicitly allowlists public fields. Ledger aggregation is bound to a full dataset fingerprint and accounts for missing, failed and ungraded slots and unknown telemetry.
+- No model or fine-tuning job ran. `scoring-demo.json` contains synthetic labels, not empirical results.
+- TDD RED: 23 core assertions failed against the initial stubs; GREEN: all passed.
+- CLI RED: 9 real compiled-entrypoint cases failed against the CLI stub; GREEN: 35 targeted tests passed including added accounting coverage.
+- Final local full gate after fingerprint remediation: 259 tests passed; build/typecheck/MCP smoke/plugin validation/dataset demo/scoring demo/benchmark passed. Semantic benchmark p95: 1.50 ms.
+- Final local scoring spot check: 1,000 task records and 1,000 synthetic run judgments; one warm-up, 20 measurements; median 8.24 ms, p95 10.15 ms. Includes dataset validation/snapshot/fingerprinting/aggregation; excludes file I/O and model execution. No comparative performance claim.
+- Independent test review requested a direct existing-task/wrong-split regression. Added it; 36 targeted tests passed and scoped review returned `PASS`.
+- Code review found a programmatic `toJSON` fingerprint bypass. Two RED regressions reproduced it and property-order sensitivity. Added a detached validated schema snapshot shared by projection/fingerprinting/scoring; GREEN: 38 targeted tests. Scoped code re-review returned `CLEAR`/`APPROVE` and independently reran the 38 targeted tests and TypeScript diagnostics.
 
 ## Current Research Dataset Validator Work
 
@@ -82,7 +100,7 @@ stacked integration handoff against `feature/semantic-degradation-fixtures` (PR 
 ## Workspace
 
 - Path: `C:\Users\00\Desktop\codex_plugin_and_skill`
-- Current branch: `feature/research-dataset-validation`
+- Current branch: `feature/research-scoring-harness`
 - Base branch: `main`
 - GitHub repo: `https://github.com/kimcheolhui9846/token-context-optimizer`
 - MVP PR merged: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/1`
@@ -739,8 +757,8 @@ stacked integration handoff against `feature/semantic-degradation-fixtures` (PR 
 
 ## Next Steps
 
-1. Review PR #7. After PR #6 lands, retarget PR #7 to `main` and verify its diff and integration checks.
-2. Select the primary contrast and curate the pilot dataset; then implement a separate scoring harness with answer-key isolation and failure accounting. Add primary research literature before claiming novelty.
+1. Review PR #8: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/8`.
+2. Select the primary contrast and curate the pilot dataset; preserve independent grading/response evidence, add family-clustered analysis and primary research literature before claiming empirical improvements.
 3. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
