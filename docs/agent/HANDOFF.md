@@ -2,12 +2,13 @@
 
 ## Current Objective
 
-Finish `feature/research-dataset-validation` as a stacked PR against
-`feature/semantic-degradation-fixtures` (PR #6 remains unmerged).
+Dataset validator implementation and independent review are complete. PR #7 is the
+stacked integration handoff against `feature/semantic-degradation-fixtures` (PR #6 remains unmerged).
 
 ## Current Research Dataset Validator Work
 
 - Branch: `feature/research-dataset-validation`; base commit `90a4370`.
+- Pull request: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/7`.
 - Spec: `docs/superpowers/specs/2026-09-07-research-dataset-validation-design.md`.
 - Plan: `docs/superpowers/plans/2026-09-07-research-dataset-validation.md`.
 - Format and limits: `docs/research/dataset-format.md`; runnable example: `docs/research/datasets/format-demo.json`.
@@ -738,7 +739,7 @@ Finish `feature/research-dataset-validation` as a stacked PR against
 
 ## Next Steps
 
-1. Complete independent validator review and open a stacked PR against `feature/semantic-degradation-fixtures`.
+1. Review PR #7. After PR #6 lands, retarget PR #7 to `main` and verify its diff and integration checks.
 2. Select the primary contrast and curate the pilot dataset; then implement a separate scoring harness with answer-key isolation and failure accounting. Add primary research literature before claiming novelty.
 3. Do not merge any PR without explicit user approval.
 
