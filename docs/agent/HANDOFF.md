@@ -20,7 +20,7 @@ and model-input projection. PRs #6 and #7 have been merged with explicit user ap
 - Final local full gate after fingerprint remediation: 259 tests passed; build/typecheck/MCP smoke/plugin validation/dataset demo/scoring demo/benchmark passed. Semantic benchmark p95: 1.50 ms.
 - Final local scoring spot check: 1,000 task records and 1,000 synthetic run judgments; one warm-up, 20 measurements; median 8.24 ms, p95 10.15 ms. Includes dataset validation/snapshot/fingerprinting/aggregation; excludes file I/O and model execution. No comparative performance claim.
 - Independent test review requested a direct existing-task/wrong-split regression. Added it; 36 targeted tests passed and scoped review returned `PASS`.
-- Code review found a programmatic `toJSON` fingerprint bypass. Two RED regressions reproduced it and property-order sensitivity. Added a detached validated schema snapshot shared by projection/fingerprinting/scoring; GREEN: 38 targeted tests. Scoped code re-review pending.
+- Code review found a programmatic `toJSON` fingerprint bypass. Two RED regressions reproduced it and property-order sensitivity. Added a detached validated schema snapshot shared by projection/fingerprinting/scoring; GREEN: 38 targeted tests. Scoped code re-review returned `CLEAR`/`APPROVE` and independently reran the 38 targeted tests and TypeScript diagnostics.
 
 ## Current Research Dataset Validator Work
 

@@ -12,6 +12,6 @@
 - [x] Add real compiled-entrypoint tests before implementing `scripts/score-research.mjs`
   and `score:research`; include a synthetic ledger for the existing format demo.
 - [x] Document ledger format and metric definitions in `docs/research/scoring.md`.
-- [ ] Resolve independent test/code review findings with focused regressions.
+- [x] Resolve independent test/code review findings with focused regressions.
 - [x] Run full test/build/typecheck/MCP/plugin/benchmark/dataset/scoring/diff checks.
 - [ ] Record merge evidence and new feature evidence in HANDOFF; commit/push/open PR.
