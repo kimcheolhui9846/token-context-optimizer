@@ -1,6 +1,6 @@
 # Registered Exact Excerpt Checks
 
-Status: proposal awaiting user approval; no implementation has started.
+Status: user approved proceeding with this design; implementation in progress.
 Base: PR #9 merge `6c836de`, verified with 283 passing tests after integration.
 Draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
 
@@ -106,6 +106,5 @@ and model latency. It is not a new pass/fail budget or a performance-improvement
 
 ## Approval Gate
 
-The user has approved PR #9's merge and requested the next task. The specific design
-above remains a proposal; implementation planning and code changes await design
-approval. The next implementation PR will require separate approval before merge.
+The user approved proceeding after the registered-checker design confirmation.
+The implementation PR still requires separate approval before merge.
