@@ -7,6 +7,9 @@ and its contents matched tested head `bc19570` exactly. Post-merge: all 360 test
 The next task on `docs/research-model-selection` records experimental model choices
 and their evidence. This is documentation work, not paid inference or training.
 
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/11
+Model-selection commit: `0e29810`. PR #11 awaits review and explicit merge approval.
+
 ## Model Selection Preparation (2026-09-08)
 
 - Merged: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
