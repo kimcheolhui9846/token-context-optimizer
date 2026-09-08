@@ -4,9 +4,10 @@
 
 PR #9 was merged with explicit user approval as `6c836de`. Local main was synced
 and its contents matched tested head `2a23f3c` exactly. The user approved proceeding
-with registered exact checks. Implementation is underway on `feature/research-exact-checks`.
+with registered exact checks. Implementation and independent reviews are complete on
+`feature/research-exact-checks`; PR #10 is ready for review and awaits merge approval.
 
-Draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
 
 ## Registered Exact Checks (2026-09-08)
 
@@ -44,7 +45,13 @@ Draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
   production code byte-for-byte produced 77 targeted tests GREEN.
 - Final main gate: all 360 tests passed; build/typecheck/MCP smoke/plugin validation,
   seed validation/scoring demo/pilot audit/exact demo/benchmark/diff checks passed.
-  Semantic local p95: 1.56 ms. Scoped test re-review remains pending.
+  Semantic local p95: 1.56 ms. Scoped test re-review approved the additions after
+  reading actual tests and rerunning 57 core tests; no production changes remained.
+  The CLI review remains approved. Main reran all 360 tests on resume, also GREEN.
+- Implementation commits: `514d570` (core), `4b38f8b` (CLI/docs), `3cf1777` (review
+  test coverage). All are pushed. PR #10 title/body now describe the implementation
+  and verification evidence, and its draft flag was removed. Do not merge until the
+  user explicitly approves this implementation PR.
 - No model or training job has run. Public excerpt checking does not replace human
   adjudication. Follow-up: curate/freeze independent pilot families and held-out checks,
   then establish approved model access/budget and blinded outcome grading.

@@ -1,8 +1,8 @@
 # Registered Exact Excerpt Checks
 
-Status: user approved proceeding with this design; implementation in progress.
+Status: implemented and verified; independent code and test reviews approved.
 Base: PR #9 merge `6c836de`, verified with 283 passing tests after integration.
-Draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
+PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10 (merge approval pending).
 
 ## Scope And Alternatives
 

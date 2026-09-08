@@ -64,11 +64,11 @@ Produces `check:exact` command with dataset and envelope file arguments.
 - [x] Add `docs/research/exact-checks.md` with envelope example, all five output fields,
   codes, byte/character limits, exact semantics, public-check boundary and no automatic
   ledger judgments; update pending statements in `development-seed.md`.
-- [ ] Request independent test and code/security reviews of final files, address any
+- [x] Request independent test and code/security reviews of final files, address any
   blockers through RED/GREEN fixes and scoped re-review.
 - [x] Run targeted tests, build, typecheck, full tests, MCP smoke, plugin validation,
   dataset/pilot/scoring/exact demos, benchmark and `git diff --check`.
 - [x] Record a descriptive local timing spot check (warm-up, sample count, environment,
   input size and exclusions), not a performance claim or new gate.
-- [ ] Update HANDOFF with actual evidence; commit/push/update PR #10 and mark ready
+- [x] Update HANDOFF with actual evidence; commit/push/update PR #10 and mark ready
   only after checks and reviews pass. Do not merge without new explicit approval.
