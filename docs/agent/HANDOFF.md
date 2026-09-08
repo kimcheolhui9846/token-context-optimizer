@@ -7,6 +7,8 @@ and its contents matched tested head `2a23f3c` exactly. The next branch is
 `feature/research-exact-checks`; only a proposed design is being prepared, with no
 runtime changes. Specific design approval is pending before implementation.
 
+Design-only draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
+
 ## Integration And Next Design (2026-09-08)
 
 - Merged PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9
@@ -21,7 +23,10 @@ runtime changes. Specific design approval is pending before implementation.
   with dataset/response binding and no arbitrary candidate execution.
 - The `hiddenCheckId` schema field does not make checked-in development checks secret.
   This proposed feature must not be described as held-out or human outcome evaluation.
-- An architect is independently reviewing the proposed trust and evidence boundaries.
+- Architect design review requested clarification of a data-only registry, exact
+  output fields, fatal UTF-8 decoding, source-line fidelity and seed documentation.
+  The proposal now specifies those boundaries. Descriptive timing remains to honor
+  the user's periodic performance-check request; it is not a new performance gate.
   User design approval is pending; no implementation plan or code has been written.
 
 ## Pilot Coverage And Development Seed (2026-09-08)
