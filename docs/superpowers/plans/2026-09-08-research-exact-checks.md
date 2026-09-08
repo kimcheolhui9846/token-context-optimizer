@@ -23,7 +23,7 @@ Interface: `checkExactResponse(dataset: unknown, envelope: unknown): ExactCheckR
 `ExactCheckResult` has nullable string datasetSha256/responseSha256/checkVersion,
 nullable boolean passed, and string[] codes; invalid reports have all four values null.
 
-- [ ] Add behavior tests for four supported records, wrong excerpt variants, pinned
+- [x] Add behavior tests for four supported records, wrong excerpt variants, pinned
   record drift, unsupported tasks/checks, strict shape, hash mismatch, Unicode/size,
   serialization hooks and private-safe output. Example:
   ```ts
@@ -31,13 +31,13 @@ nullable boolean passed, and string[] codes; invalid reports have all four value
     taskId: "clamp-guard-en", responseText: "  if (value <= 0) return 0;" }))
     .toMatchObject({ passed: false, codes: ["response_mismatch"] });
   ```
-- [ ] Run `npm.cmd test -- --run tests/research-exact-checks.test.ts` against an
+- [x] Run `npm.cmd test -- --run tests/research-exact-checks.test.ts` against an
   empty-result stub; record behavioral RED failures before implementation.
-- [ ] Pin full schema-snapshot record hashes for the four reviewed seed records;
+- [x] Pin full schema-snapshot record hashes for the four reviewed seed records;
   registry holds only immutable data, versioned source hashes/line index/excerpts.
   Core uses `parseResearchDataset`, `fingerprintDataset`, strict Zod envelope parsing,
   `createHash("sha256")` and byte comparison. Never compute trusted pins from runtime input.
-- [ ] Run the same tests to GREEN; test source-fidelity fail-closed behavior with a
+- [x] Run the same tests to GREEN; test source-fidelity fail-closed behavior with a
   test-local corrupted registry fixture, without a production injection parameter.
 - [ ] Commit the verified core/tests; independent reviewer checks the trust boundary.
 
@@ -48,27 +48,27 @@ main updates `package.json` and `tsconfig.scripts.json` after worker completion.
 Consumes `checkExactResponse` from `../dist/src/research/exact-checks.js`.
 Produces `check:exact` command with dataset and envelope file arguments.
 
-- [ ] Worker writes real compiled-entrypoint tests using the existing pilot CLI test
+- [x] Worker writes real compiled-entrypoint tests using the existing pilot CLI test
   layout: isolated `.artifacts` directory, unchanged CLI/parser copies, real project
   TypeScript compilation. Example invocation: `node scripts/check-exact.mjs seed.json response.json`.
-- [ ] Observe CLI-stub RED for correct/incorrect/invalid results, byte decoding of
+- [x] Observe CLI-stub RED for correct/incorrect/invalid results, byte decoding of
   both files, duplicate JSON keys, BOM, invalid Unicode, file immutability and privacy.
-- [ ] Implement `new TextDecoder("utf-8", { fatal: true, ignoreBOM: true })` on file
+- [x] Implement `new TextDecoder("utf-8", { fatal: true, ignoreBOM: true })` on file
   bytes followed by the existing JSON parser. Usage/read/parse failures produce the
   five-field invalid report; `process.exitCode = result.passed === null ? 1 : 0`.
-- [ ] Run worker tests to GREEN, then add npm script and checkJs inclusion. Main
+- [x] Run worker tests to GREEN, then add npm script and checkJs inclusion. Main
   reruns combined core/CLI tests and build/typecheck before integrating.
 
 ## Task 3: Evidence And PR Handoff
 
-- [ ] Add `docs/research/exact-checks.md` with envelope example, all five output fields,
+- [x] Add `docs/research/exact-checks.md` with envelope example, all five output fields,
   codes, byte/character limits, exact semantics, public-check boundary and no automatic
   ledger judgments; update pending statements in `development-seed.md`.
 - [ ] Request independent test and code/security reviews of final files, address any
   blockers through RED/GREEN fixes and scoped re-review.
-- [ ] Run targeted tests, build, typecheck, full tests, MCP smoke, plugin validation,
+- [x] Run targeted tests, build, typecheck, full tests, MCP smoke, plugin validation,
   dataset/pilot/scoring/exact demos, benchmark and `git diff --check`.
-- [ ] Record a descriptive local timing spot check (warm-up, sample count, environment,
+- [x] Record a descriptive local timing spot check (warm-up, sample count, environment,
   input size and exclusions), not a performance claim or new gate.
 - [ ] Update HANDOFF with actual evidence; commit/push/update PR #10 and mark ready
   only after checks and reviews pass. Do not merge without new explicit approval.

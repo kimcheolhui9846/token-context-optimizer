@@ -22,10 +22,11 @@ Do not move these exposed examples into a held-out test split. Authors must insp
 provenance, semantic family overlap, source-supported answers, leakage and translation
 quality before collecting a separate frozen pilot.
 
-The references `seed-cache-location-v1` and `seed-clamp-guard-v1` identify pending
-hidden exact checks. No check registry or executor is supplied here. Exact tasks must
-remain ungraded until executable checks and source-fidelity checks are implemented
-and independently verified. Do not treat a reference string as a passing check.
+The references `seed-cache-location-v1` and `seed-clamp-guard-v1` resolve to the
+[public development excerpt checker](exact-checks.md), including pinned source-line
+fidelity checks. These are not secret held-out tests or candidate-code execution.
+Do not treat a reference string as a passing check, or an exact comparison alone as
+a complete judgment: independent grading fields and evidence remain required.
 
 ## Structural Audit
 
@@ -79,5 +80,5 @@ contrast and controls before confirmatory work. Skill delivery, MCP transport, p
 packaging and fine-tuning remain distinct contrasts under the protocol.
 
 No hosted model, fine-tuning job, paid inference, or outcome-scoring run was performed
-for this seed. Next steps are human curation, a frozen pilot manifest, hidden-check
-execution, approved model access/budget and the protocol's blinded rating process.
+for this seed. Next steps are human curation, a frozen pilot manifest, separately
+designed held-out checks, approved model access/budget and blinded outcome rating.
