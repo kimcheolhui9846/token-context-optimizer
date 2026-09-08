@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "development-seed-v1-not-pilot",
+  "records": [
+    {
+      "id": "battery-threshold-en",
+      "familyId": "battery-threshold",
+      "split": "development",
+      "language": "en",
+      "category": "numeric",
+      "source": {
+        "text": "Calibration may begin only when the battery charge is at least 80 percent. A charge of exactly 80 percent is sufficient.",
+        "sha256": "7a1d540194153716d5346867ed88d71f5f6873940f14dc4ef246e7105e736710",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "May calibration begin at exactly 80 percent charge?",
+      "answerKey": "Yes. Exactly 80 percent meets the inclusive minimum.",
+      "requiredFacts": [
+        "The minimum charge is 80 percent.",
+        "Exactly 80 percent is sufficient."
+      ],
+      "prohibitedContradictions": [
+        "The charge must exceed 80 percent."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "battery-threshold-ko",
+      "familyId": "battery-threshold",
+      "split": "development",
+      "language": "ko",
+      "category": "numeric",
+      "source": {
+        "text": "배터리 충전량이 80퍼센트 이상일 때만 보정을 시작할 수 있다. 정확히 80퍼센트여도 조건을 충족한다.",
+        "sha256": "6a53f7354575b94cd78730f450ba82d5e3890ecc2b1016fb3b58e44fca4fff2d",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "충전량이 정확히 80퍼센트일 때 보정을 시작할 수 있는가?",
+      "answerKey": "그렇다. 정확히 80퍼센트는 포함되는 하한값이다.",
+      "requiredFacts": [
+        "최소 충전량은 80퍼센트이다.",
+        "정확히 80퍼센트도 허용된다."
+      ],
+      "prohibitedContradictions": [
+        "충전량이 80퍼센트를 초과해야 한다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "queue-limit-en",
+      "familyId": "queue-limit",
+      "split": "development",
+      "language": "en",
+      "category": "numeric",
+      "source": {
+        "text": "Accept a queue measurement only when its delay is below 250 milliseconds. A measurement of 250 milliseconds is rejected.",
+        "sha256": "ca285b2d0eecd9ac864acbb2e6a6cab75ca0b170782e68ccec707556107fd1b4",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "Is a delay of 250 milliseconds accepted?",
+      "answerKey": "No. The limit is strictly below 250 milliseconds.",
+      "requiredFacts": [
+        "The delay must be below 250 milliseconds.",
+        "A delay of 250 milliseconds is rejected."
+      ],
+      "prohibitedContradictions": [
+        "A delay of 250 milliseconds is accepted."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "queue-limit-ko",
+      "familyId": "queue-limit",
+      "split": "development",
+      "language": "ko",
+      "category": "numeric",
+      "source": {
+        "text": "지연 시간이 250밀리초 미만인 경우에만 대기열 측정값을 승인한다. 250밀리초인 측정값은 거부한다.",
+        "sha256": "ba43b94db9b26c9ab65e4bdf262f35c2c3aff8d5084215b5ccbfcfe1a91b4c8e",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "지연 시간이 250밀리초인 측정값은 승인되는가?",
+      "answerKey": "아니다. 지연 시간은 반드시 250밀리초 미만이어야 한다.",
+      "requiredFacts": [
+        "지연 시간은 250밀리초 미만이어야 한다.",
+        "250밀리초는 거부된다."
+      ],
+      "prohibitedContradictions": [
+        "250밀리초는 승인된다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "backup-retention-en",
+      "familyId": "backup-retention",
+      "split": "development",
+      "language": "en",
+      "category": "negation",
+      "source": {
+        "text": "After an upload succeeds, keep the local backup. Upload success does not authorize deletion of that backup.",
+        "sha256": "c4c8b3219b441f7597487f443b0b7c59a73e18accbebb2264cc152056ec0c61b",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "May the local backup be deleted merely because the upload succeeded?",
+      "answerKey": "No. The local backup must be retained after upload success.",
+      "requiredFacts": [
+        "The local backup must be kept after upload success."
+      ],
+      "prohibitedContradictions": [
+        "Upload success authorizes deletion of the local backup."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "backup-retention-ko",
+      "familyId": "backup-retention",
+      "split": "development",
+      "language": "ko",
+      "category": "negation",
+      "source": {
+        "text": "업로드에 성공한 뒤에도 로컬 백업을 보관한다. 업로드 성공은 그 백업의 삭제를 허용하지 않는다.",
+        "sha256": "6d898fa1cee2f987e21a7599cab86edb14ce260e058b0887537f161aa003d3de",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "업로드에 성공했다는 이유만으로 로컬 백업을 삭제해도 되는가?",
+      "answerKey": "아니다. 업로드 성공 후에도 로컬 백업을 보관해야 한다.",
+      "requiredFacts": [
+        "업로드 성공 후에도 로컬 백업을 보관해야 한다."
+      ],
+      "prohibitedContradictions": [
+        "업로드 성공은 로컬 백업 삭제를 허용한다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "consent-boundary-en",
+      "familyId": "consent-boundary",
+      "split": "development",
+      "language": "en",
+      "category": "negation",
+      "source": {
+        "text": "The participant approved analysis of the survey responses but did not approve publication of the raw responses.",
+        "sha256": "b08d0cb04c55ecf4f02dc21293057002a260ac33d48b003841235789f04fff8d",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "Which action was approved, and which action was not approved?",
+      "answerKey": "Analysis was approved. Publication of raw responses was not approved.",
+      "requiredFacts": [
+        "Analysis was approved.",
+        "Publication of raw responses was not approved."
+      ],
+      "prohibitedContradictions": [
+        "Publication of raw responses was approved."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "consent-boundary-ko",
+      "familyId": "consent-boundary",
+      "split": "development",
+      "language": "ko",
+      "category": "negation",
+      "source": {
+        "text": "참여자는 설문 응답의 분석에는 동의했지만 원문 응답의 공개에는 동의하지 않았다.",
+        "sha256": "f27ba059792bcc580ea71790f3c330cde9968d6ee6513408afd4b08c2dda1026",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "참여자가 동의한 작업과 동의하지 않은 작업은 각각 무엇인가?",
+      "answerKey": "응답 분석에는 동의했다. 원문 응답 공개에는 동의하지 않았다.",
+      "requiredFacts": [
+        "응답 분석에는 동의했다.",
+        "원문 응답 공개에는 동의하지 않았다."
+      ],
+      "prohibitedContradictions": [
+        "원문 응답 공개에 동의했다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "maintenance-roles-en",
+      "familyId": "maintenance-roles",
+      "split": "development",
+      "language": "en",
+      "category": "actor_action",
+      "source": {
+        "text": "The technician replaces the filter. The supervisor records the inspection result; the supervisor does not replace the filter.",
+        "sha256": "7b8f1aceb31780947e5dc4b20aa01ed12053607bd826fa7ae9f16a97e6273d3b",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "Who replaces the filter, and who records the inspection result?",
+      "answerKey": "The technician replaces the filter; the supervisor records the inspection result.",
+      "requiredFacts": [
+        "The technician replaces the filter.",
+        "The supervisor records the inspection result."
+      ],
+      "prohibitedContradictions": [
+        "The supervisor replaces the filter."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "maintenance-roles-ko",
+      "familyId": "maintenance-roles",
+      "split": "development",
+      "language": "ko",
+      "category": "actor_action",
+      "source": {
+        "text": "기술자가 필터를 교체한다. 감독자는 검사 결과를 기록하며, 필터를 교체하지 않는다.",
+        "sha256": "0d3f9903d021b4b95b9014550bde53cf0caf0f4c0b5229e4995656111120107a",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "누가 필터를 교체하고 누가 검사 결과를 기록하는가?",
+      "answerKey": "기술자가 필터를 교체하고 감독자가 검사 결과를 기록한다.",
+      "requiredFacts": [
+        "기술자가 필터를 교체한다.",
+        "감독자가 검사 결과를 기록한다."
+      ],
+      "prohibitedContradictions": [
+        "감독자가 필터를 교체한다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "dispatch-handoff-en",
+      "familyId": "dispatch-handoff",
+      "split": "development",
+      "language": "en",
+      "category": "actor_action",
+      "source": {
+        "text": "Mina packs the order. Joon checks its address and gives the packed order to the courier.",
+        "sha256": "53fb6bba3a63804c27571e006a889bfb81b3ac694bd735ef3728fb90a9e5c6eb",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "Who checks the address and hands the order to the courier?",
+      "answerKey": "Joon checks the address and hands the packed order to the courier.",
+      "requiredFacts": [
+        "Joon checks the address.",
+        "Joon hands the packed order to the courier."
+      ],
+      "prohibitedContradictions": [
+        "Mina checks the address and hands the order to the courier."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "dispatch-handoff-ko",
+      "familyId": "dispatch-handoff",
+      "split": "development",
+      "language": "ko",
+      "category": "actor_action",
+      "source": {
+        "text": "미나는 주문품을 포장한다. 준은 주소를 확인하고 포장된 주문품을 배송 기사에게 전달한다.",
+        "sha256": "5dbdb3b976ae952b8336ac5c733afd409dee6846bd25c7af83ba50cd0428584a",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "누가 주소를 확인하고 주문품을 배송 기사에게 전달하는가?",
+      "answerKey": "준이 주소를 확인하고 포장된 주문품을 배송 기사에게 전달한다.",
+      "requiredFacts": [
+        "준이 주소를 확인한다.",
+        "준이 포장된 주문품을 배송 기사에게 전달한다."
+      ],
+      "prohibitedContradictions": [
+        "미나가 주소를 확인하고 주문품을 배송 기사에게 전달한다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "pressure-alarm-en",
+      "familyId": "pressure-alarm",
+      "split": "development",
+      "language": "en",
+      "category": "causal",
+      "source": {
+        "text": "A leaking valve caused the pressure to fall. The pressure drop triggered the alarm; the alarm did not cause the leak.",
+        "sha256": "35697d846b879a3a2b9fe0d663d2a6847c12bc7c7b7944cbd9abf0a8aeb1dd95",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "What caused the pressure drop, and what did the pressure drop trigger?",
+      "answerKey": "The leaking valve caused the pressure drop, which triggered the alarm.",
+      "requiredFacts": [
+        "The valve leak caused the pressure drop.",
+        "The pressure drop triggered the alarm."
+      ],
+      "prohibitedContradictions": [
+        "The alarm caused the valve leak."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "pressure-alarm-ko",
+      "familyId": "pressure-alarm",
+      "split": "development",
+      "language": "ko",
+      "category": "causal",
+      "source": {
+        "text": "밸브 누출로 압력이 떨어졌다. 압력 저하가 경보를 작동시켰으며, 경보가 누출을 일으킨 것은 아니다.",
+        "sha256": "68dbf9414bfb7d8e12752a0f3dc76810b42b2e862cd4117b74fc12ab1d852c7b",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "압력 저하의 원인은 무엇이며, 압력 저하는 무엇을 작동시켰는가?",
+      "answerKey": "밸브 누출이 압력 저하를 일으켰고 압력 저하가 경보를 작동시켰다.",
+      "requiredFacts": [
+        "밸브 누출이 압력 저하를 일으켰다.",
+        "압력 저하가 경보를 작동시켰다."
+      ],
+      "prohibitedContradictions": [
+        "경보가 밸브 누출을 일으켰다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "delivery-delay-en",
+      "familyId": "delivery-delay",
+      "split": "development",
+      "language": "en",
+      "category": "causal",
+      "source": {
+        "text": "A bridge closure delayed the delivery. Rain occurred later and was not the cause of this delay.",
+        "sha256": "188ad660f964cc1c11db12c1cc32903fb2563e6cff5cf4714828d7ca07eb27a1",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "What caused the delivery delay?",
+      "answerKey": "The bridge closure caused the delay, not the later rain.",
+      "requiredFacts": [
+        "The bridge closure caused the delivery delay.",
+        "The later rain did not cause this delay."
+      ],
+      "prohibitedContradictions": [
+        "Rain caused this delivery delay."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "delivery-delay-ko",
+      "familyId": "delivery-delay",
+      "split": "development",
+      "language": "ko",
+      "category": "causal",
+      "source": {
+        "text": "다리 폐쇄로 배송이 지연되었다. 비는 그 뒤에 내렸으며 이번 지연의 원인이 아니었다.",
+        "sha256": "9d5898663d8a1156070d69c77c3ae63e99728961fca9ab42849a260f4685f217",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "배송 지연의 원인은 무엇인가?",
+      "answerKey": "다리 폐쇄가 지연의 원인이며, 나중에 내린 비는 원인이 아니다.",
+      "requiredFacts": [
+        "다리 폐쇄가 배송 지연의 원인이다.",
+        "나중에 내린 비는 이번 지연의 원인이 아니다."
+      ],
+      "prohibitedContradictions": [
+        "비가 이번 배송 지연의 원인이다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "sample-sequence-en",
+      "familyId": "sample-sequence",
+      "split": "development",
+      "language": "en",
+      "category": "temporal",
+      "source": {
+        "text": "First label the empty tube, then collect the sample, and only then seal the tube.",
+        "sha256": "6fb40393a8811fae934e0f4e114f72280a877fd71a201bdb617dce63ccff9f07",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "In what order must the three steps occur?",
+      "answerKey": "Label the empty tube, collect the sample, then seal the tube.",
+      "requiredFacts": [
+        "Labeling precedes collection.",
+        "Collection precedes sealing."
+      ],
+      "prohibitedContradictions": [
+        "Seal the tube before collecting the sample."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "sample-sequence-ko",
+      "familyId": "sample-sequence",
+      "split": "development",
+      "language": "ko",
+      "category": "temporal",
+      "source": {
+        "text": "먼저 빈 튜브에 표기를 하고, 다음으로 시료를 채취한 뒤, 마지막으로 튜브를 밀봉한다.",
+        "sha256": "475efa6ebfef4cbe8fc2f1f1c61820f826c47deb0e4884290c78a657c8949cd4",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "세 단계는 어떤 순서로 진행해야 하는가?",
+      "answerKey": "빈 튜브 표기, 시료 채취, 튜브 밀봉 순서이다.",
+      "requiredFacts": [
+        "표기가 채취보다 먼저이다.",
+        "채취가 밀봉보다 먼저이다."
+      ],
+      "prohibitedContradictions": [
+        "시료를 채취하기 전에 튜브를 밀봉한다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "booking-deadline-en",
+      "familyId": "booking-deadline",
+      "split": "development",
+      "language": "en",
+      "category": "temporal",
+      "source": {
+        "text": "Submit the booking request by Tuesday. Confirmation arrives on Wednesday, and access begins on Thursday.",
+        "sha256": "6598682be6c184e4df47618311355370bf439c5debd34c4e476c449ba7a1f5e4",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "When does access begin relative to confirmation?",
+      "answerKey": "Access begins on Thursday, after Wednesday confirmation.",
+      "requiredFacts": [
+        "Confirmation arrives on Wednesday.",
+        "Access begins on Thursday after confirmation."
+      ],
+      "prohibitedContradictions": [
+        "Access begins before confirmation."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "Require every listed fact, reject the listed contradictions, and accept faithful paraphrases."
+      }
+    },
+    {
+      "id": "booking-deadline-ko",
+      "familyId": "booking-deadline",
+      "split": "development",
+      "language": "ko",
+      "category": "temporal",
+      "source": {
+        "text": "화요일까지 예약을 신청한다. 수요일에 확정 안내가 도착하고 목요일부터 이용할 수 있다.",
+        "sha256": "08976962af2cde7dfaa8646b3456642e62d737c7b586eb06e8d253bb49dbbbf8",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "확정 안내와 비교해 이용은 언제 시작되는가?",
+      "answerKey": "수요일 확정 안내 이후인 목요일부터 이용할 수 있다.",
+      "requiredFacts": [
+        "확정 안내는 수요일에 도착한다.",
+        "이용은 확정 안내 이후인 목요일에 시작된다."
+      ],
+      "prohibitedContradictions": [
+        "확정 안내 전에 이용이 시작된다."
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "semantic",
+        "instructions": "필수 사실을 모두 보존해야 하며 나열된 모순은 거부한다. 의미가 같은 바꿔쓰기는 허용한다."
+      }
+    },
+    {
+      "id": "cache-location-en",
+      "familyId": "cache-location",
+      "split": "development",
+      "language": "en",
+      "category": "exact",
+      "source": {
+        "text": "build failed\nsrc/cache.ts:17:4 ERR_CACHE_MISS\nretry=false",
+        "sha256": "b5b53c2abe4fb2e3744ac1e3245fef6c3f8580a9c555712d520c66c2a058901b",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "Copy the diagnostic line including the file, line, column, and error code exactly.",
+      "answerKey": "src/cache.ts:17:4 ERR_CACHE_MISS",
+      "requiredFacts": [
+        "src/cache.ts:17:4 ERR_CACHE_MISS"
+      ],
+      "prohibitedContradictions": [
+        "src/cache.ts:18:4 ERR_CACHE_MISS"
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "exact",
+        "instructions": "Require exact source text, including whitespace; run the referenced check separately.",
+        "hiddenCheckId": "seed-cache-location-v1"
+      }
+    },
+    {
+      "id": "cache-location-ko",
+      "familyId": "cache-location",
+      "split": "development",
+      "language": "ko",
+      "category": "exact",
+      "source": {
+        "text": "build failed\nsrc/cache.ts:17:4 ERR_CACHE_MISS\nretry=false",
+        "sha256": "b5b53c2abe4fb2e3744ac1e3245fef6c3f8580a9c555712d520c66c2a058901b",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "파일, 줄, 열, 오류 코드를 포함한 진단 줄을 정확히 복사하시오.",
+      "answerKey": "src/cache.ts:17:4 ERR_CACHE_MISS",
+      "requiredFacts": [
+        "src/cache.ts:17:4 ERR_CACHE_MISS"
+      ],
+      "prohibitedContradictions": [
+        "src/cache.ts:18:4 ERR_CACHE_MISS"
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "exact",
+        "instructions": "공백을 포함한 원문 일치를 요구한다. 참조된 검사는 별도로 실행한다.",
+        "hiddenCheckId": "seed-cache-location-v1"
+      }
+    },
+    {
+      "id": "clamp-guard-en",
+      "familyId": "clamp-guard",
+      "split": "development",
+      "language": "en",
+      "category": "exact",
+      "source": {
+        "text": "export function clamp(value: number) {\n  if (value < 0) return 0;\n  return value;\n}",
+        "sha256": "658ede2f1bdfedcc1ec2a16a5194e8e60f05d841a905c473c31ab0c167f2d86a",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "Copy only the guard line, preserving its indentation and comparison operator.",
+      "answerKey": "  if (value < 0) return 0;",
+      "requiredFacts": [
+        "  if (value < 0) return 0;"
+      ],
+      "prohibitedContradictions": [
+        "  if (value <= 0) return 0;"
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "exact",
+        "instructions": "Require exact source text, including whitespace; run the referenced check separately.",
+        "hiddenCheckId": "seed-clamp-guard-v1"
+      }
+    },
+    {
+      "id": "clamp-guard-ko",
+      "familyId": "clamp-guard",
+      "split": "development",
+      "language": "ko",
+      "category": "exact",
+      "source": {
+        "text": "export function clamp(value: number) {\n  if (value < 0) return 0;\n  return value;\n}",
+        "sha256": "658ede2f1bdfedcc1ec2a16a5194e8e60f05d841a905c473c31ab0c167f2d86a",
+        "provenance": "Codex-authored synthetic development pair, 2026-09-08; not human-validated ground truth.",
+        "license": "CC0-1.0"
+      },
+      "question": "들여쓰기와 비교 연산자를 유지하여 조건문 줄만 정확히 복사하시오.",
+      "answerKey": "  if (value < 0) return 0;",
+      "requiredFacts": [
+        "  if (value < 0) return 0;"
+      ],
+      "prohibitedContradictions": [
+        "  if (value <= 0) return 0;"
+      ],
+      "acceptableParaphrases": [],
+      "rubric": {
+        "kind": "exact",
+        "instructions": "공백을 포함한 원문 일치를 요구한다. 참조된 검사는 별도로 실행한다.",
+        "hiddenCheckId": "seed-clamp-guard-v1"
+      }
+    }
+  ]
+}

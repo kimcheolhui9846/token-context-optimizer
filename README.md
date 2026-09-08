@@ -77,6 +77,13 @@ Run local installs as a single-writer maintenance operation while ChatGPT deskto
 
 The installed verifier requires each runtime entry to be a regular, non-hard-linked file physically inside the plugin root, rejects unexpected files inside managed runtime directories, reads `.codex-plugin/plugin.json` with duplicate-key rejection, requires `skills` to point at the installed `./skills/` directory, rejects manifest `hooks`, and requires its MCP reference to point at the installed `.mcp.json`. The `.mcp.json` descriptor must be canonical before and after parsing: no duplicate JSON object members, exactly one top-level `mcpServers` map, exactly one `token-context-optimizer` server, and exact `command`, `args`, `cwd`, and `env_vars` values with no extra executable metadata. The verifier strips inherited Node and platform loader execution hooks, rejects configured MCP `env`, indexes a temporary workspace file only when that fixture is outside the plugin root, cleans up that fixture, and confirms plugin-root files are denied when `TCO_ALLOWED_ROOTS` points elsewhere. The smoke MCP harness also cleans up its temporary install and workspace roots on success and setup failure.
 
+## Research Tooling
+
+Dataset validation, offline scoring and pilot structure auditing are documented in
+[dataset format](docs/research/dataset-format.md), [scoring](docs/research/scoring.md)
+and [development seed](docs/research/development-seed.md). The seed contains 12
+bilingual development families, not a completed pilot or model performance result.
+
 ## Superpowers Use
 
 Use this optimizer as a context-loading helper inside Superpowers workflows. It can reduce large logs and documents before brainstorming, planning, debugging, review, or verification, but it must not replace those workflow gates or summarize exact evidence lossily.

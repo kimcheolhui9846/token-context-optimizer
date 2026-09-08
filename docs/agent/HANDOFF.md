@@ -2,8 +2,51 @@
 
 ## Current Objective
 
-Offline scoring and model-input projection are verified and independently approved.
-PR #8 is open against main. PRs #6 and #7 were merged with explicit user approval.
+PR #8 was merged with explicit user approval as `46931d6`. The next feature is
+pilot family coverage auditing plus a bilingual development seed on
+`feature/research-pilot-coverage`, based on that merge. Independent reviews are pending;
+the new PR must remain unmerged until explicitly approved.
+
+## Pilot Coverage And Development Seed (2026-09-08)
+
+- PR #8 pre-merge verification: 38 scoring tests and the full 259-test gate passed;
+  build/typecheck/MCP smoke/plugin validation/dataset and scoring demos/benchmark passed.
+  Semantic local p95 was 1.27 ms. Main fast-forwarded to `46931d6`; its tree matched
+  tested PR head `1e460b3` (`git diff 1e460b3 HEAD --stat` empty at integration).
+- Spec/plan: `docs/superpowers/specs/2026-09-08-pilot-coverage-design.md` and
+  `docs/superpowers/plans/2026-09-08-pilot-coverage.md`.
+- Added `src/research/pilot.ts`, read-only `scripts/audit-pilot.mjs` / `audit:pilot`,
+  and real compiled-entrypoint tests. Audits count families without inflating totals
+  for translations, enforce category consistency, and report structural quota gaps.
+- Dataset/card: `docs/research/datasets/development-seed.json` and
+  `docs/research/development-seed.md`. There are 24 English/Korean records in 12
+  development-only families, two per category. No training/test families are included.
+- TDD evidence: nine core tests failed against the stub, then passed; eight CLI tests
+  failed against its stub, then all 18 targeted tests passed including seed integrity.
+- Initial full gate: 277 tests passed; build/typecheck/MCP smoke/plugin validation,
+  seed validation, scoring demo, pilot audit and benchmark exited 0. Seed audit reports
+  `meetsPilotStructure: false`, as intended. Semantic local benchmark p95: 1.65 ms.
+- Auditor performance spot check: 1,000 same-family seed variants with unique IDs
+  (12 families), one warm-up and 20 timed calls; median 13.90 ms, p95 15.72 ms.
+  Node v24.18.0, Windows x64; includes validation/snapshot/fingerprinting/aggregation,
+  excludes file I/O/CLI startup/model execution. Diagnostic only, not a comparative claim.
+- A prior test-review agent failed on usage limits. Fresh native code-reviewer,
+  test-engineer and analyst content reviews found a consent answer/rubric mismatch
+  and missing fingerprint, same-language deduplication and successful-output privacy
+  coverage. Two consent regressions failed before remediation, then passed after
+  both questions/answers were expanded to cover approved and unapproved actions.
+  Added the coverage and included the CLI in script typechecking. Scoped test review
+  returned `APPROVED` and independently reran all 283 tests and typecheck. Content
+  re-review confirmed the blocker resolved with no remaining content findings;
+  code re-review is pending.
+- Final post-remediation gate: 24 targeted tests and all 283 tests passed;
+  build/typecheck/MCP smoke/plugin validation/seed validation/scoring demo/audit/benchmark
+  passed. Semantic local p95: 2.46 ms. Final seed fingerprint:
+  `c29ea2176fa160732dd74ad8b4ae0ae5e547eaaa427a6e165ba0759444d55c35`.
+- No hosted model, training, paid inference or outcome scoring ran. Seed exact-check
+  references are pending executors. Agent review is not blinded human ground truth.
+- Next research work: curate/freeze a genuinely independent pilot, implement verified
+  exact-check execution, and establish approved model access/budget and human grading.
 
 ## Integration And Scoring (2026-09-08)
 
