@@ -27,6 +27,9 @@ Design-only draft PR: https://github.com/kimcheolhui9846/token-context-optimizer
   output fields, fatal UTF-8 decoding, source-line fidelity and seed documentation.
   The proposal now specifies those boundaries. Descriptive timing remains to honor
   the user's periodic performance-check request; it is not a new performance gate.
+  Architect follow-up accepted the revision intent as conditional `CLEAR` from the
+  supplied summary, without reopening the revised file. Do not claim independent
+  verification of the final spec or implementation from that response.
   User design approval is pending; no implementation plan or code has been written.
 
 ## Pilot Coverage And Development Seed (2026-09-08)
