@@ -4,6 +4,22 @@
 
 Layered Adaptation for LLM Systems: Fine-Tuning, Plugins, MCP Servers, and Skills in Verified Context Optimization Workflows
 
+## Writing Status
+
+As of merged baseline `edf1901` (2026-09-08), this is an outline, not a manuscript.
+The planned draft file below does not yet exist. Background, framework and implementation
+sections can be drafted with source-backed claims; empirical results cannot be inferred
+from software tests or synthetic demos. The [concrete experiment protocol](2026-09-07-layered-adaptation-evaluation-protocol.md#concrete-first-experiment)
+and its [readiness checklist](2026-09-07-layered-adaptation-evaluation-protocol.md#readiness-and-acceptance)
+define what is still needed before results can be written.
+
+For an empirical manuscript, expand this outline with Related Work and Results/Analysis
+sections, then a bounded Conclusion. Keep those results unmeasured until traces,
+independent grading and analysis exist. Build a claim-to-evidence table: product docs
+support capability definitions; primary papers support related work; repository tests
+support implementation claims; real evaluated runs support measured effects. Novelty,
+venue, submission format and author/raters are not yet settled.
+
 ## Thesis
 
 LLM application quality is not determined only by base-model or fine-tuned weights. A practical system can be modeled as layered adaptation: fine-tuning changes model behavior inside the model, skills change repeatable workflow policy, plugins package and distribute capabilities, and MCP servers expose governed external context and actions. The token-context-optimizer project provides a local case study for verifying this layered adaptation through exact retrieval gates, semantic degradation fixtures, latency percentiles, and TDD/subagent review policy.
@@ -97,12 +113,17 @@ fine-tuning alternatives, illustrative costs and the remaining execution gates.
 8. Future Work
    - Build a larger semantic degradation corpus with numeric, negation, causal, temporal, actor/action, and multilingual fixtures.
    - Add API-backed telemetry only after privacy, billing, and consent constraints are explicit.
-   - Compare prompt-only, skill-guided, MCP-backed, plugin-packaged, and fine-tuned variants on the same task suite.
+   - Run separate controlled studies for instructions/skills, MCP transport, plugin
+     packaging and fine-tuning. Only the initial context study uses the four named
+     context arms; MCP/plugin outcomes use session/installation units, and fine-tuning
+     requires a same-base snapshot/derivative pair. These are not one model ranking.
    - Add human review rubrics for semantic adequacy and tool-use safety.
 
 ## Concrete Preparation Steps
 
-1. Freeze the case-study branch by merging the semantic degradation PR only after review and CI pass.
+1. Review and archive the current protocol revision against merged baseline `edf1901`.
+   The earlier semantic-degradation integration is complete; freeze an execution
+   manifest only after resolving the protocol's data, access, budget and review gates.
 2. Export benchmark JSON from `npm.cmd run benchmark` and save it under a dated evidence directory.
 3. Create a citation table with source URL, access date, claim, and paper section.
 4. Extract local code evidence:
