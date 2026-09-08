@@ -4,6 +4,10 @@ Status: proposed protocol, not experimental results. Sources accessed 2026-09-07
 Repository baseline: `17cac9aa0d66078acca3e9ce6ac9f83867aac95c` (PR #6, unmerged).
 This document extends the [paper plan](2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md).
 
+The [model selection record](2026-09-08-experiment-model-selection.md) adds a dated
+primary-model recommendation, alternatives and execution gates as of 2026-09-08.
+It is not a frozen manifest, confirmed account access or authorization to spend.
+
 ## Verified Source Register
 
 These are primary documentation sources, not peer-reviewed evidence of effectiveness.

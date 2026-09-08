@@ -23,6 +23,10 @@ That register supersedes the unverified bibliography targets below. As of 2026-0
 the official SFT guide announces a wind-down and no new-user access; a real fine-tuning
 experiment is conditional on confirmed access or a separately controlled alternative.
 
+The [2026-09-08 model selection record](2026-09-08-experiment-model-selection.md)
+now recommends a concrete baseline and records current official evidence, conditional
+fine-tuning alternatives, illustrative costs and the remaining execution gates.
+
 - OpenAI fine-tuning API reference: fine-tuning jobs tailor a model from uploaded training data; current model availability must be checked against current fine-tuning documentation and organization limits.
 - OpenAI Plugins in ChatGPT and Codex: plugins package reusable instructions, connected tools, apps, app templates, and workflow capabilities; plugin installation does not bypass app authorization or workspace permissions.
 - OpenAI Skills in ChatGPT: skills are reusable workflows made of instructions, examples, supporting resources, and code that can be automatically used when helpful.

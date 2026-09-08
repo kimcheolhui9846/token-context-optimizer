@@ -2,12 +2,38 @@
 
 ## Current Objective
 
-PR #9 was merged with explicit user approval as `6c836de`. Local main was synced
-and its contents matched tested head `2a23f3c` exactly. The user approved proceeding
-with registered exact checks. Implementation and independent reviews are complete on
-`feature/research-exact-checks`; PR #10 is ready for review and awaits merge approval.
+PR #10 was merged with explicit user approval as `2ed7a1f`. Local main was synced
+and its contents matched tested head `bc19570` exactly. Post-merge: all 360 tests pass.
+The next task on `docs/research-model-selection` records experimental model choices
+and their evidence. This is documentation work, not paid inference or training.
 
-Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
+## Model Selection Preparation (2026-09-08)
+
+- Merged: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
+- Fresh pre-merge verification: 77 targeted and all 360 tests passed; build/typecheck,
+  MCP smoke/plugin validation/exact demo/benchmark passed. Semantic local p95:
+  2.13 ms. GitHub had no configured status checks. Merge matched verified head
+  `bc195708dc161cc6055bf1f74d046d06f750896d`; post-merge content diff was empty.
+- Prior research documents had not selected a concrete experimental model ID.
+  New decision record: `docs/research/2026-09-08-experiment-model-selection.md`.
+- Recommended primary: `gpt-4.1-mini-2025-04-14`; optional exploratory replication:
+  `gpt-5.6-luna`. Sources were opened on 2026-09-08; snapshot control, costs and
+  capability/access limitations are documented, not inferred from agent models.
+- Hosted SFT remains conditional on existing account access; otherwise defer or
+  separately specify a fixed `gpt-oss-20b` base/adapter comparison after feasibility.
+- Remaining gates: independent dataset, approved access/budget, offline runner
+  design and TDD implementation, frozen manifest and blinded human grading.
+- Documentation verification: all 360 tests passed again after the edits; build,
+  typecheck, MCP smoke and plugin validation passed. Main verified five relative
+  research links and all three illustrative cost calculations with Node assertions.
+  Changes are Markdown only; no new runtime behavior or TDD cycle is claimed.
+- Independent architect reviewed the actual four-file delta and six official source
+  pages: `APPROVE`, architectural status `CLEAR`, no blocking findings. Approval
+  covers methods/evidence only, not live capability, account access or model outcomes.
+- Independent verifier returned `PASS` after checking the staged Markdown-only
+  delta, five resolved local links, all cost arithmetic, and actual seed cardinality
+  (24 records, 12 families, one English/Korean pair each). No live-result claim found.
+- No credentials inspected, model calls, data uploads or training jobs performed.
 
 ## Registered Exact Checks (2026-09-08)
 
@@ -50,8 +76,8 @@ Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
   The CLI review remains approved. Main reran all 360 tests on resume, also GREEN.
 - Implementation commits: `514d570` (core), `4b38f8b` (CLI/docs), `3cf1777` (review
   test coverage). All are pushed. PR #10 title/body now describe the implementation
-  and verification evidence, and its draft flag was removed. Do not merge until the
-  user explicitly approves this implementation PR.
+  and verification evidence, and its draft flag was removed. The user subsequently
+  approved merging PR #10; integration evidence is recorded above.
 - No model or training job has run. Public excerpt checking does not replace human
   adjudication. Follow-up: curate/freeze independent pilot families and held-out checks,
   then establish approved model access/budget and blinded outcome grading.
