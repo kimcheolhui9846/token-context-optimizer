@@ -2,13 +2,45 @@
 
 ## Current Objective
 
-PR #10 was merged with explicit user approval as `2ed7a1f`. Local main was synced
-and its contents matched tested head `bc19570` exactly. Post-merge: all 360 tests pass.
-The next task on `docs/research-model-selection` records experimental model choices
-and their evidence. This is documentation work, not paid inference or training.
+PR #11 was merged with explicit user approval as `edf1901`. Main matched tested head
+`09465b3` exactly; all 360 tests passed before and after merging, and pre-merge build,
+typecheck, MCP smoke and plugin validation passed. GitHub had no configured checks.
 
-Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/11
-Model-selection commit: `0e29810`. PR #11 awaits review and explicit merge approval.
+Current branch: `docs/research-experiment-protocol`. User requested a README account
+of the paper plan and a concrete recheck of the experiment. Changes are documentation
+only; no paid inference, training, data upload or experiment authorization is implied.
+
+## README And Protocol Review (2026-09-08)
+
+- README now links the paper outline, model evidence and detailed protocol/readiness
+  checklist, distinguishing research software from measured model outcomes.
+- Protocol clarifies four initial context arms, an exact bilingual sampling proposal,
+  576 slots per development/pilot-test split, planned-slot failure accounting,
+  grading/clustered-analysis requirements, deferred layer studies and unresolved gates.
+- The historical source register remains dated; current implementation baseline is
+  `edf1901`, not a frozen experimental manifest. The manuscript does not yet exist.
+- The seed remains 24 records / 12 development families with no train/test families.
+  Human independence/provenance review is required; IDs are not proof of independence.
+- Main verification: 62 targeted pilot/scoring tests and all 360 tests passed; build,
+  typecheck, MCP smoke, plugin validation and seed validation passed. Node assertions
+  checked 17 relative links, six anchors, all count arithmetic and absent manuscript.
+  Actual auditor: `meetsPilotStructure: false`, splits 0/12/0 as documented.
+- Benchmark rerun after the full test process completed: all gates passed; local
+  semantic p95 1.31 ms (20 samples). Descriptive local engineering evidence only,
+  not hosted latency, a controlled speedup comparison or experimental model results.
+- The first independent review attempts stopped at the usage limit without verdicts;
+  neither counts as approval. Resumed on 2026-09-09 with fresh critic/verifier agents.
+- Resume verification: 62 targeted tests and all 360 tests passed again; build,
+  typecheck, MCP smoke and plugin validation passed. Node rechecked 17 relative links,
+  six anchors, count arithmetic, seed split/cardinality and the absent manuscript.
+- Independent verifier returned `PASS` after actual-file/link/anchor/arithmetic/seed
+  and scorer/auditor consistency checks; no runtime tests claimed by that reviewer.
+- Critic independently reran 62 pilot/scoring tests and accepted the concrete protocol,
+  but requested two paper-plan corrections: remove an obsolete merge step and replace
+  ambiguous combined-variant language with separate controlled studies. Both corrected;
+  critic reopened the revised paper plan and returned `APPROVE` with no new findings.
+  Main reran all 360 tests after those corrections; all passed. This is documentation
+  review, not a new TDD cycle or proof that live experiments are ready.
 
 ## Model Selection Preparation (2026-09-08)
 
