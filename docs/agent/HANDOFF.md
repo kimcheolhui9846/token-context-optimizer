@@ -10,6 +10,9 @@ Current branch: `docs/research-experiment-protocol`. User requested a README acc
 of the paper plan and a concrete recheck of the experiment. Changes are documentation
 only; no paid inference, training, data upload or experiment authorization is implied.
 
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/12
+Documentation commit: `846e6d5`. PR #12 awaits review and explicit merge approval.
+
 ## README And Protocol Review (2026-09-08)
 
 - README now links the paper outline, model evidence and detailed protocol/readiness
