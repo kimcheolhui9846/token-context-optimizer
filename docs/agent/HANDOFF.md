@@ -2,13 +2,27 @@
 
 ## Current Objective
 
-PR #8 was merged with explicit user approval as `46931d6`. The next feature is
-pilot family coverage auditing plus a bilingual development seed on
-`feature/research-pilot-coverage`, based on that merge. Implementation commit `c362d1e`
-is pushed and independent reviews are approved. The new PR must remain unmerged until
-explicitly approved.
+PR #9 was merged with explicit user approval as `6c836de`. Local main was synced
+and its contents matched tested head `2a23f3c` exactly. The next branch is
+`feature/research-exact-checks`; only a proposed design is being prepared, with no
+runtime changes. Specific design approval is pending before implementation.
 
-Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9
+## Integration And Next Design (2026-09-08)
+
+- Merged PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9
+- Before merging: 24 targeted tests and all 283 tests passed; build/typecheck/MCP
+  smoke/plugin validation/seed validation/pilot audit/scoring demo/benchmark passed.
+  Semantic local benchmark p95: 1.45 ms. GitHub had no configured status checks.
+- Merge was constrained to verified head `2a23f3c79641f382dda4bf32f85a56c5cb3d6370`.
+  Main fast-forwarded to `6c836de`; `git diff 2a23f3c HEAD --stat` was empty.
+  Post-merge main verification: 283 tests passed.
+- Proposed design: `docs/superpowers/specs/2026-09-08-research-exact-checks-design.md`.
+  Prefer registered exact-excerpt checks for the two existing seed task families,
+  with dataset/response binding and no arbitrary candidate execution.
+- The `hiddenCheckId` schema field does not make checked-in development checks secret.
+  This proposed feature must not be described as held-out or human outcome evaluation.
+- An architect is independently reviewing the proposed trust and evidence boundaries.
+  User design approval is pending; no implementation plan or code has been written.
 
 ## Pilot Coverage And Development Seed (2026-09-08)
 
