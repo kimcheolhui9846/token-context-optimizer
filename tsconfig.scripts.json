@@ -10,6 +10,7 @@
     "types": ["node"]
   },
   "include": [
+    "scripts/audit-pilot.mjs",
     "scripts/install-local-plugin.mjs",
     "scripts/plugin-runtime.mjs",
     "scripts/smoke-mcp.mjs",
