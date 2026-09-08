@@ -8,6 +8,8 @@ pilot family coverage auditing plus a bilingual development seed on
 is pushed and independent reviews are approved. The new PR must remain unmerged until
 explicitly approved.
 
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9
+
 ## Pilot Coverage And Development Seed (2026-09-08)
 
 - PR #8 pre-merge verification: 38 scoring tests and the full 259-test gate passed;

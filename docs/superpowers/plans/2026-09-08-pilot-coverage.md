@@ -14,4 +14,6 @@
 - [x] Document seed provenance, structural targets, current gaps, primary comparison,
   manual curation limits and pending exact-check references in the dataset card.
 - [x] Resolve independent test/code/content review findings and run the full gate.
-- [ ] Update HANDOFF with PR #8 merge and new evidence; commit/push/open a new PR.
+- [x] Update HANDOFF with PR #8 merge and new evidence; commit/push/open a new PR.
+
+PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9 (approval required before merge).
