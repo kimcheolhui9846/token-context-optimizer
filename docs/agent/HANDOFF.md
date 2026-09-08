@@ -4,8 +4,9 @@
 
 PR #8 was merged with explicit user approval as `46931d6`. The next feature is
 pilot family coverage auditing plus a bilingual development seed on
-`feature/research-pilot-coverage`, based on that merge. Independent reviews are pending;
-the new PR must remain unmerged until explicitly approved.
+`feature/research-pilot-coverage`, based on that merge. Implementation commit `c362d1e`
+is pushed and independent reviews are approved. The new PR must remain unmerged until
+explicitly approved.
 
 ## Pilot Coverage And Development Seed (2026-09-08)
 
@@ -38,7 +39,8 @@ the new PR must remain unmerged until explicitly approved.
   Added the coverage and included the CLI in script typechecking. Scoped test review
   returned `APPROVED` and independently reran all 283 tests and typecheck. Content
   re-review confirmed the blocker resolved with no remaining content findings;
-  code re-review is pending.
+  code re-review returned `APPROVE`, with no remaining original-finding blockers.
+  Build before script typechecking because the research CLI imports compiled modules.
 - Final post-remediation gate: 24 targeted tests and all 283 tests passed;
   build/typecheck/MCP smoke/plugin validation/seed validation/scoring demo/audit/benchmark
   passed. Semantic local p95: 2.46 ms. Final seed fingerprint:

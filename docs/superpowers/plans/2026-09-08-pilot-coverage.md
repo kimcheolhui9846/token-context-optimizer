@@ -13,5 +13,5 @@
   npm `audit:pilot`; keep invalid content out of diagnostics.
 - [x] Document seed provenance, structural targets, current gaps, primary comparison,
   manual curation limits and pending exact-check references in the dataset card.
-- [ ] Resolve independent test/code/content review findings and run the full gate.
+- [x] Resolve independent test/code/content review findings and run the full gate.
 - [ ] Update HANDOFF with PR #8 merge and new evidence; commit/push/open a new PR.
