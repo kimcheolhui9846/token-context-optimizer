@@ -39,7 +39,7 @@ nullable boolean passed, and string[] codes; invalid reports have all four value
   `createHash("sha256")` and byte comparison. Never compute trusted pins from runtime input.
 - [x] Run the same tests to GREEN; test source-fidelity fail-closed behavior with a
   test-local corrupted registry fixture, without a production injection parameter.
-- [ ] Commit the verified core/tests; independent reviewer checks the trust boundary.
+- [x] Commit the verified core/tests; independent reviewer checks the trust boundary.
 
 ## Task 2: Real CLI Boundary
 

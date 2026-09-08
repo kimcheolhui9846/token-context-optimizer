@@ -36,8 +36,18 @@ Draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
   1), restoring it passed both and the full 20 CLI tests. Main inspected the fix.
 - Post-hardening: main reran 70 targeted tests and all 353 tests to GREEN; build,
   typecheck, MCP smoke, plugin validation and exact demo passed again.
-- Independent final reviews remain pending. No model or
-  training job has run. Public excerpt checking does not replace human adjudication.
+- Code/spec/security reviewer returned `APPROVE` with zero findings after reading
+  actual branch files, rerunning 70 tests/typecheck/demo and reproducing registry hashes.
+- Test review requested complete metadata-drift coverage and pinned CRLF source
+  evidence. Added five valid drift mutations and two CR-retention fixtures. Removing
+  the record guard and normalizing CRLF caused all seven new tests to fail; restoring
+  production code byte-for-byte produced 77 targeted tests GREEN.
+- Final main gate: all 360 tests passed; build/typecheck/MCP smoke/plugin validation,
+  seed validation/scoring demo/pilot audit/exact demo/benchmark/diff checks passed.
+  Semantic local p95: 1.56 ms. Scoped test re-review remains pending.
+- No model or training job has run. Public excerpt checking does not replace human
+  adjudication. Follow-up: curate/freeze independent pilot families and held-out checks,
+  then establish approved model access/budget and blinded outcome grading.
 
 ## Integration And Next Design (2026-09-08)
 

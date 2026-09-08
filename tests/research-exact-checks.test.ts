@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { checkExactResponse } from "../src/research/exact-checks.js";
 import { fingerprintDataset } from "../src/research/scoring.js";
-import type { ResearchDataset } from "../src/research/dataset.js";
+import { parseResearchDataset, type ResearchDataset } from "../src/research/dataset.js";
 
 const seed = (): ResearchDataset => JSON.parse(readFileSync("docs/research/datasets/development-seed.json", "utf8"));
 const datasetHash = "c29ea2176fa160732dd74ad8b4ae0ae5e547eaaa427a6e165ba0759444d55c35";
@@ -69,7 +69,8 @@ describe("registered exact excerpt checks", () => {
       .toEqual(invalid("unsupported_task"));
   });
 
-  it.each(["answerKey", "question", "requiredFacts", "rubric", "source", "provenance", "language"])(
+  it.each(["answerKey", "question", "requiredFacts", "rubric", "source", "provenance", "language",
+    "familyId", "split", "license", "prohibitedContradictions", "acceptableParaphrases"])(
     "rejects %s drift even with a recomputed dataset fingerprint", (field) => {
       const data = seed();
       const task = data.records.find((t) => t.id === "cache-location-en")!;
@@ -80,6 +81,15 @@ describe("registered exact excerpt checks", () => {
       if (field === "source") { task.source.text += "\nprivate-source-canary"; task.source.sha256 = hash(task.source.text); }
       if (field === "provenance") task.source.provenance = "private-provenance-canary";
       if (field === "language") task.language = "ko";
+      if (field === "license") task.source.license = "private-license-canary";
+      if (field === "prohibitedContradictions") task.prohibitedContradictions = ["private-contradiction-canary"];
+      if (field === "acceptableParaphrases") task.acceptableParaphrases = ["private-paraphrase-canary"];
+      if (field === "familyId" || field === "split") {
+        for (const sibling of data.records.filter((t) => t.familyId === task.familyId)) {
+          if (field === "familyId") sibling.familyId = "private-family-canary";
+          else sibling.split = "test";
+        }
+      }
       const result = checkExactResponse(data, envelope(task.id, task.answerKey, fingerprintDataset(data)));
       expect(result).toEqual(invalid("registry_drift"));
       expect(JSON.stringify(result)).not.toContain("private-");
@@ -143,6 +153,31 @@ describe("registered exact excerpt checks", () => {
     try {
       const { checkExactResponse: check } = await import("../src/research/exact-checks.js");
       expect(check(seed(), envelope())).toEqual(invalid("source_fidelity_failure"));
+    } finally {
+      vi.doUnmock("../src/research/exact-registry.js");
+      vi.resetModules();
+    }
+  });
+
+  it.each([false, true])("retains source CR bytes when the pinned excerpt includes CR: %s", async (includeCR) => {
+    const data = seed();
+    const task = data.records.find((t) => t.id === "cache-location-en")!;
+    task.source.text = task.source.text.replace(/\n/g, "\r\n");
+    task.source.sha256 = hash(task.source.text);
+    data.records = [task];
+    const snapshot = parseResearchDataset(data);
+    const excerpt = includeCR ? `${log}\r` : log;
+    vi.resetModules();
+    vi.doMock("../src/research/exact-registry.js", () => ({ EXACT_CHECK_REGISTRY: [{
+      hiddenCheckId: "seed-cache-location-v1", checkVersion: "crlf-test-only",
+      records: { [task.id]: hash(JSON.stringify(snapshot.records[0])) },
+      sourceSha256: task.source.sha256, sourceLine: 1, excerpt,
+    }] }));
+    try {
+      const { checkExactResponse: check } = await import("../src/research/exact-checks.js");
+      const result = check(data, envelope(task.id, excerpt, fingerprintDataset(data)));
+      if (includeCR) expect(result).toMatchObject({ passed: true, codes: [], responseSha256: hash(excerpt) });
+      else expect(result).toEqual(invalid("source_fidelity_failure"));
     } finally {
       vi.doUnmock("../src/research/exact-registry.js");
       vi.resetModules();
