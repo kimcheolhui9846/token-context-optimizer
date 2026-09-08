@@ -81,7 +81,8 @@ The installed verifier requires each runtime entry to be a regular, non-hard-lin
 
 Dataset validation, offline scoring and pilot structure auditing are documented in
 [dataset format](docs/research/dataset-format.md), [scoring](docs/research/scoring.md)
-and [development seed](docs/research/development-seed.md). The seed contains 12
+and [development seed](docs/research/development-seed.md). Registered public excerpt
+checks are documented in [exact checks](docs/research/exact-checks.md). The seed contains 12
 bilingual development families, not a completed pilot or model performance result.
 
 ## Superpowers Use

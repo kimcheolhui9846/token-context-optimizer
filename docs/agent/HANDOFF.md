@@ -2,13 +2,83 @@
 
 ## Current Objective
 
-PR #8 was merged with explicit user approval as `46931d6`. The next feature is
-pilot family coverage auditing plus a bilingual development seed on
-`feature/research-pilot-coverage`, based on that merge. Implementation commit `c362d1e`
-is pushed and independent reviews are approved. The new PR must remain unmerged until
-explicitly approved.
+PR #9 was merged with explicit user approval as `6c836de`. Local main was synced
+and its contents matched tested head `2a23f3c` exactly. The user approved proceeding
+with registered exact checks. Implementation and independent reviews are complete on
+`feature/research-exact-checks`; PR #10 is ready for review and awaits merge approval.
 
-Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/10
+
+## Registered Exact Checks (2026-09-08)
+
+- Approved spec and plan: `docs/superpowers/specs/2026-09-08-research-exact-checks-design.md`
+  and `docs/superpowers/plans/2026-09-08-research-exact-checks.md`.
+- Baseline: 283 tests passed before implementation. Plan commit `08698eb`;
+  core implementation/tests commit `514d570`.
+- Main owns `src/research/exact-checks.ts`, immutable `exact-registry.ts`, core tests,
+  documentation and config. Native executor owns only CLI and CLI test files.
+- Core TDD: 47 behavioral tests failed against the empty-result stub; then GREEN.
+  One test's expected error was corrected because `__proto__` violates the existing
+  identifier format and is invalid input, not a valid unknown task ID.
+- Added three corrupt-registry evidence tests. Removing the source-fidelity guard
+  caused all three to fail; restoring it produced 50/50 GREEN. Build/typecheck passed.
+- Local comparator timing spot check: 24 seed records, 26-byte guard response, one
+  warm-up and 20 single calls; median 0.528 ms, p95 1.654 ms. Node v24.18.0, Windows
+  x64. Includes validation/snapshots/fingerprints/comparison, excludes file I/O and
+  model execution. Descriptive engineering evidence only, not a performance gate.
+- CLI worker observed 11 failures and nine passing cases against an inert CLI stub,
+  then all 20 real-process CLI tests passed. Main reran combined 70 tests to GREEN.
+- Initial integrated gate: all 353 tests passed; build/typecheck/MCP smoke/plugin
+  validation/seed validation/scoring demo/pilot audit/exact demo/benchmark passed.
+  Semantic local benchmark p95: 1.55 ms. Exact demo is synthetic, not a model output.
+- Main review found malformed-UTF-8 fixtures also failed schema validation, masking
+  a possible lossy-decoder regression. Worker strengthened otherwise-valid JSON
+  fixtures; disabling fatal decoding caused exactly two failures (exit 0 instead of
+  1), restoring it passed both and the full 20 CLI tests. Main inspected the fix.
+- Post-hardening: main reran 70 targeted tests and all 353 tests to GREEN; build,
+  typecheck, MCP smoke, plugin validation and exact demo passed again.
+- Code/spec/security reviewer returned `APPROVE` with zero findings after reading
+  actual branch files, rerunning 70 tests/typecheck/demo and reproducing registry hashes.
+- Test review requested complete metadata-drift coverage and pinned CRLF source
+  evidence. Added five valid drift mutations and two CR-retention fixtures. Removing
+  the record guard and normalizing CRLF caused all seven new tests to fail; restoring
+  production code byte-for-byte produced 77 targeted tests GREEN.
+- Final main gate: all 360 tests passed; build/typecheck/MCP smoke/plugin validation,
+  seed validation/scoring demo/pilot audit/exact demo/benchmark/diff checks passed.
+  Semantic local p95: 1.56 ms. Scoped test re-review approved the additions after
+  reading actual tests and rerunning 57 core tests; no production changes remained.
+  The CLI review remains approved. Main reran all 360 tests on resume, also GREEN.
+- Implementation commits: `514d570` (core), `4b38f8b` (CLI/docs), `3cf1777` (review
+  test coverage). All are pushed. PR #10 title/body now describe the implementation
+  and verification evidence, and its draft flag was removed. Do not merge until the
+  user explicitly approves this implementation PR.
+- No model or training job has run. Public excerpt checking does not replace human
+  adjudication. Follow-up: curate/freeze independent pilot families and held-out checks,
+  then establish approved model access/budget and blinded outcome grading.
+
+## Integration And Next Design (2026-09-08)
+
+- Merged PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/9
+- Before merging: 24 targeted tests and all 283 tests passed; build/typecheck/MCP
+  smoke/plugin validation/seed validation/pilot audit/scoring demo/benchmark passed.
+  Semantic local benchmark p95: 1.45 ms. GitHub had no configured status checks.
+- Merge was constrained to verified head `2a23f3c79641f382dda4bf32f85a56c5cb3d6370`.
+  Main fast-forwarded to `6c836de`; `git diff 2a23f3c HEAD --stat` was empty.
+  Post-merge main verification: 283 tests passed.
+- Proposed design: `docs/superpowers/specs/2026-09-08-research-exact-checks-design.md`.
+  Prefer registered exact-excerpt checks for the two existing seed task families,
+  with dataset/response binding and no arbitrary candidate execution.
+- The `hiddenCheckId` schema field does not make checked-in development checks secret.
+  This proposed feature must not be described as held-out or human outcome evaluation.
+- Architect design review requested clarification of a data-only registry, exact
+  output fields, fatal UTF-8 decoding, source-line fidelity and seed documentation.
+  The proposal now specifies those boundaries. Descriptive timing remains to honor
+  the user's periodic performance-check request; it is not a new performance gate.
+  Architect follow-up accepted the revision intent as conditional `CLEAR` from the
+  supplied summary, without reopening the revised file. Do not claim independent
+  verification of the final spec or implementation from that response.
+  At that design checkpoint implementation had not started; the user subsequently
+  approved proceeding and the implementation evidence is recorded above.
 
 ## Pilot Coverage And Development Seed (2026-09-08)
 
