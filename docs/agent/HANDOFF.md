@@ -15,6 +15,9 @@ are claimed. No paid inference, training, data upload or credential access is im
 
 Specification: `docs/superpowers/specs/2026-09-09-research-run-preflight-design.md`.
 The mock runner and paired analysis remain separate subsequent design/PR scopes.
+Documentation PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/13
+Reviewed specification commit: `801c6ca`. PR #13 is open; written-spec approval and
+explicit merge approval remain pending. No runtime implementation plan exists yet.
 
 ## Run Preflight Design (2026-09-09)
 
