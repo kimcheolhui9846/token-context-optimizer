@@ -14,6 +14,9 @@ tests have been implemented, and no model access, upload, spending or merge is a
 The docs PR is stacked on `docs/research-run-preflight-design`; PR #13 remains a
 separate prerequisite and must not be merged without explicit approval. Determine
 live PR state with GitHub rather than assuming it from these notes.
+Docs PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/14
+Specification commit: `e043f61`. Independent architect review returned CLEAR with
+no blocking design ambiguity; this is not implementation or provider approval.
 
 Docs-only verification on 2026-09-09 at 19:01 KST: 94 targeted run-plan/CLI tests
 and all 454 existing tests passed, plus build, typecheck, MCP smoke, plugin validation
