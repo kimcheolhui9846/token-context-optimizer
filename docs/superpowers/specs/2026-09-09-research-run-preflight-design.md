@@ -3,9 +3,10 @@
 ## Status And Scope
 
 The user approved the first slice of the three-PR proposal on 2026-09-09: run
-configuration, offline preflight and reproducible scheduling. This written design
-requires user review before an implementation plan or runtime changes. Baseline:
-merged PR #12, `2cc7ce2`. No new runtime functionality exists in this documentation PR.
+configuration, offline preflight and reproducible scheduling. The user subsequently
+approved this written design and implementation on 2026-09-09. Baseline: merged PR
+#12, `2cc7ce2`; reviewed design `801c6ca`. Runtime delivery is tracked in the
+[implementation plan](../plans/2026-09-09-research-run-preflight.md), on PR #13.
 
 Follow the [experiment protocol](../../research/2026-09-07-layered-adaptation-evaluation-protocol.md#concrete-first-experiment).
 The three slices are: (1) this contract and schedule, (2) a separately designed mock
@@ -200,5 +201,6 @@ latency threshold from one measurement or label local timing as hosted performan
 
 Documentation-only verification is not a TDD cycle. Keep handoff notes current, push
 the reviewed feature branch and open/update its PR. Merge and paid execution each
-require their own explicit approval. This design PR does not complete step 1 runtime
-implementation; the next gate is user review of this written specification.
+require their own explicit approval. Written-spec approval permits implementation;
+only observed implementation tests and independent review establish delivery. This
+slice does not complete the deferred mock runner or paired statistical analysis.

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "runId": "synthetic-seed-preview",
+  "datasetSha256": "c29ea2176fa160732dd74ad8b4ae0ae5e547eaaa427a6e165ba0759444d55c35",
+  "split": "development",
+  "arms": ["full_source", "optimized", "fixed_chunk", "gold_reference"],
+  "attemptsPerTask": 3,
+  "scheduleAlgorithm": "sha256-rank-v1",
+  "seed": "0000000000000000000000000000000000000000000000000000000000000000",
+  "execution": null,
+  "evidence": null
+}

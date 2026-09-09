@@ -7,17 +7,56 @@ PR #12 was merged with explicit user approval as `2cc7ce2`. Its verified head wa
 The prior merge evidence is retained in the
 [PR comment](https://github.com/kimcheolhui9846/token-context-optimizer/pull/12#issuecomment-5588747971).
 
-Current branch: `docs/research-run-preflight-design`. On 2026-09-09 the user accepted
-the proposed first slice: offline run configuration, preflight and reproducible
-schedule generation. This task writes the detailed specification before the required
-written-spec review and implementation-plan gate. No runtime changes or TDD cycle
-are claimed. No paid inference, training, data upload or credential access is implied.
+Current branch: `docs/research-run-preflight-design`. On 2026-09-09 the user approved
+the written specification and requested implementation of offline run configuration,
+preflight and reproducible scheduling. Implementation and the full gate are complete;
+final independent branch review is pending. Work is tracked under
+`docs/superpowers/plans/2026-09-09-research-run-preflight.md`; plan commit `157550d`.
+No paid inference, training, data upload, credential access or merge is authorized.
 
 Specification: `docs/superpowers/specs/2026-09-09-research-run-preflight-design.md`.
 The mock runner and paired analysis remain separate subsequent design/PR scopes.
-Documentation PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/13
-Reviewed specification commit: `801c6ca`. PR #13 is open; written-spec approval and
-explicit merge approval remain pending. No runtime implementation plan exists yet.
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/13
+Reviewed specification commit: `801c6ca`. PR #13 includes this first implementation
+slice once pushed; explicit merge approval remains pending.
+
+## Run Preflight Implementation (2026-09-09)
+
+- Fresh baseline: all 360 tests passed at `749e065` before implementation.
+- Main owns docs and package/script integration. The first executor hit a usage
+  limit; a resumed executor paused after a failed large patch and deleting the old
+  test, with no commands running. Both were closed. Main recovered the core inline;
+  no interrupted-agent output was counted as completion or approval.
+- Core TDD: original test RED, then expanded 71/71 RED against callable stub at
+  11:22 KST, 71/71 GREEN after implementation. Known-answer digest vectors were
+  generated independently with Node crypto before production code.
+- Core `c6b9084`, boundary tests `148d0fc`, review precision fixes `abd3cba`.
+  Five additional post-GREEN boundary characterizations brought coverage to 76;
+  these additions are not described as new RED/GREEN implementation cycles.
+- Independent test-engineer: SPEC PASS, initially QUALITY REQUEST CHANGES for
+  complete output-key and issue-path assertions. Both strengthened without runtime
+  changes; reviewer returned QUALITY APPROVE. Core 76 tests and typecheck/build pass;
+  integrated core/pilot/scorer 133 passed before the five extra characterizations.
+- Task 2 executor committed only CLI and process tests as `14f390a`. Observed RED:
+  17 failures and one input-preservation pass against an inert CLI. Two subsequent
+  failures came from CRLF-sensitive duplicate-key test construction; corrected to
+  minified JSON without changing production code. Final 18 CLI tests and typecheck
+  passed. UTF-8 fixtures keep lossy-decoded inputs otherwise valid to isolate decoding.
+- Main independently reran 94 core/CLI tests, then all 454 tests; all passed.
+  Build, typecheck, MCP smoke, plugin validation and existing benchmark gates passed.
+  CLI example returns 288 slots, preflight false and dispatchAllowed false; the seed
+  audit still reports valid schema and meetsPilotStructure false.
+- Link/dataset/timing checks passed: 23 local links, eight anchors, demo fingerprint,
+  and raw-sample percentile arithmetic. Existing semantic benchmark p95 1.39 ms,
+  exact-log 1.27 ms, code-fixture 0.82 ms (20 samples each); local evidence only.
+- Scheduler local sample at code `148d0fc`: 20 iterations, one warm-up, 288 slots;
+  median 1.46 ms, p95 2.34 ms. Raw samples/Node/OS/CPU metadata are archived in
+  `docs/research/evidence/2026-09-09-run-preflight-local.json`. Not hosted performance.
+- Local execution ledger and task reports are under
+  `.superpowers/sdd/2026-09-09-research-run-preflight/` while work is active.
+- Existing feature checkout is used in place; no new worktree or model access.
+- Independent whole-branch code/architecture review is the remaining gate before
+  PR handoff. The mock runner and family-paired analysis are not part of this slice.
 
 ## Run Preflight Design (2026-09-09)
 
@@ -47,8 +86,9 @@ explicit merge approval remain pending. No runtime implementation plan exists ye
   clarification, with no actionable blocker. Neither reviewer claimed runtime tests.
 - Main reran all 360 tests after the clarification; all passed. Updated assertions
   passed for 10 local links, three anchors, 14 execution fields and count arithmetic.
-- Written-spec user review is required before implementation planning. The default
-  delivery is a documentation PR against main, not an automatically merged feature.
+- At design handoff, written-spec approval was still required. The user subsequently
+  approved it; the implementation section above records the resumed task. Merge
+  approval is separate and remains pending.
 
 ## README And Protocol Review (2026-09-08)
 

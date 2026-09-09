@@ -26,7 +26,7 @@
 
 **Interfaces:** Consume `parseResearchDataset(input: unknown)`, `fingerprintDataset(input: unknown)`, `auditPilotDataset(input: unknown)`. Produce `prepareResearchRun(dataset: unknown, configuration: unknown)` returning exactly `{ manifest, slots, preflight }` as specified. No other public runtime API is required.
 
-- [ ] Write tests before implementation. Introduce only a callable throwing stub to observe behavioral assertion failures, not an unresolved import. Minimal first fixture:
+- [x] Write tests before implementation. Introduce only a callable throwing stub to observe behavioral assertion failures, not an unresolved import. Minimal first fixture:
 
 ```typescript
 const data = JSON.parse(readFileSync("docs/research/datasets/development-seed.json", "utf8"));
@@ -49,8 +49,8 @@ expect(report.preflight).toEqual({
 });
 ```
 
-- [ ] Run `npm.cmd test -- --run tests/research-run-plan.test.ts`; record observed RED counts and assertion reasons.
-- [ ] Implement strict configuration parsing. Use `z.strictObject`, nullable required fields, positive safe integers and deadline refinement. Copy field order from the spec. Convert all schema errors to `invalid_configuration`. Reuse dataset APIs only after configuration validation.
+- [x] Run `npm.cmd test -- --run tests/research-run-plan.test.ts`; record observed RED counts and assertion reasons.
+- [x] Implement strict configuration parsing. Use `z.strictObject`, nullable required fields, positive safe integers and deadline refinement. Copy field order from the spec. Convert all schema errors to `invalid_configuration`. Reuse dataset APIs only after configuration validation.
 
 ```typescript
 const positiveSafeInteger = z.number().int().positive().max(Number.MAX_SAFE_INTEGER);
@@ -60,19 +60,19 @@ const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 const digest = (value: unknown) => createHash("sha256").update(JSON.stringify(value), "utf8").digest("hex");
 ```
 
-- [ ] Extend RED tests in bounded batches for exact Cartesian coverage/ordinals, known-answer ranking/digests, null field issues, wrong types/missing keys/unknown nested fields, ordered validation errors, fingerprints, dataset/category/split integrity and size boundary. Use independent literal SHA-256 vectors generated before production implementation, not expectations from production helpers.
-- [ ] Implement one group at a time. Validate dataset/fingerprint/category/split/count in the specified order. Group families once, precompute ranks once per item, and sort decorated keys without hashing inside comparators. Construct slots in the exact field order:
+- [x] Extend RED tests in bounded batches for exact Cartesian coverage/ordinals, known-answer ranking/digests, null field issues, wrong types/missing keys/unknown nested fields, ordered validation errors, fingerprints, dataset/category/split integrity and size boundary. Use independent literal SHA-256 vectors generated before production implementation, not expectations from production helpers.
+- [x] Implement one group at a time. Validate dataset/fingerprint/category/split/count in the specified order. Group families once, precompute ranks once per item, and sort decorated keys without hashing inside comparators. Construct slots in the exact field order:
 
 ```typescript
 slots.push({ ordinal: slots.length + 1, familyId: task.familyId,
   taskId: task.id, language: task.language, category: task.category, arm, attempt });
 ```
 
-- [ ] Test full synthetic 120-family bilingual data with 72/24/24 families: each evaluation split has 576 slots and no training slots. Deliberately remove/duplicate a language while retaining auditor coverage to prove the stricter pairing guard.
-- [ ] Implement preflight using the auditor plus independent bilingual counts. Exact flag formulas, issue codes/paths/order, output schema and hash object order are the binding spec, not free choices. Test that complete synthetic inputs still cannot authorize dispatch.
-- [ ] Add canaries for private dataset fields, execution metadata and evidence IDs. Test caller insertion order and nonenumerable `toJSON` hooks at nested boundaries. Test changed dataset/config/seed bindings and payload snapshots without modifying callers.
-- [ ] Run targeted research tests and `npm.cmd run typecheck`; self-review. Main handles whole-project verification. Commit only the owned task files after green tests and write a report containing commands/counts/RED evidence, commits and concerns.
-- [ ] Independent task reviewer checks spec compliance and quality; resolve blocking findings before task 2.
+- [x] Test full synthetic 120-family bilingual data with 72/24/24 families: each evaluation split has 576 slots and no training slots. Deliberately remove/duplicate a language while retaining auditor coverage to prove the stricter pairing guard.
+- [x] Implement preflight using the auditor plus independent bilingual counts. Exact flag formulas, issue codes/paths/order, output schema and hash object order are the binding spec, not free choices. Test that complete synthetic inputs still cannot authorize dispatch.
+- [x] Add canaries for private dataset fields, execution metadata and evidence IDs. Test caller insertion order and nonenumerable `toJSON` hooks at nested boundaries. Test changed dataset/config/seed bindings and payload snapshots without modifying callers.
+- [x] Run targeted research tests and `npm.cmd run typecheck`; self-review. Main handles whole-project verification. Commit only the owned task files after green tests and write a report containing commands/counts/RED evidence, commits and concerns.
+- [x] Independent task reviewer checks spec compliance and quality; resolve blocking findings before task 2.
 
 ## Task 2: Read-only CLI And Integration
 
