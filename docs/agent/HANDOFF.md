@@ -2,12 +2,34 @@
 
 ## Current Objective
 
+Current branch: `docs/research-mock-runner-design`, based on PR #13 head
+`138a0f198d3ffa2e7fc0f98a84188a1628ff7dd9`. The user approved documenting the
+deterministic virtual-time mock runner on 2026-09-09. The
+[written specification](../superpowers/specs/2026-09-09-research-mock-runner-design.md)
+defines strict scenario binding, deadline precedence, reservation/settlement rules,
+unknown-cost stops and explicit not-started slots. This is a docs-only slice;
+written-spec user review precedes implementation planning. No mock runner or new
+tests have been implemented, and no model access, upload, spending or merge is authorized.
+
+The docs PR is stacked on `docs/research-run-preflight-design`; PR #13 remains a
+separate prerequisite and must not be merged without explicit approval. Determine
+live PR state with GitHub rather than assuming it from these notes.
+
+Docs-only verification on 2026-09-09 at 19:01 KST: 94 targeted run-plan/CLI tests
+and all 454 existing tests passed, plus build, typecheck, MCP smoke, plugin validation
+and benchmark. Existing benchmark p95: exact retrieval 1.32 ms, semantic summary
+1.52 ms, code fixture 0.95 ms (20 samples each). These are not mock-runner timings.
+Thirteen local documentation links resolved; the new spec has no TODO/TBD/FIXME
+placeholders, and `git diff --check` passed. No new TDD cycle is claimed for prose.
+
+## Previous Slice: Run Preflight
+
 PR #12 was merged with explicit user approval as `2cc7ce2`. Its verified head was
 `e2046ac`; merged content matched that head and all 360 tests passed after integration.
 The prior merge evidence is retained in the
 [PR comment](https://github.com/kimcheolhui9846/token-context-optimizer/pull/12#issuecomment-5588747971).
 
-Current branch: `docs/research-run-preflight-design`. On 2026-09-09 the user approved
+Previous branch: `docs/research-run-preflight-design`. On 2026-09-09 the user approved
 the written specification and requested implementation of offline run configuration,
 preflight and reproducible scheduling. Implementation, the full gate and independent
 branch reviews are complete. Work is tracked under
@@ -1024,9 +1046,10 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Review PR #8: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/8`.
-2. Select the primary contrast and curate the pilot dataset; preserve independent grading/response evidence, add family-clustered analysis and primary research literature before claiming empirical improvements.
-3. Do not merge any PR without explicit user approval.
+1. Obtain user review of the written mock-runner specification, then create the implementation plan.
+2. Keep its PR dependent on PR #13 until that prerequisite is explicitly approved and merged.
+3. Implement the approved mock scope with TDD and independent review; actual data collection and paired analysis remain later work.
+4. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
 

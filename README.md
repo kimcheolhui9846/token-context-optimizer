@@ -91,6 +91,11 @@ generates reproducible preview schedules, with no provider calls. The
 separates preflight checks from authorization: `dispatchAllowed` is always false.
 A provider runner, spending enforcement and paired analysis remain separate work.
 
+The [offline mock-runner specification](docs/superpowers/specs/2026-09-09-research-mock-runner-design.md)
+defines the next slice: synthetic virtual-time execution, timeout and budget-stop
+accounting, and TDD acceptance criteria. The direction is approved; written-spec
+review and implementation are pending. No `mock:research` command exists yet.
+
 ## Paper And Experiment Plan
 
 Research status at merged baseline `edf1901` (2026-09-08): design and offline tooling
