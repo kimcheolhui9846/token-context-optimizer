@@ -85,6 +85,11 @@ and [development seed](docs/research/development-seed.md). Registered public exc
 checks are documented in [exact checks](docs/research/exact-checks.md). The seed contains 12
 bilingual development families, not a completed pilot or model performance result.
 
+The next tooling slice is specified in the
+[offline run preflight design](docs/superpowers/specs/2026-09-09-research-run-preflight-design.md):
+configuration validation and reproducible preview schedules, with no provider calls.
+This is a design awaiting written-spec approval, not an implemented runner or CLI.
+
 ## Paper And Experiment Plan
 
 Research status at merged baseline `edf1901` (2026-09-08): design and offline tooling

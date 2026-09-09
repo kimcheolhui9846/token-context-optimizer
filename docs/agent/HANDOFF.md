@@ -2,16 +2,50 @@
 
 ## Current Objective
 
-PR #11 was merged with explicit user approval as `edf1901`. Main matched tested head
-`09465b3` exactly; all 360 tests passed before and after merging, and pre-merge build,
-typecheck, MCP smoke and plugin validation passed. GitHub had no configured checks.
+PR #12 was merged with explicit user approval as `2cc7ce2`. Its verified head was
+`e2046ac`; merged content matched that head and all 360 tests passed after integration.
+The prior merge evidence is retained in the
+[PR comment](https://github.com/kimcheolhui9846/token-context-optimizer/pull/12#issuecomment-5588747971).
 
-Current branch: `docs/research-experiment-protocol`. User requested a README account
-of the paper plan and a concrete recheck of the experiment. Changes are documentation
-only; no paid inference, training, data upload or experiment authorization is implied.
+Current branch: `docs/research-run-preflight-design`. On 2026-09-09 the user accepted
+the proposed first slice: offline run configuration, preflight and reproducible
+schedule generation. This task writes the detailed specification before the required
+written-spec review and implementation-plan gate. No runtime changes or TDD cycle
+are claimed. No paid inference, training, data upload or credential access is implied.
 
-Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/12
-Documentation commit: `846e6d5`. PR #12 awaits review and explicit merge approval.
+Specification: `docs/superpowers/specs/2026-09-09-research-run-preflight-design.md`.
+The mock runner and paired analysis remain separate subsequent design/PR scopes.
+
+## Run Preflight Design (2026-09-09)
+
+- Prior read-only architect exploration recommended manifest/preflight/schedule first,
+  reusing dataset validation/fingerprinting and pilot auditing without changing scorer
+  semantics. That recommendation was scope advice, not runtime approval.
+- The new specification separates syntactic completeness and referenced evidence from
+  actual model access, authentic approval and execution safety. `dispatchAllowed`
+  remains false even for fully populated synthetic fixtures.
+- Proposed schedule freezes SHA-256 ranking and explicit seed, preserves scorer slot
+  keys, and never emits model answers, rubric content or invented outcome records.
+- Fresh regression verification: 62 targeted pilot/scoring tests and all 360 tests
+  passed; build, typecheck, MCP smoke and plugin validation passed. Link assertions
+  checked 10 local links, three anchors, count arithmetic and no spec placeholders.
+  The first inline Node assertion command failed from PowerShell argument quoting;
+  the corrected stdin-based check passed. This was not a product test failure.
+- Seed audit still reports valid schema, 24 records / 12 development families and
+  `meetsPilotStructure: false`. The old merged head/content comparison is empty.
+- Existing benchmark gates passed after the regression processes finished: semantic
+  p95 1.44 ms, exact-log p95 1.64 ms, code-fixture p95 1.02 ms; 20 samples per case,
+  Node v24.18.0 on Windows. These are existing local engineering measurements, not
+  measurements of the proposed scheduler or hosted model performance.
+- Independent code reviewer initially requested explicit public/CLI output contracts.
+  Added exact fields/order, flag formulas, safe issue vocabulary/order, API error
+  precedence and CLI envelopes. Reviewer reread the revision and returned `APPROVE`
+  with zero remaining findings. Architect returned `CLEAR` before and after this
+  clarification, with no actionable blocker. Neither reviewer claimed runtime tests.
+- Main reran all 360 tests after the clarification; all passed. Updated assertions
+  passed for 10 local links, three anchors, 14 execution fields and count arithmetic.
+- Written-spec user review is required before implementation planning. The default
+  delivery is a documentation PR against main, not an automatically merged feature.
 
 ## README And Protocol Review (2026-09-08)
 
