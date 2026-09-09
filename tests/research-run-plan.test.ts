@@ -85,6 +85,9 @@ describe("research run planning", () => {
       scheduleSha256: "ccce243d58ce28350bc6077390b89a889c5885ccd53d2deeff50c72a38c0cd8a",
       manifestSha256: "278ebbe7955c47bebd3a0d972da8fd5aa49994c5474272bbd2b5021392f0fc00" });
     expect(Object.keys(report)).toEqual(["manifest", "slots", "preflight"]);
+    expect(Object.keys(report.manifest)).toEqual(["schemaVersion", "datasetSha256", "configSha256", "scheduleSha256", "manifestSha256"]);
+    expect(Object.keys(report.preflight)).toEqual(["configurationComplete", "pilotStructureSatisfied", "evidenceReferencesPresent", "preflightPassed", "dispatchAllowed", "issues"]);
+    for (const issue of report.preflight.issues) expect(Object.keys(issue)).toEqual(["code", "path"]);
     expect(Object.keys(report.slots[0])).toEqual(["ordinal", "familyId", "taskId", "language", "category", "arm", "attempt"]);
   });
 
@@ -125,11 +128,32 @@ describe("research run planning", () => {
     const refs = Object.fromEntries(Object.keys(evidence()).map(key => [key, null]));
     const report = prepareResearchRun(demo(), { ...configuration(), execution: settings, evidence: refs });
     const paths = report.preflight.issues.map(issue => `${issue.code}:${issue.path}`);
-    expect(paths).toHaveLength(24);
-    expect(paths).toEqual([...paths].sort());
-    expect(new Set(paths).size).toBe(paths.length);
-    expect(paths).toContain("unresolved_execution:execution.automaticRetries");
-    expect(paths).toContain("missing_evidence_reference:evidence.analysisPlan");
+    expect(paths).toEqual([
+      "bilingual_pairing:dataset.bilingualPairs",
+      "missing_evidence_reference:evidence.accessApproval",
+      "missing_evidence_reference:evidence.analysisPlan",
+      "missing_evidence_reference:evidence.armPreparation",
+      "missing_evidence_reference:evidence.dataReview",
+      "missing_evidence_reference:evidence.gradingPlan",
+      "missing_evidence_reference:evidence.modelQualification",
+      "missing_evidence_reference:evidence.spendApproval",
+      "missing_evidence_reference:evidence.uploadApproval",
+      "pilot_structure:dataset.pilotStructure",
+      "unresolved_execution:execution.automaticRetries",
+      "unresolved_execution:execution.concurrency",
+      "unresolved_execution:execution.decodingSha256",
+      "unresolved_execution:execution.endpoint",
+      "unresolved_execution:execution.inputTokenLimit",
+      "unresolved_execution:execution.modelSnapshot",
+      "unresolved_execution:execution.outputTokenLimit",
+      "unresolved_execution:execution.priceVersion",
+      "unresolved_execution:execution.provider",
+      "unresolved_execution:execution.requestTimeoutMs",
+      "unresolved_execution:execution.runTimeoutMs",
+      "unresolved_execution:execution.spendCapMicrousd",
+      "unresolved_execution:execution.tokenizerId",
+      "unresolved_execution:execution.tokenizerVersion",
+    ]);
     expect(report.preflight.configurationComplete).toBe(false);
     expect(report.preflight.evidenceReferencesPresent).toBe(false);
   });
