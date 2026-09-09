@@ -88,6 +88,19 @@ describe("research run planning", () => {
     expect(Object.keys(report.slots[0])).toEqual(["ordinal", "familyId", "taskId", "language", "category", "arm", "attempt"]);
   });
 
+  it("ranks multiple families by the seeded hash and preserves language order", () => {
+    const data = seed(); const report = prepareResearchRun(data, configuration(data));
+    expect([...new Set(report.slots.map(slot => slot.familyId))]).toEqual([
+      "pressure-alarm", "booking-deadline", "sample-sequence", "dispatch-handoff", "clamp-guard",
+      "battery-threshold", "consent-boundary", "maintenance-roles", "cache-location", "queue-limit",
+      "backup-retention", "delivery-delay",
+    ]);
+    for (let i = 0; i < report.slots.length; i += 24) {
+      expect(report.slots.slice(i, i + 12).every(slot => slot.language === "en")).toBe(true);
+      expect(report.slots.slice(i + 12, i + 24).every(slot => slot.language === "ko")).toBe(true);
+    }
+  });
+
   it.each(["development", "test"])("preflights complete synthetic data for %s without granting authority", split => {
     const data = fullPilot();
     const report = prepareResearchRun(data, { ...configuration(data), split, execution: execution(), evidence: evidence() });
@@ -142,6 +155,14 @@ describe("research run planning", () => {
     { evidence: { ...evidence(), accessApproval: { id: "x", sha256: "b".repeat(64), secret: "canary" } } },
   ])("rejects schema drift without disclosing values %j", patch => {
     expect(() => prepareResearchRun(demo(), { ...configuration(), ...patch })).toThrow(/^invalid_configuration$/);
+  });
+  it.each(["seed", "datasetSha256", "decodingSha256", "evidenceSha256"])("rejects a trailing newline in %s", field => {
+    const config = configuration();
+    const malformed = "a".repeat(64) + "\n";
+    if (field === "decodingSha256") config.execution = { ...execution(), decodingSha256: malformed };
+    else if (field === "evidenceSha256") config.evidence = { ...evidence(), accessApproval: { id: "synthetic", sha256: malformed } };
+    else config[field] = malformed;
+    expect(() => prepareResearchRun(demo(), config)).toThrow(/^invalid_configuration$/);
   });
   it.each([
     { inputTokenLimit: 0 }, { outputTokenLimit: -1 }, { spendCapMicrousd: 0.5 },
