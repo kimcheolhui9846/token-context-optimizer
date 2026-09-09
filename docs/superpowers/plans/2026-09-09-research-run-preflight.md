@@ -1,6 +1,6 @@
 # Offline Research Run Preflight Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Deliver the approved offline configuration validator, preflight report and deterministic schedule through a pure API and read-only CLI.
 
@@ -80,10 +80,10 @@ slots.push({ ordinal: slots.length + 1, familyId: task.familyId,
 
 **Interfaces:** Import `prepareResearchRun` from `../dist/src/research/run-plan.js` and reuse `parseJsonObjectRejectingDuplicateKeys` from `./plugin-runtime.mjs`. Consume only two positional file paths; emit the exact spec envelopes, never raw exceptions.
 
-- [ ] First create real-process tests modeled on `research-exact-cli.test.ts`: compile to a unique temporary output directory, copy CLI/parser there, create fixtures with fs test helpers, and clean only that test's temporary directory. Start against an inert CLI that prints `{}` to observe RED exit/envelope assertions.
-- [ ] Cover valid seed preview, deterministic stdout, unchanged input bytes, valid-but-blocked exit 0, wrong argument count/blank paths, unreadable files, malformed JSON, duplicate keys at nested levels in both inputs, malformed UTF-8 in otherwise valid documents, malformed configuration, fingerprint mismatch and private canaries. Decode-failure fixtures must not fail merely because the valid replacement text violates another rule.
-- [ ] Run `npm.cmd test -- --run tests/research-run-plan-cli.test.ts` and record observed RED reasons.
-- [ ] Implement the minimal CLI control flow:
+- [x] First create real-process tests modeled on `research-exact-cli.test.ts`: compile to a unique temporary output directory, copy CLI/parser there, create fixtures with fs test helpers, and clean only that test's temporary directory. Start against an inert CLI that prints `{}` to observe RED exit/envelope assertions.
+- [x] Cover valid seed preview, deterministic stdout, unchanged input bytes, valid-but-blocked exit 0, wrong argument count/blank paths, unreadable files, malformed JSON, duplicate keys at nested levels in both inputs, malformed UTF-8 in otherwise valid documents, malformed configuration, fingerprint mismatch and private canaries. Decode-failure fixtures must not fail merely because the valid replacement text violates another rule.
+- [x] Run `npm.cmd test -- --run tests/research-run-plan-cli.test.ts` and record observed RED reasons.
+- [x] Implement the minimal CLI control flow:
 
 ```javascript
 async function main(args) {
@@ -102,13 +102,14 @@ console.log(JSON.stringify(result));
 process.exitCode = result.valid ? 0 : 1;
 ```
 
-- [ ] Run targeted CLI tests and self-review. Commit only the two owned files when green. Independent task reviewer checks actual CLI behavior and both spec/quality verdicts.
-- [ ] Main adds `"plan:research": "node scripts/plan-research.mjs"` and the script to `tsconfig.scripts.json`; add a synthetic null-execution/null-evidence seed configuration with the actual dataset digest. Document build + CLI command, draft semantics, field/error contract links and no-live-dispatch boundary. Update approved spec status and HANDOFF without implying the deferred runner exists.
-- [ ] Main runs targeted core/CLI tests, then `npm.cmd test`, `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, dataset audit and CLI example. Check working-tree diff and local documentation links.
-- [ ] After other tests finish, record scheduler timings (one warm-up, 20 iterations, 24-record seed, 288 slots), commit/Node/OS/CPU/sample metadata and median/p95; run existing `npm.cmd run benchmark`. No new performance threshold or hosted-performance claim.
-- [ ] Independent whole-branch code-reviewer and architect lanes review the combined implementation and docs, including deferred concerns. Fix blocking findings with tests and scoped re-review, record evidence, commit/push and update PR #13 against main. Do not merge.
+- [x] Run targeted CLI tests and self-review. Commit only the two owned files when green. Independent task reviewer checks actual CLI behavior and both spec/quality verdicts.
+- [x] Main adds `"plan:research": "node scripts/plan-research.mjs"` and the script to `tsconfig.scripts.json`; add a synthetic null-execution/null-evidence seed configuration with the actual dataset digest. Document build + CLI command, draft semantics, field/error contract links and no-live-dispatch boundary. Update approved spec status and HANDOFF without implying the deferred runner exists.
+- [x] Main runs targeted core/CLI tests, then `npm.cmd test`, `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, dataset audit and CLI example. Check working-tree diff and local documentation links.
+- [x] After other tests finish, record scheduler timings (one warm-up, 20 iterations, 24-record seed, 288 slots), commit/Node/OS/CPU/sample metadata and median/p95; run existing `npm.cmd run benchmark`. No new performance threshold or hosted-performance claim.
+- [x] Independent whole-branch code-reviewer and architect lanes review the combined implementation and docs, including deferred concerns. Fix blocking findings with tests and scoped re-review, record evidence, commit/push and update PR #13 against main. Do not merge.
 
 ## Progress
 
 - Baseline: 360 tests passed on 2026-09-09 at `749e065` before implementation.
 - Written design approved by the user; implementation is now authorized, not model access/spending or PR merge.
+- Completed core and CLI delivery: 76 core + 18 CLI tests; all 454 repository tests and full gate passed. Independent task reviews and final code-reviewer APPROVE / architect CLEAR. PR #13 is updated; merge approval remains separate.
