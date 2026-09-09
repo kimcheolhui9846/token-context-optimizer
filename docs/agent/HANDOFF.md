@@ -7,8 +7,12 @@ Current branch: `docs/research-mock-runner-design`, based on PR #13 head
 deterministic virtual-time mock runner on 2026-09-09. The
 [written specification](../superpowers/specs/2026-09-09-research-mock-runner-design.md)
 defines strict scenario binding, deadline precedence, reservation/settlement rules,
-unknown-cost stops and explicit not-started slots. This is a docs-only slice;
-written-spec user review precedes implementation planning. No mock runner or new
+unknown-cost stops and explicit not-started slots. The user subsequently approved
+the written specification and requested the
+[implementation plan](../superpowers/plans/2026-09-09-research-mock-runner.md).
+Its four tasks cover strict parsing, simulation, CLI, and docs/performance evidence.
+The interrupted planning task resumed on 2026-09-09 at 23:12 KST. This remains a
+docs-only slice; plan execution approval is pending. No mock runner or new
 tests have been implemented, and no model access, upload, spending or merge is authorized.
 
 The docs PR is stacked on `docs/research-run-preflight-design`; PR #13 remains a
@@ -17,6 +21,22 @@ live PR state with GitHub rather than assuming it from these notes.
 Docs PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/14
 Specification commit: `e043f61`. Independent architect review returned CLEAR with
 no blocking design ambiguity; this is not implementation or provider approval.
+
+Plan self-review maps every spec section to a task and pins exact interfaces,
+deadline/cost boundaries and independent expected values. A bounded test-engineer
+consultation identified existing CLI patterns for compiled isolation, malformed
+UTF-8 controls, escaped duplicate keys, redaction and byte preservation. These are
+planning inputs, not a full implementation review or new test results. The baseline
+scenario digest was computed independently with Node crypto before runtime work.
+
+Planning-resume verification at 23:14 KST: 94 targeted and all 454 existing tests
+passed again, followed sequentially by build, typecheck, MCP smoke, plugin validation
+and benchmark. Existing benchmark p95: exact retrieval 1.26 ms, semantic summary
+1.37 ms, code fixture 0.87 ms (20 samples each); not mock-runner performance.
+Seventeen local documentation links and 13 embedded code-snippet syntax checks
+passed. Snippet syntax checks are not type checks or execution of a new runner.
+All 33 implementation/start-gate checkboxes remain unchecked. No runtime files
+changed in this planning slice, and `git diff --check` passed.
 
 Docs-only verification on 2026-09-09 at 19:01 KST: 94 targeted run-plan/CLI tests
 and all 454 existing tests passed, plus build, typecheck, MCP smoke, plugin validation
@@ -1049,7 +1069,7 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Obtain user review of the written mock-runner specification, then create the implementation plan.
+1. Obtain approval to execute the four-task mock-runner implementation plan; subagent-driven execution is recommended.
 2. Keep its PR dependent on PR #13 until that prerequisite is explicitly approved and merged.
 3. Implement the approved mock scope with TDD and independent review; actual data collection and paired analysis remain later work.
 4. Do not merge any PR without explicit user approval.

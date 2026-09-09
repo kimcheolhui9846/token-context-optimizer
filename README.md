@@ -93,8 +93,9 @@ A provider runner, spending enforcement and paired analysis remain separate work
 
 The [offline mock-runner specification](docs/superpowers/specs/2026-09-09-research-mock-runner-design.md)
 defines the next slice: synthetic virtual-time execution, timeout and budget-stop
-accounting, and TDD acceptance criteria. The direction is approved; written-spec
-review and implementation are pending. No `mock:research` command exists yet.
+accounting, and TDD acceptance criteria. The written specification is approved and
+the [implementation plan](docs/superpowers/plans/2026-09-09-research-mock-runner.md)
+defines four reviewable tasks. Plan execution is pending; no `mock:research` command exists yet.
 
 ## Paper And Experiment Plan
 
