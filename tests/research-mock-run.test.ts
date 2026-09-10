@@ -138,6 +138,7 @@ it("exhausts the synthetic schedule with exact accounting", () => {
 it.each([
   [10, 100, 100, 11, 10, 4, "request_timeout", 10, 0, null, 1],
   [10, 10, 100, 10, 10, 4, "run_timeout", 10, 0, null, 1],
+  [10, 10, 100, 11, 10, 4, "run_timeout", 10, 0, null, 1],
   [10, 100, 9, 1, 10, 4, "budget_exhausted", 0, 0, 0, 0],
   [10, 100, 100, 1, 10, null, "unknown_cost", 1, 0, null, 1],
   [10, 100, 100, 1, 10, 11, "reservation_exceeded", 1, 11, 11, 1],
@@ -164,6 +165,20 @@ it.each([
       settledCostMicrousd: aggregate,
       startedSlots: started,
     });
+    if (reason === "request_timeout" || reason === "run_timeout") {
+      expect(report.summary).toMatchObject({
+        timeoutSlots: 1,
+        heldReservationMicrousd: 10,
+        remainingBudgetMicrousd: null,
+      });
+      expect(report.slots[0]).toMatchObject({
+        status: "timeout",
+        startedAtMs: 0,
+        latencyMs: 10,
+        reservedCostMicrousd: 10,
+        settledCostMicrousd: null,
+      });
+    }
     expectUntouched(report.slots, started);
   },
 );
@@ -202,9 +217,10 @@ it("traverses twelve zero-duration zero-cost outcomes without advancing time", (
 });
 
 it.each([
-  [48, 12, 48, "schedule_exhausted"],
-  [47, 11, 44, "budget_exhausted"],
-] as const)("accounts for an exact reserve budget boundary at cap %s", (cap, started, known, reason) => {
+  [48, 12, 48, 0, "schedule_exhausted"],
+  [49, 12, 48, 1, "schedule_exhausted"],
+  [47, 11, 44, 3, "budget_exhausted"],
+] as const)("accounts for an exact reserve budget boundary at cap %s", (cap, started, known, remaining, reason) => {
   const { data, config, scenario } = fixture();
   scenario.limits.spendCapMicrousd = cap;
   for (const outcome of scenario.outcomes) {
@@ -217,6 +233,8 @@ it.each([
     startedSlots: started,
     knownSettledCostMicrousd: known,
     settledCostMicrousd: known,
+    heldReservationMicrousd: 0,
+    remainingBudgetMicrousd: remaining,
   });
   expectUntouched(report.slots, started);
 });

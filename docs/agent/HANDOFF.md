@@ -1102,10 +1102,20 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Execute the approved four-task mock-runner plan; track each task and review in `.superpowers/sdd/2026-09-09-research-mock-runner/progress.md`.
-2. Keep its PR dependent on PR #13 until that prerequisite is explicitly approved and merged.
-3. Implement the approved mock scope with TDD and independent review; actual data collection and paired analysis remain later work.
-4. Do not merge any PR without explicit user approval.
+1. Review the final fix evidence in
+   `.superpowers/sdd/2026-09-09-research-mock-runner/final-fix-report.md`: the
+   final whole-branch review found two MEDIUM issues, and this wave corrects the
+   stale handoff plus adds GREEN characterization coverage for the missing
+   deadline/reserve boundaries. Renewed final reviews and controller gates are
+   still required.
+2. After those reviews and gates pass, the controller should commit and push
+   `docs/research-mock-runner-design`, then update PR #14 with the final evidence.
+   Transport is not yet claimed complete here.
+3. Keep PR #14 dependent on PR #13 until that prerequisite is explicitly approved and merged.
+4. Treat actual data collection, paired analysis and any hosted-model experiment
+   as separate later work requiring their own authorization; none ran in this fix
+   wave.
+5. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
 
