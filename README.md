@@ -91,6 +91,14 @@ generates reproducible preview schedules, with no provider calls. The
 separates preflight checks from authorization: `dispatchAllowed` is always false.
 A provider runner, spending enforcement and paired analysis remain separate work.
 
+[Offline mock runs](docs/research/mock-running.md) now exercise virtual deadlines,
+reservations, unknown costs and explicit not-started slots without provider calls.
+After building, run `npm.cmd run mock:research -- <dataset> <configuration> <scenario>`.
+The report is explicitly synthetic and is not an evaluation ledger or proof of
+real billing safety. The [contract](docs/superpowers/specs/2026-09-09-research-mock-runner-design.md)
+and [TDD implementation plan](docs/superpowers/plans/2026-09-09-research-mock-runner.md)
+record the boundaries and verification process.
+
 ## Paper And Experiment Plan
 
 Research status at merged baseline `edf1901` (2026-09-08): design and offline tooling

@@ -2,12 +2,105 @@
 
 ## Current Objective
 
+The offline mock-runner implementation is complete and PR #14 has been pushed
+and updated for review, not merged. Final whole-branch review at `4b61277`
+returned architect CLEAR and two code-review findings; fix `b290748` resolved
+the stale next steps and two missing boundary characterizations without changing
+runtime. Scoped code re-review returned both ADDRESSED, SPEC PASS / QUALITY
+APPROVE / overall APPROVE; scoped architect review retained CLEAR.
+Fresh controller verification on 2026-09-10 at 16:30 KST passed 116 mock tests,
+all 570 tests, build, typecheck, MCP smoke, plugin validation and benchmark.
+Both demo CLI forms subsequently matched and preserved input hashes. Existing
+benchmark p95 was exact 1.43 ms, semantic 1.45 ms, code 0.83 ms; the separately
+archived mock timing remains median 1.71 ms / p95 3.29 ms. These are local software
+measurements, not model results. This final bookkeeping is documentation-only.
+Do not repeat completed implementation tasks. The chronological checkpoints
+below retain earlier counts and superseded pending states for provenance.
+
+Current branch: `docs/research-mock-runner-design`, based on PR #13 head
+`138a0f198d3ffa2e7fc0f98a84188a1628ff7dd9`. The user approved documenting the
+deterministic virtual-time mock runner on 2026-09-09. The
+[written specification](../superpowers/specs/2026-09-09-research-mock-runner-design.md)
+defines strict scenario binding, deadline precedence, reservation/settlement rules,
+unknown-cost stops and explicit not-started slots. The user subsequently approved
+the written specification and requested the
+[implementation plan](../superpowers/plans/2026-09-09-research-mock-runner.md).
+Its four tasks cover strict parsing, simulation, CLI, and docs/performance evidence.
+The interrupted planning task resumed on 2026-09-09 at 23:12 KST. This is an
+implementation slice: the user approved subagent-driven execution after plan
+commit `ac655c0`. Baseline at 23:17 KST passed 94 targeted and all 454 existing
+tests. Task 1 (scenario parser) is complete at `07ea414`: 45 behavioral RED,
+45 GREEN, typecheck and 499 total tests passed; independent test-engineer returned
+SPEC PASS / QUALITY APPROVE. The leaf Git approval stalled, so main performed
+the commit without modifying the implementation. Task 2 (simulator) is complete
+at `0d1916d`: initial 2 RED/GREEN, 18-case boundary expansion with 10 RED then all
+GREEN, and 11 additional contract characterizations brought coverage to 29 tests.
+The implementer hit its usage limit after reporting all 528 tests passing; on
+2026-09-10 at 09:59 KST main freshly reran 188 targeted/528 total tests, typecheck
+and build, all passing. Independent test-engineer returned SPEC PASS / QUALITY
+APPROVE with no findings. Task 3 (CLI) is complete at `dce86a2`, with cleanup fix
+`8822223`: inert CLI RED 12 failures/23 passes, then GREEN 35 process tests.
+Independent review found a Windows-only fixture cleanup guard; POSIX RED 1/5,
+then GREEN 5/5 and 40 CLI tests after correction. Scoped re-review returned
+ADDRESSED, SPEC PASS / QUALITY APPROVE with no new breakage.
+
+Main freshly ran 114 mock tests, all 568 tests, build/typecheck/MCP/plugin gates
+and the existing benchmark at 10:19-10:20 KST on 2026-09-10. All passed.
+Existing benchmark p95: exact 1.34 ms, semantic 1.42 ms, code 0.94 ms (20 samples
+each). Separate simulator evidence at core `0d1916d` records 20 in-memory calls:
+median 1.71 ms, p95 3.29 ms; raw data is in
+`docs/research/evidence/2026-09-10-mock-run-local.json`. These are local software
+timings, not hosted-model or empirical research results.
+
+Task 4's writer hit a usage limit without writing a report or changing the draft.
+Main resumed document finalization on 2026-09-10 at 15:43 KST, retaining the
+prepared demo/evidence. Fresh build, direct CLI and npm alias passed with 288
+completed slots, virtual 288 ms, cost 1152 microUSD, remaining 848 microUSD and
+unchanged input files; preflight and dispatch flags remain false. Final independent
+whole-branch reviews and PR transport remain required before completion.
+Resume gate at 15:45-15:46 KST passed 114 mock tests, all 568 tests, typecheck,
+MCP smoke, plugin validation and benchmark again; fresh build and both demo CLI
+forms also passed. No runtime/test changes occurred in this docs-recovery phase.
+No model access, upload, spending or merge is authorized.
+
+The implementation PR is stacked on `docs/research-run-preflight-design`; PR #13 remains a
+separate prerequisite and must not be merged without explicit approval. Determine
+live PR state with GitHub rather than assuming it from these notes.
+PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/14
+Specification commit: `e043f61`. Independent architect review returned CLEAR with
+no blocking design ambiguity; this is not implementation or provider approval.
+
+Plan self-review maps every spec section to a task and pins exact interfaces,
+deadline/cost boundaries and independent expected values. A bounded test-engineer
+consultation identified existing CLI patterns for compiled isolation, malformed
+UTF-8 controls, escaped duplicate keys, redaction and byte preservation. These are
+planning inputs, not a full implementation review or new test results. The baseline
+scenario digest was computed independently with Node crypto before runtime work.
+
+Planning-resume verification at 23:14 KST: 94 targeted and all 454 existing tests
+passed again, followed sequentially by build, typecheck, MCP smoke, plugin validation
+and benchmark. Existing benchmark p95: exact retrieval 1.26 ms, semantic summary
+1.37 ms, code fixture 0.87 ms (20 samples each); not mock-runner performance.
+Seventeen local documentation links and 13 embedded code-snippet syntax checks
+passed. Snippet syntax checks are not type checks or execution of a new runner.
+At that planning checkpoint all 33 implementation/start-gate checkboxes were
+unchecked. No runtime files changed in that planning slice, and `git diff --check` passed.
+
+Docs-only verification on 2026-09-09 at 19:01 KST: 94 targeted run-plan/CLI tests
+and all 454 existing tests passed, plus build, typecheck, MCP smoke, plugin validation
+and benchmark. Existing benchmark p95: exact retrieval 1.32 ms, semantic summary
+1.52 ms, code fixture 0.95 ms (20 samples each). These are not mock-runner timings.
+Thirteen local documentation links resolved; the new spec has no TODO/TBD/FIXME
+placeholders, and `git diff --check` passed. No new TDD cycle is claimed for prose.
+
+## Previous Slice: Run Preflight
+
 PR #12 was merged with explicit user approval as `2cc7ce2`. Its verified head was
 `e2046ac`; merged content matched that head and all 360 tests passed after integration.
 The prior merge evidence is retained in the
 [PR comment](https://github.com/kimcheolhui9846/token-context-optimizer/pull/12#issuecomment-5588747971).
 
-Current branch: `docs/research-run-preflight-design`. On 2026-09-09 the user approved
+Previous branch: `docs/research-run-preflight-design`. On 2026-09-09 the user approved
 the written specification and requested implementation of offline run configuration,
 preflight and reproducible scheduling. Implementation, the full gate and independent
 branch reviews are complete. Work is tracked under
@@ -1024,9 +1117,16 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Review PR #8: `https://github.com/kimcheolhui9846/token-context-optimizer/pull/8`.
-2. Select the primary contrast and curate the pilot dataset; preserve independent grading/response evidence, add family-clustered analysis and primary research literature before claiming empirical improvements.
-3. Do not merge any PR without explicit user approval.
+1. Review the updated implementation PR #14. Its four tasks, final fix wave,
+   independent reviews and full verification gate are complete; do not restart
+   implementation. Resolve live transport state with git/GitHub on each resume.
+2. Address any subsequent PR feedback in a bounded TDD/review cycle. Final
+   reviewed implementation/test head is `b290748`; later bookkeeping is docs-only.
+3. Keep PR #14 dependent on PR #13 until that prerequisite is explicitly approved and merged.
+4. Treat actual data collection, paired analysis and any hosted-model experiment
+   as separate later work requiring their own authorization; none ran in this fix
+   wave.
+5. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
 
