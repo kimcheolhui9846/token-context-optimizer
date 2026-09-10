@@ -2,16 +2,102 @@
 
 ## Current Objective
 
-PR #11 was merged with explicit user approval as `edf1901`. Main matched tested head
-`09465b3` exactly; all 360 tests passed before and after merging, and pre-merge build,
-typecheck, MCP smoke and plugin validation passed. GitHub had no configured checks.
+PR #12 was merged with explicit user approval as `2cc7ce2`. Its verified head was
+`e2046ac`; merged content matched that head and all 360 tests passed after integration.
+The prior merge evidence is retained in the
+[PR comment](https://github.com/kimcheolhui9846/token-context-optimizer/pull/12#issuecomment-5588747971).
 
-Current branch: `docs/research-experiment-protocol`. User requested a README account
-of the paper plan and a concrete recheck of the experiment. Changes are documentation
-only; no paid inference, training, data upload or experiment authorization is implied.
+Current branch: `docs/research-run-preflight-design`. On 2026-09-09 the user approved
+the written specification and requested implementation of offline run configuration,
+preflight and reproducible scheduling. Implementation, the full gate and independent
+branch reviews are complete. Work is tracked under
+`docs/superpowers/plans/2026-09-09-research-run-preflight.md`; plan commit `157550d`.
+No paid inference, training, data upload, credential access or merge is authorized.
 
-Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/12
-Documentation commit: `846e6d5`. PR #12 awaits review and explicit merge approval.
+Specification: `docs/superpowers/specs/2026-09-09-research-run-preflight-design.md`.
+The mock runner and paired analysis remain separate subsequent design/PR scopes.
+Pull request: https://github.com/kimcheolhui9846/token-context-optimizer/pull/13
+Reviewed specification commit: `801c6ca`. PR #13 is updated with this first
+implementation slice; explicit merge approval remains pending.
+
+## Run Preflight Implementation (2026-09-09)
+
+- Fresh baseline: all 360 tests passed at `749e065` before implementation.
+- Main owns docs and package/script integration. The first executor hit a usage
+  limit; a resumed executor paused after a failed large patch and deleting the old
+  test, with no commands running. Both were closed. Main recovered the core inline;
+  no interrupted-agent output was counted as completion or approval.
+- Core TDD: original test RED, then expanded 71/71 RED against callable stub at
+  11:22 KST, 71/71 GREEN after implementation. Known-answer digest vectors were
+  generated independently with Node crypto before production code.
+- Core `c6b9084`, boundary tests `148d0fc`, review precision fixes `abd3cba`.
+  Five additional post-GREEN boundary characterizations brought coverage to 76;
+  these additions are not described as new RED/GREEN implementation cycles.
+- Independent test-engineer: SPEC PASS, initially QUALITY REQUEST CHANGES for
+  complete output-key and issue-path assertions. Both strengthened without runtime
+  changes; reviewer returned QUALITY APPROVE. Core 76 tests and typecheck/build pass;
+  integrated core/pilot/scorer 133 passed before the five extra characterizations.
+- Task 2 executor committed only CLI and process tests as `14f390a`. Observed RED:
+  17 failures and one input-preservation pass against an inert CLI. Two subsequent
+  failures came from CRLF-sensitive duplicate-key test construction; corrected to
+  minified JSON without changing production code. Final 18 CLI tests and typecheck
+  passed. UTF-8 fixtures keep lossy-decoded inputs otherwise valid to isolate decoding.
+- Main independently reran 94 core/CLI tests, then all 454 tests; all passed.
+  Build, typecheck, MCP smoke, plugin validation and existing benchmark gates passed.
+  CLI example returns 288 slots, preflight false and dispatchAllowed false; the seed
+  audit still reports valid schema and meetsPilotStructure false.
+- Link/dataset/timing checks passed: 23 local links, eight anchors, demo fingerprint,
+  and raw-sample percentile arithmetic. Existing semantic benchmark p95 1.39 ms,
+  exact-log 1.27 ms, code-fixture 0.82 ms (20 samples each); local evidence only.
+- Scheduler local sample at code `148d0fc`: 20 iterations, one warm-up, 288 slots;
+  median 1.46 ms, p95 2.34 ms. Raw samples/Node/OS/CPU metadata are archived in
+  `docs/research/evidence/2026-09-09-run-preflight-local.json`. Not hosted performance.
+- Local execution ledger and task reports are under
+  `.superpowers/sdd/2026-09-09-research-run-preflight/` while work is active.
+- Existing feature checkout is used in place; no new worktree or model access.
+- Resume verification at 18:13 KST on `5b9797d`: 94 targeted and all 454 tests passed
+  again, plus build/typecheck/MCP/plugin gates. Existing benchmark also passed;
+  semantic p95 1.55 ms, exact-log 1.46 ms, code-fixture 0.99 ms (20 samples each).
+  The npm `plan:research` example was executed successfully as well as the direct CLI.
+- Final independent review of `2cc7ce2..5b9797d`: code-reviewer reported Task 2 SPEC
+  PASS / QUALITY APPROVE and overall APPROVE, with zero findings across 15 files.
+  Reviewer independently reran 18 CLI tests and compiler diagnostics successfully.
+  Architect returned CLEAR, no unresolved/parked concerns. Unchecked evidence refs
+  must not become sufficient authorization in the future runner.
+- All task implementers/reviewers are closed after review. No mock runner,
+  spending enforcement, provider execution or family-paired analysis was added.
+
+## Run Preflight Design (2026-09-09)
+
+- Prior read-only architect exploration recommended manifest/preflight/schedule first,
+  reusing dataset validation/fingerprinting and pilot auditing without changing scorer
+  semantics. That recommendation was scope advice, not runtime approval.
+- The new specification separates syntactic completeness and referenced evidence from
+  actual model access, authentic approval and execution safety. `dispatchAllowed`
+  remains false even for fully populated synthetic fixtures.
+- Proposed schedule freezes SHA-256 ranking and explicit seed, preserves scorer slot
+  keys, and never emits model answers, rubric content or invented outcome records.
+- Fresh regression verification: 62 targeted pilot/scoring tests and all 360 tests
+  passed; build, typecheck, MCP smoke and plugin validation passed. Link assertions
+  checked 10 local links, three anchors, count arithmetic and no spec placeholders.
+  The first inline Node assertion command failed from PowerShell argument quoting;
+  the corrected stdin-based check passed. This was not a product test failure.
+- Seed audit still reports valid schema, 24 records / 12 development families and
+  `meetsPilotStructure: false`. The old merged head/content comparison is empty.
+- Existing benchmark gates passed after the regression processes finished: semantic
+  p95 1.44 ms, exact-log p95 1.64 ms, code-fixture p95 1.02 ms; 20 samples per case,
+  Node v24.18.0 on Windows. These are existing local engineering measurements, not
+  measurements of the proposed scheduler or hosted model performance.
+- Independent code reviewer initially requested explicit public/CLI output contracts.
+  Added exact fields/order, flag formulas, safe issue vocabulary/order, API error
+  precedence and CLI envelopes. Reviewer reread the revision and returned `APPROVE`
+  with zero remaining findings. Architect returned `CLEAR` before and after this
+  clarification, with no actionable blocker. Neither reviewer claimed runtime tests.
+- Main reran all 360 tests after the clarification; all passed. Updated assertions
+  passed for 10 local links, three anchors, 14 execution fields and count arithmetic.
+- At design handoff, written-spec approval was still required. The user subsequently
+  approved it; the implementation section above records the resumed task. Merge
+  approval is separate and remains pending.
 
 ## README And Protocol Review (2026-09-08)
 

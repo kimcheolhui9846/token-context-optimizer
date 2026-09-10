@@ -19,6 +19,7 @@
     "audit:pilot": "node scripts/audit-pilot.mjs",
     "check:exact": "node scripts/check-exact.mjs",
     "score:research": "node scripts/score-research.mjs",
+    "plan:research": "node scripts/plan-research.mjs",
     "benchmark": "node dist/benchmarks/run.js",
     "smoke:mcp": "node scripts/smoke-mcp.mjs"
   },

@@ -85,11 +85,17 @@ and [development seed](docs/research/development-seed.md). Registered public exc
 checks are documented in [exact checks](docs/research/exact-checks.md). The seed contains 12
 bilingual development families, not a completed pilot or model performance result.
 
+[Offline run planning](docs/research/run-planning.md) validates configuration and
+generates reproducible preview schedules, with no provider calls. The
+[approved contract](docs/superpowers/specs/2026-09-09-research-run-preflight-design.md)
+separates preflight checks from authorization: `dispatchAllowed` is always false.
+A provider runner, spending enforcement and paired analysis remain separate work.
+
 ## Paper And Experiment Plan
 
 Research status at merged baseline `edf1901` (2026-09-08): design and offline tooling
 exist; the paper draft, live model results and fine-tuning experiment do not yet exist.
-The latest engineering gate passed 360 tests. This is not evidence of LLM accuracy,
+That baseline's engineering gate passed 360 tests. This is not evidence of LLM accuracy,
 hosted latency, billing savings, or a causal benefit from TDD/subagent review.
 
 The proposed paper studies **layered adaptation**: weight changes through fine-tuning,
