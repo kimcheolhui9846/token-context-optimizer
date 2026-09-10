@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Source of truth: [approved specification](../specs/2026-09-09-research-mock-runner-design.md). The user approved written-spec review and requested this plan on 2026-09-09. Runtime execution approval is still pending.
+- Source of truth: [approved specification](../specs/2026-09-09-research-mock-runner-design.md). The user approved written-spec review and requested this plan on 2026-09-09, then approved subagent-driven implementation after plan commit `ac655c0`.
 - `dispatchAllowed` is always `false`; `mockOnly` is always `true`.
 - `concurrency` is literal `1`; `automaticRetries` is literal `0`.
 - No providers, credentials, network access, wall-clock timers, model outputs or grading in the simulator.
@@ -39,9 +39,9 @@ date, use that actual date in the evidence filename and documentation.
 
 ## Start Gate
 
-- [ ] Read current branch/status, local AGENTS instructions if any, this plan and the spec. Check PR #13/#14 live state. Keep the current checkout unless the user approves a new worktree; use the relevant worktree skill at execution time.
-- [ ] Run `npm.cmd test -- --run tests/research-run-plan.test.ts tests/research-run-plan-cli.test.ts`, then `npm.cmd test`. Baseline at plan creation is 94 targeted / 454 total; record actual execution results rather than assuming those counts.
-- [ ] Main owns task orchestration/docs; use `executor` for bounded runtime tasks, `test-engineer` for test adequacy, then `code-reviewer` and `architect` for final reviews. Never have two implementers write the same files.
+- [x] Read current branch/status, local AGENTS instructions if any, this plan and the spec. Check PR #13/#14 live state. Keep the current checkout unless the user approves a new worktree; use the relevant worktree skill at execution time.
+- [x] Run `npm.cmd test -- --run tests/research-run-plan.test.ts tests/research-run-plan-cli.test.ts`, then `npm.cmd test`. Baseline at plan creation is 94 targeted / 454 total; record actual execution results rather than assuming those counts.
+- [x] Main owns task orchestration/docs; use `executor` for bounded runtime tasks, `test-engineer` for test adequacy, then `code-reviewer` and `architect` for final reviews. Never have two implementers write the same files.
 
 ### Task 1: Strict Synthetic Scenario Parser
 
@@ -49,7 +49,7 @@ date, use that actual date in the evidence filename and documentation.
 
 **Interfaces:** Consumes `unknown`. Produces `parseMockScenario(input: unknown): MockScenario` and exported `MockScenario` type. Parser checks only shape, canonicalization and total numeric safety; manifest matching and exact slot coverage belong to Task 2. Empty outcomes are shape-valid but will fail nonempty plan coverage.
 
-- [ ] **Write failing parser tests with a detached fixture.**
+- [x] **Write failing parser tests with a detached fixture.**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -84,8 +84,8 @@ describe("mock scenario", () => {
 });
 ```
 
-- [ ] Run `npm.cmd test -- --run tests/research-mock-scenario.test.ts`. After the import failure, create only a callable stub throwing `Error("not_implemented")`; rerun and record behavioral assertion failures before the implementation below.
-- [ ] Implement the strict parser using this shape and safe subtraction before addition.
+- [x] Run `npm.cmd test -- --run tests/research-mock-scenario.test.ts`. After the import failure, create only a callable stub throwing `Error("not_implemented")`; rerun and record behavioral assertion failures before the implementation below.
+- [x] Implement the strict parser using this shape and safe subtraction before addition.
 
 ```ts
 import * as z from "zod/v4";
@@ -118,7 +118,7 @@ export function parseMockScenario(input: unknown): MockScenario {
 }
 ```
 
-- [ ] Add table-driven RED/GREEN increments for every required key/unknown key at each object level, null-vs-missing settlement, all numeric fields, zero limits versus zero costs, invalid hash/kind/status, concurrency/retry literals, 100000/100001 entries, reversed key insertion order and safe sum at the exact maximum. Use this mutation pattern, enumerating keys explicitly from the spec:
+- [x] Add table-driven RED/GREEN increments for every required key/unknown key at each object level, null-vs-missing settlement, all numeric fields, zero limits versus zero costs, invalid hash/kind/status, concurrency/retry literals, 100000/100001 entries, reversed key insertion order and safe sum at the exact maximum. Use this mutation pattern, enumerating keys explicitly from the spec:
 
 ```ts
 it.each(["requestTimeoutMs", "runTimeoutMs", "spendCapMicrousd", "concurrency", "automaticRetries"])("requires limit %s", key => {
@@ -128,7 +128,7 @@ it.each(["requestTimeoutMs", "runTimeoutMs", "spendCapMicrousd", "concurrency", 
 });
 ```
 
-- [ ] Rerun parser suite and `npm.cmd run typecheck`; request test-engineer review of validation boundaries and fixed key order. Commit only after GREEN: `git add -- src/research/mock-scenario.ts tests/research-mock-scenario.test.ts`, then `git commit -m "feat: validate synthetic research scenarios"`.
+- [x] Rerun parser suite and `npm.cmd run typecheck`; request test-engineer review of validation boundaries and fixed key order. Commit only after GREEN: `git add -- src/research/mock-scenario.ts tests/research-mock-scenario.test.ts`, then `git commit -m "feat: validate synthetic research scenarios"`.
 
 ### Task 2: Deterministic Sequential Simulator
 
@@ -136,7 +136,7 @@ it.each(["requestTimeoutMs", "runTimeoutMs", "spendCapMicrousd", "concurrency", 
 
 **Interfaces:** Consumes `parseMockScenario(input: unknown): MockScenario` and existing `prepareResearchRun(dataset: unknown, configuration: unknown)`. Produces `simulateResearchRun(dataset: unknown, configuration: unknown, scenario: unknown): MockRunReport`, and exported `MockRunReport = ReturnType<typeof simulateResearchRun>`. Infer the function return rather than annotating it with its own alias. Report field names/order and primitive types are the spec's Output And Accounting contract; preserve literal tags with `as const`.
 
-- [ ] Write the first full traversal and timeout tests. This fixture binds inputs with an existing known-answer manifest, not the simulator.
+- [x] Write the first full traversal and timeout tests. This fixture binds inputs with an existing known-answer manifest, not the simulator.
 
 ```ts
 import { readFileSync } from "node:fs";
@@ -183,8 +183,8 @@ it("request timeout ignores late known cost and leaves later slots untouched", (
 });
 ```
 
-- [ ] Run `npm.cmd test -- --run tests/research-mock-run.test.ts`, introduce only a callable throwing stub after the import failure, then record behavioral RED.
-- [ ] Implement plan reconstruction before parsing, exact binding, then initialize one not-started record per slot. Use this validation and typed accumulator boundary:
+- [x] Run `npm.cmd test -- --run tests/research-mock-run.test.ts`, introduce only a callable throwing stub after the import failure, then record behavioral RED.
+- [x] Implement plan reconstruction before parsing, exact binding, then initialize one not-started record per slot. Use this validation and typed accumulator boundary:
 
 ```ts
 const prepared = prepareResearchRun(dataset, configuration);
@@ -206,7 +206,7 @@ let unknownCost = false;
 const limits = parsed.limits;
 ```
 
-- [ ] Implement only transitions required by each RED increment, using this ordered loop as the complete target behavior. Import `createHash` from Node crypto and the two existing APIs, without I/O dependencies.
+- [x] Implement only transitions required by each RED increment, using this ordered loop as the complete target behavior. Import `createHash` from Node crypto and the two existing APIs, without I/O dependencies.
 
 ```ts
 for (let i = 0; i < slots.length; i++) {
@@ -250,7 +250,7 @@ return { schemaVersion: 1 as const, kind: "research_mock_report" as const,
     budgetExceeded: knownCost > limits.spendCapMicrousd }, slots };
 ```
 
-- [ ] Add independent RED/GREEN cases using this exact first-slot table, resetting the fixture each row. Columns override request/run/cap, then first outcome duration/reservation/settlement. Assert reason, elapsed, known spend, aggregate spend and started count literally; also assert all remaining slots are untouched for stopped rows.
+- [x] Add independent RED/GREEN cases using this exact first-slot table, resetting the fixture each row. Columns override request/run/cap, then first outcome duration/reservation/settlement. Assert reason, elapsed, known spend, aggregate spend and started count literally; also assert all remaining slots are untouched for stopped rows.
 
 | Request/run/cap | Duration/reserve/settle | Reason | Elapsed / known / aggregate / started |
 | --- | --- | --- | --- |
@@ -280,11 +280,11 @@ it.each([
   });
 ```
 
-- [ ] Complete the boundary matrix: first duration 9 yields full completion at elapsed20; all zero-duration/zero-cost outcomes traverse all12 at elapsed0; all reserve=settle=4 with cap48 exhaust at cost48; cap47 starts11 then budget-stops at cost44. Error at slot1 with known cost4 still starts12, completed11/error1. Error with unknown cost stops immediately. With request10/run10, first duration9 and second duration1, slot2 times out at elapsed10 with known4 and aggregate null. A timeout/null/over-reservation on ordinal12 remains `stopped`, not exhausted. Use the same fixture/table pattern with literal values.
-- [ ] Assert input preservation, ordinal uniqueness/order, no extra report/summary/slot keys, repeated byte-identical serialization and unchanged preflight. Add combined invalid-input cases that pin error precedence, malformed unreachable entries, duplicate/missing/extra ordinals, reversed scenario/object ordering and MAX_SAFE_INTEGER boundaries. Test a safe settlement sum of MAX with zero-cost later events; reject MAX+1 even if unreachable.
-- [ ] Pin the Task 2 baseline `scenarioSha256` to `324e0ef9082ac08079c3227b1fd181d7c979eee1ec3187915450ef341f47afa2`. This value was independently calculated during planning with Node crypto and literal scenario construction, before any mock implementation. Never derive the expected digest with `parseMockScenario` or `simulateResearchRun`. Use a fully synthetic 120-family paired fixture with complete synthetic config/evidence to prove preflight true still leaves dispatch false. Reuse the construction pattern in `tests/research-run-plan.test.ts:37` locally without exporting/changing that file.
-- [ ] Check imports/source and invoke under throwing spies for `fetch`, `setTimeout`, `setInterval` and `Date.now`, restoring spies in `finally`; assert the simulator still returns the literal baseline. Inspect for environment/credential, child-process and grading access. Do not call this proof of real SDK behavior.
-- [ ] Run `npm.cmd test -- --run tests/research-mock-scenario.test.ts tests/research-mock-run.test.ts tests/research-run-plan.test.ts tests/research-scoring.test.ts` and typecheck/build. Test-engineer reviews independent expectations and every stop path. Commit `feat: simulate offline research run accounting` with only Task 2 files.
+- [x] Complete the boundary matrix: first duration 9 yields full completion at elapsed20; all zero-duration/zero-cost outcomes traverse all12 at elapsed0; all reserve=settle=4 with cap48 exhaust at cost48; cap47 starts11 then budget-stops at cost44. Error at slot1 with known cost4 still starts12, completed11/error1. Error with unknown cost stops immediately. With request10/run10, first duration9 and second duration1, slot2 times out at elapsed10 with known4 and aggregate null. A timeout/null/over-reservation on ordinal12 remains `stopped`, not exhausted. Use the same fixture/table pattern with literal values.
+- [x] Assert input preservation, ordinal uniqueness/order, no extra report/summary/slot keys, repeated byte-identical serialization and unchanged preflight. Add combined invalid-input cases that pin error precedence, malformed unreachable entries, duplicate/missing/extra ordinals, reversed scenario/object ordering and MAX_SAFE_INTEGER boundaries. Test a safe settlement sum of MAX with zero-cost later events; reject MAX+1 even if unreachable.
+- [x] Pin the Task 2 baseline `scenarioSha256` to `324e0ef9082ac08079c3227b1fd181d7c979eee1ec3187915450ef341f47afa2`. This value was independently calculated during planning with Node crypto and literal scenario construction, before any mock implementation. Never derive the expected digest with `parseMockScenario` or `simulateResearchRun`. Use a fully synthetic 120-family paired fixture with complete synthetic config/evidence to prove preflight true still leaves dispatch false. Reuse the construction pattern in `tests/research-run-plan.test.ts:37` locally without exporting/changing that file.
+- [x] Check imports/source and invoke under throwing spies for `fetch`, `setTimeout`, `setInterval` and `Date.now`, restoring spies in `finally`; assert the simulator still returns the literal baseline. Inspect for environment/credential, child-process and grading access. Do not call this proof of real SDK behavior.
+- [x] Run `npm.cmd test -- --run tests/research-mock-scenario.test.ts tests/research-mock-run.test.ts tests/research-run-plan.test.ts tests/research-scoring.test.ts` and typecheck/build. Test-engineer reviews independent expectations and every stop path. Commit `feat: simulate offline research run accounting` with only Task 2 files.
 
 The pre-start run-limit guard is defensive: reachable successful events always end
 strictly before the deadline, and a timeout already stops the loop. Cover its public
@@ -297,8 +297,8 @@ internal state or weaken deadline tie semantics to obtain branch coverage.
 
 **Interfaces:** Consumes compiled `simulateResearchRun` from `../dist/src/research/mock-run.js` and `parseJsonObjectRejectingDuplicateKeys` from `./plugin-runtime.mjs`. Produces exit0 `{ valid: true, report }` or exit1 fixed usage/invalid_input envelope, exactly one compact newline-terminated JSON object, empty stderr. Stopped simulations are valid, not process errors.
 
-- [ ] Create an isolated compiled process-test harness using `execFile(process.execPath, ...)` with `promisify`, no shell interpolation. In `beforeAll`, use `mkdtemp` below `.artifacts`, copy the CLI and shared JSON parser into its scripts folder, and run local `typescript/bin/tsc -p tsconfig.json --outDir <fixture>/dist`. In `afterAll`, remove only that verified temporary root. Use the existing run-plan CLI test lifecycle as the template; no root `dist` reuse.
-- [ ] Use the format-demo/config/scenario inputs from Task 2, written as JSON under that test root. Define local `invoke(args: string[])` returning `{stdout,stderr,code}` from both resolved and rejected execFile results. Pin this first process behavior before implementing the wrapper:
+- [x] Create an isolated compiled process-test harness using `execFile(process.execPath, ...)` with `promisify`, no shell interpolation. In `beforeAll`, use `mkdtemp` below `.artifacts`, copy the CLI and shared JSON parser into its scripts folder, and run local `typescript/bin/tsc -p tsconfig.json --outDir <fixture>/dist`. In `afterAll`, remove only that verified temporary root. Use the existing run-plan CLI test lifecycle as the template; no root `dist` reuse.
+- [x] Use the format-demo/config/scenario inputs from Task 2, written as JSON under that test root. Define local `invoke(args: string[])` returning `{stdout,stderr,code}` from both resolved and rejected execFile results. Pin this first process behavior before implementing the wrapper:
 
 ```ts
 const result = await invoke([datasetPath, configurationPath, scenarioPath]);
@@ -312,8 +312,8 @@ expect(envelope.report.summary).toMatchObject({ stopReason: "schedule_exhausted"
   plannedSlots: 12, startedSlots: 12, virtualElapsedMs: 12, settledCostMicrousd: 48 });
 ```
 
-- [ ] Run `npm.cmd test -- --run tests/research-mock-run-cli.test.ts`. After missing-file setup failure, create an inert CLI that only prints `{"valid":false,"code":"invalid_input"}` and sets exit1; rerun to observe behavioral failures before adding real input handling.
-- [ ] Implement the complete narrow wrapper below, then add `"mock:research": "node scripts/mock-research.mjs"` to npm scripts and `"scripts/mock-research.mjs"` to the script typecheck include list.
+- [x] Run `npm.cmd test -- --run tests/research-mock-run-cli.test.ts`. After missing-file setup failure, create an inert CLI that only prints `{"valid":false,"code":"invalid_input"}` and sets exit1; rerun to observe behavioral failures before adding real input handling.
+- [x] Implement the complete narrow wrapper below, then add `"mock:research": "node scripts/mock-research.mjs"` to npm scripts and `"scripts/mock-research.mjs"` to the script typecheck include list.
 
 ```js
 import { readFile } from "node:fs/promises";
@@ -334,7 +334,7 @@ console.log(JSON.stringify(result));
 process.exitCode = result.valid ? 0 : 1;
 ```
 
-- [ ] Add per-input negative process tests: unreadable path, malformed JSON, duplicate raw member (literal and escaped-equivalent keys, including nested objects), invalid schema, UTF-8 BOM and malformed UTF-8; plus zero/one/two/four args and a blank in each position. Build duplicate-key text from minified JSON rather than newline-sensitive replacement. Use exact envelope assertions, for example:
+- [x] Add per-input negative process tests: unreadable path, malformed JSON, duplicate raw member (literal and escaped-equivalent keys, including nested objects), invalid schema, UTF-8 BOM and malformed UTF-8; plus zero/one/two/four args and a blank in each position. Build duplicate-key text from minified JSON rather than newline-sensitive replacement. Use exact envelope assertions, for example:
 
 ```ts
 expect(await invoke([])).toEqual({ stdout: '{"valid":false,"code":"usage"}\n', stderr: "", code: 1 });
@@ -342,7 +342,7 @@ expect(await invoke([datasetPath, configurationPath, "private-missing-canary.jso
   .toEqual({ stdout: '{"valid":false,"code":"invalid_input"}\n', stderr: "", code: 1 });
 ```
 
-- [ ] For decoder-isolation tests, inject malformed bytes `[0xc3,0x28]` into an unconstrained dataset question or otherwise-valid configuration `modelSnapshot`; update the dependent dataset fingerprint and manifest binding for the lossy-decoded control, then prove that control reaches the simulator successfully. Feed the original malformed bytes to the CLI and require invalid_input. In the strict scenario there is no arbitrary text field: malformed bytes in a kind/hash will also violate schema after lossy decoding. Keep that as a malformed-input rejection test, explicitly not a decoder-isolation claim. Do not invent a permissive decoder that strips invalid bytes. Build bytes with this marker-replacement pattern:
+- [x] For decoder-isolation tests, inject malformed bytes `[0xc3,0x28]` into an unconstrained dataset question or otherwise-valid configuration `modelSnapshot`; update the dependent dataset fingerprint and manifest binding for the lossy-decoded control, then prove that control reaches the simulator successfully. Feed the original malformed bytes to the CLI and require invalid_input. In the strict scenario there is no arbitrary text field: malformed bytes in a kind/hash will also violate schema after lossy decoding. Keep that as a malformed-input rejection test, explicitly not a decoder-isolation claim. Do not invent a permissive decoder that strips invalid bytes. Build bytes with this marker-replacement pattern:
 
 ```ts
 const text = JSON.stringify(configurationWithMarker);
@@ -359,8 +359,8 @@ complete execution object using `modelSnapshot: "utf8-marker"`; use the executio
 fixture at `tests/research-run-plan-cli.test.ts:15`. Rebind the scenario using
 `prepareResearchRun(dataset, lossyControl)` before asserting successful control
 simulation, then write the original `malformed` bytes as the configuration file.
-- [ ] Assert manifest mismatch and missing/duplicate/out-of-plan outcomes collapse to invalid_input. Run a valid deliberate timeout scenario and assert exit0 with request_timeout and 11 not-started slots. Read all three fixture files before/after successful and rejected invocations and compare buffers. Check canary text and paths never appear in stdout/stderr.
-- [ ] Run CLI suite, all research mock suites, `npm.cmd run typecheck`, and build. Request independent process-boundary review; commit Task 3 files as `feat: expose offline research mock CLI`.
+- [x] Assert manifest mismatch and missing/duplicate/out-of-plan outcomes collapse to invalid_input. Run a valid deliberate timeout scenario and assert exit0 with request_timeout and 11 not-started slots. Read all three fixture files before/after successful and rejected invocations and compare buffers. Check canary text and paths never appear in stdout/stderr.
+- [x] Run CLI suite, all research mock suites, `npm.cmd run typecheck`, and build. Request independent process-boundary review; commit Task 3 files as `feat: expose offline research mock CLI`.
 
 ### Task 4: Reproducible Demo, Documentation And Final Evidence
 
@@ -368,7 +368,7 @@ simulation, then write the original `malformed` bytes as the configuration file.
 
 **Interfaces:** Existing compiled simulator and CLI, the public 24-record development seed, and `run-plan-demo.json`. Produces documented synthetic demo and descriptive local timing evidence, not a new runtime API.
 
-- [ ] Create the 288-outcome demo with the literal binding and values below; mechanically expand every outcome into the JSON file using `apply_patch`. JSON has no comments or generated answer content.
+- [x] Create the 288-outcome demo with the literal binding and values below; mechanically expand every outcome into the JSON file using `apply_patch`. JSON has no comments or generated answer content.
 
 ```js
 const demo = { schemaVersion: 1, kind: "research_mock_scenario",
@@ -379,9 +379,9 @@ const demo = { schemaVersion: 1, kind: "research_mock_scenario",
     durationMs: 1, reservedCostMicrousd: 10, settledCostMicrousd: 4 })) };
 ```
 
-- [ ] Build, run direct CLI and `npm.cmd run mock:research -- docs/research/datasets/development-seed.json docs/research/datasets/run-plan-demo.json docs/research/datasets/mock-run-demo.json`. Assert exhausted, 288 started/completed, elapsed288, cost1152, remaining848, held0, preflightfalse and dispatchfalse. Confirm the input files remain byte-identical.
-- [ ] Document those commands and expected values in `docs/research/mock-running.md`, with all six stop reasons, unknown-cost/held-reservation meaning, strict separation from scorer and real approvals, build prerequisite, fatal UTF-8/duplicate-key handling and input-memory limitation. Replace README's "command does not exist" paragraph only after that command actually works. Update handoff with actual completed task/review/verification status.
-- [ ] Measure after committing the runtime; keep this external measurement code outside the simulator. Read the three JSON files before measuring, run one warm-up, then 20 calls. Check outputs after each timed call, not inside the timed interval. Record samples without rounding before percentiles:
+- [x] Build, run direct CLI and `npm.cmd run mock:research -- docs/research/datasets/development-seed.json docs/research/datasets/run-plan-demo.json docs/research/datasets/mock-run-demo.json`. Assert exhausted, 288 started/completed, elapsed288, cost1152, remaining848, held0, preflightfalse and dispatchfalse. Confirm the input files remain byte-identical.
+- [x] Document those commands and expected values in `docs/research/mock-running.md`, with all six stop reasons, unknown-cost/held-reservation meaning, strict separation from scorer and real approvals, build prerequisite, fatal UTF-8/duplicate-key handling and input-memory limitation. Replace README's "command does not exist" paragraph only after that command actually works. Update handoff with actual completed task/review/verification status.
+- [x] Measure after committing the runtime; keep this external measurement code outside the simulator. Read the three JSON files before measuring, run one warm-up, then 20 calls. Check outputs after each timed call, not inside the timed interval. Record samples without rounding before percentiles:
 
 ```js
 const samplesMs = [];
@@ -406,7 +406,7 @@ sampleCount20, samplesMs, medianMs and p95Ms with `apply_patch`. Independently
 recalculate percentiles and validate links. Never invent a latency threshold or
 claim model performance from these samples.
 
-- [ ] Run targeted mock suites, then the full gate sequentially: `npm.cmd test`; `npm.cmd run build`; `npm.cmd run typecheck`; `npm.cmd run smoke:mcp`; `npm.cmd run validate:plugin`; `npm.cmd run benchmark`; both demo CLI forms; `git diff --check`. Wait for each command to finish before build/test mutations overlap.
+- [x] Run targeted mock suites, then the full gate sequentially: `npm.cmd test`; `npm.cmd run build`; `npm.cmd run typecheck`; `npm.cmd run smoke:mcp`; `npm.cmd run validate:plugin`; `npm.cmd run benchmark`; both demo CLI forms; `git diff --check`. Wait for each command to finish before build/test mutations overlap.
 - [ ] Request final `code-reviewer` and `architect` reviews against the prerequisite head to current implementation head. Give each the spec, plan, exact diff and fresh evidence. Resolve blocking findings, rerun affected targeted checks and full gate after runtime fixes, and record actual reviewed commits/verdicts.
 - [ ] Verify only intended files changed, update checkboxes truthfully, commit docs/evidence, push the feature branch and update PR #14's title/body for implementation. Keep base on PR #13 until it is actually merged; no merge without explicit approval. Report remaining real-experiment work separately.
 
@@ -415,5 +415,5 @@ claim model performance from these samples.
 - Spec coverage: parser/validation/canonicalization -> Task1; binding/transitions/output/authority -> Task2; JSON/process boundary -> Task3; docs/performance/review/delivery -> Task4.
 - Boundary precision: timeout wins equality; no late known settlement; reservation drift is retained rather than clamped; a final-slot stop stays stopped; impossible public states are not fabricated for coverage.
 - Interface consistency: only `parseMockScenario`, `MockScenario`, `simulateResearchRun`, `MockRunReport` and existing named APIs cross task boundaries.
-- Execution status: all implementation checkboxes remain unchecked. No new runtime tests or measurements have been executed by writing this plan.
+- Planning status at `ac655c0`: all implementation checkboxes remained unchecked; writing the plan executed no new runtime tests or measurements. Subsequent implementation progress is recorded in the task checkboxes and handoff.
 - Recommended execution: subagent-driven, one bounded implementer per task plus independent test/spec/quality reviews. Inline execution remains available with the same gates.

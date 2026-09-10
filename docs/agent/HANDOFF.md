@@ -11,14 +11,47 @@ unknown-cost stops and explicit not-started slots. The user subsequently approve
 the written specification and requested the
 [implementation plan](../superpowers/plans/2026-09-09-research-mock-runner.md).
 Its four tasks cover strict parsing, simulation, CLI, and docs/performance evidence.
-The interrupted planning task resumed on 2026-09-09 at 23:12 KST. This remains a
-docs-only slice; plan execution approval is pending. No mock runner or new
-tests have been implemented, and no model access, upload, spending or merge is authorized.
+The interrupted planning task resumed on 2026-09-09 at 23:12 KST. This is an
+implementation slice: the user approved subagent-driven execution after plan
+commit `ac655c0`. Baseline at 23:17 KST passed 94 targeted and all 454 existing
+tests. Task 1 (scenario parser) is complete at `07ea414`: 45 behavioral RED,
+45 GREEN, typecheck and 499 total tests passed; independent test-engineer returned
+SPEC PASS / QUALITY APPROVE. The leaf Git approval stalled, so main performed
+the commit without modifying the implementation. Task 2 (simulator) is complete
+at `0d1916d`: initial 2 RED/GREEN, 18-case boundary expansion with 10 RED then all
+GREEN, and 11 additional contract characterizations brought coverage to 29 tests.
+The implementer hit its usage limit after reporting all 528 tests passing; on
+2026-09-10 at 09:59 KST main freshly reran 188 targeted/528 total tests, typecheck
+and build, all passing. Independent test-engineer returned SPEC PASS / QUALITY
+APPROVE with no findings. Task 3 (CLI) is complete at `dce86a2`, with cleanup fix
+`8822223`: inert CLI RED 12 failures/23 passes, then GREEN 35 process tests.
+Independent review found a Windows-only fixture cleanup guard; POSIX RED 1/5,
+then GREEN 5/5 and 40 CLI tests after correction. Scoped re-review returned
+ADDRESSED, SPEC PASS / QUALITY APPROVE with no new breakage.
 
-The docs PR is stacked on `docs/research-run-preflight-design`; PR #13 remains a
+Main freshly ran 114 mock tests, all 568 tests, build/typecheck/MCP/plugin gates
+and the existing benchmark at 10:19-10:20 KST on 2026-09-10. All passed.
+Existing benchmark p95: exact 1.34 ms, semantic 1.42 ms, code 0.94 ms (20 samples
+each). Separate simulator evidence at core `0d1916d` records 20 in-memory calls:
+median 1.71 ms, p95 3.29 ms; raw data is in
+`docs/research/evidence/2026-09-10-mock-run-local.json`. These are local software
+timings, not hosted-model or empirical research results.
+
+Task 4's writer hit a usage limit without writing a report or changing the draft.
+Main resumed document finalization on 2026-09-10 at 15:43 KST, retaining the
+prepared demo/evidence. Fresh build, direct CLI and npm alias passed with 288
+completed slots, virtual 288 ms, cost 1152 microUSD, remaining 848 microUSD and
+unchanged input files; preflight and dispatch flags remain false. Final independent
+whole-branch reviews and PR transport remain required before completion.
+Resume gate at 15:45-15:46 KST passed 114 mock tests, all 568 tests, typecheck,
+MCP smoke, plugin validation and benchmark again; fresh build and both demo CLI
+forms also passed. No runtime/test changes occurred in this docs-recovery phase.
+No model access, upload, spending or merge is authorized.
+
+The implementation PR is stacked on `docs/research-run-preflight-design`; PR #13 remains a
 separate prerequisite and must not be merged without explicit approval. Determine
 live PR state with GitHub rather than assuming it from these notes.
-Docs PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/14
+PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/14
 Specification commit: `e043f61`. Independent architect review returned CLEAR with
 no blocking design ambiguity; this is not implementation or provider approval.
 
@@ -35,8 +68,8 @@ and benchmark. Existing benchmark p95: exact retrieval 1.26 ms, semantic summary
 1.37 ms, code fixture 0.87 ms (20 samples each); not mock-runner performance.
 Seventeen local documentation links and 13 embedded code-snippet syntax checks
 passed. Snippet syntax checks are not type checks or execution of a new runner.
-All 33 implementation/start-gate checkboxes remain unchecked. No runtime files
-changed in this planning slice, and `git diff --check` passed.
+At that planning checkpoint all 33 implementation/start-gate checkboxes were
+unchecked. No runtime files changed in that planning slice, and `git diff --check` passed.
 
 Docs-only verification on 2026-09-09 at 19:01 KST: 94 targeted run-plan/CLI tests
 and all 454 existing tests passed, plus build, typecheck, MCP smoke, plugin validation
@@ -1069,7 +1102,7 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Obtain approval to execute the four-task mock-runner implementation plan; subagent-driven execution is recommended.
+1. Execute the approved four-task mock-runner plan; track each task and review in `.superpowers/sdd/2026-09-09-research-mock-runner/progress.md`.
 2. Keep its PR dependent on PR #13 until that prerequisite is explicitly approved and merged.
 3. Implement the approved mock scope with TDD and independent review; actual data collection and paired analysis remain later work.
 4. Do not merge any PR without explicit user approval.

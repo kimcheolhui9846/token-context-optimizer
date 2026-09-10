@@ -5,9 +5,9 @@
 On 2026-09-09 the user approved documenting the deterministic virtual-time option.
 This document specifies the second slice after [run preflight](2026-09-09-research-run-preflight-design.md).
 The user subsequently approved the written specification and requested the
-[implementation plan](../plans/2026-09-09-research-mock-runner.md). Plan execution
-approval remains a separate gate; no runner implementation, paid execution or
-merge is authorized by this document.
+[implementation plan](../plans/2026-09-09-research-mock-runner.md), then approved
+subagent-driven implementation after plan commit `ac655c0`. That separate approval
+covers this offline scope only; no paid execution or merge is authorized.
 The design branch depends on PR #13, at `138a0f198d3ffa2e7fc0f98a84188a1628ff7dd9`.
 
 Goal: exercise sequential execution accounting and stopping decisions without
