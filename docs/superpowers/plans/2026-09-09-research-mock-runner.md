@@ -407,8 +407,15 @@ recalculate percentiles and validate links. Never invent a latency threshold or
 claim model performance from these samples.
 
 - [x] Run targeted mock suites, then the full gate sequentially: `npm.cmd test`; `npm.cmd run build`; `npm.cmd run typecheck`; `npm.cmd run smoke:mcp`; `npm.cmd run validate:plugin`; `npm.cmd run benchmark`; both demo CLI forms; `git diff --check`. Wait for each command to finish before build/test mutations overlap.
-- [ ] Request final `code-reviewer` and `architect` reviews against the prerequisite head to current implementation head. Give each the spec, plan, exact diff and fresh evidence. Resolve blocking findings, rerun affected targeted checks and full gate after runtime fixes, and record actual reviewed commits/verdicts.
-- [ ] Verify only intended files changed, update checkboxes truthfully, commit docs/evidence, push the feature branch and update PR #14's title/body for implementation. Keep base on PR #13 until it is actually merged; no merge without explicit approval. Report remaining real-experiment work separately.
+- [x] Request final `code-reviewer` and `architect` reviews against the prerequisite head to current implementation head. Give each the spec, plan, exact diff and fresh evidence. Resolve blocking findings, rerun affected targeted checks and full gate after runtime fixes, and record actual reviewed commits/verdicts.
+- [x] Verify only intended files changed, update checkboxes truthfully, commit docs/evidence, push the feature branch and update PR #14's title/body for implementation. Keep base on PR #13 until it is actually merged; no merge without explicit approval. Report remaining real-experiment work separately.
+
+Completion evidence: whole-branch review `138a0f1..4b61277`, final fix and scoped
+re-review `4b61277..b290748`; code APPROVE / Task4 SPEC PASS / QUALITY APPROVE,
+architect CLEAR. Controller gate at 2026-09-10 16:30 KST: 116 mock and 570 full
+tests plus all listed gates passed; both demo CLI forms passed afterward.
+Branch pushed and PR #14 title/body updated; PR #13 remains the open prerequisite.
+Subsequent completion bookkeeping changes only documentation, not reviewed code.
 
 ## Plan Self-Review And Handoff
 

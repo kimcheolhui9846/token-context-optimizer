@@ -2,6 +2,21 @@
 
 ## Current Objective
 
+The offline mock-runner implementation is complete and PR #14 has been pushed
+and updated for review, not merged. Final whole-branch review at `4b61277`
+returned architect CLEAR and two code-review findings; fix `b290748` resolved
+the stale next steps and two missing boundary characterizations without changing
+runtime. Scoped code re-review returned both ADDRESSED, SPEC PASS / QUALITY
+APPROVE / overall APPROVE; scoped architect review retained CLEAR.
+Fresh controller verification on 2026-09-10 at 16:30 KST passed 116 mock tests,
+all 570 tests, build, typecheck, MCP smoke, plugin validation and benchmark.
+Both demo CLI forms subsequently matched and preserved input hashes. Existing
+benchmark p95 was exact 1.43 ms, semantic 1.45 ms, code 0.83 ms; the separately
+archived mock timing remains median 1.71 ms / p95 3.29 ms. These are local software
+measurements, not model results. This final bookkeeping is documentation-only.
+Do not repeat completed implementation tasks. The chronological checkpoints
+below retain earlier counts and superseded pending states for provenance.
+
 Current branch: `docs/research-mock-runner-design`, based on PR #13 head
 `138a0f198d3ffa2e7fc0f98a84188a1628ff7dd9`. The user approved documenting the
 deterministic virtual-time mock runner on 2026-09-09. The
@@ -1102,15 +1117,11 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Review the final fix evidence in
-   `.superpowers/sdd/2026-09-09-research-mock-runner/final-fix-report.md`: the
-   final whole-branch review found two MEDIUM issues, and this wave corrects the
-   stale handoff plus adds GREEN characterization coverage for the missing
-   deadline/reserve boundaries. Renewed final reviews and controller gates are
-   still required.
-2. After those reviews and gates pass, the controller should commit and push
-   `docs/research-mock-runner-design`, then update PR #14 with the final evidence.
-   Transport is not yet claimed complete here.
+1. Review the updated implementation PR #14. Its four tasks, final fix wave,
+   independent reviews and full verification gate are complete; do not restart
+   implementation. Resolve live transport state with git/GitHub on each resume.
+2. Address any subsequent PR feedback in a bounded TDD/review cycle. Final
+   reviewed implementation/test head is `b290748`; later bookkeeping is docs-only.
 3. Keep PR #14 dependent on PR #13 until that prerequisite is explicitly approved and merged.
 4. Treat actual data collection, paired analysis and any hosted-model experiment
    as separate later work requiring their own authorization; none ran in this fix
