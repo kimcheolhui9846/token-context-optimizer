@@ -1,13 +1,19 @@
 import { execFile } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { join, posix, resolve, win32 } from "node:path";
 import { promisify } from "node:util";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { prepareResearchRun } from "../src/research/run-plan.js";
 import { fingerprintDataset } from "../src/research/scoring.js";
 
 const invalid = (code: "usage" | "invalid_input") => ({ valid: false, code });
+const temporaryRootPrefix = "mock-research-cli-test-";
+
+function isOwnedTemporaryRoot(candidate: string, artifacts: string): boolean {
+  const path = candidate.includes("\\") || artifacts.includes("\\") ? win32 : posix;
+  return path.dirname(candidate) === artifacts && path.basename(candidate).startsWith(temporaryRootPrefix);
+}
 
 function execution(modelSnapshot = "private-model-canary") {
   return {
@@ -75,6 +81,16 @@ function replaceMarkerWithMalformedUtf8(source: string, marker: string) {
   ]);
 }
 
+it.each([
+  ["POSIX child", "/repo/.artifacts/mock-research-cli-test-abc123", "/repo/.artifacts", true],
+  ["Windows child", String.raw`C:\repo\.artifacts\mock-research-cli-test-abc123`, String.raw`C:\repo\.artifacts`, true],
+  ["outside root", "/repo/elsewhere/mock-research-cli-test-abc123", "/repo/.artifacts", false],
+  ["sibling root", "/repo/.artifacts-sibling/mock-research-cli-test-abc123", "/repo/.artifacts", false],
+  ["wrong prefix", "/repo/.artifacts/other-test-abc123", "/repo/.artifacts", false],
+] as const)("recognizes only owned temporary roots for %s", (_name, candidate, artifacts, expected) => {
+  expect(isOwnedTemporaryRoot(candidate, artifacts)).toBe(expected);
+});
+
 describe("research mock run CLI", () => {
   let root: string;
   let cli: string;
@@ -106,7 +122,7 @@ describe("research mock run CLI", () => {
 
   afterAll(async () => {
     const artifacts = resolve(".artifacts");
-    if (root && resolve(root).startsWith(artifacts + "\\")) {
+    if (root && isOwnedTemporaryRoot(resolve(root), artifacts)) {
       await rm(root, { recursive: true, force: true });
     }
   });
