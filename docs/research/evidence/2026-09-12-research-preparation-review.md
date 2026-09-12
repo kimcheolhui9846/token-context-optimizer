@@ -103,3 +103,27 @@ Observed on 2026-09-12:
 No empirical architecture comparison, compact stress test, paper reproduction,
 human outcome grading, model training or paid research run was performed. Final
 verification after the Draft PR opens is a separate required checkpoint.
+
+## Post-Draft Verification And Delivery
+
+[Draft PR #16](https://github.com/kimcheolhui9846/token-context-optimizer/pull/16)
+opened after content commit `daa7933ad9f0703bbc816d50ee228554d1e53644`
+was pushed with upstream tracking. Base remains `docs/research-post-merge-review`.
+On 2026-09-12 at 22:10-22:11 KST, after the PR opened:
+
+- Targeted scorer/pilot command above: PASS, 62 tests.
+- `npm.cmd test`: PASS, 570 tests in 11 files.
+- `npm.cmd run build`: PASS with authorized escalation for the known sandbox limit.
+- `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, and
+  `npm.cmd run validate:plugin`: PASS.
+- `npm.cmd run benchmark`: PASS, three scenarios with 20 samples each;
+  p95 exact 1.58 ms, semantic 1.51 ms, code 1.14 ms. These are local fixture timings.
+- `node .artifacts/paper-review/validate-docs.mjs`: PASS, nine Markdown files,
+  34 local links, four unchanged PDFs / 52 pages, seven bibliography entries.
+  This validation helper is local and ignored, not a shipped project command.
+- `git diff --check`: PASS.
+
+Subsequent changes record this evidence and handoff only; runtime and reviewed
+research content are unchanged. Final current-head Git/PR checks and Astra verdict
+are reported in the delivery response. External cross-check remains DEGRADED.
+No merge was performed; the next Task requires user approval.

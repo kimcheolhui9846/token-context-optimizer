@@ -35,6 +35,13 @@ non-Draft prerequisite; do not merge it or this delivery without explicit approv
 
 ## Previous Checkpoint: Paired-Success Written Design
 
+Delivery checkpoint: content commit `daa7933` is pushed and
+[Draft PR #16](https://github.com/kimcheolhui9846/token-context-optimizer/pull/16)
+is open against `docs/research-post-merge-review`. Post-Draft verification on
+2026-09-12 at 22:10-22:11 KST passed 62 targeted tests, all 570 tests, build,
+typecheck, MCP smoke, plugin validation, benchmark and document acceptance checks.
+See the delivery evidence above. No merge or next-Task implementation occurred.
+
 The user approved writing the offline paired-success design on 2026-09-10.
 Current branch: `docs/research-paired-success-design`, based on the docs-only
 post-merge record `c1c9b3e` (PR #15). The
