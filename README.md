@@ -112,7 +112,12 @@ plugins. These are different interventions, not four interchangeable models to r
 The [paper plan](docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md)
 covers background, the framework, this implementation, evaluation and limitations.
 Background/design can be drafted now; results require real traces and blinded grading.
-Related-work comparison and novelty assessment are still incomplete.
+The [supplied-paper review and research application notes](docs/research/literature/2026-09-12/README.md)
+cover four versioned PDFs, their limitations, and a separate
+[agent-context hypothesis assessment](docs/research/literature/2026-09-12/05-agent-context-hypothesis.md).
+This bounded reading set is not an exhaustive related-work search or novelty proof;
+the broader novelty assessment remains incomplete. All proposed experiments remain
+unrun, including the fresh-agent versus persistent-context comparison.
 
 | Experiment item | Proposed design / current status |
 | --- | --- |
