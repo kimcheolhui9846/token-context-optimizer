@@ -6,13 +6,14 @@
 - 범위: 승인된 paired-success 명세의 코드 경계, TDD 단계, 검증 및 전달 계획. 런타임 구현, 실험 실행, 외부 데이터 전송, merge 제외.
 - 관련 문서: [기존 핸드오프](docs/agent/HANDOFF.md), [명세](docs/superpowers/specs/2026-09-10-research-paired-success-design.md).
 - 위험: scorer 추출 시 오류 우선순위/직렬화/비용 누적 회귀; 계획의 fixture 실현 가능성.
-- 현재 상태: 계획 작성과 pre-PR 검증 완료; PR 전달 진행. 깨끗한 기존 checkout에서 전용 브랜치 `codex/task-17-paired-success-plan` 생성. Base `docs/research-paired-success-design`, `4568a9f`; PR #16 OPEN Draft 및 head 일치 확인.
+- 현재 상태: 계획 전달 및 post-Draft 검증 완료. [Draft PR #17](https://github.com/kimcheolhui9846/token-context-optimizer/pull/17), 내용 커밋 `82aa6ca` push 완료. 전용 브랜치 `codex/task-17-paired-success-plan`, base `docs/research-paired-success-design` / `4568a9f`. 최종 기록 커밋의 SHA와 PR head는 Git/GitHub에서 확인한다.
 
 ## 2. 작업 계획
 - [x] 초기 계획 교차 검토와 코드 경계 확인.
 - [x] 구현 계획 문서 작성 및 명세 대조.
 - [x] 보완 native 리뷰, 문서 검증, pre-PR 프로젝트 gate. 외부 리뷰는 DEGRADED.
-- [ ] commit/push/Draft PR, post-Draft gate, 최종 Astra 리뷰.
+- [x] commit/push/Draft PR 및 post-Draft gate.
+- [x] Astra 명세/계획/수정/실제 검증 대조: PASS WITH NOTES; 외부 리뷰 공백.
 
 ## 3. 변경 사항
 - 첫 산출물: 루트 HANDOFF.md. 기존 기록은 보존한다.
@@ -29,9 +30,12 @@
 - `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, `npm.cmd run benchmark`: 모두 PASS. 기존 benchmark 3시나리오 각 20회; 분석기 timing/실험 증거 아님.
 - `git diff --check` PASS. PowerShell 로컬 Markdown 파일 링크 검사 및 계획 placeholder 검색 수행. placeholder 검색은 일치 없음(exit 1), 오류가 아님.
 - 새 분석기 코드 예시는 문서 검토만 수행; analyzer RED/GREEN 및 실행은 NOT RUN, 다음 구현 Task의 범위. lint/format 전용 script는 현재 package.json에 없음.
+- Post-Draft (2026-09-12 22:45 KST): targeted 명령 62개 PASS, `npm.cmd test` 570개/11파일 PASS. build/typecheck/smoke:mcp/validate:plugin/benchmark 모두 다시 PASS. benchmark p95 exact 1.64 ms, semantic 1.91 ms, code 1.18 ms (각 20회), 기존 소프트웨어 fixture 결과만 의미한다.
+- 문서 수용 검사: 3개 문서, 12개 로컬 파일 링크 PASS. 실제 코드/명세와 수치/타입/검사 순서를 직접 대조함. 문서의 미래 예제 실행 성공을 주장하지 않음.
 
 ## 6. 오류 및 해결 기록
 - GitHub 조회가 sandbox 네트워크 제한으로 실패. 동일 명령을 승인된 escalation으로 실행하여 성공. 코드 변경 불필요.
+- Git stage/commit이 `.git/index.lock` 권한 제한으로 실패. 동일 Git 작업을 escalation으로 실행하여 성공. 사용자 파일 reset/stash/삭제 없음.
 
 ## 7. 다중 모델 교차 검토
 ### Gemini
@@ -53,11 +57,14 @@
 - 한계: 계획이며 코드 예제를 실행하지 않음; 외부 리뷰 공백 있음. 다음 구현의 TDD/독립 리뷰/전체 gate가 필요.
 
 ## 9. 남은 작업
-- [ ] push/Draft PR 및 post-Draft 검증 결과 기록.
+- [ ] 사용자의 다음 구현 Task 승인.
+- 알려진 제한: 외부 검토 DEGRADED; 분석기는 아직 구현되지 않음. PR #15/#16/#17 merge는 별도 승인 필요.
 
 ## 10. 사용자 승인 필요 사항
 - 이번 계획 작성 진행 승인: 사용자 재개 지시.
 - 다음 구현 Task와 PR merge는 아직 승인되지 않음.
 
 ## 11. 최종 요약
-- 현재 결과: 계획/핸드오프 3문서, 명세 대조 및 pre-PR gate 완료. 구현은 시작하지 않음.
+- 현재 결과: 계획/핸드오프 3문서, 명세 대조 및 pre/post-Draft gate 완료. Draft PR #17 전달. 구현은 시작하지 않음.
+- 계획 대비: 범위 변경 없음; 독립 리뷰의 fixture 표현 1건을 명확화.
+- 다음 작업자: 승인 확인 후 계획의 Work Package 1부터 시작하고 실행 시점의 모델/branch/base/provider 상태를 재확인한다.
