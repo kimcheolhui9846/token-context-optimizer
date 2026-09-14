@@ -2,6 +2,16 @@
 
 ## Current Objective
 
+Task 17 resumed on 2026-09-12 after the user requested continuing. The current
+delivery is the [paired-success implementation plan](../superpowers/plans/2026-09-12-research-paired-success.md),
+with controller-owned status and review evidence in [root HANDOFF](../../HANDOFF.md).
+Task 16 is delivered at `4568a9f`, confirmed as the head of OPEN Draft PR #16.
+The new branch is `codex/task-17-paired-success-plan`, based on
+`docs/research-paired-success-design`. This Task changes documentation only;
+runtime implementation waits for the next approval. No PR merge is authorized.
+
+## Previous Checkpoint: Research Documentation Delivery
+
 On 2026-09-12 the user authorized resuming the pending documentation delivery,
 commit/push, and reviewing four PDFs from their local paper folder. They also
 requested logical/evidence assessment of a fresh-subagent versus persistent-inline
@@ -1217,11 +1227,11 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Review the paired-success specification, four-paper literature dossier and
-   agent-context hypothesis memo as the current documentation delivery. No analyzer
-   or architecture experiment has been implemented. Proceed to implementation
-   planning only after approval of the written package; proposed research arms
-   require their own frozen design, data, measurement and execution gates.
+1. Review the Task 17 paired-success implementation plan and root HANDOFF. The
+   user's continuation advances from delivered Task 16 to planning; runtime
+   execution requires the next approval. No analyzer or architecture experiment
+   has been implemented. Proposed research arms require their own frozen design,
+   data, measurement and execution gates.
 2. Preserve PR #15 as the separate documentation prerequisite until actually merged;
    inspect live git/GitHub state on resume. PR #13/#14 are already merged.
 3. Complete dataset curation/freeze, model/access/data/spend approvals, live-runner
