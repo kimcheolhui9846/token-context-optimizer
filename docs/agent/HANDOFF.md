@@ -2,6 +2,21 @@
 
 ## Current Objective
 
+Task 19 (2026-09-19) prioritizes an image-first Korean paper draft, a primary-source
+register, and an image evaluation protocol linked to minimum plugin capabilities.
+See [root HANDOFF](../../HANDOFF.md) for current review, validation, Git/PR state,
+and [paper draft](../research/image-first-paper-draft.ko.md) for the research entry.
+This is documentation only: the runtime remains text-only, image results are
+unmeasured, and video development waits for image validation and user approval.
+The Task 18 dirty checkout is preserved separately; its uncompleted implementation
+is neither included nor claimed complete here. No merge is authorized.
+
+## Historical Checkpoint Before Task 19
+
+The following record predates the verified merge of PR #14 into `main` at
+`4e9b7c562b7f08fc24e79e615f68b467cbf8eeda`, the base of Task 19. Its pending-merge
+language is retained as history rather than the current PR state.
+
 The offline mock-runner implementation is complete and PR #14 has been pushed
 and updated for review, not merged. Final whole-branch review at `4b61277`
 returned architect CLEAR and two code-review findings; fix `b290748` resolved

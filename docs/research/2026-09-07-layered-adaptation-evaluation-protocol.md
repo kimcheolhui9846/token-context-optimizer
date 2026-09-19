@@ -1,5 +1,10 @@
 # Layered Adaptation: Evidence Register And Evaluation Protocol
 
+> Historical text-study protocol. The active image study uses its own
+> [evaluation protocol](image-first-evaluation-protocol.md). Reuse methodological
+> principles only: these arms, sample counts, model choices, and evidence are not
+> an image experiment or authorization to run one. Earlier records remain below.
+
 Status: proposed protocol, not experimental results. Sources accessed 2026-09-07.
 Original source-register baseline: `17cac9aa0d66078acca3e9ce6ac9f83867aac95c`
 (PR #6 was unmerged when that register was written). Execution-detail revision:
