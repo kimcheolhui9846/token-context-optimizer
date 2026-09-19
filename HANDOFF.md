@@ -17,7 +17,7 @@
 - [x] Luna 초안 작성 후 usage limit으로 중단; 지정된 대체 GPT-5.5가 3문서 보완 및 실제 완료 응답. 구현 상태·제안 방법·미측정 결과 분리.
 - [x] 이미지 원본 family 분할, arm 통제, 변환 설정, fallback, 채점/실패 분모, paired 분석, 실제 usage와 bytes 구별, pilot/확증 실험 gate 정의.
 - [x] 각 개발 항목을 논문 증거 요구와 연결. 영상은 후속 범위.
-- [ ] 문서 링크/주장/범위 검증 및 프로젝트 gate, Draft PR, post-PR 재검증, Astra 최종 리뷰.
+- [x] 문서 링크/주장/범위 검증 및 프로젝트 gate, Draft PR, post-PR 재검증, Astra 최종 리뷰.
 
 ### 3–4. 변경 및 결정
 - 논문에 필요한 연구 질문과 실험 설계를 우선 고정하고 기능 개발은 후속 사용자 승인 Task에서 수행한다.
@@ -42,7 +42,7 @@
 - 보완: 독립 문헌 검증과 Astra 실제 산출물 리뷰, 원본/source-family/usage 추적을 실험 설계에 포함.
 
 ### 9–11. 현재 상태 / 승인 / 다음 작업
-- 현재 상태: 문서 내용 완료, Draft PR 생성 및 post-PR 검증 완료. 최종 Astra transport/evidence 리뷰 대기. 실제 이미지 결과 표는 작성하지 않는다.
+- 현재 상태: Task 19 완료, 최종 Astra PASS WITH NOTES, 사용자 승인 대기. 실제 이미지 결과 표는 작성하지 않는다.
 - 다음 실제 플러그인 구현 Task와 모든 merge는 사용자 승인 전 착수하지 않는다.
 - 최종 Git/PR/검증/미해결 검토 공백은 완료 시 갱신한다.
 
@@ -79,3 +79,12 @@
 - 문서 8개 UTF-8/fence/local link 34개 및 staged `git diff --cached --check` PASS. runtime/tests/dependencies 변경 없음. pre-commit 우회 옵션 사용하지 않았으며 설정된 hooksPath/활성 hook 파일 없음.
 - 이미지/실제 API 실험, 신규 이미지 TDD: NOT RUN — 기능 구현 전 연구 문서 Task 범위 밖. 별도 lint/format script는 package.json에 없음.
 - 남은 작업: 이 검증 기록을 같은 PR에 push, 최종 Astra가 실제 diff/PR/latest commit/검증/위험 확인, 사용자 승인 대기.
+
+### 최종 Astra Review Result / 승인 대기
+- 최종 판정: **PASS WITH NOTES**. Astra가 `965177c`의 실제 8문서 diff, HANDOFF, PR 설명/OPEN Draft 상태/latest SHA, clean worktree, 원래 Task 18 보존 상태와 관찰된 post-Draft 검증 근거를 확인했다. 미해결 blocker/major 없음.
+- 원격 `main`은 `4e9b7c5`, Task 브랜치는 `965177c`임을 `git ls-remote`로도 확인. 최종 판정 기록만 추가한 후 동일 PR의 최신 SHA까지 재확인한다.
+- `gh pr checks 18`: no checks reported. Hosted CI 통과를 주장하지 않으며 위 로컬 검증이 실제 증거다.
+- 제한: Cross-check status DEGRADED; 문헌은 초록 수준(3편 검색 색인); 제출처/마감일 미지정; 이미지 구현·dataset·실험 결과 없음. 이 결과는 논문 연구 초안/평가 설계 전달 완료이며 논문 실험 또는 플러그인 기능 완성을 뜻하지 않는다.
+- 이번 Task 파일: 새 논문/프로토콜/출처 3문서와 루트 HANDOFF, README·기존 handoff·역사적 paper/protocol 안내 4문서. 삭제 파일, runtime/test/dependency 변경 없음.
+- 다음 후보: 사용자 검토 후 연구 질문·평가 조건을 확정하고 이를 검증할 이미지 ingest/원본 보존부터 별도 Task로 설계·구현. 논문과 개발의 충돌 시 논문 우선; 영상은 이미지 검증과 별도 승인 후.
+- 승인 게이트: **다음 Task로 진행하지 않고 사용자 검토 및 승인을 기다린다.** Merge 미수행.

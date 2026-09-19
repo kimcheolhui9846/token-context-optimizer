@@ -12,6 +12,9 @@ The document package is delivered through [Draft PR #18](https://github.com/kimc
 against `main`. Post-Draft checks on 2026-09-19 passed 39 targeted and 570 total
 tests, build, typecheck, MCP smoke, plugin validation, and existing text benchmark.
 These checks establish regression coverage, not empirical image performance.
+Final native Astra review returned PASS WITH NOTES; external cross-check remains
+DEGRADED and source verification is abstract-level. Task 19 awaits user approval
+before the next implementation Task. The final evidence record is in root HANDOFF.
 The Task 18 dirty checkout is preserved separately; its uncompleted implementation
 is neither included nor claimed complete here. No merge is authorized.
 
