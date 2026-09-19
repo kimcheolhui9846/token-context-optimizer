@@ -2,6 +2,28 @@
 
 ## Current Objective
 
+Task 19 (2026-09-19) prioritizes an image-first Korean paper draft, a primary-source
+register, and an image evaluation protocol linked to minimum plugin capabilities.
+See [root HANDOFF](../../HANDOFF.md) for current review, validation, Git/PR state,
+and [paper draft](../research/image-first-paper-draft.ko.md) for the research entry.
+This is documentation only: the runtime remains text-only, image results are
+unmeasured, and video development waits for image validation and user approval.
+The document package is delivered through [Draft PR #18](https://github.com/kimcheolhui9846/token-context-optimizer/pull/18)
+against `main`. Post-Draft checks on 2026-09-19 passed 39 targeted and 570 total
+tests, build, typecheck, MCP smoke, plugin validation, and existing text benchmark.
+These checks establish regression coverage, not empirical image performance.
+Final native Astra review returned PASS WITH NOTES; external cross-check remains
+DEGRADED and source verification is abstract-level. Task 19 awaits user approval
+before the next implementation Task. The final evidence record is in root HANDOFF.
+The Task 18 dirty checkout is preserved separately; its uncompleted implementation
+is neither included nor claimed complete here. No merge is authorized.
+
+## Historical Checkpoint Before Task 19
+
+The following record predates the verified merge of PR #14 into `main` at
+`4e9b7c562b7f08fc24e79e615f68b467cbf8eeda`, the base of Task 19. Its pending-merge
+language is retained as history rather than the current PR state.
+
 The offline mock-runner implementation is complete and PR #14 has been pushed
 and updated for review, not merged. Final whole-branch review at `4b61277`
 returned architect CLEAR and two code-review findings; fix `b290748` resolved

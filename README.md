@@ -4,6 +4,11 @@ Codex plugin and local STDIO MCP server for safer token-efficient context handli
 
 The MVP indexes local UTF-8 text artifacts, records SHA-256 and line source maps, returns bounded source-backed excerpts, and blocks lossy summaries for exact-sensitive content.
 
+The current research direction is **image context optimization first**, with paper
+writing taking priority over feature development. Image processing is planned; the
+text MVP above is the implemented capability. Video extension follows image
+implementation, evaluation, and explicit user approval.
+
 ## Development
 
 ```powershell
@@ -101,34 +106,26 @@ record the boundaries and verification process.
 
 ## Paper And Experiment Plan
 
-Research status at merged baseline `edf1901` (2026-09-08): design and offline tooling
-exist; the paper draft, live model results and fine-tuning experiment do not yet exist.
-That baseline's engineering gate passed 360 tests. This is not evidence of LLM accuracy,
-hosted latency, billing savings, or a causal benefit from TDD/subagent review.
+Start with the [Korean image-first paper draft](docs/research/image-first-paper-draft.ko.md),
+the [image evaluation protocol and development roadmap](docs/research/image-first-evaluation-protocol.md),
+and the [primary-source register](docs/research/image-first-sources.md).
 
-The proposed paper studies **layered adaptation**: weight changes through fine-tuning,
-workflow instructions through skills, tool access through MCP, and distribution through
-plugins. These are different interventions, not four interchangeable models to rank.
-The [paper plan](docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md)
-covers background, the framework, this implementation, evaluation and limitations.
-Background/design can be drafted now; results require real traces and blinded grading.
-Related-work comparison and novelty assessment are still incomplete.
+The draft proposes artifact-aware external image processing for document, chart,
+and UI questions. It contains no measured image results. The protocol links each
+planned plugin capability to the evidence needed by the paper; stable experiment
+requirements can guide development while writing continues. If priorities conflict,
+the paper's research question and evaluation requirements take precedence.
 
-| Experiment item | Proposed design / current status |
-| --- | --- |
-| First comparison | Full source vs optimizer-selected context; add fixed-chunk context with the same token budget and a gold-evidence diagnostic reference. |
-| Model | Recommended `gpt-4.1-mini-2025-04-14`; access is unverified. Optional `gpt-5.6-luna` replication and same-base fine-tuning remain conditional. See [model evidence](docs/research/2026-09-08-experiment-model-selection.md). |
-| Data | Target 120 independently curated families, split 72 train / 24 development / 24 test. The concrete proposal uses one English and one Korean record per family. Current seed: 24 records in 12 development families, no train/test data; independence is not established by counting IDs. |
-| Evaluation size | Per development or pilot-test split: 24 families x 2 languages x 4 arms x 3 attempts = 576 planned evaluation slots per model. Repeats/translations are correlated, not 576 independent tasks. |
-| Outcomes | Family-paired task success, contradictions and exact fidelity; actual usage/cost and end-to-end latency. Two blinded human raters for semantic outcomes. |
-| Other layers | Separate instruction/skill, MCP transport, plugin installation and fine-tuning contrasts. Host/input equivalence and appropriate analysis units are required. |
-| Execution gate | Frozen data/rubrics/configuration, authorized model access and spending/data upload, tested runner and grading arrangements. No paid inference or training is authorized by this README. |
+Image bytes, internal visual tokens, provider-reported usage, and monetary cost are
+different measurements. Neither existing text tests nor future image fixture tests
+alone establish hosted answer quality or billing savings. Model selection, access,
+data rights, privacy, and budget must be settled before hosted experiments.
 
-The [detailed protocol](docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md#concrete-first-experiment)
-defines arms, counts, missing-data handling, analysis and stop conditions. The
-[readiness checklist](docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md#readiness-and-acceptance)
-distinguishes implemented tooling from remaining work. Pilot findings guide design;
-confirmatory claims require a separately sized and untouched dataset.
+The earlier [layered-adaptation paper plan](docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md)
+and [text experiment protocol](docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md)
+remain historical, separate research records. Their model recommendations, dataset
+sizes, mock traces, and engineering results are not image-study evidence. Existing
+text functionality and regression checks remain in place.
 
 ## Superpowers Use
 
