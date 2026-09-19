@@ -42,7 +42,7 @@
 - 보완: 독립 문헌 검증과 Astra 실제 산출물 리뷰, 원본/source-family/usage 추적을 실험 설계에 포함.
 
 ### 9–11. 현재 상태 / 승인 / 다음 작업
-- 현재 상태: 진행 중. 실제 결과 표는 작성하지 않는다.
+- 현재 상태: 문서 내용 완료, Draft PR 생성 및 post-PR 검증 완료. 최종 Astra transport/evidence 리뷰 대기. 실제 이미지 결과 표는 작성하지 않는다.
 - 다음 실제 플러그인 구현 Task와 모든 merge는 사용자 승인 전 착수하지 않는다.
 - 최종 Git/PR/검증/미해결 검토 공백은 완료 시 갱신한다.
 
@@ -68,3 +68,14 @@
 - 동일 승인 범위에서 주 에이전트가 국소 수정: clean 조건에는 배정된 clean 입력 허용; 손상 조건의 비배정 clean counterpart는 숨김; full original/fallback은 배정된 variant로 정의. retry는 보조 attempt이며 비용/호출 수에만 추가하고 primary 720/production576 분모 및 원래 실패 판정 유지.
 - 8문서 strict UTF-8/코드 fence/local link 검증 및 staged diff 검사 PASS. 원격 문헌 전체 본문 또는 실험 재현을 검증했다고 주장하지 않음.
 - Astra 수정 재검토: 내용 판정 PASS WITH NOTES, 미해결 blocker/major 없음. 외부 검토 DEGRADED, 초록 수준 출처 확인, 모든 이미지 기능/결과 미구현·미측정이라는 제한 유지. Draft PR/post-PR 및 최종 transport gate는 아직 진행 예정.
+
+### Draft PR 및 post-PR 검증 (2026-09-19 22:20–22:21 KST)
+- 내용 커밋 `1589c3bdc0de1a8d7b4579d23b835e2c62b4eefe` / `docs: draft image-first paper and evaluation protocol` push 성공.
+- [Draft PR #18](https://github.com/kimcheolhui9846/token-context-optimizer/pull/18), base `main`, head `codex/task-19-image-paper-first`, OPEN / Draft 확인. PR 번호와 Task 번호는 별개다. Merge 미수행.
+- PR 생성 후 targeted `npm.cmd test -- --run tests/research-dataset.test.ts`: 39/39 PASS (22:20).
+- PR 생성 후 `npm.cmd test`: 570/570 PASS / 11 files (22:20).
+- PR 생성 후 `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, `npm.cmd run benchmark`: 모두 PASS.
+- 기존 benchmark 3 scenarios x 20 samples, p95 exact 1.92ms / semantic 2.27ms / code 1.23ms. 기존 text fixture 회귀 증거이며 image/hosted 결과 아님.
+- 문서 8개 UTF-8/fence/local link 34개 및 staged `git diff --cached --check` PASS. runtime/tests/dependencies 변경 없음. pre-commit 우회 옵션 사용하지 않았으며 설정된 hooksPath/활성 hook 파일 없음.
+- 이미지/실제 API 실험, 신규 이미지 TDD: NOT RUN — 기능 구현 전 연구 문서 Task 범위 밖. 별도 lint/format script는 package.json에 없음.
+- 남은 작업: 이 검증 기록을 같은 PR에 push, 최종 Astra가 실제 diff/PR/latest commit/검증/위험 확인, 사용자 승인 대기.

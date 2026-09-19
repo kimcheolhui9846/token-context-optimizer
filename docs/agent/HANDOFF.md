@@ -8,6 +8,10 @@ See [root HANDOFF](../../HANDOFF.md) for current review, validation, Git/PR stat
 and [paper draft](../research/image-first-paper-draft.ko.md) for the research entry.
 This is documentation only: the runtime remains text-only, image results are
 unmeasured, and video development waits for image validation and user approval.
+The document package is delivered through [Draft PR #18](https://github.com/kimcheolhui9846/token-context-optimizer/pull/18)
+against `main`. Post-Draft checks on 2026-09-19 passed 39 targeted and 570 total
+tests, build, typecheck, MCP smoke, plugin validation, and existing text benchmark.
+These checks establish regression coverage, not empirical image performance.
 The Task 18 dirty checkout is preserved separately; its uncompleted implementation
 is neither included nor claimed complete here. No merge is authorized.
 
