@@ -5,8 +5,8 @@
 Task 20 (2026-09-20) follows the user's approval of Task 19 and implements partial
 M1a restricted PNG ingestion and inspection. See the [input contract](../image-artifacts.md)
 and [root HANDOFF](../../HANDOFF.md) for active implementation and validation state.
-The branch is `codex/task-20-png-ingest`, based on Task 19 `990aa9f`, with a stacked
-Draft PR planned against `codex/task-19-image-paper-first`. The original dirty
+The branch is `codex/task-20-png-ingest`, based on Task 19 `990aa9f`, with stacked
+Draft PR #19 against `codex/task-19-image-paper-first`. The original dirty
 Task 18 checkout remains separate and untouched. Image transformation, OCR,
 selection/guard, model evaluation and video remain planned. No merge is authorized.
 The implementation and scoped Astra review are complete (SPEC PASS / QUALITY
@@ -17,7 +17,11 @@ typecheck, installed MCP smoke, plugin validation and the existing text benchmar
 is OPEN against the Task 19 branch. The same local gate passed again after the
 PR opened at 23:48–23:49 KST: 200 targeted / 588 total passing, one Windows FIFO
 skip, plus build/typecheck/smoke/plugin/benchmark. No hosted CI checks are reported.
-Final Astra transport review is tracked in root HANDOFF; neither PR is merged.
+Final Astra review returned **PASS WITH NOTES** after checking the actual diff,
+PR/latest commit and clean worktree. Only final review bookkeeping follows that
+verdict. Task 20 awaits user approval before the next Task; neither PR is merged.
+The initial behavioral RED deviation, Windows FIFO skip, external DEGRADED review
+and runtime resource limits remain disclosed in root HANDOFF.
 
 ## Task 19 Delivery Checkpoint
 
