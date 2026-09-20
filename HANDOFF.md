@@ -59,6 +59,15 @@
 - 자체 리뷰: text API·four-file 배포 계약 보존; source 무변경과 범위/오류/설치 근거 확보. 한계는 synchronous decoder/여러 최대 약64MiB 버퍼/metadata entry cap 없음/OS race-proof sandbox 아님. 초기 RED 절차 차이와 일부 조밀한 parser 서식은 공개된 note; 미해결 blocker/major 없음.
 - 변경 파일: 이미지 core/types/server, 독립 image/race/package 테스트 3개, dependency/lockfile, bundle build 및 MCP smoke와 재생성 bundle, README/skill/design/이미지 계약/논문·protocol/계획/양쪽 handoff. 기존 파일 삭제/기존 연구 코드 수정 없음.
 
+### Draft PR 및 post-Draft 검증 (2026-09-20 23:48–23:49 KST)
+- 구현 커밋 `b9b1f10e40bf29d6af02863bb9185400db9ef578` / `feat: add validated PNG image artifacts`, upstream push 성공.
+- [Draft PR #19](https://github.com/kimcheolhui9846/token-context-optimizer/pull/19): OPEN / Draft, base `codex/task-19-image-paper-first`, head `codex/task-20-png-ingest`, 해당 SHA 일치 확인. PR #18 및 #19 merge 미수행.
+- PR 생성 후 targeted200 PASS/1 Windows FIFO skip, 전체588 PASS/1 skip/14 files. build/typecheck/installed MCP smoke/plugin validation/benchmark 모두 다시 PASS.
+- text benchmark 3×20, p95 1.52/1.48/1.06ms; 이미지 모델 결과 아님. 문서9개/로컬링크31개 PASS. 재빌드 bundle의 커밋 대비 내용 diff 없음.
+- `gh pr checks 19`: no checks reported. Hosted CI 성공을 주장하지 않으며 로컬 gate가 관찰된 증거다. 별도 lint/format script 없음; typecheck·diff 검사 실행.
+- pre-commit 우회 없음. hooksPath 및 활성 non-sample hook 없음. 원래 Task18은 `26e22e4` / HANDOFF dirty 및 paired-success 소스·테스트 untracked 그대로 보존 확인.
+- broad pre-transport Astra review PASS WITH NOTES; 이 post-Draft 기록을 push한 다음 최신 PR/SHA/작업 트리/최종 요구사항을 별도 확인한다.
+
 ---
 
 ## Task 19 archive

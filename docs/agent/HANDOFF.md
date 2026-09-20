@@ -13,7 +13,11 @@ The implementation and scoped Astra review are complete (SPEC PASS / QUALITY
 PASS WITH NOTES). Fresh pre-PR verification on 2026-09-20 passed 200 targeted
 and 588 total tests, with one POSIX FIFO case skipped on Windows, plus build,
 typecheck, installed MCP smoke, plugin validation and the existing text benchmark.
-Git/PR transport and final post-Draft review are tracked in root HANDOFF.
+[Draft PR #19](https://github.com/kimcheolhui9846/token-context-optimizer/pull/19)
+is OPEN against the Task 19 branch. The same local gate passed again after the
+PR opened at 23:48–23:49 KST: 200 targeted / 588 total passing, one Windows FIFO
+skip, plus build/typecheck/smoke/plugin/benchmark. No hosted CI checks are reported.
+Final Astra transport review is tracked in root HANDOFF; neither PR is merged.
 
 ## Task 19 Delivery Checkpoint
 
