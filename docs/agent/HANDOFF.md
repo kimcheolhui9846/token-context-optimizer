@@ -2,6 +2,29 @@
 
 ## Current Objective
 
+Task 20 (2026-09-20) follows the user's approval of Task 19 and implements partial
+M1a restricted PNG ingestion and inspection. See the [input contract](../image-artifacts.md)
+and [root HANDOFF](../../HANDOFF.md) for active implementation and validation state.
+The branch is `codex/task-20-png-ingest`, based on Task 19 `990aa9f`, with stacked
+Draft PR #19 against `codex/task-19-image-paper-first`. The original dirty
+Task 18 checkout remains separate and untouched. Image transformation, OCR,
+selection/guard, model evaluation and video remain planned. No merge is authorized.
+The implementation and scoped Astra review are complete (SPEC PASS / QUALITY
+PASS WITH NOTES). Fresh pre-PR verification on 2026-09-20 passed 200 targeted
+and 588 total tests, with one POSIX FIFO case skipped on Windows, plus build,
+typecheck, installed MCP smoke, plugin validation and the existing text benchmark.
+[Draft PR #19](https://github.com/kimcheolhui9846/token-context-optimizer/pull/19)
+is OPEN against the Task 19 branch. The same local gate passed again after the
+PR opened at 23:48–23:49 KST: 200 targeted / 588 total passing, one Windows FIFO
+skip, plus build/typecheck/smoke/plugin/benchmark. No hosted CI checks are reported.
+Final Astra review returned **PASS WITH NOTES** after checking the actual diff,
+PR/latest commit and clean worktree. Only final review bookkeeping follows that
+verdict. Task 20 awaits user approval before the next Task; neither PR is merged.
+The initial behavioral RED deviation, Windows FIFO skip, external DEGRADED review
+and runtime resource limits remain disclosed in root HANDOFF.
+
+## Task 19 Delivery Checkpoint
+
 Task 19 (2026-09-19) prioritizes an image-first Korean paper draft, a primary-source
 register, and an image evaluation protocol linked to minimum plugin capabilities.
 See [root HANDOFF](../../HANDOFF.md) for current review, validation, Git/PR state,
@@ -13,8 +36,8 @@ against `main`. Post-Draft checks on 2026-09-19 passed 39 targeted and 570 total
 tests, build, typecheck, MCP smoke, plugin validation, and existing text benchmark.
 These checks establish regression coverage, not empirical image performance.
 Final native Astra review returned PASS WITH NOTES; external cross-check remains
-DEGRADED and source verification is abstract-level. Task 19 awaits user approval
-before the next implementation Task. The final evidence record is in root HANDOFF.
+DEGRADED and source verification is abstract-level. The user approved the next
+implementation Task after this delivery. The final evidence record is in root HANDOFF.
 The Task 18 dirty checkout is preserved separately; its uncompleted implementation
 is neither included nor claimed complete here. No merge is authorized.
 

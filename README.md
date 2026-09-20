@@ -5,8 +5,10 @@ Codex plugin and local STDIO MCP server for safer token-efficient context handli
 The MVP indexes local UTF-8 text artifacts, records SHA-256 and line source maps, returns bounded source-backed excerpts, and blocks lossy summaries for exact-sensitive content.
 
 The current research direction is **image context optimization first**, with paper
-writing taking priority over feature development. Image processing is planned; the
-text MVP above is the implemented capability. Video extension follows image
+writing taking priority over feature development. Alongside the text MVP,
+[restricted PNG ingest and inspection](docs/image-artifacts.md) provides the first
+input-validation slice (M1a). Image transformation, OCR, selection, guard and model
+evaluation remain planned. Video extension follows image
 implementation, evaluation, and explicit user approval.
 
 ## Development
@@ -28,7 +30,7 @@ npm.cmd run benchmark
 
 Build before packaging the plugin because `.mcp.json` points to the checked-in bundle at `bin/token-context-optimizer.mjs`.
 
-Set `TCO_ALLOWED_ROOTS` to one or more workspace roots separated by `;` before using `index_artifact`. The server intentionally separates the plugin install directory from the files Codex is allowed to index.
+Set `TCO_ALLOWED_ROOTS` to one or more workspace roots separated by `;` before using `index_artifact` or the image tools. The server intentionally separates the plugin install directory from the files Codex is allowed to index.
 
 ## Local Install
 

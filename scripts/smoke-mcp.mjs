@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
@@ -15,6 +16,7 @@ const simulateChildSignalExit = args.includes("--simulate-child-signal-exit");
 
 let pluginRoot = null;
 let workspaceRoot = null;
+let outsideRoot = null;
 let child = null;
 let childStdin = null;
 let buffer = "";
@@ -35,11 +37,22 @@ try {
   }
 
   const workspaceFile = join(workspaceRoot, "artifact.txt");
+  const imageFile = join(workspaceRoot, "image.png");
+  const malformedImageFile = join(workspaceRoot, "malformed.png");
+  outsideRoot = await mkdtemp(join(tmpdir(), "tco-outside-"));
+  const outsideImageFile = join(outsideRoot, "outside.png");
   await writeFile(
     workspaceFile,
     "Alpha context explains the planning outcome clearly.\nBeta context explains the review outcome clearly.",
     "utf8",
   );
+  const imageBytes = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgZGJmAQAAGQAL51pGpAAAAABJRU5ErkJggg==",
+    "base64",
+  );
+  await writeFile(imageFile, imageBytes);
+  await writeFile(malformedImageFile, Buffer.from("bad-png"));
+  await writeFile(outsideImageFile, imageBytes);
 
   child = spawn(process.execPath, ["./bin/token-context-optimizer.mjs"], {
     cwd: pluginRoot,
@@ -93,11 +106,14 @@ try {
     "index_artifact",
     "query_artifact",
     "summarize_artifact",
+    "index_image_artifact",
+    "inspect_image_artifact",
   ]) {
     if (!toolNames.includes(expected)) {
       throw new Error(`Missing MCP tool: ${expected}`);
     }
   }
+  assertImageToolSchemas(tools.result.tools);
 
   send({
     jsonrpc: "2.0",
@@ -115,16 +131,159 @@ try {
     throw new Error(`Installed-layout index check failed: ${JSON.stringify(payload)}`);
   }
 
+  send({
+    jsonrpc: "2.0",
+    id: 4,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: imageFile } },
+  });
+  const indexedImage = await waitFor((message) => message.id === 4 && message.result);
+  const imagePayload = JSON.parse(indexedImage.result.content[0].text);
+  const imageHash = createHash("sha256").update(imageBytes).digest("hex");
+  assertImageRecord(imagePayload, { path: imageFile, sha256: imageHash });
+  assertStructuredMatchesText(indexedImage.result, imagePayload);
+  if (imagePayload.width !== 1 || imagePayload.height !== 1 || imagePayload.channels !== 4) {
+    throw new Error(`Installed-layout image index check failed: ${JSON.stringify(imagePayload)}`);
+  }
+  send({
+    jsonrpc: "2.0",
+    id: 5,
+    method: "tools/call",
+    params: { name: "inspect_image_artifact", arguments: { artifactId: imagePayload.artifactId } },
+  });
+  const inspectedImage = await waitFor((message) => message.id === 5 && message.result);
+  const inspectPayload = JSON.parse(inspectedImage.result.content[0].text);
+  assertImageRecord(inspectPayload, { path: imageFile, sha256: imageHash });
+  assertStructuredMatchesText(inspectedImage.result, inspectPayload);
+  if (inspectPayload.sha256 !== imagePayload.sha256 || createHash("sha256").update(await readFile(imageFile)).digest("hex") !== imageHash) {
+    throw new Error(`Installed-layout image inspect check failed: ${JSON.stringify(inspectPayload)}`);
+  }
+
+  send({
+    jsonrpc: "2.0",
+    id: 6,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: outsideImageFile } },
+  });
+  await expectToolError(6, "path_denied", [outsideImageFile, outsideRoot]);
+
+  send({
+    jsonrpc: "2.0",
+    id: 7,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: malformedImageFile } },
+  });
+  await expectToolError(7, "malformed_png", [malformedImageFile, workspaceRoot]);
+
+  send({
+    jsonrpc: "2.0",
+    id: 8,
+    method: "tools/call",
+    params: { name: "inspect_image_artifact", arguments: { artifactId: "image_unknown" } },
+  });
+  await expectToolError(8, "unknown_artifact_id", [workspaceRoot]);
+
+  await writeFile(imageFile, Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNg+M8AAwMBAYF6K94AAAAASUVORK5CYII=", "base64"));
+  send({
+    jsonrpc: "2.0",
+    id: 9,
+    method: "tools/call",
+    params: { name: "inspect_image_artifact", arguments: { artifactId: imagePayload.artifactId } },
+  });
+  await expectToolError(9, "source_changed", [imageFile, workspaceRoot]);
+
   console.log("mcp smoke ok");
 } finally {
   try {
     await stopChild();
   } finally {
     await Promise.all(
-      [workspaceRoot, pluginRoot]
+      [workspaceRoot, pluginRoot, outsideRoot]
         .filter((root) => root !== null)
         .map((root) => rm(root, { recursive: true, force: true })),
     );
+  }
+}
+
+function assertImageToolSchemas(tools) {
+  for (const name of ["index_image_artifact", "inspect_image_artifact"]) {
+    const tool = tools.find((candidate) => candidate.name === name);
+    if (!tool?.inputSchema || !tool?.outputSchema) {
+      throw new Error(`Missing schemas for MCP tool: ${name}`);
+    }
+    const inputField = name === "index_image_artifact" ? "path" : "artifactId";
+    if (!tool.inputSchema.properties?.[inputField]) {
+      throw new Error(`Image input schema missing field for ${name}: ${inputField}`);
+    }
+    if (!tool.inputSchema.required?.includes(inputField)) {
+      throw new Error(`Image input schema missing required field for ${name}: ${inputField}`);
+    }
+    assertImageOutputSchema(tool.outputSchema, name);
+  }
+}
+
+function assertImageOutputSchema(output, name) {
+  for (const field of ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile"]) {
+    if (!output.properties?.[field]) {
+      throw new Error(`Image output schema missing field for ${name}: ${field}`);
+    }
+    if (!output.required?.includes(field)) {
+      throw new Error(`Image output schema missing required field for ${name}: ${field}`);
+    }
+  }
+}
+
+function assertImageRecord(record, expected) {
+  const expectedFields = ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile"];
+  for (const field of expectedFields) {
+    if (!(field in record)) {
+      throw new Error(`Image record missing field: ${field}`);
+    }
+  }
+  if (
+    !record.artifactId.startsWith("image_") ||
+    record.path !== expected.path ||
+    record.sha256 !== expected.sha256 ||
+    record.byteLength <= 0 ||
+    record.format !== "png" ||
+    record.mimeType !== "image/png" ||
+    record.bitDepth !== 8 ||
+    record.validationProfile !== "png-rgb8-static-v1"
+  ) {
+    throw new Error(`Unexpected image record: ${JSON.stringify(record)}`);
+  }
+}
+
+function assertStructuredMatchesText(result, payload) {
+  if (JSON.stringify(result.structuredContent) !== JSON.stringify(payload)) {
+    throw new Error(`Structured content mismatch: ${JSON.stringify(result)}`);
+  }
+}
+
+async function expectToolError(id, code, forbiddenSubstrings) {
+  const response = await waitFor((message) => message.id === id && (message.error || message.result));
+  if (response.error) {
+    throw new Error(`Expected MCP tool result error for ${code}, got JSON-RPC error: ${JSON.stringify(response.error)}`);
+  }
+  const result = response.result;
+  if (result?.isError !== true) {
+    throw new Error(`Expected result.isError true for ${code}, got ${JSON.stringify(response)}`);
+  }
+  if (result.structuredContent !== undefined) {
+    throw new Error(`Error response unexpectedly included structured content for ${code}: ${JSON.stringify(result.structuredContent)}`);
+  }
+  const content = result.content;
+  if (!Array.isArray(content) || content.length !== 1 || content[0]?.type !== "text" || content[0].text !== code) {
+    throw new Error(`Expected exact sanitized error content ${code}, got ${JSON.stringify(content)}`);
+  }
+  if (/artifactId|sha256|byteLength|validationProfile/u.test(content[0].text)) {
+    throw new Error(`Error response included artifact payload fields for ${code}: ${content[0].text}`);
+  }
+  const text = JSON.stringify(response);
+  for (const forbidden of forbiddenSubstrings) {
+    if (forbidden && text.includes(forbidden)) {
+      throw new Error(`Error response leaked path detail for ${code}: ${text}`);
+    }
   }
 }
 
