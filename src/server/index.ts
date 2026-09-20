@@ -12,6 +12,11 @@ import {
 } from "../core/artifacts.js";
 import { classifyContext } from "../core/policy.js";
 import { estimateContext } from "../core/token-estimator.js";
+import {
+  defaultImageArtifactStore,
+  indexImageArtifact,
+  inspectImageArtifact,
+} from "../core/image-artifacts.js";
 
 export function createServer(): McpServer {
   const server = new McpServer(
@@ -153,6 +158,39 @@ export function createServer(): McpServer {
         content: [{ type: "text", text: JSON.stringify(output) }],
         structuredContent: output,
       };
+    },
+  );
+
+  const imageOutputSchema = z.object({
+    artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
+    format: z.literal("png"), mimeType: z.literal("image/png"), width: z.number().int(),
+    height: z.number().int(), channels: z.union([z.literal(3), z.literal(4)]), bitDepth: z.literal(8),
+    validationProfile: z.literal("png-rgb8-static-v1"),
+  });
+
+  server.registerTool(
+    "index_image_artifact",
+    {
+      description: "Validate and index a restricted static RGB/RGBA PNG without retaining pixels.",
+      inputSchema: z.object({ path: z.string().min(1) }),
+      outputSchema: imageOutputSchema,
+    },
+    async ({ path }) => {
+      const output = await indexImageArtifact({ path, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+      return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
+    },
+  );
+
+  server.registerTool(
+    "inspect_image_artifact",
+    {
+      description: "Reauthorize and revalidate an indexed PNG source by its stable image identity.",
+      inputSchema: z.object({ artifactId: z.string().min(1) }),
+      outputSchema: imageOutputSchema,
+    },
+    async ({ artifactId }) => {
+      const output = await inspectImageArtifact({ artifactId, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+      return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
     },
   );
 

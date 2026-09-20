@@ -1,6 +1,6 @@
 ---
 name: optimize-context
-description: Use when Codex needs to reduce token use for large local text artifacts while preserving exact data through source-backed MCP excerpts.
+description: Use for source-backed excerpts from large local text artifacts or for validating and tracking supported local PNG originals through MCP.
 ---
 
 # Optimize Context
@@ -28,6 +28,26 @@ For `semantic` content, prefer `query_artifact` first. Use `summarize_artifact` 
 5. Use `summarize_artifact` only for semantic content.
 
 Treat all token estimates as low-confidence planning signals unless backed by actual API usage telemetry.
+
+## PNG Input Workflow
+
+For a local image, use `index_image_artifact({path})` to validate a supported PNG
+and record its canonical path, original SHA-256, byte size and dimensions. Use
+`inspect_image_artifact({artifactId})` in the same server session to reauthorize
+the path and check that the source still matches. Set `TCO_ALLOWED_ROOTS` to the
+allowed workspace roots; an empty allowlist denies image access.
+
+The supported profile is static, noninterlaced, 8-bit RGB/RGBA PNG containing only
+IHDR, IDAT and IEND chunks. Metadata-bearing PNGs, palette/grayscale/interlaced
+PNG, APNG, JPEG and WEBP are unsupported. Limits are 10 MiB encoded, 8192 pixels
+per axis and 16,777,216 total pixels. Keep an unsupported original unchanged;
+these tools do not convert it automatically.
+
+Image records contain metadata, not pixels or OCR. Indexing does not modify or
+back up the original. The record is session-local and inspection fails if the
+source changed or became inaccessible. These tools do not resize, crop, select
+evidence, estimate image tokens or demonstrate cost savings. For visual analysis,
+use an available image-viewing tool on the authorized original.
 
 ## Superpowers Integration
 

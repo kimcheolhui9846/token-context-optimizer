@@ -176,9 +176,9 @@ paper와 implementation은 evidence specification이 안정된 범위에서 병�
 paper의 명시된 측정 경계를 우선하고 결과 문장을 측정 후에만 갱신한다. video는 image pilot과 사용자 승인
 뒤로 미룬다.
 
-| Paper milestone | 최소 plugin 예정 capability | 테스트·증거 | 우선순위/gate |
+| Paper milestone | 최소 plugin capability / 상태 | 테스트·증거 | 우선순위/gate |
 |---|---|---|---|
-| M1 입력 정의 | image ingest, 허용 경로, 원본 hash | path traversal, overwrite, hash 회귀 테스트 | P0, 보안 gate |
+| M1 입력 정의 | M1a 제한 PNG ingest/inspect, 허용 경로, 원본 hash 구현; 그 외 프로필 예정 | path traversal, 원본 무변경, hash, 제한·오류 회귀 테스트 | P0, 보안 gate |
 | M2 변환 provenance | resize/crop/format manifest | dimensions, crop, preset, source/output hash 검사 | P0, 재현성 gate |
 | M3 증거 보존 | guard와 original fallback | calibration fixture의 small-text/crop 경계 회귀 | P0, 안전성 탐색 gate |
 | M4 선택 adapter | question+pixels/OCR 입력과 selector version | gold/answer가 selector에 흐르지 않음, tie break 고정 | P1, leakage gate |
@@ -187,5 +187,7 @@ paper의 명시된 측정 경계를 우선하고 결과 문장을 측정 후에�
 | M7 외부 타당도 | 라이선스 확인 후 public dataset adapter | licence/access/hash, family split 감사 | P2, 데이터 gate |
 | M8 video 후속 | 프레임/시간 provenance | image evidence 이후 별도 설계 | 보류, image 검증+사용자 승인 |
 
-현재 M1–M8은 계획이며 이 저장소에는 이미지 capability와 hosted evidence가 구현·실행되지 않았다. 기존
-텍스트 테스트는 M1–M8의 통과 증거가 아니다.
+현재 M1a만 [제한 PNG 입력 계약](../image-artifacts.md)으로 구현한다. 메타데이터 청크가 없는 8비트
+RGB/RGBA 정적 PNG의 검증·원본 hash·치수 추적이며 M1 전체 완료가 아니다. JPEG 입력 조건과 JPEG
+재인코딩 후보를 포함한 이 평가 전체를 실행할 수는 없다. M1의 나머지 프로필과 M2–M8은 계획이고
+hosted evidence는 없다. 입력 검증 테스트를 시각적 증거 보존이나 모델 성능의 검증으로 해석하지 않는다.
