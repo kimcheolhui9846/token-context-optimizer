@@ -15,7 +15,7 @@
 - [x] codec 공식 소스와 최소 독립 재현으로 strict 한계 확인. 최대 자원/신규 배포 호환성은 후속 구현 gate로 구분.
 - [x] 구체적 프로필/오류/형식별 record/MCP/회귀 기준 설계 및 초기 외부 교차검토 시도(DEGRADED).
 - [x] 검토 결과·모델·실행 명령·미검증 항목 기록, milestone 검토 및 프로젝트 gate.
-- [ ] Task별 commit/push/Draft PR/post-Draft gate/최종 Astra 리뷰; 다음 Task는 사용자 승인 후.
+- [x] Task별 commit/push/Draft PR/post-Draft gate/최종 Astra 리뷰; 다음 Task는 사용자 승인 후.
 
 ### 3–4. 결정 / 위험
 - 기존 두 image MCP 도구와 PNG record를 유지하고 JPEG만 구분된 프로필로 확장하는 방안 우선.
@@ -46,6 +46,8 @@
 - UTF-8 문서4개/로컬 링크15개 PASS; 첫 node inline 검사는 PowerShell quoting으로 SyntaxError여서 성공 처리하지 않고 PowerShell 검사를 다시 실행함. `git diff --check` PASS. build 후 bundle Git blob hash는 HEAD와 동일 `1b139e039463622d361aad3706ebcf0de0328fe6`; 내용 변경 없음.
 - 자체 리뷰: strict false-accept 관찰과 제안 계약을 구분하며 기존 runtime·원본·의존성 보존. 취약한 입력 검사/자원 상한은 아직 구현되지 않았으므로 안전성 완료 주장을 하지 않음. 정확한 probe 재현물은 로컬 scratch에만 있다는 전달 한계를 명시함.
 - 남은 사용자 결정: 설계 문서의 제한 4:4:4/JFIF 프로필과 독립 entropy 검증기 방식 승인. 이후 구현 계획/TDD로 진행하며 이번 문서 전달에서 JPEG runtime을 구현했다고 보고하지 않음.
+- 최종 Astra 리뷰 **PASS WITH NOTES**: `61205b1fdd779c34c67e0cc7863b008087a2b2f5`의 실제 4문서 diff(158 additions), HEAD/upstream 일치, clean worktree, PR20 OPEN/Draft/base/latest SHA와 문서·요구사항을 직접 확인. blocker/major 없음. 테스트는 주 에이전트가 실행했고 reviewer는 기록을 대조했으며 재실행했다고 주장하지 않음. 이 판정/체크리스트 기록만 후속 행정 커밋으로 추가함.
+- 최종 상태: Task21 설계·조사 전달 완료, 사용자 설계 승인 대기. PR 설명에 post-Draft 완료 반영. 영상과 JPEG runtime 구현은 미수행. 원래 Task18 dirty HANDOFF/paired-success 두 untracked 파일 보존을 직접 재확인.
 
 ---
 
