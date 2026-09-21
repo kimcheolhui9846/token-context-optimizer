@@ -2,6 +2,25 @@
 
 ## Current Objective
 
+Task 20 was approved by the user. Active Task 21 is the restricted JPEG
+design and codec feasibility delivery on `codex/task-21-jpeg-ingest`, based on
+Task 20 `856a417`. See the [proposed design](../superpowers/specs/2026-09-21-jpeg-ingest-design.md),
+[probe evidence](../research/jpeg-codec-feasibility.md), and [root HANDOFF](../../HANDOFF.md).
+JPEG runtime support is not implemented. The proposed independent entropy
+validator requires design approval before implementation. Existing PNG support,
+paper-first priority and subsequent video work remain unchanged. No merge is authorized.
+Draft [PR #20](https://github.com/kimcheolhui9846/token-context-optimizer/pull/20)
+is OPEN against the Task20 branch. Post-Draft image tests passed 18 with one
+Windows FIFO skip; the full suite passed 588 with one skip, plus build,
+typecheck, installed MCP smoke, plugin validation and text benchmark.
+External review is DEGRADED; native Astra design milestone passed with notes.
+Final Astra review of `61205b1` returned PASS WITH NOTES after directly checking
+the diff, clean tree, upstream and Draft PR/latest SHA. Only review bookkeeping
+follows that verdict. Task21 is complete as a design delivery and awaits user
+approval of the restricted profile and independent entropy-validator approach.
+
+## Task 20 archive
+
 Task 20 (2026-09-20) follows the user's approval of Task 19 and implements partial
 M1a restricted PNG ingestion and inspection. See the [input contract](../image-artifacts.md)
 and [root HANDOFF](../../HANDOFF.md) for active implementation and validation state.
