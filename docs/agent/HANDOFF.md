@@ -2,6 +2,16 @@
 
 ## Current Objective
 
+Task 20 was approved by the user. Active Task 21 is the restricted JPEG
+design and codec feasibility delivery on `codex/task-21-jpeg-ingest`, based on
+Task 20 `856a417`. See the [proposed design](../superpowers/specs/2026-09-21-jpeg-ingest-design.md),
+[probe evidence](../research/jpeg-codec-feasibility.md), and [root HANDOFF](../../HANDOFF.md).
+JPEG runtime support is not implemented. The proposed independent entropy
+validator requires design approval before implementation. Existing PNG support,
+paper-first priority and subsequent video work remain unchanged. No merge is authorized.
+
+## Task 20 archive
+
 Task 20 (2026-09-20) follows the user's approval of Task 19 and implements partial
 M1a restricted PNG ingestion and inspection. See the [input contract](../image-artifacts.md)
 and [root HANDOFF](../../HANDOFF.md) for active implementation and validation state.
