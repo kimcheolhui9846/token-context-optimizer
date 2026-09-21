@@ -14,7 +14,7 @@
 - [x] Astra 실제 요구 분석: JPEG 입력 우선 권고; PNG 변환은 쓰기/보간/provenance 계약 추가, manifest만으로는 입력 갭 해결 불가.
 - [x] codec 공식 소스와 최소 독립 재현으로 strict 한계 확인. 최대 자원/신규 배포 호환성은 후속 구현 gate로 구분.
 - [x] 구체적 프로필/오류/형식별 record/MCP/회귀 기준 설계 및 초기 외부 교차검토 시도(DEGRADED).
-- [ ] 검토 결과·모델·실행 명령·미검증 항목 기록, milestone 검토 및 프로젝트 gate.
+- [x] 검토 결과·모델·실행 명령·미검증 항목 기록, milestone 검토 및 프로젝트 gate.
 - [ ] Task별 commit/push/Draft PR/post-Draft gate/최종 Astra 리뷰; 다음 Task는 사용자 승인 후.
 
 ### 3–4. 결정 / 위험
@@ -37,6 +37,15 @@
 - 진행 중: 설계 검증 완료 후 Git/PR 전달 및 최종 검토. 사용자는 다음 Task 진행을 승인했으며 PR merge는 승인하지 않음.
 - runtime 변경 전 남은 계약을 실제 근거로 정리한다. 조사로 요구되는 추가 설계/범위 선택은 구체적 산출물을 준비한 뒤 제시한다.
 - 과거 Task20 기록은 아래 보존하고 현재 상태는 위 섹션을 기준으로 한다.
+
+### Draft PR / post-Draft 검증
+- commit `f8be67c643a5e09e9c489e6c2cadec075befdb82` push 성공. [Draft PR #20](https://github.com/kimcheolhui9846/token-context-optimizer/pull/20), OPEN/Draft, base `codex/task-20-png-ingest`; PR18/19/20 merge 미수행.
+- 2026-09-21 10:22 KST PR 생성 후 `npm.cmd test -- --run tests/image-artifacts.test.ts tests/image-source-race.test.ts tests/image-packaging.test.ts`: 18 PASS/1 Windows FIFO skip. `npm.cmd test`: 588 PASS/1 skip/14 files.
+- 같은 post-Draft 실행에서 `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, `npm.cmd run benchmark` 모두 PASS. text benchmark 3×20, p95 1.42/1.61/1.03ms. 이미지 모델/효과/최대 JPEG 자원 검증 NOT RUN(설계 범위 밖).
+- milestone 외부 교차검토 재시도도 Claude 조직 접근 오류(models=[]), Gemini free API 접근 미확립, Copilot CLI unavailable로 DEGRADED. Astra 독립 설계 검토와 실제 회귀 검증으로 문서 산출물 위험을 확인했으나 외부 검토 공백은 남음.
+- UTF-8 문서4개/로컬 링크15개 PASS; 첫 node inline 검사는 PowerShell quoting으로 SyntaxError여서 성공 처리하지 않고 PowerShell 검사를 다시 실행함. `git diff --check` PASS. build 후 bundle Git blob hash는 HEAD와 동일 `1b139e039463622d361aad3706ebcf0de0328fe6`; 내용 변경 없음.
+- 자체 리뷰: strict false-accept 관찰과 제안 계약을 구분하며 기존 runtime·원본·의존성 보존. 취약한 입력 검사/자원 상한은 아직 구현되지 않았으므로 안전성 완료 주장을 하지 않음. 정확한 probe 재현물은 로컬 scratch에만 있다는 전달 한계를 명시함.
+- 남은 사용자 결정: 설계 문서의 제한 4:4:4/JFIF 프로필과 독립 entropy 검증기 방식 승인. 이후 구현 계획/TDD로 진행하며 이번 문서 전달에서 JPEG runtime을 구현했다고 보고하지 않음.
 
 ---
 

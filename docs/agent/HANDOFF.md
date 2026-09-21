@@ -9,6 +9,11 @@ Task 20 `856a417`. See the [proposed design](../superpowers/specs/2026-09-21-jpe
 JPEG runtime support is not implemented. The proposed independent entropy
 validator requires design approval before implementation. Existing PNG support,
 paper-first priority and subsequent video work remain unchanged. No merge is authorized.
+Draft [PR #20](https://github.com/kimcheolhui9846/token-context-optimizer/pull/20)
+is OPEN against the Task20 branch. Post-Draft image tests passed 18 with one
+Windows FIFO skip; the full suite passed 588 with one skip, plus build,
+typecheck, installed MCP smoke, plugin validation and text benchmark.
+External review is DEGRADED; native Astra design milestone passed with notes.
 
 ## Task 20 archive
 
