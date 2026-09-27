@@ -1,6 +1,6 @@
 # Task 22 JPEG validation evidence
 
-Status: implementation and precommit review complete; Draft PR and post-PR verification pending (2026-09-27).
+Status: implementation and precommit review complete; Draft PR open and post-PR verification passed; final Git/PR review pending (2026-09-27).
 This records input-validation work, not model evaluation or compression effectiveness.
 
 ## Source checks
@@ -81,5 +81,5 @@ Final project checks and final Astra approval remain parent-owned.
 
 ## Precommit review and verification (2026-09-27)
 - Native Astra reproduced an exact-JFIF bypass caused by ASCII high-bit masking. Exact byte equality and five per-byte high-bit regressions plus a wrong-letter case resolve it. Scoped SPEC/QUALITY rereview: PASS WITH NOTES, no unresolved blocker/major.
-- Parent gate before fix: full647PASS/1WindowsFIFOskip/19files; build/typecheck/plugin/Node22smoke/textbenchmarkPASS. Afterfix: targeted83PASS/1skip andactualNode22smokePASS. Post-Draft fullgate remains pending.
+- Parent gate before fix: full647PASS/1WindowsFIFOskip/19files; build/typecheck/plugin/Node22smoke/textbenchmarkPASS. Afterfix: targeted83PASS/1skip andactualNode22smokePASS. Post-Draft fullgate:653PASS/1skip/19files; targeted83PASS/1skip; build/typecheck/actualNode22smoke/plugin/textbenchmarkPASS (2026-09-27).
 - Parent repeated productionmeasurement: accounting134207044/134845066 forflatRGB128 square2528/2529; accepted/resource_rejected;670.60/2.38ms under concurrenttestload; maxRSS272884/49544KiB. These are host observations, not portable worst-case bounds.

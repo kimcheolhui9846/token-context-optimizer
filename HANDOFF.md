@@ -9,13 +9,14 @@ This section is current; checkpoint records below are historical.
 - 범위: 독립 구조/Huffman/entropy 검증, 원본·경로·hash·store 계약, 메모리 예산, MCP/배포/fixture/기술 문서.
 - 제외: 이미지 변환·OCR·모델 평가·영상·native runtime 의존성·PR merge.
 - branch codex/task-22-jpeg-runtime; base Task21 7ee618d67e89b26fcc8107170e1722d37711b1aa. 원래 Task18 dirty worktree 보존.
-- 현재 상태: JFIF 결함 수정 후 Astra SPEC/QUALITY PASS WITH NOTES. commit/push/Draft PR 및 post-Draft gate 진행 중.
+- 현재 상태: JFIF 결함 수정 후 Astra SPEC/QUALITY PASS WITH NOTES. commit d9dc91b push 및 Draft PR21 OPEN 완료. post-Draft gate PASS, 최종 Astra Git/PR 검토 대기.
 
 ### 2. 작업 계획
 - [x] 승인 설계/격리/초기 HANDOFF/계획 및 provider checkpoint.
 - [x] 제한 JPEG 구현, 독립 fixture, entropy·resource·MCP·license 검증.
 - [x] 실제 Node22 실행, 생산 의존성 감사, pre-PR project gate.
-- [ ] JFIF major 수정 재검토, commit/push/Draft PR, post-Draft gate, 최종 Astra 검토.
+- [x] JFIF major 수정 재검토, commit/push/Draft PR, post-Draft gate.
+- [ ] 최종 Astra Git/PR 검토 및 완료 보고.
 
 ### 3. 변경 사항
 - jpeg-validation.ts, image record/dispatcher/MCP schema, jpeg-js0.4.4 pin/lock, generated bundle.
@@ -33,7 +34,7 @@ This section is current; checkpoint records below are historical.
 - npm.cmd run build / typecheck / validate:plugin PASS. 실제 Node22.23.2 scripts/smoke-mcp.mjs PASS. benchmark passed=true (기존 text benchmark이며 이미지 효과 증거 아님).
 - npm.cmd audit --omit=dev --json: production vulnerabilities 0. 최초 sandbox network 실패 후 동일 명령 허용된 retry 성공.
 - 실제 Node22 production validator 계측: flat RGB square2528 accepted, accounting134207044; square2529 jpeg_resource_limit, accounting134845066. 상한134217728. 이번 측정670.60/2.38ms, maxRSS272884/49544 KiB. 동시 테스트 부하가 있었으며 portable worst-case 보장 아님.
-- JFIF 수정 후 관련8suites 83 PASS/1skip 및 실제 Node22 smoke PASS. post-Draft gate는 아직 남음. [상세 검증](docs/research/jpeg-runtime-validation.md).
+- JFIF 수정 후 관련8suites 83 PASS/1skip 및 실제 Node22 smoke PASS. 2026-09-27 17:50 KST post-Draft: targeted83PASS/1skip, full653PASS/1skip/19files, build/typecheck/actualNode22smoke/validate:plugin/benchmark PASS. gh pr checks: no checks reported. [상세 검증](docs/research/jpeg-runtime-validation.md).
 
 ### 6. 오류 및 해결 기록
 - 초기 entropy byte-count stub, resource 과소 산정, 구조/error mapping 및 부정확한 테스트 증거 발견 후 수정.
@@ -54,15 +55,19 @@ This section is current; checkpoint records below are historical.
 - synchronous CPU/RSS overhead와 제한된 JPEG 호환성은 남음. flat family 계측은 모든 입력의 최대 시간/메모리 증명이 아님.
 
 ### 9. 남은 작업
-- [ ] JFIF fix 재검증/재검토 및 Git/PR 전달 단계.
+- [ ] 최종 Astra Git/PR 검토 결과 기록 및 사용자 완료 보고.
 - 이미지 변형 생성·모델 평가·영상은 후속 승인 Task이며 이번 완료로 주장하지 않음.
 
 ### 10. 사용자 승인 필요 사항
 - 기존 Task21 설계 및 Task22 구현 승인은 유효. 현재 결함 수정에 추가 승인 불필요.
 - merge 승인 없음. 완료 보고 후 다음 Task는 사용자 검토·승인 대기.
 
+### Git / PR 증거
+- [Draft PR21](https://github.com/kimcheolhui9846/token-context-optimizer/pull/21): OPEN/Draft, base codex/task-21-jpeg-ingest; d9dc91bc3d3761a72d54ebca07a0f2035d0e1b9b 원격 반영 확인. 문서 검증 기록 commit 후 최신 SHA 재확인 예정.
+- 원래 Task18 HANDOFF dirty 및 paired-success 두 untracked 파일 보존을 다시 확인. Merge 미수행.
+
 ### 11. 최종 요약
-- 구현 및 precommit Astra review 완료. PR 전달과 post-Draft gate, 최종 Git/PR review를 마쳐야 완료다.
+- 구현 및 precommit Astra review 완료. Draft PR21과 post-Draft gate 완료. 최종 Git/PR review를 마쳐야 완료다.
 - 다음 작업자는 현재 section, task plan, 검증 기록, 최신 Git/PR 상태를 먼저 대조한다.
 
 ## Archived checkpoints
