@@ -280,8 +280,6 @@ This section is current; checkpoint records below are historical.
 - Copilot: launcher 실행 결과 `Cannot find GitHub Copilot CLI`; 검토 미수행.
 - 민감 정보/전체 저장소/전역 설정을 외부 검토에 보내지 않는다.
 
-- 최종 actual Astra는181d8c224997607f097df004dd5db37dc8b48196의 diff/HEAD=upstream/clean worktree/PR21 OPEN Draft/base/latest SHA/PR 설명과 기록된 post-Draft evidence를 직접 대조하여 PASS WITH NOTES. 테스트를 직접 재실행했다고 주장하지 않음. no hosted checks 확인. 미해결 blocker/major 없음.
-
 ### 8. 자체 리뷰 / 위험
 - 위험: 개발 완성도를 논문 결과로 오인, 이미지 미지원 기능의 구현 주장, 데이터 누수, 변환 비용 누락, 영상 범위 혼입.
 - 보완: 독립 문헌 검증과 Astra 실제 산출물 리뷰, 원본/source-family/usage 추적을 실험 설계에 포함.
