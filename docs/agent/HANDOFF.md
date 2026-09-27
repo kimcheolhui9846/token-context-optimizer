@@ -1,3 +1,32 @@
+# Codex Handoff — Task22 current (2026-09-27)
+
+Restricted baseline 4:4:4/JFIF JPEG ingestion is implemented alongside PNG.
+See [root handoff](../../HANDOFF.md), [runtime evidence](../research/jpeg-runtime-validation.md)
+and [plan](../superpowers/plans/2026-09-21-jpeg-runtime.md).
+Branch `codex/task-22-jpeg-runtime`, base Task21 `7ee618d`.
+Native Astra precommit SPEC/QUALITY PASS WITH NOTES after the exact-JFIF fix;
+no unresolved blocker/major. Targeted83PASS/1WindowsFIFOskip and realNode22smokePASS.
+Commit/push/Draft PR and post-Draft project gate are the remaining delivery steps.
+Claude Opus5 initial plan review succeeded; milestone external review DEGRADED.
+Paper experiments/transforms/video remain planned. No merge is authorized.
+
+## Historical checkpoints
+# Codex Handoff
+
+## Current Objective — Task 22 (resumed 2026-09-26)
+
+Task21 design was approved. Implement the restricted JPEG runtime in
+`codex/task-22-jpeg-runtime`, based on `7ee618d`, in this isolated worktree.
+See [implementation plan](../superpowers/plans/2026-09-21-jpeg-runtime.md)
+and [root HANDOFF](../../HANDOFF.md). Implementation is incomplete: Astra
+identified missing entropy decoding, resource accounting and structural/error
+checks, and incomplete fixtures/tests. Luna owns corrections within the approved
+contract. Parent owns handoffs, reviews, Git and PR. No Task22 commit or PR yet.
+Node22.23.2 official archive hash was verified and its executable ran successfully;
+standalone JPEG smoke remains pending. Claude availability is being rechecked.
+Paper-first and image-before-video priorities remain; no merge is authorized.
+
+## Task 21 archive
 # Codex Handoff
 
 ## Current Objective

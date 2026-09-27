@@ -19,19 +19,25 @@ export interface ArtifactRecord {
   sourceMap: SourceLine[];
 }
 
-export interface ImageArtifactRecord {
+export type ImageArtifactRecord = {
   artifactId: string;
   path: string;
   sha256: string;
   byteLength: number;
-  format: "png";
-  mimeType: "image/png";
   width: number;
   height: number;
-  channels: 3 | 4;
   bitDepth: 8;
+} & ({
+  format: "png";
+  mimeType: "image/png";
+  channels: 3 | 4;
   validationProfile: "png-rgb8-static-v1";
-}
+} | {
+  format: "jpeg";
+  mimeType: "image/jpeg";
+  channels: 3;
+  validationProfile: "jpeg-ycbcr8-baseline-444-v1";
+});
 
 export interface CommonResponseFields {
   artifactId: string;

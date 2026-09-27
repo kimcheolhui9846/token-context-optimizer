@@ -4,6 +4,7 @@ import { open, realpath, stat } from "node:fs/promises";
 import { isAbsolute, relative, resolve } from "node:path";
 import { inflateSync } from "node:zlib";
 import { decode } from "fast-png";
+import { JpegValidationError, validateJpeg } from "./jpeg-validation.js";
 
 import type { ImageArtifactRecord } from "./types.js";
 
@@ -50,22 +51,28 @@ export async function indexImageArtifact(input: {
   store?: ImageArtifactStore;
 }): Promise<ImageArtifactRecord> {
   const source = await readBoundedSource(input.path, input.allowedRoots ?? [process.cwd()]);
-  const metadata = validatePng(source.bytes);
+  let metadata;
+  try {
+    metadata = source.bytes[0] === 0xff && source.bytes[1] === 0xd8 ? validateJpeg(source.bytes) : validatePng(source.bytes);
+  } catch (error) {
+    if (error instanceof JpegValidationError) throw new ImageValidationError(error.code);
+    throw error;
+  }
   const sha256 = createHash("sha256").update(source.bytes).digest("hex");
   const identity = createHash("sha256").update(`${source.path}\0${sha256}`).digest("hex");
-  const record: ImageArtifactRecord = {
+  const record = {
     artifactId: `image_${identity.slice(0, 16)}`,
     path: source.path,
     sha256,
     byteLength: source.bytes.length,
-    format: "png",
-    mimeType: "image/png",
+    format: metadata.format,
+    mimeType: metadata.mimeType,
     width: metadata.width,
     height: metadata.height,
     channels: metadata.channels,
     bitDepth: 8,
-    validationProfile: "png-rgb8-static-v1",
-  };
+    validationProfile: metadata.validationProfile,
+  } as ImageArtifactRecord;
   const output = { ...record };
   (input.store ?? defaultImageArtifactStore).put({ ...record });
   return output;
@@ -84,7 +91,13 @@ export async function inspectImageArtifact(input: {
   catch (error) { if (error instanceof ImageValidationError && error.code === "path_denied") throw error; throw new ImageValidationError("source_missing_or_unreadable"); }
   const hash = createHash("sha256").update(source.bytes).digest("hex");
   if (hash !== record.sha256 || source.bytes.length !== record.byteLength) throw new ImageValidationError("source_changed");
-  validatePng(source.bytes);
+  try {
+    if (record.format === "jpeg") validateJpeg(source.bytes);
+    else validatePng(source.bytes);
+  } catch (error) {
+    if (error instanceof JpegValidationError) throw new ImageValidationError(error.code);
+    throw error;
+  }
   return { ...record };
 }
 
@@ -142,7 +155,7 @@ async function readBoundedSource(
   } finally { try { await handle.close(); } catch { /* sanitized source errors must not expose close details */ } }
 }
 
-function validatePng(bytes: Buffer): { width: number; height: number; channels: 3 | 4 } {
+function validatePng(bytes: Buffer): { width: number; height: number; channels: 3 | 4; format: "png"; mimeType: "image/png"; validationProfile: "png-rgb8-static-v1" } {
   if (bytes.length < 8 || !bytes.subarray(0, 8).equals(PNG_SIGNATURE)) {
     if ((bytes.length >= 2 && bytes[0] === 0xff && bytes[1] === 0xd8) ||
       (bytes.length >= 12 && bytes.subarray(0, 4).toString("ascii") === "RIFF" && bytes.subarray(8, 12).toString("ascii") === "WEBP")) {
@@ -202,7 +215,7 @@ function validatePng(bytes: Buffer): { width: number; height: number; channels: 
     const decoded = decode(bytes, { checkCrc: true });
     if (decoded.width !== width || decoded.height !== height || decoded.depth !== 8 || decoded.channels !== channels) throw new Error();
   } catch { throw new ImageValidationError("malformed_png"); }
-  return { width, height, channels };
+  return { width, height, channels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-static-v1" };
 }
 
 function crc32(bytes: Buffer): number {

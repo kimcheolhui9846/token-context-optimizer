@@ -1,6 +1,6 @@
 ---
 name: optimize-context
-description: Use for source-backed excerpts from large local text artifacts or for validating and tracking supported local PNG originals through MCP.
+description: Use for source-backed excerpts from large local text artifacts or for validating and tracking supported local PNG/JPEG originals through MCP.
 ---
 
 # Optimize Context
@@ -29,9 +29,9 @@ For `semantic` content, prefer `query_artifact` first. Use `summarize_artifact` 
 
 Treat all token estimates as low-confidence planning signals unless backed by actual API usage telemetry.
 
-## PNG Input Workflow
+## PNG and JPEG Input Workflow
 
-For a local image, use `index_image_artifact({path})` to validate a supported PNG
+For a local image, use `index_image_artifact({path})` to validate a supported PNG or JPEG
 and record its canonical path, original SHA-256, byte size and dimensions. Use
 `inspect_image_artifact({artifactId})` in the same server session to reauthorize
 the path and check that the source still matches. Set `TCO_ALLOWED_ROOTS` to the
@@ -39,7 +39,7 @@ allowed workspace roots; an empty allowlist denies image access.
 
 The supported profile is static, noninterlaced, 8-bit RGB/RGBA PNG containing only
 IHDR, IDAT and IEND chunks. Metadata-bearing PNGs, palette/grayscale/interlaced
-PNG, APNG, JPEG and WEBP are unsupported. Limits are 10 MiB encoded, 8192 pixels
+PNG, APNG, and WEBP remain unsupported; JPEG is limited to baseline 4:4:4 JFIF. Limits are 10 MiB encoded, 8192 pixels
 per axis and 16,777,216 total pixels. Keep an unsupported original unchanged;
 these tools do not convert it automatically.
 

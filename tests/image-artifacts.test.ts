@@ -199,7 +199,7 @@ describe("image artifact ingestion", () => {
   });
 
   it("distinguishes unsupported file formats and malformed IHDR structure", async () => {
-    await expectIndexRejects(Buffer.from([0xff, 0xd8, 0xff, 0xe0]), "unsupported_image_format");
+    await expectIndexRejects(Buffer.from([0xff, 0xd8, 0xff, 0xe0]), "malformed_jpeg");
     await expectIndexRejects(Buffer.from("RIFFxxxxWEBPbad", "ascii"), "unsupported_image_format");
     const good = png(1, 1, 3);
     const idat = good.subarray(33, good.length - 12);

@@ -161,3 +161,4 @@ resize/crop provenance, guard와 fallback, 평가 adapter를
 6. Wang et al., “Rethinking Token Reduction for Large Vision-Language Models,” CVPR 2026; MetaCompress arXiv:2603.21701v1.
    [CVF 목록](https://openaccess.thecvf.com/content/CVPR2026/html/Wang_Rethinking_Token_Reduction_for_Large_Vision-Language_Models_CVPR_2026_paper.html),
    [arXiv 초록](https://arxiv.org/abs/2603.21701v1), [접근 기록](./image-first-sources.md)
+Implementation status note (Task 22): restricted baseline 4:4:4 JPEG JFIF input validation now has independent fixtures and provenance. This is engineering evidence only and does not measure visual quality, OCR accuracy, model outcomes, latency, token usage, or cost savings.
