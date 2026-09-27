@@ -1,6 +1,6 @@
 # Task 22 JPEG validation evidence
 
-Status: implementation and precommit review complete; Draft PR open and post-PR verification passed; final Git/PR review pending (2026-09-27).
+Status: implementation and precommit review complete; Draft PR open and post-PR verification passed; final Astra PASS WITH NOTES at 181d8c2 (2026-09-27).
 This records input-validation work, not model evaluation or compression effectiveness.
 
 ## Source checks
@@ -71,7 +71,7 @@ the accepted/rejected accounting boundary, not adversarial worst-case CPU time.
 The accounting limit is 134,217,728 bytes. RSS and `maxRSS` are reported as
 observed process measurements on this Windows host and are deliberately separate
 from decoder allocation accounting. They are not portable memory guarantees.
-Final project checks and final Astra approval remain parent-owned.
+Final project checks passed; Astra directly verified the diff and Git/PR state at 181d8c2 and returned PASS WITH NOTES.
 
 ## Resumed milestone checkpoint
 - Production dependency audit: npm.cmd audit --omit=dev --json returned zero vulnerabilities after a sandbox network failure and the same command's authorized retry.
@@ -83,3 +83,6 @@ Final project checks and final Astra approval remain parent-owned.
 - Native Astra reproduced an exact-JFIF bypass caused by ASCII high-bit masking. Exact byte equality and five per-byte high-bit regressions plus a wrong-letter case resolve it. Scoped SPEC/QUALITY rereview: PASS WITH NOTES, no unresolved blocker/major.
 - Parent gate before fix: full647PASS/1WindowsFIFOskip/19files; build/typecheck/plugin/Node22smoke/textbenchmarkPASS. Afterfix: targeted83PASS/1skip andactualNode22smokePASS. Post-Draft fullgate:653PASS/1skip/19files; targeted83PASS/1skip; build/typecheck/actualNode22smoke/plugin/textbenchmarkPASS (2026-09-27).
 - Parent repeated productionmeasurement: accounting134207044/134845066 forflatRGB128 square2528/2529; accepted/resource_rejected;670.60/2.38ms under concurrenttestload; maxRSS272884/49544KiB. These are host observations, not portable worst-case bounds.
+
+## Final review
+Native Astra directly inspected reviewed HEAD181d8c2, upstream equality, clean tree, Draft PR21 base/latestSHA/body and recorded post-Draft evidence. Verdict PASS WITH NOTES; no unresolved blocker/major. Reviewer did not rerun parent checks. External milestone review gap, FIFO skip and synchronous/RSS limitations remain explicit. No merge or model-effectiveness claim.

@@ -6,7 +6,7 @@ and [plan](../superpowers/plans/2026-09-21-jpeg-runtime.md).
 Branch `codex/task-22-jpeg-runtime`, base Task21 `7ee618d`.
 Native Astra precommit SPEC/QUALITY PASS WITH NOTES after the exact-JFIF fix;
 no unresolved blocker/major. Targeted83PASS/1WindowsFIFOskip and realNode22smokePASS.
-Draft [PR21](https://github.com/kimcheolhui9846/token-context-optimizer/pull/21) is OPEN against Task21; d9dc91b pushed. Post-Draft full653PASS/1skip, targeted83PASS/1skip, build/typecheck/actualNode22smoke/plugin/textbenchmarkPASS. Final Astra Git/PR review pending.
+Draft [PR21](https://github.com/kimcheolhui9846/token-context-optimizer/pull/21) is OPEN against Task21; d9dc91b pushed. Post-Draft full653PASS/1skip, targeted83PASS/1skip, build/typecheck/actualNode22smoke/plugin/textbenchmarkPASS. Final Astra directly reviewed 181d8c2, HEAD/upstream/clean tree and exact Draft PR SHA: PASS WITH NOTES, no unresolved blocker/major. Task22 is complete; only final review bookkeeping follows. Wait for user approval before the next Task.
 Claude Opus5 initial plan review succeeded; milestone external review DEGRADED.
 Paper experiments/transforms/video remain planned. No merge is authorized.
 

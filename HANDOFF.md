@@ -9,14 +9,14 @@ This section is current; checkpoint records below are historical.
 - 범위: 독립 구조/Huffman/entropy 검증, 원본·경로·hash·store 계약, 메모리 예산, MCP/배포/fixture/기술 문서.
 - 제외: 이미지 변환·OCR·모델 평가·영상·native runtime 의존성·PR merge.
 - branch codex/task-22-jpeg-runtime; base Task21 7ee618d67e89b26fcc8107170e1722d37711b1aa. 원래 Task18 dirty worktree 보존.
-- 현재 상태: JFIF 결함 수정 후 Astra SPEC/QUALITY PASS WITH NOTES. commit d9dc91b push 및 Draft PR21 OPEN 완료. post-Draft gate PASS, 최종 Astra Git/PR 검토 대기.
+- 현재 상태: JFIF 결함 수정 후 Astra SPEC/QUALITY PASS WITH NOTES. commit d9dc91b push 및 Draft PR21 OPEN 완료. post-Draft gate PASS, 최종 Astra PASS WITH NOTES (181d8c2 직접 검토). Task22 완료, 사용자 다음 Task 승인 대기.
 
 ### 2. 작업 계획
 - [x] 승인 설계/격리/초기 HANDOFF/계획 및 provider checkpoint.
 - [x] 제한 JPEG 구현, 독립 fixture, entropy·resource·MCP·license 검증.
 - [x] 실제 Node22 실행, 생산 의존성 감사, pre-PR project gate.
 - [x] JFIF major 수정 재검토, commit/push/Draft PR, post-Draft gate.
-- [ ] 최종 Astra Git/PR 검토 및 완료 보고.
+- [x] 최종 Astra Git/PR 검토 및 완료 보고 준비.
 
 ### 3. 변경 사항
 - jpeg-validation.ts, image record/dispatcher/MCP schema, jpeg-js0.4.4 pin/lock, generated bundle.
@@ -50,12 +50,14 @@ This section is current; checkpoint records below are historical.
 - Initial provider Claude Code Opus5; milestone Cross-check status: DEGRADED. Native Astra는 별도 내부 독립 검토이며 외부 provider로 계산하지 않음.
 - Astra precommit SPEC/QUALITY: 최초 JFIF major 재현 후 정확한 byte 비교·회귀 테스트 수정; scoped 재검토 PASS WITH NOTES. 미해결 blocker/major 없음. protocol M1 표의 stale status minor 최종 정리.
 
+- 최종 actual Astra는181d8c224997607f097df004dd5db37dc8b48196의 diff/HEAD=upstream/clean worktree/PR21 OPEN Draft/base/latest SHA/PR 설명과 기록된 post-Draft evidence를 직접 대조하여 PASS WITH NOTES. 테스트를 직접 재실행했다고 주장하지 않음. no hosted checks 확인. 미해결 blocker/major 없음.
+
 ### 8. 자체 리뷰
 - source reader/PNG 계약 유지, 정확한 entropy 소비와 bounded allocation을 분리. 실패 store 불변, correlated schema, 네 runtime 파일 검증.
 - synchronous CPU/RSS overhead와 제한된 JPEG 호환성은 남음. flat family 계측은 모든 입력의 최대 시간/메모리 증명이 아님.
 
 ### 9. 남은 작업
-- [ ] 최종 Astra Git/PR 검토 결과 기록 및 사용자 완료 보고.
+- [x] 최종 Astra Git/PR 검토 결과 기록. 다음 Task는 사용자 승인 대기.
 - 이미지 변형 생성·모델 평가·영상은 후속 승인 Task이며 이번 완료로 주장하지 않음.
 
 ### 10. 사용자 승인 필요 사항
@@ -63,11 +65,11 @@ This section is current; checkpoint records below are historical.
 - merge 승인 없음. 완료 보고 후 다음 Task는 사용자 검토·승인 대기.
 
 ### Git / PR 증거
-- [Draft PR21](https://github.com/kimcheolhui9846/token-context-optimizer/pull/21): OPEN/Draft, base codex/task-21-jpeg-ingest; d9dc91bc3d3761a72d54ebca07a0f2035d0e1b9b 원격 반영 확인. 문서 검증 기록 commit 후 최신 SHA 재확인 예정.
+- [Draft PR21](https://github.com/kimcheolhui9846/token-context-optimizer/pull/21): OPEN/Draft, base codex/task-21-jpeg-ingest; d9dc91bc3d3761a72d54ebca07a0f2035d0e1b9b 원격 반영 확인. post-Draft 기록181d8c2도 원격/PR 일치 확인. 최종 리뷰 기록만 후속 문서 commit.
 - 원래 Task18 HANDOFF dirty 및 paired-success 두 untracked 파일 보존을 다시 확인. Merge 미수행.
 
 ### 11. 최종 요약
-- 구현 및 precommit Astra review 완료. Draft PR21과 post-Draft gate 완료. 최종 Git/PR review를 마쳐야 완료다.
+- 구현 및 precommit Astra review 완료. Draft PR21과 post-Draft gate 완료. 최종 Astra Git/PR review PASS WITH NOTES; 완료 보고 후 사용자 승인 대기.
 - 다음 작업자는 현재 section, task plan, 검증 기록, 최신 Git/PR 상태를 먼저 대조한다.
 
 ## Archived checkpoints
@@ -277,6 +279,8 @@ This section is current; checkpoint records below are historical.
 - Gemini: launcher 있음, GEMINI_API_KEY/GOOGLE_API_KEY 환경값 존재 여부만 확인하여 둘 다 없음. 무료 API 모델/quota 미확립으로 검토 미수행; 유료 fallback 없음.
 - Copilot: launcher 실행 결과 `Cannot find GitHub Copilot CLI`; 검토 미수행.
 - 민감 정보/전체 저장소/전역 설정을 외부 검토에 보내지 않는다.
+
+- 최종 actual Astra는181d8c224997607f097df004dd5db37dc8b48196의 diff/HEAD=upstream/clean worktree/PR21 OPEN Draft/base/latest SHA/PR 설명과 기록된 post-Draft evidence를 직접 대조하여 PASS WITH NOTES. 테스트를 직접 재실행했다고 주장하지 않음. no hosted checks 확인. 미해결 blocker/major 없음.
 
 ### 8. 자체 리뷰 / 위험
 - 위험: 개발 완성도를 논문 결과로 오인, 이미지 미지원 기능의 구현 주장, 데이터 누수, 변환 비용 누락, 영상 범위 혼입.
