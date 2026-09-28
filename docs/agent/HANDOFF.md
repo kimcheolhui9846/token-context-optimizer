@@ -1,5 +1,7 @@
 # Codex Handoff
 
+Task 기록은 docs/agent/handoffs/task-NN.md를 참조.
+
 ## Current Objective
 
 The offline mock-runner implementation is complete and PR #14 has been pushed
