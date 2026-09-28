@@ -100,3 +100,12 @@ index 44ce55b..3eb70e8 100644
 
 The fenced patch is an archive, not an instruction to replay PR15. The current
 shared documents intentionally remain the `origin/main` versions.
+
+## Phase-2 verification — 2026-09-29
+
+- Migration commit: `4239980`; parent integration: `git merge --no-edit origin/main` produced `c131fe4`, incorporating merged PR #22 (`94057c4`) without rebase or force-push.
+- Controller independently compared the original diff: all 49 added and 9 deleted lines retained after relative-link/trailing-whitespace normalization. Cleanup removed 49 PR-specific lines from the shared index and restored 9 original lines plus the 2-line main index notice. New archive initially contained 102 lines; subsequent lines are current verification evidence.
+- README and shared HANDOFF match current main. Root HANDOFF did not exist in the original PR tree; the new local working record remains ignored and untracked. Main-relative diff contains only this archive; runtime, tests, configuration and dependencies match main.
+- Local relative link and target anchor PASS; `git diff --check` PASS. `git merge-tree --write-tree --name-only origin/main c131fe4` exited 0 with no conflicts (tree `d319d886e8e348753fa6d2b20fa3fca4514ec829`). Recheck against the final pushed head before merging.
+- Runtime gates NOT RUN in this documentation-only migration: the main-relative runtime/config tree is unchanged. Historical tests/reviews above are not new execution evidence. No fresh Claude review is claimed; Codex preservation and scope verification passed.
+- PR #15 remains unmerged pending the user's per-stage merge-tree check. No cleanup or merge of #16/#17/#23 has been performed in this stage. New commit author/committer verified as the user's configured identity; no history rewritten.
