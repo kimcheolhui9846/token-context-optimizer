@@ -1,4 +1,18 @@
+PR #22 | Branch: codex/task-23-test-isolation | Base: main (4e9b7c562b7f08fc24e79e615f68b467cbf8eeda)
+
+Current phase: approved phase 1 documentation correction. The sections below retain the original Task 23 checkpoints; their prior identity/review/pending-state statements are historical. Codex implements and Claude Code reviews. User configured the effective Git identity; per-command identity overrides are no longer needed. Phase 2 remains deferred.
+
 # HANDOFF
+
+## Approved phase 1 correction — local work record
+
+- Codex implements; Claude Code reviews. User approved phase 1 for PR #22 only; phase 2 stays deferred.
+- Keep this root file locally, ignore `/HANDOFF.md`, and remove only Git tracking with `git rm --cached`.
+- Publish Task 23 history in `docs/agent/handoffs/task-23.md` with PR/branch/base on its first line. Preserve historical evidence and fix relative links.
+- Replace the Task 23 index banner with one generic reference; document rules and build-before-typecheck in `docs/agent/handoffs/README.md`. Root README stays unchanged.
+- Add only the temporary `npm.cmd test -- --dir tests` rule to the original Task 18 local handoff; do not commit it.
+- Acceptance: compare moved text, check links and tracked paths, run gates, inspect merge-tree against Task 18/22 and PR #17, verify author/committer, update existing Draft PR. No actual merge or phase 2 migration.
+- Review checkpoint: user supplied Claude Code's conditional approval; updated implementation awaits Claude Code re-review.
 
 ## Task 23 — Isolate Vitest discovery (2026-09-28)
 
@@ -8,7 +22,7 @@
 - F-16: remeasure the current Task 18 checkout and record a checkout-specific correction here. Its dirty source and handoff files remain untouched; this PR does not complete Task 18.
 - Excluded: runtime fixes, benchmark/research redesign, dependency changes, history rewriting, merges, and other review findings.
 - Base: `main` / `origin/main` `4e9b7c562b7f08fc24e79e615f68b467cbf8eeda`; branch `codex/task-23-test-isolation` in an isolated worktree.
-- Preserve original dirty Task 18 and Task 19–22 worktrees. Historical project record: [docs/agent/HANDOFF.md](docs/agent/HANDOFF.md).
+- Preserve original dirty Task 18 and Task 19–22 worktrees. Historical project record: [historical handoff](../HANDOFF.md).
 
 ### 2. Plan and acceptance
 - [x] Inspect instructions, dirty state, refs and review; successful native Astra planning response and Luna preparation response.
@@ -65,3 +79,27 @@
 
 ### 11. Final summary
 - F-02 delivered on Task 23 branch with 570-test gate. F-16 current measurements recorded; original handoff reconciliation remains deferred. Fresh external review remains DEGRADED.
+
+
+## Historical index banner (verbatim text from 66d1fe8)
+
+```text
+## Task 23 checkpoint — 2026-09-28
+
+Current test-discovery remediation and checkout-specific Task 18 measurements are
+recorded in the [root handoff](../../HANDOFF.md). Task 23 is based on main
+`4e9b7c5`; the entries below retain their historical branch/checkpoint context.
+The original Task 18 dirty checkout is preserved separately and is not included
+in this delivery.
+
+```
+
+## Phase 1 implementation evidence — 2026-09-28
+
+- Original root handoff: all 67 lines from `66d1fe8` preserved, verified by exact normalized text comparison after removing the new phase-1 section and adjusting one relative link. The removed eight-line index banner is quoted above. No historical result was rewritten into new evidence.
+- Root handoff remains on disk and is ignored by `/HANDOFF.md`; `git rm --cached -- HANDOFF.md` removed tracking only. Root README and Vitest configuration have no changes in this correction.
+- New operating rules and gate order are in [README.md](README.md); historical project record remains [../HANDOFF.md](../HANDOFF.md). Original Task 18 handoff received only the authorized local temporary-gate note; it is not staged or committed here.
+- Fresh gate: `npm.cmd test -- --reporter=basic` passed 570 tests / 11 files; `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, `npm.cmd run benchmark` all exited 0, in that order. Raw local logs are `.artifacts/phase1-gate-1.log` through `phase1-gate-6.log` at the worktree root. `git diff --check` passed. Documentation-only correction: no new RED/GREEN code cycle claimed.
+- PR #16 is explicitly Task 16 in `docs/research/evidence/2026-09-12-research-preparation-review.md:5` on `docs/research-paired-success-design`. PR #15 (`c1c9b3e`) is a post-merge record; its PR body and branch handoff do not state a Task number. No Task 15 filename is assigned by inference; the older local-install plan's Task 15 belongs to PR #2 work and is unrelated.
+- Claude Code's plan approval was supplied by the user; this implementation has not yet received a new Claude review. No automatic external model call or supplemental reviewer is represented as Claude Code review.
+- Commit identity and merge-tree results will be recorded after creating the correction commit. Phase 2 migration, parent merges, rebase, force-push and PR merge are not performed.
