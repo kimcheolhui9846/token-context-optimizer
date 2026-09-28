@@ -87,7 +87,7 @@ Current phase: approved phase 1 documentation correction. The sections below ret
 ## Task 23 checkpoint — 2026-09-28
 
 Current test-discovery remediation and checkout-specific Task 18 measurements are
-recorded in the [root handoff](../../HANDOFF.md). Task 23 is based on main
+recorded in the local, untracked root HANDOFF.md. Task 23 is based on main
 `4e9b7c5`; the entries below retain their historical branch/checkpoint context.
 The original Task 18 dirty checkout is preserved separately and is not included
 in this delivery.
