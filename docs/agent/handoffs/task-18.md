@@ -43,11 +43,13 @@ node docs/research/evidence/task-18/measure-paired-success.mjs
 
 The helper constructs a synthetic complete 24-family/48-record/288-slot dataset, performs 5 warmups and 20 measured analyzer calls, records every sample, exact serialized dataset/ledger hashes, source SHA and runtime/CPU metadata. Nearest-rank median/p95 are descriptive local measurements, not an optimization threshold or empirical model result. It performs no model call, spending, grading or private data upload.
 
+Timing result: [raw 20 samples](../../research/evidence/task-18/timing-2026-09-28.json), source `887c22e`, 5 warmups, median 0.9507 ms and p95 1.2430 ms. Input snapshots match before/after. These are local synthetic diagnostics only.
+
 ## Review and remaining gates
 
 Initial-plan input is the user-supplied Claude Code F-16/F-17 review and approved completion plan. No fresh Claude call is claimed. Existing scratch reports are historical implementation reports, not a new independent review. This completion requires a Claude Code review of the resulting Draft PR; Codex validation is not represented as that review.
 
-Source commit, committed-source timing, full gate and Draft PR evidence will be added as observed. F-16 source chronology is corrected; the historical inability to prove per-test RED remains a disclosed limitation.
+Source commit: `887c22efbc93c9f63788dff609b0e87a895179e9`. Author and committer both verified as kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com>. Pre-PR checks: 82 analyzer tests; full 663 tests across 12 files; build, typecheck, smoke:mcp, validate:plugin, benchmark and diff check PASS. Build initially failed under sandbox ancestor-directory restrictions; elevated retry passed. A log filename containing a colon prevented two commands from running; corrected log names and actual smoke/plugin reruns passed. No new semantic RED was observed. F-16 source chronology is corrected; the historical inability to prove per-test RED remains a disclosed limitation.
 
 ## Preserved local shared-document additions (not staged)
 
