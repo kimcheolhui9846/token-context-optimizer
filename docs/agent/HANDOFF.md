@@ -1,106 +1,8 @@
 # Codex Handoff
 
+Task 기록은 docs/agent/handoffs/task-NN.md를 참조.
+
 ## Current Objective
-
-On 2026-09-12 the user authorized resuming the pending documentation delivery,
-commit/push, and reviewing four PDFs from their local paper folder. They also
-requested logical/evidence assessment of a fresh-subagent versus persistent-inline
-context/compaction hypothesis. These requests form one documentation delivery Task
-on `docs/research-paired-success-design`, based on PR #15 head `c1c9b3e`.
-The [literature dossier](../research/literature/2026-09-12/README.md) contains the
-four paper notes, source hashes/bibliography, application proposals and a separate
-[hypothesis memo](../research/literature/2026-09-12/05-agent-context-hypothesis.md).
-Original PDFs remain in place; neither PDFs nor extracted full texts are published.
-
-The conclusion is conditional and untested: new contexts can reduce accumulated
-history, but task delegation alone does not prove lower hallucination. The proposed
-architecture study isolates context reset, handoff and review policy; it is not an
-addition to the existing four context arms or their 576-slot pilot count. No analyzer
-implementation, experimental model calls, protocol changes or merge is authorized
-by these notes. Review the written package before implementation planning.
-
-Fresh pre-PR compatibility verification on 2026-09-12 passed 62 targeted and all
-570 existing tests, build, typecheck, MCP smoke, plugin validation and benchmark.
-Build initially failed under the sandbox's ancestor-directory access restriction;
-the identical build passed with authorized escalation. No code fix was needed.
-These are engineering checks, not new TDD or empirical paper results.
-
-External cross-check status: **DEGRADED**. Exact Opus 5 execution hit its weekly
-quota; Gemini free access/quota could not be established; no installed callable
-Copilot surface was found. Native Astra review is supplementary, not an external
-provider review. Consult the dated
-[delivery evidence](../research/evidence/2026-09-12-research-preparation-review.md)
-for review corrections and final verification. PR #15 remains a separate Open,
-non-Draft prerequisite; do not merge it or this delivery without explicit approval.
-
-## Previous Checkpoint: Paired-Success Written Design
-
-Delivery checkpoint: content commit `daa7933` is pushed and
-[Draft PR #16](https://github.com/kimcheolhui9846/token-context-optimizer/pull/16)
-is open against `docs/research-post-merge-review`. Post-Draft verification on
-2026-09-12 at 22:10-22:11 KST passed 62 targeted tests, all 570 tests, build,
-typecheck, MCP smoke, plugin validation, benchmark and document acceptance checks.
-See the delivery evidence above. No merge or next-Task implementation occurred.
-
-The user approved writing the offline paired-success design on 2026-09-10.
-Current branch: `docs/research-paired-success-design`, based on the docs-only
-post-merge record `c1c9b3e` (PR #15). The
-[written spec](../superpowers/specs/2026-09-10-research-paired-success-design.md)
-defines a separate diagnostic point estimate plus coverage, unchanged existing
-scorer behavior, incomplete-output suppression and always-false research eligibility.
-It excludes bootstrap, new CLI and real model execution. This is a design-only
-slice: user review of the written specification must precede implementation planning.
-Independent written-spec review: code-reviewer Boyle APPROVE, zero findings;
-architect Beauvoir CLEAR, no unresolved architectural issue. These verdicts cover
-the written contract, not analyzer implementation. Fresh compatibility checks on
-2026-09-10: 62 scorer/pilot tests at 22:00 KST and all 570 tests at 22:08 KST passed,
-followed by build, typecheck, MCP smoke, plugin validation and existing benchmark.
-Existing local benchmark p95: exact 1.57 ms, semantic 1.32 ms, code 0.95 ms (20
-samples each); no analyzer timing or new TDD cycle is claimed. Runtime, tests,
-dependencies and CLI files are unchanged. Self-review found no placeholders or
-contract contradictions; new local documentation links and whitespace are checked
-before delivery. Determine current PR transport state with git/GitHub on resume.
-Do not merge PR #15 or the design PR without explicit approval.
-
-## Previous Checkpoint: Post-Merge Record
-
-PR #13 and PR #14 were merged in dependency order after explicit user approval
-on 2026-09-10. Integration and post-merge review are complete. This branch,
-`docs/research-post-merge-review`, records the outcome only; it changes no runtime
-or tests and is subject to the normal PR flow. No further merge is authorized.
-
-## Merge And Integration Review (2026-09-10)
-
-- [PR #13](https://github.com/kimcheolhui9846/token-context-optimizer/pull/13):
-  reviewed head `138a0f1`, merge `eba3fa8b386dc59e93973cf24dbea2de04d067c0`
-  at 18:34 KST. The merged tree exactly matched that head.
-- After verifying PR #13 was merged, PR #14 was retargeted to `main`. Its
-  comparison retained exactly the intended 15-file mock-runner slice.
-- [PR #14](https://github.com/kimcheolhui9846/token-context-optimizer/pull/14):
-  head `9dc93a0`, merge `4e9b7c562b7f08fc24e79e615f68b467cbf8eeda`
-  at 20:56 KST. Its merged tree exactly matched the pre-merge tested head.
-  No force push, conflict edit, branch deletion or provider call occurred.
-- Pre-merge at 18:29 KST: 210 targeted and all 570 tests passed, followed by
-  build, typecheck, MCP smoke, plugin validation and benchmark. GitHub reported
-  no CI checks; local gates are evidence, not a claim of hosted CI coverage.
-- Post-merge at 20:56-20:57 KST on `4e9b7c5`: 210 targeted and all 570 tests
-  passed again; build, typecheck, MCP smoke, plugin validation and benchmark
-  passed. Existing benchmark p95: exact 1.26 ms, semantic 1.38 ms, code 0.76 ms
-  (20 samples each). These descriptive local timings are not model measurements.
-- Both demo CLI forms returned identical valid reports: 288 completed slots,
-  virtual 288 ms, settled 1152 microUSD, remaining 848 microUSD and held 0.
-  All three input hashes were preserved; preflight and dispatch stayed false.
-- Independent post-merge `code-reviewer` Popper inspected 13 integration files,
-  ancestry/tree comparisons and focused diagnostics: APPROVE, zero findings.
-  Independent `architect` Pauli confirmed preserved planner/mock/scorer authority
-  boundaries: CLEAR. Neither reran the test suite; fresh gates above are
-  controller-owned. Final integration synthesis: APPROVE, no identified defect.
-- Review limitations: no real provider behavior, cancellation/billing behavior,
-  human grading, paired statistical analysis or scientific outcomes were tested.
-  The [readiness checklist](../research/2026-09-07-layered-adaptation-evaluation-protocol.md#readiness-and-acceptance)
-  remains the source of required experiment gates.
-
-## Previous Checkpoint: Mock Runner PR Handoff
 
 The offline mock-runner implementation is complete and PR #14 has been pushed
 and updated for review, not merged. Final whole-branch review at `4b61277`
@@ -1217,18 +1119,15 @@ implementation slice; explicit merge approval remains pending.
 
 ## Next Steps
 
-1. Review the paired-success specification, four-paper literature dossier and
-   agent-context hypothesis memo as the current documentation delivery. No analyzer
-   or architecture experiment has been implemented. Proceed to implementation
-   planning only after approval of the written package; proposed research arms
-   require their own frozen design, data, measurement and execution gates.
-2. Preserve PR #15 as the separate documentation prerequisite until actually merged;
-   inspect live git/GitHub state on resume. PR #13/#14 are already merged.
-3. Complete dataset curation/freeze, model/access/data/spend approvals, live-runner
-   safeguards, and blinded human-rater assignment before collection. Subagents
-   review software; they do not replace human outcome judgments.
-4. Keep future runtime changes under TDD, targeted/full gates and independent
-   code/architecture review. No real inference, training or upload ran here.
+1. Review the updated implementation PR #14. Its four tasks, final fix wave,
+   independent reviews and full verification gate are complete; do not restart
+   implementation. Resolve live transport state with git/GitHub on each resume.
+2. Address any subsequent PR feedback in a bounded TDD/review cycle. Final
+   reviewed implementation/test head is `b290748`; later bookkeeping is docs-only.
+3. Keep PR #14 dependent on PR #13 until that prerequisite is explicitly approved and merged.
+4. Treat actual data collection, paired analysis and any hosted-model experiment
+   as separate later work requiring their own authorization; none ran in this fix
+   wave.
 5. Do not merge any PR without explicit user approval.
 
 ## Recovery Commands
