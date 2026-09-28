@@ -2,6 +2,16 @@ PR #23 | Branch: codex/task-18-paired-success | Base: codex/task-17-paired-succe
 
 # Task 18 — Paired-success completion
 
+## Claude review corrections (2026-09-29)
+
+User supplied Claude Code review of PR #23 at `727166d`: no Critical/Major, six Minor items and one Suggestion. This follow-up adds characterization coverage only; no pre-implementation RED is claimed and runtime implementation is unchanged.
+
+- Cover punctuation-sensitive ASCII family/extra-arm order, declared arm capacity, attempts-before-capacity, exact scorer error contracts, and unrounded rates/differences across the 7x7 matrix.
+- Correct archived relative links; references to the local untracked root handoff are plain text. Archived patch paths below are normalized for this document, so the original byte-exact patch remains in `.artifacts/task18-completion/shared-docs-before.patch`.
+- Include the already prepared README product description in PR #23: diagnostic paired-success point estimate/coverage exists; inferential analysis remains future work. Earlier statements that README remains unstaged describe the prior checkpoint only.
+- Preserve `docs/agent/HANDOFF.md` unchanged pending user approval. Its added Task 18 resume paragraph and Previous Checkpoint heading are archived below. Recommended cleanup after approval: restore only this file's working copy from this branch's HEAD, removing the 11-line uncommitted stale addition while retaining committed Task 17 history. Do not restore it from main now; main-version migration belongs to the later phase-2 merge preparation.
+- PR #22 receives only its authorized broken root-handoff link correction in its existing worktree/branch.
+- Pending: targeted/full gates, link checks, merge-tree report, commits/push and updated PR evidence. Fresh Claude review of follow-up changes remains pending.
 ## Current delivery and authorization
 
 Codex implements; Claude Code reviews. User approved F-16/F-17 completion, Task-specific records, commit/push and Draft PR. This Task does not migrate PR #15–#17 or merge any branch. Their sequence remains parent to child immediately before user-controlled merges. PR #15's approved future record name is `integration-2026-09-10.md`; no historical Task number is invented.
@@ -222,14 +232,14 @@ index 5b4114a..c584fd1 100644
 +++ b/README.md
 @@ -89,7 +89,9 @@ bilingual development families, not a completed pilot or model performance resul
  generates reproducible preview schedules, with no provider calls. The
- [approved contract](docs/superpowers/specs/2026-09-09-research-run-preflight-design.md)
+ [approved contract](../../superpowers/specs/2026-09-09-research-run-preflight-design.md)
  separates preflight checks from authorization: `dispatchAllowed` is always false.
 -A provider runner, spending enforcement and paired analysis remain separate work.
 +A provider runner and spending enforcement remain separate work. The implemented
-+[paired-success point estimate and coverage](docs/research/paired-success.md) is
++[paired-success point estimate and coverage](../../research/paired-success.md) is
 +diagnostic only; inferential paired analysis remains separate work.
 
- [Offline mock runs](docs/research/mock-running.md) now exercise virtual deadlines,
+ [Offline mock runs](../../research/mock-running.md) now exercise virtual deadlines,
  reservations, unknown costs and explicit not-started slots without provider calls.
 diff --git a/docs/agent/HANDOFF.md b/docs/agent/HANDOFF.md
 index 4692031..2cd9b0b 100644
@@ -242,7 +252,7 @@ index 4692031..2cd9b0b 100644
 +Task 18 resumed on 2026-09-27 on `codex/task-18-paired-success` (current committed
 +head `26e22e4`). The shared evaluation core is committed; the analyzer and its tests
 +are being recovered from an interrupted corrective RED cycle. Current evidence,
-+ownership and approval state live in [root HANDOFF](../../HANDOFF.md). Codex owns
++ownership and approval state live in root HANDOFF.md (local, untracked). Codex owns
 +implementation and Task documentation; the user's separate Claude Code terminal
 +performs review only. Do not initiate additional Claude calls. Commit/push and
 +committed-source timing await explicit Git authorization under the newly adopted
@@ -251,6 +261,6 @@ index 4692031..2cd9b0b 100644
 +## Previous Checkpoint: Task 17 Plan
 +
  Task 17 resumed on 2026-09-12 after the user requested continuing. The current
- delivery is the [paired-success implementation plan](../superpowers/plans/2026-09-12-research-paired-success.md),
- with controller-owned status and review evidence in [root HANDOFF](../../HANDOFF.md).
+ delivery is the [paired-success implementation plan](../../superpowers/plans/2026-09-12-research-paired-success.md),
+ with controller-owned status and review evidence in root HANDOFF.md (local, untracked).
 ```

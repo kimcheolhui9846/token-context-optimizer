@@ -89,7 +89,9 @@ bilingual development families, not a completed pilot or model performance resul
 generates reproducible preview schedules, with no provider calls. The
 [approved contract](docs/superpowers/specs/2026-09-09-research-run-preflight-design.md)
 separates preflight checks from authorization: `dispatchAllowed` is always false.
-A provider runner, spending enforcement and paired analysis remain separate work.
+A provider runner and spending enforcement remain separate work. The implemented
+[paired-success point estimate and coverage](docs/research/paired-success.md) is
+diagnostic only; inferential paired analysis remains separate work.
 
 [Offline mock runs](docs/research/mock-running.md) now exercise virtual deadlines,
 reservations, unknown costs and explicit not-started slots without provider calls.

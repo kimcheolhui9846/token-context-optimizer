@@ -23,7 +23,7 @@ type FixtureRun = ReturnType<typeof fixture>["ledger"]["runs"][number];
 type MutableFixtureRun = Omit<FixtureRun, "costUsd" | "judgment"> & { costUsd: number | null; judgment: { graderId: string; coveredFacts: boolean[]; contradiction: boolean; exactCheckPassed: boolean | null } | null };
 type MutableLedger = Omit<ReturnType<typeof fixture>["ledger"], "runs"> & { runs: MutableFixtureRun[] };
 
-function capacityFixture(familyCount: number) {
+function capacityFixture(familyCount: number, arms = ["full_source", "optimized"]) {
   const records = Array.from({ length: familyCount }, (_, family) => ["en", "ko"].map((language) => {
     const text = `Capacity family ${family} ${language}.`;
     return { id: `capacity-${family}-${language}`, familyId: `capacity-family-${family}`, split: "development", language, category: "numeric",
@@ -32,7 +32,7 @@ function capacityFixture(familyCount: number) {
       rubric: { kind: "semantic", instructions: "Check the fact." } };
   })).flat();
   const data = { schemaVersion: 1, datasetId: "capacity-test", records };
-  const ledger = { schemaVersion: 1, datasetSha256: fingerprintDataset(data), split: "development", arms: ["full_source", "optimized"], attemptsPerTask: 3, runs: [] };
+  const ledger = { schemaVersion: 1, datasetSha256: fingerprintDataset(data), split: "development", arms, attemptsPerTask: 3, runs: [] };
   return { data, ledger };
 }
 
@@ -146,13 +146,22 @@ describe("paired success analyzer", () => {
   });
 
   it("preserves permutation stability while sorting coverage arms", () => {
-    const { data, ledger } = fixture();
+    const inputFamilyIds = ["full_source", "full-source", "fullsource", "full.source"];
+    const expanded = fixture([6, 6, 6, 6], [6, 6, 6, 6]);
+    expanded.data.records = expanded.data.records.map((record, index) => ({ ...record, familyId: inputFamilyIds[Math.floor(index / 2)] }));
+    expanded.ledger.datasetSha256 = fingerprintDataset(expanded.data);
+    expanded.ledger.arms.push("full-source", "full.source", "fullsource");
+    expanded.ledger.runs.push(...expanded.data.records.flatMap((record) => ["full-source", "full.source", "fullsource"].flatMap((arm) => [1, 2, 3].map((attempt) => ({
+      taskId: record.id, arm, attempt, status: "completed" as const, latencyMs: null, costUsd: null,
+      judgment: { graderId: "synthetic", coveredFacts: [true], contradiction: false, exactCheckPassed: null },
+    })) )));
+    const { data, ledger } = expanded;
     ledger.arms.reverse();
     ledger.runs.reverse();
     const result = analyzePairedSuccess(data, ledger);
     const permuted = analyzePairedSuccess(data, { ...ledger, arms: [...ledger.arms].reverse(), runs: [...ledger.runs].reverse() });
-    expect(result.coverage.arms.map((arm) => arm.arm)).toEqual(["full_source", "optimized"]);
-    expect(result.families.map((family) => family.familyId)).toEqual(["family-0", "family-1"]);
+    expect(result.coverage.arms.map((arm) => arm.arm)).toEqual(["full-source", "full.source", "full_source", "fullsource", "optimized"]);
+    expect(result.families.map((family) => family.familyId)).toEqual(["full-source", "full.source", "full_source", "fullsource"]);
     expect(result).toEqual(permuted);
   });
 
@@ -177,6 +186,19 @@ describe("paired success analyzer", () => {
     expect(analyzePairedSuccess(accepted.data, accepted.ledger).coverage).toMatchObject({ complete: false, planned: 99_996, familyCount: 8_333 });
     const rejected = capacityFixture(8_334);
     expect(() => analyzePairedSuccess(rejected.data, rejected.ledger)).toThrow("analysis_capacity_exceeded");
+  }, 30_000);
+
+  it("calculates capacity from the declared arm count", () => {
+    const accepted = capacityFixture(5_556, ["full_source", "optimized"]);
+    expect(analyzePairedSuccess(accepted.data, accepted.ledger).coverage).toMatchObject({ complete: false, planned: 66_672, familyCount: 5_556 });
+    const rejected = capacityFixture(5_556, ["full_source", "optimized", "extra"]);
+    expect(() => analyzePairedSuccess(rejected.data, rejected.ledger)).toThrow("analysis_capacity_exceeded");
+  }, 30_000);
+
+  it("checks attempts before capacity", () => {
+    const rejected = capacityFixture(8_334);
+    rejected.ledger.attemptsPerTask = 4;
+    expect(() => analyzePairedSuccess(rejected.data, rejected.ledger)).toThrow(/^unsupported_analysis_attempts$/);
   }, 30_000);
 
   it("includes incomplete extra arms in coverage and suppresses the contrast", () => {
@@ -205,7 +227,8 @@ describe("paired success analyzer", () => {
   ("keeps exact integer family counts for %j vs %j", (reference, comparison) => {
     const { data, ledger } = fixture([reference], [comparison]);
     const result = analyzePairedSuccess(data, ledger);
-    expect(result.families[0]).toMatchObject({ referenceSuccesses: reference, comparisonSuccesses: comparison });
+    expect(result.families[0]).toMatchObject({ referenceSuccesses: reference, comparisonSuccesses: comparison,
+      referenceRate: reference / 6, comparisonRate: comparison / 6, difference: (comparison - reference) / 6 });
     expect(result.pointEstimate).toBe((comparison - reference) / 6);
   });
 

@@ -108,8 +108,8 @@ describe("research scoring", () => {
   });
 
   it("rejects invalid datasets and split names at the projection boundary", () => {
-    expect(() => buildModelInputs({}, "test")).toThrow();
-    expect(() => buildModelInputs(dataset(), "invalid")).toThrow();
+    expect(() => buildModelInputs({}, "test")).toThrow(/^invalid_dataset$/);
+    expect(() => buildModelInputs(dataset(), "invalid")).toThrow(/^invalid_split$/);
   });
 
   it("rejects a ledger after its dataset answer key changes", () => {
@@ -193,15 +193,22 @@ describe("research scoring", () => {
     expect(() => scoreEvaluation(data, ledger)).toThrow("out_of_plan");
   });
 
-  it.each([{ arms: ["baseline", "baseline"] }, { attemptsPerTask: 0 }, { split: "test" }])("rejects invalid or empty evaluation plans: %j", (patch) => {
-    expect(() => scoreEvaluation(dataset(), { ...evaluation(), ...patch })).toThrow();
+  it.each([
+    [{ arms: ["baseline", "baseline"] }, "duplicate_arm"],
+    [{ attemptsPerTask: 0 }, "invalid_evaluation"],
+    [{ split: "test" }, "empty_split"],
+  ])("rejects invalid or empty evaluation plans: %j", (patch, expected) => {
+    expect(() => scoreEvaluation(dataset(), { ...evaluation(), ...patch })).toThrow(new RegExp(`^${expected}$`));
   });
 
   it.each([
-    { costUsd: -1 }, { latencyMs: Infinity }, { status: "success" },
-    { status: "error" }, { judgment: { graderId: "test", coveredFacts: [], contradiction: false, exactCheckPassed: null } },
-  ])("rejects invalid measurements or judgments: %j", (patch) => {
-    expect(() => scoreEvaluation(dataset(), evaluation(dataset(), [run(patch)]))).toThrow();
+    [{ costUsd: -1 }, "invalid_evaluation"],
+    [{ latencyMs: Infinity }, "invalid_evaluation"],
+    [{ status: "success" }, "invalid_evaluation"],
+    [{ status: "error" }, "judgment_shape"],
+    [{ judgment: { graderId: "test", coveredFacts: [], contradiction: false, exactCheckPassed: null } }, "judgment_shape"],
+  ])("rejects invalid measurements or judgments: %j", (patch, expected) => {
+    expect(() => scoreEvaluation(dataset(), evaluation(dataset(), [run(patch)]))).toThrow(new RegExp(`^${expected}$`));
   });
 
   it("reports each declared arm including arms without submissions", () => {
