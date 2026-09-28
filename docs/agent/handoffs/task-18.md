@@ -1,4 +1,4 @@
-PR not yet opened | Branch: codex/task-18-paired-success | Base: codex/task-17-paired-success-plan (dd84afe871ea70abbe1a47ea1821c26079abe420)
+PR #23 | Branch: codex/task-18-paired-success | Base: codex/task-17-paired-success-plan (dd84afe871ea70abbe1a47ea1821c26079abe420)
 
 # Task 18 — Paired-success completion
 
@@ -51,6 +51,17 @@ Initial-plan input is the user-supplied Claude Code F-16/F-17 review and approve
 
 Source commit: `887c22efbc93c9f63788dff609b0e87a895179e9`. Author and committer both verified as kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com>. Pre-PR checks: 82 analyzer tests; full 663 tests across 12 files; build, typecheck, smoke:mcp, validate:plugin, benchmark and diff check PASS. Build initially failed under sandbox ancestor-directory restrictions; elevated retry passed. A log filename containing a colon prevented two commands from running; corrected log names and actual smoke/plugin reruns passed. No new semantic RED was observed. F-16 source chronology is corrected; the historical inability to prove per-test RED remains a disclosed limitation.
 
+## Final delivery evidence (2026-09-28)
+
+- Draft PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/23 against `codex/task-17-paired-success-plan`. Source and timing commits pushed: `887c22e`, `473ab81`.
+- After Draft creation: `npm.cmd test -- --dir tests` PASS (663 tests, 12 files); `npm.cmd run build`, `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin`, `npm.cmd run benchmark` all exit 0. Logs: `.artifacts/task18-completion/post-pr-tests-retry.log` and `post-pr-{build,typecheck,smoke-mcp,validate-plugin,benchmark}.log`.
+- The first post-PR wrapper stopped because PowerShell Stop mode treated a Vitest basic-reporter deprecation warning on stderr as an exception. Rerun used the default reporter and actual process exit codes; no product fix was needed.
+- Parent Astra directly checked the core/scorer extraction, analyzer, F-17 assertions, documentation, timing metadata, Git scope and test logs. Local verdict: PASS WITH NOTES; historical pre-implementation RED remains unproven. No blocker/major identified in inspected changes.
+- Supplementary native Astra audit delivered an interim no-blocker/major assessment and requested successful build evidence plus final bookkeeping; the worker then hit a usage limit and did not finish. It is not a completed independent review. Successful post-PR build evidence above resolves the evidence gap it identified.
+- Cross-check status: DEGRADED / fresh Claude Code review pending through the user. No fresh Claude/Gemini/Copilot review performed in this completion pass. Prior provider limitations remain in the historical record. Codex validation does not substitute for Claude's review.
+- Root HANDOFF is present locally, ignored and absent from tracked files. `.omx/` and `.claude/` are untracked and excluded. Existing README and legacy index modifications remain locally; the worktree is intentionally not clean.
+- No merges or parent PR migrations performed. Future user-controlled order: #22, then #15 -> #16 -> #17 -> #23, with phase-2 record migration immediately before each affected merge. #15 uses `integration-2026-09-10.md`; #16 is Task 16. Propagate parent changes by `git merge <parent>`, never rebase/force-push. For each migration compare removed and added record content before restoring shared docs to current main.
+- Claude review focus: F-16 evidence truthfulness; F-17 exact assertions and matrix; scorer compatibility and analysis validation priority; timing reproducibility; exclusion of local/shared WIP. Await user review and approval before the next Task.
 ## Preserved local shared-document additions (not staged)
 
 The original root README addition describes the implemented paired-success point estimate and coverage as diagnostic only; inferential paired analysis remains separate. The exact original README and legacy index patches are retained locally in `.artifacts/task18-completion/shared-docs-before.patch`. Their text is preserved below for later phase 2 reconciliation. Those shared files are not staged by this delivery; this does not reset or discard WIP.
