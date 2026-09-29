@@ -200,3 +200,18 @@ index 6a17622..ad3bf15 100644
  M1a restricted PNG ingestion and inspection. See the [input contract](../image-artifacts.md)
  and [root HANDOFF](../../HANDOFF.md) for active implementation and validation state.
 ```
+
+## Migration verification and review (2026-09-30)
+
+- User-approved scope: Task 21 record migration only. Reviewed PR #19 was merged as 7898ed6. Main was incorporated with git merge in aa32f39 (no rebase/force-push); PR #20 remains OPEN Draft and now targets main. F-29 is explicitly outside scope.
+- Preservation: original Task 21 root diff +54/-0 and shared diff +19/-0 match after trailing-space normalization; blank context lines preserved. README, shared HANDOFF, inherited task-19/task-20 archives, .gitignore and vitest.config.ts match main. Both research/design documents match original 7ee618d. Root HANDOFF exists locally, ignored and untracked; no .omx files added.
+- Main-relative files (only three): docs/agent/handoffs/task-21.md; docs/research/jpeg-codec-feasibility.md; docs/superpowers/specs/2026-09-21-jpeg-ingest-design.md. Runtime, tests, scripts, dependencies and bundle are identical to main.
+- RED: not applicable to documentation-only migration. GREEN: full raw-diff conservation, two live local links in changed docs, exact original/main file comparisons and git diff --check pass. REFACTOR: strip trailing whitespace from archived diff context without dropping blank lines; no content rewrite.
+- Targeted: npm.cmd test -- --run tests/image-artifacts.test.ts tests/image-source-race.test.ts tests/image-packaging.test.ts — 20 passed / 1 Windows FIFO skip, 3 files. Windows junction test executes; POSIX not run on this host.
+- Post-push full gate on aa32f39: npm.cmd test — 685 passed / 1 skipped, 15 files, 20.08s; npm.cmd run build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark all exit 0. PowerShell renders ordinary esbuild stderr as NativeCommandError in the build log; native exit is 0 and generated bundle content remains main-identical. No JPEG experiment/probe rerun or empirical image result claimed.
+- git merge-tree --write-tree origin/main HEAD: exit 0, main 7898ed6, no conflicts.
+- Preview with codex/task-22-jpeg-runtime (#21, d17cc57): exit 1. Root HANDOFF modify/delete and docs/image-artifacts.md content conflict. README and shared HANDOFF auto-merge. The new document conflict is the PNG-only acceptance paragraph versus JPEG-profile addition. No child branch edit/merge was performed.
+- Proposed next-stage resolution, not yet applied: retain the F-15 trusted-writer/ABA limitation; separate PNG-profile exclusions from JPEG-profile acceptance; update introduction to PNG/JPEG and preserve no-auto-conversion behavior, without Task-progress prose. This requires the user's next-stage conflict authorization. F-08/F-13/F-14/S-01/F-28/F-34 remain assigned to #21 as previously approved, not implemented here.
+- Author and committer on aa32f39: kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com>.
+- Cross-check: initial-plan directions and prior #19 PASS were supplied by the user as Claude review (exact model unverified). Native Luna implemented archive migration; Astra inspected actual diffs, source hashes and gate results. New Claude milestone review remains pending user review; Gemini free eligibility/Copilot callable access unestablished (NOT RUN). External cross-check status DEGRADED, not fabricated as a completed review.
+- Final Astra verdict: PASS WITH NOTES for this migration. F-29 reproduction-package limitation remains deferred; no design/runtime correctness re-review is claimed. No #20 merge or #21 implementation. Subsequent evidence-only commit needs document checks; runtime gate above remains applicable.
