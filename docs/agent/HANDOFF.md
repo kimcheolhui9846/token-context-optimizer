@@ -1,70 +1,8 @@
 # Codex Handoff
 
+Task 기록은 docs/agent/handoffs/task-NN.md를 참조.
+
 ## Current Objective
-
-Task 20 was approved by the user. Active Task 21 is the restricted JPEG
-design and codec feasibility delivery on `codex/task-21-jpeg-ingest`, based on
-Task 20 `856a417`. See the [proposed design](../superpowers/specs/2026-09-21-jpeg-ingest-design.md),
-[probe evidence](../research/jpeg-codec-feasibility.md), and [root HANDOFF](../../HANDOFF.md).
-JPEG runtime support is not implemented. The proposed independent entropy
-validator requires design approval before implementation. Existing PNG support,
-paper-first priority and subsequent video work remain unchanged. No merge is authorized.
-Draft [PR #20](https://github.com/kimcheolhui9846/token-context-optimizer/pull/20)
-is OPEN against the Task20 branch. Post-Draft image tests passed 18 with one
-Windows FIFO skip; the full suite passed 588 with one skip, plus build,
-typecheck, installed MCP smoke, plugin validation and text benchmark.
-External review is DEGRADED; native Astra design milestone passed with notes.
-Final Astra review of `61205b1` returned PASS WITH NOTES after directly checking
-the diff, clean tree, upstream and Draft PR/latest SHA. Only review bookkeeping
-follows that verdict. Task21 is complete as a design delivery and awaits user
-approval of the restricted profile and independent entropy-validator approach.
-
-## Task 20 archive
-
-Task 20 (2026-09-20) follows the user's approval of Task 19 and implements partial
-M1a restricted PNG ingestion and inspection. See the [input contract](../image-artifacts.md)
-and [root HANDOFF](../../HANDOFF.md) for active implementation and validation state.
-The branch is `codex/task-20-png-ingest`, based on Task 19 `990aa9f`, with stacked
-Draft PR #19 against `codex/task-19-image-paper-first`. The original dirty
-Task 18 checkout remains separate and untouched. Image transformation, OCR,
-selection/guard, model evaluation and video remain planned. No merge is authorized.
-The implementation and scoped Astra review are complete (SPEC PASS / QUALITY
-PASS WITH NOTES). Fresh pre-PR verification on 2026-09-20 passed 200 targeted
-and 588 total tests, with one POSIX FIFO case skipped on Windows, plus build,
-typecheck, installed MCP smoke, plugin validation and the existing text benchmark.
-[Draft PR #19](https://github.com/kimcheolhui9846/token-context-optimizer/pull/19)
-is OPEN against the Task 19 branch. The same local gate passed again after the
-PR opened at 23:48–23:49 KST: 200 targeted / 588 total passing, one Windows FIFO
-skip, plus build/typecheck/smoke/plugin/benchmark. No hosted CI checks are reported.
-Final Astra review returned **PASS WITH NOTES** after checking the actual diff,
-PR/latest commit and clean worktree. Only final review bookkeeping follows that
-verdict. Task 20 awaits user approval before the next Task; neither PR is merged.
-The initial behavioral RED deviation, Windows FIFO skip, external DEGRADED review
-and runtime resource limits remain disclosed in root HANDOFF.
-
-## Task 19 Delivery Checkpoint
-
-Task 19 (2026-09-19) prioritizes an image-first Korean paper draft, a primary-source
-register, and an image evaluation protocol linked to minimum plugin capabilities.
-See [root HANDOFF](../../HANDOFF.md) for current review, validation, Git/PR state,
-and [paper draft](../research/image-first-paper-draft.ko.md) for the research entry.
-This is documentation only: the runtime remains text-only, image results are
-unmeasured, and video development waits for image validation and user approval.
-The document package is delivered through [Draft PR #18](https://github.com/kimcheolhui9846/token-context-optimizer/pull/18)
-against `main`. Post-Draft checks on 2026-09-19 passed 39 targeted and 570 total
-tests, build, typecheck, MCP smoke, plugin validation, and existing text benchmark.
-These checks establish regression coverage, not empirical image performance.
-Final native Astra review returned PASS WITH NOTES; external cross-check remains
-DEGRADED and source verification is abstract-level. The user approved the next
-implementation Task after this delivery. The final evidence record is in root HANDOFF.
-The Task 18 dirty checkout is preserved separately; its uncompleted implementation
-is neither included nor claimed complete here. No merge is authorized.
-
-## Historical Checkpoint Before Task 19
-
-The following record predates the verified merge of PR #14 into `main` at
-`4e9b7c562b7f08fc24e79e615f68b467cbf8eeda`, the base of Task 19. Its pending-merge
-language is retained as history rather than the current PR state.
 
 The offline mock-runner implementation is complete and PR #14 has been pushed
 and updated for review, not merged. Final whole-branch review at `4b61277`

@@ -96,7 +96,9 @@ bilingual development families, not a completed pilot or model performance resul
 generates reproducible preview schedules, with no provider calls. The
 [approved contract](docs/superpowers/specs/2026-09-09-research-run-preflight-design.md)
 separates preflight checks from authorization: `dispatchAllowed` is always false.
-A provider runner, spending enforcement and paired analysis remain separate work.
+A provider runner and spending enforcement remain separate work. The implemented
+[paired-success point estimate and coverage](docs/research/paired-success.md) is
+diagnostic only; inferential paired analysis remains separate work.
 
 [Offline mock runs](docs/research/mock-running.md) now exercise virtual deadlines,
 reservations, unknown costs and explicit not-started slots without provider calls.
@@ -117,6 +119,19 @@ and UI questions. It contains no measured image results. The protocol links each
 planned plugin capability to the evidence needed by the paper; stable experiment
 requirements can guide development while writing continues. If priorities conflict,
 the paper's research question and evaluation requirements take precedence.
+
+The earlier text-research proposal studied **layered adaptation**: weight changes through fine-tuning,
+workflow instructions through skills, tool access through MCP, and distribution through
+plugins. These are different interventions, not four interchangeable models to rank.
+The [paper plan](docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md)
+covers background, the framework, this implementation, evaluation and limitations.
+Background/design can be drafted now; results require real traces and blinded grading.
+The [supplied-paper review and research application notes](docs/research/literature/2026-09-12/README.md)
+cover four versioned PDFs, their limitations, and a separate
+[agent-context hypothesis assessment](docs/research/literature/2026-09-12/05-agent-context-hypothesis.md).
+This bounded reading set is not an exhaustive related-work search or novelty proof;
+the broader novelty assessment remains incomplete. All proposed experiments remain
+unrun, including the fresh-agent versus persistent-context comparison.
 
 Image bytes, internal visual tokens, provider-reported usage, and monetary cost are
 different measurements. Neither existing text tests nor future image fixture tests
