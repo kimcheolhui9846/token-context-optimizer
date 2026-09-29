@@ -1,5 +1,11 @@
 # LLM Fine-Tuning, Plugins, MCP, And Skills Paper Plan
 
+> Historical text/layered-adaptation study, retained for provenance. Since
+> 2026-09-19 the active direction is the [image-first paper draft](image-first-paper-draft.ko.md)
+> and [image protocol](image-first-evaluation-protocol.md). The status and proposed
+> draft path below describe this earlier study; they do not describe the new image
+> manuscript. Text engineering evidence does not establish image effectiveness.
+
 ## Working Title
 
 Layered Adaptation for LLM Systems: Fine-Tuning, Plugins, MCP Servers, and Skills in Verified Context Optimization Workflows
