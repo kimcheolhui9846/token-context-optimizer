@@ -44,6 +44,18 @@ sibling-prefix paths and links that resolve outside authorized roots are denied.
 The source must be a regular file. These checks are application-level access
 controls, not a race-proof sandbox against hostile concurrent filesystem changes.
 
+The reader rejects the replacement cases covered here: same-size in-place
+overwrite, rename replacement after bytes are read, directory-junction
+retargeting after canonicalization, and a same-file byte replacement whose
+original mtime is restored. These are pathname and metadata checks across
+separate operations, not an atomic filesystem transaction. They do not
+establish containment against an adversarial intermediate-directory ABA swap;
+the tests cover persistent replacement, not every swap-and-restore schedule.
+On Windows, `O_NOFOLLOW` is unavailable as a complete defense. The contract
+therefore assumes trusted writers and ordinary permissions on allowed
+directories and their ancestors; atomic OS-specific path/handle containment is
+outside this M1a scope.
+
 1. Call `index_image_artifact` with `{"path":"C:/workspace/fixture.png"}`.
 2. Retain the returned `artifactId` in the current MCP session.
 3. Call `inspect_image_artifact` with `{"artifactId":"<returned image ID>"}`
