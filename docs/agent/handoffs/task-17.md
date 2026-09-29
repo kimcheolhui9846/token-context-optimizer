@@ -159,3 +159,7 @@ README plus shared HANDOFF are restored byte-identically from origin/main.
 - Against PR23 head `c758815`: exit1, rename/delete and modify/delete at `docs/agent/handoffs/task-17.md`. Git recognizes HANDOFF.md -> task-17.md as a rename on this side, while Task18 deleted the original root. README auto-merges; this is not an actual merge of PR23.
 - Proposed next-stage resolution, pending user's check: preserve main's Task17 archive and retain Task18's separate task-18.md; do not resurrect tracked root HANDOFF. No resolution or edits have been applied to PR23. Do not suppress rename detection or rewrite history to hide this conflict.
 - The first staged diff check found whitespace-only context lines in the archived patch; trailing whitespace was removed and preservation/link checks reran successfully. All70 root lines, shared+15/-5,5 local links, main-shared equality, plan preservation and staged diff checks PASS. New independent Claude review remains pending.
+
+### Final-head recheck
+
+After the evidence-only commit `9f100aa`, default `git merge-tree --write-tree --name-only HEAD codex/task-18-paired-success` against `c758815` exited0 (tree `3f87fa653d8ffd0edd8327413ef3a8e5cb2c672d`). This supersedes the intermediate542d830 conflict result for the final-head comparison. The tree retains both task-17.md and task-18.md and excludes root HANDOFF.md. No rename configuration/threshold was changed and no child conflict was manually resolved; Git's similarity-based rename decision changes with document contents. Always rerun against actual merge heads.
