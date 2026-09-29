@@ -212,3 +212,33 @@ index 8aadaeb..8c38789 100644
 - Archive/link checks: full raw-diff conservation, exact shared/inherited archive, exact literature paragraph, current paired-success text, live local links (24) and git diff --check pass. An inaccurate draft archive phrase saying rebased was corrected to git merge; no Git history was rebased.
 - Model/review evidence: user supplied Claude initial-plan/parent-stage review, exact external model unverified. Native primary Luna test implementation and fallback worker document migration were directly inspected by Astra. External milestone review is pending user-run Claude; Gemini free-tier eligibility and Copilot callable access were not established in this stage (NOT RUN). Cross-check status DEGRADED; native inspection is not represented as external review.
 - Remaining: commit F-28 docs, push/retarget existing Draft PR #19 to main, final post-push gate, merge-tree(main,#20), final author/committer and Astra review. F-06/F-07/F-29/S-14 remain a separate later paper Task; #21's F-13/F-14/S-01/F-08/F-34 are untouched. Stop after reporting this stage.
+
+## Final post-push verification and Astra review (2026-09-29)
+
+- Existing Draft PR #19 now targets main. Migration 9612658, separate F-15 fix(review) 4a059e6 and separate F-28 docs 799b5ad were pushed. Every new author/committer is kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com>.
+- Post-push gate on 799b5ad: npm.cmd test 685 passed / 1 skipped / 15 files (20.17s); npm.cmd run build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark all exit 0. Build stderr contains normal esbuild progress represented by PowerShell as NativeCommandError; native build exit is 0. The generated bundle has no content difference from the original Task 20 bundle.
+- git merge-tree --write-tree origin/main HEAD: exit 0, no conflicts (main 85ff7b1).
+- git merge-tree --write-tree HEAD codex/task-21-jpeg-ingest: exit 1; root HANDOFF modify/delete and shared docs/agent/HANDOFF.md content conflicts only. No README/code/test conflict. This is a preview; PR #20 branch was not edited.
+- Final Astra verdict: PASS WITH NOTES for approved migration and the F-15 minimum remedy (test coverage plus explicit limitation) and PR #19-scoped F-28. The actual diffs, source preservation, test assertions, gates, Git ancestry, identity and Draft state were inspected. The remaining hostile ABA risk is explicitly outside the current contract, not fixed or claimed reproduced. External milestone review remains DEGRADED/pending user-run Claude review.
+- No PR #19 merge and no Task 21/#20 implementation performed. This evidence-only appendix requires doc checks, not another identical runtime gate.
+
+### Main-relative file inventory
+- `README.md`
+- `bin/token-context-optimizer.mjs`
+- `docs/agent/handoffs/task-20.md`
+- `docs/design.md`
+- `docs/image-artifacts.md`
+- `docs/research/image-first-evaluation-protocol.md`
+- `docs/research/image-first-paper-draft.ko.md`
+- `docs/superpowers/plans/2026-09-20-png-ingest.md`
+- `package-lock.json`
+- `package.json`
+- `scripts/build-bundle.mjs`
+- `scripts/smoke-mcp.mjs`
+- `skills/optimize-context/SKILL.md`
+- `src/core/image-artifacts.ts`
+- `src/core/types.ts`
+- `src/server/index.ts`
+- `tests/image-artifacts.test.ts`
+- `tests/image-packaging.test.ts`
+- `tests/image-source-race.test.ts`
