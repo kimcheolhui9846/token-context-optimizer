@@ -1,4 +1,37 @@
-PR #23 | Branch: codex/task-18-paired-success | Base: codex/task-17-paired-success-plan (dd84afe871ea70abbe1a47ea1821c26079abe420)
+PR #23 | Branch: codex/task-18-paired-success | Base: main (e2274b87bf5130cd3531eab175bebb76604c4ecd)
+
+## Phase 2 merge migration and verification (2026-09-29)
+
+The branch incorporates main through git merge at
+e2274b87bf5130cd3531eab175bebb76604c4ecd after PR17 merged. The original PR23
+base remains `codex/task-17-paired-success-plan` at
+dd84afe871ea70abbe1a47ea1821c26079abe420; the phase-2 working head was c758815.
+The original Task 18 archive below remains historical and is retained unchanged.
+
+The user explicitly approved the shared-document restore after the prior note
+said it was awaiting approval. README retains the previously approved product
+paragraph; shared HANDOFF and the Task 17 archive are main-equivalent after the
+migration. The root HANDOFF remains local and ignored. The existing Task 18
+source/test delivery is inherited from c758815; this phase added no runtime,
+test, script, package, or research changes. The 391-line implementation plan
+is unchanged.
+
+The temporary `npm.cmd test -- --dir tests` requirement is superseded by the
+inherited Vitest exclusion configuration. Phase-2 gates used plain commands:
+
+- Targeted plain tests: 133/133 PASS across 2 files.
+- `npm.cmd test`: 665/665 PASS across 12 files in 21.84 seconds, with no nested
+  worktree contamination.
+- `npm.cmd run build`, then `npm.cmd run typecheck`, `npm.cmd run smoke:mcp`,
+  `npm.cmd run validate:plugin`, and `npm.cmd run benchmark`: all exit 0.
+- The first sandbox targeted-test startup failed because esbuild could not access an
+  ancestor directory while loading `vitest.config`; the identical elevated
+  rerun passed without a product change.
+
+Evidence is recorded in `.artifacts/task18-completion/phase2-targeted.log`,
+`phase2-targeted-retry.log`, `phase2-full.log`, and the phase2 build,
+typecheck, smoke-mcp, validate-plugin, and benchmark logs. These are migration
+gates, not new TDD or experimental results. No new RED is claimed.
 
 # Task 18 — Paired-success completion
 
