@@ -1,10 +1,31 @@
+PR #17 | branch: codex/task-17-paired-success-plan | base: main @ 089f29c33342c56399ae9d9f2a19a5be4b1570ca | original head: dd84afe | parent: 4568a9f
+
+# Historical PR17 Documentation Record
+
+This record preserves the original committed root HANDOFF and the shared handoff
+diff from PR17. The root source is exactly dd84afe:HANDOFF.md (70 lines),
+not the current local root handoff. The shared source comparison is
+4568a9f..dd84afe, with 15 additions and 5 deletions. README had no original
+delta.
+
+The archived text is historical. Its reported 570-test and review results are
+not current verification claims. This phase is documentation-only: RED is N/A,
+there are no runtime changes or experiment executions, and the 391-line
+implementation plan remains unchanged. The F32/S16/S17 audit is unresolved and
+remains with the parent gate. Relative links are normalized for this record
+under docs/agent/handoffs/; docs/superpowers links use ../../superpowers/,
+and root HANDOFF references remain plain text.
+
+## Original root HANDOFF (70 lines)
+
+```text
 # HANDOFF
 
 ## 1. 작업 개요
 - 목적: Task 17, offline family-paired success 구현 계획 작성.
 - 사용자 요구사항: 2026-09-12 “작업 이어서 진행하자”; 완료된 Task 16 다음 단계인 계획 작성으로 진행.
 - 범위: 승인된 paired-success 명세의 코드 경계, TDD 단계, 검증 및 전달 계획. 런타임 구현, 실험 실행, 외부 데이터 전송, merge 제외.
-- 관련 문서: [기존 핸드오프](docs/agent/HANDOFF.md), [명세](docs/superpowers/specs/2026-09-10-research-paired-success-design.md).
+- 관련 문서: [기존 핸드오프](../../agent/HANDOFF.md), [명세](../../superpowers/specs/2026-09-10-research-paired-success-design.md).
 - 위험: scorer 추출 시 오류 우선순위/직렬화/비용 누적 회귀; 계획의 fixture 실현 가능성.
 - 현재 상태: 계획 전달 및 post-Draft 검증 완료. [Draft PR #17](https://github.com/kimcheolhui9846/token-context-optimizer/pull/17), 내용 커밋 `82aa6ca` push 완료. 전용 브랜치 `codex/task-17-paired-success-plan`, base `docs/research-paired-success-design` / `4568a9f`. 최종 기록 커밋의 SHA와 PR head는 Git/GitHub에서 확인한다.
 
@@ -17,7 +38,7 @@
 
 ## 3. 변경 사항
 - 첫 산출물: 루트 HANDOFF.md. 기존 기록은 보존한다.
-- [구현 계획](docs/superpowers/plans/2026-09-12-research-paired-success.md) 생성; 기존 핸드오프에 현재 Task와 루트 기록 연결. 총 3개 문서만 변경. 런타임/테스트/의존성 변경 없음.
+- [구현 계획](../../superpowers/plans/2026-09-12-research-paired-success.md) 생성; 기존 핸드오프에 현재 Task와 루트 기록 연결. 총 3개 문서만 변경. 런타임/테스트/의존성 변경 없음.
 
 ## 4. 주요 의사결정
 - 이번 Task는 계획 문서 전달까지. 구현은 다음 사용자 승인 이후.
@@ -68,3 +89,65 @@
 - 현재 결과: 계획/핸드오프 3문서, 명세 대조 및 pre/post-Draft gate 완료. Draft PR #17 전달. 구현은 시작하지 않음.
 - 계획 대비: 범위 변경 없음; 독립 리뷰의 fixture 표현 1건을 명확화.
 - 다음 작업자: 승인 확인 후 계획의 Work Package 1부터 시작하고 실행 시점의 모델/branch/base/provider 상태를 재확인한다.
+
+```
+
+## Original shared HANDOFF diff (15 additions, 5 deletions)
+
+```diff
+diff --git a/docs/agent/HANDOFF.md b/docs/agent/HANDOFF.md
+index 0455256..4692031 100644
+--- a/docs/agent/HANDOFF.md
++++ b/docs/agent/HANDOFF.md
+@@ -2,6 +2,16 @@
+
+ ## Current Objective
+
++Task 17 resumed on 2026-09-12 after the user requested continuing. The current
++delivery is the [paired-success implementation plan](../../superpowers/plans/2026-09-12-research-paired-success.md),
++with controller-owned status and review evidence in root HANDOFF.md (local, untracked).
++Task 16 is delivered at `4568a9f`, confirmed as the head of OPEN Draft PR #16.
++The new branch is `codex/task-17-paired-success-plan`, based on
++`docs/research-paired-success-design`. This Task changes documentation only;
++runtime implementation waits for the next approval. No PR merge is authorized.
++
++## Previous Checkpoint: Research Documentation Delivery
++
+ On 2026-09-12 the user authorized resuming the pending documentation delivery,
+ commit/push, and reviewing four PDFs from their local paper folder. They also
+ requested logical/evidence assessment of a fresh-subagent versus persistent-inline
+@@ -1217,11 +1227,11 @@ implementation slice; explicit merge approval remains pending.
+
+ ## Next Steps
+
+-1. Review the paired-success specification, four-paper literature dossier and
+-   agent-context hypothesis memo as the current documentation delivery. No analyzer
+-   or architecture experiment has been implemented. Proceed to implementation
+-   planning only after approval of the written package; proposed research arms
+-   require their own frozen design, data, measurement and execution gates.
++1. Review the Task 17 paired-success implementation plan and root HANDOFF. The
++   user's continuation advances from delivered Task 16 to planning; runtime
++   execution requires the next approval. No analyzer or architecture experiment
++   has been implemented. Proposed research arms require their own frozen design,
++   data, measurement and execution gates.
+ 2. Preserve PR #15 as the separate documentation prerequisite until actually merged;
+    inspect live git/GitHub state on resume. PR #13/#14 are already merged.
+ 3. Complete dataset curation/freeze, model/access/data/spend approvals, live-runner
+```
+
+## Preservation note
+
+Every original root line and every shared diff addition/deletion is preserved
+above. Only the documented relative-link and root-reference normalization was
+made. README remains unchanged from its original PR17 state and the working
+README plus shared HANDOFF are restored byte-identically from origin/main.
+
+## Current phase-2 preservation checks (2026-09-29)
+
+- PR16 merged at `089f29c33342c56399ae9d9f2a19a5be4b1570ca` after user confirmation. This Task17 worktree started at `dd84afe` and uses `git merge` to inherit main; no manual copying of parent Task records, rebase or force-push.
+- Only `docs/agent/HANDOFF.md` conflicted. The sequential phase-2 rule keeps main's shared file and preserves this branch's records here. No README/code/other conflict occurred.
+- Controller independently verified all70 original root lines and shared diff +15/-5 after relative-link/whitespace normalization. The original tracked shared-handoff link remains a link to the shared file; only the untracked local-root reference becomes plain text. An initial link-conversion mistake was caught by the exact-line checker and corrected before commit.
+- README and shared HANDOFF equal main; original Task17 has no README delta. The391-line implementation plan is unchanged from `dd84afe`. Local-link checks across archive and plan passed (5 links), and `git diff --check` passed.
+- Root HANDOFF remains on disk as the working record and will be untracked/ignored. No .omx/.claude or unrelated worktree changes enter this delivery. Main-relative final scope is this archive and the original plan only.
+- Documentation-only migration: RED not applicable; runtime gates NOT RUN because runtime/tests/scripts/dependencies match main and this follow-up changes records only. Historical570-test/model-review claims above are not new execution. No fresh Claude review invoked. Task16 research-feedback closure is unaffected by this migration.
+- PR17 remains Draft and unmerged pending the user's staged check. PR23/Task18 migration is not started.
