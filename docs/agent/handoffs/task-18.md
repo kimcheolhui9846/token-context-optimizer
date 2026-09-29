@@ -305,3 +305,12 @@ index 4692031..2cd9b0b 100644
  delivery is the [paired-success implementation plan](../../superpowers/plans/2026-09-12-research-paired-success.md),
  with controller-owned status and review evidence in root HANDOFF.md (local, untracked).
 ```
+
+## Phase-2 final Git verification
+
+- Main incorporation commit `99164339d2634c8e6c2da12a5f0869ae68620dba`; no rebase/force-push, no manual conflict resolution needed. Author/committer both kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com>.
+- `git restore -- docs/agent/HANDOFF.md` executed exactly for the approved file after its11-line local delta was verified archived. Shared HANDOFF and main task-17.md now match main; root HANDOFF exists locally but is ignored/untracked. No tracked .omx/.claude. The README retains only its approved Task18 product description relative to main.
+- `git diff c758815 -- src tests scripts package.json package-lock.json` is empty: this integration adds no runtime/test/script/dependency changes. Main-relative runtime diff still includes the previously reviewed Task18 implementation; “no new runtime changes” does not mean that the entire PR has no runtime delta.
+- Main-relative files (11): README.md; docs/agent/handoffs/task-18.md; docs/research/evidence/task-18/measure-paired-success.mjs; docs/research/evidence/task-18/timing-2026-09-28.json; docs/research/paired-success.md; docs/research/scoring.md; src/research/evaluation-core.ts; src/research/paired-success.ts; src/research/scoring.ts; tests/research-paired-success.test.ts; tests/research-scoring.test.ts.
+- `git merge-tree --write-tree --name-only origin/main 9916433` against main `e2274b8`: exit0, no conflicts, tree `d57d40fbc7f95eb301aa750f070a67771bbe651d`. Diff checks passed; relative Task18 links remain valid. Final documentation-only follow-up does not change the tested runtime/config tree.
+- Final controller verdict: PASS WITH NOTES for phase2 integration and required gates; fresh Claude review of this final revision is pending. Update existing PR23 to main, retain Draft. PR23 merge and next Task are not performed in this stage.
