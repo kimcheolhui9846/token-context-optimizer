@@ -78,4 +78,7 @@ Each arm contains these counts and metrics:
 
 Metrics are per arm only. Comparative statistics, family-clustered uncertainty, category/
 language strata, inter-rater agreement, model execution, and the 120-family pilot remain
-separate work. See the [evaluation protocol](2026-09-07-layered-adaptation-evaluation-protocol.md).
+separate work. For the implemented diagnostic point estimate and coverage gate, see
+[offline paired-success analysis](paired-success.md). Bootstrap, confidence intervals,
+p-values, and other inferential comparisons remain separate work. See the
+[evaluation protocol](2026-09-07-layered-adaptation-evaluation-protocol.md).

@@ -6,6 +6,7 @@ import { join, resolve } from "node:path";
 import { promisify } from "node:util";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { buildModelInputs, fingerprintDataset, scoreEvaluation } from "../src/research/scoring.js";
+import { evaluateCore } from "../src/research/evaluation-core.js";
 
 function dataset() {
   return JSON.parse(readFileSync("docs/research/datasets/format-demo.json", "utf8"));
@@ -23,6 +24,73 @@ function evaluation(data = dataset(), runs = [run()]) {
 }
 
 describe("research scoring", () => {
+  it("returns a detached evaluation core with the exact scorer report", () => {
+    const data = dataset();
+    const ledger = evaluation(data);
+    const core = evaluateCore(data, ledger);
+    expect(core.report).toEqual(scoreEvaluation(data, ledger));
+    expect(core.dataset).not.toBe(data);
+    expect(core.ledger).not.toBe(ledger);
+    expect(core.ledger.runs[0]).not.toBe(ledger.runs[0]);
+    ledger.runs[0].judgment!.coveredFacts[0] = false;
+    expect(core.ledger.runs[0].judgment!.coveredFacts).toEqual([true]);
+  });
+
+  it("pins full scorer serialization including arm and key order", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data), arms: ["baseline", "empty"] };
+    expect(JSON.stringify(scoreEvaluation(data, ledger))).toBe(JSON.stringify({
+      schemaVersion: 1, datasetSha256: fingerprintDataset(data), split: "development", complete: false, arms: [
+        { arm: "baseline", planned: 1, submitted: 1, missing: 0, ungraded: 0, successes: 1, failures: 0, complete: true,
+          successRate: 1, totalCostUsd: 0.01, costPerSuccessUsd: 0.01, latencySampleCount: 1, medianLatencyMs: 10, p95LatencyMs: 10 },
+        { arm: "empty", planned: 1, submitted: 0, missing: 1, ungraded: 0, successes: 0, failures: 0, complete: false,
+          successRate: 0, totalCostUsd: null, costPerSuccessUsd: null, latencySampleCount: 0, medianLatencyMs: null, p95LatencyMs: null },
+      ],
+    }));
+  });
+
+  it("keeps run validation ahead of cost aggregation", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data, [run({ costUsd: 1e308 }), run({ attempt: 2, costUsd: 1e308 }), run({ taskId: "unknown", attempt: 3 })]), attemptsPerTask: 3 };
+    expect(() => scoreEvaluation(data, ledger)).toThrow(/^out_of_plan$/);
+  });
+
+  it("preserves floating point cost accumulation order", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data, [run({ costUsd: 1e16 }), run({ attempt: 2, costUsd: 1 }), run({ attempt: 3, costUsd: 1 })]), attemptsPerTask: 3 };
+    expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBe(1e16);
+    ledger.runs.reverse();
+    expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBe(10000000000000002);
+  });
+
+  it("pins nullable telemetry, ungraded outcomes, and nearest-rank latency", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data, [
+      run({ latencyMs: 30, costUsd: 0.01 }),
+      run({ attempt: 2, status: "error", judgment: null, latencyMs: 10, costUsd: 0.02 }),
+      run({ attempt: 3, judgment: null, latencyMs: 20, costUsd: null }),
+    ]), attemptsPerTask: 3 };
+    expect(JSON.stringify(scoreEvaluation(data, ledger))).toBe(JSON.stringify({
+      schemaVersion: 1, datasetSha256: fingerprintDataset(data), split: "development", complete: false, arms: [{
+        arm: "baseline", planned: 3, submitted: 3, missing: 0, ungraded: 1, successes: 1, failures: 1, complete: false,
+        successRate: null, totalCostUsd: null, costPerSuccessUsd: null, latencySampleCount: 3, medianLatencyMs: 20, p95LatencyMs: 30,
+      }],
+    }));
+  });
+
+  it.each([
+    ["invalid dataset precedes malformed ledger", () => scoreEvaluation({}, {}), "invalid_dataset"],
+    ["malformed ledger precedes stale hash", () => scoreEvaluation(dataSet(), { datasetSha256: "0".repeat(64) }), "invalid_evaluation"],
+    ["stale hash precedes duplicate arms", () => scoreEvaluation(dataSet(), { ...evaluation(), datasetSha256: "0".repeat(64), arms: ["baseline", "baseline"] }), "dataset_fingerprint_mismatch"],
+    ["duplicate arms precede empty split", () => scoreEvaluation(dataSet(), { ...evaluation(), split: "train", arms: ["baseline", "baseline"] }), "duplicate_arm"],
+    ["judgment shape precedes later out-of-plan run", () => scoreEvaluation(dataSet(), { ...evaluation(dataSet(), [run({ judgment: { ...run().judgment!, coveredFacts: [] } }), run({ attempt: 2, taskId: "unknown" })]), attemptsPerTask: 1 }), "judgment_shape"],
+    ["duplicate run precedes duplicate judgment shape", () => scoreEvaluation(dataSet(), { ...evaluation(dataSet(), [run(), run({ judgment: { ...run().judgment!, coveredFacts: [] } })]), attemptsPerTask: 2 }), "duplicate_run"],
+  ])("preserves validation precedence: %s", (_name, invoke, expected) => {
+    expect(invoke).toThrow(expected);
+  });
+
+  function dataSet() { return dataset(); }
+
   it("projects only allowed fields into model inputs", () => {
     const data = dataset();
     data.records[0].answerKey = "private-answer-canary";
@@ -40,8 +108,8 @@ describe("research scoring", () => {
   });
 
   it("rejects invalid datasets and split names at the projection boundary", () => {
-    expect(() => buildModelInputs({}, "test")).toThrow();
-    expect(() => buildModelInputs(dataset(), "invalid")).toThrow();
+    expect(() => buildModelInputs({}, "test")).toThrow(/^invalid_dataset$/);
+    expect(() => buildModelInputs(dataset(), "invalid")).toThrow(/^invalid_split$/);
   });
 
   it("rejects a ledger after its dataset answer key changes", () => {
@@ -125,15 +193,22 @@ describe("research scoring", () => {
     expect(() => scoreEvaluation(data, ledger)).toThrow("out_of_plan");
   });
 
-  it.each([{ arms: ["baseline", "baseline"] }, { attemptsPerTask: 0 }, { split: "test" }])("rejects invalid or empty evaluation plans: %j", (patch) => {
-    expect(() => scoreEvaluation(dataset(), { ...evaluation(), ...patch })).toThrow();
+  it.each([
+    [{ arms: ["baseline", "baseline"] }, "duplicate_arm"],
+    [{ attemptsPerTask: 0 }, "invalid_evaluation"],
+    [{ split: "test" }, "empty_split"],
+  ])("rejects invalid or empty evaluation plans: %j", (patch, expected) => {
+    expect(() => scoreEvaluation(dataset(), { ...evaluation(), ...patch })).toThrow(new RegExp(`^${expected}$`));
   });
 
   it.each([
-    { costUsd: -1 }, { latencyMs: Infinity }, { status: "success" },
-    { status: "error" }, { judgment: { graderId: "test", coveredFacts: [], contradiction: false, exactCheckPassed: null } },
-  ])("rejects invalid measurements or judgments: %j", (patch) => {
-    expect(() => scoreEvaluation(dataset(), evaluation(dataset(), [run(patch)]))).toThrow();
+    [{ costUsd: -1 }, "invalid_evaluation"],
+    [{ latencyMs: Infinity }, "invalid_evaluation"],
+    [{ status: "success" }, "invalid_evaluation"],
+    [{ status: "error" }, "judgment_shape"],
+    [{ judgment: { graderId: "test", coveredFacts: [], contradiction: false, exactCheckPassed: null } }, "judgment_shape"],
+  ])("rejects invalid measurements or judgments: %j", (patch, expected) => {
+    expect(() => scoreEvaluation(dataset(), evaluation(dataset(), [run(patch)]))).toThrow(new RegExp(`^${expected}$`));
   });
 
   it("reports each declared arm including arms without submissions", () => {
