@@ -1,4 +1,76 @@
 #!/usr/bin/env node
+/*
+Bundled dependency license notices
+
+Package: fast-png
+MIT License
+
+Copyright (c) 2015 Michaël Zasso
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Package: fflate
+MIT License
+
+Copyright (c) 2026 Arjun Barrett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Package: iobuffer
+The MIT License (MIT)
+
+Copyright (c) 2015 Michaël Zasso
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 var __defProp = Object.defineProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -28,8 +100,8 @@ var __exportAll = (all, symbols) => {
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
-    for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
-      key = keys[i];
+    for (var keys = __getOwnPropNames(from), i2 = 0, n = keys.length, key; i2 < n; i2++) {
+      key = keys[i2];
       if (!__hasOwnProp.call(to, key) && key !== except) {
         __defProp2(to, key, {
           get: ((k) => from[k]).bind(null, key),
@@ -87,8 +159,8 @@ function $constructor(name, initializer3, params) {
     initializer3(inst, def);
     const proto = _.prototype;
     const keys = Object.keys(proto);
-    for (let i = 0; i < keys.length; i++) {
-      const k = keys[i];
+    for (let i2 = 0; i2 < keys.length; i2++) {
+      const k = keys[i2];
       if (!(k in inst)) {
         inst[k] = proto[k].bind(inst);
       }
@@ -99,10 +171,10 @@ function $constructor(name, initializer3, params) {
   }
   Object.defineProperty(Definition, "name", { value: name });
   function _(def) {
-    var _a3;
+    var _a4;
     const inst = params?.Parent ? new Definition() : this;
     init(inst, def);
-    (_a3 = inst._zod).deferred ?? (_a3.deferred = []);
+    (_a4 = inst._zod).deferred ?? (_a4.deferred = []);
     for (const fn of inst._zod.deferred) {
       fn();
     }
@@ -315,8 +387,8 @@ function promiseAllObject(promisesObj) {
   const promises = keys.map((key) => promisesObj[key]);
   return Promise.all(promises).then((results) => {
     const resolvedObj = {};
-    for (let i = 0; i < keys.length; i++) {
-      resolvedObj[keys[i]] = results[i];
+    for (let i2 = 0; i2 < keys.length; i2++) {
+      resolvedObj[keys[i2]] = results[i2];
     }
     return resolvedObj;
   });
@@ -324,7 +396,7 @@ function promiseAllObject(promisesObj) {
 function randomString(length = 10) {
   const chars = "abcdefghijklmnopqrstuvwxyz";
   let str = "";
-  for (let i = 0; i < length; i++) {
+  for (let i2 = 0; i2 < length; i2++) {
     str += chars[Math.floor(Math.random() * chars.length)];
   }
   return str;
@@ -697,21 +769,21 @@ function required(Class2, schema, mask) {
   });
   return clone(schema, def);
 }
-function aborted(x, startIndex = 0) {
-  if (x.aborted === true)
+function aborted(x2, startIndex = 0) {
+  if (x2.aborted === true)
     return true;
-  for (let i = startIndex; i < x.issues.length; i++) {
-    if (x.issues[i]?.continue !== true) {
+  for (let i2 = startIndex; i2 < x2.issues.length; i2++) {
+    if (x2.issues[i2]?.continue !== true) {
       return true;
     }
   }
   return false;
 }
-function explicitlyAborted(x, startIndex = 0) {
-  if (x.aborted === true)
+function explicitlyAborted(x2, startIndex = 0) {
+  if (x2.aborted === true)
     return true;
-  for (let i = startIndex; i < x.issues.length; i++) {
-    if (x.issues[i]?.continue === false) {
+  for (let i2 = startIndex; i2 < x2.issues.length; i2++) {
+    if (x2.issues[i2]?.continue === false) {
       return true;
     }
   }
@@ -719,8 +791,8 @@ function explicitlyAborted(x, startIndex = 0) {
 }
 function prefixIssues(path, issues) {
   return issues.map((iss) => {
-    var _a3;
-    (_a3 = iss).path ?? (_a3.path = []);
+    var _a4;
+    (_a4 = iss).path ?? (_a4.path = []);
     iss.path.unshift(path);
     return iss;
   });
@@ -795,15 +867,15 @@ function cleanEnum(obj) {
 function base64ToUint8Array(base642) {
   const binaryString = atob(base642);
   const bytes = new Uint8Array(binaryString.length);
-  for (let i = 0; i < binaryString.length; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
+  for (let i2 = 0; i2 < binaryString.length; i2++) {
+    bytes[i2] = binaryString.charCodeAt(i2);
   }
   return bytes;
 }
 function uint8ArrayToBase64(bytes) {
   let binaryString = "";
-  for (let i = 0; i < bytes.length; i++) {
-    binaryString += String.fromCharCode(bytes[i]);
+  for (let i2 = 0; i2 < bytes.length; i2++) {
+    binaryString += String.fromCharCode(bytes[i2]);
   }
   return btoa(binaryString);
 }
@@ -821,8 +893,8 @@ function hexToUint8Array(hex) {
     throw new Error("Invalid hex string length");
   }
   const bytes = new Uint8Array(cleanHex.length / 2);
-  for (let i = 0; i < cleanHex.length; i += 2) {
-    bytes[i / 2] = Number.parseInt(cleanHex.slice(i, i + 2), 16);
+  for (let i2 = 0; i2 < cleanHex.length; i2 += 2) {
+    bytes[i2 / 2] = Number.parseInt(cleanHex.slice(i2, i2 + 2), 16);
   }
   return bytes;
 }
@@ -882,10 +954,10 @@ function formatError(error2, mapper = (issue2) => issue2.message) {
           fieldErrors._errors.push(mapper(issue2));
         } else {
           let curr = fieldErrors;
-          let i = 0;
-          while (i < fullpath.length) {
-            const el = fullpath[i];
-            const terminal = i === fullpath.length - 1;
+          let i2 = 0;
+          while (i2 < fullpath.length) {
+            const el = fullpath[i2];
+            const terminal = i2 === fullpath.length - 1;
             if (!terminal) {
               curr[el] = curr[el] || { _errors: [] };
             } else {
@@ -893,7 +965,7 @@ function formatError(error2, mapper = (issue2) => issue2.message) {
               curr[el]._errors.push(mapper(issue2));
             }
             curr = curr[el];
-            i++;
+            i2++;
           }
         }
       }
@@ -1042,10 +1114,10 @@ var uppercase = /^[^a-z]*$/;
 
 // node_modules/zod/v4/core/checks.js
 var $ZodCheck = /* @__PURE__ */ $constructor("$ZodCheck", (inst, def) => {
-  var _a3;
+  var _a4;
   inst._zod ?? (inst._zod = {});
   inst._zod.def = def;
-  (_a3 = inst._zod).onattach ?? (_a3.onattach = []);
+  (_a4 = inst._zod).onattach ?? (_a4.onattach = []);
 });
 var numericOriginMap = {
   number: "number",
@@ -1111,8 +1183,8 @@ var $ZodCheckGreaterThan = /* @__PURE__ */ $constructor("$ZodCheckGreaterThan", 
 var $ZodCheckMultipleOf = /* @__PURE__ */ $constructor("$ZodCheckMultipleOf", (inst, def) => {
   $ZodCheck.init(inst, def);
   inst._zod.onattach.push((inst2) => {
-    var _a3;
-    (_a3 = inst2._zod.bag).multipleOf ?? (_a3.multipleOf = def.value);
+    var _a4;
+    (_a4 = inst2._zod.bag).multipleOf ?? (_a4.multipleOf = def.value);
   });
   inst._zod.check = (payload) => {
     if (typeof payload.value !== typeof def.value)
@@ -1210,9 +1282,9 @@ var $ZodCheckNumberFormat = /* @__PURE__ */ $constructor("$ZodCheckNumberFormat"
   };
 });
 var $ZodCheckMaxLength = /* @__PURE__ */ $constructor("$ZodCheckMaxLength", (inst, def) => {
-  var _a3;
+  var _a4;
   $ZodCheck.init(inst, def);
-  (_a3 = inst._zod.def).when ?? (_a3.when = (payload) => {
+  (_a4 = inst._zod.def).when ?? (_a4.when = (payload) => {
     const val = payload.value;
     return !nullish(val) && val.length !== void 0;
   });
@@ -1239,9 +1311,9 @@ var $ZodCheckMaxLength = /* @__PURE__ */ $constructor("$ZodCheckMaxLength", (ins
   };
 });
 var $ZodCheckMinLength = /* @__PURE__ */ $constructor("$ZodCheckMinLength", (inst, def) => {
-  var _a3;
+  var _a4;
   $ZodCheck.init(inst, def);
-  (_a3 = inst._zod.def).when ?? (_a3.when = (payload) => {
+  (_a4 = inst._zod.def).when ?? (_a4.when = (payload) => {
     const val = payload.value;
     return !nullish(val) && val.length !== void 0;
   });
@@ -1268,9 +1340,9 @@ var $ZodCheckMinLength = /* @__PURE__ */ $constructor("$ZodCheckMinLength", (ins
   };
 });
 var $ZodCheckLengthEquals = /* @__PURE__ */ $constructor("$ZodCheckLengthEquals", (inst, def) => {
-  var _a3;
+  var _a4;
   $ZodCheck.init(inst, def);
-  (_a3 = inst._zod.def).when ?? (_a3.when = (payload) => {
+  (_a4 = inst._zod.def).when ?? (_a4.when = (payload) => {
     const val = payload.value;
     return !nullish(val) && val.length !== void 0;
   });
@@ -1299,7 +1371,7 @@ var $ZodCheckLengthEquals = /* @__PURE__ */ $constructor("$ZodCheckLengthEquals"
   };
 });
 var $ZodCheckStringFormat = /* @__PURE__ */ $constructor("$ZodCheckStringFormat", (inst, def) => {
-  var _a3, _b;
+  var _a4, _b2;
   $ZodCheck.init(inst, def);
   inst._zod.onattach.push((inst2) => {
     const bag = inst2._zod.bag;
@@ -1310,7 +1382,7 @@ var $ZodCheckStringFormat = /* @__PURE__ */ $constructor("$ZodCheckStringFormat"
     }
   });
   if (def.pattern)
-    (_a3 = inst._zod).check ?? (_a3.check = (payload) => {
+    (_a4 = inst._zod).check ?? (_a4.check = (payload) => {
       def.pattern.lastIndex = 0;
       if (def.pattern.test(payload.value))
         return;
@@ -1325,7 +1397,7 @@ var $ZodCheckStringFormat = /* @__PURE__ */ $constructor("$ZodCheckStringFormat"
       });
     });
   else
-    (_b = inst._zod).check ?? (_b.check = () => {
+    (_b2 = inst._zod).check ?? (_b2.check = () => {
     });
 });
 var $ZodCheckRegex = /* @__PURE__ */ $constructor("$ZodCheckRegex", (inst, def) => {
@@ -1450,9 +1522,9 @@ var Doc = class {
       return;
     }
     const content = arg;
-    const lines = content.split("\n").filter((x) => x);
-    const minIndent = Math.min(...lines.map((x) => x.length - x.trimStart().length));
-    const dedented = lines.map((x) => x.slice(minIndent)).map((x) => " ".repeat(this.indent * 2) + x);
+    const lines = content.split("\n").filter((x2) => x2);
+    const minIndent = Math.min(...lines.map((x2) => x2.length - x2.trimStart().length));
+    const dedented = lines.map((x2) => x2.slice(minIndent)).map((x2) => " ".repeat(this.indent * 2) + x2);
     for (const line of dedented) {
       this.content.push(line);
     }
@@ -1461,7 +1533,7 @@ var Doc = class {
     const F = Function;
     const args = this?.args;
     const content = this?.content ?? [``];
-    const lines = [...content.map((x) => `  ${x}`)];
+    const lines = [...content.map((x2) => `  ${x2}`)];
     return new F(...args, lines.join("\n"));
   }
 };
@@ -1475,7 +1547,7 @@ var version = {
 
 // node_modules/zod/v4/core/schemas.js
 var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
-  var _a3;
+  var _a4;
   inst ?? (inst = {});
   inst._zod.def = def;
   inst._zod.bag = inst._zod.bag || {};
@@ -1490,7 +1562,7 @@ var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
     }
   }
   if (checks.length === 0) {
-    (_a3 = inst._zod).deferred ?? (_a3.deferred = []);
+    (_a4 = inst._zod).deferred ?? (_a4.deferred = []);
     inst._zod.deferred?.push(() => {
       inst._zod.run = inst._zod.parse;
     });
@@ -2042,16 +2114,16 @@ var $ZodArray = /* @__PURE__ */ $constructor("$ZodArray", (inst, def) => {
     }
     payload.value = Array(input.length);
     const proms = [];
-    for (let i = 0; i < input.length; i++) {
-      const item = input[i];
+    for (let i2 = 0; i2 < input.length; i2++) {
+      const item = input[i2];
       const result = def.element._zod.run({
         value: item,
         issues: []
       }, ctx);
       if (result instanceof Promise) {
-        proms.push(result.then((result2) => handleArrayResult(result2, payload, i)));
+        proms.push(result.then((result2) => handleArrayResult(result2, payload, i2)));
       } else {
-        handleArrayResult(result, payload, i);
+        handleArrayResult(result, payload, i2);
       }
     }
     if (proms.length) {
@@ -2852,7 +2924,7 @@ var $ZodNonOptional = /* @__PURE__ */ $constructor("$ZodNonOptional", (inst, def
   $ZodType.init(inst, def);
   defineLazy(inst._zod, "values", () => {
     const v = def.innerType._zod.values;
-    return v ? new Set([...v].filter((x) => x !== void 0)) : void 0;
+    return v ? new Set([...v].filter((x2) => x2 !== void 0)) : void 0;
   });
   inst._zod.parse = (payload, ctx) => {
     const result = def.innerType._zod.run(payload, ctx);
@@ -3765,7 +3837,7 @@ function initializeContext(params) {
   };
 }
 function process2(schema, ctx, _params = { path: [], schemaPath: [] }) {
-  var _a3;
+  var _a4;
   const def = schema._zod.def;
   const seen = ctx.seen.get(schema);
   if (seen) {
@@ -3813,7 +3885,7 @@ function process2(schema, ctx, _params = { path: [], schemaPath: [] }) {
     delete result.schema.default;
   }
   if (ctx.io === "input" && "_prefault" in result.schema)
-    (_a3 = result.schema).default ?? (_a3.default = result.schema._prefault);
+    (_a4 = result.schema).default ?? (_a4.default = result.schema._prefault);
   delete result.schema._prefault;
   const _result = ctx.seen.get(schema);
   return _result.schema;
@@ -4386,9 +4458,9 @@ var objectProcessor = (schema, ctx, _json, params) => {
 var unionProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
   const isExclusive = def.inclusive === false;
-  const options = def.options.map((x, i) => process2(x, ctx, {
+  const options = def.options.map((x2, i2) => process2(x2, ctx, {
     ...params,
-    path: [...params.path, isExclusive ? "oneOf" : "anyOf", i]
+    path: [...params.path, isExclusive ? "oneOf" : "anyOf", i2]
   }));
   if (isExclusive) {
     json.oneOf = options;
@@ -4419,9 +4491,9 @@ var tupleProcessor = (schema, ctx, _json, params) => {
   json.type = "array";
   const prefixPath = ctx.target === "draft-2020-12" ? "prefixItems" : "items";
   const restPath = ctx.target === "draft-2020-12" ? "items" : ctx.target === "openapi-3.0" ? "items" : "additionalItems";
-  const prefixItems = def.items.map((x, i) => process2(x, ctx, {
+  const prefixItems = def.items.map((x2, i2) => process2(x2, ctx, {
     ...params,
-    path: [...params.path, prefixPath, i]
+    path: [...params.path, prefixPath, i2]
   }));
   const rest = def.rest ? process2(def.rest, ctx, {
     ...params,
@@ -9827,7 +9899,7 @@ async function validateStandardSchema(schema, data) {
   const result = await schema["~standard"].validate(data);
   if (result.issues && result.issues.length > 0) return {
     success: false,
-    error: result.issues.map((i) => formatIssue(i)).join(", ")
+    error: result.issues.map((i2) => formatIssue(i2)).join(", ")
   };
   return {
     success: true,
@@ -10025,14 +10097,14 @@ function inputRequiredRoundsExceededMessage(method, maxRounds) {
   return `Multi-round-trip request '${method}' still required input after ${maxRounds} rounds (inputRequired.maxRounds)`;
 }
 function sleep(ms, signal) {
-  return new Promise((resolve2, reject) => {
+  return new Promise((resolve3, reject) => {
     if (signal?.aborted) {
       reject(signal.reason instanceof SdkError ? signal.reason : new SdkError(SdkErrorCode.RequestTimeout, String(signal.reason)));
       return;
     }
     const timer = setTimeout(() => {
       signal?.removeEventListener("abort", onAbort);
-      resolve2();
+      resolve3();
     }, ms);
     const onAbort = () => {
       clearTimeout(timer);
@@ -10826,7 +10898,7 @@ var Protocol = class {
     const flowStartedAt = Date.now();
     let onAbort;
     let cleanupMessageId;
-    return new Promise((resolve2, reject) => {
+    return new Promise((resolve3, reject) => {
       const earlyReject = (error2) => {
         reject(error2);
       };
@@ -10894,7 +10966,7 @@ var Protocol = class {
         }
         if (decoded.kind === "invalid") return reject(decoded.error);
         if (decoded.kind === "input_required") {
-          if (options?.allowInputRequired === true) return resolve2(manualInputRequiredValue(decoded));
+          if (options?.allowInputRequired === true) return resolve3(manualInputRequiredValue(decoded));
           const flow = {
             codec,
             request,
@@ -10906,11 +10978,11 @@ var Protocol = class {
               params
             }, resultSchema, legOptions)
           };
-          return resolve2(this._resolveNonCompleteResult(decoded, flow));
+          return resolve3(this._resolveNonCompleteResult(decoded, flow));
         }
         const result = decoded.result;
         validateStandardSchema(resultSchema, result).then((parseResult) => {
-          if (parseResult.success) resolve2(parseResult.data);
+          if (parseResult.success) resolve3(parseResult.data);
           else reject(new SdkError(SdkErrorCode.InvalidResult, `Invalid result for ${request.method}: ${parseResult.error}`));
         }, reject);
       });
@@ -11288,12 +11360,12 @@ var require_code$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
       return item === "" || item === '""';
     }
     get str() {
-      var _a3;
-      return (_a3 = this._str) !== null && _a3 !== void 0 ? _a3 : this._str = this._items.reduce((s, c) => `${s}${c}`, "");
+      var _a4;
+      return (_a4 = this._str) !== null && _a4 !== void 0 ? _a4 : this._str = this._items.reduce((s, c) => `${s}${c}`, "");
     }
     get names() {
-      var _a3;
-      return (_a3 = this._names) !== null && _a3 !== void 0 ? _a3 : this._names = this._items.reduce((names, c) => {
+      var _a4;
+      return (_a4 = this._names) !== null && _a4 !== void 0 ? _a4 : this._names = this._items.reduce((names, c) => {
         if (c instanceof Name) names[c.str] = (names[c.str] || 0) + 1;
         return names;
       }, {});
@@ -11303,10 +11375,10 @@ var require_code$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
   exports.nil = new _Code("");
   function _(strs, ...args) {
     const code = [strs[0]];
-    let i = 0;
-    while (i < args.length) {
-      addCodeArg(code, args[i]);
-      code.push(strs[++i]);
+    let i2 = 0;
+    while (i2 < args.length) {
+      addCodeArg(code, args[i2]);
+      code.push(strs[++i2]);
     }
     return new _Code(code);
   }
@@ -11314,11 +11386,11 @@ var require_code$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
   const plus = new _Code("+");
   function str(strs, ...args) {
     const expr = [safeStringify(strs[0])];
-    let i = 0;
-    while (i < args.length) {
+    let i2 = 0;
+    while (i2 < args.length) {
       expr.push(plus);
-      addCodeArg(expr, args[i]);
-      expr.push(plus, safeStringify(strs[++i]));
+      addCodeArg(expr, args[i2]);
+      expr.push(plus, safeStringify(strs[++i2]));
     }
     optimize(expr);
     return new _Code(expr);
@@ -11331,17 +11403,17 @@ var require_code$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
   }
   exports.addCodeArg = addCodeArg;
   function optimize(expr) {
-    let i = 1;
-    while (i < expr.length - 1) {
-      if (expr[i] === plus) {
-        const res = mergeExprItems(expr[i - 1], expr[i + 1]);
+    let i2 = 1;
+    while (i2 < expr.length - 1) {
+      if (expr[i2] === plus) {
+        const res = mergeExprItems(expr[i2 - 1], expr[i2 + 1]);
         if (res !== void 0) {
-          expr.splice(i - 1, 3, res);
+          expr.splice(i2 - 1, 3, res);
           continue;
         }
-        expr[i++] = "+";
+        expr[i2++] = "+";
       }
-      i++;
+      i2++;
     }
   }
   function mergeExprItems(a, b) {
@@ -11359,15 +11431,15 @@ var require_code$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
     return c2.emptyStr() ? c1 : c1.emptyStr() ? c2 : str`${c1}${c2}`;
   }
   exports.strConcat = strConcat;
-  function interpolate(x) {
-    return typeof x == "number" || typeof x == "boolean" || x === null ? x : safeStringify(Array.isArray(x) ? x.join(",") : x);
+  function interpolate(x2) {
+    return typeof x2 == "number" || typeof x2 == "boolean" || x2 === null ? x2 : safeStringify(Array.isArray(x2) ? x2.join(",") : x2);
   }
-  function stringify(x) {
-    return new _Code(safeStringify(x));
+  function stringify(x2) {
+    return new _Code(safeStringify(x2));
   }
   exports.stringify = stringify;
-  function safeStringify(x) {
-    return JSON.stringify(x).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
+  function safeStringify(x2) {
+    return JSON.stringify(x2).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
   }
   exports.safeStringify = safeStringify;
   function getProperty(key) {
@@ -11421,8 +11493,8 @@ var require_scope = /* @__PURE__ */ __commonJSMin(((exports) => {
       return `${prefix}${ng.index++}`;
     }
     _nameGroup(prefix) {
-      var _a3, _b;
-      if (((_b = (_a3 = this._parent) === null || _a3 === void 0 ? void 0 : _a3._prefixes) === null || _b === void 0 ? void 0 : _b.has(prefix)) || this._prefixes && !this._prefixes.has(prefix)) throw new Error(`CodeGen: prefix "${prefix}" is not allowed in this scope`);
+      var _a4, _b2;
+      if (((_b2 = (_a4 = this._parent) === null || _a4 === void 0 ? void 0 : _a4._prefixes) === null || _b2 === void 0 ? void 0 : _b2.has(prefix)) || this._prefixes && !this._prefixes.has(prefix)) throw new Error(`CodeGen: prefix "${prefix}" is not allowed in this scope`);
       return this._names[prefix] = {
         prefix,
         index: 0
@@ -11459,11 +11531,11 @@ var require_scope = /* @__PURE__ */ __commonJSMin(((exports) => {
       return new ValueScopeName(prefix, this._newName(prefix));
     }
     value(nameOrPrefix, value) {
-      var _a3;
+      var _a4;
       if (value.ref === void 0) throw new Error("CodeGen: ref must be passed in value");
       const name = this.toName(nameOrPrefix);
       const { prefix } = name;
-      const valueKey = (_a3 = value.key) !== null && _a3 !== void 0 ? _a3 : value.ref;
+      const valueKey = (_a4 = value.key) !== null && _a4 !== void 0 ? _a4 : value.ref;
       let vs = this._values[prefix];
       if (vs) {
         const _name = vs.get(valueKey);
@@ -11728,23 +11800,23 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
     }
     optimizeNodes() {
       const { nodes } = this;
-      let i = nodes.length;
-      while (i--) {
-        const n = nodes[i].optimizeNodes();
-        if (Array.isArray(n)) nodes.splice(i, 1, ...n);
-        else if (n) nodes[i] = n;
-        else nodes.splice(i, 1);
+      let i2 = nodes.length;
+      while (i2--) {
+        const n = nodes[i2].optimizeNodes();
+        if (Array.isArray(n)) nodes.splice(i2, 1, ...n);
+        else if (n) nodes[i2] = n;
+        else nodes.splice(i2, 1);
       }
       return nodes.length > 0 ? this : void 0;
     }
     optimizeNames(names, constants) {
       const { nodes } = this;
-      let i = nodes.length;
-      while (i--) {
-        const n = nodes[i];
+      let i2 = nodes.length;
+      while (i2--) {
+        const n = nodes[i2];
         if (n.optimizeNames(names, constants)) continue;
         subtractNames(names, n.names);
-        nodes.splice(i, 1);
+        nodes.splice(i2, 1);
       }
       return nodes.length > 0 ? this : void 0;
     }
@@ -11790,8 +11862,8 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       return this;
     }
     optimizeNames(names, constants) {
-      var _a3;
-      this.else = (_a3 = this.else) === null || _a3 === void 0 ? void 0 : _a3.optimizeNames(names, constants);
+      var _a4;
+      this.else = (_a4 = this.else) === null || _a4 === void 0 ? void 0 : _a4.optimizeNames(names, constants);
       if (!(super.optimizeNames(names, constants) || this.else)) return;
       this.condition = optimizeExpr(this.condition, names, constants);
       return this;
@@ -11887,17 +11959,17 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       return code;
     }
     optimizeNodes() {
-      var _a3, _b;
+      var _a4, _b2;
       super.optimizeNodes();
-      (_a3 = this.catch) === null || _a3 === void 0 || _a3.optimizeNodes();
-      (_b = this.finally) === null || _b === void 0 || _b.optimizeNodes();
+      (_a4 = this.catch) === null || _a4 === void 0 || _a4.optimizeNodes();
+      (_b2 = this.finally) === null || _b2 === void 0 || _b2.optimizeNodes();
       return this;
     }
     optimizeNames(names, constants) {
-      var _a3, _b;
+      var _a4, _b2;
       super.optimizeNames(names, constants);
-      (_a3 = this.catch) === null || _a3 === void 0 || _a3.optimizeNames(names, constants);
-      (_b = this.finally) === null || _b === void 0 || _b.optimizeNames(names, constants);
+      (_a4 = this.catch) === null || _a4 === void 0 || _a4.optimizeNames(names, constants);
+      (_b2 = this.finally) === null || _b2 === void 0 || _b2.optimizeNames(names, constants);
       return this;
     }
     get names() {
@@ -12030,8 +12102,8 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       const name = this._scope.toName(nameOrPrefix);
       if (this.opts.es5) {
         const arr = iterable instanceof code_1.Name ? iterable : this.var("_arr", iterable);
-        return this.forRange("_i", 0, (0, code_1._)`${arr}.length`, (i) => {
-          this.var(name, (0, code_1._)`${arr}[${i}]`);
+        return this.forRange("_i", 0, (0, code_1._)`${arr}.length`, (i2) => {
+          this.var(name, (0, code_1._)`${arr}[${i2}]`);
           forBody(name);
         });
       }
@@ -12168,8 +12240,8 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
   function subtractNames(names, from) {
     for (const n in from) names[n] = (names[n] || 0) - (from[n] || 0);
   }
-  function not(x) {
-    return typeof x == "boolean" || typeof x == "number" || x === null ? !x : (0, code_1._)`!${par(x)}`;
+  function not(x2) {
+    return typeof x2 == "boolean" || typeof x2 == "number" || x2 === null ? !x2 : (0, code_1._)`!${par(x2)}`;
   }
   exports.not = not;
   const andCode = mappend(exports.operators.AND);
@@ -12183,10 +12255,10 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
   }
   exports.or = or;
   function mappend(op) {
-    return (x, y) => x === code_1.nil ? y : y === code_1.nil ? x : (0, code_1._)`${par(x)} ${op} ${par(y)}`;
+    return (x2, y) => x2 === code_1.nil ? y : y === code_1.nil ? x2 : (0, code_1._)`${par(x2)} ${op} ${par(y)}`;
   }
-  function par(x) {
-    return x instanceof code_1.Name ? x : (0, code_1._)`(${x})`;
+  function par(x2) {
+    return x2 instanceof code_1.Name ? x2 : (0, code_1._)`(${x2})`;
   }
 }));
 var require_util = /* @__PURE__ */ __commonJSMin(((exports) => {
@@ -12253,7 +12325,7 @@ var require_util = /* @__PURE__ */ __commonJSMin(((exports) => {
   }
   exports.unescapeJsonPointer = unescapeJsonPointer;
   function eachItem(xs, f) {
-    if (Array.isArray(xs)) for (const x of xs) f(x);
+    if (Array.isArray(xs)) for (const x2 of xs) f(x2);
     else f(xs);
   }
   exports.eachItem = eachItem;
@@ -12381,21 +12453,21 @@ var require_errors = /* @__PURE__ */ __commonJSMin(((exports) => {
   exports.resetErrorsCount = resetErrorsCount;
   function extendErrors({ gen, keyword, schemaValue, data, errsCount, it }) {
     if (errsCount === void 0) throw new Error("ajv implementation error");
-    const err = gen.name("err");
-    gen.forRange("i", errsCount, names_1.default.errors, (i) => {
-      gen.const(err, (0, codegen_1._)`${names_1.default.vErrors}[${i}]`);
-      gen.if((0, codegen_1._)`${err}.instancePath === undefined`, () => gen.assign((0, codegen_1._)`${err}.instancePath`, (0, codegen_1.strConcat)(names_1.default.instancePath, it.errorPath)));
-      gen.assign((0, codegen_1._)`${err}.schemaPath`, (0, codegen_1.str)`${it.errSchemaPath}/${keyword}`);
+    const err2 = gen.name("err");
+    gen.forRange("i", errsCount, names_1.default.errors, (i2) => {
+      gen.const(err2, (0, codegen_1._)`${names_1.default.vErrors}[${i2}]`);
+      gen.if((0, codegen_1._)`${err2}.instancePath === undefined`, () => gen.assign((0, codegen_1._)`${err2}.instancePath`, (0, codegen_1.strConcat)(names_1.default.instancePath, it.errorPath)));
+      gen.assign((0, codegen_1._)`${err2}.schemaPath`, (0, codegen_1.str)`${it.errSchemaPath}/${keyword}`);
       if (it.opts.verbose) {
-        gen.assign((0, codegen_1._)`${err}.schema`, schemaValue);
-        gen.assign((0, codegen_1._)`${err}.data`, data);
+        gen.assign((0, codegen_1._)`${err2}.schema`, schemaValue);
+        gen.assign((0, codegen_1._)`${err2}.data`, data);
       }
     });
   }
   exports.extendErrors = extendErrors;
   function addError(gen, errObj) {
-    const err = gen.const("err", errObj);
-    gen.if((0, codegen_1._)`${names_1.default.vErrors} === null`, () => gen.assign(names_1.default.vErrors, (0, codegen_1._)`[${err}]`), (0, codegen_1._)`${names_1.default.vErrors}.push(${err})`);
+    const err2 = gen.const("err", errObj);
+    gen.if((0, codegen_1._)`${names_1.default.vErrors} === null`, () => gen.assign(names_1.default.vErrors, (0, codegen_1._)`[${err2}]`), (0, codegen_1._)`${names_1.default.vErrors}.push(${err2})`);
     gen.code((0, codegen_1._)`${names_1.default.errors}++`);
   }
   function returnErrors(it, errs) {
@@ -12496,8 +12568,8 @@ var require_rules = /* @__PURE__ */ __commonJSMin(((exports) => {
     "object",
     "array"
   ]);
-  function isJSONType(x) {
-    return typeof x == "string" && jsonTypes.has(x);
+  function isJSONType(x2) {
+    return typeof x2 == "string" && jsonTypes.has(x2);
   }
   exports.isJSONType = isJSONType;
   function getRules() {
@@ -12553,8 +12625,8 @@ var require_applicability = /* @__PURE__ */ __commonJSMin(((exports) => {
   }
   exports.shouldUseGroup = shouldUseGroup;
   function shouldUseRule(schema, rule) {
-    var _a3;
-    return schema[rule.keyword] !== void 0 || ((_a3 = rule.definition.implements) === null || _a3 === void 0 ? void 0 : _a3.some((kwd) => schema[kwd] !== void 0));
+    var _a4;
+    return schema[rule.keyword] !== void 0 || ((_a4 = rule.definition.implements) === null || _a4 === void 0 ? void 0 : _a4.some((kwd) => schema[kwd] !== void 0));
   }
   exports.shouldUseRule = shouldUseRule;
 }));
@@ -12731,7 +12803,7 @@ var require_defaults = /* @__PURE__ */ __commonJSMin(((exports) => {
   function assignDefaults(it, ty) {
     const { properties, items } = it.schema;
     if (ty === "object" && properties) for (const key in properties) assignDefault(it, key, properties[key].default);
-    else if (ty === "array" && Array.isArray(items)) items.forEach((sch, i) => assignDefault(it, i, sch.default));
+    else if (ty === "array" && Array.isArray(items)) items.forEach((sch, i2) => assignDefault(it, i2, sch.default));
   }
   exports.assignDefaults = assignDefaults;
   function assignDefault(it, prop, defaultValue) {
@@ -12838,10 +12910,10 @@ var require_code = /* @__PURE__ */ __commonJSMin(((exports) => {
     return valid;
     function validateItems(notValid) {
       const len = gen.const("len", (0, codegen_1._)`${data}.length`);
-      gen.forRange("i", 0, len, (i) => {
+      gen.forRange("i", 0, len, (i2) => {
         cxt.subschema({
           keyword,
-          dataProp: i,
+          dataProp: i2,
           dataPropType: util_1.Type.Num
         }, valid);
         gen.if((0, codegen_1.not)(valid), notValid);
@@ -12855,10 +12927,10 @@ var require_code = /* @__PURE__ */ __commonJSMin(((exports) => {
     if (schema.some((sch) => (0, util_1.alwaysValidSchema)(it, sch)) && !it.opts.unevaluated) return;
     const valid = gen.let("valid", false);
     const schValid = gen.name("_valid");
-    gen.block(() => schema.forEach((_sch, i) => {
+    gen.block(() => schema.forEach((_sch, i2) => {
       const schCxt = cxt.subschema({
         keyword,
-        schemaProp: i,
+        schemaProp: i2,
         compositeRule: true
       }, schValid);
       gen.assign(valid, (0, codegen_1._)`${valid} || ${schValid}`);
@@ -12892,14 +12964,14 @@ var require_keyword = /* @__PURE__ */ __commonJSMin(((exports) => {
   }
   exports.macroKeywordCode = macroKeywordCode;
   function funcKeywordCode(cxt, def) {
-    var _a3;
+    var _a4;
     const { gen, keyword, schema, parentSchema, $data, it } = cxt;
     checkAsyncKeyword(it, def);
     const validateRef = useKeyword(gen, keyword, !$data && def.compile ? def.compile.call(it.self, schema, parentSchema, it) : def.validate);
     const valid = gen.let("valid");
-    cxt.block$data(valid, validateKeyword);
-    cxt.ok((_a3 = def.valid) !== null && _a3 !== void 0 ? _a3 : valid);
-    function validateKeyword() {
+    cxt.block$data(valid, validateKeyword2);
+    cxt.ok((_a4 = def.valid) !== null && _a4 !== void 0 ? _a4 : valid);
+    function validateKeyword2() {
       if (def.errors === false) {
         assignValid();
         if (def.modifying) modifyData(cxt);
@@ -13041,11 +13113,11 @@ var require_fast_deep_equal = /* @__PURE__ */ __commonJSMin(((exports, module) =
     if (a === b) return true;
     if (a && b && typeof a == "object" && typeof b == "object") {
       if (a.constructor !== b.constructor) return false;
-      var length, i, keys;
+      var length, i2, keys;
       if (Array.isArray(a)) {
         length = a.length;
         if (length != b.length) return false;
-        for (i = length; i-- !== 0; ) if (!equal(a[i], b[i])) return false;
+        for (i2 = length; i2-- !== 0; ) if (!equal(a[i2], b[i2])) return false;
         return true;
       }
       if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
@@ -13054,9 +13126,9 @@ var require_fast_deep_equal = /* @__PURE__ */ __commonJSMin(((exports, module) =
       keys = Object.keys(a);
       length = keys.length;
       if (length !== Object.keys(b).length) return false;
-      for (i = length; i-- !== 0; ) if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
-      for (i = length; i-- !== 0; ) {
-        var key = keys[i];
+      for (i2 = length; i2-- !== 0; ) if (!Object.prototype.hasOwnProperty.call(b, keys[i2])) return false;
+      for (i2 = length; i2-- !== 0; ) {
+        var key = keys[i2];
         if (!equal(a[key], b[key])) return false;
       }
       return true;
@@ -13127,7 +13199,7 @@ var require_json_schema_traverse = /* @__PURE__ */ __commonJSMin(((exports, modu
       for (var key in schema) {
         var sch = schema[key];
         if (Array.isArray(sch)) {
-          if (key in traverse.arrayKeywords) for (var i = 0; i < sch.length; i++) _traverse(opts, pre, post, sch[i], jsonPtr + "/" + key + "/" + i, rootSchema, jsonPtr, key, schema, i);
+          if (key in traverse.arrayKeywords) for (var i2 = 0; i2 < sch.length; i2++) _traverse(opts, pre, post, sch[i2], jsonPtr + "/" + key + "/" + i2, rootSchema, jsonPtr, key, schema, i2);
         } else if (key in traverse.propsKeywords) {
           if (sch && typeof sch == "object") for (var prop in sch) _traverse(opts, pre, post, sch[prop], jsonPtr + "/" + key + "/" + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema, prop);
         } else if (key in traverse.keywords || opts.allKeys && !(key in traverse.skipKeywords)) _traverse(opts, pre, post, sch, jsonPtr + "/" + key, rootSchema, jsonPtr, key, schema);
@@ -13714,7 +13786,7 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
   const validate_1 = require_validate();
   var SchemaEnv = class {
     constructor(env) {
-      var _a3;
+      var _a4;
       this.refs = {};
       this.dynamicAnchors = {};
       let schema;
@@ -13722,7 +13794,7 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
       this.schema = env.schema;
       this.schemaId = env.schemaId;
       this.root = env.root || this;
-      this.baseId = (_a3 = env.baseId) !== null && _a3 !== void 0 ? _a3 : (0, resolve_1.normalizeId)(schema === null || schema === void 0 ? void 0 : schema[env.schemaId || "$id"]);
+      this.baseId = (_a4 = env.baseId) !== null && _a4 !== void 0 ? _a4 : (0, resolve_1.normalizeId)(schema === null || schema === void 0 ? void 0 : schema[env.schemaId || "$id"]);
       this.schemaPath = env.schemaPath;
       this.localRefs = env.localRefs;
       this.meta = env.meta;
@@ -13818,13 +13890,13 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
   }
   exports.compileSchema = compileSchema;
   function resolveRef(root, baseId, ref) {
-    var _a3;
+    var _a4;
     ref = (0, resolve_1.resolveUrl)(this.opts.uriResolver, baseId, ref);
     const schOrFunc = root.refs[ref];
     if (schOrFunc) return schOrFunc;
-    let _sch = resolve2.call(this, root, ref);
+    let _sch = resolve3.call(this, root, ref);
     if (_sch === void 0) {
-      const schema = (_a3 = root.localRefs) === null || _a3 === void 0 ? void 0 : _a3[ref];
+      const schema = (_a4 = root.localRefs) === null || _a4 === void 0 ? void 0 : _a4[ref];
       const { schemaId } = this.opts;
       if (schema) _sch = new SchemaEnv({
         schema,
@@ -13848,7 +13920,7 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
   function sameSchemaEnv(s1, s2) {
     return s1.schema === s2.schema && s1.root === s2.root && s1.baseId === s2.baseId;
   }
-  function resolve2(root, ref) {
+  function resolve3(root, ref) {
     let sch;
     while (typeof (sch = this.refs[ref]) == "string") ref = sch;
     return sch || this.schemas[ref] || resolveSchema.call(this, root, ref);
@@ -13890,8 +13962,8 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
     "definitions"
   ]);
   function getJsonPointer(parsedRef, { baseId, schema, root }) {
-    var _a3;
-    if (((_a3 = parsedRef.fragment) === null || _a3 === void 0 ? void 0 : _a3[0]) !== "/") return;
+    var _a4;
+    if (((_a4 = parsedRef.fragment) === null || _a4 === void 0 ? void 0 : _a4[0]) !== "/") return;
     for (const part of parsedRef.fragment.slice(1).split("/")) {
       if (typeof schema === "boolean") return;
       const partSchema = schema[(0, util_1.unescapeFragment)(part)];
@@ -13934,18 +14006,18 @@ var require_utils = /* @__PURE__ */ __commonJSMin(((exports, module) => {
   function stringArrayToHexStripped(input) {
     let acc = "";
     let code = 0;
-    let i = 0;
-    for (i = 0; i < input.length; i++) {
-      code = input[i].charCodeAt(0);
+    let i2 = 0;
+    for (i2 = 0; i2 < input.length; i2++) {
+      code = input[i2].charCodeAt(0);
       if (code === 48) continue;
       if (!(code >= 48 && code <= 57 || code >= 65 && code <= 70 || code >= 97 && code <= 102)) return "";
-      acc += input[i];
+      acc += input[i2];
       break;
     }
-    for (i += 1; i < input.length; i++) {
-      code = input[i].charCodeAt(0);
+    for (i2 += 1; i2 < input.length; i2++) {
+      code = input[i2].charCodeAt(0);
       if (!(code >= 48 && code <= 57 || code >= 65 && code <= 70 || code >= 97 && code <= 102)) return "";
-      acc += input[i];
+      acc += input[i2];
     }
     return acc;
   }
@@ -13978,8 +14050,8 @@ var require_utils = /* @__PURE__ */ __commonJSMin(((exports, module) => {
     let endipv6Encountered = false;
     let endIpv6 = false;
     let consume = consumeHextets;
-    for (let i = 0; i < input.length; i++) {
-      const cursor = input[i];
+    for (let i2 = 0; i2 < input.length; i2++) {
+      const cursor = input[i2];
       if (cursor === "[" || cursor === "]") continue;
       if (cursor === ":") {
         if (endipv6Encountered === true) endIpv6 = true;
@@ -13988,7 +14060,7 @@ var require_utils = /* @__PURE__ */ __commonJSMin(((exports, module) => {
           output.error = true;
           break;
         }
-        if (i > 0 && input[i - 1] === ":") endipv6Encountered = true;
+        if (i2 > 0 && input[i2 - 1] === ":") endipv6Encountered = true;
         address.push(":");
         continue;
       } else if (cursor === "%") {
@@ -14030,7 +14102,7 @@ var require_utils = /* @__PURE__ */ __commonJSMin(((exports, module) => {
   }
   function findToken(str, token) {
     let ind = 0;
-    for (let i = 0; i < str.length; i++) if (str[i] === token) ind++;
+    for (let i2 = 0; i2 < str.length; i2++) if (str[i2] === token) ind++;
     return ind;
   }
   function removeDotSegments(path) {
@@ -14298,47 +14370,47 @@ var require_fast_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
     else if (typeof uri === "object") uri = parse3(serialize(uri, options), options);
     return uri;
   }
-  function resolve2(baseURI, relativeURI, options) {
+  function resolve3(baseURI, relativeURI, options) {
     const schemelessOptions = options ? Object.assign({ scheme: "null" }, options) : { scheme: "null" };
     const resolved = resolveComponent(parse3(baseURI, schemelessOptions), parse3(relativeURI, schemelessOptions), schemelessOptions, true);
     schemelessOptions.skipEscape = true;
     return serialize(resolved, schemelessOptions);
   }
-  function resolveComponent(base, relative2, options, skipNormalization) {
+  function resolveComponent(base, relative3, options, skipNormalization) {
     const target = {};
     if (!skipNormalization) {
       base = parse3(serialize(base, options), options);
-      relative2 = parse3(serialize(relative2, options), options);
+      relative3 = parse3(serialize(relative3, options), options);
     }
     options = options || {};
-    if (!options.tolerant && relative2.scheme) {
-      target.scheme = relative2.scheme;
-      target.userinfo = relative2.userinfo;
-      target.host = relative2.host;
-      target.port = relative2.port;
-      target.path = removeDotSegments(relative2.path || "");
-      target.query = relative2.query;
+    if (!options.tolerant && relative3.scheme) {
+      target.scheme = relative3.scheme;
+      target.userinfo = relative3.userinfo;
+      target.host = relative3.host;
+      target.port = relative3.port;
+      target.path = removeDotSegments(relative3.path || "");
+      target.query = relative3.query;
     } else {
-      if (relative2.userinfo !== void 0 || relative2.host !== void 0 || relative2.port !== void 0) {
-        target.userinfo = relative2.userinfo;
-        target.host = relative2.host;
-        target.port = relative2.port;
-        target.path = removeDotSegments(relative2.path || "");
-        target.query = relative2.query;
+      if (relative3.userinfo !== void 0 || relative3.host !== void 0 || relative3.port !== void 0) {
+        target.userinfo = relative3.userinfo;
+        target.host = relative3.host;
+        target.port = relative3.port;
+        target.path = removeDotSegments(relative3.path || "");
+        target.query = relative3.query;
       } else {
-        if (!relative2.path) {
+        if (!relative3.path) {
           target.path = base.path;
-          if (relative2.query !== void 0) target.query = relative2.query;
+          if (relative3.query !== void 0) target.query = relative3.query;
           else target.query = base.query;
         } else {
-          if (relative2.path[0] === "/") target.path = removeDotSegments(relative2.path);
+          if (relative3.path[0] === "/") target.path = removeDotSegments(relative3.path);
           else {
-            if ((base.userinfo !== void 0 || base.host !== void 0 || base.port !== void 0) && !base.path) target.path = "/" + relative2.path;
-            else if (!base.path) target.path = relative2.path;
-            else target.path = base.path.slice(0, base.path.lastIndexOf("/") + 1) + relative2.path;
+            if ((base.userinfo !== void 0 || base.host !== void 0 || base.port !== void 0) && !base.path) target.path = "/" + relative3.path;
+            else if (!base.path) target.path = relative3.path;
+            else target.path = base.path.slice(0, base.path.lastIndexOf("/") + 1) + relative3.path;
             target.path = removeDotSegments(target.path);
           }
-          target.query = relative2.query;
+          target.query = relative3.query;
         }
         target.userinfo = base.userinfo;
         target.host = base.host;
@@ -14346,7 +14418,7 @@ var require_fast_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
       }
       target.scheme = base.scheme;
     }
-    target.fragment = relative2.fragment;
+    target.fragment = relative3.fragment;
     return target;
   }
   function equal(uriA, uriB, options) {
@@ -14472,7 +14544,7 @@ var require_fast_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
   const fastUri = {
     SCHEMES,
     normalize,
-    resolve: resolve2,
+    resolve: resolve3,
     resolveComponent,
     equal,
     serialize,
@@ -14591,11 +14663,11 @@ var require_core$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
   };
   const MAX_EXPRESSION = 200;
   function requiredOptions(o) {
-    var _a3, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0;
+    var _a4, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0;
     const s = o.strict;
-    const _optz = (_a3 = o.code) === null || _a3 === void 0 ? void 0 : _a3.optimize;
+    const _optz = (_a4 = o.code) === null || _a4 === void 0 ? void 0 : _a4.optimize;
     const optimize = _optz === true || _optz === void 0 ? 1 : _optz || 0;
-    const regExp = (_c = (_b = o.code) === null || _b === void 0 ? void 0 : _b.regExp) !== null && _c !== void 0 ? _c : defaultRegExp;
+    const regExp = (_c = (_b2 = o.code) === null || _b2 === void 0 ? void 0 : _b2.regExp) !== null && _c !== void 0 ? _c : defaultRegExp;
     const uriResolver = (_d = o.uriResolver) !== null && _d !== void 0 ? _d : uri_1.default;
     return {
       strictSchema: (_f = (_e = o.strictSchema) !== null && _e !== void 0 ? _e : s) !== null && _f !== void 0 ? _f : true,
@@ -14858,8 +14930,8 @@ var require_core$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
       delete RULES.keywords[keyword];
       delete RULES.all[keyword];
       for (const group of RULES.rules) {
-        const i = group.rules.findIndex((rule) => rule.keyword === keyword);
-        if (i >= 0) group.rules.splice(i, 1);
+        const i2 = group.rules.findIndex((rule) => rule.keyword === keyword);
+        if (i2 >= 0) group.rules.splice(i2, 1);
       }
       return this;
     }
@@ -15012,7 +15084,7 @@ var require_core$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
     if (def.$data && !("code" in def || "validate" in def)) throw new Error('$data keyword must have "code" or "validate" function');
   }
   function addRule(keyword, definition, dataType) {
-    var _a3;
+    var _a4;
     const post = definition === null || definition === void 0 ? void 0 : definition.post;
     if (dataType && post) throw new Error('keyword with "post" flag cannot have "type"');
     const { RULES } = this;
@@ -15037,11 +15109,11 @@ var require_core$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
     if (definition.before) addBeforeRule.call(this, ruleGroup, rule, definition.before);
     else ruleGroup.rules.push(rule);
     RULES.all[keyword] = rule;
-    (_a3 = definition.implements) === null || _a3 === void 0 || _a3.forEach((kwd) => this.addKeyword(kwd));
+    (_a4 = definition.implements) === null || _a4 === void 0 || _a4.forEach((kwd) => this.addKeyword(kwd));
   }
   function addBeforeRule(ruleGroup, rule, before) {
-    const i = ruleGroup.rules.findIndex((_rule) => _rule.keyword === before);
-    if (i >= 0) ruleGroup.rules.splice(i, 0, rule);
+    const i2 = ruleGroup.rules.findIndex((_rule) => _rule.keyword === before);
+    if (i2 >= 0) ruleGroup.rules.splice(i2, 0, rule);
     else {
       ruleGroup.rules.push(rule);
       this.logger.warn(`rule ${before} is not defined`);
@@ -15149,9 +15221,9 @@ var require_ref = /* @__PURE__ */ __commonJSMin(((exports) => {
       gen.assign(names_1.default.errors, (0, codegen_1._)`${names_1.default.vErrors}.length`);
     }
     function addEvaluatedFrom(source) {
-      var _a3;
+      var _a4;
       if (!it.opts.unevaluated) return;
-      const schEvaluated = (_a3 = sch === null || sch === void 0 ? void 0 : sch.validate) === null || _a3 === void 0 ? void 0 : _a3.evaluated;
+      const schEvaluated = (_a4 = sch === null || sch === void 0 ? void 0 : sch.validate) === null || _a4 === void 0 ? void 0 : _a4.evaluated;
       if (it.props !== true) if (schEvaluated && !schEvaluated.dynamicProps) {
         if (schEvaluated.props !== void 0) it.props = util_1.mergeEvaluated.props(gen, schEvaluated.props, it.props);
       } else {
@@ -15455,8 +15527,8 @@ var require_uniqueItems = /* @__PURE__ */ __commonJSMin(((exports) => {
     schemaType: "boolean",
     $data: true,
     error: {
-      message: ({ params: { i, j } }) => (0, codegen_1.str)`must NOT have duplicate items (items ## ${j} and ${i} are identical)`,
-      params: ({ params: { i, j } }) => (0, codegen_1._)`{i: ${i}, j: ${j}}`
+      message: ({ params: { i: i2, j } }) => (0, codegen_1.str)`must NOT have duplicate items (items ## ${j} and ${i2} are identical)`,
+      params: ({ params: { i: i2, j } }) => (0, codegen_1._)`{i: ${i2}, j: ${j}}`
     },
     code(cxt) {
       const { gen, data, $data, schema, parentSchema, schemaCode, it } = cxt;
@@ -15466,37 +15538,37 @@ var require_uniqueItems = /* @__PURE__ */ __commonJSMin(((exports) => {
       cxt.block$data(valid, validateUniqueItems, (0, codegen_1._)`${schemaCode} === false`);
       cxt.ok(valid);
       function validateUniqueItems() {
-        const i = gen.let("i", (0, codegen_1._)`${data}.length`);
+        const i2 = gen.let("i", (0, codegen_1._)`${data}.length`);
         const j = gen.let("j");
         cxt.setParams({
-          i,
+          i: i2,
           j
         });
         gen.assign(valid, true);
-        gen.if((0, codegen_1._)`${i} > 1`, () => (canOptimize() ? loopN : loopN2)(i, j));
+        gen.if((0, codegen_1._)`${i2} > 1`, () => (canOptimize() ? loopN : loopN2)(i2, j));
       }
       function canOptimize() {
         return itemTypes.length > 0 && !itemTypes.some((t) => t === "object" || t === "array");
       }
-      function loopN(i, j) {
+      function loopN(i2, j) {
         const item = gen.name("item");
         const wrongType = (0, dataType_1.checkDataTypes)(itemTypes, item, it.opts.strictNumbers, dataType_1.DataType.Wrong);
         const indices = gen.const("indices", (0, codegen_1._)`{}`);
-        gen.for((0, codegen_1._)`;${i}--;`, () => {
-          gen.let(item, (0, codegen_1._)`${data}[${i}]`);
+        gen.for((0, codegen_1._)`;${i2}--;`, () => {
+          gen.let(item, (0, codegen_1._)`${data}[${i2}]`);
           gen.if(wrongType, (0, codegen_1._)`continue`);
           if (itemTypes.length > 1) gen.if((0, codegen_1._)`typeof ${item} == "string"`, (0, codegen_1._)`${item} += "_"`);
           gen.if((0, codegen_1._)`typeof ${indices}[${item}] == "number"`, () => {
             gen.assign(j, (0, codegen_1._)`${indices}[${item}]`);
             cxt.error();
             gen.assign(valid, false).break();
-          }).code((0, codegen_1._)`${indices}[${item}] = ${i}`);
+          }).code((0, codegen_1._)`${indices}[${item}] = ${i2}`);
         });
       }
-      function loopN2(i, j) {
+      function loopN2(i2, j) {
         const eql = (0, util_1.useFunc)(gen, equal_1.default);
         const outer = gen.name("outer");
-        gen.label(outer).for((0, codegen_1._)`;${i}--;`, () => gen.for((0, codegen_1._)`${j} = ${i}; ${j}--;`, () => gen.if((0, codegen_1._)`${eql}(${data}[${i}], ${data}[${j}])`, () => {
+        gen.label(outer).for((0, codegen_1._)`;${i2}--;`, () => gen.for((0, codegen_1._)`${j} = ${i2}; ${j}--;`, () => gen.if((0, codegen_1._)`${eql}(${data}[${i2}], ${data}[${j}])`, () => {
           cxt.error();
           gen.assign(valid, false).break(outer);
         })));
@@ -15551,16 +15623,16 @@ var require_enum = /* @__PURE__ */ __commonJSMin(((exports) => {
       } else {
         if (!Array.isArray(schema)) throw new Error("ajv implementation error");
         const vSchema = gen.const("vSchema", schemaCode);
-        valid = (0, codegen_1.or)(...schema.map((_x, i) => equalCode(vSchema, i)));
+        valid = (0, codegen_1.or)(...schema.map((_x, i2) => equalCode(vSchema, i2)));
       }
       cxt.pass(valid);
       function loopEnum() {
         gen.assign(valid, false);
         gen.forOf("v", schemaCode, (v) => gen.if((0, codegen_1._)`${getEql()}(${data}, ${v})`, () => gen.assign(valid, true).break()));
       }
-      function equalCode(vSchema, i) {
-        const sch = schema[i];
-        return typeof sch === "object" && sch !== null ? (0, codegen_1._)`${getEql()}(${data}, ${vSchema}[${i}])` : (0, codegen_1._)`${data} === ${sch}`;
+      function equalCode(vSchema, i2) {
+        const sch = schema[i2];
+        return typeof sch === "object" && sch !== null ? (0, codegen_1._)`${getEql()}(${data}, ${vSchema}[${i2}])` : (0, codegen_1._)`${data} === ${sch}`;
       }
     }
   };
@@ -15637,10 +15709,10 @@ var require_additionalItems = /* @__PURE__ */ __commonJSMin(((exports) => {
       cxt.ok(valid);
     }
     function validateItems(valid) {
-      gen.forRange("i", items.length, len, (i) => {
+      gen.forRange("i", items.length, len, (i2) => {
         cxt.subschema({
           keyword,
-          dataProp: i,
+          dataProp: i2,
           dataPropType: util_1.Type.Num
         }, valid);
         if (!it.allErrors) gen.if((0, codegen_1.not)(valid), () => gen.break());
@@ -15679,12 +15751,12 @@ var require_items = /* @__PURE__ */ __commonJSMin(((exports) => {
     if (it.opts.unevaluated && schArr.length && it.items !== true) it.items = util_1.mergeEvaluated.items(gen, schArr.length, it.items);
     const valid = gen.name("valid");
     const len = gen.const("len", (0, codegen_1._)`${data}.length`);
-    schArr.forEach((sch, i) => {
+    schArr.forEach((sch, i2) => {
       if ((0, util_1.alwaysValidSchema)(it, sch)) return;
-      gen.if((0, codegen_1._)`${len} > ${i}`, () => cxt.subschema({
+      gen.if((0, codegen_1._)`${len} > ${i2}`, () => cxt.subschema({
         keyword,
-        schemaProp: i,
-        dataProp: i
+        schemaProp: i2,
+        dataProp: i2
       }, valid));
       cxt.ok(valid);
     });
@@ -15750,44 +15822,44 @@ var require_contains = /* @__PURE__ */ __commonJSMin(((exports) => {
     before: "uniqueItems",
     trackErrors: true,
     error: {
-      message: ({ params: { min, max } }) => max === void 0 ? (0, codegen_1.str)`must contain at least ${min} valid item(s)` : (0, codegen_1.str)`must contain at least ${min} and no more than ${max} valid item(s)`,
-      params: ({ params: { min, max } }) => max === void 0 ? (0, codegen_1._)`{minContains: ${min}}` : (0, codegen_1._)`{minContains: ${min}, maxContains: ${max}}`
+      message: ({ params: { min, max: max2 } }) => max2 === void 0 ? (0, codegen_1.str)`must contain at least ${min} valid item(s)` : (0, codegen_1.str)`must contain at least ${min} and no more than ${max2} valid item(s)`,
+      params: ({ params: { min, max: max2 } }) => max2 === void 0 ? (0, codegen_1._)`{minContains: ${min}}` : (0, codegen_1._)`{minContains: ${min}, maxContains: ${max2}}`
     },
     code(cxt) {
       const { gen, schema, parentSchema, data, it } = cxt;
       let min;
-      let max;
+      let max2;
       const { minContains, maxContains } = parentSchema;
       if (it.opts.next) {
         min = minContains === void 0 ? 1 : minContains;
-        max = maxContains;
+        max2 = maxContains;
       } else min = 1;
       const len = gen.const("len", (0, codegen_1._)`${data}.length`);
       cxt.setParams({
         min,
-        max
+        max: max2
       });
-      if (max === void 0 && min === 0) {
+      if (max2 === void 0 && min === 0) {
         (0, util_1.checkStrictMode)(it, `"minContains" == 0 without "maxContains": "contains" keyword ignored`);
         return;
       }
-      if (max !== void 0 && min > max) {
+      if (max2 !== void 0 && min > max2) {
         (0, util_1.checkStrictMode)(it, `"minContains" > "maxContains" is always invalid`);
         cxt.fail();
         return;
       }
       if ((0, util_1.alwaysValidSchema)(it, schema)) {
         let cond = (0, codegen_1._)`${len} >= ${min}`;
-        if (max !== void 0) cond = (0, codegen_1._)`${cond} && ${len} <= ${max}`;
+        if (max2 !== void 0) cond = (0, codegen_1._)`${cond} && ${len} <= ${max2}`;
         cxt.pass(cond);
         return;
       }
       it.items = true;
       const valid = gen.name("valid");
-      if (max === void 0 && min === 1) validateItems(valid, () => gen.if(valid, () => gen.break()));
+      if (max2 === void 0 && min === 1) validateItems(valid, () => gen.if(valid, () => gen.break()));
       else if (min === 0) {
         gen.let(valid, true);
-        if (max !== void 0) gen.if((0, codegen_1._)`${data}.length > 0`, validateItemsWithCount);
+        if (max2 !== void 0) gen.if((0, codegen_1._)`${data}.length > 0`, validateItemsWithCount);
       } else {
         gen.let(valid, false);
         validateItemsWithCount();
@@ -15799,10 +15871,10 @@ var require_contains = /* @__PURE__ */ __commonJSMin(((exports) => {
         validateItems(schValid, () => gen.if(schValid, () => checkLimits(count)));
       }
       function validateItems(_valid, block) {
-        gen.forRange("i", 0, len, (i) => {
+        gen.forRange("i", 0, len, (i2) => {
           cxt.subschema({
             keyword: "contains",
-            dataProp: i,
+            dataProp: i2,
             dataPropType: util_1.Type.Num,
             compositeRule: true
           }, _valid);
@@ -15811,9 +15883,9 @@ var require_contains = /* @__PURE__ */ __commonJSMin(((exports) => {
       }
       function checkLimits(count) {
         gen.code((0, codegen_1._)`${count}++`);
-        if (max === void 0) gen.if((0, codegen_1._)`${count} >= ${min}`, () => gen.assign(valid, true).break());
+        if (max2 === void 0) gen.if((0, codegen_1._)`${count} >= ${min}`, () => gen.assign(valid, true).break());
         else {
-          gen.if((0, codegen_1._)`${count} > ${max}`, () => gen.assign(valid, false).break());
+          gen.if((0, codegen_1._)`${count} > ${max2}`, () => gen.assign(valid, false).break());
           if (min === 1) gen.assign(valid, true);
           else gen.if((0, codegen_1._)`${count} >= ${min}`, () => gen.assign(valid, true));
         }
@@ -16182,18 +16254,18 @@ var require_oneOf = /* @__PURE__ */ __commonJSMin(((exports) => {
       gen.block(validateOneOf);
       cxt.result(valid, () => cxt.reset(), () => cxt.error(true));
       function validateOneOf() {
-        schArr.forEach((sch, i) => {
+        schArr.forEach((sch, i2) => {
           let schCxt;
           if ((0, util_1.alwaysValidSchema)(it, sch)) gen.var(schValid, true);
           else schCxt = cxt.subschema({
             keyword: "oneOf",
-            schemaProp: i,
+            schemaProp: i2,
             compositeRule: true
           }, schValid);
-          if (i > 0) gen.if((0, codegen_1._)`${schValid} && ${valid}`).assign(valid, false).assign(passing, (0, codegen_1._)`[${passing}, ${i}]`).else();
+          if (i2 > 0) gen.if((0, codegen_1._)`${schValid} && ${valid}`).assign(valid, false).assign(passing, (0, codegen_1._)`[${passing}, ${i2}]`).else();
           gen.if(schValid, () => {
             gen.assign(valid, true);
-            gen.assign(passing, i);
+            gen.assign(passing, i2);
             if (schCxt) cxt.mergeEvaluated(schCxt, codegen_1.Name);
           });
         });
@@ -16212,11 +16284,11 @@ var require_allOf = /* @__PURE__ */ __commonJSMin(((exports) => {
       const { gen, schema, it } = cxt;
       if (!Array.isArray(schema)) throw new Error("ajv implementation error");
       const valid = gen.name("valid");
-      schema.forEach((sch, i) => {
+      schema.forEach((sch, i2) => {
         if ((0, util_1.alwaysValidSchema)(it, sch)) return;
         const schCxt = cxt.subschema({
           keyword: "allOf",
-          schemaProp: i
+          schemaProp: i2
         }, valid);
         cxt.ok(valid);
         cxt.mergeEvaluated(schCxt);
@@ -16523,36 +16595,36 @@ var require_discriminator = /* @__PURE__ */ __commonJSMin(((exports) => {
         return _valid;
       }
       function getMapping() {
-        var _a3;
+        var _a4;
         const oneOfMapping = {};
         const topRequired = hasRequired(parentSchema);
         let tagRequired = true;
-        for (let i = 0; i < oneOf.length; i++) {
-          let sch = oneOf[i];
+        for (let i2 = 0; i2 < oneOf.length; i2++) {
+          let sch = oneOf[i2];
           if ((sch === null || sch === void 0 ? void 0 : sch.$ref) && !(0, util_1.schemaHasRulesButRef)(sch, it.self.RULES)) {
             const ref = sch.$ref;
             sch = compile_1.resolveRef.call(it.self, it.schemaEnv.root, it.baseId, ref);
             if (sch instanceof compile_1.SchemaEnv) sch = sch.schema;
             if (sch === void 0) throw new ref_error_1.default(it.opts.uriResolver, it.baseId, ref);
           }
-          const propSch = (_a3 = sch === null || sch === void 0 ? void 0 : sch.properties) === null || _a3 === void 0 ? void 0 : _a3[tagName];
+          const propSch = (_a4 = sch === null || sch === void 0 ? void 0 : sch.properties) === null || _a4 === void 0 ? void 0 : _a4[tagName];
           if (typeof propSch != "object") throw new Error(`discriminator: oneOf subschemas (or referenced schemas) must have "properties/${tagName}"`);
           tagRequired = tagRequired && (topRequired || hasRequired(sch));
-          addMappings(propSch, i);
+          addMappings(propSch, i2);
         }
         if (!tagRequired) throw new Error(`discriminator: "${tagName}" must be required`);
         return oneOfMapping;
         function hasRequired({ required: required2 }) {
           return Array.isArray(required2) && required2.includes(tagName);
         }
-        function addMappings(sch, i) {
-          if (sch.const) addMapping(sch.const, i);
-          else if (sch.enum) for (const tagValue of sch.enum) addMapping(tagValue, i);
+        function addMappings(sch, i2) {
+          if (sch.const) addMapping(sch.const, i2);
+          else if (sch.enum) for (const tagValue of sch.enum) addMapping(tagValue, i2);
           else throw new Error(`discriminator: "properties/${tagName}" must have "const" or "enum"`);
         }
-        function addMapping(tagValue, i) {
+        function addMapping(tagValue, i2) {
           if (typeof tagValue != "string" || tagValue in oneOfMapping) throw new Error(`discriminator: "${tagName}" values must be unique strings`);
-          oneOfMapping[tagValue] = i;
+          oneOfMapping[tagValue] = i2;
         }
       }
     }
@@ -17023,10 +17095,10 @@ var require_unevaluatedItems = /* @__PURE__ */ __commonJSMin(((exports) => {
       }
       it.items = true;
       function validateItems(valid, from) {
-        gen.forRange("i", from, len, (i) => {
+        gen.forRange("i", from, len, (i2) => {
           cxt.subschema({
             keyword: "unevaluatedItems",
-            dataProp: i,
+            dataProp: i2,
             dataPropType: util_1.Type.Num
           }, valid);
           if (!it.allErrors) gen.if((0, codegen_1.not)(valid), () => gen.break());
@@ -18177,9 +18249,9 @@ var require_dist = /* @__PURE__ */ __commonJSMin(((exports, module) => {
     return f;
   };
   function addFormats2(ajv, list, fs, exportName) {
-    var _a3;
-    var _b;
-    (_a3 = (_b = ajv.opts.code).formats) !== null && _a3 !== void 0 || (_b.formats = (0, codegen_1._)`require("ajv-formats/dist/formats").${exportName}`);
+    var _a4;
+    var _b2;
+    (_a4 = (_b2 = ajv.opts.code).formats) !== null && _a4 !== void 0 || (_b2.formats = (0, codegen_1._)`require("ajv-formats/dist/formats").${exportName}`);
     for (const f of list) ajv.addFormat(f, fs[f]);
   }
   module.exports = exports = formatsPlugin;
@@ -19845,7 +19917,7 @@ var StdioServerTransport = class {
   }
   send(message) {
     if (this._closed) return Promise.reject(/* @__PURE__ */ new Error("StdioServerTransport is closed"));
-    return new Promise((resolve2, reject) => {
+    return new Promise((resolve3, reject) => {
       const json = serializeMessage(message);
       let settled = false;
       const onError = (error2) => {
@@ -19860,14 +19932,14 @@ var StdioServerTransport = class {
         settled = true;
         this._stdout.off("error", onError);
         this._stdout.off("drain", onDrain);
-        resolve2();
+        resolve3();
       };
       this._stdout.once("error", onError);
       if (this._stdout.write(json)) {
         if (settled) return;
         settled = true;
         this._stdout.off("error", onError);
-        resolve2();
+        resolve3();
       } else if (!settled) this._stdout.once("drain", onDrain);
     });
   }
@@ -19921,14 +19993,14 @@ var StdioConnectionChannel = class {
   */
   async whenRequestsAnswered(timeoutMs) {
     if (this._closed || this._pendingRequests.size === 0) return true;
-    return await new Promise((resolve2) => {
+    return await new Promise((resolve3) => {
       const waiter = () => {
         clearTimeout(timer);
-        resolve2(true);
+        resolve3(true);
       };
       const timer = setTimeout(() => {
         this._drainWaiters = this._drainWaiters.filter((pending) => pending !== waiter);
-        resolve2(false);
+        resolve3(false);
       }, timeoutMs);
       this._drainWaiters.push(waiter);
     });
@@ -20763,6 +20835,2155 @@ function fallbackReasonForClassification(mode) {
   return "unknown_content_requires_source";
 }
 
+// src/core/image-artifacts.ts
+import { createHash as createHash2 } from "node:crypto";
+import { constants as fsConstants } from "node:fs";
+import { open, realpath as realpath2, stat as stat2 } from "node:fs/promises";
+import { isAbsolute as isAbsolute2, relative as relative2, resolve as resolve2 } from "node:path";
+import { inflateSync } from "node:zlib";
+
+// node_modules/fflate/esm/index.mjs
+import { createRequire } from "module";
+var require2 = createRequire("/");
+var _a3;
+var Worker;
+var isMarkedAsUntransferable;
+try {
+  _a3 = require2("worker_threads"), Worker = _a3.Worker, isMarkedAsUntransferable = _a3.isMarkedAsUntransferable;
+} catch (e) {
+}
+var u8 = Uint8Array;
+var u16 = Uint16Array;
+var i32 = Int32Array;
+var fleb = new u8([
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  1,
+  1,
+  2,
+  2,
+  2,
+  2,
+  3,
+  3,
+  3,
+  3,
+  4,
+  4,
+  4,
+  4,
+  5,
+  5,
+  5,
+  5,
+  0,
+  /* unused */
+  0,
+  0,
+  /* impossible */
+  0
+]);
+var fdeb = new u8([
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  2,
+  2,
+  3,
+  3,
+  4,
+  4,
+  5,
+  5,
+  6,
+  6,
+  7,
+  7,
+  8,
+  8,
+  9,
+  9,
+  10,
+  10,
+  11,
+  11,
+  12,
+  12,
+  13,
+  13,
+  /* unused */
+  0,
+  0
+]);
+var clim = new u8([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]);
+var freb = function(eb, start) {
+  var b = new u16(31);
+  for (var i2 = 0; i2 < 31; ++i2) {
+    b[i2] = start += 1 << eb[i2 - 1];
+  }
+  var r = new i32(b[30]);
+  for (var i2 = 1; i2 < 30; ++i2) {
+    for (var j = b[i2]; j < b[i2 + 1]; ++j) {
+      r[j] = j - b[i2] << 5 | i2;
+    }
+  }
+  return { b, r };
+};
+var _a3 = freb(fleb, 2);
+var fl = _a3.b;
+var revfl = _a3.r;
+fl[28] = 258, revfl[258] = 28;
+var _b = freb(fdeb, 0);
+var fd = _b.b;
+var revfd = _b.r;
+var rev = new u16(32768);
+for (i = 0; i < 32768; ++i) {
+  x = (i & 43690) >> 1 | (i & 21845) << 1;
+  x = (x & 52428) >> 2 | (x & 13107) << 2;
+  x = (x & 61680) >> 4 | (x & 3855) << 4;
+  rev[i] = ((x & 65280) >> 8 | (x & 255) << 8) >> 1;
+}
+var x;
+var i;
+var hMap = (function(cd, mb, r) {
+  var s = cd.length;
+  var i2 = 0;
+  var l = new u16(mb);
+  for (; i2 < s; ++i2) {
+    if (cd[i2])
+      ++l[cd[i2] - 1];
+  }
+  var le = new u16(mb);
+  for (i2 = 1; i2 < mb; ++i2) {
+    le[i2] = le[i2 - 1] + l[i2 - 1] << 1;
+  }
+  var co;
+  if (r) {
+    co = new u16(1 << mb);
+    var rvb = 15 - mb;
+    for (i2 = 0; i2 < s; ++i2) {
+      if (cd[i2]) {
+        var sv = i2 << 4 | cd[i2];
+        var r_1 = mb - cd[i2];
+        var v = le[cd[i2] - 1]++ << r_1;
+        for (var m = v | (1 << r_1) - 1; v <= m; ++v) {
+          co[rev[v] >> rvb] = sv;
+        }
+      }
+    }
+  } else {
+    co = new u16(s);
+    for (i2 = 0; i2 < s; ++i2) {
+      if (cd[i2]) {
+        co[i2] = rev[le[cd[i2] - 1]++] >> 15 - cd[i2];
+      }
+    }
+  }
+  return co;
+});
+var flt = new u8(288);
+for (i = 0; i < 144; ++i)
+  flt[i] = 8;
+var i;
+for (i = 144; i < 256; ++i)
+  flt[i] = 9;
+var i;
+for (i = 256; i < 280; ++i)
+  flt[i] = 7;
+var i;
+for (i = 280; i < 288; ++i)
+  flt[i] = 8;
+var i;
+var fdt = new u8(32);
+for (i = 0; i < 32; ++i)
+  fdt[i] = 5;
+var i;
+var flrm = /* @__PURE__ */ hMap(flt, 9, 1);
+var fdrm = /* @__PURE__ */ hMap(fdt, 5, 1);
+var max = function(a) {
+  var m = a[0];
+  for (var i2 = 1; i2 < a.length; ++i2) {
+    if (a[i2] > m)
+      m = a[i2];
+  }
+  return m;
+};
+var bits = function(d, p, m) {
+  var o = p / 8 | 0;
+  return (d[o] | d[o + 1] << 8) >> (p & 7) & m;
+};
+var bits16 = function(d, p) {
+  var o = p / 8 | 0;
+  return (d[o] | d[o + 1] << 8 | d[o + 2] << 16) >> (p & 7);
+};
+var shft = function(p) {
+  return (p + 7) / 8 | 0;
+};
+var slc = function(v, s, e) {
+  if (s == null || s < 0)
+    s = 0;
+  if (e == null || e > v.length)
+    e = v.length;
+  return new u8(v.subarray(s, e));
+};
+var ec = [
+  "unexpected EOF",
+  "invalid block type",
+  "invalid length/literal",
+  "invalid distance",
+  "stream finished",
+  "no stream handler",
+  ,
+  // determined by compression function
+  "no callback",
+  "invalid UTF-8 data",
+  "extra field too long",
+  "date not in range 1980-2099",
+  "filename too long",
+  "stream finishing",
+  "invalid zip data"
+  // determined by unknown compression method
+];
+var err = function(ind, msg, nt) {
+  var e = new Error(msg || ec[ind]);
+  e.code = ind;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(e, err);
+  if (!nt)
+    throw e;
+  return e;
+};
+var inflt = function(dat, st, buf, dict) {
+  var sl = dat.length, dl = dict ? dict.length : 0;
+  if (!sl || st.f && !st.l)
+    return buf || new u8(0);
+  var noBuf = !buf;
+  var resize = noBuf || st.i != 2;
+  var noSt = st.i;
+  if (noBuf)
+    buf = new u8(sl * 3);
+  var cbuf = function(l2) {
+    var bl = buf.length;
+    if (l2 > bl) {
+      var nbuf = new u8(Math.max(bl * 2, l2));
+      nbuf.set(buf);
+      buf = nbuf;
+    }
+  };
+  var final = st.f || 0, pos = st.p || 0, bt = st.b || 0, lm = st.l, dm = st.d, lbt = st.m, dbt = st.n;
+  var tbts = sl * 8;
+  do {
+    if (!lm) {
+      final = bits(dat, pos, 1);
+      var type = bits(dat, pos + 1, 3);
+      pos += 3;
+      if (!type) {
+        var s = shft(pos) + 4, l = dat[s - 4] | dat[s - 3] << 8, t = s + l;
+        if (t > sl) {
+          if (noSt)
+            err(0);
+          break;
+        }
+        if (resize)
+          cbuf(bt + l);
+        buf.set(dat.subarray(s, t), bt);
+        st.b = bt += l, st.p = pos = t * 8, st.f = final;
+        continue;
+      } else if (type == 1)
+        lm = flrm, dm = fdrm, lbt = 9, dbt = 5;
+      else if (type == 2) {
+        var hLit = bits(dat, pos, 31) + 257, hcLen = bits(dat, pos + 10, 15) + 4;
+        var tl = hLit + bits(dat, pos + 5, 31) + 1;
+        pos += 14;
+        var ldt = new u8(tl);
+        var clt = new u8(19);
+        for (var i2 = 0; i2 < hcLen; ++i2) {
+          clt[clim[i2]] = bits(dat, pos + i2 * 3, 7);
+        }
+        pos += hcLen * 3;
+        var clb = max(clt), clbmsk = (1 << clb) - 1;
+        var clm = hMap(clt, clb, 1);
+        for (var i2 = 0; i2 < tl; ) {
+          var r = clm[bits(dat, pos, clbmsk)];
+          pos += r & 15;
+          var s = r >> 4;
+          if (s < 16) {
+            ldt[i2++] = s;
+          } else {
+            var c = 0, n = 0;
+            if (s == 16)
+              n = 3 + bits(dat, pos, 3), pos += 2, c = ldt[i2 - 1];
+            else if (s == 17)
+              n = 3 + bits(dat, pos, 7), pos += 3;
+            else if (s == 18)
+              n = 11 + bits(dat, pos, 127), pos += 7;
+            while (n--)
+              ldt[i2++] = c;
+          }
+        }
+        var lt = ldt.subarray(0, hLit), dt = ldt.subarray(hLit);
+        lbt = max(lt);
+        dbt = max(dt);
+        lm = hMap(lt, lbt, 1);
+        dm = hMap(dt, dbt, 1);
+      } else
+        err(1);
+      if (pos > tbts) {
+        if (noSt)
+          err(0);
+        break;
+      }
+    }
+    if (resize)
+      cbuf(bt + 131072);
+    var lms = (1 << lbt) - 1, dms = (1 << dbt) - 1;
+    var lpos = pos;
+    for (; ; lpos = pos) {
+      var c = lm[bits16(dat, pos) & lms], sym = c >> 4;
+      pos += c & 15;
+      if (pos > tbts) {
+        if (noSt)
+          err(0);
+        break;
+      }
+      if (!c)
+        err(2);
+      if (sym < 256)
+        buf[bt++] = sym;
+      else if (sym == 256) {
+        lpos = pos, lm = null;
+        break;
+      } else {
+        var add = sym - 254;
+        if (sym > 264) {
+          var i2 = sym - 257, b = fleb[i2];
+          add = bits(dat, pos, (1 << b) - 1) + fl[i2];
+          pos += b;
+        }
+        var d = dm[bits16(dat, pos) & dms], dsym = d >> 4;
+        if (!d)
+          err(3);
+        pos += d & 15;
+        var dt = fd[dsym];
+        if (dsym > 3) {
+          var b = fdeb[dsym];
+          dt += bits16(dat, pos) & (1 << b) - 1, pos += b;
+        }
+        if (pos > tbts) {
+          if (noSt)
+            err(0);
+          break;
+        }
+        if (resize)
+          cbuf(bt + 131072);
+        var end = bt + add;
+        if (bt < dt) {
+          var shift = dl - dt, dend = Math.min(dt, end);
+          if (shift + bt < 0)
+            err(3);
+          for (; bt < dend; ++bt)
+            buf[bt] = dict[shift + bt];
+        }
+        for (; bt < end; ++bt)
+          buf[bt] = buf[bt - dt];
+      }
+    }
+    st.l = lm, st.p = lpos, st.b = bt, st.f = final;
+    if (lm)
+      final = 1, st.m = lbt, st.d = dm, st.n = dbt;
+  } while (!final);
+  return bt != buf.length && noBuf ? slc(buf, 0, bt) : buf.subarray(0, bt);
+};
+var et = /* @__PURE__ */ new u8(0);
+var zls = function(d, dict) {
+  if ((d[0] & 15) != 8 || d[0] >> 4 > 7 || (d[0] << 8 | d[1]) % 31)
+    err(6, "invalid zlib data");
+  if ((d[1] >> 5 & 1) == +!dict)
+    err(6, "invalid zlib data: " + (d[1] & 32 ? "need" : "unexpected") + " dictionary");
+  return (d[1] >> 3 & 4) + 2;
+};
+var Inflate = /* @__PURE__ */ (function() {
+  function Inflate2(opts, cb) {
+    if (typeof opts == "function")
+      cb = opts, opts = {};
+    this.ondata = cb;
+    var dict = opts && opts.dictionary && opts.dictionary.subarray(-32768);
+    this.s = { i: 0, b: dict ? dict.length : 0 };
+    this.o = new u8(32768);
+    this.p = new u8(0);
+    if (dict)
+      this.o.set(dict);
+  }
+  Inflate2.prototype.e = function(c) {
+    if (!this.ondata)
+      err(5);
+    if (this.d)
+      err(4);
+    if (!this.p.length)
+      this.p = c;
+    else if (c.length) {
+      var n = new u8(this.p.length + c.length);
+      n.set(this.p), n.set(c, this.p.length), this.p = n;
+    }
+  };
+  Inflate2.prototype.c = function(final) {
+    this.s.i = +(this.d = final || false);
+    var bts = this.s.b;
+    var dt = inflt(this.p, this.s, this.o);
+    this.ondata(slc(dt, bts, this.s.b), this.d);
+    this.o = slc(dt, this.s.b - 32768), this.s.b = this.o.length;
+    this.p = slc(this.p, this.s.p / 8 | 0), this.s.p &= 7;
+  };
+  Inflate2.prototype.push = function(chunk, final) {
+    this.e(chunk), this.c(final);
+  };
+  return Inflate2;
+})();
+var Unzlib = /* @__PURE__ */ (function() {
+  function Unzlib2(opts, cb) {
+    Inflate.call(this, opts, cb);
+    this.v = opts && opts.dictionary ? 2 : 1;
+  }
+  Unzlib2.prototype.push = function(chunk, final) {
+    Inflate.prototype.e.call(this, chunk);
+    if (this.v) {
+      if (this.p.length < 6 && !final)
+        return;
+      this.p = this.p.subarray(zls(this.p, this.v - 1)), this.v = 0;
+    }
+    if (final) {
+      if (this.p.length < 4)
+        err(6, "invalid zlib data");
+      this.p = this.p.subarray(0, -4);
+    }
+    Inflate.prototype.c.call(this, final);
+  };
+  return Unzlib2;
+})();
+function unzlibSync(data, opts) {
+  return inflt(data.subarray(zls(data, opts && opts.dictionary), -4), { i: 2 }, opts && opts.out, opts && opts.dictionary);
+}
+var td = typeof TextDecoder != "undefined" && /* @__PURE__ */ new TextDecoder();
+var tds = 0;
+try {
+  td.decode(et, { stream: true });
+  tds = 1;
+} catch (e) {
+}
+
+// node_modules/iobuffer/lib/text.js
+function decode2(bytes, encoding = "utf8") {
+  const decoder = new TextDecoder(encoding);
+  return decoder.decode(bytes);
+}
+var encoder = new TextEncoder();
+function encode2(str) {
+  return encoder.encode(str);
+}
+
+// node_modules/iobuffer/lib/iobuffer.js
+var defaultByteLength = 1024 * 8;
+var hostBigEndian = (() => {
+  const array2 = new Uint8Array(4);
+  const view = new Uint32Array(array2.buffer);
+  return !((view[0] = 1) & array2[0]);
+})();
+var typedArrays = {
+  int8: globalThis.Int8Array,
+  uint8: globalThis.Uint8Array,
+  int16: globalThis.Int16Array,
+  uint16: globalThis.Uint16Array,
+  int32: globalThis.Int32Array,
+  uint32: globalThis.Uint32Array,
+  uint64: globalThis.BigUint64Array,
+  int64: globalThis.BigInt64Array,
+  float32: globalThis.Float32Array,
+  float64: globalThis.Float64Array
+};
+var IOBuffer = class _IOBuffer {
+  /**
+   * Reference to the internal ArrayBuffer object.
+   */
+  buffer;
+  /**
+   * Byte length of the internal ArrayBuffer.
+   */
+  byteLength;
+  /**
+   * Byte offset of the internal ArrayBuffer.
+   */
+  byteOffset;
+  /**
+   * Byte length of the internal ArrayBuffer.
+   */
+  length;
+  /**
+   * The current offset of the buffer's pointer.
+   */
+  offset;
+  lastWrittenByte;
+  littleEndian;
+  _data;
+  _mark;
+  _marks;
+  /**
+   * Create a new IOBuffer.
+   * @param data - The data to construct the IOBuffer with.
+   * If data is a number, it will be the new buffer's length<br>
+   * If data is `undefined`, the buffer will be initialized with a default length of 8Kb<br>
+   * If data is an ArrayBuffer, SharedArrayBuffer, an ArrayBufferView (Typed Array), an IOBuffer instance,
+   * or a Node.js Buffer, a view will be created over the underlying ArrayBuffer.
+   * @param options - An object for the options.
+   * @returns A new IOBuffer instance.
+   */
+  constructor(data = defaultByteLength, options = {}) {
+    let dataIsGiven = false;
+    if (typeof data === "number") {
+      data = new ArrayBuffer(data);
+    } else {
+      dataIsGiven = true;
+      this.lastWrittenByte = data.byteLength;
+    }
+    const offset = options.offset ? options.offset >>> 0 : 0;
+    const byteLength = data.byteLength - offset;
+    let dvOffset = offset;
+    if (ArrayBuffer.isView(data) || data instanceof _IOBuffer) {
+      if (data.byteLength !== data.buffer.byteLength) {
+        dvOffset = data.byteOffset + offset;
+      }
+      data = data.buffer;
+    }
+    if (dataIsGiven) {
+      this.lastWrittenByte = byteLength;
+    } else {
+      this.lastWrittenByte = 0;
+    }
+    this.buffer = data;
+    this.length = byteLength;
+    this.byteLength = byteLength;
+    this.byteOffset = dvOffset;
+    this.offset = 0;
+    this.littleEndian = true;
+    this._data = new DataView(this.buffer, dvOffset, byteLength);
+    this._mark = 0;
+    this._marks = [];
+  }
+  /**
+   * Checks if the memory allocated to the buffer is sufficient to store more
+   * bytes after the offset.
+   * @param byteLength - The needed memory in bytes.
+   * @returns `true` if there is sufficient space and `false` otherwise.
+   */
+  available(byteLength = 1) {
+    return this.offset + byteLength <= this.length;
+  }
+  /**
+   * Check if little-endian mode is used for reading and writing multi-byte
+   * values.
+   * @returns `true` if little-endian mode is used, `false` otherwise.
+   */
+  isLittleEndian() {
+    return this.littleEndian;
+  }
+  /**
+   * Set little-endian mode for reading and writing multi-byte values.
+   * @returns This.
+   */
+  setLittleEndian() {
+    this.littleEndian = true;
+    return this;
+  }
+  /**
+   * Check if big-endian mode is used for reading and writing multi-byte values.
+   * @returns `true` if big-endian mode is used, `false` otherwise.
+   */
+  isBigEndian() {
+    return !this.littleEndian;
+  }
+  /**
+   * Switches to big-endian mode for reading and writing multi-byte values.
+   * @returns This.
+   */
+  setBigEndian() {
+    this.littleEndian = false;
+    return this;
+  }
+  /**
+   * Move the pointer n bytes forward.
+   * @param n - Number of bytes to skip.
+   * @returns This.
+   */
+  skip(n = 1) {
+    this.offset += n;
+    return this;
+  }
+  /**
+   * Move the pointer n bytes backward.
+   * @param n - Number of bytes to move back.
+   * @returns This.
+   */
+  back(n = 1) {
+    this.offset -= n;
+    return this;
+  }
+  /**
+   * Move the pointer to the given offset.
+   * @param offset - The offset to move to.
+   * @returns This.
+   */
+  seek(offset) {
+    this.offset = offset;
+    return this;
+  }
+  /**
+   * Store the current pointer offset.
+   * @see {@link IOBuffer#reset}
+   * @returns This.
+   */
+  mark() {
+    this._mark = this.offset;
+    return this;
+  }
+  /**
+   * Move the pointer back to the last pointer offset set by mark.
+   * @see {@link IOBuffer#mark}
+   * @returns This.
+   */
+  reset() {
+    this.offset = this._mark;
+    return this;
+  }
+  /**
+   * Push the current pointer offset to the mark stack.
+   * @see {@link IOBuffer#popMark}
+   * @returns This.
+   */
+  pushMark() {
+    this._marks.push(this.offset);
+    return this;
+  }
+  /**
+   * Pop the last pointer offset from the mark stack, and set the current
+   * pointer offset to the popped value.
+   * @see {@link IOBuffer#pushMark}
+   * @returns This.
+   */
+  popMark() {
+    const offset = this._marks.pop();
+    if (offset === void 0) {
+      throw new Error("Mark stack empty");
+    }
+    this.seek(offset);
+    return this;
+  }
+  /**
+   * Move the pointer offset back to 0.
+   * @returns This.
+   */
+  rewind() {
+    this.offset = 0;
+    return this;
+  }
+  /**
+   * Make sure the buffer has sufficient memory to write a given byteLength at
+   * the current pointer offset.
+   * If the buffer's memory is insufficient, this method will create a new
+   * buffer (a copy) with a length that is twice (byteLength + current offset).
+   * @param byteLength - The needed memory in bytes.
+   * @returns This.
+   */
+  ensureAvailable(byteLength = 1) {
+    if (!this.available(byteLength)) {
+      const lengthNeeded = this.offset + byteLength;
+      const newLength = lengthNeeded * 2;
+      const newArray = new Uint8Array(newLength);
+      newArray.set(new Uint8Array(this.buffer));
+      this.buffer = newArray.buffer;
+      this.length = newLength;
+      this.byteLength = newLength;
+      this._data = new DataView(this.buffer);
+    }
+    return this;
+  }
+  /**
+   * Read a byte and return false if the byte's value is 0, or true otherwise.
+   * Moves pointer forward by one byte.
+   * @returns The read boolean.
+   */
+  readBoolean() {
+    return this.readUint8() !== 0;
+  }
+  /**
+   * Read a signed 8-bit integer and move pointer forward by 1 byte.
+   * @returns The read byte.
+   */
+  readInt8() {
+    return this._data.getInt8(this.offset++);
+  }
+  /**
+   * Read an unsigned 8-bit integer and move pointer forward by 1 byte.
+   * @returns The read byte.
+   */
+  readUint8() {
+    return this._data.getUint8(this.offset++);
+  }
+  /**
+   * Alias for {@link IOBuffer#readUint8}.
+   * @returns The read byte.
+   */
+  readByte() {
+    return this.readUint8();
+  }
+  /**
+   * Read `n` bytes and move pointer forward by `n` bytes.
+   * @param n - Number of bytes to read.
+   * @returns The read bytes.
+   */
+  readBytes(n = 1) {
+    return this.readArray(n, "uint8");
+  }
+  /**
+   * Creates an array of corresponding to the type `type` and size `size`.
+   * For example, type `uint8` will create a `Uint8Array`.
+   * @param size - size of the resulting array
+   * @param type - number type of elements to read
+   * @returns The read array.
+   */
+  readArray(size, type) {
+    const bytes = typedArrays[type].BYTES_PER_ELEMENT * size;
+    const offset = this.byteOffset + this.offset;
+    const slice = this.buffer.slice(offset, offset + bytes);
+    if (this.littleEndian === hostBigEndian && type !== "uint8" && type !== "int8") {
+      const slice2 = new Uint8Array(this.buffer.slice(offset, offset + bytes));
+      slice2.reverse();
+      const returnArray2 = new typedArrays[type](slice2.buffer);
+      this.offset += bytes;
+      returnArray2.reverse();
+      return returnArray2;
+    }
+    const returnArray = new typedArrays[type](slice);
+    this.offset += bytes;
+    return returnArray;
+  }
+  /**
+   * Read a 16-bit signed integer and move pointer forward by 2 bytes.
+   * @returns The read value.
+   */
+  readInt16() {
+    const value = this._data.getInt16(this.offset, this.littleEndian);
+    this.offset += 2;
+    return value;
+  }
+  /**
+   * Read a 16-bit unsigned integer and move pointer forward by 2 bytes.
+   * @returns The read value.
+   */
+  readUint16() {
+    const value = this._data.getUint16(this.offset, this.littleEndian);
+    this.offset += 2;
+    return value;
+  }
+  /**
+   * Read a 32-bit signed integer and move pointer forward by 4 bytes.
+   * @returns The read value.
+   */
+  readInt32() {
+    const value = this._data.getInt32(this.offset, this.littleEndian);
+    this.offset += 4;
+    return value;
+  }
+  /**
+   * Read a 32-bit unsigned integer and move pointer forward by 4 bytes.
+   * @returns The read value.
+   */
+  readUint32() {
+    const value = this._data.getUint32(this.offset, this.littleEndian);
+    this.offset += 4;
+    return value;
+  }
+  /**
+   * Read a 32-bit floating number and move pointer forward by 4 bytes.
+   * @returns The read value.
+   */
+  readFloat32() {
+    const value = this._data.getFloat32(this.offset, this.littleEndian);
+    this.offset += 4;
+    return value;
+  }
+  /**
+   * Read a 64-bit floating number and move pointer forward by 8 bytes.
+   * @returns The read value.
+   */
+  readFloat64() {
+    const value = this._data.getFloat64(this.offset, this.littleEndian);
+    this.offset += 8;
+    return value;
+  }
+  /**
+   * Read a 64-bit signed integer number and move pointer forward by 8 bytes.
+   * @returns The read value.
+   */
+  readBigInt64() {
+    const value = this._data.getBigInt64(this.offset, this.littleEndian);
+    this.offset += 8;
+    return value;
+  }
+  /**
+   * Read a 64-bit unsigned integer number and move pointer forward by 8 bytes.
+   * @returns The read value.
+   */
+  readBigUint64() {
+    const value = this._data.getBigUint64(this.offset, this.littleEndian);
+    this.offset += 8;
+    return value;
+  }
+  /**
+   * Read a 1-byte ASCII character and move pointer forward by 1 byte.
+   * @returns The read character.
+   */
+  readChar() {
+    return String.fromCharCode(this.readInt8());
+  }
+  /**
+   * Read `n` 1-byte ASCII characters and move pointer forward by `n` bytes.
+   * @param n - Number of characters to read.
+   * @returns The read characters.
+   */
+  readChars(n = 1) {
+    let result = "";
+    for (let i2 = 0; i2 < n; i2++) {
+      result += this.readChar();
+    }
+    return result;
+  }
+  /**
+   * Read the next `n` bytes, return a UTF-8 decoded string and move pointer
+   * forward by `n` bytes.
+   * @param n - Number of bytes to read.
+   * @returns The decoded string.
+   */
+  readUtf8(n = 1) {
+    return decode2(this.readBytes(n));
+  }
+  /**
+   * Read the next `n` bytes, return a string decoded with `encoding` and move pointer
+   * forward by `n` bytes.
+   * If no encoding is passed, the function is equivalent to @see {@link IOBuffer#readUtf8}
+   * @param n - Number of bytes to read.
+   * @param encoding - The encoding to use. Default is 'utf8'.
+   * @returns The decoded string.
+   */
+  decodeText(n = 1, encoding = "utf8") {
+    return decode2(this.readBytes(n), encoding);
+  }
+  /**
+   * Write 0xff if the passed value is truthy, 0x00 otherwise and move pointer
+   * forward by 1 byte.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeBoolean(value) {
+    this.writeUint8(value ? 255 : 0);
+    return this;
+  }
+  /**
+   * Write `value` as an 8-bit signed integer and move pointer forward by 1 byte.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeInt8(value) {
+    this.ensureAvailable(1);
+    this._data.setInt8(this.offset++, value);
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as an 8-bit unsigned integer and move pointer forward by 1
+   * byte.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeUint8(value) {
+    this.ensureAvailable(1);
+    this._data.setUint8(this.offset++, value);
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * An alias for {@link IOBuffer#writeUint8}.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeByte(value) {
+    return this.writeUint8(value);
+  }
+  /**
+   * Write all elements of `bytes` as uint8 values and move pointer forward by
+   * `bytes.length` bytes.
+   * @param bytes - The array of bytes to write.
+   * @returns This.
+   */
+  writeBytes(bytes) {
+    this.ensureAvailable(bytes.length);
+    for (let i2 = 0; i2 < bytes.length; i2++) {
+      this._data.setUint8(this.offset++, bytes[i2]);
+    }
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 16-bit signed integer and move pointer forward by 2
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeInt16(value) {
+    this.ensureAvailable(2);
+    this._data.setInt16(this.offset, value, this.littleEndian);
+    this.offset += 2;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 16-bit unsigned integer and move pointer forward by 2
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeUint16(value) {
+    this.ensureAvailable(2);
+    this._data.setUint16(this.offset, value, this.littleEndian);
+    this.offset += 2;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 32-bit signed integer and move pointer forward by 4
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeInt32(value) {
+    this.ensureAvailable(4);
+    this._data.setInt32(this.offset, value, this.littleEndian);
+    this.offset += 4;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 32-bit unsigned integer and move pointer forward by 4
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeUint32(value) {
+    this.ensureAvailable(4);
+    this._data.setUint32(this.offset, value, this.littleEndian);
+    this.offset += 4;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 32-bit floating number and move pointer forward by 4
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeFloat32(value) {
+    this.ensureAvailable(4);
+    this._data.setFloat32(this.offset, value, this.littleEndian);
+    this.offset += 4;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 64-bit floating number and move pointer forward by 8
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeFloat64(value) {
+    this.ensureAvailable(8);
+    this._data.setFloat64(this.offset, value, this.littleEndian);
+    this.offset += 8;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 64-bit signed bigint and move pointer forward by 8
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeBigInt64(value) {
+    this.ensureAvailable(8);
+    this._data.setBigInt64(this.offset, value, this.littleEndian);
+    this.offset += 8;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write `value` as a 64-bit unsigned bigint and move pointer forward by 8
+   * bytes.
+   * @param value - The value to write.
+   * @returns This.
+   */
+  writeBigUint64(value) {
+    this.ensureAvailable(8);
+    this._data.setBigUint64(this.offset, value, this.littleEndian);
+    this.offset += 8;
+    this._updateLastWrittenByte();
+    return this;
+  }
+  /**
+   * Write the charCode of `str`'s first character as an 8-bit unsigned integer
+   * and move pointer forward by 1 byte.
+   * @param str - The character to write.
+   * @returns This.
+   */
+  writeChar(str) {
+    return this.writeUint8(str.charCodeAt(0));
+  }
+  /**
+   * Write the charCodes of all `str`'s characters as 8-bit unsigned integers
+   * and move pointer forward by `str.length` bytes.
+   * @param str - The characters to write.
+   * @returns This.
+   */
+  writeChars(str) {
+    for (let i2 = 0; i2 < str.length; i2++) {
+      this.writeUint8(str.charCodeAt(i2));
+    }
+    return this;
+  }
+  /**
+   * UTF-8 encode and write `str` to the current pointer offset and move pointer
+   * forward according to the encoded length.
+   * @param str - The string to write.
+   * @returns This.
+   */
+  writeUtf8(str) {
+    return this.writeBytes(encode2(str));
+  }
+  /**
+   * Export a Uint8Array view of the internal buffer.
+   * The view starts at the byte offset and its length
+   * is calculated to stop at the last written byte or the original length.
+   * @returns A new Uint8Array view.
+   */
+  toArray() {
+    return new Uint8Array(this.buffer, this.byteOffset, this.lastWrittenByte);
+  }
+  /**
+   *  Get the total number of bytes written so far, regardless of the current offset.
+   * @returns - Total number of bytes.
+   */
+  getWrittenByteLength() {
+    return this.lastWrittenByte - this.byteOffset;
+  }
+  /**
+   * Update the last written byte offset
+   * @private
+   */
+  _updateLastWrittenByte() {
+    if (this.offset > this.lastWrittenByte) {
+      this.lastWrittenByte = this.offset;
+    }
+  }
+};
+
+// node_modules/fast-png/lib/helpers/crc.js
+var crcTable = [];
+for (let n = 0; n < 256; n++) {
+  let c = n;
+  for (let k = 0; k < 8; k++) {
+    if (c & 1) {
+      c = 3988292384 ^ c >>> 1;
+    } else {
+      c = c >>> 1;
+    }
+  }
+  crcTable[n] = c;
+}
+var initialCrc = 4294967295;
+function updateCrc(currentCrc, data, length) {
+  let c = currentCrc;
+  for (let n = 0; n < length; n++) {
+    c = crcTable[(c ^ data[n]) & 255] ^ c >>> 8;
+  }
+  return c;
+}
+function crc(data, length) {
+  return (updateCrc(initialCrc, data, length) ^ initialCrc) >>> 0;
+}
+function checkCrc(buffer, crcLength, chunkName) {
+  const expectedCrc = buffer.readUint32();
+  const actualCrc = crc(new Uint8Array(buffer.buffer, buffer.byteOffset + buffer.offset - crcLength - 4, crcLength), crcLength);
+  if (actualCrc !== expectedCrc) {
+    throw new Error(`CRC mismatch for chunk ${chunkName}. Expected ${expectedCrc}, found ${actualCrc}`);
+  }
+}
+
+// node_modules/fast-png/lib/helpers/unfilter.js
+function unfilterNone(currentLine, newLine, bytesPerLine) {
+  for (let i2 = 0; i2 < bytesPerLine; i2++) {
+    newLine[i2] = currentLine[i2];
+  }
+}
+function unfilterSub(currentLine, newLine, bytesPerLine, bytesPerPixel) {
+  let i2 = 0;
+  for (; i2 < bytesPerPixel; i2++) {
+    newLine[i2] = currentLine[i2];
+  }
+  for (; i2 < bytesPerLine; i2++) {
+    newLine[i2] = currentLine[i2] + newLine[i2 - bytesPerPixel] & 255;
+  }
+}
+function unfilterUp(currentLine, newLine, prevLine, bytesPerLine) {
+  let i2 = 0;
+  if (prevLine.length === 0) {
+    for (; i2 < bytesPerLine; i2++) {
+      newLine[i2] = currentLine[i2];
+    }
+  } else {
+    for (; i2 < bytesPerLine; i2++) {
+      newLine[i2] = currentLine[i2] + prevLine[i2] & 255;
+    }
+  }
+}
+function unfilterAverage(currentLine, newLine, prevLine, bytesPerLine, bytesPerPixel) {
+  let i2 = 0;
+  if (prevLine.length === 0) {
+    for (; i2 < bytesPerPixel; i2++) {
+      newLine[i2] = currentLine[i2];
+    }
+    for (; i2 < bytesPerLine; i2++) {
+      newLine[i2] = currentLine[i2] + (newLine[i2 - bytesPerPixel] >> 1) & 255;
+    }
+  } else {
+    for (; i2 < bytesPerPixel; i2++) {
+      newLine[i2] = currentLine[i2] + (prevLine[i2] >> 1) & 255;
+    }
+    for (; i2 < bytesPerLine; i2++) {
+      newLine[i2] = currentLine[i2] + (newLine[i2 - bytesPerPixel] + prevLine[i2] >> 1) & 255;
+    }
+  }
+}
+function unfilterPaeth(currentLine, newLine, prevLine, bytesPerLine, bytesPerPixel) {
+  let i2 = 0;
+  if (prevLine.length === 0) {
+    for (; i2 < bytesPerPixel; i2++) {
+      newLine[i2] = currentLine[i2];
+    }
+    for (; i2 < bytesPerLine; i2++) {
+      newLine[i2] = currentLine[i2] + newLine[i2 - bytesPerPixel] & 255;
+    }
+  } else {
+    for (; i2 < bytesPerPixel; i2++) {
+      newLine[i2] = currentLine[i2] + prevLine[i2] & 255;
+    }
+    for (; i2 < bytesPerLine; i2++) {
+      newLine[i2] = currentLine[i2] + paethPredictor(newLine[i2 - bytesPerPixel], prevLine[i2], prevLine[i2 - bytesPerPixel]) & 255;
+    }
+  }
+}
+function paethPredictor(a, b, c) {
+  const p = a + b - c;
+  const pa = Math.abs(p - a);
+  const pb = Math.abs(p - b);
+  const pc = Math.abs(p - c);
+  if (pa <= pb && pa <= pc)
+    return a;
+  else if (pb <= pc)
+    return b;
+  else
+    return c;
+}
+
+// node_modules/fast-png/lib/helpers/apply_unfilter.js
+function applyUnfilter(filterType, currentLine, newLine, prevLine, passLineBytes, bytesPerPixel) {
+  switch (filterType) {
+    case 0:
+      unfilterNone(currentLine, newLine, passLineBytes);
+      break;
+    case 1:
+      unfilterSub(currentLine, newLine, passLineBytes, bytesPerPixel);
+      break;
+    case 2:
+      unfilterUp(currentLine, newLine, prevLine, passLineBytes);
+      break;
+    case 3:
+      unfilterAverage(currentLine, newLine, prevLine, passLineBytes, bytesPerPixel);
+      break;
+    case 4:
+      unfilterPaeth(currentLine, newLine, prevLine, passLineBytes, bytesPerPixel);
+      break;
+    default:
+      throw new Error(`Unsupported filter: ${filterType}`);
+  }
+}
+
+// node_modules/fast-png/lib/helpers/decode_interlace_adam7.js
+var uint16 = new Uint16Array([255]);
+var uint8 = new Uint8Array(uint16.buffer);
+var osIsLittleEndian = uint8[0] === 255;
+function decodeInterlaceAdam7(params) {
+  const { data, width, height, channels, depth } = params;
+  const passes = [
+    { x: 0, y: 0, xStep: 8, yStep: 8 },
+    // Pass 1
+    { x: 4, y: 0, xStep: 8, yStep: 8 },
+    // Pass 2
+    { x: 0, y: 4, xStep: 4, yStep: 8 },
+    // Pass 3
+    { x: 2, y: 0, xStep: 4, yStep: 4 },
+    // Pass 4
+    { x: 0, y: 2, xStep: 2, yStep: 4 },
+    // Pass 5
+    { x: 1, y: 0, xStep: 2, yStep: 2 },
+    // Pass 6
+    { x: 0, y: 1, xStep: 1, yStep: 2 }
+    // Pass 7
+  ];
+  const bytesPerPixel = Math.ceil(depth / 8) * channels;
+  const resultData = new Uint8Array(height * width * bytesPerPixel);
+  let offset = 0;
+  for (let passIndex = 0; passIndex < 7; passIndex++) {
+    const pass = passes[passIndex];
+    const passWidth = Math.ceil((width - pass.x) / pass.xStep);
+    const passHeight = Math.ceil((height - pass.y) / pass.yStep);
+    if (passWidth <= 0 || passHeight <= 0)
+      continue;
+    const passLineBytes = passWidth * bytesPerPixel;
+    const prevLine = new Uint8Array(passLineBytes);
+    for (let y = 0; y < passHeight; y++) {
+      const filterType = data[offset++];
+      const currentLine = data.subarray(offset, offset + passLineBytes);
+      offset += passLineBytes;
+      const newLine = new Uint8Array(passLineBytes);
+      applyUnfilter(filterType, currentLine, newLine, prevLine, passLineBytes, bytesPerPixel);
+      prevLine.set(newLine);
+      for (let x2 = 0; x2 < passWidth; x2++) {
+        const outputX = pass.x + x2 * pass.xStep;
+        const outputY = pass.y + y * pass.yStep;
+        if (outputX >= width || outputY >= height)
+          continue;
+        for (let i2 = 0; i2 < bytesPerPixel; i2++) {
+          resultData[(outputY * width + outputX) * bytesPerPixel + i2] = newLine[x2 * bytesPerPixel + i2];
+        }
+      }
+    }
+  }
+  if (depth === 16) {
+    const uint16Data = new Uint16Array(resultData.buffer);
+    if (osIsLittleEndian) {
+      for (let k = 0; k < uint16Data.length; k++) {
+        uint16Data[k] = swap16(uint16Data[k]);
+      }
+    }
+    return uint16Data;
+  } else {
+    return resultData;
+  }
+}
+function swap16(val) {
+  return (val & 255) << 8 | val >> 8 & 255;
+}
+
+// node_modules/fast-png/lib/helpers/decode_interlace_null.js
+var uint162 = new Uint16Array([255]);
+var uint82 = new Uint8Array(uint162.buffer);
+var osIsLittleEndian2 = uint82[0] === 255;
+var empty = new Uint8Array(0);
+function decodeInterlaceNull(params) {
+  const { data, width, height, channels, depth } = params;
+  const bytesPerPixel = Math.ceil(depth / 8) * channels;
+  const bytesPerLine = Math.ceil(depth / 8 * channels * width);
+  const newData = new Uint8Array(height * bytesPerLine);
+  let prevLine = empty;
+  let offset = 0;
+  let currentLine;
+  let newLine;
+  for (let i2 = 0; i2 < height; i2++) {
+    currentLine = data.subarray(offset + 1, offset + 1 + bytesPerLine);
+    newLine = newData.subarray(i2 * bytesPerLine, (i2 + 1) * bytesPerLine);
+    switch (data[offset]) {
+      case 0:
+        unfilterNone(currentLine, newLine, bytesPerLine);
+        break;
+      case 1:
+        unfilterSub(currentLine, newLine, bytesPerLine, bytesPerPixel);
+        break;
+      case 2:
+        unfilterUp(currentLine, newLine, prevLine, bytesPerLine);
+        break;
+      case 3:
+        unfilterAverage(currentLine, newLine, prevLine, bytesPerLine, bytesPerPixel);
+        break;
+      case 4:
+        unfilterPaeth(currentLine, newLine, prevLine, bytesPerLine, bytesPerPixel);
+        break;
+      default:
+        throw new Error(`Unsupported filter: ${data[offset]}`);
+    }
+    prevLine = newLine;
+    offset += bytesPerLine + 1;
+  }
+  if (depth === 16) {
+    const uint16Data = new Uint16Array(newData.buffer);
+    if (osIsLittleEndian2) {
+      for (let k = 0; k < uint16Data.length; k++) {
+        uint16Data[k] = swap162(uint16Data[k]);
+      }
+    }
+    return uint16Data;
+  } else {
+    return newData;
+  }
+}
+function swap162(val) {
+  return (val & 255) << 8 | val >> 8 & 255;
+}
+
+// node_modules/fast-png/lib/helpers/signature.js
+var pngSignature = Uint8Array.of(137, 80, 78, 71, 13, 10, 26, 10);
+function checkSignature(buffer) {
+  if (!hasPngSignature(buffer.readBytes(pngSignature.length))) {
+    throw new Error("wrong PNG signature");
+  }
+}
+function hasPngSignature(array2) {
+  if (array2.length < pngSignature.length) {
+    return false;
+  }
+  for (let i2 = 0; i2 < pngSignature.length; i2++) {
+    if (array2[i2] !== pngSignature[i2]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// node_modules/fast-png/lib/helpers/text.js
+var textChunkName = "tEXt";
+var NULL = 0;
+var latin1Decoder = new TextDecoder("latin1");
+function validateKeyword(keyword) {
+  validateLatin1(keyword);
+  if (keyword.length === 0 || keyword.length > 79) {
+    throw new Error("keyword length must be between 1 and 79");
+  }
+}
+var latin1Regex = /^[\u0000-\u00FF]*$/;
+function validateLatin1(text) {
+  if (!latin1Regex.test(text)) {
+    throw new Error("invalid latin1 text");
+  }
+}
+function decodetEXt(text, buffer, length) {
+  const keyword = readKeyword(buffer);
+  text[keyword] = readLatin1(buffer, length - keyword.length - 1);
+}
+function readKeyword(buffer) {
+  buffer.mark();
+  while (buffer.readByte() !== NULL) {
+  }
+  const end = buffer.offset;
+  buffer.reset();
+  const keyword = latin1Decoder.decode(buffer.readBytes(end - buffer.offset - 1));
+  buffer.skip(1);
+  validateKeyword(keyword);
+  return keyword;
+}
+function readLatin1(buffer, length) {
+  return latin1Decoder.decode(buffer.readBytes(length));
+}
+
+// node_modules/fast-png/lib/internal_types.js
+var ColorType = {
+  UNKNOWN: -1,
+  GREYSCALE: 0,
+  TRUECOLOUR: 2,
+  INDEXED_COLOUR: 3,
+  GREYSCALE_ALPHA: 4,
+  TRUECOLOUR_ALPHA: 6
+};
+var CompressionMethod = {
+  UNKNOWN: -1,
+  DEFLATE: 0
+};
+var FilterMethod = {
+  UNKNOWN: -1,
+  ADAPTIVE: 0
+};
+var InterlaceMethod = {
+  UNKNOWN: -1,
+  NO_INTERLACE: 0,
+  ADAM7: 1
+};
+var DisposeOpType = {
+  NONE: 0,
+  BACKGROUND: 1,
+  PREVIOUS: 2
+};
+var BlendOpType = {
+  SOURCE: 0,
+  OVER: 1
+};
+
+// node_modules/fast-png/lib/png_decoder.js
+var PngDecoder = class extends IOBuffer {
+  _checkCrc;
+  _inflator;
+  _png;
+  _apng;
+  _end;
+  _hasPalette;
+  _palette;
+  _hasTransparency;
+  _transparency;
+  _compressionMethod;
+  _filterMethod;
+  _interlaceMethod;
+  _colorType;
+  _isAnimated;
+  _numberOfFrames;
+  _numberOfPlays;
+  _frames;
+  _writingDataChunks;
+  _chunks;
+  _inflatorResult;
+  constructor(data, options = {}) {
+    super(data);
+    const { checkCrc: checkCrc2 = false } = options;
+    this._checkCrc = checkCrc2;
+    this._inflator = new Unzlib((chunk, final) => {
+      this._chunks.push(chunk);
+      if (final) {
+        const totalLength = this._chunks.reduce((sum, c) => sum + c.length, 0);
+        this._inflatorResult = new Uint8Array(totalLength);
+        let offset = 0;
+        for (const chunk2 of this._chunks) {
+          this._inflatorResult.set(chunk2, offset);
+          offset += chunk2.length;
+        }
+        this._chunks = [];
+      }
+    });
+    this._chunks = [];
+    this._png = {
+      width: -1,
+      height: -1,
+      channels: -1,
+      data: new Uint8Array(0),
+      depth: 1,
+      text: {}
+    };
+    this._apng = {
+      width: -1,
+      height: -1,
+      channels: -1,
+      depth: 1,
+      numberOfFrames: 1,
+      numberOfPlays: 0,
+      text: {},
+      frames: []
+    };
+    this._end = false;
+    this._hasPalette = false;
+    this._palette = [];
+    this._hasTransparency = false;
+    this._transparency = new Uint16Array(0);
+    this._compressionMethod = CompressionMethod.UNKNOWN;
+    this._filterMethod = FilterMethod.UNKNOWN;
+    this._interlaceMethod = InterlaceMethod.UNKNOWN;
+    this._colorType = ColorType.UNKNOWN;
+    this._isAnimated = false;
+    this._numberOfFrames = 1;
+    this._numberOfPlays = 0;
+    this._frames = [];
+    this._writingDataChunks = false;
+    this._inflatorResult = new Uint8Array(0);
+    this.setBigEndian();
+  }
+  decode() {
+    checkSignature(this);
+    while (!this._end) {
+      const length = this.readUint32();
+      const type = this.readChars(4);
+      this.decodeChunk(length, type);
+    }
+    this._inflator.push(new Uint8Array(0), true);
+    this.decodeImage();
+    return this._png;
+  }
+  decodeApng() {
+    checkSignature(this);
+    while (!this._end) {
+      const length = this.readUint32();
+      const type = this.readChars(4);
+      this.decodeApngChunk(length, type);
+    }
+    this.decodeApngImage();
+    return this._apng;
+  }
+  // https://www.w3.org/TR/PNG/#5Chunk-layout
+  decodeChunk(length, type) {
+    const offset = this.offset;
+    switch (type) {
+      // 11.2 Critical chunks
+      case "IHDR":
+        this.decodeIHDR();
+        break;
+      case "PLTE":
+        this.decodePLTE(length);
+        break;
+      case "IDAT":
+        this.decodeIDAT(length);
+        break;
+      case "IEND":
+        this._end = true;
+        break;
+      // 11.3 Ancillary chunks
+      case "tRNS":
+        this.decodetRNS(length);
+        break;
+      case "iCCP":
+        this.decodeiCCP(length);
+        break;
+      case textChunkName:
+        decodetEXt(this._png.text, this, length);
+        break;
+      case "pHYs":
+        this.decodepHYs();
+        break;
+      default:
+        this.skip(length);
+        break;
+    }
+    if (this.offset - offset !== length) {
+      throw new Error(`Length mismatch while decoding chunk ${type}`);
+    }
+    if (this._checkCrc) {
+      checkCrc(this, length + 4, type);
+    } else {
+      this.skip(4);
+    }
+  }
+  decodeApngChunk(length, type) {
+    const offset = this.offset;
+    if (type !== "fdAT" && type !== "IDAT" && this._writingDataChunks) {
+      this.pushDataToFrame();
+    }
+    switch (type) {
+      case "acTL":
+        this.decodeACTL();
+        break;
+      case "fcTL":
+        this.decodeFCTL();
+        break;
+      case "fdAT":
+        this.decodeFDAT(length);
+        break;
+      default:
+        this.decodeChunk(length, type);
+        this.offset = offset + length;
+        break;
+    }
+    if (this.offset - offset !== length) {
+      throw new Error(`Length mismatch while decoding chunk ${type}`);
+    }
+    if (this._checkCrc) {
+      checkCrc(this, length + 4, type);
+    } else {
+      this.skip(4);
+    }
+  }
+  // https://www.w3.org/TR/PNG/#11IHDR
+  decodeIHDR() {
+    const image = this._png;
+    image.width = this.readUint32();
+    image.height = this.readUint32();
+    image.depth = checkBitDepth(this.readUint8());
+    const colorType = this.readUint8();
+    this._colorType = colorType;
+    let channels;
+    switch (colorType) {
+      case ColorType.GREYSCALE:
+        channels = 1;
+        break;
+      case ColorType.TRUECOLOUR:
+        channels = 3;
+        break;
+      case ColorType.INDEXED_COLOUR:
+        channels = 1;
+        break;
+      case ColorType.GREYSCALE_ALPHA:
+        channels = 2;
+        break;
+      case ColorType.TRUECOLOUR_ALPHA:
+        channels = 4;
+        break;
+      // Kept for exhaustiveness.
+      // eslint-disable-next-line unicorn/no-useless-switch-case
+      case ColorType.UNKNOWN:
+      default:
+        throw new Error(`Unknown color type: ${colorType}`);
+    }
+    this._png.channels = channels;
+    this._compressionMethod = this.readUint8();
+    if (this._compressionMethod !== CompressionMethod.DEFLATE) {
+      throw new Error(`Unsupported compression method: ${this._compressionMethod}`);
+    }
+    this._filterMethod = this.readUint8();
+    this._interlaceMethod = this.readUint8();
+  }
+  decodeACTL() {
+    this._numberOfFrames = this.readUint32();
+    this._numberOfPlays = this.readUint32();
+    this._isAnimated = true;
+  }
+  decodeFCTL() {
+    const image = {
+      sequenceNumber: this.readUint32(),
+      width: this.readUint32(),
+      height: this.readUint32(),
+      xOffset: this.readUint32(),
+      yOffset: this.readUint32(),
+      delayNumber: this.readUint16(),
+      delayDenominator: this.readUint16(),
+      disposeOp: this.readUint8(),
+      blendOp: this.readUint8(),
+      data: new Uint8Array(0)
+    };
+    this._frames.push(image);
+  }
+  // https://www.w3.org/TR/PNG/#11PLTE
+  decodePLTE(length) {
+    if (length % 3 !== 0) {
+      throw new RangeError(`PLTE field length must be a multiple of 3. Got ${length}`);
+    }
+    const l = length / 3;
+    this._hasPalette = true;
+    const palette = [];
+    this._palette = palette;
+    for (let i2 = 0; i2 < l; i2++) {
+      palette.push([this.readUint8(), this.readUint8(), this.readUint8()]);
+    }
+  }
+  // https://www.w3.org/TR/PNG/#11IDAT
+  decodeIDAT(length) {
+    this._writingDataChunks = true;
+    const dataLength = length;
+    const dataOffset = this.offset + this.byteOffset;
+    try {
+      this._inflator.push(new Uint8Array(this.buffer, dataOffset, dataLength), false);
+    } catch (error2) {
+      throw new Error("Error while decompressing the data:", { cause: error2 });
+    }
+    this.skip(length);
+  }
+  decodeFDAT(length) {
+    this._writingDataChunks = true;
+    let dataLength = length;
+    let dataOffset = this.offset + this.byteOffset;
+    dataOffset += 4;
+    dataLength -= 4;
+    try {
+      this._inflator.push(new Uint8Array(this.buffer, dataOffset, dataLength), false);
+    } catch (error2) {
+      throw new Error("Error while decompressing the data:", { cause: error2 });
+    }
+    this.skip(length);
+  }
+  // https://www.w3.org/TR/PNG/#11tRNS
+  decodetRNS(length) {
+    switch (this._colorType) {
+      case ColorType.GREYSCALE:
+      case ColorType.TRUECOLOUR: {
+        if (length % 2 !== 0) {
+          throw new RangeError(`tRNS chunk length must be a multiple of 2. Got ${length}`);
+        }
+        if (length / 2 > this._png.width * this._png.height) {
+          throw new Error(`tRNS chunk contains more alpha values than there are pixels (${length / 2} vs ${this._png.width * this._png.height})`);
+        }
+        this._hasTransparency = true;
+        this._transparency = new Uint16Array(length / 2);
+        for (let i2 = 0; i2 < length / 2; i2++) {
+          this._transparency[i2] = this.readUint16();
+        }
+        break;
+      }
+      case ColorType.INDEXED_COLOUR: {
+        if (length > this._palette.length) {
+          throw new Error(`tRNS chunk contains more alpha values than there are palette colors (${length} vs ${this._palette.length})`);
+        }
+        let i2 = 0;
+        for (; i2 < length; i2++) {
+          const alpha = this.readByte();
+          this._palette[i2].push(alpha);
+        }
+        for (; i2 < this._palette.length; i2++) {
+          this._palette[i2].push(255);
+        }
+        break;
+      }
+      // Kept for exhaustiveness.
+      /* eslint-disable unicorn/no-useless-switch-case */
+      case ColorType.UNKNOWN:
+      case ColorType.GREYSCALE_ALPHA:
+      case ColorType.TRUECOLOUR_ALPHA:
+      default: {
+        throw new Error(`tRNS chunk is not supported for color type ${this._colorType}`);
+      }
+    }
+  }
+  // https://www.w3.org/TR/PNG/#11iCCP
+  decodeiCCP(length) {
+    const name = readKeyword(this);
+    const compressionMethod = this.readUint8();
+    if (compressionMethod !== CompressionMethod.DEFLATE) {
+      throw new Error(`Unsupported iCCP compression method: ${compressionMethod}`);
+    }
+    const compressedProfile = this.readBytes(length - name.length - 2);
+    this._png.iccEmbeddedProfile = {
+      name,
+      profile: unzlibSync(compressedProfile)
+    };
+  }
+  // https://www.w3.org/TR/PNG/#11pHYs
+  decodepHYs() {
+    const ppuX = this.readUint32();
+    const ppuY = this.readUint32();
+    const unitSpecifier = this.readByte();
+    this._png.resolution = {
+      x: ppuX,
+      y: ppuY,
+      unit: unitSpecifier
+    };
+  }
+  decodeApngImage() {
+    this._apng.width = this._png.width;
+    this._apng.height = this._png.height;
+    this._apng.channels = this._png.channels;
+    this._apng.depth = this._png.depth;
+    this._apng.numberOfFrames = this._numberOfFrames;
+    this._apng.numberOfPlays = this._numberOfPlays;
+    this._apng.text = this._png.text;
+    this._apng.resolution = this._png.resolution;
+    for (let i2 = 0; i2 < this._numberOfFrames; i2++) {
+      const newFrame = {
+        sequenceNumber: this._frames[i2].sequenceNumber,
+        delayNumber: this._frames[i2].delayNumber,
+        delayDenominator: this._frames[i2].delayDenominator,
+        data: this._apng.depth === 8 ? new Uint8Array(this._apng.width * this._apng.height * this._apng.channels) : new Uint16Array(this._apng.width * this._apng.height * this._apng.channels)
+      };
+      const frame = this._frames.at(i2);
+      if (frame) {
+        frame.data = decodeInterlaceNull({
+          data: frame.data,
+          width: frame.width,
+          height: frame.height,
+          channels: this._apng.channels,
+          depth: this._apng.depth
+        });
+        if (this._hasPalette) {
+          this._apng.palette = this._palette;
+        }
+        if (this._hasTransparency) {
+          this._apng.transparency = this._transparency;
+        }
+        if (i2 === 0 || frame.xOffset === 0 && frame.yOffset === 0 && frame.width === this._png.width && frame.height === this._png.height) {
+          newFrame.data = frame.data;
+        } else {
+          const prevFrame = this._apng.frames.at(i2 - 1);
+          this.disposeFrame(frame, prevFrame, newFrame);
+          this.addFrameDataToCanvas(newFrame, frame);
+        }
+        this._apng.frames.push(newFrame);
+      }
+    }
+    return this._apng;
+  }
+  disposeFrame(frame, prevFrame, imageFrame) {
+    switch (frame.disposeOp) {
+      case DisposeOpType.NONE:
+        break;
+      case DisposeOpType.BACKGROUND:
+        for (let row = 0; row < this._png.height; row++) {
+          for (let col = 0; col < this._png.width; col++) {
+            const index = (row * frame.width + col) * this._png.channels;
+            for (let channel = 0; channel < this._png.channels; channel++) {
+              imageFrame.data[index + channel] = 0;
+            }
+          }
+        }
+        break;
+      case DisposeOpType.PREVIOUS:
+        imageFrame.data.set(prevFrame.data);
+        break;
+      default:
+        throw new Error("Unknown disposeOp");
+    }
+  }
+  addFrameDataToCanvas(imageFrame, frame) {
+    const maxValue = 1 << this._png.depth;
+    const calculatePixelIndices = (row, col) => {
+      const index = ((row + frame.yOffset) * this._png.width + frame.xOffset + col) * this._png.channels;
+      const frameIndex = (row * frame.width + col) * this._png.channels;
+      return { index, frameIndex };
+    };
+    switch (frame.blendOp) {
+      case BlendOpType.SOURCE:
+        for (let row = 0; row < frame.height; row++) {
+          for (let col = 0; col < frame.width; col++) {
+            const { index, frameIndex } = calculatePixelIndices(row, col);
+            for (let channel = 0; channel < this._png.channels; channel++) {
+              imageFrame.data[index + channel] = frame.data[frameIndex + channel];
+            }
+          }
+        }
+        break;
+      // https://www.w3.org/TR/png-3/#13Alpha-channel-processing
+      case BlendOpType.OVER:
+        for (let row = 0; row < frame.height; row++) {
+          for (let col = 0; col < frame.width; col++) {
+            const { index, frameIndex } = calculatePixelIndices(row, col);
+            for (let channel = 0; channel < this._png.channels; channel++) {
+              const sourceAlpha = frame.data[frameIndex + this._png.channels - 1] / maxValue;
+              const foregroundValue = channel % (this._png.channels - 1) === 0 ? 1 : frame.data[frameIndex + channel];
+              const value = Math.floor(sourceAlpha * foregroundValue + (1 - sourceAlpha) * imageFrame.data[index + channel]);
+              imageFrame.data[index + channel] += value;
+            }
+          }
+        }
+        break;
+      default:
+        throw new Error("Unknown blendOp");
+    }
+  }
+  decodeImage() {
+    const data = this._inflatorResult;
+    if (this._filterMethod !== FilterMethod.ADAPTIVE) {
+      throw new Error(`Filter method ${this._filterMethod} not supported`);
+    }
+    if (this._interlaceMethod === InterlaceMethod.NO_INTERLACE) {
+      this._png.data = decodeInterlaceNull({
+        data,
+        width: this._png.width,
+        height: this._png.height,
+        channels: this._png.channels,
+        depth: this._png.depth
+      });
+    } else if (this._interlaceMethod === InterlaceMethod.ADAM7) {
+      this._png.data = decodeInterlaceAdam7({
+        data,
+        width: this._png.width,
+        height: this._png.height,
+        channels: this._png.channels,
+        depth: this._png.depth
+      });
+    } else {
+      throw new Error(`Interlace method ${this._interlaceMethod} not supported`);
+    }
+    if (this._hasPalette) {
+      this._png.palette = this._palette;
+    }
+    if (this._hasTransparency) {
+      this._png.transparency = this._transparency;
+    }
+  }
+  pushDataToFrame() {
+    this._inflator.push(new Uint8Array(0), true);
+    const result = this._inflatorResult;
+    const lastFrame = this._frames.at(-1);
+    if (lastFrame) {
+      lastFrame.data = result;
+    } else {
+      this._frames.push({
+        sequenceNumber: 0,
+        width: this._png.width,
+        height: this._png.height,
+        xOffset: 0,
+        yOffset: 0,
+        delayNumber: 0,
+        delayDenominator: 0,
+        disposeOp: DisposeOpType.NONE,
+        blendOp: BlendOpType.SOURCE,
+        data: result
+      });
+    }
+    this._inflator = new Unzlib((chunk, final) => {
+      this._chunks.push(chunk);
+      if (final) {
+        const totalLength = this._chunks.reduce((sum, c) => sum + c.length, 0);
+        this._inflatorResult = new Uint8Array(totalLength);
+        let offset = 0;
+        for (const chunk2 of this._chunks) {
+          this._inflatorResult.set(chunk2, offset);
+          offset += chunk2.length;
+        }
+        this._chunks = [];
+      }
+    });
+    this._chunks = [];
+    this._writingDataChunks = false;
+  }
+};
+function checkBitDepth(value) {
+  if (value !== 1 && value !== 2 && value !== 4 && value !== 8 && value !== 16) {
+    throw new Error(`invalid bit depth: ${value}`);
+  }
+  return value;
+}
+
+// node_modules/fast-png/lib/index.js
+function decodePng(data, options) {
+  const decoder = new PngDecoder(data, options);
+  return decoder.decode();
+}
+
+// src/core/image-artifacts.ts
+var PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+var MAX_BYTES = 10 * 1024 * 1024;
+var MAX_AXIS = 8192;
+var MAX_PIXELS = 16777216;
+var ImageValidationError = class extends Error {
+  code;
+  constructor(code) {
+    super(code);
+    this.name = "ImageValidationError";
+    this.code = code;
+  }
+};
+var MemoryImageArtifactStore = class {
+  records = /* @__PURE__ */ new Map();
+  get size() {
+    return this.records.size;
+  }
+  get(artifactId) {
+    const record2 = this.records.get(artifactId);
+    return record2 === void 0 ? void 0 : { ...record2 };
+  }
+  put(record2) {
+    this.records.set(record2.artifactId, { ...record2 });
+  }
+};
+var defaultImageArtifactStore = new MemoryImageArtifactStore();
+async function indexImageArtifact(input) {
+  const source = await readBoundedSource(input.path, input.allowedRoots ?? [process.cwd()]);
+  const metadata = validatePng(source.bytes);
+  const sha256 = createHash2("sha256").update(source.bytes).digest("hex");
+  const identity = createHash2("sha256").update(`${source.path}\0${sha256}`).digest("hex");
+  const record2 = {
+    artifactId: `image_${identity.slice(0, 16)}`,
+    path: source.path,
+    sha256,
+    byteLength: source.bytes.length,
+    format: "png",
+    mimeType: "image/png",
+    width: metadata.width,
+    height: metadata.height,
+    channels: metadata.channels,
+    bitDepth: 8,
+    validationProfile: "png-rgb8-static-v1"
+  };
+  const output = { ...record2 };
+  (input.store ?? defaultImageArtifactStore).put({ ...record2 });
+  return output;
+}
+async function inspectImageArtifact(input) {
+  const store = input.store ?? defaultImageArtifactStore;
+  const record2 = store.get(input.artifactId);
+  if (!record2) throw new ImageValidationError("unknown_artifact_id");
+  let source;
+  try {
+    source = await readBoundedSource(record2.path, input.allowedRoots ?? [process.cwd()]);
+  } catch (error2) {
+    if (error2 instanceof ImageValidationError && error2.code === "path_denied") throw error2;
+    throw new ImageValidationError("source_missing_or_unreadable");
+  }
+  const hash = createHash2("sha256").update(source.bytes).digest("hex");
+  if (hash !== record2.sha256 || source.bytes.length !== record2.byteLength) throw new ImageValidationError("source_changed");
+  validatePng(source.bytes);
+  return { ...record2 };
+}
+async function readBoundedSource(path, allowedRoots) {
+  if (allowedRoots.length === 0) throw new ImageValidationError("path_denied");
+  let canonical;
+  let roots;
+  try {
+    canonical = await realpath2(resolve2(path));
+  } catch {
+    throw new ImageValidationError("read_failure");
+  }
+  roots = (await Promise.all(allowedRoots.map(async (root) => {
+    try {
+      return await realpath2(resolve2(root));
+    } catch {
+      return null;
+    }
+  }))).filter((root) => root !== null);
+  if (!roots.some((root) => isInside(root, canonical))) throw new ImageValidationError("path_denied");
+  let pathBefore;
+  try {
+    pathBefore = await stat2(canonical);
+  } catch {
+    throw new ImageValidationError("read_failure");
+  }
+  if (!pathBefore.isFile()) throw new ImageValidationError("non_regular_file");
+  if (pathBefore.size > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
+  const flags = fsConstants.O_RDONLY | (process.platform === "win32" ? 0 : fsConstants.O_NONBLOCK) | (fsConstants.O_NOFOLLOW ?? 0);
+  let handle2;
+  try {
+    handle2 = await open(canonical, flags);
+  } catch {
+    throw new ImageValidationError("read_failure");
+  }
+  try {
+    const before = await handle2.stat();
+    if (!before.isFile()) throw new ImageValidationError("non_regular_file");
+    if (before.size > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
+    const bytes = Buffer.alloc(before.size + 1);
+    let total = 0;
+    while (total < bytes.length) {
+      const result = await handle2.read(bytes, total, bytes.length - total, total);
+      if (result.bytesRead === 0) break;
+      total += result.bytesRead;
+    }
+    const after = await handle2.stat();
+    let pathAfter;
+    try {
+      pathAfter = await stat2(canonical);
+      const canonicalAfter = await realpath2(resolve2(path));
+      if (canonicalAfter !== canonical) throw new Error();
+    } catch {
+      throw new ImageValidationError("source_changed");
+    }
+    if (!sameFileSnapshot(pathBefore, before) || !sameFileSnapshot(before, after) || !sameFileSnapshot(pathBefore, pathAfter) || before.mtimeMs !== after.mtimeMs || before.ino !== after.ino || total > before.size) {
+      throw new ImageValidationError("source_changed");
+    }
+    if (total > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
+    return { path: canonical, bytes: bytes.subarray(0, total) };
+  } catch (error2) {
+    if (error2 instanceof ImageValidationError) throw error2;
+    throw new ImageValidationError("read_failure");
+  } finally {
+    try {
+      await handle2.close();
+    } catch {
+    }
+  }
+}
+function validatePng(bytes) {
+  if (bytes.length < 8 || !bytes.subarray(0, 8).equals(PNG_SIGNATURE)) {
+    if (bytes.length >= 2 && bytes[0] === 255 && bytes[1] === 216 || bytes.length >= 12 && bytes.subarray(0, 4).toString("ascii") === "RIFF" && bytes.subarray(8, 12).toString("ascii") === "WEBP") {
+      throw new ImageValidationError("unsupported_image_format");
+    }
+    throw new ImageValidationError("malformed_png");
+  }
+  let offset = 8;
+  let sawHeader = false;
+  let sawData = false;
+  let ended = false;
+  let width = 0;
+  let height = 0;
+  let channels = 3;
+  const idats = [];
+  while (offset < bytes.length) {
+    if (bytes.length - offset < 12) throw new ImageValidationError("malformed_png");
+    const length = bytes.readUInt32BE(offset);
+    const end = offset + 12 + length;
+    if (end > bytes.length) throw new ImageValidationError("malformed_png");
+    const typeBytes = bytes.subarray(offset + 4, offset + 8);
+    const type = typeBytes.toString("ascii");
+    if (![...typeBytes].every((byte) => byte >= 65 && byte <= 90 || byte >= 97 && byte <= 122)) {
+      throw new ImageValidationError("malformed_png");
+    }
+    const data = bytes.subarray(offset + 8, offset + 8 + length);
+    const expectedCrc = bytes.readUInt32BE(offset + 8 + length);
+    if (crc32(Buffer.concat([typeBytes, data])) !== expectedCrc) throw new ImageValidationError("malformed_png");
+    if (!sawHeader) {
+      if (type !== "IHDR") throw new ImageValidationError("malformed_png");
+      if (length !== 13) throw new ImageValidationError("malformed_png");
+      width = data.readUInt32BE(0);
+      height = data.readUInt32BE(4);
+      if (!width || !height || width > MAX_AXIS || height > MAX_AXIS || width * height > MAX_PIXELS) throw new ImageValidationError("image_dimensions_exceeded");
+      if (data[8] !== 8 || data[9] !== 2 && data[9] !== 6 || data[10] !== 0 || data[11] !== 0 || data[12] !== 0) throw new ImageValidationError("unsupported_png_profile");
+      channels = data[9] === 2 ? 3 : 4;
+      sawHeader = true;
+    } else if (type === "IDAT") {
+      if (ended) throw new ImageValidationError("malformed_png");
+      sawData = true;
+      idats.push(data);
+    } else if (type === "IHDR") {
+      throw new ImageValidationError("malformed_png");
+    } else if (type === "IEND") {
+      if (length !== 0 || ended || !sawData) throw new ImageValidationError("malformed_png");
+      ended = true;
+      if (end !== bytes.length) throw new ImageValidationError("malformed_png");
+    } else {
+      throw new ImageValidationError("unsupported_png_profile");
+    }
+    offset = end;
+  }
+  if (!sawHeader || !sawData || !ended || offset !== bytes.length) throw new ImageValidationError("malformed_png");
+  const compressed = Buffer.concat(idats);
+  const expectedLength = (width * channels + 1) * height;
+  let inflated;
+  let engine;
+  try {
+    const result = inflateSync(compressed, { maxOutputLength: expectedLength, info: true });
+    inflated = result.buffer;
+    engine = result.engine;
+  } catch {
+    throw new ImageValidationError("malformed_png");
+  }
+  if (inflated.length !== expectedLength || engine?.bytesWritten !== compressed.length) throw new ImageValidationError("malformed_png");
+  for (let row = 0; row < height; row++) {
+    const filter = inflated[row * (width * channels + 1)];
+    if (filter > 4) throw new ImageValidationError("malformed_png");
+  }
+  try {
+    const decoded = decodePng(bytes, { checkCrc: true });
+    if (decoded.width !== width || decoded.height !== height || decoded.depth !== 8 || decoded.channels !== channels) throw new Error();
+  } catch {
+    throw new ImageValidationError("malformed_png");
+  }
+  return { width, height, channels };
+}
+function crc32(bytes) {
+  let crc2 = 4294967295;
+  for (const byte of bytes) {
+    crc2 ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc2 = crc2 >>> 1 ^ 3988292384 & -(crc2 & 1);
+    }
+  }
+  return (crc2 ^ 4294967295) >>> 0;
+}
+function isInside(root, target) {
+  const relation = relative2(root, target);
+  return relation === "" || !isAbsolute2(relation) && relation !== ".." && !relation.startsWith(`..${requireSeparator()}`);
+}
+function sameFileSnapshot(left, right) {
+  return left.dev === right.dev && left.ino === right.ino && left.size === right.size && left.mtimeMs === right.mtimeMs && left.ctimeMs === right.ctimeMs;
+}
+function requireSeparator() {
+  return process.platform === "win32" ? "\\" : "/";
+}
+
 // src/server/index.ts
 function createServer() {
   const server = new McpServer(
@@ -20893,6 +23114,43 @@ function createServer() {
         content: [{ type: "text", text: JSON.stringify(output) }],
         structuredContent: output
       };
+    }
+  );
+  const imageOutputSchema = object({
+    artifactId: string2(),
+    path: string2(),
+    sha256: string2(),
+    byteLength: number2().int(),
+    format: literal("png"),
+    mimeType: literal("image/png"),
+    width: number2().int(),
+    height: number2().int(),
+    channels: union([literal(3), literal(4)]),
+    bitDepth: literal(8),
+    validationProfile: literal("png-rgb8-static-v1")
+  });
+  server.registerTool(
+    "index_image_artifact",
+    {
+      description: "Validate and index a restricted static RGB/RGBA PNG without retaining pixels.",
+      inputSchema: object({ path: string2().min(1) }),
+      outputSchema: imageOutputSchema
+    },
+    async ({ path }) => {
+      const output = await indexImageArtifact({ path, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+      return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
+    }
+  );
+  server.registerTool(
+    "inspect_image_artifact",
+    {
+      description: "Reauthorize and revalidate an indexed PNG source by its stable image identity.",
+      inputSchema: object({ artifactId: string2().min(1) }),
+      outputSchema: imageOutputSchema
+    },
+    async ({ artifactId }) => {
+      const output = await inspectImageArtifact({ artifactId, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+      return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
     }
   );
   return server;
