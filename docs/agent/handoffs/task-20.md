@@ -1,4 +1,4 @@
-PR #19 (`codex/task-20-png-ingest`) was originally stacked on PR #18 / Task 19 at `990aa9f` and is being rebased onto `main` at `85ff7b1` after PR #18 was approved and merged.
+PR: #19 | Branch: codex/task-20-png-ingest | Base: main (85ff7b1), incorporated with git merge
 
 # Task 20 Handoff Archive
 
@@ -197,3 +197,18 @@ index 8aadaeb..8c38789 100644
  ## Local Install
 
 ```
+
+## Phase-2 review corrections and verification (2026-09-29)
+
+- Approved scope: merge the reviewed PR #18 into main, then migrate only Task 20 / PR #19; preserve PNG feature descriptions; separately address F-15 and the PR #19 portion of F-28. Parent PR #18 was merged as 85ff7b1. No rebase, force-push, or PR #19 merge.
+- Record migration commit: 9612658. Full original deltas are conserved above: root +79/-0, shared +25/-2, README +5/-3. The inherited 90-line Task 19 record remains in task-19.md unchanged from main. Shared HANDOFF equals main; root HANDOFF is local/ignored/untracked. No .omx files are added.
+- README already auto-merged to the correct PNG implementation wording: restricted PNG ingest/inspection is implemented, while transformations, OCR, selection, guard/model evaluation remain planned. Main literature links/caveats and paired-success diagnostics remain intact.
+- F-15 commit: 4a059e6, separate fix(review) commit. The formerly misleading path-replacement test name now identifies in-place overwrite. A real rename replacement preserves size/mtime but changes inode; failed indexing leaves an empty store. A real Windows canonical intermediate directory is renamed and replaced by a junction to an outside directory. A same-file overwrite restores mtime and asserts unchanged size/dev/ino/mtime plus changed ctime. All reject with source_changed using existing runtime checks.
+- Test classification: these cases were GREEN against the existing implementation and are characterization/coverage strengthening, not a new RED/GREEN implementation cycle. No production runtime correction was needed for the tested persistent replacement cases. The tests do not demonstrate complete hostile ABA containment; the F-15 contract now explicitly limits that claim and requires trusted writers/permissions on allowed directories and ancestors.
+- F-28 scope: product docs describe currently implemented restricted PNG metadata registration/inspection without Task milestone wording. JPEG/WEBP remain unsupported here. JPEG support/provenance errors, duplicated later protocol notes, and JPEG runtime validation wording belong to the later introducing PR, not this PNG stage.
+- Targeted baseline: npm.cmd test -- --run tests/image-artifacts.test.ts tests/image-source-race.test.ts tests/image-packaging.test.ts: 18 passed / 1 skipped. After F-15: 20 passed / 1 skipped (3 files); source-race alone 4 passed. Windows directory-junction case ran; existing FIFO case is skipped on Windows. POSIX-specific behavior was not executed on this host.
+- Pre-push full gate: npm.cmd test 685 passed / 1 skipped, 15 files (21.59s). npm.cmd run build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark all exit 0. Generated/installed PNG dependency notices are covered by image-packaging.test.ts. Tests and engineering benchmark are not evidence of image-study quality or billing savings.
+- Runtime/source/bundle/build/package files introduced by original Task 20 remain byte-identical to original head 856a417 (main's research additions arrived via merge). Current corrective edits are tests and docs only.
+- Archive/link checks: full raw-diff conservation, exact shared/inherited archive, exact literature paragraph, current paired-success text, live local links (24) and git diff --check pass. An inaccurate draft archive phrase saying rebased was corrected to git merge; no Git history was rebased.
+- Model/review evidence: user supplied Claude initial-plan/parent-stage review, exact external model unverified. Native primary Luna test implementation and fallback worker document migration were directly inspected by Astra. External milestone review is pending user-run Claude; Gemini free-tier eligibility and Copilot callable access were not established in this stage (NOT RUN). Cross-check status DEGRADED; native inspection is not represented as external review.
+- Remaining: commit F-28 docs, push/retarget existing Draft PR #19 to main, final post-push gate, merge-tree(main,#20), final author/committer and Astra review. F-06/F-07/F-29/S-14 remain a separate later paper Task; #21's F-13/F-14/S-01/F-08/F-34 are untouched. Stop after reporting this stage.
