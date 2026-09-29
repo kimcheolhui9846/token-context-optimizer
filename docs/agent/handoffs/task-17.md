@@ -151,3 +151,11 @@ README plus shared HANDOFF are restored byte-identically from origin/main.
 - Root HANDOFF remains on disk as the working record and will be untracked/ignored. No .omx/.claude or unrelated worktree changes enter this delivery. Main-relative final scope is this archive and the original plan only.
 - Documentation-only migration: RED not applicable; runtime gates NOT RUN because runtime/tests/scripts/dependencies match main and this follow-up changes records only. Historical570-test/model-review claims above are not new execution. No fresh Claude review invoked. Task16 research-feedback closure is unaffected by this migration.
 - PR17 remains Draft and unmerged pending the user's staged check. PR23/Task18 migration is not started.
+
+## Merge-tree checkpoint and next-stage conflict
+
+- Record-migration merge commit `542d830ff885a2bd08d1aaa9ae8c9e03db02fbdd`; author/committer both kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com>. Original root70lines retained locally and archived; tracked root removed.
+- `git merge-tree --write-tree --name-only 542d830 origin/main` (main089f29c): exit0, no conflicts. Main-relative changes are only this record and `docs/superpowers/plans/2026-09-12-research-paired-success.md` (391 unchanged plan lines).
+- Against PR23 head `c758815`: exit1, rename/delete and modify/delete at `docs/agent/handoffs/task-17.md`. Git recognizes HANDOFF.md -> task-17.md as a rename on this side, while Task18 deleted the original root. README auto-merges; this is not an actual merge of PR23.
+- Proposed next-stage resolution, pending user's check: preserve main's Task17 archive and retain Task18's separate task-18.md; do not resurrect tracked root HANDOFF. No resolution or edits have been applied to PR23. Do not suppress rename detection or rewrite history to hide this conflict.
+- The first staged diff check found whitespace-only context lines in the archived patch; trailing whitespace was removed and preservation/link checks reran successfully. All70 root lines, shared+15/-5,5 local links, main-shared equality, plan preservation and staged diff checks PASS. New independent Claude review remains pending.
