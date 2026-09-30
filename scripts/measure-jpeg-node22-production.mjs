@@ -47,6 +47,51 @@ for (const size of [2528, 2529]) {
   }));
 }
 
+const highEntropyWidth = 1824;
+const highEntropyHeight = 1824;
+const highEntropySeed = 0x1a2b3c4d;
+const highEntropyRaw = Buffer.alloc(highEntropyWidth * highEntropyHeight * 3);
+let highEntropyState = highEntropySeed;
+for (let i = 0; i < highEntropyRaw.length; i++) {
+  highEntropyState = (Math.imul(highEntropyState, 1664525) + 1013904223) >>> 0;
+  highEntropyRaw[i] = highEntropyState >>> 24;
+}
+const highEntropyJpeg = await sharp(highEntropyRaw, {
+  raw: { width: highEntropyWidth, height: highEntropyHeight, channels: 3 },
+})
+  .jpeg({ quality: 100, chromaSubsampling: "4:4:4", force: true })
+  .toBuffer();
+const highEntropyEncoded = Buffer.concat([
+  highEntropyJpeg.subarray(0, 2),
+  jfif,
+  highEntropyJpeg.subarray(2),
+]);
+const highEntropyPath = join(out, "high-entropy-1824.jpg");
+await writeFile(highEntropyPath, highEntropyEncoded);
+const highEntropyTables = tableCost(highEntropyEncoded);
+const highEntropyAccounting = 960 * Math.ceil(highEntropyWidth / 8) * Math.ceil(highEntropyHeight / 8) +
+  6 * highEntropyWidth * highEntropyHeight + highEntropyTables.tableCost;
+const highEntropyResult = spawnSync(resolve(root, node22), [join(out, "child.mjs"), highEntropyPath], {
+  cwd: root,
+  encoding: "utf8",
+  maxBuffer: 10 * 1024 * 1024,
+});
+console.log(JSON.stringify({
+  name: "high-entropy",
+  encoder: { sharp: sharp.versions?.sharp ?? "unknown", vips: sharp.versions?.vips ?? "unknown" },
+  width: highEntropyWidth,
+  height: highEntropyHeight,
+  seed: highEntropySeed,
+  quality: 100,
+  byteLength: highEntropyEncoded.length,
+  ...highEntropyTables,
+  accounting: highEntropyAccounting,
+  accountingLimit: 128 * 1024 * 1024,
+  child: highEntropyResult.stdout.trim(),
+  childStderr: highEntropyResult.stderr.trim(),
+  exitCode: highEntropyResult.status,
+}));
+
 function childSource(validatorUrl) {
   return `
 import { createHash } from "node:crypto";
@@ -67,14 +112,17 @@ try {
   status = "rejected";
   error = caught?.code ?? caught?.message ?? String(caught);
 }
+const validationMs = performance.now() - start;
+const sha256 = createHash("sha256").update(bytes).digest("hex");
 console.log(JSON.stringify({
   node: process.version,
   status,
   error,
   metadata,
   byteLength: bytes.length,
-  sha256: createHash("sha256").update(bytes).digest("hex"),
-  wallMs: Number((performance.now() - start).toFixed(2)),
+  sha256,
+  wallMs: Number(validationMs.toFixed(2)),
+  wallMsScope: "validateJpeg only; excludes SHA-256 calculation",
   rssBefore,
   rssAfter: process.memoryUsage().rss,
   maxRSS: process.resourceUsage().maxRSS,

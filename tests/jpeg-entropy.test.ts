@@ -13,6 +13,20 @@ function jpeg444(width = 17, height = 9): Buffer {
   return Buffer.from(jpeg.encode({ data, width, height }, 90).data);
 }
 
+function jpegJsByteAlignedTerminal(): Buffer {
+  const width = 32;
+  const height = 32;
+  const data = Buffer.alloc(width * height * 4);
+  for (let i = 0; i < width * height; i++) {
+    const value = (4 * 1103515245 + i * 12345) >>> 0;
+    data[i * 4] = value & 255;
+    data[i * 4 + 1] = (value >>> 8) & 255;
+    data[i * 4 + 2] = (value >>> 16) & 255;
+    data[i * 4 + 3] = 255;
+  }
+  return Buffer.from(jpeg.encode({ data, width, height }, 100).data);
+}
+
 function segment(bytes: Buffer, marker: number): { start: number; end: number } {
   const needle = Buffer.from([0xff, marker]);
   const start = bytes.indexOf(needle);
@@ -46,6 +60,27 @@ describe("strict JPEG marker and entropy matrix", () => {
     const padding = Buffer.from(valid);
     padding[eoi - 1] &= 0xfe;
     expect(() => validateJpeg(padding)).toThrowError("malformed_jpeg");
+  });
+
+  it("accepts jpeg-js byte-aligned terminal FF00 padding", () => {
+    const encoded = jpegJsByteAlignedTerminal();
+    const scanStart = encoded.indexOf(Buffer.from([0xff, 0xda]));
+    const entropyStart = scanStart + 2 + encoded.readUInt16BE(scanStart + 2);
+    const eoi = encoded.lastIndexOf(Buffer.from([0xff, 0xd9]));
+    expect(encoded.subarray(eoi - 2, eoi)).toEqual(Buffer.from([0xff, 0x00]));
+    expect(() => validateJpeg(encoded)).not.toThrow();
+    expect(entropyStart).toBeGreaterThan(scanStart);
+  });
+
+  it.each([
+    ["FF00 after partial terminal padding", jpeg444, (encoded: Buffer, eoi: number) => Buffer.concat([encoded.subarray(0, eoi), Buffer.from([0xff, 0x00]), encoded.subarray(eoi)])],
+    ["a second FF00", jpegJsByteAlignedTerminal, (encoded: Buffer, eoi: number) => Buffer.concat([encoded.subarray(0, eoi), Buffer.from([0xff, 0x00]), encoded.subarray(eoi)])],
+    ["a zero terminal pad", jpegJsByteAlignedTerminal, (encoded: Buffer, eoi: number) => { const mutated = Buffer.from(encoded); mutated[eoi - 2] = 0; return mutated; }],
+    ["an FF01 terminal marker", jpegJsByteAlignedTerminal, (encoded: Buffer, eoi: number) => { const mutated = Buffer.from(encoded); mutated[eoi - 1] = 1; return mutated; }],
+  ])("rejects %s after the single aligned FF00 exception", (_name, fixture, mutate) => {
+    const encoded = fixture();
+    const eoi = encoded.lastIndexOf(Buffer.from([0xff, 0xd9]));
+    expect(() => validateJpeg(mutate(encoded, eoi))).toThrowError("malformed_jpeg");
   });
 
   it("rejects malformed Huffman symbols and invalid AC cursor runs", () => {

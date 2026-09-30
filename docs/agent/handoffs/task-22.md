@@ -222,3 +222,16 @@ index ad3bf15..cbc8d75 100644
 
  ## Current Objective
 ```
+
+## Task 22 review-fix checkpoint (2026-09-30)
+- Original records preserved verbatim in normalized diff blocks: root HANDOFF +124/-0, shared HANDOFF +29/-0, README +6/-1. Shared HANDOFF and inherited Task 19/20/21 records match main. Live-link check: 23 passed.
+- Main merged without rebase or history rewriting; approved root deletion and image-contract conflict resolution only. Root HANDOFF remains local and ignored.
+- F-34: two tracked OMX artifacts removed from the index, retained locally with unchanged SHA-256; `/.omx/` ignored. No historical commits rewritten.
+- F-13: per-bit Huffman lookup uses a Map; synchronous parsing and resource ceilings remain. Seeded 9,712,482-byte input and reproducible Node 22 measurements are in [performance evidence](../../research/evidence/task-22/jpeg-validator-performance.json). Single observations are not portable latency bounds.
+- S-01 RED: real jpeg-js seed-4 output was rejected as malformed_jpeg before the fix. GREEN: exactly one terminal stuffed FF byte is accepted only at an MCU byte boundary; partial-padding plus an extra pair, repeated pairs and altered pairs are rejected. Follow-up negative tests are characterization coverage, not claimed original RED.
+- F-14 RED: packaging verification exposed missing Adobe attribution. Exact pinned encoder BSD notice is now retained in docs/licenses and generated/installed bundles; the regression also checks source wording. Test-development formatting mismatches were corrected before GREEN.
+- F-08/F-28: PNG/JPEG capability, APP0 immediately after SOI, paper status and historical validation wording corrected. F-15 trusted-writer/ABA limitation preserved verbatim. F-06/F-07/F-29/S-14 remain deferred.
+- Pre-push gate: npm.cmd test = 755 passed, 1 Windows FIFO skip, 20 files; build then typecheck, smoke:mcp, validate:plugin and benchmark passed. JPEG-specific suites: 70 passed. Packaging: 1 passed.
+- Scratch rebuild used the same build script with only its output path changed; SHA-256 matched the production bundle: FA7B6FF00CE4EE546A3FB307FC1E4710B7EF2ACACBE3CC9720C1F605564FB3B5.
+- Actual independent native-model checkpoint: Codex CLI gpt-6-astra, read-only, no blocker/major; minor padding wording and timing-boundary fixes requested. This is not an external Claude review. User's Claude review remains the merge gate. No fresh Claude/Gemini/Copilot review was performed in this continuation; external cross-check status DEGRADED.
+- New commits use kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com> as author and committer. PR #21 remains Draft; final push/post-PR verification pending at this checkpoint. No PR #21 merge.

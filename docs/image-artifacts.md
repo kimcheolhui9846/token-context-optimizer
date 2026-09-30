@@ -51,9 +51,9 @@ do not provide a wall-clock deadline or total process-memory guarantee.
 
 At the end of the expected MCU data, the entropy reader accepts one trailing
 `FF 00` pair only when the MCU data ends exactly at a byte boundary, matching
-the observed `jpeg-js` encoder output. It rejects residual pad bits, another
-trailing pair, or a modified pair; the ordinary one-bit scan padding remains
-required when MCU data ends within a byte.
+the observed `jpeg-js` encoder output. It rejects an `FF 00` pair after
+partial-byte padding, additional trailing pairs, or altered pairs; when MCU
+data ends within a byte, only the required all-one residual padding bits are accepted.
 
 Checked-in JPEG positives live under `tests/fixtures/jpeg/`: 1x1, odd 17x9,
 and multi-MCU 17x17. `provenance.json` records the independent sharp 0.35.4

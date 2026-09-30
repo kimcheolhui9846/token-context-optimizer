@@ -13,7 +13,7 @@ const MAX_AXIS = 8192, MAX_PIXELS = 16_777_216, MAX_MEMORY = 128 * 1024 * 1024;
 const fail = (code: JpegValidationError["code"] = "malformed_jpeg"): never => {
   throw new JpegValidationError(code);
 };
-type Huffman = { values: number[]; codes: number[] };
+type Huffman = { values: number[]; lookup: Map<number, number> };
 type Component = { id: number; q: number; dc: number; ac: number };
 type Tables = { q: Set<number>; dc: Map<number, Huffman>; ac: Map<number, Huffman> };
 
@@ -143,17 +143,19 @@ function parseDht(payload: Buffer, tables: Tables): void {
       if (kind === 1 && (size > 10 || (size === 0 && run !== 0 && value !== 0xf0))) fail();
     }
     let code = 0;
-    const codes: number[] = [];
+    let symbolIndex = 0;
+    const lookup = new Map<number, number>();
     for (let len = 1; len <= 16; len++) {
       for (let j = 0; j < counts[len - 1]; j++) {
         if (code === (1 << len) - 1) fail();
-        codes.push((len << 16) | code);
+        const key = (len << 16) | code;
+        lookup.set(key, symbolIndex++);
         code++;
       }
       if (code > (1 << len)) fail();
       code <<= 1;
     }
-    map.set(id, { values, codes });
+    map.set(id, { values, lookup });
   }
   if (p !== payload.length) fail();
 }
@@ -201,15 +203,18 @@ class BitReader {
       const remainingMask = (1 << (8 - this.bit)) - 1;
       if ((this.byteValue & remainingMask) !== remainingMask) fail();
     }
-    if (this.byte !== this.bytes.length) fail();
+    if (this.byte === this.bytes.length) return;
+    if (this.bit === 8 && this.byte + 2 === this.bytes.length &&
+      this.bytes[this.byte] === 0xff && this.bytes[this.byte + 1] === 0) return;
+    fail();
   }
 }
 function symbol(reader: BitReader, table: Huffman): number {
   let code = 0;
   for (let len = 1; len <= 16; len++) {
     code = (code << 1) | reader.read();
-    const index = table.codes.indexOf((len << 16) | code);
-    if (index >= 0) return table.values[index];
+    const index = table.lookup.get((len << 16) | code);
+    if (index !== undefined) return table.values[index];
   }
   fail();
   return 0;

@@ -28,6 +28,8 @@ async function bundledDependencyNotices(packageNames) {
     if (packageName === "jpeg-js") {
       const decoderLicense = await readFile("docs/licenses/jpeg-js-decoder-Apache-2.0.txt", "utf8");
       notices.push(`Component: jpeg-js/lib/decoder.js (Apache-2.0 attribution)\nCopyright 2011 notmasteryet\n${decoderLicense.trim()}`);
+      const encoderLicense = await readFile("docs/licenses/jpeg-js-encoder-BSD-3-Clause.txt", "utf8");
+      notices.push(`Component: jpeg-js/lib/encoder.js (BSD-3-Clause attribution)\n${encoderLicense.trim()}`);
     }
   }
   return `/*\nBundled dependency license notices\n\n${notices.join("\n\n")}\n*/\n`;

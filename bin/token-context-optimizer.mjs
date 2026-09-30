@@ -301,6 +301,37 @@ Apache License
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+Component: jpeg-js/lib/encoder.js (BSD-3-Clause attribution)
+Copyright (c) 2008, Adobe Systems Incorporated
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+* Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+
+* Neither the name of Adobe Systems Incorporated nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -25298,17 +25329,19 @@ function parseDht(payload, tables) {
       if (kind === 1 && (size > 10 || size === 0 && run !== 0 && value !== 240)) fail();
     }
     let code = 0;
-    const codes = [];
+    let symbolIndex = 0;
+    const lookup = /* @__PURE__ */ new Map();
     for (let len = 1; len <= 16; len++) {
       for (let j = 0; j < counts[len - 1]; j++) {
         if (code === (1 << len) - 1) fail();
-        codes.push(len << 16 | code);
+        const key = len << 16 | code;
+        lookup.set(key, symbolIndex++);
         code++;
       }
       if (code > 1 << len) fail();
       code <<= 1;
     }
-    map.set(id, { values, codes });
+    map.set(id, { values, lookup });
   }
   if (p !== payload.length) fail();
 }
@@ -25355,15 +25388,17 @@ var BitReader = class {
       const remainingMask = (1 << 8 - this.bit) - 1;
       if ((this.byteValue & remainingMask) !== remainingMask) fail();
     }
-    if (this.byte !== this.bytes.length) fail();
+    if (this.byte === this.bytes.length) return;
+    if (this.bit === 8 && this.byte + 2 === this.bytes.length && this.bytes[this.byte] === 255 && this.bytes[this.byte + 1] === 0) return;
+    fail();
   }
 };
 function symbol(reader, table) {
   let code = 0;
   for (let len = 1; len <= 16; len++) {
     code = code << 1 | reader.read();
-    const index = table.codes.indexOf(len << 16 | code);
-    if (index >= 0) return table.values[index];
+    const index = table.lookup.get(len << 16 | code);
+    if (index !== void 0) return table.values[index];
   }
   fail();
   return 0;
