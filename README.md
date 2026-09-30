@@ -6,9 +6,9 @@ The MVP indexes local UTF-8 text artifacts, records SHA-256 and line source maps
 
 The current research direction is **image context optimization first**, with paper
 writing taking priority over feature development. Alongside the text MVP,
-[restricted PNG/JPEG ingest and inspection](docs/image-artifacts.md) provides the first
-input-validation slice (M1a). Image transformation, OCR, selection, guard and model
-evaluation remain planned. Video extension follows image
+[restricted PNG/JPEG ingest and inspection](docs/image-artifacts.md) provides the
+current image input-validation capability. Image transformation, OCR, selection,
+guard and model evaluation remain planned. Video extension follows image
 implementation, evaluation, and explicit user approval.
 
 The JPEG profile is intentionally narrow: baseline 8-bit YCbCr JFIF with 4:4:4

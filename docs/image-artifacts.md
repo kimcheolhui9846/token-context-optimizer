@@ -1,8 +1,8 @@
 # Restricted PNG and JPEG artifacts
 
-The current image artifact contract validates and identifies a local PNG original
-without writing it. It is an input contract for owned or synthetic canonical
-fixtures. It does not provide image optimization or model evidence.
+The current image artifact contract validates and identifies local PNG and JPEG
+originals without writing them. It is an input contract for owned or synthetic
+canonical fixtures. It does not provide image optimization or model evidence.
 
 ## Supported input
 
@@ -49,12 +49,18 @@ same 10 MiB encoded, 8192 axis, and 16,777,216 pixel limits, plus a 128 MiB
 decoder allocation accounting ceiling. The decoder is synchronous; these limits
 do not provide a wall-clock deadline or total process-memory guarantee.
 
+At the end of the expected MCU data, the entropy reader accepts one trailing
+`FF 00` pair only when the MCU data ends exactly at a byte boundary, matching
+the observed `jpeg-js` encoder output. It rejects residual pad bits, another
+trailing pair, or a modified pair; the ordinary one-bit scan padding remains
+required when MCU data ends within a byte.
+
 Checked-in JPEG positives live under `tests/fixtures/jpeg/`: 1x1, odd 17x9,
 and multi-MCU 17x17. `provenance.json` records the independent sharp 0.35.4
 encoder, libvips/mozjpeg versions, options, deterministic RGB pattern, and
 SHA-256 values. The reproducible generator uses an ignored scratch install and
-adds only the required canonical JFIF APP0 container segment after sharp's
-metadata-free encoded scan; it does not alter the entropy-coded data.
+inserts a canonical JFIF APP0 segment immediately after SOI in sharp's output;
+the insertion does not alter the entropy-coded scan.
 
 The jpeg-js decoder accounting guard is separate from process RSS. For
 `B = ceil(width/8) * ceil(height/8)`, the current estimate is

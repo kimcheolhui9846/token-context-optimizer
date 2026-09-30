@@ -4,7 +4,7 @@
 
 Build a Codex-only plugin that improves token efficiency for local text artifacts without corrupting exact-sensitive data. The v1 product contract is measurable context reduction with source preservation, not guaranteed billing savings.
 
-The image-first research extension supports restricted PNG metadata registration and
+The image-first research extension supports restricted PNG and baseline 4:4:4 JFIF JPEG metadata registration and
 inspection, including original SHA-256 tracking. See the [image contract](image-artifacts.md)
 for the supported profile and the [research roadmap](research/image-first-evaluation-protocol.md)
 for planned image optimization, evaluation, and broader format work.
@@ -16,7 +16,7 @@ The plugin packages one skill and one local STDIO MCP server:
 - The skill decides when optimization is safe.
 - The MCP server performs deterministic, read-oriented artifact operations.
 - The artifact store records UTF-8 source text, SHA-256, and line source maps.
-- A separate image store records validated PNG metadata and original SHA-256; it retains no pixels.
+- A separate image store records validated PNG/JPEG metadata and original SHA-256; it retains no pixels.
 - The installed plugin launches a checked-in bundled server from `bin/token-context-optimizer.mjs`, so it does not depend on local `dist/` or `node_modules/` being present.
 
 The server exposes:
@@ -26,7 +26,7 @@ The server exposes:
 - `index_artifact`: SHA-256 and source-map registration for a local file.
 - `query_artifact`: bounded source-backed excerpts.
 - `summarize_artifact`: extractive summary only when policy positively classifies the source as semantic.
-- `index_image_artifact`: validate a restricted PNG and register original metadata without writing the source.
+- `index_image_artifact`: validate a restricted PNG or baseline 4:4:4 JFIF JPEG and register original metadata without writing the source.
 - `inspect_image_artifact`: reauthorize the original path and verify its identity/hash in the current session.
 
 ## Superpowers Integration
@@ -65,7 +65,7 @@ Excluded:
 
 Exact content always wins over compression. Code, diffs, paths, hashes, IDs, numbers, tables, secrets, errors, stack traces, commands, and line-sensitive text must not be summarized lossily. Unknown and visual content are not eligible for lossy summaries in v1. If classification is uncertain or checks fail, the workflow returns a fallback reason and leaves source lookup to Codex.
 
-Artifact indexing is limited to configured allowed roots. The server resolves real paths, rejects paths outside those roots, enforces regular-file input, caps file size, and hashes the original byte buffer. Text indexing validates strict UTF-8; image indexing instead validates the restricted PNG structure, bounded inflation and decoded shape.
+Artifact indexing is limited to configured allowed roots. The server resolves real paths, rejects paths outside those roots, enforces regular-file input, caps file size, and hashes the original byte buffer. Text indexing validates strict UTF-8. Image indexing validates the restricted PNG or baseline 4:4:4 JFIF JPEG profile, including bounded PNG inflation, JPEG structure and decoder allocation accounting, and decoded shape.
 
 Allowed roots are supplied through `TCO_ALLOWED_ROOTS`; they are intentionally separate from the plugin installation directory. When unset, indexing is blocked rather than silently reading outside the configured workspace scope.
 

@@ -74,15 +74,23 @@ from decoder allocation accounting. They are not portable memory guarantees.
 Final project checks passed; Astra directly verified the diff and Git/PR state at 181d8c2 and returned PASS WITH NOTES.
 
 ## Resumed milestone checkpoint
-- Production dependency audit: npm.cmd audit --omit=dev --json returned zero vulnerabilities after a sandbox network failure and the same command's authorized retry.
-- Actual Node22.23.2 standalone scripts/smoke-mcp.mjs passed with PNG and JPEG cases. npm.cmd run build also passed.
-- Claude source-review milestone attempted twice (sandbox and authorized retry), each bounded to180seconds, ended without a model response. No code-review success is claimed. Gemini free API access remained unestablished; Copilot launcher remained unavailable. Milestone cross-check: DEGRADED, while initial plan review has an actual Opus5 response.
-- Both Luna workers hit actual usage-limit errors; native Astra resumed successfully. Exact GPT-5.5 fallback worker dispatched per user hierarchy; actual fallback tools and file edits succeeded; Luna later resumed after the reset.
+
+Historical checkpoint from 2026-09-27:
+- The production dependency audit (`npm.cmd audit --omit=dev --json`) returned zero vulnerabilities after an initial sandbox network failure and an authorized retry.
+- The standalone smoke test passed under Node 22.23.2 with PNG and JPEG cases; `npm.cmd run build` also passed.
+- Claude source-review attempts ended without a model response. Gemini free API access was unestablished and the Copilot launcher was unavailable. That milestone cross-check was DEGRADED; the initial-plan review had an actual Opus 5 response.
+- Both Luna workers encountered usage limits. The configured GPT-5.5 fallback and native Astra resumed work; file edits and fallback tool calls succeeded.
 
 ## Precommit review and verification (2026-09-27)
-- Native Astra reproduced an exact-JFIF bypass caused by ASCII high-bit masking. Exact byte equality and five per-byte high-bit regressions plus a wrong-letter case resolve it. Scoped SPEC/QUALITY rereview: PASS WITH NOTES, no unresolved blocker/major.
-- Parent gate before fix: full647PASS/1WindowsFIFOskip/19files; build/typecheck/plugin/Node22smoke/textbenchmarkPASS. Afterfix: targeted83PASS/1skip andactualNode22smokePASS. Post-Draft fullgate:653PASS/1skip/19files; targeted83PASS/1skip; build/typecheck/actualNode22smoke/plugin/textbenchmarkPASS (2026-09-27).
-- Parent repeated productionmeasurement: accounting134207044/134845066 forflatRGB128 square2528/2529; accepted/resource_rejected;670.60/2.38ms under concurrenttestload; maxRSS272884/49544KiB. These are host observations, not portable worst-case bounds.
 
-## Final review
-Native Astra directly inspected reviewed HEAD181d8c2, upstream equality, clean tree, Draft PR21 base/latestSHA/body and recorded post-Draft evidence. Verdict PASS WITH NOTES; no unresolved blocker/major. Reviewer did not rerun parent checks. External milestone review gap, FIFO skip and synchronous/RSS limitations remain explicit. No merge or model-effectiveness claim.
+- Native Astra reproduced an exact-JFIF bypass caused by ASCII high-bit masking. Exact-byte equality, five per-byte high-bit regressions and a wrong-letter case addressed it. The scoped SPEC/QUALITY rereview returned PASS WITH NOTES, with no unresolved blocker or major finding.
+- Before the fix, the full gate recorded 647 passed tests, one Windows FIFO skip, and 19 files. After the fix, targeted verification recorded 83 passed and one skip, and the Node 22 smoke test passed. Post-Draft verification recorded 653 passed tests, one skip, and 19 files; targeted tests, build, typecheck, Node 22 smoke, plugin validation and text benchmark also passed.
+- A repeated production measurement recorded accounting estimates of 134,207,044 and 134,845,066 bytes for flat RGB-128 square fixtures of 2528 and 2529 pixels. The observed results were accepted and resource-rejected, with 670.60 ms and 2.38 ms under concurrent test load and `maxRSS` of 272,884 and 49,544 KiB. These host measurements are historical observations, not portable worst-case bounds.
+## Historical final review (2026-09-27)
+
+Native Astra directly inspected reviewed HEAD 181d8c2, upstream equality, clean
+tree, Draft PR 21 base/latest SHA/body and recorded post-Draft evidence. Verdict:
+PASS WITH NOTES; no unresolved blocker or major finding. The reviewer did not
+rerun the parent checks. The external milestone review gap, FIFO skip and
+synchronous/RSS limitations remained explicit. No merge or model-effectiveness
+claim was made.

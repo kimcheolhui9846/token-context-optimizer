@@ -191,10 +191,11 @@ paper의 명시된 측정 경계를 우선하고 결과 문장을 측정 후에�
 RGB/RGBA 정적 PNG와 제한된 baseline 4:4:4 JPEG의 검증·원본 hash·치수 추적이며, 변환·모델 호출·pilot
 측정은 계획이다. hosted evidence는 없으며 입력 검증 테스트를 시각적 증거 보존이나 모델 성능의 검증으로
 해석하지 않는다.
-Implementation status note (Task 22): JPEG fixture provenance and strict source validation are engineering preconditions for a future image evaluation, not pilot observations. The fixture set covers 1x1, odd-size, and multi-MCU baseline 4:4:4 JFIF files with recorded SHA-256 values.
-
-Current implementation status (Task 22): restricted PNG and baseline 4:4:4 JPEG
-ingest and inspection are implemented with source hashing, bounded validation,
-and regression coverage. Transformations, model calls, and pilot measurements
-remain planned; no pilot observation or model result is implied by the ingest
-tests or fixture provenance.
+Current implementation status (Task 22): restricted PNG and baseline 4:4:4 JFIF
+JPEG ingest and inspection are implemented with source hashing, bounded
+validation, and regression coverage. Independent JPEG fixtures cover 1x1,
+odd-size, and multi-MCU inputs with recorded SHA-256 provenance. These are
+engineering preconditions for future evaluation, not pilot observations.
+Transformations, model calls, and pilot measurements remain planned; the tests
+and fixture provenance do not establish image quality, model performance, or
+hosted cost or latency.
