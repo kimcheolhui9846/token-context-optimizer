@@ -235,3 +235,51 @@ index ad3bf15..cbc8d75 100644
 - Scratch rebuild used the same build script with only its output path changed; SHA-256 matched the production bundle: FA7B6FF00CE4EE546A3FB307FC1E4710B7EF2ACACBE3CC9720C1F605564FB3B5.
 - Actual independent native-model checkpoint: Codex CLI gpt-6-astra, read-only, no blocker/major; minor padding wording and timing-boundary fixes requested. This is not an external Claude review. User's Claude review remains the merge gate. No fresh Claude/Gemini/Copilot review was performed in this continuation; external cross-check status DEGRADED.
 - New commits use kim cheol hui <144594976+kimcheolhui9846@users.noreply.github.com> as author and committer. PR #21 remains Draft; final push/post-PR verification pending at this checkpoint. No PR #21 merge.
+
+## Post-push verification (2026-09-30)
+- PR #21 updated to base main and remains OPEN/Draft at d1237be23f4d4b680c39208a5f15cc8041bceee7; parent gh query succeeded. Post-update npm.cmd test: 755 passed, one Windows FIFO skip, 20 files (20.89 s). Build -> typecheck, smoke:mcp, validate:plugin and benchmark all exited 0.
+- Corrected measurement boundary stops before SHA-256. Fresh validator-only Node 22 observation: 931.69 ms for 9,712,482 bytes. Historical timings include hashing and are labelled accordingly; no speedup percentage inferred.
+- Final gpt-6-astra content review: PASS WITH NOTES, no blocker/major. Its read-only subprocess could not access GitHub, so remote state was independently verified by the parent. No external Claude/Gemini/Copilot milestone call; DEGRADED external cross-check, user Claude review still pending.
+- Parent merge-tree(origin/main, HEAD): exit 0, tree 295bfcd940da3d6d15bb8ad00d2414a92dad0c9c. Worktree clean before this evidence-only update; no root HANDOFF or .omx tracked. Bundle hash unchanged after the post-PR build. Added commits have user author/committer; older Codex-authored history is deliberately not rewritten.
+- Remaining limitations: synchronous CPU work, decoder accounting is not total RSS, single-run timings, F-15 ABA/trusted-writer assumption; deferred paper findings unchanged. No #21 merge. User review/approval required before the next Task.
+
+### Main-relative file inventory
+```text
+.gitignore
+README.md
+bin/token-context-optimizer.mjs
+docs/agent/handoffs/task-22.md
+docs/design.md
+docs/image-artifacts.md
+docs/licenses/jpeg-js-BSD-3-Clause.txt
+docs/licenses/jpeg-js-decoder-Apache-2.0.txt
+docs/licenses/jpeg-js-encoder-BSD-3-Clause.txt
+docs/research/evidence/task-22/jpeg-validator-performance.json
+docs/research/image-first-evaluation-protocol.md
+docs/research/image-first-paper-draft.ko.md
+docs/research/jpeg-runtime-validation.md
+docs/superpowers/plans/2026-09-21-jpeg-runtime.md
+package-lock.json
+package.json
+scripts/build-bundle.mjs
+scripts/measure-jpeg-node22-production.mjs
+scripts/smoke-mcp.mjs
+skills/optimize-context/SKILL.md
+src/core/image-artifacts.ts
+src/core/jpeg-validation.ts
+src/core/types.ts
+src/server/index.ts
+tests/fixtures/jpeg/checkedin-1x1.jpg
+tests/fixtures/jpeg/checkedin-multimcu-17x17.jpg
+tests/fixtures/jpeg/checkedin-odd-17x9.jpg
+tests/fixtures/jpeg/generate-fixtures.mjs
+tests/fixtures/jpeg/provenance.json
+tests/helpers/jpeg-synthetic.ts
+tests/image-artifacts.test.ts
+tests/image-packaging.test.ts
+tests/jpeg-entropy.test.ts
+tests/jpeg-fixtures.test.ts
+tests/jpeg-resource.test.ts
+tests/jpeg-synthetic.test.ts
+tests/jpeg-validation.test.ts
+```
