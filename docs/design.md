@@ -4,10 +4,10 @@
 
 Build a Codex-only plugin that improves token efficiency for local text artifacts without corrupting exact-sensitive data. The v1 product contract is measurable context reduction with source preservation, not guaranteed billing savings.
 
-The image-first research extension currently adds only restricted PNG input
-validation and original tracking (partial M1a). See the [image contract](image-artifacts.md)
+The image-first research extension supports restricted PNG metadata registration and
+inspection, including original SHA-256 tracking. See the [image contract](image-artifacts.md)
 for the supported profile and the [research roadmap](research/image-first-evaluation-protocol.md)
-for planned optimization and evaluation.
+for planned image optimization, evaluation, and broader format work.
 
 ## Architecture
 

@@ -1,6 +1,13 @@
 import { createHash } from "node:crypto";
 import { deflateSync } from "node:zlib";
-import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import {
+  mkdtemp,
+  mkdir,
+  realpath,
+  rename,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -52,7 +59,7 @@ async function fixture(bytes: Buffer): Promise<{ root: string; path: string }> {
 }
 
 describe("image source race checks", () => {
-  it("rejects same-size path replacement between path stat and file open", async () => {
+  it("rejects same-size in-place overwrite between path stat and file open", async () => {
     const original = png(Buffer.from([0, 1, 2, 3]));
     const replacement = png(Buffer.from([0, 9, 8, 7]));
     expect(replacement.length).toBe(original.length);
@@ -85,6 +92,9 @@ describe("image source race checks", () => {
     const f = await fixture(original);
     const backup = join(f.root, "old-image.png");
     const actualFs = await vi.importActual<typeof import("node:fs/promises")>("node:fs/promises");
+    const stableTime = new Date(Math.floor(Date.now() / 1000) * 1000 - 2000);
+    await actualFs.utimes(f.path, stableTime, stableTime);
+    const before = await actualFs.stat(f.path);
     let swapped = false;
     vi.doMock("node:fs/promises", () => ({
       ...actualFs,
@@ -100,7 +110,88 @@ describe("image source race checks", () => {
               swapped = true;
               await actualFs.rename(f.path, backup);
               await actualFs.writeFile(f.path, replacement);
-              await actualFs.utimes(f.path, new Date(Date.now() + 5000), new Date(Date.now() + 5000));
+              await actualFs.utimes(f.path, before.atime, before.mtime);
+              const after = await actualFs.stat(f.path);
+              expect(after.size).toBe(before.size);
+              expect(after.mtimeMs).toBe(before.mtimeMs);
+              expect(after.ino).not.toBe(before.ino);
+            }
+            return result;
+          },
+        };
+      },
+    }));
+    const { indexImageArtifact, MemoryImageArtifactStore } = await import("../src/core/image-artifacts.js");
+    const store = new MemoryImageArtifactStore();
+
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "source_changed" });
+    expect(store.size).toBe(0);
+  });
+
+  it.skipIf(process.platform !== "win32")("rejects an intermediate directory junction replacement", async () => {
+    const original = png(Buffer.from([0, 1, 2, 3]));
+    const replacement = png(Buffer.from([0, 9, 8, 7]));
+    const f = await fixture(original);
+    const sourceDir = join(f.root, "source-dir");
+    const sourceBackup = join(f.root, "source-dir-old");
+    const outside = await mkdtemp(join(tmpdir(), "tco-image-junction-outside-"));
+    temporaryRoots.add(outside);
+    const replacementDir = join(outside, "replacement");
+    await mkdir(sourceDir);
+    await mkdir(replacementDir);
+    await rename(f.path, join(sourceDir, "image.png"));
+    await writeFile(join(replacementDir, "image.png"), replacement);
+    const sourcePath = join(sourceDir, "image.png");
+    const canonical = await realpath(sourcePath);
+    const actualFs = await vi.importActual<typeof import("node:fs/promises")>("node:fs/promises");
+    let swapped = false;
+    vi.doMock("node:fs/promises", () => ({
+      ...actualFs,
+      stat: async (path: Parameters<typeof actualFs.stat>[0], options?: Parameters<typeof actualFs.stat>[1]) => {
+        const result = await actualFs.stat(path, options);
+        if (!swapped && String(path) === canonical) {
+          swapped = true;
+          await actualFs.rename(sourceDir, sourceBackup);
+          await actualFs.symlink(replacementDir, sourceDir, "junction");
+        }
+        return result;
+      },
+    }));
+    const { indexImageArtifact } = await import("../src/core/image-artifacts.js");
+
+    await expect(indexImageArtifact({ path: sourcePath, allowedRoots: [f.root] })).rejects.toMatchObject({ code: "source_changed" });
+  });
+
+  it("rejects same-file byte replacement even when the original mtime is restored", async () => {
+    const original = png(Buffer.from([0, 1, 2, 3]));
+    const replacement = png(Buffer.from([0, 9, 8, 7]));
+    expect(replacement.length).toBe(original.length);
+    const f = await fixture(original);
+    const actualFs = await vi.importActual<typeof import("node:fs/promises")>("node:fs/promises");
+    const stableTime = new Date(Math.floor(Date.now() / 1000) * 1000 - 2000);
+    await actualFs.utimes(f.path, stableTime, stableTime);
+    const before = await actualFs.stat(f.path);
+    let swapped = false;
+    vi.doMock("node:fs/promises", () => ({
+      ...actualFs,
+      open: async (...args: Parameters<typeof actualFs.open>) => {
+        const handle = await actualFs.open(...args);
+        return {
+          ...handle,
+          stat: handle.stat.bind(handle),
+          close: handle.close.bind(handle),
+          read: async (...readArgs: Parameters<typeof handle.read>) => {
+            const result = await handle.read(...readArgs);
+            if (!swapped && result.bytesRead > 0) {
+              swapped = true;
+              await actualFs.writeFile(f.path, replacement);
+              await actualFs.utimes(f.path, before.atime, before.mtime);
+              const after = await actualFs.stat(f.path);
+              expect(after.size).toBe(before.size);
+              expect(after.dev).toBe(before.dev);
+              expect(after.ino).toBe(before.ino);
+              expect(after.mtimeMs).toBe(before.mtimeMs);
+              expect(after.ctimeMs).not.toBe(before.ctimeMs);
             }
             return result;
           },

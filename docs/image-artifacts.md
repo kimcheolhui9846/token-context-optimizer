@@ -1,8 +1,8 @@
 # Restricted PNG and JPEG artifacts
 
-Task 20 supplies partial research milestone M1a: validate and identify a local PNG
-original without writing it. This is an input contract for owned or synthetic
-canonical fixtures. It does not provide image optimization or model evidence.
+The current image artifact contract validates and identifies a local PNG original
+without writing it. It is an input contract for owned or synthetic canonical
+fixtures. It does not provide image optimization or model evidence.
 
 ## Supported input
 
@@ -15,8 +15,10 @@ compressed stream and produce exactly the expected scanlines with filter bytes
 
 All other chunks are rejected, including text, color profiles, transparency
 metadata and animation control. Many otherwise valid PNGs therefore do not
-qualify. Palette/grayscale/16-bit/interlaced PNGs, APNG, JPEG and WEBP are outside
-this first profile. Task 22 adds a strict baseline JPEG profile; the tools never
+qualify. The current runtime accepts `png-rgb8-static-v1` and
+`jpeg-ycbcr8-baseline-444-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
+progressive/subsampled JPEG and WEBP are not accepted. Broader format support
+belongs to a later contract. The tools never
 convert unsupported originals automatically.
 
 | Limit | Maximum |
@@ -68,6 +70,18 @@ server. Image access with an empty allowlist is denied. Paths are canonicalized;
 sibling-prefix paths and links that resolve outside authorized roots are denied.
 The source must be a regular file. These checks are application-level access
 controls, not a race-proof sandbox against hostile concurrent filesystem changes.
+
+The reader rejects the replacement cases covered here: same-size in-place
+overwrite, rename replacement after bytes are read, directory-junction
+retargeting after canonicalization, and a same-file byte replacement whose
+original mtime is restored. These are pathname and metadata checks across
+separate operations, not an atomic filesystem transaction. They do not
+establish containment against an adversarial intermediate-directory ABA swap;
+the tests cover persistent replacement, not every swap-and-restore schedule.
+On Windows, `O_NOFOLLOW` is unavailable as a complete defense. The contract
+therefore assumes trusted writers and ordinary permissions on allowed
+directories and their ancestors; atomic OS-specific path/handle containment is
+outside the current PNG artifact contract.
 
 1. Call `index_image_artifact` with `{"path":"C:/workspace/fixture.png"}`.
 2. Retain the returned `artifactId` in the current MCP session.
