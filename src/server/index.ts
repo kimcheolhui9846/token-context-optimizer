@@ -161,17 +161,22 @@ export function createServer(): McpServer {
     },
   );
 
-  const imageOutputSchema = z.object({
+  const imageOutputSchema = z.union([z.object({
     artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
     format: z.literal("png"), mimeType: z.literal("image/png"), width: z.number().int(),
     height: z.number().int(), channels: z.union([z.literal(3), z.literal(4)]), bitDepth: z.literal(8),
     validationProfile: z.literal("png-rgb8-static-v1"),
-  });
+  }), z.object({
+    artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
+    format: z.literal("jpeg"), mimeType: z.literal("image/jpeg"), width: z.number().int(),
+    height: z.number().int(), channels: z.literal(3), bitDepth: z.literal(8),
+    validationProfile: z.literal("jpeg-ycbcr8-baseline-444-v1"),
+  })]);
 
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a restricted static RGB/RGBA PNG without retaining pixels.",
+      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels.",
       inputSchema: z.object({ path: z.string().min(1) }),
       outputSchema: imageOutputSchema,
     },
@@ -184,7 +189,7 @@ export function createServer(): McpServer {
   server.registerTool(
     "inspect_image_artifact",
     {
-      description: "Reauthorize and revalidate an indexed PNG source by its stable image identity.",
+      description: "Reauthorize and revalidate an indexed PNG or JPEG source by its stable image identity.",
       inputSchema: z.object({ artifactId: z.string().min(1) }),
       outputSchema: imageOutputSchema,
     },

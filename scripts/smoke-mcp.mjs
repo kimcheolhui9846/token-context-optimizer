@@ -38,7 +38,9 @@ try {
 
   const workspaceFile = join(workspaceRoot, "artifact.txt");
   const imageFile = join(workspaceRoot, "image.png");
+  const jpegFile = join(workspaceRoot, "image.jpg");
   const malformedImageFile = join(workspaceRoot, "malformed.png");
+  const malformedJpegFile = join(workspaceRoot, "malformed.jpg");
   outsideRoot = await mkdtemp(join(tmpdir(), "tco-outside-"));
   const outsideImageFile = join(outsideRoot, "outside.png");
   await writeFile(
@@ -51,7 +53,10 @@ try {
     "base64",
   );
   await writeFile(imageFile, imageBytes);
+  const jpegBytes = Buffer.from("/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAJABEDAREAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQGCP/EACoQAAEDAwICCwEAAAAAAAAAAAIBBAUDBhEAEgchCBMXJDY3VnR1lLTT/8QAGAEAAwEBAAAAAAAAAAAAAAAABAUHAgb/xAAvEQACAQIDBAcJAAAAAAAAAAABAgMEEQAFEgYUMXMTISI2VJLSMjU3UnSys7TB/9oADAMBAAIRAxEAPwA7Vvc1qcOZR+EDAWjFvBKNov5AOtNotRBp7iqmQU1VeaCq08ZIUVF5quJqiirMw6XMah5nXe1sosGt0cUShUUt8ik6uALEjrOEt6HLtnBTxzSzTzlI7IFswOp3BWzMAYlcEqxYE3UrxVO8Jpq0tmlEy98y9wOXm9pXjbdo93dN8hkM00BufOsCqu7O0CFVyiApFJG9PLJmL0oADVSK0hu6szRxR+2TIFXqAAHZFiow4q6Seiyeiy6goVh3hw+uXSSBF2jfWWmQl9BTSvEE3AJJL2d8PfSFy/Rb/wB9VjVm3iI/M3oww3TPPExeZ/RiQ6UHmjLfKsvx0tT3Ku7qcyp/dhx0+T/DnKub/KjFdb3iqI9sP6C0DtD7mm+pm/PT4mO1veSl5CfdLjV2n2DMf//Z", "base64");
+  await writeFile(jpegFile, jpegBytes);
   await writeFile(malformedImageFile, Buffer.from("bad-png"));
+  await writeFile(malformedJpegFile, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
   await writeFile(outsideImageFile, imageBytes);
 
   child = spawn(process.execPath, ["./bin/token-context-optimizer.mjs"], {
@@ -140,7 +145,7 @@ try {
   const indexedImage = await waitFor((message) => message.id === 4 && message.result);
   const imagePayload = JSON.parse(indexedImage.result.content[0].text);
   const imageHash = createHash("sha256").update(imageBytes).digest("hex");
-  assertImageRecord(imagePayload, { path: imageFile, sha256: imageHash });
+  assertImageRecord(imagePayload, { path: imageFile, sha256: imageHash, format: "png" });
   assertStructuredMatchesText(indexedImage.result, imagePayload);
   if (imagePayload.width !== 1 || imagePayload.height !== 1 || imagePayload.channels !== 4) {
     throw new Error(`Installed-layout image index check failed: ${JSON.stringify(imagePayload)}`);
@@ -153,10 +158,38 @@ try {
   });
   const inspectedImage = await waitFor((message) => message.id === 5 && message.result);
   const inspectPayload = JSON.parse(inspectedImage.result.content[0].text);
-  assertImageRecord(inspectPayload, { path: imageFile, sha256: imageHash });
+  assertImageRecord(inspectPayload, { path: imageFile, sha256: imageHash, format: "png" });
   assertStructuredMatchesText(inspectedImage.result, inspectPayload);
   if (inspectPayload.sha256 !== imagePayload.sha256 || createHash("sha256").update(await readFile(imageFile)).digest("hex") !== imageHash) {
     throw new Error(`Installed-layout image inspect check failed: ${JSON.stringify(inspectPayload)}`);
+  }
+
+  const jpegHash = createHash("sha256").update(jpegBytes).digest("hex");
+  send({
+    jsonrpc: "2.0",
+    id: 10,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: jpegFile } },
+  });
+  const indexedJpeg = await waitFor((message) => message.id === 10 && message.result);
+  const jpegPayload = JSON.parse(indexedJpeg.result.content[0].text);
+  assertImageRecord(jpegPayload, { path: jpegFile, sha256: jpegHash, format: "jpeg" });
+  assertStructuredMatchesText(indexedJpeg.result, jpegPayload);
+  if (jpegPayload.width !== 17 || jpegPayload.height !== 9 || jpegPayload.channels !== 3) {
+    throw new Error(`Installed-layout JPEG index check failed: ${JSON.stringify(jpegPayload)}`);
+  }
+  send({
+    jsonrpc: "2.0",
+    id: 11,
+    method: "tools/call",
+    params: { name: "inspect_image_artifact", arguments: { artifactId: jpegPayload.artifactId } },
+  });
+  const inspectedJpeg = await waitFor((message) => message.id === 11 && message.result);
+  const inspectedJpegPayload = JSON.parse(inspectedJpeg.result.content[0].text);
+  assertImageRecord(inspectedJpegPayload, { path: jpegFile, sha256: jpegHash, format: "jpeg" });
+  assertStructuredMatchesText(inspectedJpeg.result, inspectedJpegPayload);
+  if (JSON.stringify(inspectedJpegPayload) !== JSON.stringify(jpegPayload) || createHash("sha256").update(await readFile(jpegFile)).digest("hex") !== jpegHash) {
+    throw new Error(`Installed-layout JPEG inspect mismatch: ${JSON.stringify(inspectedJpegPayload)}`);
   }
 
   send({
@@ -192,6 +225,14 @@ try {
   });
   await expectToolError(9, "source_changed", [imageFile, workspaceRoot]);
 
+  send({
+    jsonrpc: "2.0",
+    id: 12,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: malformedJpegFile } },
+  });
+  await expectToolError(12, "malformed_jpeg", [malformedJpegFile, workspaceRoot]);
+
   console.log("mcp smoke ok");
 } finally {
   try {
@@ -223,11 +264,23 @@ function assertImageToolSchemas(tools) {
 }
 
 function assertImageOutputSchema(output, name) {
+  const schemas = output.anyOf ?? [output];
+  if (schemas.length !== 2) {
+    throw new Error(`Image output schema must expose correlated PNG/JPEG variants for ${name}`);
+  }
+  const signatures = schemas.map((schema) => `${schema.properties?.format?.const}:${schema.properties?.mimeType?.const}:${schema.properties?.validationProfile?.const}`);
+  for (const expected of ["png:image/png:png-rgb8-static-v1", "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1"]) {
+    if (!signatures.includes(expected)) {
+      throw new Error(`Image output schema is missing correlated variant ${expected} for ${name}: ${JSON.stringify(signatures)}`);
+    }
+  }
+  const properties = Object.assign({}, ...schemas.map((schema) => schema.properties ?? {}));
+  const required = new Set(schemas.flatMap((schema) => schema.required ?? []));
   for (const field of ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile"]) {
-    if (!output.properties?.[field]) {
+    if (!properties[field]) {
       throw new Error(`Image output schema missing field for ${name}: ${field}`);
     }
-    if (!output.required?.includes(field)) {
+    if (!required.has(field)) {
       throw new Error(`Image output schema missing required field for ${name}: ${field}`);
     }
   }
@@ -245,10 +298,10 @@ function assertImageRecord(record, expected) {
     record.path !== expected.path ||
     record.sha256 !== expected.sha256 ||
     record.byteLength <= 0 ||
-    record.format !== "png" ||
-    record.mimeType !== "image/png" ||
+    record.format !== expected.format ||
+    record.mimeType !== `image/${expected.format}` ||
     record.bitDepth !== 8 ||
-    record.validationProfile !== "png-rgb8-static-v1"
+    record.validationProfile !== (expected.format === "png" ? "png-rgb8-static-v1" : "jpeg-ycbcr8-baseline-444-v1")
   ) {
     throw new Error(`Unexpected image record: ${JSON.stringify(record)}`);
   }

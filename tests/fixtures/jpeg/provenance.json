@@ -1,0 +1,24 @@
+{
+  "encoder": {
+    "package": "sharp",
+    "version": "0.35.4",
+    "runtime": "Node v24.18.0 (fixture generation only)",
+    "libvips": "8.18.6",
+    "mozjpeg": "0826579",
+    "options": {
+      "quality": 90,
+      "chromaSubsampling": "4:4:4",
+      "force": true,
+      "metadataPolicy": "no metadata requested"
+    },
+    "containerNormalization": "sharp 0.35.4 emits no APP0 with metadata disabled; generator inserts one canonical 16-byte JFIF 1.02 APP0 segment after SOI, leaving encoded tables and scan bytes unchanged",
+    "pattern": "RGB byte at (x,y): ((37x + 11y + 17) % 256, (13x + 53y + 71) % 256, (97x + 7y + 149) % 256)",
+    "command": "node tests/fixtures/jpeg/generate-fixtures.mjs",
+    "scratchInstall": ".artifacts/task22-fixture-encoder (ignored; npm install --prefix .artifacts/task22-fixture-encoder sharp@0.35.4 --no-save --package-lock=false)"
+  },
+  "fixtures": [
+    { "file": "checkedin-1x1.jpg", "width": 1, "height": 1, "sha256": "e9012018906cc4722c8ebdc7bab30f76bd0039872902d29a723eb32d85873267", "byteLength": 286 },
+    { "file": "checkedin-odd-17x9.jpg", "width": 17, "height": 9, "sha256": "add4dd722d101489f3f97420f73acacb955fe31c52e6ba85130ccbef42e7f813", "byteLength": 639 },
+    { "file": "checkedin-multimcu-17x17.jpg", "width": 17, "height": 17, "sha256": "d7b666ebec3a78663d391a802c8f8ce0a9f56dcde3f623fb07eb5d863f4e88e7", "byteLength": 889 }
+  ]
+}

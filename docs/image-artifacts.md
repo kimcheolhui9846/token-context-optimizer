@@ -1,8 +1,8 @@
-# Restricted PNG artifacts
+# Restricted PNG and JPEG artifacts
 
-The current image artifact contract validates and identifies a local PNG original
-without writing it. It is an input contract for owned or synthetic canonical
-fixtures. It does not provide image optimization or model evidence.
+The current image artifact contract validates and identifies local PNG and JPEG
+originals without writing them. It is an input contract for owned or synthetic
+canonical fixtures. It does not provide image optimization or model evidence.
 
 ## Supported input
 
@@ -15,9 +15,10 @@ compressed stream and produce exactly the expected scanlines with filter bytes
 
 All other chunks are rejected, including text, color profiles, transparency
 metadata and animation control. Many otherwise valid PNGs therefore do not
-qualify. The current runtime accepts only `png-rgb8-static-v1`;
-palette/grayscale/16-bit/interlaced PNGs, APNG, JPEG and WEBP are not accepted by
-this contract. Broader format support belongs to a later contract. The tools never
+qualify. The current runtime accepts `png-rgb8-static-v1` and
+`jpeg-ycbcr8-baseline-444-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
+progressive/subsampled JPEG and WEBP are not accepted. Broader format support
+belongs to a later contract. The tools never
 convert unsupported originals automatically.
 
 | Limit | Maximum |
@@ -37,6 +38,36 @@ inflated scanlines and decoder pixel buffers can coexist. Individual pixel or
 scanline buffers can approach 64 MiB. Decoding is synchronous; the caps do not
 provide a wall-clock deadline or a total process-memory budget. The session store
 keeps metadata only and currently has no entry-count limit.
+
+The `jpeg-ycbcr8-baseline-444-v1` profile accepts JFIF 1.01 or 1.02 baseline
+SOF0 JPEGs with 8-bit YCbCr, three 1x1 components, one interleaved sequential
+Huffman scan, and no metadata segments beyond APP0 JFIF. Progressive, arithmetic,
+grayscale, CMYK/YCCK, restart, multiscan, and subsampled JPEGs are rejected.
+JPEG marker bounds, table references, MCU scan structure, stuffed bytes, and the
+terminal EOI are checked before the strict `jpeg-js` decoder runs. JPEG uses the
+same 10 MiB encoded, 8192 axis, and 16,777,216 pixel limits, plus a 128 MiB
+decoder allocation accounting ceiling. The decoder is synchronous; these limits
+do not provide a wall-clock deadline or total process-memory guarantee.
+
+At the end of the expected MCU data, the entropy reader accepts one trailing
+`FF 00` pair only when the MCU data ends exactly at a byte boundary, matching
+the observed `jpeg-js` encoder output. It rejects an `FF 00` pair after
+partial-byte padding, additional trailing pairs, or altered pairs; when MCU
+data ends within a byte, only the required all-one residual padding bits are accepted.
+
+Checked-in JPEG positives live under `tests/fixtures/jpeg/`: 1x1, odd 17x9,
+and multi-MCU 17x17. `provenance.json` records the independent sharp 0.35.4
+encoder, libvips/mozjpeg versions, options, deterministic RGB pattern, and
+SHA-256 values. The reproducible generator uses an ignored scratch install and
+inserts a canonical JFIF APP0 segment immediately after SOI in sharp's output;
+the insertion does not alter the entropy-coded scan.
+
+The jpeg-js decoder accounting guard is separate from process RSS. For
+`B = ceil(width/8) * ceil(height/8)`, the current estimate is
+`960*B + 6*width*height + 256*Q + sum(16 + DHT symbol count)`, where `Q` is
+the number of defined quantization tables. It is checked before decoding and
+bounded at 128 MiB; synchronous CPU time and total process memory remain
+unbounded by this accounting value.
 
 ## MCP use
 
@@ -71,10 +102,10 @@ Both tools return the same record as JSON text and structured content:
 | `path` | Canonical original file path |
 | `sha256` | SHA-256 of the exact captured bytes that were validated |
 | `byteLength` | Original encoded bytes |
-| `format`, `mimeType` | `png`, `image/png` |
+| `format`, `mimeType` | `png`/`image/png` or `jpeg`/`image/jpeg` |
 | `width`, `height` | Validated pixel dimensions |
-| `channels`, `bitDepth` | 3 or 4 channels, 8-bit depth |
-| `validationProfile` | `png-rgb8-static-v1` |
+| `channels`, `bitDepth` | PNG: 3 or 4 channels; JPEG: 3 channels; 8-bit depth |
+| `validationProfile` | `png-rgb8-static-v1` or `jpeg-ycbcr8-baseline-444-v1` |
 
 Records contain no pixels, OCR or ancillary metadata. The same canonical path
 and bytes produce the same ID; a different path is a distinct source even if its
@@ -99,12 +130,25 @@ they are not successful artifact records.
 | `non_regular_file` | The indexed source is not a regular file |
 | `encoded_size_exceeded` | The indexed source exceeds the encoded limit |
 | `image_dimensions_exceeded` | Dimensions are zero or exceed the supported axis/pixel ceilings |
-| `unsupported_image_format` | A recognized non-PNG image format is outside this profile |
+| `unsupported_image_format` | The encoded bytes identify a recognized container with no supported image profile |
 | `unsupported_png_profile` | The PNG uses unsupported modes or chunks |
 | `malformed_png` | Signature, structure, CRC, compressed data or decoded shape is invalid |
+| `unsupported_jpeg_profile` | The JPEG uses an unsupported mode, sampling, or metadata profile |
+| `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |
+| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the 128 MiB accounting ceiling |
 | `unknown_artifact_id` | The image ID is absent from this server's store |
 | `source_changed` | Indexing detected a source change, or inspection successfully read bytes whose hash/length differ from the record |
 | `source_missing_or_unreadable` | Inspection cannot obtain the recorded source |
+
+Error precedence is deterministic. Reader and encoded-size failures occur before
+format validation; a recognized but unsupported profile maps to
+`unsupported_jpeg_profile`. For JPEG, an invalid APP0 JFIF identifier or a
+missing APP0 is classified as an unsupported profile, while a duplicate APP0,
+invalid table marker or payload, invalid entropy data, and decoded-shape mismatch
+are `malformed_jpeg`. An SOS with a missing SOF or an invalid SOS payload length
+is also `unsupported_jpeg_profile` under the current parser order. Resource
+limits are checked after structural tables and scan selectors are available and
+before the decoder call.
 
 Inspection preserves `path_denied` from the bounded reader. It maps every other
 reader failure—including nonregular input, encoded-size excess and a concurrent

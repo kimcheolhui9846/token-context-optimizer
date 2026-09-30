@@ -17,7 +17,7 @@ const outfile = "bin/token-context-optimizer.mjs";
 const bundled = await readFile(outfile, "utf8");
 const shebang = "#!/usr/bin/env node\n";
 const body = bundled.startsWith(shebang) ? bundled.slice(shebang.length) : bundled;
-const imageDependencyNotices = await bundledDependencyNotices(["fast-png", "fflate", "iobuffer"]);
+const imageDependencyNotices = await bundledDependencyNotices(["fast-png", "fflate", "iobuffer", "jpeg-js"]);
 await writeFile(outfile, `${shebang}${imageDependencyNotices}${body}`.replace(/[ \t]+$/gmu, ""), "utf8");
 
 async function bundledDependencyNotices(packageNames) {
@@ -25,6 +25,12 @@ async function bundledDependencyNotices(packageNames) {
   for (const packageName of packageNames) {
     const license = await readFile(join("node_modules", packageName, "LICENSE"), "utf8");
     notices.push(`Package: ${packageName}\n${license.trim()}`);
+    if (packageName === "jpeg-js") {
+      const decoderLicense = await readFile("docs/licenses/jpeg-js-decoder-Apache-2.0.txt", "utf8");
+      notices.push(`Component: jpeg-js/lib/decoder.js (Apache-2.0 attribution)\nCopyright 2011 notmasteryet\n${decoderLicense.trim()}`);
+      const encoderLicense = await readFile("docs/licenses/jpeg-js-encoder-BSD-3-Clause.txt", "utf8");
+      notices.push(`Component: jpeg-js/lib/encoder.js (BSD-3-Clause attribution)\n${encoderLicense.trim()}`);
+    }
   }
   return `/*\nBundled dependency license notices\n\n${notices.join("\n\n")}\n*/\n`;
 }
