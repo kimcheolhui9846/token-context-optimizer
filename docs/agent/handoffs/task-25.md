@@ -1,0 +1,40 @@
+PR: pending | Branch: codex/task-25-policy-redos | Base: main 5828f02840304067e8d345969ffc7c1a981650ec
+
+# Task 25 — F-03 classifier ReDoS
+
+## Scope and approval
+User approved semantic-preserving rewrites of zero-based EXACT_PATTERNS #3 #6 #7 #10 #12 #13 #14 #15 #16 #17 #18 #20 #21 #25 and punctuation/command-prefix helpers. Preserve mode, ordered reasons, warnings and lossy-compression permission for every input. F-21 and all unrelated findings remain unchanged. No input cap, search window, reason-based skipping or classifier early return.
+
+## Plan and delivery groups
+See [approved plan](../../superpowers/plans/2026-10-01-policy-redos.md).
+1. A/terminator and lazy patterns: #13/#14/#16/#17.
+2. Character-run and suffix patterns: #3/#6/#7/#15/#18/#20/#21.
+3. Line starts: #10/#12/#25.
+4. Punctuation and command-prefix helpers.
+Each group requires predicate-level and whole-output equivalence checks, operation-bound reasoning, and observed performance RED/GREEN. Separate commits, one Draft PR; user controls merge.
+
+## Baseline evidence
+- Fresh base npm.cmd test: 755 passed, one Windows FIFO skip, 20 files, 17.82 seconds.
+- Original policy source SHA-256: E4503C0B2189AEC05EE8A3349788A033092E9B20F14C7D1C3F4F90734F28F8B1 (worktree bytes). Test-only oracle preserves source body with import-path adjustment and an explicit provenance comment.
+- Original classification corpus: 120 cases; characterization test passed. This is GREEN characterization, not performance RED. Expected outputs were captured before any runtime changes and must not be regenerated from the new classifier.
+- Astra remaining-pattern screen: 17 cases, two sizes, five raw samples; all bounded children completed and no new out-of-scope superlinear case was identified. Finite screening is not universal complexity proof.
+- [Measurement evidence and reproduction](../../research/evidence/task-25/README.md). Baseline phase retained its 180-second cap and censored records; supplemental runs preserve rather than overwrite those observations. Runtime implementation has not started at this checkpoint.
+
+## Review and execution history
+- User-provided Claude review approved the expanded plan and group order; exact external review model not independently verified.
+- Actual native gpt-6-astra planning/source review supplied equivalence guidance, identified harness issues, and verified their corrections. Not represented as a fresh Claude/Gemini/Copilot call.
+- Luna baseline and corpus workers hit actual usage-limit errors. User-authorized fallback GPT-5.5 execution was confirmed by successful Codex CLI model responses and runtime headers; no model/config substitution.
+- npm.cmd ci installed lockfile-pinned dependencies; audit reported two moderate findings. No dependency upgrade attempted in F-03 scope.
+
+## Remaining work and gates
+- [ ] Complete baseline supplements and commit immutable characterization.
+- [ ] Group 1 RED/GREEN and commit.
+- [ ] Group 2 RED/GREEN and commit.
+- [ ] Group 3 RED/GREEN and commit.
+- [ ] Group 4 RED/GREEN and commit.
+- [ ] Whole-classifier before/after matrix, large-input checks and group proofs.
+- [ ] Targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
+- [ ] Rebuilt bundle, Draft PR, post-PR verification and final Astra review.
+
+## Safety and boundaries
+Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main checkout and all prior worktrees/user files remain preserved. No rebase, force-push, history rewriting or merge. Newly confirmed scope-external superlinear behavior or any required classification change stops implementation for user decision. Performance samples and finite differential corpora do not alone justify a universal linearity/equivalence claim.

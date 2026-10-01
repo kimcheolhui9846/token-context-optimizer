@@ -1,0 +1,1684 @@
+{
+  "provenance": {
+    "baselineCommit": "5828f02840304067e8d345969ffc7c1a981650ec",
+    "sourceSha256": "E4503C0B2189AEC05EE8A3349788A033092E9B20F14C7D1C3F4F90734F28F8B1"
+  },
+  "entries": [
+    {
+      "id": "bearer secret",
+      "content": "Authorization: Bearer abc.def.ghi",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "pem private key",
+      "content": "-----BEGIN PRIVATE KEY-----\nabc\n-----END PRIVATE KEY-----",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "curl command",
+      "content": "curl https://example.com/resource --header Accept: application/json",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "html markup",
+      "content": "<div data-id=\"app\">Hello</div>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sudo command",
+      "content": "sudo curl https://example.com/resource --header Accept: application/json",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "echo command",
+      "content": "echo Deploy the application before verification.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "absolute path",
+      "content": "Copy /etc/hosts before deployment. Preserve this path exactly.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "dsn",
+      "content": "Use postgres://alice:hunter@db/prod. Keep this secret exactly.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "request id",
+      "content": "Use request-id abcdefghijklmno. Preserve it exactly.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "html comment",
+      "content": "<!-- Preserve this exact server-side include. -->",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "doas make command",
+      "content": "doas make deploy before release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "make command",
+      "content": "make deploy TARGET=production.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "mailto uri",
+      "content": "mailto:ops@example.com",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "srv path",
+      "content": "/srv/app/config.toml",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "request id underscore",
+      "content": "request_id abcdef",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "doctype declaration",
+      "content": "<!DOCTYPE html>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sqlite uri",
+      "content": "sqlite:/srv/app.db",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sudo option wrapper",
+      "content": "sudo -u deploy make release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "doas option wrapper",
+      "content": "doas -u deploy make release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sudo long option wrapper",
+      "content": "sudo --preserve-env make deploy.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "env assignment wrapper",
+      "content": "env TARGET=production make deploy.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sudo systemctl wrapper",
+      "content": "sudo -u deploy systemctl restart nginx.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "env terraform wrapper",
+      "content": "env TARGET=production terraform apply changes.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "script path in prose",
+      "content": "Use scripts/deploy.sh during release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "request id with colon",
+      "content": "Keep request_id: abcdef unchanged.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql query prose",
+      "content": "Run SELECT email FROM users WHERE status = active.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "chmod phrase",
+      "content": "Please run chmod u+x deploy before the scheduled release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "generic filename",
+      "content": "Use release-notes.txt during launch for production operations.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "helm phrase",
+      "content": "Please run helm upgrade before the scheduled production release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "trace token",
+      "content": "Preserve trace abcdefghijkl through the entire support workflow.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "config key",
+      "content": "Set feature_flag enabled before the scheduled production release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "helm command shape without cue verb",
+      "content": "Use helm upgrade before the scheduled production release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "chmod command shape without cue verb",
+      "content": "Use chmod u+x deploy before the scheduled release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-overlap-from-where",
+      "content": "SELECT FROM WHERE",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-self-from",
+      "content": "SELECT FROM",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-self-where",
+      "content": "SELECT WHERE",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-single-from",
+      "content": "FROM",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-single-where",
+      "content": "WHERE",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-from-from",
+      "content": "FROM FROM",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-where-where",
+      "content": "WHERE WHERE",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-no-later-pair",
+      "content": "FROM SELECT WHERE",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-separated-pair",
+      "content": "SELECT alpha FROM beta; WHERE status = active",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-keyword-underscore-boundary",
+      "content": "SELECT FROM_table WHERE_value",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-keyword-digit-boundary",
+      "content": "SELECT FROM1 WHERE2",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-keyword-nonascii-boundary",
+      "content": "SELECT FROM한 WHEREß",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "syntax-single-delimiter",
+      "content": "{ =>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "syntax-equals-after-semicolon",
+      "content": "; =>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "syntax-equals-before-delimiter",
+      "content": "= ;",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "php-open-close",
+      "content": "<?php ?>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "php-open-without-close",
+      "content": "<?a <?b",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "html-opener-with-whitespace",
+      "content": "<a     >",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "html-opener-without-close",
+      "content": "<a     <b",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "sql-repeated-overlap-bounded",
+      "content": "SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE SELECT FROM WHERE ",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "semicolon-repeated-bounded",
+      "content": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "php-opener-repeated-bounded",
+      "content": "<?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a <?a ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "html-opener-space-repeated-bounded",
+      "content": "<a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a <a ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "multiline-command",
+      "content": "ordinary prose\n  npm test",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "multiline-semantic",
+      "content": "The service retains every approved source excerpt.\r\nOperators verify results before release.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "late-positive-semantic",
+      "content": "ordinary prose without punctuation ordinary prose without punctuation ordinary prose without punctuation ordinary prose without punctuation The final line explains why the service preserves source evidence.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "f21-note-colon",
+      "content": "Note: preserve source text exactly before compression.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "unicode-letters",
+      "content": "안전한 요약은 원본 근거를 보존하고 검토 결과를 명확히 설명합니다.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "astral-symbol",
+      "content": "🧪 The review process preserves every source excerpt and explains the final result.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "lone-high-surrogate",
+      "content": "The source keeps \ud800 this character and preserves its surrounding context.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "lone-low-surrogate",
+      "content": "The source keeps \udc00 this character and preserves its surrounding context.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "trim-boundary",
+      "content": "  The system preserves source evidence for every reviewed decision.  ",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "empty",
+      "content": "",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "whitespace-only",
+      "content": " \t\r\n ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "short-plain",
+      "content": "ordinary fragment",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "visual",
+      "content": "A screenshot captures the layout.",
+      "classification": {
+        "mode": "visual",
+        "reasons": [
+          "visual_context"
+        ],
+        "warnings": [
+          "lossy_summary_not_allowed_for_visual"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "benchmark-semantic-success",
+      "content": "Token efficiency depends on measured task success and careful source preservation.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "benchmark-semantic-threshold",
+      "content": "Reviewers approve launch only when latency stays below one thousand milliseconds.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "benchmark-semantic-negation",
+      "content": "Operators must not delete source excerpts during cleanup.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "benchmark-semantic-actor-action",
+      "content": "The shift captain updates the readiness notes before opening hour.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "benchmark-exact-code-edit",
+      "content": "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test\nFailing test: rejects negative input without throwing away zero.\nReplace src/math.ts implementation with:\nexport function normalizeInput(value: number): number {\n  if (value < 0) throw new Error(\"ERR_NEGATIVE_INPUT\");\n  return value;\n}",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path",
+          "code_syntax",
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "benchmark-numeric-threshold",
+      "content": "Latency must stay below 1000ms for all 8 tokens of context.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "benchmark-build-log-exact",
+      "content": "Compiling workspace\ninfo line 0: cache hit for package token-context-optimizer\nsrc/index.ts:12:5 - error TS2304\nCannot find name 'missingValue'.",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "benchmark-repeated-semantic-document",
+      "content": "Token efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "existing-core-code-syntax",
+      "content": "const user = getUser();\nreturn user.name;",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "existing-core-exact-mixed-reasons",
+      "content": "src/server/index.ts:42:9 - error TS2339 sha256=abc123 id=build-17",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path",
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "unicode-long-s",
+      "content": "The ſervice retains source evidence for every reviewed decision.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "unicode-kelvin",
+      "content": "The Keeper retains source evidence for every reviewed decision.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "ascii-word-boundary",
+      "content": "alpha_from beta",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "unicode-space",
+      "content": "The service retains source evidence for every reviewed decision.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "unicode-ideographic-space",
+      "content": "The service　retains source evidence for every reviewed decision.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "unicode-combining-mark",
+      "content": "The café service retains source evidence for every reviewed decision.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "cr-lf-line-boundaries",
+      "content": "ordinary prose\r\n  npm test\rordinary line",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "line-separator-boundary",
+      "content": "ordinary prose   npm test  ordinary line",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "long-prefix-late-semantic",
+      "content": "ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence ordinary words without a qualifying terminal sentence The final line explains why the service preserves source evidence.",
+      "classification": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "lossyCompressionAllowed": true
+    },
+    {
+      "id": "seeded-00",
+      "content": "안녕 alpha npm test = token= alpha 안녕 { 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-01",
+      "content": "<a  ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-02",
+      "content": "} ordinary prose ; WHERE <a   alpha 안녕 = 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-03",
+      "content": "FROM",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-04",
+      "content": "; 🐈 <a  ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-05",
+      "content": "; <?x token=",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-06",
+      "content": "\n <?x FROM",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-07",
+      "content": "?> ordinary prose <a  ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-08",
+      "content": "\n = npm test Note: ; ordinary prose 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-09",
+      "content": "<a   <?x <a   = ?>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-10",
+      "content": ";",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-11",
+      "content": "FROM",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-12",
+      "content": "\n <?x FROM 🐈 ?> = <a  ",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-13",
+      "content": "<a   . } <?x ?> = FROM",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-14",
+      "content": "; { \n alpha ?>",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-15",
+      "content": ";",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-16",
+      "content": "<a   ordinary prose <a  ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-17",
+      "content": "npm test ordinary prose \n alpha ; . 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-18",
+      "content": "?> { token= 🐈 <a   <?x 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-19",
+      "content": "} 🐈 ; 🐈 ; . npm test ordinary prose 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-20",
+      "content": "<a   Note: }",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-21",
+      "content": "; Note: token= ordinary prose } { 안녕 alpha <a  ",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-22",
+      "content": "}",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-23",
+      "content": "<a  ",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-24",
+      "content": "npm test",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-25",
+      "content": "?> { npm test",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-26",
+      "content": "} = ?>",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-27",
+      "content": "?> 🐈 FROM WHERE ; = <a   alpha token=",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-28",
+      "content": "}",
+      "classification": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-29",
+      "content": "; = FROM = \n WHERE ;",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_syntax"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-30",
+      "content": "\n ordinary prose token= 🐈 안녕",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    },
+    {
+      "id": "seeded-31",
+      "content": "npm test",
+      "classification": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "lossyCompressionAllowed": false
+    }
+  ]
+}
