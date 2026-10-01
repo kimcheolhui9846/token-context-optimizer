@@ -27,8 +27,8 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 - npm.cmd ci installed lockfile-pinned dependencies; audit reported two moderate findings. No dependency upgrade attempted in F-03 scope.
 
 ## Remaining work and gates
-- [ ] Complete baseline supplements and commit immutable characterization.
-- [ ] Group 1 RED/GREEN and commit.
+- [x] Complete baseline supplements and commit immutable characterization (95b7846).
+- [x] Group 1 RED/GREEN and native review; committed with this checkpoint.
 - [ ] Group 2 RED/GREEN and commit.
 - [ ] Group 3 RED/GREEN and commit.
 - [ ] Group 4 RED/GREEN and commit.
@@ -38,3 +38,10 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 
 ## Safety and boundaries
 Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main checkout and all prior worktrees/user files remain preserved. No rebase, force-push, history rewriting or merge. Newly confirmed scope-external superlinear behavior or any required classification change stops implementation for user decision. Performance samples and finite differential corpora do not alone justify a universal linearity/equivalence claim.
+
+## Group 1 implementation checkpoint
+- Replaced only rules #13/#14/#16/#17; rule slots and full ordered classification loop preserved. [Proofs and raw samples](../../research/evidence/task-25/group-1.md).
+- Observed performance RED: original delimiter predicate on 400,000 characters exceeded the 5-second child deadline. GREEN: targeted tests passed; native Astra independently reran 186 tests across three files, all passed.
+- Native Astra source/test/proof review: PASS, no unresolved findings. Frozen oracle/corpus files unchanged from baseline commit.
+- External cross-check: exact Claude model `claude-opus-5` successfully answered an availability probe; the actual scoped review timed out at 180 seconds with no parseable result. It is NOT a completed review. Gemini API-key configuration does not establish free-tier eligibility, so no potentially paid call was made. Copilot CLI absent and GitHub extensions empty. Cross-check status: DEGRADED for this checkpoint; native Astra independently reviewed the code and tests.
+- Main TypeScript project check passed. Script typecheck attempted before build reported missing dist imports; the required final build-before-typecheck gate remains pending.

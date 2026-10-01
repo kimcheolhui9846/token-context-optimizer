@@ -1,0 +1,186 @@
+{
+  "phase": "group-1-after",
+  "measuredAt": "2026-10-01T14:43:03.471Z",
+  "node": "v24.18.0",
+  "source": {
+    "path": "src/core/policy.ts",
+    "sha256": "44e37c89272dbffa0552fb1e0eeeed0ab47ed2866bec299e19cad42db7ef4558"
+  },
+  "sizeUtf16": 400000,
+  "samplesPerPredicate": 5,
+  "childTimeoutMs": 20000,
+  "results": [
+    {
+      "name": "sql-keyword-sequence",
+      "index": 13,
+      "family": "sql",
+      "proof": "Earliest full leading SQL keyword plus any later full trailing SQL keyword; both scans use original-string word boundaries and distinct non-overlapping occurrences.",
+      "status": "complete",
+      "utf16Length": 400000,
+      "utf8Bytes": 400000,
+      "samples": [
+        {
+          "elapsedNs": 566400,
+          "result": false
+        },
+        {
+          "elapsedNs": 370900,
+          "result": false
+        },
+        {
+          "elapsedNs": 370100,
+          "result": false
+        },
+        {
+          "elapsedNs": 378100,
+          "result": false
+        },
+        {
+          "elapsedNs": 371200,
+          "result": false
+        }
+      ],
+      "medianElapsedNs": 371200,
+      "allResults": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "delimiter-syntax-tail",
+      "index": 14,
+      "family": "delimiter",
+      "proof": "Earliest delimiter [;{}] plus later =, (, ), or . witnesses the original; => is covered by =.",
+      "status": "complete",
+      "utf16Length": 400000,
+      "utf8Bytes": 400000,
+      "samples": [
+        {
+          "elapsedNs": 1276900,
+          "result": false
+        },
+        {
+          "elapsedNs": 819000,
+          "result": false
+        },
+        {
+          "elapsedNs": 717700,
+          "result": false
+        },
+        {
+          "elapsedNs": 874900,
+          "result": false
+        },
+        {
+          "elapsedNs": 752600,
+          "result": false
+        }
+      ],
+      "medianElapsedNs": 819000,
+      "allResults": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "php-block",
+      "index": 16,
+      "family": "php",
+      "proof": "Earliest complete <? plus ASCII-letter opener only needs a later ?>; any later opener close is also later than the earliest opener.",
+      "status": "complete",
+      "utf16Length": 400000,
+      "utf8Bytes": 400000,
+      "samples": [
+        {
+          "elapsedNs": 392100,
+          "result": false
+        },
+        {
+          "elapsedNs": 367400,
+          "result": false
+        },
+        {
+          "elapsedNs": 366800,
+          "result": false
+        },
+        {
+          "elapsedNs": 367200,
+          "result": false
+        },
+        {
+          "elapsedNs": 396200,
+          "result": false
+        }
+      ],
+      "medianElapsedNs": 367400,
+      "allResults": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "html-comment",
+      "index": 17,
+      "family": "comment",
+      "proof": "Earliest <!-- opener only needs a later -->; any later opener close is also later than the earliest opener.",
+      "status": "complete",
+      "utf16Length": 400000,
+      "utf8Bytes": 400000,
+      "samples": [
+        {
+          "elapsedNs": 598700,
+          "result": false
+        },
+        {
+          "elapsedNs": 542000,
+          "result": false
+        },
+        {
+          "elapsedNs": 545200,
+          "result": false
+        },
+        {
+          "elapsedNs": 559000,
+          "result": false
+        },
+        {
+          "elapsedNs": 573600,
+          "result": false
+        }
+      ],
+      "medianElapsedNs": 559000,
+      "allResults": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "git": {
+    "head": "95b78469d38694860a37b716c79f39e426e3dcf2",
+    "sourceDirty": true
+  },
+  "repro": {
+    "commands": [
+      "node tests/helpers/policy-predicate-perf-child.mjs src/core/policy.ts 13 sql 400000 5",
+      "node tests/helpers/policy-predicate-perf-child.mjs src/core/policy.ts 14 delimiter 400000 5",
+      "node tests/helpers/policy-predicate-perf-child.mjs src/core/policy.ts 16 php 400000 5",
+      "node tests/helpers/policy-predicate-perf-child.mjs src/core/policy.ts 17 comment 400000 5",
+      "npm.cmd test -- --run tests/policy-redos.test.ts",
+      "npm.cmd test -- --run tests/policy-characterization.test.ts tests/core.test.ts",
+      "node_modules\\.bin\\tsc.cmd -p tsconfig.json --noEmit"
+    ],
+    "note": "Raw timing commands are run from the repository root. The recorded report used the same helper with a 20000ms child timeout wrapper."
+  }
+}

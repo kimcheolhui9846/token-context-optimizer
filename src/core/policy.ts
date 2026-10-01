@@ -31,7 +31,59 @@ const COMMANDS = new Set([
   "terraform",
 ]);
 
-const EXACT_PATTERNS: Array<[string, RegExp]> = [
+type PolicyPredicate = RegExp | ((content: string) => boolean);
+
+const SQL_LEADING_KEYWORD = /\b(?:SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|JOIN|CREATE|ALTER|DROP)\b/gu;
+const SQL_TRAILING_KEYWORD = /\b(?:FROM|WHERE|SET|VALUES|TABLE)\b/gu;
+const PHP_OPENER = /<\?[A-Za-z]/gu;
+
+function hasSqlKeywordSequence(content: string): boolean {
+  SQL_LEADING_KEYWORD.lastIndex = 0;
+  const leading = SQL_LEADING_KEYWORD.exec(content);
+  if (!leading) {
+    return false;
+  }
+
+  SQL_TRAILING_KEYWORD.lastIndex = 0;
+  const earliestTrailingStart = leading.index + leading[0].length;
+  for (let trailing = SQL_TRAILING_KEYWORD.exec(content); trailing; trailing = SQL_TRAILING_KEYWORD.exec(content)) {
+    if (trailing.index >= earliestTrailingStart) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function hasDelimiterThenSyntaxTail(content: string): boolean {
+  const delimiter = content.search(/[{};]/u);
+  if (delimiter === -1) {
+    return false;
+  }
+  for (let index = delimiter + 1; index < content.length; index += 1) {
+    const char = content[index];
+    if (char === "=" || char === "(" || char === ")" || char === ".") {
+      return true;
+    }
+  }
+  return false;
+}
+
+function hasPhpBlock(content: string): boolean {
+  PHP_OPENER.lastIndex = 0;
+  const opener = PHP_OPENER.exec(content);
+  return opener ? content.indexOf("?>", opener.index + opener[0].length) !== -1 : false;
+}
+
+function hasHtmlComment(content: string): boolean {
+  const opener = content.indexOf("<!--");
+  return opener !== -1 && content.indexOf("-->", opener + 4) !== -1;
+}
+
+function matchesPolicyPredicate(predicate: PolicyPredicate, content: string): boolean {
+  return typeof predicate === "function" ? predicate(content) : predicate.test(content);
+}
+
+const EXACT_PATTERNS: Array<[string, PolicyPredicate]> = [
   ["secret", /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu],
   ["secret", /\bAuthorization\s*:\s*Bearer\s+[A-Za-z0-9._~+/=-]+/iu],
   ["secret", /\bBearer\s+[A-Za-z0-9._~+/=-]{8,}/u],
@@ -45,11 +97,11 @@ const EXACT_PATTERNS: Array<[string, RegExp]> = [
   ["code_or_path", /^\s*(?:(?:sudo|doas)\s+)?(?:npm|node|git|pnpm|yarn|cargo|go|python|pytest|curl|echo|copy|cp|mv|rm|mkdir|cat|grep|rg|sed|awk|ssh|scp|docker|kubectl|make)\b/imu],
   ["code_or_path", /\b(?:run|execute|invoke)\s+[a-z][a-z0-9._-]*(?:\s+[A-Za-z0-9._+=:/-]+){0,5}/iu],
   ["code_syntax", /^\s*(?:import|export|const|let|var|return|function|class|interface|type|if|for|while|try|catch)\b/mu],
-  ["code_syntax", /\b(?:SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|JOIN|CREATE|ALTER|DROP)\b[\s\S]*\b(?:FROM|WHERE|SET|VALUES|TABLE)\b/u],
-  ["code_syntax", /[{};][\s\S]*(?:=>|=|\(|\)|\.)/u],
+  ["code_syntax", hasSqlKeywordSequence],
+  ["code_syntax", hasDelimiterThenSyntaxTail],
   ["code_syntax", /<![A-Za-z][^>]*>/u],
-  ["code_syntax", /<\?[A-Za-z][\s\S]*?\?>/u],
-  ["code_syntax", /<!--[\s\S]*?-->/u],
+  ["code_syntax", hasPhpBlock],
+  ["code_syntax", hasHtmlComment],
   ["code_syntax", /<\/?[A-Za-z][A-Za-z0-9-]*(?:\s+[^<>]*)?>/u],
   ["identifier_or_hash", /\b(?:sha256|sha|hash|id)\s*[:=]\s*[A-Za-z0-9._-]{4,}\b/iu],
   ["identifier_or_hash", /\b[A-Za-z][A-Za-z0-9_-]*[-_]id\s*[:=]?\s*[A-Za-z0-9._-]{6,}\b/iu],
@@ -65,7 +117,7 @@ export function classifyContext(content: string): ContextClassification {
   const reasons = new Set<string>();
 
   for (const [reason, pattern] of EXACT_PATTERNS) {
-    if (pattern.test(content)) {
+    if (matchesPolicyPredicate(pattern, content)) {
       reasons.add(reason);
     }
   }
