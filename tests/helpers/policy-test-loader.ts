@@ -19,12 +19,14 @@ export interface LoadedPolicyInternals {
   EXACT_PATTERNS: Array<[string, PolicyPredicate]>;
   classifyContext(content: string): ContextClassification;
   lossyCompressionAllowed(classification: ContextClassification): boolean;
+  hasTechnicalTokenShape(line: string): boolean;
+  containsTechnicalTokenShape(content: string): boolean;
 }
 
 export function loadPolicyInternals(sourceRelative: string): LoadedPolicyInternals {
   const root = process.cwd();
   const sourcePath = resolve(root, sourceRelative);
-  const source = `${readFileSync(sourcePath, "utf8")}\nexport { EXACT_PATTERNS };\n`;
+  const source = `${readFileSync(sourcePath, "utf8")}\nexport { EXACT_PATTERNS, hasTechnicalTokenShape, containsTechnicalTokenShape };\n`;
   const require = createRequire(import.meta.url);
   const ts = require("typescript");
   const js = ts.transpileModule(source, {

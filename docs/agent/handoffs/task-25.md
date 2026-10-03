@@ -29,7 +29,7 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 ## Remaining work and gates
 - [x] Complete baseline supplements and commit immutable characterization (95b7846).
 - [x] Group 1 RED/GREEN and native review; committed with this checkpoint.
-- [ ] Group 2 RED/GREEN and commit.
+- [x] Group 2 recovered RED/GREEN, independent verification and Astra review; committed with this checkpoint.
 - [ ] Group 3 RED/GREEN and commit.
 - [ ] Group 4 RED/GREEN and commit.
 - [ ] Whole-classifier before/after matrix, large-input checks and group proofs.
@@ -45,3 +45,13 @@ Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main 
 - Native Astra source/test/proof review: PASS, no unresolved findings. Frozen oracle/corpus files unchanged from baseline commit.
 - External cross-check: exact Claude model `claude-opus-5` successfully answered an availability probe; the actual scoped review timed out at 180 seconds with no parseable result. It is NOT a completed review. Gemini API-key configuration does not establish free-tier eligibility, so no potentially paid call was made. Copilot CLI absent and GitHub extensions empty. Cross-check status: DEGRADED for this checkpoint; native Astra independently reviewed the code and tests.
 - Main TypeScript project check passed. Script typecheck attempted before build reported missing dist imports; the required final build-before-typecheck gate remains pending.
+
+## Group 2 recovery and verification
+- Interrupted candidate had a trace-keyword boundary regression: `traceabcdef` differed from the frozen oracle. Observed differential/helper failures before corrective edits. Removed the extra boundary and locale comparison using the approved factored-whitespace regex; simplified the HTML-tag whitespace expression.
+- Added structured predicate/full-output differential cases and corrected the performance recipes to exercise missing-tail failures. Frozen oracle and 120 fixed expectations remain unchanged.
+- Recovered performance RED used frozen-oracle children with 5-second limits. This happened after the inherited partial candidate existed; no claim of an untouched-worktree test-first sequence. The original immutable baseline already recorded superlinear behavior before runtime edits.
+- Implementer reported 192 targeted tests passed; build then typecheck passed. Generated bundle restored to HEAD pending the final full-Task rebuild. [Proofs, raw samples and source provenance](../../research/evidence/task-25/group-2.md).
+- Native Astra independent final verification pending at this record update. Exact Claude Opus 5 scoped source review requested again; no completed external review claimed yet.
+- Group 3 test-only preparation is separate: original rules passed semantic/whole-object checks, while rule #10's 400,000-character isolated child exceeded 5 seconds. Its performance loop stopped at #10; no timings for #12/#25 claimed from that test run.
+- Final Group2 Astra CLI review: PASS, no blocker/major; one minor proof wording issue corrected from disjoint scans to bounded overlap. Source unchanged after 192/192 independent verification. Native quota failure and successful same-model CLI recovery recorded locally.
+- Second scoped Claude Opus5 review timed out at120seconds with no parseable result. External cross-check remains DEGRADED; Astra review is independently completed through OpenAI CLI, not represented as Claude.

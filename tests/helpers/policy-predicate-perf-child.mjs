@@ -42,6 +42,13 @@ const recipes = {
   sql: (targetSize) => exactLength(targetSize, "", "DROP "),
   php: (targetSize) => exactLength(targetSize, "", "<?a"),
   comment: (targetSize) => exactLength(targetSize, "", "<!--"),
+  uri: (targetSize) => exactLength(targetSize, "", "a-", "!"),
+  dotted: (targetSize) => exactLength(targetSize, "", "a-", "!"),
+  filename: (targetSize) => exactLength(targetSize, "", "a.", "!"),
+  bang: (targetSize) => exactLength(targetSize, "", "<!a"),
+  tag: (targetSize) => exactLength(targetSize, "<a", " "),
+  identifierId: (targetSize) => exactLength(targetSize, "", "a-", "!"),
+  trace: (targetSize) => exactLength(targetSize, "trace", " ", "="),
 };
 const recipe = recipes[family];
 if (!recipe) throw new Error(`unknown family: ${family}`);
