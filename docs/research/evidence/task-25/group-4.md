@@ -6,7 +6,7 @@ Only the private punctuation-strip and command-argument predicates were changed.
 
 ## Implementation and equivalence
 
-`stripShellPunctuation` now advances a leading index across exactly `[('"`]` and a trailing index across exactly `[).,;"'`]`, stopping when the indices meet, then returns one slice. The forward pass is completed before the reverse pass, matching the global replacement's non-overlapping behavior on short tokens and long punctuation runs.
+`stripShellPunctuation` now advances a leading index across exactly ``[('"`]`` and a trailing index across exactly ``[).,;"'`]``, stopping when the indices meet, then returns one slice. The forward pass is completed before the reverse pass, matching the global replacement's non-overlapping behavior on short tokens and long punctuation runs.
 
 `hasCommandArgumentShape` scans maximal `/[a-z0-9._-]/iu` runs by Unicode code point. It records a start only when the original `/iu` word-boundary and `[a-z]/iu` conditions hold, preserving Unicode case-fold cases such as Kelvin sign and long s. At the run end, it requires the same whitespace separator, consumes that whitespace once, and checks the original-input suffix alternatives using a sticky `/iyu` expression. The suffix expression retains its final `\b` and uses the original string so boundary semantics are not changed by slicing.
 

@@ -32,8 +32,8 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 - [x] Group 2 recovered RED/GREEN, independent verification and Astra review; committed with this checkpoint.
 - [x] Group 3 RED/GREEN and independent Astra review; committed with this checkpoint.
 - [x] Group 4 RED/GREEN and independent Astra review; committed with this checkpoint.
-- [ ] Whole-classifier before/after matrix, large-input checks and group proofs.
-- [ ] Targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
+- [x] Whole-classifier before/after matrix, large-input checks and group proofs.
+- [x] Pre-PR targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
 - [ ] Rebuilt bundle, Draft PR, post-PR verification and final Astra review.
 
 ## Safety and boundaries
@@ -68,3 +68,11 @@ Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main 
 - Parent fresh targeted suite: 202/202 tests across six files, 17.07 seconds. Frozen outputs and test oracle unchanged; F-21 deliberately preserved.
 - Native Luna exhausted its quota; actual `gpt-6-luna` CLI execution succeeded and implemented this group. No substitute model or configuration change.
 - Astra CLI review found no runtime blocker. It found a missing cumulative deadline and source-hash drift risk in the separate large-input runner; both were corrected before execution. Follow-up checkpoint PASS, no remaining blocker. External cross-check remains DEGRADED for the previously recorded provider limits.
+
+## Whole-Task evidence and pre-PR gate
+- [Before/after comparison](../../research/evidence/task-25/comparison.json): all 12 families at three sizes, five raw samples per completed cell; all 36 full classification objects match. The immutable 120-case expected-output fixture remains unchanged from `95b7846`.
+- [Large-input measurements](../../research/evidence/task-25/large-current-2026-10-04T03-04-30.270Z.json): 1/5/10 MiB, 12 families, 180 raw samples; all completed within the cumulative 180-second cap. 10 MiB family medians range from 791.05 to 3,044.44 ms. This remains synchronous work; no event-loop latency guarantee is asserted.
+- Pre-PR gate: `npm.cmd test` passed 775 tests with one existing Windows FIFO skip (25 files, 20.37 seconds). `npm.cmd run build`, `typecheck`, `smoke:mcp`, `validate:plugin`, `benchmark`, and `git diff --check 5828f02` all passed in order. Logs are local under parent `.artifacts/task25-verification/pre-pr/`.
+- Rebuilt tracked bundle and independently rebuilt a scratch output using the same script: SHA-256 `3E504807CD8EECD4F6425A4D1CA5FBF3A43701E9F97CB131B5361051BD63F46D` for both.
+- Source commits: Group1 `f97cefc`, Group2 `717f369`, Group3 `b00b503`, Group4 `07b0f53`; all authors/committers verified as the user. One trailing test-line space detected during staging was removed in the delivery commit without rewriting history; historical measurement hashes remain historical.
+- No dependency, public API, classifier-output or unrelated finding change. Benchmark F-04/F-05 and F-21 are outside this Task. Finite measurements supplement, rather than replace, the group-specific equivalence and operation-count arguments.

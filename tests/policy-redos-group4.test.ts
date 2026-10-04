@@ -205,7 +205,7 @@ describe("policy ReDoS group 4 characterization", () => {
       "npm.x",
       "npm/",
       "NAME=value)",
-      "=", 
+      "=",
     ];
     for (const token of [...cases, ...group4Inputs()]) {
       expect(current.stripShellPunctuation(token), JSON.stringify(token)).toBe(
