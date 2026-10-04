@@ -378,6 +378,56 @@ function hasTraceLikeValue(content: string): boolean {
   return /\b(?:trace|span|correlation|request|session|event)\s*(?:[:=]\s*)?[A-Za-z0-9._-]{6,}\b/iu.test(content);
 }
 
+function hasMultilinePipeTable(content: string): boolean {
+  let leading = true;
+  let bodyEmpty = false;
+  let body = false;
+  let trailing = false;
+
+  for (let index = 0; index < content.length;) {
+    const char = codePointAt(content, index);
+    if (trailing && char === "\n") {
+      return true;
+    }
+
+    let nextLeading = char === "\n";
+    let nextBodyEmpty = false;
+    let nextBody = false;
+    let nextTrailing = false;
+
+    if (leading) {
+      if (isCodePointWhitespace(char)) {
+        nextLeading = true;
+      } else if (char === "|") {
+        nextBodyEmpty = true;
+      }
+    }
+
+    const isDot = char !== "\n" && char !== "\r" && char !== "\u2028" && char !== "\u2029";
+    if (bodyEmpty && isDot) {
+      nextBody = true;
+    }
+    if (body && isDot) {
+      nextBody = true;
+      if (char === "|") {
+        nextTrailing = true;
+      }
+    }
+
+    if (trailing && isCodePointWhitespace(char)) {
+      nextTrailing = true;
+    }
+
+    leading = nextLeading;
+    bodyEmpty = nextBodyEmpty;
+    body = nextBody;
+    trailing = nextTrailing;
+    index += char?.length ?? 1;
+  }
+
+  return trailing;
+}
+
 function matchesPolicyPredicate(predicate: PolicyPredicate, content: string): boolean {
   return typeof predicate === "function" ? predicate(content) : predicate.test(content);
 }
@@ -393,9 +443,9 @@ const EXACT_PATTERNS: Array<[string, PolicyPredicate]> = [
   ["code_or_path", hasKnownFilename],
   ["code_or_path", /(?:^|\s)[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)+(?:\s|$|[).,;:])/u],
   ["code_or_path", /\b(?:error|exception|traceback|stack trace|diff --git|@@)\b/iu],
-  ["code_or_path", /^\s*(?:(?:sudo|doas)\s+)?(?:npm|node|git|pnpm|yarn|cargo|go|python|pytest|curl|echo|copy|cp|mv|rm|mkdir|cat|grep|rg|sed|awk|ssh|scp|docker|kubectl|make)\b/imu],
+  ["code_or_path", /^[^\S\r\n\u2028\u2029]*(?:(?:sudo|doas)\s+)?(?:npm|node|git|pnpm|yarn|cargo|go|python|pytest|curl|echo|copy|cp|mv|rm|mkdir|cat|grep|rg|sed|awk|ssh|scp|docker|kubectl|make)\b/imu],
   ["code_or_path", /\b(?:run|execute|invoke)\s+[a-z][a-z0-9._-]*(?:\s+[A-Za-z0-9._+=:/-]+){0,5}/iu],
-  ["code_syntax", /^\s*(?:import|export|const|let|var|return|function|class|interface|type|if|for|while|try|catch)\b/mu],
+  ["code_syntax", /^[^\S\r\n\u2028\u2029]*(?:import|export|const|let|var|return|function|class|interface|type|if|for|while|try|catch)\b/mu],
   ["code_syntax", hasSqlKeywordSequence],
   ["code_syntax", hasDelimiterThenSyntaxTail],
   ["code_syntax", hasBangDeclaration],
@@ -408,7 +458,7 @@ const EXACT_PATTERNS: Array<[string, PolicyPredicate]> = [
   ["identifier_or_hash", /\b[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9_]+\b/u],
   ["identifier_or_hash", /\b[A-Fa-f0-9]{32,}\b/u],
   ["identifier_or_hash", /\b[A-Z]{2,}[-_][A-Z0-9]{3,}\b/u],
-  ["numeric_or_table", /(?:^|\n)\s*\|.+\|\s*(?:\n|$)/u],
+  ["numeric_or_table", hasMultilinePipeTable],
   ["numeric_or_table", /\b\d+(?:\.\d+)?(?:ms|s|MB|GB|KiB|MiB|%|tokens?)?\b/iu],
 ];
 

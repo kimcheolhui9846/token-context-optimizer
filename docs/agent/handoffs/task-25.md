@@ -30,7 +30,7 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 - [x] Complete baseline supplements and commit immutable characterization (95b7846).
 - [x] Group 1 RED/GREEN and native review; committed with this checkpoint.
 - [x] Group 2 recovered RED/GREEN, independent verification and Astra review; committed with this checkpoint.
-- [ ] Group 3 RED/GREEN and commit.
+- [x] Group 3 RED/GREEN and independent Astra review; committed with this checkpoint.
 - [ ] Group 4 RED/GREEN and commit.
 - [ ] Whole-classifier before/after matrix, large-input checks and group proofs.
 - [ ] Targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
@@ -55,3 +55,10 @@ Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main 
 - Group 3 test-only preparation is separate: original rules passed semantic/whole-object checks, while rule #10's 400,000-character isolated child exceeded 5 seconds. Its performance loop stopped at #10; no timings for #12/#25 claimed from that test run.
 - Final Group2 Astra CLI review: PASS, no blocker/major; one minor proof wording issue corrected from disjoint scans to bounded overlap. Source unchanged after 192/192 independent verification. Native quota failure and successful same-model CLI recovery recorded locally.
 - Second scoped Claude Opus5 review timed out at120seconds with no parseable result. External cross-check remains DEGRADED; Astra review is independently completed through OpenAI CLI, not represented as Claude.
+
+## Group 3 verification
+- Rules #10/#12 retain multiline starts but consume only horizontal leading whitespace; rule #25 uses a four-state streaming table predicate. [Equivalence arguments and raw measurements](../../research/evidence/task-25/group-3.md).
+- Original #10/#12/#25 children each exceeded the 5-second deadline at 400,000 characters. All post-change samples completed at four sizes; timeouts remain explicitly censored.
+- Parent fresh targeted verification: 196/196 tests across five files, 15.51 seconds. Frozen oracle, corpus and expected outputs remain unchanged.
+- Independent Astra CLI review: PASS, no blocker/major. Corrected the evidence timeout label to per-child (multiple samples run in each child). Supplementary Unicode test suggestions remain nonblocking; existing differential cases and structural proof support equivalence.
+- Group4 test preparation observed four semantic tests passing and two genuine 5-second performance timeouts against unchanged helpers. An earlier AST-extraction harness error was corrected before recording these RED results.

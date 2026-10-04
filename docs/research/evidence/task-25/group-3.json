@@ -1,0 +1,59 @@
+{
+  "group": 3,
+  "scope": [10, 12, 25],
+  "head": "717f369ea61b2aba701613fab3922dbd99e9b6c2",
+  "workingTreeState": "Group2 committed; Group3 source/tests dirty; additional separately owned files present",
+  "oracleOrigin": "5828f02840304067e8d345969ffc7c1a981650ec",
+  "oracleFileSha256": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158",
+  "runtime": { "node": "v24.18.0", "platform": "win32", "architecture": "x64" },
+  "filesSha256": {
+    "src/core/policy.ts": "cc61d3168fc2906ec3b268d6d98509050e8649d9c4c2442fa0fb3d6752d125f5",
+    "tests/helpers/policy-baseline.ts": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158",
+    "tests/policy-redos-group3.test.ts": "29bf70df11eeb85940f022bb536720bffd22124b26edce97c40ed2b6c90cc250",
+    "tests/helpers/policy-lines-perf-child.mjs": "47a446334d94072a585090c0e95e8135955d387971a351fbeca6dc5e7ed3de66"
+  },
+  "inputRecipe": "\\n-space repeated to requested size minus one, followed by x: `\\n `.repeat(Math.ceil((size - 1) / 2)).slice(0, size - 1) + `x`",
+  "inputSizes": [50000, 100000, 200000, 400000],
+  "warmup": "one evaluation of `\\n x` before timed samples",
+  "sampleCountPerSize": 5,
+  "perChildTimeoutMs": 10000,
+  "baselineRed": {
+    "commandTemplate": "node tests/helpers/policy-lines-perf-child.mjs tests/helpers/policy-baseline.ts <index> 400000 1",
+    "parentTimeoutMs": 5000,
+    "observations": [
+      { "index": 10, "status": null, "signal": "SIGTERM", "error": "ETIMEDOUT", "stdout": "", "wallMs": 5019 },
+      { "index": 12, "status": null, "signal": "SIGTERM", "error": "ETIMEDOUT", "stdout": "", "wallMs": 5011 },
+      { "index": 25, "status": null, "signal": "SIGTERM", "error": "ETIMEDOUT", "stdout": "", "wallMs": 5015 }
+    ],
+    "note": "Wall time includes timeout handling; 5 seconds is a censoring deadline, not the predicate's measured duration."
+  },
+  "postChangeSamplesNs": {
+    "10": {
+      "50000": [239700, 76100, 75400, 75500, 79200],
+      "100000": [353700, 151500, 150100, 150000, 154000],
+      "200000": [475600, 293900, 293100, 292900, 296700],
+      "400000": [818300, 586300, 590400, 585400, 602500]
+    },
+    "12": {
+      "50000": [131400, 74300, 73900, 73800, 77200],
+      "100000": [218100, 147500, 146800, 146800, 190600],
+      "200000": [427000, 301000, 716400, 301900, 318000],
+      "400000": [727200, 587600, 585400, 590900, 589500]
+    },
+    "25": {
+      "50000": [1923500, 1654100, 1292400, 1047100, 914600],
+      "100000": [3312900, 2379700, 1777600, 2010400, 1475000],
+      "200000": [5017300, 4376000, 3047300, 3000600, 3104500],
+      "400000": [8478000, 6395400, 6151400, 5825100, 5845700]
+    }
+  },
+  "allPostChangeResults": false,
+  "verification": {
+    "group3Targeted": "PASS; 1 file / 4 tests",
+    "groups1to3AndCore": "PASS; 5 files / 196 tests",
+    "typecheck": "PASS",
+    "build": "NOT RUN; dist already present and bundle changes excluded",
+    "initialSandboxTestAttempt": "Vitest/esbuild denied access to worktree config; escalated rerun passed"
+  },
+  "evidenceLimits": "Predicate timings and equivalence arguments apply to this group; they do not establish whole-classifier linearity."
+}
