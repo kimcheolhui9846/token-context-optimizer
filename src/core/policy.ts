@@ -549,10 +549,40 @@ function hasTechnicalTokenShape(line: string): boolean {
   return [
     hasDottedTokenShape,
     /\b(?:run|execute|invoke)\s+[a-z][a-z0-9._-]*(?:\s+[A-Za-z0-9._+=:/-]+){0,5}/iu,
-    /\b[a-z][a-z0-9._-]*\s+(?:[ugoa]*[+=-][rwxXstugo,]+|--?[A-Za-z0-9][A-Za-z0-9-]*|[A-Za-z_][A-Za-z0-9_]*=|\.{0,2}\/|~\/|[A-Za-z]:[\\/]|[a-z][a-z0-9._-]*\/|(?:apply|build|clone|deploy|install|merge|pull|push|release|restart|test|upgrade))\b/iu,
+    hasCommandArgumentShape,
     hasTraceLikeValue,
     /\b[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9_]+\b/u,
   ].some((pattern) => matchesPolicyPredicate(pattern, line));
+}
+
+const COMMAND_ARGUMENT_SUFFIX = /(?:[ugoa]*[+=-][rwxXstugo,]+|--?[A-Za-z0-9][A-Za-z0-9-]*|[A-Za-z_][A-Za-z0-9_]*=|\.{0,2}\/|~\/|[A-Za-z]:[\\/]|[a-z][a-z0-9._-]*\/|(?:apply|build|clone|deploy|install|merge|pull|push|release|restart|test|upgrade))\b/iyu;
+
+function hasCommandArgumentShape(content: string): boolean {
+  let runStart = -1;
+  let eligibleStart = -1;
+  for (let index = 0; index <= content.length;) {
+    const char = codePointAt(content, index);
+    if (char !== undefined && /^[a-z0-9._-]$/iu.test(char)) {
+      if (eligibleStart === -1 && isNameFirstIu(char) && isWordBoundaryIu(content, index)) eligibleStart = index;
+      if (runStart === -1) runStart = index;
+      index += char.length;
+      continue;
+    }
+    if (runStart !== -1 && eligibleStart !== -1 && char !== undefined && /^\s$/u.test(char)) {
+      let suffixStart = index;
+      while (suffixStart < content.length) {
+        const whitespace = codePointAt(content, suffixStart);
+        if (whitespace === undefined || !/^\s$/u.test(whitespace)) break;
+        suffixStart += whitespace.length;
+      }
+      COMMAND_ARGUMENT_SUFFIX.lastIndex = suffixStart;
+      if (COMMAND_ARGUMENT_SUFFIX.test(content)) return true;
+    }
+    runStart = -1;
+    eligibleStart = -1;
+    index += char?.length ?? 1;
+  }
+  return false;
 }
 
 function containsTechnicalTokenShape(content: string): boolean {
@@ -617,5 +647,9 @@ function looksLikeCommandOrAssignment(token: string): boolean {
 }
 
 function stripShellPunctuation(token: string): string {
-  return token.replace(/^[("'`]+|[).,;"'`]+$/gu, "");
+  let start = 0;
+  let end = token.length;
+  while (start < end && /[("'`]/u.test(token[start])) start += 1;
+  while (end > start && /[).,;"'`]/u.test(token[end - 1])) end -= 1;
+  return token.slice(start, end);
 }

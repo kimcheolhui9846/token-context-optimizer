@@ -31,7 +31,7 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 - [x] Group 1 RED/GREEN and native review; committed with this checkpoint.
 - [x] Group 2 recovered RED/GREEN, independent verification and Astra review; committed with this checkpoint.
 - [x] Group 3 RED/GREEN and independent Astra review; committed with this checkpoint.
-- [ ] Group 4 RED/GREEN and commit.
+- [x] Group 4 RED/GREEN and independent Astra review; committed with this checkpoint.
 - [ ] Whole-classifier before/after matrix, large-input checks and group proofs.
 - [ ] Targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
 - [ ] Rebuilt bundle, Draft PR, post-PR verification and final Astra review.
@@ -62,3 +62,9 @@ Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main 
 - Parent fresh targeted verification: 196/196 tests across five files, 15.51 seconds. Frozen oracle, corpus and expected outputs remain unchanged.
 - Independent Astra CLI review: PASS, no blocker/major. Corrected the evidence timeout label to per-child (multiple samples run in each child). Supplementary Unicode test suggestions remain nonblocking; existing differential cases and structural proof support equivalence.
 - Group4 test preparation observed four semantic tests passing and two genuine 5-second performance timeouts against unchanged helpers. An earlier AST-extraction harness error was corrected before recording these RED results.
+
+## Group 4 verification
+- Replaced punctuation stripping with endpoint scans and the third technical-token predicate with a maximal-run scan plus original-string sticky suffix matching. [Equivalence, RED/GREEN and raw samples](../../research/evidence/task-25/group-4.md).
+- Parent fresh targeted suite: 202/202 tests across six files, 17.07 seconds. Frozen outputs and test oracle unchanged; F-21 deliberately preserved.
+- Native Luna exhausted its quota; actual `gpt-6-luna` CLI execution succeeded and implemented this group. No substitute model or configuration change.
+- Astra CLI review found no runtime blocker. It found a missing cumulative deadline and source-hash drift risk in the separate large-input runner; both were corrected before execution. Follow-up checkpoint PASS, no remaining blocker. External cross-check remains DEGRADED for the previously recorded provider limits.
