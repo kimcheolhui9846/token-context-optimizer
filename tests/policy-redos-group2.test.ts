@@ -185,17 +185,17 @@ describe("policy ReDoS group 2 characterization", () => {
     }
   });
 
-  it("bounds group 2 predicates on large missing-tail inputs", () => {
-    const cases = [
-      ["3", "uri"],
-      ["6", "dotted"],
-      ["7", "filename"],
-      ["15", "bang"],
-      ["18", "tag"],
-      ["20", "identifierId"],
-      ["21", "trace"],
-    ];
-    for (const [patternIndex, family] of cases) {
+  it.each([
+    ["3", "uri"],
+    ["6", "dotted"],
+    ["7", "filename"],
+    ["15", "bang"],
+    ["18", "tag"],
+    ["20", "identifierId"],
+    ["21", "trace"],
+  ] as const)(
+    "bounds group 2 predicate %s (%s) on large missing-tail inputs",
+    (patternIndex, family) => {
       const child = spawnSync(process.execPath, [
         "tests/helpers/policy-predicate-perf-child.mjs",
         "src/core/policy.ts",
@@ -221,6 +221,6 @@ describe("policy ReDoS group 2 characterization", () => {
       ).toBe(true);
       expect(report.samples.every((sample) => sample.result === false), `${patternIndex}/${family} result`).toBe(true);
       expect(elapsedNs[1], `${patternIndex}/${family}`).toBeLessThan(500_000_000);
-    }
-  });
+    },
+  );
 });
