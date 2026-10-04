@@ -2,7 +2,7 @@
 
 ## Scope and invariant
 
-Only the private punctuation-strip and command-argument predicates were changed. Classification mode, ordered reasons, warnings and the lossy-compression decision must remain identical for every input. The frozen baseline and characterization fixture are unchanged. F-21's existing `Note:` misclassification is deliberately preserved and remains a separate Task.
+Only the private punctuation-strip and command-argument predicates were changed. For every input on which the original main classifier returns a value, classification mode, ordered reasons, warnings and the lossy-compression decision must remain identical. Exception behavior outside that domain is not covered by this equivalence claim. The frozen baseline and characterization entries are unchanged. F-21's existing `Note:` misclassification is deliberately preserved and remains a separate Task.
 
 ## Implementation and equivalence
 

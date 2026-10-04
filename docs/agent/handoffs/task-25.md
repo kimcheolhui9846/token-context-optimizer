@@ -2,8 +2,26 @@ PR: [#25 (Draft)](https://github.com/kimcheolhui9846/token-context-optimizer/pul
 
 # Task 25 — F-03 classifier ReDoS
 
+## PR #25 re-review correction checkpoint
+- This follow-up changes tests, evidence and documentation only; `policy.ts`, its bundle, dependencies, frozen oracle body and all 120 expected classifications remain unchanged from `e51af55`. Fixture provenance gains the base LF hash without regenerating expected results.
+- [Regression evidence](../../research/evidence/task-25/revision-tests.json): newly covered group 1 rules #13/#16/#17 each hit the actual five-second frozen-oracle timeout at 400,000 characters; current predicates pass. Added all eight requested witnesses and two true punctuation-removal recipes. Those two recipes are GREEN characterization in both versions, not original-code RED; current scans are slower on those inputs.
+- [Exception observations](../../research/evidence/task-25/exception-probes-2026-10-04T13-45-25.351Z.json): newly discovered pre-existing Major, **outside this Task; separate user decision required**. Current hex/digits classifiers throw at 10 MiB and return at 1/5 MiB. The unchanged isolated hex regex returns with 5 million `a` characters plus `g`, and throws with 6 million plus `g`. At 10 million UTF-16 code units (28 million UTF-8 bytes), the U+3000/newline recipe throws in main's frozen classifier but returns in the current classifier. No runtime repair is included.
+- Fresh targeted check: 207 passed across six files (16.07 s). Full gate: 780 passed, one existing FIFO skip, 25 files (18.93 s), followed by build → typecheck → smoke:mcp → validate:plugin → benchmark → diff check, all exit 0. Parent-local logs: `.artifacts/task25-verification/revision-pre-push/`.
+- Scratch and tracked rebuilt bundle SHA-256 both remain `3E504807CD8EECD4F6425A4D1CA5FBF3A43701E9F97CB131B5361051BD63F46D`. Astra's independent pre-commit review is PASS WITH NOTES; push and post-push verification are pending at this checkpoint. Final delivery status is recorded in the PR; no merge.
+- This revision successfully obtained separate plan and test-diff reviews from actual Claude Code `claude-opus-5`. Astra evaluated the proposed index-mapping and timeout-margin concerns against existing direct predicate witnesses and the explicitly requested five-second deadline; neither is a demonstrated blocker. Frozen expected results must not be regenerated. Loaded-CI timing variability remains a note. Gemini free-tier eligibility remains unverified and callable Copilot unavailable; their reviews were not performed. Historical DEGRADED checkpoints below describe earlier failed reviews, not this revision's successful Claude calls.
+
 ## Scope and approval
-User approved semantic-preserving rewrites of zero-based EXACT_PATTERNS #3 #6 #7 #10 #12 #13 #14 #15 #16 #17 #18 #20 #21 #25 and punctuation/command-prefix helpers. Preserve mode, ordered reasons, warnings and lossy-compression permission for every input. F-21 and all unrelated findings remain unchanged. No input cap, search window, reason-based skipping or classifier early return.
+User approved semantic-preserving rewrites of zero-based EXACT_PATTERNS #3 #6 #7 #10 #12 #13 #14 #15 #16 #17 #18 #20 #21 #25 and punctuation/command-prefix helpers. Preserve mode, ordered reasons, warnings and lossy-compression permission for every input on which the original main classifier returns a value. F-21 and all unrelated findings remain unchanged. No input cap, search window, reason-based skipping or classifier early return.
+
+## Scope-external exception and equivalence limit
+- A separately reported original behavior at multi-million-character inputs raises `RangeError` in an unchanged `hexadecimal-word-boundary` pattern. The proposed Task changes do not address it; runtime scope is frozen pending a separate user decision.
+- Reviewer-reported `hexReDoS = /\b[A-Fa-f0-9]{32,}\b/u.test('a'.repeat(6e6) + 'g')` reportedly returns normally at 5e6 and throws `RangeError` at 6e6. This is reviewer-attributed, not locally reproduced unless the separate exception probe artifact records it.
+- Reviewer-reported Unicode stress case `('\u3000'.repeat(9) + '\n').repeat(1e6)` (10 million UTF-16 code units) reportedly threw `RangeError` in the original classifier and returned in the current classifier. Attribute this to the reviewer unless locally reproduced.
+- Related references: pattern #23 (digits/A), #19 (`id` plus dots), #8 (paths), and #10/#12 (U+3000 whitespace). These are reviewer observations, not newly approved runtime changes.
+- Task-level differential equivalence applies to inputs on which the original main classifier returns a value. It does not establish equivalent exception behavior or universal linearity for every possible input.
+- The bounded ASCII family measurements at 1, 5 and 10 MiB cover only those recipes and are not a general safety guarantee. At 10 MiB, current-classifier family medians were 0.79–3.04 s in the recorded run. Claude's separate report described roughly 3–5x constant-factor slowdown on linear inputs and 0.8–3.2 s at 10 MiB; these estimates are reviewer-attributed, not local measurements. See [exception evidence](../../research/evidence/task-25/README.md#scope-external-exception-observations).
+- `remaining-audit.json` exercised the original main classifier at 10,000 and 20,000 code units only; it is not evidence for multi-million-character safety.
+- Local supplemental probes have now run; see the revision checkpoint above. The original historical matrix is preserved.
 
 ## Plan and delivery groups
 See [approved plan](../../superpowers/plans/2026-10-01-policy-redos.md).
@@ -16,8 +34,9 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 ## Baseline evidence
 - Fresh base npm.cmd test: 755 passed, one Windows FIFO skip, 20 files, 17.82 seconds.
 - Original policy source SHA-256: E4503C0B2189AEC05EE8A3349788A033092E9B20F14C7D1C3F4F90734F28F8B1 (worktree bytes). Test-only oracle preserves source body with import-path adjustment and an explicit provenance comment.
+- The fixture provenance retains that historical worktree-byte hash in `sourceSha256` and adds `baselineSourceSha256Lf`: `b00296dde8041ca8b952bd774c84e6af87e635eae8068e3a603dcafa47e57ad1`, independently recomputed from the base `src/core/policy.ts` bytes at `5828f02`. The 120 frozen expected entries are unchanged.
 - Original classification corpus: 120 cases; characterization test passed. This is GREEN characterization, not performance RED. Expected outputs were captured before any runtime changes and must not be regenerated from the new classifier.
-- Astra remaining-pattern screen: 17 cases, two sizes, five raw samples; all bounded children completed and no new out-of-scope superlinear case was identified. Finite screening is not universal complexity proof.
+- Astra remaining-pattern screen: 17 cases, two sizes, five raw samples; all bounded children completed without identifying an additional superlinear case in that finite screen. It did not cover the separately reported multi-million-character exception described below.
 - [Measurement evidence and reproduction](../../research/evidence/task-25/README.md). Baseline phase retained its 180-second cap and censored records; supplemental runs preserve rather than overwrite those observations. Runtime implementation has not started at this checkpoint.
 
 ## Review and execution history
@@ -33,6 +52,7 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 - [x] Group 3 RED/GREEN and independent Astra review; committed with this checkpoint.
 - [x] Group 4 RED/GREEN and independent Astra review; committed with this checkpoint.
 - [x] Whole-classifier before/after matrix, large-input checks and group proofs.
+- [x] Scope-external exception observations: 13 bounded probes completed and recorded in the re-review supplement above; runtime remains frozen pending a separate user decision.
 - [x] Pre-PR targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
 - [x] Rebuilt bundle, Draft PR and post-PR verification. Final Astra assessment is recorded in the PR after these checks; user approval is required for integration.
 
@@ -74,6 +94,7 @@ Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main 
 - [Large-input measurements](../../research/evidence/task-25/large-current-2026-10-04T03-04-30.270Z.json): 1/5/10 MiB, 12 families, 180 raw samples; all completed within the cumulative 180-second cap. 10 MiB family medians range from 791.05 to 3,044.44 ms. This remains synchronous work; no event-loop latency guarantee is asserted.
 - Pre-PR gate: `npm.cmd test` passed 775 tests with one existing Windows FIFO skip (25 files, 20.37 seconds). `npm.cmd run build`, `typecheck`, `smoke:mcp`, `validate:plugin`, `benchmark`, and `git diff --check 5828f02` all passed in order. Logs are local under parent `.artifacts/task25-verification/pre-pr/`.
 - Rebuilt tracked bundle and independently rebuilt a scratch output using the same script: SHA-256 `3E504807CD8EECD4F6425A4D1CA5FBF3A43701E9F97CB131B5361051BD63F46D` for both.
+- `after.json` records HEAD `b00b503` although the measured source already contained the uncommitted Group4 change. Its raw mixed-line-ending SHA-256 `e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8` normalizes CRLF to LF as `120e3ce5b27ca8f68426349845c73e21f2c870e0cb4278a6e8216173c6f4bad1`, matching the `src/core/policy.ts` Git blob at `07b0f53` and `e51af55`. The original base source LF SHA-256 is `b00296dde8041ca8b952bd774c84e6af87e635eae8068e3a603dcafa47e57ad1`.
 - Source commits: Group1 `f97cefc`, Group2 `717f369`, Group3 `b00b503`, Group4 `07b0f53`; all authors/committers verified as the user. One trailing test-line space detected during staging was removed in the delivery commit without rewriting history; historical measurement hashes remain historical.
 - No dependency, public API, classifier-output or unrelated finding change. Benchmark F-04/F-05 and F-21 are outside this Task. Finite measurements supplement, rather than replace, the group-specific equivalence and operation-count arguments.
 

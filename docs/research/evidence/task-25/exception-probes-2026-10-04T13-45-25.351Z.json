@@ -1,0 +1,295 @@
+{
+  "phase": "scope-external-exception-observations",
+  "measuredAt": "2026-10-04T13:45:25.352Z",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64"
+  },
+  "source": {
+    "current": {
+      "path": "src/core/policy.ts",
+      "sha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "bytes": 19217
+    },
+    "baseline": {
+      "path": "tests/helpers/policy-baseline.ts",
+      "sha256": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158",
+      "bytes": 7594
+    },
+    "gitHead": "e51af55a78e4092ff754c46e02a64bf6fc5b6288"
+  },
+  "method": {
+    "targetUtf8Bytes": "exact, with UTF-16 code units and actual UTF-8 bytes recorded per outcome",
+    "oneSamplePerJob": true,
+    "childTimeoutMs": 10000,
+    "cumulativeBudgetMs": 120000,
+    "timeoutOutcome": "timeout-censored; distinct from a thrown exception",
+    "childOperationElapsedNs": "only classify/regex invocation, including thrown calls",
+    "childWallMs": "parent-observed child process wall time, including startup and compilation",
+    "constructionAndCompilationTimed": false,
+    "baselineFullClassifierCases": [
+      "single reviewer-reported U+3000 case only"
+    ]
+  },
+  "jobs": [
+    {
+      "revision": "current",
+      "family": "hex",
+      "targetUtf8Bytes": 1048576,
+      "status": "returned",
+      "childWallMs": 455.4651,
+      "utf16CodeUnits": 1048576,
+      "utf8Bytes": 1048576,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "223901400",
+      "detail": {
+        "returned": true,
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "current",
+      "family": "hex",
+      "targetUtf8Bytes": 5242880,
+      "status": "returned",
+      "childWallMs": 1322.4294,
+      "utf16CodeUnits": 5242880,
+      "utf8Bytes": 5242880,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "1079353000",
+      "detail": {
+        "returned": true,
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "current",
+      "family": "hex",
+      "targetUtf8Bytes": 10485760,
+      "status": "threw",
+      "childWallMs": 1368.3512000000003,
+      "utf16CodeUnits": 10485760,
+      "utf8Bytes": 10485760,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "1134219800",
+      "detail": {
+        "name": "RangeError",
+        "message": "Maximum call stack size exceeded"
+      }
+    },
+    {
+      "revision": "current",
+      "family": "digits",
+      "targetUtf8Bytes": 1048576,
+      "status": "returned",
+      "childWallMs": 364.79190000000017,
+      "utf16CodeUnits": 1048576,
+      "utf8Bytes": 1048576,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "135324500",
+      "detail": {
+        "returned": true,
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "current",
+      "family": "digits",
+      "targetUtf8Bytes": 5242880,
+      "status": "returned",
+      "childWallMs": 859.2093,
+      "utf16CodeUnits": 5242880,
+      "utf8Bytes": 5242880,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "625491200",
+      "detail": {
+        "returned": true,
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "current",
+      "family": "digits",
+      "targetUtf8Bytes": 10485760,
+      "status": "threw",
+      "childWallMs": 791.4216999999999,
+      "utf16CodeUnits": 10485760,
+      "utf8Bytes": 10485760,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "559008700",
+      "detail": {
+        "name": "RangeError",
+        "message": "Maximum call stack size exceeded"
+      }
+    },
+    {
+      "revision": "current",
+      "family": "u3000-newline",
+      "targetUtf8Bytes": 1048576,
+      "status": "returned",
+      "childWallMs": 307.16929999999957,
+      "utf16CodeUnits": 374492,
+      "utf8Bytes": 1048576,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "76863200",
+      "detail": {
+        "returned": true,
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "current",
+      "family": "u3000-newline",
+      "targetUtf8Bytes": 5242880,
+      "status": "returned",
+      "childWallMs": 602.1500999999998,
+      "utf16CodeUnits": 1872458,
+      "utf8Bytes": 5242880,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "366754600",
+      "detail": {
+        "returned": true,
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "current",
+      "family": "u3000-newline",
+      "targetUtf8Bytes": 10485760,
+      "status": "returned",
+      "childWallMs": 963.9465,
+      "utf16CodeUnits": 3744914,
+      "utf8Bytes": 10485760,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "719335400",
+      "detail": {
+        "returned": true,
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "revision": "baseline-regex",
+      "family": "hex-regex",
+      "targetUtf8Bytes": 5000001,
+      "status": "returned",
+      "childWallMs": 101.21700000000055,
+      "utf16CodeUnits": 5000001,
+      "utf8Bytes": 5000001,
+      "sourceSha256": null,
+      "childOperationElapsedNs": "38860000",
+      "detail": {
+        "returned": false
+      }
+    },
+    {
+      "revision": "baseline-regex",
+      "family": "hex-regex",
+      "targetUtf8Bytes": 6000001,
+      "status": "threw",
+      "childWallMs": 92.95049999999992,
+      "utf16CodeUnits": 6000001,
+      "utf8Bytes": 6000001,
+      "sourceSha256": null,
+      "childOperationElapsedNs": "33018700",
+      "detail": {
+        "name": "RangeError",
+        "message": "Maximum call stack size exceeded"
+      }
+    },
+    {
+      "revision": "baseline",
+      "family": "u3000-reviewer-case",
+      "targetUtf8Bytes": 28000000,
+      "status": "threw",
+      "childWallMs": 284.0699000000004,
+      "utf16CodeUnits": 10000000,
+      "utf8Bytes": 28000000,
+      "source": "tests/helpers/policy-baseline.ts",
+      "sourceSha256": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158",
+      "childOperationElapsedNs": "67371300",
+      "detail": {
+        "name": "RangeError",
+        "message": "Maximum call stack size exceeded"
+      }
+    },
+    {
+      "revision": "current",
+      "family": "u3000-reviewer-case",
+      "targetUtf8Bytes": 28000000,
+      "status": "returned",
+      "childWallMs": 2123.5416000000005,
+      "utf16CodeUnits": 10000000,
+      "utf8Bytes": 28000000,
+      "source": "src/core/policy.ts",
+      "sourceSha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+      "childOperationElapsedNs": "1868010600",
+      "detail": {
+        "returned": true,
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    }
+  ],
+  "budget": {
+    "elapsedMs": 9647.7451,
+    "cumulativeBudgetMs": 120000
+  }
+}

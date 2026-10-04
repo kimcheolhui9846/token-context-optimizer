@@ -111,14 +111,19 @@ describe("policy ReDoS group 1 characterization", () => {
     }
   });
 
-  it("bounds the delimiter predicate on a large missing-tail input", () => {
+  it.each([
+    [14, "delimiter"],
+    [13, "sql"],
+    [16, "php"],
+    [17, "comment"],
+  ] as const)("bounds rule %i (%s) on a large missing-tail input", (patternIndex, family) => {
     const child = spawnSync(process.execPath, [
       "tests/helpers/policy-predicate-perf-child.mjs",
       "src/core/policy.ts",
-      "14",
-      "delimiter",
+      String(patternIndex),
+      family,
       "400000",
-      "3",
+      "5",
     ], {
       cwd: process.cwd(),
       encoding: "utf8",
@@ -132,6 +137,7 @@ describe("policy ReDoS group 1 characterization", () => {
     const report = JSON.parse(child.stdout) as { samples: Array<{ elapsedNs: number; result: boolean }> };
     const elapsedNs = report.samples.map((sample) => sample.elapsedNs).sort((left, right) => left - right);
     expect(report.samples.every((sample) => sample.result === false)).toBe(true);
-    expect(elapsedNs[1]).toBeLessThan(500_000_000);
+    expect(report.samples).toHaveLength(5);
+    expect(elapsedNs[2]).toBeLessThan(500_000_000);
   });
 });

@@ -97,6 +97,9 @@ function predicateTest(predicate: PolicyPredicate, content: string): boolean {
 function group4Inputs(): string[] {
   const inputs = new Set<string>([
     "",
+    "1a install",
+    "9z --force",
+    "_a -x",
     "npm",
     "npm.",
     "npm,",
@@ -274,6 +277,30 @@ describe("policy ReDoS group 4 characterization", () => {
     expect(report.utf16Length).toBe(400_000);
     expect(report.samples).toHaveLength(5);
     expect(report.samples.every(({ result }) => result.length === 400_000 && result.prefix === "npm" && result.suffix === "x")).toBe(true);
+    const times = report.samples.map(({ elapsedNs }) => elapsedNs).sort((a, b) => a - b);
+    expect(times[2]).toBeLessThan(500_000_000);
+  });
+
+  it.each([
+    ["punctuationTrailing", "x"],
+    ["punctuationLeading", "npm"],
+  ] as const)("removes a 400,000-character punctuation run (%s)", (family, expected) => {
+    const child = spawnSync(process.execPath, [
+      "tests/helpers/policy-shell-perf-child.mjs",
+      "src/core/policy.ts",
+      family,
+      "400000",
+      "5",
+    ], { cwd: process.cwd(), encoding: "utf8", timeout: 5_000, windowsHide: true, maxBuffer: 1024 * 1024 });
+    expect(child.error?.message ?? "", child.stderr).toBe("");
+    expect(child.status, child.stderr).toBe(0);
+    const report = JSON.parse(child.stdout) as {
+      utf16Length: number;
+      samples: Array<{ elapsedNs: number; result: { length: number; value?: string } }>;
+    };
+    expect(report.utf16Length).toBe(400_000);
+    expect(report.samples).toHaveLength(5);
+    expect(report.samples.every(({ result }) => result.length === expected.length && result.value === expected)).toBe(true);
     const times = report.samples.map(({ elapsedNs }) => elapsedNs).sort((a, b) => a - b);
     expect(times[2]).toBeLessThan(500_000_000);
   });

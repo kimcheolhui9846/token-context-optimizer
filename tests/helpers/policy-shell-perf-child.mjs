@@ -7,9 +7,9 @@ import { runInNewContext } from "node:vm";
 const [sourceRelative, family, sizeText, sampleCountText = "5"] = process.argv.slice(2);
 const size = Number(sizeText);
 const sampleCount = Number(sampleCountText);
-if (!sourceRelative || !["punctuation", "commandArgument"].includes(family) ||
+if (!sourceRelative || !["punctuation", "punctuationTrailing", "punctuationLeading", "commandArgument"].includes(family) ||
   !Number.isSafeInteger(size) || size < 4 || !Number.isSafeInteger(sampleCount) || sampleCount < 1) {
-  throw new Error("usage: policy-shell-perf-child.mjs <source> <punctuation|commandArgument> <size> [samples]");
+  throw new Error("usage: policy-shell-perf-child.mjs <source> <punctuation|punctuationTrailing|punctuationLeading|commandArgument> <size> [samples]");
 }
 
 const root = process.cwd();
@@ -48,18 +48,22 @@ function legacyCommandArgumentPredicate() {
   return runInNewContext(candidate.getText(file));
 }
 
-const predicate = family === "punctuation"
+const predicate = family.startsWith("punctuation")
   ? compiled.exports.stripShellPunctuation
   : (compiled.exports.hasCommandArgumentShape ?? legacyCommandArgumentPredicate());
 if (typeof predicate !== "function" && typeof predicate?.test !== "function") throw new Error(`missing ${family} predicate`);
 
 const input = family === "punctuation"
   ? `npm${".".repeat(size - 4)}x`
-  : "a-".repeat(Math.ceil((size - 1) / 2)).slice(0, size - 1) + "x";
-const evaluate = family === "punctuation"
+  : family === "punctuationTrailing"
+    ? `x${")".repeat(size - 1)}`
+    : family === "punctuationLeading"
+      ? `${"(".repeat(size - 3)}npm`
+      : "a-".repeat(Math.ceil((size - 1) / 2)).slice(0, size - 1) + "x";
+const evaluate = family.startsWith("punctuation")
   ? predicate
   : (value) => typeof predicate === "function" ? predicate(value) : predicate.test(value);
-evaluate(family === "punctuation" ? "npm)x" : "a-x");
+evaluate(family === "punctuation" ? "npm)x" : family.startsWith("punctuation") ? "(npm)" : "a-x");
 const samples = [];
 for (let index = 0; index < sampleCount; index += 1) {
   const started = process.hrtime.bigint();
@@ -68,7 +72,7 @@ for (let index = 0; index < sampleCount; index += 1) {
   samples.push({
     elapsedNs,
     result: typeof result === "string"
-      ? { length: result.length, prefix: result.slice(0, 3), suffix: result.slice(-1) }
+      ? { length: result.length, prefix: result.slice(0, 3), suffix: result.slice(-1), value: result.length <= 16 ? result : undefined }
       : result,
   });
 }
