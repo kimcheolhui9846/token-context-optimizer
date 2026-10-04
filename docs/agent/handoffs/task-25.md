@@ -1,4 +1,4 @@
-PR: pending | Branch: codex/task-25-policy-redos | Base: main 5828f02840304067e8d345969ffc7c1a981650ec
+PR: [#25 (Draft)](https://github.com/kimcheolhui9846/token-context-optimizer/pull/25) | Branch: codex/task-25-policy-redos | Base: main 5828f02840304067e8d345969ffc7c1a981650ec
 
 # Task 25 — F-03 classifier ReDoS
 
@@ -34,7 +34,7 @@ Each group requires predicate-level and whole-output equivalence checks, operati
 - [x] Group 4 RED/GREEN and independent Astra review; committed with this checkpoint.
 - [x] Whole-classifier before/after matrix, large-input checks and group proofs.
 - [x] Pre-PR targeted -> full test -> build -> typecheck -> smoke:mcp -> validate:plugin -> benchmark -> diff --check.
-- [ ] Rebuilt bundle, Draft PR, post-PR verification and final Astra review.
+- [x] Rebuilt bundle, Draft PR and post-PR verification. Final Astra assessment is recorded in the PR after these checks; user approval is required for integration.
 
 ## Safety and boundaries
 Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main checkout and all prior worktrees/user files remain preserved. No rebase, force-push, history rewriting or merge. Newly confirmed scope-external superlinear behavior or any required classification change stops implementation for user decision. Performance samples and finite differential corpora do not alone justify a universal linearity/equivalence claim.
@@ -76,3 +76,9 @@ Root HANDOFF is local/ignored; shared HANDOFF/index is unchanged. Existing main 
 - Rebuilt tracked bundle and independently rebuilt a scratch output using the same script: SHA-256 `3E504807CD8EECD4F6425A4D1CA5FBF3A43701E9F97CB131B5361051BD63F46D` for both.
 - Source commits: Group1 `f97cefc`, Group2 `717f369`, Group3 `b00b503`, Group4 `07b0f53`; all authors/committers verified as the user. One trailing test-line space detected during staging was removed in the delivery commit without rewriting history; historical measurement hashes remain historical.
 - No dependency, public API, classifier-output or unrelated finding change. Benchmark F-04/F-05 and F-21 are outside this Task. Finite measurements supplement, rather than replace, the group-specific equivalence and operation-count arguments.
+
+## Draft PR and post-PR verification
+- Draft PR #25 opened against main after push; remote head `b84f750` verified at the first post-PR check. GitHub reported OPEN, Draft and MERGEABLE. No merge performed.
+- Full post-PR gate passed again: 775 tests, one existing FIFO skip, 25 files, 19.79 seconds; build, typecheck, smoke:mcp, validate:plugin, benchmark and diff check all passed. Local logs: parent `.artifacts/task25-verification/post-pr/`.
+- The following documentation-only commit adds this PR link and verification record. Runtime, tests, frozen outputs and rebuilt bundle are unchanged after the post-PR gate. The final Astra review reads the latest pushed state and actual logs; its verdict and remaining notes belong in the PR/user handoff.
+- User/Claude review and explicit approval remain required. External-provider review is still DEGRADED; no external PASS or next-Task approval is implied.
