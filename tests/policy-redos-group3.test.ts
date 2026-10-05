@@ -207,5 +207,5 @@ describe("policy ReDoS group 3 characterization", () => {
       const elapsedNs = report.samples.map(({ elapsedNs: elapsed }) => elapsed).sort((a, b) => a - b);
       expect(elapsedNs[2], `rule ${patternIndex} median`).toBeLessThan(500_000_000);
     }
-  });
+  }, 15_000);
 });

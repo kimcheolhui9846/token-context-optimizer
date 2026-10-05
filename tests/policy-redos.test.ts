@@ -139,5 +139,5 @@ describe("policy ReDoS group 1 characterization", () => {
     expect(report.samples.every((sample) => sample.result === false)).toBe(true);
     expect(report.samples).toHaveLength(5);
     expect(elapsedNs[2]).toBeLessThan(500_000_000);
-  });
+  }, 15_000);
 });

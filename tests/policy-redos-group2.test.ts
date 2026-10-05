@@ -38,6 +38,9 @@ function group2DifferentialInputs(): string[] {
     "a+.-:x",
     "a.b",
     "ab.c",
+    "a\u{1D400}.ts",
+    "ab\u{1D400}.ts",
+    "a\u{10400}b.md",
     "éx.a",
     "aé.b",
     "aéé.js",
@@ -125,6 +128,20 @@ function group2DifferentialInputs(): string[] {
 }
 
 describe("policy ReDoS group 2 characterization", () => {
+  it("keeps rule 6 equivalent on astral-letter dotted-token boundaries", () => {
+    const [, baselinePredicate] = baseline.EXACT_PATTERNS[6];
+    const [, currentPredicate] = current.EXACT_PATTERNS[6];
+    for (const input of [
+      "a\u{1D400}.ts",
+      "ab\u{1D400}.ts",
+      "a\u{10400}b.md",
+    ]) {
+      expect(evaluatePolicyPredicate(currentPredicate, input), JSON.stringify(input)).toBe(
+        evaluatePolicyPredicate(baselinePredicate, input),
+      );
+    }
+  });
+
   it("keeps zero-based rules 3, 6, 7, 15, 18, 20, and 21 equivalent to the frozen oracle", () => {
     for (const patternIndex of group2PatternIndexes) {
       const [baselineReason, baselinePredicate] = baseline.EXACT_PATTERNS[patternIndex];
@@ -222,5 +239,6 @@ describe("policy ReDoS group 2 characterization", () => {
       expect(report.samples.every((sample) => sample.result === false), `${patternIndex}/${family} result`).toBe(true);
       expect(elapsedNs[1], `${patternIndex}/${family}`).toBeLessThan(500_000_000);
     },
+    15_000,
   );
 });

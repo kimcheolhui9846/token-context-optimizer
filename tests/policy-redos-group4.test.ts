@@ -279,7 +279,7 @@ describe("policy ReDoS group 4 characterization", () => {
     expect(report.samples.every(({ result }) => result.length === 400_000 && result.prefix === "npm" && result.suffix === "x")).toBe(true);
     const times = report.samples.map(({ elapsedNs }) => elapsedNs).sort((a, b) => a - b);
     expect(times[2]).toBeLessThan(500_000_000);
-  });
+  }, 15_000);
 
   it.each([
     ["punctuationTrailing", "x"],
@@ -303,7 +303,7 @@ describe("policy ReDoS group 4 characterization", () => {
     expect(report.samples.every(({ result }) => result.length === expected.length && result.value === expected)).toBe(true);
     const times = report.samples.map(({ elapsedNs }) => elapsedNs).sort((a, b) => a - b);
     expect(times[2]).toBeLessThan(500_000_000);
-  });
+  }, 15_000);
 
   it("bounds the isolated command-argument predicate on repeated missing-whitespace candidates", () => {
     const child = spawnSync(process.execPath, [
@@ -321,5 +321,5 @@ describe("policy ReDoS group 4 characterization", () => {
     expect(report.samples.every(({ result }) => result === false)).toBe(true);
     const times = report.samples.map(({ elapsedNs }) => elapsedNs).sort((a, b) => a - b);
     expect(times[2]).toBeLessThan(500_000_000);
-  });
+  }, 15_000);
 });

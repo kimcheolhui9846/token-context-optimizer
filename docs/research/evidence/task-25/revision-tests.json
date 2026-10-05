@@ -44,6 +44,13 @@
     "interpretation": "Both frozen-oracle and current implementations returned the expected compact values within the 500 ms median bound. These new recipes did not produce a timeout RED; they characterize long-run stripping and output compaction. Raw timings show the current bounded scan is slower than the frozen regex on these inputs, while remaining within the test bound.",
     "reproduction": "node tests/helpers/policy-shell-perf-child.mjs <source> <family> 400000 5, called from spawnSync with timeout: 5000. Use tests/helpers/policy-baseline.ts for frozen-oracle rows and src/core/policy.ts for current rows."
   },
+  "originalMeasurement": {
+    "headAtMeasurement": "e51af55",
+    "beforeHead": "049b82a",
+    "testFiles": 3,
+    "testCount": 20,
+    "note": "Captured at HEAD e51af55 with uncommitted test corrections before commit 049b82a; the 3-file/20-test result is historical and does not describe the later 13ee16d state."
+  },
   "validation": {
     "command": "npm.cmd test -- --run tests/policy-redos.test.ts tests/policy-redos-group2.test.ts tests/policy-redos-group4.test.ts",
     "result": "PASS: 3 files, 20 tests, 3.64 seconds. Required escalation was used after sandbox esbuild could not read the worktree parent directory.",
