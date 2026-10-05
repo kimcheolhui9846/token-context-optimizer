@@ -1,0 +1,65 @@
+{
+  "group": 2,
+  "scope": [3, 6, 7, 15, 18, 20, 21],
+  "head": "f97cefc99f86f92ebc1d264587c6a61213dfb1c9",
+  "workingTreeState": "dirty inherited candidate plus Group2 source/tests; bundle restored to HEAD",
+  "oracleOrigin": "5828f02840304067e8d345969ffc7c1a981650ec",
+  "oracleFileSha256": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158",
+  "runtime": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "architecture": "x64"
+  },
+  "filesSha256": {
+    "src/core/policy.ts": "65ce92caf2b1cd2d1f17e7e6c368fa574e84ed0acf32fd8b6dfaaee0f9cea888",
+    "tests/policy-redos-group2.test.ts": "d207533493e5f4b46d159e1e7fca21e2058e27f13beaa15f71312278ca6c46d2",
+    "tests/helpers/policy-test-loader.ts": "262b86a6e7ecfc5b09b0d898b83bef6fae8feb3d1ab0fb4087ed40bd36ca03a3",
+    "tests/helpers/policy-predicate-perf-child.mjs": "a0c49f0eee6d8ebf8cb899991d5eed374e42d8ac695a72f1f78ce009fdaa3f74"
+  },
+  "red": {
+    "semanticCommand": "npm.cmd test -- --run tests/policy-redos-group2.test.ts",
+    "semanticResult": "2 failed / 2 passed; predicate 21 and duplicated helper mismatched `traceabcdef` (oracle true, partial candidate false). Frozen corpus and then-current bounded performance test passed.",
+    "chronologyNote": "The candidate runtime was already partially edited when this RED was recovered; it is not an untouched-base RED.",
+    "oracleChild": {
+      "commandTemplate": "node tests/helpers/policy-predicate-perf-child.mjs tests/helpers/policy-baseline.ts <index> <family> 400000 1",
+      "parentTimeoutMs": 5000,
+      "timeoutObservation": "ETIMEDOUT / SIGTERM; stdout empty; child killed",
+      "timedOutCases": [
+        { "index": 3, "family": "uri", "utf16Length": 400000, "utf8Bytes": 400000 },
+        { "index": 6, "family": "dotted", "recipe": "a- repeated, terminal !; no dot", "utf16Length": 400000, "utf8Bytes": 400000 },
+        { "index": 7, "family": "filename", "recipe": "a. repeated, terminal !; no extension", "utf16Length": 400000, "utf8Bytes": 400000 },
+        { "index": 15, "family": "bang", "utf16Length": 400000, "utf8Bytes": 400000 },
+        { "index": 18, "family": "tag", "utf16Length": 400000, "utf8Bytes": 400000 },
+        { "index": 20, "family": "identifierId", "recipe": "a- repeated, terminal !; missing id suffix", "utf16Length": 400000, "utf8Bytes": 400000 },
+        { "index": 21, "family": "trace", "utf16Length": 400000, "utf8Bytes": 400000 }
+      ],
+      "invalidRecipeControl": {
+        "index": 6,
+        "recipe": "a. repeated",
+        "elapsedNs": 790900,
+        "result": false,
+        "classification": "control only; not evidence of RED"
+      }
+    }
+  },
+  "green": {
+    "targetedCommand": "npm.cmd test -- --run tests/policy-redos-group2.test.ts tests/policy-redos.test.ts tests/policy-characterization.test.ts tests/core.test.ts",
+    "targetedResult": "PASS; 4 files, 192 tests",
+    "buildCommand": "npm.cmd run build",
+    "buildResult": "PASS; generated bundle restored to HEAD after build",
+    "typecheckCommand": "npm.cmd run typecheck",
+    "typecheckResult": "PASS after build",
+    "initialTypecheck": "Failed because fresh worktree lacked dist/src/research/*.js; rerun after build passed."
+  },
+  "postChangeRaw400kSamplesNs": {
+    "3/uri": [3879300, 2263000, 2201700],
+    "6/dotted": [12547600, 9756600, 9555100],
+    "7/filename": [39649700, 36220200, 36108000],
+    "15/bang": [18300, 9800, 9400],
+    "18/tag": [528300, 351100, 477000],
+    "20/identifierId": [20975200, 16704900, 16798600],
+    "21/trace": [1001000, 1057000, 795600]
+  },
+  "postChangeResult": "false for all recorded samples; #6 measured after review freeze release using the corrected a- repetition recipe",
+  "evidenceLimit": "Bounded samples and language-equivalence arguments support these cases only; no whole-classifier linearity claim."
+}

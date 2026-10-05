@@ -1,0 +1,310 @@
+{
+  "generatedAt": "2026-10-04T03:05:44.093Z",
+  "node": "v24.18.0",
+  "afterSource": {
+    "gitHead": "b00b5031e57b381258dead3d01366d514c4b785f",
+    "path": "src/core/policy.ts",
+    "gitBlob": "fb44472abf741e8e6eb683d270242fe7bbcb2ad1",
+    "sha256": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+    "oracleSha256": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158"
+  },
+  "baselineFiles": [
+    "baseline.json",
+    "baseline-supplement-classifier-bang-letter.json",
+    "baseline-supplement-classifier-blanklines.json",
+    "baseline-supplement-classifier-censored-rerun.json",
+    "baseline-supplement-classifier-command-prefix.json",
+    "baseline-supplement-classifier-html-comment.json",
+    "baseline-supplement-classifier-npm-dots-x.json"
+  ],
+  "comparisons": [
+    {
+      "family": "drop",
+      "size": 10000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 7.9933,
+      "afterMedianMs": 3.5325,
+      "classificationEqual": true
+    },
+    {
+      "family": "drop",
+      "size": 20000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 29.318,
+      "afterMedianMs": 5.1319,
+      "classificationEqual": true
+    },
+    {
+      "family": "drop",
+      "size": 40000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 112.935,
+      "afterMedianMs": 9.9644,
+      "classificationEqual": true
+    },
+    {
+      "family": "semicolon",
+      "size": 10000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 75.6954,
+      "afterMedianMs": 1.4251,
+      "classificationEqual": true
+    },
+    {
+      "family": "semicolon",
+      "size": 20000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 299.8717,
+      "afterMedianMs": 3.052,
+      "classificationEqual": true
+    },
+    {
+      "family": "semicolon",
+      "size": 40000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 1199.7366,
+      "afterMedianMs": 4.3532,
+      "classificationEqual": true
+    },
+    {
+      "family": "php_opener",
+      "size": 10000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 5.8791,
+      "afterMedianMs": 2.2826,
+      "classificationEqual": true
+    },
+    {
+      "family": "php_opener",
+      "size": 20000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 22.4577,
+      "afterMedianMs": 4.3139,
+      "classificationEqual": true
+    },
+    {
+      "family": "php_opener",
+      "size": 40000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 85.7641,
+      "afterMedianMs": 7.1041,
+      "classificationEqual": true
+    },
+    {
+      "family": "tag_space",
+      "size": 10000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 31.9889,
+      "afterMedianMs": 1.4582,
+      "classificationEqual": true
+    },
+    {
+      "family": "tag_space",
+      "size": 20000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 125.4511,
+      "afterMedianMs": 2.3677,
+      "classificationEqual": true
+    },
+    {
+      "family": "tag_space",
+      "size": 40000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 506.2981,
+      "afterMedianMs": 4.3245,
+      "classificationEqual": true
+    },
+    {
+      "family": "trace_spaces_equals",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-censored-rerun.json",
+      "beforeMedianMs": 189.9253,
+      "afterMedianMs": 1.7679,
+      "classificationEqual": true
+    },
+    {
+      "family": "trace_spaces_equals",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-censored-rerun.json",
+      "beforeMedianMs": 763.918,
+      "afterMedianMs": 3.2042,
+      "classificationEqual": true
+    },
+    {
+      "family": "trace_spaces_equals",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-censored-rerun.json",
+      "beforeMedianMs": 3035.4246,
+      "afterMedianMs": 4.7527,
+      "classificationEqual": true
+    },
+    {
+      "family": "hyphen",
+      "size": 10000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 139.4433,
+      "afterMedianMs": 2.3025,
+      "classificationEqual": true
+    },
+    {
+      "family": "hyphen",
+      "size": 20000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 557.5923,
+      "afterMedianMs": 3.8489,
+      "classificationEqual": true
+    },
+    {
+      "family": "hyphen",
+      "size": 40000,
+      "baselineFile": "baseline.json",
+      "beforeMedianMs": 2233.5271,
+      "afterMedianMs": 7.2563,
+      "classificationEqual": true
+    },
+    {
+      "family": "dot",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-censored-rerun.json",
+      "beforeMedianMs": 126.6609,
+      "afterMedianMs": 3.619,
+      "classificationEqual": true
+    },
+    {
+      "family": "dot",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-censored-rerun.json",
+      "beforeMedianMs": 507.2953,
+      "afterMedianMs": 5.518,
+      "classificationEqual": true
+    },
+    {
+      "family": "dot",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-censored-rerun.json",
+      "beforeMedianMs": 2030.1643,
+      "afterMedianMs": 10.7919,
+      "classificationEqual": true
+    },
+    {
+      "family": "blanklines",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-blanklines.json",
+      "beforeMedianMs": 117.7976,
+      "afterMedianMs": 2.3098,
+      "classificationEqual": true
+    },
+    {
+      "family": "blanklines",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-blanklines.json",
+      "beforeMedianMs": 467.3307,
+      "afterMedianMs": 4.3097,
+      "classificationEqual": true
+    },
+    {
+      "family": "blanklines",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-blanklines.json",
+      "beforeMedianMs": 1853.0055,
+      "afterMedianMs": 7.1278,
+      "classificationEqual": true
+    },
+    {
+      "family": "bang_letter",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-bang-letter.json",
+      "beforeMedianMs": 9.7891,
+      "afterMedianMs": 2.2582,
+      "classificationEqual": true
+    },
+    {
+      "family": "bang_letter",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-bang-letter.json",
+      "beforeMedianMs": 37.1291,
+      "afterMedianMs": 4.072,
+      "classificationEqual": true
+    },
+    {
+      "family": "bang_letter",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-bang-letter.json",
+      "beforeMedianMs": 143.3748,
+      "afterMedianMs": 7.4448,
+      "classificationEqual": true
+    },
+    {
+      "family": "html_comment",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-html-comment.json",
+      "beforeMedianMs": 3.8298,
+      "afterMedianMs": 1.9828,
+      "classificationEqual": true
+    },
+    {
+      "family": "html_comment",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-html-comment.json",
+      "beforeMedianMs": 13.9481,
+      "afterMedianMs": 2.8969,
+      "classificationEqual": true
+    },
+    {
+      "family": "html_comment",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-html-comment.json",
+      "beforeMedianMs": 54.4161,
+      "afterMedianMs": 4.8254,
+      "classificationEqual": true
+    },
+    {
+      "family": "npm_dots_x",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-npm-dots-x.json",
+      "beforeMedianMs": 36.616,
+      "afterMedianMs": 3.2632,
+      "classificationEqual": true
+    },
+    {
+      "family": "npm_dots_x",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-npm-dots-x.json",
+      "beforeMedianMs": 145.3213,
+      "afterMedianMs": 5.8,
+      "classificationEqual": true
+    },
+    {
+      "family": "npm_dots_x",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-npm-dots-x.json",
+      "beforeMedianMs": 578.4679,
+      "afterMedianMs": 11.187,
+      "classificationEqual": true
+    },
+    {
+      "family": "command_prefix",
+      "size": 10000,
+      "baselineFile": "baseline-supplement-classifier-command-prefix.json",
+      "beforeMedianMs": 0.5451,
+      "afterMedianMs": 1.8081,
+      "classificationEqual": true
+    },
+    {
+      "family": "command_prefix",
+      "size": 20000,
+      "baselineFile": "baseline-supplement-classifier-command-prefix.json",
+      "beforeMedianMs": 1.0794,
+      "afterMedianMs": 3.4185,
+      "classificationEqual": true
+    },
+    {
+      "family": "command_prefix",
+      "size": 40000,
+      "baselineFile": "baseline-supplement-classifier-command-prefix.json",
+      "beforeMedianMs": 1.7566,
+      "afterMedianMs": 5.533,
+      "classificationEqual": true
+    }
+  ]
+}

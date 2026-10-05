@@ -1,0 +1,60 @@
+{
+  "revision": "approved test-only PR25 corrections",
+  "headAtMeasurement": "e51af55",
+  "date": "2026-10-04",
+  "environment": {
+    "node": "v24.18.0",
+    "utf16InputLength": 400000,
+    "utf8Bytes": 400000,
+    "predicateChildTimeoutMs": 5000,
+    "samplesPerCompletedChild": 5,
+    "warmup": "policy-predicate-perf-child uses one same-family input of at most 100 characters; policy-shell-perf-child uses a small valid warmup token"
+  },
+  "group1": {
+    "oracle": "tests/helpers/policy-baseline.ts (frozen pre-change policy)",
+    "red": [
+      { "patternIndex": 13, "family": "sql", "status": null, "error": "ETIMEDOUT", "timeoutMs": 5000, "signal": "SIGTERM", "stdout": "", "stderr": "" },
+      { "patternIndex": 16, "family": "php", "status": null, "error": "ETIMEDOUT", "timeoutMs": 5000, "signal": "SIGTERM", "stdout": "", "stderr": "" },
+      { "patternIndex": 17, "family": "comment", "status": null, "error": "ETIMEDOUT", "timeoutMs": 5000, "signal": "SIGTERM", "stdout": "", "stderr": "" }
+    ],
+    "green": [
+      { "patternIndex": 13, "family": "sql", "status": 0, "samplesNs": [557700, 367100, 369900, 366900, 370400], "result": false },
+      { "patternIndex": 16, "family": "php", "status": 0, "samplesNs": [387400, 366900, 373500, 366200, 369400], "result": false },
+      { "patternIndex": 17, "family": "comment", "status": 0, "samplesNs": [630600, 602200, 557400, 561200, 600100], "result": false }
+    ],
+    "reproduction": "For each row, node tests/helpers/policy-predicate-perf-child.mjs <source> <patternIndex> <family> 400000 5, called from spawnSync with timeout: 5000. The RED source is tests/helpers/policy-baseline.ts; the GREEN source is src/core/policy.ts."
+  },
+  "group4": {
+    "recipes": [
+      {
+        "family": "punctuationTrailing",
+        "input": "x plus 399999 closing parentheses",
+        "expectedCompactResult": "x",
+        "frozenOracle": { "status": 0, "samplesNs": [287900, 268100, 175400, 182800, 271400] },
+        "current": { "status": 0, "samplesNs": [6629000, 4810500, 4824800, 4776700, 4901500] }
+      },
+      {
+        "family": "punctuationLeading",
+        "input": "399997 opening parentheses plus npm",
+        "expectedCompactResult": "npm",
+        "frozenOracle": { "status": 0, "samplesNs": [306100, 171800, 256500, 171400, 175200] },
+        "current": { "status": 0, "samplesNs": [6422500, 4834100, 4759400, 4710500, 4848500] }
+      }
+    ],
+    "interpretation": "Both frozen-oracle and current implementations returned the expected compact values within the 500 ms median bound. These new recipes did not produce a timeout RED; they characterize long-run stripping and output compaction. Raw timings show the current bounded scan is slower than the frozen regex on these inputs, while remaining within the test bound.",
+    "reproduction": "node tests/helpers/policy-shell-perf-child.mjs <source> <family> 400000 5, called from spawnSync with timeout: 5000. Use tests/helpers/policy-baseline.ts for frozen-oracle rows and src/core/policy.ts for current rows."
+  },
+  "originalMeasurement": {
+    "headAtMeasurement": "e51af55",
+    "beforeHead": "049b82a",
+    "testFiles": 3,
+    "testCount": 20,
+    "note": "Captured at HEAD e51af55 with uncommitted test corrections before commit 049b82a; the 3-file/20-test result is historical and does not describe the later 13ee16d state."
+  },
+  "validation": {
+    "command": "npm.cmd test -- --run tests/policy-redos.test.ts tests/policy-redos-group2.test.ts tests/policy-redos-group4.test.ts",
+    "result": "PASS: 3 files, 20 tests, 3.64 seconds. Required escalation was used after sandbox esbuild could not read the worktree parent directory.",
+    "sourceSha256": "E137B032D91727A63700A7A7DA82BF517D9EF2D0158BC4F0FEBC4798568F5EF8",
+    "oracleSha256": "D8F82E9F682EC045134D42943F27BD0DCE98B7548AD3E894926A94E9FA841158"
+  }
+}

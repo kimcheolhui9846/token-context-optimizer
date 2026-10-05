@@ -1,0 +1,265 @@
+{
+  "group": 4,
+  "measuredAt": "2026-10-04T02:30:14.733Z",
+  "node": "v24.18.0",
+  "platform": "win32",
+  "architecture": "x64",
+  "gitHead": "b00b5031e57b381258dead3d01366d514c4b785f",
+  "workingTree": "Group4 candidate source and tests uncommitted; earlier groups committed",
+  "filesSha256": {
+    "src/core/policy.ts": "e137b032d91727a63700a7a7da82bf517d9ef2d0158bc4f0febc4798568f5ef8",
+    "tests/helpers/policy-baseline.ts": "d8f82e9f682ec045134d42943f27bd0dce98b7548ad3e894926a94e9fa841158",
+    "tests/policy-redos-group4.test.ts": "7ae3b282bba3e3e7cb900c99c56cb4346a44ccb4c84aadf260715e59995553f5",
+    "tests/helpers/policy-shell-perf-child.mjs": "460ab50cd4fd9fb4b30369ae1222c9bbca7ebf508c7e47b38cd32aaea1187be4"
+  },
+  "method": {
+    "sizes": [
+      100000,
+      200000,
+      400000
+    ],
+    "samplesPerChild": 5,
+    "perChildTimeoutMs": 10000,
+    "warmup": "one small same-family input",
+    "timedRegion": "private predicate only; result compaction excluded"
+  },
+  "observedRed": {
+    "provenance": "test-preparation worker final targeted run before Group4 runtime changes",
+    "semanticTestsPassed": 4,
+    "performanceTestsFailed": 2,
+    "timeoutMs": 5000,
+    "inputSize": 400000,
+    "code": "ETIMEDOUT",
+    "note": "Both helper children exceeded the deadline. An earlier AST extraction harness error was corrected before this run; timeout is censored, not elapsed execution time."
+  },
+  "probes": [
+    {
+      "sourceRelative": "src/core/policy.ts",
+      "family": "punctuation",
+      "utf16Length": 100000,
+      "utf8Bytes": 100000,
+      "samples": [
+        {
+          "elapsedNs": 32900,
+          "result": {
+            "length": 100000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 1000,
+          "result": {
+            "length": 100000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 700,
+          "result": {
+            "length": 100000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 600,
+          "result": {
+            "length": 100000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 3900,
+          "result": {
+            "length": 100000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        }
+      ]
+    },
+    {
+      "sourceRelative": "src/core/policy.ts",
+      "family": "punctuation",
+      "utf16Length": 200000,
+      "utf8Bytes": 200000,
+      "samples": [
+        {
+          "elapsedNs": 89900,
+          "result": {
+            "length": 200000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 1100,
+          "result": {
+            "length": 200000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 600,
+          "result": {
+            "length": 200000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 600,
+          "result": {
+            "length": 200000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 4400,
+          "result": {
+            "length": 200000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        }
+      ]
+    },
+    {
+      "sourceRelative": "src/core/policy.ts",
+      "family": "punctuation",
+      "utf16Length": 400000,
+      "utf8Bytes": 400000,
+      "samples": [
+        {
+          "elapsedNs": 135400,
+          "result": {
+            "length": 400000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 1100,
+          "result": {
+            "length": 400000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 700,
+          "result": {
+            "length": 400000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 600,
+          "result": {
+            "length": 400000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        },
+        {
+          "elapsedNs": 4700,
+          "result": {
+            "length": 400000,
+            "prefix": "npm",
+            "suffix": "x"
+          }
+        }
+      ]
+    },
+    {
+      "sourceRelative": "src/core/policy.ts",
+      "family": "commandArgument",
+      "utf16Length": 100000,
+      "utf8Bytes": 100000,
+      "samples": [
+        {
+          "elapsedNs": 2354700,
+          "result": false
+        },
+        {
+          "elapsedNs": 2518000,
+          "result": false
+        },
+        {
+          "elapsedNs": 2156000,
+          "result": false
+        },
+        {
+          "elapsedNs": 1277800,
+          "result": false
+        },
+        {
+          "elapsedNs": 1504100,
+          "result": false
+        }
+      ]
+    },
+    {
+      "sourceRelative": "src/core/policy.ts",
+      "family": "commandArgument",
+      "utf16Length": 200000,
+      "utf8Bytes": 200000,
+      "samples": [
+        {
+          "elapsedNs": 4297700,
+          "result": false
+        },
+        {
+          "elapsedNs": 3666400,
+          "result": false
+        },
+        {
+          "elapsedNs": 2652700,
+          "result": false
+        },
+        {
+          "elapsedNs": 2526500,
+          "result": false
+        },
+        {
+          "elapsedNs": 2586600,
+          "result": false
+        }
+      ]
+    },
+    {
+      "sourceRelative": "src/core/policy.ts",
+      "family": "commandArgument",
+      "utf16Length": 400000,
+      "utf8Bytes": 400000,
+      "samples": [
+        {
+          "elapsedNs": 7190100,
+          "result": false
+        },
+        {
+          "elapsedNs": 6002800,
+          "result": false
+        },
+        {
+          "elapsedNs": 5073800,
+          "result": false
+        },
+        {
+          "elapsedNs": 5047200,
+          "result": false
+        },
+        {
+          "elapsedNs": 5089700,
+          "result": false
+        }
+      ]
+    }
+  ]
+}

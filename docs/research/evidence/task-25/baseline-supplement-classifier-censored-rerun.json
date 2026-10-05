@@ -1,0 +1,322 @@
+{
+  "kind": "baseline-supplement-classifiers",
+  "measuredAt": "2026-10-01T13:02:12.997Z",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64"
+  },
+  "source": {
+    "path": "tests\\helpers\\policy-baseline.ts",
+    "sha256": "bca8d24dc21840ccb639cd2b17d746e3808e68447f04022f70ed0ac6c0aa0f1e"
+  },
+  "method": {
+    "reason": "supplement classifier cells that baseline.json marked not-run-budget-exhausted",
+    "sizesUtf16CodeUnits": [
+      10000,
+      20000,
+      40000
+    ],
+    "rawTimedSamplesPerProbe": 5,
+    "childTimeoutMs": 20000,
+    "cumulativeBudgetMs": 180000,
+    "timeoutIsCensored": true
+  },
+  "groups": [
+    {
+      "family": "trace_spaces_equals",
+      "sizes": [
+        {
+          "size": 10000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 1160.8451,
+            "value": {
+              "mode": "classifier",
+              "family": "trace_spaces_equals",
+              "repetitionCount": 10000,
+              "utf16Length": 10000,
+              "utf8Bytes": 10000,
+              "samples": [
+                {
+                  "elapsedNs": 191271500,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 189076000,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 190540500,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 189715900,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 189925300,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 189925300
+          }
+        },
+        {
+          "size": 20000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 4033.3305999999993,
+            "value": {
+              "mode": "classifier",
+              "family": "trace_spaces_equals",
+              "repetitionCount": 20000,
+              "utf16Length": 20000,
+              "utf8Bytes": 20000,
+              "samples": [
+                {
+                  "elapsedNs": 759423000,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 765615000,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 774642600,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 763918000,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 757741700,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 763918000
+          }
+        },
+        {
+          "size": 40000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 15388.469200000001,
+            "value": {
+              "mode": "classifier",
+              "family": "trace_spaces_equals",
+              "repetitionCount": 40000,
+              "utf16Length": 40000,
+              "utf8Bytes": 40000,
+              "samples": [
+                {
+                  "elapsedNs": 3035424600,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 3030700700,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 3043119900,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 3028051300,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 3039896900,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 3035424600
+          }
+        }
+      ]
+    },
+    {
+      "family": "dot",
+      "sizes": [
+        {
+          "size": 10000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 846.2115000000013,
+            "value": {
+              "mode": "classifier",
+              "family": "dot",
+              "repetitionCount": 10000,
+              "utf16Length": 10000,
+              "utf8Bytes": 10000,
+              "samples": [
+                {
+                  "elapsedNs": 128526700,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 126985200,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 126660900,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 126464300,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 126507000,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 126660900
+          }
+        },
+        {
+          "size": 20000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 2766.4156000000003,
+            "value": {
+              "mode": "classifier",
+              "family": "dot",
+              "repetitionCount": 20000,
+              "utf16Length": 20000,
+              "utf8Bytes": 20000,
+              "samples": [
+                {
+                  "elapsedNs": 517991200,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 506262400,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 509232900,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 507295300,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 505812800,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 507295300
+          }
+        },
+        {
+          "size": 40000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 10382.9212,
+            "value": {
+              "mode": "classifier",
+              "family": "dot",
+              "repetitionCount": 40000,
+              "utf16Length": 40000,
+              "utf8Bytes": 40000,
+              "samples": [
+                {
+                  "elapsedNs": 2057814400,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 2020468000,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 2030164300,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 2023668800,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 2030980600,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 2030164300
+          }
+        }
+      ]
+    }
+  ],
+  "budget": {
+    "elapsedMs": 34578,
+    "exhausted": false
+  },
+  "coverage": {
+    "status": "complete-or-censored",
+    "unmeasured": []
+  }
+}

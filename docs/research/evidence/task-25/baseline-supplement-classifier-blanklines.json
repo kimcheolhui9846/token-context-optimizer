@@ -1,0 +1,179 @@
+{
+  "kind": "baseline-supplement-classifiers",
+  "measuredAt": "2026-10-01T12:58:59.281Z",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64"
+  },
+  "source": {
+    "path": "tests\\helpers\\policy-baseline.ts",
+    "sha256": "bca8d24dc21840ccb639cd2b17d746e3808e68447f04022f70ed0ac6c0aa0f1e"
+  },
+  "method": {
+    "reason": "supplement classifier cells that baseline.json marked not-run-budget-exhausted",
+    "sizesUtf16CodeUnits": [
+      10000,
+      20000,
+      40000
+    ],
+    "rawTimedSamplesPerProbe": 5,
+    "childTimeoutMs": 20000,
+    "cumulativeBudgetMs": 180000,
+    "timeoutIsCensored": true
+  },
+  "groups": [
+    {
+      "family": "blanklines",
+      "sizes": [
+        {
+          "size": 10000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 798.6714000000001,
+            "value": {
+              "mode": "classifier",
+              "family": "blanklines",
+              "repetitionCount": 10000,
+              "utf16Length": 10000,
+              "utf8Bytes": 10000,
+              "samples": [
+                {
+                  "elapsedNs": 120268800,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 117909500,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 117797600,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 117677500,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 117183900,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 117797600
+          }
+        },
+        {
+          "size": 20000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 2554.9061,
+            "value": {
+              "mode": "classifier",
+              "family": "blanklines",
+              "repetitionCount": 20000,
+              "utf16Length": 20000,
+              "utf8Bytes": 20000,
+              "samples": [
+                {
+                  "elapsedNs": 472336000,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 467591200,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 467330700,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 463934500,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 462883400,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 467330700
+          }
+        },
+        {
+          "size": 40000,
+          "classifier": {
+            "status": "complete",
+            "wallMs": 9468.8437,
+            "value": {
+              "mode": "classifier",
+              "family": "blanklines",
+              "repetitionCount": 40000,
+              "utf16Length": 40000,
+              "utf8Bytes": 40000,
+              "samples": [
+                {
+                  "elapsedNs": 1859185300,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 1853764600,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 1843920200,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 1848679100,
+                  "result": true
+                },
+                {
+                  "elapsedNs": 1853005500,
+                  "result": true
+                }
+              ],
+              "classification": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "medianElapsedNs": 1853005500
+          }
+        }
+      ]
+    }
+  ],
+  "budget": {
+    "elapsedMs": 12822,
+    "exhausted": false
+  },
+  "coverage": {
+    "status": "complete-or-censored",
+    "unmeasured": []
+  }
+}
