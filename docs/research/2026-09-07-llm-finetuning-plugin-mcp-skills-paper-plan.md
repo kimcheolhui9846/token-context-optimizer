@@ -19,6 +19,18 @@ from software tests or synthetic demos. The [concrete experiment protocol](2026-
 and its [readiness checklist](2026-09-07-layered-adaptation-evaluation-protocol.md#readiness-and-acceptance)
 define what is still needed before results can be written.
 
+Benchmark claims in this historical plan were reconciled with the current
+[benchmark scope](../benchmarks.md) on 2026-10-05. The repeated semantic fixture
+is a prefix phrase-retention smoke, not evidence of broad semantic success. Real
+summarizer characterizations expose omitted late prose after the six-line
+prefix. The code scenario measures source-backed retrieval from a synthetic
+context fixture and has no editing task gate. Historical references below to a
+code-editing task gate or general semantic degradation results are superseded;
+they are not empirical findings. The result names `repeated semantic document
+extractive summary` and `code editing fixture source-backed retrieval` were
+replaced by `repeated semantic prefix phrase-retention smoke` and `code context
+fixture source-backed retrieval`; their outputs are not directly comparable.
+
 For an empirical manuscript, expand this outline with Related Work and Results/Analysis
 sections, then a bounded Conclusion. Keep those results unmeasured until traces,
 independent grading and analysis exist. Build a claim-to-evidence table: product docs
@@ -69,7 +81,7 @@ fine-tuning alternatives, illustrative costs and the remaining execution gates.
 
 1. Abstract
    - State the layered adaptation thesis.
-   - Summarize the case-study benchmark: exact retrieval, semantic degradation fixtures, code editing task gate, and latency percentile gate.
+   - Summarize only measured case-study results: exact retrieval, the repeated semantic prefix phrase-retention smoke, source-backed retrieval from the code context fixture, and the local latency percentile gate. Do not describe these fixtures as general semantic or coding evidence.
 
 2. Introduction
    - Define the operational problem: LLM workflows often mix model behavior, context access, tool execution, and procedural policy.
@@ -92,14 +104,14 @@ fine-tuning alternatives, illustrative costs and the remaining execution gates.
 5. Case Study: Token Context Optimizer
    - Describe the MCP/plugin architecture.
    - Explain exact-content policy: source-backed excerpts are required for code, paths, identifiers, secrets, commands, and numeric/table content.
-   - Explain semantic summary policy and the new semantic degradation fixtures.
+   - Explain semantic summary policy, the repeated-prefix smoke, and the separately recorded known limitation that real summaries can omit required late prose after the six-line prefix.
    - Explain local install verification, manifest checks, marketplace entry handling, and plugin validation.
 
 6. Evaluation Design
    - Benchmark scenarios:
      - 25K-style build log exact retrieval.
-     - Repeated semantic document fixture suite.
-     - Code editing fixture with exact retrieval and task gate.
+     - Repeated semantic prefix phrase-retention smoke.
+     - Code context fixture source-backed retrieval with an independently checked exact target span; no editing task gate.
    - Metrics:
      - Raw tokens, optimized tokens, reduction percent.
      - `passedExactGate`, `taskGateRequired`, `passedTaskGate`.
@@ -108,12 +120,13 @@ fine-tuning alternatives, illustrative costs and the remaining execution gates.
    - Claims discipline:
      - Estimated token reduction is not actual billing savings.
      - Local latency is not hosted/API latency.
-     - Semantic fixture pass is not broad summarization quality.
+     - Prefix phrase retention is not broad summarization quality; source-backed retrieval from this synthetic fixture is not general retrieval quality or coding ability.
 
 7. Threats To Validity
    - Heuristic token estimation differs from provider billing.
    - Local benchmark latency excludes hosted network/model latency.
-   - Semantic fixtures are intentionally small and must expand before broad quality claims.
+   - Repeated semantic inputs test prefix phrase retention only. Separate real-summarizer characterization observes known omission after the six-line prefix; neither observation estimates broad semantic quality.
+   - The code context retrieval fixture is synthetic and lexical. It does not measure editing success or representative retrieval quality.
    - Fine-tuning is discussed as a comparative layer; this repository does not run a real fine-tuning job.
 
 8. Future Work

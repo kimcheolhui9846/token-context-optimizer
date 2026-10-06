@@ -8,6 +8,7 @@ import {
   mkdtemp as createTempDir,
   readFile,
   readdir,
+  realpath,
   rm,
   symlink,
   writeFile,
@@ -872,7 +873,7 @@ describe("benchmarks", () => {
     });
 
     expect(result).toMatchObject({
-      name: "repeated semantic document extractive summary",
+      name: "repeated semantic prefix phrase-retention smoke",
       passedExactGate: true,
       taskGateRequired: false,
       passedTaskGate: null,
@@ -880,6 +881,85 @@ describe("benchmarks", () => {
     });
     expect(result.rawTokens).toBeGreaterThanOrEqual(16000);
     expect(result.reductionPercent).toBeGreaterThanOrEqual(25);
+  });
+
+  it("characterizes real summarizer loss after the six-line prefix without policy fallback", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-summary-prefix-loss-"));
+    const lines = [
+      "The archive stores ordinary notes for the planning group.",
+      "Members review the notes during a quiet morning meeting.",
+      "The team records decisions in a shared paper journal.",
+      "Everyone can suggest a correction before the meeting ends.",
+      "The coordinator reads the older entries aloud to the group.",
+      "Participants discuss the wording and agree on a clear version.",
+      "The required observation is that the blue lantern remains beside the window.",
+      "The group leaves the room after the conversation is complete.",
+    ];
+    const path = join(dir, "late-required-prose.md");
+    await writeFile(path, lines.join("\n"), "utf8");
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path, store, allowedRoots: [dir] });
+    const summary = summarizeArtifact({ artifactId: artifact.artifactId, maxTokens: 120, store });
+    const fixture = { name: "late prose", source: lines.join("\n"), requiredPhrases: ["blue lantern remains beside the window"] };
+    const { semanticSummaryPassesMeaningGate } = await import("../benchmarks/run.js");
+
+    expect(summary.fallbackReason).toBeNull();
+    // Record the current prefix behavior. If it improves, update this characterization
+    // to match observed behavior without weakening the meaning gate.
+    expect(summary.summary).toBe(lines.slice(0, 6).join("\n"));
+    expect(summary.summary).not.toContain(fixture.requiredPhrases[0]);
+    expect(semanticSummaryPassesMeaningGate(summary, fixture)).toBe(false);
+  });
+
+  it("characterizes missing meaning in mixed-sentence prose without policy fallback", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-summary-mixed-prose-loss-"));
+    const source = [
+      "The garden committee reviews ordinary plans during a calm afternoon.",
+      "Several members bring notes and share them around the table.",
+      "The group discusses the path near the old stone fountain.",
+      "A volunteer reads the latest observations to everyone present.",
+      "The committee compares suggestions before choosing a direction.",
+      "People leave room for questions and thoughtful revisions.",
+      "The report says the silver bell remains beneath the cedar tree. Other observations describe the path and the morning light.",
+    ].join("\n");
+    const path = join(dir, "mixed-sentences.md");
+    await writeFile(path, source, "utf8");
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path, store, allowedRoots: [dir] });
+    const summary = summarizeArtifact({ artifactId: artifact.artifactId, maxTokens: 120, store });
+    const fixture = {
+      name: "mixed-sentence prose",
+      source,
+      requiredPhrases: ["silver bell remains beneath the cedar tree"],
+    };
+    const { semanticSummaryPassesMeaningGate } = await import("../benchmarks/run.js");
+
+    expect(summary.fallbackReason).toBeNull();
+    expect(summary.summary).toBe(source.split("\n").slice(0, 6).join("\n"));
+    expect(summary.summary).not.toContain(fixture.requiredPhrases[0]);
+    expect(semanticSummaryPassesMeaningGate(summary, fixture)).toBe(false);
+  });
+
+  it("builds retrieval context from symptoms without supplying its repair", async () => {
+    const { buildCodeContextFixture, buildCodeContextQuery } = await import("../benchmarks/run.js");
+    const query = buildCodeContextQuery();
+    const fixture = buildCodeContextFixture(8_000);
+
+    expect(fixture.source).toContain("export function parseInput(value: number): number {\n  return value;\n}");
+    expect(fixture.source).not.toContain('throw new Error("ERR_INVALID_INPUT")');
+    expect(fixture.source).not.toContain("Replace src/input.ts");
+    expect(query).toContain("negative input did not throw");
+    expect(query).not.toContain("normalizeInput(value: number)");
+    expect(query).not.toContain("ERR_NEGATIVE_INPUT");
+    expect(fixture.expectedExcerpt).toContain("negative input did not throw");
+    expect(fixture.distractorExcerpt).toContain("negative amount did not throw");
+    expect(fixture.source).toContain(fixture.expectedExcerpt);
+    expect(fixture.source).toContain(fixture.distractorExcerpt);
+    expect(fixture.expectedExcerpt).toContain("AssertionError");
+    expect(fixture.expectedExcerpt).toContain("return value;");
+    expect(fixture.expectedSourceMap.startByte).toBe(
+      Buffer.byteLength(fixture.source.slice(0, fixture.source.indexOf(fixture.expectedExcerpt)), "utf8"),
+    );
   });
 
   it("semantic benchmark fails when one degradation fixture loses required meaning", async () => {
@@ -940,134 +1020,135 @@ describe("benchmarks", () => {
     expect(result.latencyMs).toBe(40);
   });
 
-  it("applies the code editing fixture from the retrieved implementation text", async () => {
-    const { applyCodeEditingExcerpt, runCodeEditingFixtureTests } = (await import(
-      "../benchmarks/run.js"
-    )) as {
-      applyCodeEditingExcerpt: (
-        source: string,
-        excerpt: string,
-      ) => { source: string; patched: boolean };
-      runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
-    };
-    const brokenSource = [
-      "export function normalizeInput(value: number): number {",
-      "  return value;",
-      "}",
-    ].join("\n");
-    const wrongExcerpt = [
-      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
-      "Failing test: rejects negative input without throwing away zero.",
-      "Replace src/math.ts implementation with:",
-      "export function normalizeInput(value: number): number {",
-      '  if (value > 0) throw new Error("ERR_NEGATIVE_INPUT");',
-      "  return value;",
-      "}",
-    ].join("\n");
-    const correctExcerpt = wrongExcerpt.replace("value > 0", "value < 0");
-
-    const stalePatch = applyCodeEditingExcerpt(brokenSource, "stale excerpt");
-    const wrongPatch = applyCodeEditingExcerpt(brokenSource, wrongExcerpt);
-    const correctPatch = applyCodeEditingExcerpt(brokenSource, correctExcerpt);
-
-    expect(runCodeEditingFixtureTests(brokenSource).passed).toBe(false);
-    expect(stalePatch.patched).toBe(false);
-    expect(runCodeEditingFixtureTests(stalePatch.source).passed).toBe(false);
-    expect(wrongPatch.patched).toBe(true);
-    expect(runCodeEditingFixtureTests(wrongPatch.source).passed).toBe(false);
-    expect(correctPatch.patched).toBe(true);
-    expect(runCodeEditingFixtureTests(correctPatch.source)).toEqual({
-      passed: true,
-      failures: [],
+  it("retrieves the independently specified target rather than a similar function", async () => {
+    const { buildCodeContextFixture, buildCodeContextQuery, codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-code-context-retrieval-"));
+    const path = join(dir, "code-context-fixture.txt");
+    const sourcePath = join(await realpath(dir), "code-context-fixture.txt");
+    const fixture = buildCodeContextFixture(8_000, sourcePath);
+    await writeFile(path, fixture.source, "utf8");
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path, store, allowedRoots: [dir] });
+    const retrieved = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: buildCodeContextQuery(),
+      maxTokens: 240,
+      contextLines: 6,
+      store,
     });
-  });
+    const distractorQuery = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: "negative amount did not throw zero remains unchanged expected function to throw npm test",
+      maxTokens: 240,
+      contextLines: 6,
+      store,
+    });
+    const queryWithoutInputDiscriminator = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: buildCodeContextQuery().replace(" input", ""),
+      maxTokens: 240,
+      contextLines: 6,
+      store,
+    });
+    const targetOffset = fixture.source.indexOf(fixture.expectedExcerpt);
+    const distractorOffset = fixture.source.indexOf(fixture.distractorExcerpt);
+    const targetPrefix = fixture.source.slice(0, targetOffset);
+    const targetStartByte = Buffer.byteLength(targetPrefix, "utf8");
+    const targetStartLine = targetPrefix.split("\n").length;
 
-  it("validates code editing exact spans with UTF-8 byte offsets", async () => {
-    const { codeQueryPassesExactGate } = await import("../benchmarks/run.js");
-    const prefix = "한글 prefix\n";
-    const excerpt = [
-      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
-      "Failing test: rejects negative input without throwing away zero.",
-      "Replace src/math.ts implementation with:",
-      "export function normalizeInput(value: number): number {",
-      '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
-      "  return value;",
-      "}",
-    ].join("\n");
-    const fixture = `${prefix}${excerpt}`;
-    const startByte = Buffer.byteLength(prefix, "utf8");
-    const endByte = startByte + Buffer.byteLength(excerpt, "utf8");
-
+    expect(retrieved.fallbackReason).toBeNull();
+    expect(retrieved.excerpts[0].text).toBe(fixture.expectedExcerpt);
+    expect(distractorQuery.excerpts[0].text).toBe(fixture.distractorExcerpt);
+    expect(codeQueryPassesExactGate(fixture, distractorQuery)).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, retrieved)).toBe(true);
+    expect(targetOffset).toBeGreaterThan(distractorOffset);
+    expect(queryWithoutInputDiscriminator.excerpts[0].text).toBe(fixture.distractorExcerpt);
+    expect(queryWithoutInputDiscriminator.excerpts[0].sourceMap).toMatchObject(fixture.distractorSourceMap);
+    expect(codeQueryPassesExactGate(fixture, queryWithoutInputDiscriminator)).toBe(false);
+    expect(fixture.expectedSourceMap).toMatchObject({
+      startLine: targetStartLine,
+      endLine: targetStartLine + fixture.expectedExcerpt.split("\n").length - 1,
+      startByte: targetStartByte,
+      endByte: targetStartByte + Buffer.byteLength(fixture.expectedExcerpt, "utf8"),
+    });
     expect(
-      codeQueryPassesExactGate(fixture, {
-        artifactId: "artifact_unicode",
-        sha256: "0".repeat(64),
-        estimatedTokens: 100,
-        confidence: "high",
-        warnings: [],
-        fallbackReason: null,
-        excerpts: [
-          {
-            text: excerpt,
-            sourceMap: {
-              path: "fixture.txt",
-              startLine: 2,
-              endLine: 8,
-              startByte,
-              endByte,
-              completeSpan: true,
-            },
-          },
-        ],
-      }),
-    ).toBe(true);
+      Buffer.from(fixture.source, "utf8")
+        .subarray(fixture.expectedSourceMap.startByte, fixture.expectedSourceMap.endByte)
+        .toString("utf8"),
+    ).toBe(fixture.expectedExcerpt);
   });
 
-  it("rejects malformed code editing exact span byte offsets", async () => {
-    const { codeQueryPassesExactGate } = await import("../benchmarks/run.js");
-    const excerpt = [
-      "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test",
-      "Failing test: rejects negative input without throwing away zero.",
-      "Replace src/math.ts implementation with:",
-      "export function normalizeInput(value: number): number {",
-      '  if (value < 0) throw new Error("ERR_NEGATIVE_INPUT");',
-      "  return value;",
-      "}",
-    ].join("\n");
-    const fixture = `prefix\n${excerpt}`;
-    const startByte = Buffer.byteLength("prefix\n", "utf8");
-    const endByte = startByte + Buffer.byteLength(excerpt, "utf8");
-    const makeQuery = (bounds: { startByte: number; endByte: number }) => ({
-      artifactId: "artifact_bounds",
-      sha256: "1".repeat(64),
+  it("validates code context exact spans with UTF-8 byte offsets", async () => {
+    const { buildCodeContextFixture, codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const baseFixture = buildCodeContextFixture(0);
+    const prefix = "한글 prefix\n";
+    const source = prefix + baseFixture.source;
+    const startByte = Buffer.byteLength(prefix, "utf8") + baseFixture.expectedSourceMap.startByte;
+    const endByte = startByte + Buffer.byteLength(baseFixture.expectedExcerpt, "utf8");
+    const fixture = {
+      ...baseFixture,
+      source,
+      expectedSourceMap: {
+        ...baseFixture.expectedSourceMap,
+        startLine: baseFixture.expectedSourceMap.startLine + 1,
+        endLine: baseFixture.expectedSourceMap.endLine + 1,
+        startByte,
+        endByte,
+      },
+    };
+    const query: ReturnType<typeof queryArtifact> = {
+      artifactId: "artifact_utf8_span",
+      sha256: "0".repeat(64),
       estimatedTokens: 100,
-      confidence: "high" as const,
+      confidence: "high",
       warnings: [],
       fallbackReason: null,
-      excerpts: [
-        {
-          text: excerpt,
-          sourceMap: {
-            path: "fixture.txt",
-            startLine: 2,
-            endLine: 8,
-            completeSpan: true,
-            ...bounds,
-          },
+      excerpts: [{ text: fixture.expectedExcerpt, sourceMap: fixture.expectedSourceMap }],
+    };
+
+    expect(codeQueryPassesExactGate(fixture, query)).toBe(true);
+  });
+
+  it("rejects missing context, malformed offsets, fallback, and corrupted code context text", async () => {
+    const { buildCodeContextFixture, codeQueryPassesExactGate } = await import("../benchmarks/run.js");
+    const fixture = buildCodeContextFixture(0);
+    const { startByte, endByte } = fixture.expectedSourceMap;
+    const makeQuery = (
+      input: { startByte?: number; endByte?: number; text?: string; fallbackReason?: string | null } = {},
+    ): ReturnType<typeof queryArtifact> => ({
+      artifactId: "artifact_span_validation",
+      sha256: "1".repeat(64),
+      estimatedTokens: 100,
+      confidence: "high",
+      warnings: [],
+      fallbackReason: input.fallbackReason ?? null,
+      excerpts: [{
+        text: input.text ?? fixture.expectedExcerpt,
+        sourceMap: {
+          ...fixture.expectedSourceMap,
+          startByte: input.startByte ?? startByte,
+          endByte: input.endByte ?? endByte,
         },
-      ],
+      }],
     });
 
-    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte, endByte: endByte + 1 }))).toBe(
-      false,
-    );
-    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: -1, endByte }))).toBe(false);
-    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: endByte, endByte }))).toBe(
-      false,
-    );
-    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: startByte + 1, endByte }))).toBe(
-      false,
-    );
+    expect(codeQueryPassesExactGate(fixture, makeQuery())).toBe(true);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ endByte: endByte + 1 }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: -1 }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: endByte, endByte }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: startByte + 1 }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ text: fixture.expectedExcerpt + " corrupted" }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ fallbackReason: "no_query_match" }))).toBe(false);
+    const noExcerptQuery: ReturnType<typeof queryArtifact> = {
+      artifactId: "artifact_no_excerpt",
+      sha256: "2".repeat(64),
+      estimatedTokens: 0,
+      confidence: "low",
+      warnings: [],
+      fallbackReason: null,
+      excerpts: [],
+    };
+    expect(codeQueryPassesExactGate(fixture, noExcerptQuery)).toBe(false);
   });
 
   it("benchmark report includes latency percentile fields", async () => {
@@ -1114,7 +1195,7 @@ describe("benchmarks", () => {
         calls += 1;
         return {
           name: input.name,
-          rawTokens: input.name === "code editing fixture source-backed retrieval" ? 8094 : 25_025,
+          rawTokens: input.name === "code context fixture source-backed retrieval" ? 8094 : 25_025,
           optimizedTokens: 100,
           reductionPercent: 90,
           passedExactGate: true,
@@ -1136,14 +1217,14 @@ describe("benchmarks", () => {
           passedTaskGate: null,
         }),
         makeRunner({
-          name: "repeated semantic document extractive summary",
+          name: "repeated semantic prefix phrase-retention smoke",
           taskGateRequired: false,
           passedTaskGate: null,
         }),
         makeRunner({
-          name: "code editing fixture source-backed retrieval",
-          taskGateRequired: true,
-          passedTaskGate: true,
+          name: "code context fixture source-backed retrieval",
+          taskGateRequired: false,
+          passedTaskGate: null,
         }),
       ],
     });
@@ -1164,19 +1245,19 @@ describe("benchmarks", () => {
       }>;
     };
     const scenario = typedReport.results.find(
-      (result) => result.name === "code editing fixture source-backed retrieval",
+      (result) => result.name === "code context fixture source-backed retrieval",
     );
 
     expect(report.passed).toBe(true);
     expect(scenario).toMatchObject({
       passedExactGate: true,
-      taskGateRequired: true,
-      passedTaskGate: true,
+      passedTaskGate: null,
+      taskGateRequired: false,
       profileVersion: "heuristic-v1",
     });
     expect(
       typedReport.results
-        .filter((result) => result.name !== "code editing fixture source-backed retrieval")
+        .filter((result) => result.name !== "code context fixture source-backed retrieval")
         .every((result) => !result.taskGateRequired && result.passedTaskGate === null),
     ).toBe(true);
     expect(scenario?.rawTokens).toBeGreaterThanOrEqual(8000);
@@ -1203,7 +1284,7 @@ describe("benchmarks", () => {
       runOnce: async () => {
         calls += 1;
         return {
-          name: "repeated semantic document extractive summary",
+          name: "repeated semantic prefix phrase-retention smoke",
           rawTokens: 1000,
           optimizedTokens: 100,
           reductionPercent: 90,
@@ -1259,7 +1340,7 @@ describe("benchmarks", () => {
         async () => {
           calls += 1;
           return {
-            name: "repeated semantic document extractive summary",
+            name: "repeated semantic prefix phrase-retention smoke",
             rawTokens: 1000,
             optimizedTokens: 100,
             reductionPercent: calls === 3 ? 20 : 90,
@@ -1282,67 +1363,29 @@ describe("benchmarks", () => {
     });
   });
 
-  it("runs code editing task gates for every default latency sample", async () => {
-    const { runCodeEditingBenchmarkScenario, runCodeEditingFixtureTests, runSampledScenario } =
-      (await import("../benchmarks/run.js")) as {
-        runCodeEditingBenchmarkScenario: (input: {
-          dir: string;
-          store: MemoryArtifactStore;
-          runTests: typeof runCodeEditingFixtureTests;
-        }) => Promise<{
-          name: string;
-          rawTokens: number;
-          optimizedTokens: number;
-          reductionPercent: number;
-          passedExactGate: boolean;
-          taskGateRequired: boolean;
-          passedTaskGate: boolean | null;
-          latencyMs: number;
-          profileVersion: string;
-          warnings: string[];
-        }>;
-        runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
-        runSampledScenario: (input: {
-          runOnce: () => Promise<{
-            name: string;
-            rawTokens: number;
-            optimizedTokens: number;
-            reductionPercent: number;
-            passedExactGate: boolean;
-            taskGateRequired: boolean;
-            passedTaskGate: boolean | null;
-            latencyMs: number;
-            profileVersion: string;
-            warnings: string[];
-          }>;
-        }) => Promise<{ sampleCount: number; passedTaskGate: boolean | null }>;
-      };
-    const dir = await mkdtemp(join(tmpdir(), "tco-bench-sampled-task-gate-"));
-    let taskGateRuns = 0;
+  it("keeps source-backed retrieval task gate explicitly null across samples", async () => {
+    const { runCodeContextBenchmarkScenario, runSampledScenario } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-bench-sampled-context-gate-"));
 
     const result = await runSampledScenario({
-      runOnce: () =>
-        runCodeEditingBenchmarkScenario({
-          dir,
-          store: new MemoryArtifactStore(),
-          runTests: (source) => {
-            taskGateRuns += 1;
-            return runCodeEditingFixtureTests(source);
-          },
-        }),
+      runOnce: () => runCodeContextBenchmarkScenario({
+        dir,
+        store: new MemoryArtifactStore(),
+        now: () => 0,
+      }),
     });
 
     expect(result).toMatchObject({
       sampleCount: 20,
-      passedTaskGate: true,
+      taskGateRequired: false,
+      passedTaskGate: null,
     });
-    expect(taskGateRuns).toBe(63);
   }, 10_000);
 
   it("marks required task gate failures as benchmark failures", async () => {
     const { benchmarkResultFailsGates } = await import("../benchmarks/run.js");
     const result = {
-      name: "code editing fixture source-backed retrieval",
+      name: "code context fixture source-backed retrieval",
       rawTokens: 8094,
       optimizedTokens: 227,
       reductionPercent: 97.2,
@@ -1373,33 +1416,38 @@ describe("benchmarks", () => {
     ).toBe(false);
   });
 
-  it("includes code editing task gate execution in scenario latency", async () => {
-    const { runCodeEditingBenchmarkScenario, runCodeEditingFixtureTests } = (await import(
-      "../benchmarks/run.js"
-    )) as {
-      runCodeEditingBenchmarkScenario: (input: {
-        dir: string;
-        store: MemoryArtifactStore;
-        now: () => number;
-        runTests: typeof runCodeEditingFixtureTests;
-      }) => Promise<{ latencyMs: number; passedTaskGate: boolean | null }>;
-      runCodeEditingFixtureTests: (source: string) => { passed: boolean; failures: string[] };
-    };
-    const dir = await mkdtemp(join(tmpdir(), "tco-bench-latency-"));
-    let clock = 100;
+  it("includes source-backed retrieval work in scenario latency", async () => {
+    const { runCodeContextBenchmarkScenario } = await import("../benchmarks/run.js");
+    const dir = await mkdtemp(join(tmpdir(), "tco-bench-context-latency-"));
+    let clock = 0;
+    const calls = { put: 0, get: 0 };
+    class TimedMemoryArtifactStore extends MemoryArtifactStore {
+      override put(record: Parameters<MemoryArtifactStore["put"]>[0]): void {
+        calls.put += 1;
+        clock += 40;
+        super.put(record);
+      }
 
-    const result = await runCodeEditingBenchmarkScenario({
+      override get(artifactId: Parameters<MemoryArtifactStore["get"]>[0]): ReturnType<MemoryArtifactStore["get"]> {
+        calls.get += 1;
+        clock += 85;
+        return super.get(artifactId);
+      }
+    }
+
+    const result = await runCodeContextBenchmarkScenario({
       dir,
-      store: new MemoryArtifactStore(),
+      store: new TimedMemoryArtifactStore(),
       now: () => clock,
-      runTests: (source) => {
-        clock += 125;
-        return runCodeEditingFixtureTests(source);
-      },
     });
 
-    expect(result.passedTaskGate).toBe(true);
-    expect(result.latencyMs).toBe(375);
+    expect(calls).toEqual({ put: 1, get: 1 });
+    expect(result).toMatchObject({
+      passedExactGate: true,
+      taskGateRequired: false,
+      passedTaskGate: null,
+      latencyMs: 125,
+    });
   });
 
   it("cleans benchmark temporary directory after report generation", async () => {
