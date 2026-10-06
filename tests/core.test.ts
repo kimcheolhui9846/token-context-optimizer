@@ -1043,12 +1043,39 @@ describe("benchmarks", () => {
       contextLines: 6,
       store,
     });
+    const queryWithoutInputDiscriminator = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: buildCodeContextQuery().replace(" input", ""),
+      maxTokens: 240,
+      contextLines: 6,
+      store,
+    });
+    const targetOffset = fixture.source.indexOf(fixture.expectedExcerpt);
+    const distractorOffset = fixture.source.indexOf(fixture.distractorExcerpt);
+    const targetPrefix = fixture.source.slice(0, targetOffset);
+    const targetStartByte = Buffer.byteLength(targetPrefix, "utf8");
+    const targetStartLine = targetPrefix.split("\n").length;
 
     expect(retrieved.fallbackReason).toBeNull();
     expect(retrieved.excerpts[0].text).toBe(fixture.expectedExcerpt);
     expect(distractorQuery.excerpts[0].text).toBe(fixture.distractorExcerpt);
     expect(codeQueryPassesExactGate(fixture, distractorQuery)).toBe(false);
     expect(codeQueryPassesExactGate(fixture, retrieved)).toBe(true);
+    expect(targetOffset).toBeGreaterThan(distractorOffset);
+    expect(queryWithoutInputDiscriminator.excerpts[0].text).toBe(fixture.distractorExcerpt);
+    expect(queryWithoutInputDiscriminator.excerpts[0].sourceMap).toMatchObject(fixture.distractorSourceMap);
+    expect(codeQueryPassesExactGate(fixture, queryWithoutInputDiscriminator)).toBe(false);
+    expect(fixture.expectedSourceMap).toMatchObject({
+      startLine: targetStartLine,
+      endLine: targetStartLine + fixture.expectedExcerpt.split("\n").length - 1,
+      startByte: targetStartByte,
+      endByte: targetStartByte + Buffer.byteLength(fixture.expectedExcerpt, "utf8"),
+    });
+    expect(
+      Buffer.from(fixture.source, "utf8")
+        .subarray(fixture.expectedSourceMap.startByte, fixture.expectedSourceMap.endByte)
+        .toString("utf8"),
+    ).toBe(fixture.expectedExcerpt);
   });
 
   it("validates code context exact spans with UTF-8 byte offsets", async () => {
@@ -1123,6 +1150,7 @@ describe("benchmarks", () => {
     };
     expect(codeQueryPassesExactGate(fixture, noExcerptQuery)).toBe(false);
   });
+
   it("benchmark report includes latency percentile fields", async () => {
     const { runBenchmarkReport } = (await import("../benchmarks/run.js")) as {
       runBenchmarkReport: (input: {
@@ -1338,13 +1366,12 @@ describe("benchmarks", () => {
   it("keeps source-backed retrieval task gate explicitly null across samples", async () => {
     const { runCodeContextBenchmarkScenario, runSampledScenario } = await import("../benchmarks/run.js");
     const dir = await mkdtemp(join(tmpdir(), "tco-bench-sampled-context-gate-"));
-    let clock = 0;
 
     const result = await runSampledScenario({
       runOnce: () => runCodeContextBenchmarkScenario({
         dir,
         store: new MemoryArtifactStore(),
-        now: () => ++clock,
+        now: () => 0,
       }),
     });
 
@@ -1353,7 +1380,6 @@ describe("benchmarks", () => {
       taskGateRequired: false,
       passedTaskGate: null,
     });
-    expect(clock).toBe(42);
   }, 10_000);
 
   it("marks required task gate failures as benchmark failures", async () => {
@@ -1393,18 +1419,31 @@ describe("benchmarks", () => {
   it("includes source-backed retrieval work in scenario latency", async () => {
     const { runCodeContextBenchmarkScenario } = await import("../benchmarks/run.js");
     const dir = await mkdtemp(join(tmpdir(), "tco-bench-context-latency-"));
-    let clock = 100;
+    let clock = 0;
+    const calls = { put: 0, get: 0 };
+    class TimedMemoryArtifactStore extends MemoryArtifactStore {
+      override put(record: Parameters<MemoryArtifactStore["put"]>[0]): void {
+        calls.put += 1;
+        clock += 40;
+        super.put(record);
+      }
+
+      override get(artifactId: Parameters<MemoryArtifactStore["get"]>[0]): ReturnType<MemoryArtifactStore["get"]> {
+        calls.get += 1;
+        clock += 85;
+        return super.get(artifactId);
+      }
+    }
 
     const result = await runCodeContextBenchmarkScenario({
       dir,
-      store: new MemoryArtifactStore(),
-      now: () => {
-        clock += 125;
-        return clock;
-      },
+      store: new TimedMemoryArtifactStore(),
+      now: () => clock,
     });
 
+    expect(calls).toEqual({ put: 1, get: 1 });
     expect(result).toMatchObject({
+      passedExactGate: true,
       taskGateRequired: false,
       passedTaskGate: null,
       latencyMs: 125,

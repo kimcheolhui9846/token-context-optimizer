@@ -503,9 +503,12 @@ export function buildCodeContextFixture(
   const expectedExcerpt = CODE_CONTEXT_EXPECTED_LINES.join("\n");
   const separator = "\n\nRelated implementation with a similar test symptom:\n";
   const distractorExcerpt = CODE_CONTEXT_DISTRACTOR_LINES.join("\n");
-  const source = prefix + expectedExcerpt + separator + distractorExcerpt;
-  const expectedStartByte = Buffer.byteLength(prefix, "utf8");
+  const source = prefix + distractorExcerpt + separator + expectedExcerpt;
+  const expectedStart = source.indexOf(expectedExcerpt);
+  const expectedPrefix = source.slice(0, expectedStart);
+  const expectedStartByte = Buffer.byteLength(expectedPrefix, "utf8");
   const expectedEndByte = expectedStartByte + Buffer.byteLength(expectedExcerpt, "utf8");
+  const expectedStartLine = expectedPrefix.split("\n").length;
   const distractorStart = source.indexOf(distractorExcerpt);
   const distractorStartByte = Buffer.byteLength(source.slice(0, distractorStart), "utf8");
   const distractorStartLine = source.slice(0, distractorStart).split("\n").length;
@@ -515,8 +518,8 @@ export function buildCodeContextFixture(
     expectedExcerpt,
     expectedSourceMap: {
       path: sourcePath,
-      startLine: lines.length + 1,
-      endLine: lines.length + CODE_CONTEXT_EXPECTED_LINES.length,
+      startLine: expectedStartLine,
+      endLine: expectedStartLine + CODE_CONTEXT_EXPECTED_LINES.length - 1,
       startByte: expectedStartByte,
       endByte: expectedEndByte,
       completeSpan: true,
@@ -626,6 +629,7 @@ export function codeQueryPassesExactGate(
     fixtureBuffer.subarray(startByte, endByte).toString("utf8") === excerpt.text
   );
 }
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   await main();
 }

@@ -50,3 +50,26 @@ Implementation `78ee92e` was committed and pushed; Draft PR #26 is open against 
 - Rebuilt bundle is unchanged: SHA-256 `3E504807CD8EECD4F6425A4D1CA5FBF3A43701E9F97CB131B5361051BD63F46D`. Product `src/`, dependencies, shared HANDOFF, Task 25 oracle and frozen fixture remain unchanged.
 - Actual logs are preserved locally in the parent checkout at `.artifacts/task26-verification/pre-push-fixed/`; the earlier failing run remains at `pre-push/`.
 - Post-PR verification and final Astra delivery verdict will be recorded in the PR and local handoff after the latest commit is pushed. No merge is authorized by this Task.
+
+## Review follow-up (2026-10-06)
+
+The supplied review identifies N-02: target-first ordering lets a tied ranker pass the default fixture. The correction places the distractor first and calculates the target span from its actual position. Real retrieval selects the target with the full query; removing `input` selects the distractor, whose text and source map are checked and rejected by the target gate. The latency test uses real store operations to advance a passive fake clock by 40 ms during indexing and 85 ms during querying. The null-task-gate test uses a constant clock and no longer asserts 42 clock calls. Two incidental blank lines are restored. Existing Task 26 branch and Draft PR #26 are retained.
+
+F-04 follow-up remains OPEN: improve the summarizer beyond its first six source lines and replace the omission characterizations with preservation acceptance tests when that separate behavior change is approved. This Task documents and exposes the limitation; it does not repair the summarizer. The user's WBS review statuses are preserved; this follow-up does not mark findings merged or resolved.
+
+No new Task or merge is authorized.
+
+
+### Follow-up planning checkpoint
+- Native Astra directly verified both reported weaknesses and approved the bounded plan. Native Luna established baseline: 185 core tests passed (16.91 seconds); the earlier sandbox/esbuild failure is infrastructure evidence, not RED.
+- Fresh Claude Code CLI 2.1.291 requests selected claude-opus-5, but the initial attempt and approved escalated retry each timed out after 55 seconds without output or model confirmation. Neither is a completed review. Gemini CLI 0.62.0 executes, but free API eligibility/quota was not established; no model request was made. Copilot executable was absent and gh extension list was empty; no review was performed.
+- Cross-check status: DEGRADED for this follow-up plan. Astra judged the gap acceptable conditional on adverse-order and ablated-query controls, index/query timing mutation checks, full verification and final direct review. Prior completed reviews above apply to the earlier revision.
+
+### Follow-up test and review evidence
+- RED: root ran `npm.cmd test -- --run tests/core.test.ts` before the fixture change: 184 passed, one failed (15.08 seconds). The new order assertion found target offset 32006 before distractor offset 32571. Local evidence: `.artifacts/task26-followup-red-root.txt`.
+- GREEN: the corrected candidate passed all 185 core tests (15.43 seconds). Temporary timing mutations failed the strengthened test: starting after indexing measured 85 instead of 125 ms (184 passed/one failed, 14.92 seconds); starting after querying measured 0 instead of 125 ms (184 passed/one failed, 15.08 seconds). Local evidence: `.artifacts/task26-followup-mutation-{index,query}-root.txt`.
+- Both timing mutations were restored. Root reran the targeted suite: 185 passed (15.49 seconds). Final runtime timing remains unchanged; only the benchmark fixture and regression tests change behavior.
+- Astra directly inspected the immutable candidate diff and public task record: candidate PASS WITH NOTES, no blocker/major. External milestone review did not complete: the escalated Claude invocation was interrupted without result or session confirmation; actual model execution is unconfirmed. Gemini/Copilot eligibility remained unestablished. Cross-check status remains DEGRADED, not a completed independent review.
+- Pre-push full gate: `npm.cmd test` passed 790 tests with the existing Windows FIFO skip (25 files, 19.28 seconds). Build, typecheck, MCP smoke, plugin validation and benchmark all exited zero. Benchmark reports `passed: true`; code-context median 0.83 ms, p95 1.26 ms. Logs: parent checkout `.artifacts/task26-verification/followup-pre-push/`.
+- The first whitespace check found a trailing blank line in this task record. It was removed and `git diff --check` then exited zero. No runtime rerun was needed for that whitespace-only correction. Rebuilt bundle content remains identical to HEAD (Git blob `c4a290aec44cd484ef75e6f7107294303f6998d3`).
+- Push and post-push verification/final Astra review are pending at this record commit; final delivery state is reported in PR #26 and the local root HANDOFF. No merge was performed.
