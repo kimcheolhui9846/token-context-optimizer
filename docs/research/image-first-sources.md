@@ -23,3 +23,18 @@
   요약한다. 라이선스, 파일 hash, 데이터 취득은 별도 실행 gate다.
 - 본 문서와 논문 초안은 “결과가 측정되지 않음”을 유지한다. 현재 저장소의 텍스트 테스트는 위 출처의
   모델 성능이나 이미지 경로의 안전성을 검증하지 않는다.
+
+## 공급자 이미지 입력 토큰·비용 1차 출처 (2026-10-07)
+
+Task 27의 이미지 이해 API별 공식 설정·토큰 회계·단가 비교는 [이미지 입력 토큰 비용 모델 비교](image-token-cost-models.md)에 정리했다. 이는 기존 연구 문헌 레코드가 아닌 별도의 공급자 문서 검토이며 모델 성능·실측 사용량·청구·품질·지연을 주장하지 않는다.
+
+- OpenAI: [GPT-4o 모델](https://developers.openai.com/api/docs/models/gpt-4o), [이미지와 비전](https://developers.openai.com/api/docs/guides/images-vision)
+- Anthropic: [Vision](https://platform.claude.com/docs/en/build-with-claude/vision), [좌표와 경계 상자](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates), [모델 개요](https://platform.claude.com/docs/en/models/overview)
+- Google: [Gemini 3.8 Flash 모델](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash), [Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution), [가격](https://ai.google.dev/gemini-api/docs/pricing), [이미지 이해](https://ai.google.dev/gemini-api/docs/image-understanding)
+
+### 추가 회계 계열 대조 문서 (2026-10-07)
+
+- OpenAI: [GPT-5.6 Sol 모델](https://developers.openai.com/api/docs/models/gpt-5.6-sol) — 현재 ID, 단가, 컨텍스트 및 tier 가격; [이미지와 비전](https://developers.openai.com/api/docs/guides/images-vision) — low/high/original/auto 동작, 32px patch 회계와 제한.
+- Anthropic: [Sonnet 5.5 모델 개요](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) — ID, 단가, 컨텍스트; [모델 ID와 버전](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions) — 날짜 없는 ID와 snapshot 설명; [Vision](https://platform.claude.com/docs/en/build-with-claude/vision) — 해상도 tier 및 압축 안내; [좌표와 경계 상자](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates) — helper의 resize·padding·반올림 동작.
+
+공식 Google 해상도 문서는 수치를 근사 예산으로 제시하고, 별도 이미지 이해 안내에는 치수/crop 기반 설명도 있다. 선택 모델에 대해 두 규칙을 연결하는 공식 계약은 확인하지 못했으므로 구체적 이미지 크기별 실제 토큰 계산에는 증거 공백을 남겼다.
