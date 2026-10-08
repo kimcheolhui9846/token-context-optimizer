@@ -19,9 +19,10 @@
 - [x] 방식 A 반영: 기존 후보 3개를 유지하고 Sonnet 5.5 high-res / GPT-5.6 Sol patch 대조, Gemini 근사 예산 6행과 압축 안내를 추가.
 - [x] 2026-10-08 재개 gate: 790 passed / 1 skipped, 빌드·typecheck·smoke·plugin·benchmark 및 문서 검사 PASS. 아래 재개 기록 참조.
 - [x] 2026-10-08 사용자 제공 Claude 재검토: 승인 권장, Blocker/Major 0. 사용자 요약 추가·Nit 반영 및 Draft PR 전달 승인 수신.
-- [x] 본문 수치만 사용한 요약 5개 항목, Nit 3건 반영 및 이번 수정 후 pre-PR gate 완료. 요약 대조와 최종 범위 확인 후 전달.
-- [ ] 문서 4개 commit/push 및 main 대상 Draft PR.
-- [ ] post-PR gate, native Astra 최종 검토 기록·보고. Ready·merge·다음 Task는 하지 않음.
+- [x] 본문 수치만 사용한 요약 5개 항목, Nit 3건 반영·본문 수치 대조·pre-PR gate 완료.
+- [x] 문서 4개 commit/push 완료: b2fa1ac. main 대상 [Draft PR #27](https://github.com/kimcheolhui9846/token-context-optimizer/pull/27), upstream origin/codex/task-27-image-token-cost.
+- [x] 2026-10-09 post-PR gate 완료: 790 passed / 1 skipped; 나머지 전체 검사 PASS.
+- [x] native Astra 최종 증거 검토 PASS WITH NOTES, Blocker/Major 0. 아래에 판정을 기록하며 Draft 상태로 보고한다. Ready·merge·다음 Task는 하지 않음.
 
 ## 검토 기록
 
@@ -39,7 +40,7 @@
 - RED: 문서·출처 조사라 코드 실패 테스트는 해당 없음. 사전 acceptance는 계획의 근거·산술·구간·링크·변경 범위 조건이다.
 - GREEN: 계획의 고정 PowerShell 검사로 4개 문서의 공백·개행·fence·상대 파일 링크 통과. 별도 `node -` 산술 assert로 타일·patch·단가 환산 검증 통과. Anthropic 리사이즈는 공식 이진 탐색과 별개로 정수 긴 변을 열거하는 계산에서도 결과를 확인했다. 저장소에 계산 스크립트를 추가하지 않았다.
 - 원본과 변환본 모두 공급자 처리 후 비교하며, 고정 토큰과 근사 최대 예산을 구별한다. 공급자 문서가 바뀔 수 있으므로 모델 ID·실제 열람일·조건을 기록한다.
-- Git 읽기에서 전역 ignore 파일 접근 경고가 있었지만 status/HEAD 조회는 exit 0. 현재 upstream은 `origin/main`이며 바꾸지 않았다.
+- Git 읽기에서 전역 ignore 파일 접근 경고가 있었지만 status/HEAD 조회는 exit 0. 최초 확인 당시 upstream은 `origin/main`이었으며 승인된 push 후 `origin/codex/task-27-image-token-cost`로 확인했다.
 - 이후 승인된 push에는 반드시 `git rev-parse --abbrev-ref '@{u}'` 확인 후 `git push -u origin codex/task-27-image-token-cost`를 사용한다.
 
 ### 실제 전체 게이트 결과 (2026-10-07)
@@ -73,9 +74,9 @@
 - 안정성·보안: 런타임·의존성·공유 핸드오프·논문·WBS 변경 없음. API 호출·업로드 없음. 사용자 키·인증 정보는 연구/검토 컨텍스트에 넣지 않음.
 - 성능·유지보수성: 기존 프로젝트 게이트만 회귀 증거로 사용했다. 이미지 품질·실제 비용·성능 향상은 미측정이다. 날짜·후보 ID·공식 링크를 함께 기록해 재검토 가능하게 했다.
 - 남은 근거 공백: Gemini 3.8의 정확한 크기별 입력 토큰과 JPEG quality 영향은 문서만으로 확정하지 못함. 명목 예산 계산은 실사용량 절감의 증명이 아님. 최종 pilot 모델 선정도 사용자 결정이다.
-- 내용: 방식 A 대조와 10-08 문서·산술·전체 gate 완료. 사용자 승인에 따라 요약 5개 항목과 Nit 정리를 추가하고, 본문 수치 대조 후 이번 수정본의 gate를 다시 실행한다. 과거 gate를 이번 수정의 결과로 재사용하지 않는다.
-- Git: 이번 전달 시작 HEAD는 `aa0040f8caf62610bb14fd4f6899cc2f5aeb1099`, upstream은 `origin/main`이다. 승인된 문서 4개를 commit/push하고 Draft PR을 만든 뒤 아래 전달 기록에 실제 상태를 남긴다. 이전 미커밋 정지는 종료되었고 merge는 계속 제외된다.
-- 리뷰: 방식 A의 native Astra 판정은 PASS WITH NOTES, 10-08 Claude 재검토는 승인 권장(Blocker/Major 0)이다. 요약·Nit 수정과 pre-PR gate를 마쳤고 Draft PR와 post-PR Astra 최종 검토를 진행한다.
+- 내용: 방식 A 대조, 요약 5개 항목과 Nit 정리 완료. 요약과 본문 수치 대조, 10-08 pre-PR gate 및 10-09 post-PR gate를 각각 실행해 통과했다. 과거 gate를 새 결과로 재사용하지 않았다.
+- Git: 이번 전달 시작 HEAD는 `aa0040f8caf62610bb14fd4f6899cc2f5aeb1099`, upstream은 `origin/main`이다. 승인된 문서 4개를 b2fa1ac로 commit/push했고 main 대상 Draft PR #27을 생성했다. 이전 미커밋 정지는 종료되었고 merge는 계속 제외된다.
+- 리뷰: 방식 A의 native Astra 판정은 PASS WITH NOTES, 10-08 Claude 재검토는 승인 권장(Blocker/Major 0)이다. 요약·Nit 수정과 pre/post-PR gate를 마쳤고 Draft PR #27의 native Astra 최종 증거 판정은 PASS WITH NOTES다.
 
 ## 다음 작업자
 
@@ -127,3 +128,19 @@
 
 - 동일 native gpt-6-luna 재개 호출이 실제 완료되어 연구 노트만 수정했다. 본문 수치·요약 5개·Sonnet 구간 2개·압축 문단 이동/단일 출현·빈 줄 검사 PASS. 초기 빈 줄 checker 실패는 검사 substring 범위 오류였고, 문서 prefix 끝을 검사하도록 수정한 재실행에서 PASS했다. 코드 RED로 기록하지 않는다. Root도 요약 숫자 7개가 본문 표에 있음을 대조하고 고정 문서 검사 4개를 통과했다.
 - native Astra precommit 직접 검토: PASS WITH NOTES, Blocker/Major 0. 요약 수치/조건, Nit, 문서 4개와 PR 설명을 확인했다. 과거 승인 경계 제목을 이력으로 명확히 표시하라는 minor는 반영했다. 최종 post-PR 검토는 아직 별도 단계다.
+
+### Draft PR 및 post-PR 검증 — 2026-10-09
+
+- 내용 커밋 b2fa1ac19a7513ba09a68bacac3a001d032a75f5의 author/committer는 모두 사용자 설정이다. 정확히 문서 4개만 커밋했으며 bin·로그·.omx·공유 HANDOFF·WBS·런타임은 포함하지 않았다. commit은 hook 우회 옵션 없이 성공했다.
+- push 직전 upstream origin/main을 확인했고 git push -u origin codex/task-27-image-token-cost가 성공했다. 직후 upstream origin/codex/task-27-image-token-cost를 확인했다. PR #27은 main 대상 OPEN/Draft이며 로컬 HEAD·원격 브랜치·PR head가 모두 위 내용 커밋과 일치했다.
+- 최초 post-PR 실행 요청은 세션 중단으로 완료 증거가 없었고 로그 디렉터리도 없었다. 10-09 재개 후 다시 실행했다. 이 중단을 검증 성공으로 기록하지 않는다.
+- 실제 post-PR gate: 고정 문서 검사 4개 PASS; npm.cmd test 25 files / 790 passed / 1 기존 FIFO skip, 18.40초; build → typecheck → smoke:mcp → validate:plugin → benchmark 모두 exit 0, benchmark passed=true; git diff --check PASS; worktree CLEAN. 로그: 부모 checkout .artifacts/task27-delivery-20261008/post-pr/ (디렉터리명은 전달 시작일이며 실제 실행일은 10-09).
+- 빌드 전 번들 byte snapshot과 빌드 후 정규화 내용을 비교해 일치를 확인하고 원래 bytes를 보존했다. 소스 내용 변화는 없었다. 게이트는 저장소 회귀 확인이며 이미지 비용·품질·지연 실험이 아니다.
+- 이후 수정은 이 전달 상태와 계획 체크리스트 기록뿐이다. 문서 검사·diff 검사와 원격 최신 head 확인을 수행하며, 기록만의 변경을 새 코드 테스트 결과로 표현하지 않는다. Ready 전환·merge·다음 Task와 API/count-tokens/업로드는 수행하지 않았다.
+
+### Native Astra 최종 판정 — 2026-10-09
+
+- 실제 native gpt-6-astra 최종 증거 검토: PASS WITH NOTES, Blocker/Major 0. 검토자는 b2fa1ac의 4개 문서 diff, 요약 수치와 요구사항, 사용자 Claude 처리 결과, post-PR 로그, 최신 핸드오프/계획의 기록 diff, PR 설명 및 OPEN/Draft/main 상태를 직접 확인했다. 구현자 자기 검토를 독립 검토로 대체하지 않았다.
+- 기록의 과거/현재 시점 혼동 minor를 정리했다. 리뷰 후 변경은 이 판정 기록과 상태/체크리스트뿐이며 연구 노트·출처·런타임은 동일하다. 이 기록 커밋에는 고정 문서 검사와 git diff --check를 적용하며, 전체 gate는 위 b2fa1ac에서 실제 실행한 결과다.
+- 남은 Notes: 외부 provider hierarchy의 추가 검토는 DEGRADED(사용자 제공 Claude 검토의 실제 모델 미확인, Gemini 무료 접근 미확인, Copilot 실제 CLI 부재). 실제 이미지 usage·청구·품질·지연은 미측정, Gemini 정확 회계 공백과 최종 파일럿 선택은 그대로 남는다.
+- 최종 전달 후 다음 행동은 사용자 검토다. PR을 Draft로 유지하고 Ready·merge·다음 Task는 수행하지 않는다. 최신 기록 커밋 SHA와 원격/PR 일치는 Git/PR에서 확인한다.
