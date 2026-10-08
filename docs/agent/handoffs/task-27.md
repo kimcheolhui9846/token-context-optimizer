@@ -2,9 +2,11 @@
 
 ## 승인과 범위
 
+- 최신 승인(2026-10-09): 사용자가 PR #27 Claude 재검토 Approve(Blocker/Major 0)를 제공하고 Nit 2건 반영, Ready 전환·merge 및 다음 Task 진행을 승인했다. 아래 10-08 Draft 정지 지점은 당시 전달 이력이다. API/count-tokens/업로드 금지는 유지한다.
+
 - Base: `aa0040f8caf62610bb14fd4f6899cc2f5aeb1099`; branch: `codex/task-27-image-token-cost`.
 - [계획](../../superpowers/plans/2026-10-06-image-token-cost-models.md)을 먼저 수정한 뒤 조사 문서 작성·검증을 진행하도록 사용자가 2026-10-07 승인했다.
-- 최신 승인(2026-10-08): 사용자가 Claude 재검토 결과를 제공하고 요약 5개 항목·Nit 3건 반영, 문서 4개 commit/push, main 대상 Draft PR, post-PR 전체 gate와 native Astra 최종 검토를 승인했다. 정지 지점은 **Draft PR 및 최종 검토 결과 보고**다. Ready 전환·merge·다음 Task는 제외한다.
+- 이전 전달 승인(2026-10-08): 사용자가 Claude 재검토 결과를 제공하고 요약 5개 항목·Nit 3건 반영, 문서 4개 commit/push, main 대상 Draft PR, post-PR 전체 gate와 native Astra 최종 검토를 승인했다. 정지 지점은 **Draft PR 및 최종 검토 결과 보고**다. Ready 전환·merge·다음 Task는 제외한다.
 - 이전 FactChat PR 단계 구상과 Git 작업 전 정지는 위 최신 승인으로 대체된다. FactChat 연결 설정과 키는 사용하거나 기록하지 않는다.
 - 변경 허용 파일은 계획, 연구 노트, 출처 등록부, 이 Task 전용 핸드오프 4개다. 공유 `HANDOFF.md`, `docs/agent/HANDOFF.md`, 논문·프로토콜·WBS·런타임·의존성은 보존한다.
 - 실제 공급자 API 호출, count-tokens, 이미지 업로드·생성·실험은 금지. 공개 공식 문서 열람과 로컬 산술만 수행한다. 전체 데이터셋 산정은 WBS 5.1이다.
@@ -28,12 +30,12 @@
 
 | 제공자 | 단계 / 수행 여부 | 근거와 한계 |
 | --- | --- | --- |
-| Claude Code | 초기 계획 리뷰·재검토: 사용자 제공 문서 읽음 | 2026-10-06 리뷰 6건, 2026-10-07 재검토 Blocker/Major 0, 추가 5건 모두 수용. 정확한 호출 모델은 제공 문서에 없어 확인하지 못함. 새 Opus 5 호출로 표기하지 않음. |
+| Claude Code | 초기 계획 리뷰·재검토: 사용자 제공 문서 읽음 | 2026-10-06 리뷰 6건, 2026-10-07 재검토 Blocker/Major 0, 추가 5건 모두 수용. 정확한 호출 모델은 제공 문서에 없어 확인하지 못함. 새 Opus 5 호출로 표기하지 않음. 2026-10-09 PR #27 재검토는 사용자 제공 문서에 Claude Code `claude-opus-5-5`, Approve(Blocker/Major 0)로 명시되어 있다. 이전 리뷰의 모델 미확인 상태는 유지한다. |
 | Gemini | 추가 초기 교차 검토 미수행 | CLI는 발견했으나 무료 사용 자격·실제 모델 접근·잔여 quota는 확인하지 못함. 유료 전환이나 확인용 모델 호출을 하지 않음. |
 | GitHub Copilot | 추가 초기 교차 검토 미수행 | `Get-Command copilot`에서 실행 파일을 찾지 못함. 다른 인증된 callable Copilot surface도 확인하지 못함. GitHub 인증을 Copilot 접근 증거로 쓰지 않음. |
-| Native Astra | 계획 개정 및 문서 precommit 검토 수행 | native 도구에서 `gpt-6-astra`를 명시 선택한 에이전트의 실제 수행. 문서 수정 후 PASS WITH NOTES, 미해결 blocker/major 0. 외부 제공자 리뷰 및 향후 post-PR 최종 검토와 구분. |
+| Native Astra | 계획 개정 및 문서 precommit 검토 수행 | native 도구에서 `gpt-6-astra`를 명시 선택한 에이전트의 실제 수행. 문서 수정 후 PASS WITH NOTES, 미해결 blocker/major 0. 2026-10-09 post-PR 최종 검토도 PASS WITH NOTES, Blocker/Major 0으로 완료했다. 외부 제공자 리뷰와 구분한다. |
 
-공식 외부 제공자 hierarchy 기준의 추가 호출 상태는 **DEGRADED**다. 사용자 제공 Claude 리뷰는 실제 검토 자료이나, exact Opus 5 실행·quota 증거로 대체하지 않는다. 10-06 계획의 기준·경계·upstream 지적, 10-07 문서의 대표성 Major와 Gemini Minor를 반영했고, 10-08 재검토에서 승인 권장(Blocker/Major 0)을 받았다. 이번 요약과 Nit는 사용자 승인 범위이며 추가 Claude 재검토는 요구되지 않았다. Native Astra는 PR 뒤 별도로 최종 검토한다.
+공식 외부 제공자 hierarchy 기준의 추가 호출 상태는 **DEGRADED**다. 사용자 제공 Claude 리뷰는 실제 검토 자료이나, exact Opus 5 실행·quota 증거로 대체하지 않는다. 10-06 계획의 기준·경계·upstream 지적, 10-07 문서의 대표성 Major와 Gemini Minor를 반영했고, 10-08 재검토에서 승인 권장(Blocker/Major 0)을 받았다. 이번 요약과 Nit는 사용자 승인 범위이며 추가 Claude 재검토는 요구되지 않았다. Native Astra는 PR 뒤 별도로 최종 검토했고 PASS WITH NOTES(Blocker/Major 0)를 기록했다.
 
 ## 검증·위험
 
@@ -144,3 +146,13 @@
 - 기록의 과거/현재 시점 혼동 minor를 정리했다. 리뷰 후 변경은 이 판정 기록과 상태/체크리스트뿐이며 연구 노트·출처·런타임은 동일하다. 이 기록 커밋에는 고정 문서 검사와 git diff --check를 적용하며, 전체 gate는 위 b2fa1ac에서 실제 실행한 결과다.
 - 남은 Notes: 외부 provider hierarchy의 추가 검토는 DEGRADED(사용자 제공 Claude 검토의 실제 모델 미확인, Gemini 무료 접근 미확인, Copilot 실제 CLI 부재). 실제 이미지 usage·청구·품질·지연은 미측정, Gemini 정확 회계 공백과 최종 파일럿 선택은 그대로 남는다.
 - 최종 전달 후 다음 행동은 사용자 검토다. PR을 Draft로 유지하고 Ready·merge·다음 Task는 수행하지 않는다. 최신 기록 커밋 SHA와 원격/PR 일치는 Git/PR에서 확인한다.
+
+## PR 재검토 반영 및 병합 승인 — 2026-10-09
+
+- 사용자 제공 Claude Code claude-opus-5-5 리뷰를 읽고 Nit 2건을 수용했다. Haiku 요약은 본문 예제의 0–1.79% 범위로 보완하고 검토 기록은 완료된 과거형으로 고쳤다. 새 계산·출처·API 호출은 없다.
+- RED는 문서 정정이므로 해당 없다. acceptance: 요약/본문 수치 일치, 이전 리뷰의 모델 미확인 유지, 완료된 Astra 검토와 최신 승인 구분, 고정 문서 검사 및 전체 gate.
+- 이번 재검토의 모델은 제공 문서로 확인했으며 직접 새 Claude 호출을 수행한 것은 아니다. 추가 외부 호출의 DEGRADED 기록은 과거 실행 한계로 보존한다.
+- Ready·merge는 최신 사용자 승인 범위이며 검증·Astra 재검토 후 실행한다. 다음 Task에서 WBS 4.2 근거 보강을 진행하되 F-12 미결정 방향은 임의 확정하지 않는다.
+
+- 이번 Nit 반영 후 pre-merge gate(2026-10-09 02:42): 고정 문서 검사 4개 및 diff 검사 PASS; npm.cmd test는 25 files / 790 passed / 1 기존 Windows FIFO skip, 18.36초. build, typecheck, smoke:mcp, validate:plugin, benchmark 모두 exit 0, benchmark passed=true. 번들은 정규화 내용 일치 확인 후 원래 bytes를 복원했다. 로그: 부모 checkout의 ignored .artifacts/task27-delivery-20261008/pre-merge-20261009/.
+- Native gpt-6-astra가 이번 Nit diff와 실제 6개 gate 로그를 직접 검토했다: PASS WITH NOTES, Blocker/Major 0. 남은 승인 시제 불일치는 수정하고 문서 검사를 반복했다. 실측 부재와 Gemini 근거 공백은 유지된다.
