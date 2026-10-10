@@ -54,9 +54,9 @@ root HANDOFF는 기존 ignored 운영 기록으로 유지하고 커밋 대상에
 - [x] **6. 프로토콜 §7:** 모델·설정·회계 계열·입력 조건별 해석과 missing usage 유지, rejection 비교 불가를 명시한다. 기존 failure/timeout assigned denominator 규칙을 보존한다. 회계 비교 불가는 할당된 품질 평가 분모에서 실패를 제외한다는 뜻이 아니다. 기존 paired 분석과 primary/secondary 대비는 변경하지 않는다.
 - [x] **7. GREEN/REFACTOR:** 수치와 조건을 근거 문서의 해당 행에 직접 대조하고 불필요한 중복만 줄인다. 아래 네 문서 검사와 diff를 확인하고 전체 gate를 순서대로 실행한다. 소프트웨어 테스트 통과를 이미지 실험 검증으로 쓰지 않는다.
 - [x] **8. 마일스톤 검토:** 주 에이전트가 실제 로그·변경·미측정·외부 검토 공백을 handoff에 기록한다. Astra가 범위와 수치·조건 누락을 직접 검토한다. 승인 범위 내 오류만 고친 뒤 관련 검사를 반복한다.
-- [ ] **9. Git/PR:** 주 에이전트가 네 문서의 최종 diff를 보고 Task 커밋·upstream push를 수행한다. `main` 대상 Draft PR에 요구사항, 문서 RED 예외, 실제 검증, DEGRADED, 실험 미실행과 승인 경계를 쓴다. push 결과 및 PR head SHA를 확인한다.
-- [ ] **10. 최종 gate와 Astra 검토:** Draft PR 생성 후 아래 검사와 전체 gate를 새로 실행한다. Astra는 실제 diff·로그·handoff·branch/head/push·Draft 상태를 직접 보고 판정한다. 수정 발생 시 같은 브랜치/PR에서 추가 커밋·push·검증·재검토한다.
-- [ ] **11. 종료:** 사용자 Task Review Result로 보고하고 승인 대기한다. Task 28 Ready 전환·merge 및 Task 29 구현은 하지 않는다.
+- [x] **9. Git/PR:** 주 에이전트가 네 문서의 최종 diff를 보고 Task 커밋·upstream push를 수행한다. `main` 대상 Draft PR에 요구사항, 문서 RED 예외, 실제 검증, DEGRADED, 실험 미실행과 승인 경계를 쓴다. push 결과 및 PR head SHA를 확인한다.
+- [x] **10. 최종 gate와 Astra 검토:** Draft PR 생성 후 아래 검사와 전체 gate를 새로 실행한다. Astra는 실제 diff·로그·handoff·branch/head/push·Draft 상태를 직접 보고 판정한다. 수정 발생 시 같은 브랜치/PR에서 추가 커밋·push·검증·재검토한다.
+- [x] **11. 종료:** 사용자 Task Review Result로 보고하고 승인 대기한다. Task 28 Ready 전환·merge 및 Task 29 구현은 하지 않는다.
 
 ## 고정 문서 검사
 

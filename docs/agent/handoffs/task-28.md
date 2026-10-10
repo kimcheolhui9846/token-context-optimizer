@@ -4,7 +4,7 @@
 - Task 28 / WBS 4.2: 기존 이미지 논문·평가 프로토콜에 Task 27의 출처 근거를 반영한다.
 - 사용자 승인: 2026-10-09 PR #27 Nit 수정, Ready·merge 및 다음 Task 진행.
 - PR #27은 9aaf8235bd7954ed7d9ff8d8855e5275c08efcea로 병합되었고 검증된 3612277과 파일 트리가 같다.
-- 현재: codex/task-28-paper-evidence, 새 worktree; 기준 origin/main 9aaf823.
+- 현재: codex/task-28-paper-evidence, 기준 main 9aaf823. 내용 커밋 37bdc0e를 push했고 Draft PR #28을 생성했다.
 - 제외: F-12 논문 방향 확정, 새 계산·출처·데이터셋·런타임·의존성, API/count-tokens/업로드·실측, 사용자 WBS 및 공유 docs/agent/HANDOFF.md.
 
 ## 2. 계획과 수용 기준
@@ -12,7 +12,8 @@
 - [x] Astra 상세 계획·초기 검토 GO, 외부 제공자 검토 미수행/DEGRADED 기록.
 - [x] Luna: 논문 §3.3/5/6, 프로토콜 §6/7의 근거·관측 경계 보강 및 Minor 수정.
 - [x] 원문 표 수치·로컬 링크·범위 검사, pre-PR 전체 npm gate.
-- [ ] commit/push/Draft PR, post-PR gate, Astra 최종 검토.
+- [x] commit/push/Draft PR #28 생성 및 post-PR 전체 gate.
+- [x] Astra 최종 검토 PASS WITH NOTES 및 검증·전달 기록 정리.
 - 기존 12/36 family, 720/576/144 planned calls, A–E arms와 D−C primary 유지.
 - 1536px/q75는 미검증 후보, 대조 모델은 파일럿 선정 아님. F-06은 출처 근거만 부분 해결, WBS 5.1/5.6 실측은 미완료.
 
@@ -26,7 +27,7 @@
 - Windows exec는 tty:true/login:false. sandbox helper setup 오류 시 승인된 escalation으로 실행한다.
 
 ## 5. 교차 검토와 자체 리뷰
-- Astra native 실제 실행으로 다음 Task 범위 분석 완료. 상세 계획 GO 및 구현 diff 검토 완료; 최종 증거 검토는 Draft PR 뒤 수행한다.
+- Astra native 실제 실행으로 다음 Task 범위 분석 완료. 상세 계획 GO 및 구현 diff 검토 완료; Draft PR 후 최종 증거 검토를 완료했고 PASS WITH NOTES를 받았다.
 - Claude10-09 claude-opus-5-5 Approve는 Task27에 대한 사용자 제공 리뷰이며 Task28 리뷰로 재사용하지 않는다.
 - 공급자 API 호출 금지 유지. 외부 모델 검토는 수행하지 않으며 근거 부족한 모델·quota를 성공으로 기록하지 않는다.
 - 공식 산술 수치를 실험 성과나 전체 데이터셋 효과로 잘못 옮기는 위험을 최우선 검토한다.
@@ -75,6 +76,23 @@
 - 정확성: 조건부 산술/실측/명목 예산을 구별하고 unknown과 거부 비교 불가를 유지했다. F-06 출처 근거는 부분 보완됐으나 WBS 5.1/5.6 실측은 남는다.
 - 안정성·보안·성능: 코드·데이터·요청 경로 변경이 없는 문서 작업이며 기존 회귀 gate만 검증했다. 비밀은 읽거나 외부 검토에 전달하지 않았다.
 - 유지보수성: 기존 출처 노트로 연결하고 논문·프로토콜의 평가 설계를 보존했다. 신규 외부 출처나 모델 선택은 없다.
-- 남은 단계: Draft PR 생성, post-PR 전체 gate 및 native Astra 최종 증거 검토. F-12 방향·실측·외부 교차 검토 공백은 미해결이며 다음 Task는 승인 대기한다.
+- 남은 작업: 사용자 검토 및 승인 대기. Draft PR 생성, post-PR gate와 native Astra 최종 증거 검토를 완료했다. F-12 방향·실측·외부 교차 검토 공백은 미해결이며 다음 Task는 승인 대기한다.
 
 - Precommit native Astra: PASS WITH NOTES, Blocker/Major 0. 실제 수정 diff에서 Minor 4건 해소, 실제 6개 pre-PR 로그와 4개 문서 범위를 직접 확인했다. 빌드 stderr의 PowerShell NativeCommandError 표시는 esbuild 출력 포장이며 실제 exit 0과 Done을 확인했다.
+
+## 12. Draft 전달 및 post-PR gate — 2026-10-10
+- 내용 커밋: 37bdc0e98f7744d4e56088fba92eec4178865514. 승인된 네 문서만 stage/commit했고 hooks를 우회하지 않았다.
+- push 직전 upstream은 origin/main이었다. git push -u origin codex/task-28-paper-evidence로 push한 뒤 origin/codex/task-28-paper-evidence로 확인했다.
+- [PR #28](https://github.com/kimcheolhui9846/token-context-optimizer/pull/28): main 대상 OPEN/Draft, head가 내용 커밋과 일치했다. 저자와 committer는 기존 사용자 신원이며 Agent: codex trailer를 남겼다.
+- Post-PR npm.cmd test: 25 files / 790 passed / 1 기존 Windows FIFO skip, 19.07초(17:52:10 시작). build/typecheck/smoke:mcp/validate:plugin/benchmark 모두 exit 0, benchmark passed=true.
+- 고정 네 문서 검사 및 git diff --check PASS. 별도 Node assertion은 병합 기준 9aaf823에 대해 승인 절 밖 내용·기존 평가 설계 보존, 신규 외부 URL 없음, 일곱 수치 anchor 일치를 다시 확인했다.
+- 번들은 정규화 내용 일치 후 빌드 전 bytes로 복원했고 git status --short는 CLEAN이었다. 실제 로그: 부모 ignored .artifacts/task28-delivery-20261010/post-pr/.
+- Ready·merge 및 다음 Task는 수행하지 않았다. Native Astra는 실제 최종 증거를 검토하고 PASS WITH NOTES를 반환했다.
+
+- 최종 Astra 첫 시도는 일부 읽기 검토 후 usage limit으로 중단돼 최종 판정을 받지 못했다. 사용자 재개 요청 뒤 같은 native gpt-6-astra 에이전트를 다시 실행했다. 중단된 검토를 성공으로 기록하거나 다른 모델로 대체하지 않았다.
+
+## 13. 최종 Astra 판정과 전달
+- 사용자 재개 후 실제 native gpt-6-astra 검토가 완료됐다: PASS WITH NOTES, Blocker/Major 0. 실제 연구 문서 diff, 네 파일 범위, 현재 handoff, 6개 post-PR 로그, PR 본문과 head/upstream 일치를 직접 확인했다. Minor 4건은 모두 해결됐다.
+- 최종 기록 커밋은 이 핸드오프와 계획의 상태만 갱신한다. 연구 문서·코드·번들은 전체 post-PR gate를 실행한 37bdc0e와 같다. 기록 변경은 고정 문서 검사와 diff 검사로 확인하며 전체 테스트를 기록 커밋에서 다시 실행했다고 주장하지 않는다.
+- 알려진 한계: 외부 제공자 실제 검토 미수행(DEGRADED), F-12 방향 미결정, WBS 5.1/5.6 실측 및 품질·청구·지연 미측정, npm ci의 기존 잠금 의존성 취약점 4건 보고. 어느 항목도 해소된 것으로 표시하지 않았다.
+- 다음 작업자는 PR #28의 최신 head와 이 기록을 확인한다. Task 28 Ready·merge 및 Task 29는 수행하지 않고 사용자 검토·승인을 기다린다.
