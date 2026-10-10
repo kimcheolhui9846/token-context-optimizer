@@ -73,11 +73,15 @@ JPEG quality 75이다. 이 값은 계획된 calibration 후보값일 뿐 검증�
 
 E는 oracle이 숨은 evidence region을 사용하지만 production arm의 selection, tuning, test leakage에 쓰지 않는다.
 oracle crop도 해당 arm에 배정된 동일 source variant에서 만들고 annotation은 deployable arm에 숨긴다.
-각 arm은 같은 detail 설정, output cap, question hash, source variant를 받는다. B와 C는 가능한 한 같은 output
+각 arm은 같은 detail 설정, output cap, question hash, source variant와 해당 모델의 provider resize/rejection
+설정을 받는다. 모델별 설정에는 OpenAI detail 및 Anthropic `transformations.oversized_image` 동작(downsize/error)을
+포함하고, [기존 회계 근거](./image-token-cost-models.md)에 맞춰 calibration 시작 전에 고정하고 held-out에서도
+유지한다. calibration에서는 고정 설정별로 provider 한도를 넘는 배정된 원본 source variant 수를 기록한다.
+B와 C는 가능한 한 같은 output
 transform 설정을 쓰며, selector가 만든 crop 수나 영역 차이 때문에 transform budget이 달라지면 selector만의
 효과로 해석하지 않고 출력 size와 effective transform 차이를 함께 보고한다. arm간에 모델이나 질문을 바꾸어
 결과를 유리하게 만들지 않는다. fresh session에서 arm 순서를 block/randomize하고 crop 수와 모델·detail·output
-cap을 freeze한다.
+cap과 provider image resize/rejection 설정을 freeze한다.
 
 primary 대비는 D−C 하나로 두어 동일 selector에서 guard와 conservative fallback의 추가 효과를 본다. C−B와
 D−A는 secondary exploratory 대비다. primary metric은 planned production slot의 family-averaged QA success이고,
@@ -125,6 +129,13 @@ not_started가 남아 있으면 완료된 연구로 보고하지 않는다. retr
 - preprocessing/OCR/selection/model latency, usage와 cost 또는 unknown
 - 생성 시각과 실행 config hash
 
+비용을 관측하는 경우 요청한 모델·이미지 설정과 알 수 있는 provider 처리 치수를 기록하고, 처리 정보가
+공개되지 않으면 unknown으로 둔다. 원본과 변환 이미지의 바이트 수는 토큰·비용과 별도로 기록한다.
+공식 규칙에서 계산한 토큰 추정치와 Gemini의 명목 budget은 실제 count-tokens 결과, API usage 응답 및
+실제 청구와 구분한다. count-tokens는 실행했다면 그 결과와 설정을 기록하고, 실행하지 않았다면 추정치로
+대체하지 않는다. rejection 상태도 별도 기록하며, 거부된 요청의 정의되지 않은 토큰·비용을 수치로 채우지
+않는다. 이는 향후 관측 계획이며 현재 manifest 구현이나 API 호출을 뜻하지 않는다.
+
 원본은 보존하며 output 경로는 허용된 workspace 아래로만 해석한다. symlink, path traversal, 원본 덮어쓰기,
 manifest hash 불일치는 모델 평가 전에 fail gate로 처리한다. clean ground truth는 grader 전용 저장소에
 두고 결과 파일에 복사하지 않는다.
@@ -141,6 +152,27 @@ corruption과 introduced degradation을 분리한 matched 비교를 보고한다
 등록하지 않은 상태에서 p-value, 유의성, non-inferiority, 안전 인증 또는 우월성을 주장하지 않는다.
 oracle은 hidden evidence를 사용한 진단이며 다른 arm에 대한 tuning 기준이 아니다. missing usage는 비용
 절감 분모에서 제외하거나 0 처리하지 않고 unknown으로 분리한다.
+
+토큰·비용 해석은 모델, 요청 설정, provider 회계 계열 및 입력 조건을 함께 구분해 기술한다. 산술 예제와
+출처는 [논문 §3.3 표 및 참고문헌](./image-first-paper-draft.ko.md#33-비용과-관측), 상세 계산은
+[모델별 회계 근거](./image-token-cost-models.md)를 따른다. 예제 값은 실제 측정이나 데이터셋 가중
+절감률이 아니다. Gemini의 명목 budget 차이 0은 실제 토큰 차이를 뜻하지 않으며 크기별 실제 사용량은
+unknown으로 남긴다. JPEG q75의 실제 토큰·비용 영향도 현재 공개 근거로 확정하지 않는다.
+
+요청이 거부되면 해당 비용 회계의 원본 기준값은 정의되지 않을 수 있으므로 이를 0 절감 또는 수치 차이로
+비교하지 않는다. 이 비용 비교 불가능성은 quality 평가의 assigned denominator 규칙을 바꾸지 않는다.
+실패·timeout은 기존 규칙대로 배정된 품질 평가 분모에 포함하고, retry 성공으로 원래 slot의 incorrect
+판정을 대체하지 않는다. 이 해석은 primary D−C 대비와 기존 paired 분석을 변경하지 않는다.
+
+provider rejection은 arm과 요청 설정별 실패를 분류해 rejection 실패 수 n, 해당 집단의 전체 실패 요청 수 N,
+비율 n/N으로 따로 보고한다. 각 집단에 대해 해당 arm의 배정 quality slot 수 S를 기준으로 한 rejection 비율
+n/S도 n/N과 함께 보고한다. A의 full-original 실패와 D에서 실제로 선택된 original-fallback 실패를 구분해
+표시한다. rejection은 입력 치수와 설정에 따라 다른 arm에서도 발생할 수 있으므로 나머지 arm에서도 관측된
+rejection 실패를 같은 방식으로 보고한다. 집단의 N이 0이면 failure-conditioned 비율 n/N은 0으로 대체하지
+않고 undefined로 보고한다.
+rejection slot은 기존대로 배정된 품질 분모에 포함한다. 이 rejection breakdown을 D−C와 D−A 대비와 함께
+해석해 provider limit 실패를 guard 품질의 효과로만 귀속하지 않는다. 이 집계는 12/36 family,
+720/576/144 planned calls 및 retry 규칙을 바꾸지 않는다.
 
 ## 8. blinding과 품질 gate
 

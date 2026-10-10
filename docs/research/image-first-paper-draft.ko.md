@@ -89,6 +89,27 @@ PNG 바이트 감소는 청구 비용 감소와 같지 않다. 파일 크기, �
 남긴다. 선택기 계산의 추가 비용도 원본 전달 arm과 함께 비교한다. 이 논문은 비용 절감을 전제하지 않으며,
 호스팅 실행과 계측이 구현된 뒤에만 그 질문을 평가한다.
 
+공식 문서의 규칙에 예제 치수를 적용한 수치는 산술 추정이지 데이터셋의 실측 절감률이 아니다 [7–17]
+([계산 예제와 상세 근거](./image-token-cost-models.md)). 회계 비교 대상은
+`gpt-4o-2024-11-20`, `claude-haiku-4-5-20251001`, `gemini-3.8-flash`이고, `claude-sonnet-5-5`와
+`gpt-5.6-sol`은 별도 회계 계열의 대조다. 이 다섯 대상은 산술 비교를 위한 것이며 어느 것도 파일럿 모델
+선정을 뜻하지 않는다.
+
+| 모델 ID / 설정 | 예제 결과 | 결과의 성격 |
+|---|---|---|
+| `claude-haiku-4-5-20251001` / standard [10–12] | 0–1.79% | 예제 치수의 패치 회계 산술; 0 사례 포함 |
+| `gpt-4o-2024-11-20` / low [7–8] | 85 입력 토큰 고정, Δ=0 | 공식 크기 무관 회계 |
+| `gpt-4o-2024-11-20` / high [7] | 최대 22.22% | 예제 치수 중 최대 산술 절감률 |
+| `claude-sonnet-5-5` / high-resolution [10, 11, 13] | 양수 예제 36.64–64.36% | 고해상도 계열 대조의 양수 예제 |
+| `gpt-5.6-sol` / original·auto·설정 생략 [7, 9] | 거부되지 않은 축소 예제 43.76–85.94% | 생략은 auto; 거부 사례 제외 |
+| `gpt-5.6-sol` / high [7, 9] | 양수 예제 7.83% | 예제 치수의 산술 비교 |
+| `gpt-5.6-sol` / low [7, 9] | 0% | 예제 치수의 산술 비교 |
+
+`gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 크기별 사용량과 실제 차이는 unknown이다 [14–17].
+GPT-5.6 Sol original/auto/설정 생략은 65,535px/side 상한까지 치수를 유지하고 처리 patch가 30,000을
+넘으면 거부한다 [7, 9]. 거부는 자동 축소가 아니며 그 원본 기준은 정의되지 않아 절감률 비교에 포함하지 않는다.
+모든 예제 값은 설정과 치수에 한정되며 모델 계열 전반, 파일럿 결과 또는 청구액을 나타내지 않는다.
+
 ## 4. 계획된 평가
 
 파일럿은 12개 calibration source family와 탐색용 held-out 36개 family로 시작한다. 두 집합 모두 문서,
@@ -120,10 +141,11 @@ exploratory 대비이며, 유의성 또는 non-inferiority 주장은 별도의 �
 
 ## 5. 결과는 아직 측정되지 않음
 
-이미지 입력에 대한 모델 호출, OCR telemetry, 시각적 grader, hosted latency, usage 또는 비용 결과는
-아직 실행되지 않았다. 따라서 본 문서에는 정확도, 절감률, 안전 임계값, 통계적 유의성, 우월성 수치를
-제시하지 않는다. 현재의 텍스트 및 PNG 엔지니어링 테스트는 입력·저장소·오류 처리 계약을 검증할 뿐
-이미지 최적화 방법의 효과를 검증하지 않는다.
+이미지 입력에 대한 모델 호출, OCR telemetry, 시각적 grader, hosted latency, usage 또는 실제 비용 결과는
+아직 실행되지 않았다. 따라서 본 문서에는 정확도, 실측 절감률, 안전 임계값, 통계적 유의성, 우월성 수치를
+제시하지 않는다. 앞 절의 수치는 기존 공식 회계 규칙과 예제 치수에서 얻은 산술 추정일 뿐 실험 결과가
+아니다. 현재의 텍스트 및 PNG 엔지니어링 테스트는 입력·저장소·오류 처리 계약을 검증할 뿐 이미지
+최적화 방법의 효과를 검증하지 않는다.
 
 ## 6. 논의와 한계
 
@@ -131,6 +153,17 @@ exploratory 대비이며, 유의성 또는 non-inferiority 주장은 별도의 �
 모델의 detail 처리와 숨은 토큰화는 guard를 통과해도 시각적 의미를 손상할 수 있다. 보수적 fallback은
 손실을 줄일 수 있다는 가설일 뿐 안전을 보장하지 않는다. 하나의 작은 파일럿은 일반화나 비용 체계를
 증명하지 않는다. public benchmark의 license와 접근 조건, 모델 정책과 개인정보 승인은 별도 gate다.
+
+공급자별 이미지 회계는 같은 1536px 입력 후보에도 서로 다른 결과를 낸다 [7–17]. GPT-4o low의 고정 토큰이나
+Haiku standard의 provider patch cap처럼 예제상 변화가 없는 경우가 있고, GPT-4o high와 별도 회계 계열의
+고해상도 예제에서는 설정·치수에 따라 계산 차이가 있다. 반대로 원본 요청이 거부되면 비용 비교의 기준값은
+정의되지 않으며, 요청 예산만 제시된 Gemini 3.8 Flash의 실제 크기별 사용량도 알 수 없다. JPEG q75는 OpenAI와
+Anthropic의 공개 회계식에 품질 변수가 없고 Gemini의 영향도 문서화되지 않았다. 기존 출처는 강한 JPEG
+압축이 작은 글자를 읽기 어렵게 만들 수 있고 압축 아티팩트가 모델에 영향을 줄 수 있다고 경고하지만 [10],
+이는 q75의 효과를 측정한 결과가 아니다 ([모델별 회계 근거](./image-token-cost-models.md)). 작은 글자
+가독성, 실제 토큰 사용량, 청구 및 지연시간은 별도 관측 전까지 미확인이다. Sonnet 5.5와 GPT-5.6 Sol은
+별도 회계 계열의 대조 예제이며 파일럿 후보를 추가하거나 확정하지 않는다. 이 회계 예제는 1536px/q75의
+안전성·비용 기준으로 쓰지 않는다.
 
 소유·합성 아티팩트는 재현성과 숨은 정답 통제를 돕지만 실제 문서 다양성을 대표하지 않을 수 있다.
 외부 데이터는 각 family를 함께 split하고 hash와 버전을 고정해야 한다. UI 결과를 문서 결과와 섞으면
@@ -162,3 +195,18 @@ resize/crop provenance, guard와 fallback, 평가 adapter를
 6. Wang et al., “Rethinking Token Reduction for Large Vision-Language Models,” CVPR 2026; MetaCompress arXiv:2603.21701v1.
    [CVF 목록](https://openaccess.thecvf.com/content/CVPR2026/html/Wang_Rethinking_Token_Reduction_for_Large_Vision-Language_Models_CVPR_2026_paper.html),
    [arXiv 초록](https://arxiv.org/abs/2603.21701v1), [접근 기록](./image-first-sources.md)
+
+아래 공급자 문서 URL과 확인일은 [모델별 회계 근거](./image-token-cost-models.md)의 2026-10-07 기록을
+따른다. 이번 문서 수정에서 공급자 페이지를 다시 확인하지 않았다.
+
+7. OpenAI. [Images and vision](https://developers.openai.com/api/docs/guides/images-vision). 확인일 2026-10-07.
+8. OpenAI. [GPT-4o model](https://developers.openai.com/api/docs/models/gpt-4o). 확인일 2026-10-07.
+9. OpenAI. [GPT-5.6 Sol model](https://developers.openai.com/api/docs/models/gpt-5.6-sol). 확인일 2026-10-07.
+10. Anthropic. [Vision](https://platform.claude.com/docs/en/build-with-claude/vision). 확인일 2026-10-07.
+11. Anthropic. [Vision coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). 확인일 2026-10-07.
+12. Anthropic. [Models overview](https://platform.claude.com/docs/en/models/overview). 확인일 2026-10-07.
+13. Anthropic. [Sonnet 5.5 model overview](https://platform.claude.com/docs/en/models/sonnet-5-5/overview). 확인일 2026-10-07.
+14. Google. [Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution). 확인일 2026-10-07.
+15. Google. [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding). 확인일 2026-10-07.
+16. Google. [Pricing](https://ai.google.dev/gemini-api/docs/pricing). 확인일 2026-10-07.
+17. Google. [Gemini 3.8 Flash model](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash). 확인일 2026-10-07.
