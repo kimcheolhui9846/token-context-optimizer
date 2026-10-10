@@ -73,7 +73,11 @@ JPEG quality 75이다. 이 값은 계획된 calibration 후보값일 뿐 검증�
 
 E는 oracle이 숨은 evidence region을 사용하지만 production arm의 selection, tuning, test leakage에 쓰지 않는다.
 oracle crop도 해당 arm에 배정된 동일 source variant에서 만들고 annotation은 deployable arm에 숨긴다.
-각 arm은 같은 detail 설정, output cap, question hash, source variant를 받는다. B와 C는 가능한 한 같은 output
+각 arm은 같은 detail 설정, output cap, question hash, source variant와 해당 모델의 provider resize/rejection
+설정을 받는다. 모델별 설정에는 OpenAI detail 및 Anthropic `transformations.oversized_image` 동작(downsize/error)을
+포함하고, [기존 회계 근거](./image-token-cost-models.md)에 맞춰 calibration 시작 전에 고정하고 held-out에서도
+유지한다. calibration에서는 고정 설정별로 provider 한도를 넘는 배정된 원본 source variant 수를 기록한다.
+B와 C는 가능한 한 같은 output
 transform 설정을 쓰며, selector가 만든 crop 수나 영역 차이 때문에 transform budget이 달라지면 selector만의
 효과로 해석하지 않고 출력 size와 effective transform 차이를 함께 보고한다. arm간에 모델이나 질문을 바꾸어
 결과를 유리하게 만들지 않는다. fresh session에서 arm 순서를 block/randomize하고 crop 수와 모델·detail·output
@@ -149,19 +153,24 @@ corruption과 introduced degradation을 분리한 matched 비교를 보고한다
 oracle은 hidden evidence를 사용한 진단이며 다른 arm에 대한 tuning 기준이 아니다. missing usage는 비용
 절감 분모에서 제외하거나 0 처리하지 않고 unknown으로 분리한다.
 
-토큰·비용 해석은 모델, 요청 설정, provider 회계 계열 및 입력 조건을 함께 구분해 기술한다. 아래 수치의
-예제와 출처는 [모델별 회계 근거](./image-token-cost-models.md)를 따른다. 기존 공식 회계 규칙에 예제
-치수를 적용한 수치는 실제 측정이나 데이터셋 가중 절감률이 아니다. GPT-4o low의 고정
-85토큰과 예제상 0 차이, Haiku 4.5 standard의 0–1.79%, GPT-4o high의 최대 22.22%, Sonnet 5.5
-high-resolution의 양수 예제 36.64–64.36%, 거부되지 않은 GPT-5.6 Sol original/auto 축소 예제의
-43.76–85.94%와 high의 양수 예제 7.83%는 각각 출처 문서의 설정·치수에 한정한다. GPT-5.6 Sol low
-예제의 차이는 0이다. Gemini의 명목 budget 차이 0은 실제 토큰 차이를 뜻하지 않으며 크기별 실제 사용량은
+토큰·비용 해석은 모델, 요청 설정, provider 회계 계열 및 입력 조건을 함께 구분해 기술한다. 산술 예제와
+출처는 [논문 §3.3 표 및 참고문헌](./image-first-paper-draft.ko.md#33-비용과-관측), 상세 계산은
+[모델별 회계 근거](./image-token-cost-models.md)를 따른다. 예제 값은 실제 측정이나 데이터셋 가중
+절감률이 아니다. Gemini의 명목 budget 차이 0은 실제 토큰 차이를 뜻하지 않으며 크기별 실제 사용량은
 unknown으로 남긴다. JPEG q75의 실제 토큰·비용 영향도 현재 공개 근거로 확정하지 않는다.
 
 요청이 거부되면 해당 비용 회계의 원본 기준값은 정의되지 않을 수 있으므로 이를 0 절감 또는 수치 차이로
 비교하지 않는다. 이 비용 비교 불가능성은 quality 평가의 assigned denominator 규칙을 바꾸지 않는다.
 실패·timeout은 기존 규칙대로 배정된 품질 평가 분모에 포함하고, retry 성공으로 원래 slot의 incorrect
 판정을 대체하지 않는다. 이 해석은 primary D−C 대비와 기존 paired 분석을 변경하지 않는다.
+
+provider rejection은 arm과 요청 설정별 실패를 분류해 rejection 실패 수 n, 해당 집단의 전체 실패 요청 수 N,
+비율 n/N으로 따로 보고한다. A의 full-original 실패와 D에서 실제로 선택된 original-fallback 실패를 구분해
+표시한다. rejection은 입력 치수와 설정에 따라 다른 arm에서도 발생할 수 있으므로 나머지 arm에서도 관측된
+rejection 실패를 같은 방식으로 보고한다. 집단의 N이 0이면 rejection 비율은 0이 아니라 undefined다.
+rejection slot은 기존대로 배정된 품질 분모에 포함한다. 이 rejection breakdown을 D−C와 D−A 대비와 함께
+해석해 provider limit 실패를 guard 품질의 효과로만 귀속하지 않는다. 이 집계는 12/36 family,
+720/576/144 planned calls 및 retry 규칙을 바꾸지 않는다.
 
 ## 8. blinding과 품질 gate
 

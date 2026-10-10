@@ -29,7 +29,7 @@
 ## 5. 교차 검토와 자체 리뷰
 - Astra native 실제 실행으로 다음 Task 범위 분석 완료. 상세 계획 GO 및 구현 diff 검토 완료; Draft PR 후 최종 증거 검토를 완료했고 PASS WITH NOTES를 받았다.
 - Claude10-09 claude-opus-5-5 Approve는 Task27에 대한 사용자 제공 리뷰이며 Task28 리뷰로 재사용하지 않는다.
-- 공급자 API 호출 금지 유지. 외부 모델 검토는 수행하지 않으며 근거 부족한 모델·quota를 성공으로 기록하지 않는다.
+- 공급자 API 호출 금지 유지. 직접 외부 모델 호출은 수행하지 않았다. 이후 수신한 사용자 제공 Task 28 Claude 리뷰는 §9/14에 별도로 기록하며 Codex가 모델·quota를 검증했다고 주장하지 않는다.
 - 공식 산술 수치를 실험 성과나 전체 데이터셋 효과로 잘못 옮기는 위험을 최우선 검토한다.
 
 ## 6. 남은 작업과 승인 지점
@@ -53,11 +53,11 @@
 - 실제 gpt-6-luna가 두 연구 문서를 수정했다. 첫 combined patch는 context 불일치로 원자적으로 실패해 파일이 바뀌지 않았고, 실제 문맥 확인 후 다시 적용했다.
 - Root 범위 검사에서 허용된 절 밖 내용과 기존 평가 설계는 보존됐으나 프로토콜의 직접 근거 링크가 누락되어 실패했다. 링크를 보완한 뒤 같은 검사를 다시 실행해 통과했다.
 - Native gpt-6-astra가 실제 diff와 출처를 검토했다: Blocker/Major 0. Minor는 프로토콜 출처 링크, Sol 생략 기본값=auto, 대조 모델/기존 후보 역할, JPEG 작은 글자 손상 가능성의 명시였다. 모두 승인된 근거 보강 범위로 수용했다.
-- 외부 마일스톤 검토 상태: DEGRADED. 아래는 설치 확인과 실제 검토를 분리한 기록이다.
+- 초기·구현 마일스톤의 추가 직접 호출 상태는 DEGRADED였다. 이후 사용자 제공 Task 28 전용 Claude 리뷰를 수신했다. 아래는 직접 호출 이력과 제공받은 실제 리뷰를 분리한 기록이다.
 
 | 제공자 | 초기 계획 / 마일스톤 실제 수행 | 확인 범위와 미수행 이유 |
 | --- | --- | --- |
-| Claude Code | 미수행 / 미수행 | claude.exe 존재만 확인. Opus 5 실제 선택·실행·인증·quota 미확인, 외부 모델/API 호출 금지 유지. Task 27 사용자 리뷰는 재사용하지 않음. |
+| Claude Code | 초기 직접 호출 미수행 / 사용자 제공 Task 28 리뷰 수신 | 사용자 제공 Claude 리뷰(2026-10-10, claude-opus-5-5): Approve, Minor 3/Nit 2, Blocker/Major 0. Codex가 직접 호출하지 않았으며 실행·인증·quota를 검증했다고 주장하지 않음. Task 27 리뷰 재사용 아님. |
 | Gemini | 미수행 / 미수행 | gemini.ps1 존재만 확인. 무료 모델 접근·free quota 미확인; 유료 전환이나 모델 호출 없음. |
 | GitHub Copilot | 미수행 / 미수행 | copilot.ps1 wrapper 존재만 확인. 실제 callable 모델 접근과 quota 미확인; GitHub 인증을 Copilot 증거로 쓰지 않음. |
 | Native Astra | GO / 실제 문서 diff 검토 완료 | gpt-6-astra를 명시 선택한 native 호출의 성공 응답. 외부 제공자 교차 검토를 대신했다고 주장하지 않음. |
@@ -76,7 +76,7 @@
 - 정확성: 조건부 산술/실측/명목 예산을 구별하고 unknown과 거부 비교 불가를 유지했다. F-06 출처 근거는 부분 보완됐으나 WBS 5.1/5.6 실측은 남는다.
 - 안정성·보안·성능: 코드·데이터·요청 경로 변경이 없는 문서 작업이며 기존 회귀 gate만 검증했다. 비밀은 읽거나 외부 검토에 전달하지 않았다.
 - 유지보수성: 기존 출처 노트로 연결하고 논문·프로토콜의 평가 설계를 보존했다. 신규 외부 출처나 모델 선택은 없다.
-- 남은 작업: 사용자 검토 및 승인 대기. Draft PR 생성, post-PR gate와 native Astra 최종 증거 검토를 완료했다. F-12 방향·실측·외부 교차 검토 공백은 미해결이며 다음 Task는 승인 대기한다.
+- 남은 작업: 사용자 검토 및 승인 대기. Draft PR 생성, post-PR gate와 native Astra 최종 증거 검토를 완료했다. F-12 방향·실측·추가 직접 교차 검토 공백은 미해결이며 다음 Task는 승인 대기한다.
 
 - Precommit native Astra: PASS WITH NOTES, Blocker/Major 0. 실제 수정 diff에서 Minor 4건 해소, 실제 6개 pre-PR 로그와 4개 문서 범위를 직접 확인했다. 빌드 stderr의 PowerShell NativeCommandError 표시는 esbuild 출력 포장이며 실제 exit 0과 Done을 확인했다.
 
@@ -94,5 +94,29 @@
 ## 13. 최종 Astra 판정과 전달
 - 사용자 재개 후 실제 native gpt-6-astra 검토가 완료됐다: PASS WITH NOTES, Blocker/Major 0. 실제 연구 문서 diff, 네 파일 범위, 현재 handoff, 6개 post-PR 로그, PR 본문과 head/upstream 일치를 직접 확인했다. Minor 4건은 모두 해결됐다.
 - 최종 기록 커밋은 이 핸드오프와 계획의 상태만 갱신한다. 연구 문서·코드·번들은 전체 post-PR gate를 실행한 37bdc0e와 같다. 기록 변경은 고정 문서 검사와 diff 검사로 확인하며 전체 테스트를 기록 커밋에서 다시 실행했다고 주장하지 않는다.
-- 알려진 한계: 외부 제공자 실제 검토 미수행(DEGRADED), F-12 방향 미결정, WBS 5.1/5.6 실측 및 품질·청구·지연 미측정, npm ci의 기존 잠금 의존성 취약점 4건 보고. 어느 항목도 해소된 것으로 표시하지 않았다.
+- 알려진 한계: 추가 직접 외부 호출 미수행(사용자 제공 Task 28 Claude 리뷰는 수신), F-12 방향 미결정, WBS 5.1/5.6 실측 및 품질·청구·지연 미측정, npm ci의 기존 잠금 의존성 취약점 4건 보고. 어느 항목도 해소된 것으로 표시하지 않았다.
 - 다음 작업자는 PR #28의 최신 head와 이 기록을 확인한다. Task 28 Ready·merge 및 Task 29는 수행하지 않고 사용자 검토·승인을 기다린다.
+
+## 14. 사용자 제공 Claude 리뷰와 승인된 후속 수정
+- 입력: Desktop/codex_review_feedback_2026-10-10_task28-pr28.md. 사용자 제공 Task 28 전용 Claude Code 리뷰, 문서 표기 모델 claude-opus-5-5, 날짜 2026-10-10. 판정 Approve, Blocker 0/Major 0/Minor 3/Nit 2.
+- 먼저 실제 문서와 기존 URL을 읽기 전용으로 대조하고 native Astra의 지적별 판단을 표로 보고했다. 사용자가 M-1~M-3, N-1~N-2 전체 반영안을 승인했다.
+- 최신 허용 범위는 연구 문서 두 개와 이 Task 핸드오프 세 파일 및 PR 본문이다. 기존 계획의 절 제한보다 이번 사용자 승인이 우선하며 계획 자체·root/shared HANDOFF·WBS·코드·의존성은 수정하지 않는다.
+- M-1 수용: 기존 노트 URL 11개만 논문 참고문헌 번호로 추가하고 본문 인용과 산술 상세 보조 링크를 연결한다. 확인일 2026-10-07은 기존 출처 기록이며 이번에 외부 문서를 재열람했다는 뜻이 아니다.
+- M-2 수용: 정확한 비교 ID 세 개와 대조 ID 두 개를 정의하고 어느 쪽도 파일럿 선정이 아님을 명시한다.
+- M-3 수정 수용: provider resize/rejection 설정 동결, calibration의 한도 초과 variant 수, A/D-fallback 실패 중 provider rejection 건수·분모·비율 보고를 추가한다. A/D만 거부될 수 있다는 전제는 채택하지 않고 품질 실패 분모·retry·primary 대비는 유지한다.
+- N-1 수용: 논문 산술 수치를 세 열 표로 정리하고 프로토콜은 이를 참조한다. 양수/비거부 예제 한정, Gemini 명목/unknown, 거부 비교 불가를 보존한다.
+- N-2 수용: 위 Claude 행과 PR 본문에 사용자 제공 리뷰를 기록한다. Codex의 직접 외부 호출 금지는 유지하며 이전 미수행 이력을 성공으로 바꾸지 않는다.
+- RED: 문서 수정이므로 해당 없음. 사전 acceptance는 세 파일 범위, 기존 URL 집합 내 이동, 정확한 모델 ID, 숫자·평가 설계·분모 보존, 번호 인용/표/상대 링크 일치다. 구현은 실제 gpt-6-luna, 재검토는 gpt-6-astra로 진행한다.
+- 반영 후 고정 네 문서 검사(계획은 읽기만), git diff --check, 수치 anchor 및 기존 설계 검사를 반복한다. 같은 브랜치의 fix(review) 커밋으로 전달하며 push 후 Draft 상태와 Astra 재검토를 확인하고 멈춘다.
+
+## 15. Claude 리뷰 수정 검증
+- M-1/M-2/N-1: 지정된 기존 URL 11개를 참고문헌 7–17로 옮겼고 원래 확인일을 승계했다. 모델 ID 5개, 7행 수치 표와 조건, 프로토콜의 논문 표 링크를 확인했다. 새 공급자 출처·계산·API 호출은 없다.
+- M-3 초안에서 제출 요청 수를 비율 분모로 쓴 불일치를 root가 발견해 수정했다. 최종 문구는 각 A/full-original 및 D/original-fallback 그룹에서 n=provider rejection 실패 건수, N=전체 실패 건수이며 N=0은 undefined다. 기존 품질 분모와 retry 규칙은 유지한다.
+- Native Astra가 실제 수정 diff를 재검토했다: Blocker/Major 0. calibration 시작 전 고정, held-out 유지, 배정된 원본 variant 집계, 공급자 한도와 guard 효과의 해석 구분을 확인했다. N-2는 사용자 제공 Claude 리뷰로 표시하고 직접 호출 이력과 구분했다.
+- 고정 4문서 검사 PASS: 공백·최종 개행·fence·상대 링크. 계획은 읽기만 하고 수정하지 않았다. git diff --check PASS.
+- 별도 Node anchor/범위 검사 PASS: 승인된 세 파일만 변경, 허용 절 밖 내용 및 기존 설계·분모 보존, 옮긴 URL 11개가 기존 노트 집합에 포함, 정확한 ID 5개·수치 anchor·17개 참고문헌 번호·논문 절 링크 일치. 일곱 수치와 65,535/30,000 한도를 기존 노트와 대조했다.
+- 이번 수정본 전체 gate: npm.cmd test PASS, 25 files / 790 passed / 1 기존 Windows FIFO skip, 21.04초(22:26:42 시작). npm.cmd run build/typecheck/smoke:mcp/validate:plugin/benchmark 모두 exit 0, benchmark passed=true.
+- 번들은 정규화 내용이 빌드 전과 같음을 확인한 뒤 원래 bytes로 복원했다. git status --short는 연구 문서 2개와 이 핸드오프만 표시했다. 로그: 부모 ignored .artifacts/task28-delivery-20261010/review-fix/.
+- GREEN: 위 검증 통과. REFACTOR: 승인된 표 전환과 중복 수치 참조 정리만 수행했다. 기존 계획·공유 HANDOFF·WBS·코드·의존성은 변경하지 않았다. push 뒤 Draft 상태와 Astra 재검토를 확인한다.
+
+- 수정본 precommit Astra 판정: PASS WITH NOTES. 실제 6개 review-fix 로그와 승인된 세 문서 diff를 직접 확인했으며 Blocker/Major 0이다.
