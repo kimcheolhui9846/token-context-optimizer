@@ -33,7 +33,8 @@
 - 공식 산술 수치를 실험 성과나 전체 데이터셋 효과로 잘못 옮기는 위험을 최우선 검토한다.
 
 ## 6. 남은 작업과 승인 지점
-- 위 계획 완료 후 Task28 Draft PR 및 최종 Astra 결과 보고에서 정지한다. Task28 Ready·merge나 Task29는 새 승인 전 수행하지 않는다.
+- [ ] 투고 전: 공급자 문서 재확인, 확인일 갱신, 논문의 재확인 미수행 문장 삭제. Gemini 가격 2027-01-01 변경과 Sol 프로모션 2026-11-21 종료 유의(사용자 제공 리뷰의 일정이며 이번에 재확인하지 않음).
+- 사용자 후속 승인: R-1·R-2를 이번 PR에 반영·검증한 뒤 Ready·merge하고 다음 Task를 진행한다.
 - 사용자 WBS 파일은 아직 위치가 확인되지 않았으며 수정하지 않는다.
 
 ## 7. 재개 기록 — 2026-10-10
@@ -127,3 +128,12 @@
 - Astra가 지적한 PR 본문 표현을 정리했다: 프로토콜 범위를 §3/6/7로 갱신하고 36bf6c4의 상태 설명을 이전 전달 당시 기록으로 한정했다. 신규 출처가 없고 기존 URL 11개를 이전했음을 명확히 했다.
 - push 뒤 고정 4문서 검사, git diff --check, 수치·URL·ID·참고문헌·범위·분모 anchor 검사를 다시 실행해 통과했다. 이 최종 기록 변경은 문서 검사로 검증하며 전체 게이트를 기록 커밋에서 재실행했다고 주장하지 않는다.
 - 사용자 제공 Claude 리뷰와 native Astra 검토를 구분했다. API/count-tokens/업로드, Ready·merge·다음 Task는 수행하지 않았다. 기존 미측정 항목과 추가 직접 교차 검토 공백은 그대로 남는다.
+## 17. 사용자 제공 Claude 재검토와 후속 승인
+- 사용자 제공 Claude 재검토(2026-10-10): Approve, Nit 3. 문서 표기 리뷰어 Claude Code(claude-opus-5-5), 대상 86f29a0. 이전 M-1~M-3/N-1/N-2 해결, 새 Blocker/Major/Minor 없음. Codex 직접 호출 이력과 구분한다.
+- 지적별 처리 표 보고 후 사용자가 전자(이번 PR 수정·검증 뒤 Ready·merge·다음 Task)를 승인했다.
+- R-1: 기존 n/N 및 N=0 undefined를 유지하고 각 집단의 n / 배정 slot 수를 추가 보고한다. 모든 arm의 rejection 보고, 품질 분모·retry 규칙은 유지한다.
+- R-2: §3 마지막 freeze 요약에 provider resize/rejection 설정을 포함한다.
+- R-3: 논문과 참고문헌은 수정하지 않고 §6의 투고 전 체크리스트에만 기록했다.
+- RED는 순수 문서 보완으로 해당 없음. 수용 기준은 두 국소 문장, 논문·수치·URL·ID·기존 평가 설계 보존과 고정 4문서 검사다. API/count-tokens/업로드·공유 HANDOFF·WBS·코드·의존성 변경은 없다.
+- 검증: 고정 4문서 검사, git diff --check, 수치·URL·ID anchor 및 기존 설계 보존 검사 PASS. npm.cmd test 25 files / 790 passed / 기존 skip 1, 18.44초. build/typecheck/smoke:mcp/validate:plugin/benchmark 모두 exit 0, benchmark passed=true. 로그는 부모 .artifacts/task28-delivery-20261010/rereview/. 번들은 정규화 일치 확인 후 원래 bytes로 복원했다.
+- 실제 native gpt-6-astra precommit 검토: PASS WITH NOTES, Blocker/Major 0. 두 파일 diff와 6개 실제 게이트 로그를 직접 검토했다.

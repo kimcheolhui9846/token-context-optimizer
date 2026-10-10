@@ -81,7 +81,7 @@ B와 C는 가능한 한 같은 output
 transform 설정을 쓰며, selector가 만든 crop 수나 영역 차이 때문에 transform budget이 달라지면 selector만의
 효과로 해석하지 않고 출력 size와 effective transform 차이를 함께 보고한다. arm간에 모델이나 질문을 바꾸어
 결과를 유리하게 만들지 않는다. fresh session에서 arm 순서를 block/randomize하고 crop 수와 모델·detail·output
-cap을 freeze한다.
+cap과 provider image resize/rejection 설정을 freeze한다.
 
 primary 대비는 D−C 하나로 두어 동일 selector에서 guard와 conservative fallback의 추가 효과를 본다. C−B와
 D−A는 secondary exploratory 대비다. primary metric은 planned production slot의 family-averaged QA success이고,
@@ -165,9 +165,11 @@ unknown으로 남긴다. JPEG q75의 실제 토큰·비용 영향도 현재 공�
 판정을 대체하지 않는다. 이 해석은 primary D−C 대비와 기존 paired 분석을 변경하지 않는다.
 
 provider rejection은 arm과 요청 설정별 실패를 분류해 rejection 실패 수 n, 해당 집단의 전체 실패 요청 수 N,
-비율 n/N으로 따로 보고한다. A의 full-original 실패와 D에서 실제로 선택된 original-fallback 실패를 구분해
+비율 n/N으로 따로 보고한다. 각 집단에 대해 해당 arm의 배정 quality slot 수 S를 기준으로 한 rejection 비율
+n/S도 n/N과 함께 보고한다. A의 full-original 실패와 D에서 실제로 선택된 original-fallback 실패를 구분해
 표시한다. rejection은 입력 치수와 설정에 따라 다른 arm에서도 발생할 수 있으므로 나머지 arm에서도 관측된
-rejection 실패를 같은 방식으로 보고한다. 집단의 N이 0이면 rejection 비율은 0이 아니라 undefined다.
+rejection 실패를 같은 방식으로 보고한다. 집단의 N이 0이면 failure-conditioned 비율 n/N은 0으로 대체하지
+않고 undefined로 보고한다.
 rejection slot은 기존대로 배정된 품질 분모에 포함한다. 이 rejection breakdown을 D−C와 D−A 대비와 함께
 해석해 provider limit 실패를 guard 품질의 효과로만 귀속하지 않는다. 이 집계는 12/36 family,
 720/576/144 planned calls 및 retry 규칙을 바꾸지 않는다.
