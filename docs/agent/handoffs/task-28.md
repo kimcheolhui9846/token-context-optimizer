@@ -120,3 +120,10 @@
 - GREEN: 위 검증 통과. REFACTOR: 승인된 표 전환과 중복 수치 참조 정리만 수행했다. 기존 계획·공유 HANDOFF·WBS·코드·의존성은 변경하지 않았다. push 뒤 Draft 상태와 Astra 재검토를 확인한다.
 
 - 수정본 precommit Astra 판정: PASS WITH NOTES. 실제 6개 review-fix 로그와 승인된 세 문서 diff를 직접 확인했으며 Blocker/Major 0이다.
+
+## 16. 리뷰 수정 push 후 최종 Astra 검토
+- 수정 커밋 d9daf856ad7deac3849b37ccdc9277fd04b88dcb를 push했고 HEAD, upstream, PR #28 head 일치와 OPEN/Draft, worktree CLEAN을 확인했다.
+- 실제 native gpt-6-astra의 post-push 판정은 PASS WITH NOTES, Blocker/Major 0이다. 승인된 세 문서 diff, 다섯 지적 반영, 실제 review-fix 게이트 로그(790 passed / 1 skipped 및 나머지 검사 통과), 계획·코드·테스트·번들·의존성 무변경을 직접 검토했다.
+- Astra가 지적한 PR 본문 표현을 정리했다: 프로토콜 범위를 §3/6/7로 갱신하고 36bf6c4의 상태 설명을 이전 전달 당시 기록으로 한정했다. 신규 출처가 없고 기존 URL 11개를 이전했음을 명확히 했다.
+- push 뒤 고정 4문서 검사, git diff --check, 수치·URL·ID·참고문헌·범위·분모 anchor 검사를 다시 실행해 통과했다. 이 최종 기록 변경은 문서 검사로 검증하며 전체 게이트를 기록 커밋에서 재실행했다고 주장하지 않는다.
+- 사용자 제공 Claude 리뷰와 native Astra 검토를 구분했다. API/count-tokens/업로드, Ready·merge·다음 Task는 수행하지 않았다. 기존 미측정 항목과 추가 직접 교차 검토 공백은 그대로 남는다.
