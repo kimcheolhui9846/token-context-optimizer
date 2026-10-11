@@ -100,7 +100,7 @@
 
 - 이번에 사용자가 전달한 별도 리뷰다. 리뷰 파일은 읽기 전용으로 보존한다. 리뷰어는 실제 소스·프로토콜·테스트를 도구로 열어 대조했다고 보고했다. 위 하네스 직접 호출 M1–M6/m1–m8 검토와 다른 실행이며, 다른 모델의 검토 또는 다중 모델 합의로 표현하지 않는다.
 - 계획 리뷰 `codex_review_feedback_2026-10-10_task29-plan.md`와 계획 재검토 `codex_review_feedback_2026-10-11_task29-plan-rereview.md`는 **작성 당시 미전달, 이번에 함께 수령**했다. 당시 제안을 이미 반영한 것으로 소급 기록하지 않는다. 현재 처리 대상은 `codex_review_feedback_2026-10-11_task29-pr29.md`의 A-1–A-4/N-1–N-2다.
-- 사용자 리뷰 판정: 소규모 수정 요청, blocker 0 / major 1 / minor 3 / nit 2. Astra는 실제 문서·프로토콜 §2/3/6/10·설치된 encoder를 읽고 판단표를 보고했다. 사용자가 수정 범위를 승인했다. 현재 수정 진행 중이며 종전 PASS는 c9ec7dd 전달 당시 판정이다.
+- 사용자 리뷰 판정: 소규모 수정 요청, blocker 0 / major 1 / minor 3 / nit 2. Astra는 실제 문서·프로토콜 §2/3/6/10·설치된 encoder를 읽고 판단표를 보고했다. 사용자가 수정 범위를 승인했다. 해당 수정은 완료됐으며 종전 PASS는 c9ec7dd 전달 당시 판정이다.
 - 승인된 계획: A-1 연산×입력 조건×arm 대응표와 첫 연산 순서 결정 gate; A-2 encoder 열람 사실; A-3 pixel hash 후속 결정; A-4 프로토콜 필드 대응; N-1 새 커밋 trailer; N-2 식별 정보 정리. clean-only 및 canonical 동치 단정은 피하고 불명확한 칸은 `[검증 필요]`로 둔다.
 - 이번 수정의 검증: 고정 문서 검사 PASS(공백·개행·fence·상대 링크), `git diff --check` exit 0, 현재 수정 경로와 base 대비 경로 모두 기존 세 문서. 순수 문서 수정으로 RED 해당 없음. 전체 npm gate는 NOT RUN — 사용자 승인에 따른 코드 무변경 문서 수정이며 이전 실행 결과와 구분한다. 수정 diff/PR 본문 한정 재검토 완료.
 
@@ -117,6 +117,15 @@
 - 이번 하네스 한정 재검토: 별도 `claude-opus-5-5` 실행 성공, SPEC PASS / QUALITY PASS WITH NOTES, blocker 0 / major 0. A-1–A-4/N-2 ADDRESSED, N-1은 이 검토 당시 새 커밋 대기였으며, 이후 04f9460의 trailer를 확인했다. 경미한 D1–D7 및 note D8–D11을 한 묶음으로 보강했다. 별도 `claude-opus-5-5` 한정 재확인에서 D1–D11 모두 ADDRESSED, 새 blocker/major 0. 잔여 R1은 재검사·재검토 완료 시제로 기록을 동기화했다. R2–R4는 비차단 note로 남긴다: 프로토콜 행 번호는 명시된 base 기준이며, encoder 실행 실험을 하지 않았다는 사실과 JPEG 조건의 도출 근거는 본문에 명시돼 있다.
 - 리뷰어가 확인하지 못한 원본 identity/format/bitDepth는 Astra가 `src/core/types.ts:22–40`, `src/core/image-artifacts.ts:61–75`에서 직접 확인했다. 사용자 제공 리뷰의 실제 모델은 전달된 리뷰 첫 항목에 `claude-opus-5-5`로 명시돼 있다. 하네스 리뷰어가 이 원문을 읽었다고 주장하지 않는다.
 - 전달 결과: 04f9460을 같은 브랜치·PR에 push했고 PR은 OPEN/Draft, base main이다. HEAD/upstream/실제 원격 ref/PR head가 모두 04f9460b1fdeb604111b0a263d79ddf4195e0e6b로 일치했다. 이 검증 기록은 후속 문서 커밋으로 보강한다. 이력 재작성·Ready·merge·다음 Task는 수행하지 않았다.
+
+### 사용자 제공 Claude Code 재검토(2026-10-11, PR #29, 대상 31e7b3e)
+
+- 원문: `codex_review_feedback_2026-10-11_task29-pr29-rereview.md`(읽기 전용, 수정하지 않음). **Approve — Blocker 0 / Major 0 / Minor 0 / Nit 2**. A-1–A-4, N-1, N-2 모두 해결로 확인됐으며 추가 분석 문서 수정 요청은 없다.
+- 사용자가 제공한 별도 실행의 Claude Code `claude-opus-5-5` 재검토다. 하네스가 직접 호출한 검토와 구분하며, 같은 모델이므로 다른 모델의 검토나 다중 모델 합의로 기록하지 않는다. 이번 기록 작업에서 새 모델 검토를 호출하지 않았다.
+- R-1: 이전 사용자 리뷰 절의 “현재 수정 진행 중이며”를 “해당 수정은 완료됐으며”로 시제만 정정했다. 이번 재검토 기록 커밋에 함께 반영하며 별도 커밋으로 분리하지 않는다.
+- R-2: 표의 긴 칸에 대한 가독성 의견에는 반박할 근거가 없다. **미반영, 구현 Task 진입 전 요약 행 검토**로 기록한다. 이번 PR에서 분석 표를 고치지 않는다.
+- 이번 범위는 이 핸드오프 기록과 PR Cross-check 한 단락뿐이다. 분석·계획·프로토콜은 변경하지 않으며, §9의 후속 항목은 다음 Task 후보 기록이다. Ready·merge·다음 Task는 별도 사용자 지시 전까지 수행하지 않는다.
+- 전체 npm gate: **NOT RUN** — 코드 무변경인 재검토 기록 작업이며 사용자 지시에 따라 재실행하지 않았다. 고정 문서 검사 PASS, `git diff --check` PASS, 이번 변경은 이 핸드오프 한 파일이며 `git diff --name-only 73f201c...HEAD`는 기존 세 문서와 일치했다. 기록 커밋 push 후 HEAD/upstream/PR head 및 OPEN/Draft를 최종 확인한다.
 
 ### Codex 6 Terra
 
@@ -144,6 +153,17 @@
 - [ ] 사용자 검토 및 승인 (merge 및 다음 Task 미수행)
 - 후속 승인 사항: 첫 연산 순서·scope·공개 API/출력 계약, codec 출력 프로필, pixel/resource budget, 캡처·writer 전략, no-op 표현, manifest 직렬화/hash/저장 수명·공유 경로 정책.
 - F-12·모델 선정·hosted 측정·품질/비용/지연 효과는 별도 작업이다.
+
+### Task 29 범위 밖 — 다음 Task 후보
+
+분석 §3.1의 `[검증 필요]` 칸은 프로토콜 쪽 미정 사항이다. 첫 구현 연산 순서를 정하기 전에 다음을 별도 Task에서 결정할 필요가 있다.
+
+- clean canonical 원본의 format과 channels
+- JPEG-only·combined stress recipe의 quality와 JPEG 프로필, downscale 목표 치수
+- 후보 preset(PNG canonical, 1536, q75)을 실제로 쓰는 arm
+- downscale-only 조건의 출력 format
+
+이번에는 `docs/research/image-first-evaluation-protocol.md`를 수정하지 않고 값을 추측해 채우지 않는다. 이 목록은 다음 Task 후보일 뿐이며 해당 Task를 시작하거나 첫 연산 순서·F-12·파일럿 모델을 확정하지 않는다.
 
 ## 10. 사용자 승인 필요 사항
 
