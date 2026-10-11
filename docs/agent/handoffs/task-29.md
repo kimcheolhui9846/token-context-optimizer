@@ -8,7 +8,7 @@
 - 제외: 코드·테스트·의존성·기존 연구 문서·공유 기록·WBS 변경, 변환/API 구현, 이미지 실험·데이터 취득·hosted 모델 호출, F-12·파일럿 모델 결정, merge. 하네스의 비민감 문서 작성/검토 호출은 연구 실험과 별개다.
 - 분석 기준: main `73f201c638934905b1a038db3d2776e7c8872e27`. 원격 fetch 후 origin/main 일치 확인.
 - 격리: 기존 `codex/task-29-image-provenance-plan` worktree를 유지한다. 기존 미커밋 계획을 보존해 새 하네스만 반영했다.
-- 현재 상태: 초기·마일스톤 독립 검토와 문서 검증 통과. SPEC PASS / QUALITY PASS WITH NOTES, blocker/major 0. commit/push/Draft PR 및 그 후 최종 gate 대기.
+- 현재 상태: 초기·마일스톤 독립 검토와 문서 검증 통과. SPEC PASS / QUALITY PASS WITH NOTES, blocker/major 0. Draft PR #29 생성 및 이후 전체 gate 통과. 최종 기록 커밋과 원격/PR head 동기화 확인 후 사용자 승인 대기.
 
 ## 2. 작업 계획
 
@@ -17,8 +17,8 @@
 - [x] targeted 및 전체 baseline, build 이후 저장소 gate
 - [x] 분석 작성, 근거·링크·공개 범위 검사
 - [x] 별도 마일스톤 독립 검토와 필요한 수정
-- [ ] 세 문서만 commit/push, main 대상 Draft PR
-- [ ] Draft PR 후 gate, 최신 head/PR 확인, Astra 최종 검토
+- [x] 세 문서만 commit/push, main 대상 Draft PR
+- [x] Draft PR 후 gate, 문서 범위와 Draft 상태 확인, Astra 직접 검토 (최종 기록 커밋의 head 동기화는 전달 시 추가 확인)
 
 ## 3. 변경 사항
 
@@ -51,7 +51,12 @@
 | 1차 staged 검사 `git diff --cached --check`, 정확히 3개 경로, 공개정보 검사 | PASS: exit 0, 예상 3개 경로 일치, 탐지 0 |
 | 리뷰 수정 후 문서 검사 (같은 PowerShell checker) | PASS: whitespace/newline/fence/상대 링크 |
 | 리뷰 수정 후 staged whitespace/정확히 3개 경로/보강된 공개정보 검사 | PASS: exit 0, 3개 경로 일치, 탐지 0. `\b`로 task 이름 오탐 방지 |
-| commit-scope 및 Draft 후 gate | NOT RUN — 해당 단계 대기 |
+| commit-scope `git diff --name-only 73f201c...HEAD` | PASS: 정확히 승인된 3개 문서 |
+| Draft 후 이미지 대상 테스트 (위와 같은 명령) | PASS: 20 passed / 1 skipped, exit 0 |
+| Draft 후 `npm.cmd test` | PASS: 790 passed / 1 skipped, 25 files, exit 0 |
+| Draft 후 `npm.cmd run build`, `npm.cmd run typecheck` | 각각 PASS: exit 0 |
+| Draft 후 `npm.cmd run smoke:mcp`, `npm.cmd run validate:plugin` | 각각 PASS: exit 0, smoke/manifest ok |
+| Draft 후 `npm.cmd run benchmark` | PASS: exit 0, `passed: true` |
 
 - skip은 기존 Windows 비지원 FIFO 테스트다. junction 회귀는 Windows에서 실행됐다.
 - gate는 Astra가 실행했다. 분석 작성자는 제공된 코드 발췌를 읽으며 테스트를 직접 실행하지 않는다.
@@ -63,6 +68,8 @@
 - Windows 실행 도구가 `helper_unknown_error: setup refresh had errors`로 시작하지 못했다. 읽기/조회는 검증한 `windowsHide:true` Node 경로로 수행했다.
 - sandbox 내 Claude probe 두 번은 유효한 응답을 얻지 못했다. 설치·로그인만으로 사용 가능 판정을 내리지 않았다. 승인된 PTY escalation에서 정확한 모델 probe가 성공했다.
 - Windows 실행은 `tty:true`, `login:false`를 유지했다. terminal/security/auth 설정 변경은 없었다.
+
+- build 로그의 PowerShell `NativeCommandError` 표시는 esbuild stderr 진행 출력을 redirection하며 붙은 레코드다. build 프로세스 exit 0, 번들 생성 완료 및 후속 smoke 통과를 확인했다. 생성 번들은 줄바꿈 정규화 내용 동일성을 확인한 뒤 실행 전 bytes로 복원했다.
 
 ## 7. 다중 모델 교차 검토
 
@@ -109,7 +116,8 @@
 
 ## 9. 남은 작업
 
-- [ ] 현재 문서 Task의 작성/독립 검토/PR/최종 gate 완료
+- [x] 현재 문서 Task의 작성/독립 검토/PR/최종 gate 완료
+- [ ] 사용자 검토 및 승인 (merge 및 다음 Task 미수행)
 - 후속 승인 사항: scope·공개 API/출력 계약, codec 출력 프로필, pixel/resource budget, 캡처·writer 전략, no-op 표현, manifest 직렬화/hash/저장 수명·공유 경로 정책.
 - F-12·모델 선정·hosted 측정·품질/비용/지연 효과는 별도 작업이다.
 
@@ -121,5 +129,7 @@
 
 ## 11. 최종 요약
 
-- 현재 결과: 초기 검토, runtime gate, 1차 문서/staged 검사 완료. 독립 마일스톤 및 한정 재검토 통과; 요구사항 8개 PASS, blocker/major 0. Draft 생성과 이후 gate가 남는다.
-- 다음 확인: 분석 문서 실제 결과, 독립 마일스톤 검토, staged 범위, Draft PR 이후 검증과 최신 Git/PR head.
+- 현재 결과: 초기 검토, runtime gate, 1차 문서/staged 검사 완료. 독립 마일스톤 및 한정 재검토 통과; 요구사항 8개 PASS, blocker/major 0. Draft PR #29 생성과 이후 전체 gate 완료. 최종 기록만 후속 커밋하며 runtime은 검증한 내용과 동일하다.
+- 전달: [Draft PR #29](https://github.com/kimcheolhui9846/token-context-optimizer/pull/29), base main, branch `codex/task-29-image-provenance-plan`, 본문 커밋 `6ce105e613e9f2e4e977c234d0643236835fc69e`. 최종 기록은 후속 커밋으로 전달하며 merge는 수행하지 않는다.
+- Astra 직접 검토: 요구사항 8개, 실제 분석 문구/소스/기존 테스트, 세 파일 diff, 검증 로그, 초기 및 마일스톤 검토 조치, Draft base/head/files 확인. 현재 판정 PASS WITH NOTES: 미래 변환은 미구현, 작성/리뷰는 동일 Claude 모델 별도 실행·발췌 기반, Windows FIFO 1개 skip.
+- 다음 확인: 최신 PR head와 최종 보고를 확인하고 승인 전 구현/merge를 진행하지 않는다.

@@ -50,8 +50,8 @@
 - [x] **2. RED 대체와 baseline:** 순수 문서 작업이므로 새 실패 테스트는 적용하지 않는다. 위 수용 기준을 사전에 고정하고 `npm.cmd test` baseline 결과를 기록한다. 현재 의존성은 설치되어 있다. 필요 시 `npm.cmd ci`는 lockfile·설치 스크립트·네트워크 승인 조건을 확인한 후 실행하고 tracked 파일 무변경을 확인한다.
 - [x] **3. 분석 작성:** Claude Opus 5.5가 위 8개 요구를 구현 사실/증거/제안/남은 결정으로 연결한다. 소스에 없는 함수·CLI·실험·테스트 결과를 만들지 않는다. 기존 분석을 불필요하게 복제하지 않는다.
 - [x] **4. 검증과 검토:** 세 문서 검사, source-symbol 대조, proposal 표시, 허용 세 파일 범위, 기존 문서·runtime 무변경을 확인한다. 실제 diff와 근거를 Astra가 검토하며 분석 문서 수정은 작성자에게 반환한다. controller는 계획·handoff만 수정하고 전달받은 분석 결과를 보존한다.
-- [ ] **5. 전달:** 전체 gate 후 세 문서만 commit·push하고 main 대상 Draft PR 생성. RED 예외, 문서 변경, 실제 검증과 독립 리뷰 결과·한계, 구현 미승인 경계를 PR에 기록한다.
-- [ ] **6. 최종 확인:** Draft PR 후 문서 검사와 전체 gate를 다시 실행하고 Astra가 actual diff/logs/PR/upstream/head를 검토한다. 수정은 같은 PR에서 해결한다. 실패는 같은 Task에서 수정·재검증하며 해결 불가 시 BLOCKED를 보고한다. PASS/PASS WITH NOTES 보고 후 사용자 승인 대기; Task 29 Ready·merge와 다음 구현은 수행하지 않는다.
+- [x] **5. 전달:** 전체 gate 후 세 문서만 commit·push하고 main 대상 Draft PR 생성. RED 예외, 문서 변경, 실제 검증과 독립 리뷰 결과·한계, 구현 미승인 경계를 PR에 기록한다.
+- [x] **6. 최종 확인:** Draft PR 후 문서 검사와 전체 gate를 다시 실행하고 Astra가 actual diff/logs/PR/upstream/head를 검토한다. 수정은 같은 PR에서 해결한다. 실패는 같은 Task에서 수정·재검증하며 해결 불가 시 BLOCKED를 보고한다. PASS/PASS WITH NOTES 보고 후 사용자 승인 대기; Task 29 Ready·merge와 다음 구현은 수행하지 않는다.
 
 ## 고정 문서 검사
 
