@@ -9,7 +9,7 @@
 - 제외: 코드·테스트·의존성·기존 연구 문서·공유 기록·WBS 변경, 변환/API 구현, 이미지 실험·데이터 취득·hosted 모델 호출, F-12·파일럿 모델 결정, merge. 하네스의 비민감 문서 작성/검토 호출은 연구 실험과 별개다.
 - 분석 기준: main `73f201c638934905b1a038db3d2776e7c8872e27`. 원격 fetch 후 origin/main 일치 확인.
 - 격리: 기존 `codex/task-29-image-provenance-plan` worktree를 유지한다. 기존 미커밋 계획을 보존해 새 하네스만 반영했다.
-- 현재 상태: c9ec7dd 전달 후 사용자 제공 리뷰의 문서 수정 승인 수령. A-1–A-4/N-2 문서 수정과 한정 재검토 완료. N-1 trailer 검증 및 commit/push/최종 Git 확인 대기. 종전 검증·판정은 아래 이력으로 보존한다.
+- 현재 상태: c9ec7dd 전달 후 사용자 제공 리뷰의 문서 수정 승인 수령. A-1–A-4/N-1–N-2 처리 완료. 수정 커밋 04f9460 push 후 Draft 및 HEAD/upstream/PR head 일치 확인. Astra 재검토 PASS WITH NOTES, 사용자 승인 대기. 종전 검증·판정은 아래 이력으로 보존한다.
 
 ## 2. 작업 계획
 
@@ -110,13 +110,13 @@
 | A-2 Minor | 수용. Astra가 설치된 fast-png 8.0.0의 encoder export·기본값을 열람 확인. 실행/프로필 적합성/결정성 증거와 구분하며 리뷰어 scratch 실측은 저장소 검증으로 인용하지 않았다 |
 | A-3 Minor | 수정 수용. decoded pixel hash와 그 치수·채널·bitDepth·raw 표현을 후속 결정으로 추가. 프로토콜 필수 필드 또는 encoded hash 대체로 확정하지 않았다 |
 | A-4 Minor | 수정 수용. §6 필드 대응, 원본·출력 format/channels/bitDepth, 원본 경로 참조 제안, 출력 경로·identity 및 재-ingest 의미의 미결정 경계를 기록했다 |
-| N-1 Nit | 수용. c9ec7dd의 trailer 누락 확인. 이력 보존, 이번 새 커밋의 `Agent: codex` trailer 검증 예정 |
+| N-1 Nit | 수용. c9ec7dd 이력은 보존했다. 새 수정 커밋 04f9460의 `fix(review):` 제목과 `Agent: codex` trailer를 실제 commit 본문으로 확인했다. 이후 기록 커밋도 같은 규칙을 적용한다 |
 | N-2 Nit | 수용. §1 첫 항목에 PR·브랜치·base를 모았다 |
 
 - 분석 문서 보정: 별도 `claude-opus-5-5` 호출 성공 및 모델 일치 확인. Astra가 적용 전 JPEG variant format, 경로 hash와 경로 참조 구분, encoder 실행 주체 및 M6 범위 문구를 작성자에게 돌려 명확화했다. 작성자는 제공된 발췌만 읽었고 실행하지 않았다.
-- 이번 하네스 한정 재검토: 별도 `claude-opus-5-5` 실행 성공, SPEC PASS / QUALITY PASS WITH NOTES, blocker 0 / major 0. A-1–A-4/N-2 ADDRESSED, N-1은 새 커밋 대기. 경미한 D1–D7 및 note D8–D11을 한 묶음으로 보강했다. 별도 `claude-opus-5-5` 한정 재확인에서 D1–D11 모두 ADDRESSED, 새 blocker/major 0. 잔여 R1은 재검사·재검토 완료 시제로 기록을 동기화했다. R2–R4는 비차단 note로 남긴다: 프로토콜 행 번호는 명시된 base 기준이며, encoder 실행 실험을 하지 않았다는 사실과 JPEG 조건의 도출 근거는 본문에 명시돼 있다.
+- 이번 하네스 한정 재검토: 별도 `claude-opus-5-5` 실행 성공, SPEC PASS / QUALITY PASS WITH NOTES, blocker 0 / major 0. A-1–A-4/N-2 ADDRESSED, N-1은 이 검토 당시 새 커밋 대기였으며, 이후 04f9460의 trailer를 확인했다. 경미한 D1–D7 및 note D8–D11을 한 묶음으로 보강했다. 별도 `claude-opus-5-5` 한정 재확인에서 D1–D11 모두 ADDRESSED, 새 blocker/major 0. 잔여 R1은 재검사·재검토 완료 시제로 기록을 동기화했다. R2–R4는 비차단 note로 남긴다: 프로토콜 행 번호는 명시된 base 기준이며, encoder 실행 실험을 하지 않았다는 사실과 JPEG 조건의 도출 근거는 본문에 명시돼 있다.
 - 리뷰어가 확인하지 못한 원본 identity/format/bitDepth는 Astra가 `src/core/types.ts:22–40`, `src/core/image-artifacts.ts:61–75`에서 직접 확인했다. 사용자 제공 리뷰의 실제 모델은 전달된 리뷰 첫 항목에 `claude-opus-5-5`로 명시돼 있다. 하네스 리뷰어가 이 원문을 읽었다고 주장하지 않는다.
-- 전달 계획: 같은 브랜치·PR에서 `fix(review): ...` 별도 커밋과 `Agent: codex` trailer, push 후 Draft 및 HEAD/upstream/PR head 일치 확인. 이력 재작성·Ready·merge·다음 Task는 수행하지 않는다.
+- 전달 결과: 04f9460을 같은 브랜치·PR에 push했고 PR은 OPEN/Draft, base main이다. HEAD/upstream/실제 원격 ref/PR head가 모두 04f9460b1fdeb604111b0a263d79ddf4195e0e6b로 일치했다. 이 검증 기록은 후속 문서 커밋으로 보강한다. 이력 재작성·Ready·merge·다음 Task는 수행하지 않았다.
 
 ### Codex 6 Terra
 
@@ -140,7 +140,7 @@
 ## 9. 남은 작업
 
 - [x] c9ec7dd 전달 당시 문서 Task의 작성/독립 검토/PR/최종 gate 완료
-- [ ] 이번 리뷰 수정의 한정 재검토·trailer 포함 커밋·push·최종 Astra 검토 및 head 동기화
+- [x] 이번 리뷰 수정의 한정 재검토·trailer 포함 커밋·push·최종 Astra 검토 및 head 동기화 (04f9460 확인, 후속 기록 커밋은 전달 시 동일 검사)
 - [ ] 사용자 검토 및 승인 (merge 및 다음 Task 미수행)
 - 후속 승인 사항: 첫 연산 순서·scope·공개 API/출력 계약, codec 출력 프로필, pixel/resource budget, 캡처·writer 전략, no-op 표현, manifest 직렬화/hash/저장 수명·공유 경로 정책.
 - F-12·모델 선정·hosted 측정·품질/비용/지연 효과는 별도 작업이다.
@@ -157,3 +157,10 @@
 - 전달: [Draft PR #29](https://github.com/kimcheolhui9846/token-context-optimizer/pull/29), base main, branch `codex/task-29-image-provenance-plan`, 본문 커밋 `6ce105e613e9f2e4e977c234d0643236835fc69e`. 최종 기록은 후속 커밋으로 전달하며 merge는 수행하지 않는다.
 - c9ec7dd 전달 당시 Astra 직접 검토: 요구사항 8개, 실제 분석 문구/소스/기존 테스트, 세 파일 diff, 검증 로그, 초기 및 마일스톤 검토 조치, Draft base/head/files 확인. 당시 판정 PASS WITH NOTES: 미래 변환은 미구현, 작성/리뷰는 동일 Claude 모델 별도 실행·발췌 기반, Windows FIFO 1개 skip.
 - 다음 확인: 최신 PR head와 최종 보고를 확인하고 승인 전 구현/merge를 진행하지 않는다.
+
+### 이번 사용자 리뷰 수정 결과
+
+- A-1–A-4/N-1–N-2 처리 완료. 최초 계획 대비 변경은 사용자 승인한 후보 비교·근거·manifest 항목 및 기록 정정이다. 실제 분석·수정 diff·프로토콜 §2/3/6/10·encoder 소스·검사 결과·PR 상태를 Astra가 직접 확인했다.
+- Astra 판정: **PASS WITH NOTES**. blocker/major 0. 후보 순서·공개 API·pixel hash 표현·codec 프로필/결정성 등은 후속 결정이며 구현/실험 결과를 주장하지 않는다. 사용자 제공 리뷰와 하네스 별도 호출의 근거 범위를 구분한다.
+- 이번 검증: 고정 문서 검사 PASS, `git diff --check` PASS, `git diff --name-only 73f201c...HEAD` 정확히 기존 3개 문서. 코드·테스트·의존성·프로토콜·공유 HANDOFF·WBS 무변경. 전체 npm gate **NOT RUN**(승인된 문서 수정 예외); 이전 790 pass 기록을 이번 실행으로 재사용하지 않는다.
+- 사용자 리뷰 파일 3개는 수정하지 않았다. 후속 기록 커밋 후에도 Draft/head/trailer/clean 상태를 다시 확인하고 최종 답변으로 전달한다. 사용자 승인 전 Ready·merge·다음 Task는 진행하지 않는다.
