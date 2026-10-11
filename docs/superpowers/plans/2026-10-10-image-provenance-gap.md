@@ -4,7 +4,7 @@
 
 **Goal:** 현재 이미지 원본 식별·검증 구현과 M2 변환 provenance 사이의 차이를 근거로 정리하고, 사용자 검토 가능한 최소 후속 구현안을 제안한다.
 
-**Architecture:** 코드를 변경하지 않고 기준 SHA `73f201c638934905b1a038db3d2776e7c8872e27`의 실제 파일·심볼을 읽어 현행 기능, 미구현 기능, 미래 제안을 분리한다. 첫 후보는 제한된 8-bit RGB PNG의 정수 좌표 crop→PNG이며 공개 API나 구현 계약으로 확정하지 않는다. resize·JPEG 재인코딩·guard·pilot은 별도 후속이다.
+**Architecture:** 코드를 변경하지 않고 기준 SHA `73f201c638934905b1a038db3d2776e7c8872e27`의 실제 파일·심볼을 읽어 현행 기능, 미구현 기능, 미래 제안을 분리한다. 제한된 8-bit RGB PNG의 정수 좌표 crop→PNG는 비교 후보 중 하나다. 프로토콜의 입력 조건·arm에 대한 resize/JPEG/PNG canonical 후보의 필요도도 비교하며, 첫 연산 순서와 공개 API·구현 계약은 사용자 결정으로 남긴다. 모든 구현·guard·pilot은 별도 후속이다.
 
 **Tech Stack:** 한국어 Markdown, 기존 TypeScript 소스 읽기, PowerShell 문서 검사와 저장소 npm gate.
 
@@ -29,18 +29,18 @@
 | `src/server/index.ts`의 `index_image_artifact`, `inspect_image_artifact` | 현재 노출된 이미지 MCP 도구는 두 개; 미래 도구 이름은 확정하지 않음 |
 | `docs/image-artifacts.md` | metadata record는 backup이 아니고 서버 재시작 시 사라짐; 변환·모델 효과 미구현 경계 |
 | `tests/image-artifacts.test.ts`, `tests/image-source-race.test.ts`, `tests/image-packaging.test.ts` | 실제 존재하는 원본 불변·권한·레이스·패키징 테스트와 미래 변환 테스트를 구별 |
-| `docs/research/image-first-evaluation-protocol.md` §6/10 | M2의 transform provenance와 전체 pilot manifest 요구사항을 혼동하지 않음 |
+| `docs/research/image-first-evaluation-protocol.md` §2/3/6/10 | 입력 조건·arm·후보 preset을 대조하며 M2의 transform provenance와 전체 pilot manifest 요구사항을 혼동하지 않음 |
 
 분석 문서에는 다음이 있어야 한다.
 
 1. 구현됨/없음/제안의 상태 표와 실제 상대 파일 링크·심볼. 현재 코드가 문서보다 우선하는 사실 근거다. 이번에 테스트를 실행한 결과와 단지 테스트 코드를 읽은 사실을 구별한다.
 2. 재사용 가능 경계와 부족한 경계: 현재 store/inspect는 bytes를 제공하지 않는다. 새 캡처 단계가 필요하며, 재허가한 원본을 한 번 캡처한 후 검증·원본 기록의 canonical path/hash와 대조·decode·transform에 같은 buffer를 사용해야 한다. 같은 검증된 source bytes를 decode·transform·hash에 사용해야 하며 inspect 후 임의 reread로 TOCTOU가 사라진다고 가정하지 않는다. 경로와 원본 해시 기반 identity를 내용만의 identity나 immutable archive로 바꾸지 않는다.
-3. 최소 후보 및 대안: **제한 RGB PNG의 정수 직사각형 crop→PNG**를 제안한다. 이미 있는 PNG 검증과 codec 의존성을 활용할 여지가 있고 resize 필터/반올림·JPEG 손실을 첫 단계에서 피할 수 있다. RGBA/resize/JPEG까지 한 번에 확장하는 대안은 범위·검증 부담 때문에 보류한다. codec 존재만으로 encoder 출력이 제한 프로필을 만족한다고 단정하지 않는다.
-4. 제안 좌표 규칙: 좌상단 원점, 정수 `x/y/width/height`, half-open 영역, 양수 크기, 경계 내 crop; 소수·음수·초과 범위를 반올림·clamp하지 않고 거부하는 안. 따라서 첫 후보에는 resize 반올림이 없다. 전체 영역 crop은 명시적 no-op으로 원본 bytes/hash를 유지하고 새 파일을 만들지 않는 안을 제안한다. 이는 승인 전 권장 선택지이며 기존 동작이 아니다. 이 안에서는 output metadata가 source를 참조함을 명시하고 새 파일 생성 여부를 별도로 표현한다. no-op 거부 및 항상 재인코딩하는 대안의 장단점도 비교하며 필드명/직렬화 계약은 확정하지 않는다.
-5. 제안 provenance 항목: 버전, 원본 identity/hash/dimensions/profile, 요청 crop와 effective operation/no-op, 출력 hash/dimensions/format/byteLength, 변환 구현·codec 버전. 요청/유효 변환을 구분하고 crop 단일 연산만 기록한다. 미래 연산 조합의 순서·좌표 변환은 별도 설계다. manifest hash/serialization, 저장 수명·쓰기 commit 방식·공개 도구 이름은 후속 결정 항목으로 명시한다.
+3. 후보 및 대안: 제한 RGB PNG crop, JPEG source decode→crop, 1536 downscale, q75 JPEG encode, PNG canonical 재인코딩을 프로토콜의 입력 조건×arm과 대조한다. 입력 variant 생성과 arm 내부 변환, 입력 stress recipe와 후보 preset을 구분한다. 불명확한 칸은 `[검증 필요]`로 두며 첫 연산 순서는 사용자 결정이다. 제한 RGB PNG crop의 상세 제안은 해당 후보 선택을 조건으로 읽는다. codec의 존재·기본 옵션은 설치된 소스의 열람 사실로 분리하고, 출력 제한 프로필 적합성·결정성은 별도 검증 대상으로 둔다.
+4. 제안 좌표 규칙: 좌상단 원점, 정수 `x/y/width/height`, half-open 영역, 양수 크기, 경계 내 crop; 소수·음수·초과 범위를 반올림·clamp하지 않고 거부하는 안. 따라서 이 crop 후보에는 resize 반올림이 없다. 전체 영역 crop은 명시적 no-op으로 원본 bytes/hash를 유지하고 새 파일을 만들지 않는 안을 제안한다. 이는 승인 전 권장 선택지이며 기존 동작이 아니다. 이 안에서는 output metadata가 source를 참조함을 명시하고 새 파일 생성 여부를 별도로 표현한다. no-op 거부 및 항상 재인코딩하는 대안의 장단점도 비교하며 필드명/직렬화 계약은 확정하지 않는다.
+5. 제안 provenance 항목: 버전, 원본 identity/hash/dimensions/profile, 요청 crop와 effective operation/no-op, 출력 hash/dimensions/format/byteLength, 변환 구현·codec 버전. 요청/유효 변환을 구분하고 crop 후보의 단일 연산 예시로 설명한다. 원본·출력 channels/bitDepth, 프로토콜 §6 필드 대응, 출력 경로·identity 및 decoded pixel hash의 후속 결정 경계를 추가한다. 미래 연산 조합의 순서·좌표 변환은 별도 설계다. manifest hash/serialization, 저장 수명·쓰기 commit 방식·공개 도구 이름은 후속 결정 항목으로 명시한다.
 6. 쓰기 안전성 제안과 한계: source 불변, 원본/출력 alias·hardlink·symlink·junction, 권한 경로와 부모 교체, exclusive create, 임시 파일/manifest 부분 실패, 정리 및 재검사, 메모리·출력 encoded-size 제한을 다룬다. read/write 권한 분리, Windows file-ID와 case/8.3/ADS/장치·확장 경로 별칭, 공유 manifest의 절대경로 노출 정책을 후속 결정으로 기록한다. 현행 PNG는 ancillary/color chunk를 거부하므로 변환에서 몰래 제거·정규화하지 않는다. codec/zlib/filter 설정에 따른 encoded bytes의 재현성은 별도 검증 대상이다. 현재 read allowlist만으로 write race가 해결됐다고 주장하지 않는다. Windows에서 검증 가능한 writer 전략이 정해지기 전 구현을 시작하지 않는다.
 7. 미래 TDD 계획: 작은 독립 RGB pixel fixture의 정확한 crop 좌표, 가장자리/1-pixel/선택 승인 시 full-frame no-op, invalid/fractional/out-of-bounds crop, source 변경·revoked root·출력 충돌·부분 쓰기 실패·hash 불일치·resource limit. RED는 새 기능 부재/명시적 오류, GREEN은 한 연산 최소 구현 및 출력 재-ingest 검증, REFACTOR는 중복 정리와 기존 ingest/inspect 회귀 재검증으로 제안한다. race 테스트에는 기존 `vi.doMock` 방식과 같은 결정적 주입 지점을 제안하되 새 테스트가 이미 존재한다고 쓰지 않는다. 현재 테스트가 새 동작을 검증한 것으로 쓰지 않는다.
-8. 미래 구현 진입 gate: 사용자 scope·출력 계약·공개 API 승인, codec 제한 프로필 확인, pixel/resource budget, source capture 및 race-safe writer 전략, manifest 저장·재시작 수명 결정. F-12/모델 선정과 무관하게 분석은 가능하나 실험·품질·비용 주장을 하지 않는다.
+8. 미래 구현 진입 gate: 첫 연산 순서를 포함한 사용자 scope·출력 계약·공개 API 승인, codec 제한 프로필 확인, pixel/resource budget, source capture 및 race-safe writer 전략, manifest 저장·재시작 수명 결정. F-12/모델 선정과 무관하게 분석은 가능하나 실험·품질·비용 주장을 하지 않는다.
 
 ## Task 29 실행
 
@@ -52,6 +52,10 @@
 - [x] **4. 검증과 검토:** 세 문서 검사, source-symbol 대조, proposal 표시, 허용 세 파일 범위, 기존 문서·runtime 무변경을 확인한다. 실제 diff와 근거를 Astra가 검토하며 분석 문서 수정은 작성자에게 반환한다. controller는 계획·handoff만 수정하고 전달받은 분석 결과를 보존한다.
 - [x] **5. 전달:** 전체 gate 후 세 문서만 commit·push하고 main 대상 Draft PR 생성. RED 예외, 문서 변경, 실제 검증과 독립 리뷰 결과·한계, 구현 미승인 경계를 PR에 기록한다.
 - [x] **6. 최종 확인:** Draft PR 후 문서 검사와 전체 gate를 다시 실행하고 Astra가 actual diff/logs/PR/upstream/head를 검토한다. 수정은 같은 PR에서 해결한다. 실패는 같은 Task에서 수정·재검증하며 해결 불가 시 BLOCKED를 보고한다. PASS/PASS WITH NOTES 보고 후 사용자 승인 대기; Task 29 Ready·merge와 다음 구현은 수행하지 않는다.
+
+## 사용자 제공 PR 리뷰에 따른 기록 정정 — 2026-10-11
+
+사용자는 c9ec7dd 대상 A-1–A-4/N-1–N-2 판단표를 검토하고 문서 수정을 승인했다. 위 Architecture 및 수용 기준 3/4/5/8의 crop-first 표현과 근거 범위를 이에 맞게 정정했다. 앞의 완료 체크는 c9ec7dd 전달 이력이며 이번 수정의 검증·리뷰 결과는 Task 29 핸드오프에 별도 기록한다. 수정 범위는 기존 세 문서와 PR 본문뿐이다. 코드가 그대로이므로 이번에는 아래 고정 문서 검사·diff/scope 검사를 적용하고 전체 npm gate는 재실행하지 않는다. 2026-10-10/11 사용자 제공 계획 리뷰는 작성 당시 미전달, 이번에 함께 수령한 자료이며 기존 하네스 직접 검토와 구분한다.
 
 ## 고정 문서 검사
 

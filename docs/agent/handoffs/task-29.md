@@ -2,13 +2,14 @@
 
 ## 1. 작업 개요
 
+- PR / 브랜치 / base: [Draft PR #29](https://github.com/kimcheolhui9846/token-context-optimizer/pull/29), `codex/task-29-image-provenance-plan`, main `73f201c638934905b1a038db3d2776e7c8872e27`.
 - 목적: 현행 이미지 원본 식별·검증과 M2 변환 provenance 사이의 차이 및 최소 후속 후보를 문서화한다.
 - 요구사항: 구현 사실/부재/제안을 구분하고, 캡처·좌표·no-op·hash·버전·쓰기 안전성·미래 TDD·구현 진입 gate를 근거와 연결한다.
 - 범위: [계획](../../superpowers/plans/2026-10-10-image-provenance-gap.md), [분석](../../research/image-transform-provenance-gap.md), 이 핸드오프 3개 신규 문서.
 - 제외: 코드·테스트·의존성·기존 연구 문서·공유 기록·WBS 변경, 변환/API 구현, 이미지 실험·데이터 취득·hosted 모델 호출, F-12·파일럿 모델 결정, merge. 하네스의 비민감 문서 작성/검토 호출은 연구 실험과 별개다.
 - 분석 기준: main `73f201c638934905b1a038db3d2776e7c8872e27`. 원격 fetch 후 origin/main 일치 확인.
 - 격리: 기존 `codex/task-29-image-provenance-plan` worktree를 유지한다. 기존 미커밋 계획을 보존해 새 하네스만 반영했다.
-- 현재 상태: 초기·마일스톤 독립 검토와 문서 검증 통과. SPEC PASS / QUALITY PASS WITH NOTES, blocker/major 0. Draft PR #29 생성 및 이후 전체 gate 통과. 최종 기록 커밋과 원격/PR head 동기화 확인 후 사용자 승인 대기.
+- 현재 상태: c9ec7dd 전달 후 사용자 제공 리뷰의 문서 수정 승인 수령. A-1–A-4/N-2 문서 수정과 한정 재검토 완료. N-1 trailer 검증 및 commit/push/최종 Git 확인 대기. 종전 검증·판정은 아래 이력으로 보존한다.
 
 ## 2. 작업 계획
 
@@ -23,14 +24,14 @@
 ## 3. 변경 사항
 
 - 계획: 기존 승인된 문서 Task의 수용 기준 유지, Claude Opus 5.5 우선 위임과 독립 검토, 명시적 source capture/no-op 표현·쓰기 경계·scope 검증 보강.
-- 분석: 별도 Claude 호출의 초안 작성 완료. 원본 metadata와 변환 결과를 연결하는 계약 부재를 설명하고 첫 crop 후보를 승인 전 제안으로 제공한다.
+- 분석: 별도 Claude 호출의 초안을 바탕으로 원본 metadata와 변환 결과를 연결하는 계약 부재를 설명한다. 이번 승인된 보정은 crop을 여러 비교 후보 중 하나로 다루고 첫 연산 순서를 사용자 결정으로 남긴다.
 - 핸드오프: 실제 검증·모델 호출·검토 조치와 승인 경계를 기록한다.
 - 계획 대비: 과거 Luna 작성/외부 리뷰 금지 설정은 사용자의 새 전역 하네스 적용 요청으로 대체했다. 기존 전역 설정 파일 자체는 수정하지 않았다.
 
 ## 4. 주요 의사결정
 
 - 현재 코드가 구현 사실의 근거다. 연구 프로토콜의 M2는 예정 요구사항이며 구현 완료로 해석하지 않는다.
-- 권장 후속 후보는 제한 8-bit RGB PNG의 정수 직사각형 crop→PNG다. 현행 ingest의 RGBA 지원을 축소하는 변경은 아니다.
+- 후속 후보는 프로토콜 입력 조건·arm의 필요도와 구현 부담을 함께 비교한다. 제한 8-bit RGB PNG crop은 비교 후보 중 하나이며 첫 연산 순서는 사용자 결정이다. crop 상세 제안은 해당 후보 선택 시의 조건부 안이며 현행 ingest의 RGBA 지원을 축소하지 않는다.
 - full-frame no-op은 source metadata를 참조하고 파일을 새로 만들지 않는 제안이다. 거부·재인코딩 대안과 비교하며 출력 표현/API는 후속 승인 대상이다.
 - 현재 read 검증과 write 권한·원자성은 별개다. source buffer 캡처와 Windows writer 전략·manifest 수명 및 공유 경로 정책이 결정되기 전 구현을 시작하지 않는다.
 
@@ -95,6 +96,28 @@
 - R2/R3는 Astra가 실제 소스로 확인해 해소했다: `src/core/image-artifacts.ts:48–52`의 선택적 store 인자, `tests/image-artifacts.test.ts:67–68,85–87`의 테스트 로컬 store 전달, `src/core/image-artifacts.ts:158,183–184`의 PNG validator 치수 상한 적용. 이 근거 확인은 작성자의 직접 열람을 뜻하지 않는다.
 - 계획 전달 단계의 “독립 리뷰 결과·한계” 표현은 실제 수행 상태를 반영한 기록 수정이며 수용 기준 변경이 아니다. safe-integer 테스트의 세부 구분은 구현 Task에서 구체화할 note로 남긴다.
 
+### 사용자 제공 Claude Code 리뷰(2026-10-11, PR #29, 대상 c9ec7dd)
+
+- 이번에 사용자가 전달한 별도 리뷰다. 리뷰 파일은 읽기 전용으로 보존한다. 리뷰어는 실제 소스·프로토콜·테스트를 도구로 열어 대조했다고 보고했다. 위 하네스 직접 호출 M1–M6/m1–m8 검토와 다른 실행이며, 다른 모델의 검토 또는 다중 모델 합의로 표현하지 않는다.
+- 계획 리뷰 `codex_review_feedback_2026-10-10_task29-plan.md`와 계획 재검토 `codex_review_feedback_2026-10-11_task29-plan-rereview.md`는 **작성 당시 미전달, 이번에 함께 수령**했다. 당시 제안을 이미 반영한 것으로 소급 기록하지 않는다. 현재 처리 대상은 `codex_review_feedback_2026-10-11_task29-pr29.md`의 A-1–A-4/N-1–N-2다.
+- 사용자 리뷰 판정: 소규모 수정 요청, blocker 0 / major 1 / minor 3 / nit 2. Astra는 실제 문서·프로토콜 §2/3/6/10·설치된 encoder를 읽고 판단표를 보고했다. 사용자가 수정 범위를 승인했다. 현재 수정 진행 중이며 종전 PASS는 c9ec7dd 전달 당시 판정이다.
+- 승인된 계획: A-1 연산×입력 조건×arm 대응표와 첫 연산 순서 결정 gate; A-2 encoder 열람 사실; A-3 pixel hash 후속 결정; A-4 프로토콜 필드 대응; N-1 새 커밋 trailer; N-2 식별 정보 정리. clean-only 및 canonical 동치 단정은 피하고 불명확한 칸은 `[검증 필요]`로 둔다.
+- 이번 수정의 검증: 고정 문서 검사 PASS(공백·개행·fence·상대 링크), `git diff --check` exit 0, 현재 수정 경로와 base 대비 경로 모두 기존 세 문서. 순수 문서 수정으로 RED 해당 없음. 전체 npm gate는 NOT RUN — 사용자 승인에 따른 코드 무변경 문서 수정이며 이전 실행 결과와 구분한다. 수정 diff/PR 본문 한정 재검토 완료.
+
+| 지적 | 승인된 판단과 처리 상태 |
+| --- | --- |
+| A-1 Major | 수정 수용. §3.1의 5개 후보×4개 입력 조건×arm 대응, variant 준비와 arm 내부 변환 구분, 첫 연산 순서는 §8 gate 1로 이동. clean-only 및 canonical 동일 preset 단정을 피하고 미정 칸을 `[검증 필요]`로 표시했다 |
+| A-2 Minor | 수용. Astra가 설치된 fast-png 8.0.0의 encoder export·기본값을 열람 확인. 실행/프로필 적합성/결정성 증거와 구분하며 리뷰어 scratch 실측은 저장소 검증으로 인용하지 않았다 |
+| A-3 Minor | 수정 수용. decoded pixel hash와 그 치수·채널·bitDepth·raw 표현을 후속 결정으로 추가. 프로토콜 필수 필드 또는 encoded hash 대체로 확정하지 않았다 |
+| A-4 Minor | 수정 수용. §6 필드 대응, 원본·출력 format/channels/bitDepth, 원본 경로 참조 제안, 출력 경로·identity 및 재-ingest 의미의 미결정 경계를 기록했다 |
+| N-1 Nit | 수용. c9ec7dd의 trailer 누락 확인. 이력 보존, 이번 새 커밋의 `Agent: codex` trailer 검증 예정 |
+| N-2 Nit | 수용. §1 첫 항목에 PR·브랜치·base를 모았다 |
+
+- 분석 문서 보정: 별도 `claude-opus-5-5` 호출 성공 및 모델 일치 확인. Astra가 적용 전 JPEG variant format, 경로 hash와 경로 참조 구분, encoder 실행 주체 및 M6 범위 문구를 작성자에게 돌려 명확화했다. 작성자는 제공된 발췌만 읽었고 실행하지 않았다.
+- 이번 하네스 한정 재검토: 별도 `claude-opus-5-5` 실행 성공, SPEC PASS / QUALITY PASS WITH NOTES, blocker 0 / major 0. A-1–A-4/N-2 ADDRESSED, N-1은 새 커밋 대기. 경미한 D1–D7 및 note D8–D11을 한 묶음으로 보강했다. 별도 `claude-opus-5-5` 한정 재확인에서 D1–D11 모두 ADDRESSED, 새 blocker/major 0. 잔여 R1은 재검사·재검토 완료 시제로 기록을 동기화했다. R2–R4는 비차단 note로 남긴다: 프로토콜 행 번호는 명시된 base 기준이며, encoder 실행 실험을 하지 않았다는 사실과 JPEG 조건의 도출 근거는 본문에 명시돼 있다.
+- 리뷰어가 확인하지 못한 원본 identity/format/bitDepth는 Astra가 `src/core/types.ts:22–40`, `src/core/image-artifacts.ts:61–75`에서 직접 확인했다. 사용자 제공 리뷰의 실제 모델은 전달된 리뷰 첫 항목에 `claude-opus-5-5`로 명시돼 있다. 하네스 리뷰어가 이 원문을 읽었다고 주장하지 않는다.
+- 전달 계획: 같은 브랜치·PR에서 `fix(review): ...` 별도 커밋과 `Agent: codex` trailer, push 후 Draft 및 HEAD/upstream/PR head 일치 확인. 이력 재작성·Ready·merge·다음 Task는 수행하지 않는다.
+
 ### Codex 6 Terra
 
 - NOT RUN. Claude Opus 5.5 실제 호출이 성공해 폴백 조건이 성립하지 않았다. 다른 Terra 버전으로 대체하지 않았다.
@@ -116,20 +139,21 @@
 
 ## 9. 남은 작업
 
-- [x] 현재 문서 Task의 작성/독립 검토/PR/최종 gate 완료
+- [x] c9ec7dd 전달 당시 문서 Task의 작성/독립 검토/PR/최종 gate 완료
+- [ ] 이번 리뷰 수정의 한정 재검토·trailer 포함 커밋·push·최종 Astra 검토 및 head 동기화
 - [ ] 사용자 검토 및 승인 (merge 및 다음 Task 미수행)
-- 후속 승인 사항: scope·공개 API/출력 계약, codec 출력 프로필, pixel/resource budget, 캡처·writer 전략, no-op 표현, manifest 직렬화/hash/저장 수명·공유 경로 정책.
+- 후속 승인 사항: 첫 연산 순서·scope·공개 API/출력 계약, codec 출력 프로필, pixel/resource budget, 캡처·writer 전략, no-op 표현, manifest 직렬화/hash/저장 수명·공유 경로 정책.
 - F-12·모델 선정·hosted 측정·품질/비용/지연 효과는 별도 작업이다.
 
 ## 10. 사용자 승인 필요 사항
 
 - 현재 승인: Task 29 문서 분석·계획 재개와 새 전역 하네스 적용, 검증 후 push/Draft PR.
-- 새 구현 선택은 아직 승인되지 않았다. 권장 후보와 대안·위험·진입 gate는 분석 문서에서 검토한다.
+- 새 구현 선택은 아직 승인되지 않았다. 비교 후보와 대안·위험·진입 gate는 분석 문서에서 검토한다.
 - Draft PR merge 및 다음 Task 구현은 최종 보고 후 명시적 승인을 기다린다.
 
 ## 11. 최종 요약
 
-- 현재 결과: 초기 검토, runtime gate, 1차 문서/staged 검사 완료. 독립 마일스톤 및 한정 재검토 통과; 요구사항 8개 PASS, blocker/major 0. Draft PR #29 생성과 이후 전체 gate 완료. 최종 기록만 후속 커밋하며 runtime은 검증한 내용과 동일하다.
+- c9ec7dd 전달 당시 결과: 초기 검토, runtime gate, 1차 문서/staged 검사 완료. 독립 마일스톤 및 한정 재검토 통과; 요구사항 8개 PASS, blocker/major 0. Draft PR #29 생성과 이후 전체 gate 완료. 최종 기록만 후속 커밋하며 runtime은 검증한 내용과 동일하다.
 - 전달: [Draft PR #29](https://github.com/kimcheolhui9846/token-context-optimizer/pull/29), base main, branch `codex/task-29-image-provenance-plan`, 본문 커밋 `6ce105e613e9f2e4e977c234d0643236835fc69e`. 최종 기록은 후속 커밋으로 전달하며 merge는 수행하지 않는다.
-- Astra 직접 검토: 요구사항 8개, 실제 분석 문구/소스/기존 테스트, 세 파일 diff, 검증 로그, 초기 및 마일스톤 검토 조치, Draft base/head/files 확인. 현재 판정 PASS WITH NOTES: 미래 변환은 미구현, 작성/리뷰는 동일 Claude 모델 별도 실행·발췌 기반, Windows FIFO 1개 skip.
+- c9ec7dd 전달 당시 Astra 직접 검토: 요구사항 8개, 실제 분석 문구/소스/기존 테스트, 세 파일 diff, 검증 로그, 초기 및 마일스톤 검토 조치, Draft base/head/files 확인. 당시 판정 PASS WITH NOTES: 미래 변환은 미구현, 작성/리뷰는 동일 Claude 모델 별도 실행·발췌 기반, Windows FIFO 1개 skip.
 - 다음 확인: 최신 PR head와 최종 보고를 확인하고 승인 전 구현/merge를 진행하지 않는다.
