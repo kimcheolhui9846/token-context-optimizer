@@ -4,9 +4,18 @@
 
 - PR: [#30](https://github.com/kimcheolhui9846/token-context-optimizer/pull/30), OPEN / Draft, base main. 브랜치: `codex/task-30-protocol-decision-memo`. Base: `origin/main` / `67478ffc1fbcd2fce7f8cf31a265f5b2bad12e3c`(PR #29 merge).
 - 목적: D1–D4의 선택지와 영향을 정리할 결정 메모. 값 선택은 사용자 권한이다.
-- 현재 상태: 2026-10-12 재개 후 완료된 Claude 초안을 복구·대조하여 결정 메모를 생성했다. 독립 마일스톤 major 3건과 후속 minor 보정을 완료했다. 한정 재검토는 SPEC PASS / QUALITY PASS WITH NOTES(blocker·major 0). 문서 커밋 9833a83을 push하고 Draft PR #30을 생성했으며, 그 시점 HEAD·upstream·PR head 일치와 Draft 이후 문서 검사를 확인했다. 이 기록 커밋도 push한 뒤 최종 head를 다시 대조하고 사용자 검토를 기다린다.
+- 현재 상태: 사용자 PR 리뷰 A-1–A-4/N-1–N-3 보정과 로컬 문서 검증 완료. 전달 대상은 기존 Draft PR #30이며 최종 commit/push 및 head 대조 결과는 PR 본문과 사용자 보고에 기록한다. 이번 보정은 같은 Task의 후속 커밋이며 Ready·merge·다음 Task는 승인되지 않았다. 이전 작성·검증 이력은 아래에 보존한다.
 - 범위: 새 계획, 새 결정 메모, 이 핸드오프의 최종 3개 문서만. 공유 HANDOFF/WBS/Task 29/프로토콜/논문/코드/테스트/의존성 선언 변경 금지(승인된 npm ci 설치만 수행).
 - 적용 지침: 사용자 Task 30 지시와 전역 하네스. 상위 Desktop AGENTS의 Kaggle 전용 학습/실험 절차는 이 저장소에 적용하지 않으며, 한국어·승인·Conventional Commits·trailer 규칙은 유지한다. 구체적 Task 지시대로 공유 HANDOFF는 수정하지 않는다.
+
+## PR #30 사용자 리뷰 보정 — 2026-10-12
+
+- 승인 범위: A-1–A-4 및 N-1–N-3 문구·표 보완, 계획/메모/이 핸드오프만 변경. 사용자 리뷰 원문은 주 저장소 codex_review에 그대로 보존한다.
+- 계획: A-cap은 D2.3·D2.4의 명시적 승인 전제로 연결하여 17개 공란과 X1–X10 유지, ≤1536 경계·fallback 대비 요약, AC4 부분 충족 기록, D1 근거 분리, O4 동일 행 병합과 기입 안내.
+- 수정 전 기준선: verify-docs final PASS, verify-memo PASS(명시 집합 101개/결정란 17개 공란), 작업 트리 clean/HEAD 4c6bb6b/PR Draft 확인. 문서 보정이므로 코드 RED는 해당 없음.
+- 검증 계획: 두 문서 검사와 git diff --check, 보호 파일·리뷰 원문 hash, 세 파일 scope, Agent trailer 및 HEAD/upstream/PR head 확인. npm gate는 NOT RUN 유지. 새 probe·실험·hosted 평가·count-tokens 금지.
+- 모델/교차 검토: 별도 native gpt-6-astra 읽기 전용 계획 검토 응답 수신. Claude 정확 모델의 초기 검토·작성·마일스톤 호출 및 실제 modelUsage는 §7에 기록했다.
+- 완료 후 같은 PR에 push하고 Draft 유지, Ready·merge·다음 Task 없이 중지한다.
 
 ## 2. 작업 계획
 
@@ -25,7 +34,7 @@
 ## 4. 주요 의사결정
 
 - 사실·조건부 도출·권고(승인 전)·사용자 결정 필요를 분리한다. 선택 조합의 수는 실험 횟수가 아닌 문서상 필요 연산 집계다.
-- baseline 예외: 기존 JPEG 테스트가 encoder를 호출함을 알렸고 사용자는 **기존 테스트 내부 encoder 호출만 허용하고 전체 baseline 1회 실행**을 선택했다. 새 encoder probe/실험은 금지다.
+- baseline 예외(이후 대체됨): 기존 JPEG 테스트가 encoder를 호출함을 알렸고 사용자는 **기존 테스트 내부 encoder 호출만 허용하고 전체 baseline 1회 실행**을 선택했다. 새 encoder probe/실험은 금지다.
 - 최신 사용자 결정이 위 이전 예외를 대체한다: npm.cmd ci 승인, baseline 전체 생략. Draft 이후도 문서와 Git/PR 검증만 반복한다.
 
 ## 5. 테스트 및 검증
@@ -81,6 +90,39 @@
 | N-1 Nit | 수용. 검사 스크립트를 계획 본문에 포함하여 PR에서 재현 가능 |
 | N-2 Nit | 수용. D3 대안 부족 시 미충족 보고·사용자 지시 대기 명시 |
 
+### 사용자 제공 PR #30 리뷰와 보정 응답 (2026-10-12)
+
+- 원문: 주 저장소 루트의 읽기 전용 codex_review/codex_review_feedback_2026-10-12_task30-pr30.md. Claude Code / claude-opus-5-5, Approve(소규모 보완 권장), Blocker 0 / Major 0 / Minor 4 / Nit 3. 하네스 직접 호출과 별도 실행이다. 수정·이동·커밋하지 않는다.
+- 리뷰어의 인용·산술·분류 대조와 검사 재현은 사용자 제공 리뷰의 결과다. 이번 하네스의 새 검사와 구분하며, 분류 표 전수 재계산 또는 480개 열거를 수행했다고 주장하지 않는다.
+
+| 지적 | 처리 결과 |
+| --- | --- |
+| A-1 Minor | 수용. 메모 §3.0·§10·§11에 A-cap을 D2.3·D2.4 기입과 연결된 미래 승인 전제로 명시. 다른 표현을 원하면 공란 유지와 재도출 요청. 이번 보정 자체는 가정 승인이 아니다. X1–X10/17개 결정란 유지 |
+| A-2 Minor | 수용. §0에 fallback slot만 설계상 입력 선택이 달라질 수 있음과 A-cap의 목표 ≤1536 resize 단계 identity를 추가. §6.2·§7·§11 경계 보강. 입력 bytes 동일성은 artifact 공유/변환 결정성 미검증(X9)으로 한정. E/N 및 overlay 16 유지 |
+| A-3 Minor | 수용. 계획 AC4·이 기록·PR 본문을 부분 충족으로 정합화. AC4 부분 충족: 합성 표로 대체, distinct 동치 묶음 전수 열거 미수행 |
+| A-4 Minor | 수용. §9 D1 타당성 근거와 구현 편의를 분리. 단일 format과 향후 공개 dataset format 차이는 권고 자체의 비용이자 [검증 필요]로 추가. 권고와 D1 공란 유지 |
+| N-1 Nit | 수용. §6.5의 동일 O4 여섯 행을 한 행으로 병합하고 전체 F/b/s/e/p 범위 및 X1/X3/X4 각주 유지. 서로 다른 능력인 O5/O6·O7/O8은 유지 |
+| N-2 Nit | 수용. §11에 네 값 먼저, 양립하는 D2.7 정책 이름 선택 안내. §4는 개념적 의존 순서이며 값과 정책의 모순은 확정 전 재선택. D2-c의 값 중복 가능성 유지 |
+| N-3 Nit | 수용. §4 이전 baseline 1회 실행 줄에 ‘이후 대체됨’ 추가 |
+
+- PR 밖 후속: primary 대비의 유효 입력 차이 slot 수와 fallback rate 보고(사용자 리뷰의 WBS N-10), clean 치수에 따른 stress 겹침(N-09 일부). 프로토콜·논문·WBS·Task 29 문서는 수정하지 않았고 별도 Task로 남긴다.
+
+### 하네스 직접 호출 — PR #30 보정
+
+- 초기 계획 검토: 별도 Claude Code 실행 성공, subtype success/is_error false, 실제 modelUsage의 유일한 모델 및 canonicalModel이 claude-opus-5-5. SPEC/QUALITY CONDITIONAL, blocker 0 / major 4 / minor 6. 검토는 비민감 발췌 기반이며 도구 실행 없음.
+- 계획 지적 판단: M1 승인·거부 경로와 기존 필드 귀속, M2 E/N과 ≤1536 경계 분리 및 effective transform 표 주석, M4 동적 검사 개수와 O4 각주 보존을 수용. M3는 Astra가 프로토콜 §3을 직접 확인하여 한정 수용: 동일 selection만으로 bytes 동일성을 입증하지 않으므로 X9 한계를 명시한다. minor의 정책/값 일치, 자체 비용 표시, alpha 구현 편의, AC4·검사 기록 정합성을 반영한다.
+- 작성 실행: 초기 검토와 별도 Claude Code 성공 응답. 실제 modelUsage/canonicalModel claude-opus-5-5 확인, 16개 치환 제안 각각 1회 일치 확인 후 적용. 파일·명령 도구는 사용하지 않았고 controller가 적용 및 검사를 수행했다.
+- modelUsage 요약(이 보정 직접 호출): 초기 검토 inputTokens 2 / outputTokens 8227 / cacheCreationInputTokens 24340 / cacheReadInputTokens 0; 작성 inputTokens 2 / outputTokens 14517 / cacheCreationInputTokens 28364 / cacheReadInputTokens 0. 두 응답 모두 provider firstParty, webSearchRequests 0. 비식별 역할만 기록하며 원시 인증 정보는 포함하지 않는다.
+- Astra: native default 역할에 gpt-6-astra를 명시 선택한 별도 읽기 전용 실행에서 초기 계획 검토와 후속 원문 대조 응답을 수신했다. 중간 후속 호출은 usage limit으로 실패했으며 사용자 재개 후 한 번 재시도하여 정상 응답을 받았다. 실패를 성공으로 기록하지 않는다. 사전 전달 검토는 PASS WITH NOTES(blocker·major 없음). commit/push 뒤 Git/PR 상태를 포함한 최종 검토를 별도로 수행한다.
+- Codex 6 Terra: NOT RUN — Claude가 정상 호출되어 폴백 사유 없음. 동일 Claude 모델의 별도 실행을 다중 모델 합의로 표현하지 않는다.
+- 보정 후 문서 검사: verify-docs.cjs final PASS(세 문서, errors 0), verify-memo.cjs PASS(명시 중괄호 집합 91개, 결정란 17개 공란), git diff --check PASS. O4 병합으로 집합 표기 출현 수만 101→91이며 U 21개/X 10개·명목 480·overlay 16은 유지한다. 검사기는 개수를 동적으로 보고하므로 기대값/코드 수정은 불필요하다. 이전 101 기록은 당시 결과로 보존한다.
+- 전체 npm gate: NOT RUN(사용자 지시). 새 encoder probe·실험·hosted 평가·count-tokens·외부 조사는 NOT RUN.
+
+- 독립 마일스톤: 작성자와 별도 Claude Code 정상 응답, 실제 modelUsage/canonicalModel claude-opus-5-5, SPEC PASS / QUALITY PASS WITH NOTES, blocker 0 / major 0 / minor 4 / note 6. modelUsage: inputTokens 2 / outputTokens 9108 / cacheCreationInputTokens 21322 / cacheReadInputTokens 0, provider firstParty, webSearchRequests 0. 발췌 diff/PR 초안 검토이며 명령 재실행은 하지 않았다.
+- 마일스톤 처리: m-1 arm의 1536 적용 slot 한정, m-2 통과 경로 X9 단서 재명시, m-3 당시 AC 전체 충족 기록과 이번 정정 구분, m-4 ‘겹칠 수 있다’를 반영했다. n-1 F의 a/b 사례 포함 명시, n-2 PR의 전수 열거 ‘미수행’, n-3 요약 전제, n-4 전달 시제, n-5 원문 hash·모델 로그 직접 확인을 반영했다. n-6 서로 다른 stress 표현의 혼합은 현재 정의하지 않은 후속 결정 한계로 남긴다. 추가 Claude 호출 없이 리뷰의 짧은 보완 문구를 기계 반영하고 재검사/Astra 확인을 수행한다.
+- Astra 사전 전달 검토: 실제 diff·PR 초안·세 파일 범위와 문서 검사 2종을 직접 읽고 실행하여 PASS WITH NOTES, blocker/major 없음. 마지막 m1–m4 및 F의 a/b 포함 보정도 실제 diff로 재확인해 PASS WITH NOTES로 판정했다. commit/push 뒤 최종 Git/PR 확인은 사용자 보고 및 PR 본문에 남긴다.
+- 보존 확인: SHA-256으로 보호 파일 7개(리뷰 원문 포함) 일치, 결정 표 본문은 수정 전과 동일, U 21/X 10 확인. 명목 480/overlay 16·17개 공란 유지.
+
 ### 하네스 직접 호출 — 작성 및 마일스톤 검토(2026-10-12 재개)
 
 - 복구 작성 응답의 우려: 손계산 조합·집계, 미확정 D3 배정, 능력 요구와 실제 호출 차이, 추가 하위 필드/가정, 일반/정확 연산 분리, JPEG 재압축/no-op, 형식 동치, encoder 증거 경계, reference 링크. Astra가 전체 초안을 읽고 원문과 대조했다.
@@ -112,7 +154,7 @@
 - 안정성/보안/성능: 런타임 변경 없음. 외부 조사·실험·hosted 평가·count-tokens 없음. 로컬 baseline은 연구 증거가 아니다.
 - 유지보수성: base 고정 인용과 명시적 파일 allowlist를 사용한다.
 
-- Astra 최종 판정(9833a83 및 후속 기록 diff 직접 확인): PASS WITH NOTES. AC1–AC7 충족, 사용자 값 미선택, 정확한 세 신규 문서 범위와 검증/독립 리뷰 확인. 명목 조합 수와 distinct 분류 수를 구별하며 후자는 전수 검증하지 않았다. 실제 codec/효과는 미검증, npm gate는 승인된 NOT RUN이다. 기록 커밋 push 후 동일 Git/문서 검사를 다시 확인한다.
+- Astra 최종 판정(9833a83 및 후속 기록 diff 직접 확인): PASS WITH NOTES. 당시에는 AC1–AC7 충족으로 기록했으나 A-3에 따라 다음과 같이 정정한다: AC1–AC3·AC5–AC7 충족. AC4 부분 충족: 합성 표로 대체, distinct 동치 묶음 전수 열거 미수행. 사용자 값 미선택, 정확한 세 신규 문서 범위와 검증/독립 리뷰 확인. 명목 조합 수와 distinct 분류 수를 구별하며 후자는 전수 검증하지 않았다. 실제 codec/효과는 미검증, npm gate는 승인된 NOT RUN이다. 기록 커밋 push 후 동일 Git/문서 검사를 다시 확인한다. 이 AC4 기록은 사용자 PR 리뷰 A-3에 따라 정정했다.
 
 ## 9. 남은 작업
 
@@ -129,6 +171,10 @@
 - Ready/merge/다음 Task는 별도 사용자 지시가 필요하다.
 
 ## 11. 현재 요약
+
+- PR #30 사용자 리뷰 보정: A-1–A-4/N-1–N-3 모두 반영. 동일 세 문서 범위, 결정값 공란, AC4 부분 충족 기록 유지. 후속 독립 검토는 SPEC PASS / QUALITY PASS WITH NOTES이며 짧은 minor 정합 보정을 반영했다. 문서 검증을 다시 확인한 후 단일 fix(review) 커밋으로 기존 Draft에 전달한다. 최종 SHA·push·Draft 확인은 PR 본문과 사용자 보고에 기록한다.
+
+### 기존 전달 이력
 
 - Task 29는 PR #29 merge 완료 상태를 새 Task의 base로만 참조한다. 그 이력을 수정하지 않는다.
 - 계획 조건부 승인 및 지적 반영 완료. 승인된 설치 완료, baseline NOT RUN. 중단 후 2026-10-12 재개하여 보존된 초안을 전체 재검증했다. 독립 리뷰 major를 해결하고 minor를 보정했다. Draft PR #30을 전달하고 사용자 검토를 기다린다. Ready·merge·다음 Task는 수행하지 않았다.
