@@ -2,9 +2,9 @@
 
 ## 1. 작업 개요
 
-- PR: 미생성(작성 진행). 브랜치: `codex/task-30-protocol-decision-memo`. Base: `origin/main` / `67478ffc1fbcd2fce7f8cf31a265f5b2bad12e3c`(PR #29 merge).
+- PR: [#30](https://github.com/kimcheolhui9846/token-context-optimizer/pull/30), OPEN / Draft, base main. 브랜치: `codex/task-30-protocol-decision-memo`. Base: `origin/main` / `67478ffc1fbcd2fce7f8cf31a265f5b2bad12e3c`(PR #29 merge).
 - 목적: D1–D4의 선택지와 영향을 정리할 결정 메모. 값 선택은 사용자 권한이다.
-- 현재 상태: 2026-10-12 재개 후 완료된 Claude 초안을 복구·대조하여 결정 메모를 생성했다. 독립 마일스톤 major 3건과 후속 minor 보정을 완료했다. 한정 재검토는 SPEC PASS / QUALITY PASS WITH NOTES(blocker·major 0), 최종 문서 검사 후 commit·push·Draft PR 전달 단계다. PR은 아직 없다.
+- 현재 상태: 2026-10-12 재개 후 완료된 Claude 초안을 복구·대조하여 결정 메모를 생성했다. 독립 마일스톤 major 3건과 후속 minor 보정을 완료했다. 한정 재검토는 SPEC PASS / QUALITY PASS WITH NOTES(blocker·major 0). 문서 커밋 9833a83을 push하고 Draft PR #30을 생성했으며, 그 시점 HEAD·upstream·PR head 일치와 Draft 이후 문서 검사를 확인했다. 이 기록 커밋도 push한 뒤 최종 head를 다시 대조하고 사용자 검토를 기다린다.
 - 범위: 새 계획, 새 결정 메모, 이 핸드오프의 최종 3개 문서만. 공유 HANDOFF/WBS/Task 29/프로토콜/논문/코드/테스트/의존성 선언 변경 금지(승인된 npm ci 설치만 수행).
 - 적용 지침: 사용자 Task 30 지시와 전역 하네스. 상위 Desktop AGENTS의 Kaggle 전용 학습/실험 절차는 이 저장소에 적용하지 않으며, 한국어·승인·Conventional Commits·trailer 규칙은 유지한다. 구체적 Task 지시대로 공유 HANDOFF는 수정하지 않는다.
 
@@ -15,7 +15,7 @@
 - [x] 계획 보고 후 사용자 조건부 승인 수령 및 지적 반영.
 - [x] 승인된 npm.cmd ci 설치, 전체 baseline 생략(NOT RUN), 별도 Claude 작성 실행으로 메모 초안 작성.
 - [x] 문서 검사·scope 검사·독립 마일스톤 검토 및 Astra 사전 전달 검토.
-- [ ] Agent trailer 포함 commit/push/main 대상 Draft PR 및 head 일치 확인 후 중지.
+- [x] Agent trailer 포함 commit/push/main 대상 Draft PR 및 head 일치 확인. 기록 커밋 후 같은 검사를 반복하고 중지.
 
 ## 3. 변경 사항
 
@@ -38,6 +38,8 @@
 - 문서 형식/상대 링크 검사 통과. 초기 scope 검사에서 리뷰 scratch가 untracked로 잡혀 실패했으며 완료된 scratch를 기존 ignore 대상 .artifacts/task-30-plan-review로 이동했다. 이동 후 계획 단계 검사에서 두 신규 문서 범위를 확인했다. 아래는 재개 후 메모 생성 단계 결과다.
 - 재개 후 고정 문서 검사 `node .artifacts/task-30-plan-review/verify-docs.cjs final`: PASS(3개 신규 문서). 첫 실행에서 내부 X9/X10 표기가 파일 링크로 해석되어 FAIL, 해당 표기만 일반 텍스트로 고친 뒤 PASS. `git diff --check`, `git diff --cached --check`: PASS. 명시 집합 76개 개수 일치, 결정란 16개 공란, U 21개/X 10개 중복 없음. 이 숫자는 1차 마일스톤 대상 초안의 검사 결과이며 수정 뒤 다시 검증한다.
 - package/lock 설치 전 hash 일치, 프로토콜·논문·Task 29 분석/핸드오프 hash 일치, 이동된 사용자 리뷰 원문 hash 일치. BOM 없는 UTF-8 검사를 통과했다. 리뷰 diff 캡처의 BOM은 PowerShell Out-File의 캡처 파일에만 붙었으며 공개 문서 내용이 아니다.
+
+- Draft 이후 검증(9833a83): `verify-docs.cjs final` PASS, `verify-memo.cjs` PASS(101 집합/17 공란), base 대비 name-status 정확히 3개 A 문서. `git rev-parse HEAD @{upstream}`와 `gh pr view 30`의 head가 9833a836af1e9dc2330ece989ad25f668c51f6d6으로 동일, OPEN/Draft, main 대상 확인. 기록 커밋 후 재검증하며 전체 npm gate는 계속 NOT RUN이다.
 
 ## 6. 오류 및 해결 기록
 
@@ -92,7 +94,7 @@
 - note 처리: 실제 distinct 분류 수와 명목 조합 수를 구분, 원문/입력 계약 적용의 가정 및 최소 집합의 한계 보강. 리뷰어는 도구 없이 diff/발췌만 봤으며 실제 검사·로그/Git/modelUsage는 Astra가 확인한다.
 
 - 재개 수정 결과: 정확 claude-opus-5-5 정상 응답의 실제 83개 치환(응답 요약의 81건 표기는 오기)을 각각 1회 일치 확인 후 반영했다. M2는 수정 수용: 작성자가 지적한 O3/O4 배타 귀속과 X1의 모순을 Astra가 확인해 B의 개별 O4 셀은 미정(X1)으로 정정했다. B × JO/CB의 decode 능력 필요 자체와 귀속 미정을 분리한다. X4는 실제 호출만 바꾸며, E는 O3에만 센다. M3 집계는 12/7/2로 정정했다. D4 quality/profile 분리로 결정란은 17개다.
-- 수정 후 검사에서 내부 §8 참조의 잘못된 파일 링크 표기 및 결정 표 뒤 주석을 발견했다. 참조를 일반 텍스트로, 주석을 표 앞으로 옮겼다. 검사기의 ID 파싱도 정정하고 계획 본문 코드와 동기화했다. 최종 재검사 결과: verify-docs final PASS(정확한 세 신규 문서), verify-memo PASS(명시 집합 101개, 결정란 17개 공란). 보호 대상/설치 전 package/리뷰 원문 hash 모두 일치. 후속 minor 보정 뒤 같은 검사를 재실행한다.
+- 수정 후 검사에서 내부 §8 참조의 잘못된 파일 링크 표기 및 결정 표 뒤 주석을 발견했다. 참조를 일반 텍스트로, 주석을 표 앞으로 옮겼다. 검사기의 ID 파싱도 정정하고 계획 본문 코드와 동기화했다. 최종 재검사 결과: verify-docs final PASS(정확한 세 신규 문서), verify-memo PASS(명시 집합 101개, 결정란 17개 공란). 보호 대상/설치 전 package/리뷰 원문 hash 모두 일치. 후속 minor 보정 뒤 및 Draft 생성 후 같은 검사를 재실행해 모두 PASS했다.
 
 - 한정 마일스톤 재검토: 별도 claude-opus-5-5 정상 호출, SPEC PASS / QUALITY PASS WITH NOTES, blocker 0 / major 0 / minor 6. M1–M3와 m1–m13 해결 확인. 같은 모델의 별도 실행이며 다중 모델 합의가 아니다. 리뷰어는 제공 문서와 일부 원문만 확인했고 명령은 실행하지 않았다.
 - R1–R6 처리: 현재 시제/101개 집합·17개 결정란 기록, 출처 목록에 프로토콜 §8/§9와 논문 §5 보완, O9/O10의 X3 보완, fixture 표현을 독립 fixture로 정정, DO/CB의 변환 후 accounting 상한 조건 통일, PC-out에서도 S-set 제안 pool의 PNG canonical 구성원 유지 명시. 선택적인 동일 O4 행 병합은 미반영(조합 열쇠를 유지). Astra가 원문과 정정 diff를 직접 확인했으며 이 minor 보정만의 추가 Claude 호출은 하지 않았다.
@@ -101,7 +103,7 @@
 
 - 계획/핸드오프 작성 및 최종 검토: 현재 사용자 Codex 세션, 실제 runtime model gpt-6-astra 확인. 개인 계정 식별자는 공개 문서에 쓰지 않는다.
 - 재개 세션(2026-10-12): 실제 runtime model `gpt-6-astra` 확인. 사용자 Codex 세션으로 계정 식별자는 기록하지 않는다. Astra 단계 대체·보류는 필요하지 않다.
-- 메모 작성: 중단 전 별도 Claude Code / claude-opus-5-5 완료 응답을 재개 시 발견했다. subtype success, is_error false, modelUsage 정확 일치. 결과는 DONE_WITH_CONCERNS였다. 원문과 전체 초안을 대조해 8개 논점의 보정을 요청했으며 재개 후 같은 정확 모델 정상 호출의 74개 치환을 검증·반영했다. reference-style 링크는 controller가 동일 대상 inline 링크로 기계 변환했다. 실제 파일·집계·독립 리뷰 확인을 완료했으며 최종 Git/PR 검증은 전달 단계에서 수행한다. Claude 호출 불가 시에만 정확 Codex 6 Terra 가용성 확인 후 대체하며 둘 다 불가하면 구현 BLOCKED.
+- 메모 작성: 중단 전 별도 Claude Code / claude-opus-5-5 완료 응답을 재개 시 발견했다. subtype success, is_error false, modelUsage 정확 일치. 결과는 DONE_WITH_CONCERNS였다. 원문과 전체 초안을 대조해 8개 논점의 보정을 요청했으며 재개 후 같은 정확 모델 정상 호출의 74개 치환을 검증·반영했다. reference-style 링크는 controller가 동일 대상 inline 링크로 기계 변환했다. 실제 파일·집계·독립 리뷰 확인을 완료했으며 Draft 생성 후 Git/PR 검증에서 head 일치와 OPEN/Draft를 확인했다. 기록 커밋의 최종 SHA는 push 후 사용자 보고에 남긴다. Claude 호출 불가 시에만 정확 Codex 6 Terra 가용성 확인 후 대체하며 둘 다 불가하면 구현 BLOCKED.
 - Codex 6 Terra: NOT RUN, 폴백 사유 없음.
 
 ## 8. 자체 리뷰
@@ -110,11 +112,14 @@
 - 안정성/보안/성능: 런타임 변경 없음. 외부 조사·실험·hosted 평가·count-tokens 없음. 로컬 baseline은 연구 증거가 아니다.
 - 유지보수성: base 고정 인용과 명시적 파일 allowlist를 사용한다.
 
+- Astra 최종 판정(9833a83 및 후속 기록 diff 직접 확인): PASS WITH NOTES. AC1–AC7 충족, 사용자 값 미선택, 정확한 세 신규 문서 범위와 검증/독립 리뷰 확인. 명목 조합 수와 distinct 분류 수를 구별하며 후자는 전수 검증하지 않았다. 실제 codec/효과는 미검증, npm gate는 승인된 NOT RUN이다. 기록 커밋 push 후 동일 Git/문서 검사를 다시 확인한다.
+
 ## 9. 남은 작업
 
 - [x] 계획 리뷰 결과 반영.
 - [x] 사용자 계획 조건부 승인 및 지적 반영.
-- 승인 후 메모·검증·Draft PR 전달. D1–D4 값 선택과 프로토콜 개정은 별도 승인/Task다.
+- [x] 메모·검증·Draft PR 전달.
+- 사용자 검토 대기. D1–D4 값 선택과 프로토콜 개정은 별도 승인/Task다.
 - F-12, 파일럿 모델, 첫 연산 순서는 확정하지 않는다.
 
 ## 10. 사용자 승인 필요 사항
@@ -126,4 +131,4 @@
 ## 11. 현재 요약
 
 - Task 29는 PR #29 merge 완료 상태를 새 Task의 base로만 참조한다. 그 이력을 수정하지 않는다.
-- 계획 조건부 승인 및 지적 반영 완료. 승인된 설치 완료, baseline NOT RUN. 중단 후 2026-10-12 재개하여 보존된 초안을 전체 재검증했다. 독립 리뷰 major를 해결하고 minor를 보정했다. Draft PR 전달과 최종 Git 검증 뒤 멈춘다.
+- 계획 조건부 승인 및 지적 반영 완료. 승인된 설치 완료, baseline NOT RUN. 중단 후 2026-10-12 재개하여 보존된 초안을 전체 재검증했다. 독립 리뷰 major를 해결하고 minor를 보정했다. Draft PR #30을 전달하고 사용자 검토를 기다린다. Ready·merge·다음 Task는 수행하지 않았다.

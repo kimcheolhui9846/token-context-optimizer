@@ -116,7 +116,7 @@ Task 29 §3.1의 미정 칸마다 식별자를 붙이고 D1–D4 중 무엇으�
 - [x] **4. 승인된 설치/검증 예외:** npm.cmd ci를 worktree에서 실행하고 package/lock tracked 무변경 확인. 전체 npm baseline은 사용자 결정으로 NOT RUN. 문서·scope 검사는 실행한다.
 - [x] **5. 메모 작성:** 별도 Claude Opus 5.5 실행에 이 계획과 §2 표에 지정한 전 범위의 행 번호 포함 비민감 원문을 제공. 표에서 범위를 지정하지 않은 Task 29 §3.2/§4.2, 회계의 모델별 절은 절 전체를 제공한다. 패키지에 없는 행은 인용하지 않고 [발췌 요청]으로 controller에게 반환한다. 소유권은 새 메모만, 기존/다른 작업자 파일 수정 금지. Astra가 실제 원문·행·표 집계·금지사항 대조. 사용자가 값을 고른 것으로 쓰지 않음.
 - [x] **6. 검토/검증:** 문서 검사, 정확 scope, AC1–AC7 직접 점검. 작성자와 별도 Claude 마일스톤 검토, blocker/major 수정 후 문서 재검사. 확인 불가 모델을 다른 모델로 몰래 대체하지 않음.
-- [ ] **7. 전달:** 세 파일만 stage/commit/push/main Draft PR. PR에 요구사항, RED 예외, baseline/문서 결과, 리뷰 범위/모델/한계, 승인 gate 기재. 이후 문서 검사와 Git/PR 동기화 재확인, Astra 결과 보고 후 중지. 전체 npm gate 반복하지 않음.
+- [x] **7. 전달:** 세 파일만 stage/commit/push/main Draft PR. PR에 요구사항, RED 예외, baseline/문서 결과, 리뷰 범위/모델/한계, 승인 gate 기재. 이후 문서 검사와 Git/PR 동기화 재확인, Astra 결과 보고 후 중지. 전체 npm gate 반복하지 않음.
 
 ## 5. 고정 문서 검사와 정확 scope
 
