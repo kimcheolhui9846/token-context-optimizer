@@ -1,6 +1,6 @@
 # 이미지 프로토콜 결정 메모 (Task 30)
 
-> **상태: 결정 보조 자료.** 이 메모는 D1–D4의 값을 확정하지 않는다. 선택지, 영향, 의존, 조건부 연산 집계만 정리한다. 프로토콜 개정은 사용자가 값을 고른 뒤 별도 Task에서 한다. F-12, 파일럿 모델, 첫 구현 연산 순서는 여기서 정하지 않는다. 이 메모의 모든 개수는 명시한 집합에서 손으로 도출한 문서상 산술이며 실측이 아니다.
+> **상태: 결정 보조 자료(Task 30 고정-base 분석 + 2026-10-12 사용자 결정 기록).** §0–§11의 선택지·분석·미정/미승인 표현은 Task 30 당시 고정-base 분석이며, §11 사용자 결정 칸과 표 뒤 2026-10-12 기록이 최신 사용자 선택이다. Task 30 본문은 D1–D4의 값을 스스로 확정하지 않는다. 선택지, 영향, 의존, 조건부 연산 집계만 정리한다. 프로토콜 개정은 사용자가 값을 고른 뒤 별도 Task에서 한다. F-12, 파일럿 모델, 첫 구현 연산 순서는 여기서 정하지 않는다. 이 메모의 모든 개수는 명시한 집합에서 손으로 도출한 문서상 산술이며 실측이 아니다.
 
 ## 0. 한 화면 요약
 
@@ -593,20 +593,45 @@ D3.4a와 D3.4b는 PNG encode와 PNG canonical의 커버리지를 바꾸므로 �
 
 | 항목 | 선택지 | 승인 전 권고 | 사용자 결정 |
 | --- | --- | --- | --- |
-| D1 clean format/channels | D1-a 제한 RGB PNG / D1-b 제한 RGBA PNG / D1-c 제한 JPEG / D1-d family별 원본 format 유지 | 승인 전 권고: D1-a(원천이 native clean일 때. 이력 미상은 X7) | |
-| D2.1 JPEG-only quality | 75(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | |
-| D2.2 JPEG-only JPEG 프로필 | P-in 현행 제한 ingest 프로필 / P-out 프로필 밖(사양 사용자 결정 필요) | 승인 전 권고: P-in | |
-| D2.3 downscale-only 목표 치수 | 긴 변 1536(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | |
-| D2.4 combined 목표 치수 | 긴 변 1536(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | |
-| D2.5 combined quality | 75(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | |
-| D2.6 combined JPEG 프로필 | P-in / P-out | 승인 전 권고: P-in | |
-| D2.7 조건 사이 동일값 여부(D2.1, D2.3–D2.5에 대한 제약) | D2-a 전 조건 후보값과 동일(D2.1 = D2.5 = 75, D2.3 = D2.4 = 1536) / D2-b 조건 공통·후보와 다름(D2.1 = D2.5, D2.3 = D2.4, 하나 이상이 후보값과 다름) / D2-c 조건별 독립 배정(값이 같아져도 됨) | 권고 없음(근거 부족) | |
-| D3.1 B 변환 구성 | B-rc 1536 후 q75 / B-r 1536만 / B-c q75만 | 권고 없음(근거 부족) | |
-| D3.2 C/D 후보 집합 | S-same B와 같은 단일 출력 변환 / S-set 후보 집합에서 slot별 선택 | 권고 없음(근거 부족) | |
-| D3.3 E 출력 처리 | E-crop oracle crop만 / E-same crop 뒤 B와 같은 변환 | 권고 없음(근거 부족) | |
-| D3.4a PNG canonical의 arm 내 쓰임 | PC-cand 후보 집합 구성원으로만 / PC-out 변환이 만든 PNG 출력의 정규화(A와 D의 fallback 제외) | 권고 없음(근거 부족) | |
-| D3.4b PNG canonical의 clean 생성 사용 | K-y 사용(D1-c와 모순) / K-n 원천 그대로 | 권고 없음(근거 부족) | |
-| D4.1 downscale-only 출력 format | D4-a 제한 PNG / D4-b 입력 format 유지 / D4-c 제한 JPEG | 승인 전 권고: D4-a (D1-a에서는 D4.2와 무관하게, D1-b에서는 channels 보존일 때만 D4-b와 같음) | |
-| D4.2 downscale-only channels (D4-a일 때) | 입력 channels 보존 / RGB로 통일(alpha 처리 미정) | 권고 없음(근거 부족) | |
-| D4.3 downscale-only JPEG quality (출력이 JPEG일 때) | combined와 동일(D2.5를 따름) / 독립 값(75 또는 다른 값, 수치 사용자 결정 필요) | 권고 없음(근거 부족) | |
-| D4.4 downscale-only JPEG 프로필 (출력이 JPEG일 때) | P-in / P-out(사양 사용자 결정 필요) | 권고 없음(근거 부족) | |
+| D1 clean format/channels | D1-a 제한 RGB PNG / D1-b 제한 RGBA PNG / D1-c 제한 JPEG / D1-d family별 원본 format 유지 | 승인 전 권고: D1-a(원천이 native clean일 때. 이력 미상은 X7) | D1-a — 제한 RGB PNG, channels 3 |
+| D2.1 JPEG-only quality | 75(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | 50 — 사용자 선택 잠정값, calibration 후 freeze |
+| D2.2 JPEG-only JPEG 프로필 | P-in 현행 제한 ingest 프로필 / P-out 프로필 밖(사양 사용자 결정 필요) | 승인 전 권고: P-in | P-in — jpeg-ycbcr8-baseline-444-v1 |
+| D2.3 downscale-only 목표 치수 | 긴 변 1536(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | A-cap 긴 변 상한 1024 — 사용자 선택 잠정값, calibration 후 freeze |
+| D2.4 combined 목표 치수 | 긴 변 1536(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | A-cap 긴 변 상한 1024 — 사용자 선택 잠정값, calibration 후 freeze |
+| D2.5 combined quality | 75(후보값과 동일) / 다른 값(수치 사용자 결정 필요) | 권고 없음(근거 부족) | 50 — 사용자 선택 잠정값, calibration 후 freeze |
+| D2.6 combined JPEG 프로필 | P-in / P-out | 승인 전 권고: P-in | P-in — jpeg-ycbcr8-baseline-444-v1 |
+| D2.7 조건 사이 동일값 여부(D2.1, D2.3–D2.5에 대한 제약) | D2-a 전 조건 후보값과 동일(D2.1 = D2.5 = 75, D2.3 = D2.4 = 1536) / D2-b 조건 공통·후보와 다름(D2.1 = D2.5, D2.3 = D2.4, 하나 이상이 후보값과 다름) / D2-c 조건별 독립 배정(값이 같아져도 됨) | 권고 없음(근거 부족) | D2-b — 조건 공통·후보값과 다름 |
+| D3.1 B 변환 구성 | B-rc 1536 후 q75 / B-r 1536만 / B-c q75만 | 권고 없음(근거 부족) | B-rc — 1536 no-upscale 후 q75 JPEG |
+| D3.2 C/D 후보 집합 | S-same B와 같은 단일 출력 변환 / S-set 후보 집합에서 slot별 선택 | 권고 없음(근거 부족) | S-same — 영역만 선택, B와 동일한 출력 변환 |
+| D3.3 E 출력 처리 | E-crop oracle crop만 / E-same crop 뒤 B와 같은 변환 | 권고 없음(근거 부족) | E-same — oracle crop 후 B와 동일한 출력 변환 |
+| D3.4a PNG canonical의 arm 내 쓰임 | PC-cand 후보 집합 구성원으로만 / PC-out 변환이 만든 PNG 출력의 정규화(A와 D의 fallback 제외) | 권고 없음(근거 부족) | PC-out — PNG 출력 정규화 역할 |
+| D3.4b PNG canonical의 clean 생성 사용 | K-y 사용(D1-c와 모순) / K-n 원천 그대로 | 권고 없음(근거 부족) | K-n — 합성 원천 clean 파일 그대로 사용 |
+| D4.1 downscale-only 출력 format | D4-a 제한 PNG / D4-b 입력 format 유지 / D4-c 제한 JPEG | 승인 전 권고: D4-a (D1-a에서는 D4.2와 무관하게, D1-b에서는 channels 보존일 때만 D4-b와 같음) | D4-a — 제한 PNG |
+| D4.2 downscale-only channels (D4-a일 때) | 입력 channels 보존 / RGB로 통일(alpha 처리 미정) | 권고 없음(근거 부족) | 입력 channels 보존 — RGB 3 유지 |
+| D4.3 downscale-only JPEG quality (출력이 JPEG일 때) | combined와 동일(D2.5를 따름) / 독립 값(75 또는 다른 값, 수치 사용자 결정 필요) | 권고 없음(근거 부족) | 해당 없음 — downscale-only 출력이 PNG |
+| D4.4 downscale-only JPEG 프로필 (출력이 JPEG일 때) | P-in / P-out(사양 사용자 결정 필요) | 권고 없음(근거 부족) | 해당 없음 — downscale-only 출력이 PNG |
+
+### 2026-10-12 사용자 결정 기록 (Task 31)
+
+- **결정일과 주체.** 2026-10-12, 승인 주체는 사용자다. 위 표의 사용자 결정 17칸은 이 날짜의 사용자 결정이며 선택 15칸과 「해당 없음」 2칸(D4.3, D4.4)이다. Task 30의 「결정 표가 메모의 마지막 내용이고 사용자 결정 칸은 공란」 요구는 이번 사용자 명시 지시로 대체됐다. 표 위 §0–§11 본문과 일반 합성 표는 Task 30 고정-base 분석으로 그대로 두며, 그 안의 미승인·미정 표현(A-cap 미승인, X1/X2 잔여 등)은 당시 기준의 설명이다.
+- **잠정값.** q50과 긴 변 상한 1024는 저장소 근거로 찾은 최적값이 아니라 사용자 선택 잠정값이며 검증된 안전 threshold가 아니다. 12 calibration family에서 확인하고, 바꾸면 이전 값·새 값·이유를 기록하며, held-out 시작 전에 최종 stress recipe를 한 번 freeze한다. held-out 결과를 이용한 튜닝은 금지다. 무엇을 확인하면 검증된 것으로 볼지 기준은 아직 정하지 않았고 사용자가 실행 전에 결정한다. 어떤 값 변경도 사전 사용자 승인 뒤에만 하며, 변경 시 D2-b 일관성, T < 1536, clean/stress 치수 부등식, accounting 상한, 최종 stress 값에서의 guard 조정을 다시 확인한다.
+- **A-cap.** D2.3과 D2.4를 채움으로써 A-cap(긴 변 상한 표현)은 DO와 CB 두 조건에 같은 표현으로 승인됐다. 서로 다른 표현을 섞는 경우는 이 승인에 들어가지 않는다. 배율, 고정 치수, 혼합 표현으로 바꾸려면 Td/Tc 비교와 §7의 identity 도출을 다시 검토한다.
+- **D4.3, D4.4.** 「해당 없음」은 조건부 필드에 대한 사용자 결정이다. DO 출력이 PNG(D4-a)여서 두 필드가 적용되지 않는다는 뜻이며 새 quality나 프로필 값이 아니다.
+- **함께 정한 것(사용자 결정).**
+  - clean은 직접 생성한 손실 이력 없는 RGB PNG 원천 파일을 그대로 쓴다(K-n). 긴 변 L = max(width, height)는 1536 < L <= 2528, 사용자 확정 기준값은 2048이다. 정확한 width×height 목록, 종횡비, family별 배정은 아직 선택하지 않았고 이후 생성 Task에서 사용자 승인 뒤 확정한다. 기준값 2048의 운영 의미도 그때 구체화한다.
+  - arm의 1536/q75는 유지한다. stress 잠정값 조정 절차는 arm preset 변경 허가가 아니다.
+  - 고정 순서: stress recipe를 먼저 고정하고 그 recipe에서 guard를 조정한다. guard 조정 뒤 stress 값이 바뀌면 최종 값에서 guard를 다시 확인한 뒤 held-out 전에 함께 freeze한다. calibration은 이 Task에서 실행하지 않았다.
+  - PNG canonical은 이름을 유지하되 S-same/PC-out 선택에서 arm 출력에 쓰지 않는 비활성 항목으로 표시한다.
+  - fallback rate 최소 정의: 분자는 D slot 중 guard가 fallback을 선택한 수, 분모는 D 배정 slot 전체 144, 조건별 36. guard 결정이 없는 slot(`not_started` 등)은 분자에서만 제외하고 수를 따로 보고하며 분모에 남긴다. 전체와 조건별로 primary D−C와 함께 보고하고 rejection의 n/N, n/S와 구분한다. slot 제외나 primary 조정은 없고 기존 failure, retry, `not_started` 규칙은 그대로다.
+- **추가 사용자 결정 X1, X2(2026-10-12).** X1: B는 crop하지 않는다. X2: 이 선택에서 변환 arm의 최종 출력은 q75 P-in JPEG다(A와 D의 fallback 제외). 둘 다 D3에서 자동 도출한 것이 아니라 별도의 사용자 결정이다. 다른 조합에 대한 일반 표의 미정 칸은 고치지 않는다. X2는 중간 crop 저장 방식이나 encoder 적합성까지 정하지 않는다.
+- **선택 조합.** F1, K-n, ⟨rc, same, same, out⟩, overlay T = NN, Q = NN(두 T는 1024로 1536보다 작다). 아래는 이 조합에서만 읽은 결과다. §6의 480 명목 조합이나 distinct 분류는 다시 계산하지 않았고 전수 열거 미수행은 그대로다.
+- **행 출처.** 아래 결과는 base `65347d4`의 이 메모 행에서 읽었다. F1 정의 L269, 집계 전제 P1 L310, 조건 준비 §6.4 L340–374, arm 변환 §6.5 L380–445(그중 ⟨rc, same, same⟩의 O5/O6 L403–404, O7/O8 L415–416, O9 L424, p = out의 O10 L431).
+- **조건 준비(도출).** CL은 원천 RGB PNG 그대로, JO는 clean 치수에서 q50 P-in JPEG, DO는 긴 변 상한 1024 뒤 RGB PNG, CB는 긴 변 상한 1024 뒤 q50 P-in JPEG다. O1–O3 불필요, O4 불필요, O5 필수 {DO, CB}, O6 불필요(T = NN), O7 필수 {JO, CB}, O8 불필요(Q = NN), O9 필수 {DO}, O10은 DO에서 미정(X5)이다. PC-out이 arm에서 비활성이라는 점이 DO 준비의 O10 미정을 지우지 않는다. CB를 clean에서 직접 파생한다는 P1은 기존 집계 가정이며 이번에 새로 승인된 것이 아니다.
+- **arm 변환(도출).** A와 D의 fallback은 배정 variant를 그대로 전달한다. B는 crop 없이 1536 no-upscale 뒤 q75, C와 D의 변환 경로는 영역 처리 뒤 같은 변환, E는 oracle crop 뒤 같은 변환이다. X1 결정으로 B의 O1·O2·O3은 불필요다. O1은 CL/DO에서 C/D 조건부, E의 crop 규칙에 필요하다. JO/CB의 crop decode는 O3에 귀속한다. B의 O4는 JO/CB 셀에서 필요하고 arm 단위로는 조건부, C/D의 O4는 조건부, E의 O4는 불필요다. O5/O6과 O7/O8은 필수 {B, C, E}, 조건부 {D}다. O9와 O10의 arm 행은 모두 불필요하며, 변환 arm 출력이 모두 JPEG이므로 PC-out의 arm 출력 역할은 비활성이다. 이는 사용자 선택에서 나온 도출이며 별도 선택이 아니다.
+- **effective transform(도출).** DO/CB variant는 긴 변이 1024 이하라 arm의 1536 단계가 identity이고 남는 변환은 선택 시의 crop과 q75 재인코딩이다. CL/JO에서는 B의 1536 단계가 비identity이고 C/D/E는 crop 결과 치수에 따른다. q75 재인코딩은 q50 JPEG에 적용해도 identity가 아니다. identity는 resize 단계에 한정되며 pixel이나 byte 동일성이 아니다.
+- **D−C 해석(도출).** 설계상 입력 선택 차이는 D가 fallback한 slot에서만 가능하다(필요조건이며 충분조건이 아니다). C의 출력이 JPEG이므로 CL/DO의 PNG variant와 bytes가 같을 수 없다. JO/CB에서는 일치 가능성을 배제하지 못하며 측정되지 않았다. 수락 slot의 동일 artifact 사용과 변환 결정성은 미검증이다(X9).
+- **accounting 산술.** 양의 정수 치수와 w, h <= 2528에서 차원 항은 각 변에 대해 단조 증가하므로 종횡비와 무관하게 134,206,464 이하다. controller가 현 validator에서 읽은 보수적 table 상한 2112를 더하면 134,208,576 이하이고 한도 134,217,728까지 여유는 9,152다. 이는 JPEG accounting 항목만의 산술이다. 정확한 encoder, 프로필 적합성, encoded 크기는 검증되지 않았다(X9). clean PNG의 제한 프로필 적합성과 encoded 10 MiB도 실제 파일이 없어 미검증이다(X7, X10).
+- **잔여 상태(선택 조합 한정).** X1, X2는 위 사용자 결정으로 해소. X3은 출력 preset 선택만 S-same으로 한정되고 영역 선택·점수·tie break·빈도는 잔여. X4(no-op), X8(resize 규칙), X9(encoder 적합성·결정성·자원)는 잔여. X5는 arm 출력에서 O10 비활성이고 DO PNG 준비와 canonical의 관계는 잔여. X6은 RGB 한정이라 적용 없음. X7과 X10은 정책·범위가 선택됐으나 실제 파일·치수 목록 증거가 없어 부분 해소. 첫 구현 연산, F-12, 파일럿 모델은 여기서 정하지 않는다.
+- **한계.** 이 기록은 효과, 안전성, 비용 절감, 검정력을 주장하지 않는다. 실험, encoder, 이미지 생성, hosted 호출, count-tokens는 실행하지 않았다.
+
+- **arm 단위 보충 읽기.** F1에서 RGBA crop O2는 모두 불필요하다. JPEG crop O3는 C/D/E에서 PNG/JPEG 조건을 합쳐 조건부이며 B는 crop하지 않아 불필요하다. RGB crop O1도 C/D/E arm 단위로는 조건부다(E의 CL/DO 셀에서 필요한 crop과 arm 병합 결과를 구분). 이는 base §6.5 L384–399를 읽은 결과이며 일반 표는 변경하지 않았다.

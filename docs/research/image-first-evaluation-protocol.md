@@ -4,6 +4,11 @@
 승인하지 않는다. 논문 초안은 [image-first-paper-draft.ko.md](./image-first-paper-draft.ko.md)와 함께
 갱신한다. 기존 텍스트 전용 방법론은 역사적 맥락이며 이 이미지 프로토콜의 실행 증거가 아니다.
 
+Task 31 임시 상태(2026-10-12): 2026-10-12 사용자 결정은 이 문서에 먼저 반영했으며 논문 초안은 아직 이 결정을
+반영하지 않았다. 두 문서의 해당 서술은 현재 일치하지 않으며 동시 갱신이 끝난 상태가 아니다. 논문 정합화는 별도 승인
+Task의 범위이고 후속 목록은 [Task 31 핸드오프](../agent/handoffs/task-31.md)를 참조한다. 결정 원장은
+[결정 메모](./image-protocol-decision-memo.md) §11과 그 뒤 기록에 있다.
+
 ## 1. 목적과 사전 조건
 
 목적은 질문에 맞춘 외부 이미지 선택기가 입력 크기를 줄이면서 질문의 증거를 잃지 않는지 탐색하는
@@ -39,22 +44,56 @@ gold evidence를 optimizer 입력으로 넣지 않는다.
 
 입력 조건은 네 가지다.
 
-1. clean canonical 원본
-2. JPEG-only: 사전 계획된 재인코딩만 적용
-3. downscale-only: 긴 변을 줄이되 확대하지 않음
-4. combined: downscale을 먼저 적용한 뒤 JPEG 재인코딩 적용
+2026-10-12 사용자 결정에 따른 clean 정책: clean은 직접 생성한 손실 이력 없는 RGB PNG(channels 3) 원천 파일을
+재인코딩 없이 그대로 쓴다. 별도 PNG canonical 재인코딩으로 clean을 만들지 않는다. clean의 긴 변
+L = max(width, height)는 1536 < L <= 2528이고 사용자 확정 기준값은 2048이다. 정확한 width×height 목록, 종횡비,
+family별 배정은 아직 선택하지 않았으며 이후 합성 데이터 생성 Task에서 사용자 승인 뒤 확정한다. 기준값 2048의 운영
+의미도 그 Task에서 구체화한다. 원천의 생성 provenance, 실제 파일의 `png-rgb8-static-v1` 제한 적합성과 encoded
+크기는 실제 파일이 없어 검증되지 않았다. 상한 2528에서 현행 JPEG decoder accounting 식의 보수적 상한은 종횡비와
+무관하게 134,208,576 bytes 이하로 한도 134,217,728보다 9,152 작다(표 상한 2112 등 도출 전제는 결정 메모의 accounting 산술 기록 참조). 이는 accounting 항목만의 산술이며 실제 encoder
+출력의 프로필 적합성, encoded 크기, 자원 사용, 수락을 보증하지 않는다. 아래 quality 50과 긴 변 상한 1024는 사용자 선택
+잠정값이다.
+
+1. clean canonical 원본: 위 정책의 RGB PNG(channels 3) 원천 파일 그대로
+2. JPEG-only: 사전 계획된 재인코딩만 적용. clean 치수 그대로 JPEG quality 50, 목표 프로필 P-in (`jpeg-ycbcr8-baseline-444-v1`)
+3. downscale-only: 긴 변을 줄이되 확대하지 않음. 긴 변 상한 1024, 출력은 RGB PNG(channels 3 유지)
+4. combined: downscale을 먼저 적용한 뒤 JPEG 재인코딩 적용. 긴 변 상한 1024 뒤 JPEG quality 50, 목표 프로필 P-in (`jpeg-ycbcr8-baseline-444-v1`)
 
 기존 JPEG 손상 등 preexisting corruption과 이번 변환이 도입한 degradation을 manifest와 분석에서 분리한다.
 입력 stress recipe는 네 조건의 열거이고 operation order가 아니다. combined 조건의 실제 operation order는
-downscale 후 JPEG이며, 긴 변이 이미 preset 이하이면 identity resize가 될 수 있다. 각 slot은 실제 effective
+downscale 후 JPEG이다. stress 준비의 긴 변 상한 1024와 arm 출력 변환의 긴 변 상한 1536은 서로 다른 값이며 구분해 기록한다.
+위 clean 범위(1536 < L)에서는 downscale-only와 combined의 준비 단계 resize가 치수를 실제로 줄이므로 identity가 아니다.
+identity resize가 될 수 있는 곳은 준비 단계가 아니라 arm의 1536 단계이며, 긴 변이 이미 1536 이하인 입력(긴 변 1024
+이하인 downscale-only·combined variant, 또는 crop 결과)에서 그렇다. 이는 resize 단계에 한정되며 출력 bytes나 pixel의
+동일성을 뜻하지 않는다. stress 값을 바꾸면 이 부등식과 구분을 다시 확인한다. 각 slot은 실제 effective
 transform, 입력/출력 치수, 파일 크기, format, quality를 기록한다. blinded prelabel로 원래부터 답할 수 없는
 입력을 표시하되, 결과를 본 뒤 분석에서 제외하지 않는다.
+
+quality 50과 긴 변 상한 1024는 저장소 근거로 최적화한 값이 아니라 2026-10-12 사용자 선택 잠정값이며 검증된 안전
+threshold가 아니다. downscale-only와 combined는 같은 긴 변 상한 표현과 같은 값을, JPEG-only와 combined는 같은 quality를
+쓴다(조건 공통이며 후보값 1536/q75와 다름). 12 calibration family에서 이 잠정값을 확인하고, 값을 바꾸면 이전 값·새 값·
+이유를 기록한다. 무엇을 확인하면 검증된 것으로 볼지 기준은 아직 정하지 않았으며 사용자가 실행 전에 결정한다. 어떤
+stress 값 변경도 사전 사용자 승인 뒤에만 한다. 이 문서는 자동 조정 권한을 주지 않는다. arm의 1536/q75는 이번 선택에서
+유지하며 이 절차는 arm preset 변경 허가가 아니다. combined를 downscale-only 산출물에서 연쇄 파생하지 않고 clean에서
+직접 만든다는 것은 결정 메모의 집계 가정이며 이번 사용자 결정으로 새로 승인된 것이 아니다. 실제 파생 경로는 확인되지
+않았다.
+
+고정 순서(2026-10-12 사용자 결정): stress recipe를 먼저 고정하고 그 recipe에서 small-text guard를 조정한다. guard 조정
+뒤에 stress 값이 바뀌면 최종 stress 값에서 guard를 다시 확인한 다음 stress recipe와 guard를 held-out 시작 전에 함께
+freeze한다. stress 값이 바뀔 때마다 조건 공통·후보값과 다름(D2-b) 일관성, 긴 변 상한 T < 1536, clean/stress 치수
+부등식, JPEG accounting 상한, guard 조정 결과를 다시 확인한다. held-out 결과를 이용한 튜닝은 금지한다. 이 문서는
+calibration을 실행하지 않았고 그 결과를 기록하지 않는다.
 
 ## 3. 변환과 arm
 
 calibration 시작 전에 다음 후보 preset을 고정한다. PNG canonical, 긴 변 1536 이하의 downscale(no upscaling),
-JPEG quality 75이다. 이 값은 계획된 calibration 후보값일 뿐 검증된 안전 threshold가 아니다. optimizer가
-비교할 후보 preset과 입력 stress recipe를 manifest에서 구분한다. held-out에 들어간 뒤에는 preset을 바꾸지
+JPEG quality 75이다. 이 값은 계획된 calibration 후보값일 뿐 검증된 안전 threshold가 아니다. 입력 stress의 quality 50과
+긴 변 상한 1024도 사용자 선택 잠정값이며 안전 인증값이 아니다. 2026-10-12 사용자 결정(S-same, PC-out)에서 활성 출력
+변환은 긴 변 1536 이하 downscale 뒤 JPEG quality 75(목표 프로필 P-in (`jpeg-ycbcr8-baseline-444-v1`)) 하나이며, selector는
+영역만 고르고 출력 preset을 비교하거나 선택하지 않는다. PNG canonical은 이름을 유지하되 이번 선택에서는 변환 arm이
+PNG를 출력하지 않으므로 arm 출력에 쓰지 않는 비활성 항목이다(downscale-only 준비의 PNG 출력과는 별개다). 목표 프로필은
+목표일 뿐이며 실제 encoder 출력의 프로필 적합성은 검증되지 않았다. 활성 후보값 1536/q75와 잠정 stress 1024/q50을 포함해
+후보 preset과 입력 stress recipe를 manifest에서 구분한다. held-out에 들어간 뒤에는 preset을 바꾸지
 않는다. small-text guard를 calibration에서 조정할 수 있지만 임의의 인증 threshold를 만들거나 held-out 질문의
 답·증거를 보고 조정하지 않는다.
 
@@ -66,10 +105,10 @@ JPEG quality 75이다. 이 값은 계획된 calibration 후보값일 뿐 검증�
 | Arm | 입력 규칙 | 목적 |
 |---|---|---|
 | A | full original | 기준선 |
-| B | naive resize/compression | 무 guard 변환 비용·손상 비교 |
-| C | query-aware selection, artifact guard 없음 | 질문 조건 선택만 분리 |
-| D | 동일 selection + artifact guard + 보수적 original fallback | 제안된 production 후보 |
-| E | human evidence-region oracle | 숨은 evidence 영역을 쓰는 진단 기준 |
+| B | naive resize/compression: crop 없이 긴 변 1536 이하 downscale(no upscaling) 뒤 JPEG quality 75 | 무 guard 변환 비용·손상 비교 |
+| C | query-aware selection(영역만 선택), artifact guard 없음. 선택 영역 처리 뒤 B와 동일한 출력 변환 | 질문 조건 선택만 분리 |
+| D | 동일 selection + artifact guard + 보수적 original fallback. 변환 경로는 C와 동일하고 fallback은 배정된 source variant 그대로 | 제안된 production 후보 |
+| E | human evidence-region oracle. oracle crop 뒤 B와 동일한 출력 변환 | 숨은 evidence 영역을 쓰는 진단 기준 |
 
 E는 oracle이 숨은 evidence region을 사용하지만 production arm의 selection, tuning, test leakage에 쓰지 않는다.
 oracle crop도 해당 arm에 배정된 동일 source variant에서 만들고 annotation은 deployable arm에 숨긴다.
@@ -77,6 +116,9 @@ oracle crop도 해당 arm에 배정된 동일 source variant에서 만들고 ann
 설정을 받는다. 모델별 설정에는 OpenAI detail 및 Anthropic `transformations.oversized_image` 동작(downsize/error)을
 포함하고, [기존 회계 근거](./image-token-cost-models.md)에 맞춰 calibration 시작 전에 고정하고 held-out에서도
 유지한다. calibration에서는 고정 설정별로 provider 한도를 넘는 배정된 원본 source variant 수를 기록한다.
+2026-10-12 사용자 결정에서 B, C와 D의 변환 경로, E는 같은 출력 변환 설정(긴 변 1536 이하 downscale 뒤 JPEG quality 75)
+하나를 쓴다. B는 crop하지 않고, C와 D는 selector가 영역만 정하며, E는 oracle crop 뒤에 이 변환을 적용한다. A와 D의
+fallback은 배정된 source variant를 그대로 전달하므로 이 변환을 받지 않는다.
 B와 C는 가능한 한 같은 output
 transform 설정을 쓰며, selector가 만든 crop 수나 영역 차이 때문에 transform budget이 달라지면 selector만의
 효과로 해석하지 않고 출력 size와 effective transform 차이를 함께 보고한다. arm간에 모델이나 질문을 바꾸어
@@ -88,11 +130,22 @@ D−A는 secondary exploratory 대비다. primary metric은 planned production s
 fallback 호출의 비용과 지연도 D의 결과에 포함한다. 보조 metric은 evidence readability, fallback, 바이트와 지연이다.
 36 family는 720개의 독립 관측치가 아니며, 조건을 family 안에서 paired로 평균한 뒤 domain summary를 만든다.
 
+2026-10-12 선택 조합의 단계별 변환: A와 D의 fallback은 배정된 source variant를 그대로 전달한다. B는 crop 없이 긴 변
+1536 이하 downscale(no upscaling) 뒤 JPEG quality 75로 재인코딩한다. C와 D의 변환 경로는 selector가 정한 영역을 처리한
+뒤 같은 변환을 적용하고, E는 oracle crop 뒤 같은 변환을 적용한다. 변환 arm의 목표 출력은 JPEG quality 75, 목표 프로필
+P-in (`jpeg-ycbcr8-baseline-444-v1`)이며, 이는 목표이지 실제 encoder 출력의 적합성 주장이 아니다(미검증). downscale-only와
+combined variant는 긴 변이 1024 이하이므로 arm의 1536 단계가 identity이고, 남는 출력 변환은 선택된 경우의 crop과 q75
+재인코딩이다. clean과 JPEG-only variant에서는 B의 1536 단계가 치수를 줄이며, C·D·E에서는 crop 결과 치수에 따라
+달라진다. q75 재인코딩은 quality 50 JPEG variant에 적용해도 identity가 아니며 임의로 생략하지 않는다. byte 동일성과
+손실 크기는 측정되지 않았다. full-frame crop과 identity resize의 no-op 처리, resize 필터와 반올림, selector의 영역
+규칙, 중간 crop 저장 방식은 아직 정하지 않았다. 이 문단은 primary metric과 paired 단위를 바꾸지 않는다.
+
 ## 4. selection과 guard 경계
 
 selection은 question+pixels와 OCR 또는 영역 추정치만 읽을 수 있다. 답, gold evidence, grader 판단,
 held-out 라벨은 읽지 못한다. 제안된 deterministic score는 질문의 문자열 후보, OCR 작은 글자 밀도,
-선·표·UI 영역의 예상 손상, crop과 resize의 기하를 결합해 후보를 정렬한다. 정확한 점수와 tie break는
+선·표·UI 영역의 예상 손상, crop과 resize의 기하를 결합해 영역 후보를 정렬한다. 여기의 후보는 영역(crop) 후보이며
+출력 preset 후보가 아니다. selector는 출력 format, quality, preset을 고르지 않는다. 정확한 점수와 tie break는
 calibration manifest와 함께 freeze한다.
 
 OCR engine과 version이 결정되지 않은 상태에서는 runnable protocol이 아니다. OCR이 실패하거나 geometry가
@@ -147,6 +200,19 @@ manifest hash 불일치는 모델 평가 전에 fail gate로 처리한다. clean
 fallback rate, output bytes, preprocess/OCR/selection latency, model latency를 별도 요약한다. preexisting
 corruption과 introduced degradation을 분리한 matched 비교를 보고한다. D의 이득은 A와의 paired 변화와
 선택 overhead를 함께 제시한다.
+
+fallback rate 최소 정의(2026-10-12 사용자 결정): 분자는 D에 배정된 slot 중 guard 결정이 fallback을 선택한 slot 수,
+분모는 held-out의 D에 배정된 slot 수로 전체 144, 입력 조건별 36이다. guard 결정이 기록되지 않은 slot(`not_started` 등)은
+분자에서만 제외하고 그 수를 따로 보고하며 분모에는 그대로 둔다. fallback rate는 전체와 입력 조건별로 primary D−C와
+함께 보고한다. 이 지표는 아래 provider rejection 비율 n/N, n/S와 다르며 그 분모를 재사용하지 않는다. 이 정의로 slot을
+제외하거나 primary를 조정·공변량 처리하지 않으며, 기존 failure, retry, `not_started` 규칙은 그대로다.
+
+해석 경계: guard가 수락한 후보를 바꾸지 않는다는 읽기에서 D−C의 설계상 입력 선택 차이는 D가 fallback한 slot에서만
+가능하다(필요조건이며 충분조건이 아니다). 선택 조합에서 C의 출력은 JPEG이므로 clean·downscale-only의 PNG variant와
+bytes가 같을 수 없다. JPEG-only·combined에서는 byte 일치 가능성을 배제하지 못하며 측정되지 않았다. 수락 slot에서
+동일 artifact를 쓰는지와 변환의 결정성은 검증되지 않았다. fallback slot의 빈도는 실행 전에 알 수 없다. clean의 긴 변이
+1536보다 크고 stress 상한이 1024이므로 downscale-only와 clean, combined와 JPEG-only는 치수가 구분된다. 이는 치수
+구분일 뿐 시각적 효과, QA 난이도, 손실 크기, 통계 검정력을 보장하지 않으며, stress 값을 바꾸면 다시 확인한다.
 
 가족 단위 평균과 bootstrap은 탐색적 요약으로만 사용한다. 별도 power와 non-inferiority margin을 사전에
 등록하지 않은 상태에서 p-value, 유의성, non-inferiority, 안전 인증 또는 우월성을 주장하지 않는다.
