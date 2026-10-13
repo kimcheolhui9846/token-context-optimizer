@@ -3,10 +3,10 @@
 ## 1. 작업 개요
 
 - 목적: 확정된 사용자 D1–D4 결정과 평가 프로토콜을 정합화하고 Draft PR로 전달한다.
-- 상태: **네 문서 구현·문서 검사 완료. 독립 Claude 마일스톤 및 Astra 사전 PR 리뷰 PASS WITH NOTES, blocker/major 0. minor 보완을 반영했으며 commit/push/Draft 및 이후 최종 검증 대기.**
-- 브랜치: `codex/task-31-protocol-decisions`. Base: `origin/main` / `65347d4aad46f92c166d8720bb705303a337da78`. PR: 아직 없음(승인된 commit/push/Draft 전달 절차 진행 예정).
+- 상태: **Task 31 구현·문서 검증·독립 리뷰·push·Draft PR 전달 완료. 최종 Astra PASS WITH NOTES, blocker/major 0. Draft 유지 및 사용자 검토 대기.**
+- 브랜치: `codex/task-31-protocol-decisions`. Base: `origin/main` / `65347d4aad46f92c166d8720bb705303a337da78`. PR: [#31](https://github.com/kimcheolhui9846/token-context-optimizer/pull/31), OPEN / Draft.
 - 선행 이력: Task 30 보정 `14867ada3740e4f7195f9ca7c472f9577e143d34`, main 병합 `65347d4`. Task 30 핸드오프와 계획은 수정하지 않는다.
-- 현재 산출물: 이 핸드오프를 첫 파일로 생성하고 [계획](../../superpowers/plans/2026-10-12-image-protocol-decisions.md)을 작성한다. 공유/루트 HANDOFF와 WBS는 사용자 지시로 수정하지 않는다.
+- 현재 산출물: 신규 계획·이 핸드오프, 개정된 결정 메모·프로토콜. 공유/루트 HANDOFF와 WBS는 수정하지 않았다.
 - 승인 후 변경 범위: 위 두 신규 문서와 [결정 메모](../../research/image-protocol-decision-memo.md), [프로토콜](../../research/image-first-evaluation-protocol.md)만. 논문, Task 29/30, 코드·테스트·패키지·데이터·설정은 제외한다.
 - 적용 지침: 사용자 Task 31 지시와 하네스 우선. Windows 실행은 `tty:true/login:false`; 권한 helper 실패 시 승인된 숨김 PTY 경로를 이용하며 새 터미널을 열지 않는다. writing-plans 스킬 적용. Kaggle 전용 실험 지침은 해당 없음.
 
@@ -19,7 +19,7 @@
 - [x] 계획 문서 검사 후 사용자 검토를 위해 중지.
 - [x] 2026-10-12 사용자 계획 승인과 다섯 선택 확인(사용자 제공 리뷰 P1/P2/N1 포함).
 - [x] 사용자 계획 승인 후에만 메모·프로토콜 수정, 독립 마일스톤 검토, 문서 검증.
-- [ ] 승인된 Task 브랜치 commit/push/Draft PR, 이후 재검증 및 최종 Astra 판정.
+- [x] 승인된 Task 브랜치 commit/push/Draft PR, 이후 재검증 및 최종 Astra 판정.
 
 ## 3. 변경 사항
 
@@ -174,17 +174,21 @@
 | L137–140 primary D−C와 fallback 사용률 | fallback만 설계상 입력 선택 차이를 만들 수 있는 필요조건, bytes 결정성 미검증, primary와 fallback rate 동시 해석. 2026-10-12 최소 정의(분자: D slot 중 guard가 fallback 선택, 분모: D 배정 전체 144와 조건별 36, guard 결정 없는 slot은 분자에서만 제외하고 수를 따로 보고) 명시, rejection 비율과 구분 |
 
 - 위 후속에서는 L130–135의 720/576/144, 실패·not_started·retry와 L71–72 배정 variant fallback 경계를 유지해야 한다.
-- 2026-10-12 해소: PNG canonical 이름(유지·비활성), 정확 치수 목록의 결정 시점(이후 생성 Task), npm gate(생략), fallback rate 최소 정의. 현재 잔여: calibration 검증 기준(실행 전 사용자 결정), 정확한 width×height 목록과 family 배정, 기준값 2048의 운영 의미, controller 문서 검사와 독립 마일스톤 리뷰, commit/push/Draft PR.
+- 2026-10-12 해소: PNG canonical 이름(유지·비활성), 정확 치수 목록의 결정 시점(이후 생성 Task), npm gate(생략), fallback rate 최소 정의. 현재 잔여: calibration 검증 기준(실행 전 사용자 결정), 정확한 width×height 목록과 family 배정, 기준값 2048의 운영 의미. 문서 검사·독립 마일스톤 리뷰와 Draft 전달은 완료됐다.
 - X3 selector 점수·영역/tie break, X4 no-op, X5 DO PNG와 canonical 관계, X8 resize 규칙, X9 encoder 적합성 및 실제 corpus 검증은 여전히 남는다.
 
 ## 10. 사용자 승인 필요 사항
 
-- 이미 승인된 연구 선택은 계획 §2와 §3에 적는다. 계획 승인 전 기존 문서에 적용하지 않는다.
-- 추가 결정: PNG 이름을 비활성 이력으로 보존할지 삭제할지, 정확 치수 목록을 지금 정할지 생성 Task로 미룰지, docs-only npm gate 생략 여부. 추천과 대안은 계획 §7 참조.
-- fallback rate 분모는 현 프로토콜에 식이 없으므로 n/N·n/S rejection 규칙을 복사해 발명하지 않는다. 표기 계획만 둘지 명시 분모까지 정할지 승인 범위를 확인한다.
-- 현재 승인 상태(2026-10-12): 계획 전체와 다섯 선택 승인. 위 추가 결정 항목은 계획 §7 선택 결과로 확정됐다. 문서 구현 진행 중이며 commit/push/Draft PR은 controller가 검증 뒤 수행한다(이 기록 시점 NOT PERFORMED). calibration 검증 기준은 실행 전 사용자 결정으로 남는다.
+- 계획과 다섯 선택은 2026-10-12 승인됐고 P-1/P-2/N-1과 함께 모두 반영했다. 이번 Task의 미응답 선택은 없다.
+- calibration 검증 기준, 실제 치수·family 배정과 encoder 적합성은 후속 실행 전에 정하거나 검증할 사항이다. 이 Task는 이를 새로 선택하거나 실행하지 않았다.
+- Ready 전환, merge, 다음 Task는 별도 지시 전 수행하지 않는다. 현재 Draft PR의 사용자 검토를 기다린다.
 
 ## 11. 최종 요약
 
-- 새 작업 공간에서 계획 문서 두 개와 초기 검토/한정 재검토 반영을 작성했다. 구현·실험·transport 없음. 다섯 선택과 P-1/P-2/N-1은 모두 구현됐으며 Draft 전달 후 사용자 검토를 기다린다. Task 전체 완료를 주장하지 않는다.
-- 2026-10-12 사용자 승인 뒤 네 문서의 1차 구현 내용을 작성했다. 실험·encoder·npm·transport 없음. 다음 담당자는 controller 문서 검사 결과와 독립 마일스톤 리뷰를 먼저 확인한다. Task 전체 완료를 주장하지 않는다.
+- 네 문서 구현과 사용자 선택 5건·P-1/P-2/N-1 반영 완료. 논문·Task 29/30·공유 HANDOFF·코드·테스트·package는 변경하지 않았다.
+- 구현 커밋: `93c00910f52af372117cb760e45f0c4778dabcb8` — `docs(research): record approved image protocol decisions`, `Agent: codex`. 이 기록 갱신은 별도 문서 기록 커밋으로 같은 PR에 추가한다.
+- [PR #31](https://github.com/kimcheolhui9846/token-context-optimizer/pull/31): OPEN / Draft, base main. 생성 직후 HEAD = upstream = PR head = 구현 커밋을 확인했고 worktree clean이었다. 기록 커밋 후에는 최신 PR head와 로컬/upstream 일치를 다시 확인한다.
+- Draft 생성 후 `node .artifacts/task-31-plan-review/verify-implementation.cjs post-pr` PASS. Astra가 `astra-final`로 직접 재실행해 260항목·17결정값·errors 0을 확인했다. `git diff --check`와 staged 검사도 PASS. 현재 기록은 실제 확인된 결과이며 이후 기록 커밋의 검사는 별도 최종 전달 증거에 남긴다.
+- 최종 Astra 판정(구현 커밋 기준): **PASS WITH NOTES**, blocker/major 0. 승인 범위·실제 diff·사용자 요구·리뷰 보완·Git/PR·trailer·검사를 직접 대조했다. 최종 기록 보완은 구현 내용 변경이 아니다.
+- npm gate **NOT RUN — 사용자 명시 생략 승인**. encoder/probe·이미지 생성·calibration·실험·hosted 평가·count-tokens·외부 조사도 NOT RUN. q50/1024 효과·비용·fallback 빈도는 미측정이며 X9는 남는다.
+- 남은 일은 사용자 Draft 검토와 별도 후속 결정이다. Ready 전환·merge·다음 Task를 수행하지 않았다.

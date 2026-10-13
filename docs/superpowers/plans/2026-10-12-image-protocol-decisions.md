@@ -183,9 +183,9 @@ L3의 기존 경계도 보존한다: F-12·파일럿 모델·첫 구현 연산 �
 
 - [x] 의존성 없는 문서 검사를 먼저 실행한다. 문서-only RED는 비적용 사유와 사전 수용 검사로 대체한다. checker의 실제 경로/명령/출력은 핸드오프에 기록한다.
 - [x] 정확 Claude Opus 5.5의 별도 마일스톤 리뷰를 요청한다. 작성자 자기 검토를 독립 리뷰로 쓰지 않는다. blocker/major를 해결하고 수정 범위에 맞춰 재검증한다.
-- [ ] 승인된 네 파일만 stage, Conventional Commit과 `Agent: codex` trailer, Task 브랜치 push, main 대상 Draft PR. Ready/merge 금지.
-- [ ] Draft PR 후 같은 문서 검증과 승인된 gate를 실행하고 HEAD/upstream/PR head·OPEN/Draft·clean 상태를 직접 확인한다.
-- [ ] Astra가 실제 diff/검사/리뷰/PR를 확인하여 PASS / PASS WITH NOTES / CHANGES REQUIRED / BLOCKED를 보고한다. 다음 Task 승인 전 중지한다.
+- [x] 승인된 네 파일만 stage, Conventional Commit과 `Agent: codex` trailer, Task 브랜치 push, main 대상 Draft PR. Ready/merge 금지.
+- [x] Draft PR 후 같은 문서 검증과 승인된 gate를 실행하고 HEAD/upstream/PR head·OPEN/Draft·clean 상태를 직접 확인한다.
+- [x] Astra가 실제 diff/검사/리뷰/PR를 확인하여 PASS / PASS WITH NOTES / CHANGES REQUIRED / BLOCKED를 보고한다. 다음 Task 승인 전 중지한다.
 
 ## 7. 계획 검토 때 사용자가 정할 사항
 
@@ -240,7 +240,7 @@ console.log({ result: 'PASS', dimensionTerm, tableBound,
 ```
 
 7. npm gate는 2026-10-12 사용자 결정으로 생략하며 NOT RUN으로 기록한다. 문서 검사 통과를 npm gate 통과로 바꾸지 않는다.
-8. 최종 리뷰에서 AC별 근거, 미검증 항목, 정확 모델 실행 증거, 최신 Draft head를 확인한다. 이번 계획 단계에는 commit/push/PR을 하지 않는다.
+8. 최종 리뷰에서 AC별 근거, 미검증 항목, 정확 모델 실행 증거, 최신 Draft head를 확인한다. 계획 단계에는 commit/push/PR을 하지 않았고, 2026-10-12 승인 뒤 구현·검증을 거쳐 Draft PR #31을 생성했다.
 
 ## 9. 계획 완료의 중지 조건
 
@@ -249,3 +249,8 @@ console.log({ result: 'PASS', dimensionTerm, tableBound,
 - [x] **명시적 계획 승인 전 메모·프로토콜 변경, commit/push/PR, 다음 Task를 수행하지 않는다.** 2026-10-12 사용자 계획 승인으로 메모·프로토콜 구현에 대한 이 중지 조건은 해제됐다. 다음 Task는 여전히 별도 승인 전 수행하지 않는다.
 
 원문과 실제 산출물로 확인할 수 없는 효과·codec 적합성·정확 치수는 검증 또는 사용자 선택 대상으로 남긴다. 이를 임의 채워 계획을 완성한 것처럼 보고하지 않는다.
+
+## 10. 구현 전달 기록
+
+- 2026-10-13: 승인된 네 문서 구현 및 P-1/P-2/N-1·사용자 선택 5건 반영. 문서 검사 260항목과 17결정값 PASS. 독립 Claude 및 최종 Astra PASS WITH NOTES, blocker/major 0. 상세 실행·modelUsage·지적 처리는 Task 31 핸드오프 참조.
+- [Draft PR #31](https://github.com/kimcheolhui9846/token-context-optimizer/pull/31), 구현 커밋 `93c0091`. npm gate NOT RUN(사용자 생략). Ready/merge/다음 Task 없이 사용자 검토를 기다린다.
