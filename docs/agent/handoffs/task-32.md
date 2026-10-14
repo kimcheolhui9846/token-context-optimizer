@@ -150,3 +150,109 @@
 - 최종 판정: **PASS WITH NOTES**. 승인된 17 결정 설명·P1/P2/P3/N1/N2·E/family 경계·분모·미측정 한계를 충족한다. 미해결 blocker/major 없음. 남은 note는 보호 프로토콜 base L139/L212의 연산/byte 표현 긴장, 미선택 encoder/치수/기준과 실증 부재이며 이 Task에서 선택하거나 실험하지 않았다.
 - npm gate NOT RUN은 이번 Task 사용자 승인과 다섯 Markdown 범위 조건에 따른다. encoder/이미지/calibration/hosted/count-tokens/외부 조사도 NOT RUN이다. 문서 checker는 실험 타당성이나 출력 적합성을 증명하지 않는다.
 - §1/§9/§11의 현재 상태는 이 전달 결과로 갱신했다. 앞 절의 ‘commit/PR/최종 리뷰 전’은 각 시점의 이력이다. 이 절 기록만 추가 commit/push한 뒤 최종 latest head를 확인한다. 다음 Task/Ready/merge는 사용자 명시 지시를 기다린다.
+
+## 18. 사용자 제공 PR 리뷰와 후속 결정 — 2026-10-14
+
+> 이 섹션은 append-only 인계 기록이다. 기존 섹션(1–17)은 수정하지 않는다. 이번 후속 작업에서는 이 섹션만 추가하며 paper·protocol 본문은 수정하지 않는다.
+
+### 18.1 리뷰 출처와 성격
+
+- **리뷰 파일**: `codex_review/codex_review_feedback_2026-10-14_task32-pr32.md`
+  - 사용자가 제공한 readonly 리뷰다. 본 작업에서는 읽기만 하고 수정하지 않는다.
+- **리뷰어**: Claude Code (`claude-opus-5-5`)
+- **구분**: 이 리뷰는 Harness가 수행한 initial, milestone, scoped 리뷰와는 별개다. 앞선 섹션의 Harness 리뷰 기록과 합산하거나 대체하지 않는다.
+- **사용량(usage)**: 사용자 제공 리뷰에는 사용량 정보가 제공되지 않았다. 따라서 이 섹션에도 기록하지 않는다. 추정값은 작성하지 않는다.
+- **판정**: Approve
+  - Blocker 0, Major 0, Minor 2, Nit 2, Suggestion 2
+  - 개별 항목(R1–R4, S1–S2)과 심각도의 대응 관계는 이 섹션에서 다시 매기지 않는다. 원문 리뷰 파일을 기준으로 한다.
+
+### 18.2 기준 시점
+
+- 아래 줄 번호는 모두 리뷰 대상 head인 `12ee3af` 기준이다.
+- 이후 커밋으로 줄 번호가 달라질 수 있다. 후속 작업에서는 해당 문구를 기준으로 위치를 다시 확인해야 한다.
+
+### 18.3 항목별 결정
+
+이번 변경은 handoff append만 포함한다. 아래 R1–R3, S1–S2는 **이번 커밋에서 적용하지 않는다.**
+
+**R1: 표현 정리 (사용자 결정: presubmission style task로 이연)**
+
+- paper L128/130/146/148/167
+  - 사용자 결정·승인 취지의 표현을 의미를 보존하면서 사전 설계 결정, 연구진의 사전 승인 등의 표현으로 정리하는 것을 투고 전 문체 정리 Task에서 처리한다.
+- paper L63/67/162
+  - "현재 선택에서" 표현을 "본 프로토콜에서는" 등으로 정리하는 것을 투고 전 문체 정리 Task에서 처리한다.
+- paper L83/153
+  - "이번 문서"를 "본 문서"로 바꾼다.
+- paper L240
+  - "이번 pilot의"를 "본 파일럿의"로 바꾼다.
+- base에 이미 있던 L32/243의 같은 유형 표현은 나중에 위 항목과 함께 처리한다.
+
+**R2: decoder accounting 문단 (미적용, 후속 후보)**
+
+- 대상: paper L156–158
+- 선택지는 둘 중 하나다.
+  - 무엇을 검토한 decoder accounting인지 수치를 옮기지 않고 명확히 서술한다.
+  - 또는 문단을 제거하고 링크만 유지한다.
+
+**R3: 엔지니어링 테스트 문구 (미적용, 후속 후보)**
+
+- 대상: paper L219
+- 문구를 "텍스트 및 이미지 입력(PNG, JPEG) 엔지니어링 테스트"로 바꾼다.
+
+**S1: paper §4 축약 (미적용, 후속 후보)**
+
+- paper §4는 나중에 설계와 근거 요약, protocol 링크 중심으로 줄인다.
+- PNG canonical 비활성 관련 L66–69는 한 문장으로 줄인다.
+
+**S2: protocol 문구 정합 (미적용, 후속 후보)**
+
+- 대상: protocol L138
+- §17의 base L139/L212는 이 절의 head L138/L211과 같은 문장이다.
+- "identity가 아니며"를 "재인코딩을 생략하지 않으며 출력 bytes의 동일 여부는 측정하지 않았다"로 바꾸어 L211과 맞춘다.
+- 이 수정은 두 문장이 서로 모순이라는 뜻이 아니다. 하나는 연산(재인코딩 수행 여부), 다른 하나는 결과 bytes(동일성 측정 여부)에 대한 서술이다. 이 구분을 명확히 하기 위한 문구 정합이다.
+
+**R4: delivery 상태 갱신 (이 섹션으로 반영)**
+
+- delivery commit `12ee3af4d990fc57619a16a46559dfbfd448df93`가 PR head가 되었다.
+- 이번 후속 작업 시작 전에 PR은 **OPEN, Draft**이며 worktree는 **clean**임을 확인했다.
+- 이 기록은 이전 섹션의 "pending" 서술을 대체(supersede)한다. 기존 섹션은 append-only 원칙에 따라 그대로 둔다.
+
+### 18.4 npm 근거 정정에 대한 리뷰어 확인
+
+- 리뷰어는 앞서 정정한 npm 근거를 확인했다.
+  - `tests/image-packaging.test.ts` L30/35/73/78은 `docs/licenses/*.txt`도 읽는다.
+- 이 테스트가 읽는 파일과 본 PR에서 변경한 Markdown 5개 사이에는 겹치는 파일이 없다.
+- 기존 waiver는 변경하지 않는다. npm 테스트 상태는 **NOT RUN**으로 유지한다.
+
+### 18.5 후속 검증 계획 (작성 시점 기준 미수행)
+
+아래 항목은 계획이다. 이 섹션을 작성하는 시점에는 아직 수행하지 않았다. 따라서 결과를 여기에 기록하지 않는다.
+
+1. append-only 확인: 이번 diff가 이 섹션 추가만 포함하는지, 기존 내용이 바뀌지 않았는지 확인한다.
+2. `git diff --check`를 실행한다.
+3. 커밋하고 push한다.
+4. HEAD, upstream, PR head가 모두 같은 커밋인지 확인한다.
+
+### 18.6 진행 권한과 커밋 규칙
+
+- 사용자의 최신 명시 지시는 다음을 승인한다.
+  - 18.5의 commit, push, head 일치 확인이 끝난 **뒤에** PR을 Ready for review로 전환한다.
+  - 그 후 merge한다.
+- 이전의 보류(hold) 지시는 이 최신 지시로 대체되었다.
+- 다음 작업(next task)은 지정되지 않았다.
+- 커밋 규칙
+  - 메시지는 `docs(agent):` 접두사로 시작한다.
+  - trailer는 `Agent: codex` 하나만 둔다.
+- 이 섹션 작성 시점에 PR은 아직 merge되지 않았다. Ready 전환과 merge 결과는 이 섹션에서 주장하지 않는다.
+
+### 18.7 이번 후속 기록 작성 호출
+
+- 별도 하네스 작성 호출 성공: Claude Code `claude-opus-5-5`, code 0. 사용자 제공 리뷰와 별개이며 독립 검토가 아니다. 실제 modelUsage: `{"claude-opus-5-5":{"inputTokens":2,"outputTokens":4157,"cacheReadInputTokens":0,"cacheCreationInputTokens":1780,"webSearchRequests":0,"costUSD":0.097388,"contextWindow":1000000,"maxOutputTokens":128000,"thinkingTokens":1698,"canonicalModel":"claude-opus-5-5","provider":"firstParty","costBasis":"list"}}`. 도구 없는 문안 작성이며 검증 명령을 수행했다고 주장하지 않았다.
+
+### 18.8 후속 기록 검증과 독립 검토
+
+- `verify-implementation.cjs followup`: PASS 121, errors 없음. `git diff --check`: PASS. HEAD 원문이 현재 파일의 동일한 prefix인지 확인해 기존 §1–17 보존을 검사했고, 변경은 task-32.md 추가 행뿐이었다. 문서 기록 작업이므로 RED는 해당하지 않으며 npm gate는 승인된 생략에 따라 NOT RUN이다.
+- 별도 fresh 하네스 독립 검토: PASS WITH NOTES, blocker 0 / major 0 / minor 2 / nit 3. 실제 Claude Code `claude-opus-5-5`, code 0. modelUsage: `{"inputTokens":2,"outputTokens":4595,"cacheReadInputTokens":0,"cacheCreationInputTokens":5312,"webSearchRequests":0,"costUSD":0.134404,"contextWindow":1000000,"maxOutputTokens":128000,"thinkingTokens":2691,"canonicalModel":"claude-opus-5-5","provider":"firstParty","costBasis":"list"}`. 이 리뷰는 제공 diff와 요구사항만 읽었고 명령을 직접 실행하지 않았다.
+- M1은 관측 근거로 해소했다. 실제 `git status --short`가 빈 출력이었으므로 worktree clean 기록이 맞다. 별도 PR 조회에서도 mergeStateStatus CLEAN / MERGEABLE이었다. M2는 사용자 결정·승인 취지의 표현으로 적어 직접 인용 오해를 없앴고, ‘현재 선택에서’는 리뷰 원문과 맞췄다.
+- N1의 modelUsage는 실제 실행 출력에서 가져온 기존 하네스 기록 의무다. N2의 base/head 행 차이를 설명했고, N3의 R1은 투고 전 Task에서 처리할 표현 정리임을 명확히 했다. 사용자 제공 리뷰의 R-1/R-2/R-3/S-1/S-2는 여전히 미적용이다.
+- 지정 Astra가 실제 diff를 읽고 한 파일의 새 §18 추가뿐이며 기존 내용 삭제·수정과 새 blocker/major가 없음을 확인했다. §18.5는 작성 당시의 계획이며 이 절은 이후 실행한 검사 결과다. commit/push/head 재확인 및 Ready·merge 결과는 완료 후 사용자에게 보고한다. 다음 Task는 시작하지 않는다.
