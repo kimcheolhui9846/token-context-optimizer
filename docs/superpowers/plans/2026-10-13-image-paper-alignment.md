@@ -135,7 +135,7 @@
 - [x] AC5: clean 치수 범위/2048/정확 치수 미정과 accounting-only 한계가 일치한다. 실제 PNG/JPEG 적합성·encoded 10 MiB·효과/안전/비용 결과를 주장하지 않는다.
 - [x] AC6: 지정 보존 구간과 P1 경계·호출 분모·§3.3·§5·참고문헌·현행 구현 한계가 유지된다.
 - [x] AC7: R-1 한 구절 삭제, R-2 exact move, R-3 한 표시만 수행하고 임시 주석은 실제 정합화 이후 갱신한다.
-- [ ] AC8: 독립 초기/마일스톤 리뷰와 최종 Astra 직접 검토, 실제 검증/Git/PR 기록을 구별한다. 미수행은 NOT RUN으로 남긴다.
+- [x] AC8: 독립 초기/마일스톤 리뷰와 최종 Astra 직접 검토, 실제 검증/Git/PR 기록을 구별한다. 미수행은 NOT RUN으로 남긴다.
 
 ## 6. 구현 단계와 검증 설계
 
@@ -169,19 +169,19 @@
 
 ### Task C: 승인된 구현 전달
 
-- [ ] Task branch에 범위 파일만 정상 commit/push, Draft PR 생성. 기존 승인과 사용자 통합 기본값 안에서 진행하며 Ready/merge는 별도 지시가 필요하다.
-- [ ] Draft 뒤 targeted 문서 gate 재실행. npm gate는 이번 Task 사용자 결정에 따라 실행/생략하고 실제 결과나 NOT RUN 사유를 적는다. 생략은 이번 Task 사용자 승인에 따라 NOT RUN으로 기록한다.
-- [ ] Astra가 실제 diff/문서/검증/리뷰 해결과 HEAD=upstream=PR head, Draft 상태를 직접 확인한다. 결과 기록 변경 후에도 최종 head를 확인한다.
+- [x] Task branch에 범위 파일만 정상 commit/push, Draft PR 생성. 기존 승인과 사용자 통합 기본값 안에서 진행하며 Ready/merge는 별도 지시가 필요하다.
+- [x] Draft 뒤 targeted 문서 gate 재실행. npm gate는 이번 Task 사용자 결정에 따라 실행/생략하고 실제 결과나 NOT RUN 사유를 적는다. 생략은 이번 Task 사용자 승인에 따라 NOT RUN으로 기록한다.
+- [x] Astra가 실제 diff/문서/검증/리뷰 해결과 HEAD=upstream=PR head, Draft 상태를 직접 확인한다. 결과 기록 변경 후에도 최종 head를 확인한다.
 - [ ] Task Review Result로 보고하고 다음 Task 승인 대기. 첫 연산 구현이나 생성/calibration Task를 자동 시작하지 않는다.
 
 ## 7. 리뷰 상태와 위험
 
 - 사용자 제공 Task31 PR 리뷰는 `claude-opus-5-5`, Approve / blocker 0 / major 0 / minor 0 / Nit 3이다. 원문은 주 저장소 `codex_review/codex_review_feedback_2026-10-13_task31-pr31.md`, 읽기 전용이며 Task32 독립 리뷰와 별개다.
-- Task32 초기 독립 리뷰: 정확 `claude-opus-5-5` / `firstParty` 실행 성공, APPROVE WITH CHANGES(blocker 0 / major 1 / minor 6 / note 5). M1 보존 누락은 원문 직접 확인 후 명시 보존/검사로 수정했다. m1/m2는 위 최종 권고안으로, 나머지 표기·전방 참조·보존·독립성은 반영했다. m6 핸드오프 체크박스는 리뷰 입력 이후 이미 갱신된 시점 차이다. 실제 usage와 상세 처리는 Task32 핸드오프 §7에 기록한다. 구현 마일스톤과 scoped 재검토는 PASS WITH NOTES이며 최종 전달 리뷰만 대기다.
+- Task32 초기 독립 리뷰: 정확 `claude-opus-5-5` / `firstParty` 실행 성공, APPROVE WITH CHANGES(blocker 0 / major 1 / minor 6 / note 5). M1 보존 누락은 원문 직접 확인 후 명시 보존/검사로 수정했다. m1/m2는 위 최종 권고안으로, 나머지 표기·전방 참조·보존·독립성은 반영했다. m6 핸드오프 체크박스는 리뷰 입력 이후 이미 갱신된 시점 차이다. 실제 usage와 상세 처리는 Task32 핸드오프 §7에 기록한다. 구현 마일스톤과 scoped 재검토는 PASS WITH NOTES이며 구현 head의 최종 Astra 검토도 PASS WITH NOTES다.
 - 위험: 동일 출력 설정을 동일 bytes/selector 단독 효과로 과장, provisional stress를 안전값으로 오해, PNG 준비와 비활성 canonical 혼동, 회계 상한을 전체 resource/encoded 승인으로 오해, 역사 문구를 현재 상태로 오해.
 - 대응: 지정 caveat·보존 검사·전체 논문 의미 검토. X3/X4/X5/X8/X9와 실제 corpus 증거는 잔여로 유지한다.
 - 사용자에게 새로 필요한 결정은 **이 계획의 구현 승인 및 Task32 docs-only npm gate 생략 여부**다. 기존 17 결정·PNG 이름 유지·2048·치수 결정을 이후 생성 Task로 미룬 선택은 재승인을 요구하지 않는다.
-- 현재 상태: 사용자 계획 승인과 P-1(a)/P-2/P-3/N-1/N-2 반영 및 본문 구현·마일스톤 보완 완료, scoped 재검토 PASS WITH NOTES, 전달 대기. 다섯 파일/hunk 밖 불일치를 발견하면 수정 전에 정확 hunk를 보고한다. Task 최종 전달 완료는 아직 주장하지 않는다.
+- 현재 상태: 사용자 계획 승인과 P-1(a)/P-2/P-3/N-1/N-2 반영 및 본문 구현·마일스톤 보완 완료, scoped 재검토 및 최종 Astra PASS WITH NOTES, Draft PR32 전달. 다섯 파일/hunk 밖 불일치를 발견하면 수정 전에 정확 hunk를 보고한다. Task 최종 전달 완료는 아직 주장하지 않는다.
 
 ## 8. 사용자 승인 반영 기록
 

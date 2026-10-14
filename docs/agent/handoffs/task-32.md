@@ -3,8 +3,8 @@
 ## 1. 작업 개요
 
 - 목적: Task 31에서 승인된 평가 설계를 논문 전체에 정합화하고 사용자 제공 리뷰 R-1/R-2/R-3을 처리할 계획을 검토받는다.
-- 현재 상태: **승인된 본문 편집 적용 및 controller 문서 검사 완료, 독립 마일스톤 PASS WITH NOTES 및 국소 보완 완료, scoped 재검토 PASS WITH NOTES.** Astra는 실제 diff 사전 검토를 수행했다. 아직 commit/push/PR 및 최종 전달 리뷰 전이다.
-- 브랜치: `codex/task-32-paper-alignment`. Base: `origin/main` / `b57f7bcf2460bc0fe9ec3bc348d1a0c5bfe6f908`. PR: 없음. 현재 commit/push/PR 전이며 계획 승인 전 미수행 기록은 과거 상태다.
+- 현재 상태: **2026-10-14 Draft PR32 전달 및 최종 Astra PASS WITH NOTES.** 구현 commit과 원격/PR head 일치, 문서 검사 PASS121을 직접 확인했다. 이 전달 기록만 추가 commit/push한 뒤 최신 head 확인이 남는다.
+- 브랜치: `codex/task-32-paper-alignment`. Base: `origin/main` / `b57f7bcf2460bc0fe9ec3bc348d1a0c5bfe6f908`. PR: [#32](https://github.com/kimcheolhui9846/token-context-optimizer/pull/32), OPEN Draft, base main. 구현 SHA `96fed33d9d3e3461cbbe7961c6dde04de4988933`.
 - 선행: Task 31 head `0a0f58c70246145e96fa28310d82f36ada7fd7c8`, 사용자 지시로 PR #31 Ready/merge 후 merge `b57f7bc`. merge 검증은 controller가 수행했다. 해당 내용을 새 결과나 새 리뷰로 재사용하지 않는다.
 - 이 파일을 첫 작업 산출물로 생성한다. 다음 산출물은 `docs/superpowers/plans/2026-10-13-image-paper-alignment.md`다. 사용자 지시로 공유/루트 HANDOFF와 WBS를 수정하지 않는다.
 - 승인 후 제안 범위는 정확히 다섯 파일: 새 계획·이 핸드오프, 논문 `docs/research/image-first-paper-draft.ko.md`, 프로토콜 `docs/research/image-first-evaluation-protocol.md`, Task 31 핸드오프의 R-3 한 줄 표시만.
@@ -18,7 +18,7 @@
 - [x] 정확한 base행 hunk/보존 문장/수용 검사를 [계획](../../superpowers/plans/2026-10-13-image-paper-alignment.md)에 정의.
 - [x] 별도 정확 Claude Opus 5.5 초기 계획 검토(controller 담당), 지적 반영과 직접 문서 검증.
 - [x] 사용자 계획 검토 후 명시 승인을 받았다. 승인 전 본문 구현·commit/push/PR은 하지 않았다.
-- [ ] 승인 후 구현·독립 검토·검증·Task branch push/Draft·최종 Astra review.
+- [x] 승인 후 구현·독립 검토·검증·Task branch push/Draft·최종 Astra review.
 
 ## 3. 변경 사항
 
@@ -77,7 +77,7 @@
 
 ## 9. 남은 작업
 
-- 구현·독립 마일스톤·scoped 재검토 완료. 남은 작업은 commit/push/Draft 전달과 최종 Astra 검토다. 계획과 조건부 npm 생략은 사용자 승인됐다.
+- 구현·독립 리뷰·Draft 전달·최종 Astra 검토 완료. 남은 작업은 이 전달 기록의 추가 push와 최신 head 확인, 사용자 검토다. 계획과 조건부 npm 생략은 사용자 승인됐다.
 - 향후 calibration 검증 기준, 정확 치수/family 배정, encoder 적합성(X9), selector(X3), no-op(X4), resize 규칙(X8), PNG 준비와 canonical 관계(X5)는 이번에 선택/구현하지 않는다.
 
 ## 10. 사용자 승인 필요 사항
@@ -88,7 +88,7 @@
 
 ## 11. 현재 요약
 
-- Task32 승인 범위 다섯 파일을 구현하고 독립 마일스톤 및 scoped 재검토를 마쳤다. 본문 구현일은 2026-10-13, 중단 뒤 재개·기록일은 2026-10-14다. 문서 검사 PASS121이며 아직 commit/push/Draft 및 최종 Astra 전달 검토 전이다.
+- Task32 승인 범위 다섯 파일을 구현하고 독립 마일스톤 및 scoped 재검토를 마쳤다. 본문 구현일은 2026-10-13, 중단 뒤 재개·기록일은 2026-10-14다. 문서 검사 PASS121, Draft PR32 및 구현 head의 최종 Astra PASS WITH NOTES를 확인했다. 전달 기록 push 후 최신 head를 다시 확인한다.
 - 다음 담당자는 계획·초기 리뷰·사용자 승인 상태를 먼저 확인한다. 논문 정합화 구현이나 Task 완료를 주장하지 않는다.
 
 ## 12. 사용자 계획 승인과 구현 전 보완
@@ -141,3 +141,12 @@
 - m2 원문→실제: ‘이는 구현·calibration·pilot 실행 결과가 아니다’ → ‘이 문서 정합화는 변환 구현·calibration·pilot이 실행되었음을 뜻하지 않는다’; ‘아래 사용자 기록’ → ‘그 뒤 사용자 결정 기록’. 승인 의미를 유지하면서 변환 구현과 메모 내부 기록 위치를 명확히 했다. 계획 인용문도 실제와 동기화했다.
 - §4/§7의 ‘첫 변환 연산 미정’은 계획 당시 축약 이력이며 현재 정확한 표현은 ‘먼저 구현할 변환 연산은 아직 선택하지 않았다’다. §15의 scoped 대기는 이 절이 대체한다. §1/§9/§11과 계획 §7의 현재 상태도 갱신했다.
 - controller `verify-implementation.cjs pre-commit` PASS121 보고 확인. 독립 리뷰 notes는 기록/증거 한계와 보호 표현 후속이며 새로운 본문 변경은 없다. commit/push/Draft 및 최종 Astra 검토는 이후 수행한다.
+
+## 17. Draft 전달과 최종 Astra 검토 — 2026-10-14
+
+- 구현 commit `96fed33d9d3e3461cbbe7961c6dde04de4988933`, 제목 `docs: align image paper with approved protocol decisions`, `Agent: codex`. 직접 조회 시 HEAD = upstream = PR head, worktree clean이었다.
+- PR [#32](https://github.com/kimcheolhui9846/token-context-optimizer/pull/32): OPEN / Draft / base main. 실제 PR 본문의 요구사항·검증·독립 리뷰·한계·사용자 승인 gate를 읽어 산출물과 일치함을 확인했다. Ready/merge는 수행하지 않았다.
+- Astra 직접 `node .artifacts/task-32-plan-review/verify-implementation.cjs astra-final`: PASS, 121 checks, errors [], 정확 다섯 파일. `git status --short` 빈 출력, `git rev-parse HEAD`/upstream 및 `gh pr view 32 --json ...` head 일치. base 대비 stat은 다섯 파일뿐이다. 기존 직접 diff 검토와 이후 m1/m3 문장 확인, 독립 리뷰 응답을 함께 판단했다.
+- 최종 판정: **PASS WITH NOTES**. 승인된 17 결정 설명·P1/P2/P3/N1/N2·E/family 경계·분모·미측정 한계를 충족한다. 미해결 blocker/major 없음. 남은 note는 보호 프로토콜 base L139/L212의 연산/byte 표현 긴장, 미선택 encoder/치수/기준과 실증 부재이며 이 Task에서 선택하거나 실험하지 않았다.
+- npm gate NOT RUN은 이번 Task 사용자 승인과 다섯 Markdown 범위 조건에 따른다. encoder/이미지/calibration/hosted/count-tokens/외부 조사도 NOT RUN이다. 문서 checker는 실험 타당성이나 출력 적합성을 증명하지 않는다.
+- §1/§9/§11의 현재 상태는 이 전달 결과로 갱신했다. 앞 절의 ‘commit/PR/최종 리뷰 전’은 각 시점의 이력이다. 이 절 기록만 추가 commit/push한 뒤 최종 latest head를 확인한다. 다음 Task/Ready/merge는 사용자 명시 지시를 기다린다.
