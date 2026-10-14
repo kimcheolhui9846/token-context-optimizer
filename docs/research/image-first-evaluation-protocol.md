@@ -4,10 +4,9 @@
 승인하지 않는다. 논문 초안은 [image-first-paper-draft.ko.md](./image-first-paper-draft.ko.md)와 함께
 갱신한다. 기존 텍스트 전용 방법론은 역사적 맥락이며 이 이미지 프로토콜의 실행 증거가 아니다.
 
-Task 31 임시 상태(2026-10-12): 2026-10-12 사용자 결정은 이 문서에 먼저 반영했으며 논문 초안은 아직 이 결정을
-반영하지 않았다. 두 문서의 해당 서술은 현재 일치하지 않으며 동시 갱신이 끝난 상태가 아니다. 논문 정합화는 별도 승인
-Task의 범위이고 후속 목록은 [Task 31 핸드오프](../agent/handoffs/task-31.md)를 참조한다. 결정 원장은
-[결정 메모](./image-protocol-decision-memo.md) §11과 그 뒤 기록에 있다.
+Task 32 문서 정합화(2026-10-13): 2026-10-12 사용자 결정을 논문에 반영했다. 이 문서 정합화는 변환 구현·calibration·pilot이
+실행되었음을 뜻하지 않는다. 결정 원장은 [결정 메모](./image-protocol-decision-memo.md) §11과 그 뒤 사용자 결정 기록이다.
+작업 기록과 후속 사항은 [Task 32 핸드오프](../agent/handoffs/task-32.md)를 참조한다.
 
 ## 1. 목적과 사전 조건
 
@@ -42,8 +41,6 @@ variant에서 만든 frozen evidence geometry와 crop만 받으며, annotation�
 후보로 흐르지 않는다. calibration grading feedback은 guard를 조정하는 데 쓸 수 있지만 direct answer나
 gold evidence를 optimizer 입력으로 넣지 않는다.
 
-입력 조건은 네 가지다.
-
 2026-10-12 사용자 결정에 따른 clean 정책: clean은 직접 생성한 손실 이력 없는 RGB PNG(channels 3) 원천 파일을
 재인코딩 없이 그대로 쓴다. 별도 PNG canonical 재인코딩으로 clean을 만들지 않는다. clean의 긴 변
 L = max(width, height)는 1536 < L <= 2528이고 사용자 확정 기준값은 2048이다. 정확한 width×height 목록, 종횡비,
@@ -53,6 +50,8 @@ family별 배정은 아직 선택하지 않았으며 이후 합성 데이터 생
 무관하게 134,208,576 bytes 이하로 한도 134,217,728보다 9,152 작다(표 상한 2112 등 도출 전제는 결정 메모의 accounting 산술 기록 참조). 이는 accounting 항목만의 산술이며 실제 encoder
 출력의 프로필 적합성, encoded 크기, 자원 사용, 수락을 보증하지 않는다. 아래 quality 50과 긴 변 상한 1024는 사용자 선택
 잠정값이다.
+
+입력 조건은 네 가지다.
 
 1. clean canonical 원본: 위 정책의 RGB PNG(channels 3) 원천 파일 그대로
 2. JPEG-only: 사전 계획된 재인코딩만 적용. clean 치수 그대로 JPEG quality 50, 목표 프로필 P-in (`jpeg-ycbcr8-baseline-444-v1`)
@@ -119,7 +118,7 @@ oracle crop도 해당 arm에 배정된 동일 source variant에서 만들고 ann
 2026-10-12 사용자 결정에서 B, C와 D의 변환 경로, E는 같은 출력 변환 설정(긴 변 1536 이하 downscale 뒤 JPEG quality 75)
 하나를 쓴다. B는 crop하지 않고, C와 D는 selector가 영역만 정하며, E는 oracle crop 뒤에 이 변환을 적용한다. A와 D의
 fallback은 배정된 source variant를 그대로 전달하므로 이 변환을 받지 않는다.
-B와 C는 가능한 한 같은 output
+B와 C는 같은 output
 transform 설정을 쓰며, selector가 만든 crop 수나 영역 차이 때문에 transform budget이 달라지면 selector만의
 효과로 해석하지 않고 출력 size와 effective transform 차이를 함께 보고한다. arm간에 모델이나 질문을 바꾸어
 결과를 유리하게 만들지 않는다. fresh session에서 arm 순서를 block/randomize하고 crop 수와 모델·detail·output
@@ -153,7 +152,7 @@ OCR engine과 version이 결정되지 않은 상태에서는 runnable protocol�
 기록하며, 변환의 보존을 보장한다고 표현하지 않는다.
 
 fallback 사용량은 별도의 outcome이다. fallback이 선택된 호출도 D의 assigned denominator에 포함한다.
-선택 계산과 OCR의 latency, 오류, retry, 원본 업로드와 변환 출력의 바이트를 각각 기록한다. PNG 바이트
+선택 계산과 OCR의 latency, 오류, retry, 원본 업로드와 변환 출력의 바이트를 각각 기록한다. 파일 바이트
 감소를 billed token 또는 billed cost 감소로 대체하지 않는다.
 
 ## 5. 계획된 호출 수와 분모
