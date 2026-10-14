@@ -1,0 +1,2194 @@
+{
+  "runId": "pilot-003",
+  "set": "dev3",
+  "table": {
+    "clean/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 26,
+      "accuracy": 0.7222222222222222,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 153258.66666666666
+    },
+    "clean/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 593.1111111111111,
+      "meanBytes": 27798.583333333332
+    },
+    "clean/C2": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 792.5,
+      "meanBytes": 153258.66666666666
+    },
+    "clean/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 418.3888888888889,
+      "meanBytes": 5295.388888888889
+    },
+    "clean/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 32,
+      "accuracy": 0.8888888888888888,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 616.0555555555555,
+      "meanBytes": 29350.222222222223
+    },
+    "clean/C2R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 975.5,
+      "meanBytes": 187822.86111111112
+    },
+    "jpeg-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 124953.33333333333
+    },
+    "jpeg-only/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 597.8333333333334,
+      "meanBytes": 29324.472222222223
+    },
+    "jpeg-only/C2": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 801.9444444444445,
+      "meanBytes": 124953.33333333333
+    },
+    "jpeg-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 35,
+      "accuracy": 0.9722222222222222,
+      "contentAccuracy": 0.9722222222222222,
+      "meanPromptTokens": 418.3888888888889,
+      "meanBytes": 5807.472222222223
+    },
+    "jpeg-only/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 620.7777777777778,
+      "meanBytes": 31412.027777777777
+    },
+    "jpeg-only/C2R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 26,
+      "accuracy": 0.7222222222222222,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 939.3055555555555,
+      "meanBytes": 140238.27777777778
+    },
+    "downscale-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 85074.25
+    },
+    "downscale-only/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 22,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.6111111111111112,
+      "meanPromptTokens": 527,
+      "meanBytes": 16041.111111111111
+    },
+    "downscale-only/C2": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 18,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 731.1111111111111,
+      "meanBytes": 85074.25
+    },
+    "downscale-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 32,
+      "accuracy": 0.8888888888888888,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 352.27777777777777,
+      "meanBytes": 2040.611111111111
+    },
+    "downscale-only/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 26,
+      "accuracy": 0.7222222222222222,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 641.9444444444445,
+      "meanBytes": 21202.13888888889
+    },
+    "downscale-only/C2R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.8055555555555556,
+      "meanPromptTokens": 914.1388888888889,
+      "meanBytes": 104923.05555555556
+    },
+    "combined/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 41572.583333333336
+    },
+    "combined/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.5555555555555556,
+      "meanPromptTokens": 550.6111111111111,
+      "meanBytes": 18549.583333333332
+    },
+    "combined/C2": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.3055555555555556,
+      "contentAccuracy": 0.3888888888888889,
+      "meanPromptTokens": 721.6666666666666,
+      "meanBytes": 41572.583333333336
+    },
+    "combined/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 22,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 352.27777777777777,
+      "meanBytes": 2271.027777777778
+    },
+    "combined/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 665.5555555555555,
+      "meanBytes": 22300.194444444445
+    },
+    "combined/C2R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 17,
+      "accuracy": 0.4722222222222222,
+      "contentAccuracy": 0.5555555555555556,
+      "meanPromptTokens": 859.0555555555555,
+      "meanBytes": 46914.333333333336
+    }
+  },
+  "selector": {},
+  "regions": {
+    "clean": {
+      "n": 36,
+      "c1Matched": 27,
+      "c1Covered": 21,
+      "c2Boxed": 17,
+      "c2Covered": 9,
+      "retries": {
+        "C1R": 1,
+        "C2R": 8
+      }
+    },
+    "jpeg-only": {
+      "n": 36,
+      "c1Matched": 26,
+      "c1Covered": 20,
+      "c2Boxed": 19,
+      "c2Covered": 11,
+      "retries": {
+        "C1R": 1,
+        "C2R": 6
+      }
+    },
+    "downscale-only": {
+      "n": 36,
+      "c1Matched": 26,
+      "c1Covered": 18,
+      "c2Boxed": 21,
+      "c2Covered": 12,
+      "retries": {
+        "C1R": 5,
+        "C2R": 8
+      }
+    },
+    "combined": {
+      "n": 36,
+      "c1Matched": 24,
+      "c1Covered": 16,
+      "c2Boxed": 22,
+      "c2Covered": 13,
+      "retries": {
+        "C1R": 5,
+        "C2R": 6
+      }
+    }
+  },
+  "byArm": {
+    "A": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 97,
+      "accuracy": 0.6736111111111112,
+      "contentAccuracy": 0.8194444444444444,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 101214.70833333333
+    },
+    "C1": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 104,
+      "accuracy": 0.7222222222222222,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 567.1388888888889,
+      "meanBytes": 22928.4375
+    },
+    "C2": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 69,
+      "accuracy": 0.4791666666666667,
+      "contentAccuracy": 0.5972222222222222,
+      "meanPromptTokens": 761.8055555555555,
+      "meanBytes": 101214.70833333333
+    },
+    "E": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 125,
+      "accuracy": 0.8680555555555556,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 385.3333333333333,
+      "meanBytes": 3853.625
+    },
+    "C1R": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 112,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.7986111111111112,
+      "meanPromptTokens": 636.0833333333334,
+      "meanBytes": 26066.145833333332
+    },
+    "C2R": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 95,
+      "accuracy": 0.6597222222222222,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 922,
+      "meanBytes": 119974.63194444444
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 37,
+      "accuracy": 0.5138888888888888,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 824.8888888888889,
+      "meanBytes": 87878.75
+    },
+    "A/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 60,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 824.1111111111111,
+      "meanBytes": 114550.66666666667
+    },
+    "C1/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.5555555555555556,
+      "meanPromptTokens": 621.8333333333334,
+      "meanBytes": 32672.055555555555
+    },
+    "C1/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 64,
+      "accuracy": 0.8888888888888888,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 512.4444444444445,
+      "meanBytes": 13184.819444444445
+    },
+    "C2/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 32,
+      "accuracy": 0.4444444444444444,
+      "contentAccuracy": 0.5,
+      "meanPromptTokens": 736.6111111111111,
+      "meanBytes": 87878.75
+    },
+    "C2/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 37,
+      "accuracy": 0.5138888888888888,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 787,
+      "meanBytes": 114550.66666666667
+    },
+    "E/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 54,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.7777777777777778,
+      "meanPromptTokens": 324.3333333333333,
+      "meanBytes": 1771.9166666666667
+    },
+    "E/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 71,
+      "accuracy": 0.9861111111111112,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 446.3333333333333,
+      "meanBytes": 5935.333333333333
+    },
+    "C1R/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 44,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 690.8888888888889,
+      "meanBytes": 35602.36111111111
+    },
+    "C1R/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 68,
+      "accuracy": 0.9444444444444444,
+      "contentAccuracy": 0.9722222222222222,
+      "meanPromptTokens": 581.2777777777778,
+      "meanBytes": 16529.930555555555
+    },
+    "C2R/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6111111111111112,
+      "meanPromptTokens": 828.0555555555555,
+      "meanBytes": 95264.95833333333
+    },
+    "C2R/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 55,
+      "accuracy": 0.7638888888888888,
+      "contentAccuracy": 0.9722222222222222,
+      "meanPromptTokens": 1015.9444444444445,
+      "meanBytes": 144684.30555555556
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.6458333333333334,
+      "contentAccuracy": 0.8541666666666666,
+      "meanPromptTokens": 823.3333333333334,
+      "meanBytes": 188942.25
+    },
+    "A/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 35,
+      "accuracy": 0.7291666666666666,
+      "contentAccuracy": 0.9375,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 56129.5625
+    },
+    "A/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.6458333333333334,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 825.6666666666666,
+      "meanBytes": 58572.3125
+    },
+    "C1/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 522.2916666666666,
+      "meanBytes": 25183.6875
+    },
+    "C1/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 35,
+      "accuracy": 0.7291666666666666,
+      "contentAccuracy": 0.7291666666666666,
+      "meanPromptTokens": 534.0833333333334,
+      "meanBytes": 15517.833333333334
+    },
+    "C1/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "contentAccuracy": 0.5625,
+      "meanPromptTokens": 645.0416666666666,
+      "meanBytes": 28083.791666666668
+    },
+    "C2/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 18,
+      "accuracy": 0.375,
+      "contentAccuracy": 0.5416666666666666,
+      "meanPromptTokens": 758.2916666666666,
+      "meanBytes": 188942.25
+    },
+    "C2/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 22,
+      "accuracy": 0.4583333333333333,
+      "contentAccuracy": 0.6458333333333334,
+      "meanPromptTokens": 820.8333333333334,
+      "meanBytes": 56129.5625
+    },
+    "C2/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "contentAccuracy": 0.6041666666666666,
+      "meanPromptTokens": 706.2916666666666,
+      "meanBytes": 58572.3125
+    },
+    "E/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 426.6666666666667,
+      "meanBytes": 6092.833333333333
+    },
+    "E/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 43,
+      "accuracy": 0.8958333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 371.1666666666667,
+      "meanBytes": 3008.625
+    },
+    "E/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 43,
+      "accuracy": 0.8958333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 358.1666666666667,
+      "meanBytes": 2459.4166666666665
+    },
+    "C1R/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 522.2916666666666,
+      "meanBytes": 25183.6875
+    },
+    "C1R/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 671.6666666666666,
+      "meanBytes": 21658.4375
+    },
+    "C1R/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.6458333333333334,
+      "contentAccuracy": 0.6458333333333334,
+      "meanPromptTokens": 714.2916666666666,
+      "meanBytes": 31356.3125
+    },
+    "C2R/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.625,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 999,
+      "meanBytes": 225819.08333333334
+    },
+    "C2R/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.6458333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 975.125,
+      "meanBytes": 68705.72916666667
+    },
+    "C2R/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.7083333333333334,
+      "meanPromptTokens": 791.875,
+      "meanBytes": 65399.083333333336
+    }
+  },
+  "accounting": {
+    "n": 432,
+    "overheadMin": 54,
+    "overheadMax": 66,
+    "distinctOverheads": [
+      54,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      66
+    ]
+  },
+  "totals": {
+    "calls": 576,
+    "costUsd": 0.9943599999999968
+  },
+  "errors": [
+    {
+      "key": "dev3-doc-invoice-dense-1/q2/clean/C2",
+      "gold": "529.28",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q3/clean/C2",
+      "gold": "$13,862.52",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q2/jpeg-only/C2",
+      "gold": "529.28",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/A",
+      "gold": "INV-76587-C",
+      "answer": "INV76587-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/C1",
+      "gold": "INV-76587-C",
+      "answer": "INV/76587-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q2/downscale-only/C2",
+      "gold": "529.28",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q3/downscale-only/C2",
+      "gold": "$13,862.52",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/E",
+      "gold": "INV-76587-C",
+      "answer": "INV-75387-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/C2",
+      "gold": "INV-76587-C",
+      "answer": "INV-75587-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q2/combined/C2",
+      "gold": "529.28",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q3/combined/C2",
+      "gold": "$13,862.52",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q2/clean/C2",
+      "gold": "2,914.48",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q2/jpeg-only/C2",
+      "gold": "2,914.48",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/downscale-only/E",
+      "gold": "INV-73897-E",
+      "answer": "INV-73697-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q2/downscale-only/C2",
+      "gold": "2,914.48",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q3/downscale-only/C2",
+      "gold": "$15,258.08",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/A",
+      "gold": "INV-73897-E",
+      "answer": "INV-123987-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/E",
+      "gold": "INV-73897-E",
+      "answer": "INV.735072-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/C1",
+      "gold": "INV-73897-E",
+      "answer": "INV-12897-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/C2",
+      "gold": "INV-73897-E",
+      "answer": "INV-73697-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q2/combined/C2",
+      "gold": "2,914.48",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/clean/A",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-2005-MF9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/clean/C2",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-6905-MT9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/clean/A",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/clean/C2",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/jpeg-only/A",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-2005-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/jpeg-only/C2",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-6905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/jpeg-only/A",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/jpeg-only/C2",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/A",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-6905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/E",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-6905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/C1",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-5905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/C2",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/downscale-only/A",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/downscale-only/C2",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/A",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-2026-MTB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/E",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-9504-M10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/C1",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: JT-2025-MTR",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/C2",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref. ZT-0905-M10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/combined/A",
+      "gold": "C-231",
+      "answer": "Room C-231 is assigned in the notice.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/combined/C2",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/clean/A",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3066-P84",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/clean/C2",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3066-P84",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/clean/A",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/clean/C2",
+      "gold": "D-488",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/jpeg-only/A",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3066-P84",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/jpeg-only/E",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3066-PB4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/jpeg-only/C2",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3066-P84",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/jpeg-only/A",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/jpeg-only/C2",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/E",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3006-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/C1",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3066-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/C2",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3068-P84",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/downscale-only/A",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/downscale-only/C2",
+      "gold": "D-488",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/A",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref. XT-2056-PM6",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/E",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-2009-894",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/C1",
+      "gold": "ZT-3066-P84",
+      "answer": "XT-2068-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/C2",
+      "gold": "ZT-3066-P84",
+      "answer": "XT-0986-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/combined/A",
+      "gold": "D-488",
+      "answer": "Room D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/combined/E",
+      "gold": "D-488",
+      "answer": "Room D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/combined/C2",
+      "gold": "D-488",
+      "answer": "Room D-488.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/clean/A",
+      "gold": "4,134",
+      "answer": "Inspection sample n = 4,134; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/clean/C2",
+      "gold": "4,134",
+      "answer": "Inspection sample: n = 4,134; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/A",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/C1",
+      "gold": "Jul",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/C2",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q1/jpeg-only/C2",
+      "gold": "739",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/jpeg-only/A",
+      "gold": "4,134",
+      "answer": "Inspection sample: n = 4,134; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/A",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/C1",
+      "gold": "Jul",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/C2",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/A",
+      "gold": "4,134",
+      "answer": "Inspection sample: n = 4,134; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/C1",
+      "gold": "4,134",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/C2",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,154; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/downscale-only/C1",
+      "gold": "Jul",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/downscale-only/C2",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/A",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,154; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/E",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,134.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/C1",
+      "gold": "4,134",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/C2",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,154 weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/combined/C1",
+      "gold": "Jul",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/clean/A",
+      "gold": "3,347",
+      "answer": "Inspection sample: n = 3,347; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/clean/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/clean/C2",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q1/jpeg-only/C2",
+      "gold": "391",
+      "answer": "172",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/jpeg-only/A",
+      "gold": "3,347",
+      "answer": "Inspection sample: n = 3,347; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/jpeg-only/C2",
+      "gold": "3,347",
+      "answer": "Inspection sample n = 3,347.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/jpeg-only/A",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/jpeg-only/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/jpeg-only/C2",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/A",
+      "gold": "3,347",
+      "answer": "Inspection sample size: n = 3,347; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/E",
+      "gold": "3,347",
+      "answer": "5,347",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/C1",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/C2",
+      "gold": "3,347",
+      "answer": "Inspection sample n = 5,947; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/downscale-only/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/downscale-only/C2",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q1/combined/C2",
+      "gold": "391",
+      "answer": "172",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/A",
+      "gold": "3,347",
+      "answer": "Inspection sample: n = 3,517, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/E",
+      "gold": "3,347",
+      "answer": "Inspection sample = 5,357.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/C1",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/C2",
+      "gold": "3,347",
+      "answer": "Inspection sample = n = 3,247, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/combined/A",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/combined/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/combined/C2",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/clean/C2",
+      "gold": "83.2",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/jpeg-only/C2",
+      "gold": "83.2",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/downscale-only/C2",
+      "gold": "83.2",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/combined/C2",
+      "gold": "83.2",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/E",
+      "gold": "10:18",
+      "answer": "10:10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/C2",
+      "gold": "10:18",
+      "answer": "10:10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/clean/C2",
+      "gold": "83.0",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/jpeg-only/C2",
+      "gold": "83.0",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/downscale-only/C2",
+      "gold": "83.0",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/combined/C2",
+      "gold": "83.0",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/A",
+      "gold": "16:26",
+      "answer": "10:25",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/E",
+      "gold": "16:26",
+      "answer": "15:35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/C1",
+      "gold": "16:26",
+      "answer": "10:25",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/C2",
+      "gold": "16:26",
+      "answer": "15:35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q1/clean/C2",
+      "gold": "On",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/A",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9176)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/C1",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/C2",
+      "gold": "9718",
+      "answer": "Build 9178",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q1/jpeg-only/C2",
+      "gold": "On",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/A",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/C1",
+      "gold": "9718",
+      "answer": "Build 9176",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/C2",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/A",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9176)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/C1",
+      "gold": "9718",
+      "answer": "Build 9174",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/C2",
+      "gold": "9718",
+      "answer": "Firmware 7.8.2 (build 9174)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/downscale-only/C1",
+      "gold": "12.2 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/downscale-only/C2",
+      "gold": "12.2 GB",
+      "answer": "12.22 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/A",
+      "gold": "9718",
+      "answer": "Firmware 7.4.12 (build 9178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/E",
+      "gold": "9718",
+      "answer": "Firmware 7.8.42 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/C1",
+      "gold": "9718",
+      "answer": "Build 9878",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/C2",
+      "gold": "9718",
+      "answer": "Firmware 7.4.12 (build 8178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/E",
+      "gold": "12.2 GB",
+      "answer": "17.2 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/C1",
+      "gold": "12.2 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/C2",
+      "gold": "12.2 GB",
+      "answer": "12.72 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q1/clean/C2",
+      "gold": "On",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/jpeg-only/A",
+      "gold": "5779",
+      "answer": "Firmware 7.7.49 (build 5779)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q1/downscale-only/C2",
+      "gold": "On",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/downscale-only/C1",
+      "gold": "5779",
+      "answer": "579",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/downscale-only/C1",
+      "gold": "91.4 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q1/combined/C2",
+      "gold": "On",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/combined/A",
+      "gold": "5779",
+      "answer": "Build 5379",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/combined/E",
+      "gold": "5779",
+      "answer": "2779",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/combined/C1",
+      "gold": "5779",
+      "answer": "Build 9379",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/combined/C2",
+      "gold": "5779",
+      "answer": "Build 5379",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/combined/C1",
+      "gold": "91.4 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/combined/C2",
+      "gold": "91.4 GB",
+      "answer": "61.4 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/clean/A",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/clean/C1",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/clean/A",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/clean/C1",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/clean/C2",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/jpeg-only/A",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/jpeg-only/C1",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/jpeg-only/A",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/jpeg-only/C1",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/jpeg-only/C2",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/A",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/C1",
+      "gold": "79",
+      "answer": "70",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/A",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/C1",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/C2",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/A",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/E",
+      "gold": "79",
+      "answer": "72",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/C1",
+      "gold": "79",
+      "answer": "20",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/C2",
+      "gold": "79",
+      "answer": "28",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/A",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/C1",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/C2",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/jpeg-only/A",
+      "gold": "95",
+      "answer": "35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/downscale-only/C1",
+      "gold": "95",
+      "answer": "35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/A",
+      "gold": "95",
+      "answer": "99",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/E",
+      "gold": "95",
+      "answer": "96",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/C1",
+      "gold": "95",
+      "answer": "99",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/A",
+      "gold": "06:50",
+      "answer": "06:53",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/C1",
+      "gold": "06:50",
+      "answer": "06:53",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/C2",
+      "gold": "06:50",
+      "answer": "06:31",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/C1R",
+      "gold": "INV-76587-C",
+      "answer": "INV/76587-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/C1R",
+      "gold": "INV-73897-E",
+      "answer": "INV-12897-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/C1R",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-5905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/C1R",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: JT-2025-MTR",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/C1R",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3066-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/C1R",
+      "gold": "ZT-3066-P84",
+      "answer": "XT-2068-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/C1R",
+      "gold": "Jul",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/C1R",
+      "gold": "Jul",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/C1R",
+      "gold": "4,134",
+      "answer": "Inspection sample: n = 4,134; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/C1R",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,154; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/jpeg-only/C1R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/C1R",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/C1R",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/combined/C1R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/C1R",
+      "gold": "16:26",
+      "answer": "10:25",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/C1R",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/C1R",
+      "gold": "9718",
+      "answer": "Build 9176",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/C1R",
+      "gold": "9718",
+      "answer": "Build 9174",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/C1R",
+      "gold": "9718",
+      "answer": "Build 9878",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/downscale-only/C1R",
+      "gold": "5779",
+      "answer": "579",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/combined/C1R",
+      "gold": "5779",
+      "answer": "Build 9379",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/clean/C1R",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/clean/C1R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/jpeg-only/C1R",
+      "gold": "79",
+      "answer": "10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/jpeg-only/C1R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/C1R",
+      "gold": "79",
+      "answer": "70",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/C1R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/C1R",
+      "gold": "79",
+      "answer": "20",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/C1R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/downscale-only/C1R",
+      "gold": "95",
+      "answer": "35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/C1R",
+      "gold": "95",
+      "answer": "99",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/C1R",
+      "gold": "06:50",
+      "answer": "06:53",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/C2R",
+      "gold": "INV-76587-C",
+      "answer": "INV-75587-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/C2R",
+      "gold": "INV-73897-E",
+      "answer": "INV-73697-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/clean/C2R",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-6905-MT9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/clean/C2R",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/jpeg-only/C2R",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-6905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/jpeg-only/C2R",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/C2R",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref: ZT-905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/downscale-only/C2R",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/C2R",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref. ZT-0905-M10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/combined/C2R",
+      "gold": "C-231",
+      "answer": "Room: C-231",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/clean/C2R",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3066-P84",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/clean/C2R",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/jpeg-only/C2R",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3066-P84",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/jpeg-only/C2R",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/C2R",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-3068-P84",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/downscale-only/C2R",
+      "gold": "D-488",
+      "answer": "Room: D-488",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/C2R",
+      "gold": "ZT-3066-P84",
+      "answer": "XT-0986-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/combined/C2R",
+      "gold": "D-488",
+      "answer": "Room D-488.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/clean/C2R",
+      "gold": "4,134",
+      "answer": "Inspection sample: n = 4,134; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/C2R",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/C2R",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/C2R",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,154; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/downscale-only/C2R",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/C2R",
+      "gold": "4,134",
+      "answer": "Inspection sample = 4,154 weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/clean/C2R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q1/jpeg-only/C2R",
+      "gold": "391",
+      "answer": "172",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/jpeg-only/C2R",
+      "gold": "3,347",
+      "answer": "Inspection sample n = 3,347.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/jpeg-only/C2R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/C2R",
+      "gold": "3,347",
+      "answer": "Inspection sample n = 5,947; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/downscale-only/C2R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q1/combined/C2R",
+      "gold": "391",
+      "answer": "172",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/C2R",
+      "gold": "3,347",
+      "answer": "Inspection sample = n = 3,247, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/combined/C2R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/C2R",
+      "gold": "10:18",
+      "answer": "10:10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/C2R",
+      "gold": "16:26",
+      "answer": "15:35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/C2R",
+      "gold": "9718",
+      "answer": "Build 9178",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/C2R",
+      "gold": "9718",
+      "answer": "Firmware 7.8.12 (build 9178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/C2R",
+      "gold": "9718",
+      "answer": "Firmware 7.8.2 (build 9174)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/downscale-only/C2R",
+      "gold": "12.2 GB",
+      "answer": "12.22 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/C2R",
+      "gold": "9718",
+      "answer": "Firmware 7.4.12 (build 8178)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/C2R",
+      "gold": "12.2 GB",
+      "answer": "12.72 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/combined/C2R",
+      "gold": "5779",
+      "answer": "Build 5379",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/combined/C2R",
+      "gold": "91.4 GB",
+      "answer": "61.4 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/clean/C2R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/jpeg-only/C2R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/C2R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/C2R",
+      "gold": "79",
+      "answer": "28",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/C2R",
+      "gold": "20:01",
+      "answer": "20:11",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/C2R",
+      "gold": "06:50",
+      "answer": "06:31",
+      "contentCorrect": false
+    }
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "runId": "pilot-001",
+  "table": {
+    "clean/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 117459.16666666667
+    },
+    "clean/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 86826.66666666667
+    },
+    "clean/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 398.1666666666667,
+      "meanBytes": 5327.166666666667
+    },
+    "jpeg-only/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 105469.5
+    },
+    "jpeg-only/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 87791.33333333333
+    },
+    "jpeg-only/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 398.1666666666667,
+      "meanBytes": 5774.833333333333
+    },
+    "downscale-only/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 72031.83333333333
+    },
+    "downscale-only/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 48158.333333333336
+    },
+    "downscale-only/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 327.3333333333333,
+      "meanBytes": 2197
+    },
+    "combined/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 37436
+    },
+    "combined/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 42657.666666666664
+    },
+    "combined/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 327.3333333333333,
+      "meanBytes": 2370.1666666666665
+    }
+  },
+  "byArm": {
+    "A": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 45,
+      "accuracy": 0.9375,
+      "contentAccuracy": 0.9791666666666666,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 83099.125
+    },
+    "B": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 44,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 0.9583333333333334,
+      "meanPromptTokens": 823.1666666666666,
+      "meanBytes": 66358.5
+    },
+    "E": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 45,
+      "accuracy": 0.9375,
+      "contentAccuracy": 0.9375,
+      "meanPromptTokens": 362.75,
+      "meanBytes": 3917.2916666666665
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.9583333333333334,
+      "meanPromptTokens": 822.8333333333334,
+      "meanBytes": 83099.125
+    },
+    "A/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.5,
+      "meanBytes": 83099.125
+    },
+    "B/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 822.8333333333334,
+      "meanBytes": 66358.5
+    },
+    "B/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.5,
+      "meanBytes": 66358.5
+    },
+    "E/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 341.1666666666667,
+      "meanBytes": 2289.6666666666665
+    },
+    "E/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 384.3333333333333,
+      "meanBytes": 5544.916666666667
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 822.75,
+      "meanBytes": 146002.75
+    },
+    "A/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 52455.25
+    },
+    "A/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "contentAccuracy": 0.9375,
+      "meanPromptTokens": 823.5,
+      "meanBytes": 50839.375
+    },
+    "B/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 822.75,
+      "meanBytes": 110632.375
+    },
+    "B/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 46792.75
+    },
+    "B/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 14,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 823.5,
+      "meanBytes": 41650.375
+    },
+    "E/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 14,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 355.25,
+      "meanBytes": 3816.8125
+    },
+    "E/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 16,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 355.75,
+      "meanBytes": 3888.625
+    },
+    "E/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "contentAccuracy": 0.9375,
+      "meanPromptTokens": 377.25,
+      "meanBytes": 4046.4375
+    }
+  },
+  "accounting": {
+    "n": 144,
+    "overheadMin": 54,
+    "overheadMax": 62,
+    "distinctOverheads": [
+      54,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62
+    ]
+  },
+  "totals": {
+    "calls": 144,
+    "costUsd": 0.24588000000000002
+  },
+  "errors": [
+    {
+      "key": "dev-doc-memo/q1/downscale-only/E",
+      "gold": "QX-2969-R42",
+      "answer": "OX-2969-R42",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev-doc-memo/q1/combined/A",
+      "gold": "QX-2969-R42",
+      "answer": "Ref. code: QX-2969-R42",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev-doc-memo/q1/combined/B",
+      "gold": "QX-2969-R42",
+      "answer": "Ref. code: QX-2969-R42",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev-doc-memo/q1/combined/E",
+      "gold": "QX-2969-R42",
+      "answer": "QX-2963-R42",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev-chart-bar/q2/clean/A",
+      "gold": "4,226",
+      "answer": "Survey sample n = 4,226.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev-chart-bar/q2/jpeg-only/B",
+      "gold": "4,226",
+      "answer": "Survey sample n = 4,226.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev-ui-settings/q2/combined/A",
+      "gold": "2665",
+      "answer": "Build 2865",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev-ui-settings/q2/combined/B",
+      "gold": "2665",
+      "answer": "Build 2065",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev-ui-settings/q2/combined/E",
+      "gold": "2665",
+      "answer": "2803",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev-ui-dashboard/q1/downscale-only/B",
+      "gold": "48",
+      "answer": "40",
+      "contentCorrect": false
+    }
+  ]
+}

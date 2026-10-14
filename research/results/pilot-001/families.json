@@ -1,0 +1,269 @@
+{
+  "purpose": "thin-slice development set; not calibration, not held-out",
+  "sharp": "0.35.4",
+  "vips": "8.18.6",
+  "families": [
+    {
+      "id": "dev-doc-invoice",
+      "domain": "document",
+      "seed": 101,
+      "clean": {
+        "file": "clean/dev-doc-invoice.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 96262,
+        "sha256": "20a5b688d1cba6f5445b03c5649fb9b687f7d2e69c0430790bc612ea8e8e7059"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the invoice number?",
+          "answers": [
+            "INV-22208"
+          ],
+          "evidence": [
+            1228,
+            145,
+            212,
+            19
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What is the total amount on the invoice?",
+          "answers": [
+            "$1,238.01",
+            "1,238.01"
+          ],
+          "evidence": [
+            887,
+            1248,
+            529,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-doc-memo",
+      "domain": "document",
+      "seed": 202,
+      "clean": {
+        "file": "clean/dev-doc-memo.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 343024,
+        "sha256": "1d55b4b20f356fa60e6f420cbec5a6f7063558d975f4e362d1a14458fc28c189"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the reference code in the footnote?",
+          "answers": [
+            "QX-2969-R42"
+          ],
+          "evidence": [
+            96,
+            1916,
+            524,
+            18
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What date is written on the memo? Answer as day month year.",
+          "answers": [
+            "5 September 2026"
+          ],
+          "evidence": [
+            96,
+            336,
+            370,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-chart-bar",
+      "domain": "chart",
+      "seed": 303,
+      "clean": {
+        "file": "clean/dev-chart-bar.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 52411,
+        "sha256": "d3c36c5ec7bc7bf1b56f9d4da3b4ae6106d9741cd13ee0ee62698d6135a7a389"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "What value is labeled on the Feb bar?",
+          "answers": [
+            "779"
+          ],
+          "evidence": [
+            580,
+            442,
+            180,
+            876
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the survey sample size noted under the chart?",
+          "answers": [
+            "4,226",
+            "4226"
+          ],
+          "evidence": [
+            220,
+            1426,
+            467,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-chart-line",
+      "domain": "chart",
+      "seed": 404,
+      "clean": {
+        "file": "clean/dev-chart-line.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 83024,
+        "sha256": "9e837eab06a26e2757d63b3b8dfd9057867f001ea9b85a551c0f12168d6cf78f"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What value is written next to the peak marker?",
+          "answers": [
+            "87.3"
+          ],
+          "evidence": [
+            1213,
+            378,
+            131,
+            44.64999999999998
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which region's series is drawn with a dashed line?",
+          "answers": [
+            "Southern region",
+            "Southern"
+          ],
+          "evidence": [
+            700,
+            1316,
+            393,
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-ui-settings",
+      "domain": "ui",
+      "seed": 505,
+      "clean": {
+        "file": "clean/dev-ui-settings.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 66641,
+        "sha256": "2e11a2b366a0899a41d1bbe552d23f64358bbde67f8980c9713b879f342311a5"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "Is Auto-update turned on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": [
+            560,
+            652,
+            1250,
+            52
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "2665"
+          ],
+          "evidence": [
+            1718,
+            1467,
+            242,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-ui-dashboard",
+      "domain": "ui",
+      "seed": 606,
+      "clean": {
+        "file": "clean/dev-ui-dashboard.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 63393,
+        "sha256": "453a4395e02e4ceaf111e37701a6d40c8a24da8b375979fecafd5506f7ba7def"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What number is shown on the notification badge?",
+          "answers": [
+            "48"
+          ],
+          "evidence": [
+            1880,
+            10,
+            52,
+            52
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What value is shown on the \"Active users\" card?",
+          "answers": [
+            "57,294",
+            "57294"
+          ],
+          "evidence": [
+            130,
+            282,
+            370,
+            226
+          ]
+        }
+      ]
+    }
+  ]
+}
