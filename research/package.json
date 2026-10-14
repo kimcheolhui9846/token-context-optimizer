@@ -1,0 +1,21 @@
+{
+  "name": "token-context-optimizer-research",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Experiment code for the image-first paper. Separate from the plugin package and bundle.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "generate": "node src/generate.mjs",
+    "variants": "node src/variants.mjs",
+    "estimate": "node src/run.mjs --dry-run",
+    "run": "node src/run.mjs",
+    "summarize": "node src/summarize.mjs"
+  },
+  "dependencies": {
+    "sharp": "0.35.4",
+    "tesseract.js": "5.1.1"
+  }
+}
