@@ -3,7 +3,7 @@
 ## 현재 상태
 - Tier C: 코드 포함, 계획 검토 1회 + 마일스톤 검토 1회, npm gate 필수. 사용자 제공 Claude 리뷰가 독립 리뷰다.
 - 2026-10-15 후속 승인 범위: A-1 증거 DQT·재decode 치수/RGB 길이·artifact SHA 검증, A-2 ENCODE_ERROR 측정값 보존과 회귀 테스트, R-1 문구 및 §5 결정 반영. 기존 결과 JSON·research/·리뷰 원문·공유 HANDOFF는 수정하지 않는다.
-- 후속 완료: A-1/A-2 코드·회귀 테스트 및 R-1/§5 메모 반영. 8fcc65abeb6d2be4f5e8f8ba454944b2adaf78e8 commit/push, local=upstream=PR #34 head 및 OPEN/Draft 확인. Astra 최종 PASS WITH NOTES. 기록 커밋 뒤 head를 재확인하고 PR #33 읽기 전용 재검토를 이어간다.
+- 후속 완료: A-1/A-2 코드·회귀 테스트 및 R-1/§5 메모 반영. 구현8fcc65a와 최종 기록8bdcafe push, local=upstream=PR #34 head 및 OPEN/Draft 확인. Astra 최종 PASS WITH NOTES. 이후 기록만 갱신하며 Ready·merge·Task34 이후는 사용자 승인 대기.
 - 사용자 구현 승인(2026-10-14). 계획 재검토 없이 구현·probe·메모·전체 gate 완료(2026-10-15). 구현 commit 5fd296bcab2a4ccf982c74178a4f269d23f0fb9a push 및 [Draft PR #34](https://github.com/kimcheolhui9846/token-context-optimizer/pull/34) 생성 완료. Draft 이후 최종 gate도 PASS. Ready·merge·Task 34는 하지 않는다.
 - Base: b83c91dc9cd063a9876b98eedcbda9726cf1544a. Branch: codex/task-33-transform-probe. Task 번호와 Claude research PR #33은 별개다.
 - 목적: 첫 연산 선택 근거와 jpeg-js 0.4.4 raw q50/q75의 적합성·결정성·자원·재decode 증거. 제품 변환 API 구현이 아니다.
@@ -35,7 +35,7 @@
 - 기존 하네스 Claude Code claude-opus-5-5 / 초기 계획 / APPROVE WITH CHANGES / Blocker 0, Major 5, Minor 9, Note 7; 사용자 제공 리뷰와 별개.
 - 사용자 제공 Claude Code claude-opus-5-5 / 계획 재검토 / 승인 / Blocker 0, Major 0, Minor 2, Nit 1; 추가 계획 리뷰 없음.
 - 사용자 제공 Claude Code claude-opus-5-5 / 마일스톤(af13da4) / Approve / Blocker 0, Major 0, Minor 2, Nit 1, Note 2; 리뷰어가 대상9·전체799 테스트, 증거 검증 및 DQT·SHA 대조 실행.
-- Astra gpt-6-astra / 최종(af13da4) / PASS WITH NOTES / Blocker 0, Major 0, Minor 2; 원자료 재계산·테스트는 결과 확인 전 중단. Claude 실행과 구분하며 후속 최종 검토 예정.
+- Astra gpt-6-astra / 최종(af13da4) / PASS WITH NOTES / Blocker 0, Major 0, Minor 2; 원자료 재계산·테스트는 결과 확인 전 중단. Claude 실행 및 아래 후속 최종 검증과 구분.
 - Astra gpt-6-astra / 후속 최종(8fcc65a) / PASS WITH NOTES / Blocker 0, Major 0, Minor 0; diff·문서·위 최종 gate·SHA·PR head 직접 확인. Notes: 공유 codec 한계, 독립 Claude 리뷰는 이전 head 대상이며 Tier C Minor 수정 재리뷰는 요구하지 않음.
 - R-2: 기존 Major 5건은 M1 셀/arm 완성 구별(계획 §4.2), M2 연쇄 미포함 한계(§6), M3 자식 ESM/JSON 테스트(§8), M4 IPC/watchdog(§7), M5 상태·분모·고유 SHA(§7)로 반영.
 - R-3: 오래된 경로 오류/검사 과정 대신 현재 상태와 결과를 제자리 갱신하고 약80행 이하 유지.
