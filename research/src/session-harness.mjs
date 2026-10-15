@@ -152,7 +152,9 @@ async function runSession(s, condition, plugin, ocr, attemptId) {
       for (const call of msg.tool_calls) {
         toolCalls++;
         let a2 = {};
+        // Held-out deviation 1: arguments that parse to a non-object (e.g. "null") get the same {} as unparsable JSON.
         try { a2 = JSON.parse(call.function.arguments || "{}"); } catch { a2 = {}; }
+        if (!a2 || typeof a2 !== "object") a2 = {};
         const target = art[a2.artifact_id];
         let text;
         if (!target) text = `No artifact with id ${a2.artifact_id}. Known ids: ${Object.keys(art).join(", ")}.`;
