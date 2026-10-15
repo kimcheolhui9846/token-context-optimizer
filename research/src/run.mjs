@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { getSet, loadEnv } from "./env.mjs";
 import { readJson, writeJson } from "./common.mjs";
 import { cropTransform } from "./transforms.mjs";
+import { checkResume, configFingerprint, estimateSlotCost, sha256File } from "./run-guards.mjs";
 import sharp from "sharp";
 
 // Prices from docs/research/image-token-cost-models.md L25-L26 (list prices). Used for the budget guard and cost estimates.
@@ -87,7 +88,8 @@ if (existsSync(responsesFile)) {
 
 const armFilter = opt("--arm", null);
 const todo = ordered.filter((s) => !done.has(slotKey(s)) && (!armFilter || s.arm === armFilter)).slice(0, limit || undefined);
-const estimate = (s) => ((predictTokens(s.width, s.height) + 120) * PRICE.inputPerM + MAX_TOKENS * PRICE.outputPerM) / 1e6;
+// Upper bound per slot; C2 counts its locate call too (PR #33 review, 2026-10-15).
+const estimate = (s) => estimateSlotCost({ arm: s.arm, imageTokens: predictTokens(s.width, s.height), maxTokens: MAX_TOKENS, price: PRICE });
 const estTotal = todo.reduce((a, s) => a + estimate(s), 0);
 const env = loadEnv();
 console.log(`run ${runId}: ${todo.length} slots to run (${done.size} done), estimated upper cost $${estTotal.toFixed(3)}, spent so far $${spent.toFixed(4)}, budget $${env.budgetUsd}`);
@@ -96,7 +98,13 @@ const apiKey = providerName === "anthropic" ? env.anthropicKey : env.apiKey;
 if (!apiKey) throw new Error(`${providerName === "anthropic" ? "ANTHROPIC_API_KEY" : "OPENAI_API_KEY"} missing (research/.env.local)`);
 if (!(env.budgetUsd > 0)) throw new Error("RESEARCH_BUDGET_USD must be set");
 
-writeJson(join(runDir, "config.json"), { runId, set: set.name, provider: providerName, model: MODEL, detail: DETAIL, temperature: 0, maxTokens: MAX_TOKENS, system: SYSTEM, price: PRICE, orderSeed: 20261014, startedAt: new Date().toISOString() });
+// Resume guard (PR #33 review): a run id may only be resumed with the same provider, model, prompts and inputs.
+const settings = { set: set.name, provider: providerName, model: MODEL, detail: DETAIL, temperature: 0, maxTokens: MAX_TOKENS, system: SYSTEM, locateSystem: LOCATE_SYSTEM, locateMargin: LOCATE_MARGIN, price: PRICE, orderSeed: 20261014, slotsSha256: sha256File(join(outDir, "slots.json")), familiesSha256: sha256File(join(outDir, "families.json")) };
+const fingerprint = configFingerprint(settings);
+const configPath = join(runDir, "config.json");
+if (checkResume(configPath, fingerprint) === "new") writeJson(configPath, { runId, ...settings, fingerprint, startedAt: new Date().toISOString() });
+else appendFileSync(join(runDir, "resumes.jsonl"), `${JSON.stringify({ resumedAt: new Date().toISOString(), todo: todo.length })}
+`);
 
 async function call(slot) {
   const q = families[slot.family].questions.find((x) => x.id === slot.question);

@@ -81,4 +81,9 @@ node src/summarize.mjs --set dev2 --run-id pilot-002
 API 키와 예산 상한은 `research/.env.local`(`OPENAI_API_KEY`, `RESEARCH_BUDGET_USD`)에 둔다. git에 올리지 않는다.
 worktree에서 실행하면 main checkout의 `research/.env.local`을 찾는다. 예산 상한에 닿기 전에 호출을 멈춘다.
 
+**실행 보호(2026-10-15, PR #33 리뷰 반영).** `src/run-guards.mjs`
+- 예산 가드는 slot마다 상한 비용을 추정한다. C2는 위치 찾기 호출(detail low)까지 더해 두 호출로 센다. 예전 추정은 pilot-003의 C2 71건에서 실제보다 작았다. 새 추정은 576건 모두를 덮는다.
+- 같은 run-id로 이어 실행할 때는 공급자, 모델, 지시문, 가격, 입력 manifest의 SHA-256으로 만든 지문이 처음 실행과 같아야 한다. 다르거나 지문이 없는 예전 실행이면 API 호출 전에 거부한다. config는 처음 실행 때만 쓰고, 이어 실행은 `resumes.jsonl`에 기록한다. 실험 3 하네스(별도 PR 예정)도 같은 규칙을 쓰며, 조건 목록은 나눠 실행할 수 있게 지문에서 뺀다.
+- offline 테스트: `npm test`(`node --test test/run-guards.test.mjs`). API 키 없이 돈다.
+
 `out/`은 git에 올리지 않는다. 같은 sharp 버전과 글꼴 환경에서는 clean PNG 생성이 결정적이다(이 PC에서 재생성한 SHA-256 6개가 일치). 다른 OS나 글꼴에서는 달라질 수 있다. 보고에 쓰는 결과는 `results/`에 복사해 커밋한다.
