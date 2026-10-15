@@ -1,0 +1,40 @@
+{
+  "runId": "s3-heldout-haiku",
+  "split": "heldout",
+  "model": "claude-haiku-4-5-20251001",
+  "detail": null,
+  "maxTokens": 60,
+  "toolRounds": 3,
+  "compactAt": 4000,
+  "compactAfterTurns": [
+    3,
+    6
+  ],
+  "evict": true,
+  "evictAfterTurns": [
+    3,
+    6
+  ],
+  "thumbnail": {
+    "longSide": 512,
+    "detail": "low"
+  },
+  "autoOriginal": true,
+  "system": "You are helping a colleague with a work task. Artifacts such as screenshots, document scans and logs arrive during the conversation. Answer each question with only the answer value, without explanation. If the answer cannot be read from what you can see, reply UNREADABLE.",
+  "systemPlugin": "You are helping a colleague with a work task. Artifacts such as screenshots, document scans and logs arrive during the conversation. Answer each question with only the answer value, without explanation. If the answer cannot be read from what you can see, reply UNREADABLE. Artifacts are stored outside the conversation and are referred to by id. Use the tools to look at them: query_text_artifact returns matching log lines with line numbers, query_image_artifact returns a cropped view of the region relevant to your question at full resolution together with a low-resolution overview of the whole image for layout context (small text is not readable in the overview), get_original_image returns the whole original image. If a cropped view does not show the answer, call get_original_image. After using tools, reply with only the answer value.",
+  "compact": "Summarize the conversation so far so that the work can continue without it. Keep exact numbers, codes, ids, names and times that were stated. Stay under 250 words.",
+  "compactPlugin": "Summarize the conversation so far so that the work can continue without it. Keep exact numbers, codes, ids, names and times that were stated. Stay under 250 words. List every artifact id mentioned so the artifacts can be queried again.",
+  "price": {
+    "inputPerM": 1,
+    "outputPerM": 5
+  },
+  "sessionsSha256": "b88f64e3df671fff20a8562f7fbe1ba929b94f56d842e452b72d0cfb979d5da2",
+  "provider": "anthropic",
+  "cache": {
+    "readFactor": 0.1,
+    "writeFactor": 1.25
+  },
+  "toolMaxTokens": 512,
+  "fingerprint": "80a8a165a535d840406d073cc285ae38f28086f30cc19e6695d2609b93bf0037",
+  "startedAt": "2026-10-15T12:23:55.068Z"
+}

@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-6-v2",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9jcege-gvp8nu",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart title?",
+      "gold": [
+        "2,732",
+        "2732"
+      ],
+      "answer": "2,732",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "April"
+      ],
+      "answer": "April",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant East",
+        "East"
+      ],
+      "answer": "Plant East",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing data from three artifacts: img-A, img-B, and log. From img-A, the inspection sample size noted under the chart title was identified as 2,732. From the log artifact, it was determined that the inspection audit was postponed to April. From img-B, it was found that the dashed line in the hourly output line chart represents Plant East. \n\nArtifacts mentioned: img-A, img-B, log."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Aug. Does it match the value labeled on the Aug bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": true,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "28"
+      ],
+      "answer": "1",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "May"
+      ],
+      "answer": "May",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing data from three artifacts: img-A, img-B, and log. From img-A, the inspection sample size under the chart title was identified as 2,732. From the log artifact, it was determined that the inspection audit was postponed to April. From img-B, it was found that the dashed line in the hourly output line chart represents Plant East. \n\nQuestions were asked about img-A and log. The inspection count for August in the notes and the bar chart was unreadable. It was determined that 1 line in the log mentions the legend. The tallest bar in the bar chart was identified as May.\n\nArtifacts mentioned: img-A, img-B, log."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "21 August 2026"
+      ],
+      "answer": "21 August 2026",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "06:49"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 3,
+      "originalsRequested": 2,
+      "autoOriginal": true,
+      "thresholdExceeded": false
+    }
+  ]
+}

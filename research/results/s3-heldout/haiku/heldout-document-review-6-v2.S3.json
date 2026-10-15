@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-6-v2",
+  "template": "document-review",
+  "condition": "S3",
+  "attemptId": "mv9j664d-4zfqha",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-20515-B"
+      ],
+      "answer": "INV-20515-B",
+      "toolCalls": 2,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-20515-B?",
+      "gold": [
+        "B-6928"
+      ],
+      "answer": "B-6928",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "E-325"
+      ],
+      "answer": "E-325",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were processed to extract specific information:\n\n1. **img-A** (Supplier invoice scan, 1536x2048): Invoice number identified as **INV-20515-B**\n\n2. **log** (Ledger processing log, 150 lines): Searched for invoice INV-20515-B and found the corresponding batch ID. Log line 35 (dated 2026-03-22T09:30:00Z) shows the invoice was posted with batch ID **B-6928** with status=ok.\n\n3. **img-B** (Operations notice scan, 1536x2048): Room assignment identified as **E-325**\n\n**Key Data Points:**\n- Invoice Number: INV-20515-B\n- Batch ID: B-6928\n- Room Assignment: E-325\n- Posting Date/Time: 2026-03-22T09:30:00Z\n- Log Status: ok\n\n**Artifacts Available for Further Queries:**\n- img-A\n- log\n- img-B\n\nAll three artifacts remain available for additional queries if further information is needed from these documents."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Bushing 20mm"
+      ],
+      "answer": "Bushing 20mm",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "Let me try a different approach and search for common status values:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$18,101.88",
+        "18,101.88"
+      ],
+      "answer": "$18,101.88",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were processed to extract specific information:\n\n1. **img-A** (Supplier invoice scan, 1536x2048): Invoice number INV-20515-B with total amount due of **$18,101.88**\n\n2. **log** (Ledger processing log, 150 lines): \n   - Invoice INV-20515-B posted with batch ID **B-6928** on 2026-03-22T09:30:00Z with status=ok\n   - Log line 128 (dated 2026-03-22T09:30:04Z) flags amount **1,727.68** as over_limit for invoice INV-20515-B (req=b9bbbb)\n\n3. **img-B** (Operations notice scan, 1536x2048): Room assignment identified as **E-325**\n\n**Key Data Points:**\n- Invoice Number: INV-20515-B\n- Batch ID: B-6928\n- Room Assignment: E-325\n- Total Invoice Amount: $18,101.88\n- Over-limit Flagged Amount: $1,727.68\n- Over-limit Item: Bushing 20mm\n- Posting Date/Time: 2026-03-22T09:30:00Z\n- Flag Timestamp: 2026-03-22T09:30:04Z\n- Log Status: ok\n\n**Artifacts Available for Further Queries:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "b9bbbb"
+      ],
+      "answer": "b9bbbb",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-9548-N65"
+      ],
+      "answer": "QR-9548-N65",
+      "toolCalls": 2,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    }
+  ]
+}

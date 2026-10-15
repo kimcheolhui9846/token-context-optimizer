@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-5-v2",
+  "template": "report-check",
+  "condition": "S1",
+  "attemptId": "mv9jhfd1-qi68y6",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart title?",
+      "gold": [
+        "1,856",
+        "1856"
+      ],
+      "answer": "1,856",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "November"
+      ],
+      "answer": "November",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant West",
+        "West"
+      ],
+      "answer": "Plant West",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Shows monthly inspection counts with sample size of 1,856 (weekend audits excluded)\n   - Data ranges from January (724) to December (159)\n   - Highest count: March with 905 inspections\n   - Lowest count: December with 159 inspections\n\n2. **log: Report Review Notes**\n   - Extensive review checklist covering chart elements (gridlines, axis labels, legend colors, chart title, footnote wording, data exports)\n   - All items marked as \"approved,\" \"confirmed,\" \"unchanged,\" or \"kept\"\n   - Key findings:\n     - Recalibration deadline: 24 August 2026\n     - Inspection audit postponed to November\n     - Oct inspection count recorded as 333 (note: chart shows 245 for October)\n\n3. **img-B: Shift Output Index Line Chart**\n   - Compares two plants: Plant South (solid teal line) and Plant West (dashed red line)\n   - Y-axis ranges from 0 to 100\n   - Notable peak: Plant South at 77.5 labeled as \"Peak 77.5\"\n   - Last updated: 10:20\n\n**Status:** All three artifacts have been reviewed and questions answered. The work is ready to continue with additional analysis or updates as needed."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Oct. Does it match the value labeled on the Oct bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "No",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "28"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Mar"
+      ],
+      "answer": "March",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Sample size: 1,856 (weekend audits excluded)\n   - January: 724 inspections\n   - March: 905 inspections (highest)\n   - October: 245 inspections (per chart)\n   - December: 159 inspections (lowest)\n\n2. **log: Report Review Notes**\n   - Extensive review checklist with items marked as \"approved,\" \"confirmed,\" \"unchanged,\" or \"kept\"\n   - Recalibration deadline: 24 August 2026\n   - Inspection audit postponed to November\n   - October inspection count recorded in notes as 333 (discrepancy: chart shows 245)\n   - Covers chart elements: gridlines, axis labels, legend colors, chart title, footnote wording, data exports\n\n3. **img-B: Shift Output Index Line Chart**\n   - Compares Plant South (solid teal line) vs. Plant West (dashed red line)\n   - Y-axis range: 0 to 100\n   - Plant South peak: 77.5\n   - Last updated: 10:20\n\n**Key Finding:** October inspection count mismatch between review notes (333) and bar chart (245) - does not match.\n\nAll three artifacts reviewed and ready for continued analysis."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "24 August 2026"
+      ],
+      "answer": "24 August 2026",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "10:20"
+      ],
+      "answer": "10:20",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-6-v2",
+  "template": "document-review",
+  "condition": "S3",
+  "attemptId": "mv9j05ph-o1a1ke",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-20515-B"
+      ],
+      "answer": "INV-20515-B",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-20515-B?",
+      "gold": [
+        "B-6928"
+      ],
+      "answer": "B-6928",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "E-325"
+      ],
+      "answer": "E-325",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved extracting specific details from artifacts. From the supplier invoice scan (id=img-A), the invoice number \"INV-20515-B\" was identified. The ledger processing log (id=log) was queried to find the batch ID associated with this invoice, which was \"B-6928\". From the operations notice scan (id=img-B), the assigned room was identified as \"E-325\".\n\nArtifacts mentioned: img-A, log, img-B."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Bushing 20mm"
+      ],
+      "answer": "Bushing 20mm",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "ok",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$18,101.88",
+        "18,101.88"
+      ],
+      "answer": "$18,101.88",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved extracting details from artifacts. From the supplier invoice scan (id=img-A), the invoice number \"INV-20515-B\" was identified, and the total amount on the invoice is \"$18,101.88\". The ledger processing log (id=log) flagged an over_limit amount of \"1,727.68\" associated with this invoice, which corresponds to the line item \"Bushing 20mm\" on the invoice. The most common status value in the ledger log is \"ok\". From the operations notice scan (id=img-B), the assigned room was identified as \"E-325\". The batch ID associated with the invoice was found to be \"B-6928\".\n\nArtifacts mentioned: img-A, log, img-B."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "b9bbbb"
+      ],
+      "answer": "b9bbbb",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-9548-N65"
+      ],
+      "answer": "Ref. QR-9548-N65",
+      "toolCalls": 1,
+      "originalsRequested": 1,
+      "autoOriginal": true,
+      "thresholdExceeded": false
+    }
+  ]
+}
