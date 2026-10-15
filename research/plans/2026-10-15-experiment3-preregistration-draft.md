@@ -1,8 +1,8 @@
 # 실험 3 held-out 사전 등록 초안
 
-- 작성: Claude Code, 2026-10-15. 상태: **초안(사용자 승인 전)**.
+- 작성: Claude Code, 2026-10-15. 상태: **확정(2026-10-15 사용자 승인)**.
 - 승인 뒤 할 일:
-  - 하네스 커밋 해시를 적어 확정한다.
+  - 하네스 커밋 해시를 적어 확정한다(§3에 기입 완료).
   - Codex가 `docs/research/`에 공식 프로토콜 부록으로 옮긴다.
   - 확정 전에는 held-out 세션을 생성만 하고 실행하지 않는다.
 - 근거: [실험 3 계획](./2026-10-14-agent-session-experiment-plan.md), [개발 단계](../results/s3-dev-002/README.md), [calibration](../results/s3-cal-001/README.md), [수정 calibration](../results/s3-cal-002/README.md)
@@ -26,13 +26,14 @@ margin −5%p는 2026-10-15 사용자 승인 기본안이다. 이 문서의 승�
   - 새 변형은 2026-10-15 사용자 결정(템플릿당 변형 하나)에 따른다.
   - 변형은 요소 배치, 글자 크기 분포, 표·카드·범례 위치를 바꾼다. 질문 유형과 정답 생성 규칙은 같다.
   - 변형 구현은 이 문서 확정 전에 끝내고, 생성 결과(manifest SHA-256)를 이 문서에 적는다.
+  - held-out manifest `out/sessions/heldout/sessions.json`(`node src/sessions.mjs --split heldout`, 재생성 시 동일) SHA-256: `b88f64e3df671fff20a8562f7fbe1ba929b94f56d842e452b72d0cfb979d5da2`
   - 변형 이미지는 어떤 모델에도 미리 보내지 않는다.
 - seed는 7000번대다. 개발(5000번대), calibration(6000번대), 파일럿 세트와 겹치지 않는다.
 - 결과는 "기존 레이아웃"과 "새 레이아웃"으로 나눠서도 보고한다. 새 레이아웃 결과가 처음 보는 배치에 대한 성능 추정이다.
 
 ## 3. 조건과 고정 설계
 
-조건은 S0–S4다(계획 §3). 설계는 [수정 calibration](../results/s3-cal-002/README.md)의 "동결한 설계" 표 그대로다. 하네스 커밋: `<확정 시 기입>`.
+조건은 S0–S4다(계획 §3). 설계는 [수정 calibration](../results/s3-cal-002/README.md)의 "동결한 설계" 표 그대로다. 하네스 커밋: `2331e88`(브랜치 `claude/experiment3-sessions`).
 
 ## 4. 공급자
 
