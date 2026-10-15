@@ -16,6 +16,7 @@
     "test": "node --test test/run-guards.test.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "0.131.0",
     "sharp": "0.35.4",
     "tesseract.js": "5.1.1"
   }

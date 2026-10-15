@@ -7,6 +7,7 @@ import { readJson, writeJson } from "./common.mjs";
 import { cropTransform } from "./transforms.mjs";
 import { TEXT_OVERHEAD_TOKENS, checkResume, configFingerprint, estimateSlotCost, sha256File } from "./run-guards.mjs";
 import sharp from "sharp";
+import Anthropic from "@anthropic-ai/sdk";
 
 // Prices from docs/research/image-token-cost-models.md L25-L26 (list prices). Used for the budget guard and cost estimates.
 export const PROVIDERS = {
@@ -218,39 +219,29 @@ async function twoStage(slot, q) {
   return { status: "ok", attempts: [...s1.attempts, ...s2.attempts], latencyMs: s1.latencyMs + s2.latencyMs, answer: s2.json.choices?.[0]?.message?.content ?? "", finishReason: s2.json.choices?.[0]?.finish_reason, usage, locate, responseModel: s2.json.model, systemFingerprint: s2.json.system_fingerprint ?? null, costUsd: costOf(u1) + costOf(u2) };
 }
 
+// Anthropic calls go through the official SDK (retries 408/409/429/5xx and connection errors itself).
+let anthropicClient = null;
 async function callAnthropic(q, b64, mime) {
-  const body = {
-    model: MODEL,
-    max_tokens: MAX_TOKENS,
-    temperature: 0,
-    system: SYSTEM,
-    messages: [{ role: "user", content: [{ type: "image", source: { type: "base64", media_type: mime, data: b64 } }, { type: "text", text: q.text }] }],
-  };
-  const attempts = [];
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    const t0 = performance.now();
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "content-type": "application/json", "x-api-key": apiKey, "anthropic-version": "2023-06-01" },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(90_000),
-      });
-      const latencyMs = Math.round(performance.now() - t0);
-      const json = await res.json().catch(() => ({}));
-      if (res.ok) {
-        const u = json.usage || {};
-        const usage = { prompt_tokens: u.input_tokens, completion_tokens: u.output_tokens, raw: u };
-        return { status: "ok", attempts: [...attempts, { attempt, http: res.status, latencyMs }], latencyMs, answer: (json.content || []).filter((c) => c.type === "text").map((c) => c.text).join(""), finishReason: json.stop_reason, usage, responseModel: json.model, systemFingerprint: null, costUsd: ((u.input_tokens || 0) * PRICE.inputPerM + (u.output_tokens || 0) * PRICE.outputPerM) / 1e6 };
-      }
-      attempts.push({ attempt, http: res.status, latencyMs, error: json.error?.type || "http_error" });
-      if (res.status !== 429 && res.status !== 529 && res.status < 500) break;
-    } catch (e) {
-      attempts.push({ attempt, error: e.name || "fetch_error", latencyMs: Math.round(performance.now() - t0) });
-    }
-    await new Promise((r) => setTimeout(r, 2000 * attempt));
+  anthropicClient ??= new Anthropic({ apiKey, maxRetries: 3, timeout: 90_000 });
+  const t0 = performance.now();
+  try {
+    const msg = await anthropicClient.messages.create({
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
+      temperature: 0,
+      system: SYSTEM,
+      messages: [{ role: "user", content: [{ type: "image", source: { type: "base64", media_type: mime, data: b64 } }, { type: "text", text: q.text }] }],
+    });
+    const latencyMs = Math.round(performance.now() - t0);
+    const u = msg.usage || {};
+    const usage = { prompt_tokens: u.input_tokens, completion_tokens: u.output_tokens, raw: u };
+    const answer = msg.content.filter((c) => c.type === "text").map((c) => c.text).join("");
+    return { status: "ok", attempts: [{ attempt: 1, latencyMs }], latencyMs, answer, finishReason: msg.stop_reason, stopDetails: msg.stop_details ?? null, usage, responseModel: msg.model, systemFingerprint: null, costUsd: ((u.input_tokens || 0) * PRICE.inputPerM + (u.output_tokens || 0) * PRICE.outputPerM) / 1e6 };
+  } catch (e) {
+    const latencyMs = Math.round(performance.now() - t0);
+    if (e instanceof Anthropic.APIError) return { status: "failed", attempts: [{ attempt: 1, http: e.status ?? null, latencyMs, error: e.error?.error?.type || e.name }], costUsd: 0 };
+    return { status: "failed", attempts: [{ attempt: 1, latencyMs, error: e.name || "error" }], costUsd: 0 };
   }
-  return { status: "failed", attempts, costUsd: 0 };
 }
 
 let n = 0;
