@@ -144,7 +144,7 @@ async function runEncode(job, send) {
     const encodeMs = performance.now() - t0;
     const mem = memorySnapshot(); // before output hash/write
     if (failure || !encoded) {
-      await send({ type: 'progress', record: { repeatIndex, status: 'ENCODE_ERROR', reason: sanitizeError(failure ?? new Error('no_output')), inputSha256, encodeMs, maxRssKiB: mem.maxRssKiB } });
+      await send({ type: 'progress', record: { repeatIndex, status: 'ENCODE_ERROR', reason: sanitizeError(failure ?? new Error('no_output')), inputSha256, encodeMs, rssBeforeBytes, rssAfterBytes: mem.rssBytes, maxRssKiB: mem.maxRssKiB } });
       continue;
     }
     let bytes = toBuffer(encoded.data);

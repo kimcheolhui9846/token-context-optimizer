@@ -245,7 +245,16 @@ export function accountProcess(planned, cell, worker) {
   return planned.map((slot) => {
     const rec = byRepeat.get(slot.repeatIndex);
     if (rec) {
-      if (rec.status !== 'ENCODED') return emptyRun(slot, 'ENCODE_ERROR', typeof rec.reason === 'string' ? rec.reason : 'encode_error');
+      if (rec.status !== 'ENCODED') {
+        const failed = emptyRun(slot, 'ENCODE_ERROR', typeof rec.reason === 'string' ? rec.reason : 'encode_error');
+        return {
+          ...failed,
+          encodeMs: num(rec.encodeMs),
+          rssBeforeBytes: num(rec.rssBeforeBytes),
+          rssAfterBytes: num(rec.rssAfterBytes),
+          ...normalizeMemory(rec.maxRssKiB, 'max_rss_unavailable'),
+        };
+      }
       return {
         ...slot, status: 'ENCODED', reason: null, inputSha256: rec.inputSha256, inputRgbSha256: rec.inputRgbSha256,
         inputMatches: rec.inputSha256 === cell.inputSha256 && rec.inputRgbSha256 === cell.inputRgbSha256,
@@ -494,11 +503,28 @@ export function validateEvidence(ev, opts = {}) {
     else if (v?.status !== 'PASS' && rd.status !== 'NOT_RUN') fail(`${at} redecode ran without validator PASS`);
     else if (rd.status === 'PASS' || rd.status === 'DIMENSION_MISMATCH') {
       if (!Array.isArray(rd.comparisons) || !isDeepStrictEqual(rd.comparisons.map((/** @type {any} */ c) => c?.cellId), cellIds)) fail(`${at}.redecode.comparisons`);
-      else if ((rd.status === 'PASS') !== rd.comparisons.every((/** @type {any} */ c) => c.dimensionsMatch === true)) fail(`${at}.redecode status vs comparisons`);
+      else {
+        const coherent = rd.comparisons.every((/** @type {any} */ c) => {
+          const cell = cellById.get(c?.cellId);
+          const match = Boolean(cell && rd.width === cell.width && rd.height === cell.height && rd.rgbLength === cell.width * cell.height * 3);
+          return c?.dimensionsMatch === match;
+        });
+        if (!coherent) fail(`${at}.redecode dimensions or RGB length`);
+        if ((rd.status === 'PASS') !== rd.comparisons.every((/** @type {any} */ c) => c.dimensionsMatch === true)) fail(`${at}.redecode status vs comparisons`);
+      }
     }
     if (opts.artifactDir) {
       const file = path.join(opts.artifactDir, `${o.sha256}.jpg`);
-      if (!existsSync(file) || sha256(readFileSync(file)) !== o.sha256) fail(`${at} artifact missing or hash mismatch`);
+      if (!existsSync(file)) {
+        fail(`${at} artifact missing or hash mismatch`);
+      } else {
+        const bytes = readFileSync(file);
+        if (sha256(bytes) !== o.sha256) fail(`${at} artifact missing or hash mismatch`);
+        else {
+          const actualDqt = parseDqt(bytes);
+          if (!isDeepStrictEqual(actualDqt, o.dqt)) fail(`${at}.dqt does not match artifact`);
+        }
+      }
     }
   });
   for (const sha of derived.keys()) if (!seen.has(sha)) fail(`missing output ${sha}`);

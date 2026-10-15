@@ -167,7 +167,7 @@ describe('task33 accounting, determinism and redecode comparison', () => {
         okMissing: P.accountProcess(slots, cell, { outcome: 'OK', reason: null, progress: [rec(0)] }),
         nullMem: P.accountProcess(slots, cell, { outcome: 'OK', progress: [rec(0, { maxRssKiB: null }), rec(1, { maxRssKiB: 0 }), rec(2)] }),
         mismatch: P.accountProcess(slots, cell, { outcome: 'OK', progress: [rec(0), rec(1, { inputSha256: 'c'.repeat(64) }), rec(2)] }),
-        encodeError: P.accountProcess(slots, cell, { outcome: 'OK', progress: [rec(0), { repeatIndex: 1, status: 'ENCODE_ERROR', reason: 'Error boom' }, rec(2)] }),
+        encodeError: P.accountProcess(slots, cell, { outcome: 'OK', progress: [rec(0), { repeatIndex: 1, status: 'ENCODE_ERROR', reason: 'Error boom', encodeMs: 0, rssBeforeBytes: 11, rssAfterBytes: 22, maxRssKiB: 33 }, rec(2)] }),
         dup: tryCall(() => P.accountProcess(slots, cell, { outcome: 'OK', progress: [rec(0), rec(0)] })),
         gap: tryCall(() => P.accountProcess(slots, cell, { outcome: 'OK', progress: [rec(1)] })),
         identical: P.determinism(nine(() => {})),
@@ -185,7 +185,7 @@ describe('task33 accounting, determinism and redecode comparison', () => {
     expect(r.nullMem.map((x: any) => x.memoryStatus)).toEqual(['NOT_MEASURED', 'NOT_MEASURED', 'MEASURED']);
     expect(r.nullMem[0]).toMatchObject({ maxRssKiB: null, memoryReason: 'max_rss_unavailable', status: 'ENCODED' });
     expect(r.mismatch.map((x: any) => x.inputMatches)).toEqual([true, false, true]);
-    expect(r.encodeError[1]).toMatchObject({ status: 'ENCODE_ERROR', reason: 'Error boom', outputSha256: null });
+    expect(r.encodeError[1]).toMatchObject({ status: 'ENCODE_ERROR', reason: 'Error boom', outputSha256: null, encodeMs: 0, rssBeforeBytes: 11, rssAfterBytes: 22, maxRssKiB: 33, memoryStatus: 'MEASURED' });
     expect(r.dup).toContain('protocol_violation');
     expect(r.gap).toContain('protocol_violation');
     expect(r.identical).toMatchObject({ withinProcess: ['IDENTICAL', 'IDENTICAL', 'IDENTICAL'], acrossFreshProcesses: 'IDENTICAL', allRuns: 'IDENTICAL', distinctOutputShas: 1 });
@@ -317,6 +317,50 @@ describe('task33 evidence validation', () => {
     expect(part.summary.perCell[0].allRuns).toBe('INCOMPLETE');
 
     expect(hasError(strict.res, 'synthetic_evidence')).toBe(true);
+  }, TIMEOUT);
+
+  it('rejects forged redecode dimensions, RGB length, comparison flags, and DQT', () => {
+    const base = runEval(`const cells = P.makeCells(); return { cells, runs: P.planRuns(cells), procs: P.planProcesses(cells) };`);
+    const assembled = call('assembleEvidence', buildParts(base));
+    const results = ['dimensions', 'rgbLength', 'comparison'].map((kind) => {
+      const ev = structuredClone(assembled);
+      if (kind === 'dimensions') ev.outputs[0].redecode.width += 1;
+      if (kind === 'rgbLength') ev.outputs[0].redecode.rgbLength += 1;
+      if (kind === 'comparison') ev.outputs[0].redecode.comparisons[0].dimensionsMatch = false;
+      ev.summary = call('summarize', ev);
+      return call('validateEvidence', ev, { allowSynthetic: true });
+    });
+    expect(results.every((x: any) => x.ok === false)).toBe(true);
+    const truthfulMismatch = structuredClone(assembled);
+    truthfulMismatch.outputs[0].redecode = { ...truthfulMismatch.outputs[0].redecode, status: 'DIMENSION_MISMATCH', width: truthfulMismatch.outputs[0].redecode.width + 1 };
+    truthfulMismatch.outputs[0].redecode.comparisons[0].dimensionsMatch = false;
+    truthfulMismatch.summary = call('summarize', truthfulMismatch);
+    expect(call('validateEvidence', truthfulMismatch, { allowSynthetic: true }).ok).toBe(true);
+  }, TIMEOUT);
+
+  it('compares recorded DQT against the artifact while preserving its file SHA', () => {
+    const artifactDir = mkdtempSync(path.join(os.tmpdir(), 'task33-dqt-'));
+    try {
+      const observed = runEval(`const w = await P.runWorker({ mode: 'encode', width: 1, height: 1, pattern: 'G', quality: 50, repeats: 1, artifactDir: input.dir }); const rec = w.progress[0]; const bytes = readFileSync(join(input.dir, rec.outputSha256 + '.jpg')); return { sha256: rec.outputSha256, byteLength: bytes.length, dqt: P.parseDqt(bytes), markers: P.scanMarkers(bytes) };`, { dir: artifactDir });
+      const base = runEval(`const cells = P.makeCells(); return { cells, runs: P.planRuns(cells), procs: P.planProcesses(cells) };`);
+      const parts = buildParts(base);
+      for (const r of parts.runs.filter((x: any) => x.cellId === parts.cells[0].cellId)) Object.assign(r, { outputSha256: observed.sha256, byteLength: observed.byteLength });
+      Object.assign(parts.outputs[0], { sha256: observed.sha256, byteLength: observed.byteLength, artifact: `${observed.sha256}.jpg`, dqt: observed.dqt, markers: observed.markers });
+      const valid = call('assembleEvidence', parts);
+      const tampered = structuredClone(valid);
+      tampered.outputs[0].dqt.tables[0].values[0] += 1;
+      tampered.outputs[0].dqt.tables[0].sha256 = sha(Buffer.from([0, ...tampered.outputs[0].dqt.tables[0].values]));
+      tampered.summary = call('summarize', tampered);
+      expect(call('validateEvidence', valid, { allowSynthetic: true })).toEqual({ ok: true, errors: [] });
+      const result = call('validateEvidence', tampered, { allowSynthetic: true, artifactDir });
+      expect(result.ok).toBe(false);
+      expect(result.errors.some((e: string) => e.includes('dqt'))).toBe(true);
+      writeFileSync(path.join(artifactDir, `${observed.sha256}.jpg`), Buffer.from('corrupted'));
+      const shaResult = call('validateEvidence', valid, { allowSynthetic: true, artifactDir });
+      expect(shaResult.errors.some((e: string) => e.includes('outputs[0] artifact missing or hash mismatch'))).toBe(true);
+    } finally {
+      rmSync(artifactDir, { recursive: true, force: true });
+    }
   }, TIMEOUT);
 
   it('CLI rejects bad arguments and synthetic evidence with non-zero exit and JSON-only stdout', () => {

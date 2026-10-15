@@ -2,12 +2,19 @@
 
 ## 현재 상태
 - Tier C: 코드 포함, 계획 검토 1회 + 마일스톤 검토 1회, npm gate 필수. 사용자 제공 Claude 리뷰가 독립 리뷰다.
+- 2026-10-15 후속 승인 범위: A-1 증거 DQT·재decode 치수/RGB 길이·artifact SHA 검증, A-2 ENCODE_ERROR 측정값 보존과 회귀 테스트, R-1 문구 및 §5 결정 반영. 기존 결과 JSON·research/·리뷰 원문·공유 HANDOFF는 수정하지 않는다.
+- 후속 진행: A-1/A-2 코드·회귀 테스트 및 R-1/§5 메모 반영 완료. 다음은 같은 브랜치 commit/push·Draft head 확인 → 최종 gate·Astra 검토 → PR #33 head 5032a8b 읽기 전용 재검토·보고다.
 - 사용자 구현 승인(2026-10-14). 계획 재검토 없이 구현·probe·메모·전체 gate 완료(2026-10-15). 구현 commit 5fd296bcab2a4ccf982c74178a4f269d23f0fb9a push 및 [Draft PR #34](https://github.com/kimcheolhui9846/token-context-optimizer/pull/34) 생성 완료. Draft 이후 최종 gate도 PASS. Ready·merge·Task 34는 하지 않는다.
 - Base: b83c91dc9cd063a9876b98eedcbda9726cf1544a. Branch: codex/task-33-transform-probe. Task 번호와 Claude research PR #33은 별개다.
 - 목적: 첫 연산 선택 근거와 jpeg-js 0.4.4 raw q50/q75의 적합성·결정성·자원·재decode 증거. 제품 변환 API 구현이 아니다.
 - 범위: [계획](../../superpowers/plans/2026-10-14-first-transform-jpeg-probe.md) §2의 여덟 파일. research/·sharp 실행/설치·기존 설계값·src·package·논문·프로토콜·공유 HANDOFF는 보호한다.
 
 ## 실행 계획과 현재 검증
+- 후속 시작: worktree clean, HEAD=af13da4=PR #34 head, OPEN/Draft. 증거 CLI baseline PASS(artifactsChecked:true, ALL_PASS); JSON SHA-256 f2ad655e3d40fb92408c34853c407f76780370a155cd09b8dea74d313cc6912d 보존.
+- 환경: sandbox exec 초기화가 helper_unknown_error/setup refresh로 실패하여 승인된 require_escalated 실행 사용; 모든 Windows exec tty:true/login:false. 코드 오류로 집계하지 않음.
+- 후속 현재 gate: npm.cmd run typecheck / npm.cmd test / npm.cmd run build PASS(26 files, 801 passed, 1 skipped); 두 probe MJS 별도 tsc --allowJs --checkJs PASS; --validate-evidence PASS(artifactsChecked:true, ALL_PASS); git diff --check PASS. 구현 완료·push 뒤 최신 상태를 다시 확인한다.
+- 후속 TDD(Luna 실행 보고): npm.cmd test -- tests/jpeg-encoder-probe.test.ts RED 3건(실패 측정값·재decode 기록·artifact DQT) → GREEN 11/11. 부모 전체 gate에서 같은11개 통과 확인. DQT 기록 payload hash도 갱신한 변조, artifact SHA 손상, 정직한 DIMENSION_MISMATCH를 포함한다.
+- 변경: 부모 검증/집계·worker RSS 전달·회귀 테스트·결정 메모·이 핸드오프 5파일. 제품 API·의존성 변경 없음. 문서 누락은 부모 직접 대조로 보완; 빌드 생성 번들의 내용 차이 없는 줄바꿈만 원복.
 - [x] 격리 worktree 재개: 최초 untracked 계획/핸드오프 2개, HEAD=base, 코드/probe 없음 확인.
 - [x] 읽기 전용 리뷰 원문과 적용 AGENTS/스킬 확인, 사용자 계획 승인 및 R-2/R-3 반영.
 - [x] npm.cmd ci: PASS, lockfile/package 변경 없음. 설치 감사에서 기존 잠금 의존성 경고 4건(중간1/높음1/치명2); 변경/upgrade하지 않음.
@@ -27,7 +34,8 @@
 - 사용자 제공 Claude Code claude-opus-5-5 / 초기 계획 / 조건부 승인 / Blocker 0, Major 1, Minor 3, Nit 2; 반영 완료.
 - 기존 하네스 Claude Code claude-opus-5-5 / 초기 계획 / APPROVE WITH CHANGES / Blocker 0, Major 5, Minor 9, Note 7; 사용자 제공 리뷰와 별개.
 - 사용자 제공 Claude Code claude-opus-5-5 / 계획 재검토 / 승인 / Blocker 0, Major 0, Minor 2, Nit 1; 추가 계획 리뷰 없음.
-- 마일스톤 리뷰: 사용자 제공 Claude 리뷰 대기. 자체 점검을 독립 리뷰로 표시하지 않는다. Draft 전달 상태 PASS WITH NOTES, 최종 승인 대기.
+- 사용자 제공 Claude Code claude-opus-5-5 / 마일스톤(af13da4) / Approve / Blocker 0, Major 0, Minor 2, Nit 1, Note 2; 리뷰어가 대상9·전체799 테스트, 증거 검증 및 DQT·SHA 대조 실행.
+- Astra gpt-6-astra / 최종(af13da4) / PASS WITH NOTES / Blocker 0, Major 0, Minor 2; 원자료 재계산·테스트는 결과 확인 전 중단. Claude 실행과 구분하며 후속 최종 검토 예정.
 - R-2: 기존 Major 5건은 M1 셀/arm 완성 구별(계획 §4.2), M2 연쇄 미포함 한계(§6), M3 자식 ESM/JSON 테스트(§8), M4 IPC/watchdog(§7), M5 상태·분모·고유 SHA(§7)로 반영.
 - R-3: 오래된 경로 오류/검사 과정 대신 현재 상태와 결과를 제자리 갱신하고 약80행 이하 유지.
 - 앞선 M-1: 커버리지와 토큰·정확도 영향 병기. m-1: 출력 DQT 및 quality의 encoder 의존(X9). m-2: D의 Task34 개정 예정 주석.
@@ -43,7 +51,7 @@
 
 ## 수행 주체·잔여 사항
 - 현재 Codex 세션의 로그인 계정 식별자·정확한 주 모델 ID는 런타임에 미노출, 추정하지 않음. 인증 파일은 읽지 않음.
-- 지정 GPT-6 Astra(gpt-6-astra)는 앞선 사용량 제한으로 실행 실패. 사용자 재개 지시에 따라 Astra 검토 보류; 다른 모델을 Astra로 표기하지 않음.
-- 구현 제공자/실제 모델: Claude Code claude-opus-5-5 정상 응답 확인. Codex가 테스트 우선 적용·실행·직접 검토하고 RGB hash/종료 상태 집계를 보완함. 독립 리뷰와 구분.
-- 첫 연산 순서, X4, X8, resize 구현 방식은 사용자 대기. Task29 writer/provenance/resource와 X9 전체는 probe만으로 해소되지 않음.
+- 후속 Astra gpt-6-astra native 실행 정상 응답 및 계획 확인(2026-10-15); 최종 검토는 이번 수정·검증·push 뒤 수행한다.
+- 최초 구현 제공자 Claude Code claude-opus-5-5; 후속 구현 GPT-5.6 Luna(executor native 실행 정상 응답), 부모 Codex가 diff·전체 gate 직접 확인 및 문서 누락 수정. 독립 Claude 리뷰와 구분.
+- 사용자 결정(2026-10-15): 첫 연산 crop+q75; full-frame 원본 참조(쓰기 없음); identity resize 해당 없음; X8/resize 구현 보류, 긴 변1536 초과 crop 거부; 변환 crop의 q75 재인코딩 생략 없음. 제품 구현은 이번 범위 밖이며 Task29 writer/provenance/resource와 X9 전체는 남는다.
 - 후속: 프로토콜·논문의 encoder 미검증 문구는 실제 결과의 제한된 범위로 후속 검토; N-11 문체 정리는 보류. Task34 응답 fallback은 별도 배정 뒤 진행.
