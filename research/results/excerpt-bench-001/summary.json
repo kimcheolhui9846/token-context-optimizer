@@ -1,0 +1,316 @@
+{
+  "splits": [
+    "heldout",
+    "calibration",
+    "dev"
+  ],
+  "replicaDisagreements": 0,
+  "multiExcerptResponses": 0,
+  "totals": {
+    "heldout/full": {
+      "n": 72,
+      "hit": 72,
+      "tie": 0,
+      "lost": 0,
+      "notTop": 0
+    },
+    "heldout/keywords": {
+      "n": 72,
+      "hit": 72,
+      "tie": 0,
+      "lost": 0,
+      "notTop": 0
+    },
+    "heldout/entity": {
+      "n": 24,
+      "hit": 20,
+      "tie": 8,
+      "lost": 4,
+      "notTop": 0
+    },
+    "calibration/full": {
+      "n": 18,
+      "hit": 18,
+      "tie": 0,
+      "lost": 0,
+      "notTop": 0
+    },
+    "calibration/keywords": {
+      "n": 18,
+      "hit": 18,
+      "tie": 0,
+      "lost": 0,
+      "notTop": 0
+    },
+    "calibration/entity": {
+      "n": 6,
+      "hit": 5,
+      "tie": 2,
+      "lost": 1,
+      "notTop": 0
+    },
+    "dev/full": {
+      "n": 9,
+      "hit": 9,
+      "tie": 0,
+      "lost": 0,
+      "notTop": 0
+    },
+    "dev/keywords": {
+      "n": 9,
+      "hit": 9,
+      "tie": 0,
+      "lost": 0,
+      "notTop": 0
+    },
+    "dev/entity": {
+      "n": 3,
+      "hit": 2,
+      "tie": 1,
+      "lost": 1,
+      "notTop": 0
+    }
+  },
+  "table": [
+    {
+      "split": "heldout",
+      "variant": "full",
+      "type": "immediate-log",
+      "n": 24,
+      "hit": 24,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "keywords",
+      "type": "immediate-log",
+      "n": 24,
+      "hit": 24,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "entity",
+      "type": "immediate-log",
+      "n": 16,
+      "hit": 12,
+      "tie": 8,
+      "goldLostToTie": 4,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "full",
+      "type": "cross",
+      "n": 24,
+      "hit": 24,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "keywords",
+      "type": "cross",
+      "n": 24,
+      "hit": 24,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "full",
+      "type": "late-log",
+      "n": 24,
+      "hit": 24,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "keywords",
+      "type": "late-log",
+      "n": 24,
+      "hit": 24,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "heldout",
+      "variant": "entity",
+      "type": "late-log",
+      "n": 8,
+      "hit": 8,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "full",
+      "type": "immediate-log",
+      "n": 6,
+      "hit": 6,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "keywords",
+      "type": "immediate-log",
+      "n": 6,
+      "hit": 6,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "entity",
+      "type": "immediate-log",
+      "n": 4,
+      "hit": 3,
+      "tie": 2,
+      "goldLostToTie": 1,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "full",
+      "type": "cross",
+      "n": 6,
+      "hit": 6,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "keywords",
+      "type": "cross",
+      "n": 6,
+      "hit": 6,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "full",
+      "type": "late-log",
+      "n": 6,
+      "hit": 6,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "keywords",
+      "type": "late-log",
+      "n": 6,
+      "hit": 6,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "calibration",
+      "variant": "entity",
+      "type": "late-log",
+      "n": 2,
+      "hit": 2,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "full",
+      "type": "immediate-log",
+      "n": 3,
+      "hit": 3,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "keywords",
+      "type": "immediate-log",
+      "n": 3,
+      "hit": 3,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "entity",
+      "type": "immediate-log",
+      "n": 2,
+      "hit": 1,
+      "tie": 1,
+      "goldLostToTie": 1,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "full",
+      "type": "cross",
+      "n": 3,
+      "hit": 3,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "keywords",
+      "type": "cross",
+      "n": 3,
+      "hit": 3,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "full",
+      "type": "late-log",
+      "n": 3,
+      "hit": 3,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "keywords",
+      "type": "late-log",
+      "n": 3,
+      "hit": 3,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    },
+    {
+      "split": "dev",
+      "variant": "entity",
+      "type": "late-log",
+      "n": 1,
+      "hit": 1,
+      "tie": 0,
+      "goldLostToTie": 0,
+      "goldNotTop": 0
+    }
+  ]
+}
