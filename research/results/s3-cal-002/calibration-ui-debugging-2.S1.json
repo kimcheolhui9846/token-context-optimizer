@@ -1,0 +1,116 @@
+{
+  "session": "calibration-ui-debugging-2",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "6754"
+      ],
+      "answer": "The build number shown at the bottom of the screen is **6754**.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-35. What error code is on that line?",
+      "gold": [
+        "E8784"
+      ],
+      "answer": "The error code on that line is **E8784**.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Cache hit\" card?",
+      "gold": [
+        "78%",
+        "78%"
+      ],
+      "answer": "The value shown on the \"Cache hit\" card is **78%**.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts for specific details. \n\n1. **Device settings screenshot (img-A):** The build number displayed is **6754**.\n2. **Service error log (log):** An upload failure for node **edge-35** was reported with error code **E8784**.\n3. **Service dashboard screenshot (img-B):** The \"Cache hit\" card shows a value of **78%**.\n\nThe task involves extracting precise information from provided artifacts for further analysis."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "57.0 GB"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves analyzing artifacts for specific details. From the provided artifacts: \n\n1. A device settings screenshot (img-A) shows the build number as **6754**.\n2. A service error log reports an upload failure for node **edge-35** with error code **E8784**.\n3. A service dashboard screenshot (img-B) indicates a \"Cache hit\" value of **78%**.\n\nFurther questions were asked about a rejected settings change, the most common subsystem tag on ERROR lines in the log, and the storage usage in the sidebar. These details remain unreadable from the provided artifacts."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E8784?",
+      "gold": [
+        "a99f16"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "07:03"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

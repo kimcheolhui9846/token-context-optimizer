@@ -1,0 +1,1733 @@
+{
+  "runId": "pilot-003-haiku",
+  "set": "dev3",
+  "table": {
+    "clean/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.9444444444444444,
+      "meanPromptTokens": 1624.861111111111,
+      "meanBytes": 153258.66666666666
+    },
+    "clean/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 661.5277777777778,
+      "meanBytes": 27798.583333333332
+    },
+    "clean/C2": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 153258.66666666666
+    },
+    "clean/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.9444444444444444,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 173.19444444444446,
+      "meanBytes": 5295.388888888889
+    },
+    "clean/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 706.7222222222222,
+      "meanBytes": 29350.222222222223
+    },
+    "clean/C2R": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 153258.66666666666
+    },
+    "jpeg-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 1624.861111111111,
+      "meanBytes": 124953.33333333333
+    },
+    "jpeg-only/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 692.4444444444445,
+      "meanBytes": 29324.472222222223
+    },
+    "jpeg-only/C2": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 124953.33333333333
+    },
+    "jpeg-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.9444444444444444,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 173.19444444444446,
+      "meanBytes": 5807.472222222223
+    },
+    "jpeg-only/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 737.6388888888889,
+      "meanBytes": 31412.027777777777
+    },
+    "jpeg-only/C2R": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 124953.33333333333
+    },
+    "downscale-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 1096.861111111111,
+      "meanBytes": 85074.25
+    },
+    "downscale-only/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 16,
+      "accuracy": 0.4444444444444444,
+      "contentAccuracy": 0.4722222222222222,
+      "meanPromptTokens": 442.0833333333333,
+      "meanBytes": 16041.111111111111
+    },
+    "downscale-only/C2": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 85074.25
+    },
+    "downscale-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 93.36111111111111,
+      "meanBytes": 2040.611111111111
+    },
+    "downscale-only/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 625.0555555555555,
+      "meanBytes": 34477.666666666664
+    },
+    "downscale-only/C2R": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 85074.25
+    },
+    "combined/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 19,
+      "accuracy": 0.5277777777777778,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 1096.861111111111,
+      "meanBytes": 41572.583333333336
+    },
+    "combined/C1": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 15,
+      "accuracy": 0.4166666666666667,
+      "contentAccuracy": 0.4166666666666667,
+      "meanPromptTokens": 490.30555555555554,
+      "meanBytes": 18549.583333333332
+    },
+    "combined/C2": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 41572.583333333336
+    },
+    "combined/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 93.36111111111111,
+      "meanBytes": 2271.027777777778
+    },
+    "combined/C1R": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 18,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 703.8611111111111,
+      "meanBytes": 28044.972222222223
+    },
+    "combined/C2R": {
+      "n": 36,
+      "notStarted": 36,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 41572.583333333336
+    }
+  },
+  "selector": {},
+  "regions": {
+    "clean": {
+      "n": 36,
+      "c1Matched": 27,
+      "c1Covered": 21,
+      "c2Boxed": 0,
+      "c2Covered": 0,
+      "retries": {
+        "C1R": 1,
+        "C2R": 0
+      }
+    },
+    "jpeg-only": {
+      "n": 36,
+      "c1Matched": 26,
+      "c1Covered": 20,
+      "c2Boxed": 0,
+      "c2Covered": 0,
+      "retries": {
+        "C1R": 1,
+        "C2R": 0
+      }
+    },
+    "downscale-only": {
+      "n": 36,
+      "c1Matched": 26,
+      "c1Covered": 18,
+      "c2Boxed": 0,
+      "c2Covered": 0,
+      "retries": {
+        "C1R": 6,
+        "C2R": 0
+      }
+    },
+    "combined": {
+      "n": 36,
+      "c1Matched": 24,
+      "c1Covered": 16,
+      "c2Boxed": 0,
+      "c2Covered": 0,
+      "retries": {
+        "C1R": 7,
+        "C2R": 0
+      }
+    }
+  },
+  "byArm": {
+    "A": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 89,
+      "accuracy": 0.6180555555555556,
+      "contentAccuracy": 0.7986111111111112,
+      "meanPromptTokens": 1360.861111111111,
+      "meanBytes": 101214.70833333333
+    },
+    "C1": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 89,
+      "accuracy": 0.6180555555555556,
+      "contentAccuracy": 0.6597222222222222,
+      "meanPromptTokens": 571.5902777777778,
+      "meanBytes": 22928.4375
+    },
+    "C2": {
+      "n": 144,
+      "notStarted": 144,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 101214.70833333333
+    },
+    "E": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 115,
+      "accuracy": 0.7986111111111112,
+      "contentAccuracy": 0.8263888888888888,
+      "meanPromptTokens": 133.27777777777777,
+      "meanBytes": 3853.625
+    },
+    "C1R": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 98,
+      "accuracy": 0.6805555555555556,
+      "contentAccuracy": 0.7569444444444444,
+      "meanPromptTokens": 693.3194444444445,
+      "meanBytes": 30821.222222222223
+    },
+    "C2R": {
+      "n": 144,
+      "notStarted": 144,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 101214.70833333333
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 22,
+      "accuracy": 0.3055555555555556,
+      "contentAccuracy": 0.5972222222222222,
+      "meanPromptTokens": 1361.111111111111,
+      "meanBytes": 87878.75
+    },
+    "A/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 67,
+      "accuracy": 0.9305555555555556,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 1360.611111111111,
+      "meanBytes": 114550.66666666667
+    },
+    "C1/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.4027777777777778,
+      "contentAccuracy": 0.4861111111111111,
+      "meanPromptTokens": 832.3472222222222,
+      "meanBytes": 32672.055555555555
+    },
+    "C1/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 60,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 310.8333333333333,
+      "meanBytes": 13184.819444444445
+    },
+    "C2/small": {
+      "n": 72,
+      "notStarted": 72,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 87878.75
+    },
+    "C2/normal": {
+      "n": 72,
+      "notStarted": 72,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 114550.66666666667
+    },
+    "E/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 44,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 90.27777777777777,
+      "meanBytes": 1771.9166666666667
+    },
+    "E/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 71,
+      "accuracy": 0.9861111111111112,
+      "contentAccuracy": 0.9861111111111112,
+      "meanPromptTokens": 176.27777777777777,
+      "meanBytes": 5935.333333333333
+    },
+    "C1R/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.4305555555555556,
+      "contentAccuracy": 0.5694444444444444,
+      "meanPromptTokens": 939.3611111111111,
+      "meanBytes": 35963.65277777778
+    },
+    "C1R/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 67,
+      "accuracy": 0.9305555555555556,
+      "contentAccuracy": 0.9444444444444444,
+      "meanPromptTokens": 447.27777777777777,
+      "meanBytes": 25678.791666666668
+    },
+    "C2R/small": {
+      "n": 72,
+      "notStarted": 72,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 87878.75
+    },
+    "C2R/normal": {
+      "n": 72,
+      "notStarted": 72,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 114550.66666666667
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 37,
+      "accuracy": 0.7708333333333334,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 1359.6666666666667,
+      "meanBytes": 188942.25
+    },
+    "A/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 1361,
+      "meanBytes": 56129.5625
+    },
+    "A/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.5208333333333334,
+      "contentAccuracy": 0.7083333333333334,
+      "meanPromptTokens": 1361.9166666666667,
+      "meanBytes": 58572.3125
+    },
+    "C1/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 432.125,
+      "meanBytes": 25183.6875
+    },
+    "C1/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 26,
+      "accuracy": 0.5416666666666666,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 481.5833333333333,
+      "meanBytes": 15517.833333333334
+    },
+    "C1/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "contentAccuracy": 0.6041666666666666,
+      "meanPromptTokens": 801.0625,
+      "meanBytes": 28083.791666666668
+    },
+    "C2/document": {
+      "n": 48,
+      "notStarted": 48,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 188942.25
+    },
+    "C2/chart": {
+      "n": 48,
+      "notStarted": 48,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 56129.5625
+    },
+    "C2/ui": {
+      "n": 48,
+      "notStarted": 48,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 58572.3125
+    },
+    "E/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 140.54166666666666,
+      "meanBytes": 6092.833333333333
+    },
+    "E/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 141.08333333333334,
+      "meanBytes": 3008.625
+    },
+    "E/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 118.20833333333333,
+      "meanBytes": 2459.4166666666665
+    },
+    "C1R/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 523.2083333333334,
+      "meanBytes": 40029.916666666664
+    },
+    "C1R/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 640.8333333333334,
+      "meanBytes": 20535.5
+    },
+    "C1R/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 915.9166666666666,
+      "meanBytes": 31898.25
+    },
+    "C2R/document": {
+      "n": 48,
+      "notStarted": 48,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 188942.25
+    },
+    "C2R/chart": {
+      "n": 48,
+      "notStarted": 48,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 56129.5625
+    },
+    "C2R/ui": {
+      "n": 48,
+      "notStarted": 48,
+      "correct": 0,
+      "accuracy": null,
+      "contentAccuracy": null,
+      "meanPromptTokens": null,
+      "meanBytes": 58572.3125
+    }
+  },
+  "accounting": {
+    "n": 432,
+    "overheadMin": 55,
+    "overheadMax": 67,
+    "distinctOverheads": [
+      55,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      65,
+      66,
+      67
+    ]
+  },
+  "totals": {
+    "calls": 432,
+    "costUsd": 0.316420000000001
+  },
+  "errors": [
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/A",
+      "gold": "INV-76587-C",
+      "answer": "INV-16597-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/E",
+      "gold": "INV-76587-C",
+      "answer": "INV-7654C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/C1",
+      "gold": "INV-76587-C",
+      "answer": "INV-16597-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/A",
+      "gold": "INV-76587-C",
+      "answer": "INV-76597-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/E",
+      "gold": "INV-76587-C",
+      "answer": "INV-7024847-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/C1",
+      "gold": "INV-76587-C",
+      "answer": "INV-16597-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/downscale-only/A",
+      "gold": "INV-73897-E",
+      "answer": "INV-73997-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/downscale-only/E",
+      "gold": "INV-73897-E",
+      "answer": "INV-7328FE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/downscale-only/C1",
+      "gold": "INV-73897-E",
+      "answer": "INV-73997-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/A",
+      "gold": "INV-73897-E",
+      "answer": "INV-15391-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/E",
+      "gold": "INV-73897-E",
+      "answer": "390-7330T-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/C1",
+      "gold": "INV-73897-E",
+      "answer": "INV-15391-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/clean/A",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref. ZT-9005-M19",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/jpeg-only/A",
+      "gold": "ZT-9005-M19",
+      "answer": "Ref. ZT-9005-M19",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/A",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-6905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/E",
+      "gold": "ZT-9005-M19",
+      "answer": "ZY-9003-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/C1",
+      "gold": "ZT-9005-M19",
+      "answer": "27-6005-M10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/downscale-only/C1",
+      "gold": "C-231",
+      "answer": "UNREADABLE\n\nThe image quality and text are too blurry and overlapping to clearly identify which specific room is assigned in the notice.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/A",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-9905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/E",
+      "gold": "ZT-9005-M19",
+      "answer": "ZY-9035-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/C1",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-9905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q2/combined/C1",
+      "gold": "C-231",
+      "answer": "UNREADABLE\n\nThe text in the image is heavily repeated and overlapping, making it impossible to clearly identify which specific room is assigned in the notice.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/jpeg-only/A",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3066-PN4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/A",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-2066-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/E",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-1008-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/C1",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3066-PN",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/downscale-only/C1",
+      "gold": "D-488",
+      "answer": "UNREADABLE\n\nThe image shows repeated text about budget, approval, and supply review processes, but does not clearly specify which room is assigned in the notice. The text is blurry and",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/A",
+      "gold": "ZT-3066-P84",
+      "answer": "Ref: ZT-2066-PM (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/E",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-2008-PM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/C1",
+      "gold": "ZT-3066-P84",
+      "answer": "27-3066-PN4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q2/combined/C1",
+      "gold": "D-488",
+      "answer": "UNREADABLE\n\nThe image shows repeated text about budget, supply review, and approval processes, but does not clearly specify which room is assigned in the notice. The text is blurry and",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/clean/A",
+      "gold": "4,134",
+      "answer": "n = 4,134; weekend audits excluded",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/A",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/C1",
+      "gold": "Jul",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/jpeg-only/A",
+      "gold": "4,134",
+      "answer": "n = 4,134; weekend audits excluded",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/A",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/C1",
+      "gold": "Jul",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/A",
+      "gold": "4,134",
+      "answer": "n = 4,134, weekend audits excluded",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/E",
+      "gold": "4,134",
+      "answer": "4,174",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/C1",
+      "gold": "4,134",
+      "answer": "UNREADABLE\n\nThe image shows a bar chart titled \"Monthly Inspection Count\" with two visible bars (960 and 892), but there is no visible inspection sample size notation shown under",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/downscale-only/A",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/downscale-only/C1",
+      "gold": "Jul",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/A",
+      "gold": "4,134",
+      "answer": "n = 4,134, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/E",
+      "gold": "4,134",
+      "answer": "4,124",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/C1",
+      "gold": "4,134",
+      "answer": "UNREADABLE\n\nThe image shows a bar chart titled \"Monthly Inspection Count\" with two visible bars (960 and 892), but there is no inspection sample size notation visible under the",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/combined/A",
+      "gold": "Jul",
+      "answer": "July",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/combined/C1",
+      "gold": "Jul",
+      "answer": "The month with the tallest bar is the one showing 960 inspections. Based on the chart, this appears to be in the middle section of the displayed months.\n\nHowever, I cannot",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/clean/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE\n\nThe image shows a bar chart titled \"Monthly Inspection Count\" with one visible bar labeled \"929\", but the month label for this bar is not clearly readable in the provided",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/jpeg-only/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE\n\nThe image shows a bar chart titled \"Monthly Inspection Count\" with one visible bar labeled \"929\", but the month label for this bar is not clearly readable in the image",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/C1",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/downscale-only/A",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/downscale-only/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE\n\nThe image shows a bar chart titled \"Monthly Inspection Count\" with one visible bar labeled \"929\", but the month label for this bar is not clearly visible in the provided",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q1/combined/E",
+      "gold": "391",
+      "answer": "381",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/C1",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/combined/C1",
+      "gold": "Aug",
+      "answer": "UNREADABLE\n\nThe image shows a bar chart titled \"Monthly Inspection Count\" with one visible bar labeled \"929\", but the month label for this bar is not clearly readable in the provided",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/clean/A",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/clean/E",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/jpeg-only/A",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/jpeg-only/E",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/jpeg-only/C1",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/downscale-only/A",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/downscale-only/C1",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/downscale-only/A",
+      "gold": "10:18",
+      "answer": "10:15",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/downscale-only/C1",
+      "gold": "10:18",
+      "answer": "10:15",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/combined/A",
+      "gold": "83.2",
+      "answer": "Peak 63.2",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/combined/E",
+      "gold": "83.2",
+      "answer": "Peak 63.2",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/combined/C1",
+      "gold": "83.2",
+      "answer": "Peak 63.2",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/A",
+      "gold": "10:18",
+      "answer": "10:19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/E",
+      "gold": "10:18",
+      "answer": "10:19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/C1",
+      "gold": "10:18",
+      "answer": "10:19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/clean/A",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/clean/E",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/clean/C1",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/jpeg-only/A",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/jpeg-only/E",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/jpeg-only/C1",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/downscale-only/A",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/downscale-only/E",
+      "gold": "83.0",
+      "answer": "8.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/downscale-only/A",
+      "gold": "16:26",
+      "answer": "19:26",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/downscale-only/E",
+      "gold": "16:26",
+      "answer": "16:20",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/downscale-only/C1",
+      "gold": "16:26",
+      "answer": "10:26",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/combined/A",
+      "gold": "83.0",
+      "answer": "Peak 63.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/combined/C1",
+      "gold": "83.0",
+      "answer": "Peak 63.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/A",
+      "gold": "16:26",
+      "answer": "10:36",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/E",
+      "gold": "16:26",
+      "answer": "15:35",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/C1",
+      "gold": "16:26",
+      "answer": "10:36",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/A",
+      "gold": "9718",
+      "answer": "7.8.12 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/C1",
+      "gold": "9718",
+      "answer": "7.8.12 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/clean/A",
+      "gold": "12.2 GB",
+      "answer": "12.2 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/A",
+      "gold": "9718",
+      "answer": "7.8.12 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/C1",
+      "gold": "9718",
+      "answer": "7.8.12 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/jpeg-only/A",
+      "gold": "12.2 GB",
+      "answer": "12.2 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/A",
+      "gold": "9718",
+      "answer": "9716",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/E",
+      "gold": "9718",
+      "answer": "9716",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/C1",
+      "gold": "9718",
+      "answer": "2716",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/downscale-only/C1",
+      "gold": "12.2 GB",
+      "answer": "UNREADABLE\n\nThe image shows a sidebar menu with options for \"Battery,\" \"Storage,\" and \"About,\" but it does not display the actual storage usage amount or unit.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/A",
+      "gold": "9718",
+      "answer": "2718",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/E",
+      "gold": "9718",
+      "answer": "9710",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/C1",
+      "gold": "9718",
+      "answer": "2718",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/A",
+      "gold": "12.2 GB",
+      "answer": "12.2 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/C1",
+      "gold": "12.2 GB",
+      "answer": "UNREADABLE\n\nThe image shows a sidebar menu with options for \"Battery,\" \"Storage,\" and \"About,\" but it does not display the actual storage usage amount or unit.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/clean/A",
+      "gold": "5779",
+      "answer": "7.7.49 (build 5779)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/clean/C1",
+      "gold": "5779",
+      "answer": "7.7.49 (build 5776)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/clean/A",
+      "gold": "91.4 GB",
+      "answer": "91.4 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/jpeg-only/A",
+      "gold": "91.4 GB",
+      "answer": "91.4 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/downscale-only/E",
+      "gold": "5779",
+      "answer": "5770",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/downscale-only/C1",
+      "gold": "91.4 GB",
+      "answer": "UNREADABLE\n\nThe image shows a sidebar menu with options for \"Battery,\" \"Storage,\" and \"About,\" but it does not display the actual storage usage amount or unit.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/combined/A",
+      "gold": "91.4 GB",
+      "answer": "91.4 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/combined/C1",
+      "gold": "91.4 GB",
+      "answer": "UNREADABLE\n\nThe image shows a sidebar menu with options for \"Battery,\" \"Storage,\" and \"About,\" but it does not display the actual storage usage amount or unit.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/clean/A",
+      "gold": "79",
+      "answer": "9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/clean/C1",
+      "gold": "79",
+      "answer": "9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/jpeg-only/A",
+      "gold": "79",
+      "answer": "9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/jpeg-only/C1",
+      "gold": "79",
+      "answer": "9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/A",
+      "gold": "79",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/E",
+      "gold": "79",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/C1",
+      "gold": "79",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/A",
+      "gold": "20:01",
+      "answer": "UNREADABLE\n\nThe image shows \"Last sync 26/1\" in the top right corner, but the specific time in HH:MM format is not clearly visible or readable in the",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/C1",
+      "gold": "20:01",
+      "answer": "20:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/A",
+      "gold": "79",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/E",
+      "gold": "79",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/C1",
+      "gold": "79",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/A",
+      "gold": "20:01",
+      "answer": "UNREADABLE\n\nThe image shows \"Last sync 25/11\" in the top right corner, but the specific time (HH:MM format) is not clearly visible or readable in",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/C1",
+      "gold": "20:01",
+      "answer": "UNREADABLE\n\nThe image shows \"Last sync 25/01\" in the top right corner, but the specific time (HH:MM format) is not clearly visible or readable in",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/clean/A",
+      "gold": "95",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/clean/C1",
+      "gold": "95",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/jpeg-only/A",
+      "gold": "95",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/jpeg-only/C1",
+      "gold": "95",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/downscale-only/A",
+      "gold": "95",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/downscale-only/E",
+      "gold": "95",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/downscale-only/C1",
+      "gold": "95",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/downscale-only/A",
+      "gold": "06:50",
+      "answer": "06:04",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/downscale-only/E",
+      "gold": "06:50",
+      "answer": "06:00",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/downscale-only/C1",
+      "gold": "06:50",
+      "answer": "06:00",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/A",
+      "gold": "95",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/E",
+      "gold": "95",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/C1",
+      "gold": "95",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/A",
+      "gold": "06:50",
+      "answer": "06:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/E",
+      "gold": "06:50",
+      "answer": "06:30",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/C1",
+      "gold": "06:50",
+      "answer": "06:40",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/downscale-only/C1R",
+      "gold": "INV-76587-C",
+      "answer": "INV-16597-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-1/q1/combined/C1R",
+      "gold": "INV-76587-C",
+      "answer": "INV-16597-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/downscale-only/C1R",
+      "gold": "INV-73897-E",
+      "answer": "INV-73997-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-invoice-dense-2/q1/combined/C1R",
+      "gold": "INV-73897-E",
+      "answer": "INV-15391-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/downscale-only/C1R",
+      "gold": "ZT-9005-M19",
+      "answer": "27-6005-M10",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-1/q1/combined/C1R",
+      "gold": "ZT-9005-M19",
+      "answer": "ZT-9905-M19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/downscale-only/C1R",
+      "gold": "ZT-3066-P84",
+      "answer": "ZT-3066-PN",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-doc-memo-dense-2/q1/combined/C1R",
+      "gold": "ZT-3066-P84",
+      "answer": "27-3066-PN4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/clean/C1R",
+      "gold": "Jul",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/jpeg-only/C1R",
+      "gold": "Jul",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/downscale-only/C1R",
+      "gold": "4,134",
+      "answer": "n = 4,134, weekend audits excluded",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/downscale-only/C1R",
+      "gold": "Jul",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-1/q2/combined/C1R",
+      "gold": "4,134",
+      "answer": "n = 4,134, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-1/q3/combined/C1R",
+      "gold": "Jul",
+      "answer": "The month with the tallest bar is the one showing 960 inspections. Based on the chart, this appears to be in the middle section of the displayed months.\n\nHowever, I cannot",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/downscale-only/C1R",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-bar12-2/q3/downscale-only/C1R",
+      "gold": "Aug",
+      "answer": "August",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-bar12-2/q2/combined/C1R",
+      "gold": "3,347",
+      "answer": "929",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/jpeg-only/C1R",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/downscale-only/C1R",
+      "gold": "83.2",
+      "answer": "Peak 83.2",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/downscale-only/C1R",
+      "gold": "10:18",
+      "answer": "10:15",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q1/combined/C1R",
+      "gold": "83.2",
+      "answer": "Peak 63.2",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-1/q3/combined/C1R",
+      "gold": "10:18",
+      "answer": "10:19",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/clean/C1R",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/jpeg-only/C1R",
+      "gold": "83.0",
+      "answer": "Peak 83.0",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/downscale-only/C1R",
+      "gold": "16:26",
+      "answer": "10:26",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q1/combined/C1R",
+      "gold": "83.0",
+      "answer": "Peak 63.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-chart-line-small-2/q3/combined/C1R",
+      "gold": "16:26",
+      "answer": "10:36",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/clean/C1R",
+      "gold": "9718",
+      "answer": "7.8.12 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/jpeg-only/C1R",
+      "gold": "9718",
+      "answer": "7.8.12 (build 9718)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/downscale-only/C1R",
+      "gold": "9718",
+      "answer": "2716",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q2/combined/C1R",
+      "gold": "9718",
+      "answer": "2718",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-1/q3/combined/C1R",
+      "gold": "12.2 GB",
+      "answer": "12.2 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q2/clean/C1R",
+      "gold": "5779",
+      "answer": "7.7.49 (build 5776)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-settings-dense-2/q3/combined/C1R",
+      "gold": "91.4 GB",
+      "answer": "91.4 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/clean/C1R",
+      "gold": "79",
+      "answer": "9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/jpeg-only/C1R",
+      "gold": "79",
+      "answer": "9",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/downscale-only/C1R",
+      "gold": "79",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/downscale-only/C1R",
+      "gold": "20:01",
+      "answer": "20:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q1/combined/C1R",
+      "gold": "79",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-1/q3/combined/C1R",
+      "gold": "20:01",
+      "answer": "UNREADABLE\n\nThe image shows \"Last sync 25/11\" in the top right corner, but the specific time (HH:MM format) is not clearly visible or readable in",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/clean/C1R",
+      "gold": "95",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/jpeg-only/C1R",
+      "gold": "95",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/downscale-only/C1R",
+      "gold": "95",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/downscale-only/C1R",
+      "gold": "06:50",
+      "answer": "06:00",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q1/combined/C1R",
+      "gold": "95",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev3-ui-dashboard-dense-2/q3/combined/C1R",
+      "gold": "06:50",
+      "answer": "06:40",
+      "contentCorrect": false
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "session": "calibration-document-review-2",
+  "template": "document-review",
+  "condition": "S1",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-71012-A"
+      ],
+      "answer": "INV-17012-A",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-71012-A?",
+      "gold": [
+        "B-4404"
+      ],
+      "answer": "B-4404",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "B-365"
+      ],
+      "answer": "B-365",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves processing and analyzing artifacts related to invoices and logs. \n\n1. **Supplier Invoice Scan (img-A):** The invoice number is **INV-17012-A**, with a total amount of **$17,950.77**.\n2. **Ledger Processing Log:** The batch ID associated with the posting of invoice **INV-71012-A** is **B-4404**. Additionally, a warning flagged an over-limit amount of **$883.15** for this invoice.\n3. **Operations Notice Scan (img-B):** The assigned room mentioned in the notice is **B-365**.\n\nThe work involves extracting and verifying specific details from these artifacts for further processing."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Grease 400g"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$17,950.77",
+        "17,950.77"
+      ],
+      "answer": "$17,950.77",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves processing and analyzing artifacts related to invoices and logs. Key details extracted so far include:\n\n1. **Supplier Invoice (INV-17012-A):** The total amount is **$17,950.77**.\n2. **Ledger Processing Log:** The batch ID for posting invoice **INV-71012-A** is **B-4404**. A warning flagged an over-limit amount of **$883.15** for this invoice.\n3. **Operations Notice:** The assigned room is **B-365**.\n\nFurther details, such as the specific line item on the invoice with the over-limit amount and the most common status in the ledger log, remain unreadable from the provided artifacts."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "6309a3"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code in the footnote?",
+      "gold": [
+        "ZT-3398-P17"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

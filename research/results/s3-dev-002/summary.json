@@ -1,0 +1,496 @@
+{
+  "runId": "s3-dev-002",
+  "config": {
+    "split": "dev",
+    "model": "gpt-4o-2024-11-20",
+    "compactAt": 4000,
+    "cachedInputFactorAssumed": 0.5
+  },
+  "table": {
+    "S0": {
+      "sessions": 3,
+      "accuracy": 0.7916666666666666,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 0.6666666666666666,
+        "gist": 0.6666666666666666,
+        "late": 0.7777777777777778
+      },
+      "meanPromptTokens": 34031.666666666664,
+      "meanCachedTokens": 18773.333333333332,
+      "meanCompletionTokens": 36.666666666666664,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.08544583333333332,
+      "meanCacheViewCostUsd": 0.06197916666666667,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 41537,
+          "cached": 22144,
+          "completion": 35,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 18527,
+          "cached": 11904,
+          "completion": 56,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 42031,
+          "cached": 22272,
+          "completion": 19,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    },
+    "S1": {
+      "sessions": 3,
+      "accuracy": 0.5416666666666666,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 0.3333333333333333,
+        "gist": 0,
+        "late": 0.4444444444444444
+      },
+      "meanPromptTokens": 17728.666666666668,
+      "meanCachedTokens": 12074.666666666666,
+      "meanCompletionTokens": 95.66666666666667,
+      "meanCalls": 8.666666666666666,
+      "meanCompactions": 0.6666666666666666,
+      "meanListCostUsd": 0.04527833333333334,
+      "meanCacheViewCostUsd": 0.030185000000000007,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 7,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 17173,
+          "cached": 12032,
+          "completion": 110,
+          "calls": 9,
+          "compactions": 1
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 18527,
+          "cached": 12160,
+          "completion": 56,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 17486,
+          "cached": 12032,
+          "completion": 121,
+          "calls": 9,
+          "compactions": 1
+        }
+      ]
+    },
+    "S2": {
+      "sessions": 3,
+      "accuracy": 0.7916666666666666,
+      "byGroup": {
+        "immediate": 0.7777777777777778,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 0.7777777777777778
+      },
+      "meanPromptTokens": 18756,
+      "meanCachedTokens": 2645.3333333333335,
+      "meanCompletionTokens": 276.3333333333333,
+      "meanCalls": 16.333333333333332,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.049653333333333334,
+      "meanCacheViewCostUsd": 0.04634666666666666,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 26,
+      "originalsRequested": 1,
+      "unreadable": 1,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 20857,
+          "cached": 2304,
+          "completion": 265,
+          "calls": 17,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 16536,
+          "cached": 2176,
+          "completion": 275,
+          "calls": 16,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 18875,
+          "cached": 3456,
+          "completion": 289,
+          "calls": 16,
+          "compactions": 0
+        }
+      ]
+    },
+    "S3": {
+      "sessions": 3,
+      "accuracy": 0.7083333333333334,
+      "byGroup": {
+        "immediate": 0.6666666666666666,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 0.6666666666666666
+      },
+      "meanPromptTokens": 18954.333333333332,
+      "meanCachedTokens": 3328,
+      "meanCompletionTokens": 269.3333333333333,
+      "meanCalls": 16,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.05007916666666666,
+      "meanCacheViewCostUsd": 0.045919166666666664,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 25,
+      "originalsRequested": 2,
+      "unreadable": 3,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 19866,
+          "cached": 4480,
+          "completion": 265,
+          "calls": 16,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 16482,
+          "cached": 2176,
+          "completion": 275,
+          "calls": 16,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 20515,
+          "cached": 3328,
+          "completion": 268,
+          "calls": 16,
+          "compactions": 0
+        }
+      ]
+    },
+    "S4": {
+      "sessions": 3,
+      "accuracy": 0.875,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 0.8888888888888888
+      },
+      "meanPromptTokens": 33956,
+      "meanCachedTokens": 22698.666666666668,
+      "meanCompletionTokens": 23,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.08511999999999999,
+      "meanCacheViewCostUsd": 0.05674666666666666,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 41537,
+          "cached": 33920,
+          "completion": 33,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 18300,
+          "cached": 11648,
+          "completion": 17,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 42031,
+          "cached": 22528,
+          "completion": 19,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    }
+  },
+  "wrong": [
+    {
+      "session": "dev-document-review-1",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S0",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": "V-belt A42"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S0",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "ZT-21G6-F50"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "f23e75",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "ZT-2165-F90"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-2664",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "ZT-216-F50"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "18"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S0",
+      "turn": 6,
+      "type": "late",
+      "gold": "Sep",
+      "answer": "**Dec**"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "17"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late",
+      "gold": "Sep",
+      "answer": "**Dec**"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "1"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "Sep",
+      "answer": "June"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "1"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "Sep",
+      "answer": "June"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "18"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "On",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "17.3 GB",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "e96b50",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "Build 71924"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "Build 71924"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "17.3 GB",
+      "answer": "UNREADABLE"
+    }
+  ]
+}

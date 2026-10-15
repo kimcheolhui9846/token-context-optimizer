@@ -1,0 +1,113 @@
+{
+  "session": "dev-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S2",
+  "attemptId": "mv9hzgme-wup9ex",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "7924"
+      ],
+      "answer": "I can see text at the bottom right that appears to say \"Firmware 7.7.47 (build 7904)\" but it's quite small. Let me query that specific area to get a clearer view.",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-12. What error code is on that line?",
+      "gold": [
+        "E5281"
+      ],
+      "answer": "",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Open tickets\" card?",
+      "gold": [
+        "20",
+        "20"
+      ],
+      "answer": "20",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "I need to provide a query term. Let me search for \"rejected\":",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "I apologize, but I'm unable to query the log artifact effectively. The query_text_artifact function requires search keywords, but without being able to see the log content first, I cannot determine which subsystem tags appear on ERROR lines. Could you provide me with a sample of what's in",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "17.3 GB"
+      ],
+      "answer": "I can see the Service Overview dashboard, but I don't see a storage usage metric in the sidebar or on the visible cards. Let me get the original image to see if there's a sidebar with storage information:",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E5281?",
+      "gold": [
+        "e96b50"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "06:07"
+      ],
+      "answer": "06:07",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

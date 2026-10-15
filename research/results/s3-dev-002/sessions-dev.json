@@ -1,0 +1,662 @@
+{
+  "split": "dev",
+  "purpose": "experiment 3 scripted agent sessions",
+  "sessions": [
+    {
+      "id": "dev-ui-debugging-1",
+      "template": "ui-debugging",
+      "seed": 5000,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "dev-ui-debugging-1/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85062,
+          "sha256": "84fbf71b25237a72d22aa867bba2c34fdbababa541a9482bde7f9727ba9bb429",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Location turned on or off?",
+              "answers": [
+                "On"
+              ],
+              "evidence": [
+                490,
+                730,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "7924"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "17.3 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "dev-ui-debugging-1/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 69627,
+          "sha256": "3d05230b7332ae62530a4cfb97fdcf815c9be269dda470e825c4c69f14150caf",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "71"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Open tickets\" card?",
+              "answers": [
+                "20",
+                "20"
+              ],
+              "evidence": [
+                586,
+                220,
+                162,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "06:07"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "dev-ui-debugging-1/log.txt",
+        "lines": 150,
+        "sha256": "2956f61b2ca0083000449edac64230df3c8835d46f5afeb1e6aace733e73f06c",
+        "keyLines": {
+          "fail": 20,
+          "toggle": 11,
+          "e0": 56,
+          "e1": 41,
+          "e2": 121,
+          "e3": 139,
+          "e4": 100
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "7924"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-12. What error code is on that line?",
+          "answers": [
+            "E5281"
+          ],
+          "evidence": {
+            "log": 20
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Open tickets\" card?",
+          "answers": [
+            "20",
+            "20"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 11
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "17.3 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E5281?",
+          "answers": [
+            "e96b50"
+          ],
+          "evidence": {
+            "log": 20
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "06:07"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-document-review-1",
+      "template": "document-review",
+      "seed": 5100,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "dev-document-review-1/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 137048,
+          "sha256": "501bb3073ae82864d342b2a9ad49dce673ffaa45ba48c6f9a60ee735a02c85a3",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-59162-E"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Hose clamp 32\"?",
+              "answers": [
+                "729.72"
+              ],
+              "evidence": [
+                100,
+                956,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$15,108.11",
+                "15,108.11"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "dev-document-review-1/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 479120,
+          "sha256": "2882e0bae2be194d645548793f9ee7ba0025be10752407ac7c4eeb5a8b68e5b2",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-2316-F50"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "C-200"
+              ],
+              "evidence": [
+                80,
+                1374,
+                964,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "10 October 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                335,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "dev-document-review-1/log.txt",
+        "lines": 150,
+        "sha256": "505abb3b963f5913b66ed4351c873d95c02eb596fea07acc41fd6ea98144d3df",
+        "keyLines": {
+          "posted": 125,
+          "flag": 49
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-59162-E"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-59162-E?",
+          "answers": [
+            "B-2664"
+          ],
+          "evidence": {
+            "log": 125
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "C-200"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Hose clamp 32"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 49
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$15,108.11",
+            "15,108.11"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "f23e75"
+          ],
+          "evidence": {
+            "log": 49
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-2316-F50"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-report-check-1",
+      "template": "report-check",
+      "seed": 5200,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "dev-report-check-1/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 56868,
+          "sha256": "521f7337e9417c0300050872819dc91346ba9110f50de03eeca5e7d4e3557b29",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Jun bar?",
+              "answers": [
+                "416"
+              ],
+              "evidence": [
+                950,
+                824,
+                100,
+                520
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "9,242",
+                "9242"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Sep"
+              ],
+              "evidence": [
+                1400,
+                341,
+                100,
+                1003
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "dev-report-check-1/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 105960,
+          "sha256": "f884b07a161314b41df73fc5474f02b5020a31bb1eaf4e44add02a876490d69c",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "85.2"
+              ],
+              "evidence": [
+                720,
+                385,
+                95,
+                35.60000000000002
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Delta",
+                "Delta"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "09:24"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "dev-report-check-1/log.txt",
+        "lines": 150,
+        "sha256": "1bf19e3f955d643961f0df6c29041de50c5ddd1b942a9ec215ad30fb8daf4d9a",
+        "keyLines": {
+          "postponed": 54,
+          "noted": 125,
+          "deadline": 120
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "9,242",
+            "9242"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "January"
+          ],
+          "evidence": {
+            "log": 54
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Jun. Does it match the value labeled on the Jun bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "yes"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 125
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "19"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Sep"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "4 June 2026"
+          ],
+          "evidence": {
+            "log": 120
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "09:24"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    }
+  ]
+}
