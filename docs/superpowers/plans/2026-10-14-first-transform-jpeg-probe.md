@@ -158,7 +158,7 @@ combined의 clean 직접 파생은 기존 집계 가정이며 새 사용자 승�
 - [x] 메모에 관측/도출/권고/미정 선택을 분리해 작성한다. JPEG encode→resize→crop 후보 순서 비교는 관측이 지지하는 범위까지만 쓰고 결정 칸은 사용자 대기로 남긴다.
 - [x] 전체 `npm.cmd run typecheck`, `npm.cmd test`, `npm.cmd run build`, `git diff --check`, 링크/UTF8/보호hash/scope 검사. 동일 gate 반복은 새 수정/실패 또는 Draft 이후 최종검증 때만 한다.
 - [ ] Tier C의 초기 계획 리뷰는 사용자 제공 Claude 리뷰로 충족한다. 구현 후 마일스톤은 사용자 제공 Claude 리뷰로 받는다. 추가 하네스 호출은 하지 않으며 최종 Astra 검토는 보류 상태다. 리뷰는 제공자·단계·판정·건수 한 줄로 기록하고 토큰·비용은 적지 않는다. 이번 계획 재개에서 Astra는 앞선 사용량 제한으로 보류하며 다른 모델 검토를 Astra로 대체하지 않는다.
-- [ ] 승인 범위 commit/push/Draft PR 후 최종 gate와 HEAD/upstream/PR 일치를 확인한다. Ready/merge 및 다음 Task는 새 사용자 지시 전 수행하지 않는다.
+- [x] 승인 범위 commit/push/Draft PR 후 최종 gate와 HEAD/upstream/PR 일치를 확인했다(Task 33 / PR #34). Ready/merge 및 다음 Task는 새 사용자 지시 전 수행하지 않는다.
 
 ## 9. 수용 기준과 계획 정지점
 
