@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { getSet, loadEnv } from "./env.mjs";
 import { readJson, writeJson } from "./common.mjs";
 import { cropTransform } from "./transforms.mjs";
-import { checkResume, configFingerprint, estimateSlotCost, sha256File } from "./run-guards.mjs";
+import { TEXT_OVERHEAD_TOKENS, checkResume, configFingerprint, estimateSlotCost, sha256File } from "./run-guards.mjs";
 import sharp from "sharp";
 
 // Prices from docs/research/image-token-cost-models.md L25-L26 (list prices). Used for the budget guard and cost estimates.
@@ -89,7 +89,7 @@ if (existsSync(responsesFile)) {
 const armFilter = opt("--arm", null);
 const todo = ordered.filter((s) => !done.has(slotKey(s)) && (!armFilter || s.arm === armFilter)).slice(0, limit || undefined);
 // Upper bound per slot; C2 counts its locate call too (PR #33 review, 2026-10-15).
-const estimate = (s) => estimateSlotCost({ arm: s.arm, imageTokens: predictTokens(s.width, s.height), maxTokens: MAX_TOKENS, price: PRICE });
+const estimate = (s) => estimateSlotCost({ arm: s.arm, imageTokens: predictTokens(s.width, s.height), maxTokens: MAX_TOKENS, price: PRICE, provider: providerName });
 const estTotal = todo.reduce((a, s) => a + estimate(s), 0);
 const env = loadEnv();
 console.log(`run ${runId}: ${todo.length} slots to run (${done.size} done), estimated upper cost $${estTotal.toFixed(3)}, spent so far $${spent.toFixed(4)}, budget $${env.budgetUsd}`);
@@ -200,6 +200,11 @@ async function twoStage(slot, q) {
   }
   const crop = box ? await cropTransform(variant, box) : await cropTransform(variant, { left: 0, top: 0, width: slot.width, height: slot.height });
   const meta = await sharp(crop.bytes).metadata();
+  // Budget re-check before the second call, using the stage-1 actual cost and the stage-2 bound (PR #33 re-review).
+  const stage2Bound = ((Math.max(predictTokens(meta.width, meta.height), 0) + TEXT_OVERHEAD_TOKENS) * PRICE.inputPerM + MAX_TOKENS * PRICE.outputPerM) / 1e6;
+  if (spent + costOf(u1) + stage2Bound > env.budgetUsd) {
+    return { status: "failed", stage: 2, reason: "budget_guard_before_stage2", attempts: s1.attempts, locate: { answer: text1, usage: u1, box }, costUsd: costOf(u1) };
+  }
   const s2 = await postOpenAI({
     model: MODEL, temperature: 0, max_tokens: MAX_TOKENS,
     messages: [{ role: "system", content: SYSTEM }, { role: "user", content: [{ type: "text", text: q.text }, { type: "image_url", image_url: { url: `data:image/jpeg;base64,${crop.bytes.toString("base64")}`, detail: DETAIL } }] }],

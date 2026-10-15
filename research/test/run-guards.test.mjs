@@ -12,8 +12,16 @@ test("C2 estimate covers both calls and exceeds a single-call slot", () => {
   const single = estimateSlotCost({ arm: "C1", imageTokens: 765, maxTokens: 40, price });
   const twoStage = estimateSlotCost({ arm: "C2", imageTokens: 765, maxTokens: 40, price });
   assert.ok(twoStage > single);
-  // locate call: (85 + 200) in, 60 out
-  assert.equal(Number((twoStage - single).toFixed(9)), Number((((85 + 200) * 2.5 + 60 * 10) / 1e6).toFixed(9)));
+  // locate (85 + 200 in, 60 out) + answer on the worst-case crop (1105 + 200 in, 40 out)
+  assert.equal(Number(twoStage.toFixed(9)), Number(((((85 + 200) * 2.5 + 60 * 10) + ((1105 + 200) * 2.5 + 40 * 10)) / 1e6).toFixed(9)));
+});
+
+test("C2 answer call is bounded by the worst-case crop, not the smaller variant (PR #33 re-review)", () => {
+  // 2048x1536 variant = 765 tokens, but an allowed 1536x600 crop = 3x2 tiles = 1105 tokens.
+  const est = estimateSlotCost({ arm: "C2", imageTokens: 765, maxTokens: 40, price });
+  const cropCase = ((85 + 200) * 2.5 + 60 * 10 + (1105 + 200) * 2.5 + 40 * 10) / 1e6;
+  assert.ok(est >= cropCase);
+  assert.ok(estimateSlotCost({ arm: "C2", imageTokens: 765, maxTokens: 40, price: { inputPerM: 1, outputPerM: 5 }, provider: "anthropic" }) >= ((85 + 200) * 1 + 60 * 5 + (1568 + 200) * 1 + 40 * 5) / 1e6);
 });
 
 test("C2 estimate bounds the pilot-003 case the PR #33 review cited (actual $0.003145)", () => {
