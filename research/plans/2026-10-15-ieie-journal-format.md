@@ -68,3 +68,9 @@
 - **생성형 AI 사용 고지:** 규정·내규에 조항이 없다. 학회 관행을 교수님께 확인한다.
 - **심사 절차와 기간**(심사위원 수, 판정 구분): 안내 페이지와 규정에 없다.
 - **발간 주기와 등재 정보**(KCI 등): 안내 페이지에 없다. 필요하면 KCI에서 확인한다.
+
+## 4. 사용자 결정 (2026-10-16)
+
+- 분량 목표: **8면**(최대 12면 상한 안에서)
+- 영문 제목: §2-3 제안안으로 확정. "Source-preserving multimodal context optimization for agent workflows: measuring provider-billed tokens and accuracy"
+- 공개 저장소의 초안·결과 문제: 사용자가 나중에 교수님께 문의한다(미결).
