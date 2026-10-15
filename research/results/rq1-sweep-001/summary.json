@@ -1,0 +1,385 @@
+{
+  "runId": "rq1-sweep-001",
+  "images": 66,
+  "openaiHigh": {
+    "n": 66,
+    "match": 66,
+    "mismatches": []
+  },
+  "openaiLow": {
+    "n": 66,
+    "match": 66,
+    "mismatches": []
+  },
+  "anthropic": {
+    "n": 66,
+    "match": 0,
+    "mismatches": [
+      {
+        "key": "256x256.png",
+        "measured": 103,
+        "predicted": 100
+      },
+      {
+        "key": "256x192.png",
+        "measured": 73,
+        "predicted": 70
+      },
+      {
+        "key": "192x256.png",
+        "measured": 73,
+        "predicted": 70
+      },
+      {
+        "key": "256x144.png",
+        "measured": 63,
+        "predicted": 60
+      },
+      {
+        "key": "144x256.png",
+        "measured": 63,
+        "predicted": 60
+      },
+      {
+        "key": "256x85.png",
+        "measured": 43,
+        "predicted": 40
+      },
+      {
+        "key": "85x256.png",
+        "measured": 43,
+        "predicted": 40
+      },
+      {
+        "key": "512x512.png",
+        "measured": 364,
+        "predicted": 361
+      },
+      {
+        "key": "512x384.png",
+        "measured": 269,
+        "predicted": 266
+      },
+      {
+        "key": "384x512.png",
+        "measured": 269,
+        "predicted": 266
+      },
+      {
+        "key": "512x288.png",
+        "measured": 212,
+        "predicted": 209
+      },
+      {
+        "key": "288x512.png",
+        "measured": 212,
+        "predicted": 209
+      },
+      {
+        "key": "512x171.png",
+        "measured": 136,
+        "predicted": 133
+      },
+      {
+        "key": "171x512.png",
+        "measured": 136,
+        "predicted": 133
+      },
+      {
+        "key": "768x768.png",
+        "measured": 787,
+        "predicted": 784
+      },
+      {
+        "key": "768x576.png",
+        "measured": 591,
+        "predicted": 588
+      },
+      {
+        "key": "576x768.png",
+        "measured": 591,
+        "predicted": 588
+      },
+      {
+        "key": "768x432.png",
+        "measured": 451,
+        "predicted": 448
+      },
+      {
+        "key": "432x768.png",
+        "measured": 451,
+        "predicted": 448
+      },
+      {
+        "key": "768x256.png",
+        "measured": 283,
+        "predicted": 280
+      },
+      {
+        "key": "256x768.png",
+        "measured": 283,
+        "predicted": 280
+      },
+      {
+        "key": "1024x1024.png",
+        "measured": 1372,
+        "predicted": 1369
+      },
+      {
+        "key": "1024x768.png",
+        "measured": 1039,
+        "predicted": 1036
+      },
+      {
+        "key": "768x1024.png",
+        "measured": 1039,
+        "predicted": 1036
+      },
+      {
+        "key": "1024x576.png",
+        "measured": 780,
+        "predicted": 777
+      },
+      {
+        "key": "576x1024.png",
+        "measured": 780,
+        "predicted": 777
+      },
+      {
+        "key": "1024x341.png",
+        "measured": 484,
+        "predicted": 481
+      },
+      {
+        "key": "341x1024.png",
+        "measured": 484,
+        "predicted": 481
+      },
+      {
+        "key": "1536x1536.png",
+        "measured": 1524,
+        "predicted": 1521
+      },
+      {
+        "key": "1536x1152.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "1152x1536.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "1536x864.png",
+        "measured": 1563,
+        "predicted": 1560
+      },
+      {
+        "key": "864x1536.png",
+        "measured": 1563,
+        "predicted": 1560
+      },
+      {
+        "key": "1536x512.png",
+        "measured": 1048,
+        "predicted": 1045
+      },
+      {
+        "key": "512x1536.png",
+        "measured": 1048,
+        "predicted": 1045
+      },
+      {
+        "key": "2048x2048.png",
+        "measured": 1524,
+        "predicted": 1521
+      },
+      {
+        "key": "2048x1536.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "1536x2048.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "2048x1152.png",
+        "measured": 1563,
+        "predicted": 1560
+      },
+      {
+        "key": "1152x2048.png",
+        "measured": 1563,
+        "predicted": 1560
+      },
+      {
+        "key": "2048x683.png",
+        "measured": 1067,
+        "predicted": 1064
+      },
+      {
+        "key": "683x2048.png",
+        "measured": 1067,
+        "predicted": 1064
+      },
+      {
+        "key": "3072x3072.png",
+        "measured": 1524,
+        "predicted": 1521
+      },
+      {
+        "key": "3072x2304.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "2304x3072.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "3072x1728.png",
+        "measured": 1563,
+        "predicted": 1560
+      },
+      {
+        "key": "1728x3072.png",
+        "measured": 1563,
+        "predicted": 1560
+      },
+      {
+        "key": "3072x1024.png",
+        "measured": 1067,
+        "predicted": 1064
+      },
+      {
+        "key": "1024x3072.png",
+        "measured": 1067,
+        "predicted": 1064
+      },
+      {
+        "key": "512x512.png",
+        "measured": 364,
+        "predicted": 361
+      },
+      {
+        "key": "513x513.png",
+        "measured": 364,
+        "predicted": 361
+      },
+      {
+        "key": "768x768.png",
+        "measured": 787,
+        "predicted": 784
+      },
+      {
+        "key": "769x769.png",
+        "measured": 787,
+        "predicted": 784
+      },
+      {
+        "key": "1092x1092.png",
+        "measured": 1524,
+        "predicted": 1521
+      },
+      {
+        "key": "1568x1176.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "1569x1177.png",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "2048x2048.png",
+        "measured": 1524,
+        "predicted": 1521
+      },
+      {
+        "key": "2049x1000.png",
+        "measured": 1571,
+        "predicted": 1568
+      },
+      {
+        "key": "1000x2049.png",
+        "measured": 1571,
+        "predicted": 1568
+      },
+      {
+        "key": "256x192.jpeg",
+        "measured": 73,
+        "predicted": 70
+      },
+      {
+        "key": "512x384.jpeg",
+        "measured": 269,
+        "predicted": 266
+      },
+      {
+        "key": "768x576.jpeg",
+        "measured": 591,
+        "predicted": 588
+      },
+      {
+        "key": "1024x768.jpeg",
+        "measured": 1039,
+        "predicted": 1036
+      },
+      {
+        "key": "1536x1152.jpeg",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "2048x1536.jpeg",
+        "measured": 1567,
+        "predicted": 1564
+      },
+      {
+        "key": "3072x2304.jpeg",
+        "measured": 1567,
+        "predicted": 1564
+      }
+    ]
+  },
+  "anthropicOffsets": [
+    3
+  ],
+  "anthropicCountVsBilled": [],
+  "formatInvariant": [
+    {
+      "size": "256x192",
+      "same": true
+    },
+    {
+      "size": "512x384",
+      "same": true
+    },
+    {
+      "size": "768x576",
+      "same": true
+    },
+    {
+      "size": "1024x768",
+      "same": true
+    },
+    {
+      "size": "1536x1152",
+      "same": true
+    },
+    {
+      "size": "2048x1536",
+      "same": true
+    },
+    {
+      "size": "3072x2304",
+      "same": true
+    }
+  ],
+  "costUsd": 0.193354
+}
