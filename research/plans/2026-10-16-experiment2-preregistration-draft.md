@@ -1,10 +1,11 @@
 # 실험 2 held-out 사전 등록 초안
 
-- 작성: Claude Code, 2026-10-16. 상태: **초안(사용자 승인 전)**
-- 확정하려면 다음이 필요하다.
-  1. 사용자 승인
-  2. Codex Task 34(guard → 응답 기반 fallback 문서 개정) merge
-  3. 분석 스크립트(`src/exp2-analyze.mjs`)를 동결하고, 그 커밋 해시와 held-out 생성물 해시를 이 문서에 적는다.
+- 작성: Claude Code, 2026-10-16. 상태: **확정(2026-10-16 사용자 승인, D7 = H1–H3 판정 형식, H2 margin −5%p)**
+- 확정 내역
+  - 사용자 승인(2026-10-16)
+  - 분석 스크립트 동결 커밋 `1d41de6`(held-out 호출 전)
+  - 생성물 해시 기록(재생성으로 같은 값 확인, §2)
+- **held-out 실행 조건:** Codex Task 34(guard → 응답 기반 fallback 문서 개정)가 merge된 뒤에 실행한다.
 - 근거
   - 평가 프로토콜 §2–§7
   - 실험 2 계획(사용자 결정 D1–D6)
@@ -30,7 +31,9 @@ RQ2: 단일 질의에서 질문에 맞춘 영역 선택과 보수적 원본 fall
 
 - held-out 36 family = 6 템플릿 × 6. 템플릿마다 기존 레이아웃 3과 v2 레이아웃 3이다.
 - seed 9000–9505. family당 질문 1개, 입력 조건 4개(clean, JPEG-only q50, downscale-only 1024, combined)
-- 생성물 해시(확정 때 재확인): `slots.json` `9fe6350b4d89a33d…`, `families.json` `71e2648f738d7094…`
+- 생성물 해시(`node src/generate.mjs`·`variants.mjs --set exp2-heldout`로 재생성해 같은 값 확인)
+  - `slots.json` `9fe6350b4d89a33d15eee7e9c583bb73b1ab85b42006de87d7e42a80924590e8`
+  - `families.json` `71e2648f738d7094a39f261304817757f644a6e98ec1f6a089d907d3f006c313`
 - v2 레이아웃은 실험 3 held-out에서 모델에 노출됐다. selector는 그 뒤 바꾸지 않았다. 결과는 레이아웃별로도 보고한다(D3).
 
 ## 3. 조건과 고정 설계
@@ -40,7 +43,7 @@ RQ2: 단일 질의에서 질문에 맞춘 영역 선택과 보수적 원본 fall
 - D: no-window면 원본, C가 UNREADABLE이면 원본 재요청, 그 밖에는 C
   - 원본 재요청은 같은 slot의 A 응답을 재사용하고, 비용은 실제 쓰인 호출의 합으로 계상한다(D4).
 - 모델: `gpt-4o-2024-11-20`(detail high, 주), `claude-haiku-4-5-20251001`(보조). temperature 0, max_tokens 40. 시스템 프롬프트는 calibration과 같다.
-- 하네스 커밋: `<확정 시 기입>`
+- 하네스·분석 커밋: `1d41de6`(브랜치 `claude/experiment2`)
 
 ## 4. 지표와 분석
 
@@ -67,7 +70,8 @@ RQ2: 단일 질의에서 질문에 맞춘 영역 선택과 보수적 원본 fall
 - GPT-4o 상한 $1.37, Haiku 상한 $0.70(dry-run)
 - 실행별 예산 가드 $20
 
-## 7. 사용자 결정 (D7)
+## 7. 사용자 결정 (D7, 2026-10-16 승인)
 
 - 위 H1–H3 형식(판정 기준 사전 등록)으로 할지, 프로토콜 원문대로 탐색적 추정(CI만 보고, 판정 없음)으로 할지
 - 권장: **H1–H3 형식**. 실험 3과 같은 틀이라 논문에서 RQ2·RQ3을 같은 방식으로 보고할 수 있다.
+- **결정: H1–H3 형식, H2 margin −5%p 승인.**
