@@ -30,16 +30,19 @@
 | 세트 | family | slot(A·B·C·E) | seed | 비고 |
 |---|---|---|---|---|
 | calibration | 12 | 192 | 8000–8501 | C 창 일치 33/48, 일치 중 근거 덮음 25 |
-| held-out | 36 | (생성 중) | 9000–9505 | 템플릿마다 base 3 + v2 3 |
+| held-out | 36 | 576 | 9000–9505 | 템플릿마다 base 3 + v2 3. C 창 일치 98/144(base 50/72, v2 48/72), 일치 중 근거 덮음 68 |
 
 ## 3. 비용 (dry-run 상한)
 
 | 세트 | GPT-4o | Haiku 4.5 |
 |---|---|---|
 | calibration 192 slot | $0.46 | $0.23 |
-| held-out 576 slot | 약 $1.4(추정, 생성 뒤 dry-run) | 약 $0.7 |
+| held-out 576 slot | $1.37 | $0.70 |
 
-합계 약 $2.8 이하다. 실행별 예산 가드는 $20이다.
+합계 상한 $2.76이다. 실행별 예산 가드는 $20이다.
+
+- 생성물 해시(재생성 확인용, 사전 등록 때 확정): held-out `slots.json` `9fe6350b4d89a33d…`, `families.json` `71e2648f738d7094…`, calibration `slots.json` `1d906d357e3ad2eb…`
+- 관찰(생성 단계, 모델 호출 없음): 창 selector가 근거 상자를 덮지 못하는 일치 사례가 held-out에서 30/98이다. C는 이 slot에서 조용히 틀리거나 UNREADABLE로 답할 수 있다. D의 응답 기반 fallback은 UNREADABLE인 경우만 구한다. selector는 파일럿 때 동결한 그대로이며 바꾸지 않는다(D6).
 
 ## 4. 사용자 결정 항목
 
