@@ -67,16 +67,26 @@ OFFSET = {
 }
 
 
+# Pairs that share almost the same x (A/B: same input tokens; D/D': same or near tokens): the higher point gets the upper
+# label so labels never swap when the order changes between runs.
+PAIRS = [("A", "B"), ("D", "Dp")]
+
+
 def fig5_accuracy_tokens(data, out):
     fig, ax = plt.subplots(figsize=(HALF, 5.6 * CM))
     for p, rows in data.items():
+        means = {a: family_scores(rows, a).mean() for a in ARMS}
+        offset = dict(OFFSET[p])
+        for hi_lo in PAIRS:
+            top, bottom = sorted(hi_lo, key=lambda a: -means[a])
+            offset[top], offset[bottom] = (4, 2), (4, -7)
         for a in ARMS:
             m, lo, hi = boot_ci(family_scores(rows, a))
             x = np.mean([r["promptTokens"] for r in rows if r["arm"] == a and r.get("promptTokens") is not None])
             filled = a != "Dp"
             ax.errorbar(x, m * 100, yerr=[[(m - lo) * 100], [(hi - m) * 100]], fmt=MARKER[a], color=C[p], markersize=3.5,
                         elinewidth=0.6, capsize=1.5, mfc=C[p] if (p == "gpt4o" and filled) else "white")
-            dx, dy = OFFSET[p][a]
+            dx, dy = offset[a]
             ax.annotate(ARM_LABEL[a], (x, m * 100), xytext=(dx, dy), textcoords="offset points", fontsize=6, color=C[p])
     ax.set_xlabel("Mean input tokens per call")
     ax.set_ylabel("Accuracy (%, family mean)")

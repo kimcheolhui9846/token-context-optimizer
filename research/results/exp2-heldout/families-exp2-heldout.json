@@ -1,0 +1,1096 @@
+{
+  "purpose": "thin-slice development set exp2-heldout; not calibration, not held-out",
+  "set": "exp2-heldout",
+  "sharp": "0.35.4",
+  "vips": "8.18.6",
+  "families": [
+    {
+      "id": "exp2-heldout-doc-invoice-dense-1",
+      "domain": "document",
+      "layout": "base",
+      "seed": 9000,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-invoice-dense-1.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 135679,
+        "sha256": "bf0ba007a6799ef91444322271d17aaea1d3502b349454c130e1837922f893cc"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the invoice number?",
+          "answers": [
+            "INV-11380-E"
+          ],
+          "evidence": [
+            1275,
+            108,
+            181,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-invoice-dense-2",
+      "domain": "document",
+      "layout": "base",
+      "seed": 9001,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-invoice-dense-2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 135593,
+        "sha256": "28f3c45b95892603fef7c0e58c14ae3841b6d5f6802b313b54c40930bbd820cc"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What is the amount for the line item \"Bearing 6204\"?",
+          "answers": [
+            "1,091.85"
+          ],
+          "evidence": [
+            100,
+            676,
+            1336,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-invoice-dense-3",
+      "domain": "document",
+      "layout": "base",
+      "seed": 9002,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-invoice-dense-3.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 136836,
+        "sha256": "5f399fc22075f5c9902d0e478fec0d7fae6613b51bf7f6fa47839f874c8e4865"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "What is the total amount on the invoice?",
+          "answers": [
+            "$18,068.75",
+            "18,068.75"
+          ],
+          "evidence": [
+            1004,
+            1278,
+            432,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-invoice-dense-4-v2",
+      "domain": "document",
+      "layout": "v2",
+      "seed": 9003,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-invoice-dense-4-v2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 132565,
+        "sha256": "d611ba9d7bacb8b50d1c231ada375dc2e67bcbe7645611cfb78668c048b6670e"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the invoice number?",
+          "answers": [
+            "INV-89472-B"
+          ],
+          "evidence": [
+            120,
+            1873,
+            181,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-invoice-dense-5-v2",
+      "domain": "document",
+      "layout": "v2",
+      "seed": 9004,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-invoice-dense-5-v2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 135417,
+        "sha256": "c774480af876312d7dc05e629730a273890b030075e9bdd571ca3d11fc9f961b"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What is the amount for the line item \"Gasket 50mm\"?",
+          "answers": [
+            "129.63"
+          ],
+          "evidence": [
+            120,
+            1042,
+            1296,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-invoice-dense-6-v2",
+      "domain": "document",
+      "layout": "v2",
+      "seed": 9005,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-invoice-dense-6-v2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 136565,
+        "sha256": "59411ead8629b4693e9d5636be2f8b2a28c627a27ed5d17e5dc7b58ed173eb03"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "What is the total amount on the invoice?",
+          "answers": [
+            "$16,636.57",
+            "16,636.57"
+          ],
+          "evidence": [
+            940,
+            1236,
+            476,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-memo-dense-1",
+      "domain": "document",
+      "layout": "base",
+      "seed": 9100,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-memo-dense-1.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 474525,
+        "sha256": "f41b7e132d38b98ae3c0ad9896a2302d5ce44d292882128b89b035d4c0836723"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-8730-B92"
+          ],
+          "evidence": [
+            80,
+            1954,
+            452,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-memo-dense-2",
+      "domain": "document",
+      "layout": "base",
+      "seed": 9101,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-memo-dense-2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 480366,
+        "sha256": "b5bfbf413ac3585c31afbeea9e886f4f39c1c641cf01e68819dc5deb042bead3"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which room is assigned in the notice?",
+          "answers": [
+            "D-401"
+          ],
+          "evidence": [
+            80,
+            982,
+            986,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-memo-dense-3",
+      "domain": "document",
+      "layout": "base",
+      "seed": 9102,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-memo-dense-3.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 483703,
+        "sha256": "e10fece9f06d55e2233a55c080fd8b2b829d2e171b8ede1a72895bbbc53f0c0c"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "On what date was the notice issued? Answer as day month year.",
+          "answers": [
+            "2 October 2026"
+          ],
+          "evidence": [
+            80,
+            189,
+            321,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-memo-dense-4-v2",
+      "domain": "document",
+      "layout": "v2",
+      "seed": 9103,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-memo-dense-4-v2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 443396,
+        "sha256": "3ba7997fcd5b668376f430393007d931df8ee20fe9453f5e556cb391c3c8a9a4"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the reference code shown at the top right of the bulletin?",
+          "answers": [
+            "QR-4704-C21"
+          ],
+          "evidence": [
+            1339,
+            59,
+            117,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-memo-dense-5-v2",
+      "domain": "document",
+      "layout": "v2",
+      "seed": 9104,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-memo-dense-5-v2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 435925,
+        "sha256": "e8c2d50e4361bf76930159993e011c45ecbc6d42c46358cb6aaed4b3a535f037"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which room is assigned in the notice?",
+          "answers": [
+            "G-140"
+          ],
+          "evidence": [
+            780,
+            526,
+            596,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-doc-memo-dense-6-v2",
+      "domain": "document",
+      "layout": "v2",
+      "seed": 9105,
+      "clean": {
+        "file": "clean/exp2-heldout-doc-memo-dense-6-v2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 444066,
+        "sha256": "d24fb63479a7b611617d774fdc5896551f11271d89aa5f52eb7d3504cf104506"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "On what date was the notice issued? Answer as day month year.",
+          "answers": [
+            "4 November 2026"
+          ],
+          "evidence": [
+            80,
+            1939,
+            335,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-bar12-1",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 9200,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-bar12-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 58468,
+        "sha256": "138821d3819e682012592147abab68452d08274ed35c176b8219be515eb47256"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "What value is labeled on the Dec bar?",
+          "answers": [
+            "475"
+          ],
+          "evidence": [
+            1850,
+            760,
+            100,
+            584
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-bar12-2",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 9201,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-bar12-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 53674,
+        "sha256": "d95b795446375e656ee1fa06fbd129c986936cf095281921d22c3960f2f4880c"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "9,073",
+            "9073"
+          ],
+          "evidence": [
+            160,
+            1449,
+            386,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-bar12-3",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 9202,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-bar12-3.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 54669,
+        "sha256": "00f3d114f56dd5a67682b94d742a0576b5fa52fecf852181514211f965e32d51"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Sep"
+          ],
+          "evidence": [
+            1400,
+            415,
+            100,
+            929
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-bar12-4-v2",
+      "domain": "chart",
+      "layout": "v2",
+      "seed": 9203,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-bar12-4-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 48349,
+        "sha256": "449250c25960f7e08c0a135ad5bfa52f23e9f129dd73cefea9002a90fe0a3286"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "What value is labeled on the Dec bar?",
+          "answers": [
+            "466"
+          ],
+          "evidence": [
+            195,
+            1344,
+            859,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-bar12-5-v2",
+      "domain": "chart",
+      "layout": "v2",
+      "seed": 9204,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-bar12-5-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 47864,
+        "sha256": "5db70e98744d5b0113078076737706a1d3634d46553982351760797c828742d2"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the inspection sample size noted under the chart title?",
+          "answers": [
+            "3,375",
+            "3375"
+          ],
+          "evidence": [
+            80,
+            109,
+            386,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-bar12-6-v2",
+      "domain": "chart",
+      "layout": "v2",
+      "seed": 9205,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-bar12-6-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 47313,
+        "sha256": "3e09969a9d09285a5a8bc588f0b362620efb438f063446410ad9d4174a4ed808"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Mar"
+          ],
+          "evidence": [
+            195,
+            408,
+            1619,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-line-small-1",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 9300,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-line-small-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 103471,
+        "sha256": "9db164cec1ef0c9e746e6a2ae1337259eb5b9ccd1d094d81994d059f70ac82d2"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What value is written next to the peak marker?",
+          "answers": [
+            "87.8"
+          ],
+          "evidence": [
+            1560,
+            360,
+            95,
+            35.89999999999998
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-line-small-2",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 9301,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-line-small-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 106153,
+        "sha256": "282d4e2ef1e2a6be619ecd531ecc35ee9923cebbdd35801ae3819e21bb12e21c"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Bravo",
+            "Bravo"
+          ],
+          "evidence": [
+            760,
+            1307,
+            303,
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-line-small-3",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 9302,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-line-small-3.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 102425,
+        "sha256": "6e072e167a61c430074562dbbbb8d688b32e807d99225ac0880398225515bf87"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "20:10"
+          ],
+          "evidence": [
+            1848,
+            49,
+            132,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-line-small-4-v2",
+      "domain": "chart",
+      "layout": "v2",
+      "seed": 9303,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-line-small-4-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 97622,
+        "sha256": "774401a9e8f55d1f4fe2875eef5c90d61fcc4db3a5e218146c2e5cc4ab6cd4de"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What value is written next to the peak marker?",
+          "answers": [
+            "78.4"
+          ],
+          "evidence": [
+            1343,
+            451,
+            95,
+            35.799999999999955
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-line-small-5-v2",
+      "domain": "chart",
+      "layout": "v2",
+      "seed": 9304,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-line-small-5-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 112891,
+        "sha256": "cbb97d006ac30dce054b99f4f78b2c24e1f03051a3601c00302488475cc7236e"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant East",
+            "East"
+          ],
+          "evidence": [
+            1540,
+            299,
+            257,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-chart-line-small-6-v2",
+      "domain": "chart",
+      "layout": "v2",
+      "seed": 9305,
+      "clean": {
+        "file": "clean/exp2-heldout-chart-line-small-6-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 115234,
+        "sha256": "6affe4208b4b31b6eae2a8a8ccf0c3db7506096f63b88515aa7eed2acd2a0372"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "21:57"
+          ],
+          "evidence": [
+            80,
+            1469,
+            132,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-settings-dense-1",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 9400,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-settings-dense-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 85447,
+        "sha256": "4f0bd9bf2dca9d2d1d417082d1e11efe56135a18bada4502f49730bd1f1e04f8"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "Is Location turned on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": [
+            490,
+            730,
+            1374,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-settings-dense-2",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 9401,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-settings-dense-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 85623,
+        "sha256": "83dc939e1425bd5b136c114b5d4a8468e4e46f240b5ac58ef0ed080e80b9cf1e"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "8373"
+          ],
+          "evidence": [
+            1786,
+            1489,
+            204,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-settings-dense-3",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 9402,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-settings-dense-3.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 85416,
+        "sha256": "2ec6fd9487fed98dd6eb655cbfaf62e8ba45a2029e12eb228a7bfa4e9ec6368b"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "94.9 GB"
+          ],
+          "evidence": [
+            48,
+            1428,
+            244,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-settings-dense-4-v2",
+      "domain": "ui",
+      "layout": "v2",
+      "seed": 9403,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-settings-dense-4-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 86074,
+        "sha256": "2ed2b9c8b563fa82eff8a68bf23c5a1670459f2d60a95273050e24783c15c4d7"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "Is Mobile data turned on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": [
+            1090,
+            396,
+            840,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-settings-dense-5-v2",
+      "domain": "ui",
+      "layout": "v2",
+      "seed": 9404,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-settings-dense-5-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 86083,
+        "sha256": "de89ecfa0bbcb2888a3f57289f310df15d2e43a698890f4cfee04c0e66dbc300"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the build number shown in the screen header?",
+          "answers": [
+            "2098"
+          ],
+          "evidence": [
+            1796,
+            51,
+            204,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-settings-dense-6-v2",
+      "domain": "ui",
+      "layout": "v2",
+      "seed": 9405,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-settings-dense-6-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 81885,
+        "sha256": "2563d62faeba63a7ab17639f04ecde6da17617e1d077ba277ad6c596074b3d1b"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "How much storage is used, according to the footer? Answer with the number and unit.",
+          "answers": [
+            "48.9 GB"
+          ],
+          "evidence": [
+            60,
+            1488,
+            244,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-dashboard-dense-1",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 9500,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-dashboard-dense-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 68847,
+        "sha256": "281cde7af4342c58c1a393e454ae188c4ef2a36df33358abbeb45585b08a6d24"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What number is shown on the notification badge?",
+          "answers": [
+            "64"
+          ],
+          "evidence": [
+            1898,
+            6,
+            46,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-dashboard-dense-2",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 9501,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-dashboard-dense-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 70567,
+        "sha256": "ee8230aad926ffc1e2b30a15e04d52b910abaee10cbd1f8dab571acc65180ae5"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What value is shown on the \"Cache hit\" card?",
+          "answers": [
+            "97%",
+            "97%"
+          ],
+          "evidence": [
+            1570,
+            860,
+            121,
+            166
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-dashboard-dense-3",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 9502,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-dashboard-dense-3.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 69689,
+        "sha256": "daedafdc9d6be8617a54ab938ce4359ab9c68f5ab650faceaa8b4116d2b0b23f"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "06:55"
+          ],
+          "evidence": [
+            1750,
+            45,
+            110,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-dashboard-dense-4-v2",
+      "domain": "ui",
+      "layout": "v2",
+      "seed": 9503,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-dashboard-dense-4-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 71594,
+        "sha256": "5700057e35327ee516a4561f67903963dd1d4e7cccedd33f9d960395a57b47db"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What number is shown on the notification badge?",
+          "answers": [
+            "57"
+          ],
+          "evidence": [
+            68,
+            4,
+            46,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-dashboard-dense-5-v2",
+      "domain": "ui",
+      "layout": "v2",
+      "seed": 9504,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-dashboard-dense-5-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 71413,
+        "sha256": "efd86dbe60ebad6d7ee26ea0cc9684eaee912461ca543c4eec2d67f1208818ed"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What value is shown on the \"Deployments\" card?",
+          "answers": [
+            "58",
+            "58"
+          ],
+          "evidence": [
+            1074,
+            904,
+            161,
+            143
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-heldout-ui-dashboard-dense-6-v2",
+      "domain": "ui",
+      "layout": "v2",
+      "seed": 9505,
+      "clean": {
+        "file": "clean/exp2-heldout-ui-dashboard-dense-6-v2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 70597,
+        "sha256": "8d669be9dbddf917ecca57d6df7f9f20bcd6e2bb571e11fb7f24713a37bb481b"
+      },
+      "questions": [
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "03:44"
+          ],
+          "evidence": [
+            60,
+            1479,
+            153,
+            14
+          ]
+        }
+      ]
+    }
+  ]
+}
