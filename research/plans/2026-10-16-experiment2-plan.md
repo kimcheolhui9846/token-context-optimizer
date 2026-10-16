@@ -64,3 +64,14 @@
    - Task 34(guard 문서 개정) merge
    - PR #35 검토에서 하네스 관련 지적 정리
 4. held-out 결과는 사전 등록 분석으로 판정한다. 결과 반영은 별도 Codex 문서 Task로 한다.
+
+## 6. 사용자 결정 (2026-10-16)
+
+- D1–D6을 §4 권장안대로 승인했다.
+  - D1 두 모델
+  - D2 템플릿 기본 치수
+  - D3 base+v2(v2 노출 사실 보고)
+  - D4 D의 fallback은 A 응답 재사용
+  - D5 stress 값은 형식 검증만
+  - D6 calibration에서 조정 없음
+- calibration 실행 비용(상한 $0.69)을 승인했다. D7(가설 형식)은 calibration 뒤 사전 등록 초안에서 제안한다.
