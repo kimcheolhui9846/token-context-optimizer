@@ -1,0 +1,1583 @@
+{
+  "runId": "pilot-002",
+  "set": "dev2",
+  "table": {
+    "clean/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 153608
+    },
+    "clean/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 104048.5
+    },
+    "clean/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 696.9722222222222,
+      "meanBytes": 45224.47222222222
+    },
+    "clean/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 696.9722222222222,
+      "meanBytes": 51322.63888888889
+    },
+    "clean/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 418.3611111111111,
+      "meanBytes": 5316.666666666667
+    },
+    "jpeg-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 124673.08333333333
+    },
+    "jpeg-only/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 104559.58333333333
+    },
+    "jpeg-only/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 701.6944444444445,
+      "meanBytes": 45738.333333333336
+    },
+    "jpeg-only/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 701.6944444444445,
+      "meanBytes": 50456.72222222222
+    },
+    "jpeg-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 418.3611111111111,
+      "meanBytes": 5655.722222222223
+    },
+    "downscale-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 85118.16666666667
+    },
+    "downscale-only/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.8055555555555556,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 55033.166666666664
+    },
+    "downscale-only/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 569.4722222222222,
+      "meanBytes": 20720.25
+    },
+    "downscale-only/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 588.3611111111111,
+      "meanBytes": 33233.5
+    },
+    "downscale-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 33,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 356.97222222222223,
+      "meanBytes": 2042.7222222222222
+    },
+    "combined/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 22,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 41653.166666666664
+    },
+    "combined/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 22,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 48334.083333333336
+    },
+    "combined/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 19,
+      "accuracy": 0.5277777777777778,
+      "contentAccuracy": 0.6111111111111112,
+      "meanPromptTokens": 607.25,
+      "meanBytes": 25727.527777777777
+    },
+    "combined/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 607.25,
+      "meanBytes": 23401.833333333332
+    },
+    "combined/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 356.97222222222223,
+      "meanBytes": 2262.8611111111113
+    }
+  },
+  "selector": {
+    "clean": {
+      "matched": 27,
+      "evidenceCoveredAmongMatched": 24,
+      "dFallback": 9,
+      "dAssigned": 36,
+      "dMinusCContent": 0
+    },
+    "jpeg-only": {
+      "matched": 26,
+      "evidenceCoveredAmongMatched": 23,
+      "dFallback": 10,
+      "dAssigned": 36,
+      "dMinusCContent": 0
+    },
+    "downscale-only": {
+      "matched": 27,
+      "evidenceCoveredAmongMatched": 20,
+      "dFallback": 11,
+      "dAssigned": 36,
+      "dMinusCContent": 0.027777777777777776
+    },
+    "combined": {
+      "matched": 23,
+      "evidenceCoveredAmongMatched": 16,
+      "dFallback": 13,
+      "dAssigned": 36,
+      "dMinusCContent": 0.027777777777777776
+    }
+  },
+  "byArm": {
+    "A": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 108,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8472222222222222,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 101263.10416666667
+    },
+    "B": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 100,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.8194444444444444,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 77993.83333333333
+    },
+    "C": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 101,
+      "accuracy": 0.7013888888888888,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 643.8472222222222,
+      "meanBytes": 34352.645833333336
+    },
+    "D": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 103,
+      "accuracy": 0.7152777777777778,
+      "contentAccuracy": 0.7638888888888888,
+      "meanPromptTokens": 648.5694444444445,
+      "meanBytes": 39603.67361111111
+    },
+    "E": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 130,
+      "accuracy": 0.9027777777777778,
+      "contentAccuracy": 0.9027777777777778,
+      "meanPromptTokens": 387.6666666666667,
+      "meanBytes": 3819.4930555555557
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 43,
+      "accuracy": 0.5972222222222222,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 824.8888888888889,
+      "meanBytes": 87830.41666666667
+    },
+    "A/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 65,
+      "accuracy": 0.9027777777777778,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 824.0555555555555,
+      "meanBytes": 114695.79166666667
+    },
+    "B/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 41,
+      "accuracy": 0.5694444444444444,
+      "contentAccuracy": 0.6527777777777778,
+      "meanPromptTokens": 824.8888888888889,
+      "meanBytes": 68367.27777777778
+    },
+    "B/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 59,
+      "accuracy": 0.8194444444444444,
+      "contentAccuracy": 0.9861111111111112,
+      "meanPromptTokens": 824.0555555555555,
+      "meanBytes": 87620.38888888889
+    },
+    "C/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 43,
+      "accuracy": 0.5972222222222222,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 718.6388888888889,
+      "meanBytes": 41698.166666666664
+    },
+    "C/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 58,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 569.0555555555555,
+      "meanBytes": 27007.125
+    },
+    "D/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 45,
+      "accuracy": 0.625,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 728.0833333333334,
+      "meanBytes": 52200.22222222222
+    },
+    "D/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 58,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 569.0555555555555,
+      "meanBytes": 27007.125
+    },
+    "E/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 58,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8055555555555556,
+      "meanPromptTokens": 324.3333333333333,
+      "meanBytes": 1748.2083333333333
+    },
+    "E/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 72,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 451,
+      "meanBytes": 5890.777777777777
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.6458333333333334,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 188979.4375
+    },
+    "A/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 56929.6875
+    },
+    "A/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 41,
+      "accuracy": 0.8541666666666666,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 825.6666666666666,
+      "meanBytes": 57880.1875
+    },
+    "B/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 135965.1875
+    },
+    "B/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 33,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.8958333333333334,
+      "meanPromptTokens": 824.5,
+      "meanBytes": 50887
+    },
+    "B/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 38,
+      "accuracy": 0.7916666666666666,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 825.6666666666666,
+      "meanBytes": 47129.3125
+    },
+    "C/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 38,
+      "accuracy": 0.7916666666666666,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 624.9166666666666,
+      "meanBytes": 54514.958333333336
+    },
+    "C/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "contentAccuracy": 0.6458333333333334,
+      "meanPromptTokens": 629.7083333333334,
+      "meanBytes": 20927.020833333332
+    },
+    "C/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.7708333333333334,
+      "meanPromptTokens": 676.9166666666666,
+      "meanBytes": 27615.958333333332
+    },
+    "D/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 38,
+      "accuracy": 0.7916666666666666,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 632,
+      "meanBytes": 61938
+    },
+    "D/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "contentAccuracy": 0.6458333333333334,
+      "meanPromptTokens": 636.7916666666666,
+      "meanBytes": 25188.270833333332
+    },
+    "D/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 38,
+      "accuracy": 0.7916666666666666,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 676.9166666666666,
+      "meanBytes": 31684.75
+    },
+    "E/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 43,
+      "accuracy": 0.8958333333333334,
+      "contentAccuracy": 0.8958333333333334,
+      "meanPromptTokens": 426.5833333333333,
+      "meanBytes": 6180.520833333333
+    },
+    "E/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 378.25,
+      "meanBytes": 2917.4791666666665
+    },
+    "E/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 45,
+      "accuracy": 0.9375,
+      "contentAccuracy": 0.9375,
+      "meanPromptTokens": 358.1666666666667,
+      "meanBytes": 2360.4791666666665
+    }
+  },
+  "accounting": {
+    "n": 720,
+    "overheadMin": 54,
+    "overheadMax": 66,
+    "distinctOverheads": [
+      54,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      66
+    ]
+  },
+  "totals": {
+    "calls": 720,
+    "costUsd": 1.2253399999999968
+  },
+  "errors": [
+    {
+      "key": "dev2-doc-invoice-dense-1/q1/combined/B",
+      "gold": "INV-98761-A",
+      "answer": "INV-983716-A",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-1/q1/combined/E",
+      "gold": "INV-98761-A",
+      "answer": "196-987651-4",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-1/q1/combined/C",
+      "gold": "INV-98761-A",
+      "answer": "INV-983716-A",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/clean/A",
+      "gold": "INV-20868-C",
+      "answer": "INV-20896-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/clean/B",
+      "gold": "INV-20868-C",
+      "answer": "INV-20846-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/clean/C",
+      "gold": "INV-20868-C",
+      "answer": "INV-20846-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/clean/D",
+      "gold": "INV-20868-C",
+      "answer": "INV-20896-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/jpeg-only/A",
+      "gold": "INV-20868-C",
+      "answer": "INV-20685-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/jpeg-only/B",
+      "gold": "INV-20868-C",
+      "answer": "INV-20686-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/jpeg-only/C",
+      "gold": "INV-20868-C",
+      "answer": "INV-20686-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/jpeg-only/D",
+      "gold": "INV-20868-C",
+      "answer": "INV-20685-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/downscale-only/A",
+      "gold": "INV-20868-C",
+      "answer": "INV-20985-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/downscale-only/B",
+      "gold": "INV-20868-C",
+      "answer": "INV-20985-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/downscale-only/E",
+      "gold": "INV-20868-C",
+      "answer": "INV-20888-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/downscale-only/C",
+      "gold": "INV-20868-C",
+      "answer": "INV-20985-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/downscale-only/D",
+      "gold": "INV-20868-C",
+      "answer": "INV-20985-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/combined/A",
+      "gold": "INV-20868-C",
+      "answer": "INV-20684-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-invoice-dense-2/q1/combined/D",
+      "gold": "INV-20868-C",
+      "answer": "INV-20684-C",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/clean/A",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: ZT-4445-FB6",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/clean/B",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: ZT-445-FB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/clean/A",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/clean/B",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/jpeg-only/A",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: ZT-445-FR8",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/jpeg-only/B",
+      "gold": "ZT-4445-F86",
+      "answer": "ZT-1445-FR8",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/jpeg-only/A",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/jpeg-only/B",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/downscale-only/A",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: ZT-4445-FR6",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/downscale-only/B",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: ZT-445-F36",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/downscale-only/C",
+      "gold": "ZT-4445-F86",
+      "answer": "ZT-4445-F36",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/downscale-only/D",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: ZT-4445-FR6",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/downscale-only/A",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/downscale-only/B",
+      "gold": "D-229",
+      "answer": "Room D-229 is assigned in the notice.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/combined/A",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref. JT-445-FRB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/combined/B",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: JT-445-FVB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/combined/E",
+      "gold": "ZT-4445-F86",
+      "answer": "ZT-4456-F16",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/combined/C",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: JT-445-FVB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q1/combined/D",
+      "gold": "ZT-4445-F86",
+      "answer": "Ref: JT-445-FVB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/combined/A",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/combined/B",
+      "gold": "D-229",
+      "answer": "Room D-229",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/combined/C",
+      "gold": "D-229",
+      "answer": "Room D-229 is assigned in the notice.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-1/q2/combined/D",
+      "gold": "D-229",
+      "answer": "Room D-229 is assigned in the notice.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/clean/A",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-61460-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/clean/B",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-416-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q2/clean/A",
+      "gold": "C-422",
+      "answer": "Room: C-422",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q2/clean/B",
+      "gold": "C-422",
+      "answer": "Room: C-422",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/jpeg-only/A",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-616-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/jpeg-only/B",
+      "gold": "ZT-6140-M46",
+      "answer": "ZT-6146-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/downscale-only/A",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-61460-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/downscale-only/B",
+      "gold": "ZT-6140-M46",
+      "answer": "ZT-6146-M486",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/downscale-only/E",
+      "gold": "ZT-6140-M46",
+      "answer": "ZT 6104-MM",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/downscale-only/C",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-4160-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/downscale-only/D",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-4160-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q2/downscale-only/B",
+      "gold": "C-422",
+      "answer": "Room C-422.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/combined/A",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-6140-MBE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/combined/B",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-410-MAE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/combined/E",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref. ZF-4164-M46",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/combined/C",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref: ZT-410-MAE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q1/combined/D",
+      "gold": "ZT-6140-M46",
+      "answer": "Ref. ZT-6140-MBE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q2/combined/B",
+      "gold": "C-422",
+      "answer": "Room: C-422",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q2/combined/C",
+      "gold": "C-422",
+      "answer": "Room C-422",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-doc-memo-dense-2/q2/combined/D",
+      "gold": "C-422",
+      "answer": "Room C-422",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/clean/A",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/clean/B",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/clean/C",
+      "gold": "9,744",
+      "answer": "Inspection sample n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/clean/D",
+      "gold": "9,744",
+      "answer": "Inspection sample n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/clean/C",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/clean/D",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/jpeg-only/A",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 9,744, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/jpeg-only/B",
+      "gold": "9,744",
+      "answer": "Inspection sample = n = 9,744, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/jpeg-only/C",
+      "gold": "9,744",
+      "answer": "Inspection sample n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/jpeg-only/D",
+      "gold": "9,744",
+      "answer": "Inspection sample n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/jpeg-only/B",
+      "gold": "Mar",
+      "answer": "March",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/jpeg-only/C",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/jpeg-only/D",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/downscale-only/A",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 9,744; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/downscale-only/B",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 9,744, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/downscale-only/C",
+      "gold": "9,744",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/downscale-only/D",
+      "gold": "9,744",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/downscale-only/B",
+      "gold": "Mar",
+      "answer": "March",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/downscale-only/C",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/downscale-only/D",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/combined/A",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 7,741, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/combined/B",
+      "gold": "9,744",
+      "answer": "Inspection sample: n = 7,941, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/combined/E",
+      "gold": "9,744",
+      "answer": "Inspection sample = 9,784.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/combined/C",
+      "gold": "9,744",
+      "answer": "851 and 939.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q2/combined/D",
+      "gold": "9,744",
+      "answer": "851 and 939.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/combined/C",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-1/q3/combined/D",
+      "gold": "Mar",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/clean/C",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/clean/D",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/clean/A",
+      "gold": "3,482",
+      "answer": "Inspection sample: n = 3,482; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/clean/B",
+      "gold": "3,482",
+      "answer": "Inspection sample: n = 3,482; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/clean/C",
+      "gold": "3,482",
+      "answer": "Inspection sample n = 3,482.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/clean/D",
+      "gold": "3,482",
+      "answer": "Inspection sample n = 3,482",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/clean/B",
+      "gold": "Jun",
+      "answer": "June",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/clean/C",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/clean/D",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/jpeg-only/C",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/jpeg-only/D",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/jpeg-only/A",
+      "gold": "3,482",
+      "answer": "Inspection sample: n = 3,482; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/jpeg-only/B",
+      "gold": "3,482",
+      "answer": "Inspection sample: n = 3,482.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/jpeg-only/C",
+      "gold": "3,482",
+      "answer": "Inspection sample n = 3,482.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/jpeg-only/D",
+      "gold": "3,482",
+      "answer": "Inspection sample n = 3,482.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/jpeg-only/A",
+      "gold": "Jun",
+      "answer": "June",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/jpeg-only/B",
+      "gold": "Jun",
+      "answer": "June",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/jpeg-only/C",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/jpeg-only/D",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/downscale-only/C",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/downscale-only/D",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/downscale-only/A",
+      "gold": "3,482",
+      "answer": "Inspection sample n = 3,482; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/downscale-only/B",
+      "gold": "3,482",
+      "answer": "Inspection sample = n = 5,482, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/downscale-only/E",
+      "gold": "3,482",
+      "answer": "3,421",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/downscale-only/C",
+      "gold": "3,482",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/downscale-only/D",
+      "gold": "3,482",
+      "answer": "The inspection sample size noted under the chart is **10%**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/downscale-only/B",
+      "gold": "Jun",
+      "answer": "June",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/downscale-only/C",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/downscale-only/D",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/combined/C",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q1/combined/D",
+      "gold": "928",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/combined/A",
+      "gold": "3,482",
+      "answer": "Inspection sample = n = 3,422, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/combined/B",
+      "gold": "3,482",
+      "answer": "Inspection sample = n = 5,422, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/combined/E",
+      "gold": "3,482",
+      "answer": "Inspection sample = 5,432 warrant audits evaluated.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/combined/C",
+      "gold": "3,482",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q2/combined/D",
+      "gold": "3,482",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/combined/A",
+      "gold": "Jun",
+      "answer": "June",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/combined/B",
+      "gold": "Jun",
+      "answer": "March",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/combined/C",
+      "gold": "Jun",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-bar12-2/q3/combined/D",
+      "gold": "Jun",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-1/q1/combined/E",
+      "gold": "86.1",
+      "answer": "85.1",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-1/q3/combined/A",
+      "gold": "06:57",
+      "answer": "08:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-1/q3/combined/B",
+      "gold": "06:57",
+      "answer": "08:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-1/q3/combined/E",
+      "gold": "06:57",
+      "answer": "08:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-1/q3/combined/C",
+      "gold": "06:57",
+      "answer": "08:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-1/q3/combined/D",
+      "gold": "06:57",
+      "answer": "08:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-2/q1/combined/A",
+      "gold": "86.8",
+      "answer": "36.8",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-chart-line-small-2/q1/combined/E",
+      "gold": "86.8",
+      "answer": "88.8",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q2/downscale-only/B",
+      "gold": "3123",
+      "answer": "Build 312.",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q3/downscale-only/C",
+      "gold": "57.8 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q3/downscale-only/D",
+      "gold": "57.8 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q2/combined/A",
+      "gold": "3123",
+      "answer": "Firmware 7.8.53 (build 3121)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q2/combined/B",
+      "gold": "3123",
+      "answer": "Firmware 7.8.52 (build 3015)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q2/combined/E",
+      "gold": "3123",
+      "answer": "Build 1713",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q2/combined/C",
+      "gold": "3123",
+      "answer": "Firmware 7.8.52 (build 3015)",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q2/combined/D",
+      "gold": "3123",
+      "answer": "Build 31121",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q3/combined/A",
+      "gold": "57.8 GB",
+      "answer": "57.3 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q3/combined/E",
+      "gold": "57.8 GB",
+      "answer": "57.5 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q3/combined/C",
+      "gold": "57.8 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-1/q3/combined/D",
+      "gold": "57.8 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q3/downscale-only/C",
+      "gold": "52.6 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q3/downscale-only/D",
+      "gold": "52.6 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q2/combined/A",
+      "gold": "4021",
+      "answer": "Firmware 7.9.0 (build 4021)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q2/combined/B",
+      "gold": "4021",
+      "answer": "Firmware 7.9.3 (build 4021)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q2/combined/E",
+      "gold": "4021",
+      "answer": "4003",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q2/combined/C",
+      "gold": "4021",
+      "answer": "Firmware 7.9.0 (build 4021)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q2/combined/D",
+      "gold": "4021",
+      "answer": "Firmware 7.9.0 (build 4021)",
+      "contentCorrect": true
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q3/combined/A",
+      "gold": "52.6 GB",
+      "answer": "52.4 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q3/combined/B",
+      "gold": "52.6 GB",
+      "answer": "57.6 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q3/combined/C",
+      "gold": "52.6 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-settings-dense-2/q3/combined/D",
+      "gold": "52.6 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/clean/A",
+      "gold": "73",
+      "answer": "13",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/clean/B",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/clean/C",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/clean/D",
+      "gold": "73",
+      "answer": "13",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/jpeg-only/A",
+      "gold": "73",
+      "answer": "15",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/jpeg-only/B",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/jpeg-only/C",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/jpeg-only/D",
+      "gold": "73",
+      "answer": "7",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/downscale-only/B",
+      "gold": "73",
+      "answer": "71",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/downscale-only/C",
+      "gold": "73",
+      "answer": "71",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q3/downscale-only/B",
+      "gold": "06:49",
+      "answer": "08:49",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q3/downscale-only/C",
+      "gold": "06:49",
+      "answer": "08:49",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q3/downscale-only/D",
+      "gold": "06:49",
+      "answer": "08:49",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/combined/A",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/combined/B",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/combined/C",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-1/q1/combined/D",
+      "gold": "73",
+      "answer": "75",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-2/q3/combined/B",
+      "gold": "03:12",
+      "answer": "13:12",
+      "contentCorrect": false
+    },
+    {
+      "key": "dev2-ui-dashboard-dense-2/q3/combined/C",
+      "gold": "03:12",
+      "answer": "13:12",
+      "contentCorrect": false
+    }
+  ]
+}

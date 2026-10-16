@@ -1,0 +1,16 @@
+{
+  "runId": "pilot-003",
+  "set": "dev3",
+  "provider": "openai",
+  "model": "gpt-4o-2024-11-20",
+  "detail": "high",
+  "temperature": 0,
+  "maxTokens": 40,
+  "system": "You answer a question about the attached image. Reply with only the answer value, without explanation or extra words. If the answer cannot be read in the image, reply UNREADABLE.",
+  "price": {
+    "inputPerM": 2.5,
+    "outputPerM": 10
+  },
+  "orderSeed": 20261014,
+  "startedAt": "2026-10-14T12:11:25.483Z"
+}

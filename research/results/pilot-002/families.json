@@ -1,0 +1,700 @@
+{
+  "purpose": "thin-slice development set dev2; not calibration, not held-out",
+  "set": "dev2",
+  "sharp": "0.35.4",
+  "vips": "8.18.6",
+  "families": [
+    {
+      "id": "dev2-doc-invoice-dense-1",
+      "domain": "document",
+      "seed": 2000,
+      "clean": {
+        "file": "clean/dev2-doc-invoice-dense-1.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 138952,
+        "sha256": "7a11d28d9abfda77131feb03cbdaa01b2f30f0d004ea870f8cfc9449dda2c11b"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the invoice number?",
+          "answers": [
+            "INV-98761-A"
+          ],
+          "evidence": [
+            1275,
+            108,
+            181,
+            15
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What is the amount for the line item \"Hex bolt M10\"?",
+          "answers": [
+            "1,252.72"
+          ],
+          "evidence": [
+            100,
+            396,
+            1336,
+            21
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "What is the total amount on the invoice?",
+          "answers": [
+            "$21,948.11",
+            "21,948.11"
+          ],
+          "evidence": [
+            1004,
+            1278,
+            432,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-doc-invoice-dense-2",
+      "domain": "document",
+      "seed": 2001,
+      "clean": {
+        "file": "clean/dev2-doc-invoice-dense-2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 135137,
+        "sha256": "2d680d828e78e32c06089511272f777b3b99f13caedba35f0dc73ba0d64e629f"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the invoice number?",
+          "answers": [
+            "INV-20868-C"
+          ],
+          "evidence": [
+            1275,
+            108,
+            181,
+            15
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What is the amount for the line item \"V-belt A48\"?",
+          "answers": [
+            "165.48"
+          ],
+          "evidence": [
+            100,
+            844,
+            1336,
+            21
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "What is the total amount on the invoice?",
+          "answers": [
+            "$15,210.85",
+            "15,210.85"
+          ],
+          "evidence": [
+            1004,
+            1278,
+            432,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-doc-memo-dense-1",
+      "domain": "document",
+      "seed": 2010,
+      "clean": {
+        "file": "clean/dev2-doc-memo-dense-1.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 479831,
+        "sha256": "29a76dc2fabb573951a6f40021dc418be6fa8ad0612da9b2b9774886c061ef7c"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-4445-F86"
+          ],
+          "evidence": [
+            80,
+            1954,
+            452,
+            14
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which room is assigned in the notice?",
+          "answers": [
+            "D-229"
+          ],
+          "evidence": [
+            80,
+            914,
+            986,
+            21
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "On what date was the notice issued? Answer as day month year.",
+          "answers": [
+            "5 March 2026"
+          ],
+          "evidence": [
+            80,
+            189,
+            292,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-doc-memo-dense-2",
+      "domain": "document",
+      "seed": 2011,
+      "clean": {
+        "file": "clean/dev2-doc-memo-dense-2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 480564,
+        "sha256": "c0ec654f6a539af3cdf9186f5c97bbecdd5fe154c5bd3085367d1a4e06490425"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-6140-M46"
+          ],
+          "evidence": [
+            80,
+            1954,
+            452,
+            14
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which room is assigned in the notice?",
+          "answers": [
+            "C-422"
+          ],
+          "evidence": [
+            80,
+            1144,
+            1053,
+            21
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "On what date was the notice issued? Answer as day month year.",
+          "answers": [
+            "10 January 2026"
+          ],
+          "evidence": [
+            80,
+            189,
+            335,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-chart-bar12-1",
+      "domain": "chart",
+      "seed": 2020,
+      "clean": {
+        "file": "clean/dev2-chart-bar12-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 53517,
+        "sha256": "1b2558033b5b05ed71c222124085264a62121e7f04e7722312ad12c228ecee74"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "What value is labeled on the Nov bar?",
+          "answers": [
+            "106"
+          ],
+          "evidence": [
+            1700,
+            1159,
+            100,
+            185
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "9,744",
+            "9744"
+          ],
+          "evidence": [
+            160,
+            1449,
+            386,
+            14
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Mar"
+          ],
+          "evidence": [
+            500,
+            259,
+            100,
+            1085
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-chart-bar12-2",
+      "domain": "chart",
+      "seed": 2021,
+      "clean": {
+        "file": "clean/dev2-chart-bar12-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 58885,
+        "sha256": "f13d50017d56009cef080e7ee376caee44d683f2cb6508aa6d122db02f398e0f"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "What value is labeled on the Jun bar?",
+          "answers": [
+            "928"
+          ],
+          "evidence": [
+            950,
+            271,
+            100,
+            1073
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "3,482",
+            "3482"
+          ],
+          "evidence": [
+            160,
+            1449,
+            386,
+            14
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": false,
+          "text": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Jun"
+          ],
+          "evidence": [
+            950,
+            271,
+            100,
+            1073
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-chart-line-small-1",
+      "domain": "chart",
+      "seed": 2030,
+      "clean": {
+        "file": "clean/dev2-chart-line-small-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 99220,
+        "sha256": "c69e52c68030077d5e246f56d8197df3e06f7cc19bf6beb3c7247b03a7af7f1a"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What value is written next to the peak marker?",
+          "answers": [
+            "86.1"
+          ],
+          "evidence": [
+            240,
+            376,
+            95,
+            36.05000000000007
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": [
+            760,
+            1307,
+            303,
+            86
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "06:57"
+          ],
+          "evidence": [
+            1848,
+            49,
+            132,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-chart-line-small-2",
+      "domain": "chart",
+      "seed": 2031,
+      "clean": {
+        "file": "clean/dev2-chart-line-small-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 88842,
+        "sha256": "9fead7f21d5dd4c9b9f495cdf565decacdb1a1fcff5c4b89c68d63dd6c65df5f"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What value is written next to the peak marker?",
+          "answers": [
+            "86.8"
+          ],
+          "evidence": [
+            480,
+            370,
+            95,
+            35.39999999999998
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Alpha",
+            "Alpha"
+          ],
+          "evidence": [
+            760,
+            1307,
+            303,
+            86
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "10:21"
+          ],
+          "evidence": [
+            1848,
+            49,
+            132,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-ui-settings-dense-1",
+      "domain": "ui",
+      "seed": 2040,
+      "clean": {
+        "file": "clean/dev2-ui-settings-dense-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 85336,
+        "sha256": "1bfe3c1040b01fefe1a4299ec578158f82018d63946f1862c2bfb346ef73e218"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "Is Do not disturb turned on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": [
+            490,
+            1122,
+            1374,
+            40
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "3123"
+          ],
+          "evidence": [
+            1786,
+            1489,
+            204,
+            14
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "57.8 GB"
+          ],
+          "evidence": [
+            48,
+            1428,
+            244,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-ui-settings-dense-2",
+      "domain": "ui",
+      "seed": 2041,
+      "clean": {
+        "file": "clean/dev2-ui-settings-dense-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 85162,
+        "sha256": "6e5721ba1a4870ed04eb50f5e6569e895f04787045fe0d10b7eb79f218155a2e"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "Is Auto-rotate turned on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": [
+            490,
+            828,
+            1374,
+            40
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "4021"
+          ],
+          "evidence": [
+            1786,
+            1489,
+            204,
+            14
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "52.6 GB"
+          ],
+          "evidence": [
+            48,
+            1428,
+            244,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-ui-dashboard-dense-1",
+      "domain": "ui",
+      "seed": 2050,
+      "clean": {
+        "file": "clean/dev2-ui-dashboard-dense-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 69347,
+        "sha256": "a7d65f37ad80ac0195d33035c12dcd6474d09e301c8e5cc0221b5bd59f1b1c73"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What number is shown on the notification badge?",
+          "answers": [
+            "73"
+          ],
+          "evidence": [
+            1898,
+            6,
+            46,
+            46
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What value is shown on the \"Deployments\" card?",
+          "answers": [
+            "13",
+            "13"
+          ],
+          "evidence": [
+            1078,
+            860,
+            148,
+            166
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "06:49"
+          ],
+          "evidence": [
+            1750,
+            45,
+            110,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev2-ui-dashboard-dense-2",
+      "domain": "ui",
+      "seed": 2051,
+      "clean": {
+        "file": "clean/dev2-ui-dashboard-dense-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 68503,
+        "sha256": "c41bee6ee8e96983624f58c4eec1b00c0b8c6b3b0a628b44937519dc4d22b85b"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What number is shown on the notification badge?",
+          "answers": [
+            "30"
+          ],
+          "evidence": [
+            1898,
+            6,
+            46,
+            46
+          ]
+        },
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What value is shown on the \"Error rate\" card?",
+          "answers": [
+            "2.28%",
+            "2.28%"
+          ],
+          "evidence": [
+            586,
+            860,
+            180,
+            166
+          ]
+        },
+        {
+          "id": "q3",
+          "smallText": true,
+          "text": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "03:12"
+          ],
+          "evidence": [
+            1750,
+            45,
+            110,
+            14
+          ]
+        }
+      ]
+    }
+  ]
+}
