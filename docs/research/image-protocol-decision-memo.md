@@ -635,3 +635,5 @@ D3.4a와 D3.4b는 PNG encode와 PNG canonical의 커버리지를 바꾸므로 �
 - **한계.** 이 기록은 효과, 안전성, 비용 절감, 검정력을 주장하지 않는다. 실험, encoder, 이미지 생성, hosted 호출, count-tokens는 실행하지 않았다.
 
 - **arm 단위 보충 읽기.** F1에서 RGBA crop O2는 모두 불필요하다. JPEG crop O3는 C/D/E에서 PNG/JPEG 조건을 합쳐 조건부이며 B는 crop하지 않아 불필요하다. RGB crop O1도 C/D/E arm 단위로는 조건부다(E의 CL/DO 셀에서 필요한 crop과 arm 병합 결과를 구분). 이는 base §6.5 L384–399를 읽은 결과이며 일반 표는 변경하지 않았다.
+
+**2026-10-14 사용자 채택, 2026-10-16 Task 34 개정:** 17개 D1–D4 필드와 기존 결정 이력은 유지한다. [권위 프로토콜](./image-first-evaluation-protocol.md)과 [Task 34 핸드오프](../agent/handoffs/task-34.md)에 따라 response guard의 case-insensitive `UNREADABLE`, D의 동일 배정 variant as-is 1회 fresh-session 재요청, primary D−A 및 secondary D−C/C−B를 적용한다.

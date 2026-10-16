@@ -22,9 +22,9 @@
 안전하다고 결론 낼 수 없다.
 
 본 제안의 목표는 원본 이미지 전체를 모든 요청에 전달해야 한다는 가정을 시험하는 것이다. 질문과
-이미지의 제한된 신호를 이용해 선택기가 후보 영역을 선택하고 고정된 출력 변환을 적용하며, guard가 작은 글자나
-얇은 선의 손상 위험이 높다고 판단하면 보수적으로 원본을 보낸다. 이 보수적 fallback은 설계상의 안전장치이며 아직 안전하다고 검증된 규칙은
-아니다. 또한 소프트웨어 아티팩트와 시각적 손상 아티팩트를 구분한다. 소프트웨어 아티팩트는 이미지의
+이미지의 제한된 신호를 이용해 선택기가 후보 영역을 선택하고 고정된 출력 변환을 적용한다. response guard가
+응답에 `UNREADABLE`을 포함한다고 판단하면 D는 같은 배정 variant를 한 번 재요청한다. 이 재요청이 보수적
+fallback이며, 설계상의 안전장치일 뿐 아직 안전하다고 검증된 규칙은 아니다. 또한 소프트웨어 아티팩트와 시각적 손상 아티팩트를 구분한다. 소프트웨어 아티팩트는 이미지의
 경로, 해시, 변환 이력, 모델과 질문의 식별자처럼 재현과 감사에 필요한 기록이다. 시각적 손상
 아티팩트는 축소, 재인코딩, 잘림으로 인해 픽셀 증거가 변하는 결과물이다. 전자를 보존해도 후자의
 정보 손실이 사라지지는 않는다.
@@ -69,22 +69,26 @@ crop, 같은 템플릿의 near-duplicate, 서로 다른 입력 조건을 교차 
 설정을 쓴다고 주장하지 않는다. resize의 실제 적용은 입력 조건과 crop 결과 치수에 달린다(§4 참조). resize 단계가
 identity일 수 있으므로 실제 effective transform을 별도 기록에 남긴다. 선택기는 질문의 핵심 문자열, OCR의 작은 글자 밀도,
 선·표·UI 영역의 예상 손상 신호를 이용해 영역 후보를 정렬할 수 있다. 구체적인 영역 규칙, 점수, tie break는 아직 정하지
-않았다. OCR 엔진과 버전이 고정되지 않으면 선택기 결과는 실행할 수 없으므로, OCR 바인딩은 실행 전 gate다.
+않았다. 사전 OCR guard는 사용하지 않는다. OCR 엔진·버전, 정확한 선택 규칙과 response guard의 frozen binding은 실행 전 gate다.
 
-### 3.2 증거 guard와 fallback
+### 3.2 응답 guard와 fallback
+
+D의 첫 호출은 C와 별도의 fresh session 호출이며 C의 응답을 재사용하지 않는다.
+
+response guard는 변환된 입력에 대한 첫 응답에 대소문자를 구분하지 않는 `UNREADABLE` substring이 있는지 검사한다. 사전 OCR guard는 수행하지 않는다. D에서 해당하면 같은 배정 source variant를 변환 없이 그대로 fresh session에서 최대 한 번 재요청하며, A의 응답을 재사용하거나 재귀하지 않는다. 최종 D answer는 두 번째 호출의 응답으로 정하고 첫 번째와 두 번째 호출 각각의 tokens·cost·latency를 기록하며, D 결과에는 두 호출 값을 합산한다. `UNREADABLE`이 없으면 첫 응답을 최종 응답으로 쓴다. 판독 불가 표지의 발생은 모델과 입력에 따라 달라질 수 있으며, 모델이 오답에도 표지를 내지 않으면 응답 기반 재요청은 작동하지 않는다. 원본 재요청도 공급자 축소로 작은 글자 판독을 보장하지 않는다.
 
 full original과 original fallback의 원본은 해당 slot에 배정된 source variant다. 손상 조건의 원본 복귀는
 손상된 입력으로 되돌아갈 뿐이며, 숨겨진 canonical clean 이미지를 복구해 전달하지 않는다.
 
-후보가 원본보다 작더라도 증거 손상 위험이 높으면 원본을 선택한다. guard는 작은 글자와 증거 영역의
-기하, crop 경계, 변환 전후의 해상도·형식을 기록하고, 보존 조건을 만족하지 않는 후보를 거부한다.
-guard에서 쓰는 규칙은 calibration에서만 조정하고 held-out 질문에 맞춰 다시 조정하지 않는다. 작은
-글자에 대한 임의의 인증 임계값은 두지 않는다. fallback 사용률은 결과의 일부이며, fallback이 많다는
-사실은 최적화가 잘 되었다는 뜻이 아니다. 입력 stress recipe와 guard의 calibration 및 공동 freeze 순서는 §4에 따르며, 이번 문서는 calibration 결과를 보고하지 않는다.
+response guard는 응답 상태와 실제 배정 variant, crop 경계, 변환 전후의 해상도·형식을 기록한다. 후보 변환의
+시각적 보존을 보장한다고 표현하지 않는다.
+승인된 case-insensitive `UNREADABLE` response guard 규칙은 calibration에서 확인만 하고 변경하지 않으며, 변경에는 새 사용자 결정이 필요하다. held-out 질문에 맞춰 다시 조정하지 않는다. 작은
+글자에 대한 임의의 인증 임계값은 두지 않는다. 재요청률은 결과의 일부이며, fallback이 많다는
+사실은 최적화가 잘 되었다는 뜻이 아니다. 입력 stress recipe와 승인된 response guard의 calibration 확인 및 공동 freeze 순서는 §4에 따르며, 이번 문서는 calibration 결과를 보고하지 않는다.
 
-선택기와 guard의 출력은 원본 또는 하나의 변환 이미지와 함께 provenance manifest로 저장한다. manifest에는
-원본·출력 SHA-256, 너비·높이, 형식, crop 좌표, 선택 이유, 변환 프리셋, 모델 snapshot, 질문 hash,
-사용량, 지연, 상태, fallback 여부를 포함한다. 출력 경로는 허용된 workspace 아래로만 해석하고 원본을
+선택기와 response guard의 출력은 원본 또는 하나의 변환 이미지와 함께 provenance manifest로 저장한다. manifest에는
+원본·출력 SHA-256, 너비·높이, 형식, crop 좌표, 선택 이유, 변환 프리셋, OCR engine/version, 모델 snapshot, 질문 hash,
+사용량, tokens·비용·지연, 상태, `UNREADABLE` 판정과 재요청(fallback) 여부를 포함한다. OCR·선택 latency도 기록한다. 출력 경로는 허용된 workspace 아래로만 해석하고 원본을
 덮어쓰지 않는다.
 
 ### 3.3 비용과 관측
@@ -147,10 +151,10 @@ quality 50과 긴 변 상한 1024는 근거로 최적화한 값이 아니라 사
 12개 calibration family에서 이 잠정값을 확인하되, 무엇을 확인하면 검증된 것으로 볼지 기준은 아직 정하지 않았고
 사용자가 실행 전에 결정한다. 어떤 stress 값 변경도 사전 사용자 승인 뒤에만 하며 이전 값, 새 값, 이유를 기록한다.
 arm의 1536/quality 75는 유지하며 이 절차는 arm preset 변경 허가가 아니다. 순서는 다음과 같다. stress recipe를 먼저
-고정하고 그 recipe에서 guard를 조정한다. 이후 stress 값이 바뀌면 최종 값에서 guard를 다시 확인하고, held-out 시작
-전에 stress recipe와 guard를 함께 freeze한다. held-out 결과를 이용한 튜닝은 금지한다. stress 값이 바뀔 때마다 조건
+고정하고 그 recipe에서 승인된 response guard 규칙을 확인한다. 규칙 변경은 새 사용자 결정이 필요하다. 이후 stress 값이 바뀌면 최종 값에서 고정 규칙을 다시 확인하고, held-out 시작
+전에 stress recipe와 response guard를 함께 freeze한다. held-out 결과를 이용한 튜닝은 금지한다. stress 값이 바뀔 때마다 조건
 공통이며 후보값과 다르다는 일관성, 긴 변 상한이 1536보다 작다는 조건, clean/stress 치수 부등식, JPEG decoder
-accounting 상한, 최종 값에서의 guard 조정을 다시 확인한다. 이번 문서는 calibration을 실행하지 않았고 통과 기준도
+accounting 상한, 최종 값에서의 response guard 확인을 다시 한다. 이번 문서는 calibration 결과를 보고하지 않으며 통과 기준도
 제시하지 않는다.
 
 치수 범위에 대한 JPEG decoder accounting 검토는 산술적 한계 검토이며, 실제 encoder 출력·encoded 크기·프로필
@@ -158,18 +162,18 @@ accounting 상한, 최종 값에서의 guard 조정을 다시 확인한다. 이�
 [결정 메모](./image-protocol-decision-memo.md)의 accounting 산술 기록 참조).
 
 고정된 모델과 질문마다 다음 다섯 arm을 같은 source variant에 적용한다. (A) full original, (B) naive
-resize/compression, (C) query-aware selection without artifact guard, (D) 동일 selection과 artifact
+resize/compression, (C) query-aware selection without response guard, (D) 동일 selection과 response
 guard 및 보수적 original fallback, (E) 사람의 evidence-region oracle 진단. 현재 선택에서 B, C와 D의 변환 경로,
 E는 §3.1의 같은 출력 변환 설정 하나를 쓴다. B는 crop하지 않고 그 변환만 적용한다. C와 D는 선택기가 영역만 정하고
-선택 영역을 처리한 뒤 같은 변환을 적용하며, D의 변환 경로는 C와 같다. E는 oracle crop 뒤에 같은 변환을 적용한다.
-A와 D의 fallback은 배정된 source variant를 그대로 전달하므로 이 변환을 받지 않는다. B가 crop하지 않는다는 것과
+선택 영역을 처리한 뒤 같은 변환을 적용하며, D의 변환 경로는 C와 같다. selector가 window를 내지 않으면 첫 호출에는 C/D의 full-frame 변환을 쓰며, 이 첫 호출은 fallback이 아니다. E는 oracle crop 뒤에 같은 변환을 적용한다.
+A의 full original은 배정된 source variant를 그대로 전달한다. D의 response requery는 같은 배정 variant를 as-is로 전달한다. B가 crop하지 않는다는 것과
 변환 arm의 최종 출력이 quality 75의 목표 프로필 JPEG라는 것은 다른 선택에서 자동으로 도출한 것이 아니라 각각 별도의
 사용자 결정이다. E는 숨은 증거 영역을 사용하고
 다른 arm의 튜닝이나 운영에는 사용하지 않는다. E annotation은 배정된 source variant에서 만든 frozen geometry와
-crop만 쓰며 deployable arm에 전달하지 않는다. 모든 arm은 같은 질문, 모델, detail 설정, output cap을 받는다.
+crop만 쓰며 deployable arm에 전달하지 않는다. 모든 arm은 같은 질문, 모델, frozen instruction(“답을 읽을 수 없으면 UNREADABLE이라고 답하라”), detail 설정, output cap을 받는다. `UNREADABLE` 판정은 대소문자를 구분하지 않는 substring 검사다.
 같은 출력 변환 설정은 같은 출력 치수나 같은 bytes를 뜻하지 않는다. selector 때문에 crop 수나 영역, transform
 budget이 달라지면 selector만의 효과로 해석하지 않고 출력 size와 effective transform 차이를 함께 보고한다. C와 D는
-같은 selection에서 guard와 보수적 fallback의 유무만 다르게 둔다. preexisting corruption과 이번 변환이 도입한
+같은 selection에서 응답 기반 재요청(보수적 fallback)의 유무만 다르게 둔다. preexisting corruption과 이번 변환이 도입한
 degradation을 분리해 기록한다.
 입력 조건의 recipe는 위 표를 따르며, 네 입력 조건에서 source family를 함께 유지한다.
 
@@ -182,46 +186,47 @@ resize 단계의 실제 적용은 입력 조건에 따라 다르다. downscale-o
 identity resize의 no-op 처리, 중간 crop 저장 방식, resize 필터와 반올림은 아직 정하지 않았고, 실제 출력 bytes와 손실
 크기는 측정되지 않았다.
 
-탐색용 36 family × 질문 1개 × 조건 4개 × arm 5개는 frozen model에서 계획된 720 calls다. 이 중
-production arms A–D는 576 calls, oracle arm E는 144 calls다. 이는 실행된 수가 아니라 계획 수이며 calibration
-호출은 별도로 센다. 반복을 추가하면 사전에 횟수를 고정하고 분모에 포함한다. runtime failure와 timeout은
+탐색용 36 family × 질문 1개 × 조건 4개 × arm 5개는 frozen model에서 계획된 720 slots다. 이 중
+production arms A–D는 576 planned slots, oracle arm E는 144 planned slots다. 이는 실행된 수가 아니라 계획 수이며 calibration
+호출은 별도로 센다. 반복을 추가하면 사전에 횟수를 고정하고 분모에 포함한다. error retry와 response requery는
+추가 attempts로 별도 센다. runtime failure와 timeout은
 할당된 분모에서 incorrect로 센다. 실행하지 않은 slot은 failure와 구분해 `not_started`로 남기며, 완료된 연구의
-증거로 쓰지 않는다. retry 호출과 비용은 별도로 센다. 원본 보존, 경로 안전성, manifest 완전성은 모델 점수와
+증거로 쓰지 않는다. error retry와 response requery 호출 및 비용은 별도로 센다. 조건부 requery가 실패·timeout·invalid output이면 기존 규칙대로 assigned slot을 incorrect로 기록하고 usage·cost·tokens가 없으면 unknown으로 남긴다. 원본 보존, 경로 안전성, manifest 완전성은 모델 점수와
 별도의 gate다.
 
-분석은 family-cluster paired summary를 우선하고, primary 대비는 D−C 하나로 둔다. C−B와 D−A는 secondary
+분석은 family-cluster paired summary를 우선하고, primary 대비는 D−A 하나로 둔다. D−C와 C−B는 secondary
 exploratory 대비이며, 유의성 또는 non-inferiority 주장은 별도의 검정력과 margin을 사전 등록하기 전에는 하지
-않는다. oracle은 guard가 보존할 수 있는 이상적 영역 신호의 진단으로만 보고한다. 모든 결과는 원본 대비 답
-정확도, 증거의 가독성, fallback 사용률과 그 비용, 변환·선택 지연, 알려지지 않은 사용량을 분리한다.
+않는다. oracle은 숨은 증거 영역을 사용한 진단으로만 보고한다. 모든 결과는 원본 대비 답
+정확도, 증거의 가독성, 재요청률(requery rate)과 그 비용, 변환·선택 지연, 알려지지 않은 사용량을 분리한다.
 
-primary metric은 planned production slot의 family-averaged QA success다. fallback 사용률(fallback rate)은 전체와 입력
-조건별로 primary D−C와 함께 보고한다. 분자는 held-out에서 D에 배정된 slot 중 guard 결정이 fallback을 선택한 slot
-수이고, 분모는 D에 배정된 slot 수로 전체 144, 입력 조건별 36이다. guard 결정이 기록되지 않은 slot(`not_started` 등)은
-분자에서만 제외하고 그 수를 따로 보고하며 분모에는 그대로 둔다. fallback 호출의 비용과 지연은 D의 결과에 포함한다.
-fallback 사용률로 slot을 제외하거나 primary를 조정하지 않는다. 이 지표는
+primary metric은 planned production slot의 family-averaged QA success다. 응답 기반 fallback은 곧 재요청을 뜻한다.
+재요청률(requery rate)은 이 operation이 일어난 비율을 나타내는 지표이며, 전체와 입력 조건별로 primary D−A와 함께 보고한다. 분자는 held-out에서 D에 배정된 slot 중 response guard가 실제로 재요청한 slot
+수이고, 분모는 D에 배정된 slot 수로 전체 144, 입력 조건별 36이다. response guard 결정이 기록되지 않은 slot(`not_started` 등)은
+분자에서만 제외하고 그 수를 따로 보고하며 분모에는 그대로 둔다. 재요청 호출의 비용과 지연은 D의 결과에 포함한다.
+재요청률로 slot을 제외하거나 primary를 조정하지 않는다. 이 지표는
 [프로토콜](./image-first-evaluation-protocol.md) §7의 provider rejection 비율(n/N, n/S)과 다른 지표이며 그 분모를
-재사용하지 않는다. 기존 failure, retry, `not_started` 규칙은 그대로이고, calibration에 대한 fallback 분모는 따로
+재사용하지 않는다. 기존 failure, retry, `not_started` 규칙은 그대로이고, calibration에 대한 재요청률 분모는 따로
 정의하지 않는다.
 
-D−C의 해석에는 경계가 있다. guard가 수락한 후보를 바꾸지 않는다고 읽으면 설계상 입력 선택 차이는 D가 fallback한
-slot에서만 가능하다. 이는 필요조건이며 충분조건이 아니다. 수락 slot에서 C와 D가 같은 artifact를 쓰는지와 변환의
+D−C의 해석에는 경계가 있다. C와 D의 설계상 입력 경로 차이는 response requery 자체뿐이다. 독립 호출의 응답이
+같다고 보장하지 않으며, 수락 slot에서 같은 artifact를 쓰는지와 변환의
 결정성은 검증되지 않았다. fallback slot에서도 C의 출력은 JPEG이므로 clean·downscale-only의 PNG variant와 bytes가 같을
 수 없고, JPEG-only·combined에서는 byte 일치 가능성을 배제하지 못하지만 측정하지 않았다. fallback slot의 빈도는 실행
 전에 알 수 없다. downscale-only와 clean, combined와 JPEG-only·clean의 치수 구분은 준비 단계의 상한 downscale이 실제로
 실현될 때의 도출이다. 이는 치수 구분일 뿐이며, 네 조건의 pixel 배열이 모두 서로 다르다거나 quality 50의 손상 또는
 효과가 입증됐다는 뜻이 아니다.
 
-## 5. 결과는 아직 측정되지 않음
+## 5. 이번 문서에서 결과를 보고하지 않음
 
-이미지 입력에 대한 모델 호출, OCR telemetry, 시각적 grader, hosted latency, usage 또는 실제 비용 결과는
-아직 실행되지 않았다. 따라서 본 문서에는 정확도, 실측 절감률, 안전 임계값, 통계적 유의성, 우월성 수치를
+이번 문서는 이미지 입력에 대한 모델 호출, OCR telemetry, 시각적 grader, hosted latency, usage 또는 실제 비용에 대한
+결과를 보고하지 않는다. 따라서 본 문서에는 정확도, 실측 절감률, 안전 임계값, 통계적 유의성, 우월성 수치를
 제시하지 않는다. 앞 절의 수치는 기존 공식 회계 규칙과 예제 치수에서 얻은 산술 추정일 뿐 실험 결과가
 아니다. 현재의 텍스트 및 PNG, JPEG 엔지니어링 테스트는 입력·저장소·오류 처리 계약을 검증할 뿐 이미지
 최적화 방법의 효과를 검증하지 않는다.
 
 ## 6. 논의와 한계
 
-질의 인식 선택은 질문을 사용하므로 질문이 바뀌면 선택도 바뀐다. OCR 오류, crop 경계, 화면 배율,
+질의 인식 선택은 질문을 사용하므로 질문이 바뀌면 선택도 바뀐다. 판독 불가 표지의 발생은 모델과 입력에 따라 달라질 수 있으며, 모델이 오답에도 표지를 내지 않으면 응답 기반 재요청은 작동하지 않는다. 원본 재요청도 공급자 축소로 작은 글자 판독을 보장하지 않는다. provider의 원본 자동 축소와 crop 경계, 화면 배율,
 모델의 detail 처리와 숨은 토큰화는 guard를 통과해도 시각적 의미를 손상할 수 있다. 보수적 fallback은
 손실을 줄일 수 있다는 가설일 뿐 안전을 보장하지 않는다. 하나의 작은 파일럿은 일반화나 비용 체계를
 증명하지 않는다. public benchmark의 license와 접근 조건, 모델 정책과 개인정보 승인은 별도 gate다.
@@ -240,15 +245,15 @@ Anthropic의 공개 회계식에 품질 변수가 없고 Gemini의 영향도 문
 이번 pilot의 직접 생성한 합성(소유) 아티팩트는 재현성과 숨은 정답 통제를 돕지만 실제 문서 다양성을 대표하지 않을 수 있다.
 외부 데이터는 각 family를 함께 split하고 hash와 버전을 고정해야 한다. UI 결과를 문서 결과와 섞으면
 오류 원인을 잃으므로 domain별로 보고한다. 동영상은 프레임 간 일관성과 시간적 증거가 추가되므로,
-이미지 guard와 pilot이 검증되고 사용자가 승인한 뒤의 미래 작업으로만 남긴다.
+이미지 response guard와 pilot이 검증되고 사용자가 승인한 뒤의 미래 작업으로만 남긴다.
 
 ## 7. 결론
 
-본 논문은 외부 정적 이미지 최적화를 질문 인식 선택, artifact guard, 원본 fallback, provenance 계측의
+본 논문은 외부 정적 이미지 최적화를 질문 인식 선택, response guard, 원본 fallback, provenance 계측의
 묶음으로 제안한다. 연구의 핵심 성공 조건은 바이트 감소가 아니라 같은 질문의 증거를 보존하면서
 재현 가능한 관측을 남기는지다. 최적화 방법과 모델 평가는 아직 설계 단계다. 제한된 PNG 및 baseline
-4:4:4 JFIF JPEG 입력 검증과 원본 추적(M1a)만 구현되어 있으며 이미지 모델 측정 결과는 없다. 다음 단계는 입력 프로필 확장,
-resize/crop provenance, guard와 fallback, 평가 adapter를
+4:4:4 JFIF JPEG 입력 검증과 원본 추적(M1a)만 구현되어 있으며, 이번 문서는 이미지 모델 측정 결과를 보고하지 않는다. 다음 단계는 입력 프로필 확장,
+resize/crop provenance, response guard와 응답 기반 재요청(fallback), 평가 adapter를
 순서대로 만들고 이 프로토콜의 gate를 통과시키는 것이다. 다만 먼저 구현할 변환 연산은 아직 선택하지 않았다. paper와 구현은 증거 사양이 안정된 범위에서
 병렬로 진행하되, 충돌 시 paper의 명시적 측정 경계를 우선한다.
 
