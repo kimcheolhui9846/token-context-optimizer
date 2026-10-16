@@ -1,0 +1,24 @@
+{
+  "runId": "exp2-held-haiku",
+  "set": "exp2-heldout",
+  "provider": "anthropic",
+  "model": "claude-haiku-4-5-20251001",
+  "detail": null,
+  "temperature": 0,
+  "maxTokens": 40,
+  "system": "You answer a question about the attached image. Reply with only the answer value, without explanation or extra words. If the answer cannot be read in the image, reply UNREADABLE.",
+  "locateSystem": "You locate the part of an image that is needed to answer a question. Reply with JSON only: {\"x0\": n, \"y0\": n, \"x1\": n, \"y1\": n}, coordinates as integers from 0 to 1000 relative to the image width and height. Include the label and the value the question asks about.",
+  "locateMargin": {
+    "frac": 0.06,
+    "minPx": 48
+  },
+  "price": {
+    "inputPerM": 1,
+    "outputPerM": 5
+  },
+  "orderSeed": 20261014,
+  "slotsSha256": "36ae3dec8dedef982029de97e52d8219cca7ac83a96c86f63e0f282260efba12",
+  "familiesSha256": "71e2648f738d7094a39f261304817757f644a6e98ec1f6a089d907d3f006c313",
+  "fingerprint": "0702ba8bb0c1c6a6e1a559dca4ae5fe6e2f89b836d4eb4d034751e28fada6a1f",
+  "startedAt": "2026-10-16T13:58:57.757Z"
+}

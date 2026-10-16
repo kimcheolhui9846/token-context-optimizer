@@ -30,13 +30,28 @@ const graded = slots.map((s) => {
   const correct = gold.some((g) => normalize(g) === normalize(rec.answer));
   // Content match: the gold value appears inside the answer (extra label words allowed, e.g. "Ref. code: X").
   const contentCorrect = correct || gold.some((g) => normalize(rec.answer).includes(normalize(g)));
-  return { key, ...s, outcome: "answered", correct, contentCorrect, locate: rec.locate, twoStage: rec.twoStage, answer: rec.answer, gold: gold[0], promptTokens: rec.usage?.prompt_tokens, predictedImageTokens: rec.predictedImageTokens, latencyMs: rec.latencyMs, costUsd: rec.costUsd };
+  return { key, ...s, outcome: "answered", correct, contentCorrect, locate: rec.locate, twoStage: rec.twoStage, requeried: rec.requeried ?? false, firstAnswer: rec.first?.answer, answer: rec.answer, gold: gold[0], promptTokens: rec.usage?.prompt_tokens, predictedImageTokens: rec.predictedImageTokens, latencyMs: rec.latencyMs, costUsd: rec.costUsd };
 });
 
 const CONDS = ["clean", "jpeg-only", "downscale-only", "combined"];
 // Response-based fallback (pilot-003, fixed before the run): when the selector arm answers UNREADABLE, the answer
 // and tokens of the same slot's A call are used as the re-request to the original; tokens are the sum of both calls.
-for (const derived of set.derived || []) {
+// Experiment 2 exploratory arm Dp (pre-registration amendment 1): the pre-amendment D rule, derived from C and A.
+// No window -> original (cost = A only); C answers UNREADABLE -> A reused as the re-request (cost = C + A); else C.
+// The protocol D (Task 34) is a real slot with its own fresh re-request in run.mjs.
+if ((set.derived || []).includes("Dp") && set.selectorArm === "window") {
+  for (const r of graded.filter((x) => x.arm === "C")) {
+    const a = graded.find((x) => x.arm === "A" && x.family === r.family && x.question === r.question && x.condition === r.condition);
+    const key = r.key.replace(/[^/]+$/, "Dp");
+    const noMatch = !r.selection?.matched;
+    const unreadable = r.outcome === "answered" && /unreadable/i.test(r.answer || "");
+    if (!a) { graded.push({ ...r, arm: "Dp", key, outcome: "not_started" }); continue; }
+    if (noMatch) graded.push({ ...a, arm: "Dp", key, selection: r.selection, fallback: "no_window", promptTokens: a.promptTokens, costUsd: a.costUsd });
+    else if (unreadable) graded.push({ ...r, arm: "Dp", key, fallback: "unreadable", outcome: a.outcome, correct: a.correct, contentCorrect: a.contentCorrect, answer: a.answer, promptTokens: (r.promptTokens || 0) + (a.promptTokens || 0), bytes: r.bytes + a.bytes, costUsd: (r.costUsd || 0) + (a.costUsd || 0) });
+    else graded.push({ ...r, arm: "Dp", key, fallback: null });
+  }
+}
+for (const derived of (set.derived || []).filter((d) => d !== "Dp")) {
   const baseArm = derived.replace(/R$/, "");
   for (const r of graded.filter((x) => x.arm === baseArm)) {
     const a = graded.find((x) => x.arm === "A" && x.family === r.family && x.question === r.question && x.condition === r.condition);
@@ -71,7 +86,7 @@ const byDomain = {};
 for (const a of ARMS) for (const d of ["document", "chart", "ui"]) byDomain[`${a}/${d}`] = cell(graded.filter((r) => r.arm === a && r.domain === d));
 
 // Accounting check: observed prompt tokens minus the tile-rule prediction (the rest is text + message overhead).
-const answered = graded.filter((r) => r.promptTokens && !r.twoStage && set.arms.includes(r.arm));
+const answered = graded.filter((r) => r.promptTokens && !r.twoStage && !r.requeried && set.arms.includes(r.arm));
 const overheads = answered.map((r) => r.promptTokens - r.predictedImageTokens);
 const accounting = { n: answered.length, overheadMin: Math.min(...overheads), overheadMax: Math.max(...overheads), distinctOverheads: [...new Set(overheads)].sort((a, b) => a - b) };
 // Selector and guard (dev2): evidence coverage of C's selection, D fallback rate per condition, paired D-C.
@@ -86,7 +101,7 @@ if (ARMS.includes("C")) {
     selector[c] = {
       matched: cs.filter((r) => r.selection?.matched).length,
       evidenceCoveredAmongMatched: cs.filter((r) => r.selection?.matched && r.selection?.evidenceCovered).length,
-      dFallback: ds.filter((r) => r.fallback).length,
+      dFallback: ds.filter((r) => r.fallback || r.requeried).length,
       dAssigned: ds.length,
       dMinusCContent: mean(diffs),
     };
@@ -113,6 +128,8 @@ const totals = { calls: latest.size, costUsd: [...latest.values()].reduce((a, r)
 const errors = graded.filter((r) => r.outcome === "answered" && !r.correct).map((r) => ({ key: r.key, gold: r.gold, answer: r.answer, contentCorrect: r.contentCorrect }));
 
 writeJson(join(runDir, "summary.json"), { runId, set: set.name, table, selector, regions, byArm, bySmall, byDomain, accounting, totals, errors });
+// Per-slot grading (including derived arms) for family-level analyses (exp2-analyze.mjs).
+writeFileSync(join(runDir, "graded.jsonl"), graded.map((r) => JSON.stringify({ key: r.key, family: r.family, domain: r.domain, layout: r.layout, question: r.question, smallText: r.smallText, condition: r.condition, arm: r.arm, outcome: r.outcome, correct: r.correct, contentCorrect: r.contentCorrect, answer: r.answer, promptTokens: r.promptTokens, costUsd: r.costUsd, bytes: r.bytes, fallback: r.fallback ?? null, requeried: r.requeried ?? false, firstAnswer: r.firstAnswer, matched: r.selection?.matched ?? null, evidenceCovered: r.selection?.evidenceCovered ?? null })).join("\n") + "\n");
 
 const pct = (x) => (x == null ? "—" : `${Math.round(x * 100)}%`);
 const fmt = (x) => (x == null ? "—" : Math.round(x).toLocaleString("en-US"));
