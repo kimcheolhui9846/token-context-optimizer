@@ -36,13 +36,13 @@ python figures/make_figures.py    # matplotlib 3.11.1, numpy 2.5.1
 - 왼쪽 GPT-4o(detail high), 오른쪽 Claude Haiku 4.5. 공급자 청구값의 실측이다.
 - GPT-4o는 타일 규칙 때문에 계단식으로 변하고, 1:1과 4:3은 같은 값이다.
 - Haiku는 1,568 토큰 상한 아래에서 넓이에 따라 늘고, 상한 이상에서는 일정하다.
-- Haiku 값에는 이미지당 고정 3토큰이 포함된다.
+- Haiku 값은 이미지 1장 요청에서 측정했고, 회계식보다 3토큰 많다.
 
 **Fig. 1.** Billed image tokens by long side and aspect ratio.
 - Left: GPT-4o (detail high). Right: Claude Haiku 4.5. Values are measured from provider billing.
 - GPT-4o follows a step pattern from its tile rule, and 1:1 and 4:3 coincide.
 - Haiku grows with area below its 1,568-token cap and stays flat above it.
-- Haiku values include a fixed 3 tokens per image.
+- Haiku values were measured with one image per request and are 3 tokens above the formula.
 
 **그림 2.** held-out 24세션의 조건별 세션 평균 정확도와 세션당 평균 입력 토큰. 오차 막대는 세션 bootstrap 95% 구간이다(기술 통계).
 - S0 전체 유지, S1 compact 모사, S2 플러그인, S3 플러그인+compact, S4 1536 축소 유지
