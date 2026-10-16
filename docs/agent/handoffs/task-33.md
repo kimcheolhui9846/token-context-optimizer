@@ -37,6 +37,8 @@
 - 사용자 제공 Claude Code claude-opus-5-5 / 마일스톤(af13da4) / Approve / Blocker 0, Major 0, Minor 2, Nit 1, Note 2; 리뷰어가 대상9·전체799 테스트, 증거 검증 및 DQT·SHA 대조 실행.
 - Astra gpt-6-astra / 최종(af13da4) / PASS WITH NOTES / Blocker 0, Major 0, Minor 2; 원자료 재계산·테스트는 결과 확인 전 중단. Claude 실행 및 아래 후속 최종 검증과 구분.
 - Astra gpt-6-astra / 후속 최종(8fcc65a) / PASS WITH NOTES / Blocker 0, Major 0, Minor 0; diff·문서·위 최종 gate·SHA·PR head 직접 확인. Notes: 공유 codec 한계, 독립 Claude 리뷰는 이전 head 대상이며 Tier C Minor 수정 재리뷰는 요구하지 않음.
+- 사용자 제공 Claude Code claude-opus-5-5 / 후속(519f7d9) / Approve / Blocker 0, Major 0, Minor 1(이 기록 누락); 대상 테스트 11/11 재실행, A-1·A-2·R-1·R-2 반영 확인.
+- Astra gpt-6-astra / 1단계 확인(519f7d9, 2026-10-16) / PASS WITH NOTES / Blocker 0, Major 0, Minor 1(위 Claude 후속 확인 기록 누락); 핸드오프·Git·OPEN/Draft 상태 확인, 테스트 재실행 없음. 이 Tier D 기록 보완으로 누락 해소.
 - R-2: 기존 Major 5건은 M1 셀/arm 완성 구별(계획 §4.2), M2 연쇄 미포함 한계(§6), M3 자식 ESM/JSON 테스트(§8), M4 IPC/watchdog(§7), M5 상태·분모·고유 SHA(§7)로 반영.
 - R-3: 오래된 경로 오류/검사 과정 대신 현재 상태와 결과를 제자리 갱신하고 약80행 이하 유지.
 - 앞선 M-1: 커버리지와 토큰·정확도 영향 병기. m-1: 출력 DQT 및 quality의 encoder 의존(X9). m-2: D의 Task34 개정 예정 주석.
