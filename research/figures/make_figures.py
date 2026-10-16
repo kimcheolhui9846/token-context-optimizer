@@ -33,8 +33,10 @@ plt.rcParams.update({
 
 
 def save(fig, name):
-    fig.savefig(OUT / f"{name}.pdf", bbox_inches="tight", pad_inches=0.02)
-    fig.savefig(OUT / f"{name}.png", dpi=600, bbox_inches="tight", pad_inches=0.02)
+    # No bbox trimming: the saved file is exactly the canvas width (7 cm half column, 14 cm full width), so it can be placed
+    # at 100% and the stated point sizes hold (PR #36 review M-1).
+    fig.savefig(OUT / f"{name}.pdf")
+    fig.savefig(OUT / f"{name}.png", dpi=600)
     plt.close(fig)
 
 
@@ -67,8 +69,8 @@ def fig1_rq1():
         ax.grid(axis="y", linewidth=0.3, alpha=0.5)
     axes[0].set_ylabel("Billed image tokens")
     axes[1].axhline(1568, color=C["grey"], linewidth=0.6, linestyle=":")
-    axes[1].text(0, 1600, "1,568-token cap", fontsize=5.5, color=C["grey"], va="bottom")
-    axes[0].text(4.6, 730, "1:1 = 4:3", fontsize=5.5, color=C["grey"], va="top")
+    axes[1].text(0, 1600, "1,568 visual-patch cap", fontsize=6, color=C["grey"], va="bottom")
+    axes[0].text(4.6, 730, "1:1 = 4:3", fontsize=6, color=C["grey"], va="top")
     axes[0].legend(title="Aspect ratio", title_fontsize=6, frameon=False, loc="upper left")
     fig.tight_layout(w_pad=1.2)
     save(fig, "fig1_rq1_billed_tokens")
@@ -93,7 +95,7 @@ def fig2_accuracy_tokens(rows):
             ax.errorbar(x, m * 100, yerr=[[m * 100 - lo * 100], [hi * 100 - m * 100]], fmt=markers[c], color=C[p],
                         markersize=3.5, elinewidth=0.6, capsize=1.5, mfc=C[p] if p == "gpt4o" else "white")
             dx, dy = LABEL_OFFSET.get((p, c), (4, -2))
-            ax.annotate(c, (x, m * 100), xytext=(dx, dy), textcoords="offset points", fontsize=5.5, color=C[p])
+            ax.annotate(c, (x, m * 100), xytext=(dx, dy), textcoords="offset points", fontsize=6, color=C[p])
     ax.set_xlabel("Mean input tokens per session (×1,000)")
     ax.set_ylabel("Session accuracy (%)")
     ax.set_ylim(30, 100)
@@ -125,8 +127,8 @@ def fig3_late_recall(rows):
     ax.set_ylabel("Late-recall accuracy (%)")
     ax.set_ylim(0, 105)
     ax.grid(axis="y", linewidth=0.3, alpha=0.5)
-    ax.legend(frameon=False, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.12))
-    fig.tight_layout()
+    fig.legend(*ax.get_legend_handles_labels(), frameon=False, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.0))
+    fig.tight_layout(rect=(0, 0, 1, 0.9))
     save(fig, "fig3_heldout_late_recall")
 
 
@@ -145,8 +147,8 @@ def fig4_cost(rows):
     axes[0].set_ylabel("Cost per session (US cents)")
     handles = [plt.Rectangle((0, 0), 1, 1, facecolor=C["grey"], edgecolor=C["grey"]),
                plt.Rectangle((0, 0), 1, 1, facecolor="white", edgecolor=C["grey"], hatch="////")]
-    fig.legend(handles, ["list price", "with prompt cache"], frameon=False, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.06))
-    fig.tight_layout(w_pad=0.8)
+    fig.legend(handles, ["list price", "with prompt cache"], frameon=False, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.0))
+    fig.tight_layout(w_pad=0.8, rect=(0, 0, 1, 0.9))
     save(fig, "fig4_heldout_cost_list_vs_cache")
 
 

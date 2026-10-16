@@ -5,7 +5,8 @@
   - 그림 폭: 반단 7 cm, 전단 14 cm
   - 설명은 그림 아래에 국문·영문 병기
   - 영문은 sentence case
-- 그림 안 글자는 영문 7 pt(눈금 6.5 pt, 범례 6 pt)다. 반단 폭에서 읽히는 크기다.
+- **출력 파일 폭이 곧 지정 폭이다**(반단 7.0 cm, 전단 14.0 cm, PDF 크기로 확인). 여백을 자르지 않고 저장하므로 hwp에는 100% 크기로 넣는다. 확대·축소하면 아래 글자 크기와 실효 해상도가 달라진다.
+- 그림 안 글자는 영문 7 pt다. 눈금은 6.5 pt, 범례·주석·점 라벨은 6 pt이고, 이것이 최소 크기다.
 - 색: Okabe-Ito(색각 이상 친화). 흑백 인쇄에서도 구분되도록 채움·빗금·표식 모양을 함께 쓴다.
 - 출력: 벡터 PDF와 600 dpi PNG. hwp 양식에는 PNG를 넣는다.
 
@@ -27,7 +28,7 @@ python figures/make_figures.py    # matplotlib 3.11.1, numpy 2.5.1
 
 | 파일 | 폭 | 근거 데이터 |
 |---|---|---|
-| `fig1_rq1_billed_tokens` | 전단 14 cm | `results/rq1-sweep-001/rows.jsonl`(PNG 격자 49장) |
+| `fig1_rq1_billed_tokens` | 전단 14 cm | `results/rq1-sweep-001/rows.jsonl`. PNG 격자 49장 중 대표 비율 4종(1:1, 4:3, 16:9, 3:1) 28장을 표시한다. 세로 방향(3:4, 9:16, 1:3) 21장은 가로 방향과 두 공급자 모두 토큰이 같아(21/21) 생략했다 |
 | `fig2_heldout_accuracy_vs_tokens` | 반단 7 cm | `figures/data/heldout-sessions.json` |
 | `fig3_heldout_late_recall` | 반단 7 cm | 같음 |
 | `fig4_heldout_cost_list_vs_cache` | 반단 7 cm | 같음 |
@@ -35,13 +36,13 @@ python figures/make_figures.py    # matplotlib 3.11.1, numpy 2.5.1
 **그림 1.** 긴 변 길이와 종횡비에 따른 청구 이미지 토큰.
 - 왼쪽 GPT-4o(detail high), 오른쪽 Claude Haiku 4.5. 공급자 청구값의 실측이다.
 - GPT-4o는 타일 규칙 때문에 계단식으로 변하고, 1:1과 4:3은 같은 값이다.
-- Haiku는 1,568 토큰 상한 아래에서 넓이에 따라 늘고, 상한 이상에서는 일정하다.
+- Haiku는 넓이에 따라 늘다가 두 제한 중 하나에 걸리면 일정해진다: 긴 변 1,568 px, 시각 패치 1,568개. 1:1·4:3·16:9는 패치 상한(점선) 근처에서, 3:1은 긴 변 제한(1568×523 → 1,064패치)에서 포화한다.
 - Haiku 값은 이미지 1장 요청에서 측정했고, 회계식보다 3토큰 많다.
 
 **Fig. 1.** Billed image tokens by long side and aspect ratio.
 - Left: GPT-4o (detail high). Right: Claude Haiku 4.5. Values are measured from provider billing.
 - GPT-4o follows a step pattern from its tile rule, and 1:1 and 4:3 coincide.
-- Haiku grows with area below its 1,568-token cap and stays flat above it.
+- Haiku grows with area until one of two limits applies: a 1,568-px long side or 1,568 visual patches. 1:1, 4:3 and 16:9 saturate near the patch cap (dotted line); 3:1 saturates at the long-side limit (1568×523, 1,064 patches).
 - Haiku values were measured with one image per request and are 3 tokens above the formula.
 
 **그림 2.** held-out 24세션의 조건별 세션 평균 정확도와 세션당 평균 입력 토큰. 오차 막대는 세션 bootstrap 95% 구간이다(기술 통계).
