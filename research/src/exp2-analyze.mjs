@@ -1,7 +1,8 @@
 // Experiment 2 family-level analysis (protocol §3, §7): primary D-C, secondary C-B and D-A, paired within source family.
 // Each family's arm score is its mean over the four input conditions (one question per family), then differences are
 // bootstrapped over families. Also reports per-condition paired differences, input tokens, cost and D's fallback rate.
-// DRAFT until the experiment 2 pre-registration freezes the metric, seed and decision rules.
+// Frozen with the experiment 2 pre-registration (plans/2026-10-16-experiment2-preregistration-draft.md, user approved
+// 2026-10-16): H1 D-C CI lower > 0; H2 D-A CI lower > -5pp and mean input tokens D < A; H3 C-B descriptive.
 // Usage: node src/exp2-analyze.mjs --set exp2-calibration|exp2-heldout --run-id <id>
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -61,15 +62,29 @@ function analyze(subset) {
   };
 }
 
+const MARGIN = -0.05;
 const all = analyze(rows);
+const verdicts = {
+  H1: { comparison: "D-C", ...all.DminusC, pass: all.DminusC.n > 0 && all.DminusC.lo > 0 },
+  H2: { comparison: "D-A", ...all.DminusA, tokensD: all.promptTokens.D, tokensA: all.promptTokens.A, pass: all.DminusA.n > 0 && all.DminusA.lo > MARGIN && all.promptTokens.D < all.promptTokens.A },
+  H3: { comparison: "C-B", ...all.CminusB, pass: null },
+};
 const byLayout = Object.fromEntries(["base", "v2"].map((l) => [l, analyze(rows.filter((r) => (r.layout ?? "base") === l))]).filter(([, v]) => v.families));
 const byDomain = Object.fromEntries(["document", "chart", "ui"].map((d) => [d, analyze(rows.filter((r) => r.domain === d))]));
-writeJson(join(runDir, "exp2-analysis.json"), { runId, set: set.name, draft: true, bootstrap: { B, seed: SEED, unit: "source family" }, metric: "content-match QA success", notStarted, all, byLayout, byDomain });
+writeJson(join(runDir, "exp2-analysis.json"), { runId, set: set.name, bootstrap: { B, seed: SEED, unit: "source family" }, metric: "content-match QA success", margin: MARGIN, verdicts, notStarted, all, byLayout, byDomain });
 
 const pct = (x) => (x == null ? "—" : `${(x * 100).toFixed(1)}%`);
 const pp = (h) => (h?.n ? `${h.diff >= 0 ? "+" : ""}${(h.diff * 100).toFixed(1)}%p [${(h.lo * 100).toFixed(1)}, ${(h.hi * 100).toFixed(1)}]` : "—");
 const tok = (x) => (x == null ? "—" : Math.round(x).toLocaleString("en-US"));
-let md = `# ${runId} — experiment 2 family-level analysis (DRAFT)\n\nSet ${set.name}, ${all.families} families, content-match QA success, family bootstrap ${B.toLocaleString("en-US")} (seed ${SEED}). not_started: ${notStarted.length}.\n\n`;
+let md = `# ${runId} — experiment 2 family-level analysis (pre-registered)\n\nSet ${set.name}, ${all.families} families, content-match QA success, family bootstrap ${B.toLocaleString("en-US")} (seed ${SEED}). not_started: ${notStarted.length}.\n\n`;
+const v = (b) => (b === null ? "descriptive" : b ? "supported" : "not supported");
+md += `| hypothesis | comparison | difference [95% CI] | verdict |
+|---|---|---|---|
+| H1 | D−C | ${pp(verdicts.H1)} | ${v(verdicts.H1.pass)} |
+| H2 | D−A (margin −5%p, tokens D ${tok(verdicts.H2.tokensD)} vs A ${tok(verdicts.H2.tokensA)}) | ${pp(verdicts.H2)} | ${v(verdicts.H2.pass)} |
+| H3 | C−B | ${pp(verdicts.H3)} | ${v(verdicts.H3.pass)} |
+
+`;
 md += `| arm | accuracy (family mean over conditions) | mean input tokens | mean cost |\n|---|---|---|---|\n`;
 for (const a of ARMS) md += `| ${a} | ${pct(all.accuracy[a])} | ${tok(all.promptTokens[a])} | $${(all.costUsd[a] ?? 0).toFixed(5)} |\n`;
 md += `\nPaired (family): D−C ${pp(all.DminusC)}; C−B ${pp(all.CminusB)}; D−A ${pp(all.DminusA)}.\n\n| condition | A | B | C | D | E | D−C | D−A | D fallback (no window / unreadable / assigned) |\n|---|---|---|---|---|---|---|---|---|\n`;
