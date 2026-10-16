@@ -1,0 +1,25 @@
+{
+  "runId": "s3-dev-001",
+  "split": "dev",
+  "conditions": [
+    "S0",
+    "S1",
+    "S2",
+    "S3",
+    "S4"
+  ],
+  "model": "gpt-4o-2024-11-20",
+  "detail": "high",
+  "maxTokens": 60,
+  "toolRounds": 3,
+  "compactAt": 4000,
+  "system": "You are helping a colleague with a work task. Artifacts such as screenshots, document scans and logs arrive during the conversation. Answer each question with only the answer value, without explanation. If the answer cannot be read from what you can see, reply UNREADABLE.",
+  "systemPlugin": "You are helping a colleague with a work task. Artifacts such as screenshots, document scans and logs arrive during the conversation. Answer each question with only the answer value, without explanation. If the answer cannot be read from what you can see, reply UNREADABLE. Artifacts are stored outside the conversation and are referred to by id. Use the tools to look at them: query_text_artifact returns matching log lines with line numbers, query_image_artifact returns a cropped view of the region relevant to your question at full resolution, get_original_image returns the whole original image. If a cropped view does not show the answer, call get_original_image. After using tools, reply with only the answer value.",
+  "compact": "Summarize the conversation so far so that the work can continue without it. Keep exact numbers, codes, ids, names and times that were stated. Stay under 250 words.",
+  "compactPlugin": "Summarize the conversation so far so that the work can continue without it. Keep exact numbers, codes, ids, names and times that were stated. Stay under 250 words. List every artifact id mentioned so the artifacts can be queried again.",
+  "price": {
+    "inputPerM": 2.5,
+    "outputPerM": 10
+  },
+  "startedAt": "2026-10-15T01:18:28.721Z"
+}

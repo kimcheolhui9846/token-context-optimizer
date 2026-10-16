@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-7-v2",
+  "template": "document-review",
+  "condition": "S3",
+  "attemptId": "mv9j1wqy-bt36qu",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-98302-B"
+      ],
+      "answer": "INV-98302-B",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-98302-B?",
+      "gold": [
+        "B-4938"
+      ],
+      "answer": "B-4938",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "F-186"
+      ],
+      "answer": "F-186",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved extracting specific details from artifacts. \n\n1. From \"Supplier invoice scan\" (id=img-A), the invoice number was identified as INV-98302-B.\n2. From \"Ledger processing log\" (id=log), the batch id associated with posting invoice INV-98302-B was found to be B-4938.\n3. From \"Operations notice scan\" (id=img-B), the assigned room was identified as F-186.\n\nArtifacts referenced: img-A, log, img-B."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Cable tie 200"
+      ],
+      "answer": "Cable tie 200",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "ok",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$19,762.04",
+        "19,762.04"
+      ],
+      "answer": "19,762.04",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved extracting details from artifacts:\n\n1. From \"Supplier invoice scan\" (id=img-A):\n   - Invoice number: INV-98302-B.\n   - Line item with over_limit amount (1,049.18): Cable tie 200.\n   - Total amount on the invoice: 19,762.04.\n\n2. From \"Ledger processing log\" (id=log):\n   - Batch ID associated with posting invoice INV-98302-B: B-4938.\n   - The log flagged an over_limit amount of 1,049.18 for invoice INV-98302-B on 2026-03-22T09:30:04Z.\n   - The most common status value in the log: ok.\n\n3. From \"Operations notice scan\" (id=img-B):\n   - Assigned room: F-186.\n\nArtifacts referenced: img-A, log, img-B."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "aac7f3"
+      ],
+      "answer": "aac7f3",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-3514-N15"
+      ],
+      "answer": "Ref: QR-3514-N15",
+      "toolCalls": 1,
+      "originalsRequested": 1,
+      "autoOriginal": true,
+      "thresholdExceeded": false
+    }
+  ]
+}

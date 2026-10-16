@@ -87,3 +87,15 @@ worktree에서 실행하면 main checkout의 `research/.env.local`을 찾는다.
 - offline 테스트: `npm test`(`node --test test/run-guards.test.mjs`). API 키 없이 돈다.
 
 `out/`은 git에 올리지 않는다. 같은 sharp 버전과 글꼴 환경에서는 clean PNG 생성이 결정적이다(이 PC에서 재생성한 SHA-256 6개가 일치). 다른 OS나 글꼴에서는 달라질 수 있다. 보고에 쓰는 결과는 `results/`에 복사해 커밋한다.
+
+## 실험 3: 다중 턴 에이전트 세션 (RQ3)
+
+계획 `plans/2026-10-14-agent-session-experiment-plan.md`, 사전 등록 `plans/2026-10-15-experiment3-preregistration-draft.md`.
+
+- `src/sessions.mjs --split dev|calibration|heldout`: 8턴 대본 세션을 만든다(이미지 2장 + 로그 1개). held-out은 템플릿마다 기존 레이아웃 4세션과 새 레이아웃(`src/families-v2.mjs`) 4세션이다.
+- `src/session-harness.mjs --split <s> --run-id <id> [--provider openai|anthropic] [--conditions S0,...]`: 조건 S0–S4를 실행한다.
+  - 텍스트 도구는 실제 플러그인 번들(`../bin/token-context-optimizer.mjs`)을 MCP stdio로 호출한다(`src/mcp-client.mjs`).
+  - Anthropic 경로는 `src/session-anthropic.mjs`(공식 SDK)다.
+  - 같은 run-id의 이어 실행은 설정 지문이 같을 때만 허용한다. 끊긴 시도의 호출은 시도 ID로 집계에서 뺀다.
+- `src/session-summarize.mjs --run-id <id>`: 문항 유형별 정확도, 세션당 입력 토큰, 정가 기준·캐시 기준 비용, 임계값 초과 턴 수를 집계한다.
+- 결과: `results/s3-dev-*`, `results/s3-cal-*`, `results/s3-dev-haiku/`

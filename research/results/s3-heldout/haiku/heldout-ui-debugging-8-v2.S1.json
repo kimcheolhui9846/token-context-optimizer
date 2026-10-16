@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-8-v2",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9it7ki-v3dk5s",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown in the screen header?",
+      "gold": [
+        "6609"
+      ],
+      "answer": "6609",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-69. What error code is on that line?",
+      "gold": [
+        "E5366"
+      ],
+      "answer": "E5366",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Uptime\" card?",
+      "gold": [
+        "99.14%",
+        "99.14%"
+      ],
+      "answer": "99.14%",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary:**\n\nThree artifacts were reviewed:\n\n1. **Device Settings Screenshot (img-A):** A Quick Settings interface showing various device toggles. Firmware version 8.6.21 (build 6609) is displayed in the header. Settings status includes: Wi-Fi (Off), Bluetooth (Off), Airplane mode (On), Mobile data (On), Hotspot (Off), VPN (Off), Location (Off), Dark mode (Off), Auto-rotate (On), Battery saver (On), Do not disturb (On), and Auto-update (On). Storage shows 79.1 GB of 256 GB used.\n\n2. **Service Error Log (log):** A detailed service log from March 10-28, 2026, containing INFO, DEBUG, WARN, and ERROR level entries. Key findings:\n   - Multiple ERROR entries for sync retry scheduling on nodes: edge-22, edge-16, edge-17, and edge-75\n   - One ERROR for upload failure on node edge-69 with error code **E5366** (timestamp: 2026-03-21T04:12:09Z)\n   - One WARN entry about VPN settings change rejection due to policy lock (2026-03-21T04:12:11Z)\n   - Consistent cache hit ratio of 0.93 throughout logs\n   - Regular auth token refreshes and heartbeat confirmations\n\n3. **Service Dashboard Screenshot (img-B):** Platform Health dashboard displaying:\n   - Active users: 74,448\n   - Open tickets: 393\n   - Avg. response: 58 min\n   - Uptime: **99.14%**\n   - Queued jobs: 880\n   - Error rate: 2.98%\n   -"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "Off",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "sync",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the footer? Answer with the number and unit.",
+      "gold": [
+        "79.1 GB"
+      ],
+      "answer": "79.1 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary:**\n\nThree artifacts were reviewed:\n\n1. **Device Settings Screenshot (img-A):** Quick Settings interface showing firmware version 8.6.21 (build 6609). Settings status: Wi-Fi (Off), Bluetooth (Off), Airplane mode (On), Mobile data (On), Hotspot (Off), VPN (Off), Location (Off), Dark mode (Off), Auto-rotate (On), Battery saver (On), Do not disturb (On), Auto-update (On). Storage: 79.1 GB of 256 GB used.\n\n2. **Service Error Log (log):** Detailed service log from March 10-28, 2026, with INFO, DEBUG, WARN, and ERROR entries. Key findings:\n   - Multiple ERROR entries for sync retry scheduling on nodes: edge-22, edge-16, edge-17, and edge-75\n   - One ERROR for upload failure on node edge-69 with error code E5366 (timestamp: 2026-03-21T04:12:09Z)\n   - One WARN entry about VPN settings change rejection due to policy lock (2026-03-21T04:12:11Z)\n   - Cache hit ratio: 0.93\n   - Regular auth token refreshes and heartbeat confirmations\n\n3. **Service Dashboard Screenshot (img-B):** Platform Health dashboard showing:\n   - Active users: 74,448\n   - Open tickets: 393\n   - Avg. response: 58 min\n   - Uptime: 99.14%\n   - Queued jobs: 880\n   - Error rate: 2.98%\n\n**Questions Answered:**\n- VPN setting (rejected in log) is Off in screenshot\n- Most common ERROR subs"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E5366?",
+      "gold": [
+        "c182d6"
+      ],
+      "answer": "6a7f9c2e",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "03:58"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

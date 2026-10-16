@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9ieev8-swp2hw",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "2195"
+      ],
+      "answer": "2195",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-99. What error code is on that line?",
+      "gold": [
+        "E7085"
+      ],
+      "answer": "E7085",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Active users\" card?",
+      "gold": [
+        "59,120",
+        "59120"
+      ],
+      "answer": "59,120",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts for specific details. \n\n1. **Device Settings Screenshot (img-A):** The build number displayed at the bottom is **2195**.\n2. **Service Error Log (log):** The error code for the upload failure on node **edge-99** is **E7085**.\n3. **Service Dashboard Screenshot (img-B):** The \"Active users\" card shows **59,120**.\n\nThe work involves extracting precise information from screenshots and logs for further analysis."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "26.8 GB"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves analyzing artifacts for specific details. Key findings so far include: \n\n1. From the **Device Settings Screenshot (img-A)**, the build number is **2195**.\n2. From the **Service Error Log (log)**, the error code for the upload failure on node **edge-99** is **E7085**.\n3. From the **Service Dashboard Screenshot (img-B)**, the \"Active users\" count is **59,120**.\n\nFurther questions about settings status, subsystem tags in the log, and storage usage from the sidebar remain unanswered due to unreadable artifacts."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E7085?",
+      "gold": [
+        "a77566"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "19:09"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

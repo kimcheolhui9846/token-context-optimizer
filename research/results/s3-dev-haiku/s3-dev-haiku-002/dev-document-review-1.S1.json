@@ -1,0 +1,117 @@
+{
+  "session": "dev-document-review-1",
+  "template": "document-review",
+  "condition": "S1",
+  "attemptId": "mv9i18g7-yeuiy1",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-59162-E"
+      ],
+      "answer": "INV-59162-E",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-59162-E?",
+      "gold": [
+        "B-2664"
+      ],
+      "answer": "B-2664",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "C-200"
+      ],
+      "answer": "C-200",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **Supplier Invoice (img-A)**: Harborline Industrial Parts invoice INV-59162-E with terms net 30 days. Total amount: $15,108.11. Items included hex bolts, washers, lock nuts, bearings, V-belts, hose clamps, O-rings, grease, and shim sets across 16 line items.\n\n2. **Ledger Processing Log**: System log entries from March 10-28, 2026 showing various ledger operations (posted entries, reconciled batches, fx rate caching), audit checksum verifications, OCR page parsing, and mail notices. Key entry: 2026-03-22T09:30:04Z WARN flagged invoice INV-59162-E with amount=729.72 (over_limit). Another entry: 2026-03-22T09:30:00Z INFO posted invoice INV-59162-E in batch B-2664 with status=ok.\n\n3. **Operations Notice (img-B)**: Issued October 10, 2026. Contains boilerplate text about facility vendor contracts, quarterly reviews, training, and departmental procedures. Reference: Ref. ZT-2316-F50. Assigns room C-200 for budget contract purposes.\n\n**Key Data Points:**\n- Invoice: INV-59162-E, $15,108.11\n- Batch ID: B-2664\n- Posted date: 2026-03-22\n- Over-limit flag amount: $729.72\n- Assigned room: C-200\n- Operations notice date: 10 October 2026"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Hose clamp 32"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "ok",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$15,108.11",
+        "15,108.11"
+      ],
+      "answer": "$15,108.11",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **Supplier Invoice (img-A)**: Harborline Industrial Parts invoice INV-59162-E with terms net 30 days. Total amount: $15,108.11. Items included hex bolts, washers, lock nuts, bearings, V-belts, hose clamps, O-rings, grease, and shim sets across 16 line items.\n\n2. **Ledger Processing Log**: System log entries from March 10-28, 2026 showing various ledger operations (posted entries, reconciled batches, fx rate caching), audit checksum verifications, OCR page parsing, and mail notices. Key entries: 2026-03-22T09:30:04Z WARN flagged invoice INV-59162-E with amount=729.72 (over_limit). Another entry: 2026-03-22T09:30:00Z INFO posted invoice INV-59162-E in batch B-2664 with status=ok. Most lines in the log show status value \"ok\".\n\n3. **Operations Notice (img-B)**: Issued October 10, 2026. Contains boilerplate text about facility vendor contracts, quarterly reviews, training, and departmental procedures. Reference: Ref. ZT-2316-F50. Assigns room C-200 for budget contract purposes.\n\n**Key Data Points:**\n- Invoice: INV-59162-E, $15,108.11\n- Batch ID: B-2664\n- Posted date: 2026-03-22\n- Over-limit flag amount: $729.72\n- Assigned room: C-200\n- Operations notice date: 10 October 2026\n\n**Note**:"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "f23e75"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code in the footnote?",
+      "gold": [
+        "ZT-2316-F50"
+      ],
+      "answer": "Ref. ZT-2316-F50",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

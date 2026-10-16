@@ -1,0 +1,116 @@
+{
+  "session": "calibration-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S3",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "8694"
+      ],
+      "answer": "Build 8694",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-70. What error code is on that line?",
+      "gold": [
+        "E3345"
+      ],
+      "answer": "E3345",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Deployments\" card?",
+      "gold": [
+        "56",
+        "56"
+      ],
+      "answer": "56",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing artifacts to extract specific information:\n\n1. From artifact `img-A` (Device settings screenshot), the build number at the bottom of the screen was identified as **Build 8694**.\n2. From artifact `log` (Service error log), the error code for an upload failure on node `edge-70` was found to be **E3345** (line 82).\n3. From artifact `img-B` (Service dashboard screenshot), the value shown on the \"Deployments\" card was **56**.\n\nArtifacts mentioned: `img-A`, `log`, `img-B`."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "The \"Do not disturb\" setting is currently **On** in the settings screenshot.",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "sync",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "95.2 GB"
+      ],
+      "answer": "95.2 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing artifacts to extract specific information:\n\n1. From artifact `img-A` (Device settings screenshot), the build number was identified as **Build 8694**, and the \"Do not disturb\" setting was confirmed to be **On**.\n2. From artifact `log` (Service error log), the error code for an upload failure on node `edge-70` was **E3345** (line 82). A settings change for \"Do not disturb\" was rejected due to a policy lock (line 40). The subsystem tag appearing on most ERROR lines was **sync**.\n3. From artifact `img-B` (Service dashboard screenshot), the value on the \"Deployments\" card was **56**.\n4. The sidebar indicated **95.2 GB** of storage used.\n\nArtifacts mentioned: `img-A`, `log`, `img-B`."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E3345?",
+      "gold": [
+        "f32d3e"
+      ],
+      "answer": "f32d3e",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "20:38"
+      ],
+      "answer": "20:38",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

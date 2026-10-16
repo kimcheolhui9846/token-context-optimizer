@@ -1,0 +1,631 @@
+{
+  "runId": "s3-dev-haiku-001",
+  "config": {
+    "split": "dev",
+    "provider": "anthropic",
+    "model": "claude-haiku-4-5-20251001",
+    "compactAt": 4000,
+    "price": {
+      "inputPerM": 1,
+      "outputPerM": 5
+    },
+    "cache": {
+      "readFactor": 0.1,
+      "writeFactor": 1.25
+    }
+  },
+  "table": {
+    "S0": {
+      "sessions": 3,
+      "accuracy": 0.9166666666666666,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 1
+      },
+      "meanPromptTokens": 46265.333333333336,
+      "meanCachedTokens": 37038.666666666664,
+      "meanCompletionTokens": 55,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.046540333333333336,
+      "meanCacheViewCostUsd": 0.014875783333333337,
+      "thresholdExceededTurns": 20,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 54260,
+          "cached": 44765,
+          "cacheWrite": 7820,
+          "completion": 64,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 29977,
+          "cached": 21342,
+          "cacheWrite": 4354,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 54559,
+          "cached": 45009,
+          "cacheWrite": 7869,
+          "completion": 55,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    },
+    "S1": {
+      "sessions": 3,
+      "accuracy": 0.75,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 0.6666666666666666,
+        "gist": 0.6666666666666666,
+        "late": 0.6666666666666666
+      },
+      "meanPromptTokens": 22797.333333333332,
+      "meanCachedTokens": 17127.666666666668,
+      "meanCompletionTokens": 812.3333333333334,
+      "meanCalls": 10,
+      "meanCompactions": 2,
+      "meanListCostUsd": 0.026859,
+      "meanCacheViewCostUsd": 0.011455683333333331,
+      "thresholdExceededTurns": 5,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 5,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 26306,
+          "cached": 21420,
+          "cacheWrite": 47,
+          "completion": 852,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 15586,
+          "cached": 8414,
+          "cacheWrite": 46,
+          "completion": 730,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 26500,
+          "cached": 21549,
+          "cacheWrite": 46,
+          "completion": 855,
+          "calls": 10,
+          "compactions": 2
+        }
+      ]
+    },
+    "S2": {
+      "sessions": 3,
+      "accuracy": 0.2916666666666667,
+      "byGroup": {
+        "immediate": 0.4444444444444444,
+        "cross": 0,
+        "gist": 0,
+        "late": 0.3333333333333333
+      },
+      "meanPromptTokens": 68375.33333333333,
+      "meanCachedTokens": 14976.333333333334,
+      "meanCompletionTokens": 1181.3333333333333,
+      "meanCalls": 25.333333333333332,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.074282,
+      "meanCacheViewCostUsd": 0.06261721666666667,
+      "thresholdExceededTurns": 6,
+      "toolCalls": 52,
+      "originalsRequested": 3,
+      "unreadable": 3,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 68841,
+          "cached": 8699,
+          "cacheWrite": 6068,
+          "completion": 1213,
+          "calls": 26,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 58526,
+          "cached": 8573,
+          "cacheWrite": 5995,
+          "completion": 1087,
+          "calls": 25,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 77759,
+          "cached": 27657,
+          "cacheWrite": 9704,
+          "completion": 1244,
+          "calls": 25,
+          "compactions": 0
+        }
+      ]
+    },
+    "S3": {
+      "sessions": 3,
+      "accuracy": 0.2916666666666667,
+      "byGroup": {
+        "immediate": 0.4444444444444444,
+        "cross": 0,
+        "gist": 0,
+        "late": 0.3333333333333333
+      },
+      "meanPromptTokens": 60853.333333333336,
+      "meanCachedTokens": 11084,
+      "meanCompletionTokens": 1768.3333333333333,
+      "meanCalls": 29.333333333333332,
+      "meanCompactions": 2,
+      "meanListCostUsd": 0.06969500000000001,
+      "meanCacheViewCostUsd": 0.06050173333333333,
+      "thresholdExceededTurns": 5,
+      "toolCalls": 58,
+      "originalsRequested": 2,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 52966,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 1691,
+          "calls": 28,
+          "compactions": 2
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 52180,
+          "cached": 0,
+          "cacheWrite": 4466,
+          "completion": 1774,
+          "calls": 30,
+          "compactions": 2
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 77414,
+          "cached": 33252,
+          "cacheWrite": 4922,
+          "completion": 1840,
+          "calls": 30,
+          "compactions": 2
+        }
+      ]
+    },
+    "S4": {
+      "sessions": 3,
+      "accuracy": 0.875,
+      "byGroup": {
+        "immediate": 0.7777777777777778,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 1
+      },
+      "meanPromptTokens": 46249,
+      "meanCachedTokens": 37024.666666666664,
+      "meanCompletionTokens": 52.666666666666664,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.04651233333333333,
+      "meanCacheViewCostUsd": 0.014859800000000003,
+      "thresholdExceededTurns": 20,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "dev-document-review-1",
+          "prompt": 54260,
+          "cached": 44765,
+          "cacheWrite": 7820,
+          "completion": 64,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-report-check-1",
+          "prompt": 29977,
+          "cached": 21342,
+          "cacheWrite": 4354,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "dev-ui-debugging-1",
+          "prompt": 54510,
+          "cached": 44967,
+          "cacheWrite": 7862,
+          "completion": 48,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    }
+  },
+  "wrong": [
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "f23e75",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-2664",
+      "answer": "Let me try searching with the invoice number:"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": "Let me search for the over_limit flag:"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": ""
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "f23e75",
+      "answer": "I apologize for the difficulty. The query_text_artifact function requires search keywords. Let me try searching for \"FLAG\":"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "The footnote text at the bottom is still not clearly readable. Let me query for the footnote area specifically:"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-2664",
+      "answer": "Let me try searching with the invoice number:"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": ""
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me get the original log to see its structure:"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "f23e75",
+      "answer": ""
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-2316-F50",
+      "answer": "Let me get the original log to see its contents:"
+    },
+    {
+      "session": "dev-document-review-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-59162-E",
+      "answer": "INV-69162-E"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "8"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "09:24",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "January",
+      "answer": ""
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 4,
+      "type": "cross",
+      "gold": "yes",
+      "answer": ""
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "4 June 2026",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "09:24",
+      "answer": "Let me query for the timestamp area at the top of the image:"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "January",
+      "answer": ""
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 4,
+      "type": "cross",
+      "gold": "yes",
+      "answer": "Let me try again with the correct artifact ID:"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "Let me try searching for \"legend\" in the log:"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "4 June 2026",
+      "answer": ""
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "09:24",
+      "answer": "Let me try searching the images for update time information:"
+    },
+    {
+      "session": "dev-report-check-1",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "19",
+      "answer": "8"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "7347 (build 7304)"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "7347 (build 7304)"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "06:07",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "I can see text at the bottom right that appears to say \"Firmware 7.7.47 (build 7904)\" but it's quite small. Let me query that specific area to get a clearer view."
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "E5281",
+      "answer": ""
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 4,
+      "type": "cross",
+      "gold": "On",
+      "answer": "I need to provide a query term. Let me search for \"rejected\":"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "I apologize, but I'm unable to query the log artifact effectively. The query_text_artifact function requires search keywords, but without being able to see the log content first, I cannot determine which subsystem tags appear on ERROR lines. Could you provide me with a sample of what's in"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "17.3 GB",
+      "answer": "I can see the Service Overview dashboard, but I don't see a storage usage metric in the sidebar or on the visible cards. Let me get the original image to see if there's a sidebar with storage information:"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S2",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "e96b50",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "I can see text at the bottom right that appears to say \"Firmware 7.7.47 (build 7904)\" but it's quite small. Let me query that specific area to get a clearer view."
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "E5281",
+      "answer": ""
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 4,
+      "type": "cross",
+      "gold": "On",
+      "answer": "Let me search for \"rejected\":"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": ""
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "e96b50",
+      "answer": ""
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "06:07",
+      "answer": "Let me get the original full resolution image to look for \"last sync\":"
+    },
+    {
+      "session": "dev-ui-debugging-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7924",
+      "answer": "7547"
+    }
+  ]
+}

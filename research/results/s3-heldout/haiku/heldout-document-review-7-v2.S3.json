@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-7-v2",
+  "template": "document-review",
+  "condition": "S3",
+  "attemptId": "mv9j8buy-km9yho",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-98302-B"
+      ],
+      "answer": "I can see the invoice in the image. Looking at the bottom of the document, I can see the statement reference section which shows:\n\nINV-08302-B",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-98302-B?",
+      "gold": [
+        "B-4938"
+      ],
+      "answer": "B-4938",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "F-186"
+      ],
+      "answer": "F-186",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed to extract specific information:\n\n**Artifact img-A** (Supplier invoice scan, 1536x2048):\n- Invoice number: INV-08302-B\n\n**Artifact log** (Ledger processing log, 150 lines):\n- Query for invoice INV-98302-B returned batch information\n- Log line 31 (2026-03-22T09:30:00Z) shows: posted invoice=INV-98302-B batch=B-4938 status=ok req=b394a4\n\n**Artifact img-B** (Operations notice scan, 1536x2048):\n- Room assigned: F-186\n\n**Artifacts available for further queries:**\n- img-A\n- log\n- img-B\n\n**Note:** There is a discrepancy between the invoice numbers from img-A (INV-08302-B) and the log query (INV-98302-B) that may need clarification in continued work."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Cable tie 200"
+      ],
+      "answer": "The log shows an over_limit flag with amount=1,049.18. Looking at the invoice line items, the line total of 1,049.18 corresponds to:\n\nCable tie 200",
+      "toolCalls": 2,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "Let me search for other potential status values:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$19,762.04",
+        "19,762.04"
+      ],
+      "answer": "Looking at the invoice image I already retrieved, the total amount due is shown at the bottom:\n\n$19,762.04",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed to extract specific information:\n\n**Artifact img-A** (Supplier invoice scan, 1536x2048):\n- Invoice number: INV-08302-B\n- Total amount: $19,762.04\n- Line item \"Cable tie 200\" has amount 1,049.18 (flagged as over_limit)\n\n**Artifact log** (Ledger processing log, 150 lines):\n- Log line 31 (2026-03-22T09:30:00Z): posted invoice=INV-98302-B batch=B-4938 status=ok req=b394a4\n- Log line 115 (2026-03-22T09:30:04Z): FLAG over_limit amount=1,049.18 invoice=INV-98302-B req=aac7f3\n- Log line 1 (2026-03-11T13:43:33Z): status=ok appears on most lines\n\n**Artifact img-B** (Operations notice scan, 1536x2048):\n- Room assigned: F-186\n\n**Note:** Discrepancy exists between invoice numbers from img-A (INV-08302-B) and log queries (INV-98302-B) that may need clarification.\n\n**Artifacts available for further queries:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "aac7f3"
+      ],
+      "answer": "aac7f3",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-3514-N15"
+      ],
+      "answer": "Ref: QR-3514-N15",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

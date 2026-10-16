@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-3",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9jf1zc-zk426l",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "1,043",
+        "1043"
+      ],
+      "answer": "1,043",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "August"
+      ],
+      "answer": "August",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Delta",
+        "Delta"
+      ],
+      "answer": "Plant Delta",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed to answer specific questions about inspection and production data:\n\n**Artifacts Reviewed:**\n- img-A: Monthly inspection bar chart\n- log: Report review notes (150 lines)\n- img-B: Hourly output line chart\n\n**Key Findings:**\n\n1. **Inspection Sample Size (img-A):** The monthly inspection bar chart notes a sample size of 1,043 under the chart.\n\n2. **Audit Postponement (log):** According to the review notes in the log file, the inspection audit was postponed to August.\n\n3. **Plant Series Line Style (img-B):** In the hourly output line chart, Plant Delta's series is drawn with a dashed line.\n\n**Artifact IDs for Future Reference:**\n- img-A\n- log\n- img-B\n\nThese findings provide baseline data on inspection metrics, scheduling changes, and production visualization that can be used for continued analysis or reporting."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for May. Does it match the value labeled on the May bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "yes"
+      ],
+      "answer": "Yes",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "22"
+      ],
+      "answer": "2",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Jan"
+      ],
+      "answer": "January",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed to answer specific questions about inspection and production data:\n\n**Artifacts Reviewed:**\n- img-A: Monthly inspection bar chart\n- log: Report review notes (150 lines)\n- img-B: Hourly output line chart\n\n**Key Findings:**\n\n1. **Inspection Sample Size (img-A):** The monthly inspection bar chart notes a sample size of 1,043 under the chart.\n\n2. **Audit Postponement (log):** According to the review notes in the log file, the inspection audit was postponed to August.\n\n3. **Plant Series Line Style (img-B):** In the hourly output line chart, Plant Delta's series is drawn with a dashed line.\n\n4. **May Inspection Count (log and img-A):** The notes record an inspection count for May of 594, which matches the value labeled on the May bar in the bar chart.\n\n5. **Legend Mentions (log):** Two lines in the review notes mention the legend (lines 7-9), both stating \"legend colors confirmed.\"\n\n6. **Tallest Bar (img-A):** January has the tallest bar in the monthly inspection bar chart.\n\n**Artifact IDs for Future Reference:**\n- img-A\n- log\n- img-B\n\nThese findings provide baseline data on inspection metrics, scheduling changes, production visualization, and chart details that can be used for continued analysis or reporting."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "21 November 2026"
+      ],
+      "answer": "21 November 2026",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "14:40"
+      ],
+      "answer": "14:40",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

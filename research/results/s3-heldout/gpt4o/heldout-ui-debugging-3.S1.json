@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-3",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9ih8pt-2597w0",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "2473"
+      ],
+      "answer": "2473",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-62. What error code is on that line?",
+      "gold": [
+        "E4762"
+      ],
+      "answer": "E4762",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Avg. response\" card?",
+      "gold": [
+        "6 min",
+        "6 min"
+      ],
+      "answer": "6 min",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts for specific details. \n\n1. **Device Settings Screenshot (img-A):** The build number displayed at the bottom is **2473**.\n2. **Service Error Log (log):** An upload failure for node **edge-62** was reported with the error code **E4762**.\n3. **Service Dashboard Screenshot (img-B):** The \"Avg. response\" card shows a value of **6 min**.\n\nThe work can continue with these details."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "E4762",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "28.9 GB"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "1. **Device Settings Screenshot (img-A):** The build number is **2473**.  \n2. **Service Error Log (log):** An upload failure for node **edge-62** occurred with error code **E4762**. Most ERROR lines in the log are tagged with **E4762**.  \n3. **Service Dashboard Screenshot (img-B):** The \"Avg. response\" card shows **6 min**.  \n4. **Other Details:** The status of a rejected settings change and storage usage from the sidebar remain UNREADABLE."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E4762?",
+      "gold": [
+        "46fadb"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "23:27"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

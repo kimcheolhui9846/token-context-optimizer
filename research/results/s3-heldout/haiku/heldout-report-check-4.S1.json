@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-4",
+  "template": "report-check",
+  "condition": "S1",
+  "attemptId": "mv9jfv9y-ht9l1a",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "7,533",
+        "7533"
+      ],
+      "answer": "7,633",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "August"
+      ],
+      "answer": "August",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Delta",
+        "Delta"
+      ],
+      "answer": "Plant Delta",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A - Monthly Inspection Bar Chart**: Shows monthly inspection counts across 12 months. Key data points include January (908), February (652), March (119), April (438), May (225), June (780), July (786), August (318), September (173), October (546), November (812), and December (585). The chart includes a footnote noting \"Inspection sample n = 7,633; weekend audits excluded.\"\n\n2. **log - Report Review Notes**: Contains extensive review documentation with repeated approval items including chart title approval, axis label reviews, legend color confirmations, and footnote wording preservation. Notable specific items found:\n   - Inspection audit postponed to August\n   - September inspection count recorded as 237\n   - Recalibration deadline: 11 March 2026\n   - Data exports refreshed multiple times\n   - Gridlines remained unchanged throughout reviews\n\n3. **img-B - Hourly Output Line Chart**: Displays the \"Hourly Output Index\" with two plant series:\n   - Plant Echo (solid purple line)\n   - Plant Delta (dashed orange line)\n   - Peak value noted: 88.1 for Plant Echo\n   - Last updated 08:57\n\nThe work involves monitoring and reviewing inspection data, output metrics, and maintaining chart documentation with regular data refreshes and quality control checks."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Sep. Does it match the value labeled on the Sep bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "No",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "25"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Jan"
+      ],
+      "answer": "January",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A - Monthly Inspection Bar Chart**: Shows monthly inspection counts. Data points: January (908), February (652), March (119), April (438), May (225), June (780), July (786), August (318), September (173), October (546), November (812), December (585). Footnote states \"Inspection sample n = 7,633; weekend audits excluded.\" January has the tallest bar.\n\n2. **log - Report Review Notes**: Contains extensive review documentation with repeated approval items including chart title, axis labels, legend colors, and footnote wording. Key findings:\n   - Inspection audit postponed to August\n   - September inspection count recorded as 237 in the notes\n   - Recalibration deadline: 11 March 2026\n   - Data exports refreshed multiple times\n   - Gridlines remained unchanged throughout reviews\n   - Multiple mentions of legend (exact count unreadable)\n\n3. **img-B - Hourly Output Line Chart**: Displays \"Hourly Output Index\" with two plant series:\n   - Plant Echo (solid purple line)\n   - Plant Delta (dashed orange line)\n   - Peak value: 88.1 for Plant Echo\n   - Last updated 08:57\n\n**Discrepancy Identified**: The September inspection count in the review notes (237) does not match the bar chart value (173).\n\nThe work involves monitoring inspection data, output metrics, and maintaining chart documentation with regular quality control checks and data refreshes."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "11 March 2026"
+      ],
+      "answer": "11 March 2026",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "08:57"
+      ],
+      "answer": "08:57",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

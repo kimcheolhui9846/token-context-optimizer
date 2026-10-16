@@ -1,0 +1,118 @@
+{
+  "session": "dev-report-check-1",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9i9lcs-w9chtd",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "9,242",
+        "9242"
+      ],
+      "answer": "9,242",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "January"
+      ],
+      "answer": "January",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Delta",
+        "Delta"
+      ],
+      "answer": "Plant Delta",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed to extract specific information:\n\n1. **img-A** (Monthly inspection bar chart): The inspection sample size noted under the chart is 9,242.\n\n2. **log** (Report review notes): According to the review notes, the inspection audit was postponed to January.\n\n3. **img-B** (Hourly output line chart): Plant Delta's series is drawn with a dashed line.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Jun. Does it match the value labeled on the Jun bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "yes"
+      ],
+      "answer": "Based on the information I've gathered:\n\n- The notes record an inspection count for Jun of **416**\n- The June bar in the chart is labeled with **416**\n\nYes",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "19"
+      ],
+      "answer": "1",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Sep"
+      ],
+      "answer": "Looking at the bar chart image I retrieved earlier, the tallest bar is in **September** with a value of 863.\n\nSeptember",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nFour artifacts have been reviewed to extract specific information:\n\n1. **img-A** (Monthly inspection bar chart): \n   - Sample size: 9,242\n   - June inspection count: 416 (matches the label on the June bar)\n   - September has the tallest bar with a value of 863\n\n2. **log** (Report review notes):\n   - Inspection audit was postponed to January\n   - June inspection count recorded as 416\n   - Legend is mentioned in 1 line of the review notes\n   - Contains notes on gridlines, chart title approval, and legend colors confirmation\n\n3. **img-B** (Hourly output line chart):\n   - Plant Delta's series is drawn with a dashed line\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "4 June 2026"
+      ],
+      "answer": "4 June 2026",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "09:24"
+      ],
+      "answer": "",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

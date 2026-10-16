@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-6-v2",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9ilenf-0auzj8",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown in the screen header?",
+      "gold": [
+        "9835"
+      ],
+      "answer": "The build number shown in the screen header is **9835**.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-36. What error code is on that line?",
+      "gold": [
+        "E1753"
+      ],
+      "answer": "The error code on that line is **E1753**.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Uptime\" card?",
+      "gold": [
+        "99.37%",
+        "99.37%"
+      ],
+      "answer": "The value shown on the \"Uptime\" card is **99.37%**.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts for specific details. \n\n1. **Artifact img-A (Device settings screenshot):** The build number in the header is **9835**.\n2. **Artifact log (Service error log):** The error code for the upload failure on node edge-36 is **E1753**.\n3. **Artifact img-B (Service dashboard screenshot):** The \"Uptime\" card displays **99.37%**.\n\nThe work involves extracting precise information from screenshots and logs for further analysis."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the footer? Answer with the number and unit.",
+      "gold": [
+        "70.1 GB"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves analyzing artifacts for specific details. Key findings so far:  \n\n1. From **Artifact img-A (Device settings screenshot)**, the build number in the header is **9835**.  \n2. From **Artifact log (Service error log)**, the error code for the upload failure on node edge-36 is **E1753**.  \n3. From **Artifact img-B (Service dashboard screenshot)**, the \"Uptime\" card displays **99.37%**.  \n\nAdditional questions about settings status, subsystem tags in the log, and storage usage in the footer remain unanswered due to unreadable or unavailable information."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E1753?",
+      "gold": [
+        "7c2619"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "16:32"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

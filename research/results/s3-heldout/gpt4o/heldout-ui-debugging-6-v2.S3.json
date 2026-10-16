@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-6-v2",
+  "template": "ui-debugging",
+  "condition": "S3",
+  "attemptId": "mv9ilxlp-e5avgw",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown in the screen header?",
+      "gold": [
+        "9835"
+      ],
+      "answer": "Build 9835",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-36. What error code is on that line?",
+      "gold": [
+        "E1753"
+      ],
+      "answer": "E1753",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Uptime\" card?",
+      "gold": [
+        "99.37%",
+        "99.37%"
+      ],
+      "answer": "99.37%",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved extracting specific information from artifacts. \n\n1. From artifact `img-A` (Device settings screenshot), the build number shown in the screen header was identified as **Build 9835**.\n2. From artifact `log` (Service error log), the error code for an upload failure on node `edge-36` was found to be **E1753** (logged at `2026-03-21T04:12:09Z`).\n3. From artifact `img-B` (Service dashboard screenshot), the value shown on the \"Uptime\" card was **99.37%**.\n\nArtifacts referenced: `img-A`, `log`, `img-B`."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "The \"Auto-update\" setting is **Off** in the settings screenshot.",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "[sync]",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the footer? Answer with the number and unit.",
+      "gold": [
+        "70.1 GB"
+      ],
+      "answer": "70.1 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved extracting specific details from artifacts:\n\n1. From artifact `img-A` (Device settings screenshot), the build number was identified as **Build 9835**, and the \"Auto-update\" setting was confirmed to be **Off**.\n2. From artifact `log` (Service error log), the error code for an upload failure on node `edge-36` was **E1753** (logged at `2026-03-21T04:12:09Z`). A settings change for \"Auto-update\" was rejected due to a policy lock (`2026-03-21T04:12:11Z`). The subsystem tag appearing on most ERROR lines was **[sync]**.\n3. From artifact `img-B` (Service dashboard screenshot), the \"Uptime\" card showed **99.37%**.\n4. The footer indicated **70.1 GB** of storage used.\n\nArtifacts referenced: `img-A`, `log`, `img-B`."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E1753?",
+      "gold": [
+        "7c2619"
+      ],
+      "answer": "7c2619",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "16:32"
+      ],
+      "answer": "16:32",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

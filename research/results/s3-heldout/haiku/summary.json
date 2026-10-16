@@ -1,0 +1,2608 @@
+{
+  "runId": "s3-heldout-haiku",
+  "config": {
+    "split": "heldout",
+    "provider": "anthropic",
+    "model": "claude-haiku-4-5-20251001",
+    "compactAt": 4000,
+    "price": {
+      "inputPerM": 1,
+      "outputPerM": 5
+    },
+    "cache": {
+      "readFactor": 0.1,
+      "writeFactor": 1.25
+    }
+  },
+  "table": {
+    "S0": {
+      "sessions": 24,
+      "accuracy": 0.9010416666666666,
+      "byGroup": {
+        "immediate": 0.9444444444444444,
+        "cross": 0.9166666666666666,
+        "gist": 0.6666666666666666,
+        "late": 0.9305555555555556
+      },
+      "meanPromptTokens": 46142.875,
+      "meanCachedTokens": 36928.208333333336,
+      "meanCompletionTokens": 53.791666666666664,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.04641183333333333,
+      "meanCacheViewCostUsd": 0.014842518749999999,
+      "thresholdExceededTurns": 160,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 2,
+      "perSession": [
+        {
+          "session": "heldout-document-review-1",
+          "prompt": 53876,
+          "cached": 44435,
+          "cacheWrite": 7766,
+          "completion": 64,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-2",
+          "prompt": 53908,
+          "cached": 44465,
+          "cacheWrite": 7768,
+          "completion": 61,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-3",
+          "prompt": 54028,
+          "cached": 44567,
+          "cacheWrite": 7786,
+          "completion": 61,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-4",
+          "prompt": 54029,
+          "cached": 44567,
+          "cacheWrite": 7787,
+          "completion": 63,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-5-v2",
+          "prompt": 53875,
+          "cached": 44432,
+          "cacheWrite": 7768,
+          "completion": 63,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-6-v2",
+          "prompt": 53826,
+          "cached": 44390,
+          "cacheWrite": 7761,
+          "completion": 63,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-7-v2",
+          "prompt": 53476,
+          "cached": 44090,
+          "cacheWrite": 7711,
+          "completion": 62,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-8-v2",
+          "prompt": 53958,
+          "cached": 44504,
+          "cacheWrite": 7779,
+          "completion": 62,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-1",
+          "prompt": 30012,
+          "cached": 21367,
+          "cacheWrite": 4359,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-2",
+          "prompt": 30187,
+          "cached": 21492,
+          "cacheWrite": 4384,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-3",
+          "prompt": 30117,
+          "cached": 21442,
+          "cacheWrite": 4374,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-4",
+          "prompt": 30026,
+          "cached": 21377,
+          "cacheWrite": 4361,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-5-v2",
+          "prompt": 30069,
+          "cached": 21407,
+          "cacheWrite": 4367,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-6-v2",
+          "prompt": 30090,
+          "cached": 21422,
+          "cacheWrite": 4370,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-7-v2",
+          "prompt": 30076,
+          "cached": 21412,
+          "cacheWrite": 4368,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-8-v2",
+          "prompt": 30062,
+          "cached": 21402,
+          "cacheWrite": 4366,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-1",
+          "prompt": 54806,
+          "cached": 45221,
+          "cacheWrite": 7904,
+          "completion": 59,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-2",
+          "prompt": 54392,
+          "cached": 44865,
+          "cacheWrite": 7846,
+          "completion": 49,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-3",
+          "prompt": 54420,
+          "cached": 44889,
+          "cacheWrite": 7850,
+          "completion": 60,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-4",
+          "prompt": 54583,
+          "cached": 45027,
+          "cacheWrite": 7875,
+          "completion": 52,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-5-v2",
+          "prompt": 54294,
+          "cached": 44783,
+          "cacheWrite": 7832,
+          "completion": 50,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-6-v2",
+          "prompt": 54159,
+          "cached": 44666,
+          "cacheWrite": 7814,
+          "completion": 52,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-7-v2",
+          "prompt": 54463,
+          "cached": 44927,
+          "cacheWrite": 7857,
+          "completion": 51,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-8-v2",
+          "prompt": 54697,
+          "cached": 45128,
+          "cacheWrite": 7890,
+          "completion": 51,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    },
+    "S1": {
+      "sessions": 24,
+      "accuracy": 0.7916666666666666,
+      "byGroup": {
+        "immediate": 0.9444444444444444,
+        "cross": 0.7083333333333334,
+        "gist": 0.625,
+        "late": 0.7222222222222222
+      },
+      "meanPromptTokens": 22742.875,
+      "meanCachedTokens": 17069.416666666668,
+      "meanCompletionTokens": 810.7083333333334,
+      "meanCalls": 10,
+      "meanCompactions": 2,
+      "meanListCostUsd": 0.026796416666666666,
+      "meanCacheViewCostUsd": 0.011445691666666665,
+      "thresholdExceededTurns": 40,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 31,
+      "perSession": [
+        {
+          "session": "heldout-document-review-1",
+          "prompt": 26106,
+          "cached": 21258,
+          "cacheWrite": 47,
+          "completion": 836,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-2",
+          "prompt": 26313,
+          "cached": 21273,
+          "cacheWrite": 47,
+          "completion": 895,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-3",
+          "prompt": 26167,
+          "cached": 21324,
+          "cacheWrite": 47,
+          "completion": 834,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-4",
+          "prompt": 26237,
+          "cached": 21324,
+          "cacheWrite": 47,
+          "completion": 853,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-5-v2",
+          "prompt": 26133,
+          "cached": 21255,
+          "cacheWrite": 47,
+          "completion": 847,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-6-v2",
+          "prompt": 26078,
+          "cached": 21234,
+          "cacheWrite": 47,
+          "completion": 838,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-7-v2",
+          "prompt": 26036,
+          "cached": 21087,
+          "cacheWrite": 47,
+          "completion": 862,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-8-v2",
+          "prompt": 26292,
+          "cached": 21291,
+          "cacheWrite": 47,
+          "completion": 889,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-1",
+          "prompt": 15607,
+          "cached": 8424,
+          "cacheWrite": 46,
+          "completion": 743,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-2",
+          "prompt": 15598,
+          "cached": 8474,
+          "cacheWrite": 46,
+          "completion": 716,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-3",
+          "prompt": 15654,
+          "cached": 8454,
+          "cacheWrite": 46,
+          "completion": 737,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-4",
+          "prompt": 15543,
+          "cached": 8428,
+          "cacheWrite": 46,
+          "completion": 715,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-5-v2",
+          "prompt": 15542,
+          "cached": 8440,
+          "cacheWrite": 46,
+          "completion": 695,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-6-v2",
+          "prompt": 15601,
+          "cached": 8446,
+          "cacheWrite": 46,
+          "completion": 720,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-7-v2",
+          "prompt": 15629,
+          "cached": 8442,
+          "cacheWrite": 46,
+          "completion": 722,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-8-v2",
+          "prompt": 15590,
+          "cached": 8438,
+          "cacheWrite": 46,
+          "completion": 719,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-1",
+          "prompt": 26609,
+          "cached": 21651,
+          "cacheWrite": 48,
+          "completion": 862,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-2",
+          "prompt": 26436,
+          "cached": 21477,
+          "cacheWrite": 46,
+          "completion": 854,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-3",
+          "prompt": 26433,
+          "cached": 21484,
+          "cacheWrite": 48,
+          "completion": 860,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-4",
+          "prompt": 26498,
+          "cached": 21553,
+          "cacheWrite": 48,
+          "completion": 850,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-5-v2",
+          "prompt": 26387,
+          "cached": 21432,
+          "cacheWrite": 48,
+          "completion": 852,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-6-v2",
+          "prompt": 26323,
+          "cached": 21371,
+          "cacheWrite": 49,
+          "completion": 851,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-7-v2",
+          "prompt": 26456,
+          "cached": 21504,
+          "cacheWrite": 48,
+          "completion": 851,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-8-v2",
+          "prompt": 26561,
+          "cached": 21602,
+          "cacheWrite": 49,
+          "completion": 856,
+          "calls": 10,
+          "compactions": 2
+        }
+      ]
+    },
+    "S2": {
+      "sessions": 24,
+      "accuracy": 0.7708333333333334,
+      "byGroup": {
+        "immediate": 0.9166666666666666,
+        "cross": 1,
+        "gist": 0.2916666666666667,
+        "late": 0.7083333333333334
+      },
+      "meanPromptTokens": 56695.75,
+      "meanCachedTokens": 10170.5,
+      "meanCompletionTokens": 1008.5833333333334,
+      "meanCalls": 18.458333333333332,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.06173866666666667,
+      "meanCacheViewCostUsd": 0.0543823,
+      "thresholdExceededTurns": 52,
+      "toolCalls": 255,
+      "originalsRequested": 17,
+      "unreadable": 10,
+      "perSession": [
+        {
+          "session": "heldout-document-review-1",
+          "prompt": 74884,
+          "cached": 29253,
+          "cacheWrite": 15622,
+          "completion": 1068,
+          "calls": 20,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-2",
+          "prompt": 47593,
+          "cached": 0,
+          "cacheWrite": 5663,
+          "completion": 715,
+          "calls": 16,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-3",
+          "prompt": 57683,
+          "cached": 4574,
+          "cacheWrite": 6182,
+          "completion": 942,
+          "calls": 19,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-4",
+          "prompt": 70873,
+          "cached": 32982,
+          "cacheWrite": 12580,
+          "completion": 979,
+          "calls": 19,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-5-v2",
+          "prompt": 51011,
+          "cached": 0,
+          "cacheWrite": 5229,
+          "completion": 1054,
+          "calls": 18,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-6-v2",
+          "prompt": 74953,
+          "cached": 22359,
+          "cacheWrite": 16410,
+          "completion": 1272,
+          "calls": 21,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-7-v2",
+          "prompt": 74504,
+          "cached": 22248,
+          "cacheWrite": 16324,
+          "completion": 1253,
+          "calls": 21,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-8-v2",
+          "prompt": 65413,
+          "cached": 4986,
+          "cacheWrite": 12219,
+          "completion": 1159,
+          "calls": 20,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-1",
+          "prompt": 36280,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 847,
+          "calls": 17,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-2",
+          "prompt": 36365,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 857,
+          "calls": 17,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-3",
+          "prompt": 44496,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 991,
+          "calls": 18,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-4",
+          "prompt": 36335,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 864,
+          "calls": 17,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-5-v2",
+          "prompt": 40717,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 825,
+          "calls": 17,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-6-v2",
+          "prompt": 35621,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 663,
+          "calls": 15,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-7-v2",
+          "prompt": 33363,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 582,
+          "calls": 14,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-8-v2",
+          "prompt": 38120,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 745,
+          "calls": 16,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-1",
+          "prompt": 82334,
+          "cached": 29478,
+          "cacheWrite": 16163,
+          "completion": 1178,
+          "calls": 20,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-2",
+          "prompt": 79358,
+          "cached": 29513,
+          "cacheWrite": 15836,
+          "completion": 1217,
+          "calls": 20,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-3",
+          "prompt": 85894,
+          "cached": 34440,
+          "cacheWrite": 17453,
+          "completion": 1309,
+          "calls": 21,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-4",
+          "prompt": 78583,
+          "cached": 29557,
+          "cacheWrite": 11684,
+          "completion": 1264,
+          "calls": 20,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-5-v2",
+          "prompt": 63120,
+          "cached": 0,
+          "cacheWrite": 5299,
+          "completion": 1322,
+          "calls": 22,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-6-v2",
+          "prompt": 47689,
+          "cached": 0,
+          "cacheWrite": 4723,
+          "completion": 1005,
+          "calls": 18,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-7-v2",
+          "prompt": 56085,
+          "cached": 4702,
+          "cacheWrite": 6437,
+          "completion": 1107,
+          "calls": 19,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-8-v2",
+          "prompt": 49424,
+          "cached": 0,
+          "cacheWrite": 4696,
+          "completion": 988,
+          "calls": 18,
+          "compactions": 0
+        }
+      ]
+    },
+    "S3": {
+      "sessions": 24,
+      "accuracy": 0.7447916666666666,
+      "byGroup": {
+        "immediate": 0.9166666666666666,
+        "cross": 0.9583333333333334,
+        "gist": 0.041666666666666664,
+        "late": 0.7361111111111112
+      },
+      "meanPromptTokens": 56574.583333333336,
+      "meanCachedTokens": 12093.583333333334,
+      "meanCompletionTokens": 1736.25,
+      "meanCalls": 21.75,
+      "meanCompactions": 2,
+      "meanListCostUsd": 0.06525583333333333,
+      "meanCacheViewCostUsd": 0.055330389583333334,
+      "thresholdExceededTurns": 52,
+      "toolCalls": 301,
+      "originalsRequested": 24,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "heldout-document-review-1",
+          "prompt": 70938,
+          "cached": 17757,
+          "cacheWrite": 14063,
+          "completion": 1957,
+          "calls": 23,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-2",
+          "prompt": 46045,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 1599,
+          "calls": 19,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-3",
+          "prompt": 56947,
+          "cached": 4899,
+          "cacheWrite": 5480,
+          "completion": 1827,
+          "calls": 22,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-4",
+          "prompt": 59914,
+          "cached": 17652,
+          "cacheWrite": 4746,
+          "completion": 1742,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-5-v2",
+          "prompt": 64028,
+          "cached": 17983,
+          "cacheWrite": 5434,
+          "completion": 1846,
+          "calls": 23,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-6-v2",
+          "prompt": 69598,
+          "cached": 22338,
+          "cacheWrite": 6632,
+          "completion": 1924,
+          "calls": 24,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-7-v2",
+          "prompt": 49035,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 1524,
+          "calls": 19,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-document-review-8-v2",
+          "prompt": 53214,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 1717,
+          "calls": 20,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-1",
+          "prompt": 43169,
+          "cached": 0,
+          "cacheWrite": 4439,
+          "completion": 1507,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-2",
+          "prompt": 41761,
+          "cached": 4186,
+          "cacheWrite": 4212,
+          "completion": 1429,
+          "calls": 20,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-3",
+          "prompt": 43826,
+          "cached": 4173,
+          "cacheWrite": 4199,
+          "completion": 1478,
+          "calls": 20,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-4",
+          "prompt": 44570,
+          "cached": 0,
+          "cacheWrite": 5158,
+          "completion": 1549,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-5-v2",
+          "prompt": 50056,
+          "cached": 14643,
+          "cacheWrite": 5006,
+          "completion": 1522,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-6-v2",
+          "prompt": 50548,
+          "cached": 14748,
+          "cacheWrite": 5037,
+          "completion": 1629,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-7-v2",
+          "prompt": 49903,
+          "cached": 4922,
+          "cacheWrite": 6622,
+          "completion": 1491,
+          "calls": 19,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-report-check-8-v2",
+          "prompt": 54502,
+          "cached": 15010,
+          "cacheWrite": 10163,
+          "completion": 1790,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-1",
+          "prompt": 79057,
+          "cached": 36745,
+          "cacheWrite": 0,
+          "completion": 1993,
+          "calls": 25,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-2",
+          "prompt": 75990,
+          "cached": 36793,
+          "cacheWrite": 0,
+          "completion": 1984,
+          "calls": 25,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-3",
+          "prompt": 72314,
+          "cached": 36758,
+          "cacheWrite": 0,
+          "completion": 1827,
+          "calls": 23,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-4",
+          "prompt": 73133,
+          "cached": 36858,
+          "cacheWrite": 0,
+          "completion": 1966,
+          "calls": 24,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-5-v2",
+          "prompt": 54597,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 1959,
+          "calls": 25,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-6-v2",
+          "prompt": 51183,
+          "cached": 0,
+          "cacheWrite": 4334,
+          "completion": 1832,
+          "calls": 21,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-7-v2",
+          "prompt": 47166,
+          "cached": 0,
+          "cacheWrite": 0,
+          "completion": 1729,
+          "calls": 22,
+          "compactions": 2
+        },
+        {
+          "session": "heldout-ui-debugging-8-v2",
+          "prompt": 56296,
+          "cached": 4781,
+          "cacheWrite": 6518,
+          "completion": 1849,
+          "calls": 22,
+          "compactions": 2
+        }
+      ]
+    },
+    "S4": {
+      "sessions": 24,
+      "accuracy": 0.8854166666666666,
+      "byGroup": {
+        "immediate": 0.9305555555555556,
+        "cross": 0.9166666666666666,
+        "gist": 0.6666666666666666,
+        "late": 0.9027777777777778
+      },
+      "meanPromptTokens": 46142.583333333336,
+      "meanCachedTokens": 36927.583333333336,
+      "meanCompletionTokens": 53.75,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.04641133333333333,
+      "meanCacheViewCostUsd": 0.014842570833333332,
+      "thresholdExceededTurns": 160,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 2,
+      "perSession": [
+        {
+          "session": "heldout-document-review-1",
+          "prompt": 53876,
+          "cached": 44435,
+          "cacheWrite": 7766,
+          "completion": 64,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-2",
+          "prompt": 53908,
+          "cached": 44465,
+          "cacheWrite": 7768,
+          "completion": 61,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-3",
+          "prompt": 54028,
+          "cached": 44567,
+          "cacheWrite": 7786,
+          "completion": 61,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-4",
+          "prompt": 54029,
+          "cached": 44567,
+          "cacheWrite": 7787,
+          "completion": 63,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-5-v2",
+          "prompt": 53875,
+          "cached": 44432,
+          "cacheWrite": 7768,
+          "completion": 63,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-6-v2",
+          "prompt": 53826,
+          "cached": 44390,
+          "cacheWrite": 7761,
+          "completion": 63,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-7-v2",
+          "prompt": 53476,
+          "cached": 44090,
+          "cacheWrite": 7711,
+          "completion": 62,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-document-review-8-v2",
+          "prompt": 53958,
+          "cached": 44504,
+          "cacheWrite": 7779,
+          "completion": 62,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-1",
+          "prompt": 30012,
+          "cached": 21367,
+          "cacheWrite": 4359,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-2",
+          "prompt": 30201,
+          "cached": 21502,
+          "cacheWrite": 4386,
+          "completion": 48,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-3",
+          "prompt": 30166,
+          "cached": 21477,
+          "cacheWrite": 4381,
+          "completion": 53,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-4",
+          "prompt": 30026,
+          "cached": 21377,
+          "cacheWrite": 4361,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-5-v2",
+          "prompt": 30069,
+          "cached": 21407,
+          "cacheWrite": 4367,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-6-v2",
+          "prompt": 30090,
+          "cached": 21422,
+          "cacheWrite": 4370,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-7-v2",
+          "prompt": 30076,
+          "cached": 21412,
+          "cacheWrite": 4368,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-report-check-8-v2",
+          "prompt": 30062,
+          "cached": 21402,
+          "cacheWrite": 4366,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-1",
+          "prompt": 54736,
+          "cached": 45161,
+          "cacheWrite": 7894,
+          "completion": 49,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-2",
+          "prompt": 54392,
+          "cached": 44865,
+          "cacheWrite": 7846,
+          "completion": 49,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-3",
+          "prompt": 54420,
+          "cached": 44889,
+          "cacheWrite": 7850,
+          "completion": 60,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-4",
+          "prompt": 54583,
+          "cached": 45027,
+          "cacheWrite": 7875,
+          "completion": 52,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-5-v2",
+          "prompt": 54294,
+          "cached": 44783,
+          "cacheWrite": 7832,
+          "completion": 50,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-6-v2",
+          "prompt": 54159,
+          "cached": 44666,
+          "cacheWrite": 7814,
+          "completion": 52,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-7-v2",
+          "prompt": 54463,
+          "cached": 44927,
+          "cacheWrite": 7857,
+          "completion": 51,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "heldout-ui-debugging-8-v2",
+          "prompt": 54697,
+          "cached": 45128,
+          "cacheWrite": 7890,
+          "completion": 51,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    }
+  },
+  "wrong": [
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S0",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9945-F55",
+      "answer": "ZT-9045-F55"
+    },
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "V-belt A48",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "63b0c6",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9945-F55",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9945-F55",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me search for other potential status values:"
+    },
+    {
+      "session": "heldout-document-review-1",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9945-F55",
+      "answer": "ZT-9045-F55"
+    },
+    {
+      "session": "heldout-document-review-2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hex bolt M8",
+      "answer": "UNREADABLE\n\nThe log shows an over_limit amount of $114.36, but the invoice details provided in the summary do not include specific line item amounts that can be matched to this figure. Without being able to see the actual invoice amounts for each item, I cannot determine which line"
+    },
+    {
+      "session": "heldout-document-review-2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "c497fe",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6800-F16",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6800-F16",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-3",
+      "condition": "S0",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9839-B71",
+      "answer": "ZT-9839-871"
+    },
+    {
+      "session": "heldout-document-review-3",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9839-B71",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-3",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me try a different search to find all status values:"
+    },
+    {
+      "session": "heldout-document-review-3",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9839-B71",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-3",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me try a different approach and search for common status keywords:"
+    },
+    {
+      "session": "heldout-document-review-3",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-9839-B71",
+      "answer": "ZT-0839-871"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "V-belt A42",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-3669-M48",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S2",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-2710",
+      "answer": "8e62fb"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-3669-M48",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S3",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-2710",
+      "answer": "8e62fb"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me try searching for \"posted\" to get all ledger entries:"
+    },
+    {
+      "session": "heldout-document-review-4",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-3669-M48",
+      "answer": "ZT-3659-9448"
+    },
+    {
+      "session": "heldout-document-review-5-v2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "9dc957",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-5-v2",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "$16,557.49",
+      "answer": "Looking at the invoice image I already retrieved, the amount due is shown at the bottom of the invoice.\n\n$16,957.49"
+    },
+    {
+      "session": "heldout-document-review-5-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "The search results are limited. Let me try a broader search to see the full log content:"
+    },
+    {
+      "session": "heldout-document-review-5-v2",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "$16,557.49",
+      "answer": "$16,357.49"
+    },
+    {
+      "session": "heldout-document-review-6-v2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Bushing 20mm",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-6-v2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "b9bbbb",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-document-review-6-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me try a different approach and search for common status values:"
+    },
+    {
+      "session": "heldout-document-review-6-v2",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "$18,101.88",
+      "answer": "Based on the overview image, I can see the \"Amount due\" box at the bottom showing $18,101.89.\n\n$18,101.89"
+    },
+    {
+      "session": "heldout-document-review-6-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me try a different approach and search for common status values:"
+    },
+    {
+      "session": "heldout-document-review-7-v2",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-98302-B",
+      "answer": "INV-08302-B"
+    },
+    {
+      "session": "heldout-document-review-7-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me search for other common status values:"
+    },
+    {
+      "session": "heldout-document-review-7-v2",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-98302-B",
+      "answer": "I can see the invoice in the image. Looking at the bottom of the document, I can see the statement reference section which shows:\n\nINV-08302-B"
+    },
+    {
+      "session": "heldout-document-review-7-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me search for other potential status values:"
+    },
+    {
+      "session": "heldout-document-review-7-v2",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-98302-B",
+      "answer": "INV-08302-B"
+    },
+    {
+      "session": "heldout-document-review-8-v2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Gasket 40mm",
+      "answer": "UNREADABLE\n\nThe log shows an over_limit flag amount of $1,443.81 for invoice INV-64660-F, but I cannot read the individual line item amounts on the supplier invoice clearly enough to match this specific amount to a particular item name."
+    },
+    {
+      "session": "heldout-document-review-8-v2",
+      "condition": "S2",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-8594",
+      "answer": "389453"
+    },
+    {
+      "session": "heldout-document-review-8-v2",
+      "condition": "S3",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-8594",
+      "answer": "389453"
+    },
+    {
+      "session": "heldout-document-review-8-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "Let me try a different approach and search for common status keywords:"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "31",
+      "answer": "16"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "31",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "31",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "Oct",
+      "answer": "Looking at the bar chart overview from the previous query, the tallest bar is in November (Nov).\n\nNov"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "22:47",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "31",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "Oct",
+      "answer": "From the overview, I can see October (Oct) has the tallest bar with a value of 905. Let me verify this is correct by looking at the full chart.\n\nOctober"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "22:47",
+      "answer": "Let me check the images for timestamp information:"
+    },
+    {
+      "session": "heldout-report-check-1",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "31",
+      "answer": "16"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "20",
+      "answer": "8"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "20",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "20",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "Apr",
+      "answer": "Looking at the bar chart image I already retrieved, the tallest bar is in December (the rightmost bar in the chart).\n\nDecember"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "20:02",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "20",
+      "answer": "2"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "Apr",
+      "answer": "Looking at the bar chart from the previous image, the tallest bar is in **April** with a value of 985.\n\nApril"
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "20:02",
+      "answer": ""
+    },
+    {
+      "session": "heldout-report-check-2",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "20",
+      "answer": "8"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "22",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "yes",
+      "answer": "No"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "22",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "22",
+      "answer": "2"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "Jan",
+      "answer": "Looking at the bar chart overview from img-A, the tallest bar appears to be in January.\n\nJanuary"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "14:40",
+      "answer": "Let me check the image for any timestamp information:"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "22",
+      "answer": "2"
+    },
+    {
+      "session": "heldout-report-check-3",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "22",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7,533",
+      "answer": "7,633"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7,533",
+      "answer": "7,633"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "Jan",
+      "answer": "Looking at the bar chart overview from the previous query, the tallest bar is in November (Nov).\n\nNov"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "08:57",
+      "answer": "Let me check the image for any timestamp information:"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "08:57",
+      "answer": ""
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "7,533",
+      "answer": "7,633"
+    },
+    {
+      "session": "heldout-report-check-4",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "10:20",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "Mar",
+      "answer": "Looking at the original image of the bar chart, the tallest bar is for **Mar** with a value of 905.\n\nMar"
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "10:20",
+      "answer": ""
+    },
+    {
+      "session": "heldout-report-check-5-v2",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "16"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "06:49",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "May",
+      "answer": "Looking at the bar chart from img-A, the tallest bar is for **May** with a value of 861.\n\nMay"
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "06:49",
+      "answer": ""
+    },
+    {
+      "session": "heldout-report-check-6-v2",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "16"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "May",
+      "answer": "December"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "07:18",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "May",
+      "answer": "Looking at the bar chart image I already retrieved, the tallest bar is for **May** with a value of 886.\n\nMay"
+    },
+    {
+      "session": "heldout-report-check-7-v2",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "12"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "10"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "no",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S2",
+      "turn": 6,
+      "type": "late",
+      "gold": "Nov",
+      "answer": "Sep"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "18:43",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "1"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S3",
+      "turn": 6,
+      "type": "late",
+      "gold": "Nov",
+      "answer": "Looking at the bar chart image I retrieved earlier, the tallest bar is for September with a value of 851.\n\nSep"
+    },
+    {
+      "session": "heldout-report-check-8-v2",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "25",
+      "answer": "10"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2195",
+      "answer": "7.4.35 (build 2196)"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S0",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "26.8 GB",
+      "answer": "26.9 GB"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2195",
+      "answer": "7.4.35 (build 2196)"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "26.8 GB",
+      "answer": "26.9 GB"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "19:09",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2195",
+      "answer": "Based on the original image, I can see the text at the bottom right corner of the screen. The build number shown is:\n\n2196"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me search for specific subsystem tags with ERROR:"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2195",
+      "answer": "Based on the original image, I can see the text at the bottom right corner of the screen. The build number shown is:\n\n2196"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me try a different approach and search for just \"ERROR\":"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "19:09",
+      "answer": "Based on the earlier conversation summary, line 22 had a sync error at 2026-03-21T04:12:09Z. Let me verify if there are any later sync entries by searching differently:"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2195",
+      "answer": "2186"
+    },
+    {
+      "session": "heldout-ui-debugging-1",
+      "condition": "S4",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "26.8 GB",
+      "answer": "26.9 GB"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2493",
+      "answer": "2495"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S0",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Off",
+      "answer": "On"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2493",
+      "answer": "2495"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "373b9f",
+      "answer": "req=0x2a8f1c"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "10:13",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2493",
+      "answer": "Looking at the original image, I can see text at the bottom right corner. From the downscaled view, I can make out \"Firmware 7.3.48 (build 2495)\" at the bottom right. The build number is 2495.\n\n2495"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me search for all instances with different keywords:"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2493",
+      "answer": "Looking at the original image, I can see text at the bottom right corner. From the downscaled view, I can make out \"Firmware 7.3.48 (build 2495)\" at the bottom right. The build number is 2495.\n\n2495"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me search for all lines with ERROR to get a complete count:"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "10:13",
+      "answer": "Let me search for \"last\" or look at the end of the log:"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "2493",
+      "answer": "2486"
+    },
+    {
+      "session": "heldout-ui-debugging-2",
+      "condition": "S4",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Off",
+      "answer": "On"
+    },
+    {
+      "session": "heldout-ui-debugging-3",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "23:27",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-3",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me search for all instances with different subsystem tags:"
+    },
+    {
+      "session": "heldout-ui-debugging-3",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me try a different search approach to find all ERROR entries:"
+    },
+    {
+      "session": "heldout-ui-debugging-3",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "23:27",
+      "answer": "22:34"
+    },
+    {
+      "session": "heldout-ui-debugging-4",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "7d9bfe",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-4",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "The search is only returning 3 lines. Let me try a different approach to find all ERROR entries:"
+    },
+    {
+      "session": "heldout-ui-debugging-4",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "10:40",
+      "answer": "Based on the earlier conversation summary, the last sync entry mentioned was the upload failed error at 2026-03-21T04:12:09Z. Converting to HH:MM format:\n\n04:12"
+    },
+    {
+      "session": "heldout-ui-debugging-4",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "10:40",
+      "answer": "10:45"
+    },
+    {
+      "session": "heldout-ui-debugging-5-v2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "02:27",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-5-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me try different searches to find all ERROR entries:"
+    },
+    {
+      "session": "heldout-ui-debugging-5-v2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "02:27",
+      "answer": "Let me search for the latest sync entry more systematically:"
+    },
+    {
+      "session": "heldout-ui-debugging-5-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me search for all lines with ERROR to get a complete picture:"
+    },
+    {
+      "session": "heldout-ui-debugging-5-v2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "02:27",
+      "answer": "Based on the summary provided earlier, the last sync entry mentioned was on line 81 with timestamp 2026-03-21T04:12:09Z. Converting to HH:MM format:\n\n04:12"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "9835",
+      "answer": "9435"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S0",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "16:32",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "9835",
+      "answer": "9435"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "7c2619",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "16:32",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "The query is only returning one result. Let me try a different approach to find all ERROR lines by searching for different patterns:"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S3",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Off",
+      "answer": "Based on the overview, I can clearly see \"Auto-update\" with \"Status: Off\" in the bottom right section of the settings screen.\n\nOff"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me try a different approach and search for all lines with brackets to see the subsystem tags:"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "16:32",
+      "answer": "Based on the log, the last sync entry shows a timestamp of 2026-03-20T15:22:27Z.\n\n**15:22**"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "9835",
+      "answer": "9435"
+    },
+    {
+      "session": "heldout-ui-debugging-6-v2",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "16:32",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-7-v2",
+      "condition": "S0",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Off",
+      "answer": "On"
+    },
+    {
+      "session": "heldout-ui-debugging-7-v2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "11:44",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-7-v2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me try a different approach to find all ERROR lines:"
+    },
+    {
+      "session": "heldout-ui-debugging-7-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me search for all lines with brackets to find subsystem tags:"
+    },
+    {
+      "session": "heldout-ui-debugging-7-v2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "11:44",
+      "answer": "Based on the summary provided, the last sync entry mentioned was:\n- 2026-03-20T00:10:00Z ERROR [sync] retry scheduled node=edge-67 req=345c67\n\n00:10"
+    },
+    {
+      "session": "heldout-ui-debugging-7-v2",
+      "condition": "S4",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Off",
+      "answer": "On"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S0",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "03:58",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "c182d6",
+      "answer": "6a7f9c2e"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "03:58",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "6609",
+      "answer": "6009"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "6609",
+      "answer": "6009"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "Let me try a different approach and search for just \"ERROR\" with different context:"
+    },
+    {
+      "session": "heldout-ui-debugging-8-v2",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "03:58",
+      "answer": "UNREADABLE"
+    }
+  ]
+}

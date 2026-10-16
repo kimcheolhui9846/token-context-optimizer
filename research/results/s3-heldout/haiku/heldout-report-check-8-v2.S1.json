@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-8-v2",
+  "template": "report-check",
+  "condition": "S1",
+  "attemptId": "mv9jm15o-z4zfw5",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart title?",
+      "gold": [
+        "2,135",
+        "2135"
+      ],
+      "answer": "2,135",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "August"
+      ],
+      "answer": "August",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant North",
+        "North"
+      ],
+      "answer": "Plant North",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Shows monthly inspection counts with inspection sample size of 2,135 (weekend audits excluded)\n   - Data ranges from January (120) to November (904)\n   - Notable peaks: September (851) and November (904)\n   - Lowest: July (111)\n\n2. **log: Report Review Notes**\n   - Extensive review checklist covering chart elements (title, legend, gridlines, axis labels, footnote)\n   - All items marked as approved or \"no change\"\n   - Key findings:\n     - Jun inspection count recorded as 254\n     - Inspection audit postponed to August\n     - Recalibration deadline: 17 February 2026\n   - Multiple data exports refreshed throughout review\n\n3. **img-B: Shift Output Index Line Chart**\n   - Displays output index for two plants over time\n   - Plant South: solid teal line\n   - Plant North: dashed red line\n   - Peak value noted: 79.1 for Plant South\n   - Y-axis ranges from 0 to 100\n   - Last updated: 18:43\n\n**Status:** All charts reviewed and approved. No changes required to chart elements. Data exports have been refreshed. Inspection audit rescheduled to August with recalibration deadline of 17 February 2026."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Jun. Does it match the value labeled on the Jun bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "25"
+      ],
+      "answer": "1",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Nov"
+      ],
+      "answer": "November",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Inspection sample size: 2,135 (weekend audits excluded)\n   - Monthly inspection counts: January (120), July (111), June (254), September (851), November (904)\n   - Tallest bar: November with 904 inspections\n   - Lowest: July (111)\n\n2. **log: Report Review Notes**\n   - Extensive review checklist covering chart elements (title, legend, gridlines, axis labels, footnote)\n   - All items marked as approved or \"no change\"\n   - Key findings:\n     - June inspection count: 254\n     - Inspection audit postponed to August\n     - Recalibration deadline: 17 February 2026\n   - One line in the notes mentions the legend\n   - Multiple data exports refreshed throughout review\n\n3. **img-B: Shift Output Index Line Chart**\n   - Displays output index for two plants over time\n   - Plant South: solid teal line\n   - Plant North: dashed red line\n   - Peak value: 79.1 for Plant South\n   - Y-axis ranges from 0 to 100\n   - Last updated: 18:43\n\n**Status:** All charts reviewed and approved. No changes required to chart elements. Data exports have been refreshed. Inspection audit rescheduled to August with recalibration deadline of 17 February 2026."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "17 February 2026"
+      ],
+      "answer": "17 February 2026",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "18:43"
+      ],
+      "answer": "18:43",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

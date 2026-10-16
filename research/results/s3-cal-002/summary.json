@@ -1,0 +1,808 @@
+{
+  "runId": "s3-cal-002",
+  "config": {
+    "split": "calibration",
+    "model": "gpt-4o-2024-11-20",
+    "compactAt": 4000,
+    "cachedInputFactorAssumed": 0.5
+  },
+  "table": {
+    "S0": {
+      "sessions": 6,
+      "accuracy": 0.9166666666666666,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 1,
+        "gist": 0.8333333333333334,
+        "late": 0.9444444444444444
+      },
+      "meanPromptTokens": 33955.166666666664,
+      "meanCachedTokens": 24192,
+      "meanCompletionTokens": 53.333333333333336,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.08542124999999999,
+      "meanCacheViewCostUsd": 0.05518124999999999,
+      "thresholdExceededTurns": 28,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "calibration-document-review-1",
+          "prompt": 41132,
+          "cached": 33408,
+          "completion": 36,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-document-review-2",
+          "prompt": 41383,
+          "cached": 23040,
+          "completion": 34,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-report-check-1",
+          "prompt": 18599,
+          "cached": 10240,
+          "completion": 46,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-report-check-2",
+          "prompt": 18451,
+          "cached": 9088,
+          "completion": 18,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-ui-debugging-1",
+          "prompt": 41969,
+          "cached": 34688,
+          "completion": 93,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-ui-debugging-2",
+          "prompt": 42197,
+          "cached": 34688,
+          "completion": 93,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    },
+    "S1": {
+      "sessions": 6,
+      "accuracy": 0.3958333333333333,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 0,
+        "gist": 0,
+        "late": 0.16666666666666666
+      },
+      "meanPromptTokens": 16006.5,
+      "meanCachedTokens": 11200,
+      "meanCompletionTokens": 299.5,
+      "meanCalls": 10,
+      "meanCompactions": 2,
+      "meanListCostUsd": 0.04301125,
+      "meanCacheViewCostUsd": 0.029011250000000002,
+      "thresholdExceededTurns": 8,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 27,
+      "perSession": [
+        {
+          "session": "calibration-document-review-1",
+          "prompt": 19131,
+          "cached": 9600,
+          "completion": 301,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-document-review-2",
+          "prompt": 19313,
+          "cached": 15616,
+          "completion": 314,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-report-check-1",
+          "prompt": 9516,
+          "cached": 6144,
+          "completion": 333,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-report-check-2",
+          "prompt": 9344,
+          "cached": 4224,
+          "completion": 264,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-ui-debugging-1",
+          "prompt": 19336,
+          "cached": 15872,
+          "completion": 300,
+          "calls": 10,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-ui-debugging-2",
+          "prompt": 19399,
+          "cached": 15744,
+          "completion": 285,
+          "calls": 10,
+          "compactions": 2
+        }
+      ]
+    },
+    "S2": {
+      "sessions": 6,
+      "accuracy": 0.8541666666666666,
+      "byGroup": {
+        "immediate": 0.8333333333333334,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 0.8888888888888888
+      },
+      "meanPromptTokens": 22618.166666666668,
+      "meanCachedTokens": 8469.333333333334,
+      "meanCompletionTokens": 259.1666666666667,
+      "meanCalls": 15.333333333333334,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.05913708333333334,
+      "meanCacheViewCostUsd": 0.048550416666666665,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 48,
+      "originalsRequested": 1,
+      "unreadable": 2,
+      "perSession": [
+        {
+          "session": "calibration-document-review-1",
+          "prompt": 27719,
+          "cached": 11776,
+          "completion": 264,
+          "calls": 17,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-document-review-2",
+          "prompt": 20821,
+          "cached": 8832,
+          "completion": 231,
+          "calls": 14,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-report-check-1",
+          "prompt": 18586,
+          "cached": 4224,
+          "completion": 247,
+          "calls": 15,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-report-check-2",
+          "prompt": 18712,
+          "cached": 5248,
+          "completion": 247,
+          "calls": 15,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-ui-debugging-1",
+          "prompt": 24148,
+          "cached": 10112,
+          "completion": 276,
+          "calls": 15,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-ui-debugging-2",
+          "prompt": 25723,
+          "cached": 10624,
+          "completion": 290,
+          "calls": 16,
+          "compactions": 0
+        }
+      ]
+    },
+    "S3": {
+      "sessions": 6,
+      "accuracy": 0.8541666666666666,
+      "byGroup": {
+        "immediate": 0.8888888888888888,
+        "cross": 1,
+        "gist": 0.6666666666666666,
+        "late": 0.8333333333333334
+      },
+      "meanPromptTokens": 21070.5,
+      "meanCachedTokens": 5930.666666666667,
+      "meanCompletionTokens": 563.5,
+      "meanCalls": 18.5,
+      "meanCompactions": 2,
+      "meanListCostUsd": 0.05831125,
+      "meanCacheViewCostUsd": 0.050897916666666675,
+      "thresholdExceededTurns": 0,
+      "toolCalls": 54,
+      "originalsRequested": 3,
+      "unreadable": 3,
+      "perSession": [
+        {
+          "session": "calibration-document-review-1",
+          "prompt": 24147,
+          "cached": 8960,
+          "completion": 569,
+          "calls": 20,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-document-review-2",
+          "prompt": 24137,
+          "cached": 9088,
+          "completion": 572,
+          "calls": 20,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-report-check-1",
+          "prompt": 18012,
+          "cached": 2560,
+          "completion": 540,
+          "calls": 18,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-report-check-2",
+          "prompt": 21359,
+          "cached": 2560,
+          "completion": 554,
+          "calls": 19,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-ui-debugging-1",
+          "prompt": 19436,
+          "cached": 6272,
+          "completion": 576,
+          "calls": 17,
+          "compactions": 2
+        },
+        {
+          "session": "calibration-ui-debugging-2",
+          "prompt": 19332,
+          "cached": 6144,
+          "completion": 570,
+          "calls": 17,
+          "compactions": 2
+        }
+      ]
+    },
+    "S4": {
+      "sessions": 6,
+      "accuracy": 0.8333333333333334,
+      "byGroup": {
+        "immediate": 0.7777777777777778,
+        "cross": 0.8333333333333334,
+        "gist": 0.6666666666666666,
+        "late": 0.9444444444444444
+      },
+      "meanPromptTokens": 33843.833333333336,
+      "meanCachedTokens": 22656,
+      "meanCompletionTokens": 30.666666666666668,
+      "meanCalls": 8,
+      "meanCompactions": 0,
+      "meanListCostUsd": 0.08491625000000001,
+      "meanCacheViewCostUsd": 0.05659625000000001,
+      "thresholdExceededTurns": 28,
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "unreadable": 0,
+      "perSession": [
+        {
+          "session": "calibration-document-review-1",
+          "prompt": 41136,
+          "cached": 27520,
+          "completion": 36,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-document-review-2",
+          "prompt": 41383,
+          "cached": 23040,
+          "completion": 34,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-report-check-1",
+          "prompt": 18649,
+          "cached": 9472,
+          "completion": 54,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-report-check-2",
+          "prompt": 18451,
+          "cached": 7680,
+          "completion": 18,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-ui-debugging-1",
+          "prompt": 41605,
+          "cached": 33920,
+          "completion": 20,
+          "calls": 8,
+          "compactions": 0
+        },
+        {
+          "session": "calibration-ui-debugging-2",
+          "prompt": 41839,
+          "cached": 34304,
+          "completion": 22,
+          "calls": 8,
+          "compactions": 0
+        }
+      ]
+    }
+  },
+  "wrong": [
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-55785-C",
+      "answer": "INV-56785-C"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S0",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6534-M21",
+      "answer": "ZT-4563A-M21"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-55785-C",
+      "answer": "INV-56785-C"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "41c4f9",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6534-M21",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-55785-C",
+      "answer": "INV-65785-C"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6534-M21",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-55785-C",
+      "answer": "INV-45785-C"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6534-M21",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-55785-C",
+      "answer": "INV-56785-C"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S4",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Hose clamp 32",
+      "answer": "O-ring 30x2"
+    },
+    {
+      "session": "calibration-document-review-1",
+      "condition": "S4",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-6534-M21",
+      "answer": "ZT-4563-M21"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S0",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-71012-A",
+      "answer": "INV-17012-A"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S1",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-71012-A",
+      "answer": "INV-17012-A"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Grease 400g",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "ok",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "6309a3",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-3398-P17",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S2",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-71012-A",
+      "answer": "INV-17012-A"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S2",
+      "turn": 2,
+      "type": "immediate-log",
+      "gold": "B-4404",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S2",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-3398-P17",
+      "answer": "shipment supply"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S3",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-71012-A",
+      "answer": "INV-17012-A"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "ZT-3398-P17",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-document-review-2",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "INV-71012-A",
+      "answer": "INV-17012-A"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "yes",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late",
+      "gold": "Jul",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "13:27",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "1"
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "5,664",
+      "answer": "The inspection sample size noted under the chart is **n = 5,661**."
+    },
+    {
+      "session": "calibration-report-check-1",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "28",
+      "answer": "18"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S0",
+      "turn": 5,
+      "type": "gist",
+      "gold": "26",
+      "answer": "27"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "no",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "26",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late",
+      "gold": "Aug",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "9 February 2026",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "17:55",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S2",
+      "turn": 5,
+      "type": "gist",
+      "gold": "26",
+      "answer": "2"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S3",
+      "turn": 5,
+      "type": "gist",
+      "gold": "26",
+      "answer": "2"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S3",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "17:55",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-report-check-2",
+      "condition": "S4",
+      "turn": 5,
+      "type": "gist",
+      "gold": "26",
+      "answer": "33"
+    },
+    {
+      "session": "calibration-ui-debugging-1",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "On",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-1",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-1",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "95.2 GB",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-1",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "f32d3e",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-1",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "20:38",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-1",
+      "condition": "S4",
+      "turn": 1,
+      "type": "immediate-small",
+      "gold": "8694",
+      "answer": "8684"
+    },
+    {
+      "session": "calibration-ui-debugging-2",
+      "condition": "S1",
+      "turn": 4,
+      "type": "cross",
+      "gold": "Off",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-2",
+      "condition": "S1",
+      "turn": 5,
+      "type": "gist",
+      "gold": "sync",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-2",
+      "condition": "S1",
+      "turn": 6,
+      "type": "late-small",
+      "gold": "57.0 GB",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-2",
+      "condition": "S1",
+      "turn": 7,
+      "type": "late-log",
+      "gold": "a99f16",
+      "answer": "UNREADABLE"
+    },
+    {
+      "session": "calibration-ui-debugging-2",
+      "condition": "S1",
+      "turn": 8,
+      "type": "late-small",
+      "gold": "07:03",
+      "answer": "UNREADABLE"
+    }
+  ]
+}

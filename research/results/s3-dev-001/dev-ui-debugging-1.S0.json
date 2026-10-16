@@ -1,0 +1,96 @@
+{
+  "session": "dev-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S0",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "7924"
+      ],
+      "answer": "7924",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-12. What error code is on that line?",
+      "gold": [
+        "E5281"
+      ],
+      "answer": "E5281",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Open tickets\" card?",
+      "gold": [
+        "20",
+        "20"
+      ],
+      "answer": "20",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "On",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "sync",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "17.3 GB"
+      ],
+      "answer": "17.3 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E5281?",
+      "gold": [
+        "e96b50"
+      ],
+      "answer": "e96b50",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "06:07"
+      ],
+      "answer": "06:07",
+      "toolCalls": 0,
+      "originalsRequested": 0
+    }
+  ]
+}

@@ -1,0 +1,1318 @@
+{
+  "split": "calibration",
+  "purpose": "experiment 3 scripted agent sessions",
+  "sessions": [
+    {
+      "id": "calibration-ui-debugging-1",
+      "template": "ui-debugging",
+      "seed": 6000,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "calibration-ui-debugging-1/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85561,
+          "sha256": "a68146a579e53c80c6d6895a840bee40008a0b63a4427f9d8b39270ea6cb7ee2",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Do not disturb turned on or off?",
+              "answers": [
+                "On"
+              ],
+              "evidence": [
+                490,
+                1122,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "8694"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "95.2 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "calibration-ui-debugging-1/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 68782,
+          "sha256": "57a70532c7e6e5a28cbda1323a11eecd2ed6d5ac31f21199ec366f1cbff7e367",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "30"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Deployments\" card?",
+              "answers": [
+                "56",
+                "56"
+              ],
+              "evidence": [
+                1078,
+                860,
+                148,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "20:38"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "calibration-ui-debugging-1/log.txt",
+        "lines": 150,
+        "sha256": "94834bede8b365ed247177f28cd8f271e3c05fb2bd2541c60c4bfd51756a573e",
+        "keyLines": {
+          "fail": 82,
+          "toggle": 40,
+          "e0": 67,
+          "e1": 51,
+          "e2": 26,
+          "e3": 104,
+          "e4": 58
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "8694"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-70. What error code is on that line?",
+          "answers": [
+            "E3345"
+          ],
+          "evidence": {
+            "log": 82
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Deployments\" card?",
+          "answers": [
+            "56",
+            "56"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 40
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "95.2 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E3345?",
+          "answers": [
+            "f32d3e"
+          ],
+          "evidence": {
+            "log": 82
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "20:38"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calibration-ui-debugging-2",
+      "template": "ui-debugging",
+      "seed": 6002,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "calibration-ui-debugging-2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85116,
+          "sha256": "7d0ac8614cd8ce6d20c84812e0732b6123e18678dfbdf0e0cd1cc83ea6efa404",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Auto-rotate turned on or off?",
+              "answers": [
+                "Off"
+              ],
+              "evidence": [
+                490,
+                828,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "6754"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "57.0 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "calibration-ui-debugging-2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 69944,
+          "sha256": "873a88ce6c0e592338581f67c4dfc7a28ac3dc9b58e9d8427df819026bb4f7b5",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "56"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Cache hit\" card?",
+              "answers": [
+                "78%",
+                "78%"
+              ],
+              "evidence": [
+                1570,
+                860,
+                121,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "07:03"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "calibration-ui-debugging-2/log.txt",
+        "lines": 150,
+        "sha256": "2e62a15e6ff0a9245e5febebb127590efb9c548f42d9345db1e656ba332ee995",
+        "keyLines": {
+          "fail": 82,
+          "toggle": 43,
+          "e0": 16,
+          "e1": 105,
+          "e2": 27,
+          "e3": 103,
+          "e4": 41
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "6754"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-35. What error code is on that line?",
+          "answers": [
+            "E8784"
+          ],
+          "evidence": {
+            "log": 82
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Cache hit\" card?",
+          "answers": [
+            "78%",
+            "78%"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 43
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "57.0 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E8784?",
+          "answers": [
+            "a99f16"
+          ],
+          "evidence": {
+            "log": 82
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "07:03"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calibration-document-review-1",
+      "template": "document-review",
+      "seed": 6100,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "calibration-document-review-1/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 137442,
+          "sha256": "289e1f5095ae76068151add29b1527a6589ec1f424fe3b0afe2c96fb881ccf7e",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-55785-C"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Hose clamp 32\"?",
+              "answers": [
+                "318.60"
+              ],
+              "evidence": [
+                100,
+                956,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$18,137.33",
+                "18,137.33"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "calibration-document-review-1/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 478424,
+          "sha256": "8f0285d44b2a0729b112f2a7e1c6c38b382b4c515d716dd57ad2d199282684d3",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-6534-M21"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "B-227"
+              ],
+              "evidence": [
+                80,
+                1246,
+                986,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "11 March 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                306,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "calibration-document-review-1/log.txt",
+        "lines": 150,
+        "sha256": "20c4e6ca353ce19ff1c9c5a957fe1af608c2092a074c01a9397f5216fe8c7aaf",
+        "keyLines": {
+          "posted": 107,
+          "flag": 130
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-55785-C"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-55785-C?",
+          "answers": [
+            "B-3732"
+          ],
+          "evidence": {
+            "log": 107
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "B-227"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Hose clamp 32"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 130
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$18,137.33",
+            "18,137.33"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "41c4f9"
+          ],
+          "evidence": {
+            "log": 130
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-6534-M21"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calibration-document-review-2",
+      "template": "document-review",
+      "seed": 6102,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "calibration-document-review-2/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 133063,
+          "sha256": "6e1d6dbd1d6b33a7114726a6e7d8db6ac0d55ec05191495bf796e2d0296515a7",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-71012-A"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Grease 400g\"?",
+              "answers": [
+                "883.15"
+              ],
+              "evidence": [
+                100,
+                1124,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$17,950.77",
+                "17,950.77"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "calibration-document-review-2/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 480064,
+          "sha256": "6f413184d0726fa24d0e9eedf05ca820a3d057faf45be6950e7a72169c124950",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-3398-P17"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "B-365"
+              ],
+              "evidence": [
+                80,
+                812,
+                1076,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "16 May 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                277,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "calibration-document-review-2/log.txt",
+        "lines": 150,
+        "sha256": "aad23084d6edb9d0025ea68ac74500bf8b155fb7c5e641c13bfdf33c705aee96",
+        "keyLines": {
+          "posted": 125,
+          "flag": 61
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-71012-A"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-71012-A?",
+          "answers": [
+            "B-4404"
+          ],
+          "evidence": {
+            "log": 125
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "B-365"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Grease 400g"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 61
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$17,950.77",
+            "17,950.77"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "6309a3"
+          ],
+          "evidence": {
+            "log": 61
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-3398-P17"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calibration-report-check-1",
+      "template": "report-check",
+      "seed": 6200,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "calibration-report-check-1/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 57552,
+          "sha256": "d89d5a8ed0644211e078097cd44094fe4d747145a658a3e2aa4bbd8dd97826c7",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Oct bar?",
+              "answers": [
+                "509"
+              ],
+              "evidence": [
+                1550,
+                723,
+                100,
+                621
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "5,664",
+                "5664"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Jul"
+              ],
+              "evidence": [
+                1100,
+                224,
+                100,
+                1120
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "calibration-report-check-1/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 99644,
+          "sha256": "67cf46686c53565f1773ce451ed2dd07907a64e303fa5cc34d771a682c065b1a",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "81.6"
+              ],
+              "evidence": [
+                1200,
+                419,
+                95,
+                35.80000000000007
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Delta",
+                "Delta"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "13:27"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "calibration-report-check-1/log.txt",
+        "lines": 150,
+        "sha256": "4770fd3bf4ed35040b9b9797fc6058e325bc57ceded028b3611f17061086bfee",
+        "keyLines": {
+          "postponed": 127,
+          "noted": 46,
+          "deadline": 101
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "5,664",
+            "5664"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "October"
+          ],
+          "evidence": {
+            "log": 127
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Oct. Does it match the value labeled on the Oct bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "yes"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 46
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "28"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Jul"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "11 December 2026"
+          ],
+          "evidence": {
+            "log": 101
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "13:27"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calibration-report-check-2",
+      "template": "report-check",
+      "seed": 6202,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "calibration-report-check-2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 57684,
+          "sha256": "40432919d1937abd05ac34f677fec0cbb0b7ba290608506d7f65f02d151a5a29",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the May bar?",
+              "answers": [
+                "401"
+              ],
+              "evidence": [
+                800,
+                840,
+                100,
+                504
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "3,996",
+                "3996"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Aug"
+              ],
+              "evidence": [
+                1250,
+                209,
+                100,
+                1135
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "calibration-report-check-2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 110995,
+          "sha256": "2dfde446d5953e90f76364e1f39e585720b745a97f40c4bf7913ae01464c64bd",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "86.9"
+              ],
+              "evidence": [
+                1800,
+                369,
+                95,
+                35.44999999999993
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Delta",
+                "Delta"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "17:55"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "calibration-report-check-2/log.txt",
+        "lines": 150,
+        "sha256": "cb1ff88114fb15f26a9d83cf69204520ebdb45d446c1d83891ead7cba8b9965c",
+        "keyLines": {
+          "postponed": 29,
+          "noted": 63,
+          "deadline": 35
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "3,996",
+            "3996"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "August"
+          ],
+          "evidence": {
+            "log": 29
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for May. Does it match the value labeled on the May bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 63
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "26"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Aug"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "9 February 2026"
+          ],
+          "evidence": {
+            "log": 35
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "17:55"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    }
+  ]
+}

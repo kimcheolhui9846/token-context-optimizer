@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-5-v2",
+  "template": "document-review",
+  "condition": "S1",
+  "attemptId": "mv9j35ds-vk4s0f",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-63512-K"
+      ],
+      "answer": "INV-63512-K",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-63512-K?",
+      "gold": [
+        "B-8064"
+      ],
+      "answer": "B-8064",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "G-278"
+      ],
+      "answer": "G-278",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **Supplier Invoice (img-A)** from Copperfield Fasteners Ltd.\n   - Invoice Number: INV-63512-K\n   - Document type: Accounts receivable statement\n   - Contains 16 line items (fasteners, washers, bolts, gaskets, etc.)\n   - Total Amount Due: $16,557.49\n\n2. **Ledger Processing Log**\n   - Multiple entries dated March 10-28, 2026\n   - Key entry: 2026-03-22T09:30:00Z - Posted invoice INV-63512-K to batch B-8064 with status=ok\n   - Follow-up entry: 2026-03-22T09:30:04Z - FLAG over_limit warning for invoice INV-63512-K with amount=298.60\n   - Log contains various ledger operations (reconciled batches, fx rate caching, posted entries, audit checksums, OCR page parsing, mail notices)\n\n3. **Operations Notice (img-B)** - Site Bulletin\n   - Reference: QR-7436-G81\n   - Issued: 19 August 2026\n   - Contains administrative text regarding schedules, policies, departments, training, and vendor management\n   - Specific detail: Training assigned room G-278 for facility vendor\n\n**Key Findings:**\n- Invoice INV-63512-K was successfully posted to batch B-8064\n- An over_limit flag was triggered with amount $298.60 (matching Gasket 50mm line item)\n- Room assignment G-278 noted in operations bulletin"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Gasket 50mm"
+      ],
+      "answer": "Gasket 50mm",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "ok",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$16,557.49",
+        "16,557.49"
+      ],
+      "answer": "$16,557.49",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **Supplier Invoice (img-A)** from Copperfield Fasteners Ltd.\n   - Invoice Number: INV-63512-K\n   - Document type: Accounts receivable statement\n   - Contains 16 line items (fasteners, washers, bolts, gaskets, etc.)\n   - Total Amount Due: $16,557.49\n\n2. **Ledger Processing Log**\n   - Multiple entries dated March 10-28, 2026\n   - Key entry: 2026-03-22T09:30:00Z - Posted invoice INV-63512-K to batch B-8064 with status=ok\n   - Follow-up entry: 2026-03-22T09:30:04Z - FLAG over_limit warning for invoice INV-63512-K with amount=$298.60\n   - The over_limit flagged amount of $298.60 corresponds to the Gasket 50mm line item on the invoice\n   - Most log lines show status value: ok\n   - Log contains various ledger operations (reconciled batches, fx rate caching, posted entries, audit checksums, OCR page parsing, mail notices)\n\n3. **Operations Notice (img-B)** - Site Bulletin\n   - Reference: QR-7436-G81\n   - Issued: 19 August 2026\n   - Contains administrative text regarding schedules, policies, departments, training, and vendor management\n   - Specific detail: Training assigned room G-278 for facility vendor\n\n**Key Findings:**\n- Invoice INV-63512-K successfully posted to batch B-8064\n- Over_limit flag triggered for Gasket 50mm at $298."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "9dc957"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-7436-G81"
+      ],
+      "answer": "QR-7436-G81",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

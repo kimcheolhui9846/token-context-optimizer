@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-8-v2",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9io3ha-fv03bn",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown in the screen header?",
+      "gold": [
+        "6609"
+      ],
+      "answer": "6609",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-69. What error code is on that line?",
+      "gold": [
+        "E5366"
+      ],
+      "answer": "E5366",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Uptime\" card?",
+      "gold": [
+        "99.14%",
+        "99.14%"
+      ],
+      "answer": "99.14%",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts for specific details. \n\n1. **Device settings screenshot (img-A):** The build number in the header is **6609**.\n2. **Service error log (log):** The error code for the upload failure on node edge-69 is **E5366**.\n3. **Service dashboard screenshot (img-B):** The \"Uptime\" card shows **99.14%**.\n\nThe task involves extracting precise information from provided artifacts for further analysis."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the footer? Answer with the number and unit.",
+      "gold": [
+        "79.1 GB"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves analyzing artifacts for specific details. Key findings so far include: \n\n1. From the device settings screenshot (img-A), the build number in the header is **6609**.  \n2. From the service error log, the error code for the upload failure on node edge-69 is **E5366**.  \n3. From the service dashboard screenshot (img-B), the \"Uptime\" card shows **99.14%**.  \n\nFurther questions regarding a rejected settings change, subsystem tags in the log, and storage usage in the footer remain unanswered due to unreadable artifacts."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E5366?",
+      "gold": [
+        "c182d6"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "03:58"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "runId": "s3-cal-002",
+  "split": "calibration",
+  "model": "gpt-4o-2024-11-20",
+  "detail": "high",
+  "maxTokens": 60,
+  "toolRounds": 3,
+  "compactAt": 4000,
+  "compactAfterTurns": [
+    3,
+    6
+  ],
+  "evict": true,
+  "evictAfterTurns": [
+    3,
+    6
+  ],
+  "thumbnail": {
+    "longSide": 512,
+    "detail": "low"
+  },
+  "autoOriginal": true,
+  "system": "You are helping a colleague with a work task. Artifacts such as screenshots, document scans and logs arrive during the conversation. Answer each question with only the answer value, without explanation. If the answer cannot be read from what you can see, reply UNREADABLE.",
+  "systemPlugin": "You are helping a colleague with a work task. Artifacts such as screenshots, document scans and logs arrive during the conversation. Answer each question with only the answer value, without explanation. If the answer cannot be read from what you can see, reply UNREADABLE. Artifacts are stored outside the conversation and are referred to by id. Use the tools to look at them: query_text_artifact returns matching log lines with line numbers, query_image_artifact returns a cropped view of the region relevant to your question at full resolution together with a low-resolution overview of the whole image for layout context (small text is not readable in the overview), get_original_image returns the whole original image. If a cropped view does not show the answer, call get_original_image. After using tools, reply with only the answer value.",
+  "compact": "Summarize the conversation so far so that the work can continue without it. Keep exact numbers, codes, ids, names and times that were stated. Stay under 250 words.",
+  "compactPlugin": "Summarize the conversation so far so that the work can continue without it. Keep exact numbers, codes, ids, names and times that were stated. Stay under 250 words. List every artifact id mentioned so the artifacts can be queried again.",
+  "price": {
+    "inputPerM": 2.5,
+    "outputPerM": 10
+  },
+  "sessionsSha256": "14a7dd202cf8b1979988fc7da97b84e1910176cf4b5b15498e9ecc967fe13a94",
+  "fingerprint": "c59fd750b54afa47c1f522913b8c9c4654e9203ab457970188cdd153094d905b",
+  "startedAt": "2026-10-15T04:06:25.679Z"
+}

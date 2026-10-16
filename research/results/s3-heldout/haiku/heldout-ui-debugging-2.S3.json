@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-2",
+  "template": "ui-debugging",
+  "condition": "S3",
+  "attemptId": "mv9iiuh8-7kgome",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "2493"
+      ],
+      "answer": "Looking at the original image, I can see text at the bottom right corner. From the downscaled view, I can make out \"Firmware 7.3.48 (build 2495)\" at the bottom right. The build number is 2495.\n\n2495",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-93. What error code is on that line?",
+      "gold": [
+        "E8171"
+      ],
+      "answer": "E8171",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Open tickets\" card?",
+      "gold": [
+        "280",
+        "280"
+      ],
+      "answer": "280",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were examined to extract specific information:\n\n1. **img-A** (Device settings screenshot, 2048x1536): Retrieved the build number shown at the bottom of the screen: **2495** (Firmware 7.3.48, build 2495).\n\n2. **log** (Service error log, 150 lines): Searched for upload failure information related to node edge-93. Found error log entry from 2026-03-21T04:12:09Z showing an upload failure with error code **E8171** for node **edge-93** (request ID: 373b9f).\n\n3. **img-B** (Service dashboard screenshot, 2048x1536): Queried the \"Open tickets\" card and found the value: **280**.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\nAll requested information was successfully extracted from the artifacts. The work can continue by referencing these artifact IDs if additional queries are needed."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "Off",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "Let me search for all lines with ERROR to get a complete count:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "85.4 GB"
+      ],
+      "answer": "85.4 GB",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nFour artifacts were examined to extract specific information:\n\n1. **img-A** (Device settings screenshot, 2048x1536): \n   - Build number: **2495** (Firmware 7.3.48, build 2495)\n   - Mobile data setting: **Off**\n   - Storage used (sidebar): **85.4 GB**\n\n2. **log** (Service error log, 150 lines):\n   - Upload failure for node **edge-93** on 2026-03-21T04:12:09Z with error code **E8171** (request ID: 373b9f)\n   - Settings change rejected for \"Mobile data\" on 2026-03-21T04:12:11Z due to policy lock (request ID: 26a72e)\n   - ERROR line found: 2026-03-24T04:14:04Z ERROR [sync] retry scheduled node=edge-99 (request ID: 71fc77)\n\n3. **img-B** (Service dashboard screenshot, 2048x1536):\n   - Open tickets: **280**\n\nAll requested information was successfully extracted from the artifacts.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E8171?",
+      "gold": [
+        "373b9f"
+      ],
+      "answer": "373b9f",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "10:13"
+      ],
+      "answer": "Let me search for \"last\" or look at the end of the log:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

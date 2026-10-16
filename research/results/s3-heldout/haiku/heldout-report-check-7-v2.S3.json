@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-7-v2",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9jl6yt-582hb6",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart title?",
+      "gold": [
+        "9,666",
+        "9666"
+      ],
+      "answer": "9,666",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "April"
+      ],
+      "answer": "April",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant East",
+        "East"
+      ],
+      "answer": "Plant East",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed to answer specific questions about work documents:\n\n1. **img-A** (Monthly inspection bar chart): The inspection sample size noted under the chart title is **9,666**.\n\n2. **log** (Report review notes): According to the review notes, the inspection audit was postponed to **April**.\n\n3. **img-B** (Hourly output line chart): The plant series drawn with a dashed line is **Plant East**.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\nThe work involved querying visual charts and text logs to extract specific data points related to inspections, audits, and operational output metrics."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Feb. Does it match the value labeled on the Feb bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "The notes record a February inspection count of **875**, but the February bar in the chart shows **799**.\n\nNo",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "28"
+      ],
+      "answer": "1",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "May"
+      ],
+      "answer": "Looking at the bar chart image I already retrieved, the tallest bar is for **May** with a value of 886.\n\nMay",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nFour artifacts have been reviewed to answer specific questions about work documents:\n\n1. **img-A** (Monthly inspection bar chart): The inspection sample size noted under the chart title is **9,666**. The February bar shows a value of **799**, while the notes record a February inspection count of **875** (these do not match). The tallest bar is in **May** with a value of **886**.\n\n2. **log** (Report review notes): According to the review notes, the inspection audit was postponed to **April**. The notes record a February inspection count of **875**. One line in the review notes mentions the legend (\"legend colors confirmed\").\n\n3. **img-B** (Hourly output line chart): The plant series drawn with a dashed line is **Plant East**.\n\n**Key Findings:**\n- The February inspection count in the notes (875) does not match the February bar value in the chart (799).\n- The tallest bar in the monthly inspection chart is May (886).\n- The legend is mentioned once in the review notes.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\nThe work involved querying visual charts and text logs to extract specific data points related to inspections, audits, and operational output metrics, with a focus on data validation between different sources."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "18 October 2026"
+      ],
+      "answer": "18 October 2026",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "07:18"
+      ],
+      "answer": "07:18",
+      "toolCalls": 4,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    }
+  ]
+}

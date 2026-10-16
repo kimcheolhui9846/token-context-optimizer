@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-2",
+  "template": "report-check",
+  "condition": "S1",
+  "attemptId": "mv9jcut3-fovf12",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "7,145",
+        "7145"
+      ],
+      "answer": "7,145",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "December"
+      ],
+      "answer": "December",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Echo",
+        "Echo"
+      ],
+      "answer": "Plant Echo",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Shows monthly inspection counts throughout the year\n   - Inspection sample size: 7,145 (weekend audits excluded)\n   - Highest count: April with 985 inspections\n   - Lowest count: July with 132 inspections\n   - August inspection count: 476\n\n2. **log: Report Review Notes**\n   - Extensive review checklist covering chart elements (title, axis labels, gridlines, legend colors, footnote wording, data exports)\n   - Key findings:\n     - Inspection audit postponed to December\n     - Recalibration deadline: 10 April 2026\n     - August inspection count recorded as 476\n\n3. **img-B: Hourly Output Line Chart**\n   - Title: \"Hourly Output Index\"\n   - Last updated: 20:02\n   - Two plant series tracked:\n     - Plant Delta (solid purple line)\n     - Plant Echo (dashed orange line)\n   - Peak value: 87.9 for Plant Delta\n   - Y-axis range: 0-100\n   - Shows hourly output fluctuations with Plant Delta generally showing higher values than Plant Echo\n\nAll three artifacts have been documented with their specific data points and findings for continued work reference."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Aug. Does it match the value labeled on the Aug bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "yes"
+      ],
+      "answer": "Yes",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "20"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Apr"
+      ],
+      "answer": "April",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Shows monthly inspection counts throughout the year\n   - Inspection sample size: 7,145 (weekend audits excluded)\n   - Highest count: April with 985 inspections\n   - Lowest count: July with 132 inspections\n   - August inspection count: 476\n\n2. **log: Report Review Notes**\n   - Extensive review checklist covering chart elements (title, axis labels, gridlines, legend colors, footnote wording, data exports)\n   - Key findings:\n     - Inspection audit postponed to December\n     - Recalibration deadline: 10 April 2026\n     - August inspection count recorded as 476\n   - The August inspection count in the notes matches the bar chart value\n\n3. **img-B: Hourly Output Line Chart**\n   - Title: \"Hourly Output Index\"\n   - Last updated: 20:02\n   - Two plant series tracked:\n     - Plant Delta (solid purple line)\n     - Plant Echo (dashed orange line)\n   - Peak value: 87.9 for Plant Delta\n   - Y-axis range: 0-100\n   - Shows hourly output fluctuations with Plant Delta generally showing higher values than Plant Echo\n\n**Verification Completed:**\n- August bar chart value (476) confirmed to match notes\n- April identified as the month with the tallest bar (985 inspections)\n- Number of legend mentions in review notes: unable to determine from available information"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "10 April 2026"
+      ],
+      "answer": "10 April 2026",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "20:02"
+      ],
+      "answer": "20:02",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

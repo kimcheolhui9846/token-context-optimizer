@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-6-v2",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9jjnmj-vnwz99",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart title?",
+      "gold": [
+        "2,732",
+        "2732"
+      ],
+      "answer": "2,732",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "April"
+      ],
+      "answer": "April",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant East",
+        "East"
+      ],
+      "answer": "Plant East",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A** (2048x1536, \"Monthly inspection bar chart\"): Contains a bar chart with an inspection sample size of 2,732 noted under the chart title.\n\n2. **log** (text log, 150 lines, \"Report review notes\"): Review notes document that mentions the inspection audit was postponed to April. The notes also reference legend colors being confirmed and chart title being approved.\n\n3. **img-B** (2048x1536, \"Hourly output line chart\"): A line chart showing hourly output data for multiple plants. Plant East's series is drawn with a dashed line.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\n**Key findings:**\n- Inspection sample size: 2,732\n- Audit postponement: April\n- Dashed line plant: Plant East"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Aug. Does it match the value labeled on the Aug bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "Based on my findings:\n- The notes record an August inspection count of **532**\n- The August bar in the chart is labeled with **495**\n\nThese values do not match.\n\nNo",
+      "toolCalls": 4,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "28"
+      ],
+      "answer": "1",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "May"
+      ],
+      "answer": "Looking at the bar chart from img-A, the tallest bar is for **May** with a value of 861.\n\nMay",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A** (2048x1536, \"Monthly inspection bar chart\"): Contains a bar chart showing monthly inspection data with a sample size of 2,732. The tallest bar is May with 861 inspections. August bar is labeled 495.\n\n2. **log** (text log, 150 lines, \"Report review notes\"): Review notes document containing inspection audit information. Records August inspection count as 532 (which does not match the 495 labeled on the August bar in the chart). The notes mention the legend once (line 2: \"legend colors confirmed\"). Also references the inspection audit being postponed to April and chart title being approved.\n\n3. **img-B** (2048x1536, \"Hourly output line chart\"): A line chart showing hourly output data for multiple plants. Plant East's series is drawn with a dashed line.\n\n**Key findings:**\n- Inspection sample size: 2,732\n- August inspection count in notes: 532\n- August bar label value: 495 (mismatch)\n- Tallest bar month: May (861)\n- Legend mentions in notes: 1 line\n- Audit postponement: April\n- Dashed line plant: Plant East\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "21 August 2026"
+      ],
+      "answer": "21 August 2026",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "06:49"
+      ],
+      "answer": "",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

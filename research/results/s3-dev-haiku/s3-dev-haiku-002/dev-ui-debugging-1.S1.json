@@ -1,0 +1,117 @@
+{
+  "session": "dev-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9hz5ss-777wv7",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "7924"
+      ],
+      "answer": "7347 (build 7304)",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-12. What error code is on that line?",
+      "gold": [
+        "E5281"
+      ],
+      "answer": "E5281",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Open tickets\" card?",
+      "gold": [
+        "20",
+        "20"
+      ],
+      "answer": "20",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **Device Settings Screenshot (img-A)**: Shows device configuration with various toggles. Key settings status:\n   - Wi-Fi: Off\n   - Bluetooth: On\n   - Airplane mode: On\n   - Mobile data: Off\n   - Hotspot: Off\n   - VPN: On\n   - Location: On\n   - Auto-rotate: On\n   - Dark mode: Off\n   - Battery saver: Off\n   - Do not disturb: On\n   - Auto-update: Off\n   - Storage used: 17.3 GB of 128 GB\n   - Build number: 7347 (build 7304)\n\n2. **Service Error Log**: Contains 200+ log entries from March 10-28, 2026. Notable errors:\n   - 2026-03-21T04:12:11Z: WARN [settings] change rejected for \"Location\" (policy lock) req=865e60\n   - 2026-03-21T04:12:09Z: ERROR [sync] upload failed code=E5281 node=edge-12 req=e96b50\n   - 2026-03-21T01:11:01Z: ERROR [sync] retry scheduled node=edge-74 req=6cba45\n   - 2026-03-20T00:10:00Z: ERROR [sync] retry scheduled node=edge-13 req=656dbc\n   - 2026-03-24T04:14:04Z: ERROR [sync] retry scheduled node=edge-46 req=536684\n   - 2026-03-22T02:12:02Z: ERROR [sync] retry scheduled node=edge"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "On",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "sync",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "17.3 GB"
+      ],
+      "answer": "17.3 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **Device Settings Screenshot (img-A)**: Shows device configuration with various toggles. Key settings status:\n   - Wi-Fi: Off\n   - Bluetooth: On\n   - Airplane mode: On\n   - Mobile data: Off\n   - Hotspot: Off\n   - VPN: On\n   - Location: On\n   - Auto-rotate: On\n   - Dark mode: Off\n   - Battery saver: Off\n   - Do not disturb: On\n   - Auto-update: Off\n   - Storage used: 17.3 GB of 128 GB\n   - Build number: 7347 (build 7304)\n\n2. **Service Error Log**: Contains 200+ log entries from March 10-28, 2026. Notable errors:\n   - 2026-03-21T04:12:11Z: WARN [settings] change rejected for \"Location\" (policy lock) req=865e60\n   - 2026-03-21T04:12:09Z: ERROR [sync] upload failed code=E5281 node=edge-12 req=e96b50\n   - 2026-03-21T01:11:01Z: ERROR [sync] retry scheduled node=edge-74 req=6cba45\n   - 2026-03-20T00:10:00Z: ERROR [sync] retry scheduled node=edge-13 req=656dbc\n   - 2026-03-24T04:14:04Z: ERROR [sync] retry scheduled node=edge-46 req=536684\n   - 2026-03-22T02:12:02Z: ERROR [sync] retry scheduled node=edge"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E5281?",
+      "gold": [
+        "e96b50"
+      ],
+      "answer": "e96b50",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "06:07"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

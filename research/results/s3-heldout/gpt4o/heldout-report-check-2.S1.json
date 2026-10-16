@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-2",
+  "template": "report-check",
+  "condition": "S1",
+  "attemptId": "mv9j69z9-42qna1",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "7,145",
+        "7145"
+      ],
+      "answer": "The inspection sample size noted under the chart is 7,145.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "December"
+      ],
+      "answer": "The inspection audit was postponed to December.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Echo",
+        "Echo"
+      ],
+      "answer": "The series for Plant Echo is drawn with a dashed line.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts and extracting specific details. \n\n1. **Artifact img-A (\"Monthly inspection bar chart\")**: The inspection sample size is 7,145. The inspection audit was postponed to December, as noted in the review log.\n2. **Artifact log (\"Report review notes\")**: Key details include repeated confirmations of footnote wording, legend colors, axis labels, gridlines, and chart title approvals. The recalibration deadline is April 10, 2026. August's inspection count is recorded as 476.\n3. **Artifact img-B (\"Hourly output line chart\")**: The dashed line represents the series for Plant Echo.\n\nThe work can proceed with these details."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Aug. Does it match the value labeled on the Aug bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "yes"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "20"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Apr"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves analyzing artifacts and extracting specific details. \n\n1. **Artifact img-A (\"Monthly inspection bar chart\")**: The inspection sample size is 7,145. The inspection audit was postponed to December, as noted in the review log.\n2. **Artifact log (\"Report review notes\")**: Key details include repeated confirmations of footnote wording, legend colors, axis labels, gridlines, and chart title approvals. The recalibration deadline is April 10, 2026. August's inspection count is recorded as 476.\n3. **Artifact img-B (\"Hourly output line chart\")**: The dashed line represents the series for Plant Echo.\n\nQuestions asked:\n- Does the August inspection count in the notes match the value on the August bar in the bar chart? (Unreadable)\n- How many lines in the review notes mention the legend? (Unreadable)\n- Which month has the tallest bar in the bar chart? (Unreadable)"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "10 April 2026"
+      ],
+      "answer": "10 April 2026",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "20:02"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

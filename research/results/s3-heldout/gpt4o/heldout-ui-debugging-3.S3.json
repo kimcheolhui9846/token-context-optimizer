@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-3",
+  "template": "ui-debugging",
+  "condition": "S3",
+  "attemptId": "mv9ihqsr-mire6y",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "2473"
+      ],
+      "answer": "Build 2473",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-62. What error code is on that line?",
+      "gold": [
+        "E4762"
+      ],
+      "answer": "E4762",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Avg. response\" card?",
+      "gold": [
+        "6 min",
+        "6 min"
+      ],
+      "answer": "6 min",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing artifacts to extract specific information:\n\n1. From artifact `img-A` (\"Device settings screenshot\"), the build number at the bottom of the screen was identified as **2473**.\n2. From artifact `log` (\"Service error log\"), the error code for an upload failure on node `edge-62` was found to be **E4762** (logged on `2026-03-21T04:12:09Z`).\n3. From artifact `img-B` (\"Service dashboard screenshot\"), the value shown on the \"Avg. response\" card was **6 min**.\n\nArtifacts referenced: `img-A`, `log`, `img-B`."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "The \"Mobile data\" setting is **On** in the settings screenshot.",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "[sync]",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "28.9 GB"
+      ],
+      "answer": "28.9 GB",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing artifacts to extract specific information:\n\n1. From artifact `img-A` (\"Device settings screenshot\"), the build number at the bottom of the screen was identified as **2473**, the \"Mobile data\" setting was confirmed to be **On**, and the sidebar showed **28.9 GB** of storage used.\n2. From artifact `log` (\"Service error log\"), the error code for an upload failure on node `edge-62` was found to be **E4762** (logged on `2026-03-21T04:12:09Z`). A settings change for \"Mobile data\" was rejected due to a policy lock (logged on `2026-03-21T04:12:11Z`). The subsystem tag appearing on most ERROR lines was identified as **[sync]**.\n3. From artifact `img-B` (\"Service dashboard screenshot\"), the value shown on the \"Avg. response\" card was **6 min**.\n\nArtifacts referenced: `img-A`, `log`, `img-B`."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E4762?",
+      "gold": [
+        "46fadb"
+      ],
+      "answer": "46fadb",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "23:27"
+      ],
+      "answer": "23:27",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

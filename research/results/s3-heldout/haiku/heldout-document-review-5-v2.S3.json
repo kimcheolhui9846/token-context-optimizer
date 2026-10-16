@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-5-v2",
+  "template": "document-review",
+  "condition": "S3",
+  "attemptId": "mv9j41jt-5mtl0e",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-63512-K"
+      ],
+      "answer": "INV-63512-K",
+      "toolCalls": 2,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-63512-K?",
+      "gold": [
+        "B-8064"
+      ],
+      "answer": "B-8064",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "G-278"
+      ],
+      "answer": "G-278",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were processed to extract information for a work task:\n\n1. **img-A** (Supplier invoice scan, 1536x2048): Invoice number **INV-63512-K** was identified from the scanned supplier invoice.\n\n2. **log** (Ledger processing log, 150 lines): A search for invoice INV-63512-K in the log revealed that this invoice was posted on **2026-03-22 at 09:30:00Z** with batch ID **B-8064**. The log entry showed status=ok with request ID a28877.\n\n3. **img-B** (Operations notice scan, 1536x2048): A room assignment was identified in the notice as **G-278**.\n\n**Artifacts available for further queries:**\n- img-A\n- log\n- img-B\n\nThe work appears to involve cross-referencing supplier invoices with ledger processing logs and operations notices. The invoice INV-63512-K has been successfully traced through the ledger system (batch B-8064) and linked to room assignment G-278 in the operations notice."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Gasket 50mm"
+      ],
+      "answer": "Gasket 50mm",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "The search results are limited. Let me try a broader search to see the full log content:",
+      "toolCalls": 4,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$16,557.49",
+        "16,557.49"
+      ],
+      "answer": "$16,357.49",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were processed to extract information for a work task:\n\n1. **img-A** (Supplier invoice scan, 1536x2048): Invoice number **INV-63512-K** with total amount **$16,357.49**. Line item \"Gasket 50mm\" has amount **298.60**.\n\n2. **log** (Ledger processing log, 150 lines): Invoice INV-63512-K was posted on **2026-03-22 at 09:30:00Z** with batch ID **B-8064** and status=ok with request ID a28877. A FLAG entry on **2026-03-22T09:30:04Z** marked amount **298.60** as **over_limit** with request ID 9dc957.\n\n3. **img-B** (Operations notice scan, 1536x2048): Room assignment identified as **G-278**.\n\nThe work involves cross-referencing supplier invoices with ledger processing logs and operations notices. Invoice INV-63512-K has been traced through the ledger system (batch B-8064) and linked to room G-278. The over_limit flag on the Gasket 50mm line item ($298.60) requires attention.\n\n**Artifacts available for further queries:**\n- img-A\n- log\n- img-B"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "9dc957"
+      ],
+      "answer": "9dc957",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-7436-G81"
+      ],
+      "answer": "Ref QR-7436-G81",
+      "toolCalls": 2,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

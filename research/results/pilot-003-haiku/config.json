@@ -1,0 +1,24 @@
+{
+  "runId": "pilot-003-haiku",
+  "set": "dev3",
+  "provider": "anthropic",
+  "model": "claude-haiku-4-5-20251001",
+  "detail": null,
+  "temperature": 0,
+  "maxTokens": 40,
+  "system": "You answer a question about the attached image. Reply with only the answer value, without explanation or extra words. If the answer cannot be read in the image, reply UNREADABLE.",
+  "locateSystem": "You locate the part of an image that is needed to answer a question. Reply with JSON only: {\"x0\": n, \"y0\": n, \"x1\": n, \"y1\": n}, coordinates as integers from 0 to 1000 relative to the image width and height. Include the label and the value the question asks about.",
+  "locateMargin": {
+    "frac": 0.06,
+    "minPx": 48
+  },
+  "price": {
+    "inputPerM": 1,
+    "outputPerM": 5
+  },
+  "orderSeed": 20261014,
+  "slotsSha256": "6e27ae611f1101232f7503cfffe93f36b91d71a7ab1673978015a4c9effcadf1",
+  "familiesSha256": "20619ed4df6fa6c113339f3a4f975fb8778f2ec93770d08ea9bb6f690d71b6cc",
+  "fingerprint": "5d3b7f985c191bff8002ba846a5628ef63e4643c7d7b3ac6084de78cebea146f",
+  "startedAt": "2026-10-15T11:41:01.906Z"
+}
