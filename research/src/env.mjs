@@ -13,6 +13,11 @@ const SETS = {
   dev2: { dir: join(outDir, "dev2"), families: "./families-dev2.mjs", arms: ["A", "B", "C", "D", "E"] },
   // C1R and C2R are derived in summarize.mjs (response-based fallback), not separate slots.
   dev3: { dir: join(outDir, "dev3"), families: "./families-dev3.mjs", arms: ["A", "C1", "C2", "E"], derived: ["C1R", "C2R"] },
+  // Experiment 2 (RQ2): protocol arms A, B, C (query-aware window selector, no guard; no match -> B), E (oracle).
+  // D (selector + guard + original fallback) is derived in summarize.mjs from A and C: fallback when the selector finds no
+  // window or C answers UNREADABLE; its cost includes the C call (when made) and the A call used as the fallback.
+  "exp2-calibration": { dir: join(outDir, "exp2-calibration"), families: "./families-exp2-calibration.mjs", arms: ["A", "B", "C", "E"], derived: ["D"], selectorArm: "window" },
+  "exp2-heldout": { dir: join(outDir, "exp2-heldout"), families: "./families-exp2-heldout.mjs", arms: ["A", "B", "C", "E"], derived: ["D"], selectorArm: "window" },
 };
 export function getSet(argv = process.argv) {
   const name = argv.includes("--set") ? argv[argv.indexOf("--set") + 1] : "dev1";

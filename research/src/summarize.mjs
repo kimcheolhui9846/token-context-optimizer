@@ -36,7 +36,22 @@ const graded = slots.map((s) => {
 const CONDS = ["clean", "jpeg-only", "downscale-only", "combined"];
 // Response-based fallback (pilot-003, fixed before the run): when the selector arm answers UNREADABLE, the answer
 // and tokens of the same slot's A call are used as the re-request to the original; tokens are the sum of both calls.
-for (const derived of set.derived || []) {
+// Experiment 2 arm D (protocol §3-§4, Task 34 decision): selector + guard + original fallback, derived from C and A.
+// The guard falls back before any C call when the selector finds no window (cost = A only); when C answers UNREADABLE,
+// the A call is the re-request to the assigned original (cost = C + A). Otherwise D is C.
+if ((set.derived || []).includes("D") && set.selectorArm === "window") {
+  for (const r of graded.filter((x) => x.arm === "C")) {
+    const a = graded.find((x) => x.arm === "A" && x.family === r.family && x.question === r.question && x.condition === r.condition);
+    const key = r.key.replace(/[^/]+$/, "D");
+    const noMatch = !r.selection?.matched;
+    const unreadable = r.outcome === "answered" && /unreadable/i.test(r.answer || "");
+    if (!a) { graded.push({ ...r, arm: "D", key, outcome: "not_started" }); continue; }
+    if (noMatch) graded.push({ ...a, arm: "D", key, selection: r.selection, fallback: "no_window", promptTokens: a.promptTokens, costUsd: a.costUsd });
+    else if (unreadable) graded.push({ ...r, arm: "D", key, fallback: "unreadable", outcome: a.outcome, correct: a.correct, contentCorrect: a.contentCorrect, answer: a.answer, promptTokens: (r.promptTokens || 0) + (a.promptTokens || 0), bytes: r.bytes + a.bytes, costUsd: (r.costUsd || 0) + (a.costUsd || 0) });
+    else graded.push({ ...r, arm: "D", key, fallback: null });
+  }
+}
+for (const derived of (set.derived || []).filter((d) => d !== "D")) {
   const baseArm = derived.replace(/R$/, "");
   for (const r of graded.filter((x) => x.arm === baseArm)) {
     const a = graded.find((x) => x.arm === "A" && x.family === r.family && x.question === r.question && x.condition === r.condition);
