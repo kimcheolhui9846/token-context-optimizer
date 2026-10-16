@@ -4,7 +4,7 @@
 - Tier D: 문서만. 사용자 2026-10-16 권고안·세부 규칙 전부 승인.
 - Base: origin/main 39cf53a3d67f75771bd4ab27bbeef063fc96109a (PR #33 merge).
 - Branch: codex/task-34-response-fallback; 전용 worktree 사용, 기존 작업 보존.
-- 현재: 본문 개정과 직접 검증 완료. 커밋·push·Draft PR 전달 진행 중.
+- 현재: 구현 0d92cb6 push 및 [Draft PR #40](https://github.com/kimcheolhui9846/token-context-optimizer/pull/40) 생성 완료. Claude 리뷰·사용자 승인 대기.
 - 루트 HANDOFF.md는 로컬 연결 기록이며 커밋하지 않는다.
 
 ## 승인된 계획과 반영 범위
@@ -41,7 +41,8 @@
 - 금지 경로 변경 없음. 새 실험 수치·실험 호출·코드 변경 없음; npm 테스트 및 custom 검증 스크립트 미실행.
 - 초기 Harness 교차 검토: Tier D 규칙에 따라 호출하지 않음.
 - Claude 독립 구현 리뷰: 사용자 제공 리뷰 대기. 구현자 수정 결과를 독립 리뷰로 간주하지 않음.
-- 주 에이전트 직접 사전 검토: PASS WITH NOTES; blocker/major 0, Claude 독립 리뷰와 held-out 정합성 확인 대기.
+- 주 에이전트 최종 직접 검토: PASS WITH NOTES; blocker/major 0, Claude 독립 리뷰와 held-out 정합성 확인 대기.
+- Draft 생성 후 git diff 39cf53a..HEAD --check PASS; local=upstream=0d92cb6, 작업 트리 clean 확인.
 
 ## 전달 및 승인 gate
 - 승인된 문서 3개와 이 핸드오프만 커밋; trailer는 Agent: codex만 사용.
