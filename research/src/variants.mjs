@@ -88,7 +88,10 @@ for (const fam of families) {
         const fileC1 = !windowAsC && sel.matched ? save(`arms/${fam.id}/${condition}/C1-${q.id}.jpg`, out.bytes) : fileB;
         const armName = windowAsC ? "C" : "C1";
         const fileSel = sel.matched ? save(`arms/${fam.id}/${condition}/${armName}-${q.id}.jpg`, out.bytes) : fileB;
-        slots.push({ ...base, arm: armName, file: windowAsC ? fileSel : fileC1, ops: out.ops, selection, ...(await describe(out.bytes, "image/jpeg")) });
+        const selSlot = { ...base, arm: armName, file: windowAsC ? fileSel : fileC1, ops: out.ops, selection, ...(await describe(out.bytes, "image/jpeg")) };
+        slots.push(selSlot);
+        // Experiment 2 D (Task 34 protocol): same input as C, its own fresh call; the UNREADABLE re-request is made by run.mjs.
+        if (windowAsC && set.arms.includes("D")) slots.push({ ...selSlot, arm: "D", ops: ["first call = C input", ...out.ops] });
       }
       // C2 is built at run time: a low-detail locate call on the variant, then crop and the arm transform.
       if (set.arms.includes("C2")) slots.push({ ...base, arm: "C2", file: variantFile, ops: ["two-stage: low-detail locate on variant, crop, arm transform"], evidenceInVariant, ...(await describe(v.bytes, v.mime)) });

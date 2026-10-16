@@ -1,0 +1,24 @@
+{
+  "runId": "exp2-cal-gpt4o-v2",
+  "set": "exp2-calibration",
+  "provider": "openai",
+  "model": "gpt-4o-2024-11-20",
+  "detail": "high",
+  "temperature": 0,
+  "maxTokens": 40,
+  "system": "You answer a question about the attached image. Reply with only the answer value, without explanation or extra words. If the answer cannot be read in the image, reply UNREADABLE.",
+  "locateSystem": "You locate the part of an image that is needed to answer a question. Reply with JSON only: {\"x0\": n, \"y0\": n, \"x1\": n, \"y1\": n}, coordinates as integers from 0 to 1000 relative to the image width and height. Include the label and the value the question asks about.",
+  "locateMargin": {
+    "frac": 0.06,
+    "minPx": 48
+  },
+  "price": {
+    "inputPerM": 2.5,
+    "outputPerM": 10
+  },
+  "orderSeed": 20261014,
+  "slotsSha256": "0b78058aefd52b4914febf2e469d9d7b60261709c99c5552f125277119ea56f3",
+  "familiesSha256": "3023eb3651a2c9e44b84acd702b73e8c627796732b2cefbb09b13adefb8df8dd",
+  "fingerprint": "ce57422f83c13f1a1261353b8e27731f0b5a0cf94a388a6402e3434a814ddb22",
+  "startedAt": "2026-10-16T12:44:44.503Z"
+}
