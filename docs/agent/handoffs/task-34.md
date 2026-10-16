@@ -4,7 +4,7 @@
 - Tier D: 문서만. 사용자 2026-10-16 권고안·세부 규칙 전부 승인.
 - Base: origin/main 39cf53a3d67f75771bd4ab27bbeef063fc96109a (PR #33 merge).
 - Branch: codex/task-34-response-fallback; 전용 worktree 사용, 기존 작업 보존.
-- 현재: 구현 0d92cb6 push 및 [Draft PR #40](https://github.com/kimcheolhui9846/token-context-optimizer/pull/40) 생성 완료. Claude 리뷰·사용자 승인 대기.
+- 현재: [PR #40](https://github.com/kimcheolhui9846/token-context-optimizer/pull/40) Claude Approve 수신; R-1 문구 보완. 사용자 최신 지시로 push 후 Ready·merge 승인.
 - 루트 HANDOFF.md는 로컬 연결 기록이며 커밋하지 않는다.
 
 ## 승인된 계획과 반영 범위
@@ -40,11 +40,12 @@
 - git diff --check: PASS. 문서 3개 직접 대조, 결정 메모의 기존 본문·17필드 불변 확인.
 - 금지 경로 변경 없음. 새 실험 수치·실험 호출·코드 변경 없음; npm 테스트 및 custom 검증 스크립트 미실행.
 - 초기 Harness 교차 검토: Tier D 규칙에 따라 호출하지 않음.
-- Claude 독립 구현 리뷰: 사용자 제공 리뷰 대기. 구현자 수정 결과를 독립 리뷰로 간주하지 않음.
-- 주 에이전트 최종 직접 검토: PASS WITH NOTES; blocker/major 0, Claude 독립 리뷰와 held-out 정합성 확인 대기.
+- Claude Code claude-opus-5-5, 별도 세션 PR 리뷰: Approve; Blocker 0 / Major 0 / Minor 1(R-1) / Note 1; 구현 일부와 같은 모델 계열이므로 완전한 독립 리뷰가 아님.
+- R-1: 프로토콜 §4·논문 §3.2에 D 첫 호출은 C와 별도 fresh session이며 C 응답을 재사용하지 않는다는 동일 문장 추가.
+- 주 에이전트 최종 직접 검토: PASS WITH NOTES; blocker/major 0, 같은 모델 계열 리뷰 한계 유지. 실험 2 정합성 개정은 사용자 보고(PR #37 5b31cfd), 이 수정에서 실험을 재검증하지 않음.
 - Draft 생성 후 git diff 39cf53a..HEAD --check PASS; local=upstream=0d92cb6, 작업 트리 clean 확인.
 
 ## 전달 및 승인 gate
 - 승인된 문서 3개와 이 핸드오프만 커밋; trailer는 Agent: codex만 사용.
-- push → main 대상 Draft PR → 최종 로컬 검증 → 보고 순서. Ready·merge는 별도 사용자 지시 필요.
-- Task 35 및 이후 Task는 시작하지 않고 사용자 검토·승인을 기다린다.
+- R-1은 작은 문서 커밋 1개로 push 후 검증하며, 사용자 최신 명시 지시에 따라 Ready·merge한다.
+- merge 확인 뒤 Task 35 계획만 진행하며 구현 전에 사용자 결정 항목을 보고하고 멈춘다.

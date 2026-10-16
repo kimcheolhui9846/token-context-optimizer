@@ -73,6 +73,8 @@ identity일 수 있으므로 실제 effective transform을 별도 기록에 남�
 
 ### 3.2 응답 guard와 fallback
 
+D의 첫 호출은 C와 별도의 fresh session 호출이며 C의 응답을 재사용하지 않는다.
+
 response guard는 변환된 입력에 대한 첫 응답에 대소문자를 구분하지 않는 `UNREADABLE` substring이 있는지 검사한다. 사전 OCR guard는 수행하지 않는다. D에서 해당하면 같은 배정 source variant를 변환 없이 그대로 fresh session에서 최대 한 번 재요청하며, A의 응답을 재사용하거나 재귀하지 않는다. 최종 D answer는 두 번째 호출의 응답으로 정하고 첫 번째와 두 번째 호출 각각의 tokens·cost·latency를 기록하며, D 결과에는 두 호출 값을 합산한다. `UNREADABLE`이 없으면 첫 응답을 최종 응답으로 쓴다. 판독 불가 표지의 발생은 모델과 입력에 따라 달라질 수 있으며, 모델이 오답에도 표지를 내지 않으면 응답 기반 재요청은 작동하지 않는다. 원본 재요청도 공급자 축소로 작은 글자 판독을 보장하지 않는다.
 
 full original과 original fallback의 원본은 해당 slot에 배정된 source variant다. 손상 조건의 원본 복귀는

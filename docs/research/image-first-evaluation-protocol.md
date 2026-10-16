@@ -160,7 +160,7 @@ held-out 라벨은 읽지 못한다. 제안된 deterministic score는 질문의 
 calibration manifest와 함께 freeze한다.
 
 선택기는 OCR을 입력 신호로 사용할 수 있지만 사전 OCR guard는 수행하지 않는다. D의 첫 호출은 C와 같은 selection과
-변환 경로를 쓰며, selector가 window를 내지 않으면 C/D의 full-frame 변환을 쓴다. 이 full-frame 첫 호출은 fallback이 아니다.
+변환 경로를 쓰며, selector가 window를 내지 않으면 C/D의 full-frame 변환을 쓴다. 이 full-frame 첫 호출은 fallback이 아니다. D의 첫 호출은 C와 별도의 fresh session 호출이며 C의 응답을 재사용하지 않는다.
 첫 응답 뒤 response guard가 대소문자를 구분하지 않고 `UNREADABLE` substring을 검사한다. D에서 이 표지가 있으면 C/D 첫
 호출의 변환 경로가 아니라 같은 배정 source variant를 변환 없이 그대로 fresh session에서 최대 한 번 재요청하며, 재요청에는
 A의 응답을 재사용하지 않고 재귀하지 않는다. 최종 D answer는 두 번째 호출의 응답으로 정하고 첫 번째와 두 번째 호출 각각의 tokens·cost·latency를 기록하며, D 결과에는 두 호출 값을 합산한다.
