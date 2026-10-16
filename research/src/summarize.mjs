@@ -128,6 +128,8 @@ const totals = { calls: latest.size, costUsd: [...latest.values()].reduce((a, r)
 const errors = graded.filter((r) => r.outcome === "answered" && !r.correct).map((r) => ({ key: r.key, gold: r.gold, answer: r.answer, contentCorrect: r.contentCorrect }));
 
 writeJson(join(runDir, "summary.json"), { runId, set: set.name, table, selector, regions, byArm, bySmall, byDomain, accounting, totals, errors });
+// Per-slot grading (including derived arms) for family-level analyses (exp2-analyze.mjs).
+writeFileSync(join(runDir, "graded.jsonl"), graded.map((r) => JSON.stringify({ key: r.key, family: r.family, domain: r.domain, layout: r.layout, question: r.question, smallText: r.smallText, condition: r.condition, arm: r.arm, outcome: r.outcome, correct: r.correct, contentCorrect: r.contentCorrect, answer: r.answer, promptTokens: r.promptTokens, costUsd: r.costUsd, bytes: r.bytes, fallback: r.fallback ?? null, matched: r.selection?.matched ?? null, evidenceCovered: r.selection?.evidenceCovered ?? null })).join("\n") + "\n");
 
 const pct = (x) => (x == null ? "—" : `${Math.round(x * 100)}%`);
 const fmt = (x) => (x == null ? "—" : Math.round(x).toLocaleString("en-US"));
