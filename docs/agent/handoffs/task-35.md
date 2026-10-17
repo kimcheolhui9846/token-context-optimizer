@@ -18,7 +18,7 @@
 - [x] D 별도 fresh session, C/A 응답 재사용 금지, 같은 variant 1회 재요청, 비용 합산, primary D−A, 144/36 보존.
 - [x] 캐시·모사 compact·합성 대본 한계, 공급자 할인율 [검증 필요].
 - [x] 승인안·기준 원고·서지·정의·인용 순서·상대 링크 직접 대조; git diff --check 통과.
-- [ ] 커밋·push·main 대상 Draft PR 최종 확인.
+- [x] 구현 c67362c push; [Draft PR #41](https://github.com/kimcheolhui9846/token-context-optimizer/pull/41), base main·Draft·head 일치 확인.
 
 ## 문단 이동 지도 (기준 4b0d247 원고)
 | 원문 | 새 위치 / 처리 |
@@ -57,5 +57,5 @@
 - RED: 문서 전용으로 해당 없음. 승인안·기준 원고·서지·정의·인용 직접 대조가 수용 검사.
 - 구현: Luna 초안·보완 뒤 주 에이전트가 장 배치·인용 중복·설계 누락 수정. Luna 사용량 한도 중단 뒤 재개 성공.
 - 독립 리뷰: Tier D에 따라 Harness 호출 없음. 사용자 Claude 리뷰는 Draft PR 뒤 예정, 아직 미수행.
-- 주 에이전트 문서 리뷰: PASS WITH NOTES, blocker/major 0; 8면 조판·Claude 독립 리뷰 대기. npm/tests/custom 검증 스크립트는 Tier D라 미실행.
+- 주 에이전트 최종 리뷰: PASS WITH NOTES, blocker/major 0; PR 생성 뒤 git diff 4b0d247..HEAD --check 통과, 변경 파일 두 개·원격 head 일치·작업 트리 clean 확인. 8면 조판·Claude 독립 리뷰 대기. npm/tests/custom 검증 스크립트는 Tier D라 미실행.
 - 남은 작업: Draft PR 전달 → 사용자 Claude 리뷰 → Ready·merge 승인. Task 36 미착수.
