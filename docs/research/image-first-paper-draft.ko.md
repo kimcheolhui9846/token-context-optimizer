@@ -1,23 +1,26 @@
-# 이미지 우선 외부 입력 최적화: 질의 인식 선택과 보수적 원본 보존을 위한 제안
+# 에이전트 작업 흐름을 위한 원본 보존형 멀티모달 컨텍스트 최적화: 공급자 청구 토큰과 정확도의 실측
 
-## 초록
+**Source-preserving multimodal context optimization for agent workflows: measuring provider-billed tokens and accuracy**
 
-멀티모달 모델에 이미지를 전달할 때 입력을 줄이면 전송량과 처리 비용을 낮출 가능성이 있다.
-그러나 문서의 작은 글자, 차트의 축과 범례, 사용자 인터페이스의 상태 표시는 시각적 손상에 민감하며,
-질문에 맞춘 축소가 답을 결정하는 증거를 지울 수 있다. 이 논문은 이미지 자체의 품질을 단순히 낮추는
-압축기를 제안하지 않는다. 질문과 픽셀에서 얻을 수 있는 제한된 신호로 후보 영역을 고르고 고정된 출력 변환을
-적용하며, 증거 보존 위험이 높으면 동일한 원본으로 되돌리는 외부 이미지 최적화 방법을 제안한다. 변환 산출물에는 크기,
-형식, 변환과 선택의 원인, 원본 해시와 공간 정보를 함께 기록한다. 이 문서는 방법과 파일럿 평가
-프로토콜의 제안서이며 이미지 입력을 실제 모델에 실행한 결과를 보고하지 않는다. 현재 저장소는
-텍스트 아티팩트 기능과 제한된 PNG 및 baseline 4:4:4 JFIF JPEG 입력 검증(M1a)을 제공한다.
-그 소프트웨어 테스트와 독립 JPEG 픽스처의 출처 기록은 이미지 안전성, 시각적 가독성,
-모델 정확도, 지연, 토큰 사용량 또는 비용 절감을 입증하지 않는다.
+## 국문요약
 
-## 1. 서론: 문제와 경계
+에이전트 세션에서는 텍스트와 이미지가 대화에 누적되며 다음 요청에 반복 전송된다. 손실 요약인 compact는 문맥을 줄이지만 앞선 증거의 세부를 잃을 수 있다. 원본을 컨텍스트 밖에 보존하고 출처를 붙여 필요한 부분을 발췌하는 방법으로 compact를 보완한다. 텍스트는 원문 줄과 위치를 제공하며, 이미지는 호출자가 지정한 원래 해상도의 영역 crop, 저해상도 전체 썸네일, 배정 원본 재요청으로 다룬다. 단일 질의에서는 응답의 판독 불가 표지를 기준으로 같은 원본을 한 번 재요청한다. 평가 설계는 클라이언트 변환별 공급자 청구 토큰, 단일 질의의 정확도와 재요청 비용, 다중 턴 세션의 누적 토큰과 늦은 회상을 구분한다. 비용은 정가와 프롬프트 캐시 반영 기준을 함께 비교한다. 적용 범위는 텍스트와 정적 이미지이며 영상은 후속 연구로 남긴다.
+
+**주제어:** 멀티모달 컨텍스트, 원본 보존, 에이전트 세션, 청구 토큰, 정확도
+
+## English Abstract
+
+Agent sessions accumulate text and images and retransmit them in subsequent requests. Lossy context compaction can reduce context size while discarding earlier evidence. We complement compaction by retaining sources outside the context and returning selected evidence with provenance. Text excerpts preserve original lines and their locations. Images are handled through caller-specified crops at their original resolution, low-resolution full-image thumbnails, and requests for the assigned source. In the single-query design, an unreadability marker triggers at most one source requery. The evaluation separates provider-billed tokens under client-side transformations, single-query accuracy and requery cost, and cumulative tokens and late recall in multi-turn sessions. Costs are compared using both standard prices and prompt-cache accounting. The scope covers text and static images; video remains future work.
+
+**Keywords:** multimodal context, source preservation, agent sessions, billed tokens, accuracy
+
+## I. 서론: 문제와 경계
+
+에이전트 세션에는 텍스트와 이미지가 누적되며 다음 요청에 다시 전송된다. compact는 손실 요약으로 누적 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 원본을 외부에 두고 필요한 부분을 출처와 함께 발췌하는 구조는 compact를 보완한다.
 
 이미지 입력은 문서 질의응답, 차트 해석, 앱 화면 이해에서 답의 근거를 직접 담는다. DocVQA는 문서
 이미지에서 질문에 답하는 구조를 정식 벤치마크로 다루고 [1], ChartQA는 차트의 시각적·논리적 추론을
-평가한다 [3]. ScreenQA는 모바일 앱 화면과 답을 연결하는 문제를 보여 준다 [4]. 공통점은 픽셀의
+평가한다 [2]. ScreenQA는 모바일 앱 화면과 답을 연결하는 문제를 보여 준다 [3]. 공통점은 픽셀의
 일부가 질문 의미를 결정한다는 사실이다. 따라서 파일 바이트가 줄었다는 사실만으로 입력 최적화가
 안전하다고 결론 낼 수 없다.
 
@@ -29,19 +32,22 @@ fallback이며, 설계상의 안전장치일 뿐 아직 안전하다고 검증�
 아티팩트는 축소, 재인코딩, 잘림으로 인해 픽셀 증거가 변하는 결과물이다. 전자를 보존해도 후자의
 정보 손실이 사라지지는 않는다.
 
-범위는 정적 이미지 최적화와 그 평가 설계다. 동영상은 이미지 검증과 사용자 승인 이후의 후속 연구로
-남긴다. 현재 저장소는 UTF-8 텍스트 인덱싱, 해시, 라인 맵, 손실 요약 차단과 제한된 이미지 원본의
+범위는 텍스트와 정적 이미지의 원본 보존형 컨텍스트 관리와 평가 설계다. 동영상은 후속 연구로 남긴다. 현재 저장소는 UTF-8 텍스트 인덱싱, 해시, 라인 맵, 손실 요약 차단과 제한된 이미지 원본의
 입력 검증·해시·치수 추적(M1a)을 제공한다. M1a는 메타데이터 청크가 없는 8비트 RGB/RGBA 정적 PNG와
 baseline 4:4:4 JFIF JPEG 프로필을 받으며 원본에 쓰지 않는다. 영구 원본 보관이나 이미지 변환기, OCR 결합기, 호스팅 실행기 또는 사용량
 계측기는 제공하지 않는다. 구체적인 프로필과 한계는 [입력 계약](../image-artifacts.md)에 기록한다.
 
-## 2. 관련 연구와 제안의 위치
+## II. 관련 연구와 제안의 위치
+
+### 2.1 문서·화면 질의 벤치마크
 
 DocVQA는 문서 이미지의 질문과 답 구조를 제공하므로 문서 증거 보존을 평가할 후보 근거다 [1].
-TextVQA는 장면 속 글자를 읽는 질문을 다루며 [2], 작은 문자열을 포함한 시각적 읽기 부담을 보여 주지만
+TextVQA는 장면 속 글자를 읽는 질문을 다루며 [4], 작은 문자열을 포함한 시각적 읽기 부담을 보여 주지만
 문서·데스크톱 UI의 OCR 품질 인증서나 외부 래스터 전처리 규칙은 아니다. ChartQA는 시각 정보와 논리
-추론을 함께 요구하므로 축·범례·값 표기의 보존을 점검할 후보다 [3]. ScreenQA는 화면 질의와 UI
-영역을 다루지만 모바일 화면 중심이어서 일반 데스크톱에 대한 직접적인 일반화 근거가 아니다 [4].
+추론을 함께 요구하므로 축·범례·값 표기의 보존을 점검할 후보다 [2]. ScreenQA는 화면 질의와 UI
+영역을 다루지만 모바일 화면 중심이어서 일반 데스크톱에 대한 직접적인 일반화 근거가 아니다 [3].
+
+### 2.2 모델 내부 시각 토큰 축소
 
 QuietPrune은 질문에 따라 비전 언어 모델 내부 토큰을 일찍 제거하는 연구다 [5]. Rethinking Token
 Reduction은 미래 질문을 알 수 없는 상황에서 토큰 축소를 다시 살핀다 [6]. 두 연구는 질의 조건부
@@ -49,7 +55,43 @@ Reduction은 미래 질문을 알 수 없는 상황에서 토큰 축소를 다�
 fallback을 검증하지 않는다. 따라서 본 제안은 이들 연구보다 우월하다는 주장을 하지 않으며, 내부 토큰
 압축과 외부 이미지 변환을 같은 개입으로 순위화하지 않는다.
 
-## 3. 제안 방법
+### 2.3 텍스트 프롬프트·검색 압축
+
+LLMLingua는 작은 언어 모델을 이용해 프롬프트 토큰을 압축하고 [7], RECOMP는 검색 문맥의 추출형·생성형 압축을 다룬다 [8]. 두 방법은 대상 모델 API 앞에서 문맥을 줄일 수 있다. 원문 줄을 그대로 반환하는 발췌는 줄 내부의 표현을 보존하지만 관련 줄을 선택하지 못할 위험은 남는다.
+
+### 2.4 에이전트 컨텍스트 관리
+
+DTOC는 도구 출력 원본을 외부에 보존하고 컨텍스트의 참조를 통해 되살리는 구조를 제안한다 [9]. ACM은 이전 문맥의 요약, 원본의 외부 저장, 필요할 때의 조회를 결합한다 [10]. 따라서 원본 보존·재조회 자체를 새로운 원리로 주장하지 않는다. The Complexity Trap은 관측 마스킹과 언어 모델 요약을 비교하며 [11], S0 전체 유지와 S1 compact 모사의 비교 배경이 된다. S2 원본 보존 발췌와 S3 발췌·compact 조합은 외부 원본을 재조회하는 구조에 대응한다.
+
+| 매체·접근 | 모델 내부 / API 앞단 | 단일 질의 / 세션 | 비교 범위 |
+|---|---|---|---|
+| 시각 토큰 축소 [5], [6] | 모델 내부 | 시각 질의 입력 | 외부 래스터 변환과 동일 개입으로 순위화하지 않음 |
+| LLMLingua·RECOMP [7], [8] | 대상 모델 API 앞단 | 프롬프트·검색 문맥 | 토큰 압축 또는 문장 선택 |
+| DTOC·ACM [9], [10] | 외부 저장·관리 도구; ACM은 학습 절차도 포함 | 텍스트 에이전트 세션 | 원본 보존·재조회, S2·S3의 구조적 선행 연구 |
+| 관측 마스킹·요약 [11] | 컨텍스트 관리 | 텍스트 에이전트 세션 | 전체 유지와 손실 관리 비교 |
+| 원본 보존형 발췌 | 공급자 API 앞단 | 텍스트·이미지 단일 질의와 세션 | 호출자 지정 crop·썸네일·재요청 및 청구 비용 |
+
+### 2.5 클라이언트 전처리와 연구 질문
+
+파일 바이트나 모델 내부 연산량의 감소와 공급자 청구 토큰 감소는 다른 측정 대상이다. 이미지 입력의 공개 회계식과 실제 사용량을 대조하고, 캐시 할인과 원본 재요청 비용을 함께 계산한다.
+
+**RQ1.** 클라이언트 변환(resize, JPEG 재인코딩, crop)은 공급자별 청구 이미지 토큰을 어떻게 바꾸는가?
+
+**RQ2.** 단일 질의에서 질의 인식 발췌와 판독 불가 기반 원본 재요청은 정확도를 유지하며 토큰을 줄이는가?
+
+**RQ3.** 다중 턴 세션에서 원본 보존 발췌는 전체 유지 및 compact 단독과 비교해 누적 청구 토큰, 과제 정확도와 늦은 회상을 어떻게 바꾸는가?
+
+**C1 — 측정.** GPT-4o와 Claude Haiku 4.5의 이미지 청구 토큰을 클라이언트 변환별로 측정하고 공개 회계식과 대조한다.
+
+**C2 — 시스템.** 텍스트 에이전트에서 제안된 원본 보존·재조회 구조 [9], [10]를 이미지 입력으로 확장하는 MCP 플러그인 설계다. 이미지는 원래 해상도 영역 crop, 저해상도 전체 썸네일, 원본 재요청으로 다룬다. 영역은 호출자가 정하며, 실험에서는 OCR 기반 질의 인식 선택기를 호출자로 사용한다. 텍스트는 LLM 없이 원문 줄과 출처를 붙여 발췌한다. 이미지 확장 설계와 현재 제품의 구현 범위는 III장에서 구분한다.
+
+**C3 — 세션 평가.** 다중 턴 세션에서 전체 유지, compact 모사, 원본 보존 발췌, 그 조합을 사전 등록 held-out으로 비교한다. 비용은 두 공급자의 청구 토큰으로 정가와 캐시 반영을 나눠 잰다.
+
+**C4 — 경계와 부정적 결과.** 공급자 내부 축소, 이미 손상된 입력, 조용한 오답, 캐시 반영에 따른 절감 축소 또는 비용 역전을 평가 범위에 포함한다. 원본 재요청의 안전성이나 모든 공급자에서의 비용 절감을 전제하지 않는다.
+
+새 crop·pruning 알고리즘의 우월성이나 최초 평가를 주장하지 않는다. 모사 compact의 비교를 Claude Code·Codex 제품 compact의 성능 평가로 일반화하지 않는다.
+
+## III. 제안 방법
 
 ### 3.1 입력과 후보
 
@@ -65,8 +107,8 @@ crop, 같은 템플릿의 near-duplicate, 서로 다른 입력 조건을 교차 
 프로필은 `jpeg-ycbcr8-baseline-444-v1`이다. 이 프로필은 목표일 뿐이며 실제 encoder 출력의 프로필 적합성은 검증되지
 않았다. 선택기는 영역만 고르며 출력 format, quality, preset을 비교하거나 선택하지 않는다. PNG canonical은 변환이 PNG를
 출력할 때의 출력 정규화 역할로 이름을 유지하지만, 변환 arm이 PNG를 출력하지 않는 현재 선택에서는 arm 출력에 쓰지 않는
-비활성 항목이다. 이는 §4의 downscale-only 입력 조건을 준비할 때 만드는 PNG와 별개이며, 그 준비 PNG가 같은 encoder
-설정을 쓴다고 주장하지 않는다. resize의 실제 적용은 입력 조건과 crop 결과 치수에 달린다(§4 참조). resize 단계가
+비활성 항목이다. 이는 V장의 downscale-only 입력 조건을 준비할 때 만드는 PNG와 별개이며, 그 준비 PNG가 같은 encoder
+설정을 쓴다고 주장하지 않는다. resize의 실제 적용은 입력 조건과 crop 결과 치수에 달린다(V장 참조). resize 단계가
 identity일 수 있으므로 실제 effective transform을 별도 기록에 남긴다. 선택기는 질문의 핵심 문자열, OCR의 작은 글자 밀도,
 선·표·UI 영역의 예상 손상 신호를 이용해 영역 후보를 정렬할 수 있다. 구체적인 영역 규칙, 점수, tie break는 아직 정하지
 않았다. 사전 OCR guard는 사용하지 않는다. OCR 엔진·버전, 정확한 선택 규칙과 response guard의 frozen binding은 실행 전 gate다.
@@ -84,7 +126,7 @@ response guard는 응답 상태와 실제 배정 variant, crop 경계, 변환 �
 시각적 보존을 보장한다고 표현하지 않는다.
 승인된 case-insensitive `UNREADABLE` response guard 규칙은 calibration에서 확인만 하고 변경하지 않으며, 변경에는 새 사용자 결정이 필요하다. held-out 질문에 맞춰 다시 조정하지 않는다. 작은
 글자에 대한 임의의 인증 임계값은 두지 않는다. 재요청률은 결과의 일부이며, fallback이 많다는
-사실은 최적화가 잘 되었다는 뜻이 아니다. 입력 stress recipe와 승인된 response guard의 calibration 확인 및 공동 freeze 순서는 §4에 따르며, 이번 문서는 calibration 결과를 보고하지 않는다.
+사실은 최적화가 잘 되었다는 뜻이 아니다. 입력 stress recipe와 승인된 response guard의 calibration 확인 및 공동 freeze 순서는 V장에 따르며, 이번 문서는 calibration 결과를 보고하지 않는다.
 
 선택기와 response guard의 출력은 원본 또는 하나의 변환 이미지와 함께 provenance manifest로 저장한다. manifest에는
 원본·출력 SHA-256, 너비·높이, 형식, crop 좌표, 선택 이유, 변환 프리셋, OCR engine/version, 모델 snapshot, 질문 hash,
@@ -96,9 +138,17 @@ response guard는 응답 상태와 실제 배정 variant, crop 경계, 변환 �
 파일 바이트 감소는 청구 비용 감소와 같지 않다. 파일 크기, 업로드 시간, 전처리/OCR/선택 지연, 모델의
 실제 사용량, 오류와 timeout을 별도 계측한다. 사용량이 보고되지 않으면 0으로 기록하지 않고 unknown으로
 남긴다. 선택기 계산의 추가 비용도 원본 전달 arm과 함께 비교한다. 이 논문은 비용 절감을 전제하지 않으며,
-호스팅 실행과 계측이 구현된 뒤에만 그 질문을 평가한다.
+호스팅 호출과 사용량 계측을 통해 그 질문을 평가한다.
 
-공식 문서의 규칙에 예제 치수를 적용한 수치는 산술 추정이지 데이터셋의 실측 절감률이 아니다 [7–17]
+### 3.4 세션 내 원본 보존과 구현 경계
+
+텍스트 경로는 `index_artifact`와 `query_artifact`를 통해 원문과 줄 위치·해시를 연결한다. 세션에는 아티팩트 ID와 필요한 발췌를 전달하고, compact 요약에도 ID를 남겨 원문을 다시 조회할 수 있게 한다. 이 구조는 compact를 보완하며 작업 흐름의 도구 사용 규칙과 연결된다.
+
+이미지 crop·썸네일·원본 재요청은 확장 설계다. 이미지 입력 검증·원본 추적과 이미지 발췌 도구의 완성은 구분한다. 실험의 OCR 선택기는 `research/`의 연구용 호출자이며 제품의 질문 인식 선택 기능이 아니다. III장 3.1–3.3절의 선택·guard·계측은 연구 평가 경로를 정의한다. 원본을 외부에 보존하는 세션 설계는 현재 제품이 영구 원본 저장을 제공한다는 뜻이 아니다.
+
+## IV. 공급자 회계와 실험 1
+
+공식 문서의 규칙에 예제 치수를 적용한 수치는 산술 추정이지 데이터셋의 실측 절감률이 아니다 [12–22]
 ([계산 예제와 상세 근거](./image-token-cost-models.md)). 회계 비교 대상은
 `gpt-4o-2024-11-20`, `claude-haiku-4-5-20251001`, `gemini-3.8-flash`이고, `claude-sonnet-5-5`와
 `gpt-5.6-sol`은 별도 회계 계열의 대조다. 이 다섯 대상은 산술 비교를 위한 것이며 어느 것도 파일럿 모델
@@ -106,23 +156,25 @@ response guard는 응답 상태와 실제 배정 variant, crop 경계, 변환 �
 
 | 모델 ID / 설정 | 예제 결과 | 결과의 성격 |
 |---|---|---|
-| `claude-haiku-4-5-20251001` / standard [10–12] | 0–1.79% | 예제 치수의 패치 회계 산술; 0 사례 포함 |
-| `gpt-4o-2024-11-20` / low [7–8] | 85 입력 토큰 고정, Δ=0 | 공식 크기 무관 회계 |
-| `gpt-4o-2024-11-20` / high [7] | 최대 22.22% | 예제 치수 중 최대 산술 절감률 |
-| `claude-sonnet-5-5` / high-resolution [10, 11, 13] | 양수 예제 36.64–64.36% | 고해상도 계열 대조의 양수 예제 |
-| `gpt-5.6-sol` / original·auto·설정 생략 [7, 9] | 거부되지 않은 축소 예제 43.76–85.94% | 생략은 auto; 거부 사례 제외 |
-| `gpt-5.6-sol` / high [7, 9] | 양수 예제 7.83% | 예제 치수의 산술 비교 |
-| `gpt-5.6-sol` / low [7, 9] | 0% | 예제 치수의 산술 비교 |
+| `claude-haiku-4-5-20251001` / standard [15–17] | 0–1.79% | 예제 치수의 패치 회계 산술; 0 사례 포함 |
+| `gpt-4o-2024-11-20` / low [12–13] | 85 입력 토큰 고정, Δ=0 | 공식 크기 무관 회계 |
+| `gpt-4o-2024-11-20` / high [12] | 최대 22.22% | 예제 치수 중 최대 산술 절감률 |
+| `claude-sonnet-5-5` / high-resolution [15, 16, 18] | 양수 예제 36.64–64.36% | 고해상도 계열 대조의 양수 예제 |
+| `gpt-5.6-sol` / original·auto·설정 생략 [12, 14] | 거부되지 않은 축소 예제 43.76–85.94% | 생략은 auto; 거부 사례 제외 |
+| `gpt-5.6-sol` / high [12, 14] | 양수 예제 7.83% | 예제 치수의 산술 비교 |
+| `gpt-5.6-sol` / low [12, 14] | 0% | 예제 치수의 산술 비교 |
 
-`gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 크기별 사용량과 실제 차이는 unknown이다 [14–17].
+`gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 크기별 사용량과 실제 차이는 unknown이다 [19–22].
 GPT-5.6 Sol original/auto/설정 생략은 65,535px/side 상한까지 치수를 유지하고 처리 patch가 30,000을
-넘으면 거부한다 [7, 9]. 거부는 자동 축소가 아니며 그 원본 기준은 정의되지 않아 절감률 비교에 포함하지 않는다.
+넘으면 거부한다 [12, 14]. 거부는 자동 축소가 아니며 그 원본 기준은 정의되지 않아 절감률 비교에 포함하지 않는다.
 모든 예제 값은 설정과 치수에 한정되며 모델 계열 전반, 파일럿 결과 또는 청구액을 나타내지 않는다.
 
-## 4. 계획된 평가
+실험 1은 GPT-4o와 Claude Haiku 4.5에서 원본 및 클라이언트 변환 입력의 공급자 사용량을 수집해 공개 회계식과 대조한다. 입력 치수·형식·변환 이력·모델 설정을 함께 기록하며, 앞의 예제 산술과 실제 호출의 청구 토큰을 구분한다.
+
+## V. 실험 2: 단일 질의
 
 파일럿은 12개 calibration source family와 탐색용 held-out 36개 family로 시작한다. 두 집합 모두 문서,
-차트, UI strata를 같은 수로 배정한다. 실제 데이터셋은 아직 확보하지 않았고, 첫 단계는 답과 증거를
+차트, UI strata를 같은 수로 배정한다. 평가 입력은 답과 증거를
 숨긴, 직접 생성한 합성(소유) 아티팩트이며 그 원천은 손실 이력이 없는 RGB PNG(channels 3)로 한정한다.
 DocVQA, ChartQA, ScreenQA는 외적 타당도를 위한 후보일 뿐이며 라이선스,
 접근권, 파일 hash를 확인하기 전에는 사용하지 않는다. 각 domain에는 OCR small-text stress stratum을
@@ -131,15 +183,15 @@ DocVQA, ChartQA, ScreenQA는 외적 타당도를 위한 후보일 뿐이며 라�
 clean 조건은 이 원천 파일을 재인코딩 없이 그대로 쓰며, 별도의 PNG canonical 재인코딩으로 clean을 만들지 않는다.
 clean의 긴 변 L = max(width, height)는 1536 < L <= 2528 범위이고 사용자가 확정한 기준값은 2048이다. 정확한
 width×height 목록, 종횡비, family별 배정과 기준값 2048의 운영 의미는 아직 정하지 않았으며 이후 합성 데이터 생성
-단계에서 사용자 승인 뒤 확정한다. 실제 파일이 아직 없으므로 원천의 생성 provenance, 제한된 PNG 입력 프로필 적합성,
-encoded 크기의 10 MiB 한도 충족은 검증되지 않았다. 네 입력 조건의 준비 recipe는 다음과 같다.
+단계에서 사용자 승인 뒤 확정한다. 원천의 생성 provenance, 제한된 PNG 입력 프로필 적합성,
+encoded 크기의 10 MiB 한도 충족을 검증 항목으로 둔다. 네 입력 조건의 준비 recipe는 다음과 같다.
 
 | 입력 조건 | 준비 recipe |
 |---|---|
 | clean | 원천 RGB PNG 그대로, 재인코딩 없음 |
-| JPEG-only | clean 치수 그대로 JPEG quality 50, §3.1에서 정의한 목표 프로필 |
+| JPEG-only | clean 치수 그대로 JPEG quality 50, III장 3.1절에서 정의한 목표 프로필 |
 | downscale-only | 긴 변 상한 1024로 downscale(확대 없음)한 뒤 RGB PNG, channels 3 보존; JPEG quality와 프로필은 해당 없음 |
-| combined | 긴 변 상한 1024로 downscale(확대 없음)한 뒤 JPEG quality 50, §3.1에서 정의한 목표 프로필 |
+| combined | 긴 변 상한 1024로 downscale(확대 없음)한 뒤 JPEG quality 50, III장 3.1절에서 정의한 목표 프로필 |
 
 downscale-only와 combined는 같은 긴 변 상한 표현과 같은 값을, JPEG-only와 combined는 같은 quality를 쓴다. 이 입력
 stress 값(긴 변 상한 1024, quality 50)은 조건 공통이며 arm 출력 변환의 후보값(긴 변 1536, quality 75)과 다른 값이므로
@@ -164,7 +216,7 @@ accounting 상한, 최종 값에서의 response guard 확인을 다시 한다. �
 고정된 모델과 질문마다 다음 다섯 arm을 같은 source variant에 적용한다. (A) full original, (B) naive
 resize/compression, (C) query-aware selection without response guard, (D) 동일 selection과 response
 guard 및 보수적 original fallback, (E) 사람의 evidence-region oracle 진단. 현재 선택에서 B, C와 D의 변환 경로,
-E는 §3.1의 같은 출력 변환 설정 하나를 쓴다. B는 crop하지 않고 그 변환만 적용한다. C와 D는 선택기가 영역만 정하고
+E는 III장 3.1절의 같은 출력 변환 설정 하나를 쓴다. B는 crop하지 않고 그 변환만 적용한다. C와 D는 선택기가 영역만 정하고
 선택 영역을 처리한 뒤 같은 변환을 적용하며, D의 변환 경로는 C와 같다. selector가 window를 내지 않으면 첫 호출에는 C/D의 full-frame 변환을 쓰며, 이 첫 호출은 fallback이 아니다. E는 oracle crop 뒤에 같은 변환을 적용한다.
 A의 full original은 배정된 source variant를 그대로 전달한다. D의 response requery는 같은 배정 variant를 as-is로 전달한다. B가 crop하지 않는다는 것과
 변환 arm의 최종 출력이 quality 75의 목표 프로필 JPEG라는 것은 다른 선택에서 자동으로 도출한 것이 아니라 각각 별도의
@@ -183,8 +235,7 @@ resize 단계의 실제 적용은 입력 조건에 따라 다르다. downscale-o
 남는다. clean과 JPEG-only variant에서는 B의 1536 resize가 치수를 줄이므로 identity가 아니며, C와 D의 변환 경로, E에서는 crop 결과
 치수에 따라 달라진다. quality 75 재인코딩은 quality 50 JPEG variant에도 그대로 적용하며 no-op으로 생략하지
 않는다. resize identity는 resize 단계에 한정된 도출이며 pixels나 bytes의 동일성을 뜻하지 않는다. full-frame crop과
-identity resize의 no-op 처리, 중간 crop 저장 방식, resize 필터와 반올림은 아직 정하지 않았고, 실제 출력 bytes와 손실
-크기는 측정되지 않았다.
+identity resize의 no-op 처리, 중간 crop 저장 방식, resize 필터와 반올림을 기록하고 실제 출력 bytes와 손실 크기를 평가한다.
 
 탐색용 36 family × 질문 1개 × 조건 4개 × arm 5개는 frozen model에서 계획된 720 slots다. 이 중
 production arms A–D는 576 planned slots, oracle arm E는 144 planned slots다. 이는 실행된 수가 아니라 계획 수이며 calibration
@@ -210,33 +261,51 @@ primary metric은 planned production slot의 family-averaged QA success다. 응�
 
 D−C의 해석에는 경계가 있다. C와 D의 설계상 입력 경로 차이는 response requery 자체뿐이다. 독립 호출의 응답이
 같다고 보장하지 않으며, 수락 slot에서 같은 artifact를 쓰는지와 변환의
-결정성은 검증되지 않았다. fallback slot에서도 C의 출력은 JPEG이므로 clean·downscale-only의 PNG variant와 bytes가 같을
-수 없고, JPEG-only·combined에서는 byte 일치 가능성을 배제하지 못하지만 측정하지 않았다. fallback slot의 빈도는 실행
-전에 알 수 없다. downscale-only와 clean, combined와 JPEG-only·clean의 치수 구분은 준비 단계의 상한 downscale이 실제로
+결정성을 확인한다. fallback slot에서도 C의 출력은 JPEG이므로 clean·downscale-only의 PNG variant와 bytes가 같을
+수 없고, JPEG-only·combined에서는 byte 일치 가능성을 별도로 확인한다. fallback slot의 빈도는 관측 지표다.
+downscale-only와 clean, combined와 JPEG-only·clean의 치수 구분은 준비 단계의 상한 downscale이 실제로
 실현될 때의 도출이다. 이는 치수 구분일 뿐이며, 네 조건의 pixel 배열이 모두 서로 다르다거나 quality 50의 손상 또는
 효과가 입증됐다는 뜻이 아니다.
 
-## 5. 이번 문서에서 결과를 보고하지 않음
+## VI. 실험 3: 에이전트 세션
 
-이번 문서는 이미지 입력에 대한 모델 호출, OCR telemetry, 시각적 grader, hosted latency, usage 또는 실제 비용에 대한
-결과를 보고하지 않는다. 따라서 본 문서에는 정확도, 실측 절감률, 안전 임계값, 통계적 유의성, 우월성 수치를
-제시하지 않는다. 앞 절의 수치는 기존 공식 회계 규칙과 예제 치수에서 얻은 산술 추정일 뿐 실험 결과가
-아니다. 현재의 텍스트 및 PNG, JPEG 엔지니어링 테스트는 입력·저장소·오류 처리 계약을 검증할 뿐 이미지
-최적화 방법의 효과를 검증하지 않는다.
+### 6.1 템플릿과 턴
 
-## 6. 논의와 한계
+UI 디버깅(설정·대시보드 화면과 오류 로그), 문서 검토(청구서·공지 이미지와 처리 기록), 리포트 점검(차트와 작성 메모)의 세 템플릿을 각각 8턴의 고정 대본으로 구성한다. 턴 1–3에서 이미지·텍스트·이미지를 제시하고 즉시 세부를 질문한다. 턴 4는 교차 확인, 턴 5는 요지, 턴 6–8은 앞선 이미지의 작은 글자와 정확한 로그 줄을 포함하는 늦은 회상을 평가한다. 요지 문항도 포함해 손실 요약이 유리할 수 있는 과제를 배제하지 않는다.
+
+### 6.2 비교 조건
+
+| 조건 | 컨텍스트 처리 |
+|---|---|
+| S0 전체 유지 | 원본 이미지·텍스트 전문과 대화를 계속 전달 |
+| S1 compact 모사 | S0의 이전 대화를 같은 모델의 고정 지시문으로 요약하고 대체; 요약 뒤 이미지 미유지 |
+| S2 원본 보존 발췌 | 원본은 외부에 두고 ID·종류·제목·크기 카드와 필요한 발췌를 전달; 판독 불가 시 배정 원본 요청 |
+| S3 발췌 + compact | S2와 요약을 결합하고 요약에 아티팩트 ID를 남겨 재조회 |
+| S4 단순 축소 유지(보조) | S0의 이미지를 긴 변 1536 이하·JPEG quality 75로 변환하여 전달 |
+
+S1·S3의 compact는 턴 3과 턴 6 뒤의 고정 일정이다. 임계값 방식이었다면 발생했을 compact 횟수는 보조 지표로 기록한다. 모든 조건에 같은 모델, 질문, system 지시, 출력 상한과 판독 불가 표지를 적용한다. 텍스트 발췌는 실제 플러그인 MCP 경로와 연결하고, 이미지 선택은 연구용 호출자로 다룬다. 도구 결과와 요약 호출도 컨텍스트 및 비용 계산에 포함한다.
+
+### 6.3 분할과 지표
+
+개발 3세션, calibration 6세션, held-out 24세션으로 나누며 템플릿별 각각 1·2·8세션을 배정한다. session family 단위로 seed를 분리하고 held-out에는 템플릿별 새 변형을 전용으로 둔다. 실험 2의 calibration·held-out family와도 겹치지 않게 한다. 세션을 조건 간 짝지어 비교하고 요약 길이와 도구 호출 상한 등은 held-out 전에 고정한다.
+
+주 지표는 모든 호출의 누적 입력 토큰과 문항 내용 정확도의 세션 평균이다. 도구 왕복과 compact 요약 호출을 빠뜨리지 않는다. 턴 6–8의 늦은 회상 정확도를 핵심 보조 지표로 두고, 출력 토큰, 정가·캐시 반영 비용, 도구 호출 수, 원본 요청률, compact 횟수, 지연, 실패와 조용한 오답을 함께 보고한다. 조건 차이는 같은 세션의 짝지은 차이로 분석한다.
+
+## VII. 논의와 한계
+
+텍스트 및 PNG·JPEG 엔지니어링 테스트와 픽스처 출처 기록은 입력·저장·오류 처리 계약의 근거다. 이미지의 시각적 가독성, 모델 정확도, 실측 토큰·비용·지연이나 최적화의 안전성을 입증하는 실험 근거와는 구분한다.
 
 질의 인식 선택은 질문을 사용하므로 질문이 바뀌면 선택도 바뀐다. 판독 불가 표지의 발생은 모델과 입력에 따라 달라질 수 있으며, 모델이 오답에도 표지를 내지 않으면 응답 기반 재요청은 작동하지 않는다. 원본 재요청도 공급자 축소로 작은 글자 판독을 보장하지 않는다. provider의 원본 자동 축소와 crop 경계, 화면 배율,
 모델의 detail 처리와 숨은 토큰화는 guard를 통과해도 시각적 의미를 손상할 수 있다. 보수적 fallback은
 손실을 줄일 수 있다는 가설일 뿐 안전을 보장하지 않는다. 하나의 작은 파일럿은 일반화나 비용 체계를
 증명하지 않는다. public benchmark의 license와 접근 조건, 모델 정책과 개인정보 승인은 별도 gate다.
 
-공급자별 이미지 회계는 같은 1536px 입력 후보에도 서로 다른 결과를 낸다 [7–17]. GPT-4o low의 고정 토큰이나
+공급자별 이미지 회계는 같은 1536px 입력 후보에도 서로 다른 결과를 낸다 [12–22]. GPT-4o low의 고정 토큰이나
 Haiku standard의 provider patch cap처럼 예제상 변화가 없는 경우가 있고, GPT-4o high와 별도 회계 계열의
 고해상도 예제에서는 설정·치수에 따라 계산 차이가 있다. 반대로 원본 요청이 거부되면 비용 비교의 기준값은
 정의되지 않으며, 요청 예산만 제시된 Gemini 3.8 Flash의 실제 크기별 사용량도 알 수 없다. JPEG q75는 OpenAI와
 Anthropic의 공개 회계식에 품질 변수가 없고 Gemini의 영향도 문서화되지 않았다. 기존 출처는 강한 JPEG
-압축이 작은 글자를 읽기 어렵게 만들 수 있고 압축 아티팩트가 모델에 영향을 줄 수 있다고 경고하지만 [10],
+압축이 작은 글자를 읽기 어렵게 만들 수 있고 압축 아티팩트가 모델에 영향을 줄 수 있다고 경고하지만 [15],
 이는 q75의 효과를 측정한 결과가 아니다 ([모델별 회계 근거](./image-token-cost-models.md)). 작은 글자
 가독성, 실제 토큰 사용량, 청구 및 지연시간은 별도 관측 전까지 미확인이다. Sonnet 5.5와 GPT-5.6 Sol은
 별도 회계 계열의 대조 예제이며 파일럿 후보를 추가하거나 확정하지 않는다. 이 회계 예제는 1536px/q75의
@@ -247,43 +316,63 @@ Anthropic의 공개 회계식에 품질 변수가 없고 Gemini의 영향도 문
 오류 원인을 잃으므로 domain별로 보고한다. 동영상은 프레임 간 일관성과 시간적 증거가 추가되므로,
 이미지 response guard와 pilot이 검증되고 사용자가 승인한 뒤의 미래 작업으로만 남긴다.
 
-## 7. 결론
+프롬프트 캐시는 반복 입력의 비용을 바꾸므로 정가만으로 발췌의 이점을 판단하지 않는다. 캐시되지 않은 입력, 캐시 읽기와 쓰기 토큰을 구분하고, 정가 기준과 실제 캐시 반영 기준 비용을 함께 보고한다. 공급자별 할인율·쓰기 할증·TTL과 적용 조건은 [검증 필요]다. 캐시 재사용 감소로 절감 폭이 줄거나 비용이 역전될 가능성도 평가한다.
 
-본 논문은 외부 정적 이미지 최적화를 질문 인식 선택, response guard, 원본 fallback, provenance 계측의
-묶음으로 제안한다. 연구의 핵심 성공 조건은 바이트 감소가 아니라 같은 질문의 증거를 보존하면서
-재현 가능한 관측을 남기는지다. 최적화 방법과 모델 평가는 아직 설계 단계다. 제한된 PNG 및 baseline
-4:4:4 JFIF JPEG 입력 검증과 원본 추적(M1a)만 구현되어 있으며, 이번 문서는 이미지 모델 측정 결과를 보고하지 않는다. 다음 단계는 입력 프로필 확장,
-resize/crop provenance, response guard와 응답 기반 재요청(fallback), 평가 adapter를
-순서대로 만들고 이 프로토콜의 gate를 통과시키는 것이다. 다만 먼저 구현할 변환 연산은 아직 선택하지 않았다. paper와 구현은 증거 사양이 안정된 범위에서
-병렬로 진행하되, 충돌 시 paper의 명시적 측정 경계를 우선한다.
+compact는 공개 규칙을 이용한 모사이며 제품 compact의 내부 동작과 같지 않다. 합성 아티팩트와 고정 대본은 실제 에이전트가 스스로 행동을 계획하는 상호작용을 대표하지 않을 수 있다. 공급자·모델 버전과 도구 사용 행동에 따라 관측 결과의 적용 범위도 달라질 수 있다.
+
+## VIII. 결론과 후속 연구
+
+원본 보존형 컨텍스트 관리를 텍스트와 정적 이미지로 확장하고 compact를 보완하는 평가 틀을 제시한다. 핵심은 바이트 감소만이 아니라 증거의 보존, 재조회 비용, 세션 전체의 청구 토큰과 정확도를 함께 측정하는 것이다. 공급자 회계 대조, 단일 질의, 다중 턴의 늦은 회상을 구분하며 캐시와 조용한 오답을 한계에 포함한다. 영상의 질의 인식 keyframe 발췌는 시간적 증거와 프레임 간 일관성을 추가로 검증할 후속 연구다.
 
 ## 참고문헌
 
-1. Mathew et al., “DocVQA: A Dataset for VQA on Document Images,” WACV 2021.
-   [논문](https://openaccess.thecvf.com/content/WACV2021/html/Mathew_DocVQA_A_Dataset_for_VQA_on_Document_Images_WACV_2021_paper.html)
-2. Singh et al., “Towards VQA Models That Can Read,” CVPR 2019.
-   [논문](https://openaccess.thecvf.com/content_CVPR_2019/html/Singh_Towards_VQA_Models_That_Can_Read_CVPR_2019_paper.html)
-3. Masry et al., “ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning,” Findings of ACL 2022.
-   [논문](https://aclanthology.org/2022.findings-acl.177/)
-4. Hsiao et al., “ScreenQA: Large-Scale Question-Answer Pairs Over Mobile App Screenshots,” NAACL 2025.
-   [논문](https://aclanthology.org/2025.naacl-long.477/)
-5. Gao et al., “QuietPrune: Query-Guided Early Token Pruning for Vision-Language Models,” CVPR 2026.
-   [논문](https://openaccess.thecvf.com/content/CVPR2026/html/Gao_QuietPrune_Query-Guided_Early_Token_Pruning_for_Vision-Language_Models_CVPR_2026_paper.html)
-6. Wang et al., “Rethinking Token Reduction for Large Vision-Language Models,” CVPR 2026; MetaCompress arXiv:2603.21701v1.
-   [CVF 목록](https://openaccess.thecvf.com/content/CVPR2026/html/Wang_Rethinking_Token_Reduction_for_Large_Vision-Language_Models_CVPR_2026_paper.html),
-   [arXiv 초록](https://arxiv.org/abs/2603.21701v1), [접근 기록](./image-first-sources.md)
+[1] Mathew et al., “DocVQA: A Dataset for VQA on Document Images,” WACV 2021.
+   [Online](https://openaccess.thecvf.com/content/WACV2021/html/Mathew_DocVQA_A_Dataset_for_VQA_on_Document_Images_WACV_2021_paper.html)
 
-아래 공급자 문서 URL과 확인일은 [모델별 회계 근거](./image-token-cost-models.md)의 2026-10-07 기록을
-따른다. 이번 문서 수정에서 공급자 페이지를 다시 확인하지 않았다.
+[2] Masry et al., “ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning,” Findings of ACL 2022.
+   [Online](https://aclanthology.org/2022.findings-acl.177/)
 
-7. OpenAI. [Images and vision](https://developers.openai.com/api/docs/guides/images-vision). 확인일 2026-10-07.
-8. OpenAI. [GPT-4o model](https://developers.openai.com/api/docs/models/gpt-4o). 확인일 2026-10-07.
-9. OpenAI. [GPT-5.6 Sol model](https://developers.openai.com/api/docs/models/gpt-5.6-sol). 확인일 2026-10-07.
-10. Anthropic. [Vision](https://platform.claude.com/docs/en/build-with-claude/vision). 확인일 2026-10-07.
-11. Anthropic. [Vision coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). 확인일 2026-10-07.
-12. Anthropic. [Models overview](https://platform.claude.com/docs/en/models/overview). 확인일 2026-10-07.
-13. Anthropic. [Sonnet 5.5 model overview](https://platform.claude.com/docs/en/models/sonnet-5-5/overview). 확인일 2026-10-07.
-14. Google. [Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution). 확인일 2026-10-07.
-15. Google. [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding). 확인일 2026-10-07.
-16. Google. [Pricing](https://ai.google.dev/gemini-api/docs/pricing). 확인일 2026-10-07.
-17. Google. [Gemini 3.8 Flash model](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash). 확인일 2026-10-07.
+[3] Hsiao et al., “ScreenQA: Large-Scale Question-Answer Pairs Over Mobile App Screenshots,” NAACL 2025.
+   [Online](https://aclanthology.org/2025.naacl-long.477/)
+
+[4] Singh et al., “Towards VQA Models That Can Read,” CVPR 2019.
+   [Online](https://openaccess.thecvf.com/content_CVPR_2019/html/Singh_Towards_VQA_Models_That_Can_Read_CVPR_2019_paper.html)
+
+[5] Gao et al., “QuietPrune: Query-Guided Early Token Pruning for Vision-Language Models,” CVPR 2026.
+   [Online](https://openaccess.thecvf.com/content/CVPR2026/html/Gao_QuietPrune_Query-Guided_Early_Token_Pruning_for_Vision-Language_Models_CVPR_2026_paper.html)
+
+[6] Wang et al., “Rethinking Token Reduction for Large Vision-Language Models,” CVPR 2026; MetaCompress arXiv:2603.21701v1.
+   [CVF](https://openaccess.thecvf.com/content/CVPR2026/html/Wang_Rethinking_Token_Reduction_for_Large_Vision-Language_Models_CVPR_2026_paper.html),
+   [arXiv](https://arxiv.org/abs/2603.21701v1), [Source record](./image-first-sources.md)
+
+[7] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, “LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models,” arXiv:2310.05736, 2023.
+
+[8] F. Xu, W. Shi, and E. Choi, “RECOMP: Improving Retrieval-Augmented LMs with Compression and Selective Augmentation,” arXiv:2310.04408, 2023.
+
+[9] A. Chaturvedi, S. Bhattacharya, R. Gopalkrishnan, and P. van der Putten, “DTOC: Dynamic Tool Output Compression for Adaptive Context Management in AI Agents,” arXiv:2609.26121, 2026.
+
+[10] X. Li, R. Ming, M. Chu, S. Shao, R. Jin, and C. Xiong, “ACM: Agentic Context Management for Long Horizon Tasks,” arXiv:2607.23809, 2026.
+
+[11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, “The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization for Agent Context Management,” in NeurIPS 2025 Workshop: Deep Learning for Code in the Agentic Era, 2025, arXiv:2508.21433.
+
+[12] OpenAI. [Images and vision](https://developers.openai.com/api/docs/guides/images-vision). Accessed: Oct. 7, 2026.
+
+[13] OpenAI. [GPT-4o model](https://developers.openai.com/api/docs/models/gpt-4o). Accessed: Oct. 7, 2026.
+
+[14] OpenAI. [GPT-5.6 Sol model](https://developers.openai.com/api/docs/models/gpt-5.6-sol). Accessed: Oct. 7, 2026.
+
+[15] Anthropic. [Vision](https://platform.claude.com/docs/en/build-with-claude/vision). Accessed: Oct. 7, 2026.
+
+[16] Anthropic. [Vision coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). Accessed: Oct. 7, 2026.
+
+[17] Anthropic. [Models overview](https://platform.claude.com/docs/en/models/overview). Accessed: Oct. 7, 2026.
+
+[18] Anthropic. [Sonnet 5.5 model overview](https://platform.claude.com/docs/en/models/sonnet-5-5/overview). Accessed: Oct. 7, 2026.
+
+[19] Google. [Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution). Accessed: Oct. 7, 2026.
+
+[20] Google. [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding). Accessed: Oct. 7, 2026.
+
+[21] Google. [Pricing](https://ai.google.dev/gemini-api/docs/pricing). Accessed: Oct. 7, 2026.
+
+[22] Google. [Gemini 3.8 Flash model](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash). Accessed: Oct. 7, 2026.
