@@ -74,4 +74,6 @@
 - M-5 수정: III·V의 calibration 미보고 절 삭제, V의 연결된 “통과 기준도 제시하지 않는다”도 제거(Q3). m-3의 별도 미정 상태 문장들은 보존.
 - m-1·D1 연기: V 압축은 Task 38. m-2 부분 수정·조판 잔여 위 기록. m-3 본문 유지·Task 38 목록 기록. m-4 중복 한계 문장은 VII에만 유지.
 - N-1 수정: 국문요약 “최대 한 번”. N-2 수정: 표에 연구·매체 열 및 “본 연구”. N-3 수정: S0–S3에 VI장 참조. N-4 수정: 옛 초록의 “질문에 맞춘 축소가 답을 결정하는 증거를 지울 수 있다”를 I에 복원.
-- 수정 초안 Luna, 주 에이전트 직접 대조·보완. 반박 없음. 이번 수정에 대한 Claude 재검토는 미수행이며 다음 사용자 단계다.
+- Claude Code / claude-opus-5-5, head 4c860aa 재검토, Approve, Blocker 0 / Major 0 / Minor 0 / Nit 2 (사용자 제공). Nit 수정 diff의 Claude 확인은 대기.
+- 재검토 N-1 수정: 위치 표를 “모델 내부(앞 층 뒤 과거 관측 토큰 제거)·정책 최적화”로 변경(HiconAgent §3, AHC·k=6 근거).
+- 재검토 N-2 수정: “연구용 OCR 기반 영역 선택기(실험 2의 선택기와 같은 규칙)”로 변경. origin/claude/experiment3-sessions 28fcb61의 research/src/variants.mjs:83·session-harness.mjs:166·session-anthropic.mjs:95가 selector.mjs:81의 동일 selectWindow를 호출함을 확인.
