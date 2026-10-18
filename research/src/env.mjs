@@ -13,6 +13,12 @@ const SETS = {
   dev2: { dir: join(outDir, "dev2"), families: "./families-dev2.mjs", arms: ["A", "B", "C", "D", "E"] },
   // C1R and C2R are derived in summarize.mjs (response-based fallback), not separate slots.
   dev3: { dir: join(outDir, "dev3"), families: "./families-dev3.mjs", arms: ["A", "C1", "C2", "E"], derived: ["C1R", "C2R"] },
+  // Experiment 2 (RQ2), protocol as revised by Task 34 (PR #40): arms A, B, C (query-aware window selector; no window ->
+  // full-frame arm transform), D (same input as C in its own fresh call; if the answer contains UNREADABLE, one fresh
+  // re-request of the assigned variant as-is, costs summed; run.mjs requeryArm), E (oracle).
+  // Dp (exploratory, pre-registration amendment 1): the pre-amendment D rule derived from A and C in summarize.mjs.
+  "exp2-calibration": { dir: join(outDir, "exp2-calibration"), families: "./families-exp2-calibration.mjs", arms: ["A", "B", "C", "D", "E"], derived: ["Dp"], selectorArm: "window", requeryArm: "D" },
+  "exp2-heldout": { dir: join(outDir, "exp2-heldout"), families: "./families-exp2-heldout.mjs", arms: ["A", "B", "C", "D", "E"], derived: ["Dp"], selectorArm: "window", requeryArm: "D" },
 };
 export function getSet(argv = process.argv) {
   const name = argv.includes("--set") ? argv[argv.indexOf("--set") + 1] : "dev1";

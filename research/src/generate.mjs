@@ -24,6 +24,7 @@ for (const fam of FAMILIES) {
   families.push({
     id: fam.id,
     domain: fam.domain,
+    layout: fam.layout ?? "base",
     seed: fam.seed,
     clean: { file: `clean/${fam.id}.png`, width: meta.width, height: meta.height, channels: meta.channels, bytes: png.length, sha256: sha256(png) },
     questions,

@@ -1,0 +1,1825 @@
+{
+  "runId": "exp2-held-gpt4o",
+  "set": "exp2-heldout",
+  "table": {
+    "clean/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 151555.66666666666
+    },
+    "clean/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 104128.11111111111
+    },
+    "clean/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 602.5277777777778,
+      "meanBytes": 31235.472222222223
+    },
+    "clean/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 648.3333333333334,
+      "meanBytes": 31235.472222222223
+    },
+    "clean/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 35,
+      "accuracy": 0.9722222222222222,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 404.19444444444446,
+      "meanBytes": 5144
+    },
+    "clean/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 625.5,
+      "meanBytes": 49162.333333333336
+    },
+    "jpeg-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 123998.38888888889
+    },
+    "jpeg-only/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 104954.22222222222
+    },
+    "jpeg-only/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 593.0833333333334,
+      "meanBytes": 30545.944444444445
+    },
+    "jpeg-only/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 639,
+      "meanBytes": 30545.944444444445
+    },
+    "jpeg-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 404.19444444444446,
+      "meanBytes": 5573.888888888889
+    },
+    "jpeg-only/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 639,
+      "meanBytes": 44817.02777777778
+    },
+    "downscale-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 85625.80555555556
+    },
+    "downscale-only/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 55390.88888888889
+    },
+    "downscale-only/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 531.6944444444445,
+      "meanBytes": 17574.305555555555
+    },
+    "downscale-only/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 623.5833333333334,
+      "meanBytes": 17574.305555555555
+    },
+    "downscale-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 342.80555555555554,
+      "meanBytes": 2019.7777777777778
+    },
+    "downscale-only/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 623.5833333333334,
+      "meanBytes": 32452.666666666668
+    },
+    "combined/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 25,
+      "accuracy": 0.6944444444444444,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 41899.805555555555
+    },
+    "combined/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 48472.944444444445
+    },
+    "combined/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 19,
+      "accuracy": 0.5277777777777778,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 560.0277777777778,
+      "meanBytes": 20489.944444444445
+    },
+    "combined/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6111111111111112,
+      "meanPromptTokens": 629.0277777777778,
+      "meanBytes": 20489.944444444445
+    },
+    "combined/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 342.80555555555554,
+      "meanBytes": 2243.6388888888887
+    },
+    "combined/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 629.0277777777778,
+      "meanBytes": 22630.055555555555
+    }
+  },
+  "selector": {
+    "clean": {
+      "matched": 26,
+      "evidenceCoveredAmongMatched": 19,
+      "dFallback": 2,
+      "dAssigned": 36,
+      "dMinusCContent": 0.05555555555555555
+    },
+    "jpeg-only": {
+      "matched": 26,
+      "evidenceCoveredAmongMatched": 19,
+      "dFallback": 2,
+      "dAssigned": 36,
+      "dMinusCContent": 0.05555555555555555
+    },
+    "downscale-only": {
+      "matched": 24,
+      "evidenceCoveredAmongMatched": 16,
+      "dFallback": 4,
+      "dAssigned": 36,
+      "dMinusCContent": 0.1111111111111111
+    },
+    "combined": {
+      "matched": 22,
+      "evidenceCoveredAmongMatched": 14,
+      "dFallback": 3,
+      "dAssigned": 36,
+      "dMinusCContent": 0.027777777777777776
+    }
+  },
+  "regions": {},
+  "byArm": {
+    "A": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 112,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8541666666666666,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 100769.91666666667
+    },
+    "B": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 107,
+      "accuracy": 0.7430555555555556,
+      "contentAccuracy": 0.8402777777777778,
+      "meanPromptTokens": 824.4722222222222,
+      "meanBytes": 78236.54166666667
+    },
+    "C": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 102,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 571.8333333333334,
+      "meanBytes": 24961.416666666668
+    },
+    "D": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 107,
+      "accuracy": 0.7430555555555556,
+      "contentAccuracy": 0.7847222222222222,
+      "meanPromptTokens": 634.9861111111111,
+      "meanBytes": 24961.416666666668
+    },
+    "E": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 125,
+      "accuracy": 0.8680555555555556,
+      "contentAccuracy": 0.8958333333333334,
+      "meanPromptTokens": 373.5,
+      "meanBytes": 3745.3263888888887
+    },
+    "Dp": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 108,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 629.2777777777778,
+      "meanBytes": 37265.520833333336
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 43,
+      "accuracy": 0.5972222222222222,
+      "contentAccuracy": 0.7083333333333334,
+      "meanPromptTokens": 825.0555555555555,
+      "meanBytes": 88289.45833333333
+    },
+    "A/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 69,
+      "accuracy": 0.9583333333333334,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.8888888888889,
+      "meanBytes": 113250.375
+    },
+    "B/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 41,
+      "accuracy": 0.5694444444444444,
+      "contentAccuracy": 0.6805555555555556,
+      "meanPromptTokens": 825.0555555555555,
+      "meanBytes": 69214.44444444444
+    },
+    "B/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 66,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.8888888888889,
+      "meanBytes": 87258.63888888889
+    },
+    "C/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 44,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 626.7222222222222,
+      "meanBytes": 33790.708333333336
+    },
+    "C/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 58,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8194444444444444,
+      "meanPromptTokens": 516.9444444444445,
+      "meanBytes": 16132.125
+    },
+    "D/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 45,
+      "accuracy": 0.625,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 707.1944444444445,
+      "meanBytes": 33790.708333333336
+    },
+    "D/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 62,
+      "accuracy": 0.8611111111111112,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 562.7777777777778,
+      "meanBytes": 16132.125
+    },
+    "E/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 53,
+      "accuracy": 0.7361111111111112,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 319.77777777777777,
+      "meanBytes": 1828.1944444444443
+    },
+    "E/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 72,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 427.22222222222223,
+      "meanBytes": 5662.458333333333
+    },
+    "Dp/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 47,
+      "accuracy": 0.6527777777777778,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 707.1944444444445,
+      "meanBytes": 56973.76388888889
+    },
+    "Dp/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 61,
+      "accuracy": 0.8472222222222222,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 551.3611111111111,
+      "meanBytes": 17557.277777777777
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 32,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 823.5833333333334,
+      "meanBytes": 182226.39583333334
+    },
+    "A/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.9583333333333334,
+      "meanPromptTokens": 824.5833333333334,
+      "meanBytes": 59661.541666666664
+    },
+    "A/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 38,
+      "accuracy": 0.7916666666666666,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 825.25,
+      "meanBytes": 60421.8125
+    },
+    "B/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 31,
+      "accuracy": 0.6458333333333334,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 823.5833333333334,
+      "meanBytes": 131119.97916666666
+    },
+    "B/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.9583333333333334,
+      "meanPromptTokens": 824.5833333333334,
+      "meanBytes": 52864.458333333336
+    },
+    "B/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 825.25,
+      "meanBytes": 50725.1875
+    },
+    "C/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 33,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.7083333333333334,
+      "meanPromptTokens": 522.5416666666666,
+      "meanBytes": 25974.583333333332
+    },
+    "C/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 523.5416666666666,
+      "meanBytes": 20188.333333333332
+    },
+    "C/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 33,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.7083333333333334,
+      "meanPromptTokens": 669.4166666666666,
+      "meanBytes": 28721.333333333332
+    },
+    "D/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 608.5833333333334,
+      "meanBytes": 25974.583333333332
+    },
+    "D/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 592.3333333333334,
+      "meanBytes": 20188.333333333332
+    },
+    "D/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.7291666666666666,
+      "meanPromptTokens": 704.0416666666666,
+      "meanBytes": 28721.333333333332
+    },
+    "E/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 41,
+      "accuracy": 0.8541666666666666,
+      "contentAccuracy": 0.8958333333333334,
+      "meanPromptTokens": 405.6666666666667,
+      "meanBytes": 5460.125
+    },
+    "E/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 371.25,
+      "meanBytes": 3376.125
+    },
+    "E/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 42,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 343.5833333333333,
+      "meanBytes": 2399.7291666666665
+    },
+    "Dp/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 32,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 591.4583333333334,
+      "meanBytes": 50910.5
+    },
+    "Dp/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 592.3333333333334,
+      "meanBytes": 26274.208333333332
+    },
+    "Dp/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 37,
+      "accuracy": 0.7708333333333334,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 704.0416666666666,
+      "meanBytes": 34611.854166666664
+    }
+  },
+  "accounting": {
+    "n": 709,
+    "overheadMin": 54,
+    "overheadMax": 66,
+    "distinctOverheads": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      66
+    ]
+  },
+  "totals": {
+    "calls": 720,
+    "costUsd": 1.1882549999999985
+  },
+  "errors": [
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/downscale-only/B",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/downscale-only/C",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/downscale-only/D",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/A",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/B",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/E",
+      "gold": "INV-11380-E",
+      "answer": "INV-11580-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/C",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/D",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-2/q2/combined/B",
+      "gold": "1,091.85",
+      "answer": "The amount for the line item \"Bearing 6204\" is **1,091.85**.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/clean/A",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/jpeg-only/A",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/A",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/B",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/C",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/D",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/A",
+      "gold": "INV-89472-B",
+      "answer": "INV-884728",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/B",
+      "gold": "INV-89472-B",
+      "answer": "INV-984729",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/E",
+      "gold": "INV-89472-B",
+      "answer": "INV-80472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/C",
+      "gold": "INV-89472-B",
+      "answer": "INV-984729",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/D",
+      "gold": "INV-89472-B",
+      "answer": "INV-984729",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/clean/C",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/jpeg-only/C",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/jpeg-only/D",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/downscale-only/C",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is **4,345.40**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/downscale-only/D",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is **4,345.40**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/combined/C",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is **4,345.40**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/combined/D",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is **4,345.40**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/clean/A",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/clean/B",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/jpeg-only/A",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/jpeg-only/B",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/A",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/B",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-4730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/E",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-6730-882",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/C",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8730-982",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/D",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8730-982",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/A",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref. #ZT-4783-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/B",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: JT-4783-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/E",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref. 72-8788-8824",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/C",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: JT-4783-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/D",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: JT-4783-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/clean/A",
+      "gold": "D-401",
+      "answer": "Room: D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/clean/B",
+      "gold": "D-401",
+      "answer": "Room: D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/jpeg-only/A",
+      "gold": "D-401",
+      "answer": "Room: D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/jpeg-only/B",
+      "gold": "D-401",
+      "answer": "Room: D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/downscale-only/A",
+      "gold": "D-401",
+      "answer": "Room: D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/downscale-only/B",
+      "gold": "D-401",
+      "answer": "Room: D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/combined/B",
+      "gold": "D-401",
+      "answer": "Room D-401",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/A",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/B",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/E",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/D",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/jpeg-only/A",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/jpeg-only/B",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/jpeg-only/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/jpeg-only/D",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/A",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/B",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/E",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/D",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/A",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: GR-4704-021",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/B",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: QRA-774-621",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/E",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: QBA-1784-C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/D",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: GR-A704-621",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-5-v2/q2/combined/C",
+      "gold": "G-140",
+      "answer": "Room G-140",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-5-v2/q2/combined/D",
+      "gold": "G-140",
+      "answer": "Room G-140",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/clean/A",
+      "gold": "9,073",
+      "answer": "Inspection sample n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/clean/B",
+      "gold": "9,073",
+      "answer": "Inspection sample: n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/jpeg-only/A",
+      "gold": "9,073",
+      "answer": "Inspection sample = n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/jpeg-only/B",
+      "gold": "9,073",
+      "answer": "Inspection sample = n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/A",
+      "gold": "9,073",
+      "answer": "Inspection sample: n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/B",
+      "gold": "9,073",
+      "answer": "Inspection sample: n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/E",
+      "gold": "9,073",
+      "answer": "n = 9,073",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/C",
+      "gold": "9,073",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/D",
+      "gold": "9,073",
+      "answer": "Inspection sample: n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/A",
+      "gold": "9,073",
+      "answer": "Inspection sample = n = 9,173, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/B",
+      "gold": "9,073",
+      "answer": "Inspection sample = 9,973, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/E",
+      "gold": "9,073",
+      "answer": "Inspection sample = 9,073.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/C",
+      "gold": "9,073",
+      "answer": "837",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/D",
+      "gold": "9,073",
+      "answer": "837",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/C",
+      "gold": "Sep",
+      "answer": "April",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/D",
+      "gold": "Sep",
+      "answer": "June",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/jpeg-only/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/downscale-only/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/combined/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/jpeg-only/A",
+      "gold": "3,375",
+      "answer": "n = 3,375",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/downscale-only/E",
+      "gold": "3,375",
+      "answer": "n = 5,375",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/E",
+      "gold": "3,375",
+      "answer": "2,575",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/clean/C",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/clean/D",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/jpeg-only/C",
+      "gold": "Mar",
+      "answer": "Jan",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/jpeg-only/D",
+      "gold": "Mar",
+      "answer": "Jan",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/downscale-only/C",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/downscale-only/D",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/B",
+      "gold": "Mar",
+      "answer": "March",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/C",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/D",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/E",
+      "gold": "87.8",
+      "answer": "57.8",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/C",
+      "gold": "87.8",
+      "answer": "67.8",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/D",
+      "gold": "87.8",
+      "answer": "67.8",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-3/q3/combined/E",
+      "gold": "20:10",
+      "answer": "06:10",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/combined/A",
+      "gold": "21:57",
+      "answer": "02:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/combined/B",
+      "gold": "21:57",
+      "answer": "02:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/combined/C",
+      "gold": "21:57",
+      "answer": "02:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/combined/D",
+      "gold": "21:57",
+      "answer": "02:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/A",
+      "gold": "8373",
+      "answer": "Firmware 7.3.5.0 (build-5837)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/B",
+      "gold": "8373",
+      "answer": "Firmware 7.3.52 (0145.8873)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/E",
+      "gold": "8373",
+      "answer": "Build-5321",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/C",
+      "gold": "8373",
+      "answer": "Firmware 7.3.52 (0145.8873)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/D",
+      "gold": "8373",
+      "answer": "Firmware 7.3.52 (0145.8873)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/downscale-only/C",
+      "gold": "94.9 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/A",
+      "gold": "94.9 GB",
+      "answer": "34.5 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/B",
+      "gold": "94.9 GB",
+      "answer": "34.5 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/C",
+      "gold": "94.9 GB",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/D",
+      "gold": "94.9 GB",
+      "answer": "34.5 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/clean/B",
+      "gold": "2098",
+      "answer": "2096",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/jpeg-only/B",
+      "gold": "2098",
+      "answer": "Build 2098",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/B",
+      "gold": "2098",
+      "answer": "2008",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/E",
+      "gold": "2098",
+      "answer": "2068",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/C",
+      "gold": "2098",
+      "answer": "2008",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/D",
+      "gold": "2098",
+      "answer": "2008",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/A",
+      "gold": "2098",
+      "answer": "Firmware 6.4.5A (Build 2098)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/B",
+      "gold": "2098",
+      "answer": "Firmware 4.4.5A (Build 2098)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/E",
+      "gold": "2098",
+      "answer": "4.1.50 (build 20885)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/C",
+      "gold": "2098",
+      "answer": "Firmware 4.4.5A (Build 2098)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/D",
+      "gold": "2098",
+      "answer": "Firmware 4.4.5A (Build 2098)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/A",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/C",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/D",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/A",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/B",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/C",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/D",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/B",
+      "gold": "64",
+      "answer": "44",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/C",
+      "gold": "64",
+      "answer": "44",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/D",
+      "gold": "64",
+      "answer": "44",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/E",
+      "gold": "64",
+      "answer": "84",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/B",
+      "gold": "06:55",
+      "answer": "06:45",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/C",
+      "gold": "06:55",
+      "answer": "06:45",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/D",
+      "gold": "06:55",
+      "answer": "06:45",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/A",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/B",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/C",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/D",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/A",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/B",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/C",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/D",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/A",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/B",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/C",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/D",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/A",
+      "gold": "57",
+      "answer": "17",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/B",
+      "gold": "57",
+      "answer": "17",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/E",
+      "gold": "57",
+      "answer": "87",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/C",
+      "gold": "57",
+      "answer": "17",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/D",
+      "gold": "57",
+      "answer": "17",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/downscale-only/C",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/downscale-only/D",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-6-v2/q3/combined/A",
+      "gold": "03:44",
+      "answer": "03:14",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-6-v2/q3/combined/B",
+      "gold": "03:44",
+      "answer": "03:14",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-6-v2/q3/combined/E",
+      "gold": "03:44",
+      "answer": "05:44",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-6-v2/q3/combined/C",
+      "gold": "03:44",
+      "answer": "03:14",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-6-v2/q3/combined/D",
+      "gold": "03:44",
+      "answer": "03:14",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/Dp",
+      "gold": "INV-11380-E",
+      "answer": "INV-11306-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/clean/Dp",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/jpeg-only/Dp",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/Dp",
+      "gold": "INV-89472-B",
+      "answer": "INV-98472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/Dp",
+      "gold": "INV-89472-B",
+      "answer": "INV-884728",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/clean/Dp",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/jpeg-only/Dp",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/downscale-only/Dp",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is **4,345.40**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/combined/Dp",
+      "gold": "$16,636.57",
+      "answer": "The total amount on the invoice is **4,345.40**.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/Dp",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8730-982",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/Dp",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref. #ZT-4783-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/Dp",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/jpeg-only/Dp",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/Dp",
+      "gold": "QR-4704-C21",
+      "answer": "Ref. QR-4704-C21",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/Dp",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: GR-4704-021",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-5-v2/q2/combined/Dp",
+      "gold": "G-140",
+      "answer": "Room G-140",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/Dp",
+      "gold": "9,073",
+      "answer": "Inspection sample: n = 9,073, weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/Dp",
+      "gold": "9,073",
+      "answer": "837",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/Dp",
+      "gold": "Sep",
+      "answer": "April",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/clean/Dp",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/jpeg-only/Dp",
+      "gold": "Mar",
+      "answer": "Jan",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/downscale-only/Dp",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/Dp",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/Dp",
+      "gold": "87.8",
+      "answer": "67.8",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/combined/Dp",
+      "gold": "21:57",
+      "answer": "02:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/Dp",
+      "gold": "8373",
+      "answer": "Firmware 7.3.5.0 (build-5837)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/Dp",
+      "gold": "94.9 GB",
+      "answer": "34.5 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/Dp",
+      "gold": "2098",
+      "answer": "Firmware 6.4.5A (Build 2098)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/Dp",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/Dp",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/Dp",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/Dp",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/Dp",
+      "gold": "57",
+      "answer": "37",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/Dp",
+      "gold": "57",
+      "answer": "17",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/downscale-only/Dp",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-6-v2/q3/combined/Dp",
+      "gold": "03:44",
+      "answer": "03:14",
+      "contentCorrect": false
+    }
+  ]
+}

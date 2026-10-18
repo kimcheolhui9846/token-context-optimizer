@@ -34,8 +34,10 @@ function save(rel, bytes) {
 
 const set = getSet();
 const outDir = set.dir;
-const withSelector = set.arms.includes("C");
-const withWindow = set.arms.includes("C1");
+// Experiment 2 sets name the window selector arm "C" (protocol naming); dev2 keeps the band selector with a D slot.
+const windowAsC = set.selectorArm === "window";
+const withSelector = set.arms.includes("C") && !windowAsC;
+const withWindow = set.arms.includes("C1") || windowAsC;
 const ocr = withSelector || withWindow ? await createOcr() : null;
 const { families } = readJson(join(outDir, "families.json"));
 const slots = [];
@@ -55,7 +57,7 @@ for (const fam of families) {
       const crop = await sharp(v.bytes).extract(box).toBuffer();
       const armE = await armTransform(crop);
       const fileE = save(`arms/${fam.id}/${condition}/E-${q.id}.jpg`, armE.bytes);
-      const base = { family: fam.id, domain: fam.domain, question: q.id, smallText: q.smallText, condition, variant: variantFile };
+      const base = { family: fam.id, domain: fam.domain, layout: fam.layout ?? "base", question: q.id, smallText: q.smallText, condition, variant: variantFile };
       slots.push({ ...base, arm: "A", file: variantFile, ops: [], ...(await describe(v.bytes, v.mime)) });
       if (set.arms.includes("B")) slots.push({ ...base, arm: "B", file: fileB, ops: armB.ops, ...(await describe(armB.bytes, "image/jpeg")) });
       slots.push({ ...base, arm: "E", file: fileE, ops: [`oracle crop ${box.width}x${box.height}+${box.left}+${box.top}`, ...armE.ops], ...(await describe(armE.bytes, "image/jpeg")) });
@@ -83,8 +85,13 @@ for (const fam of families) {
         const sel = selectWindow(lines, q.text, variant.width, variant.height);
         const selection = { ...sel, evidenceCovered: sel.matched ? covers(sel.band, evidenceInVariant) : true };
         const out = sel.matched ? await cropTransform(v.bytes, sel.band) : { bytes: armB.bytes, ops: ["select: no match -> full frame", ...armB.ops] };
-        const fileC1 = sel.matched ? save(`arms/${fam.id}/${condition}/C1-${q.id}.jpg`, out.bytes) : fileB;
-        slots.push({ ...base, arm: "C1", file: fileC1, ops: out.ops, selection, ...(await describe(out.bytes, "image/jpeg")) });
+        const fileC1 = !windowAsC && sel.matched ? save(`arms/${fam.id}/${condition}/C1-${q.id}.jpg`, out.bytes) : fileB;
+        const armName = windowAsC ? "C" : "C1";
+        const fileSel = sel.matched ? save(`arms/${fam.id}/${condition}/${armName}-${q.id}.jpg`, out.bytes) : fileB;
+        const selSlot = { ...base, arm: armName, file: windowAsC ? fileSel : fileC1, ops: out.ops, selection, ...(await describe(out.bytes, "image/jpeg")) };
+        slots.push(selSlot);
+        // Experiment 2 D (Task 34 protocol): same input as C, its own fresh call; the UNREADABLE re-request is made by run.mjs.
+        if (windowAsC && set.arms.includes("D")) slots.push({ ...selSlot, arm: "D", ops: ["first call = C input", ...out.ops] });
       }
       // C2 is built at run time: a low-detail locate call on the variant, then crop and the arm transform.
       if (set.arms.includes("C2")) slots.push({ ...base, arm: "C2", file: variantFile, ops: ["two-stage: low-detail locate on variant, crop, arm transform"], evidenceInVariant, ...(await describe(v.bytes, v.mime)) });

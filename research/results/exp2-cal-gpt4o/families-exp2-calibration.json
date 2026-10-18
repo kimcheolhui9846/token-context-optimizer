@@ -1,0 +1,371 @@
+{
+  "purpose": "thin-slice development set exp2-calibration; not calibration, not held-out",
+  "set": "exp2-calibration",
+  "sharp": "0.35.4",
+  "vips": "8.18.6",
+  "families": [
+    {
+      "id": "exp2-calibration-doc-invoice-dense-1",
+      "domain": "document",
+      "layout": "base",
+      "seed": 8000,
+      "clean": {
+        "file": "clean/exp2-calibration-doc-invoice-dense-1.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 132140,
+        "sha256": "9982e7e68dc1437d9ee6b2f01fe082d3f83ee3a7677a06b89afbc5511d7c7c07"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the invoice number?",
+          "answers": [
+            "INV-71595-H"
+          ],
+          "evidence": [
+            1275,
+            108,
+            181,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-doc-invoice-dense-2",
+      "domain": "document",
+      "layout": "base",
+      "seed": 8001,
+      "clean": {
+        "file": "clean/exp2-calibration-doc-invoice-dense-2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 134953,
+        "sha256": "d43c3d8b11739dd961953267fccba1d9519150b640f51021945233dd3e8206d1"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What is the amount for the line item \"Washer 8mm\"?",
+          "answers": [
+            "543.66"
+          ],
+          "evidence": [
+            100,
+            452,
+            1336,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-doc-memo-dense-1",
+      "domain": "document",
+      "layout": "base",
+      "seed": 8100,
+      "clean": {
+        "file": "clean/exp2-calibration-doc-memo-dense-1.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 481527,
+        "sha256": "3d1ba8d6cc7620d57142c2ed1f91c5cb2babee7107bc96c23f560b644da65895"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-3114-P79"
+          ],
+          "evidence": [
+            80,
+            1954,
+            452,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-doc-memo-dense-2",
+      "domain": "document",
+      "layout": "base",
+      "seed": 8101,
+      "clean": {
+        "file": "clean/exp2-calibration-doc-memo-dense-2.png",
+        "width": 1536,
+        "height": 2048,
+        "channels": 3,
+        "bytes": 471843,
+        "sha256": "73455da516bb83c0e615f7a8dbe62731c5b17aab50c5d3221b8ff81fc0ab8de2"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which room is assigned in the notice?",
+          "answers": [
+            "B-220"
+          ],
+          "evidence": [
+            80,
+            616,
+            1042,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-chart-bar12-1",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 8200,
+      "clean": {
+        "file": "clean/exp2-calibration-chart-bar12-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 54521,
+        "sha256": "524c1c6e1bfa99ca583ab2c93c0f1b89141ef8302ea1f83388aba170d793cfaf"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "What value is labeled on the Feb bar?",
+          "answers": [
+            "289"
+          ],
+          "evidence": [
+            350,
+            961,
+            100,
+            383
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-chart-bar12-2",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 8201,
+      "clean": {
+        "file": "clean/exp2-calibration-chart-bar12-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 57258,
+        "sha256": "37c8b24944b44aab55a5bee7bbde9a34f5a8f8257e1d9b0d3434b87285c23816"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "2,664",
+            "2664"
+          ],
+          "evidence": [
+            160,
+            1449,
+            386,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-chart-line-small-1",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 8300,
+      "clean": {
+        "file": "clean/exp2-calibration-chart-line-small-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 110777,
+        "sha256": "d6a429bcde370f04f4560c28353297f91875e6623755a7f586604aa70a3373e3"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What value is written next to the peak marker?",
+          "answers": [
+            "89.0"
+          ],
+          "evidence": [
+            720,
+            349,
+            95,
+            35.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-chart-line-small-2",
+      "domain": "chart",
+      "layout": "base",
+      "seed": 8301,
+      "clean": {
+        "file": "clean/exp2-calibration-chart-line-small-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 99996,
+        "sha256": "d0c12fe737740ef9985d790b1d59a17820fde675f1cab5bf614b30ffe1591071"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": [
+            760,
+            1307,
+            303,
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-ui-settings-dense-1",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 8400,
+      "clean": {
+        "file": "clean/exp2-calibration-ui-settings-dense-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 85310,
+        "sha256": "0829d0d48c86bcd22f661597550b81252cc27f46433f422e80355670ad603089"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": false,
+          "text": "Is Do not disturb turned on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": [
+            490,
+            1122,
+            1374,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-ui-settings-dense-2",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 8401,
+      "clean": {
+        "file": "clean/exp2-calibration-ui-settings-dense-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 84793,
+        "sha256": "67c82ad5189ccb2e084d97c514be281dc547420ccca68a4ab4c8a69b9d45c0ae"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": true,
+          "text": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "1787"
+          ],
+          "evidence": [
+            1786,
+            1489,
+            204,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-ui-dashboard-dense-1",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 8500,
+      "clean": {
+        "file": "clean/exp2-calibration-ui-dashboard-dense-1.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 68989,
+        "sha256": "126a033858bbc00803562843a64bad63914baffff5b08178ed9e7a8a28c0e218"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "smallText": true,
+          "text": "What number is shown on the notification badge?",
+          "answers": [
+            "55"
+          ],
+          "evidence": [
+            1898,
+            6,
+            46,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp2-calibration-ui-dashboard-dense-2",
+      "domain": "ui",
+      "layout": "base",
+      "seed": 8501,
+      "clean": {
+        "file": "clean/exp2-calibration-ui-dashboard-dense-2.png",
+        "width": 2048,
+        "height": 1536,
+        "channels": 3,
+        "bytes": 70620,
+        "sha256": "ed3db811dcec3cfebdbfc2d698b46ac9e3b431d838570010d6d1a6ffbca8b0e0"
+      },
+      "questions": [
+        {
+          "id": "q2",
+          "smallText": false,
+          "text": "What value is shown on the \"Uptime\" card?",
+          "answers": [
+            "99.47%",
+            "99.47%"
+          ],
+          "evidence": [
+            1570,
+            220,
+            216,
+            166
+          ]
+        }
+      ]
+    }
+  ]
+}

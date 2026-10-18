@@ -1,0 +1,1060 @@
+{
+  "runId": "exp2-cal-gpt4o-v2",
+  "set": "exp2-calibration",
+  "table": {
+    "clean/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 154393.91666666666
+    },
+    "clean/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 8,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 104615.16666666667
+    },
+    "clean/C": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 596.5833333333334,
+      "meanBytes": 28558.333333333332
+    },
+    "clean/D": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 596.5833333333334,
+      "meanBytes": 28558.333333333332
+    },
+    "clean/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 412.4166666666667,
+      "meanBytes": 6238.25
+    },
+    "clean/Dp": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 596.5833333333334,
+      "meanBytes": 34255.666666666664
+    },
+    "jpeg-only/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 8,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 125334.91666666667
+    },
+    "jpeg-only/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 8,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 105105.58333333333
+    },
+    "jpeg-only/C": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 596.5833333333334,
+      "meanBytes": 28727.5
+    },
+    "jpeg-only/D": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 596.5833333333334,
+      "meanBytes": 28727.5
+    },
+    "jpeg-only/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 412.4166666666667,
+      "meanBytes": 6370.833333333333
+    },
+    "jpeg-only/Dp": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 596.5833333333334,
+      "meanBytes": 33162.916666666664
+    },
+    "downscale-only/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 8,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 85874.08333333333
+    },
+    "downscale-only/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 7,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 55369.583333333336
+    },
+    "downscale-only/C": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 9,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 568.25,
+      "meanBytes": 18458.083333333332
+    },
+    "downscale-only/D": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 9,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 568.25,
+      "meanBytes": 18458.083333333332
+    },
+    "downscale-only/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 9,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 355.75,
+      "meanBytes": 2336.6666666666665
+    },
+    "downscale-only/Dp": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 568.25,
+      "meanBytes": 25351.833333333332
+    },
+    "combined/A": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 6,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 41885.166666666664
+    },
+    "combined/B": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 5,
+      "accuracy": 0.4166666666666667,
+      "contentAccuracy": 0.5,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 48594.833333333336
+    },
+    "combined/C": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 6,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5,
+      "meanPromptTokens": 610.75,
+      "meanBytes": 27345.75
+    },
+    "combined/D": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 6,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5,
+      "meanPromptTokens": 610.75,
+      "meanBytes": 27345.75
+    },
+    "combined/E": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 7,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 355.75,
+      "meanBytes": 2571.1666666666665
+    },
+    "combined/Dp": {
+      "n": 12,
+      "notStarted": 0,
+      "correct": 7,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 610.75,
+      "meanBytes": 24226.833333333332
+    }
+  },
+  "selector": {
+    "clean": {
+      "matched": 9,
+      "evidenceCoveredAmongMatched": 7,
+      "dFallback": 0,
+      "dAssigned": 12,
+      "dMinusCContent": 0
+    },
+    "jpeg-only": {
+      "matched": 9,
+      "evidenceCoveredAmongMatched": 7,
+      "dFallback": 0,
+      "dAssigned": 12,
+      "dMinusCContent": 0
+    },
+    "downscale-only": {
+      "matched": 8,
+      "evidenceCoveredAmongMatched": 6,
+      "dFallback": 0,
+      "dAssigned": 12,
+      "dMinusCContent": 0
+    },
+    "combined": {
+      "matched": 7,
+      "evidenceCoveredAmongMatched": 5,
+      "dFallback": 0,
+      "dAssigned": 12,
+      "dMinusCContent": 0
+    }
+  },
+  "regions": {},
+  "byArm": {
+    "A": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 32,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.7916666666666666,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 101872.02083333333
+    },
+    "B": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 78421.29166666667
+    },
+    "C": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 593.0416666666666,
+      "meanBytes": 25772.416666666668
+    },
+    "D": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 36,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 593.0416666666666,
+      "meanBytes": 25772.416666666668
+    },
+    "E": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 384.0833333333333,
+      "meanBytes": 4379.229166666667
+    },
+    "Dp": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8541666666666666,
+      "meanPromptTokens": 593.0416666666666,
+      "meanBytes": 29249.3125
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.4583333333333333,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 822.8333333333334,
+      "meanBytes": 102653.25
+    },
+    "A/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.875,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.6666666666666,
+      "meanBytes": 101090.79166666667
+    },
+    "B/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 8,
+      "accuracy": 0.3333333333333333,
+      "contentAccuracy": 0.375,
+      "meanPromptTokens": 822.8333333333334,
+      "meanBytes": 78907.33333333333
+    },
+    "B/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 823.6666666666666,
+      "meanBytes": 77935.25
+    },
+    "C/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5,
+      "meanPromptTokens": 645.75,
+      "meanBytes": 36914.625
+    },
+    "C/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 540.3333333333334,
+      "meanBytes": 14630.208333333334
+    },
+    "D/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5,
+      "meanPromptTokens": 645.75,
+      "meanBytes": 36914.625
+    },
+    "D/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 540.3333333333334,
+      "meanBytes": 14630.208333333334
+    },
+    "E/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 16,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 327,
+      "meanBytes": 1963.5416666666667
+    },
+    "E/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 441.1666666666667,
+      "meanBytes": 6794.916666666667
+    },
+    "Dp/small": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 16,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.7083333333333334,
+      "meanPromptTokens": 645.75,
+      "meanBytes": 43868.416666666664
+    },
+    "Dp/normal": {
+      "n": 24,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 540.3333333333334,
+      "meanBytes": 14630.208333333334
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 7,
+      "accuracy": 0.4375,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 822.75,
+      "meanBytes": 186936.75
+    },
+    "A/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 60633.4375
+    },
+    "A/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 13,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 823.75,
+      "meanBytes": 58045.875
+    },
+    "B/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 6,
+      "accuracy": 0.375,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 822.75,
+      "meanBytes": 134571.625
+    },
+    "B/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 823.25,
+      "meanBytes": 53460.6875
+    },
+    "B/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 823.75,
+      "meanBytes": 47231.5625
+    },
+    "C/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 599.625,
+      "meanBytes": 36317.8125
+    },
+    "C/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 13,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 483.25,
+      "meanBytes": 10329
+    },
+    "C/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 696.25,
+      "meanBytes": 30670.4375
+    },
+    "D/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 599.625,
+      "meanBytes": 36317.8125
+    },
+    "D/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 13,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 483.25,
+      "meanBytes": 10329
+    },
+    "D/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 11,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 696.25,
+      "meanBytes": 30670.4375
+    },
+    "E/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 12,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 461.5,
+      "meanBytes": 7444.1875
+    },
+    "E/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 14,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 313.25,
+      "meanBytes": 2634.6875
+    },
+    "E/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 14,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 377.5,
+      "meanBytes": 3058.8125
+    },
+    "Dp/document": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 13,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 599.625,
+      "meanBytes": 40210.5625
+    },
+    "Dp/chart": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 14,
+      "accuracy": 0.875,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 483.25,
+      "meanBytes": 11564.75
+    },
+    "Dp/ui": {
+      "n": 16,
+      "notStarted": 0,
+      "correct": 13,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 696.25,
+      "meanBytes": 35972.625
+    }
+  },
+  "accounting": {
+    "n": 240,
+    "overheadMin": 54,
+    "overheadMax": 63,
+    "distinctOverheads": [
+      54,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      63
+    ]
+  },
+  "totals": {
+    "calls": 240,
+    "costUsd": 0.3947000000000001
+  },
+  "errors": [
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/jpeg-only/C",
+      "gold": "INV-71595-H",
+      "answer": "INV-715958-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/jpeg-only/D",
+      "gold": "INV-71595-H",
+      "answer": "INV-715958-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/downscale-only/A",
+      "gold": "INV-71595-H",
+      "answer": "INV717595-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/downscale-only/B",
+      "gold": "INV-71595-H",
+      "answer": "INV171659-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/downscale-only/E",
+      "gold": "INV-71595-H",
+      "answer": "INV-71596-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/downscale-only/C",
+      "gold": "INV-71595-H",
+      "answer": "INV171659-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/downscale-only/D",
+      "gold": "INV-71595-H",
+      "answer": "INV171659-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/combined/A",
+      "gold": "INV-71595-H",
+      "answer": "INV171564-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/combined/B",
+      "gold": "INV-71595-H",
+      "answer": "INV-715964-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/combined/E",
+      "gold": "INV-71595-H",
+      "answer": "INV-715926-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/combined/C",
+      "gold": "INV-71595-H",
+      "answer": "INV-715964-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/combined/D",
+      "gold": "INV-71595-H",
+      "answer": "INV-715964-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/clean/A",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: ZT-37114-PF9",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/clean/B",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: ZT-314-PF79",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/jpeg-only/A",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: ZT-314-PF79",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/jpeg-only/B",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: ZT-314-FP79",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/downscale-only/A",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: ZT-3114-PF9",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/downscale-only/B",
+      "gold": "ZT-3114-P79",
+      "answer": "ZT-3114-PF9",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/downscale-only/E",
+      "gold": "ZT-3114-P79",
+      "answer": "ZT-5114-P79",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/combined/A",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref. #ZT-314/6978",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/combined/B",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: 2T3/1b/4678 (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/combined/E",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref. 72-5114-P79",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/combined/C",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: 2T31h647R (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/combined/D",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref: 2T3/1b/4678 (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/clean/B",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/jpeg-only/A",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/jpeg-only/B",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/downscale-only/A",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/downscale-only/B",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/combined/A",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-2/q2/combined/B",
+      "gold": "B-220",
+      "answer": "Room: B-220",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/clean/A",
+      "gold": "2,664",
+      "answer": "Inspection sample: n = 2,664; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/clean/B",
+      "gold": "2,664",
+      "answer": "Inspection sample: n = 2,661; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/jpeg-only/A",
+      "gold": "2,664",
+      "answer": "Inspection sample = 2,654; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/jpeg-only/B",
+      "gold": "2,664",
+      "answer": "Inspection sample = n = 2,664.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/downscale-only/A",
+      "gold": "2,664",
+      "answer": "Inspection sample n = 2,664; weekend audits excluded.",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/downscale-only/B",
+      "gold": "2,664",
+      "answer": "Inspection sample = 2,654; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/downscale-only/C",
+      "gold": "2,664",
+      "answer": "842",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/downscale-only/D",
+      "gold": "2,664",
+      "answer": "842",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/combined/A",
+      "gold": "2,664",
+      "answer": "Inspection sample = 2,681, weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/combined/B",
+      "gold": "2,664",
+      "answer": "Inspection sample = 2,668; weekend audits excluded.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/combined/E",
+      "gold": "2,664",
+      "answer": "2,684",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/combined/C",
+      "gold": "2,664",
+      "answer": "842",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/combined/D",
+      "gold": "2,664",
+      "answer": "842",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-line-small-1/q1/downscale-only/E",
+      "gold": "89.0",
+      "answer": "80.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-line-small-1/q1/combined/B",
+      "gold": "89.0",
+      "answer": "90.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-line-small-1/q1/combined/C",
+      "gold": "89.0",
+      "answer": "90.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-line-small-1/q1/combined/D",
+      "gold": "89.0",
+      "answer": "90.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/clean/B",
+      "gold": "1787",
+      "answer": "1187",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/clean/C",
+      "gold": "1787",
+      "answer": "1187",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/clean/D",
+      "gold": "1787",
+      "answer": "Build 1187",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/jpeg-only/A",
+      "gold": "1787",
+      "answer": "Firmware 7.4.12 (build 1787)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/jpeg-only/B",
+      "gold": "1787",
+      "answer": "1187",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/jpeg-only/C",
+      "gold": "1787",
+      "answer": "1187",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/jpeg-only/D",
+      "gold": "1787",
+      "answer": "1178",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/downscale-only/B",
+      "gold": "1787",
+      "answer": "11878",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/downscale-only/C",
+      "gold": "1787",
+      "answer": "Firmware 7.4.2 (build 1187)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/downscale-only/D",
+      "gold": "1787",
+      "answer": "11878",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/combined/A",
+      "gold": "1787",
+      "answer": "Build 11879",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/combined/B",
+      "gold": "1787",
+      "answer": "Build 11879",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/combined/E",
+      "gold": "1787",
+      "answer": "1987",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/combined/C",
+      "gold": "1787",
+      "answer": "Firmware 7.4.12 (Build 1197)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/combined/D",
+      "gold": "1787",
+      "answer": "Firmware 7.4.12 (Build 1197)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-dashboard-dense-1/q1/combined/A",
+      "gold": "55",
+      "answer": "50",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-dashboard-dense-1/q1/combined/B",
+      "gold": "55",
+      "answer": "50",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-dashboard-dense-1/q1/combined/E",
+      "gold": "55",
+      "answer": "50",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-dashboard-dense-1/q1/combined/C",
+      "gold": "55",
+      "answer": "50",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-dashboard-dense-1/q1/combined/D",
+      "gold": "55",
+      "answer": "50",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/downscale-only/Dp",
+      "gold": "INV-71595-H",
+      "answer": "INV717595-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-invoice-dense-1/q1/combined/Dp",
+      "gold": "INV-71595-H",
+      "answer": "INV171564-H",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-doc-memo-dense-1/q1/combined/Dp",
+      "gold": "ZT-3114-P79",
+      "answer": "Ref. #ZT-314/6978",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/downscale-only/Dp",
+      "gold": "2,664",
+      "answer": "842",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-chart-bar12-2/q2/combined/Dp",
+      "gold": "2,664",
+      "answer": "842",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/jpeg-only/Dp",
+      "gold": "1787",
+      "answer": "Firmware 7.4.12 (build 1787)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-calibration-ui-settings-dense-2/q2/combined/Dp",
+      "gold": "1787",
+      "answer": "Build 11879",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-calibration-ui-dashboard-dense-1/q1/combined/Dp",
+      "gold": "55",
+      "answer": "50",
+      "contentCorrect": false
+    }
+  ]
+}

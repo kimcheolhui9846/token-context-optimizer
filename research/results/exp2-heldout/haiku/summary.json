@@ -1,0 +1,2168 @@
+{
+  "runId": "exp2-held-haiku",
+  "set": "exp2-heldout",
+  "table": {
+    "clean/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 1624.8333333333333,
+      "meanBytes": 151555.66666666666
+    },
+    "clean/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 1624.8333333333333,
+      "meanBytes": 104128.11111111111
+    },
+    "clean/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8055555555555556,
+      "meanPromptTokens": 742.4722222222222,
+      "meanBytes": 31235.472222222223
+    },
+    "clean/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 877.9166666666666,
+      "meanBytes": 31235.472222222223
+    },
+    "clean/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.9444444444444444,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 166.77777777777777,
+      "meanBytes": 5144
+    },
+    "clean/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8611111111111112,
+      "meanPromptTokens": 877.9166666666666,
+      "meanBytes": 54474.38888888889
+    },
+    "jpeg-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 1624.8333333333333,
+      "meanBytes": 123998.38888888889
+    },
+    "jpeg-only/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.75,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 1624.8333333333333,
+      "meanBytes": 104954.22222222222
+    },
+    "jpeg-only/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 26,
+      "accuracy": 0.7222222222222222,
+      "contentAccuracy": 0.8055555555555556,
+      "meanPromptTokens": 731.1944444444445,
+      "meanBytes": 30545.944444444445
+    },
+    "jpeg-only/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.7777777777777778,
+      "contentAccuracy": 0.8888888888888888,
+      "meanPromptTokens": 866.6388888888889,
+      "meanBytes": 30545.944444444445
+    },
+    "jpeg-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 35,
+      "accuracy": 0.9722222222222222,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 166.77777777777777,
+      "meanBytes": 5573.888888888889
+    },
+    "jpeg-only/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.9166666666666666,
+      "meanPromptTokens": 866.6388888888889,
+      "meanBytes": 47966.02777777778
+    },
+    "downscale-only/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.75,
+      "meanPromptTokens": 1096.8333333333333,
+      "meanBytes": 85625.80555555556
+    },
+    "downscale-only/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.7777777777777778,
+      "meanPromptTokens": 1096.8333333333333,
+      "meanBytes": 55390.88888888889
+    },
+    "downscale-only/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 18,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5833333333333334,
+      "meanPromptTokens": 476.19444444444446,
+      "meanBytes": 17574.305555555555
+    },
+    "downscale-only/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 21,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6944444444444444,
+      "meanPromptTokens": 628.6944444444445,
+      "meanBytes": 17574.305555555555
+    },
+    "downscale-only/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 24,
+      "accuracy": 0.6666666666666666,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 91.44444444444444,
+      "meanBytes": 2019.7777777777778
+    },
+    "downscale-only/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 628.6944444444445,
+      "meanBytes": 39463.694444444445
+    },
+    "combined/A": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 1096.8333333333333,
+      "meanBytes": 41899.805555555555
+    },
+    "combined/B": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.7222222222222222,
+      "meanPromptTokens": 1096.8333333333333,
+      "meanBytes": 48472.944444444445
+    },
+    "combined/C": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 18,
+      "accuracy": 0.5,
+      "contentAccuracy": 0.5277777777777778,
+      "meanPromptTokens": 533.6666666666666,
+      "meanBytes": 20489.944444444445
+    },
+    "combined/D": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6111111111111112,
+      "meanPromptTokens": 686.1666666666666,
+      "meanBytes": 20489.944444444445
+    },
+    "combined/E": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 23,
+      "accuracy": 0.6388888888888888,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 91.44444444444444,
+      "meanBytes": 2243.6388888888887
+    },
+    "combined/Dp": {
+      "n": 36,
+      "notStarted": 0,
+      "correct": 20,
+      "accuracy": 0.5555555555555556,
+      "contentAccuracy": 0.6111111111111112,
+      "meanPromptTokens": 686.1666666666666,
+      "meanBytes": 26260.083333333332
+    }
+  },
+  "selector": {
+    "clean": {
+      "matched": 26,
+      "evidenceCoveredAmongMatched": 19,
+      "dFallback": 3,
+      "dAssigned": 36,
+      "dMinusCContent": 0.08333333333333333
+    },
+    "jpeg-only": {
+      "matched": 26,
+      "evidenceCoveredAmongMatched": 19,
+      "dFallback": 3,
+      "dAssigned": 36,
+      "dMinusCContent": 0.08333333333333333
+    },
+    "downscale-only": {
+      "matched": 24,
+      "evidenceCoveredAmongMatched": 16,
+      "dFallback": 5,
+      "dAssigned": 36,
+      "dMinusCContent": 0.1111111111111111
+    },
+    "combined": {
+      "matched": 22,
+      "evidenceCoveredAmongMatched": 14,
+      "dFallback": 5,
+      "dAssigned": 36,
+      "dMinusCContent": 0.08333333333333333
+    }
+  },
+  "regions": {},
+  "byArm": {
+    "A": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 101,
+      "accuracy": 0.7013888888888888,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 1360.8333333333333,
+      "meanBytes": 100769.91666666667
+    },
+    "B": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 102,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.8194444444444444,
+      "meanPromptTokens": 1360.8333333333333,
+      "meanBytes": 78236.54166666667
+    },
+    "C": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 89,
+      "accuracy": 0.6180555555555556,
+      "contentAccuracy": 0.6805555555555556,
+      "meanPromptTokens": 620.8819444444445,
+      "meanBytes": 24961.416666666668
+    },
+    "D": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 98,
+      "accuracy": 0.6805555555555556,
+      "contentAccuracy": 0.7708333333333334,
+      "meanPromptTokens": 764.8541666666666,
+      "meanBytes": 24961.416666666668
+    },
+    "E": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 116,
+      "accuracy": 0.8055555555555556,
+      "contentAccuracy": 0.8263888888888888,
+      "meanPromptTokens": 129.11111111111111,
+      "meanBytes": 3745.3263888888887
+    },
+    "Dp": {
+      "n": 144,
+      "notStarted": 0,
+      "correct": 98,
+      "accuracy": 0.6805555555555556,
+      "contentAccuracy": 0.7638888888888888,
+      "meanPromptTokens": 764.8541666666666,
+      "meanBytes": 42041.04861111111
+    }
+  },
+  "bySmall": {
+    "A/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 33,
+      "accuracy": 0.4583333333333333,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 1361.2777777777778,
+      "meanBytes": 88289.45833333333
+    },
+    "A/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 68,
+      "accuracy": 0.9444444444444444,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 1360.388888888889,
+      "meanBytes": 113250.375
+    },
+    "B/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.4722222222222222,
+      "contentAccuracy": 0.6388888888888888,
+      "meanPromptTokens": 1361.2777777777778,
+      "meanBytes": 69214.44444444444
+    },
+    "B/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 68,
+      "accuracy": 0.9444444444444444,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 1360.388888888889,
+      "meanBytes": 87258.63888888889
+    },
+    "C/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.4722222222222222,
+      "contentAccuracy": 0.5972222222222222,
+      "meanPromptTokens": 836.5416666666666,
+      "meanBytes": 33790.708333333336
+    },
+    "C/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 55,
+      "accuracy": 0.7638888888888888,
+      "contentAccuracy": 0.7638888888888888,
+      "meanPromptTokens": 405.22222222222223,
+      "meanBytes": 16132.125
+    },
+    "D/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.5416666666666666,
+      "contentAccuracy": 0.6666666666666666,
+      "meanPromptTokens": 973.3472222222222,
+      "meanBytes": 33790.708333333336
+    },
+    "D/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 59,
+      "accuracy": 0.8194444444444444,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 556.3611111111111,
+      "meanBytes": 16132.125
+    },
+    "E/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 44,
+      "accuracy": 0.6111111111111112,
+      "contentAccuracy": 0.6527777777777778,
+      "meanPromptTokens": 88.94444444444444,
+      "meanBytes": 1828.1944444444443
+    },
+    "E/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 72,
+      "accuracy": 1,
+      "contentAccuracy": 1,
+      "meanPromptTokens": 169.27777777777777,
+      "meanBytes": 5662.458333333333
+    },
+    "Dp/small": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.5416666666666666,
+      "contentAccuracy": 0.6527777777777778,
+      "meanPromptTokens": 973.3472222222222,
+      "meanBytes": 57345.416666666664
+    },
+    "Dp/normal": {
+      "n": 72,
+      "notStarted": 0,
+      "correct": 59,
+      "accuracy": 0.8194444444444444,
+      "contentAccuracy": 0.875,
+      "meanPromptTokens": 556.3611111111111,
+      "meanBytes": 26736.680555555555
+    }
+  },
+  "byDomain": {
+    "A/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 1359.9166666666667,
+      "meanBytes": 182226.39583333334
+    },
+    "A/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.9583333333333334,
+      "meanPromptTokens": 1361.0833333333333,
+      "meanBytes": 59661.541666666664
+    },
+    "A/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "contentAccuracy": 0.6458333333333334,
+      "meanPromptTokens": 1361.5,
+      "meanBytes": 60421.8125
+    },
+    "B/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 1359.9166666666667,
+      "meanBytes": 131119.97916666666
+    },
+    "B/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 34,
+      "accuracy": 0.7083333333333334,
+      "contentAccuracy": 0.9583333333333334,
+      "meanPromptTokens": 1361.0833333333333,
+      "meanBytes": 52864.458333333336
+    },
+    "B/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 1361.5,
+      "meanBytes": 50725.1875
+    },
+    "C/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 33,
+      "accuracy": 0.6875,
+      "contentAccuracy": 0.6875,
+      "meanPromptTokens": 454.2291666666667,
+      "meanBytes": 25974.583333333332
+    },
+    "C/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.7291666666666666,
+      "meanPromptTokens": 555.0208333333334,
+      "meanBytes": 20188.333333333332
+    },
+    "C/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.625,
+      "meanPromptTokens": 853.3958333333334,
+      "meanBytes": 28721.333333333332
+    },
+    "D/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 680.9375,
+      "meanBytes": 25974.583333333332
+    },
+    "D/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.625,
+      "contentAccuracy": 0.8541666666666666,
+      "meanPromptTokens": 714.2708333333334,
+      "meanBytes": 20188.333333333332
+    },
+    "D/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "contentAccuracy": 0.6458333333333334,
+      "meanPromptTokens": 899.3541666666666,
+      "meanBytes": 28721.333333333332
+    },
+    "E/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 134.41666666666666,
+      "meanBytes": 5460.125
+    },
+    "E/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 37,
+      "accuracy": 0.7708333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 139.04166666666666,
+      "meanBytes": 3376.125
+    },
+    "E/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "contentAccuracy": 0.8125,
+      "meanPromptTokens": 113.875,
+      "meanBytes": 2399.7291666666665
+    },
+    "Dp/document": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 40,
+      "accuracy": 0.8333333333333334,
+      "contentAccuracy": 0.8333333333333334,
+      "meanPromptTokens": 680.9375,
+      "meanBytes": 63540.666666666664
+    },
+    "Dp/chart": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 30,
+      "accuracy": 0.625,
+      "contentAccuracy": 0.8541666666666666,
+      "meanPromptTokens": 714.2708333333334,
+      "meanBytes": 27970.625
+    },
+    "Dp/ui": {
+      "n": 48,
+      "notStarted": 0,
+      "correct": 28,
+      "accuracy": 0.5833333333333334,
+      "contentAccuracy": 0.6041666666666666,
+      "meanPromptTokens": 899.3541666666666,
+      "meanBytes": 34611.854166666664
+    }
+  },
+  "accounting": {
+    "n": 704,
+    "overheadMin": 55,
+    "overheadMax": 67,
+    "distinctOverheads": [
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      65,
+      66,
+      67
+    ]
+  },
+  "totals": {
+    "calls": 720,
+    "costUsd": 0.6406029999999995
+  },
+  "errors": [
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/downscale-only/E",
+      "gold": "INV-11380-E",
+      "answer": "INV-117330-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-1/q1/combined/E",
+      "gold": "INV-11380-E",
+      "answer": "INV-17380-E",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/jpeg-only/B",
+      "gold": "INV-89472-B",
+      "answer": "INV-88472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/jpeg-only/C",
+      "gold": "INV-89472-B",
+      "answer": "INV-88472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/jpeg-only/D",
+      "gold": "INV-89472-B",
+      "answer": "INV-88472-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/A",
+      "gold": "INV-89472-B",
+      "answer": "INV-004723-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/B",
+      "gold": "INV-89472-B",
+      "answer": "INV-004723-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/E",
+      "gold": "INV-89472-B",
+      "answer": "NV-89472-0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/C",
+      "gold": "INV-89472-B",
+      "answer": "INV-004723-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/D",
+      "gold": "INV-89472-B",
+      "answer": "INV-004723-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/A",
+      "gold": "INV-89472-B",
+      "answer": "INV-0847216",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/B",
+      "gold": "INV-89472-B",
+      "answer": "INV-0847216",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/E",
+      "gold": "INV-89472-B",
+      "answer": "INV-894527-0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/C",
+      "gold": "INV-89472-B",
+      "answer": "INV-0847216",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/D",
+      "gold": "INV-89472-B",
+      "answer": "INV-0847216",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/clean/C",
+      "gold": "$16,636.57",
+      "answer": "UNREADABLE\n\nThe image shows only a partial table with three line items visible, but the total amount for the entire invoice is not shown in the visible portion of the image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/jpeg-only/C",
+      "gold": "$16,636.57",
+      "answer": "UNREADABLE\n\nThe image shows only partial data from what appears to be an invoice or price list. While individual line totals are visible (1,558.73, 1,041",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/downscale-only/C",
+      "gold": "$16,636.57",
+      "answer": "4,346.40",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/downscale-only/D",
+      "gold": "$16,636.57",
+      "answer": "4,346.40",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/combined/C",
+      "gold": "$16,636.57",
+      "answer": "To find the total amount on the invoice, I need to add up all the line totals:\n\n1,558.73 + 1,041.42 + 1,745",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/combined/D",
+      "gold": "$16,636.57",
+      "answer": "To find the total amount on the invoice, I need to add up all the line totals:\n\n1,558.73 + 1,041.42 + 1,745",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/clean/A",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/clean/B",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/jpeg-only/A",
+      "gold": "ZT-8730-B92",
+      "answer": "Z7-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/jpeg-only/B",
+      "gold": "ZT-8730-B92",
+      "answer": "Z7-8730-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/A",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-673-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/B",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-673-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/E",
+      "gold": "ZT-8730-B92",
+      "answer": "Z7-4370-892",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/C",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8732-692",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/D",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8732-692",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/A",
+      "gold": "ZT-8730-B92",
+      "answer": "D-402",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/B",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-873-892 (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/E",
+      "gold": "ZT-8730-B92",
+      "answer": "27-473-893",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/C",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-873-892 (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/D",
+      "gold": "ZT-8730-B92",
+      "answer": "Ref: ZT-873-892 (quote this reference in all correspondence)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/downscale-only/C",
+      "gold": "D-401",
+      "answer": "UNREADABLE\n\nThe image quality is too poor and the text is too blurry to clearly identify which specific room is assigned in the notice.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-2/q2/combined/C",
+      "gold": "D-401",
+      "answer": "UNREADABLE\n\nThe image quality is too poor and the text is too blurry to clearly identify which specific room is assigned in the notice.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/clean/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/jpeg-only/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/A",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/B",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/E",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-0174-C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/D",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/A",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-G21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/B",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-G21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/E",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: GR-4704 C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/C",
+      "gold": "QR-4704-C21",
+      "answer": "UNREADABLE",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/D",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-G21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/B",
+      "gold": "9,073",
+      "answer": "5,073",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/E",
+      "gold": "9,073",
+      "answer": "5,073",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/downscale-only/C",
+      "gold": "9,073",
+      "answer": "UNREADABLE\n\nThe text under the chart is too blurry and small to read clearly in this image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-2/q2/combined/C",
+      "gold": "9,073",
+      "answer": "UNREADABLE\n\nThe text under the chart is too blurry and small to read clearly in this image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/A",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/B",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE\n\nThe image shows only the title \"Monthly Inspection Count\" but the actual chart/bars are not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/D",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/jpeg-only/A",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/jpeg-only/B",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/jpeg-only/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE\n\nThe image shows only the title \"Monthly Inspection Count\" but the actual chart/bars are not visible in the provided image.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/jpeg-only/D",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/downscale-only/A",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/downscale-only/B",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/downscale-only/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE\n\nThe image shows a title \"Monthly Inspection Count\" but the actual chart/bars are not visible in the provided image, making it impossible to determine which month has the tall",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/downscale-only/D",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/combined/A",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/combined/B",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/combined/C",
+      "gold": "Sep",
+      "answer": "UNREADABLE\n\nThe image shows a title \"Monthly Inspection Count\" but the actual chart/bars are not visible in the provided image, making it impossible to determine which month has the tall",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/combined/D",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/downscale-only/A",
+      "gold": "3,375",
+      "answer": "5.37%",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/downscale-only/E",
+      "gold": "3,375",
+      "answer": "5,373",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/downscale-only/C",
+      "gold": "3,375",
+      "answer": "0.37% weekend audits excluded",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/downscale-only/D",
+      "gold": "3,375",
+      "answer": "0.37% weekend audits excluded",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/A",
+      "gold": "3,375",
+      "answer": "5,375",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/B",
+      "gold": "3,375",
+      "answer": "5,375",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/E",
+      "gold": "3,375",
+      "answer": "3,373",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/C",
+      "gold": "3,375",
+      "answer": "2,375",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/D",
+      "gold": "3,375",
+      "answer": "9,375",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/clean/C",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/clean/D",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/jpeg-only/C",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/jpeg-only/D",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/downscale-only/C",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/downscale-only/D",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/C",
+      "gold": "Mar",
+      "answer": "Jan",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/D",
+      "gold": "Mar",
+      "answer": "Jan",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/clean/A",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/clean/B",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/clean/E",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/clean/C",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/clean/D",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/jpeg-only/A",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/jpeg-only/B",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/jpeg-only/C",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/jpeg-only/D",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/downscale-only/A",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/downscale-only/B",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/downscale-only/C",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/downscale-only/D",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/A",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/B",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/E",
+      "gold": "87.8",
+      "answer": "87.0",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/C",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/D",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/clean/A",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/clean/B",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/clean/E",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/clean/C",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/clean/D",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/jpeg-only/A",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/jpeg-only/B",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/jpeg-only/E",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/jpeg-only/C",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/jpeg-only/D",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/downscale-only/A",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/downscale-only/B",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/downscale-only/E",
+      "gold": "78.4",
+      "answer": "Peak 76.1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/downscale-only/C",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/downscale-only/D",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/combined/A",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/combined/B",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/combined/E",
+      "gold": "78.4",
+      "answer": "Peak 76.1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/combined/C",
+      "gold": "78.4",
+      "answer": "Peak 74.4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/combined/D",
+      "gold": "78.4",
+      "answer": "Peak 74.4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/downscale-only/E",
+      "gold": "21:57",
+      "answer": "23:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-6-v2/q3/combined/E",
+      "gold": "21:57",
+      "answer": "23:57",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/clean/A",
+      "gold": "8373",
+      "answer": "6373",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/jpeg-only/B",
+      "gold": "8373",
+      "answer": "7.3.53 (build 8373)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/jpeg-only/C",
+      "gold": "8373",
+      "answer": "7.3.53 (build 8373)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/jpeg-only/D",
+      "gold": "8373",
+      "answer": "7.3.53 (build 8373)",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/downscale-only/A",
+      "gold": "8373",
+      "answer": "5173",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/downscale-only/E",
+      "gold": "8373",
+      "answer": "6373",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/combined/E",
+      "gold": "8373",
+      "answer": "4373",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/clean/A",
+      "gold": "94.9 GB",
+      "answer": "94.9 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/clean/B",
+      "gold": "94.9 GB",
+      "answer": "94.9 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/jpeg-only/A",
+      "gold": "94.9 GB",
+      "answer": "94.9 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/jpeg-only/B",
+      "gold": "94.9 GB",
+      "answer": "94.9 GB of 128 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/downscale-only/C",
+      "gold": "94.9 GB",
+      "answer": "UNREADABLE\n\nThe image shows a sidebar menu with options for \"Battery,\" \"Storage,\" and \"About,\" but it does not display the actual storage usage amount or unit.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/A",
+      "gold": "94.9 GB",
+      "answer": "34.9 GB of 128 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/B",
+      "gold": "94.9 GB",
+      "answer": "34.9 GB of 128 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/E",
+      "gold": "94.9 GB",
+      "answer": "34.9 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/C",
+      "gold": "94.9 GB",
+      "answer": "UNREADABLE\n\nThe image shows a sidebar menu with options for \"Battery,\" \"Storage,\" and \"About,\" but it does not display the actual storage usage amount or unit.",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/D",
+      "gold": "94.9 GB",
+      "answer": "34.9 GB of 128 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/jpeg-only/A",
+      "gold": "2098",
+      "answer": "2096",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/A",
+      "gold": "2098",
+      "answer": "2086",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/B",
+      "gold": "2098",
+      "answer": "2086",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/E",
+      "gold": "2098",
+      "answer": "5.4.68 (build 2008)",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/C",
+      "gold": "2098",
+      "answer": "2086",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/D",
+      "gold": "2098",
+      "answer": "2086",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/A",
+      "gold": "2098",
+      "answer": "2080",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/B",
+      "gold": "2098",
+      "answer": "2080",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/E",
+      "gold": "2098",
+      "answer": "2026",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/C",
+      "gold": "2098",
+      "answer": "2080",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/D",
+      "gold": "2098",
+      "answer": "2080",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/clean/A",
+      "gold": "48.9 GB",
+      "answer": "48.9 GB of 256 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/downscale-only/A",
+      "gold": "48.9 GB",
+      "answer": "48.9 GB of 256 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/downscale-only/B",
+      "gold": "48.9 GB",
+      "answer": "48.9 GB of 256 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/downscale-only/C",
+      "gold": "48.9 GB",
+      "answer": "48.9 GB of 256 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/downscale-only/D",
+      "gold": "48.9 GB",
+      "answer": "48.9 GB of 256 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/combined/A",
+      "gold": "48.9 GB",
+      "answer": "48.8 GB of 256 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/combined/B",
+      "gold": "48.9 GB",
+      "answer": "48.8 GB of 256 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/combined/C",
+      "gold": "48.9 GB",
+      "answer": "48.8 GB of 256 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/combined/D",
+      "gold": "48.9 GB",
+      "answer": "48.8 GB of 256 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/A",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/B",
+      "gold": "64",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/C",
+      "gold": "64",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/D",
+      "gold": "64",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/A",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/B",
+      "gold": "64",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/C",
+      "gold": "64",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/D",
+      "gold": "64",
+      "answer": "24",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/A",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/B",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/E",
+      "gold": "64",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/C",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/D",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/A",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/B",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/E",
+      "gold": "64",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/C",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/D",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/clean/B",
+      "gold": "06:55",
+      "answer": "00:55",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/downscale-only/A",
+      "gold": "06:55",
+      "answer": "06:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/downscale-only/B",
+      "gold": "06:55",
+      "answer": "06:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/downscale-only/C",
+      "gold": "06:55",
+      "answer": "06:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/downscale-only/D",
+      "gold": "06:55",
+      "answer": "06:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/A",
+      "gold": "06:55",
+      "answer": "06:04",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/B",
+      "gold": "06:55",
+      "answer": "06:04",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/C",
+      "gold": "06:55",
+      "answer": "06:04",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/D",
+      "gold": "06:55",
+      "answer": "06:04",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/A",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/B",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/C",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/D",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/A",
+      "gold": "57",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/B",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/C",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/D",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/A",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/B",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/E",
+      "gold": "57",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/C",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/D",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/A",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/B",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/E",
+      "gold": "57",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/C",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/D",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/clean/C",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/clean/D",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/downscale-only/C",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/downscale-only/D",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/combined/C",
+      "gold": "58",
+      "answer": "56",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/combined/D",
+      "gold": "58",
+      "answer": "56",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/downscale-only/Dp",
+      "gold": "INV-89472-B",
+      "answer": "INV-004723-B",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-4-v2/q1/combined/Dp",
+      "gold": "INV-89472-B",
+      "answer": "INV-0847216",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/downscale-only/Dp",
+      "gold": "$16,636.57",
+      "answer": "4,346.40",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-invoice-dense-6-v2/q3/combined/Dp",
+      "gold": "$16,636.57",
+      "answer": "To find the total amount on the invoice, I need to add up all the line totals:\n\n1,558.73 + 1,041.42 + 1,745",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/downscale-only/Dp",
+      "gold": "ZT-8730-B92",
+      "answer": "ZT-8732-692",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-1/q1/combined/Dp",
+      "gold": "ZT-8730-B92",
+      "answer": "D-402",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/downscale-only/Dp",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-C21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-doc-memo-dense-4-v2/q1/combined/Dp",
+      "gold": "QR-4704-C21",
+      "answer": "Ref: DR-4704-G21",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/clean/Dp",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/jpeg-only/Dp",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/downscale-only/Dp",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-3/q3/combined/Dp",
+      "gold": "Sep",
+      "answer": "September",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/downscale-only/Dp",
+      "gold": "3,375",
+      "answer": "0.37% weekend audits excluded",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-5-v2/q2/combined/Dp",
+      "gold": "3,375",
+      "answer": "2,375",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/clean/Dp",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/jpeg-only/Dp",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/downscale-only/Dp",
+      "gold": "Mar",
+      "answer": "Feb",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-bar12-6-v2/q3/combined/Dp",
+      "gold": "Mar",
+      "answer": "Jan",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/clean/Dp",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/jpeg-only/Dp",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/downscale-only/Dp",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-1/q1/combined/Dp",
+      "gold": "87.8",
+      "answer": "Peak 87.8",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/clean/Dp",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/jpeg-only/Dp",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/downscale-only/Dp",
+      "gold": "78.4",
+      "answer": "Peak 78.4",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-chart-line-small-4-v2/q1/combined/Dp",
+      "gold": "78.4",
+      "answer": "Peak 74.4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/clean/Dp",
+      "gold": "8373",
+      "answer": "6373",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-2/q2/downscale-only/Dp",
+      "gold": "8373",
+      "answer": "5173",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-3/q3/combined/Dp",
+      "gold": "94.9 GB",
+      "answer": "34.9 GB of 128 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/downscale-only/Dp",
+      "gold": "2098",
+      "answer": "2086",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-5-v2/q2/combined/Dp",
+      "gold": "2098",
+      "answer": "2080",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/downscale-only/Dp",
+      "gold": "48.9 GB",
+      "answer": "48.9 GB of 256 GB",
+      "contentCorrect": true
+    },
+    {
+      "key": "exp2-heldout-ui-settings-dense-6-v2/q3/combined/Dp",
+      "gold": "48.9 GB",
+      "answer": "48.8 GB of 256 GB",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/clean/Dp",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/jpeg-only/Dp",
+      "gold": "64",
+      "answer": "94",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/downscale-only/Dp",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-1/q1/combined/Dp",
+      "gold": "64",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/downscale-only/Dp",
+      "gold": "06:55",
+      "answer": "06:41",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-3/q3/combined/Dp",
+      "gold": "06:55",
+      "answer": "06:04",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/clean/Dp",
+      "gold": "57",
+      "answer": "4",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/jpeg-only/Dp",
+      "gold": "57",
+      "answer": "1",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/downscale-only/Dp",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-4-v2/q1/combined/Dp",
+      "gold": "57",
+      "answer": "471",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/clean/Dp",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/downscale-only/Dp",
+      "gold": "58",
+      "answer": "38",
+      "contentCorrect": false
+    },
+    {
+      "key": "exp2-heldout-ui-dashboard-dense-5-v2/q2/combined/Dp",
+      "gold": "58",
+      "answer": "56",
+      "contentCorrect": false
+    }
+  ]
+}

@@ -250,8 +250,25 @@ for (const slot of todo) {
     console.log(`budget guard: stopping before ${slotKey(slot)} (spent $${spent.toFixed(4)})`);
     break;
   }
-  const result = await call(slot);
+  let result = await call(slot);
   spent += result.costUsd;
+  // Response-based re-request (Task 34 protocol §4): case-insensitive UNREADABLE in D's first answer -> one fresh call with
+  // the assigned source variant as-is (same slot's A input), no reuse of A's answer, no recursion; final answer = second
+  // answer; tokens and cost summed; a failed re-request makes the slot failed (incorrect).
+  if (set.requeryArm && slot.arm === set.requeryArm && result.status === "ok" && /unreadable/i.test(result.answer || "")) {
+    const aSlot = slots.find((x) => x.arm === "A" && x.family === slot.family && x.question === slot.question && x.condition === slot.condition);
+    const first = { answer: result.answer, usage: result.usage, costUsd: result.costUsd, latencyMs: result.latencyMs, attempts: result.attempts };
+    if (spent + estimate(aSlot) > env.budgetUsd) {
+      result = { ...result, status: "failed", reason: "budget_guard_before_requery", first, requeried: true };
+    } else {
+      const second = await call(aSlot);
+      spent += second.costUsd;
+      const u1 = first.usage || {}, u2 = second.usage || {};
+      result = { ...second, requeried: true, first, requery: { file: aSlot.file, width: aSlot.width, height: aSlot.height, answer: second.answer, usage: second.usage, costUsd: second.costUsd, latencyMs: second.latencyMs },
+        usage: { prompt_tokens: (u1.prompt_tokens || 0) + (u2.prompt_tokens || 0), completion_tokens: (u1.completion_tokens || 0) + (u2.completion_tokens || 0) },
+        costUsd: first.costUsd + second.costUsd, latencyMs: (first.latencyMs || 0) + (second.latencyMs || 0) };
+    }
+  }
   const rec = { key: slotKey(slot), family: slot.family, domain: slot.domain, question: slot.question, smallText: slot.smallText, condition: slot.condition, arm: slot.arm, width: slot.width, height: slot.height, bytes: slot.bytes, mime: slot.mime, provider: providerName, predictedImageTokens: predictTokens(slot.width, slot.height), fallback: slot.fallback, selection: slot.selection ? { matched: slot.selection.matched, evidenceCovered: slot.selection.evidenceCovered } : undefined, at: new Date().toISOString(), ...result };
   // Two-stage calls: stage 1 is detail low (85 image tokens), stage 2 is the crop at detail high.
   if (result.locate) {
