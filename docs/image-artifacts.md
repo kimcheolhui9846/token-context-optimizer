@@ -1,8 +1,9 @@
 # Restricted PNG and JPEG artifacts
 
-The current image artifact contract validates and identifies local PNG and JPEG
-originals without writing them. It is an input contract for owned or synthetic
-canonical fixtures. It does not provide image optimization or model evidence.
+The image artifact contract validates and identifies local PNG and JPEG originals
+and supports bounded, explicit crops. It is an input contract for owned or
+synthetic canonical fixtures. Crop output is a quality-75 JPEG with provenance;
+it is not image optimization or model evidence.
 
 ## Supported input
 
@@ -112,6 +113,44 @@ and bytes produce the same ID; a different path is a distinct source even if its
 bytes match. Store reads and writes copy the metadata. Failed indexing does not
 insert a record. Existing text artifact IDs and APIs remain separate.
 
+## MCP crop use
+
+Call `crop_image_artifact` with `{"artifactId":"<indexed image ID>","region":{"x":0,"y":0,"width":512,"height":512}}`.
+Coordinates are zero-based safe integers. Empty regions return `region_empty`;
+negative or out-of-bounds regions return `region_out_of_bounds`; an unknown ID
+returns `artifact_not_indexed`. A full-frame region returns the validated
+original without encoding. Partial RGBA sources return `alpha_unsupported`,
+and any non-full-frame crop wider or taller than 1536 pixels returns an
+`isError` response with `status:"rejected"` and `code:"resize_required"`.
+
+The caller chooses the rectangle, optionally using an overview supplied by its
+own workflow. This tool does not generate an overview or choose an area. Right
+and bottom edges are exclusive; coordinates are never rounded or clamped.
+Full-frame requests take priority over the 1536 cap and RGBA rejection, including
+large RGBA originals. A partial RGBA crop is rejected even when all alpha values
+are 255. For an oversized partial RGBA crop, `resize_required` takes priority.
+
+Original and resize-required responses include the revalidated source record;
+they carry no image bytes or invented output/encoder fields. References describe
+the validation-time snapshot: recheck the SHA or call `inspect_image_artifact`
+before a later read. Other failures return a sanitized code as text with
+`isError:true` and no structured content. Empty regions are rejected before file
+access, so a known ID with an empty rectangle returns `region_empty` even if its
+path is now denied or changed. Unknown IDs take priority over empty rectangles.
+
+Successful crops include JPEG bytes as MCP image content and return metadata in
+structured content: dimensions, original source and region, SHA-256,
+byteLength, quality 75, `jpeg-js` 0.4.4 encoder provenance, and output JPEG
+validation. The source is reread and its captured hash and file snapshot are
+checked before pixels are cropped; no source or artifact store files are written.
+
+JPEG inputs are also decoded and re-encoded at q75; only full-frame requests skip
+encoding. Existing input limits and JPEG decoder accounting remain in force.
+The crop RGBA buffer is bounded by 1536 × 1536 × 4 = 9 MiB before allocation,
+without a full-source RGBA copy. Decoder and encoder temporaries still contribute
+to memory use: there is no process RSS ceiling or wall-clock deadline. No token
+estimate is returned, and JPEG quality alone does not establish token savings.
+
 Indexing is a validated snapshot, not a backup or an immutable source archive.
 The tools never write the source, but another process can change or delete it.
 Inspection then fails; records disappear when the server restarts. If a changed
@@ -137,8 +176,23 @@ they are not successful artifact records.
 | `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |
 | `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the 128 MiB accounting ceiling |
 | `unknown_artifact_id` | The image ID is absent from this server's store |
-| `source_changed` | Indexing detected a source change, or inspection successfully read bytes whose hash/length differ from the record |
-| `source_missing_or_unreadable` | Inspection cannot obtain the recorded source |
+| `artifact_not_indexed` | The crop request references an image ID absent from the store |
+| `region_empty` | Crop width or height is zero or negative |
+| `region_out_of_bounds` | Crop coordinates are negative or exceed the source dimensions |
+| `alpha_unsupported` | A partial crop was requested from an RGBA source |
+| `resize_required` | A non-full-frame crop exceeds 1536 on either axis; structured error includes the source reference |
+| `invalid_region` | Core crop arguments are malformed or their coordinate sums are unsafe; MCP also validates its input schema |
+| `decode_failed` | Crop pixels or decoded metadata do not match the validated source |
+| `encode_failed` | The JPEG encoder failed |
+| `output_validation_failed` | Encoded JPEG failed validation or has unexpected dimensions; no image is returned |
+| `source_changed` | Indexing or cropping detected a source change, or inspection successfully read bytes whose hash/length differ from the record |
+| `source_missing_or_unreadable` | Inspection or cropping cannot obtain the recorded source |
+
+Crop preserves reader-detected `source_changed` as well as post-read SHA/length
+mismatches. Inspection retains its existing mapping: reader failures other than
+`path_denied` become `source_missing_or_unreadable`. Crop applies that mapping to
+other reader failures too, and never attaches a valid-source reference to a
+`source_changed` error.
 
 Error precedence is deterministic. Reader and encoded-size failures occur before
 format validation; a recognized but unsupported profile maps to
@@ -164,8 +218,8 @@ upload or model call.
 
 The [paper](research/image-first-paper-draft.ko.md) and
 [evaluation protocol](research/image-first-evaluation-protocol.md) still describe
-planned transformations and experiments. This slice does not resize, crop,
-re-encode, run OCR, select evidence, apply a guard/fallback, call a model or
+planned transformations and experiments. This slice does not resize, run OCR,
+select evidence, apply a guard/fallback, call a model or
 estimate image tokens. It cannot run the full four-condition image pilot.
 Software checks and the existing text benchmark are not evidence of image
 accuracy, readability, latency or billing savings. Video remains a later,

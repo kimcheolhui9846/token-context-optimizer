@@ -17,7 +17,11 @@ type Huffman = { values: number[]; lookup: Map<number, number> };
 type Component = { id: number; q: number; dc: number; ac: number };
 type Tables = { q: Set<number>; dc: Map<number, Huffman>; ac: Map<number, Huffman> };
 
-export function validateJpeg(bytes: Buffer): { width: number; height: number; channels: 3; format: "jpeg"; mimeType: "image/jpeg"; validationProfile: "jpeg-ycbcr8-baseline-444-v1" } {
+type JpegMetadata = { width: number; height: number; channels: 3; format: "jpeg"; mimeType: "image/jpeg"; validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
+type JpegWithPixels = JpegMetadata & { pixels: Uint8Array };
+export function validateJpeg(bytes: Buffer): JpegMetadata { return validateJpegInternal(bytes, false) as JpegMetadata; }
+export function validateJpegWithPixels(bytes: Buffer): JpegWithPixels { return validateJpegInternal(bytes, true) as JpegWithPixels; }
+function validateJpegInternal(bytes: Buffer, includePixels: boolean): JpegMetadata | JpegWithPixels {
   if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) fail();
   let p = 2, app0 = false, sof = false, sos = false, width = 0, height = 0;
   let components: Component[] = [];
@@ -91,7 +95,8 @@ export function validateJpeg(bytes: Buffer): { width: number; height: number; ch
     fail();
   }
   if (decoded.width !== width || decoded.height !== height || decoded.data.length !== width * height * 3) fail();
-  return { width, height, channels: 3, format: "jpeg", mimeType: "image/jpeg", validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
+  const metadata = { width, height, channels: 3 as const, format: "jpeg" as const, mimeType: "image/jpeg" as const, validationProfile: "jpeg-ycbcr8-baseline-444-v1" as const };
+  return includePixels ? { ...metadata, pixels: decoded.data } : metadata;
 }
 
 function isJfif(payload: Buffer): boolean {

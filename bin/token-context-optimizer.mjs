@@ -7818,6 +7818,14 @@ function object(shape, params) {
   };
   return new ZodObject(def);
 }
+function strictObject(shape, params) {
+  return new ZodObject({
+    type: "object",
+    shape,
+    catchall: never(),
+    ...util_exports.normalizeParams(params)
+  });
+}
 function looseObject(shape, params) {
   return new ZodObject({
     type: "object",
@@ -25588,6 +25596,12 @@ var fail = (code = "malformed_jpeg") => {
   throw new JpegValidationError(code);
 };
 function validateJpeg(bytes) {
+  return validateJpegInternal(bytes, false);
+}
+function validateJpegWithPixels(bytes) {
+  return validateJpegInternal(bytes, true);
+}
+function validateJpegInternal(bytes, includePixels) {
   if (bytes.length < 4 || bytes[0] !== 255 || bytes[1] !== 216) fail();
   let p = 2, app0 = false, sof = false, sos = false, width = 0, height = 0;
   let components = [];
@@ -25661,7 +25675,8 @@ function validateJpeg(bytes) {
     fail();
   }
   if (decoded.width !== width || decoded.height !== height || decoded.data.length !== width * height * 3) fail();
-  return { width, height, channels: 3, format: "jpeg", mimeType: "image/jpeg", validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
+  const metadata = { width, height, channels: 3, format: "jpeg", mimeType: "image/jpeg", validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
+  return includePixels ? { ...metadata, pixels: decoded.data } : metadata;
 }
 function isJfif(payload) {
   return payload.length === 14 && payload.subarray(0, 5).equals(Buffer.from("JFIF\0", "ascii")) && (payload.readUInt16BE(5) === 257 || payload.readUInt16BE(5) === 258) && payload[7] <= 2 && payload[12] === 0 && payload[13] === 0 && payload.readUInt16BE(8) > 0 && payload.readUInt16BE(10) > 0;
@@ -25956,6 +25971,29 @@ async function readBoundedSource(path, allowedRoots) {
     }
   }
 }
+async function readValidatedImageArtifact(record2, allowedRoots) {
+  let source;
+  try {
+    source = await readBoundedSource(record2.path, allowedRoots);
+  } catch (error2) {
+    if (error2 instanceof ImageValidationError && ["path_denied", "source_changed"].includes(error2.code)) throw error2;
+    throw new ImageValidationError("source_missing_or_unreadable");
+  }
+  const hash = createHash2("sha256").update(source.bytes).digest("hex");
+  if (hash !== record2.sha256 || source.bytes.length !== record2.byteLength) throw new ImageValidationError("source_changed");
+  try {
+    const metadata = record2.format === "jpeg" ? validateJpegWithPixels(source.bytes) : validatePng(source.bytes);
+    const pixels = metadata.pixels;
+    if (!(pixels instanceof Uint8Array) || metadata.width !== record2.width || metadata.height !== record2.height || metadata.channels !== record2.channels || metadata.format !== record2.format || metadata.mimeType !== record2.mimeType || metadata.validationProfile !== record2.validationProfile || pixels.length !== record2.width * record2.height * record2.channels) {
+      throw new ImageValidationError("decode_failed");
+    }
+    return { pixels };
+  } catch (error2) {
+    if (error2 instanceof ImageValidationError) throw error2;
+    if (error2 instanceof JpegValidationError) throw new ImageValidationError(error2.code);
+    throw new ImageValidationError("decode_failed");
+  }
+}
 function validatePng(bytes) {
   if (bytes.length < 8 || !bytes.subarray(0, 8).equals(PNG_SIGNATURE)) {
     if (bytes.length >= 2 && bytes[0] === 255 && bytes[1] === 216 || bytes.length >= 12 && bytes.subarray(0, 4).toString("ascii") === "RIFF" && bytes.subarray(8, 12).toString("ascii") === "WEBP") {
@@ -26025,13 +26063,14 @@ function validatePng(bytes) {
     const filter = inflated[row * (width * channels + 1)];
     if (filter > 4) throw new ImageValidationError("malformed_png");
   }
+  let decoded;
   try {
-    const decoded = decodePng(bytes, { checkCrc: true });
+    decoded = decodePng(bytes, { checkCrc: true });
     if (decoded.width !== width || decoded.height !== height || decoded.depth !== 8 || decoded.channels !== channels) throw new Error();
   } catch {
     throw new ImageValidationError("malformed_png");
   }
-  return { width, height, channels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-static-v1" };
+  return { width, height, channels, pixels: decoded.data, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-static-v1" };
 }
 function crc32(bytes) {
   let crc2 = 4294967295;
@@ -26052,6 +26091,67 @@ function sameFileSnapshot(left, right) {
 }
 function requireSeparator() {
   return process.platform === "win32" ? "\\" : "/";
+}
+
+// src/core/image-crop.ts
+var import_jpeg_js2 = __toESM(require_jpeg_js(), 1);
+import { createHash as createHash3 } from "node:crypto";
+async function cropImageArtifact(input) {
+  const artifactId = input?.artifactId;
+  const region = input?.region && { x: input.region.x, y: input.region.y, width: input.region.width, height: input.region.height };
+  if (!isShape(artifactId, region)) throw new ImageValidationError("invalid_region");
+  const indexed = (input.store ?? defaultImageArtifactStore).get(artifactId);
+  if (!indexed) throw new ImageValidationError("artifact_not_indexed");
+  const source = { ...indexed };
+  if (region.width <= 0 || region.height <= 0) throw new ImageValidationError("region_empty");
+  const validated = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
+  if (region.x < 0 || region.y < 0 || region.x + region.width > source.width || region.y + region.height > source.height) throw new ImageValidationError("region_out_of_bounds");
+  if (region.x === 0 && region.y === 0 && region.width === source.width && region.height === source.height) return { status: "original", fullFrame: true, source, region };
+  if (region.width > 1536 || region.height > 1536) return { status: "rejected", code: "resize_required", fullFrame: false, source, region };
+  if (source.channels === 4) throw new ImageValidationError("alpha_unsupported");
+  const pixels = Buffer.alloc(region.width * region.height * 4);
+  for (let y = 0; y < region.height; y++) for (let x2 = 0; x2 < region.width; x2++) {
+    const from = ((region.y + y) * source.width + region.x + x2) * 3;
+    const to = (y * region.width + x2) * 4;
+    pixels[to] = validated.pixels[from];
+    pixels[to + 1] = validated.pixels[from + 1];
+    pixels[to + 2] = validated.pixels[from + 2];
+    pixels[to + 3] = 255;
+  }
+  let encoded;
+  try {
+    encoded = Buffer.from(import_jpeg_js2.default.encode({ data: pixels, width: region.width, height: region.height }, 75).data);
+  } catch {
+    throw new ImageValidationError("encode_failed");
+  }
+  let validation;
+  try {
+    validation = validateJpeg(encoded);
+  } catch {
+    throw new ImageValidationError("output_validation_failed");
+  }
+  if (validation.width !== region.width || validation.height !== region.height) throw new ImageValidationError("output_validation_failed");
+  return {
+    status: "cropped",
+    fullFrame: false,
+    source,
+    region,
+    output: {
+      image: encoded.toString("base64"),
+      width: region.width,
+      height: region.height,
+      format: "jpeg",
+      mimeType: "image/jpeg",
+      byteLength: encoded.length,
+      sha256: createHash3("sha256").update(encoded).digest("hex"),
+      quality: 75,
+      encoder: { name: "jpeg-js", version: "0.4.4" },
+      validation
+    }
+  };
+}
+function isShape(artifactId, region) {
+  return typeof artifactId === "string" && artifactId.length > 0 && !!region && [region.x, region.y, region.width, region.height].every(Number.isSafeInteger) && Number.isSafeInteger(region.x + region.width) && Number.isSafeInteger(region.y + region.height);
 }
 
 // src/server/index.ts
@@ -26233,6 +26333,56 @@ function createServer() {
     async ({ artifactId }) => {
       const output = await inspectImageArtifact({ artifactId, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
       return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
+    }
+  );
+  const regionSchema = strictObject({
+    x: number2().int(),
+    y: number2().int(),
+    width: number2().int(),
+    height: number2().int()
+  });
+  const cropOutputSchema = union([
+    object({ status: literal("original"), fullFrame: literal(true), source: imageOutputSchema, region: regionSchema }),
+    object({ status: literal("rejected"), fullFrame: literal(false), code: literal("resize_required"), source: imageOutputSchema, region: regionSchema }),
+    object({
+      status: literal("cropped"),
+      fullFrame: literal(false),
+      source: imageOutputSchema,
+      region: regionSchema,
+      output: object({
+        width: number2().int(),
+        height: number2().int(),
+        format: literal("jpeg"),
+        mimeType: literal("image/jpeg"),
+        byteLength: number2().int(),
+        sha256: string2(),
+        quality: literal(75),
+        encoder: object({ name: literal("jpeg-js"), version: literal("0.4.4") }),
+        validation: object({
+          width: number2().int(),
+          height: number2().int(),
+          channels: literal(3),
+          format: literal("jpeg"),
+          mimeType: literal("image/jpeg"),
+          validationProfile: literal("jpeg-ycbcr8-baseline-444-v1")
+        })
+      })
+    })
+  ]);
+  server.registerTool(
+    "crop_image_artifact",
+    {
+      description: "Crop a validated RGB PNG or JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. The caller may use an overview it already has; this tool does not generate one. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      inputSchema: strictObject({ artifactId: string2().min(1), region: regionSchema }),
+      outputSchema: cropOutputSchema
+    },
+    async ({ artifactId, region }) => {
+      const result = await cropImageArtifact({ artifactId, region, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+      if (result.status === "rejected") return { isError: true, content: [{ type: "text", text: JSON.stringify(result) }], structuredContent: result };
+      if (result.status === "original") return { isError: false, content: [{ type: "text", text: JSON.stringify(result) }], structuredContent: result };
+      const { image, ...output } = result.output;
+      const structured = { ...result, output };
+      return { isError: false, content: [{ type: "text", text: JSON.stringify(structured) }, { type: "image", data: image, mimeType: "image/jpeg" }], structuredContent: structured };
     }
   );
   return server;
