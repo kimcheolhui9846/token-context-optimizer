@@ -1,0 +1,5278 @@
+{
+  "split": "heldout",
+  "purpose": "experiment 3 scripted agent sessions",
+  "sessions": [
+    {
+      "id": "heldout-ui-debugging-1",
+      "template": "ui-debugging",
+      "layout": "base",
+      "seed": 7000,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-1/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85422,
+          "sha256": "ff825031a57dd271ba9ae815a85ebe3443ea110efe9d2a189ee8c29d75f118a9",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Dark mode turned on or off?",
+              "answers": [
+                "On"
+              ],
+              "evidence": [
+                490,
+                926,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "2195"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "26.8 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-1/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 65545,
+          "sha256": "7535077744f3e966167a5e0970d1655c1e9fa2baa298f067fb8914d971b972dd",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "92"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Active users\" card?",
+              "answers": [
+                "59,120",
+                "59120"
+              ],
+              "evidence": [
+                94,
+                220,
+                216,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "19:09"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-1/log.txt",
+        "lines": 150,
+        "sha256": "278bf0979b1f9c54351fdef9eb6674d43b788a2e581e32020acda984888de8b0",
+        "keyLines": {
+          "fail": 22,
+          "toggle": 63,
+          "e0": 120,
+          "e1": 62,
+          "e2": 77,
+          "e3": 50,
+          "e4": 90
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "2195"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-99. What error code is on that line?",
+          "answers": [
+            "E7085"
+          ],
+          "evidence": {
+            "log": 22
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Active users\" card?",
+          "answers": [
+            "59,120",
+            "59120"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 63
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "26.8 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E7085?",
+          "answers": [
+            "a77566"
+          ],
+          "evidence": {
+            "log": 22
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "19:09"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-2",
+      "template": "ui-debugging",
+      "layout": "base",
+      "seed": 7002,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85268,
+          "sha256": "cfdd2de96f9ae35d323704d7f6571e45a2c6791bc27a2288bc3cdc83f007ba8a",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Mobile data turned on or off?",
+              "answers": [
+                "Off"
+              ],
+              "evidence": [
+                490,
+                436,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "2493"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "85.4 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 68566,
+          "sha256": "4224bae93f776d0b63e435d46127bbc136045332c7cbb440a2501448b9f89c26",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "60"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Open tickets\" card?",
+              "answers": [
+                "280",
+                "280"
+              ],
+              "evidence": [
+                586,
+                220,
+                162,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "10:13"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-2/log.txt",
+        "lines": 150,
+        "sha256": "ddd08aa7e592e35b7882a5d7ed25a2a0eff85e04b12097f6d25634103e3eb6a1",
+        "keyLines": {
+          "fail": 52,
+          "toggle": 41,
+          "e0": 120,
+          "e1": 122,
+          "e2": 63,
+          "e3": 93,
+          "e4": 18
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "2493"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-93. What error code is on that line?",
+          "answers": [
+            "E8171"
+          ],
+          "evidence": {
+            "log": 52
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Open tickets\" card?",
+          "answers": [
+            "280",
+            "280"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 41
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "85.4 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E8171?",
+          "answers": [
+            "373b9f"
+          ],
+          "evidence": {
+            "log": 52
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "10:13"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-3",
+      "template": "ui-debugging",
+      "layout": "base",
+      "seed": 7004,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-3/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85171,
+          "sha256": "2bf6b85533358a570ba6c8ed5550e2a30fce2f85597c7e1caff483a02cc0c4c9",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Mobile data turned on or off?",
+              "answers": [
+                "On"
+              ],
+              "evidence": [
+                490,
+                436,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "2473"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "28.9 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-3/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 70436,
+          "sha256": "3afa406de6c979caa20c8f55e729b3e6c0f5828ce7f372088b84785b06d96aef",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "19"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Avg. response\" card?",
+              "answers": [
+                "6 min",
+                "6 min"
+              ],
+              "evidence": [
+                1078,
+                220,
+                180,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "23:27"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-3/log.txt",
+        "lines": 150,
+        "sha256": "7f8142b1b8af932c3e708fa2cc8c32631130b32fdfc5d3b82bd7edd7d21eedc7",
+        "keyLines": {
+          "fail": 141,
+          "toggle": 29,
+          "e0": 83,
+          "e1": 39,
+          "e2": 133,
+          "e3": 55,
+          "e4": 93
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "2473"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-62. What error code is on that line?",
+          "answers": [
+            "E4762"
+          ],
+          "evidence": {
+            "log": 141
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Avg. response\" card?",
+          "answers": [
+            "6 min",
+            "6 min"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 29
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "28.9 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E4762?",
+          "answers": [
+            "46fadb"
+          ],
+          "evidence": {
+            "log": 141
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "23:27"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-4",
+      "template": "ui-debugging",
+      "layout": "base",
+      "seed": 7006,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-4/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85252,
+          "sha256": "554c79475c59904523c2ebe97d3f1824eaa192ce4b0cf66d00b3efe5d924825f",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is VPN turned on or off?",
+              "answers": [
+                "On"
+              ],
+              "evidence": [
+                490,
+                632,
+                1374,
+                40
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown at the bottom of the screen?",
+              "answers": [
+                "4487"
+              ],
+              "evidence": [
+                1786,
+                1489,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+              "answers": [
+                "77.6 GB"
+              ],
+              "evidence": [
+                48,
+                1428,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-4/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 69819,
+          "sha256": "db5ceb3946a56cc90d7189b7b93c301ac522d3929781dc789151738aef73079d",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "96"
+              ],
+              "evidence": [
+                1898,
+                6,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Avg. response\" card?",
+              "answers": [
+                "58 min",
+                "58 min"
+              ],
+              "evidence": [
+                1078,
+                220,
+                216,
+                166
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "10:40"
+              ],
+              "evidence": [
+                1750,
+                45,
+                110,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-4/log.txt",
+        "lines": 150,
+        "sha256": "4bf9f418b882608bead1ae0697daeda4b0d5ca9bf2ed8c693d261c1dcdb51cd5",
+        "keyLines": {
+          "fail": 135,
+          "toggle": 26,
+          "e0": 33,
+          "e1": 34,
+          "e2": 92,
+          "e3": 64,
+          "e4": 127
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown at the bottom of the screen?",
+          "answers": [
+            "4487"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-25. What error code is on that line?",
+          "answers": [
+            "E9880"
+          ],
+          "evidence": {
+            "log": 135
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Avg. response\" card?",
+          "answers": [
+            "58 min",
+            "58 min"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "On"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 26
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+          "answers": [
+            "77.6 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E9880?",
+          "answers": [
+            "7d9bfe"
+          ],
+          "evidence": {
+            "log": 135
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "10:40"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-5-v2",
+      "template": "ui-debugging",
+      "layout": "v2",
+      "seed": 7008,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-5-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 86214,
+          "sha256": "cdae349ac72d0ed2b2c9738957050edb52f5309a98168301cb3df25a9d7b5de2",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Bluetooth turned on or off?",
+              "answers": [
+                "Off"
+              ],
+              "evidence": [
+                1090,
+                196,
+                840,
+                85
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown in the screen header?",
+              "answers": [
+                "2550"
+              ],
+              "evidence": [
+                1796,
+                51,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the footer? Answer with the number and unit.",
+              "answers": [
+                "36.8 GB"
+              ],
+              "evidence": [
+                60,
+                1488,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-5-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 68557,
+          "sha256": "4c4c48c3c2693664238372933aacac4fb270837f56ca534e988d75d2e7dc131d",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "31"
+              ],
+              "evidence": [
+                68,
+                4,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Active users\" card?",
+              "answers": [
+                "5,111",
+                "5111"
+              ],
+              "evidence": [
+                90,
+                284,
+                197,
+                143
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "02:27"
+              ],
+              "evidence": [
+                60,
+                1479,
+                153,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-5-v2/log.txt",
+        "lines": 150,
+        "sha256": "de10dc368f2b9492e2cd8372db7c32d9ce89a3207cf76dacd2a9d16609590196",
+        "keyLines": {
+          "fail": 81,
+          "toggle": 99,
+          "e0": 103,
+          "e1": 36,
+          "e2": 83,
+          "e3": 86,
+          "e4": 106
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown in the screen header?",
+          "answers": [
+            "2550"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-96. What error code is on that line?",
+          "answers": [
+            "E4821"
+          ],
+          "evidence": {
+            "log": 81
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Active users\" card?",
+          "answers": [
+            "5,111",
+            "5111"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 99
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the footer? Answer with the number and unit.",
+          "answers": [
+            "36.8 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E4821?",
+          "answers": [
+            "b2a777"
+          ],
+          "evidence": {
+            "log": 81
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "02:27"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-6-v2",
+      "template": "ui-debugging",
+      "layout": "v2",
+      "seed": 7010,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-6-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 85689,
+          "sha256": "5be1d067698c277b9c3f76276e3309b3d8eff81d73c0393f9895736b36f0ad65",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Auto-update turned on or off?",
+              "answers": [
+                "Off"
+              ],
+              "evidence": [
+                1090,
+                1196,
+                840,
+                85
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown in the screen header?",
+              "answers": [
+                "9835"
+              ],
+              "evidence": [
+                1796,
+                51,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the footer? Answer with the number and unit.",
+              "answers": [
+                "70.1 GB"
+              ],
+              "evidence": [
+                60,
+                1488,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-6-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 72261,
+          "sha256": "755d0a96580e3bb0e84235ff628dd5cb4803de31e36663d7a2d940402b220288",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "50"
+              ],
+              "evidence": [
+                68,
+                4,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Uptime\" card?",
+              "answers": [
+                "99.37%",
+                "99.37%"
+              ],
+              "evidence": [
+                1566,
+                284,
+                236,
+                143
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "16:32"
+              ],
+              "evidence": [
+                60,
+                1479,
+                153,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-6-v2/log.txt",
+        "lines": 150,
+        "sha256": "49ad078d97b715012e1c1628671df6ac1178d57203d42a69000357e7c94a32a5",
+        "keyLines": {
+          "fail": 43,
+          "toggle": 87,
+          "e0": 13,
+          "e1": 28,
+          "e2": 122,
+          "e3": 141,
+          "e4": 107
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown in the screen header?",
+          "answers": [
+            "9835"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-36. What error code is on that line?",
+          "answers": [
+            "E1753"
+          ],
+          "evidence": {
+            "log": 43
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Uptime\" card?",
+          "answers": [
+            "99.37%",
+            "99.37%"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 87
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the footer? Answer with the number and unit.",
+          "answers": [
+            "70.1 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E1753?",
+          "answers": [
+            "7c2619"
+          ],
+          "evidence": {
+            "log": 43
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "16:32"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-7-v2",
+      "template": "ui-debugging",
+      "layout": "v2",
+      "seed": 7012,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-7-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 88616,
+          "sha256": "782617613927842da9f6e4c102b58ddbb68e57e82d12de37282e2ecb36402304",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is Airplane mode turned on or off?",
+              "answers": [
+                "Off"
+              ],
+              "evidence": [
+                100,
+                396,
+                840,
+                85
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown in the screen header?",
+              "answers": [
+                "5479"
+              ],
+              "evidence": [
+                1796,
+                51,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the footer? Answer with the number and unit.",
+              "answers": [
+                "82.8 GB"
+              ],
+              "evidence": [
+                60,
+                1488,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-7-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 70332,
+          "sha256": "4b6d8d0f16ae0ac2bf8091192cd4afc29645dc2ef926746586ddba90c7d0e86b",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "67"
+              ],
+              "evidence": [
+                68,
+                4,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Active users\" card?",
+              "answers": [
+                "81,303",
+                "81303"
+              ],
+              "evidence": [
+                90,
+                284,
+                236,
+                143
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "11:44"
+              ],
+              "evidence": [
+                60,
+                1479,
+                153,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-7-v2/log.txt",
+        "lines": 150,
+        "sha256": "bafe3402fdb17dd8fcbb801c6c12bb7f58e013254f9c0cb969737c70c31e8f9c",
+        "keyLines": {
+          "fail": 86,
+          "toggle": 17,
+          "e0": 11,
+          "e1": 29,
+          "e2": 63,
+          "e3": 18,
+          "e4": 34
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown in the screen header?",
+          "answers": [
+            "5479"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-53. What error code is on that line?",
+          "answers": [
+            "E7063"
+          ],
+          "evidence": {
+            "log": 86
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Active users\" card?",
+          "answers": [
+            "81,303",
+            "81303"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 17
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the footer? Answer with the number and unit.",
+          "answers": [
+            "82.8 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E7063?",
+          "answers": [
+            "93ea7d"
+          ],
+          "evidence": {
+            "log": 86
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "11:44"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-ui-debugging-8-v2",
+      "template": "ui-debugging",
+      "layout": "v2",
+      "seed": 7014,
+      "images": [
+        {
+          "key": "A",
+          "title": "Device settings screenshot",
+          "file": "heldout-ui-debugging-8-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 84799,
+          "sha256": "089fa55ef71af63c154a25f951950c721a093f107ba5ed531b9a46ef82b62262",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "Is VPN turned on or off?",
+              "answers": [
+                "Off"
+              ],
+              "evidence": [
+                1090,
+                596,
+                840,
+                85
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the build number shown in the screen header?",
+              "answers": [
+                "6609"
+              ],
+              "evidence": [
+                1796,
+                51,
+                204,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "How much storage is used, according to the footer? Answer with the number and unit.",
+              "answers": [
+                "79.1 GB"
+              ],
+              "evidence": [
+                60,
+                1488,
+                244,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Service dashboard screenshot",
+          "file": "heldout-ui-debugging-8-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 71041,
+          "sha256": "1049ac060edb147fd2551748757fff343b6c5d964b2f0d2464cfbd9658793762",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What number is shown on the notification badge?",
+              "answers": [
+                "12"
+              ],
+              "evidence": [
+                68,
+                4,
+                46,
+                46
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What value is shown on the \"Uptime\" card?",
+              "answers": [
+                "99.14%",
+                "99.14%"
+              ],
+              "evidence": [
+                1566,
+                284,
+                236,
+                143
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "What time is shown for the last sync? Answer as HH:MM.",
+              "answers": [
+                "03:58"
+              ],
+              "evidence": [
+                60,
+                1479,
+                153,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Service error log",
+        "file": "heldout-ui-debugging-8-v2/log.txt",
+        "lines": 150,
+        "sha256": "ff181c9de2239c540f274205a366c4fdd4152354863bc8de6d7a8a046c728b02",
+        "keyLines": {
+          "fail": 139,
+          "toggle": 67,
+          "e0": 117,
+          "e1": 49,
+          "e2": 32,
+          "e3": 42,
+          "e4": 27
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the build number shown in the screen header?",
+          "answers": [
+            "6609"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "The log reports an upload failure for node edge-69. What error code is on that line?",
+          "answers": [
+            "E5366"
+          ],
+          "evidence": {
+            "log": 139
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "What value is shown on the \"Uptime\" card?",
+          "answers": [
+            "99.14%",
+            "99.14%"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+          "answers": [
+            "Off"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 67
+          }
+        },
+        {
+          "type": "gist",
+          "q": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+          "answers": [
+            "sync"
+          ],
+          "evidence": {
+            "log": "ERROR lines"
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "How much storage is used, according to the footer? Answer with the number and unit.",
+          "answers": [
+            "79.1 GB"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the log line with error code E5366?",
+          "answers": [
+            "c182d6"
+          ],
+          "evidence": {
+            "log": 139
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What time is shown for the last sync? Answer as HH:MM.",
+          "answers": [
+            "03:58"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-1",
+      "template": "document-review",
+      "layout": "base",
+      "seed": 7100,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-1/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 133204,
+          "sha256": "0ec75738d52da659b21b2a49d88384de2090b4bbe6da7b97fe0fdedc033fbf9f",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-51806-E"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"V-belt A48\"?",
+              "answers": [
+                "44.46"
+              ],
+              "evidence": [
+                100,
+                844,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$10,426.14",
+                "10,426.14"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-1/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 483570,
+          "sha256": "86a0959dce3482e6f937b1443803dd24054bcac14799099720bbbbac46495d96",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-9945-F55"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "C-221"
+              ],
+              "evidence": [
+                80,
+                1280,
+                1098,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "22 July 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                292,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-1/log.txt",
+        "lines": 150,
+        "sha256": "6a6892ba758f132713ba40a845619a510338999e8bae844a838286c874d23523",
+        "keyLines": {
+          "posted": 136,
+          "flag": 34
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-51806-E"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-51806-E?",
+          "answers": [
+            "B-5902"
+          ],
+          "evidence": {
+            "log": 136
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "C-221"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "V-belt A48"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 34
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$10,426.14",
+            "10,426.14"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "63b0c6"
+          ],
+          "evidence": {
+            "log": 34
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-9945-F55"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-2",
+      "template": "document-review",
+      "layout": "base",
+      "seed": 7102,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-2/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 133748,
+          "sha256": "ab1dc766bcb24c0e28ff53b65ffc17b45c250033c61ccd9b3e290f41d2b95d4c",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-10697-A"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Hex bolt M8\"?",
+              "answers": [
+                "114.36"
+              ],
+              "evidence": [
+                100,
+                340,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$13,674.10",
+                "13,674.10"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-2/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 486499,
+          "sha256": "66d7ec172aa43b10573a2e805faf9971bca0a93e17941cdffa7ac06190091e37",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-6800-F16"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "D-180"
+              ],
+              "evidence": [
+                80,
+                982,
+                997,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "4 January 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                321,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-2/log.txt",
+        "lines": 150,
+        "sha256": "d81db319cbbf85c955c440b5d3e8f191271893184152df639abb735d1bc59f94",
+        "keyLines": {
+          "posted": 126,
+          "flag": 73
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-10697-A"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-10697-A?",
+          "answers": [
+            "B-8191"
+          ],
+          "evidence": {
+            "log": 126
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "D-180"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Hex bolt M8"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 73
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$13,674.10",
+            "13,674.10"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "c497fe"
+          ],
+          "evidence": {
+            "log": 73
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-6800-F16"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-3",
+      "template": "document-review",
+      "layout": "base",
+      "seed": 7104,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-3/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 133665,
+          "sha256": "288021184e16c510a8c0c4f76798e3fe9a1f3fc147d1a9dc09a09f197348a762",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-64670-E"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Hex bolt M10\"?",
+              "answers": [
+                "1,502.46"
+              ],
+              "evidence": [
+                100,
+                396,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$17,371.56",
+                "17,371.56"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-3/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 476780,
+          "sha256": "6dfc7cf48fef013e6522eef68291337ca6b4839127d47806dffb86aff6ced9f4",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-9839-B71"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "B-117"
+              ],
+              "evidence": [
+                80,
+                582,
+                975,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "6 May 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                263,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-3/log.txt",
+        "lines": 150,
+        "sha256": "26b00c579adb9f213941801308369a99e40137c4dec4e80f136109eaaf2b3fa2",
+        "keyLines": {
+          "posted": 48,
+          "flag": 101
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-64670-E"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-64670-E?",
+          "answers": [
+            "B-1711"
+          ],
+          "evidence": {
+            "log": 48
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "B-117"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Hex bolt M10"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 101
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$17,371.56",
+            "17,371.56"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "1651aa"
+          ],
+          "evidence": {
+            "log": 101
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-9839-B71"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-4",
+      "template": "document-review",
+      "layout": "base",
+      "seed": 7106,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-4/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 135542,
+          "sha256": "6690d6cfe82048fca30645957d6652f200f549c6bf0165fa6add11d94ba6e207",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-38503-A"
+              ],
+              "evidence": [
+                1275,
+                108,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"V-belt A42\"?",
+              "answers": [
+                "1,271.31"
+              ],
+              "evidence": [
+                100,
+                788,
+                1336,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$18,089.33",
+                "18,089.33"
+              ],
+              "evidence": [
+                1004,
+                1278,
+                432,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-4/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 481421,
+          "sha256": "4eb021a3f668797ac0d84d920a696ade433cd6d55e660b704d747a8113e5b97b",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code in the footnote?",
+              "answers": [
+                "ZT-3669-M48"
+              ],
+              "evidence": [
+                80,
+                1954,
+                452,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "D-196"
+              ],
+              "evidence": [
+                80,
+                650,
+                986,
+                21
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "22 May 2026"
+              ],
+              "evidence": [
+                80,
+                189,
+                277,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-4/log.txt",
+        "lines": 150,
+        "sha256": "4405edaa763d8fb3b75ac30b9d1222ca8a9eed1bb7d2fff90da29333f7525094",
+        "keyLines": {
+          "posted": 122,
+          "flag": 41
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-38503-A"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-38503-A?",
+          "answers": [
+            "B-2710"
+          ],
+          "evidence": {
+            "log": 122
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "D-196"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "V-belt A42"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 41
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$18,089.33",
+            "18,089.33"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "8e62fb"
+          ],
+          "evidence": {
+            "log": 41
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code in the footnote?",
+          "answers": [
+            "ZT-3669-M48"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-5-v2",
+      "template": "document-review",
+      "layout": "v2",
+      "seed": 7108,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-5-v2/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 138517,
+          "sha256": "c07f8b5338435bc586c3bb1088277dcbd941e44423bb1886cab56157e70d5f9a",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-63512-K"
+              ],
+              "evidence": [
+                120,
+                1873,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Gasket 50mm\"?",
+              "answers": [
+                "298.60"
+              ],
+              "evidence": [
+                120,
+                1042,
+                1296,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$16,557.49",
+                "16,557.49"
+              ],
+              "evidence": [
+                940,
+                1236,
+                476,
+                34
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-5-v2/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 438289,
+          "sha256": "7feafed3521246155f487567c5c411ad918a6bae89aee5db6f9126be13143408",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code shown at the top right of the bulletin?",
+              "answers": [
+                "QR-7436-G81"
+              ],
+              "evidence": [
+                1339,
+                59,
+                117,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "G-278"
+              ],
+              "evidence": [
+                80,
+                920,
+                564,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "19 August 2026"
+              ],
+              "evidence": [
+                80,
+                1939,
+                321,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-5-v2/log.txt",
+        "lines": 150,
+        "sha256": "c2c4b3df909a5f3ebff36f5c5a851c79ff92d98f47e3d0e1daef9bb93f532358",
+        "keyLines": {
+          "posted": 28,
+          "flag": 35
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-63512-K"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-63512-K?",
+          "answers": [
+            "B-8064"
+          ],
+          "evidence": {
+            "log": 28
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "G-278"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Gasket 50mm"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 35
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$16,557.49",
+            "16,557.49"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "9dc957"
+          ],
+          "evidence": {
+            "log": 35
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code shown at the top right of the bulletin?",
+          "answers": [
+            "QR-7436-G81"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-6-v2",
+      "template": "document-review",
+      "layout": "v2",
+      "seed": 7110,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-6-v2/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 135036,
+          "sha256": "2e60302f6a92f0c9686bfaab9c2cde0236155501d71bd776a0b3b82afc4562bc",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-20515-B"
+              ],
+              "evidence": [
+                120,
+                1873,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Bushing 20mm\"?",
+              "answers": [
+                "1,727.68"
+              ],
+              "evidence": [
+                120,
+                678,
+                1296,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$18,101.88",
+                "18,101.88"
+              ],
+              "evidence": [
+                940,
+                1236,
+                476,
+                34
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-6-v2/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 437304,
+          "sha256": "776bad10077b7471472d097e0d329c1431efaf141a21861b301fc5869af6cb60",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code shown at the top right of the bulletin?",
+              "answers": [
+                "QR-9548-N65"
+              ],
+              "evidence": [
+                1339,
+                59,
+                117,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "E-325"
+              ],
+              "evidence": [
+                780,
+                852,
+                607,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "13 August 2026"
+              ],
+              "evidence": [
+                80,
+                1939,
+                321,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-6-v2/log.txt",
+        "lines": 150,
+        "sha256": "03987ad5c5b222c93f79cd64f34c2d57d0c8f60a39229e2558ef014dcf850586",
+        "keyLines": {
+          "posted": 35,
+          "flag": 127
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-20515-B"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-20515-B?",
+          "answers": [
+            "B-6928"
+          ],
+          "evidence": {
+            "log": 35
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "E-325"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Bushing 20mm"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 127
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$18,101.88",
+            "18,101.88"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "b9bbbb"
+          ],
+          "evidence": {
+            "log": 127
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code shown at the top right of the bulletin?",
+          "answers": [
+            "QR-9548-N65"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-7-v2",
+      "template": "document-review",
+      "layout": "v2",
+      "seed": 7112,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-7-v2/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 137277,
+          "sha256": "231153643327d3496bf24f02375f255e7e1317049be62a2962113d661aba58cc",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-98302-B"
+              ],
+              "evidence": [
+                120,
+                1873,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Cable tie 200\"?",
+              "answers": [
+                "1,049.18"
+              ],
+              "evidence": [
+                120,
+                886,
+                1296,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$19,762.04",
+                "19,762.04"
+              ],
+              "evidence": [
+                940,
+                1236,
+                476,
+                34
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-7-v2/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 438931,
+          "sha256": "59096432ae0f4ab9e5d5d58c6d0f597c6dfa3863c6e33c14fb352e0c444009ab",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code shown at the top right of the bulletin?",
+              "answers": [
+                "QR-3514-N15"
+              ],
+              "evidence": [
+                1339,
+                59,
+                117,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "F-186"
+              ],
+              "evidence": [
+                80,
+                1056,
+                586,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "23 February 2026"
+              ],
+              "evidence": [
+                80,
+                1939,
+                350,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-7-v2/log.txt",
+        "lines": 150,
+        "sha256": "641f45220b83e1cf74facc59ab5a320dd98f183beef02a91ba073421e5de6775",
+        "keyLines": {
+          "posted": 31,
+          "flag": 115
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-98302-B"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-98302-B?",
+          "answers": [
+            "B-4938"
+          ],
+          "evidence": {
+            "log": 31
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "F-186"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Cable tie 200"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 115
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$19,762.04",
+            "19,762.04"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "aac7f3"
+          ],
+          "evidence": {
+            "log": 115
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code shown at the top right of the bulletin?",
+          "answers": [
+            "QR-3514-N15"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-document-review-8-v2",
+      "template": "document-review",
+      "layout": "v2",
+      "seed": 7114,
+      "images": [
+        {
+          "key": "A",
+          "title": "Supplier invoice scan",
+          "file": "heldout-document-review-8-v2/A.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 136649,
+          "sha256": "b6d253202eed390c18ec9793f56ee86983c367cbeb7a5d961f9a7c320b6998c3",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the invoice number?",
+              "answers": [
+                "INV-64660-F"
+              ],
+              "evidence": [
+                120,
+                1873,
+                181,
+                15
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "What is the amount for the line item \"Gasket 40mm\"?",
+              "answers": [
+                "1,443.81"
+              ],
+              "evidence": [
+                120,
+                990,
+                1296,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "What is the total amount on the invoice?",
+              "answers": [
+                "$21,858.38",
+                "21,858.38"
+              ],
+              "evidence": [
+                940,
+                1236,
+                476,
+                34
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Operations notice scan",
+          "file": "heldout-document-review-8-v2/B.png",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 438434,
+          "sha256": "3df47aff153b55a4d0bbff34fd39d90e33386ff68fe1335a64dcaf248059d833",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What is the reference code shown at the top right of the bulletin?",
+              "answers": [
+                "QR-7522-N44"
+              ],
+              "evidence": [
+                1339,
+                59,
+                117,
+                14
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which room is assigned in the notice?",
+              "answers": [
+                "G-169"
+              ],
+              "evidence": [
+                780,
+                988,
+                628,
+                20
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "On what date was the notice issued? Answer as day month year.",
+              "answers": [
+                "6 April 2026"
+              ],
+              "evidence": [
+                80,
+                1939,
+                292,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Ledger processing log",
+        "file": "heldout-document-review-8-v2/log.txt",
+        "lines": 150,
+        "sha256": "26962ac4918903facfd7caf514498a882cd532cca294f9a243016fefeb9c13fc",
+        "keyLines": {
+          "posted": 130,
+          "flag": 57
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the invoice number?",
+          "answers": [
+            "INV-64660-F"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "Which batch id is on the log line that posted invoice INV-64660-F?",
+          "answers": [
+            "B-8594"
+          ],
+          "evidence": {
+            "log": 130
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which room is assigned in the notice?",
+          "answers": [
+            "G-169"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+          "answers": [
+            "Gasket 40mm"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2",
+            "log": 57
+          }
+        },
+        {
+          "type": "gist",
+          "q": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+          "answers": [
+            "ok"
+          ],
+          "evidence": {
+            "log": "status fields"
+          }
+        },
+        {
+          "type": "late",
+          "q": "What is the total amount on the invoice?",
+          "answers": [
+            "$21,858.38",
+            "21,858.38"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What is the request id (req=) on the over_limit FLAG line of the log?",
+          "answers": [
+            "389453"
+          ],
+          "evidence": {
+            "log": 57
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "What is the reference code shown at the top right of the bulletin?",
+          "answers": [
+            "QR-7522-N44"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-1",
+      "template": "report-check",
+      "layout": "base",
+      "seed": 7200,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-1/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 56644,
+          "sha256": "e51a6cbf41e95853947f11e15a6441dead85e814be66ba83de8f25700d9fcac1",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Dec bar?",
+              "answers": [
+                "228"
+              ],
+              "evidence": [
+                1850,
+                1027,
+                100,
+                317
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "2,252",
+                "2252"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Oct"
+              ],
+              "evidence": [
+                1550,
+                296,
+                100,
+                1048
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-1/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 111857,
+          "sha256": "ee6974a758005d86866f99f534c5042a1773c9337466fab943faa7dc6beaba44",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "88.8"
+              ],
+              "evidence": [
+                1440,
+                351,
+                95,
+                35.39999999999998
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Echo",
+                "Echo"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "22:47"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-1/log.txt",
+        "lines": 150,
+        "sha256": "d34916a961c978e43cb915fa02375fde632a293bacaf248d6abbd0e68422b04c",
+        "keyLines": {
+          "postponed": 50,
+          "noted": 68,
+          "deadline": 117
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "2,252",
+            "2252"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "April"
+          ],
+          "evidence": {
+            "log": 50
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Echo",
+            "Echo"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Dec. Does it match the value labeled on the Dec bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 68
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "31"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Oct"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "15 August 2026"
+          ],
+          "evidence": {
+            "log": 117
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "22:47"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-2",
+      "template": "report-check",
+      "layout": "base",
+      "seed": 7202,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 56719,
+          "sha256": "9345adac866afefc47faf36c639feafe7a6c194cdd73d3b0db313936634b6fd7",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Aug bar?",
+              "answers": [
+                "476"
+              ],
+              "evidence": [
+                1250,
+                759,
+                100,
+                585
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "7,145",
+                "7145"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Apr"
+              ],
+              "evidence": [
+                650,
+                209,
+                100,
+                1135
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 100478,
+          "sha256": "e4668a62c10b3f198f613c2d07b68944e0634d5a27561eeab558e7fbf5753212",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "87.9"
+              ],
+              "evidence": [
+                1440,
+                359,
+                95,
+                35.950000000000045
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Echo",
+                "Echo"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "20:02"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-2/log.txt",
+        "lines": 150,
+        "sha256": "33e55c5b80d6d054f6d4755595a41468eb73da1558f845af227f6cf90aa6dfb9",
+        "keyLines": {
+          "postponed": 50,
+          "noted": 123,
+          "deadline": 67
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "7,145",
+            "7145"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "December"
+          ],
+          "evidence": {
+            "log": 50
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Echo",
+            "Echo"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Aug. Does it match the value labeled on the Aug bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "yes"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 123
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "20"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Apr"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "10 April 2026"
+          ],
+          "evidence": {
+            "log": 67
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "20:02"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-3",
+      "template": "report-check",
+      "layout": "base",
+      "seed": 7204,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-3/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 57420,
+          "sha256": "0c9deede681966d87a4f6e44151b728bc9fe8940ebe06797df7b9f8bb5297eb2",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the May bar?",
+              "answers": [
+                "594"
+              ],
+              "evidence": [
+                800,
+                631,
+                100,
+                713
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "1,043",
+                "1043"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Jan"
+              ],
+              "evidence": [
+                200,
+                207,
+                100,
+                1137
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-3/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 106244,
+          "sha256": "db904a0e4c539d33bd8245ce758b1235c1028696ff55ad380676723fec9fd7b8",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "89.9"
+              ],
+              "evidence": [
+                360,
+                340,
+                95,
+                35.94999999999993
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Delta",
+                "Delta"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "14:40"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-3/log.txt",
+        "lines": 150,
+        "sha256": "aaa333a8f4a75924d7882afa26a8b93badf51f67493ce46dadb2234ff751929d",
+        "keyLines": {
+          "postponed": 123,
+          "noted": 130,
+          "deadline": 74
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "1,043",
+            "1043"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "August"
+          ],
+          "evidence": {
+            "log": 123
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for May. Does it match the value labeled on the May bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "yes"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 130
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "22"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Jan"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "21 November 2026"
+          ],
+          "evidence": {
+            "log": 74
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "14:40"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-4",
+      "template": "report-check",
+      "layout": "base",
+      "seed": 7206,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-4/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 56654,
+          "sha256": "79fcf091218b38a6e5c60d13963811793b82107bbe5bfd5155143f401aecf387",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Sep bar?",
+              "answers": [
+                "173"
+              ],
+              "evidence": [
+                1400,
+                1086,
+                100,
+                258
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart?",
+              "answers": [
+                "7,533",
+                "7533"
+              ],
+              "evidence": [
+                160,
+                1449,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Jan"
+              ],
+              "evidence": [
+                200,
+                292,
+                100,
+                1052
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-4/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 96185,
+          "sha256": "b181d27b5571d12358483b8e6a4df5f3b9556677488bd12e10c9315709467962",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "88.1"
+              ],
+              "evidence": [
+                600,
+                357,
+                95,
+                36.05000000000007
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant Delta",
+                "Delta"
+              ],
+              "evidence": [
+                760,
+                1307,
+                303,
+                86
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "08:57"
+              ],
+              "evidence": [
+                1848,
+                49,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-4/log.txt",
+        "lines": 150,
+        "sha256": "155fa89ec77b2e5056630ec80d7c47db6f0caba1750f2e44a8a48488cfeb5ce3",
+        "keyLines": {
+          "postponed": 24,
+          "noted": 48,
+          "deadline": 139
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart?",
+          "answers": [
+            "7,533",
+            "7533"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "August"
+          ],
+          "evidence": {
+            "log": 24
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant Delta",
+            "Delta"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Sep. Does it match the value labeled on the Sep bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 48
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "25"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Jan"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "11 March 2026"
+          ],
+          "evidence": {
+            "log": 139
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "08:57"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-5-v2",
+      "template": "report-check",
+      "layout": "v2",
+      "seed": 7208,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-5-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 47283,
+          "sha256": "799032669f73f851256b66a1abc47a1c19c838fa6eb49f73f85b2f7483830f24",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Oct bar?",
+              "answers": [
+                "245"
+              ],
+              "evidence": [
+                195,
+                1136,
+                505,
+                70
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart title?",
+              "answers": [
+                "1,856",
+                "1856"
+              ],
+              "evidence": [
+                80,
+                109,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Mar"
+              ],
+              "evidence": [
+                195,
+                408,
+                1561,
+                70
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-5-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 103097,
+          "sha256": "a1a31e4765ddbd756bc20439185ff36cec51afed911b4ce1c2075cc0b4fe5414",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "77.5"
+              ],
+              "evidence": [
+                1451,
+                461,
+                95,
+                35.25
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant West",
+                "West"
+              ],
+              "evidence": [
+                1540,
+                299,
+                257,
+                80
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "10:20"
+              ],
+              "evidence": [
+                80,
+                1469,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-5-v2/log.txt",
+        "lines": 150,
+        "sha256": "3faaad1ebf40e09228263d02de93017908a3aa815b6f00d10dce290ed2c186c0",
+        "keyLines": {
+          "postponed": 70,
+          "noted": 76,
+          "deadline": 31
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart title?",
+          "answers": [
+            "1,856",
+            "1856"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "November"
+          ],
+          "evidence": {
+            "log": 70
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant West",
+            "West"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Oct. Does it match the value labeled on the Oct bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 76
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "28"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Mar"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "24 August 2026"
+          ],
+          "evidence": {
+            "log": 31
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "10:20"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-6-v2",
+      "template": "report-check",
+      "layout": "v2",
+      "seed": 7210,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-6-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 47830,
+          "sha256": "a208fb852c77a60e913f4c547cbbd7ce0437c96e43c7a0b36a177d4c80e939eb",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Aug bar?",
+              "answers": [
+                "495"
+              ],
+              "evidence": [
+                195,
+                928,
+                905,
+                70
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart title?",
+              "answers": [
+                "2,732",
+                "2732"
+              ],
+              "evidence": [
+                80,
+                109,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "May"
+              ],
+              "evidence": [
+                195,
+                616,
+                1491,
+                70
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-6-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 107193,
+          "sha256": "68d1488371da6826eb5f5384b43d72cc2a0c67dc7ac1687976f32ffc2426550d",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "78.9"
+              ],
+              "evidence": [
+                479,
+                446,
+                95,
+                35.549999999999955
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant East",
+                "East"
+              ],
+              "evidence": [
+                1540,
+                299,
+                257,
+                80
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "06:49"
+              ],
+              "evidence": [
+                80,
+                1469,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-6-v2/log.txt",
+        "lines": 150,
+        "sha256": "65d3e5ac574ebc3868e45c4e577b8844b88f18c5a86fba36877c2235ed981581",
+        "keyLines": {
+          "postponed": 52,
+          "noted": 90,
+          "deadline": 61
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart title?",
+          "answers": [
+            "2,732",
+            "2732"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "April"
+          ],
+          "evidence": {
+            "log": 52
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant East",
+            "East"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Aug. Does it match the value labeled on the Aug bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 90
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "28"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "May"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "21 August 2026"
+          ],
+          "evidence": {
+            "log": 61
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "06:49"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-7-v2",
+      "template": "report-check",
+      "layout": "v2",
+      "seed": 7212,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-7-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 47658,
+          "sha256": "421de3de794b6031c2188bd0743951ec5856f844a994d80aaf507909b18cf17f",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Feb bar?",
+              "answers": [
+                "799"
+              ],
+              "evidence": [
+                195,
+                304,
+                1391,
+                70
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart title?",
+              "answers": [
+                "9,666",
+                "9666"
+              ],
+              "evidence": [
+                80,
+                109,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "May"
+              ],
+              "evidence": [
+                195,
+                616,
+                1531,
+                70
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-7-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 104479,
+          "sha256": "a4722681c9415fb068979a5b454d7a5a8faa9c59a19924106b54a7017a465b78",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "78.9"
+              ],
+              "evidence": [
+                911,
+                446,
+                95,
+                35.549999999999955
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant East",
+                "East"
+              ],
+              "evidence": [
+                1540,
+                299,
+                257,
+                80
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "07:18"
+              ],
+              "evidence": [
+                80,
+                1469,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-7-v2/log.txt",
+        "lines": 150,
+        "sha256": "5f60a04e771283af21ed85ffdfb7eecf1823ba70d03c29eab393b89804f23007",
+        "keyLines": {
+          "postponed": 22,
+          "noted": 91,
+          "deadline": 90
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart title?",
+          "answers": [
+            "9,666",
+            "9666"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "April"
+          ],
+          "evidence": {
+            "log": 22
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant East",
+            "East"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Feb. Does it match the value labeled on the Feb bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 91
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "28"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "May"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "18 October 2026"
+          ],
+          "evidence": {
+            "log": 90
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "07:18"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heldout-report-check-8-v2",
+      "template": "report-check",
+      "layout": "v2",
+      "seed": 7214,
+      "images": [
+        {
+          "key": "A",
+          "title": "Monthly inspection bar chart",
+          "file": "heldout-report-check-8-v2/A.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 46645,
+          "sha256": "3ef96d9ae14805ed519c3834af273905ce2917d7220f844cbac117ddd9cbca31",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": false,
+              "text": "What value is labeled on the Jun bar?",
+              "answers": [
+                "218"
+              ],
+              "evidence": [
+                195,
+                720,
+                462,
+                70
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": true,
+              "text": "What is the inspection sample size noted under the chart title?",
+              "answers": [
+                "2,135",
+                "2135"
+              ],
+              "evidence": [
+                80,
+                109,
+                386,
+                14
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": false,
+              "text": "Which month has the tallest bar? Answer with the month label.",
+              "answers": [
+                "Nov"
+              ],
+              "evidence": [
+                195,
+                1240,
+                1559,
+                70
+              ]
+            }
+          ]
+        },
+        {
+          "key": "B",
+          "title": "Hourly output line chart",
+          "file": "heldout-report-check-8-v2/B.png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 113814,
+          "sha256": "74e50cf874707e2d05e6171cebb6fd03f47827753d0c9570e10342d81618de56",
+          "questions": [
+            {
+              "id": "q1",
+              "smallText": true,
+              "text": "What value is written next to the peak marker?",
+              "answers": [
+                "79.1"
+              ],
+              "evidence": [
+                1451,
+                444,
+                95,
+                35.450000000000045
+              ]
+            },
+            {
+              "id": "q2",
+              "smallText": false,
+              "text": "Which plant's series is drawn with a dashed line?",
+              "answers": [
+                "Plant North",
+                "North"
+              ],
+              "evidence": [
+                1540,
+                299,
+                257,
+                80
+              ]
+            },
+            {
+              "id": "q3",
+              "smallText": true,
+              "text": "At what time was the chart last updated? Answer as HH:MM.",
+              "answers": [
+                "18:43"
+              ],
+              "evidence": [
+                80,
+                1469,
+                132,
+                14
+              ]
+            }
+          ]
+        }
+      ],
+      "log": {
+        "title": "Report review notes",
+        "file": "heldout-report-check-8-v2/log.txt",
+        "lines": 150,
+        "sha256": "aa337c5d178defe828b27e0838e1d8f41e0303fd43d60050fb1cfc22399a2198",
+        "keyLines": {
+          "postponed": 82,
+          "noted": 67,
+          "deadline": 140
+        }
+      },
+      "turns": [
+        {
+          "show": "A",
+          "type": "immediate-small",
+          "q": "What is the inspection sample size noted under the chart title?",
+          "answers": [
+            "2,135",
+            "2135"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q2"
+          }
+        },
+        {
+          "show": "log",
+          "type": "immediate-log",
+          "q": "According to the review notes, to which month was the inspection audit postponed?",
+          "answers": [
+            "August"
+          ],
+          "evidence": {
+            "log": 82
+          }
+        },
+        {
+          "show": "B",
+          "type": "immediate",
+          "q": "Which plant's series is drawn with a dashed line?",
+          "answers": [
+            "Plant North",
+            "North"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q2"
+          }
+        },
+        {
+          "type": "cross",
+          "q": "The notes record an inspection count for Jun. Does it match the value labeled on the Jun bar in the bar chart? Answer yes or no.",
+          "answers": [
+            "no"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q1",
+            "log": 67
+          }
+        },
+        {
+          "type": "gist",
+          "q": "How many lines in the review notes mention the legend? Answer with a number.",
+          "answers": [
+            "25"
+          ],
+          "evidence": {
+            "log": "legend lines"
+          }
+        },
+        {
+          "type": "late",
+          "q": "Which month has the tallest bar? Answer with the month label.",
+          "answers": [
+            "Nov"
+          ],
+          "evidence": {
+            "image": "A",
+            "question": "q3"
+          }
+        },
+        {
+          "type": "late-log",
+          "q": "What recalibration deadline is given in the review notes? Answer as day month year.",
+          "answers": [
+            "17 February 2026"
+          ],
+          "evidence": {
+            "log": 140
+          }
+        },
+        {
+          "type": "late-small",
+          "q": "At what time was the chart last updated? Answer as HH:MM.",
+          "answers": [
+            "18:43"
+          ],
+          "evidence": {
+            "image": "B",
+            "question": "q3"
+          }
+        }
+      ]
+    }
+  ]
+}

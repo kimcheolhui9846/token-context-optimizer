@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-4",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9ilsxy-lsw32z",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "4487"
+      ],
+      "answer": "4487",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-25. What error code is on that line?",
+      "gold": [
+        "E9880"
+      ],
+      "answer": "E9880",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Avg. response\" card?",
+      "gold": [
+        "58 min",
+        "58 min"
+      ],
+      "answer": "58 min",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary:**\n\nThree artifacts were reviewed:\n\n1. **Device Settings Screenshot (img-A):** Shows device configuration with various toggles. Build number displayed at bottom: **4487**. Notable settings include Wi-Fi (Off), Bluetooth (On), Airplane mode (On), Mobile data (Off), Hotspot (Off), VPN (On), Location (Off), Auto-rotate (On), Dark mode (On), Battery saver (On), Do not disturb (On), and Auto-update (Off). Storage shows 77.6 GB of 128 GB used.\n\n2. **Service Error Log:** Contains 150+ log entries from March 10-28, 2026. Key findings:\n   - Multiple ERROR entries for sync retry scheduled on nodes: edge-53, edge-40, edge-10, edge-63, edge-13\n   - **Upload failure for node edge-25 with error code: E9880** (timestamp: 2026-03-21T04:12:09Z)\n   - Consistent INFO logs showing cache hit ratio of 0.93\n   - Multiple token refresh and heartbeat operations\n   - One WARN entry: settings change rejected for \"VPN\" (policy lock) on 2026-03-21T04:12:11Z\n\n3. **Service Dashboard Screenshot (img-B):** Service Overview metrics showing:\n   - Active users: 43,107\n   - Open tickets: 311\n   - Avg. response: **58 min**\n   - Uptime: 99.11%\n   - Queued jobs: 683\n   - Error rate: 0.92%\n   - Deployments: 57\n   - Cache hit: 76%\n   - Last sync: 10:40"
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "On",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "sync",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "77.6 GB"
+      ],
+      "answer": "77.6 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary:**\n\nThree artifacts were reviewed:\n\n1. **Device Settings Screenshot (img-A):** Shows device configuration with Build number: **4487**. Settings include Wi-Fi (Off), Bluetooth (On), Airplane mode (On), Mobile data (Off), Hotspot (Off), VPN (On), Location (Off), Auto-rotate (On), Dark mode (On), Battery saver (On), Do not disturb (On), and Auto-update (Off). Storage: **77.6 GB of 128 GB used**.\n\n2. **Service Error Log:** Contains 150+ log entries from March 10-28, 2026. Key findings:\n   - Multiple ERROR entries for **sync** retry scheduled on nodes: edge-53, edge-40, edge-10, edge-63, edge-13\n   - Upload failure for node edge-25 with error code: **E9880** (timestamp: **2026-03-21T04:12:09Z**)\n   - Consistent INFO logs showing cache hit ratio of 0.93\n   - Multiple token refresh and heartbeat operations\n   - One WARN entry: settings change rejected for **\"VPN\"** (policy lock) on **2026-03-21T04:12:11Z**\n\n3. **Service Dashboard Screenshot (img-B):** Service Overview metrics showing:\n   - Active users: 43,107\n   - Open tickets: 311\n   - Avg. response: 58 min\n   - Uptime: 99.11%\n   - Queued jobs: 683\n   - Error rate: 0.92%\n   - Deployments: 57\n   - Cache hit: 76%\n   - Last sync: 10:40\n\n**Questions answered:**"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E9880?",
+      "gold": [
+        "7d9bfe"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "10:40"
+      ],
+      "answer": "10:40",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

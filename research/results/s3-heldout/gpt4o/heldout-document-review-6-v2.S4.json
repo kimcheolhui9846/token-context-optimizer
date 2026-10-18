@@ -1,0 +1,113 @@
+{
+  "session": "heldout-document-review-6-v2",
+  "template": "document-review",
+  "condition": "S4",
+  "attemptId": "mv9j0psr-d7f5wr",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-20515-B"
+      ],
+      "answer": "Invoice No. INV-20515-B",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-20515-B?",
+      "gold": [
+        "B-6928"
+      ],
+      "answer": "Batch=B-6928",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "E-325"
+      ],
+      "answer": "Room E-325",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Bushing 20mm"
+      ],
+      "answer": "Bushing 20mm",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "ok",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$18,101.88",
+        "18,101.88"
+      ],
+      "answer": "$18,101.88",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "b9bbbb"
+      ],
+      "answer": "b9bbbb",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-9548-N65"
+      ],
+      "answer": "QR-9548-N65",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    }
+  ]
+}

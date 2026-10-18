@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9ig3ke-4b90nq",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "2195"
+      ],
+      "answer": "7.4.35 (build 2196)",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-99. What error code is on that line?",
+      "gold": [
+        "E7085"
+      ],
+      "answer": "E7085",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Active users\" card?",
+      "gold": [
+        "59,120",
+        "59120"
+      ],
+      "answer": "59,120",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary:**\n\n**Device Settings Screenshot (img-A):**\n- Build number: 7.4.35 (build 2196)\n- Current settings status:\n  - Wi-Fi: Off\n  - Bluetooth: On\n  - Airplane mode: On\n  - Mobile data: On\n  - Hotspot: Off\n  - VPN: On\n  - Location: Off\n  - Auto-rotate: Off\n  - Dark mode: On\n  - Battery saver: On\n  - Do not disturb: Off\n  - Auto-update: On\n- Storage used: 26.9 GB of 128 GB\n\n**Service Error Log:**\n- Single ERROR entry for node edge-99: Upload failed with error code E7085 (timestamp: 2026-03-21T04:12:09Z, req=a77566)\n- Additional ERROR entries for other nodes:\n  - edge-70: Retry scheduled (2026-03-23T03:13:03Z)\n  - edge-42: Retry scheduled (2026-03-21T01:11:01Z)\n  - edge-40: Retry scheduled (2026-03-22T02:12:02Z)\n  - edge-32: Retry scheduled (2026-03-24T04:14:04Z)\n  - edge-60: Retry scheduled (2026-03-20T00:10:00Z)\n- One WARN entry: Settings change rejected for \"Dark mode\" (policy lock) on 2026-03-21T04:12:11Z\n\n**Service Dashboard Screenshot (img-B):**\n- Active users: 59,120\n- Open tickets: 92\n- Avg. response: "
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "On",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "26.8 GB"
+      ],
+      "answer": "26.9 GB",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary:**\n\n**Device Settings Screenshot (img-A):**\n- Build number: 7.4.35 (build 2196)\n- Current settings status:\n  - Wi-Fi: Off\n  - Bluetooth: On\n  - Airplane mode: On\n  - Mobile data: On\n  - Hotspot: Off\n  - VPN: On\n  - Location: Off\n  - Auto-rotate: Off\n  - Dark mode: On\n  - Battery saver: On\n  - Do not disturb: Off\n  - Auto-update: On\n- Storage used: 26.9 GB of 128 GB\n\n**Service Error Log:**\n- ERROR entry for node edge-99: Upload failed with error code E7085 (timestamp: 2026-03-21T04:12:09Z, req=a77566)\n- Additional ERROR entries for other nodes:\n  - edge-70: Retry scheduled (2026-03-23T03:13:03Z)\n  - edge-42: Retry scheduled (2026-03-21T01:11:01Z)\n  - edge-40: Retry scheduled (2026-03-22T02:12:02Z)\n  - edge-32: Retry scheduled (2026-03-24T04:14:04Z)\n  - edge-60: Retry scheduled (2026-03-20T00:10:00Z)\n- WARN entry: Settings change rejected for \"Dark mode\" (policy lock) on 2026-03-21T04:12:11Z\n\n**Service Dashboard Screenshot (img-B):**\n- Active users: 59,120\n- Open tickets: 92\n\n**Q&A Results:**\n- Dark"
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E7085?",
+      "gold": [
+        "a77566"
+      ],
+      "answer": "a77566",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "19:09"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

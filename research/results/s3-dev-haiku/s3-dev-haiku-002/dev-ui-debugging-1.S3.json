@@ -1,0 +1,117 @@
+{
+  "session": "dev-ui-debugging-1",
+  "template": "ui-debugging",
+  "condition": "S3",
+  "attemptId": "mv9i74xw-r0mglh",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "7924"
+      ],
+      "answer": "Based on the original image I can see at the bottom right corner, the text reads \"Firmware 7.7.47 (build 7904)\".\n\n7904",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-12. What error code is on that line?",
+      "gold": [
+        "E5281"
+      ],
+      "answer": "E5281",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Open tickets\" card?",
+      "gold": [
+        "20",
+        "20"
+      ],
+      "answer": "20",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed to extract specific information:\n\n1. **img-A** (Device settings screenshot, 2048x1536): The build number shown at the bottom of the screen is **7904** (Firmware 7.7.47).\n\n2. **log** (Service error log, 150 lines): A search for upload failure on node edge-12 found an error on line 20 with timestamp 2026-03-21T04:12:09Z. The error code reported is **E5281** for the failed upload on node=edge-12.\n\n3. **img-B** (Service dashboard screenshot, 2048x1536): The \"Open tickets\" card displays a value of **20**.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\nAll requested information was successfully extracted from the artifacts."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "On"
+      ],
+      "answer": "Based on the log, the rejected settings change was for \"Location\". Looking at the settings screenshot, the Location setting is **on** (shown with a green toggle switch).",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "Let me get the original log to see all lines:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "17.3 GB"
+      ],
+      "answer": "17.3 GB",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed to extract specific information:\n\n1. **img-A** (Device settings screenshot, 2048x1536): \n   - Build number: **7904** (Firmware 7.7.47)\n   - Location setting: **on** (green toggle)\n   - Storage used (sidebar): **17.3 GB**\n\n2. **log** (Service error log, 150 lines):\n   - Error on line 20: timestamp **2026-03-21T04:12:09Z**, error code **E5281** for failed upload on **node=edge-12**\n   - Settings change rejection on line 11: timestamp **2026-03-21T04:12:11Z**, \"Location\" setting rejected due to policy lock (req=865e60)\n   - Only one ERROR line found in searches: **[sync]** subsystem tag\n\n3. **img-B** (Service dashboard screenshot, 2048x1536):\n   - \"Open tickets\" card value: **20**\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\nAll requested information was successfully extracted from the artifacts. The log shows a rejected settings change for \"Location\" which corresponds to the Location setting being on in the device settings screenshot."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E5281?",
+      "gold": [
+        "e96b50"
+      ],
+      "answer": "e96b50",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "06:07"
+      ],
+      "answer": "17:29",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

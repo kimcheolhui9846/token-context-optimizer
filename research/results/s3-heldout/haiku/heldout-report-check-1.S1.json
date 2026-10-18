@@ -1,0 +1,118 @@
+{
+  "session": "heldout-report-check-1",
+  "template": "report-check",
+  "condition": "S1",
+  "attemptId": "mv9jbbrg-q59km8",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "2,252",
+        "2252"
+      ],
+      "answer": "2,252",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "April"
+      ],
+      "answer": "April",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Echo",
+        "Echo"
+      ],
+      "answer": "Plant Echo",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Shows monthly inspection counts throughout the year\n   - Inspection sample size: 2,252 (weekend audits excluded)\n   - Highest count: October with 905 inspections\n   - Lowest count: July with 176 inspections\n\n2. **log: Report Review Notes**\n   - Extensive review checklist with repeated confirmations of chart elements\n   - Chart title approved\n   - Legend colors confirmed\n   - Axis labels reviewed with no changes\n   - Gridlines unchanged\n   - Footnote wording kept\n   - Data exports refreshed multiple times\n   - Key notes: Inspection audit postponed to April\n   - December inspection count recorded as 250\n   - Recalibration deadline: 15 August 2026\n\n3. **img-B: Hourly Output Line Chart**\n   - Title: \"Hourly Output Index\"\n   - Last updated: 22:47\n   - Two plant series compared:\n     - Plant Echo (dashed purple line)\n     - Plant Alpha (solid orange line)\n   - Peak value marked: 88.8 for Plant Alpha\n   - Y-axis ranges from 0 to 100\n   - Shows fluctuating output patterns across hourly intervals\n\nAll three artifacts have been reviewed and documented with specific values and details preserved for continued work."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Dec. Does it match the value labeled on the Dec bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "No",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "31"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Oct"
+      ],
+      "answer": "October",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts were reviewed:\n\n1. **img-A: Monthly Inspection Bar Chart**\n   - Shows monthly inspection counts throughout the year\n   - Inspection sample size: 2,252 (weekend audits excluded)\n   - Highest count: October with 905 inspections\n   - Lowest count: July with 176 inspections\n   - December bar shows a value that does NOT match the 250 recorded in the notes\n\n2. **log: Report Review Notes**\n   - Extensive review checklist with repeated confirmations of chart elements\n   - Chart title approved\n   - Legend colors confirmed (specific line count mentioning legend: UNREADABLE)\n   - Axis labels reviewed with no changes\n   - Gridlines unchanged\n   - Footnote wording kept\n   - Data exports refreshed multiple times\n   - Key notes: Inspection audit postponed to April\n   - December inspection count recorded as 250 (discrepancy with chart bar)\n   - Recalibration deadline: 15 August 2026\n\n3. **img-B: Hourly Output Line Chart**\n   - Title: \"Hourly Output Index\"\n   - Last updated: 22:47\n   - Two plant series compared:\n     - Plant Echo (dashed purple line)\n     - Plant Alpha (solid orange line)\n   - Peak value marked: 88.8 for Plant Alpha\n   - Y-axis ranges from 0 to 100\n   - Shows fluctuating output patterns across hourly intervals\n\n**Key Finding:** December value discrepancy between chart (bar height) and notes (250) requires resolution."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "15 August 2026"
+      ],
+      "answer": "15 August 2026",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "22:47"
+      ],
+      "answer": "22:47",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

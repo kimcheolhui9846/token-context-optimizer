@@ -1,0 +1,118 @@
+{
+  "session": "calibration-report-check-2",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9hcm9j-3kqu62",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "3,996",
+        "3996"
+      ],
+      "answer": "3,996",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "August"
+      ],
+      "answer": "August",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Delta",
+        "Delta"
+      ],
+      "answer": "Plant Delta",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing data from three artifacts: \n\n1. **img-A** (\"Monthly inspection bar chart\"): The inspection sample size noted under the chart is 3,996.\n2. **log** (\"Report review notes\"): The inspection audit was postponed to August, as noted in the review.\n3. **img-B** (\"Hourly output line chart\"): The series for \"Plant Delta\" is drawn with a dashed line.\n\nArtifacts mentioned: img-A, log, img-B."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for May. Does it match the value labeled on the May bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "no"
+      ],
+      "answer": "No.",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "26"
+      ],
+      "answer": "2",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Aug"
+      ],
+      "answer": "August.",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involved analyzing data from three artifacts: \n\n1. **img-A** (\"Monthly inspection bar chart\"): The inspection sample size noted under the chart is 3,996. The tallest bar in the chart corresponds to August.\n2. **log** (\"Report review notes\"): The inspection audit was postponed to August. The May inspection count is recorded as 448. Two lines in the notes mention the legend.\n3. **img-B** (\"Hourly output line chart\"): The series for \"Plant Delta\" is drawn with a dashed line.\n\nIt was determined that the May inspection count in the notes does not match the value labeled on the May bar in the bar chart.\n\nArtifacts mentioned: img-A, log, img-B."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "9 February 2026"
+      ],
+      "answer": "9 February 2026",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "17:55"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": true,
+      "thresholdExceeded": false
+    }
+  ]
+}

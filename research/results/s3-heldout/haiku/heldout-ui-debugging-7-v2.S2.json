@@ -1,0 +1,113 @@
+{
+  "session": "heldout-ui-debugging-7-v2",
+  "template": "ui-debugging",
+  "condition": "S2",
+  "attemptId": "mv9irrf5-dmv790",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown in the screen header?",
+      "gold": [
+        "5479"
+      ],
+      "answer": "5479",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-53. What error code is on that line?",
+      "gold": [
+        "E7063"
+      ],
+      "answer": "E7063",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Active users\" card?",
+      "gold": [
+        "81,303",
+        "81303"
+      ],
+      "answer": "81,303",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "Off",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "Let me try a different approach to find all ERROR lines:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the footer? Answer with the number and unit.",
+      "gold": [
+        "82.8 GB"
+      ],
+      "answer": "82.8 GB",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E7063?",
+      "gold": [
+        "93ea7d"
+      ],
+      "answer": "E7063 was already found in the earlier search. Looking at that line from the log:\n\n2026-03-21T04:12:09Z ERROR [sync] upload failed code=E7063 node=edge-53 req=93ea7d\n\n93ea7d",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "11:44"
+      ],
+      "answer": "11:44",
+      "toolCalls": 2,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    }
+  ]
+}

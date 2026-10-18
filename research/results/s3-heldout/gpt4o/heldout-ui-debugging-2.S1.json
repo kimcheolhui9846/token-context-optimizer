@@ -1,0 +1,117 @@
+{
+  "session": "heldout-ui-debugging-2",
+  "template": "ui-debugging",
+  "condition": "S1",
+  "attemptId": "mv9ifw0o-35raaq",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the build number shown at the bottom of the screen?",
+      "gold": [
+        "2493"
+      ],
+      "answer": "2403",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "The log reports an upload failure for node edge-93. What error code is on that line?",
+      "gold": [
+        "E8171"
+      ],
+      "answer": "E8171",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "What value is shown on the \"Open tickets\" card?",
+      "gold": [
+        "280",
+        "280"
+      ],
+      "answer": "280",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves analyzing artifacts for specific details. \n\n1. **Device Settings Screenshot (img-A):** The build number displayed at the bottom is **2403**.\n2. **Service Error Log (log):** An upload failure for node **edge-93** was reported with error code **E8171**.\n3. **Service Dashboard Screenshot (img-B):** The \"Open tickets\" card shows a value of **280**.\n\nThe work involves extracting precise information from screenshots and logs for further analysis."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log mentions a settings change that was rejected. In the settings screenshot, is that setting on or off?",
+      "gold": [
+        "Off"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "Which subsystem tag appears on most of the ERROR lines in the log? Answer with the tag only.",
+      "gold": [
+        "sync"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late-small",
+      "question": "How much storage is used, according to the sidebar? Answer with the number and unit.",
+      "gold": [
+        "85.4 GB"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The task involves analyzing artifacts for specific details. \n\n1. **Device Settings Screenshot (img-A):** The build number displayed is **2403**.\n2. **Service Error Log (log):** An upload failure for node **edge-93** was reported with error code **E8171**. A settings change was rejected, but the status of the setting in the screenshot is **UNREADABLE**. The most frequent subsystem tag on ERROR lines is **UNREADABLE**.\n3. **Service Dashboard Screenshot (img-B):** The \"Open tickets\" card shows a value of **280**. The storage usage in the sidebar is **UNREADABLE**.\n\nFurther details from the artifacts remain unclear."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the log line with error code E8171?",
+      "gold": [
+        "373b9f"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What time is shown for the last sync? Answer as HH:MM.",
+      "gold": [
+        "10:13"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

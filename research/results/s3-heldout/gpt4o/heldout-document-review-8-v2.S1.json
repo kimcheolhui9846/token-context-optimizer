@@ -1,0 +1,117 @@
+{
+  "session": "heldout-document-review-8-v2",
+  "template": "document-review",
+  "condition": "S1",
+  "attemptId": "mv9j2yts-len4h8",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the invoice number?",
+      "gold": [
+        "INV-64660-F"
+      ],
+      "answer": "INV-64660-F",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "Which batch id is on the log line that posted invoice INV-64660-F?",
+      "gold": [
+        "B-8594"
+      ],
+      "answer": "B-8594",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which room is assigned in the notice?",
+      "gold": [
+        "G-169"
+      ],
+      "answer": "G-169",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "The conversation involves reviewing artifacts for specific details. \n\n1. **Supplier Invoice Scan (img-A):** The invoice number is **INV-64660-F**, and the total amount due is **$21,858.38**.\n2. **Ledger Processing Log (log):** The batch ID associated with the posting of invoice **INV-64660-F** is **B-8594**. Additionally, a warning log entry flagged an over-limit amount of **$1,443.81** for this invoice on **2026-03-22T09:30:04Z**.\n3. **Operations Notice Scan (img-B):** The assigned room mentioned in the notice is **G-169**.\n\nThis summary provides the key details extracted from the artifacts for further processing."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The log flags one amount as over_limit. Which line item on the invoice has that amount? Answer with the item name.",
+      "gold": [
+        "Gasket 40mm"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "What status value appears on most lines of the ledger log? Answer with the status word only.",
+      "gold": [
+        "ok"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "What is the total amount on the invoice?",
+      "gold": [
+        "$21,858.38",
+        "21,858.38"
+      ],
+      "answer": "$21,858.38",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "The conversation involves reviewing artifacts for specific details. \n\n1. **Supplier Invoice Scan (img-A):** The invoice number is **INV-64660-F**, and the total amount due is **$21,858.38**.\n2. **Ledger Processing Log (log):** The batch ID associated with the posting of invoice **INV-64660-F** is **B-8594**. A warning log entry flagged an over-limit amount of **$1,443.81** for this invoice on **2026-03-22T09:30:04Z**. Further details from the log are unreadable.\n3. **Operations Notice Scan (img-B):** The assigned room mentioned in the notice is **G-169**.\n\nQuestions about specific line items or status values in the log remain unanswered due to unreadable details."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What is the request id (req=) on the over_limit FLAG line of the log?",
+      "gold": [
+        "389453"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "What is the reference code shown at the top right of the bulletin?",
+      "gold": [
+        "QR-7522-N44"
+      ],
+      "answer": "UNREADABLE",
+      "toolCalls": 0,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "session": "dev-report-check-1",
+  "template": "report-check",
+  "condition": "S3",
+  "attemptId": "mv9i4957-ph2abg",
+  "turns": [
+    {
+      "turn": 1,
+      "type": "immediate-small",
+      "question": "What is the inspection sample size noted under the chart?",
+      "gold": [
+        "9,242",
+        "9242"
+      ],
+      "answer": "9,242",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 2,
+      "type": "immediate-log",
+      "question": "According to the review notes, to which month was the inspection audit postponed?",
+      "gold": [
+        "January"
+      ],
+      "answer": "",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 3,
+      "type": "immediate",
+      "question": "Which plant's series is drawn with a dashed line?",
+      "gold": [
+        "Plant Delta",
+        "Delta"
+      ],
+      "answer": "Plant Delta",
+      "toolCalls": 1,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A** (2048x1536, \"Monthly inspection bar chart\"): Contains a bar chart with an inspection sample size of 9,242 noted under the chart.\n\n2. **log** (text log, 150 lines, \"Report review notes\"): A query was attempted to find information about which month an inspection audit was postponed to, but the search did not return results.\n\n3. **img-B** (2048x1536, \"Hourly output line chart\"): Contains a line chart showing output data for multiple plants. Plant Delta's series is drawn with a dashed line.\n\n**Artifacts for future reference:**\n- img-A\n- log\n- img-B\n\nThe work involved extracting specific data points from charts and reviewing inspection/audit documentation. The log artifact may require additional queries with different search terms to locate the postponement information."
+    },
+    {
+      "turn": 4,
+      "type": "cross",
+      "question": "The notes record an inspection count for Jun. Does it match the value labeled on the Jun bar in the bar chart? Answer yes or no.",
+      "gold": [
+        "yes"
+      ],
+      "answer": "Let me try again with the correct artifact ID:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 5,
+      "type": "gist",
+      "question": "How many lines in the review notes mention the legend? Answer with a number.",
+      "gold": [
+        "19"
+      ],
+      "answer": "Let me try searching for \"legend\" in the log:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 6,
+      "type": "late",
+      "question": "Which month has the tallest bar? Answer with the month label.",
+      "gold": [
+        "Sep"
+      ],
+      "answer": "September",
+      "toolCalls": 3,
+      "originalsRequested": 1,
+      "autoOriginal": false,
+      "thresholdExceeded": true,
+      "compactedAfter": true,
+      "summary": "**Conversation Summary**\n\nThree artifacts have been reviewed:\n\n1. **img-A** (2048x1536, \"Monthly inspection bar chart\"): Contains a bar chart with an inspection sample size of 9,242 noted under the chart. September has the tallest bar.\n\n2. **log** (text log, 150 lines, \"Report review notes\"): A query was attempted to find information about which month an inspection audit was postponed to, but the search did not return results. Searches for \"legend\" were also attempted but did not return matching lines.\n\n3. **img-B** (2048x1536, \"Hourly output line chart\"): Contains a line chart showing output data for multiple plants. Plant Delta's series is drawn with a dashed line.\n\n**Outstanding Questions:**\n- Whether the inspection count for June recorded in the notes matches the value labeled on the June bar in the bar chart\n- How many lines in the review notes mention the legend\n\n**Artifacts for future reference:**\n- img-A\n- img-B\n- log\n\nThe work involves extracting specific data points from charts and reviewing inspection/audit documentation. The log artifact may require additional queries with different search terms to locate specific information about postponements and legend mentions."
+    },
+    {
+      "turn": 7,
+      "type": "late-log",
+      "question": "What recalibration deadline is given in the review notes? Answer as day month year.",
+      "gold": [
+        "4 June 2026"
+      ],
+      "answer": "",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    },
+    {
+      "turn": 8,
+      "type": "late-small",
+      "question": "At what time was the chart last updated? Answer as HH:MM.",
+      "gold": [
+        "09:24"
+      ],
+      "answer": "Let me try searching the images for update time information:",
+      "toolCalls": 3,
+      "originalsRequested": 0,
+      "autoOriginal": false,
+      "thresholdExceeded": false
+    }
+  ]
+}
