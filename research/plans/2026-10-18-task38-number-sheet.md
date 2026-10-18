@@ -194,7 +194,7 @@
 
 | ID | 값 | 확인 | 논문 표기 |
 |---|---|---|---|
-| C-1 | GPT-4o 캐시 입력 0.5×(입력 $2.50, 캐시 입력 $1.25, 출력 $10.00 / 1M). `gpt-4o-2024-11-20` 스냅샷 개별 행은 없음 | 2026-10-15, OpenAI 공식 가격표. README `:51-53` | [검증 필요] 없이 출처·확인일 기재(요청서) |
+| C-1 | GPT-4o 캐시 입력 0.5×(입력 $2.50, 캐시 입력 $1.25, 출력 $10.00 / 1M). `gpt-4o-2024-11-20` 스냅샷 개별 행은 없음 | 2026-10-15, OpenAI 공식 가격표. README `:51-53`(URL 없음). **2026-10-18 Claude가 https://developers.openai.com/api/docs/pricing 의 `gpt-4o` 행에서 같은 값을 다시 확인** | [검증 필요] 없이 출처·확인일 기재(요청서) |
 | C-2 | Haiku 4.5: 입력 $1, 5분 캐시 쓰기 $1.25(1.25×), 캐시 읽기 $0.10(0.1×), 출력 $5 / MTok | **2026-10-18 Claude 확인**, Anthropic 공식 가격 문서(platform.claude.com/docs/en/about-claude/pricing) "Model pricing" 표 Haiku 4.5 행, "Prompt caching" 배율 표 | 하네스는 기본 5분 `ephemeral` 캐시를 썼다(`src/session-anthropic.mjs:52`). 같은 배율이다. [검증 필요] 없이 출처·확인일 기재 가능 |
 | C-3 | Haiku S4=S0 원인(standard tier 축소) | 2026-10-15 공식 비전 문서. README `:84-88` | 출처·확인일 기재 |
 
