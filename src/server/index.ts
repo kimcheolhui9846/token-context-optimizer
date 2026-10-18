@@ -17,6 +17,7 @@ import {
   indexImageArtifact,
   inspectImageArtifact,
 } from "../core/image-artifacts.js";
+import { cropImageArtifact } from "../core/image-crop.js";
 
 export function createServer(): McpServer {
   const server = new McpServer(
@@ -196,6 +197,46 @@ export function createServer(): McpServer {
     async ({ artifactId }) => {
       const output = await inspectImageArtifact({ artifactId, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
       return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
+    },
+  );
+
+  const regionSchema = z.strictObject({
+    x: z.number().int(), y: z.number().int(),
+    width: z.number().int(), height: z.number().int(),
+  });
+  const cropOutputSchema = z.union([
+    z.object({ status: z.literal("original"), fullFrame: z.literal(true), source: imageOutputSchema, region: regionSchema }),
+    z.object({ status: z.literal("rejected"), fullFrame: z.literal(false), code: z.literal("resize_required"), source: imageOutputSchema, region: regionSchema }),
+    z.object({
+      status: z.literal("cropped"), fullFrame: z.literal(false),
+      source: imageOutputSchema, region: regionSchema,
+      output: z.object({
+        width: z.number().int(), height: z.number().int(),
+        format: z.literal("jpeg"), mimeType: z.literal("image/jpeg"),
+        byteLength: z.number().int(), sha256: z.string(), quality: z.literal(75),
+        encoder: z.object({ name: z.literal("jpeg-js"), version: z.literal("0.4.4") }),
+        validation: z.object({
+          width: z.number().int(), height: z.number().int(), channels: z.literal(3),
+          format: z.literal("jpeg"), mimeType: z.literal("image/jpeg"),
+          validationProfile: z.literal("jpeg-ycbcr8-baseline-444-v1"),
+        }),
+      }),
+    }),
+  ]);
+  server.registerTool(
+    "crop_image_artifact",
+    {
+      description: "Crop a validated RGB PNG or JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. The caller may use an overview it already has; this tool does not generate one. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      inputSchema: z.strictObject({ artifactId: z.string().min(1), region: regionSchema }),
+      outputSchema: cropOutputSchema,
+    },
+    async ({ artifactId, region }) => {
+      const result = await cropImageArtifact({ artifactId, region, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+      if (result.status === "rejected") return { isError: true, content: [{ type: "text", text: JSON.stringify(result) }], structuredContent: result };
+      if (result.status === "original") return { isError: false, content: [{ type: "text", text: JSON.stringify(result) }], structuredContent: result };
+      const { image, ...output } = result.output;
+      const structured = { ...result, output };
+      return { isError: false, content: [{ type: "text", text: JSON.stringify(structured) }, { type: "image", data: image, mimeType: "image/jpeg" }], structuredContent: structured };
     },
   );
 
