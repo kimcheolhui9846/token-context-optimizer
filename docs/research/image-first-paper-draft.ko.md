@@ -79,11 +79,15 @@ LLMLingua는 작은 언어 모델을 이용해 프롬프트 토큰을 압축하�
 
 DTOC는 도구 출력 원본을 외부에 보존하고 컨텍스트의 참조를 통해 되살리는 구조를 제안한다 [1]. ACM은 이전 문맥의 요약, 원본의 외부 저장, 필요할 때의 조회를 결합한다 [2]. 따라서 원본 보존·재조회 자체를 새로운 원리로 주장하지 않는다. The Complexity Trap은 관측 마스킹과 언어 모델 요약을 비교하며 [11], 전체 유지와 compact 모사(VI장의 S0·S1)의 비교 배경이 된다. 원본 보존 발췌와 발췌·compact 조합(VI장의 S2·S3)은 외부 원본을 재조회하는 구조에 대응한다.
 
+Screenshots or Tools?는 자체 서빙한 GUI–MCP 에이전트에서 이미지 이력 창을 줄이고, 성공한 도구 호출 뒤의 스크린샷을 텍스트 자리표시자로 대체하는 규칙을 비교하며 같은 관측 규칙으로 강화학습한다 [12]. HiconAgent는 과거 스크린샷을 버리면 시각 단서를 잃는 문제를 다루고, 가변 길이 이력 샘플링과 과거 행동을 남긴 관측 압축을 정책 최적화에 결합한다 [13]. 두 연구의 이력 축소는 제거한 이미지를 원본 ID로 재조회하는 본 연구의 인터페이스와 구분된다. 본 연구는 공급자 API 앞단의 crop·썸네일·원본 재요청과 청구 토큰·캐시 비용을 평가 대상으로 둔다.
+
 | 연구 | 매체 | 모델 내부 / API 앞단 | 단일 질의 / 세션 | 비교 범위 |
 |---|---|---|---|---|
 | 시각 토큰 축소 [7], [8] | 이미지·텍스트 | 모델 내부 | 시각 질의 입력 | 외부 래스터 변환과 동일 개입으로 순위화하지 않음 |
 | LLMLingua·RECOMP [9], [10] | 텍스트 | 대상 모델 API 앞단 | 프롬프트·검색 문맥 | 토큰 압축 또는 문장 선택 |
 | DTOC·ACM [1], [2] | 텍스트 | 외부 저장·관리 도구; ACM은 학습 절차도 포함 | 에이전트 세션 | 원본 보존·재조회, VI장 S2·S3의 구조적 선행 연구 |
+| Screenshots or Tools? [12] | 이미지·텍스트 | 자체 서빙 모델의 관측 규칙·강화학습 | GUI–MCP 에이전트 세션 | 이미지 이력 창·도구 성공 뒤 이미지 제거; 제거 이미지의 원본 재조회 없음 |
+| HiconAgent [13] | 이미지·텍스트 | 모델 정책 최적화·이력 압축 | GUI 에이전트 세션 | 과거 관측 제거·행동 유지; 제거 이미지의 원본 재조회 없음 |
 | 관측 마스킹·요약 [11] | 텍스트 | 컨텍스트 관리 | 에이전트 세션 | 전체 유지와 손실 관리 비교 |
 | 본 연구: 원본 보존형 발췌 | 텍스트·이미지 | 공급자 API 앞단 | 단일 질의와 세션 | 호출자 지정 crop·썸네일·재요청 및 청구 비용 |
 
@@ -148,7 +152,7 @@ response guard는 응답 상태와 실제 배정 variant, crop 경계, 변환 �
 
 ## IV. 공급자 회계와 실험 1
 
-공식 문서의 규칙에 예제 치수를 적용한 수치는 산술 추정이지 데이터셋의 실측 절감률이 아니다 [12]–[22]
+공식 문서의 규칙에 예제 치수를 적용한 수치는 산술 추정이지 데이터셋의 실측 절감률이 아니다 [14]–[24]
 ([계산 예제와 상세 근거](./image-token-cost-models.md)). 회계 비교 대상은
 `gpt-4o-2024-11-20`, `claude-haiku-4-5-20251001`, `gemini-3.8-flash`이고, `claude-sonnet-5-5`와
 `gpt-5.6-sol`은 별도 회계 계열의 대조다. 이 다섯 대상은 산술 비교를 위한 것이며 어느 것도 파일럿 모델
@@ -156,17 +160,17 @@ response guard는 응답 상태와 실제 배정 variant, crop 경계, 변환 �
 
 | 모델 ID / 설정 | 예제 결과 | 결과의 성격 |
 |---|---|---|
-| `claude-haiku-4-5-20251001` / standard [15]–[17] | 0–1.79% | 예제 치수의 패치 회계 산술; 0 사례 포함 |
-| `gpt-4o-2024-11-20` / low [12]–[13] | 85 입력 토큰 고정, Δ=0 | 공식 크기 무관 회계 |
-| `gpt-4o-2024-11-20` / high [12] | 최대 22.22% | 예제 치수 중 최대 산술 절감률 |
-| `claude-sonnet-5-5` / high-resolution [15], [16], [18] | 양수 예제 36.64–64.36% | 고해상도 계열 대조의 양수 예제 |
-| `gpt-5.6-sol` / original·auto·설정 생략 [12], [14] | 거부되지 않은 축소 예제 43.76–85.94% | 생략은 auto; 거부 사례 제외 |
-| `gpt-5.6-sol` / high [12], [14] | 양수 예제 7.83% | 예제 치수의 산술 비교 |
-| `gpt-5.6-sol` / low [12], [14] | 0% | 예제 치수의 산술 비교 |
+| `claude-haiku-4-5-20251001` / standard [17]–[19] | 0–1.79% | 예제 치수의 패치 회계 산술; 0 사례 포함 |
+| `gpt-4o-2024-11-20` / low [14]–[15] | 85 입력 토큰 고정, Δ=0 | 공식 크기 무관 회계 |
+| `gpt-4o-2024-11-20` / high [14] | 최대 22.22% | 예제 치수 중 최대 산술 절감률 |
+| `claude-sonnet-5-5` / high-resolution [17], [18], [20] | 양수 예제 36.64–64.36% | 고해상도 계열 대조의 양수 예제 |
+| `gpt-5.6-sol` / original·auto·설정 생략 [14], [16] | 거부되지 않은 축소 예제 43.76–85.94% | 생략은 auto; 거부 사례 제외 |
+| `gpt-5.6-sol` / high [14], [16] | 양수 예제 7.83% | 예제 치수의 산술 비교 |
+| `gpt-5.6-sol` / low [14], [16] | 0% | 예제 치수의 산술 비교 |
 
-`gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 크기별 사용량과 실제 차이는 unknown이다 [19]–[22].
+`gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 크기별 사용량과 실제 차이는 unknown이다 [21]–[24].
 GPT-5.6 Sol original/auto/설정 생략은 65,535px/side 상한까지 치수를 유지하고 처리 patch가 30,000을
-넘으면 거부한다 [12], [14]. 거부는 자동 축소가 아니며 그 원본 기준은 정의되지 않아 절감률 비교에 포함하지 않는다.
+넘으면 거부한다 [14], [16]. 거부는 자동 축소가 아니며 그 원본 기준은 정의되지 않아 절감률 비교에 포함하지 않는다.
 모든 예제 값은 설정과 치수에 한정되며 모델 계열 전반, 파일럿 결과 또는 청구액을 나타내지 않는다.
 
 실험 1은 GPT-4o와 Claude Haiku 4.5에서 원본 및 클라이언트 변환 입력의 공급자 사용량을 수집해 공개 회계식과 대조한다. 입력 치수·형식·변환 이력·모델 설정을 함께 기록하며, 앞의 예제 산술과 실제 호출의 청구 토큰을 구분한다.
@@ -309,12 +313,12 @@ S2·S3는 `query_text_artifact`(제품 MCP의 `query_artifact` 호출), `query_i
 손실을 줄일 수 있다는 가설일 뿐 안전을 보장하지 않는다. 하나의 작은 파일럿은 일반화나 비용 체계를
 증명하지 않는다. public benchmark의 license와 접근 조건, 모델 정책과 개인정보 승인은 별도 gate다.
 
-공급자별 이미지 회계는 같은 1536px 입력 후보에도 서로 다른 결과를 낸다 [12]–[22]. GPT-4o low의 고정 토큰이나
+공급자별 이미지 회계는 같은 1536px 입력 후보에도 서로 다른 결과를 낸다 [14]–[24]. GPT-4o low의 고정 토큰이나
 Haiku standard의 provider patch cap처럼 예제상 변화가 없는 경우가 있고, GPT-4o high와 별도 회계 계열의
 고해상도 예제에서는 설정·치수에 따라 계산 차이가 있다. 반대로 원본 요청이 거부되면 비용 비교의 기준값은
 정의되지 않으며, 요청 예산만 제시된 Gemini 3.8 Flash의 실제 크기별 사용량도 알 수 없다. JPEG q75는 OpenAI와
 Anthropic의 공개 회계식에 품질 변수가 없고 Gemini의 영향도 문서화되지 않았다. 기존 출처는 강한 JPEG
-압축이 작은 글자를 읽기 어렵게 만들 수 있고 압축 아티팩트가 모델에 영향을 줄 수 있다고 경고하지만 [15],
+압축이 작은 글자를 읽기 어렵게 만들 수 있고 압축 아티팩트가 모델에 영향을 줄 수 있다고 경고하지만 [17],
 이는 q75의 효과를 측정한 결과가 아니다 ([모델별 회계 근거](./image-token-cost-models.md)). 작은 글자
 가독성, 실제 토큰 사용량, 청구 및 지연시간은 별도 관측 전까지 미확인이다. Sonnet 5.5와 GPT-5.6 Sol은
 별도 회계 계열의 대조 예제이며 파일럿 후보를 추가하거나 확정하지 않는다. 이 회계 예제는 1536px/q75의
@@ -364,24 +368,28 @@ compact는 공개 규칙을 이용한 모사이며 제품 compact의 내부 동�
 
 [11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, “The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization for Agent Context Management,” in NeurIPS 2025 Workshop: Deep Learning for Code in the Agentic Era, 2025, arXiv:2508.21433.
 
-[12] OpenAI. [Images and vision](https://developers.openai.com/api/docs/guides/images-vision). Accessed: Oct. 7, 2026.
+[12] S. Fan, M. Li, X. Ma, W. Tan, X. Huang, J. Wu, L. Zhang, S. Shang, and W. Chen, “Screenshots or Tools? Eliciting Tool Use and Managing Multimodal Context in Hybrid GUI–MCP Computer-Use Agents,” arXiv:2608.03327v2, 2026.
 
-[13] OpenAI. [GPT-4o model](https://developers.openai.com/api/docs/models/gpt-4o). Accessed: Oct. 7, 2026.
+[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, “HiconAgent: History Context-aware Policy Optimization for GUI Agents,” arXiv:2512.01763v2, 2026.
 
-[14] OpenAI. [GPT-5.6 Sol model](https://developers.openai.com/api/docs/models/gpt-5.6-sol). Accessed: Oct. 7, 2026.
+[14] OpenAI. [Images and vision](https://developers.openai.com/api/docs/guides/images-vision). Accessed: Oct. 7, 2026.
 
-[15] Anthropic. [Vision](https://platform.claude.com/docs/en/build-with-claude/vision). Accessed: Oct. 7, 2026.
+[15] OpenAI. [GPT-4o model](https://developers.openai.com/api/docs/models/gpt-4o). Accessed: Oct. 7, 2026.
 
-[16] Anthropic. [Vision coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). Accessed: Oct. 7, 2026.
+[16] OpenAI. [GPT-5.6 Sol model](https://developers.openai.com/api/docs/models/gpt-5.6-sol). Accessed: Oct. 7, 2026.
 
-[17] Anthropic. [Models overview](https://platform.claude.com/docs/en/models/overview). Accessed: Oct. 7, 2026.
+[17] Anthropic. [Vision](https://platform.claude.com/docs/en/build-with-claude/vision). Accessed: Oct. 7, 2026.
 
-[18] Anthropic. [Sonnet 5.5 model overview](https://platform.claude.com/docs/en/models/sonnet-5-5/overview). Accessed: Oct. 7, 2026.
+[18] Anthropic. [Vision coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). Accessed: Oct. 7, 2026.
 
-[19] Google. [Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution). Accessed: Oct. 7, 2026.
+[19] Anthropic. [Models overview](https://platform.claude.com/docs/en/models/overview). Accessed: Oct. 7, 2026.
 
-[20] Google. [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding). Accessed: Oct. 7, 2026.
+[20] Anthropic. [Sonnet 5.5 model overview](https://platform.claude.com/docs/en/models/sonnet-5-5/overview). Accessed: Oct. 7, 2026.
 
-[21] Google. [Pricing](https://ai.google.dev/gemini-api/docs/pricing). Accessed: Oct. 7, 2026.
+[21] Google. [Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution). Accessed: Oct. 7, 2026.
 
-[22] Google. [Gemini 3.8 Flash model](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash). Accessed: Oct. 7, 2026.
+[22] Google. [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding). Accessed: Oct. 7, 2026.
+
+[23] Google. [Pricing](https://ai.google.dev/gemini-api/docs/pricing). Accessed: Oct. 7, 2026.
+
+[24] Google. [Gemini 3.8 Flash model](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash). Accessed: Oct. 7, 2026.

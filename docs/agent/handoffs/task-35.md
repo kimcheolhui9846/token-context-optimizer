@@ -1,7 +1,7 @@
 # Task 35 — 논문 틀 개정
 
 ## 상태와 승인 범위
-- Tier D (문서만). 2026-10-16 Q1–Q3 승인; 2026-10-17 Claude 리뷰 수정·D1/D2 반영. M-2는 로컬 PDF 경로 확인 대기.
+- Tier D (문서만). 2026-10-16 Q1–Q3 승인; 2026-10-17 리뷰 수정·D1/D2 반영, 2026-10-18 M-2 원문 확인·보완.
 - Base 4b0d247 (PR #40 merge, R-1 8b2796c 포함); branch codex/task-35-paper-framework.
 - 변경: docs/research/image-first-paper-draft.ko.md와 이 핸드오프. 루트 HANDOFF는 로컬 기록.
 - 제외: 코드·설정·테스트·프로토콜·결정 메모·실험 수치, research/, codex_review/, paper/.
@@ -49,8 +49,9 @@
 - 공급자 URL·확인일은 기존 회계 근거의 2026-10-07 기록이며 이번 작업에서 재조회하지 않았다는 참고문헌 안내를 여기로 이동. N-11 기존 전체 문체 정리는 미수행.
 
 ## 서지와 분량
-- 기준 4b0d247→현재 인용: 1→3, 2→6, 3→4, 4→5, 5→7, 6→8, 7–17→12–22. 기준 18c2b0f→현재: 9→1, 10→2, 1–8→3–10, 11–22 유지.
+- 기준 4b0d247→현재 인용: 1→3, 2→6, 3→4, 4→5, 5→7, 6→8, 7–17→14–24. 기준 18c2b0f→현재: 9→1, 10→2, 1–8→3–10, 11 유지, 12–22→14–24. e10d1cc→현재는 1–11 유지, 12–22→14–24.
 - [1] DTOC, [2] ACM, [9] LLMLingua, [10] RECOMP, [11] Complexity Trap: 기존 로컬 PDF 확인 서지 유지. [11] NeurIPS 2025 Workshop 표기; 나머지 arXiv.
+- 신규 [12] Screenshots or Tools? / [13] HiconAgent: 사용자 제공 Temp/claude/.../788db22e-7189-4466-b872-59e4a98f8028/scratchpad/dl/pdf/의 2608.03327.pdf·2512.01763.pdf 첫 페이지 직접 추출. 제목·전체 저자·v2 날짜(2026-08-06 / 2026-03-08) 확인; 두 서지 모두 해당 v2와 2026년으로 기재.
 - 8면 목표(D2): 요약 .50 / I 1.00 / II .50 / III 1.25 / IV .75 / V .75 / VI 1.75 / VII .35 / VIII .15 / 참고문헌 1.00.
 - 그림·표 포함 배치 목표이며 실제 8면 충족은 조판 뒤 확인. 상세 프로토콜은 기존 저장소 문서에 연결.
 
@@ -58,15 +59,15 @@
 - RED: 문서 전용으로 해당 없음. 승인안·기준 원고·서지·정의·인용 직접 대조가 수용 검사.
 - 구현: Luna 초안·보완 뒤 주 에이전트가 장 배치·인용 중복·설계 누락 수정. Luna 사용량 한도 중단 뒤 재개 성공.
 - Claude Code / claude-opus-5-5, PR #41 head 18c2b0f 독립 리뷰, Request changes, Blocker 0 / Major 5 / Minor 4 / Nit 4. 다른 모델 계열의 별도 세션; 사용자 제공 리뷰 파일은 읽기 전용.
-- 주 에이전트 최종 리뷰: M-2 미해결로 CHANGES REQUIRED. 다른 수정은 동결 설계·제품 소스·기준 diff 직접 대조; git diff --check 통과. npm/tests/custom 검증 스크립트는 Tier D라 미실행.
-- 남은 작업: 현재 수정 push → M-2 로컬 PDF 확인·추가 수정 → Claude 재검토 → Ready·merge 사용자 승인. Task 36 미착수; 실제 8면은 조판 뒤 확인.
+- 주 에이전트 최종 리뷰: PASS WITH NOTES, 수정 범위 blocker/major 0. 동결 설계·제품 소스·원문 PDF·기준 diff 직접 대조; git diff --check 통과. npm/tests/custom 검증 스크립트는 Tier D라 미실행.
+- 남은 작업: 수정 push → Claude 재검토 → Ready·merge 사용자 승인. Task 36 미착수; 실제 8면은 조판 뒤 확인.
 - Task 38 입력(m-1·D1): 결과 반영과 함께 V장을 압축하고 상세를 프로토콜 링크로 옮긴다. 이번 PR에서는 압축하지 않는다.
 - Task 38 입력(m-3, 기준 18c2b0f): L113–114 영역 규칙·점수·tie break 미정 및 frozen binding 실행 전 gate; L184–186 치수 목록 미정·승인 뒤 확정; L199–200 파생 경로 미확인; L202–204 검증 기준 미정. 본문은 유지하고 Task 38에서 실험 2 확정값과 대조한다.
 - 조판 입력(m-2): 저자 이니셜·학회·온라인 자료 등 참고문헌 전체 IEEE 서식 통일은 조판 때 수행. 이번 수정은 인용 첫 등장 순서와 범위·복수 인용 표기만 정리.
 
 ## Claude 리뷰 응답
 - M-1 수정: I 첫 문단 DTOC·ACM 위치 인용, 세션 목표·응답 기반 재요청 표현; RQ1–3·C1–4 I 끝 이동, 번호 대응표 갱신(D2).
-- M-2 보류(반박 아님): 2608.03327·2512.01763 로컬 PDF를 root paper/·codex_review/·.artifacts/에서 찾지 못했다. 메모만으로 서지를 쓰지 않고 사용자에게 경로를 요청했다. 두 연구 본문·위치 표·서지 추가는 원문 확인 후 같은 PR에서 처리.
+- M-2 수정: 사용자 제공 두 로컬 PDF를 확인해 2.4절·위치 표·서지에 추가. 스크린샷 이력 창/제거·정책 학습과 본 연구의 원본 재조회·API 청구 회계를 구분했다. 인용 첫 등장 순서와 번호 대응표 갱신; 결과 수치 추가 없음.
 - M-3 수정: III 3.1에 카드·텍스트 발췌·crop/썸네일·원본 조회·compact ID와 각 구현 경계. 기준 L118 및 L120의 D 호출·응답 선택·비용 문장은 V arm 정의 뒤로 이동; 기존 3.4는 3.1에 통합.
 - M-4 수정: VI에 도구 3종·자동 원본 재요청·턴 3/6 이미지 비우기·3왕복·temperature 0·호출별 출력 상한·모델/썸네일 차이·기존12+새12·세션 bootstrap 95% 명시. 결과 수치 추가 없음.
 - M-4 근거: origin/claude/experiment3-sessions 28fcb61의 preregistration §2–5·s3-cal-002 「동결한 설계」 및 session-harness/session-anthropic 소스. 제품 경계는 src/server/index.ts·src/core/types.ts.
