@@ -2,7 +2,7 @@
 
 ## Status and scope
 - Tier C: one initial-plan and one GREEN milestone independent Claude review; primary direct final review.
-- Implementation complete; milestone reviewed, minor corrections applied; commit/push/Draft and post-PR gate pending.
+- Delivered: implementation/milestone corrections committed and pushed; Draft PR #44 opened; post-PR gate PASS.
 - Base: main f4fa22c5993a34961777871c9dd6fa9a9b93f748; branch: codex/task-36-crop-image-tool.
 - Worktree: .artifacts/worktrees/task-36-crop-image-tool. Existing checkout/user changes preserved.
 - Read full codex_review/codex_task36_request_2026-10-15_crop-q75-tool.md; 2026-10-18 user update takes precedence.
@@ -25,7 +25,7 @@
 - [x] MCP image + provenance, status union, errors, existing seven tools' exact schema regression fixture.
 - [x] Boundary/race/no-write/encoder-failure tests; approved docs and generated bundle; focused refactor and gate.
 - [x] Claude milestone; address five minor findings and locally discovered test-client failure path.
-- [ ] Commit with Agent: codex, push, Draft PR main, post-PR gate, direct final review and report.
+- [x] Commit with Agent: codex, push, Draft PR main, post-PR gate and direct final review; user report follows.
 - Error precedence: shape → lookup → empty → read/validate → bounds → full-frame → size → alpha → encode/output validation.
 - Full-frame: original reference only, no encode/image/q75/output hash. Oversize partial: resize_required with validated source reference.
 - Cropped: JPEG base64 image plus source/region/dimensions/bytes/SHA/q75/jpeg-js 0.4.4/output-validation metadata.
@@ -55,7 +55,11 @@
 - Primary performs final review directly; runtime does not expose a verifiable exact primary model ID. No separate Astra reviewer called.
 
 ## Remaining delivery / approval
-- Final direct review must inspect final diff, tests, generated bundle, protected scope, HEAD/upstream/PR agreement and Draft state.
+- Final direct review: PASS WITH NOTES; inspected final diff, tests, reproducible generated bundle, protected scope and PR description. No unresolved blocker/major.
+- PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/44 — OPEN/Draft, base main. Implementation commit 470b239.
+- Post-PR gate PASS: npm run build; npm run typecheck; npm test -- --reporter=dot (833 passed/1 skipped, 30 files); npm run validate:plugin; npm run smoke:mcp; git diff --check. Rebuild left source/bundle clean.
+- HEAD/upstream/PR matched 470b239 before this delivery-only handoff commit; final remote agreement is checked again after its push.
+- Residual notes: accepted synchronous codec/RSS limits, one existing skipped test, exact primary-model identity not exposed by runtime; independent Claude identity verified.
 - Ready/merge/Task39 are not authorized. PR42/43 cross-review is deferred until Task36 delivery; no work on those branches.
 
 - Post-correction gate: focused 32/32; build/typecheck/full test (30 files, 833 passed/1 skipped)/validate:plugin/smoke:mcp/diff check PASS.
