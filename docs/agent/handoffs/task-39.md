@@ -2,7 +2,7 @@
 
 ## Status / scope
 - Tier C: Claude plan and milestone, npm gate, primary direct final review.
-- Status: scoped Claude APPROVE; minor spy correction verified; Draft PR delivery in progress (2026-10-19).
+- Status: PASS WITH NOTES; Draft PR #45 delivered and post-PR gate PASS (2026-10-19).
 - Base c2237ca23ae3f96d63ac2794ce34ecfd557a1415; branch codex/task-39-query-multi-match.
 - Worktree .artifacts/worktrees/task-39-query-multi-match; unrelated work preserved.
 - origin/main 32772ea differs only in research/plans/2026-10-18-ieee-references.md; no product overlap.
@@ -56,8 +56,12 @@
 - Exact model execution succeeded; Luna implemented; Claude did not implement. No usage/cost fields recorded.
 
 ## Remaining / risks
-- [x] Scoped Major closure; [ ] commit/push/Draft PR, post-PR gate and primary final review.
+- [x] Scoped Major closure, commit/push/Draft PR, post-PR gate and primary final review.
 - Approved greedy context allocation may omit more anchors than an anchor-first strategy.
 - Token estimator covers excerpt text only; optional memory/type cleanup notes not required for this fix.
 - Claude owns separate research rerun; no post-change claim of entity24/24 or33/33/full-keywords99/99.
-- Report implementation commit for benchmark; wait for user approval before Task40.
+- Benchmark implementation commit: 68fe59dea179563f209da9d48282d42ba3ceeeea; later delivery-note commits do not alter the bundle.
+- PR: https://github.com/kimcheolhui9846/token-context-optimizer/pull/45 (OPEN/Draft, base main, mergeable; no merge performed).
+- Post-PR build/typecheck/full test/validate:plugin/smoke:mcp/diff-check PASS;864 passed,1 existing skipped. Bundle unchanged by rebuild.
+- Primary direct final review: PASS WITH NOTES; actual source/test/schema diffs, local logs, scope and PR head checked; no unresolved blocker/major. Remaining optional bounded overlap optimization and separate Claude research rerun noted.
+- Final delivery-note commit checked separately with diff --check; no product changes after post-PR gate. Wait for user approval before Task40.
