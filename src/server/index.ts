@@ -116,20 +116,22 @@ export function createServer(): McpServer {
     "query_artifact",
     {
       description:
-        "Return bounded source excerpts for an indexed artifact with line evidence.",
+        "Return bounded source excerpts for an indexed artifact with line evidence. By default, include up to five excerpts around positive highest-score ties in file order; maxExcerpts can select 1-20 excerpts. Shared excerpt text counts once toward the token budget, and omitted matches are reported in moreMatches.",
       inputSchema: z.object({
         artifactId: z.string(),
         query: z.string(),
         maxTokens: z.number().int().positive().max(2000),
         contextLines: z.number().int().min(0).max(10).optional(),
+        maxExcerpts: z.number().int().min(1).max(20).optional(),
       }),
     },
-    async ({ artifactId, query, maxTokens, contextLines }) => {
+    async ({ artifactId, query, maxTokens, contextLines, maxExcerpts }) => {
       const output = queryArtifact({
         artifactId,
         query,
         maxTokens,
         contextLines,
+        maxExcerpts,
         store: defaultArtifactStore,
       });
       return {

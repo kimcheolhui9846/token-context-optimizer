@@ -8,7 +8,7 @@ import { validateJpeg } from "../src/core/jpeg-validation.js";
 import { CropMcpClient, type RpcResponse } from "./helpers/crop-mcp-client.js";
 import { deflateSync } from "node:zlib";
 
-const baseline = JSON.parse(await readFile("tests/fixtures/task36-base-tools.json", "utf8")) as { tools: any[] };
+const baseline = JSON.parse(await readFile("tests/fixtures/task39-base-tools.json", "utf8")) as { tools: any[] };
 const roots: string[] = [];
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
@@ -68,8 +68,22 @@ describe("crop_image_artifact MCP contract", () => {
     const root = await mkdtemp(join(tmpdir(), "tco-mcp-list-")); roots.push(root);
     await withClient(root, async (client) => {
       const tools = await client.listTools();
-      expect(tools.map((tool) => tool.name)).toEqual([...baseline.tools.map((tool: any) => tool.name), "crop_image_artifact"]);
-      for (const expected of baseline.tools) expect(tools.find((tool) => tool.name === expected.name)).toEqual(expected);
+      expect(tools.map((tool) => tool.name)).toEqual(baseline.tools.map((tool: any) => tool.name));
+      for (const expected of baseline.tools) {
+        const actual = tools.find((tool) => tool.name === expected.name);
+        if (expected.name === "query_artifact") {
+          expect(actual).toStrictEqual({
+            ...expected,
+            description: "Return bounded source excerpts for an indexed artifact with line evidence. By default, include up to five excerpts around positive highest-score ties in file order; maxExcerpts can select 1-20 excerpts. Shared excerpt text counts once toward the token budget, and omitted matches are reported in moreMatches.",
+            inputSchema: {
+              ...expected.inputSchema,
+              properties: { ...expected.inputSchema.properties, maxExcerpts: { type: "integer", minimum: 1, maximum: 20 } },
+            },
+          });
+        } else {
+          expect(actual).toEqual(expected);
+        }
+      }
       const crop = tools.find((tool) => tool.name === "crop_image_artifact");
       expect(crop.description).toMatch(/caller.*region/i);
       expect(crop.description).toMatch(/overview/i);

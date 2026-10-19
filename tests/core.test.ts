@@ -251,6 +251,69 @@ describe("artifact indexing and retrieval", () => {
     expect(result.estimatedTokens).toBeLessThanOrEqual(20);
   });
 
+  it("returns every distant highest-score anchor in file order", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "ties.log");
+    const lines = Array.from({ length: 140 }, (_, index) => `line ${index + 1}`);
+    lines[33] = "identifier first";
+    lines[135] = "identifier second";
+    await writeFile(filePath, lines.join("\n"), "utf8");
+
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path: filePath, store, allowedRoots: [dir] });
+    const result = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: "identifier",
+      maxTokens: 400,
+      contextLines: 1,
+      store,
+    });
+
+    expect(result.excerpts.map((excerpt) => excerpt.sourceMap.startLine)).toEqual([33, 135]);
+    expect(result.excerpts.map((excerpt) => excerpt.sourceMap.endLine)).toEqual([35, 137]);
+    expect(result.excerpts.map((excerpt) => excerpt.text)).toEqual([
+      "line 33\nidentifier first\nline 35",
+      "line 135\nidentifier second\nline 137",
+    ]);
+    const source = Buffer.from(lines.join("\n"), "utf8");
+    const firstText = result.excerpts[0].text;
+    const secondText = result.excerpts[1].text;
+    const firstStart = source.indexOf(Buffer.from(firstText, "utf8"));
+    const secondStart = source.indexOf(Buffer.from(secondText, "utf8"));
+    expect(result.excerpts.map((excerpt) => excerpt.sourceMap.startByte)).toEqual([
+      firstStart,
+      secondStart,
+    ]);
+    expect(result.excerpts.map((excerpt) => excerpt.sourceMap.endByte)).toEqual([
+      firstStart + Buffer.byteLength(firstText, "utf8"),
+      secondStart + Buffer.byteLength(secondText, "utf8"),
+    ]);
+    expect(result).not.toHaveProperty("moreMatches");
+  });
+
+  it("keeps only the legacy first span when maxExcerpts is one", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "single.log");
+    await writeFile(filePath, "before\nidentifier first\nafter\nfar\nidentifier second\nend", "utf8");
+
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path: filePath, store, allowedRoots: [dir] });
+    const result = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: "identifier",
+      maxTokens: 100,
+      contextLines: 1,
+      maxExcerpts: 1,
+      store,
+    });
+
+    expect(result.excerpts).toHaveLength(1);
+    expect(result.excerpts[0].text).toBe("before\nidentifier first\nafter");
+    expect(result.excerpts[0].sourceMap.startLine).toBe(1);
+    expect(result.excerpts[0].sourceMap.endLine).toBe(3);
+    expect(result.moreMatches).toEqual({ count: 1, lines: [5] });
+  });
+
   it("retrieves Korean query terms with line evidence", async () => {
     const dir = await mkdtemp(join(tmpdir(), "tco-"));
     const filePath = join(dir, "notes.md");

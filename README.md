@@ -4,6 +4,10 @@ Codex plugin and local STDIO MCP server for safer token-efficient context handli
 
 The MVP indexes local UTF-8 text artifacts, records SHA-256 and line source maps, returns bounded source-backed excerpts, and blocks lossy summaries for exact-sensitive content.
 
+`query_artifact` returns up to five source excerpts around positive matches tied for the highest score by default. Candidates are retained in file order; lower-scoring lines are not added. Set `maxExcerpts` to an integer from 1 through 20 to change the cap. `maxExcerpts: 1` preserves the legacy first span and can still report omitted ties in `moreMatches`.
+
+The first accepted excerpt uses the earliest fitting highest-score anchor. When the earliest anchor fits, its legacy context-first span is preserved and overlapping later context may expand it; an oversized earliest anchor is skipped in default multi-excerpt mode, while explicit `maxExcerpts: 1` preserves the legacy refusal. Later excerpts are whole-line windows fitted into the shared `maxTokens` budget, with shared text counted once. `moreMatches` appears only when tied anchors remain uncovered and reports their exact count plus the first 20 line numbers; it is absent for unique best matches and complete coverage. A no-fit multi-tie response keeps the legacy `complete_span_required` or `source_span_exceeds_budget` fallback and adds omission metadata, while partial success keeps `warnings: []` and `fallbackReason: null`. The metadata is outside `estimatedTokens`, which sums estimated token counts for returned excerpt texts; each source map retains complete UTF-8 line boundaries.
+
 The current research direction is **image context optimization first**, with paper
 writing taking priority over feature development. Alongside the text MVP,
 [restricted PNG/JPEG ingest, inspection, and crop](docs/image-artifacts.md) provides
