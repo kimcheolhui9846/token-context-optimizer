@@ -23416,21 +23416,67 @@ async function indexArtifact(input) {
   return record2;
 }
 function queryArtifact(input) {
+  const requestedMaxExcerpts = input.maxExcerpts;
+  if (requestedMaxExcerpts !== void 0 && (typeof requestedMaxExcerpts !== "number" || !Number.isInteger(requestedMaxExcerpts) || requestedMaxExcerpts < 1 || requestedMaxExcerpts > 20)) {
+    throw new Error("maxExcerpts must be an integer from 1 to 20");
+  }
+  const maxExcerpts = requestedMaxExcerpts ?? 5;
   const store = input.store ?? defaultArtifactStore;
   const artifact = requireArtifact(store, input.artifactId);
   const contextLines = input.contextLines ?? 2;
-  const match = findBestLine(artifact, input.query);
+  const match = findBestLines(artifact, input.query);
   if (match.reason) {
     return {
       ...commonFields(artifact, 0, [match.warning], match.reason),
       excerpts: []
     };
   }
-  const bestLine = match.index;
-  const startIndex = Math.max(0, bestLine - contextLines);
-  const endIndex = Math.min(artifact.sourceMap.length - 1, bestLine + contextLines);
-  const span = fitCompleteLineSpan(artifact, startIndex, bestLine, endIndex, input.maxTokens);
-  if (!span) {
+  const anchors = match.indices;
+  const firstSpan = fitCompleteLineSpan(
+    artifact,
+    Math.max(0, anchors[0] - contextLines),
+    anchors[0],
+    Math.min(artifact.sourceMap.length - 1, anchors[0] + contextLines),
+    input.maxTokens
+  );
+  const intervals = firstSpan ? [firstSpan] : [];
+  let acceptedCost = firstSpan ? totalSpanTokens(artifact, intervals) : 0;
+  if (maxExcerpts === 1) {
+    const response2 = buildQueryResponse(artifact, intervals);
+    const moreMatches2 = anchors.length > 1 ? omittedMatches(anchors, intervals) : void 0;
+    if (response2.excerpts.length === 0) {
+      return {
+        ...commonFields(artifact, 0, ["complete_span_required"], "source_span_exceeds_budget"),
+        excerpts: [],
+        ...moreMatches2 ? { moreMatches: moreMatches2 } : {}
+      };
+    }
+    return { ...response2, ...moreMatches2 ? { moreMatches: moreMatches2 } : {} };
+  }
+  for (const anchor of anchors.slice(1)) {
+    const lastSpan = intervals[intervals.length - 1];
+    if (intervals.length >= maxExcerpts && anchor - contextLines > lastSpan.endIndex) {
+      break;
+    }
+    if (intervals.some((span) => anchor >= span.startIndex && anchor <= span.endIndex)) {
+      continue;
+    }
+    const candidate = fitAdditionalSpan(
+      artifact,
+      anchor,
+      contextLines,
+      intervals,
+      input.maxTokens,
+      maxExcerpts,
+      acceptedCost
+    );
+    if (candidate) {
+      mergeSpan(intervals, candidate);
+      acceptedCost = totalSpanTokens(artifact, intervals);
+    }
+  }
+  if (intervals.length === 0) {
+    const moreMatches2 = anchors.length > 1 ? omittedMatches(anchors, intervals) : void 0;
     return {
       ...commonFields(
         artifact,
@@ -23438,27 +23484,77 @@ function queryArtifact(input) {
         ["complete_span_required"],
         "source_span_exceeds_budget"
       ),
-      excerpts: []
+      excerpts: [],
+      ...moreMatches2 ? { moreMatches: moreMatches2 } : {}
     };
   }
-  const text = renderSpanText(artifact, span.startIndex, span.endIndex);
-  const estimatedTokens = estimateTextTokens(text);
-  return {
-    ...commonFields(artifact, estimatedTokens, [], null),
-    excerpts: [
-      {
-        text,
-        sourceMap: {
-          path: artifact.path,
-          startLine: span.startIndex + 1,
-          endLine: span.endIndex + 1,
-          startByte: artifact.sourceMap[span.startIndex].startByte,
-          endByte: artifact.sourceMap[span.endIndex].endByte,
-          completeSpan: true
-        }
+  const response = buildQueryResponse(artifact, intervals);
+  const moreMatches = omittedMatches(anchors, intervals);
+  return { ...response, ...moreMatches ? { moreMatches } : {} };
+}
+function buildQueryResponse(artifact, intervals) {
+  const excerpts = intervals.map((span) => {
+    const text = renderSpanText(artifact, span.startIndex, span.endIndex);
+    return {
+      text,
+      sourceMap: {
+        path: artifact.path,
+        startLine: span.startIndex + 1,
+        endLine: span.endIndex + 1,
+        startByte: artifact.sourceMap[span.startIndex].startByte,
+        endByte: artifact.sourceMap[span.endIndex].endByte,
+        completeSpan: true
       }
-    ]
+    };
+  });
+  return {
+    ...commonFields(artifact, excerpts.reduce((sum, excerpt) => sum + estimateTextTokens(excerpt.text), 0), [], null),
+    excerpts
   };
+}
+function omittedMatches(anchors, intervals) {
+  const lines = anchors.filter((anchor) => !intervals.some((span) => anchor >= span.startIndex && anchor <= span.endIndex)).map((anchor) => anchor + 1);
+  return lines.length === 0 ? void 0 : { count: lines.length, lines: lines.slice(0, 20) };
+}
+function fitAdditionalSpan(artifact, anchor, contextLines, accepted, maxTokens, maxExcerpts, acceptedCost) {
+  let startIndex = Math.max(0, anchor - contextLines);
+  let endIndex = Math.min(artifact.sourceMap.length - 1, anchor + contextLines);
+  const remaining = maxTokens - acceptedCost;
+  const anchorCost = estimateTextTokens(artifact.sourceMap[anchor].text);
+  const disjoint = accepted.length === 0 || startIndex > accepted[accepted.length - 1].endIndex;
+  if (disjoint && anchorCost > remaining) return null;
+  while (startIndex <= endIndex) {
+    const candidate = { startIndex, endIndex };
+    const overlaps = accepted.some((span) => candidate.startIndex <= span.endIndex && candidate.endIndex >= span.startIndex);
+    const merged = mergeSpans([...accepted, candidate]);
+    if ((overlaps || accepted.length < maxExcerpts) && totalSpanTokens(artifact, merged) <= maxTokens) {
+      return candidate;
+    }
+    if (startIndex === endIndex) break;
+    if (anchor - startIndex >= endIndex - anchor && startIndex < anchor) startIndex += 1;
+    else if (endIndex > anchor) endIndex -= 1;
+    else startIndex += 1;
+  }
+  return null;
+}
+function mergeSpan(intervals, candidate) {
+  intervals.splice(0, intervals.length, ...mergeSpans([...intervals, candidate]));
+}
+function mergeSpans(intervals) {
+  const sorted = [...intervals].sort((a, b) => a.startIndex - b.startIndex);
+  const merged = [];
+  for (const span of sorted) {
+    const previous = merged[merged.length - 1];
+    if (previous && span.startIndex <= previous.endIndex) {
+      previous.endIndex = Math.max(previous.endIndex, span.endIndex);
+    } else {
+      merged.push({ ...span });
+    }
+  }
+  return merged;
+}
+function totalSpanTokens(artifact, intervals) {
+  return intervals.reduce((sum, span) => sum + estimateTextTokens(renderSpanText(artifact, span.startIndex, span.endIndex)), 0);
 }
 function summarizeArtifact(input) {
   const store = input.store ?? defaultArtifactStore;
@@ -23519,18 +23615,18 @@ function buildSourceMap(content) {
     return sourceLine;
   });
 }
-function findBestLine(artifact, query) {
+function findBestLines(artifact, query) {
   const terms = tokenize(query);
   if (terms.length === 0) {
     return {
-      index: 0,
+      indices: [0],
       score: 0,
       reason: "no_query_terms",
       warning: "query_has_no_searchable_terms"
     };
   }
-  let bestIndex = 0;
   let bestScore = -1;
+  const indices = [];
   artifact.sourceMap.forEach((line, index) => {
     const lower = normalizeSearchText(line.text);
     const score = terms.reduce(
@@ -23539,18 +23635,25 @@ function findBestLine(artifact, query) {
     );
     if (score > bestScore) {
       bestScore = score;
-      bestIndex = index;
+      indices.length = 0;
+      indices.push(index);
+    } else if (score === bestScore) {
+      indices.push(index);
     }
   });
   if (bestScore <= 0) {
     return {
-      index: bestIndex,
+      indices: [indices[0] ?? 0],
       score: bestScore,
       reason: "no_query_match",
       warning: "query_terms_not_found"
     };
   }
-  return { index: bestIndex, score: bestScore, warning: "" };
+  return {
+    indices,
+    score: bestScore,
+    warning: ""
+  };
 }
 function fitCompleteSummaryLines(lines, maxTokens) {
   const selected = [];
@@ -26243,20 +26346,22 @@ function createServer() {
   server.registerTool(
     "query_artifact",
     {
-      description: "Return bounded source excerpts for an indexed artifact with line evidence.",
+      description: "Return bounded source excerpts for an indexed artifact with line evidence. By default, include up to five excerpts around positive highest-score ties in file order; maxExcerpts can select 1-20 excerpts. Shared excerpt text counts once toward the token budget, and omitted matches are reported in moreMatches.",
       inputSchema: object({
         artifactId: string2(),
         query: string2(),
         maxTokens: number2().int().positive().max(2e3),
-        contextLines: number2().int().min(0).max(10).optional()
+        contextLines: number2().int().min(0).max(10).optional(),
+        maxExcerpts: number2().int().min(1).max(20).optional()
       })
     },
-    async ({ artifactId, query, maxTokens, contextLines }) => {
+    async ({ artifactId, query, maxTokens, contextLines, maxExcerpts }) => {
       const output = queryArtifact({
         artifactId,
         query,
         maxTokens,
         contextLines,
+        maxExcerpts,
         store: defaultArtifactStore
       });
       return {
