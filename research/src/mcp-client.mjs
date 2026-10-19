@@ -6,8 +6,9 @@ import { researchDir } from "./env.mjs";
 
 export const PLUGIN_BUNDLE = resolve(researchDir, "..", "bin", "token-context-optimizer.mjs");
 
-export async function startPlugin({ allowedRoots }) {
-  const child = spawn(process.execPath, [PLUGIN_BUNDLE], {
+// bundle: another build of the plugin to compare against (e.g. a PR head extracted with git show); defaults to this checkout.
+export async function startPlugin({ allowedRoots, bundle = PLUGIN_BUNDLE }) {
+  const child = spawn(process.execPath, [resolve(bundle)], {
     env: { ...process.env, TCO_ALLOWED_ROOTS: allowedRoots.join(";") },
     stdio: ["pipe", "pipe", "pipe"],
     windowsHide: true,
