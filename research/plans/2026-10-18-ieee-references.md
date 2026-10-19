@@ -34,35 +34,35 @@
 
 [13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," arXiv:2512.01763v2, 2026.
 
-[14] OpenAI, "Images and vision," OpenAI API documentation. [Online]. Available: https://developers.openai.com/api/docs/guides/images-vision (accessed Oct. 7, 2026).
+[14] OpenAI, "Images and vision," OpenAI API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://developers.openai.com/api/docs/guides/images-vision
 
-[15] OpenAI, "GPT-4o," OpenAI API documentation. [Online]. Available: https://developers.openai.com/api/docs/models/gpt-4o (accessed Oct. 7, 2026).
+[15] OpenAI, "GPT-4o," OpenAI API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://developers.openai.com/api/docs/models/gpt-4o
 
-[16] OpenAI, "GPT-5.6 Sol," OpenAI API documentation. [Online]. Available: https://developers.openai.com/api/docs/models/gpt-5.6-sol (accessed Oct. 7, 2026).
+[16] OpenAI, "GPT-5.6 Sol," OpenAI API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://developers.openai.com/api/docs/models/gpt-5.6-sol
 
-[17] Anthropic, "Vision," Claude platform documentation. [Online]. Available: https://platform.claude.com/docs/en/build-with-claude/vision (accessed Oct. 7, 2026).
+[17] Anthropic, "Vision," Claude platform documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://platform.claude.com/docs/en/build-with-claude/vision
 
-[18] Anthropic, "Vision coordinates and bounding boxes," Claude platform documentation. [Online]. Available: https://platform.claude.com/docs/en/build-with-claude/vision-coordinates (accessed Oct. 7, 2026).
+[18] Anthropic, "Vision coordinates and bounding boxes," Claude platform documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://platform.claude.com/docs/en/build-with-claude/vision-coordinates
 
-[19] Anthropic, "Models overview," Claude platform documentation. [Online]. Available: https://platform.claude.com/docs/en/models/overview (accessed Oct. 7, 2026).
+[19] Anthropic, "Models overview," Claude platform documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://platform.claude.com/docs/en/models/overview
 
-[20] Anthropic, "Sonnet 5.5 model overview," Claude platform documentation. [Online]. Available: https://platform.claude.com/docs/en/models/sonnet-5-5/overview (accessed Oct. 7, 2026).
+[20] Anthropic, "Sonnet 5.5 model overview," Claude platform documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://platform.claude.com/docs/en/models/sonnet-5-5/overview
 
-[21] Google, "Media resolution," Gemini API documentation. [Online]. Available: https://ai.google.dev/gemini-api/docs/media-resolution (accessed Oct. 7, 2026).
+[21] Google, "Media resolution," Gemini API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://ai.google.dev/gemini-api/docs/media-resolution
 
-[22] Google, "Image understanding," Gemini API documentation. [Online]. Available: https://ai.google.dev/gemini-api/docs/image-understanding (accessed Oct. 7, 2026).
+[22] Google, "Image understanding," Gemini API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://ai.google.dev/gemini-api/docs/image-understanding
 
-[23] Google, "Pricing," Gemini API documentation. [Online]. Available: https://ai.google.dev/gemini-api/docs/pricing (accessed Oct. 7, 2026).
+[23] Google, "Pricing," Gemini API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://ai.google.dev/gemini-api/docs/pricing
 
-[24] Google, "Gemini 3.8 Flash," Gemini API documentation. [Online]. Available: https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash (accessed Oct. 7, 2026).
+[24] Google, "Gemini 3.8 Flash," Gemini API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash
 
 ## 2. Task 38에서 추가될 후보 (번호 미정)
 
 Task 38이 캐시 할인율 근거를 본문에 쓰면 아래 두 항목이 필요하다([Task 38 수치 대조표](./2026-10-18-task38-number-sheet.md) §4 C-1·C-2). 인용 첫 등장 위치에 따라 번호를 매긴다.
 
-- OpenAI, "Pricing," OpenAI API documentation. [Online]. Available: https://developers.openai.com/api/docs/pricing (accessed Oct. 18, 2026).
+- OpenAI, "Pricing," OpenAI API documentation. Accessed: Oct. 18, 2026. [Online]. Available: https://developers.openai.com/api/docs/pricing
   - 실험 3 결과 README(`results/s3-heldout/README.md:51`)는 2026-10-15 확인을 기록했지만 URL이 없다. 2026-10-18 Claude가 이 URL에서 `gpt-4o` 행(입력 $2.50, 캐시 입력 $1.25, 출력 $10.00 / 1M)을 다시 확인했다. 확인일은 둘 중 하나로 통일한다(권장: 2026-10-18, URL과 함께 확인한 날).
-- Anthropic, "Pricing," Claude platform documentation. [Online]. Available: https://platform.claude.com/docs/en/about-claude/pricing (accessed Oct. 18, 2026).
+- Anthropic, "Pricing," Claude platform documentation. Accessed: Oct. 18, 2026. [Online]. Available: https://platform.claude.com/docs/en/about-claude/pricing
 
 ## 3. 항목별 확인 근거
 
@@ -75,9 +75,11 @@ Task 38이 캐시 할인율 근거를 본문에 쓰면 아래 두 항목이 필�
 | [6] | 저자 8명, 학회 정식명 | CVF 공식 페이지 bibtex(`Singh_2019_CVPR`). **쪽 번호가 bibtex에 없어 넣지 않았다.** arXiv 1904.08920 저자 8명 일치 |
 | [7] | 저자 5명, 쪽 | CVF 공식 페이지 bibtex(`Gao_2026_CVPR`) |
 | [8] | 저자 10명, 쪽. 원고의 "MetaCompress arXiv:2603.21701v1" 병기를 뺐다 | CVF 공식 페이지 bibtex(`Wang_2026_CVPR`). arXiv 2603.21701v1의 제목·저자 10명이 CVF와 같다. 같은 논문이므로 학회판 하나만 쓴다 |
-| [14]–[24] | Markdown 링크를 IEEE 온라인 자료 형식으로 바꿨다. 확인일은 원고 그대로(Oct. 7, 2026). 다시 조회하지 않았다 | 원고 서지 |
+| [14]–[24] | Markdown 링크를 IEEE 온라인 자료 형식으로 바꿨다. 확인일은 `Accessed: Oct. 7, 2026.`을 `[Online]. Available:` 앞에 두는 형식으로 통일했다(PR #43 리뷰 Nit). 날짜는 원고 그대로이고 다시 조회하지 않았다 | 원고 서지, IEEE Reference Guide |
 
 - CVF 페이지는 일반 HTTP 요청에 403을 돌려준다. 이번에는 브라우저(Playwright)로 열어 페이지의 bibtex 블록을 그대로 읽었다. 기존 출처 기록(`docs/research/image-first-sources.md`)의 "직접 접근 403, 검색 색인 확인"보다 한 단계 직접적인 확인이다.
+- 교차 검토 상태(PR #43, Codex): [3]·[6]·[7]·[8]의 학회판 쪽·DOI와 [7]의 저자는 Codex가 독립 확인하지 못했다(CVF 직접 요청 403, 연결된 브라우저 없음). 위 근거는 Claude의 브라우저 열람 한 번뿐이다. 투고 전 CVF 페이지나 학회 PDF로 한 번 더 직접 확인한다.
+- [6] 쪽 번호 후보: CVF 검색 색인에 8317–8326이 있다(Codex 보고). 2026-10-19 Claude의 직접 요청도 403이라 확인하지 못했다. 본문 페이지나 학회 PDF에서 직접 확인하기 전에는 넣지 않는다.
 - arXiv 예비 논문([1], [2], [12], [13])의 학회 게재 여부는 투고 직전에 다시 확인한다(관련 연구 메모 §4 "남은 확인").
 
 ## 4. 원고에 반영할 때의 주의
