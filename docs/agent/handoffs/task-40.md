@@ -2,7 +2,7 @@
 
 ## Status / scope
 - Tier D; task-specific requirements: one Claude plan review and root npm gate.
-- Status: approved wording implemented; targeted and full gate PASS; Draft PR delivery pending.
+- Status: PASS WITH NOTES; approved wording delivered in Draft PR47; post-PR npm gate PASS.
 - Base: main 49c6cc685c022b9e508d406561878ea732824d62.
 - Branch/worktree: codex/task-40-compact-skill-rules / .artifacts/worktrees/task-40-compact-skill-rules.
 - Scope: skills/optimize-context/SKILL.md and this handoff only. No code/schema/tests/config/dependency/research/paper changes.
@@ -49,6 +49,10 @@
 - Direct reading confirmed seven rules, actual schemas, evidence limits, link targets and unchanged safety/verification sections.
 
 ## Remaining / final review
-- [ ] Commit/push, Draft PR(main), post-PR npm gate and primary final review.
+- [x] Commit/push, Draft PR(main), post-PR npm gate and primary final review.
+- Implementation commit:f10d710fa182e05527fd6658e906bbfa8dbf51d0; Agent: codex trailer; delivery-note commit changes only this handoff.
+- PR:https://github.com/kimcheolhui9846/token-context-optimizer/pull/47; OPEN/Draft, base main; no merge performed.
+- Post-PR root build/typecheck/test/validate:plugin/smoke:mcp/diff-check PASS;864 passed,1 existing skipped,32files. No product changes after this gate.
+- Primary direct final review:PASS WITH NOTES; applied text/approved plan, Claude dispositions, schemas, protected scope, tests, commit/push and Draft PR checked. Only two Markdown files delivered.
 - Known limitation: documentation and software checks do not establish improved model accuracy, recall or billed cost.
 - Keep worktree for review; no Ready/merge/Task37 before explicit user instruction.
