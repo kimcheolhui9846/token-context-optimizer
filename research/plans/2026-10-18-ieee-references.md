@@ -1,6 +1,6 @@
 # 참고문헌 IEEE 정리본 (조판 입력)
 
-- 작성: Claude Code, 2026-10-18. 상태: **초안(Draft PR, Codex 교차 검토 전)**
+- 작성: Claude Code, 2026-10-18. 상태: **PR #43 merge(`32772ea`, Codex 교차 검토 Approve). 2026-10-20 [3]·[6]·[7]·[8] 재확인과 IEIE 양식 대조는 §5(결정 R1–R3 승인·반영). §6 후속 확인: [11] 장소 반영, [1] 학회판 반영(결정 R4 승인)**
 - 기준: main `f4fa22c`의 `docs/research/image-first-paper-draft.ko.md` 참고문헌 [1]–[24](PR #41 merge본). 번호와 순서는 원고와 같다.
 - 목적: hwp 조판 때 그대로 붙여 넣을 영문 IEEE식 목록이다. PR #41 리뷰 m-2(참고문헌 형식 혼재)의 조판 입력이다.
 - **이 문서는 논문 원고를 고치지 않는다.** 원고 반영은 Task 38(문서) 또는 조판 단계에서 한다. Task 38이 새 참고문헌을 추가하면 번호가 바뀌므로, 반영 직전에 이 목록의 번호를 다시 맞춘다.
@@ -8,27 +8,27 @@
 
 ## 1. 정리본
 
-[1] A. Chaturvedi, S. Bhattacharya, R. Gopalkrishnan, and P. van der Putten, "DTOC: Dynamic tool output compression for adaptive context management in AI agents," arXiv:2609.26121, 2026.
+[1] A. Chaturvedi, S. Bhattacharya, R. Gopalkrishnan, and P. van der Putten, "DTOC: Dynamic tool output compression for adaptive context management in AI agents," in *Discovery Science (DS 2026)*, Lect. Notes Comput. Sci., vol. 17130, pp. 333–347, Mainz, Germany, Oct. 2026, doi: 10.1007/978-3-032-41086-3_22, arXiv:2609.26121.
 
 [2] X. Li, R. Ming, M. Chu, S. Shao, R. Jin, and C. Xiong, "ACM: Agentic context management for long horizon tasks," arXiv:2607.23809, 2026.
 
-[3] M. Mathew, D. Karatzas, and C. V. Jawahar, "DocVQA: A dataset for VQA on document images," in *Proc. IEEE/CVF Winter Conf. Appl. Comput. Vis. (WACV)*, Jan. 2021, pp. 2200–2209.
+[3] M. Mathew, D. Karatzas, and C. V. Jawahar, "DocVQA: A dataset for VQA on document images," in *Proc. IEEE/CVF Winter Conf. Appl. Comput. Vis. (WACV)*, pp. 2199–2208, Waikoloa, HI, USA, Jan. 2021, doi: 10.1109/WACV48630.2021.00225.
 
-[4] A. Masry, D. X. Long, J. Q. Tan, S. Joty, and E. Hoque, "ChartQA: A benchmark for question answering about charts with visual and logical reasoning," in *Findings Assoc. Comput. Linguist.: ACL 2022*, Dublin, Ireland, May 2022, pp. 2263–2279, doi: 10.18653/v1/2022.findings-acl.177.
+[4] A. Masry, D. X. Long, J. Q. Tan, S. Joty, and E. Hoque, "ChartQA: A benchmark for question answering about charts with visual and logical reasoning," in *Findings Assoc. Comput. Linguist.: ACL 2022*, pp. 2263–2279, Dublin, Ireland, May 2022, doi: 10.18653/v1/2022.findings-acl.177.
 
-[5] Y.-C. Hsiao, F. Zubach, G. Baechler, S. Sunkara, V. Carbune, J. Lin, M. Wang, Y. Zhu, and J. Chen, "ScreenQA: Large-scale question-answer pairs over mobile app screenshots," in *Proc. 2025 Conf. Nations Americas Chapter Assoc. Comput. Linguist.: Hum. Lang. Technol. (NAACL), Vol. 1 (Long Papers)*, Albuquerque, NM, USA, Apr. 2025, pp. 9427–9452, doi: 10.18653/v1/2025.naacl-long.477.
+[5] Y.-C. Hsiao, F. Zubach, G. Baechler, S. Sunkara, V. Carbune, J. Lin, M. Wang, Y. Zhu, and J. Chen, "ScreenQA: Large-scale question-answer pairs over mobile app screenshots," in *Proc. 2025 Conf. Nations Americas Chapter Assoc. Comput. Linguist.: Hum. Lang. Technol. (NAACL), Vol. 1 (Long Papers)*, pp. 9427–9452, Albuquerque, NM, USA, Apr. 2025, doi: 10.18653/v1/2025.naacl-long.477.
 
-[6] A. Singh, V. Natarajan, M. Shah, Y. Jiang, X. Chen, D. Batra, D. Parikh, and M. Rohrbach, "Towards VQA models that can read," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, Jun. 2019.
+[6] A. Singh, V. Natarajan, M. Shah, Y. Jiang, X. Chen, D. Batra, D. Parikh, and M. Rohrbach, "Towards VQA models that can read," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 8309–8318, Long Beach, CA, USA, Jun. 2019, doi: 10.1109/CVPR.2019.00851.
 
-[7] T. Gao, S. Zhao, S. Fang, S. Zhu, and C. Ma, "QuietPrune: Query-guided early token pruning for vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, Jun. 2026, pp. 3553–3562.
+[7] T. Gao, S. Zhao, S. Fang, S. Zhu, and C. Ma, "QuietPrune: Query-guided early token pruning for vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 3553–3562, Denver, CO, USA, Jun. 2026.
 
-[8] Y. Wang, H. Zhang, Q. Huang, A. Cao, G. Fang, W. Wang, X. Jin, J. Song, M. Song, and X. Wang, "Rethinking token reduction for large vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, Jun. 2026, pp. 24727–24737.
+[8] Y. Wang, H. Zhang, Q. Huang, A. Cao, G. Fang, W. Wang, X. Jin, J. Song, M. Song, and X. Wang, "Rethinking token reduction for large vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 24727–24737, Denver, CO, USA, Jun. 2026.
 
 [9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," arXiv:2310.05736, 2023.
 
 [10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with compression and selective augmentation," arXiv:2310.04408, 2023.
 
-[11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, "The complexity trap: Simple observation masking is as efficient as LLM summarization for agent context management," in *NeurIPS 2025 Workshop: Deep Learning for Code in the Agentic Era*, 2025, arXiv:2508.21433.
+[11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, "The complexity trap: Simple observation masking is as efficient as LLM summarization for agent context management," in *4th Workshop Deep Learn. Code (DL4C), NeurIPS 2025*, San Diego, CA, USA, Dec. 2025, arXiv:2508.21433.
 
 [12] S. Fan, M. Li, X. Ma, W. Tan, X. Huang, J. Wu, L. Zhang, S. Shang, and W. Chen, "Screenshots or tools? Eliciting tool use and managing multimodal context in hybrid GUI–MCP computer-use agents," arXiv:2608.03327v2, 2026.
 
@@ -87,3 +87,79 @@ Task 38이 캐시 할인율 근거를 본문에 쓰면 아래 두 항목이 필�
 - 본문 범위 인용은 이미 "[12]–[22]" 형식이다(PR #41). 번호가 바뀌면 범위 표기도 함께 고친다.
 - [8] 병기 삭제는 서지 표기만 바꾼다. 본문이 MetaCompress라는 이름을 쓰지 않는 것을 원고에서 확인한 뒤 반영한다(현재 원고 L68은 "Rethinking Token Reduction"으로 쓴다).
 - 이 목록의 영문 제목 대소문자(sentence case)는 IEEE 관행이다. IEIE 예시가 title case를 요구하면 원 제목 표기로 되돌린다(형식 메모에서 확인되지 않음, 조판 때 양식 예시와 대조).
+
+## 5. 2026-10-20 재확인과 IEIE 양식 대조 (결정 R1–R3 승인·반영)
+
+§3 L81–L82의 "투고 전 재확인" 항목을 처리했다. 결정 R1–R3 승인에 따라 §1의 [3]–[8]을 바꿨다.
+
+### 5.1 직접 확인 결과
+
+| 번호 | CVF 공식 페이지 bibtex(직접 HTTP 요청, 이번에는 200) | IEEE Xplore 판(Crossref API) | 판정 |
+|---|---|---|---|
+| [3] | 저자 3명 일치, `pages = {2200-2209}` | DOI `10.1109/WACV48630.2021.00225`, pp. 2199–2208, Waikoloa, HI, USA | 저자 확정. 쪽은 판에 따라 1쪽씩 다르다(R1) |
+| [6] | 저자 8명 일치, 쪽 없음 | DOI `10.1109/CVPR.2019.00851`, pp. 8309–8318, Long Beach, CA, USA | 저자 확정. Xplore 쪽이 생겼다. §3의 후보 8317–8326은 근거가 색인뿐이라 쓰지 않는다 |
+| [7] | 저자 5명(Tianxiao Gao, Shanwei Zhao, Shuo Fang, Shiai Zhu, Chenguang Ma) 일치, `pages = {3553-3562}` | 없음(CVPR 2026 본 트랙은 2026-10-20 Crossref에 미등록) | 저자·쪽 확정. DOI 없음(R3) |
+| [8] | 저자 10명 일치, `pages = {24727-24737}` | 없음(위와 같음) | 저자·쪽 확정. DOI 없음(R3) |
+
+- CVF 페이지 4개: `openaccess.thecvf.com/content/WACV2021/html/Mathew_DocVQA_…`, `content_CVPR_2019/html/Singh_Towards_VQA_…`, `content/CVPR2026/html/Gao_QuietPrune_Query-Guided_…`, `content/CVPR2026/html/Wang_Rethinking_Token_Reduction_…`
+- CVPR 2026 장소: 같은 학회 Findings 트랙의 Crossref 기록(`10.1109/cvprf71909.2026.00676`) event가 "Denver, CO, USA, 2026-06-03–07"이다.
+- [7] 제목 원문은 "Query-Guided"(대문자 G)다. §1의 "Query-guided"는 sentence case 변환이므로 그대로 둔다.
+
+### 5.2 IEIE 양식 예시와의 차이
+
+정규논문 양식 hwp(학회 논문양식 게시판, `upfile_221007125411307.hwp`, 2026-10-20 내려받음)의 REFERENCES 예시와 "References 작성요령"을 읽었다.
+
+- 학술회의 형식: "저자명, 제목, 논문지명, 쪽, 개최장소, 국가, 년월."
+  - 예: `in Proc. IEEE Conf. on Acoustics, Speech and Signal Processing, pp. 2529-2532, Munich, Germany, May 1997.`
+  - §1은 IEEE Reference Guide 순서(장소 → 년월 → 쪽)이고, [3]·[6]·[7]·[8]은 장소가 없다. **IEIE는 쪽 → 장소 → 국가 → 년월 순이고 장소가 필수다.**
+- 제목 대소문자: 예시가 sentence case다("Blocking artifacts reduction in image compression …"). §4 L89의 우려는 해소됐다. sentence case를 유지한다.
+- 논문지·학회명은 이탤릭이다(작성요령). §1과 같다.
+- 본문 인용 번호는 "인용문 우측 상단의 [] 안"(윗첨자)이다. 원고의 줄 안 [n] 표기는 조판 때 윗첨자로 바꾼다.
+
+### 5.3 결정 항목 (2026-10-20 사용자 승인: R1–R3 모두 권장안)
+
+- **R1 학회판 선택:** 쪽 번호와 DOI를 어느 판에서 가져올지 정한다.
+  - (권장) DOI가 있으면 IEEE Xplore 판의 쪽과 DOI를 쓴다. [3] pp. 2199–2208, [6] pp. 8309–8318. IEIE 예시도 IEEE 출판물 형식이고, DOI로 추적할 수 있다.
+  - 또는 CVF 오픈 액세스 판의 쪽을 쓴다. [3] pp. 2200–2209, [6] 쪽 없음.
+- **R2 요소 순서:** 학술회의 항목([3]–[8], [11])을 IEIE 예시 순서(쪽, 장소, 국가, 년월)로 바꿀지 정한다.
+  - (권장) IEIE 순서로 바꾼다. 투고처 양식이 우선이다.
+  - DOI는 IEIE 예시에 없다. 권장안은 맨 끝에 `doi:`를 둔다.
+  - [11] NeurIPS 2025 워크숍의 장소는 아직 확인하지 않았다. 반영 전에 확인한다.
+- **R3 CVPR 2026 DOI:** [7]·[8]은 지금 DOI가 없다.
+  - (권장) CVF 쪽으로 쓰고 장소 "Denver, CO, USA"를 넣는다. 투고 직전에 Xplore 등재를 다시 확인하고, 등재됐으면 DOI를 넣는다.
+
+### 5.4 권장안을 적용한 모습 (2026-10-20 §1에 반영함)
+
+[3] M. Mathew, D. Karatzas, and C. V. Jawahar, "DocVQA: A dataset for VQA on document images," in *Proc. IEEE/CVF Winter Conf. Appl. Comput. Vis. (WACV)*, pp. 2199–2208, Waikoloa, HI, USA, Jan. 2021, doi: 10.1109/WACV48630.2021.00225.
+
+[6] A. Singh, V. Natarajan, M. Shah, Y. Jiang, X. Chen, D. Batra, D. Parikh, and M. Rohrbach, "Towards VQA models that can read," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 8309–8318, Long Beach, CA, USA, Jun. 2019, doi: 10.1109/CVPR.2019.00851.
+
+[7] T. Gao, S. Zhao, S. Fang, S. Zhu, and C. Ma, "QuietPrune: Query-guided early token pruning for vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 3553–3562, Denver, CO, USA, Jun. 2026.
+
+[8] Y. Wang, H. Zhang, Q. Huang, A. Cao, G. Fang, W. Wang, X. Jin, J. Song, M. Song, and X. Wang, "Rethinking token reduction for large vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 24727–24737, Denver, CO, USA, Jun. 2026.
+
+- [4]·[5]는 같은 순서로 옮겼다(값은 그대로).
+- [11]은 2026-10-20 후속 확인(§6)으로 장소를 넣었다.
+
+## 6. 2026-10-20 후속 확인: 예비 논문의 게재 상태 (§3 L83)
+
+arXiv API(comment·journal_ref), Crossref, OpenReview로 [1]·[2]·[11]·[12]·[13]을 확인했다.
+
+| 번호 | 확인 결과 | 처리 |
+|---|---|---|
+| [1] DTOC | **학회판 출판.** Discovery Science (DS 2026), Mainz, Germany(arXiv comment "Accepted for 29th International Conference on Discovery Science, October 5-9, 2026"). Springer *Lecture Notes in Computer Science*(LNAI) vol. 17130, pp. 333–347, doi: 10.1007/978-3-032-41086-3_22. 온라인 2026-10-17, 책 발행 연도 2027(Springer 페이지·Crossref). 저자 4명은 §1과 같다 | §1에 반영(결정 R4) |
+| [2] ACM | arXiv 2607.23809v1만 있다. 학회 정보 없음 | 그대로 |
+| [11] Complexity Trap | OpenReview `NeurIPS.cc/2025/Workshop/DL4C`에 "DL4C @ NeurIPS 2025 Poster"로 실렸다. 워크숍 공식 제목은 "NeurIPS 2025 Fourth Workshop on Deep Learning for Code", 장소 "San Diego, USA", 시작일 2025-12-06이다 | §1에 반영(R2 순서). 워크숍 이름을 OpenReview 공식 제목으로 바꿨다. 예전 표기 "in the Agentic Era"는 공식 기록에서 찾지 못했다 |
+| [12] Screenshots or Tools? | arXiv 2608.03327v2만 있다 | 그대로 |
+| [13] HiconAgent | arXiv 2512.01763v2만 있다 | 그대로 |
+
+### 결정 R4: [1]을 학회판으로 바꿀지 (2026-10-20 사용자 승인: 권장안, §1 반영함)
+
+- (권장) 학회판을 인용하고 arXiv 번호를 함께 둔다.
+  - IEEE 관행은 출판본 우선이다.
+  - 원고는 DTOC의 구조(원본 보존·재조회, ablation, 모델별 차이)를 arXiv v1으로 읽고 썼다(원고 L48·L80·L88). 학회판 본문은 유료라 읽지 못했다. arXiv 번호를 남겨 독자가 Claude가 읽은 판을 찾게 한다.
+  - 적용 모습:
+    > [1] A. Chaturvedi, S. Bhattacharya, R. Gopalkrishnan, and P. van der Putten, "DTOC: Dynamic tool output compression for adaptive context management in AI agents," in *Discovery Science (DS 2026)*, Lect. Notes Comput. Sci., vol. 17130, pp. 333–347, Mainz, Germany, Oct. 2026, doi: 10.1007/978-3-032-41086-3_22, arXiv:2609.26121.
+  - 년월은 IEIE 예시(학회 개최 년월)에 따라 Oct. 2026으로 쓴다. Springer의 책 발행 연도 2027과 다르다.
+- 또는 arXiv만 유지한다. 출판본이 있는데 예비 논문만 인용하는 셈이다.
+- 투고 직전에 학회판 본문을 볼 수 있으면(교수님 소속 기관 구독 등) 원고가 인용한 내용이 학회판에도 있는지 한 번 대조한다.

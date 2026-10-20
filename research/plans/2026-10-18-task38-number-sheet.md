@@ -1,7 +1,7 @@
 # Task 38 수치 대조표 (결과 파일 → 논문 위치)
 
-- 작성: Claude Code, 2026-10-18. 상태: **초안(Draft PR, Codex 교차 검토 전). 결정 T1–T3 확정(2026-10-18 사용자, 권장안)**
-- 기준: main `f4fa22c`. 논문 원고는 `docs/research/image-first-paper-draft.ko.md`(PR #41 merge본)이고, 줄 번호는 이 원고 기준이다.
+- 작성: Claude Code, 2026-10-18. 상태: **확정(PR #42 merge `a115417`, Codex 교차 검토 Approve). 결정 T1–T3 확정(2026-10-18 사용자, 권장안)**
+- 기준: main `f4fa22c`. 논문 원고는 `docs/research/image-first-paper-draft.ko.md`(PR #41 merge본)이고, 줄 번호는 이 원고 기준이다. main `259f39d`(2026-10-20)에서도 원고는 바뀌지 않아 줄 번호가 그대로 맞다.
 - 목적: Codex Task 38이 수치를 다시 찾거나 계산하지 않고 이 표에서 옮겨 적게 한다.
   - 값은 모두 아래 출처 파일에서 그대로 옮겼다. 이 문서에서 새로 계산한 값은 없다.
   - 출처 표기 형식: `파일:줄`. 경로는 모두 `research/` 기준이다.
