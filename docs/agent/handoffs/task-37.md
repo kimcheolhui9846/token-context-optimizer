@@ -7,7 +7,7 @@
 - 계획: 사전 등록/동결 설계/원고 VI장 대조 → 역사적 번들과 CLI 확인 → 초안 → Claude 검토 체크포인트 → 반영 후 Draft PR.
 - 검증: 문장별 직접 대조, 명령 인자와 링크 확인, `git diff --check`. 문서 작업으로 RED/npm gate 해당 없음. 실험 호출 없음.
 - 제약: 결과 수치·캐시 할인율 수치·이탈 상세 제외. Ready/merge/Task 38 진행하지 않는다.
-- 현재 상태: 2026-10-20 Claude 검토 반영 완료, 문장 대조 및 staged diff 검증 완료. Draft PR 제출 단계.
+- 현재 상태: Claude 검토 12개 반영 완료. 구현 커밋 `0a18fd6` push 및 [Draft PR #48](https://github.com/kimcheolhui9846/token-context-optimizer/pull/48)(base main) 생성 확인. Claude의 PR diff 반영 확인 대기.
 
 ## 근거 및 대조
 - 번들 이력: `git log --oneline 2331e88..ff19978 -- bin/ src/`에서 `470b239`(crop), `68fe59d`(query 동점 다중 구간)만 확인했다.
@@ -34,8 +34,8 @@
 - 재현 정보 추가: 요청에 따라 확정/하네스/분석 커밋, 역사적 번들 고정, 네 CLI와 연구 디렉터리 실행 위치를 보충한다. 실행 중 이탈은 결과 보고서에 기록한다는 원칙만 둔다.
 
 ## 검토 및 다음 단계
-- 검증 결과: `git diff --cached --check` PASS, `git diff --check` PASS. 변경 상태는 허용된 신규 두 파일뿐이다. npm gate/실험 호출은 문서 전용 범위로 미실행.
+- 검증 결과: `git diff --cached --check`, `git diff --check`, PR 생성 후 `git diff ff19978..HEAD --check` PASS. GitHub PR 파일도 허용된 신규 두 개만 확인했다. npm gate/실험 호출은 문서 전용 범위로 미실행.
 - Claude Code(사용자 제공 검토 파일, 정확한 모델 ID 미기재): 초안 검토 수행, Request changes, Blocker 0 / Major 7 / Nit 5 → 12개 반영 완료, PR diff 확인 대기. Astra: 요청에 따라 생략.
 - 검토 근거: `codex_review/codex_review_feedback_2026-10-20_task37-protocol.md` 전체 및 후속 전달문. 별도 리뷰 호출은 하지 않는다.
 - 반영 목록: M-1 사전 등록 커밋, M-2 실행 커밋, M-3 checkout/blob, M-4 이미지 분기, M-5 늦은 회상 턴, M-6 Haiku 동결, M-7 seed/짝/미실행; N-1 파일럿, N-2 manifest 기준 경로, N-3 출력 상한, N-4 원본 대상, N-5 표 제목.
-- 검증 → `Agent: codex` 커밋 → push/Draft PR(base main) 후 보고. Claude의 PR diff 반영 확인을 기다리며 Ready/merge/Task 38은 진행하지 않는다.
+- `Agent: codex` 커밋과 Draft PR 제출 완료. Claude의 PR diff 반영 확인을 기다리며 Ready/merge/Task 38은 진행하지 않는다.
