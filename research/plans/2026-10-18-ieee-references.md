@@ -1,6 +1,6 @@
 # 참고문헌 IEEE 정리본 (조판 입력)
 
-- 작성: Claude Code, 2026-10-18. 상태: **PR #43 merge(`32772ea`, Codex 교차 검토 Approve). 2026-10-20 [3]·[6]·[7]·[8] 재확인과 IEIE 양식 대조는 §5(결정 R1–R3 승인·반영). §6 후속 확인: [11] 장소 반영, [1] 학회판 출판(결정 R4 대기)**
+- 작성: Claude Code, 2026-10-18. 상태: **PR #43 merge(`32772ea`, Codex 교차 검토 Approve). 2026-10-20 [3]·[6]·[7]·[8] 재확인과 IEIE 양식 대조는 §5(결정 R1–R3 승인·반영). §6 후속 확인: [11] 장소 반영, [1] 학회판 반영(결정 R4 승인)**
 - 기준: main `f4fa22c`의 `docs/research/image-first-paper-draft.ko.md` 참고문헌 [1]–[24](PR #41 merge본). 번호와 순서는 원고와 같다.
 - 목적: hwp 조판 때 그대로 붙여 넣을 영문 IEEE식 목록이다. PR #41 리뷰 m-2(참고문헌 형식 혼재)의 조판 입력이다.
 - **이 문서는 논문 원고를 고치지 않는다.** 원고 반영은 Task 38(문서) 또는 조판 단계에서 한다. Task 38이 새 참고문헌을 추가하면 번호가 바뀌므로, 반영 직전에 이 목록의 번호를 다시 맞춘다.
@@ -8,7 +8,7 @@
 
 ## 1. 정리본
 
-[1] A. Chaturvedi, S. Bhattacharya, R. Gopalkrishnan, and P. van der Putten, "DTOC: Dynamic tool output compression for adaptive context management in AI agents," arXiv:2609.26121, 2026.
+[1] A. Chaturvedi, S. Bhattacharya, R. Gopalkrishnan, and P. van der Putten, "DTOC: Dynamic tool output compression for adaptive context management in AI agents," in *Discovery Science (DS 2026)*, Lect. Notes Comput. Sci., vol. 17130, pp. 333–347, Mainz, Germany, Oct. 2026, doi: 10.1007/978-3-032-41086-3_22, arXiv:2609.26121.
 
 [2] X. Li, R. Ming, M. Chu, S. Shao, R. Jin, and C. Xiong, "ACM: Agentic context management for long horizon tasks," arXiv:2607.23809, 2026.
 
@@ -147,13 +147,13 @@ arXiv API(comment·journal_ref), Crossref, OpenReview로 [1]·[2]·[11]·[12]·[
 
 | 번호 | 확인 결과 | 처리 |
 |---|---|---|
-| [1] DTOC | **학회판 출판.** Discovery Science (DS 2026), Mainz, Germany(arXiv comment "Accepted for 29th International Conference on Discovery Science, October 5-9, 2026"). Springer *Lecture Notes in Computer Science*(LNAI) vol. 17130, pp. 333–347, doi: 10.1007/978-3-032-41086-3_22. 온라인 2026-10-17, 책 발행 연도 2027(Springer 페이지·Crossref). 저자 4명은 §1과 같다 | 결정 R4 |
+| [1] DTOC | **학회판 출판.** Discovery Science (DS 2026), Mainz, Germany(arXiv comment "Accepted for 29th International Conference on Discovery Science, October 5-9, 2026"). Springer *Lecture Notes in Computer Science*(LNAI) vol. 17130, pp. 333–347, doi: 10.1007/978-3-032-41086-3_22. 온라인 2026-10-17, 책 발행 연도 2027(Springer 페이지·Crossref). 저자 4명은 §1과 같다 | §1에 반영(결정 R4) |
 | [2] ACM | arXiv 2607.23809v1만 있다. 학회 정보 없음 | 그대로 |
 | [11] Complexity Trap | OpenReview `NeurIPS.cc/2025/Workshop/DL4C`에 "DL4C @ NeurIPS 2025 Poster"로 실렸다. 워크숍 공식 제목은 "NeurIPS 2025 Fourth Workshop on Deep Learning for Code", 장소 "San Diego, USA", 시작일 2025-12-06이다 | §1에 반영(R2 순서). 워크숍 이름을 OpenReview 공식 제목으로 바꿨다. 예전 표기 "in the Agentic Era"는 공식 기록에서 찾지 못했다 |
 | [12] Screenshots or Tools? | arXiv 2608.03327v2만 있다 | 그대로 |
 | [13] HiconAgent | arXiv 2512.01763v2만 있다 | 그대로 |
 
-### 결정 R4: [1]을 학회판으로 바꿀지
+### 결정 R4: [1]을 학회판으로 바꿀지 (2026-10-20 사용자 승인: 권장안, §1 반영함)
 
 - (권장) 학회판을 인용하고 arXiv 번호를 함께 둔다.
   - IEEE 관행은 출판본 우선이다.
