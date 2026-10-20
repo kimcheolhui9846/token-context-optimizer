@@ -38,7 +38,7 @@ compact는 공개 규칙을 재현한 실험용 모사다. Task 40의 skill 규�
 
 ## 3. 데이터
 
-개발 3세션, calibration 6세션, held-out 24세션이다. 템플릿별 held-out 8세션은 기존 레이아웃 4세션과 전용 새 레이아웃 변형 4세션으로 나누고, 기존·새 레이아웃별로 보고한다. seed 대역은 각각 5000번대, 6000번대, 7000번대다. 파일럿 세트(101–606, 2000번대, 3000번대)와 실험 2 family(8000번대, 9000번대)는 겹치지 않는다. manifest `research/out/sessions/heldout/sessions.json`은 재생성 시 동일하며 SHA-256은 `b88f64e3df671fff20a8562f7fbe1ba929b94f56d842e452b72d0cfb979d5da2`다. 개발·calibration은 설계를 정하는 탐색 단계이며 그 결과 수치는 이 부록에 옮기지 않는다.
+개발 3세션, calibration 6세션, held-out 24세션이다. 템플릿별 held-out 8세션은 기존 레이아웃 4세션과 전용 새 레이아웃 변형 4세션으로 나누고, 기존·새 레이아웃별로 보고한다. seed 대역은 각각 5000번대, 6000번대, 7000번대다. 세 대역은 파일럿 세트(101–606, 2000번대, 3000번대)와 실험 2 family(8000번대, 9000번대)와 겹치지 않는다. manifest `research/out/sessions/heldout/sessions.json`은 재생성 시 동일하며 SHA-256은 `b88f64e3df671fff20a8562f7fbe1ba929b94f56d842e452b72d0cfb979d5da2`다. 개발·calibration은 설계를 정하는 탐색 단계이며 그 결과 수치는 이 부록에 옮기지 않는다.
 
 seed 분리의 근거는 `research/src/sessions.mjs:16–17`과 `research/src/families-exp2.mjs:6`이다. 새 변형은 요소 배치, 글자 크기 분포, 표·카드·범례 위치를 바꾸되 질문 유형과 정답 생성 규칙은 유지한다. 변형 이미지는 어떤 모델에도 미리 보내지 않는다.
 
@@ -64,7 +64,7 @@ held-out 결과를 보고 설계·채점 규칙·margin을 바꾸지 않는다. 
 
 ## 8. 재현 정보
 
-사전 등록 확정 커밋은 `ec6d534`(하네스 커밋·manifest 해시 기입), 세션 생성기와 하네스는 `2331e88`, 분석 스크립트는 `7d2425e`다. held-out 실행에 쓴 코드는 `7914a44`다. 이는 `2331e88` 하네스와 `7d2425e` 분석 위에 실행 중 이탈 수정 1건이 더해진 상태이며, 이탈 내용은 결과 부록에 기록한다. 재현은 `7914a44`를 체크아웃한 작업 트리(예: `git worktree add <dir> 7914a44`)의 `research/`에서 실행한다. `research/src/mcp-client.mjs`는 같은 트리의 `bin/token-context-optimizer.mjs`를 실행한다. 이 번들의 git blob은 `c4a290aec44cd484ef75e6f7107294303f6998d3`이며 `2331e88`부터 `5212807`까지 동일하다. 실행 중 이탈은 결과 보고에 기록한다.
+사전 등록 확정 커밋은 `ec6d534`(하네스 커밋·manifest 해시 기입), 세션 생성기와 하네스는 `2331e88`, 분석 스크립트는 `7d2425e`다. held-out 실행에 쓴 코드는 `7914a44`다. 이는 `2331e88` 하네스와 `7d2425e` 분석 위에 실행 중 이탈 수정 1건이 더해진 상태이며, 이탈 내용은 결과 부록에 기록한다. 재현은 `7914a44`를 체크아웃한 작업 트리(예: `git worktree add <dir> 7914a44`)의 `research/`에서 실행한다. `research/src/mcp-client.mjs`는 같은 트리의 `bin/token-context-optimizer.mjs`를 실행한다. 이 번들의 git blob은 `c4a290aec44cd484ef75e6f7107294303f6998d3`이며 `2331e88`부터 `5212807`까지 동일하다.
 
 ```text
 node src/sessions.mjs --split heldout
