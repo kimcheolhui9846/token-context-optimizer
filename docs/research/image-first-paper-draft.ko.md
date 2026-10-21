@@ -78,7 +78,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 ## IV. 공급자 회계와 실험 1
 
-공식 문서의 예제 치수 회계는 gpt-4o-2024-11-20 [14]–[15], claude-haiku-4-5-20251001 [17]–[19], gemini-3.8-flash [21]–[24]를 비교하고, claude-sonnet-5-5 [17], [18], [20]와 gpt-5.6-sol [14], [16]은 별도 회계 계열의 대조로 둔다. 이 값은 공개 회계식의 산술이며 실제 사용량·실측 절감률·파일럿 모델 선정·청구액이 아니다. `gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 사용량은 unknown이고 [21]–[24], GPT-5.6 Sol의 거부는 자동 축소가 아니다 [14], [16]. 상세 계산은 [계산 예제와 상세 근거](./image-token-cost-models.md)에 둔다.
+공식 문서의 예제 치수 회계는 gpt-4o-2024-11-20 [14], [15] (비교 대상), gpt-5.6-sol [14], [16] (별도 회계 계열의 대조), claude-haiku-4-5-20251001 [17]–[19] (비교 대상), claude-sonnet-5-5 [17], [18], [20] (별도 회계 계열의 대조), gemini-3.8-flash [21]–[24] (비교 대상)를 다룬다. 이 값은 공개 회계식의 산술이며 실제 사용량·실측 절감률·파일럿 모델 선정·청구액이 아니다. `gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 사용량은 unknown이고 [21]–[24], GPT-5.6 Sol의 거부는 자동 축소가 아니다 [14], [16]. 상세 계산은 [계산 예제와 상세 근거](./image-token-cost-models.md)에 둔다.
 
 실험 1은 GPT-4o와 Claude Haiku 4.5의 변환 입력 사용량을 공개 회계식과 대조했다. 전체 66장은 49개 격자 측정, 10개 경계 사례, 7개 JPEG q75 재전송으로 구성됐고 그림 1에는 대표 종횡비의 격자점 28개만 표시했다. GPT-4o detail high는 66/66에서 예측과 일치했고, Haiku는 단일 이미지 요청에서 예측보다 3토큰 많았다. PNG와 JPEG q75의 7개 재전송 쌍은 두 공급자에서 같았다. [출처: `research/results/rq1-sweep-001/README.md:8-11,29-35`, `research/figures/README.md:30,36-46`, R1-2–R1-8]
 
@@ -100,9 +100,9 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 두 공급자 모두 H1은 지지되지 않았다. 이는 비열등성 미입증이며 −5%p 이상 열등하다는 입증은 아니다. clean·JPEG q50에서 A와 D 정확도는 두 공급자 모두 88.9%였다. 네 조건 평균 D 입력 토큰은 A 대비 GPT-4o 23.0%, Haiku 43.8% 감소했다. D 재요청은 각각 11/144와 16/144, 재요청 뒤 정답은 9/11과 13/16이었다. 표지 없는 오답과 D′·레이아웃 탐색은 결과 부록에 보고한다. [출처: `research/results/exp2-heldout/README.md:28-29,47-50,59-66,74-83`, E2-10–E2-11, E2-18–E2-30]
 
-![그림 5. 실험 2 held-out arm별 정확도와 호출당 입력 토큰](../../research/figures/exp2/heldout/fig5_exp2_accuracy_vs_tokens.png)
+![그림 2. 실험 2 held-out arm별 정확도와 호출당 입력 토큰](../../research/figures/exp2/heldout/fig5_exp2_accuracy_vs_tokens.png)
 
-그림 5. 실험 2 held-out arm별 family 평균 정확도와 입력 토큰. 오차 막대는 기술 통계인 family bootstrap 95% 구간이다. [출처: `research/figures/exp2/README.md:19-24`]
+그림 2. 실험 2 held-out arm별 family 평균 정확도와 입력 토큰. 오차 막대는 기술 통계인 family bootstrap 95% 구간이다. [출처: `research/figures/exp2/README.md:19-24`]
 
 ## VI. 실험 3: 에이전트 세션
 
@@ -140,13 +140,13 @@ GPT-4o의 S1 늦은 회상은 13.9%, S3은 81.9%였다. [출처: `research/resul
 
 GPT-4o의 발췌·compact 결합 관찰과 공급자 간 차이는 DTOC의 ablation 및 모델별 차이 [1]와 방향을 같이한다. 캐시를 반영한 비용 해석은 요약 시 캐시 재사용이 제한된다는 관측 마스킹 연구 [11]의 논의와 연결된다. 데이터·개입이 달라 동일 효과나 인과 검증으로 해석하지 않는다.
 
-![그림 2. 실험 3 held-out 정확도와 입력 토큰](../../research/figures/fig2_heldout_accuracy_vs_tokens.png)
+![그림 3. 실험 3 held-out 정확도와 입력 토큰](../../research/figures/fig2_heldout_accuracy_vs_tokens.png)
 
-그림 2. held-out 24세션의 조건별 세션 평균 정확도와 세션당 평균 입력 토큰. 오차 막대는 기술 통계인 세션 bootstrap 95% 구간이다. [출처: `research/figures/README.md:48-52`]
+그림 3. held-out 24세션의 조건별 세션 평균 정확도와 세션당 평균 입력 토큰. 오차 막대는 기술 통계인 세션 bootstrap 95% 구간이다. [출처: `research/figures/README.md:48-52`]
 
-![그림 3. 실험 3 held-out 늦은 회상](../../research/figures/fig3_heldout_late_recall.png)
+![그림 4. 실험 3 held-out 늦은 회상](../../research/figures/fig3_heldout_late_recall.png)
 
-그림 3. held-out 24세션의 조건별 늦은 회상 정확도. 오차 막대는 기술 통계인 세션 bootstrap 95% 구간이다. [출처: `research/figures/README.md:54-56`]
+그림 4. held-out 24세션의 조건별 늦은 회상 정확도. 오차 막대는 기술 통계인 세션 bootstrap 95% 구간이다. [출처: `research/figures/README.md:54-56`]
 
 ## VII. 논의와 한계
 
