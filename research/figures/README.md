@@ -46,10 +46,10 @@ python figures/make_figures.py    # matplotlib 3.11.1, numpy 2.5.1
 - Haiku values were measured with one image per request and are 3 tokens above the formula.
 
 **그림 2.** held-out 24세션의 조건별 세션 평균 정확도와 세션당 평균 입력 토큰. 오차 막대는 세션 bootstrap 95% 구간이다(기술 통계).
-- S0 전체 유지, S1 compact 모사, S2 플러그인, S3 플러그인+compact, S4 1536 축소 유지
+- S0 전체 유지, S1 compact 모사, S2 원본 보존 발췌, S3 원본 보존 발췌+compact, S4 1536 축소 유지
 
 **Fig. 2.** Mean session accuracy versus mean input tokens per session for each condition on 24 held-out sessions. Error bars are session-bootstrap 95% intervals (descriptive).
-- S0 keep all, S1 simulated compaction, S2 plugin, S3 plugin with compaction, S4 keep all with 1536-px resize
+- S0 keep all, S1 simulated compaction, S2 source-preserving retrieval, S3 source-preserving retrieval with compaction, S4 keep all with 1536-px resize
 
 **그림 3.** 조건별 늦은 회상 문항 정확도(held-out 24세션). 오차 막대는 세션 bootstrap 95% 구간이다.
 
