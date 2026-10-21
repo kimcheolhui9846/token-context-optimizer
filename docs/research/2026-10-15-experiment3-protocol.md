@@ -2,6 +2,7 @@
 
 - 사전 등록: `research/plans/2026-10-15-experiment3-preregistration-draft.md`
 - 설계 기준: `research/results/s3-cal-002/README.md`
+- 결과: [실험 3 held-out 결과 부록](./2026-10-15-experiment3-results.md)
 
 이 부록은 사전 등록과 동결 설계를 재현 가능한 형태로 기록한다. 실행 결과, 결과 수치, 캐시 할인율 수치는 포함하지 않는다. 사전 등록과 동결 설계가 충돌하면 사전 등록을 기준으로 하며, 원고 수정 사항은 제안으로 남긴다.
 
