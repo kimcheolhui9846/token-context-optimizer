@@ -64,7 +64,7 @@
   - S1 compact 모사 = simulated compaction
   - 늦은 회상 = late recall
   - 공급자 청구 토큰 = provider-billed tokens
-- 그림 3·4의 범례와 그림 2의 점 라벨은 S0–S4, A–E·D′ 기호만 쓴다(`make_figures.py`, `exp2_figures.py`). 그래서 그림 파일은 다시 만들지 않는다. 기호의 뜻은 V장·VI장 본문에 있다.
+- 그림 안의 조건·arm 표기는 기호뿐이다. 그림 3은 S0–S4 점 라벨(`make_figures.py` L98), 그림 4는 S0–S3 x축 눈금(L121), 그림 2는 A–E·D′ 점 라벨(`exp2_figures.py` L90)이다. 범례는 공급자명(GPT-4o, Claude Haiku 4.5)이다. 조건 이름 사전 `COND_LABEL`은 그림에 쓰이지 않는다. 그래서 그림 파일은 다시 만들지 않는다. 기호의 뜻은 V장·VI장 본문에 있다(2026-10-21 PR #52 Codex 검토로 정정).
 - `research/figures/README.md`의 그림 2 설명에 남은 "S2 플러그인"·"S2 plugin"은 이번에 원고 용어로 고쳤다.
 
 ## 4. 분량 영향
