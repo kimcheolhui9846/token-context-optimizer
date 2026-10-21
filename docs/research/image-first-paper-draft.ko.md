@@ -22,9 +22,7 @@ Agent sessions retransmit accumulated text and images, and lossy compaction can 
 
 본 제안은 질문과 이미지의 제한된 신호를 이용해 후보 영역을 선택하고 고정된 출력 변환을 적용한다. 단일 질의에서 `UNREADABLE` 표지가 있으면 같은 배정 variant를 최대 한 번 다시 요청한다. 소프트웨어 아티팩트(경로·해시·변환 이력)와 시각적 손상 아티팩트(축소·재인코딩·잘림으로 변한 픽셀)를 구분한다. 현재 제품에는 호출자가 영역을 정하는 `crop_image_artifact`가 있으나, 이 실험은 연구용 OCR 선택기 경로를 평가했으며 제품 crop 도구를 평가하지 않았다.
 
-범위는 텍스트와 정적 이미지이며 영상은 후속 연구로 남긴다. 현재 저장소의 입력 검증·해시·치수 추적(M1a)은 영구 원본 보관이나 OCR 결합기를 제공하지 않는다. 구체적인 프로필과 한계는 [입력 계약](../image-artifacts.md)에 기록한다.
-
-새 crop·pruning 알고리즘의 우월성이나 최초 평가를 주장하지 않는다.
+범위는 텍스트와 정적 이미지이며 영상은 후속 연구로 남긴다. 현재 저장소의 입력 검증·해시·치수 추적(M1a)은 영구 원본 보관이나 OCR 결합기를 제공하지 않는다. 구체적인 프로필과 한계는 [입력 계약](../image-artifacts.md)에 기록한다. 새 crop·pruning 알고리즘의 우월성이나 최초 평가를 주장하지 않는다.
 
 **RQ1.** 클라이언트 변환(resize, JPEG 재인코딩, crop)은 공급자별 청구 이미지 토큰을 어떻게 바꾸는가? **RQ2.** 단일 질의에서 질의 인식 발췌와 판독 불가 기반 원본 재요청은 정확도를 유지하며 토큰을 줄이는가? **RQ3.** 다중 턴 세션에서 원본 보존 발췌는 전체 유지 및 compact 단독과 비교해 누적 청구 토큰, 과제 정확도와 늦은 회상을 어떻게 바꾸는가?
 
@@ -41,6 +39,8 @@ Agent sessions retransmit accumulated text and images, and lossy compaction can 
 ## II. 관련 연구와 제안의 위치
 
 DocVQA·TextVQA·ChartQA·ScreenQA [3]–[6]는 문서·문자·차트·화면의 픽셀 증거를 평가한다. QuietPrune·Rethinking Token Reduction [7], [8]은 모델 내부 축소이고, LLMLingua·RECOMP [9], [10]은 텍스트 압축이다. DTOC·ACM [1], [2]은 외부 원본 보존·재조회의 선행 연구이며, The Complexity Trap·Screenshots or Tools?·HiconAgent [11]–[13]은 관측 축소를 다룬다. 본 연구는 원본 보존을 새 원리로 주장하지 않고 공급자 API 앞단 crop·썸네일·재요청과 청구 비용을 측정한다.
+
+표 1. 관련 연구와 본 연구의 개입 위치 비교.
 
 | 연구 | 매체 | 개입 위치 | 평가 단위 | 경계 |
 |---|---|---|---|---|
@@ -78,9 +78,9 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 ## IV. 공급자 회계와 실험 1
 
-공식 문서의 예제 치수 산술은 실측 절감률이 아니다 [14]–[24]. 실험 1은 GPT-4o와 Claude Haiku 4.5의 변환 입력 사용량을 공개 회계식과 대조했다. 전체 66장은 49개 격자 측정, 10개 경계 사례, 7개 JPEG q75 재전송으로 구성됐고 그림 1에는 대표 종횡비의 격자점 28개만 표시했다. GPT-4o detail high는 66/66에서 예측과 일치했고, Haiku는 단일 이미지 요청에서 예측보다 3토큰 많았다. PNG와 JPEG q75의 7개 재전송 쌍은 두 공급자에서 같았다. [출처: `research/results/rq1-sweep-001/README.md:8-11,29-35`, `research/figures/README.md:30,36-46`, R1-2–R1-8]
-
 공식 문서의 예제 치수 회계는 gpt-4o-2024-11-20 [14]–[15], claude-haiku-4-5-20251001 [17]–[19], gemini-3.8-flash [21]–[24]를 비교하고, claude-sonnet-5-5 [17], [18], [20]와 gpt-5.6-sol [14], [16]은 별도 회계 계열의 대조로 둔다. 이 값은 공개 회계식의 산술이며 실제 사용량·실측 절감률·파일럿 모델 선정·청구액이 아니다. `gemini-3.8-flash`의 명목 budget 비교는 Δ=0이지만 실제 사용량은 unknown이고 [21]–[24], GPT-5.6 Sol의 거부는 자동 축소가 아니다 [14], [16]. 상세 계산은 [계산 예제와 상세 근거](./image-token-cost-models.md)에 둔다.
+
+실험 1은 GPT-4o와 Claude Haiku 4.5의 변환 입력 사용량을 공개 회계식과 대조했다. 전체 66장은 49개 격자 측정, 10개 경계 사례, 7개 JPEG q75 재전송으로 구성됐고 그림 1에는 대표 종횡비의 격자점 28개만 표시했다. GPT-4o detail high는 66/66에서 예측과 일치했고, Haiku는 단일 이미지 요청에서 예측보다 3토큰 많았다. PNG와 JPEG q75의 7개 재전송 쌍은 두 공급자에서 같았다. [출처: `research/results/rq1-sweep-001/README.md:8-11,29-35`, `research/figures/README.md:30,36-46`, R1-2–R1-8]
 
 ![그림 1. 긴 변과 종횡비에 따른 청구 이미지 토큰](../../research/figures/fig1_rq1_billed_tokens.png)
 
@@ -90,7 +90,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 실험 2는 사전 등록한 36개 held-out family에 clean, JPEG q50, 1024 축소, 1024 축소+JPEG 조건을 적용했다. A는 배정 원본, B는 전체 1536/q75 변환, C는 OCR 영역 선택, D는 C와 같은 입력의 별도 첫 호출 뒤 `UNREADABLE` 시 원본 1회 재요청, E는 정답 영역 진단이다. D는 두 호출 사용량을 합산한다. held-out 호출 전 개정 1에서 D 정의와 primary를 D−A로 고정했다. D′는 개정 전 규칙의 탐색 결과다. 상세 설계·확정값과 조건별 결과는 [프로토콜](./image-first-evaluation-protocol.md)과 [실험 2 결과 부록](./2026-10-16-experiment2-results.md)에 둔다. [출처: `research/results/exp2-heldout/README.md:7-17,36-41`, `research/plans/2026-10-16-experiment2-preregistration-draft.md:79-104`, E2-1–E2-9]
 
-표 1. 실험 2 사전 등록 가설 판정. 괄호는 family 단위 짝 bootstrap 95% CI다. [출처: `research/results/exp2-heldout/gpt4o/exp2-analysis.md:7-9`, `research/results/exp2-heldout/haiku/exp2-analysis.md:7-9`, E2-7–E2-9]
+표 2. 실험 2 사전 등록 가설 판정. 괄호는 family 단위 짝 bootstrap 95% CI다. [출처: `research/results/exp2-heldout/gpt4o/exp2-analysis.md:7-9`, `research/results/exp2-heldout/haiku/exp2-analysis.md:7-9`, E2-7–E2-9]
 
 | 가설 | GPT-4o | Haiku 4.5 | 판정 |
 |---|---:|---:|---|
@@ -122,7 +122,7 @@ S0은 전체 유지, S1은 compact 모사, S2는 원본 보존 발췌, S3는 발
 
 가격과 캐시 배율은 2026-10-18 확인한 공급자 공개 가격표를 따른다 [25], [26]. GPT-4o는 캐시 입력 읽기 0.5배, Haiku 4.5는 5분 캐시 쓰기 1.25배와 읽기 0.1배를 적용했다. 가격표에는 `gpt-4o-2024-11-20` 스냅샷의 별도 행이 없어 같은 `gpt-4o` 행을 적용했다. [출처: `research/results/s3-heldout/README.md:50-54`, `research/plans/2026-10-18-task38-number-sheet.md` §4, C-1–C-2]
 
-표 2. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:9-14`, `research/results/s3-heldout/haiku/analysis.md:9-14`, `research/results/s3-heldout/README.md:23-37,42-48`, E3-5–E3-14]
+표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:9-14`, `research/results/s3-heldout/haiku/analysis.md:9-14`, `research/results/s3-heldout/README.md:23-37,42-48`, E3-5–E3-14]
 
 | 가설 | GPT-4o | Haiku 4.5 | 판정 |
 |---|---:|---:|---|

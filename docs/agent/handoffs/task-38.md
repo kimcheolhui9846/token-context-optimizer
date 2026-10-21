@@ -3,7 +3,7 @@
 - 등급: 요청서 특별 규칙 D + Astra. Claude 계획 1회, Draft PR 뒤 Claude PR 검토 1회, 주 에이전트 최종 검토.
 - 기준: main `eaf754296aff790dd73289313c2057cf8ea6357c`(PR #49 merge).
 - 브랜치: `codex/task-38-heldout-results`; worktree `.artifacts/worktrees/task-38-heldout-results`.
-- 현재 상태: [Draft PR #51](https://github.com/kimcheolhui9846/token-context-optimizer/pull/51) Claude 지적 7건 반영·로컬 검증 완료. D-1(가) 승인(2026-10-21); 수정 push 뒤 PR #50 읽기 전용 검토, Claude 재검토와 주 에이전트 최종 검토 순서.
+- 현재 상태: [Draft PR #51](https://github.com/kimcheolhui9846/token-context-optimizer/pull/51) Claude 재검토 Approve, 비차단 3건 반영·내용 검증 완료. 최종 push/head 확인과 주 에이전트 판정은 PR 본문·최종 보고에 기록한다. Ready·merge는 사용자 승인 사항.
 - 사용자 승인: P1–P5 모두 2026-10-20 권장안 승인(전달문 25행 및 사용자 재확인). 추가 계획 승인 불필요.
 - P1 파일명 `2026-10-16-experiment2-results.md`; P2 compact 보완 주장과 13.9%→81.9%; P3 결과 표 2개/그림 1·2·3·5; P4 스킬 본문 미언급; P5 제품 crop과 연구 OCR 평가 구분.
 - 범위: 두 결과 부록, 원고, 실험 3 프로토콜 결과 링크 한 줄, 이 핸드오프의 5개 Markdown 파일만.
@@ -15,11 +15,11 @@
 - [x] 실험 3: H1–H4, S0–S4 정확도·회상·토큰·정가/캐시, 레이아웃 CI, 탐색 오류·이탈 1·재현·한계.
 - [x] 원고: compact 보완 주장, C2·C3 원문 유지, C4 부정적 결과, 연구·제품 경계, V 요약, VI 결과, VII 세 한계와 발췌 문단.
 - [x] VI 이관 7개: 프로토콜 링크/역사적 번들/가설 기준/세션 제외 금지/영역 미발견 분기/재요청 이미지 대상/기준 seed.
-- [x] T1 정확도·차이·CI 소수 한 자리, T2 정수 31%와 원값, T3 그림 4개/결과 표 2개. 그림 4는 표 2 비용 패널, 그림 6은 조건별 부록 표.
+- [x] T1 정확도·차이·CI 소수 한 자리, T2 정수 31%와 원값, T3 그림 4개/결과 표 2개(표 2·3), 관련 연구 비교표 1. 그림 4는 표 3 비용 패널, 그림 6은 조건별 부록 표.
 - [x] 참고문헌: main IEEE 정리본 §1 [1]–[24] 보존; 가격 두 항목은 §2 그대로 [25]·[26]에 추가.
 - [x] 실험 3 프로토콜은 결과 링크 한 줄만 추가; 부록에서 역링크.
 - [x] 구현 `f14d190`(Agent: codex) → push → Draft PR #51(base main) → 제출 후 로컬 문서 확인.
-- [ ] 사용자 Claude PR 검토 반영 → 주 에이전트 최종 검토. Ready·merge·다음 Task는 별도 승인.
+- [x] 사용자 Claude PR·재검토 지적 반영 및 주 에이전트 내용 검토. Ready·merge·다음 Task는 별도 승인.
 
 ## 해석 경계
 - H1 미지지는 비열등성 미입증이며 −5%p 이상 열등하다는 입증이 아니다. 실험 2 H2/H3와 D′는 가설 승격 금지.
@@ -65,13 +65,15 @@
 - RED/GREEN: 문서 전용이므로 테스트 TDD 해당 없음. 산출 전 수치·범위·원문 보존을 수락 기준으로 정하고 직접 대조했다.
 - npm gate·새 검증 스크립트·실험 재실행: Tier D 요청에 따라 수행하지 않음.
 - 8면 예산의 장별 상한을 적용한다. 수정 초록·추가 참고문헌의 실제 면수는 HWP 조판 뒤 확인한다.
-- 산문 상한(공백 포함): I 2550/II 1270/III 3190/IV 1220/V 1200/VI 3160/VII 890/VIII 380. VI 표 2 전단 약 .25면 반영해 기본3440에서280 차감.
-- 장별 실제 길이와 집계 기준은 PR 본문에 병기. 실제 8면 적합성은 HWP 조판 뒤 확인하며 이번 작업에서 입증하지 않음.
+- 산문 상한(공백 포함): I 2550/II 1270/III 3190/IV 1220/V 1200/VI 3160/VII 890/VIII 380. VI 표 3 전단 약 .25면 반영해 기본3440에서280 차감.
+- 장별 실제 길이와 집계 기준은 PR 본문에 병기(IV 산문 628자, II raw 956자). R5의 8.2면 적합성은 HWP 조판 뒤 확인하며 이번 작업에서 입증하지 않음.
 
 ## 검토
 - Claude Code(사용자 제공), 계획, 조건부 승인: Major 2 / Minor 4; M1 분량 척도·M2 VII 제한·m1 참고문헌·m2 수치 표현·m3 표 예산·m4 번호 보존 반영.
-- Claude Code(사용자 제공), PR afb5104 검토, Request changes: Major 2 / Minor 3 / Nit 2; D-1(가)·가격 인용·초록·결론·부록 정리·출처·캡션 모두 반영, 재검토 예정.
+- Claude Code(사용자 제공), PR afb5104 검토, Request changes: Major 2 / Minor 3 / Nit 2; 7건 반영, abdaade 재검토에서 해소 확인.
+- Claude Code(사용자 제공), abdaade 재검토, Approve: Minor 1 / Nit 2; 표 번호·IV 문단 순서·I 문단 합치기는 승인 범위에서 반영 후 직접 검증.
 - 구현: Luna 초안 뒤 사용량 한도; Claude Code `claude-opus-5-5` 대체 호출 성공. 샌드박스 연결 거부 후 승인 경로 재시도, 독립 재검토로 산입하지 않음.
 - 주 에이전트, Draft 전 직접 검토, 초안 오류 수정: H4 정의/출처 행/제품 경계/발췌 한계/메타데이터 설명 수정; 원 자료 변경 없음.
-- Astra 최종 검토: Claude PR 검토 이후 수행 예정. 별도 Astra 에이전트 호출 없음.
+- 주 에이전트 직접 내용 검토: PASS WITH NOTES; 표·26개 참고문헌·C2/C3 불변, 해석·범위 보존. HWP 미실측이며 최종 원격 상태는 push 후 별도 확인. 별도 Astra 호출 없음.
+- 재검토 수정 위임의 모델 자기보고가 지정 Luna와 불일치해 Luna 수행으로 확정하지 않음. `claude-opus-5-5` 대체 확인 성공·빈 줄 수정 반영; 독립 검토로 산입하지 않음.
 - PR #49 읽기 전용 교차 검토: Approve, blocker/major 0; 분량 설명 Nit는 merge본에서 해소. 입력은 최신 main §1과 분량 예산.
