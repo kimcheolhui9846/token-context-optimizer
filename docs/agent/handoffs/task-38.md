@@ -3,7 +3,7 @@
 - 등급: 요청서 특별 규칙 D + Astra. Claude 계획 1회, Draft PR 뒤 Claude PR 검토 1회, 주 에이전트 최종 검토.
 - 기준: main `eaf754296aff790dd73289313c2057cf8ea6357c`(PR #49 merge).
 - 브랜치: `codex/task-38-heldout-results`; worktree `.artifacts/worktrees/task-38-heldout-results`.
-- 현재 상태: [Draft PR #51](https://github.com/kimcheolhui9846/token-context-optimizer/pull/51) eb14f68 재검토 확인 뒤 승인된 N-3·그림 번호 정리 반영. push 뒤 PR #52 읽기 전용 검토 → Claude #51 확인 → 사용자 merge 순서. Draft 유지.
+- 현재 상태: [PR #51](https://github.com/kimcheolhui9846/token-context-optimizer/pull/51) Task 38 완료. 주 에이전트 최종 판정 PASS WITH NOTES; 2026-10-21 사용자 승인으로 merge(`e0443af`, head `0ddd604`).
 - 사용자 승인: P1–P5 모두 2026-10-20 권장안 승인(전달문 25행 및 사용자 재확인). 추가 계획 승인 불필요.
 - P1 파일명 `2026-10-16-experiment2-results.md`; P2 compact 보완 주장과 13.9%→81.9%; P3 결과 표 2개/원고 그림 1–4 = 파일 fig1·fig5·fig2·fig3; P4 스킬 본문 미언급; P5 제품 crop과 연구 OCR 평가 구분.
 - 범위: 두 결과 부록, 원고, 실험 3 프로토콜 결과 링크 한 줄, 이 핸드오프의 5개 Markdown 파일만.
@@ -77,3 +77,5 @@
 - 주 에이전트 직접 내용 검토: PASS WITH NOTES; 표·26개 참고문헌·C2/C3 불변, 해석·범위 보존. HWP 미실측이며 최종 원격 상태는 push 후 별도 확인. 별도 Astra 호출 없음.
 - 재검토 수정 위임의 모델 자기보고가 지정 Luna와 불일치해 Luna 수행으로 확정하지 않음. `claude-opus-5-5` 대체 확인 성공·빈 줄 수정 반영; 독립 검토로 산입하지 않음.
 - 2026-10-21 N-3·그림 정리 직접 검증: 첫 인용 [14]–[26] 순서, 원고 그림 첫 등장 1–4; 표·참고문헌·그림 경로·IV 후속 문장 불변, 부록 무수정. PR #49 검토 Approve 유지.
+- PR #49 읽기 전용 교차 검토: Approve, blocker/major 0; 분량 설명 Nit는 merge본에서 해소. 입력은 최신 main §1과 분량 예산.
+- 후속 정리 1(Tier D, `codex/paper-followup-1`, base `f434ec0`): 승인된 W-1 해시 2개·W-2 Task 39를 원고 본문에서 정리; 해시는 결과 부록에 보존. `claude-opus-5-5` 구현 성공, 주 에이전트 직접 대조; 별도 Draft PR 뒤 Claude 검토·사용자 승인.

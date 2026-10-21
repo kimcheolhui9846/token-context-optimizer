@@ -68,7 +68,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 선택기는 질문과 배정된 픽셀의 OCR 신호만 사용한다. 숨은 정답·gold evidence와 손상 조건의 canonical clean 이미지는 제공하지 않는다. family 안의 변형과 near-duplicate를 교차 split하지 않는다. 선택기는 영역만 정하며 출력 형식이나 quality를 고르지 않는다. 활성 출력은 긴 변 1536 이하 downscale(확대 없음) 뒤 JPEG quality 75다. crop을 사용하는 arm은 crop 뒤 같은 변환을 적용한다. 목표 프로필 `jpeg-ycbcr8-baseline-444-v1`의 실제 encoder 적합성은 검증되지 않았다. 세부 입력·변환 규칙은 [프로토콜](./image-first-evaluation-protocol.md)에 둔다.
 
-선택기는 `selectWindow`, OCR은 `tesseract.js 5.1.1`이며 실험 2 하네스·분석은 `dbf4f6b`에서 동결했다. 연구 경로의 sharp 0.35.4/libvips 8.18.6과 제품 jpeg-js probe를 구분한다. 제품 probe의 확인을 연구 encoder의 출력 적합성으로 옮기지 않는다. [출처: `research/src/selector.mjs:81`, `research/package.json:21`, `research/results/exp2-heldout/README.md:5`, `research/plans/2026-10-18-task38-number-sheet.md` §6, E2-1]
+선택기는 `selectWindow`, OCR은 `tesseract.js 5.1.1`이며 실험 2 하네스·분석은 held-out 호출 전에 동결했다. 연구 경로의 sharp 0.35.4/libvips 8.18.6과 제품 jpeg-js probe를 구분한다. 제품 probe의 확인을 연구 encoder의 출력 적합성으로 옮기지 않는다. [출처: `research/src/selector.mjs:81`, `research/package.json:21`, `research/results/exp2-heldout/README.md:5`, `research/plans/2026-10-18-task38-number-sheet.md` §6, E2-1]
 
 사전 OCR guard는 없으며 첫 응답의 대소문자 구분 없는 `UNREADABLE` substring만 검사한다. 표지가 있으면 같은 배정 variant를 변환 없이 최대 한 번 재요청한다. 손상 조건에서 원본 재요청은 손상된 입력으로 돌아갈 뿐 숨은 clean 이미지를 복구하지 않는다. 응답·실제 variant·crop 경계·변환 이력을 기록하며 재요청이 가독성을 보장한다고 해석하지 않는다.
 
@@ -108,7 +108,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 ### 6.1 프로토콜과 재현 경로
 
-세 템플릿의 8턴 고정 대본과 24 held-out 세션의 설계는 [실험 3 프로토콜](./2026-10-15-experiment3-protocol.md)에, 결과는 [결과 부록](./2026-10-15-experiment3-results.md)에 둔다. 재현에는 실행 코드 `7914a44` 작업 트리의 번들을 사용한다. 당시 텍스트 도구는 최고점 줄 주변 한 구간만 반환했으며, 다중 반환으로 바뀐 현재 제품 번들로 재실행한 결과는 동일 재현이 아니다. [출처: `research/results/s3-heldout/README.md:3-19`, `docs/research/2026-10-15-experiment3-protocol.md:68-77`, E3-1–E3-4]
+세 템플릿의 8턴 고정 대본과 24 held-out 세션의 설계는 [실험 3 프로토콜](./2026-10-15-experiment3-protocol.md)에, 결과는 [결과 부록](./2026-10-15-experiment3-results.md)에 둔다. 재현에는 실행 당시 작업 트리의 번들을 사용한다. 당시 텍스트 도구는 최고점 줄 주변 한 구간만 반환했으며, 다중 반환으로 바뀐 현재 제품 번들로 재실행한 결과는 동일 재현이 아니다. [출처: `research/results/s3-heldout/README.md:3-19`, `docs/research/2026-10-15-experiment3-protocol.md:68-77`, E3-1–E3-4]
 
 ### 6.2 조건과 측정
 
@@ -152,7 +152,7 @@ GPT-4o의 발췌·compact 결합 관찰과 공급자 간 차이는 DTOC의 ablat
 
 합성 이미지와 고정 대본은 실제 문서 다양성과 자율 에이전트 행동을 대표하지 않는다. 공급자별 모델·회계·캐시 조건의 차이로 결과를 다른 공급자에 일반화할 수 없다. compact는 공개 규칙의 모사이며 제품 내부 compact의 성능 평가가 아니다. 이탈과 조용한 오답 사례는 결과 부록에 둔다.
 
-실험 당시 텍스트 도구는 최고점 줄 하나 주변 한 구간을 반환했다. 고정 규칙 벤치에서는 식별자 질의의 동점 때문에 근거 줄을 놓쳤다. 제품 개선(Task 39: 동점 구간 기본 최대 5개와 `moreMatches`) 뒤 held-out entity 질의의 근거 포함은 20/24에서 24/24가 됐다. 이는 반환된 어느 발췌에든 근거 줄이 포함되는지의 값이며 모델 정확도가 아니다. 실제 세션 질의는 기록되지 않아 오답과는 세션 일치까지만 확인했고 원인을 확정하지 않는다. 기존 held-out 결과는 유지하며 개선 효과를 정확도로 주장하려면 새 사전 등록이 필요하다. [출처: `research/results/excerpt-bench-001/README.md` §1, `research/results/excerpt-bench-002/README.md:27-43`, `research/results/s3-heldout/README.md:63-77`, E3-21]
+실험 당시 텍스트 도구는 최고점 줄 하나 주변 한 구간을 반환했다. 고정 규칙 벤치에서는 식별자 질의의 동점 때문에 근거 줄을 놓쳤다. 이후 제품 개선(동점 구간 기본 최대 5개와 `moreMatches`) 뒤 held-out entity 질의의 근거 포함은 20/24에서 24/24가 됐다. 이는 반환된 어느 발췌에든 근거 줄이 포함되는지의 값이며 모델 정확도가 아니다. 실제 세션 질의는 기록되지 않아 오답과는 세션 일치까지만 확인했고 원인을 확정하지 않는다. 기존 held-out 결과는 유지하며 개선 효과를 정확도로 주장하려면 새 사전 등록이 필요하다. [출처: `research/results/excerpt-bench-001/README.md` §1, `research/results/excerpt-bench-002/README.md:27-43`, `research/results/s3-heldout/README.md:63-77`, E3-21]
 
 ## VIII. 결론과 후속 연구
 
