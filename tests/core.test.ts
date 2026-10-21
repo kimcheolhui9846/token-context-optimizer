@@ -1177,7 +1177,7 @@ describe("benchmarks", () => {
     const fixture = buildCodeContextFixture(0);
     const { startByte, endByte } = fixture.expectedSourceMap;
     const makeQuery = (
-      input: { startByte?: number; endByte?: number; text?: string; fallbackReason?: string | null } = {},
+      input: { startByte?: number; endByte?: number; text?: string; fallbackReason?: string | null; path?: string } = {},
     ): ReturnType<typeof queryArtifact> => ({
       artifactId: "artifact_span_validation",
       sha256: "1".repeat(64),
@@ -1189,6 +1189,7 @@ describe("benchmarks", () => {
         text: input.text ?? fixture.expectedExcerpt,
         sourceMap: {
           ...fixture.expectedSourceMap,
+          path: input.path ?? fixture.expectedSourceMap.path,
           startByte: input.startByte ?? startByte,
           endByte: input.endByte ?? endByte,
         },
@@ -1202,6 +1203,7 @@ describe("benchmarks", () => {
     expect(codeQueryPassesExactGate(fixture, makeQuery({ startByte: startByte + 1 }))).toBe(false);
     expect(codeQueryPassesExactGate(fixture, makeQuery({ text: fixture.expectedExcerpt + " corrupted" }))).toBe(false);
     expect(codeQueryPassesExactGate(fixture, makeQuery({ fallbackReason: "no_query_match" }))).toBe(false);
+    expect(codeQueryPassesExactGate(fixture, makeQuery({ path: "src/definitely-not-the-expected-file.ts" }))).toBe(false);
     const noExcerptQuery: ReturnType<typeof queryArtifact> = {
       artifactId: "artifact_no_excerpt",
       sha256: "2".repeat(64),
