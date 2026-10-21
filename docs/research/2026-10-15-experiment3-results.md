@@ -6,7 +6,7 @@
 
 held-out 세트는 템플릿 3종마다 기존 레이아웃 4세션과 전용 새 레이아웃 4세션으로 구성된 24세션이다. manifest SHA-256은 `b88f64e3df671fff20a8562f7fbe1ba929b94f56d842e452b72d0cfb979d5da2`이다. 실행일은 2026-10-15이며, 사전 등록·하네스·분석 커밋은 각각 `ec6d534`, `2331e88`, `7d2425e`이다. [출처: `research/results/s3-heldout/README.md:3-11`, ID E3-1–E3-3]
 
-조건은 S0 전체 유지, S1 compact 모사, S2 플러그인, S3 플러그인+compact, S4 단순 축소 유지(긴 변 1536 이하, JPEG quality 75)다. 이 부록의 compact는 공개 규칙을 재현한 실험용 모사이며 제품 내부 compact 동작이나 Task 40 규칙의 성능을 주장하지 않는다. [출처: `docs/research/2026-10-15-experiment3-protocol.md:30-35`, `research/results/s3-heldout/README.md:9-10`, ID E3-1]
+조건은 S0 전체 유지, S1 compact 모사, S2 원본 보존 발췌, S3 원본 보존 발췌+compact, S4 단순 축소 유지(긴 변 1536 이하, JPEG quality 75)다. 이 부록의 compact는 공개 규칙을 재현한 실험용 모사이며 제품 내부 compact 동작이나 Task 40 규칙의 성능을 주장하지 않는다. [출처: `docs/research/2026-10-15-experiment3-protocol.md:30-35`, `research/results/s3-heldout/README.md:9-10`, ID E3-1]
 
 주 분석 공급자는 `gpt-4o-2024-11-20`, 보조 공급자는 `claude-haiku-4-5-20251001`이다. GPT-4o는 기본 detail high다. Haiku의 도구 경로에는 긴 변 512 이하 썸네일을 사용하며, 영역을 찾지 못한 전체 이미지에는 별도의 arm 변환을 적용했다. [출처: `docs/research/2026-10-15-experiment3-protocol.md:36,48`, `research/results/s3-heldout/README.md:9-19`, ID E3-4]
 
@@ -25,8 +25,6 @@ held-out 세트는 템플릿 3종마다 기존 레이아웃 4세션과 전용 �
 
 GPT-4o에서 S1 compact 모사는 늦은 회상을 13.9%로 낮췄고 S3는 81.9%로 회복했다. Haiku에서는 S1 72.2%, S3 73.6%로 H3을 지지하지 않았다. 이는 각 공급자·대본·조건에 한정된 결과이며, compact가 모든 공급자에서 정확도를 보존한다는 근거가 아니다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:24`, `research/results/s3-heldout/haiku/analysis.md:24`, ID E3-6–E3-7, E3-10–E3-14]
 
-H1의 `지지 안 됨`은 사전 등록한 비열등성 기준을 충족하지 못했다는 뜻이다. 신뢰구간 하한이 −5%p보다 낮다는 사실만으로 −5%p 이상 열등하다고 입증한 것으로 해석하지 않는다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:11`, `research/results/s3-heldout/haiku/analysis.md:11`, ID E3-5]
-
 ## 3. 조건별 정확도·회상·입력·비용
 
 아래 값은 정확도와 늦은 회상은 분석 파일의 소수 한 자리, 토큰·비용은 결과 요약의 원 자릿수를 옮겼다. 비용은 세션 평균이며 정가와 캐시 기준을 구분한다.
@@ -43,7 +41,7 @@ H1의 `지지 안 됨`은 사전 등록한 비열등성 기준을 충족하지 �
 
 GPT-4o S2의 입력 토큰은 S0보다 31% 적었다(23,295 대 33,892). 이 정수 비율은 원자료가 제공한 값이며 표의 평균을 다시 계산한 값이 아니다. 실행 총계는 GPT-4o 1,460회/$8.07, Haiku 1,589회/$5.92(정가, 중단분 포함)다. [출처: `research/results/s3-heldout/README.md:16-19,31,42-48`, `research/results/s3-heldout/gpt4o/summary.md:7-11`, `research/results/s3-heldout/haiku/summary.md:7-11`, ID E3-4, E3-9–E3-14]
 
-캐시 기준은 공급자 공식 가격표 확인 기록을 따른다. GPT-4o는 입력 $2.50, 캐시 입력 $1.25, 출력 $10.00/1M 토큰으로 읽기 0.5배를 적용했으며, Claude가 2026-10-18에 OpenAI 가격표를 확인한 기록을 따른다([OpenAI API pricing](https://developers.openai.com/api/docs/pricing)). `gpt-4o-2024-11-20` 스냅샷의 개별 가격 행은 표에 없다는 한계가 있어 같은 `gpt-4o` 가격을 사용했다. Haiku 4.5는 입력 $1, 5분 캐시 쓰기 1.25배, 읽기 0.1배, 출력 $5/MTok이며, Claude가 2026-10-18에 Anthropic 가격 문서를 확인한 기록을 따른다([Claude pricing](https://platform.claude.com/docs/en/about-claude/pricing)). [출처: `research/results/s3-heldout/README.md:50-54`, `research/plans/2026-10-18-task38-number-sheet.md` §4, ID C-1–C-2]
+가격과 캐시 배율은 2026-10-18 확인(수치 대조표 §4 C-1·C-2)한 공급자 공개 가격표를 따른다. GPT-4o는 입력 $2.50, 캐시 입력 $1.25, 출력 $10.00/1M 토큰으로 읽기 0.5배를 적용했다. 가격표에는 `gpt-4o-2024-11-20` 스냅샷의 별도 행이 없어 같은 `gpt-4o` 행을 적용했다. Haiku 4.5는 입력 $1, 5분 캐시 쓰기 1.25배, 읽기 0.1배, 출력 $5/MTok이다. [출처: `research/results/s3-heldout/README.md:50-54`, `research/plans/2026-10-18-task38-number-sheet.md` §4, ID C-1–C-2]
 
 Haiku에서 S2 입력 토큰이 S0보다 많은 이유는 도구 왕복마다 누적 기록을 다시 보내고 호출 수가 많았기 때문이다. S0 호출은 8.0회, S2는 18.5회였고 캐시 토큰은 각각 36,928과 10,171이었다. 이는 관측된 비용 구조의 설명이며 다른 공급자에 일반화하지 않는다. [출처: `research/results/s3-heldout/README.md:79-83`, ID E3-22–E3-23]
 
@@ -88,6 +86,5 @@ node src/session-analyze.mjs --run-id <id>
 ```
 
 이 연구는 8턴 고정 대본과 세 템플릿을 사용하므로 실제 자율 에이전트 세션으로 일반화하지 않는다. H1의 비열등성은 두 공급자 모두 입증되지 않았고, Haiku H4는 비용 절감을 보여주지 않았다. 개선 효과를 정확도로 평가하려면 새 사전 등록이 필요하다. [출처: `docs/research/2026-10-15-experiment3-protocol.md:26,64`, `research/results/s3-heldout/README.md:25-37`, ID E3-5–E3-8]
-
 
 이미지 조회 도구는 연구 코드의 시안이며 텍스트 도구만 실제 플러그인 MCP를 호출했다. content-match 채점은 정답 값이 설명이나 미완성 답에 있어도 정답으로 센다. 하네스는 재시도 뒤 API 오류가 남으면 실패 결과 저장 대신 중단한다. 보고된 실행은 전 조합이 완료되어 영향이 없지만, 실패가 남는 실행에는 사전 등록의 실패·미실행 정책을 별도로 적용해야 한다. [출처: `research/results/s3-heldout/README.md:104-111`]
