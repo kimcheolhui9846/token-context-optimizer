@@ -3,7 +3,7 @@
 - 등급: 요청서 특별 규칙 D + Astra. Claude 계획 1회, Draft PR 뒤 Claude PR 검토 1회, 주 에이전트 최종 검토.
 - 기준: main `eaf754296aff790dd73289313c2057cf8ea6357c`(PR #49 merge).
 - 브랜치: `codex/task-38-heldout-results`; worktree `.artifacts/worktrees/task-38-heldout-results`.
-- 현재 상태: 구현·로컬 문서 검증 완료, Draft PR 준비. Claude PR 검토와 그 뒤 최종 검토는 대기.
+- 현재 상태: [Draft PR #51](https://github.com/kimcheolhui9846/token-context-optimizer/pull/51) 제출·push·제출 후 문서 검증 완료. Claude PR 검토와 그 뒤 최종 검토는 대기.
 - 사용자 승인: P1–P5 모두 2026-10-20 권장안 승인(전달문 25행 및 사용자 재확인). 추가 계획 승인 불필요.
 - P1 파일명 `2026-10-16-experiment2-results.md`; P2 compact 보완 주장과 13.9%→81.9%; P3 결과 표 2개/그림 1·2·3·5; P4 스킬 본문 미언급; P5 제품 crop과 연구 OCR 평가 구분.
 - 범위: 두 결과 부록, 원고, 실험 3 프로토콜 결과 링크 한 줄, 이 핸드오프의 5개 Markdown 파일만.
@@ -18,7 +18,7 @@
 - [x] T1 정확도·차이·CI 소수 한 자리, T2 정수 31%와 원값, T3 그림 4개/결과 표 2개. 그림 4는 표 2 비용 패널, 그림 6은 조건별 부록 표.
 - [x] 참고문헌: main IEEE 정리본 §1 [1]–[24] 그대로 복사; [1] DS 학회판·[11] 장소 포함. 가격 URL은 인라인.
 - [x] 실험 3 프로토콜은 결과 링크 한 줄만 추가; 부록에서 역링크.
-- [ ] Agent: codex 커밋 → push → Draft PR(base main) → 최종 로컬 문서 확인.
+- [x] 구현 `f14d190`(Agent: codex) → push → Draft PR #51(base main) → 제출 후 로컬 문서 확인.
 - [ ] 사용자 Claude PR 검토 반영 → 주 에이전트 최종 검토. Ready·merge·다음 Task는 별도 승인.
 
 ## 해석 경계
@@ -46,6 +46,8 @@
 - 직접 대조: 수치 대조표와 양 공급자 원 analysis/summary/README, 캐시 확인 기록, bench-001/002, 그림 README.
 - `git diff --check`: 통과. 프로토콜 diff +1/−0; 변경 범위 5개 Markdown. 상대 링크·그림 경로 확인.
 - 참고문헌 §1 텍스트 일치(줄바꿈만 정규화), C2·C3 원문 일치 확인.
+- 2026-10-21 재개: 수치·출처 재대조, 상대 링크 52개 존재, 참고문헌 24개·C2/C3 일치, 장별 글자 수 PR 본문과 일치. staged 검사에서 발견한 E2 부록 EOF 빈 줄을 제거한 뒤 재검증 통과.
+- PR 생성 후 `git diff eaf7542..HEAD --check` 통과; 변경 5개 Markdown, 프로토콜 +1/−0, PR head와 push 일치. 실제 HWP 조판은 미수행.
 - RED/GREEN: 문서 전용이므로 테스트 TDD 해당 없음. 산출 전 수치·범위·원문 보존을 수락 기준으로 정하고 직접 대조했다.
 - npm gate·새 검증 스크립트·실험 재실행: Tier D 요청에 따라 수행하지 않음.
 - 8면 예산: 머리 .5/I 1/II .5/III 1.25/IV .75/V .75/VI 1.75/VII .35/VIII .15/참고문헌 1.
