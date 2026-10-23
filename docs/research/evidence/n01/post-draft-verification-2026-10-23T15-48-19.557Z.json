@@ -1,0 +1,37 @@
+﻿{
+    "phase":  "post-pr",
+    "timestamp":  "2026-10-23T15:48:19.557Z",
+    "sourceSha256":  "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+    "results":  [
+                    {
+                        "command":  "npm.cmd run build",
+                        "exitCode":  0,
+                        "wallMs":  2054.8219
+                    },
+                    {
+                        "command":  "npm.cmd test",
+                        "exitCode":  0,
+                        "wallMs":  21723.4548
+                    },
+                    {
+                        "command":  "npm.cmd run typecheck",
+                        "exitCode":  0,
+                        "wallMs":  2570.4336000000003
+                    },
+                    {
+                        "command":  "npm.cmd run smoke:mcp",
+                        "exitCode":  0,
+                        "wallMs":  820.3724999999977
+                    },
+                    {
+                        "command":  "npm.cmd run validate:plugin",
+                        "exitCode":  0,
+                        "wallMs":  305.6872000000003
+                    }
+                ],
+    "pr":  "https://github.com/kimcheolhui9846/token-context-optimizer/pull/58",
+    "testedCommit":  "a918dfef0447f34bee94ac394660c666fe2c29f0",
+    "testResult":  "874 passed, 1 skipped; 33 files passed",
+    "diffCheck":  "PASS",
+    "verdict":  "CHANGES REQUIRED: dot 10MiB median regression +1.31%; no acceptance threshold change"
+}

@@ -1,7 +1,7 @@
 # N-01 implementation handoff
 
 - Tier E: code/tests and measured performance evidence.
-- Status: CHANGES REQUIRED (dot performance gate); Draft delivery in progress. Base main b909294; branch codex/n01-scanner-impl.
+- Status: CHANGES REQUIRED (dot performance gate); Draft PR [#58](https://github.com/kimcheolhui9846/token-context-optimizer/pull/58) delivered; implementation a918dfe. Base main b909294; branch codex/n01-scanner-impl.
 - Scope: policy predicates 0-based #2/#8/#19/#21/#23, narrow wrapper, new tests, generated bundle and fresh timestamp evidence.
 - Preserved: classifications/reason order/F-21; no artifacts.ts/server/schema/package/dependency/research/paper/frozen-oracle/pre-task-evidence changes.
 - Initial plan: user-provided Claude review of 8c3b998, APPROVE, blocker0 / major0 / minor1 (m-3 incorporated).
@@ -17,4 +17,5 @@
 - Evidence: [final summary](../../research/evidence/n01/implementation-summary-2026-10-23T15-43-12.648Z.json), [comparison](../../research/evidence/n01/performance-comparison-2026-10-23T13-00-37.370Z.json), [fresh MCP](../../research/evidence/n01/mcp-large-2026-10-23T15-40-49.857Z.json). Earlier summaries/pilot reflect intermediate states, not final acceptance.
 - Reproduce new matrix: extract runner.source from implementation-large JSON to .artifacts/measure-n01.mjs, verify runner.sha256, run from repo root. Task25 runner remains unchanged. Replay creates new timestamp evidence.
 - Final independent Claude implementation review is pending in the user's session per task instructions. Primary final review: CHANGES REQUIRED for dot performance criterion; correctness/scope gates pass.
-- Remaining: commit/push/DraftPR, post-Draft gate, final Git/PR verification. Do not mark Ready/merge or start next Task. User judgment required for remaining performance failure; no scope expansion applied.
+- Post-Draft gate: build/test/typecheck/smoke:mcp/validate:plugin exit0;874 pass/1skip; suite21.723s (+0.345s vs baseline). Source hash unchanged; [evidence](../../research/evidence/n01/post-draft-verification-2026-10-23T15-48-19.557Z.json).
+- Remaining: user-session Claude implementation review and performance judgment. Do not mark Ready/merge or start next Task. User judgment required for remaining performance failure; no scope expansion applied.
