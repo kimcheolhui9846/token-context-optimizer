@@ -1,0 +1,3082 @@
+{
+  "phase": "current-classifier-large-only",
+  "measuredAt": "2026-10-23T12:57:32.118Z",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64"
+  },
+  "source": {
+    "gitHead": "b909294deda31f312625002efcb3cfca7178a2bf",
+    "path": "src/core/policy.ts",
+    "gitBlob": "a8da214cd0ba3f0a867a052d54346ee2415e1c7e",
+    "sha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7"
+  },
+  "method": {
+    "currentProductionClassifierOnly": true,
+    "baselineOrOracleAllowed": false,
+    "families": [
+      "drop",
+      "semicolon",
+      "php_opener",
+      "tag_space",
+      "trace_spaces_equals",
+      "hyphen",
+      "dot",
+      "blanklines",
+      "bang_letter",
+      "html_comment",
+      "npm_dots_x",
+      "command_prefix"
+    ],
+    "sizesUtf16CodeUnitsAndExpectedUtf8Bytes": [
+      1048576,
+      5242880,
+      10485760
+    ],
+    "rawTimedSamplesPerProbe": 5,
+    "warmup": "one 100-unit same-recipe classification in each child, excluded from timings",
+    "childTimeoutMs": 20000,
+    "cumulativeBudgetMs": 180000,
+    "timeoutIsCensored": true,
+    "inputClass": "ASCII only; exact UTF-16 code-unit and UTF-8 byte lengths",
+    "timedRegion": "classifyContext(input) only; process startup, TS compilation and input construction are excluded"
+  },
+  "probes": [
+    {
+      "family": "drop",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1447.9569,
+      "metadata": {
+        "type": "metadata",
+        "family": "drop",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 252580300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 246330600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 225614100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 236767000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 239071800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "drop",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 6196.9208,
+      "metadata": {
+        "type": "metadata",
+        "family": "drop",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1258331500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1155537300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1172312500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1182588000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1158450300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "drop",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 12509.6169,
+      "metadata": {
+        "type": "metadata",
+        "family": "drop",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 2447377100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 2446340800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 2432469500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 2451630500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 2460564100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "semicolon",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 693.8675000000003,
+      "metadata": {
+        "type": "metadata",
+        "family": "semicolon",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 100561400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 93601100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 88933200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 84720500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 83493500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "semicolon",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 2428.3379999999997,
+      "metadata": {
+        "type": "metadata",
+        "family": "semicolon",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 446588400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 438653300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 432538900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 433516000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 423189100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "semicolon",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 4544.168900000001,
+      "metadata": {
+        "type": "metadata",
+        "family": "semicolon",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 883805200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 863046100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 846215900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 833677800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 848882700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "php_opener",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1133.4808999999987,
+      "metadata": {
+        "type": "metadata",
+        "family": "php_opener",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 195822600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 191273600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 158780700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 164586500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 169466000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "php_opener",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 5014.719300000001,
+      "metadata": {
+        "type": "metadata",
+        "family": "php_opener",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 934806300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 955932400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 933976900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 950185100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 967443000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "php_opener",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 9926.357499999998,
+      "metadata": {
+        "type": "metadata",
+        "family": "php_opener",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1999590600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1891283100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1857975800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1902667600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1951895600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "tag_space",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 632.1791999999987,
+      "metadata": {
+        "type": "metadata",
+        "family": "tag_space",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 87465100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 76027400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 74412300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 76988600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 77988100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "tag_space",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 2232.3338000000003,
+      "metadata": {
+        "type": "metadata",
+        "family": "tag_space",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 404914300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 398043900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 396842600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 395780200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 395401400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "tag_space",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 4169.5625999999975,
+      "metadata": {
+        "type": "metadata",
+        "family": "tag_space",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 801029000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 776381500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 777898600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 779072600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 787344000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "trace_spaces_equals",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 771.3318999999974,
+      "metadata": {
+        "type": "metadata",
+        "family": "trace_spaces_equals",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 117247700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 112311500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 103258400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 101709200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 98074700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "trace_spaces_equals",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 2807.2513000000035,
+      "metadata": {
+        "type": "metadata",
+        "family": "trace_spaces_equals",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 525272800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 516086500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 511560100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 495612800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 503101100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "trace_spaces_equals",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 5314.338800000005,
+      "metadata": {
+        "type": "metadata",
+        "family": "trace_spaces_equals",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1031546700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1021104200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 993234400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1000062600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1001844700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "hyphen",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1100.3053,
+      "metadata": {
+        "type": "metadata",
+        "family": "hyphen",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 181632800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 172169100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 164946700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 164271600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 169361600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "hyphen",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 4425.4496,
+      "metadata": {
+        "type": "metadata",
+        "family": "hyphen",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 857073500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 836407200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 834014600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 822656100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 818348600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "hyphen",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 8535.357200000006,
+      "metadata": {
+        "type": "metadata",
+        "family": "hyphen",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1698720100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1628659500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1646154900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1651597800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1647873500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "dot",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1720.6092999999964,
+      "metadata": {
+        "type": "metadata",
+        "family": "dot",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 293952000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 294700600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 295095500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 288339500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 290749300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "dot",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 7740.870200000005,
+      "metadata": {
+        "type": "metadata",
+        "family": "dot",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1525450400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1481460200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1489772700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1487566600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1463957300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "dot",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 15211.5328,
+      "metadata": {
+        "type": "metadata",
+        "family": "dot",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 3014798800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 2916076400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 3036801500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 2844880800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 3070142700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "blanklines",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1114.5353000000032,
+      "metadata": {
+        "type": "metadata",
+        "family": "blanklines",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 189727500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 178843000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 161194900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 164242400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 164042100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "blanklines",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 4617.1610999999975,
+      "metadata": {
+        "type": "metadata",
+        "family": "blanklines",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 913464000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 864307200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 856419800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 866942700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 863419400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "blanklines",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 8950.1492,
+      "metadata": {
+        "type": "metadata",
+        "family": "blanklines",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1767777100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1750022200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1698970400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1739286500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1723869700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "bang_letter",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1140.9137999999948,
+      "metadata": {
+        "type": "metadata",
+        "family": "bang_letter",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 193704900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 192964500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 160534000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 162655500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 173341600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "bang_letter",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 5009.139999999999,
+      "metadata": {
+        "type": "metadata",
+        "family": "bang_letter",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 933414300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 960582300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 919902200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 929017400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 981157200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "bang_letter",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 9949.527900000001,
+      "metadata": {
+        "type": "metadata",
+        "family": "bang_letter",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 2003579100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1859956300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1880538500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1875030900,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1994745300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "html_comment",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 801.6922999999952,
+      "metadata": {
+        "type": "metadata",
+        "family": "html_comment",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 119961300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 112242100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 107865700,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 109763000,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 103188800,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "html_comment",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 2920.0696000000025,
+      "metadata": {
+        "type": "metadata",
+        "family": "html_comment",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 555612600,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 535575300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 534521500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 519005400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 518885500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "html_comment",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 5580.252599999978,
+      "metadata": {
+        "type": "metadata",
+        "family": "html_comment",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1095628400,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1063137200,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1069235300,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1038841100,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1040701500,
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "npm_dots_x",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 1500.5590000000084,
+      "metadata": {
+        "type": "metadata",
+        "family": "npm_dots_x",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 266927600,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 248530900,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 245809400,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 248204500,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 246485800,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "npm_dots_x",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 6415.702400000009,
+      "metadata": {
+        "type": "metadata",
+        "family": "npm_dots_x",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1247622300,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1226862600,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1239309800,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1226741200,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1229021600,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "npm_dots_x",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 12617.963799999998,
+      "metadata": {
+        "type": "metadata",
+        "family": "npm_dots_x",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 2486974600,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 2456320500,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 2462030600,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 2484275200,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 2468608000,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "command_prefix",
+      "size": 1048576,
+      "status": "complete",
+      "phaseElapsedMs": 929.0855999999912,
+      "metadata": {
+        "type": "metadata",
+        "family": "command_prefix",
+        "size": 1048576,
+        "utf16Length": 1048576,
+        "utf8Bytes": 1048576,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 151057200,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 144806300,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 124499700,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 133594900,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 126119400,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "command_prefix",
+      "size": 5242880,
+      "status": "complete",
+      "phaseElapsedMs": 3700.6455000000133,
+      "metadata": {
+        "type": "metadata",
+        "family": "command_prefix",
+        "size": 5242880,
+        "utf16Length": 5242880,
+        "utf8Bytes": 5242880,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 700765800,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 688342100,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 679401900,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 675852500,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 699911300,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "command_prefix",
+      "size": 10485760,
+      "status": "complete",
+      "phaseElapsedMs": 6942.179600000003,
+      "metadata": {
+        "type": "metadata",
+        "family": "command_prefix",
+        "size": 10485760,
+        "utf16Length": 10485760,
+        "utf8Bytes": 10485760,
+        "sampleCount": 5,
+        "source": "src/core/policy.ts",
+        "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+        "environment": {
+          "node": "v24.18.0",
+          "platform": "win32",
+          "release": "10.0.26200",
+          "arch": "x64"
+        }
+      },
+      "samples": [
+        {
+          "type": "sample",
+          "index": 0,
+          "elapsedNs": 1383870400,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 1,
+          "elapsedNs": 1350159400,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 2,
+          "elapsedNs": 1286223100,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 3,
+          "elapsedNs": 1287227000,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        {
+          "type": "sample",
+          "index": 4,
+          "elapsedNs": 1357850300,
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      ]
+    }
+  ],
+  "budget": {
+    "elapsedMs": 170777.2201,
+    "cumulativeBudgetMs": 180000
+  },
+  "coverage": {
+    "expectedProbes": 36,
+    "completedProbes": 36,
+    "incomplete": [],
+    "status": "complete"
+  }
+}

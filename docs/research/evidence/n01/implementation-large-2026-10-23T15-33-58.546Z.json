@@ -1,0 +1,3864 @@
+{
+  "measuredAt": "2026-10-23T15:33:58.546Z",
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "os": "win32",
+    "release": "10.0.26200",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F"
+  },
+  "source": {
+    "sha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+    "oracleSha256": "8f5a3db240993e33944f5b3b67d35ed7fc9d078c8c06589f2b79e13f3986bc35",
+    "gitHead": "b909294deda31f312625002efcb3cfca7178a2bf"
+  },
+  "runner": {
+    "source": "import {readFileSync,writeFileSync,existsSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {spawnSync,execFileSync} from 'node:child_process';\nimport {createRequire,Module} from 'node:module';\nimport {resolve} from 'node:path';\nimport os from 'node:os';\nconst sha = x => createHash('sha256').update(x).digest('hex');\nconst root=process.cwd(), self=resolve('.artifacts/measure-n01.mjs');\nconst recipes={bearer:['Bearer ','A',''],path:['x','/a',''],id:['id=','a',''],trace:['trace=','a',''],hex:['','a',''],hexWordMiss:['','a','g'],hexNonword:['','a','!'],idDots:['id=','.',''],traceDots:['trace=','.',''],digits:['','1','a'],decimal:['1.','1','a'],word:['','Zz0_',''],pathMiss:['x','/a','!']};\nfunction input(name,n){const [prefix,unit,tail]=recipes[name], count=Math.floor((n-prefix.length-tail.length)/unit.length);return ' '.repeat(n-prefix.length-tail.length-count*unit.length)+prefix+unit.repeat(count)+tail;}\nif(process.argv[2]==='child'){\n const name=process.argv[3],n=Number(process.argv[4]);\n const path=resolve('src/core/policy.ts'), source=readFileSync(path,'utf8');\n const require=createRequire(import.meta.url),ts=require('typescript');\n const mod=new Module(path);mod.filename=path;mod.paths=Module._nodeModulePaths(root);\n mod._compile(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,path);\n const content=input(name,n);if(content.length!==n||Buffer.byteLength(content)!==n)throw Error('size mismatch');\n mod.exports.classifyContext(input(name,100));\n const start=process.hrtime.bigint();let outcome;\n try{outcome={status:'returned',value:mod.exports.classifyContext(content)};}catch(e){outcome={status:'threw',error:{name:e.name,message:e.message}};}\n console.log(JSON.stringify({name,n,sourceSha256:sha(source),elapsedNs:Number(process.hrtime.bigint()-start),...outcome}));\n}else{\n const source=readFileSync('src/core/policy.ts'),timestamp=new Date().toISOString().replaceAll(':','-');\n const out=resolve('docs/research/evidence/n01',`implementation-large-${timestamp}.json`);\n if(existsSync(out))throw Error('refuse overwrite');\n const report={measuredAt:new Date().toISOString(),environment:{node:process.version,v8:process.versions.v8,os:os.platform(),release:os.release(),cpu:os.cpus()[0].model},source:{sha256:sha(source),oracleSha256:sha(readFileSync('tests/helpers/policy-baseline.ts')),gitHead:execFileSync('git',['rev-parse','HEAD'],{windowsHide:true,encoding:'utf8'}).trim()},runner:{source:readFileSync(self,'utf8'),sha256:sha(readFileSync(self))},recipes,method:{sizes:[6000000,10485760,20971520],samples:5,childDeadlineMs:20000,warmup:100,sequential:true},results:[]};\n for(const name of Object.keys(recipes))for(const size of report.method.sizes)for(let sample=0;sample<5;sample++){\n  const started=performance.now(),r=spawnSync(process.execPath,[self,'child',name,String(size)],{cwd:root,windowsHide:true,timeout:20000,encoding:'utf8',maxBuffer:1024*1024});\n  let value;if(r.error?.code==='ETIMEDOUT')value={status:'timeout-censored'};else if(r.status!==0)value={status:'infrastructure-error',error:r.error?.message??r.stderr};else{value=JSON.parse(r.stdout);if(value.sourceSha256!==report.source.sha256)throw Error('source changed during measurement');}\n  report.results.push({name,size,sample,wallMs:performance.now()-started,...value});writeFileSync(out,JSON.stringify(report,null,2)+'\\n');\n  if(sample===4)console.log(`${name} ${size}: ${value.status}`);\n }\n console.log(out);\n}\n",
+    "sha256": "1aa38e8a6036d07248fdc92c7fe999e6aebf9ed5d2f23e9532ba72069241b75b"
+  },
+  "recipes": {
+    "bearer": [
+      "Bearer ",
+      "A",
+      ""
+    ],
+    "path": [
+      "x",
+      "/a",
+      ""
+    ],
+    "id": [
+      "id=",
+      "a",
+      ""
+    ],
+    "trace": [
+      "trace=",
+      "a",
+      ""
+    ],
+    "hex": [
+      "",
+      "a",
+      ""
+    ],
+    "hexWordMiss": [
+      "",
+      "a",
+      "g"
+    ],
+    "hexNonword": [
+      "",
+      "a",
+      "!"
+    ],
+    "idDots": [
+      "id=",
+      ".",
+      ""
+    ],
+    "traceDots": [
+      "trace=",
+      ".",
+      ""
+    ],
+    "digits": [
+      "",
+      "1",
+      "a"
+    ],
+    "decimal": [
+      "1.",
+      "1",
+      "a"
+    ],
+    "word": [
+      "",
+      "Zz0_",
+      ""
+    ],
+    "pathMiss": [
+      "x",
+      "/a",
+      "!"
+    ]
+  },
+  "method": {
+    "sizes": [
+      6000000,
+      10485760,
+      20971520
+    ],
+    "samples": 5,
+    "childDeadlineMs": 20000,
+    "warmup": 100,
+    "sequential": true
+  },
+  "results": [
+    {
+      "name": "bearer",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1170.041,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 932629800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1170.2414999999999,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 936267400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1187.0159999999996,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 943486700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1175.8780000000002,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 938045000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1168.2144000000008,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 933702100,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1864.8352999999997,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1627076100,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1858.828199999999,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1621652500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1849.8711000000003,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1610000400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1870.1122000000014,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1630734200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1874.7385000000013,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1639528400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 3486.4051000000018,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3242432200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 3487.6908000000003,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3244254500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 3489.3403,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3248731400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 3466.124599999999,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3219933400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "bearer",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 3459.7222,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3213792900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "secret",
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1085.3047000000006,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 842429200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1077.5956000000006,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 843185400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1090.8894999999975,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 838845300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1073.7658999999985,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 838637600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1079.8356000000058,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 836266000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1703.9333000000042,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1457362500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1718.1394999999975,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1479848000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1706.8597999999984,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1462183300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1699.8459999999977,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1455004900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1704.955200000004,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1461711000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 3153.6299999999974,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2905687900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 3134.4040999999997,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2885297900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 3117.0337999999974,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2874099400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 3156.783899999995,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2911261700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "path",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 3133.640800000001,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2888014900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1178.6106,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 944556500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1175.2543000000005,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 938296700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1182.4876000000004,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 945334300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1173.5017999999982,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 940187900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1176.8813999999984,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 941468800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1872.3561000000045,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1634344600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1889.209799999997,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1633594200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1860.111499999999,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1624458700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1879.738599999997,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1641261300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1881.2171999999991,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1641866800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 3501.1830000000045,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3254309000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 3460.8718999999983,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3216464000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 3465.6054000000004,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3225862700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 3441.7005000000063,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3201763500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 3458.1698000000033,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3219590000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1225.2756999999983,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 983142500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1189.2881999999954,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 950543700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1189.7300000000105,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 949379900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1191.2342000000062,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 957888300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1194.6996000000072,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 950112300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1875.4401999999973,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1639285200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1883.3552999999956,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1641724300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1885.2903000000078,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1634183200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1881.3196999999927,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1642331200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1897.976999999999,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1661367900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 3527.969200000007,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3285361100,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 3510.358500000002,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3266619000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 3527.6877999999997,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3286462700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 3516.1835999999894,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3271534000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "trace",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 3508.5782000000036,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3262392500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1181.5317000000068,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 931998700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1169.1763999999966,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 933565300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1182.8592999999964,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 939428300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1171.2692000000097,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 936526900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1171.7191000000166,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 933661200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1869.6597000000183,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1628150800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1858.1908000000112,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1614929900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1866.3708000000042,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1631103900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1871.8747000000149,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1634499600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 2312.3692000000156,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2072666900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 3483.2233000000124,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3239732600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 3466.1621999999916,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3222545000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 3501.683799999999,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3251556800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 3478.2766999999876,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3236983900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hex",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 3493.515400000004,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3249735400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1413.0274999999965,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1161724500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1422.818100000004,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1176569700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1407.8947000000044,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1160975500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1405.00039999999,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1157529000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1431.577500000014,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1178824700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 2285.039599999989,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2019020500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 2263.132500000007,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1993593600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 2264.4486000000034,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2003038000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 2252.729800000001,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1990170200,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 2295.269899999985,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2027665000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 4258.798999999999,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3990663900,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 4375.38519999999,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 4108906100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 4250.123499999987,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3980166200,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 4222.995900000009,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3954301800,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 4257.082599999994,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3985773000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1182.8916000000027,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 940218400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1171.142600000021,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 933806600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1182.1068999999843,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 944271100,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1186.0121999999974,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 949819600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1185.4232000000193,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 944268800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1860.3126000000047,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1624794200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1856.3099999999977,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1618128600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1875.7910000000265,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1638856000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1861.7275999999838,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1618390200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1870.2676999999967,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1634091900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 3516.268400000001,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3270906500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 3472.8781000000017,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3224772600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 3487.2418999999936,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3245805400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 3489.366400000028,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3250070800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "hexNonword",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 3487.7191000000166,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 3247873400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 917.9896000000008,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 678749400,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 919.2440999999817,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 680472000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 910.911300000007,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 673078600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 917.9414999999863,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 677234800,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 912.5039999999863,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 674559700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1407.2467999999935,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1165973200,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1410.8115999999864,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1169407400,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1412.447199999995,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1170755600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1407.6197000000102,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1165554500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1422.626099999994,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1180671600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 2584.8278999999748,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2334435500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 2599.600299999991,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2354882100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 2603.797200000001,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2355921400,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 2605.9423000000243,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2356716500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "idDots",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 2581.8930999999866,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2333880400,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 961.0748000000021,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 718436500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 939.5186000000103,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 705213000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 957.7423000000126,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 711592900,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 945.8586999999825,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 706675800,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 949.6728000000294,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 708715300,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1477.740300000005,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1236804000,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1461.359300000011,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1222046700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1455.7925999999861,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1216260100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1455.9910999999847,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1219468300,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1470.6766000000061,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1229138800,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 2710.307899999956,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2458552600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 2699.8616999999504,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2451986900,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 2718.7490999999573,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2460821900,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 2717.1412000000128,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2469564200,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "traceDots",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 2714.368599999987,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2468631800,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 920.8991999999853,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 681653700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 919.1006000000052,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 681291000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 917.7093999999925,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 681809000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 909.0813000000198,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 674857800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 909.3780000000261,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 676530800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1425.9997999999905,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1186856500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1418.9096000000136,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1179478900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1409.1566999999923,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1170147000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1420.6203000000096,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1185822500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1418.1867000000202,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1183195500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 2602.6898999999976,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2350669800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 2602.3710999999894,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2359003400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 2585.546399999992,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2339461000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 2605.4329000000143,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2360112900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "digits",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 2583.8300000000163,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2342864900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 897.053899999999,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 663258600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 900.5868999999948,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 669477800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 892.5014000000083,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 662489300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 899.4274999999907,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 663727000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 907.0144000000437,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 671464700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1402.3587000000407,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1166514100,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1391.4456000000355,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1156458000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1394.8129999999655,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1154610300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1399.8347000000067,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1156096900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1403.3755000000237,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1159331200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 2561.655700000003,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2314802700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 2532.3119000000297,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2290093800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 2534.449800000002,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2292861700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 2517.7949999999837,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2273058800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "decimal",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 2541.2513000000035,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2294806500,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "numeric_or_table"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1022.3793999999762,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 783035000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1017.5843999999925,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 786237700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1056.7783000000054,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 821185600,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1021.8937000000151,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 787921700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1028.3428999999887,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 782260900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 1615.40830000001,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1378651300,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 1596.9661999999662,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1362833700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 1595.4909000000334,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1361479400,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 1601.1998000000021,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1362069900,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 1606.147500000021,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1362226100,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 2977.127700000012,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2733774200,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 2959.105900000024,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2717964000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 2956.8927999999723,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2710759000,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 2969.1973,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2719378800,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "word",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 2940.452500000014,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2697219700,
+      "status": "returned",
+      "value": {
+        "mode": "exact",
+        "reasons": [
+          "identifier_or_hash",
+          "code_or_path"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 6000000,
+      "sample": 0,
+      "wallMs": 1642.4119000000064,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1370712700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 6000000,
+      "sample": 1,
+      "wallMs": 1638.7008999999962,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1370091900,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 6000000,
+      "sample": 2,
+      "wallMs": 1630.6886999999988,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1365549600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 6000000,
+      "sample": 3,
+      "wallMs": 1634.4672000000137,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1365159300,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 6000000,
+      "sample": 4,
+      "wallMs": 1611.896000000008,
+      "n": 6000000,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 1344768100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 10485760,
+      "sample": 0,
+      "wallMs": 2719.5254000000423,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2440717100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 10485760,
+      "sample": 1,
+      "wallMs": 2673.098100000003,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2393601700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 10485760,
+      "sample": 2,
+      "wallMs": 2752.489499999967,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2464219600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 10485760,
+      "sample": 3,
+      "wallMs": 2750.367100000032,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2457093100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 10485760,
+      "sample": 4,
+      "wallMs": 2691.77919999999,
+      "n": 10485760,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 2416006600,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 20971520,
+      "sample": 0,
+      "wallMs": 5027.693099999975,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 4686095500,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 20971520,
+      "sample": 1,
+      "wallMs": 5104.424100000004,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 4759469100,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 20971520,
+      "sample": 2,
+      "wallMs": 5121.109599999967,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 4775397700,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 20971520,
+      "sample": 3,
+      "wallMs": 5067.241900000023,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 4726490900,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "name": "pathMiss",
+      "size": 20971520,
+      "sample": 4,
+      "wallMs": 5108.514100000029,
+      "n": 20971520,
+      "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+      "elapsedNs": 4759092800,
+      "status": "returned",
+      "value": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    }
+  ]
+}

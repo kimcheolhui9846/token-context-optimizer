@@ -22852,6 +22852,9 @@ var FILE_EXTENSIONS = /* @__PURE__ */ new Set([
   "db",
   "sh"
 ]);
+var IDENTIFIER_PREFIX_SCAN = /\b(?:sha256|sha|hash|id)/giu;
+var TRACE_PREFIX_SCAN = /\b(?:trace|span|correlation|request|session|event)/giu;
+var HEX32_CANDIDATE = /\b[A-Fa-f0-9]{32}/gu;
 function isAsciiWordCode(code) {
   return code >= 65 && code <= 90 || code >= 97 && code <= 122 || code >= 48 && code <= 57 || code === 95;
 }
@@ -22888,6 +22891,42 @@ function isSchemeCode(code) {
 }
 function isAsciiAlphaNumericCode(code) {
   return isAsciiLetterCode(code) || code >= 48 && code <= 57;
+}
+function isIuLetterCode(code) {
+  return isAsciiLetterCode(code) || code === 383 || code === 8490;
+}
+function isIuWordCode(code) {
+  return isAsciiWordCode(code) || code === 383 || code === 8490;
+}
+function isIuValueCode(code) {
+  return isIuLetterCode(code) || code >= 48 && code <= 57 || code === 46 || code === 45 || code === 95;
+}
+function isIuBoundaryFast(content, index) {
+  const previous = index > 0 && isIuWordCode(content.charCodeAt(index - 1));
+  const current = index < content.length && isIuWordCode(content.charCodeAt(index));
+  return previous !== current;
+}
+function isPolicyWhitespaceCode(code) {
+  return code >= 9 && code <= 13 || code === 32 || code === 160 || code === 5760 || code >= 8192 && code <= 8202 || code === 8232 || code === 8233 || code === 8239 || code === 8287 || code === 12288 || code === 65279;
+}
+function isAsciiTokenCode(code) {
+  return isAsciiAlphaNumericCode(code) || code === 46 || code === 95 || code === 126 || code === 43 || code === 47 || code === 61 || code === 45;
+}
+function hasBearerToken(content) {
+  for (let index = content.indexOf("Bearer"); index !== -1; index = content.indexOf("Bearer", index + 6)) {
+    if (isAsciiWordAt(content, index - 1)) continue;
+    let cursor = index + 6;
+    const whitespaceStart = cursor;
+    while (cursor < content.length && isPolicyWhitespaceCode(content.charCodeAt(cursor))) cursor += 1;
+    if (cursor === whitespaceStart) continue;
+    let tokenLength = 0;
+    while (cursor < content.length && isAsciiTokenCode(content.charCodeAt(cursor))) {
+      tokenLength += 1;
+      cursor += 1;
+      if (tokenLength >= 8) return true;
+    }
+  }
+  return false;
 }
 function isFilenameRunCode(code) {
   return isAsciiWordCode(code) || code === 46 || code === 45;
@@ -22938,6 +22977,37 @@ function hasDottedTokenShape(content) {
     stemOrdinal = 0;
     earliestEligibleOrdinal = null;
     index += char?.length ?? 1;
+  }
+  return false;
+}
+function hasSegmentPath(content) {
+  if (!content.includes("/")) return false;
+  for (let start = 0; start < content.length; start += 1) {
+    if (start !== 0 && !isPolicyWhitespaceCode(content.charCodeAt(start - 1))) continue;
+    let cursor = start;
+    let segmentLength = 0;
+    let slashCount = 0;
+    while (cursor < content.length) {
+      const code = content.charCodeAt(cursor);
+      if (slashCount > 0 && segmentLength > 0 && (code === 46 || isPolicyWhitespaceCode(code) || ").,;:".includes(content[cursor]))) {
+        return true;
+      }
+      if (isAsciiWordCode(code) || code === 46 || code === 45) {
+        segmentLength += 1;
+        cursor += 1;
+        continue;
+      }
+      if (code === 47 && segmentLength > 0) {
+        slashCount += 1;
+        segmentLength = 0;
+        cursor += 1;
+        continue;
+      }
+      break;
+    }
+    if (slashCount > 0 && segmentLength > 0 && cursor === content.length) {
+      return true;
+    }
   }
   return false;
 }
@@ -23121,7 +23191,52 @@ function isCodePointWhitespace(char) {
   return isSingleCharMatch(char, /^\s$/u);
 }
 function hasTraceLikeValue(content) {
-  return /\b(?:trace|span|correlation|request|session|event)\s*(?:[:=]\s*)?[A-Za-z0-9._-]{6,}\b/iu.test(content);
+  TRACE_PREFIX_SCAN.lastIndex = 0;
+  for (let match = TRACE_PREFIX_SCAN.exec(content); match; match = TRACE_PREFIX_SCAN.exec(content)) {
+    let cursor = match.index + match[0].length;
+    while (cursor < content.length && isPolicyWhitespaceCode(content.charCodeAt(cursor))) cursor += 1;
+    if (cursor < content.length && (content.charCodeAt(cursor) === 58 || content.charCodeAt(cursor) === 61)) {
+      cursor += 1;
+      while (cursor < content.length && isPolicyWhitespaceCode(content.charCodeAt(cursor))) cursor += 1;
+    }
+    const valueStart = cursor;
+    while (cursor < content.length && isIuValueCode(content.codePointAt(cursor) ?? -1)) {
+      if (cursor - valueStart >= 6 && isIuBoundaryFast(content, cursor)) return true;
+      cursor += 1;
+    }
+    if (cursor - valueStart >= 6 && isIuBoundaryFast(content, cursor)) return true;
+  }
+  return false;
+}
+function hasPrefixedIdentifierValue(content) {
+  IDENTIFIER_PREFIX_SCAN.lastIndex = 0;
+  for (let match = IDENTIFIER_PREFIX_SCAN.exec(content); match; match = IDENTIFIER_PREFIX_SCAN.exec(content)) {
+    let cursor = match.index + match[0].length;
+    while (cursor < content.length && isPolicyWhitespaceCode(content.charCodeAt(cursor))) cursor += 1;
+    if (cursor >= content.length || content.charCodeAt(cursor) !== 58 && content.charCodeAt(cursor) !== 61) continue;
+    cursor += 1;
+    while (cursor < content.length && isPolicyWhitespaceCode(content.charCodeAt(cursor))) cursor += 1;
+    const valueStart = cursor;
+    while (cursor < content.length && isIuValueCode(content.codePointAt(cursor) ?? -1)) {
+      if (cursor - valueStart >= 4 && isIuBoundaryFast(content, cursor)) return true;
+      cursor += 1;
+    }
+    if (cursor - valueStart >= 4 && isIuBoundaryFast(content, cursor)) return true;
+  }
+  return false;
+}
+function hasLongHexRun(content) {
+  HEX32_CANDIDATE.lastIndex = 0;
+  for (let match = HEX32_CANDIDATE.exec(content); match; match = HEX32_CANDIDATE.exec(content)) {
+    let cursor = match.index;
+    while (cursor < content.length && isAsciiHexCode(content.charCodeAt(cursor))) cursor += 1;
+    if (cursor === content.length || !isAsciiWordCode(content.charCodeAt(cursor))) return true;
+    HEX32_CANDIDATE.lastIndex = cursor;
+  }
+  return false;
+}
+function isAsciiHexCode(code) {
+  return code >= 48 && code <= 57 || code >= 65 && code <= 70 || code >= 97 && code <= 102;
 }
 function hasMultilinePipeTable(content) {
   let leading = true;
@@ -23171,13 +23286,13 @@ function matchesPolicyPredicate(predicate, content) {
 var EXACT_PATTERNS = [
   ["secret", /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu],
   ["secret", /\bAuthorization\s*:\s*Bearer\s+[A-Za-z0-9._~+/=-]+/iu],
-  ["secret", /\bBearer\s+[A-Za-z0-9._~+/=-]{8,}/u],
+  ["secret", hasBearerToken],
   ["secret", hasUriScheme],
   ["secret", /-----BEGIN [A-Z ]*PRIVATE KEY-----/u],
   ["code_or_path", /(?:^|\s)(?:[A-Za-z]:[\\/]|~\/|\.{1,2}\/|\/[A-Za-z0-9._-]+\/|\\\\)[^\s]*/u],
   ["code_or_path", hasDottedTokenShape],
   ["code_or_path", hasKnownFilename],
-  ["code_or_path", /(?:^|\s)[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)+(?:\s|$|[).,;:])/u],
+  ["code_or_path", hasSegmentPath],
   ["code_or_path", /\b(?:error|exception|traceback|stack trace|diff --git|@@)\b/iu],
   ["code_or_path", /^[^\S\r\n\u2028\u2029]*(?:(?:sudo|doas)\s+)?(?:npm|node|git|pnpm|yarn|cargo|go|python|pytest|curl|echo|copy|cp|mv|rm|mkdir|cat|grep|rg|sed|awk|ssh|scp|docker|kubectl|make)\b/imu],
   ["code_or_path", /\b(?:run|execute|invoke)\s+[a-z][a-z0-9._-]*(?:\s+[A-Za-z0-9._+=:/-]+){0,5}/iu],
@@ -23188,16 +23303,16 @@ var EXACT_PATTERNS = [
   ["code_syntax", hasPhpBlock],
   ["code_syntax", hasHtmlComment],
   ["code_syntax", hasHtmlTag],
-  ["identifier_or_hash", /\b(?:sha256|sha|hash|id)\s*[:=]\s*[A-Za-z0-9._-]{4,}\b/iu],
+  ["identifier_or_hash", hasPrefixedIdentifierValue],
   ["identifier_or_hash", hasIdentifierIdValue],
   ["identifier_or_hash", hasTraceLikeValue],
   ["identifier_or_hash", /\b[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9_]+\b/u],
-  ["identifier_or_hash", /\b[A-Fa-f0-9]{32,}\b/u],
+  ["identifier_or_hash", hasLongHexRun],
   ["identifier_or_hash", /\b[A-Z]{2,}[-_][A-Z0-9]{3,}\b/u],
   ["numeric_or_table", hasMultilinePipeTable],
   ["numeric_or_table", /\b\d+(?:\.\d+)?(?:ms|s|MB|GB|KiB|MiB|%|tokens?)?\b/iu]
 ];
-function classifyContext(content) {
+function classifyContextUnchecked(content) {
   const reasons = /* @__PURE__ */ new Set();
   for (const [reason, pattern] of EXACT_PATTERNS) {
     if (matchesPolicyPredicate(pattern, content)) {
@@ -23236,6 +23351,20 @@ function classifyContext(content) {
     reasons: ["insufficient_semantic_signal"],
     warnings: ["lossy_compression_not_allowed"]
   };
+}
+function classifyContext(content) {
+  try {
+    return classifyContextUnchecked(content);
+  } catch (error2) {
+    if (error2 instanceof RangeError && error2.message === "Maximum call stack size exceeded") {
+      return {
+        mode: "exact",
+        reasons: ["classification_resource_limit"],
+        warnings: ["lossy_compression_not_allowed", "classification_resource_limit"]
+      };
+    }
+    throw error2;
+  }
 }
 function lossyCompressionAllowed(classification) {
   return classification.mode === "semantic";

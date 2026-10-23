@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-10-23T15:32:58.805Z",
+  "node": "v24.18.0",
+  "bundleSha256": "db7e768fbfe17df282dbf4c718974ac6a4447180a141903e8c8f987a671d0f3d",
+  "results": [
+    {
+      "size": 10485760,
+      "status": "transport-error",
+      "message": "20s MCP response timeout"
+    },
+    {
+      "size": 20971520,
+      "status": "transport-error",
+      "message": "20s MCP response timeout"
+    }
+  ],
+  "runner": "import {spawn} from 'node:child_process';\nimport {readFileSync,writeFileSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {once} from 'node:events';\nconst child=spawn(process.execPath,['bin/token-context-optimizer.mjs'],{windowsHide:true,stdio:['pipe','pipe','pipe']});\nlet buffer='',stderr='',id=0;const pending=new Map();\nchild.on('error',error=>{stderr+=error.message;});\nchild.stdin.on('error',error=>{stderr+=error.message;});\nchild.stderr.on('data',chunk=>stderr+=chunk);\nchild.stdout.on('data',chunk=>{buffer+=chunk;let split;while((split=buffer.indexOf('\\n'))!==-1){const line=buffer.slice(0,split);buffer=buffer.slice(split+1);if(!line.trim())continue;const message=JSON.parse(line);pending.get(message.id)?.(message);}});\nfunction call(method,params){const callId=++id;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(callId);reject(Error('20s MCP response timeout'));},20000);pending.set(callId,message=>{clearTimeout(timer);pending.delete(callId);resolve(message);});child.stdin.write(JSON.stringify({jsonrpc:'2.0',id:callId,method,params})+'\\n');});}\nconst report={timestamp:new Date().toISOString(),node:process.version,bundleSha256:createHash('sha256').update(readFileSync('bin/token-context-optimizer.mjs')).digest('hex'),results:[],runner:readFileSync(new URL(import.meta.url),'utf8')};\ntry{\n const init=await call('initialize',{protocolVersion:'2025-06-18',capabilities:{},clientInfo:{name:'n01-large-probe',version:'1'}});if(init.error)throw Error(JSON.stringify(init.error));\n child.stdin.write(JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized',params:{}})+'\\n');\n for(const size of [10485760,20971520]){const started=performance.now();try{const result=await call('tools/call',{name:'classify_context',arguments:{text:'Bearer '+'A'.repeat(size-7)}});report.results.push({size,wallMs:performance.now()-started,response:result});}catch(e){report.results.push({size,status:'transport-error',message:e.message});}}\n}catch(error){report.setupError=error.message;}finally{child.stdin.end();const timer=setTimeout(()=>child.kill(),2000);if(child.exitCode===null&&child.signalCode===null)await once(child,'close');clearTimeout(timer);report.stderr=stderr;writeFileSync('docs/research/evidence/n01/mcp-large-'+report.timestamp.replaceAll(':','-')+'.json',JSON.stringify(report,null,2)+'\\n');console.log(JSON.stringify({results:report.results,setupError:report.setupError,stderr}));}\n",
+  "stderr": "write EOF"
+}

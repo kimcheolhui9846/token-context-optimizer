@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-10-23T15:40:49.857Z",
+  "node": "v24.18.0",
+  "bundleSha256": "db7e768fbfe17df282dbf4c718974ac6a4447180a141903e8c8f987a671d0f3d",
+  "results": [
+    {
+      "size": 10485760,
+      "independentServer": true,
+      "control": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "jsonRpcBytes": 10485868,
+      "status": "transport-error",
+      "message": "20s MCP response timeout",
+      "wallMs": 20004.4456,
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "size": 20971520,
+      "independentServer": true,
+      "control": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "jsonRpcBytes": 20971628,
+      "status": "transport-error",
+      "message": "stdin: write EOF",
+      "wallMs": 214.19959999999992,
+      "stderr": "",
+      "exitCode": 0
+    }
+  ],
+  "runner": "import {spawn} from 'node:child_process';\nimport {readFileSync,writeFileSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {once} from 'node:events';\nasync function probe(size){\n const child=spawn(process.execPath,['bin/token-context-optimizer.mjs'],{windowsHide:true,stdio:['pipe','pipe','pipe']});\n let buffer='',stderr='',id=0;const pending=new Map();\n const abort=message=>{for(const entry of pending.values())entry.reject(Error(message));pending.clear();};\n child.on('error',error=>abort(error.message));\n child.on('exit',(code,signal)=>abort(`server exited code=${code} signal=${signal}`));\n child.stdin.on('error',error=>abort(`stdin: ${error.message}`));\n child.stderr.on('data',chunk=>stderr+=chunk);\n child.stdout.on('data',chunk=>{buffer+=chunk;let split;while((split=buffer.indexOf('\\n'))!==-1){const line=buffer.slice(0,split);buffer=buffer.slice(split+1);if(!line.trim())continue;const message=JSON.parse(line);pending.get(message.id)?.resolve(message);}});\n function call(method,params){const callId=++id;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>entry.reject(Error('20s MCP response timeout')),20000);const finish=fn=>value=>{clearTimeout(timer);pending.delete(callId);fn(value);};const entry={resolve:finish(resolve),reject:finish(reject)};pending.set(callId,entry);child.stdin.write(JSON.stringify({jsonrpc:'2.0',id:callId,method,params})+'\\n');});}\n const record={size,independentServer:true};\n try{\n  const init=await call('initialize',{protocolVersion:'2025-06-18',capabilities:{},clientInfo:{name:'n01-large-probe',version:'1'}});if(init.error)throw Error(JSON.stringify(init.error));\n  child.stdin.write(JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized',params:{}})+'\\n');\n  const control=await call('tools/call',{name:'classify_context',arguments:{text:'Bearer AAAAAAAA'}});\n  record.control=control.result?.structuredContent??control.error;\n  const args={name:'classify_context',arguments:{text:'Bearer '+'A'.repeat(size-7)}};\n  record.jsonRpcBytes=Buffer.byteLength(JSON.stringify({jsonrpc:'2.0',id:id+1,method:'tools/call',params:args})+'\\n');\n  const started=performance.now();try{record.response=await call('tools/call',args);record.status='response';}catch(error){record.status='transport-error';record.message=error.message;}record.wallMs=performance.now()-started;\n }catch(error){record.setupError=error.message;}finally{child.stdin.end();const timer=setTimeout(()=>child.kill(),2000);if(child.exitCode===null&&child.signalCode===null)await once(child,'close');clearTimeout(timer);record.stderr=stderr;record.exitCode=child.exitCode;}\n return record;\n}\nconst report={timestamp:new Date().toISOString(),node:process.version,bundleSha256:createHash('sha256').update(readFileSync('bin/token-context-optimizer.mjs')).digest('hex'),results:[],runner:readFileSync(new URL(import.meta.url),'utf8'),sdkSourceObservation:{file:'node_modules/@modelcontextprotocol/server/dist/src-CX2iR2pK.mjs',symbol:'STDIO_DEFAULT_MAX_BUFFER_SIZE',bytes:10485760,note:'JSON-RPC framing makes a 10MiB text exceed the existing 10MiB message buffer; server code unchanged.'}};\nfor(const size of [10485760,20971520]){const result=await probe(size);report.results.push(result);console.log(JSON.stringify(result));}\nwriteFileSync('docs/research/evidence/n01/mcp-large-'+report.timestamp.replaceAll(':','-')+'.json',JSON.stringify(report,null,2)+'\\n');\n",
+  "sdkSourceObservation": {
+    "file": "node_modules/@modelcontextprotocol/server/dist/src-CX2iR2pK.mjs",
+    "symbol": "STDIO_DEFAULT_MAX_BUFFER_SIZE",
+    "bytes": 10485760,
+    "note": "JSON-RPC framing makes a 10MiB text exceed the existing 10MiB message buffer; server code unchanged."
+  }
+}

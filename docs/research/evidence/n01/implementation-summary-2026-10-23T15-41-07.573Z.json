@@ -1,0 +1,456 @@
+{
+  "timestamp": "2026-10-23T15:41:07.573Z",
+  "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F",
+    "os": "10.0.26200"
+  },
+  "differential": {
+    "predicateReturned": 342285,
+    "classificationsReturned": 68457,
+    "oracleThrows": 0,
+    "currentThrows": 0,
+    "characterizationFixtures": 120,
+    "targetedTests": null
+  },
+  "suite": {
+    "baselineWallMs": 21378,
+    "afterWallMs": 21458.517,
+    "deltaMs": 80.51699999999983,
+    "limitMs": 30000,
+    "passed": 872,
+    "skipped": 1
+  },
+  "gates": {
+    "phase": "pre-pr",
+    "timestamp": "2026-10-23T07:26:37.760Z",
+    "sourceSha256": "9673949f8417f0a15271692f0759e685493cf60b90a823ee9f4eb4474b49dfe7",
+    "results": [
+      {
+        "command": "npm.cmd run build",
+        "exitCode": 0,
+        "wallMs": 2070.1042
+      },
+      {
+        "command": "npm.cmd test",
+        "exitCode": 0,
+        "wallMs": 21458.517
+      },
+      {
+        "command": "npm.cmd run typecheck",
+        "exitCode": 0,
+        "wallMs": 2502.307700000001
+      },
+      {
+        "command": "npm.cmd run smoke:mcp",
+        "exitCode": 0,
+        "wallMs": 812.6398999999983
+      },
+      {
+        "command": "npm.cmd run validate:plugin",
+        "exitCode": 0,
+        "wallMs": 305.8761999999988
+      }
+    ]
+  },
+  "pairedComparison": "performance-comparison-2026-10-23T13-00-37.370Z.json",
+  "performancePass": false,
+  "newMatrix": "implementation-large-2026-10-23T15-33-58.546Z.json",
+  "expectedSamples": 195,
+  "actualSamples": 195,
+  "newMatrixPass": true,
+  "groups": [
+    {
+      "name": "bearer",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 936.2674,
+      "maxWallMs": 1187.0159999999996,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "bearer",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1627.0761,
+      "maxWallMs": 1874.7385000000013,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "bearer",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 3242.4322,
+      "maxWallMs": 3489.3403,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "path",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 838.8453,
+      "maxWallMs": 1090.8894999999975,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "path",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1461.711,
+      "maxWallMs": 1718.1394999999975,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "path",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2888.0149,
+      "maxWallMs": 3156.783899999995,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "id",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 941.4688,
+      "maxWallMs": 1182.4876000000004,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "id",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1634.3446,
+      "maxWallMs": 1889.209799999997,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "id",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 3219.59,
+      "maxWallMs": 3501.1830000000045,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "trace",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 950.5437,
+      "maxWallMs": 1225.2756999999983,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "trace",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1641.7243,
+      "maxWallMs": 1897.976999999999,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "trace",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 3271.534,
+      "maxWallMs": 3527.969200000007,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hex",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 933.6612,
+      "maxWallMs": 1182.8592999999964,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hex",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1631.1039,
+      "maxWallMs": 2312.3692000000156,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hex",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 3239.7326,
+      "maxWallMs": 3501.683799999999,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1161.7245,
+      "maxWallMs": 1431.577500000014,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2003.038,
+      "maxWallMs": 2295.269899999985,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hexWordMiss",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 3985.773,
+      "maxWallMs": 4375.38519999999,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hexNonword",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 944.2688,
+      "maxWallMs": 1186.0121999999974,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hexNonword",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1624.7942,
+      "maxWallMs": 1875.7910000000265,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "hexNonword",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 3247.8734,
+      "maxWallMs": 3516.268400000001,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "idDots",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 677.2348,
+      "maxWallMs": 919.2440999999817,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "idDots",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1169.4074,
+      "maxWallMs": 1422.626099999994,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "idDots",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2354.8821,
+      "maxWallMs": 2605.9423000000243,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "traceDots",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 708.7153,
+      "maxWallMs": 961.0748000000021,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "traceDots",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1222.0467,
+      "maxWallMs": 1477.740300000005,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "traceDots",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2460.8219,
+      "maxWallMs": 2718.7490999999573,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "digits",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 681.291,
+      "maxWallMs": 920.8991999999853,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "digits",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1183.1955,
+      "maxWallMs": 1425.9997999999905,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "digits",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2350.6698,
+      "maxWallMs": 2605.4329000000143,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "decimal",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 663.727,
+      "maxWallMs": 907.0144000000437,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "decimal",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1156.458,
+      "maxWallMs": 1403.3755000000237,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "decimal",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2292.8617,
+      "maxWallMs": 2561.655700000003,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "word",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 786.2377,
+      "maxWallMs": 1056.7783000000054,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "word",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1362.2261,
+      "maxWallMs": 1615.40830000001,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "word",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2717.964,
+      "maxWallMs": 2977.127700000012,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "pathMiss",
+      "size": 6000000,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 1365.5496,
+      "maxWallMs": 1642.4119000000064,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "pathMiss",
+      "size": 10485760,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 2440.7171,
+      "maxWallMs": 2752.489499999967,
+      "fallbacks": 0,
+      "errors": []
+    },
+    {
+      "name": "pathMiss",
+      "size": 20971520,
+      "samples": 5,
+      "returned": 5,
+      "medianMs": 4759.0928,
+      "maxWallMs": 5121.109599999967,
+      "fallbacks": 0,
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "timestamp": "2026-10-23T13:00:37.370Z",
+  "baseline": "docs/research/evidence/task-25/large-current-2026-10-23T07-05-18.221Z.json",
+  "after": "docs/research/evidence/task-25/large-current-2026-10-23T12-57-32.117Z.json",
+  "baselineCoverage": {
+    "expectedProbes": 36,
+    "completedProbes": 36,
+    "incomplete": [],
+    "status": "complete"
+  },
+  "afterCoverage": {
+    "expectedProbes": 36,
+    "completedProbes": 36,
+    "incomplete": [],
+    "status": "complete"
+  },
+  "rows": [
+    {
+      "recipe": "drop",
+      "beforeMs": 2448.0282,
+      "afterMs": 2447.3771,
+      "historicalMs": 2484.3134,
+      "nonregressing": true
+    },
+    {
+      "recipe": "semicolon",
+      "beforeMs": 858.7582,
+      "afterMs": 848.8827,
+      "historicalMs": 855.729,
+      "nonregressing": true
+    },
+    {
+      "recipe": "php_opener",
+      "beforeMs": 1905.1096,
+      "afterMs": 1902.6676,
+      "historicalMs": 1944.8547,
+      "nonregressing": true
+    },
+    {
+      "recipe": "tag_space",
+      "beforeMs": 795.4528,
+      "afterMs": 779.0726,
+      "historicalMs": 791.0523,
+      "nonregressing": true
+    },
+    {
+      "recipe": "trace_spaces_equals",
+      "beforeMs": 1027.1139,
+      "afterMs": 1001.8447,
+      "historicalMs": 1026.7018,
+      "nonregressing": true
+    },
+    {
+      "recipe": "hyphen",
+      "beforeMs": 1659.3993,
+      "afterMs": 1647.8735,
+      "historicalMs": 1656.988,
+      "nonregressing": true
+    },
+    {
+      "recipe": "dot",
+      "beforeMs": 2975.7511,
+      "afterMs": 3014.7988,
+      "historicalMs": 3044.4367,
+      "nonregressing": false
+    },
+    {
+      "recipe": "blanklines",
+      "beforeMs": 1771.3117,
+      "afterMs": 1739.2865,
+      "historicalMs": 1812.9907,
+      "nonregressing": true
+    },
+    {
+      "recipe": "bang_letter",
+      "beforeMs": 1916.4923,
+      "afterMs": 1880.5385,
+      "historicalMs": 1958.7777,
+      "nonregressing": true
+    },
+    {
+      "recipe": "html_comment",
+      "beforeMs": 1073.5916,
+      "afterMs": 1063.1372,
+      "historicalMs": 1094.4041,
+      "nonregressing": true
+    },
+    {
+      "recipe": "npm_dots_x",
+      "beforeMs": 2487.1999,
+      "afterMs": 2468.608,
+      "historicalMs": 2535.0557,
+      "nonregressing": true
+    },
+    {
+      "recipe": "command_prefix",
+      "beforeMs": 1393.367,
+      "afterMs": 1350.1594,
+      "historicalMs": 1389.3663,
+      "nonregressing": true
+    }
+  ],
+  "pass": false
+}
