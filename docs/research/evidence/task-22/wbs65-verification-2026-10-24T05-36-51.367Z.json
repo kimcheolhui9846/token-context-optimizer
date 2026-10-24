@@ -1,0 +1,106 @@
+{
+  "task": "WBS6.5 PR21 residual",
+  "timestamp": "2026-10-24T05:36:51.367Z",
+  "pr": "https://github.com/kimcheolhui9846/token-context-optimizer/pull/59",
+  "testedCommit": "d645d4c0695b870207a16011ff2d8fc3359fd7ac",
+  "base": "80bbcfd",
+  "preDraft": {
+    "phase": "pre-pr",
+    "timestamp": "2026-10-24T05:28:35.473Z",
+    "sourceSha256": "957138e9cd755e910da5fccdd7e6e44e5c1c647460777d6695aa1f894550e713",
+    "results": [
+      {
+        "command": "npm.cmd run build",
+        "exitCode": 0,
+        "wallMs": 2039.6618
+      },
+      {
+        "command": "npm.cmd test",
+        "exitCode": 0,
+        "wallMs": 21730.5069
+      },
+      {
+        "command": "npm.cmd run typecheck",
+        "exitCode": 0,
+        "wallMs": 2547.368699999999
+      },
+      {
+        "command": "npm.cmd run smoke:mcp",
+        "exitCode": 0,
+        "wallMs": 785.3557000000001
+      },
+      {
+        "command": "npm.cmd run validate:plugin",
+        "exitCode": 0,
+        "wallMs": 316.8145000000004
+      }
+    ]
+  },
+  "postDraft": {
+    "phase": "post-pr",
+    "timestamp": "2026-10-24T05:35:48.971Z",
+    "sourceSha256": "957138e9cd755e910da5fccdd7e6e44e5c1c647460777d6695aa1f894550e713",
+    "results": [
+      {
+        "command": "npm.cmd run build",
+        "exitCode": 0,
+        "wallMs": 2039.9115000000002
+      },
+      {
+        "command": "npm.cmd test",
+        "exitCode": 0,
+        "wallMs": 22445.934
+      },
+      {
+        "command": "npm.cmd run typecheck",
+        "exitCode": 0,
+        "wallMs": 2507.2114
+      },
+      {
+        "command": "npm.cmd run smoke:mcp",
+        "exitCode": 0,
+        "wallMs": 800.5241000000024
+      },
+      {
+        "command": "npm.cmd run validate:plugin",
+        "exitCode": 0,
+        "wallMs": 322.755000000001
+      }
+    ]
+  },
+  "testResult": {
+    "passed": 874,
+    "skipped": 1,
+    "filesPassed": 33
+  },
+  "targeted": {
+    "command": "npm.cmd test -- tests/image-source-race.test.ts tests/jpeg-validation.test.ts",
+    "passed": 8,
+    "skipped": 0,
+    "platform": "win32"
+  },
+  "evidenceCheck": {
+    "evidence": "wbs65-jpeg-measure-20261024T052826Z.json",
+    "checks": "PASS",
+    "tailProbes": 639,
+    "selectedDimension": 1889,
+    "samples": 5,
+    "medianMs": 947.56
+  },
+  "diffCheck": "PASS",
+  "excludedScopeDiff": "empty",
+  "review": {
+    "verdict": "PASS WITH NOTES",
+    "independent": "User-session Claude implementation review pending, as requested",
+    "modelRouting": "DEGRADED: native delegated runtime model identity unverified",
+    "notes": [
+      "Historical flat and Task21 raw outputs remain unavailable; fresh evidence is not historic recovery",
+      "Finite seeded-square-family maximum and host timing only",
+      "F15 ABA limitation and closure decision remain with user"
+    ]
+  },
+  "checker": {
+    "sha256": "323077bad8d1d9ff701129610e9f645bdbee8bea4aa9eb751f2fe66c2c793588",
+    "source": "import assert from 'node:assert/strict';\nimport {readFileSync,readdirSync,existsSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {dirname,resolve} from 'node:path';\nconst dir='docs/research/evidence/task-22/';\nconst name=readdirSync(dir).filter(n=>n.startsWith('wbs65-jpeg-measure-')).sort().at(-1);\nconst r=JSON.parse(readFileSync(dir+name,'utf8'));\nconst hash=p=>createHash('sha256').update(readFileSync(p)).digest('hex');\nassert.equal(r.provenance.measurementScriptSha256,hash('scripts/measure-jpeg-wbs65.mjs'));\nassert.equal(r.provenance.validatorSourceSha256,hash('src/core/jpeg-validation.ts'));\nassert.equal(r.provenance.compiledValidatorSha256,hash('dist/src/core/jpeg-validation.js'));\nassert.equal(r.provenance.packageLockSha256,hash('package-lock.json'));\nconst d=r.search.selectedMaxAccepted;\nassert(d.byteLength<=10485760 && d.accounting<=134217728 && d.accepted);\nassert.equal(r.search.fullTailVerification.complete,true);\nconst tail=r.search.history.filter(x=>x.phase==='exhaustive-tail');\nassert.equal(tail.length,r.search.fullTailVerification.endDimension-r.search.fullTailVerification.startDimension+1);\ntail.forEach((x,i)=>assert.equal(x.dimension,r.search.fullTailVerification.startDimension+i));\nassert(tail.filter(x=>x.dimension>d.dimension).every(x=>!x.accepted));\nassert.equal(r.samples.all.length,5);\nr.samples.all.forEach(x=>{assert.equal(x.sha256,d.sha256);assert.equal(x.byteLength,d.byteLength);assert.equal(x.status,'accepted');});\nconst median=a=>[...a].sort((a,b)=>a-b)[2];\nassert.equal(r.samples.medians.wallMs,median(r.samples.all.map(x=>x.wallMs)));\nassert.equal(r.samples.medians.maxRSSKiB,median(r.samples.all.map(x=>x.maxRSS)));\nconst flat=JSON.parse(readFileSync(dir+'wbs65-flat-2026-10-24T05-18-19.377Z.json','utf8'));\nassert.equal(flat.nodeArchive.actual,flat.nodeArchive.expected);assert.equal(flat.nodeArchive.matched,true);\nassert.equal(flat.observations[0].child.status,'accepted');assert.equal(flat.observations[1].child.error,'jpeg_resource_limit');\nfor(const file of ['docs/research/jpeg-runtime-validation.md','docs/research/wbs65-jpeg-traceability.md','docs/research/wbs65-image-race-coverage.md','docs/agent/handoffs/wbs65-pr21-residual.md']){\n const text=readFileSync(file,'utf8');\n for(const m of text.matchAll(/\\]\\(([^)]+)\\)/g)){\n  const target=m[1].split('#')[0];if(!target||/^https?:/.test(target))continue;\n  assert(existsSync(resolve(dirname(file),target)),`${file}: broken link ${target}`);\n }\n}\nconsole.log(JSON.stringify({evidence:name,checks:'PASS',tailProbes:tail.length,selectedDimension:d.dimension,samples:5,medianMs:r.samples.medians.wallMs}));\n"
+  }
+}

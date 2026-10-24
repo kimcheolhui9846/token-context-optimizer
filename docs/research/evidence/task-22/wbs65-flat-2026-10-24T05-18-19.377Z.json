@@ -1,0 +1,123 @@
+{
+  "task": "WBS6.5 F-29 missing flat observations",
+  "timestamp": "2026-10-24T05:18:19.377Z",
+  "baseCommit": "80bbcfd",
+  "nodeArchive": {
+    "timestamp": "2026-10-24T05:16:48.3087704Z",
+    "manifest": "https://nodejs.org/dist/v22.23.2/SHASUMS256.txt",
+    "matched": true,
+    "actual": "1177b4137ba5adaa56354ae40f1080c7450e8ae09cecb47da459d1c52ac99f97",
+    "expected": "1177b4137ba5adaa56354ae40f1080c7450e8ae09cecb47da459d1c52ac99f97",
+    "url": "https://nodejs.org/dist/v22.23.2/node-v22.23.2-win-x64.zip"
+  },
+  "host": {
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F"
+  },
+  "command": ".artifacts/node22/node-v22.23.2-win-x64/node.exe scripts/measure-jpeg-node22-production.mjs",
+  "buildCommand": "npm.cmd run build",
+  "sourceHashes": {
+    "script": "ba81c2217d6bb7addb16f1fbcee74a92eef7536853e241de2327cee892f71c05",
+    "validator": "957138e9cd755e910da5fccdd7e6e44e5c1c647460777d6695aa1f894550e713",
+    "compiledValidator": "20b52491ede264f7c74dd71a15587de55fb4f8d279bed861cd1dcbdee705333c",
+    "packageLock": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343"
+  },
+  "stdout": "{\"size\":2528,\"quantizationTables\":2,\"huffmanCost\":68,\"tableCost\":580,\"accounting\":134207044,\"accountingLimit\":134217728,\"child\":\"{\\\"node\\\":\\\"v22.23.2\\\",\\\"status\\\":\\\"accepted\\\",\\\"error\\\":null,\\\"metadata\\\":{\\\"width\\\":2528,\\\"height\\\":2528,\\\"channels\\\":3,\\\"format\\\":\\\"jpeg\\\",\\\"mimeType\\\":\\\"image/jpeg\\\",\\\"validationProfile\\\":\\\"jpeg-ycbcr8-baseline-444-v1\\\"},\\\"byteLength\\\":75173,\\\"sha256\\\":\\\"a37d2c07dca2eb7988f7aaf1af6834e476ad2d692ce50d955a86ddb11d492c35\\\",\\\"wallMs\\\":302.53,\\\"wallMsScope\\\":\\\"validateJpeg only; excludes SHA-256 calculation\\\",\\\"rssBefore\\\":37576704,\\\"rssAfter\\\":186294272,\\\"maxRSS\\\":269376}\",\"childStderr\":\"\",\"exitCode\":0}\n{\"size\":2529,\"quantizationTables\":2,\"huffmanCost\":68,\"tableCost\":580,\"accounting\":134845066,\"accountingLimit\":134217728,\"child\":\"{\\\"node\\\":\\\"v22.23.2\\\",\\\"status\\\":\\\"rejected\\\",\\\"error\\\":\\\"jpeg_resource_limit\\\",\\\"metadata\\\":null,\\\"byteLength\\\":75648,\\\"sha256\\\":\\\"a6bd8f83695ec1b1873a3647a085042512727b7448109886ea2ee9ea90061259\\\",\\\"wallMs\\\":0.76,\\\"wallMsScope\\\":\\\"validateJpeg only; excludes SHA-256 calculation\\\",\\\"rssBefore\\\":47570944,\\\"rssAfter\\\":47673344,\\\"maxRSS\\\":46560}\",\"childStderr\":\"\",\"exitCode\":0}\n{\"name\":\"high-entropy\",\"encoder\":{\"sharp\":\"0.35.4\",\"vips\":\"8.18.6\"},\"width\":1824,\"height\":1824,\"seed\":439041101,\"quality\":100,\"byteLength\":9712482,\"quantizationTables\":2,\"huffmanCost\":138,\"tableCost\":650,\"accounting\":69867146,\"accountingLimit\":134217728,\"child\":\"{\\\"node\\\":\\\"v22.23.2\\\",\\\"status\\\":\\\"accepted\\\",\\\"error\\\":null,\\\"metadata\\\":{\\\"width\\\":1824,\\\"height\\\":1824,\\\"channels\\\":3,\\\"format\\\":\\\"jpeg\\\",\\\"mimeType\\\":\\\"image/jpeg\\\",\\\"validationProfile\\\":\\\"jpeg-ycbcr8-baseline-444-v1\\\"},\\\"byteLength\\\":9712482,\\\"sha256\\\":\\\"145450b9db327e5277a1ed0f7377f093e9e34184b9311b703648952023de962b\\\",\\\"wallMs\\\":909.98,\\\"wallMsScope\\\":\\\"validateJpeg only; excludes SHA-256 calculation\\\",\\\"rssBefore\\\":57335808,\\\"rssAfter\\\":150163456,\\\"maxRSS\\\":191600}\",\"childStderr\":\"\",\"exitCode\":0}\n",
+  "observations": [
+    {
+      "size": 2528,
+      "quantizationTables": 2,
+      "huffmanCost": 68,
+      "tableCost": 580,
+      "accounting": 134207044,
+      "accountingLimit": 134217728,
+      "child": {
+        "node": "v22.23.2",
+        "status": "accepted",
+        "error": null,
+        "metadata": {
+          "width": 2528,
+          "height": 2528,
+          "channels": 3,
+          "format": "jpeg",
+          "mimeType": "image/jpeg",
+          "validationProfile": "jpeg-ycbcr8-baseline-444-v1"
+        },
+        "byteLength": 75173,
+        "sha256": "a37d2c07dca2eb7988f7aaf1af6834e476ad2d692ce50d955a86ddb11d492c35",
+        "wallMs": 302.53,
+        "wallMsScope": "validateJpeg only; excludes SHA-256 calculation",
+        "rssBefore": 37576704,
+        "rssAfter": 186294272,
+        "maxRSS": 269376
+      },
+      "childStderr": "",
+      "exitCode": 0
+    },
+    {
+      "size": 2529,
+      "quantizationTables": 2,
+      "huffmanCost": 68,
+      "tableCost": 580,
+      "accounting": 134845066,
+      "accountingLimit": 134217728,
+      "child": {
+        "node": "v22.23.2",
+        "status": "rejected",
+        "error": "jpeg_resource_limit",
+        "metadata": null,
+        "byteLength": 75648,
+        "sha256": "a6bd8f83695ec1b1873a3647a085042512727b7448109886ea2ee9ea90061259",
+        "wallMs": 0.76,
+        "wallMsScope": "validateJpeg only; excludes SHA-256 calculation",
+        "rssBefore": 47570944,
+        "rssAfter": 47673344,
+        "maxRSS": 46560
+      },
+      "childStderr": "",
+      "exitCode": 0
+    },
+    {
+      "name": "high-entropy",
+      "encoder": {
+        "sharp": "0.35.4",
+        "vips": "8.18.6"
+      },
+      "width": 1824,
+      "height": 1824,
+      "seed": 439041101,
+      "quality": 100,
+      "byteLength": 9712482,
+      "quantizationTables": 2,
+      "huffmanCost": 138,
+      "tableCost": 650,
+      "accounting": 69867146,
+      "accountingLimit": 134217728,
+      "child": {
+        "node": "v22.23.2",
+        "status": "accepted",
+        "error": null,
+        "metadata": {
+          "width": 1824,
+          "height": 1824,
+          "channels": 3,
+          "format": "jpeg",
+          "mimeType": "image/jpeg",
+          "validationProfile": "jpeg-ycbcr8-baseline-444-v1"
+        },
+        "byteLength": 9712482,
+        "sha256": "145450b9db327e5277a1ed0f7377f093e9e34184b9311b703648952023de962b",
+        "wallMs": 909.98,
+        "wallMsScope": "validateJpeg only; excludes SHA-256 calculation",
+        "rssBefore": 57335808,
+        "rssAfter": 150163456,
+        "maxRSS": 191600
+      },
+      "childStderr": "",
+      "exitCode": 0
+    }
+  ],
+  "note": "Fresh sequential observations, not recovered historical raw results. Existing runner includes a high-entropy control already evidenced historically; this is not a new historical reproduction claim. No concurrent agent test/build was scheduled. Historical concurrent-load timing is not recreated."
+}

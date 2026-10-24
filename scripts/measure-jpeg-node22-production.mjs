@@ -33,6 +33,7 @@ for (const size of [2528, 2529]) {
   const accounting = 960 * Math.ceil(size / 8) * Math.ceil(size / 8) + 6 * size * size + tables.tableCost;
   const result = spawnSync(resolve(root, node22), [join(out, "child.mjs"), path], {
     cwd: root,
+    windowsHide: true,
     encoding: "utf8",
     maxBuffer: 10 * 1024 * 1024,
   });
@@ -73,6 +74,7 @@ const highEntropyAccounting = 960 * Math.ceil(highEntropyWidth / 8) * Math.ceil(
   6 * highEntropyWidth * highEntropyHeight + highEntropyTables.tableCost;
 const highEntropyResult = spawnSync(resolve(root, node22), [join(out, "child.mjs"), highEntropyPath], {
   cwd: root,
+  windowsHide: true,
   encoding: "utf8",
   maxBuffer: 10 * 1024 * 1024,
 });
