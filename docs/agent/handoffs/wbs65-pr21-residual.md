@@ -1,0 +1,20 @@
+# WBS 6.5 — PR21 residual handoff
+
+- Tier E: measured JPEG evidence and provenance audit.
+- Approved scope: user brief codex_paste_2026-10-24_wbs65-pr21-residual.md; base80bbcfd; branch codex/wbs65-jpeg-evidence.
+- Status: measurements and pre-PR gates PASS; Draft delivery pending; user-session Claude review follows delivery.
+- Plan: trace two documents; remeasure missing flat evidence with existing runner; seeded high-entropy q100/4:4:4 largest accepted square search and5 samples; map four F-15 claims; gates; push/Draft; post-Draft gate; direct final review.
+- Preserved: src/tests/package/lock, old evidence, research/, paper/, codex_review. Existing measurement runner adds only windowsHide:true for two child processes.
+- F-29: historical flat and Task21 raw outputs unavailable; prose corroboration is not raw evidence. Fresh flat JSON preserves historical values and records new2528²/2529² outcomes.
+- New flat:302.53ms accepted /0.76ms jpeg_resource_limit; maxRSS269376/46560KiB; accounting134207044/134845066bytes.
+- Node22.23.2 official zip SHA256 matches1177b4137ba5adaa56354ae40f1080c7450e8ae09cecb47da459d1c52ac99f97; sharp0.35.4/vips8.18.6 fixture-only ignored install.
+- Search refinement: first binary/local pass found1889²; byte count is locally nonmonotone, so final runner checks every greater dimension through accounting-only ceiling2528. Initial JSON and matching script snapshot retained.
+- F-15: all4 claims map to existing tests (62,88,131,165); Windows targeted8/8 pass, no skip. No added test needed. Persistent replacement only; ABA remains outside scope.
+- F-15 recommendation: documented limitation closure under trusted-writers contract; separate runtime design if hostile concurrent ancestor writes must be supported. Decision reserved to user.
+- RED: N/A product behavior unchanged; measurement assertions validate versions, bounds, child responses, exactly5 samples and fixture identity. GREEN: target8/8 so far; full gate874 passed/1skip; build/typecheck/smoke:mcp/validate:plugin passed.
+- Review: user-provided Claude task brief supplies approved scope; new independent implementation review pending in user's session as requested. Primary directly audits code/evidence; no independent-review claim.
+- Routing: native writer/executor succeeded; exact runtime model IDs unverified, DEGRADED under brief's explicit fallback allowance.
+- Review fixes: correct handoff-vs-raw distinction, unrelated-record mismatch labels, literal historic option/model labels, exhaustive upper-tail search, child cleanup and SHA linkage.
+- Scope risks: historical raw not recoverable; square-family maximum not allJPEG CPU maximum; RSS not allocation accounting; timing host-specific.
+- Final measurement: all639 upper candidates rejected;1889² accepted,10432234 encoded/75332937 accounting bytes;5-run median947.56ms, maxRSS median226444KiB, peak226768KiB. Raw: docs/research/evidence/task-22/wbs65-jpeg-measure-20261024T052826Z.json.
+- Remaining: Draft delivery/post-gates; no Ready/merge/next Task.
