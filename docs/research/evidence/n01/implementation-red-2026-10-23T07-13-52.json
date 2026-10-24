@@ -1,0 +1,67 @@
+﻿{
+    "recordedAt":  "2026-10-23T07:16:29.7813644Z",
+    "base":  "b909294",
+    "command":  "node tests/helpers/policy-large-input-child.mjs large-calls src/core/policy.ts",
+    "note":  "RED observed before production edits. Baseline source hash and environment are recorded in the paired Task25 baseline JSON.",
+    "targetResults":  {
+                          "byteLength":  [
+                                             6000000,
+                                             10485760,
+                                             6000000,
+                                             6000000,
+                                             6000000,
+                                             10485760
+                                         ],
+                          "outcomes":  [
+                                           {
+                                               "name":  "bearer",
+                                               "status":  "threw",
+                                               "error":  {
+                                                             "name":  "RangeError",
+                                                             "message":  "Maximum call stack size exceeded"
+                                                         }
+                                           },
+                                           {
+                                               "name":  "path",
+                                               "status":  "threw",
+                                               "error":  {
+                                                             "name":  "RangeError",
+                                                             "message":  "Maximum call stack size exceeded"
+                                                         }
+                                           },
+                                           {
+                                               "name":  "identifier",
+                                               "status":  "threw",
+                                               "error":  {
+                                                             "name":  "RangeError",
+                                                             "message":  "Maximum call stack size exceeded"
+                                                         }
+                                           },
+                                           {
+                                               "name":  "trace",
+                                               "status":  "threw",
+                                               "error":  {
+                                                             "name":  "RangeError",
+                                                             "message":  "Maximum call stack size exceeded"
+                                                         }
+                                           },
+                                           {
+                                               "name":  "hex",
+                                               "status":  "threw",
+                                               "error":  {
+                                                             "name":  "RangeError",
+                                                             "message":  "Maximum call stack size exceeded"
+                                                         }
+                                           },
+                                           {
+                                               "name":  "classify",
+                                               "status":  "threw",
+                                               "error":  {
+                                                             "name":  "RangeError",
+                                                             "message":  "Maximum call stack size exceeded"
+                                                         }
+                                           }
+                                       ]
+                      },
+    "vitest":  "npm.cmd test -- tests/policy-large-input.test.ts -t six representative: exit1, 1 failed / 7 skipped; failure expected false to be true, 16:13:52 KST"
+}
