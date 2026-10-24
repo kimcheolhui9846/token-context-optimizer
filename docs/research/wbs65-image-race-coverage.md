@@ -32,3 +32,5 @@ persistent-replacement test would not establish that stronger guarantee.
 
 This is a recommendation only: the user retains the closure decision. Runtime ABA
 defense, changes to `src/`, and changes to the existing contract are out of scope.
+
+User decision (2026-10-24): closed as a documented limitation under the trusted-writers contract; no runtime ABA task.

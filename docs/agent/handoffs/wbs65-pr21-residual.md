@@ -20,3 +20,4 @@
 - Post-Draft: build/test/typecheck/smoke:mcp/validate:plugin/diff check PASS;874 passed/1skip. Tested commitd645d4c; final follow-up changes documentation/evidence only. [Verification](../../research/evidence/task-22/wbs65-verification-2026-10-24T05-36-51.367Z.json).
 - Final primary review: PASS WITH NOTES; no runtime change, all measured bounds and provenance checked; historical/raw/model-review limitations explicit.
 - Remaining: user-session Claude review, user merge approval and F-15 closure decision; no Ready/merge/next Task.
+- 2026-10-24 m-1 follow-up (Tier D): separate historical observations from fresh-run links; user closed F-15 under trusted writers with no runtime ABA task, deferred s-1, and approved merge after m-1/Claude confirmation (Claude executes). Claude conditional Approve: blocker0/major0/minor1/suggestion1/nit1; n-1 trailer omission retained without history rewrite. Verification: diff/link checks; npm test omitted for docs-only scope.

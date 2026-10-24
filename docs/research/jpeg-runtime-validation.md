@@ -65,8 +65,10 @@ the accepted/rejected accounting boundary, not adversarial worst-case CPU time.
 
 | Fixture | Real table cost | Accounting bytes | Result | Wall time | RSS before -> after bytes | `maxRSS` KiB |
 |---|---:|---:|---|---:|---:|---:|
-| 2528x2528 ([fresh raw](evidence/task-22/wbs65-flat-2026-10-24T05-18-19.377Z.json)) | 580 | 134,207,044 | accepted | 306.11 ms | 40,996,864 -> 190,570,496 | 273,472 |
-| 2529x2529 ([fresh raw](evidence/task-22/wbs65-flat-2026-10-24T05-18-19.377Z.json)) | 580 | 134,845,066 | `jpeg_resource_limit` | 1.05 ms | 41,218,048 -> 41,394,176 | 40,432 |
+| 2528x2528 | 580 | 134,207,044 | accepted | 306.11 ms | 40,996,864 -> 190,570,496 | 273,472 |
+| 2529x2529 | 580 | 134,845,066 | `jpeg_resource_limit` | 1.05 ms | 41,218,048 -> 41,394,176 | 40,432 |
+
+Historical observations; raw output unavailable ([traceability](wbs65-jpeg-traceability.md)). A separate fresh run is in [WBS 6.5 fresh measurements](#wbs-65-fresh-measurements-2026-10-24).
 
 The accounting limit is 134,217,728 bytes. RSS and `maxRSS` are reported as
 observed process measurements on this Windows host and are deliberately separate
@@ -85,7 +87,7 @@ Historical checkpoint from 2026-09-27:
 
 - Native Astra reproduced an exact-JFIF bypass caused by ASCII high-bit masking. Exact-byte equality, five per-byte high-bit regressions and a wrong-letter case addressed it. The scoped SPEC/QUALITY rereview returned PASS WITH NOTES, with no unresolved blocker or major finding.
 - Before the fix, the full gate recorded 647 passed tests, one Windows FIFO skip, and 19 files. After the fix, targeted verification recorded 83 passed and one skip, and the Node 22 smoke test passed. Post-Draft verification recorded 653 passed tests, one skip, and 19 files; targeted tests, build, typecheck, Node 22 smoke, plugin validation and text benchmark also passed.
-- A repeated production measurement recorded accounting estimates of 134,207,044 and 134,845,066 bytes for flat RGB-128 square fixtures of 2528 and 2529 pixels. The observed results were accepted and resource-rejected, with [670.60 ms and 2.38 ms](#wbs-65-fresh-measurements-2026-10-24) under concurrent test load and `maxRSS` of 272,884 and 49,544 KiB. These host measurements are historical observations, not portable worst-case bounds.
+- A repeated production measurement recorded accounting estimates of 134,207,044 and 134,845,066 bytes for flat RGB-128 square fixtures of 2528 and 2529 pixels. The observed results were accepted and resource-rejected, with 670.60 ms and 2.38 ms under concurrent test load and `maxRSS` of 272,884 and 49,544 KiB. These host measurements are historical observations, not portable worst-case bounds.
 ## Historical final review (2026-09-27)
 
 Native Astra directly inspected reviewed HEAD 181d8c2, upstream equality, clean
