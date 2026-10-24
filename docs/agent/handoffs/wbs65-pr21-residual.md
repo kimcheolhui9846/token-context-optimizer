@@ -2,7 +2,7 @@
 
 - Tier E: measured JPEG evidence and provenance audit.
 - Approved scope: user brief codex_paste_2026-10-24_wbs65-pr21-residual.md; base80bbcfd; branch codex/wbs65-jpeg-evidence.
-- Status: measurements and pre-PR gates PASS; Draft delivery pending; user-session Claude review follows delivery.
+- Status: PASS WITH NOTES; [Draft PR#59](https://github.com/kimcheolhui9846/token-context-optimizer/pull/59) delivered; user-session Claude review follows delivery.
 - Plan: trace two documents; remeasure missing flat evidence with existing runner; seeded high-entropy q100/4:4:4 largest accepted square search and5 samples; map four F-15 claims; gates; push/Draft; post-Draft gate; direct final review.
 - Preserved: src/tests/package/lock, old evidence, research/, paper/, codex_review. Existing measurement runner adds only windowsHide:true for two child processes.
 - F-29: historical flat and Task21 raw outputs unavailable; prose corroboration is not raw evidence. Fresh flat JSON preserves historical values and records new2528²/2529² outcomes.
@@ -17,4 +17,6 @@
 - Review fixes: correct handoff-vs-raw distinction, unrelated-record mismatch labels, literal historic option/model labels, exhaustive upper-tail search, child cleanup and SHA linkage.
 - Scope risks: historical raw not recoverable; square-family maximum not allJPEG CPU maximum; RSS not allocation accounting; timing host-specific.
 - Final measurement: all639 upper candidates rejected;1889² accepted,10432234 encoded/75332937 accounting bytes;5-run median947.56ms, maxRSS median226444KiB, peak226768KiB. Raw: docs/research/evidence/task-22/wbs65-jpeg-measure-20261024T052826Z.json.
-- Remaining: Draft delivery/post-gates; no Ready/merge/next Task.
+- Post-Draft: build/test/typecheck/smoke:mcp/validate:plugin/diff check PASS;874 passed/1skip. Tested commitd645d4c; final follow-up changes documentation/evidence only. [Verification](../../research/evidence/task-22/wbs65-verification-2026-10-24T05-36-51.367Z.json).
+- Final primary review: PASS WITH NOTES; no runtime change, all measured bounds and provenance checked; historical/raw/model-review limitations explicit.
+- Remaining: user-session Claude review, user merge approval and F-15 closure decision; no Ready/merge/next Task.
