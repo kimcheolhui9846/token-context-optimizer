@@ -163,7 +163,13 @@
   - [Minor] fast-png의 iCCP 압축 해제 위험
   - [Nit] crop 줄 번호
 
-## 6. 사용자 결정 (계획 PR 전에 필요)
+## 6. 사용자 결정 (2026-10-25 확정: 모두 권장안)
+- D1 = 기본 profile strict 유지. tolerant는 `profile` 인자로 고른다
+- D2 = EXIF 방향 ≠ 1은 회전하지 않고 레코드에 알린 뒤 허용한다
+- D3 = RGBA는 알파가 전부 255일 때만 RGB로 보고 crop을 허용한다
+- D4 = 6.12a(PNG) → 6.12b(overview) → 6.12c(JPEG). 각각 계획 PR → 구현 PR이며, F-21이 끝난 뒤 시작한다
+
+### 결정 전 선택지 (기록)
 - **D1** 기본 profile: strict 유지(권장, 기존 증거 보존)와 tolerant 기본 중 하나
 - **D2** EXIF 방향 ≠ 1: 알리고 허용(권장)과 거부 중 하나
 - **D3** RGBA: 불투명일 때만 허용(권장)과 흰 배경 합성 중 하나
