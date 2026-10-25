@@ -24,15 +24,15 @@
 
 [8] Y. Wang, H. Zhang, Q. Huang, A. Cao, G. Fang, W. Wang, X. Jin, J. Song, M. Song, and X. Wang, "Rethinking token reduction for large vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 24727–24737, Denver, CO, USA, Jun. 2026.
 
-[9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," arXiv:2310.05736, 2023.
+[9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," in *Proc. 2023 Conf. Empirical Methods Natural Lang. Process. (EMNLP)*, pp. 13358–13376, Singapore, Dec. 2023, doi: 10.18653/v1/2023.emnlp-main.825.
 
-[10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with compression and selective augmentation," arXiv:2310.04408, 2023.
+[10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with context compression and selective augmentation," in *Proc. Int. Conf. Learn. Represent. (ICLR)*, pp. 43478–43502, Vienna, Austria, May 2024.
 
 [11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, "The complexity trap: Simple observation masking is as efficient as LLM summarization for agent context management," in *4th Workshop Deep Learn. Code (DL4C), NeurIPS 2025*, San Diego, CA, USA, Dec. 2025, arXiv:2508.21433.
 
 [12] S. Fan, M. Li, X. Ma, W. Tan, X. Huang, J. Wu, L. Zhang, S. Shang, and W. Chen, "Screenshots or tools? Eliciting tool use and managing multimodal context in hybrid GUI–MCP computer-use agents," arXiv:2608.03327v2, 2026.
 
-[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," arXiv:2512.01763v2, 2026.
+[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 13028–13038, Denver, CO, USA, Jun. 2026.
 
 [14] OpenAI, "Images and vision," OpenAI API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://developers.openai.com/api/docs/guides/images-vision
 
@@ -81,6 +81,27 @@ Task 38이 캐시 할인율 근거를 본문에 쓰면 아래 두 항목이 필�
 - 교차 검토 상태(PR #43, Codex): [3]·[6]·[7]·[8]의 학회판 쪽·DOI와 [7]의 저자는 Codex가 독립 확인하지 못했다(CVF 직접 요청 403, 연결된 브라우저 없음). 위 근거는 Claude의 브라우저 열람 한 번뿐이다. 투고 전 CVF 페이지나 학회 PDF로 한 번 더 직접 확인한다.
 - [6] 쪽 번호 후보: CVF 검색 색인에 8317–8326이 있다(Codex 보고). 2026-10-19 Claude의 직접 요청도 403이라 확인하지 못했다. 본문 페이지나 학회 PDF에서 직접 확인하기 전에는 넣지 않는다.
 - arXiv 예비 논문([1], [2], [12], [13])의 학회 게재 여부는 투고 직전에 다시 확인한다(관련 연구 메모 §4 "남은 확인").
+
+## 3.1 투고 전 재확인 (2026-10-25, Claude)
+
+- 학회판으로 바꾼 것 3건. 같은 논문이므로 [8]과 같이 학회판 하나만 쓰고 arXiv 번호는 뺐다
+
+| 번호 | 바꾼 점 | 확인 출처(2026-10-25) |
+|---|---|---|
+| [9] | arXiv:2310.05736 → EMNLP 2023, pp. 13358–13376, Singapore, DOI 10.18653/v1/2023.emnlp-main.825 | ACL Anthology bibtex(`jiang-etal-2023-llmlingua`), Crossref(같은 DOI·쪽·저자 5명) |
+| [10] | arXiv:2310.04408 → ICLR 2024, pp. 43478–43502, Vienna. 제목에 "context"가 들어간 학회판 제목으로 바꿨다 | ICLR 공식 proceedings 페이지 메타데이터(`citation_title`, `citation_firstpage`·`lastpage`, 저자 3명) |
+| [13] | arXiv:2512.01763v2 → CVPR 2026, pp. 13028–13038, Denver | CVF Open Access bibtex(`Zhou_2026_CVPR`, 저자 9명 순서 일치) |
+
+- arXiv 그대로 둔 것
+  - [2] ACM: 2026-10-25 검색에서 학회 게재 기록을 찾지 못했다
+  - [12] Screenshots or Tools?: 같은 이유다(arXiv v2, 2026-08-06)
+  - [1]은 이미 DS 2026 학회판이다
+- §3의 미확인 항목을 직접 확인했다
+  - CVF 페이지는 브라우저 User-Agent 요청에는 응답했다
+  - [7] QuietPrune: pp. 3553–3562, 저자 5명 일치(CVF bibtex)
+  - [8] Rethinking token reduction: pp. 24727–24737, 저자 10명 일치(CVF bibtex)
+  - [6] Towards VQA models that can read: CVF bibtex에는 쪽이 없다. 원고의 pp. 8309–8318은 DOI 10.1109/CVPR.2019.00851의 Crossref 쪽과 같다. §3의 후보 8317–8326은 틀린 값이다
+  - [3] DocVQA: 원고 pp. 2199–2208은 DOI 10.1109/WACV48630.2021.00225의 Crossref(IEEE) 쪽과 같다. CVF Open Access bibtex는 2200–2209로 1쪽 어긋난다. 원고가 DOI를 함께 적으므로 DOI(IEEE Xplore) 쪽을 유지한다
 
 ## 4. 원고에 반영할 때의 주의
 

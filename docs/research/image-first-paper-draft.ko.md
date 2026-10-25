@@ -176,15 +176,15 @@ GPT-4o의 발췌·compact 결합 관찰과 공급자 간 차이는 DTOC의 ablat
 
 [8] Y. Wang, H. Zhang, Q. Huang, A. Cao, G. Fang, W. Wang, X. Jin, J. Song, M. Song, and X. Wang, "Rethinking token reduction for large vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 24727–24737, Denver, CO, USA, Jun. 2026.
 
-[9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," arXiv:2310.05736, 2023.
+[9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," in *Proc. 2023 Conf. Empirical Methods Natural Lang. Process. (EMNLP)*, pp. 13358–13376, Singapore, Dec. 2023, doi: 10.18653/v1/2023.emnlp-main.825.
 
-[10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with compression and selective augmentation," arXiv:2310.04408, 2023.
+[10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with context compression and selective augmentation," in *Proc. Int. Conf. Learn. Represent. (ICLR)*, pp. 43478–43502, Vienna, Austria, May 2024.
 
 [11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, "The complexity trap: Simple observation masking is as efficient as LLM summarization for agent context management," in *4th Workshop Deep Learn. Code (DL4C), NeurIPS 2025*, San Diego, CA, USA, Dec. 2025, arXiv:2508.21433.
 
 [12] S. Fan, M. Li, X. Ma, W. Tan, X. Huang, J. Wu, L. Zhang, S. Shang, and W. Chen, "Screenshots or tools? Eliciting tool use and managing multimodal context in hybrid GUI–MCP computer-use agents," arXiv:2608.03327v2, 2026.
 
-[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," arXiv:2512.01763v2, 2026.
+[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 13028–13038, Denver, CO, USA, Jun. 2026.
 
 [14] OpenAI, "Images and vision," OpenAI API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://developers.openai.com/api/docs/guides/images-vision
 
