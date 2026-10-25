@@ -28,7 +28,7 @@
 |---|---|---|---|
 | F-18 | CLI 테스트 `beforeAll`이 프로젝트 전체를 tsc로 컴파일 | `tests/research-{dataset,pilot,scoring,exact-cli}.test.ts`가 그대로 `tsc -p tsconfig.json`을 부른다(예: `research-dataset.test.ts:134`). `tsconfig.json:14` include에 `tests/**/*.ts`가 있다. `tsconfig.scripts.json`은 scripts 타입 검사용이고 이 테스트들은 쓰지 않는다 | 남음 |
 | F-19 | smoke/verify가 realpath된 서버 경로를 비정규 경로와 문자열 비교 | `scripts/smoke-mcp.mjs:29` `mkdtemp(join(tmpdir(), …))`(realpath 안 함) → `:39` `join(workspaceRoot, …)` → `:135` `payload.path !== workspaceFile`. `verify-installed-plugin.mjs:41`은 `physicalWorkspaceRoot`를 계산하지만 `:45`·`:108`은 여전히 `workspaceRoot`를 쓴다 | 남음 |
-| F-20 | 허용 루트 하나라도 없으면 전체 색인 실패 | 텍스트: `src/core/artifacts.ts:485-487` `Promise.all(realpath)` 그대로. 이미지: `src/core/image-artifacts.ts:113-115`는 실패한 루트를 `null`로 걸러 해결됐다 | 부분 |
+| F-20 | 허용 루트 하나라도 없으면 전체 색인 실패 | 텍스트: `src/core/artifacts.ts:485-487` `Promise.all(realpath)` 그대로. 이미지: `src/core/image-artifacts.ts:113-115`는 실패한 루트를 `null`로 걸러 해결됐다. 원래 지적의 두 번째 부분(환경 변수가 없을 때 명시적 오류가 없음)은 텍스트에 그대로다. `src/server/index.ts:259-262`가 빈 목록을 만들고 `artifacts.ts:490` "outside allowed roots"로 끝난다. 이미지는 `image-artifacts.ts:108`에서 `path_denied`다 | 부분 |
 | F-22 | `isPathInside`가 `..notes.txt`를 루트 밖으로 오판 | `src/core/artifacts.ts:504-507` `!relation.startsWith("..")` 그대로 | 남음 |
 | F-23 | "numeric threshold preservation" 픽스처에 숫자가 없음 | `benchmarks/run.ts:244-246` 이름과 "one thousand milliseconds" 그대로 | 남음 |
 | F-24 | latency 통계 정의 문서 누락, 1000 ms 게이트가 느슨 | `docs/benchmarks.md:24`가 median과 p95를 언급하지만 nearest-rank·lower median 정의는 없다. `benchmarks/run.ts:68` `MAXIMUM_SCENARIO_LATENCY_MS = 1000` 그대로 | 부분 |
@@ -53,7 +53,7 @@
 
 | 묶음 | 항목 | 성격 | 크기 |
 |---|---|---|---|
-| (가) 허용 루트·경로 안전 | F-20(텍스트), F-22, S-02 | 텍스트 도구의 경로 검사를 이미지 도구 방식(실패 루트 무시, 루트 밖은 `path_denied`로 통일, 경로 비노출)에 맞춘다. 이미 6.9가 F-20·F-22를 다룬다. S-02를 6.9에 더하기를 권한다 | M |
+| (가) 허용 루트·경로 안전 | F-20(텍스트), F-22, S-02 | 텍스트 도구는 실패 루트 무시와 빈 허용 목록 오류를 이미지 도구 방식에 맞춘다. S-02의 존재 여부 노출은 **텍스트와 이미지 둘 다** 남아 있으므로, 두 도구 모두 루트 밖이면 경로 존재와 무관하게 `path_denied`로 통일하고 응답에 경로를 싣지 않는다. 이미 6.9가 F-20·F-22를 다룬다. S-02를 6.9에 더하기를 권한다 | M |
 | (나) 테스트·스크립트 위생 | F-18, F-19, F-25, F-26, S-04(plan CLI), S-08, S-12, S-13 | 동작은 같고 테스트·스크립트만 정리한다. 한 PR로 묶을 수 있다 | M |
 | (다) 벤치마크·추정기·요약기 | F-23, F-24, S-06, S-07, S-09, S-10, S-11, N-03 | 출력이나 수치가 바뀔 수 있다(S-09 토큰 추정, N-03 요약 내용, S-10 저장소 정책). characterization 테스트를 먼저 바꿔야 해서 각각 작은 계획이 필요하다 | L |
 
@@ -63,3 +63,9 @@
   - (다)는 텍스트 트랙이 보류 중이므로 그대로 보류할 수 있다
 - 해결로 닫는 것: S-03, S-05(S-05의 "characters" 단위 nit는 6.10 문서 nit 묶음에 넣을 수 있다)
 - F-36(부분)도 닫기를 권한다. 현행 기록 방식은 권장 수정대로 바뀌었고, 남은 반복은 과거 Task 기록이다. 기록을 보존하기 위해 고치지 않는다
+
+## 4. 교차 확인
+- `gemini-4-argon` 1회: APPROVE, 지적 2건. Claude가 확인하고 모두 반영했다
+  - [Minor] 묶음 (가)의 "이미지 방식에 맞춘다"는 표현이 S-02(이미지에도 남음)와 어긋났다. 두 도구 모두 통일하는 것으로 고쳤다
+  - [Nit] S-09 정규식을 소스 그대로의 이스케이프 표기로 고쳤다
+- "확인 불가" 항목 중 F-20의 환경 변수 부분은 Claude가 추가로 확인해 판정 근거에 넣었다. 나머지는 Claude가 원문으로 확인했다
