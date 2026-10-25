@@ -8,6 +8,7 @@ import {
   evaluatePolicyPredicate,
   loadPolicyInternals,
 } from "./helpers/policy-test-loader.js";
+import { classifyF21Expectation } from "./helpers/policy-f21-expectations.js";
 
 interface CharacterizationFixture {
   entries: Array<{
@@ -19,8 +20,9 @@ interface CharacterizationFixture {
 }
 
 const baseline = loadPolicyInternals("tests/helpers/policy-baseline.ts");
+const f21Baseline = loadPolicyInternals("tests/helpers/policy-baseline-f21.ts");
 const current = loadPolicyInternals("src/core/policy.ts");
-const group2PatternIndexes = [3, 6, 7, 15, 18, 20, 21] as const;
+const group2PatternIndexes = [6, 7, 15, 18, 20, 21] as const;
 
 function group2DifferentialInputs(): string[] {
   const witnesses = [
@@ -128,6 +130,67 @@ function group2DifferentialInputs(): string[] {
 }
 
 describe("policy ReDoS group 2 characterization", () => {
+  it("matches the independent URI candidate definition", () => {
+    const [, currentPredicate] = current.EXACT_PATTERNS[3];
+    const [, expectedPredicate] = f21Baseline.EXACT_PATTERNS[3];
+    for (const input of group2DifferentialInputs()) {
+      expect(evaluatePolicyPredicate(currentPredicate, input), JSON.stringify(input)).toBe(
+        evaluatePolicyPredicate(expectedPredicate, input),
+      );
+    }
+  });
+
+  it("matches the independent #0 credential-label union", () => {
+    const [, currentPredicate] = current.EXACT_PATTERNS[0];
+    const [, expectedPredicate] = f21Baseline.EXACT_PATTERNS[0];
+    const labels = ["passwd", "pwd", "passphrase", "pass", "passcode", "credential", "credentials", "private key", "secret key", "access key", "api key", "client secret", "recovery code", "recovery codes", "secret answer", "backup code", "backup codes", "pass phrase"];
+    const boundaries = ["", "x", "_", "é", "ſ", "K", "!", "compass"];
+    const separators = [" ", "\t", "-", "--", " -", "- ", "\n", "\u00a0"];
+    const delimiters = [":", "=", "!", ""];
+    const inputs = labels.flatMap((label) => [
+      ...separators.flatMap((separator) => delimiters.flatMap((delimiter) =>
+        boundaries.map((boundary) => `${label.split(" ")[0]}${separator}${label.split(" ").slice(1).join(" ")}${boundary}${delimiter}`),
+      )),
+      `${label.toUpperCase()}\t=`, `${label.replace(" ", "-")}: abc`,
+      `${label}:\u000b`, `${label}:\ufeff`,
+    ]).concat(["Note:", "compass: x", "_passwd: x", "passwdSuffix: x", "secret\nkey: x", "secret\u00a0key: x"]);
+    for (const input of inputs) {
+      expect(evaluatePolicyPredicate(currentPredicate, input), input).toBe(
+        evaluatePolicyPredicate(expectedPredicate, input),
+      );
+    }
+  });
+
+  it("proves b-only misses all twenty review credential cases", () => {
+    const reviewPrefixes = [
+      "passwd: hunter2", "pwd: hunter2", "Passphrase: correct horse battery staple",
+      "Credentials: admin / hunter2", "Login: alice, Pass: hunter2", "Private key: MIIEvQIBADANB",
+      "Secret answer: fluffy", "Recovery code: alpha bravo charlie", "access key: AKIAABCDEFGH", "API key: sk-live-abc",
+    ];
+    const suffix = " The team agreed to keep this note for the onboarding review and preserve the original context.";
+    const inputs = reviewPrefixes.flatMap((prefix) => [prefix, `${prefix}${suffix}`]);
+    const originalUri = baseline.EXACT_PATTERNS[3][1];
+    const [, f21Uri] = f21Baseline.EXACT_PATTERNS[3];
+    try {
+      baseline.EXACT_PATTERNS[3][1] = f21Uri;
+      let semantic = 0;
+      let unknown = 0;
+      for (const input of inputs) {
+        const expected = { mode: "exact", reasons: ["secret"], warnings: ["lossy_compression_not_allowed"] };
+        expect(current.classifyContext(input), input).toEqual(expected);
+        expect(f21Baseline.classifyContext(input), input).toEqual(expected);
+        const bOnly = baseline.classifyContext(input);
+        expect(bOnly, `b-only ${input}`).not.toEqual(expected);
+        if (bOnly.mode === "semantic") semantic += 1;
+        if (bOnly.mode === "unknown") unknown += 1;
+      }
+      expect(inputs).toHaveLength(20);
+      expect(semantic).toBe(8);
+      expect(unknown).toBe(12);
+    } finally {
+      baseline.EXACT_PATTERNS[3][1] = originalUri;
+    }
+  });
   it("keeps rule 6 equivalent on astral-letter dotted-token boundaries", () => {
     const [, baselinePredicate] = baseline.EXACT_PATTERNS[6];
     const [, currentPredicate] = current.EXACT_PATTERNS[6];
@@ -142,7 +205,7 @@ describe("policy ReDoS group 2 characterization", () => {
     }
   });
 
-  it("keeps zero-based rules 3, 6, 7, 15, 18, 20, and 21 equivalent to the frozen oracle", () => {
+  it("keeps unchanged zero-based rules 6, 7, 15, 18, 20, and 21 equivalent to the frozen oracle", () => {
     for (const patternIndex of group2PatternIndexes) {
       const [baselineReason, baselinePredicate] = baseline.EXACT_PATTERNS[patternIndex];
       const [currentReason, currentPredicate] = current.EXACT_PATTERNS[patternIndex];
@@ -172,7 +235,7 @@ describe("policy ReDoS group 2 characterization", () => {
   it("keeps structured group 2 classifications and ordered reasons unchanged", () => {
     for (const input of group2DifferentialInputs()) {
       expect(current.classifyContext(input), JSON.stringify(input)).toEqual(
-        baseline.classifyContext(input),
+        f21Baseline.classifyContext(input),
       );
     }
   });
@@ -186,19 +249,19 @@ describe("policy ReDoS group 2 characterization", () => {
         evaluatePolicyPredicate(baselinePredicate, input),
       );
       expect(current.hasTechnicalTokenShape(input), input).toBe(baseline.hasTechnicalTokenShape(input));
-      expect(current.classifyContext(input), input).toEqual(baseline.classifyContext(input));
+      expect(current.classifyContext(input), input).toEqual(f21Baseline.classifyContext(input));
     }
   });
 
-  it("keeps the complete frozen corpus classification unchanged", () => {
+  it("matches the versioned F-21 corpus expectations", () => {
     const fixture = JSON.parse(
       readFileSync(resolve("tests/fixtures/policy/characterization.json"), "utf8"),
     ) as CharacterizationFixture;
     expect(fixture.entries.map(({ id, content }) => ({ id, content }))).toEqual(policyCorpus);
     for (const entry of fixture.entries) {
       const actual = current.classifyContext(entry.content);
-      expect(actual, entry.id).toEqual(entry.classification);
-      expect(current.lossyCompressionAllowed(actual), entry.id).toBe(entry.lossyCompressionAllowed);
+      expect(actual, entry.id).toEqual(classifyF21Expectation(entry.id, entry.content));
+      expect(current.lossyCompressionAllowed(actual), entry.id).toBe(classifyF21Expectation(entry.id, entry.content).mode === "semantic");
     }
   });
 

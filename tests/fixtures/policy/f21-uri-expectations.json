@@ -1,0 +1,21 @@
+{
+  "provenance": {
+    "baseFixture": "tests/fixtures/policy/characterization.json",
+    "sourceSha256": "E4503C0B2189AEC05EE8A3349788A033092E9B20F14C7D1C3F4F90734F228F8B1",
+    "evidence": "docs/research/evidence/f21/2026-10-25T03-01-33-014Z.json",
+    "hashAlgorithm": "SHA-256",
+    "hashNormalization": "raw file bytes; current/frozen files read from this worktree, base policy is raw git blob bytes from 6e308c9",
+    "evidenceSha256": "03D3999A59B6085263A22145EADFE56A9BF70435B3DCA685C6D9DEAB8371C48F",
+    "frozenFixtureSha256": "F43E821928FE548965756E3E464D5E7A6880F202FAE4EFB920D9EFF489BB8E21",
+    "currentPolicySha256": "89D50738DFCC96FD6285A2934C7BCD251E07BAC4E4F75F0CF9BA4D8EE9CEC0C5",
+    "basePolicySha256": "F114C25C1F4F7EBBFE05D8DCF94EBBE72C43DBA5042D5BB4F51A2312D2827C8B",
+    "basePolicyCommit": "6e308c9",
+    "decisions": { "E-1": "b", "E-2": "secret", "E-3": "credential-label-union-at-#0" }
+  },
+  "entries": [
+    { "id": "f21-note-colon", "content": "Note: preserve source text exactly before compression.", "oldClassification": { "mode": "exact", "reasons": ["secret"], "warnings": ["lossy_compression_not_allowed"] }, "classification": { "mode": "semantic", "reasons": ["natural_language"], "warnings": [] }, "justification": "ordinary colon heading remains summarizable" },
+    { "id": "seeded-20", "content": "<a   Note: }", "oldClassification": { "mode": "exact", "reasons": ["secret"], "warnings": ["lossy_compression_not_allowed"] }, "classification": { "mode": "unknown", "reasons": ["insufficient_semantic_signal"], "warnings": ["lossy_compression_not_allowed"] }, "justification": "bare heading is no longer an exact URI candidate" },
+    { "id": "benchmark-exact-code-edit", "content": "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test\nFailing test: rejects negative input without throwing away zero.\nReplace src/math.ts implementation with:\nexport function normalizeInput(value: number): number {\n  if (value < 0) throw new Error(\"ERR_NEGATIVE_INPUT\");\n  return value;\n}", "oldClassification": { "mode": "exact", "reasons": ["secret", "code_or_path", "code_syntax", "identifier_or_hash", "numeric_or_table"], "warnings": ["lossy_compression_not_allowed"] }, "classification": { "mode": "exact", "reasons": ["code_or_path", "code_syntax", "identifier_or_hash", "numeric_or_table"], "warnings": ["lossy_compression_not_allowed"] }, "justification": "retain non-URI exact reasons and order" },
+    { "id": "seeded-08", "content": "\n = npm test Note: ; ordinary prose 안녕", "oldClassification": { "mode": "exact", "reasons": ["secret", "code_or_path"], "warnings": ["lossy_compression_not_allowed"] }, "classification": { "mode": "exact", "reasons": ["code_or_path"], "warnings": ["lossy_compression_not_allowed"] }, "justification": "retain command/path reason after URI narrowing" }
+  ]
+}

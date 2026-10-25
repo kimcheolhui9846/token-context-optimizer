@@ -1,0 +1,820 @@
+{
+  "measuredAt": "2026-10-25T12:29:04.086Z",
+  "method": "Reproduction against immutable base after implementation; does not claim an earlier execution time. Original primary pre-edit Vitest also observed Note assertion RED.",
+  "base": "6e308c9",
+  "baseSha256": "f114c25c1f4f7ebbfe05d8dcf94ebbe72c43dba5042d5bb4f51a2312d2827c8b",
+  "currentSha256": "89d50738dfcc96fd6285a2934c7bcd251e07bac4e4f75f0cf9ba4d8ee9cec0c5",
+  "runnerSource": "﻿import assert from 'node:assert/strict';\nimport { createHash } from 'node:crypto';\nimport { execFileSync } from 'node:child_process';\nimport { readFileSync, writeFileSync } from 'node:fs';\nimport { createRequire } from 'node:module';\nimport Module from 'node:module';\nimport { resolve } from 'node:path';\nconst require=createRequire(import.meta.url), ts=require('typescript');\nconst base=execFileSync('git',['show','6e308c9:src/core/policy.ts'],{windowsHide:true});\nconst current=readFileSync('src/core/policy.ts');\nconst sha=b=>createHash('sha256').update(b).digest('hex');\nfunction load(bytes){ const filename=resolve('src/core/policy.ts'); const m=new Module(filename);m.filename=filename;m.paths=Module._nodeModulePaths(process.cwd());m._compile(ts.transpileModule(bytes.toString()+'\\nexport { EXACT_PATTERNS };',{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,filename);return m.exports; }\nconst old=load(base), now=load(current);\nconst frozen=JSON.parse(readFileSync('tests/fixtures/policy/characterization.json','utf8'));\nconst overlay=JSON.parse(readFileSync('tests/fixtures/policy/f21-uri-expectations.json','utf8'));\nconst delta=[];\nfor(const row of frozen.entries){const before=old.classifyContext(row.content),after=now.classifyContext(row.content);assert.deepEqual(before,row.classification);if(JSON.stringify(before)!==JSON.stringify(after))delta.push({id:row.id,content:row.content,before,after});}\nassert.deepEqual(delta.map(x=>x.id).sort(),overlay.entries.map(x=>x.id).sort());\nconst prefixes=['passwd: hunter2','pwd: hunter2','Passphrase: correct horse battery staple','Credentials: admin / hunter2','Login: alice, Pass: hunter2','Private key: MIIEvQIBADANB','Secret answer: fluffy','Recovery code: alpha bravo charlie','access key: AKIAABCDEFGH','API key: sk-live-abc'];\nconst suffix=' The team agreed to keep this note for the onboarding review and preserve the original context.';\nconst bOnly=load(base);bOnly.EXACT_PATTERNS[3][1]=now.EXACT_PATTERNS[3][1];\nconst exact={mode:'exact',reasons:['secret'],warnings:['lossy_compression_not_allowed']};\nconst review20=prefixes.flatMap(x=>[x,x+suffix]).map(content=>{const before=old.classifyContext(content),withoutE3=bOnly.classifyContext(content),after=now.classifyContext(content);assert.deepEqual(before,exact);assert.deepEqual(after,exact);assert.throws(()=>assert.deepEqual(withoutE3,exact),assert.AssertionError);return {content,before,withoutE3,after};});\nconst examples=['Note: preserve source text exactly before compression.','Summary: preserve the original source context before compression.','API KEY =','credentials =','passwd = hunter','secret answer = fluffy'];\nconst transitions=examples.map(content=>({content,before:old.classifyContext(content),after:now.classifyContext(content)}));\nassert.throws(()=>assert.deepEqual(transitions[0].before,transitions[0].after),assert.AssertionError);\nconst timestamp=new Date().toISOString(),path=`docs/research/evidence/f21/audit-${timestamp.replaceAll(':','-')}.json`;\nconst report={measuredAt:timestamp,method:'Reproduction against immutable base after implementation; does not claim an earlier execution time. Original primary pre-edit Vitest also observed Note assertion RED.',base:'6e308c9',baseSha256:sha(base),currentSha256:sha(current),runnerSource:readFileSync(new URL(import.meta.url),'utf8'),characterization:{rows:120,delta,semantic:delta.filter(x=>x.after.mode==='semantic').length,unknown:delta.filter(x=>x.after.mode==='unknown').length,newlyExact:delta.filter(x=>x.before.mode!=='exact'&&x.after.mode==='exact').length},review20,transitions};\nwriteFileSync(path,JSON.stringify(report,null,2)+'\\n');\nconsole.log(JSON.stringify({path,delta:delta.map(x=>x.id),review20:review20.length,bOnlySemantic:review20.filter(x=>x.withoutE3.mode==='semantic').length,bOnlyUnknown:review20.filter(x=>x.withoutE3.mode==='unknown').length,transitions}));\r\n",
+  "characterization": {
+    "rows": 120,
+    "delta": [
+      {
+        "id": "f21-note-colon",
+        "content": "Note: preserve source text exactly before compression.",
+        "before": {
+          "mode": "exact",
+          "reasons": [
+            "secret"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "after": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        }
+      },
+      {
+        "id": "benchmark-exact-code-edit",
+        "content": "EDIT_TARGET tests/math.test.ts src/math.ts ERR_NEGATIVE_INPUT npm test\nFailing test: rejects negative input without throwing away zero.\nReplace src/math.ts implementation with:\nexport function normalizeInput(value: number): number {\n  if (value < 0) throw new Error(\"ERR_NEGATIVE_INPUT\");\n  return value;\n}",
+        "before": {
+          "mode": "exact",
+          "reasons": [
+            "secret",
+            "code_or_path",
+            "code_syntax",
+            "identifier_or_hash",
+            "numeric_or_table"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "after": {
+          "mode": "exact",
+          "reasons": [
+            "code_or_path",
+            "code_syntax",
+            "identifier_or_hash",
+            "numeric_or_table"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "id": "seeded-08",
+        "content": "\n = npm test Note: ; ordinary prose 안녕",
+        "before": {
+          "mode": "exact",
+          "reasons": [
+            "secret",
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "after": {
+          "mode": "exact",
+          "reasons": [
+            "code_or_path"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "id": "seeded-20",
+        "content": "<a   Note: }",
+        "before": {
+          "mode": "exact",
+          "reasons": [
+            "secret"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "after": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      }
+    ],
+    "semantic": 1,
+    "unknown": 1,
+    "newlyExact": 0
+  },
+  "review20": [
+    {
+      "content": "passwd: hunter2",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "passwd: hunter2 The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "pwd: hunter2",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "pwd: hunter2 The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Passphrase: correct horse battery staple",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Passphrase: correct horse battery staple The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Credentials: admin / hunter2",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Credentials: admin / hunter2 The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Login: alice, Pass: hunter2",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Login: alice, Pass: hunter2 The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Private key: MIIEvQIBADANB",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Private key: MIIEvQIBADANB The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Secret answer: fluffy",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Secret answer: fluffy The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Recovery code: alpha bravo charlie",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "Recovery code: alpha bravo charlie The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "access key: AKIAABCDEFGH",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "access key: AKIAABCDEFGH The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "API key: sk-live-abc",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "API key: sk-live-abc The team agreed to keep this note for the onboarding review and preserve the original context.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "withoutE3": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "content": "Note: preserve source text exactly before compression.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "content": "Summary: preserve the original source context before compression.",
+      "before": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "content": "API KEY =",
+      "before": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "credentials =",
+      "before": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "passwd = hunter",
+      "before": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    },
+    {
+      "content": "secret answer = fluffy",
+      "before": {
+        "mode": "unknown",
+        "reasons": [
+          "insufficient_semantic_signal"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      },
+      "after": {
+        "mode": "exact",
+        "reasons": [
+          "secret"
+        ],
+        "warnings": [
+          "lossy_compression_not_allowed"
+        ]
+      }
+    }
+  ]
+}

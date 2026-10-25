@@ -546,6 +546,20 @@ describe("safety policy", () => {
     });
   });
 
+  it("allows summaries for a long ordinary Note heading sentence", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "note.txt");
+    await writeFile(filePath, "Note: preserve source text exactly before compression.", "utf8");
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path: filePath, store, allowedRoots: [dir] });
+    expect(classifyContext(artifact.content).mode).toBe("semantic");
+    const summary = summarizeArtifact({ artifactId: artifact.artifactId, maxTokens: 20, store });
+    expect(summary.warnings).not.toContain("lossy_summary_blocked");
+    expect(summary.summary).toContain("Note: preserve source text exactly before compression.");
+    expect(summary.sourceMap).toMatchObject({ startLine: 1, endLine: 1 });
+    expect(artifact.sourceMap[0].endByte).toBe(Buffer.byteLength("Note: preserve source text exactly before compression."));
+  });
+
   it("returns fallback when a semantic summary cannot include one complete line", async () => {
     const dir = await mkdtemp(join(tmpdir(), "tco-"));
     const filePath = join(dir, "semantic.txt");

@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { loadPolicyInternals, evaluatePolicyPredicate } from "./helpers/policy-test-loader.js";
+import { classifyF21Expectation } from "./helpers/policy-f21-expectations.js";
 
 interface CharacterizationFixture {
   entries: Array<{
@@ -15,6 +16,7 @@ interface CharacterizationFixture {
 }
 
 const baseline = loadPolicyInternals("tests/helpers/policy-baseline.ts");
+const f21Baseline = loadPolicyInternals("tests/helpers/policy-baseline-f21.ts");
 const current = loadPolicyInternals("src/core/policy.ts");
 const group3PatternIndexes = [10, 12, 25] as const;
 
@@ -165,16 +167,16 @@ describe("policy ReDoS group 3 characterization", () => {
       readFileSync(resolve("tests/fixtures/policy/characterization.json"), "utf8"),
     ) as CharacterizationFixture;
     for (const entry of fixture.entries) {
-      expect(current.classifyContext(entry.content), entry.id).toEqual(entry.classification);
+      expect(current.classifyContext(entry.content), entry.id).toEqual(classifyF21Expectation(entry.id, entry.content));
       expect(current.lossyCompressionAllowed(current.classifyContext(entry.content)), entry.id).toBe(
-        entry.lossyCompressionAllowed,
+        classifyF21Expectation(entry.id, entry.content).mode === "semantic",
       );
       expect(current.classifyContext(entry.content), `oracle ${entry.id}`).toEqual(
-        baseline.classifyContext(entry.content),
+        f21Baseline.classifyContext(entry.content),
       );
     }
     for (const input of group3DifferentialInputs()) {
-      expect(current.classifyContext(input), JSON.stringify(input)).toEqual(baseline.classifyContext(input));
+      expect(current.classifyContext(input), JSON.stringify(input)).toEqual(f21Baseline.classifyContext(input));
     }
   });
 
