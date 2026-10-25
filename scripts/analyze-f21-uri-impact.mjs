@@ -33,7 +33,80 @@ const candidateDefinitions = {
   a: "original eligible scheme run followed by ://",
   b: "original eligible scheme run followed by : and a defined non-whitespace JS \\s suffix character",
   c: "any eligible scheme:// OR case-insensitive explicit known scheme followed by colon; known suffix may be empty or whitespace",
+  bE3: "tuple3 uses b; tuple0 preserves original predicate OR credential-label scanner, ASCII boundaries/case, space/tab between words, JS whitespace before : or =",
 };
+
+const E3_LABELS = [
+  ["passwd"], ["pwd"], ["passphrase"], ["pass"], ["credential"],
+  ["credentials"], ["private", "key"], ["secret", "key"], ["access", "key"],
+  ["api", "key"], ["client", "secret"], ["recovery", "code"], ["secret", "answer"],
+];
+const E3_REVIEW_LABELS = E3_LABELS.map((tokens) => tokens.join(" "));
+const E3_EXACT_REVIEW_CASES = [
+  ["passwd", "passwd: hunter2"],
+  ["pwd", "pwd: hunter2"],
+  ["passphrase", "Passphrase: correct horse battery staple"],
+  ["credentials", "Credentials: admin / hunter2"],
+  ["pass", "Login: alice, Pass: hunter2"],
+  ["private key", "Private key: MIIEvQIBADANB"],
+  ["secret answer", "Secret answer: fluffy"],
+  ["recovery code", "Recovery code: alpha bravo charlie"],
+  ["access key", "access key: AKIAABCDEFGH"],
+  ["api key", "API key: sk-live-abc"],
+];
+
+function isAsciiWord(code) {
+  return (code >= 65 && code <= 90) || (code >= 97 && code <= 122) ||
+    (code >= 48 && code <= 57) || code === 95;
+}
+
+function isAsciiLetter(code) {
+  return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+}
+
+function asciiEqualIgnoreCase(content, offset, text) {
+  if (offset + text.length > content.length) return false;
+  for (let index = 0; index < text.length; index += 1) {
+    const actual = content.charCodeAt(offset + index);
+    const expected = text.charCodeAt(index);
+    const folded = actual >= 65 && actual <= 90 ? actual + 32 : actual;
+    if (folded !== expected) return false;
+  }
+  return true;
+}
+
+function scanCredentialLabel(content) {
+  for (let index = 0; index < content.length; index += 1) {
+    if (!isAsciiLetter(content.charCodeAt(index)) ||
+        (index > 0 && isAsciiWord(content.charCodeAt(index - 1)))) continue;
+    for (const tokens of E3_LABELS) {
+      let cursor = index;
+      let matched = true;
+      for (let tokenIndex = 0; tokenIndex < tokens.length; tokenIndex += 1) {
+        const token = tokens[tokenIndex];
+        if (!asciiEqualIgnoreCase(content, cursor, token)) {
+          matched = false;
+          break;
+        }
+        cursor += token.length;
+        if (tokenIndex < tokens.length - 1) {
+          const separatorStart = cursor;
+          while (content[cursor] === " " || content[cursor] === "\t") cursor += 1;
+          if (cursor === separatorStart) {
+            matched = false;
+            break;
+          }
+        }
+      }
+      if (!matched || (cursor < content.length && isAsciiWord(content.charCodeAt(cursor)))) continue;
+      while (cursor < content.length && /\s/u.test(content[cursor])) cursor += 1;
+      if (content[cursor] === ":" || content[cursor] === "=") return true;
+    }
+  }
+  return false;
+}
+
+const E3_REGEX_ORACLE = /\b(?:passwd|pwd|passphrase|pass|credentials?|(?:private|secret|access|api)[ \t]+key|client[ \t]+secret|recovery[ \t]+code|secret[ \t]+answer)\b\s*[:=]/i;
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
@@ -234,12 +307,19 @@ const predicates = {
 
 function classifyWith(predicateName, label, policy, content) {
   const tuples = policy.internals.EXACT_PATTERNS;
-  const originalTuple = tuples[3];
-  tuples[3] = [label, predicateName === "original" ? originalTuple[1] : (value) => scanScheme(value, predicates[predicateName])];
+  const originalUriTuple = tuples[3];
+  const originalE3Tuple = tuples[0];
+  if (predicateName === "bE3") {
+    tuples[0] = ["secret", (value) => originalE3Tuple[1].test(value) || scanCredentialLabel(value)];
+    tuples[3] = [label, (value) => scanScheme(value, predicates.b)];
+  } else {
+    tuples[3] = [label, predicateName === "original" ? originalUriTuple[1] : (value) => scanScheme(value, predicates[predicateName])];
+  }
   try {
     return policy.internals.originalclassify(content);
   } finally {
-    tuples[3] = originalTuple;
+    tuples[0] = originalE3Tuple;
+    tuples[3] = originalUriTuple;
   }
 }
 
@@ -269,7 +349,7 @@ function analyzeRecord(policy, record) {
   const original = policy.internals.originalclassify(record.content);
   const baseline = summarizeBaseline(policy, record.content, original);
   const variants = {};
-  for (const name of ["disabled", "a", "b", "c"]) {
+  for (const name of ["disabled", "a", "b", "c", "bE3"]) {
     variants[name] = {
       e1: classifyWith(name, "secret", policy, record.content),
       e2: classifyWith(name, "uri", policy, record.content),
@@ -286,6 +366,8 @@ function analyzeRecord(policy, record) {
     assert(!hit || uri, "candidate broadened original predicate");
     if (!uri) assert.deepEqual(variants[name].e1, original);
   }
+  const e3RegexMatch = E3_REGEX_ORACLE.test(record.content);
+  assert.equal(scanCredentialLabel(record.content), e3RegexMatch, "E3 scanner/reference mismatch");
   const changed = Object.fromEntries(Object.entries(variants).map(([name, result]) => [name, {
     e1: !compareClassification(original, result.e1),
     e2: !compareClassification(original, result.e2),
@@ -326,18 +408,31 @@ function summarize(records) {
       e2UriOnlyToMode: countBy(records.filter((r) => r.baseline.category === "uri-only-exact" && r.original.mode !== r.variants[name].e2.mode), (r) => r.variants[name].e2.mode),
     };
   }
+  const modeFor = (record, name) => name === "original" ? record.original.mode : record.variants[name].e1.mode;
+  const transitions = (left, right) => countBy(records, (record) =>
+    `${modeFor(record, left)}->${modeFor(record, right)}`);
+  summary.variants.bE3 = {
+    e1Modes: countBy(records, (r) => r.variants.bE3.e1.mode),
+    e2Modes: countBy(records, (r) => r.variants.bE3.e2.mode),
+    e1Changed: records.filter((r) => r.changed.bE3.e1).length,
+    e2Changed: records.filter((r) => r.changed.bE3.e2).length,
+    modeChanged: records.filter(r => r.original.mode !== r.variants.bE3.e1.mode).length,
+    toSemantic: records.filter(r => r.original.mode !== r.variants.bE3.e1.mode && r.variants.bE3.e1.mode === "semantic").length,
+    toUnknown: records.filter(r => r.original.mode !== r.variants.bE3.e1.mode && r.variants.bE3.e1.mode === "unknown").length,
+    toVisual: records.filter(r => r.original.mode !== r.variants.bE3.e1.mode && r.variants.bE3.e1.mode === "visual").length,
+    retainedExactReasonChanges: records.filter(r => r.changed.bE3.e1 && r.variants.bE3.e1.mode === "exact").length,
+    e2AdditionalLabelChanges: records.filter(r => !compareClassification(r.variants.bE3.e1, r.variants.bE3.e2)).length,
+    e1UriOnlyToMode: countBy(records.filter((r) => r.baseline.category === "uri-only-exact" && r.original.mode !== r.variants.bE3.e1.mode), (r) => r.variants.bE3.e1.mode),
+    e2UriOnlyToMode: countBy(records.filter((r) => r.baseline.category === "uri-only-exact" && r.original.mode !== r.variants.bE3.e2.mode), (r) => r.variants.bE3.e2.mode),
+    modeTransitionsVsCurrent: transitions("original", "bE3"),
+    modeTransitionsVsB: transitions("b", "bE3"),
+    uriMatchedRecords: records.filter((r) => r.baseline.uriTupleMatches).length,
+    newlyChangedVsB: records.filter((r) => !r.changed.b.e1 && r.changed.bE3.e1).length,
+    newlyChangedVsCurrent: records.filter((r) => r.changed.bE3.e1).length,
+    newlyExactVsCurrent: records.filter((r) => r.variants.bE3.e1.mode === "exact" && r.original.mode !== "exact").length,
+    newlyExactVsB: records.filter((r) => r.variants.bE3.e1.mode === "exact" && r.variants.b.e1.mode !== "exact").length,
+  };
   return summary;
-}
-
-function changedLists(records) {
-  return Object.fromEntries(["disabled", "a", "b", "c"].map((name) => [name, records.filter((r) => r.changed[name].e1 || r.changed[name].e2).map((r) => ({
-    content: r.content,
-    sources: r.sources,
-    baseline: r.baseline,
-    original: r.original,
-    e1: r.variants[name].e1,
-    e2: r.variants[name].e2,
-  }))]));
 }
 
 function syntheticRecords() {
@@ -380,6 +475,99 @@ function syntheticRecords() {
   return cases.map(([id, content]) => ({ group: "synthetic-boundaries", id, content }));
 }
 
+function reviewProbeEvidence(policy) {
+  const proseSuffix = " The team agreed to keep this note for the onboarding review and preserve the original context.";
+  const probes = E3_EXACT_REVIEW_CASES.flatMap(([label, payload]) => [
+    { label, form: "no-prose", content: payload },
+    { label, form: "prose", content: `${payload}${proseSuffix}` },
+  ]);
+  const results = probes.map((probe, index) => {
+    const regexMatch = E3_REGEX_ORACLE.test(probe.content);
+    const scannerMatch = scanCredentialLabel(probe.content);
+    assert.equal(scannerMatch, regexMatch, `review probe ${index} scanner/reference mismatch`);
+    const original = policy.internals.originalclassify(probe.content);
+    const bOnly = classifyWith("b", "secret", policy, probe.content);
+    const classification = classifyWith("bE3", "secret", policy, probe.content);
+    assert.equal(classification.mode, "exact", `review probe ${index} must be exact`);
+    assert.deepEqual(classification.reasons, ["secret"], `review probe ${index} reason mismatch`);
+    return { ...probe, regexMatch, scannerMatch, original, bOnly, classification };
+  });
+  const controls = [
+    { id: "wifi-limitation", content: "Wifi: hunter2", expectedScannerMatch: false },
+    { id: "wifi-control-with-prose", content: "The note says Wifi: hunter2, not a credential label.", expectedScannerMatch: false },
+    ...["compass:", "_passwd:", "passwdSuffix:", "Note:", "Summary:", "private\nkey:", "paſs:"].map(content=>({id:content,content,expectedScannerMatch:false})),
+    ...["secret key:", "client secret:", "credential:", "PASSWD:", "private\tkey:", "pwd\u2028=", "secret answer\ufeff:"].map(content=>({id:content,content,expectedScannerMatch:true})),
+  ].map((probe) => {
+    const scannerMatch = scanCredentialLabel(probe.content);
+    assert.equal(scannerMatch, probe.expectedScannerMatch, `${probe.id} scanner result mismatch`);
+    assert.equal(scannerMatch,E3_REGEX_ORACLE.test(probe.content));
+    return { ...probe, scannerMatch, regexMatch: E3_REGEX_ORACLE.test(probe.content), original:policy.internals.originalclassify(probe.content),bOnly:classifyWith("b","secret",policy,probe.content),classification:classifyWith("bE3","secret",policy,probe.content) };
+  });
+  const newExactExamples = [
+    "API KEY =",
+    "credentials =",
+    "passwd = hunter",
+    "secret answer = fluffy",
+  ].map((content) => {
+    const original = policy.internals.originalclassify(content);
+    const bOnly = classifyWith("b", "secret", policy, content);
+    const classification = classifyWith("bE3", "secret", policy, content);
+    assert.equal(classification.mode, "exact", `new exact example must be exact: ${content}`);
+    assert.notEqual(original.mode, "exact", `new exact example was already exact: ${content}`);
+    assert.notEqual(bOnly.mode, "exact", `new exact example was already exact under b: ${content}`);
+    return { content, scannerMatch: scanCredentialLabel(content), original, bOnly, classification };
+  });
+  return {
+    exactSecretProbeCount: results.length,
+    labels: E3_EXACT_REVIEW_CASES.map(([label]) => label),
+    fixedScannerLabels: E3_REVIEW_LABELS,
+    proseSuffix,
+    probes: results,
+    controls,
+    newExactExamples,
+    uniqueContentCount: new Set(results.map((probe) => probe.content)).size,
+    originalModeCounts: countBy(results, (probe) => probe.original.mode),
+    bOnlyModeCounts: countBy(results, (probe) => probe.bOnly.mode),
+    bE3ModeCounts: countBy(results, (probe) => probe.classification.mode),
+    newlyExactVsCurrent: results.filter((probe) => probe.original.mode !== "exact" && probe.classification.mode === "exact").length,
+    newlyExactVsB: results.filter((probe) => probe.bOnly.mode !== "exact" && probe.classification.mode === "exact").length,
+    denominator: "separate from repo inventory and summary counts",
+  };
+}
+
+function measureE3ScannerPrototype(policy) {
+  const recipes = [
+    ["boundary-near-misses", n=>"xpasswd ! ".repeat(Math.ceil(n/10)).slice(0,n), false],
+    ["repeated-valid-start-misses", n=>"passwd ! private key ! ".repeat(Math.ceil(n/22)).slice(0,n), false],
+    ["internal-gap-miss", n=>"private"+" ".repeat(n-8)+"!", false],
+    ["trailing-gap-miss", n=>"passwd"+" ".repeat(n-7)+"!", false],
+    ["old-label-gap-miss", n=>"password"+" ".repeat(n-9)+"!", false],
+    ["internal-gap-hit", n=>"private"+" ".repeat(n-11)+"key:", true],
+    ["late-label-hit", n=>"x".repeat(n-8)+" passwd:", true],
+  ];
+  const result=[];
+  for(const [recipe,build,expected] of recipes) for(const mib of [1,5,10]) {
+    const content=build(mib*1024*1024);
+    assert.equal(content.length,mib*1024*1024);
+    const timings={};
+    const original=policy.internals.EXACT_PATTERNS[0][1];
+    for(const [name,fn] of [["scannerOnly",scanCredentialLabel],["combinedTuple0",value=>original.test(value)||scanCredentialLabel(value)]]) {
+      fn("private key: warmup");
+      const samplesMs=[];
+      for(let i=0;i<5;i++) {
+        const started=performance.now();
+        const actual=fn(content);
+        samplesMs.push(performance.now()-started);
+        assert.equal(actual,expected,recipe+" "+name);
+      }
+      const medianMs=[...samplesMs].sort((a,b)=>a-b)[2];
+      timings[name]={result:expected,samplesMs,medianMs,error:null};
+    }
+    result.push({recipe,sizeMiB:mib,inputCodeUnits:content.length,...timings});
+  }
+  return result;
+}
+
 async function main() {
   const policy = await loadPolicy();
   const corpusSource = await loadCorpus();
@@ -406,6 +594,8 @@ async function main() {
   const uniqueRepo = dedupeRecords(repoRecords);
   const analyzedRepo = uniqueRepo.map((record) => analyzeRecord(policy, record));
   const analyzedSynthetic = syntheticRecords().map((record) => ({ ...analyzeRecord(policy, record), sources: [{ group: record.group, id: record.id, location: null }] }));
+  const review = reviewProbeEvidence(policy);
+  const performance = measureE3ScannerPrototype(policy);
   const sourceFiles = [paths.policy, paths.corpus, paths.characterization, paths.benchmark, paths.coreTest, "tests/helpers/policy-baseline.ts", ...extraSourceFiles];
   const sourceFileHashes = {};
   for (const file of sourceFiles) {
@@ -421,13 +611,18 @@ async function main() {
     reproducibility: { script: scriptPath, scriptSha256: sha256(scriptText), sourceFileHashes, baselineFrozen120Match: true, policyCorpus120Match: true, forbiddenChanges: "none" },
     policy: { exactTupleIndex: 3, originalTupleReason: "secret", candidates: candidateDefinitions, knownSchemes: KNOWN_SCHEMES, boundary: "original ASCII word-boundary logic; eligible starts are ASCII letters at an ASCII word-boundary, and scheme run permits ASCII letters/digits/+/-/." },
     inventory: { sourceCounts: countBy(repoRecords, (r) => r.group), repoRecordCount: repoRecords.length, repoUniqueContentCount: uniqueRepo.length, syntheticRecordCount: analyzedSynthetic.length, repoGroups: ["characterization", "policyCorpus", "benchmark-fixtures", "existing-test-input-literals"], deduplication: "content exact equality across all repository source groups" },
-    repo: { summary: summarize(analyzedRepo), fullClassificationsForUriMatches: analyzedRepo.filter(r=>r.baseline.uriTupleMatches), unchangedNonUriDigest: sha256(JSON.stringify(analyzedRepo.filter(r=>!r.baseline.uriTupleMatches).map(r=>({content:r.content,sources:r.sources,original:r.original})))) },
+    repo: { summary: summarize(analyzedRepo), bE3NonUriChangedRows: analyzedRepo.filter(r=>!r.baseline.uriTupleMatches && (r.changed.bE3.e1 || r.changed.bE3.e2)), fullClassificationsForUriMatches: analyzedRepo.filter(r=>r.baseline.uriTupleMatches), unchangedNonUriDigest: sha256(JSON.stringify(analyzedRepo.filter(r=>!r.baseline.uriTupleMatches).map(r=>({content:r.content,sources:r.sources,original:r.original})))) },
     synthetic: { summary: summarize(analyzedSynthetic), cases: analyzedSynthetic },
+    review,
+    performance: { scanner: "scanCredentialLabel", combined: "original tuple0.test(content) OR scanCredentialLabel(content)", prototypeOnly: true, productionPerformanceClaim: false, inputs: performance },
     coverageLimitations: [
       "Core test inventory is restricted to the safety-policy describe: direct/resolved local string inputs and each-table rows. Unresolved dynamic sites are listed; this is not an execution trace of all integration tests.",
       "All five checked-in small differential input generators are evaluated as extracted pure functions, without running test module bodies. Multi-megabyte stress recipes are reserved for unchanged regression gates.",
       "Benchmark includes named source literals, actual repeated semantic documents and pure 25K log/8K code-context builders. No retrieval or latency benchmark is run.",
       "Counts describe repository evidence and synthetic boundary cases separately; they do not establish all real-world URI safety or policy impact.",
+      "The exact 20 credential probes, Wifi limitation/control, and new-exact examples are review probes kept outside the repository denominator.",
+      "The exact probe prose suffix is a classification fixture; the survey makes no byte-identity claim about prose.",
+      "The 1/5/10 MiB measurements exercise the in-memory planning scanner and combined tuple0 predicate on matching/missing inputs and long whitespace gaps; they are not production performance evidence or a general input-safety guarantee.",
     ],
     recommendationInputs: { e1: "Candidate c is the conservative explicit-allowlist option; candidate a is narrowest syntax; candidate b preserves opaque non-whitespace schemes but retains arbitrary key:value false positives.", e2: "Labeling URI matches as uri separates the reason from secret, but is a public reasons-output change and must be decided separately." },
   };
