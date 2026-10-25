@@ -4,7 +4,7 @@
 
 ## 국문요약
 
-에이전트 세션에서는 텍스트와 이미지가 누적되어 다음 요청에 다시 전송된다. 손실 요약인 compact는 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 본 연구는 원본을 외부에 보존하고 출처와 함께 필요한 부분을 발췌하는 방식으로 compact를 보완하고, 공급자 청구 토큰과 정확도를 세 실험으로 측정한다. 실험 1에서 GPT-4o detail high의 청구 이미지 토큰은 공개 회계식과 66/66 일치했다. 단일 질의 실험 2에서 영역 선택과 원본 재요청(D)은 배정 원본(A) 대비 입력 토큰을 GPT-4o 23.0%, Haiku 4.5 43.8% 줄였으나, 두 공급자 모두 정확도의 비열등성은 입증되지 않았다. 세션 실험 3의 사전 등록 held-out 세션에서 GPT-4o는 compact 모사 단독보다 발췌·compact 결합에서 늦은 회상이 13.9%에서 81.9%로 높아졌으나, Haiku 4.5에서는 같은 개선이 지지되지 않았다. 세션에서도 두 공급자 모두 전체 유지 대비 정확도의 비열등성이 입증되지 않았고, 캐시를 반영하면 GPT-4o 비용 절감은 9.1%로 줄었으며 Haiku 비용은 증가했다. 결과는 공급자와 조건에 한정되며 전체 유지의 대체나 모든 공급자의 비용 절감을 주장하지 않는다. [출처: `research/results/rq1-sweep-001/README.md:29`, `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/gpt4o/analysis.md:11-14,24`, `research/results/s3-heldout/haiku/analysis.md:11-14`, `research/results/s3-heldout/README.md:37`, E3-5–E3-14]
+에이전트 세션에서는 텍스트와 이미지가 누적되어 다음 요청에 다시 전송된다. 손실 요약인 compact는 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 본 연구는 원본을 외부에 보존하고 출처와 함께 필요한 부분을 발췌하는 방식으로 compact를 보완하고, 공급자 청구 토큰과 정확도를 세 실험으로 측정한다. 실험 1에서 GPT-4o detail high의 청구 이미지 토큰은 공개 회계식과 66/66 일치했다. 단일 질의 실험 2에서 영역 선택과 원본 재요청(D)은 배정 원본(A) 대비 입력 토큰을 GPT-4o 23.0%, Haiku 4.5 43.8% 줄였으나, 두 공급자 모두 정확도의 비열등성은 입증되지 않았다. 세션 실험 3의 사전 등록 held-out 세션에서 GPT-4o는 compact 모사 단독보다 발췌·compact 결합에서 늦은 회상이 13.9%에서 81.9%로 높아졌으나, Haiku 4.5에서는 같은 개선이 지지되지 않았다. 세션에서도 두 공급자 모두 전체 유지 대비 정확도의 비열등성이 입증되지 않았고, 캐시를 반영하면 GPT-4o 비용 절감은 9.1%로 줄었으며 Haiku 비용은 증가했다. 결과는 두 공급자와 실험 조건에 한정된다. [출처: `research/results/rq1-sweep-001/README.md:29`, `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/gpt4o/analysis.md:11-14,24`, `research/results/s3-heldout/haiku/analysis.md:11-14`, `research/results/s3-heldout/README.md:37`, E3-5–E3-14]
 
 **주제어:** 멀티모달 컨텍스트, 원본 보존, 에이전트 세션, 청구 토큰, 정확도
 
@@ -98,7 +98,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 | H2: D−C | +6.3%p [1.4, 12.5] | +9.0%p [2.8, 16.7] | 기술 통계 |
 | H3: C−B | −11.8%p [−22.9, −2.1] | −13.9%p [−25.0, −3.5] | 기술 통계 |
 
-두 공급자 모두 H1은 지지되지 않았다. 이는 비열등성 미입증이며 −5%p 이상 열등하다는 입증은 아니다. clean·JPEG q50에서 A와 D 정확도는 두 공급자 모두 88.9%였다. 네 조건 평균 D 입력 토큰은 A 대비 GPT-4o 23.0%, Haiku 43.8% 감소했다. D 재요청은 각각 11/144와 16/144, 재요청 뒤 정답은 9/11과 13/16이었다. 표지 없는 오답과 D′·레이아웃 탐색은 결과 부록에 보고한다. [출처: `research/results/exp2-heldout/README.md:28-29,47-50,59-66,74-83`, E2-10–E2-11, E2-18–E2-30]
+두 공급자 모두 H1은 지지되지 않았다. 이는 비열등성 미입증이며 −5%p 이상 열등하다는 입증은 아니다. clean·JPEG q50에서 A와 D 정확도는 두 공급자 모두 88.9%였다. 네 조건 평균 D 입력 토큰은 A 대비 GPT-4o 23.0%, Haiku 43.8% 감소했다(반올림 전 평균 토큰으로 계산). D 재요청은 각각 11/144와 16/144, 재요청 뒤 정답은 9/11과 13/16이었다. 표지 없는 오답과 D′·레이아웃 탐색은 결과 부록에 보고한다. [출처: `research/results/exp2-heldout/README.md:28-29,47-50,59-66,74-83`, E2-10–E2-11, E2-18–E2-30]
 
 ![그림 2. 실험 2 held-out arm별 정확도와 호출당 입력 토큰](../../research/figures/exp2/heldout/fig5_exp2_accuracy_vs_tokens.png)
 
@@ -122,7 +122,7 @@ S0은 전체 유지, S1은 compact 모사, S2는 원본 보존 발췌, S3는 발
 
 가격과 캐시 배율은 2026-10-18 확인한 공급자 공개 가격표를 따른다 [25], [26]. GPT-4o는 캐시 입력 읽기 0.5배, Haiku 4.5는 5분 캐시 쓰기 1.25배와 읽기 0.1배를 적용했다. 가격표에는 `gpt-4o-2024-11-20` 스냅샷의 별도 행이 없어 같은 `gpt-4o` 행을 적용했다. [출처: `research/results/s3-heldout/README.md:50-54`, `research/plans/2026-10-18-task38-number-sheet.md` §4, C-1–C-2]
 
-표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:9-14`, `research/results/s3-heldout/haiku/analysis.md:9-14`, `research/results/s3-heldout/README.md:23-37,42-48`, E3-5–E3-14]
+표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다. 절감률은 반올림 전 세션 평균 비용으로 계산했다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:9-14`, `research/results/s3-heldout/haiku/analysis.md:9-14`, `research/results/s3-heldout/README.md:23-37,42-48`, E3-5–E3-14]
 
 | 가설 | GPT-4o | Haiku 4.5 | 판정 |
 |---|---:|---:|---|

@@ -46,8 +46,8 @@
 - Fig. 2. Family-mean accuracy and mean input tokens per call for each arm on the held-out set of experiment 2. Error bars are descriptive family-bootstrap 95% intervals
 
 **표 3**
-- 표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다
-- Table 3. Hypothesis tests in experiment 3 with a panel of cost per session (USD) for S0 and S2. Brackets give session-level paired bootstrap 95% CIs. Haiku H4 holds formally, but S2 costs more than S0
+- 표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다. 절감률은 반올림 전 세션 평균 비용으로 계산했다(2026-10-25 추가, 투고 전 점검 P-1)
+- Table 3. Hypothesis tests in experiment 3 with a panel of cost per session (USD) for S0 and S2. Brackets give session-level paired bootstrap 95% CIs. Haiku H4 holds formally, but S2 costs more than S0. Saving rates are computed from unrounded mean session costs
 
 **그림 3**
 - 그림 3. held-out 24세션의 조건별 세션 평균 정확도와 세션당 평균 입력 토큰. 오차 막대는 기술 통계인 세션 bootstrap 95% 구간이다
