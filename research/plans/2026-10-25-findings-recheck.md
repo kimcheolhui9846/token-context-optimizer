@@ -42,7 +42,7 @@
 | S-06 | semantic latency가 4개 픽스처의 max | `benchmarks/run.ts:385` `Math.max(...)` 그대로, suite 합계 보고 없음. `docs/benchmarks.md:24`가 "maximum single-fixture"라고 밝힌다 | 남음(문서화로 오해는 없음) |
 | S-07 | 리포트에 commit SHA·Node·OS 없음 | `benchmarks/run.ts`에 `process.version`·`platform`·commit 기록이 없다 | 남음 |
 | S-08 | smoke 파서 중복 | `src/server/smoke-output-parser.ts`는 `tests/core.test.ts:31`에서만 import된다. `scripts/smoke-mcp.mjs:402`와 `verify-installed-plugin.mjs:460`이 각자 `parseCompleteJsonMessages`를 따로 정의한다 | 남음 |
-| S-09 | CJK 범위에 가나 없고 한글 끝부분 빠짐 | `src/core/token-estimator.ts:10` `/[ㄱ-힝]/u` 그대로. 히라가나·가타카나(U+3040–30FF)와 한글 음절 끝(U+D79E–D7A3)이 빠진다 | 남음 |
+| S-09 | CJK 범위에 가나 없고 한글 끝부분 빠짐 | `src/core/token-estimator.ts:10` `/[\u3131-\uD79D]/u` 그대로. 히라가나·가타카나(U+3040–30FF)와 한글 음절 끝(U+D79E–D7A3)이 빠진다 | 남음 |
 | S-10 | `MemoryArtifactStore` 무제한 증가, `trimToTokenBudget` 미사용 | `src/core/artifacts.ts:14-24` 상한 없는 `Map`. `trimToTokenBudget`(`:396`)은 정의만 있고 호출이 없다 | 남음 |
 | S-11 | `totalCostUsd`가 원장 순서에 의존 | `src/research/evaluation-core.ts:85` 부동소수 누적 `cost += run.costUsd` 그대로, 문서 언급 없음 | 남음 |
 | S-12 | 비치명적 UTF-8 디코딩 | `scripts/score-research.mjs:8-9`, `validate-dataset.mjs:10`, `audit-pilot.mjs:8`이 `readFile(…, "utf8")`이다. `check-exact.mjs:19`와 `plan-research.mjs:10`만 `TextDecoder(fatal)`이다 | 남음 |
