@@ -46,7 +46,7 @@
 | 오류 형식 | `Error` 문구, 경로 포함(`:490`, ENOENT 원문) | `ImageValidationError` 코드만(`:16-22`) |
 | 호출 | `indexArtifact` `:34` | index `:53`, inspect `:90`, crop용 `readValidatedImageArtifact` `:165` |
 
-- 이미지 inspect·crop은 리더 오류 중 `path_denied`만 그대로 두고 나머지를 `source_missing_or_unreadable`로 바꾼다(`image-artifacts.ts:91`, `:167`, `docs/image-artifacts.md:191-195,207-210`). 두 도구는 index 때 루트 안이었던 기록 경로만 읽는다. 그래서 S-02가 드러나는 곳은 주로 index다. inspect·crop에서는 기록 경로를 루트 밖을 가리키는 링크로 바꿔야 같은 구분이 생긴다. 공통 helper를 쓰면 이 경우도 함께 막힌다
+- 이미지 inspect는 리더 오류 중 `path_denied`만 그대로 두고 나머지를 `source_missing_or_unreadable`로 바꾼다(`image-artifacts.ts:91`). crop은 `path_denied`와 `source_changed`를 그대로 두고 나머지를 바꾼다(`:167`). 문서는 `docs/image-artifacts.md:191-195,207-210`이다(2026-10-26 Codex 검토로 crop 서술 정정, §8). 두 도구는 index 때 루트 안이었던 기록 경로만 읽는다. 그래서 S-02가 드러나는 곳은 주로 index다. inspect·crop에서는 기록 경로를 루트 밖을 가리키는 링크로 바꿔야 같은 구분이 생긴다. 공통 helper를 쓰면 이 경우도 함께 막힌다
 - Windows에서 `path.win32.relative`는 대소문자를 무시한다(`C:\Work\Root`와 `c:\work\root\A.txt` → `"A.txt"` 확인). 대소문자 차이로 거부되는 일은 없다
 
 ## 3. 선택지
@@ -143,3 +143,4 @@
   - [Nit] 발췌에 없던 `tests/image-crop-boundaries.test.ts:56,66,109`와 PR #66 메모는 Claude가 원문으로 확인했다
 - 2차: APPROVE, 지적 0건
 - 결정 기록(§7): APPROVE, 지적 0건
+- Codex 교차 검토(2026-10-26): Approve. §2의 crop 오류 변환 서술이 코드와 달랐다(crop은 `source_changed`도 그대로 둔다). 정정했다. 6.9 계획(PR #72)은 이미 코드대로 적었다
