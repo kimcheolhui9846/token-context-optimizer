@@ -23,7 +23,7 @@
 
 ## Measurements
 - R-2 is a post-hoc gate change approved after the original strict FAIL; this is 회귀 제거.
-- [Gate attempt1](../../research/evidence/f21/f21-rework-gate-2026-10-26T01-00-46.380Z.json): PASS,12/12 A/A within0.97-1.03,C/B-copy1.03,all outputs equal. No retry needed.
+- [Gate attempt1](../../research/evidence/f21/f21-rework-gate-2026-10-26T01-00-46.380Z.json): PASS,12/12 A/A within0.97-1.03,C/B<=1.03,all outputs equal. No retry needed.
 - Separate B/B-copy/C compilation,1warmup+9alternating rounds;180s child/1800s total; no concurrent tests/build.
 - [Record](../../research/evidence/f21/f21-rework-record-2026-10-26T01-11-04.888Z.json): PASS120cells (48Task25,48E3,15URI,9regex-alone);5samples/target; no timeout,RangeError,mismatch;maxchild9.13s.
 - Regex long space/tab/vertical-tab tails10/40/100MiB allfalse;100MiB stays outside suite.
