@@ -4,21 +4,21 @@
 
 ## 국문요약
 
-에이전트 세션에서는 텍스트와 이미지가 누적되어 다음 요청에 다시 전송된다. 손실 요약인 compact는 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 본 연구는 원본을 외부에 보존하고 출처와 함께 필요한 부분을 발췌하는 방식으로 compact를 보완하고, 공급자 청구 토큰과 정확도를 세 실험으로 측정한다. 실험 1에서 GPT-4o detail high의 청구 이미지 토큰은 공개 회계식과 66/66 일치했다. 단일 질의 실험 2에서 영역 선택과 원본 재요청(D)은 배정 원본(A) 대비 입력 토큰을 GPT-4o 23.0%, Haiku 4.5 43.8% 줄였으나, 두 공급자 모두 정확도의 비열등성은 입증되지 않았다. 세션 실험 3의 사전 등록 held-out 세션에서 GPT-4o는 compact 모사 단독보다 발췌·compact 결합에서 늦은 회상이 13.9%에서 81.9%로 높아졌으나, Haiku 4.5에서는 같은 개선이 지지되지 않았다. 세션에서도 두 공급자 모두 전체 유지 대비 정확도의 비열등성이 입증되지 않았고, 캐시를 반영하면 GPT-4o 비용 절감은 9.1%로 줄었으며 Haiku 비용은 증가했다. 결과는 공급자와 조건에 한정되며 전체 유지의 대체나 모든 공급자의 비용 절감을 주장하지 않는다. [출처: `research/results/rq1-sweep-001/README.md:29`, `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/gpt4o/analysis.md:11-14,24`, `research/results/s3-heldout/haiku/analysis.md:11-14`, `research/results/s3-heldout/README.md:37`, E3-5–E3-14]
+에이전트 세션에서는 텍스트와 이미지가 누적되어 다음 요청에 다시 전송된다. 손실 요약인 compact는 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 본 연구는 원본을 외부에 보존하고 출처와 함께 필요한 부분을 발췌하는 방식으로 compact를 보완하고, 공급자 청구 토큰과 정확도를 세 실험으로 측정한다. 실험 1에서 GPT-4o가 detail high 설정으로 청구한 이미지 토큰은 66개 사례 모두 공개 회계식과 일치했다. 단일 질의 실험 2에서 영역 선택과 원본 재요청(D)은 배정 원본(A) 대비 입력 토큰을 GPT-4o 23.0%, Haiku 4.5 43.8% 줄였으나, 두 공급자 모두 정확도의 비열등성은 입증되지 않았다. 세션 실험 3의 사전 등록 held-out 세션에서 GPT-4o의 늦은 회상은 compact 모사 단독의 13.9%에서 발췌·compact 결합의 81.9%로 높아졌으나, Haiku 4.5에서는 같은 개선이 지지되지 않았다. 세션에서도 두 공급자 모두 전체 유지 대비 정확도의 비열등성이 입증되지 않았고, 캐시를 반영하면 GPT-4o 비용 절감은 9.1%로 줄었으며 Haiku 4.5의 비용은 증가했다. 결과는 두 공급자와 실험 조건에 한정된다. [출처: `research/results/rq1-sweep-001/README.md:29`, `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/gpt4o/analysis.md:11-14,24`, `research/results/s3-heldout/haiku/analysis.md:11-14`, `research/results/s3-heldout/README.md:37`, E3-5–E3-14]
 
 **주제어:** 멀티모달 컨텍스트, 원본 보존, 에이전트 세션, 청구 토큰, 정확도
 
 ## English Abstract
 
-Agent sessions retransmit accumulated text and images, and lossy compaction can discard earlier evidence. We complement compaction by preserving sources outside the context and returning selected evidence with provenance, and we measure provider-billed tokens and accuracy in three experiments. In experiment 1, GPT-4o billed image tokens at detail high matched the public accounting rule in 66/66 cases. In the single-query experiment 2, region selection plus requery of the original (D) reduced input tokens relative to the assigned original (A) by 23.0% for GPT-4o and 43.8% for Haiku 4.5, but accuracy non-inferiority was not established for either provider. In the preregistered held-out sessions of experiment 3, GPT-4o late recall rose from 13.9% with simulated compaction alone to 81.9% with source-preserving retrieval plus compaction, but the same improvement was not supported for Haiku 4.5. In the sessions, non-inferiority against keeping all context was likewise not established for either provider; GPT-4o’s list-price saving fell to 9.1% after prompt caching, while Haiku cost increased. The findings are limited to these providers and conditions. [Sources: `research/results/rq1-sweep-001/README.md:29`, `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/gpt4o/analysis.md:11-14,24`, `research/results/s3-heldout/haiku/analysis.md:11-14`, `research/results/s3-heldout/README.md:37`, E3-5–E3-14]
+Agent sessions retransmit accumulated text and images, and lossy compaction can discard earlier evidence. We complement compaction by preserving sources outside the context and returning selected evidence with provenance, and we measure provider-billed tokens and accuracy in three experiments. In experiment 1, the image tokens billed by GPT-4o with detail set to high matched the published accounting rule in all 66 cases. In the single-query experiment 2, region selection with on-demand re-request of the original (arm D) reduced input tokens by 23.0% for GPT-4o and 43.8% for Haiku 4.5 relative to the assigned original (arm A), but accuracy non-inferiority was not established for either provider. In the preregistered held-out sessions of experiment 3, GPT-4o late recall rose from 13.9% with simulated compaction alone to 81.9% with source-preserving retrieval plus compaction, but the same improvement was not supported for Haiku 4.5. In the sessions, non-inferiority relative to retaining the full context was likewise not established for either provider; the saving for GPT-4o fell from its list-price value to 9.1% once prompt caching was accounted for, and the cost for Haiku 4.5 increased. The findings are limited to the two providers and the experimental conditions. [Sources: `research/results/rq1-sweep-001/README.md:29`, `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/gpt4o/analysis.md:11-14,24`, `research/results/s3-heldout/haiku/analysis.md:11-14`, `research/results/s3-heldout/README.md:37`, E3-5–E3-14]
 
 **Keywords:** multimodal context, source preservation, agent sessions, billed tokens, accuracy
 
 ## I. 서론: 문제와 경계
 
-에이전트 세션에는 텍스트와 이미지가 누적되며 다음 요청에 다시 전송된다. compact는 손실 요약으로 누적 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 원본을 외부에 두고 필요한 증거를 출처와 함께 발췌하는 구조는 compact를 보완한다. 원본 보존·재조회 컨텍스트 관리는 텍스트 에이전트의 DTOC [1]와 ACM [2]에서 제안되었다. 본 연구는 이를 이미지 입력과 공급자 청구 토큰으로 확장하고, compact와의 관계를 사전 등록 실험으로 측정한다.
+에이전트 세션에는 텍스트와 이미지가 누적되며 다음 요청에 다시 전송된다. compact는 손실 요약으로 누적 문맥을 줄이지만 앞선 증거를 잃을 수 있다. 원본을 외부에 두고 필요한 증거를 출처와 함께 발췌하는 구조는 compact를 보완한다. 원본 보존·재조회 컨텍스트 관리는 텍스트 에이전트의 DTOC [1] 및 ACM [2]에서 제안되었다. 본 연구는 이를 이미지 입력과 공급자 청구 토큰으로 확장하고, compact와의 관계를 사전 등록 실험으로 측정한다.
 
-이미지는 문서 질의응답, 차트 해석, 앱 화면 이해에서 답의 근거를 직접 담는다 [3]–[6]. 파일 바이트가 줄었다는 사실만으로 입력 최적화가 안전하다고 결론 낼 수 없다. 질문에 맞춘 축소가 답을 결정하는 증거를 지울 수 있다.
+이미지는 문서 질의응답, 차트 해석, 앱 화면 이해에서 답의 근거를 직접 담는다 [3]–[6]. 파일 바이트가 줄었다는 사실만으로 입력 최적화가 안전하다고 결론지을 수 없다. 질문에 맞춘 축소가 답을 결정하는 증거를 지울 수 있다.
 
 본 제안은 질문과 이미지의 제한된 신호를 이용해 후보 영역을 선택하고 고정된 출력 변환을 적용한다. 단일 질의에서 `UNREADABLE` 표지가 있으면 같은 배정 variant를 최대 한 번 다시 요청한다. 소프트웨어 아티팩트(경로·해시·변환 이력)와 시각적 손상 아티팩트(축소·재인코딩·잘림으로 변한 픽셀)를 구분한다. 현재 제품에는 호출자가 영역을 정하는 `crop_image_artifact`가 있으나, 이 실험은 연구용 OCR 선택기 경로를 평가했으며 제품 crop 도구를 평가하지 않았다.
 
@@ -32,13 +32,13 @@ Agent sessions retransmit accumulated text and images, and lossy compaction can 
 
 **C3 — 세션 평가.** 다중 턴 세션에서 전체 유지, compact 모사, 원본 보존 발췌, 그 조합을 사전 등록 held-out으로 비교한다. 비용은 두 공급자의 청구 토큰으로 정가와 캐시 반영을 나눠 잰다.
 
-이 설계를 사전 등록한 단일 질의와 세션에서 평가한 결과는 V·VI장과 두 결과 부록에 보고한다.
+**C4 — 경계와 부정적 결과.** 사전 등록 비열등성은 입증되지 않았고, 세션에서 GPT-4o의 비용 절감은 캐시를 반영하면 줄었으며 Haiku에서는 비용이 증가했다. 비열등성 미입증은 −5%p 이상 열등하다는 입증과 다르다. 또한 이 결과는 원본 재요청의 안전성이나 모든 공급자에서의 비용 절감을 뜻하지 않는다. [출처: `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/README.md:25-37`, E2-7–E2-11, E3-5–E3-8]
 
-**C4 — 경계와 부정적 결과.** 사전 등록 비열등성은 입증되지 않았고, 세션에서 GPT-4o의 비용 절감은 캐시를 반영하면 줄었으며 Haiku에서는 비용이 증가했다. 이는 −5%p 이상 열등하다는 입증과 다르며 원본 재요청의 안전성이나 모든 공급자에서의 비용 절감을 뜻하지 않는다. [출처: `research/results/exp2-heldout/README.md:28-29`, `research/results/s3-heldout/README.md:25-37`, E2-7–E2-11, E3-5–E3-8]
+사전 등록한 단일 질의 실험과 세션 실험에서 이 설계를 평가한 결과는 V·VI장과 두 결과 부록에 보고한다.
 
 ## II. 관련 연구와 제안의 위치
 
-DocVQA·TextVQA·ChartQA·ScreenQA [3]–[6]는 문서·문자·차트·화면의 픽셀 증거를 평가한다. QuietPrune·Rethinking Token Reduction [7], [8]은 모델 내부 축소이고, LLMLingua·RECOMP [9], [10]은 텍스트 압축이다. DTOC·ACM [1], [2]은 외부 원본 보존·재조회의 선행 연구이며, The Complexity Trap·Screenshots or Tools?·HiconAgent [11]–[13]은 관측 축소를 다룬다. 본 연구는 원본 보존을 새 원리로 주장하지 않고 공급자 API 앞단 crop·썸네일·재요청과 청구 비용을 측정한다.
+DocVQA·TextVQA·ChartQA·ScreenQA [3]–[6]는 문서·문자·차트·화면의 픽셀 증거를 평가한다. QuietPrune·Rethinking Token Reduction [7], [8]은 모델 내부 축소이고, LLMLingua·RECOMP [9], [10]는 텍스트 압축이다. DTOC·ACM [1], [2]은 외부 원본 보존·재조회의 선행 연구이며, The Complexity Trap·Screenshots or Tools?·HiconAgent [11]–[13]는 관측 축소를 다룬다. 본 연구는 원본 보존을 새 원리로 주장하지 않고 공급자 API 앞단 crop·썸네일·재요청과 청구 비용을 측정한다.
 
 표 1. 관련 연구와 본 연구의 개입 위치 비교.
 
@@ -88,7 +88,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 ## V. 실험 2: 단일 질의
 
-실험 2는 사전 등록한 36개 held-out family에 clean, JPEG q50, 1024 축소, 1024 축소+JPEG 조건을 적용했다. A는 배정 원본, B는 전체 1536/q75 변환, C는 OCR 영역 선택, D는 C와 같은 입력의 별도 첫 호출 뒤 `UNREADABLE` 시 원본 1회 재요청, E는 정답 영역 진단이다. D는 두 호출 사용량을 합산한다. held-out 호출 전 개정 1에서 D 정의와 primary를 D−A로 고정했다. D′는 개정 전 규칙의 탐색 결과다. 상세 설계·확정값과 조건별 결과는 [프로토콜](./image-first-evaluation-protocol.md)과 [실험 2 결과 부록](./2026-10-16-experiment2-results.md)에 둔다. [출처: `research/results/exp2-heldout/README.md:7-17,36-41`, `research/plans/2026-10-16-experiment2-preregistration-draft.md:79-104`, E2-1–E2-9]
+실험 2는 사전 등록한 36개 held-out family에 clean, JPEG q50, 1024 축소, 1024 축소+JPEG 조건을 적용했다. A는 배정 원본, B는 전체 1536/q75 변환, C는 OCR 영역 선택, D는 C와 같은 입력으로 따로 첫 호출을 하고 응답에 `UNREADABLE`이 있으면 원본을 한 번 재요청하며, E는 정답 영역 진단이다. D는 두 호출 사용량을 합산한다. held-out 호출 전 개정 1에서 D 정의와 primary를 D−A로 고정했다. D′는 개정 전 규칙의 탐색 결과다. 상세 설계·확정값과 조건별 결과는 [프로토콜](./image-first-evaluation-protocol.md)과 [실험 2 결과 부록](./2026-10-16-experiment2-results.md)에 둔다. [출처: `research/results/exp2-heldout/README.md:7-17,36-41`, `research/plans/2026-10-16-experiment2-preregistration-draft.md:79-104`, E2-1–E2-9]
 
 표 2. 실험 2 사전 등록 가설 판정. 괄호는 family 단위 짝 bootstrap 95% CI다. [출처: `research/results/exp2-heldout/gpt4o/exp2-analysis.md:7-9`, `research/results/exp2-heldout/haiku/exp2-analysis.md:7-9`, E2-7–E2-9]
 
@@ -98,7 +98,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 | H2: D−C | +6.3%p [1.4, 12.5] | +9.0%p [2.8, 16.7] | 기술 통계 |
 | H3: C−B | −11.8%p [−22.9, −2.1] | −13.9%p [−25.0, −3.5] | 기술 통계 |
 
-두 공급자 모두 H1은 지지되지 않았다. 이는 비열등성 미입증이며 −5%p 이상 열등하다는 입증은 아니다. clean·JPEG q50에서 A와 D 정확도는 두 공급자 모두 88.9%였다. 네 조건 평균 D 입력 토큰은 A 대비 GPT-4o 23.0%, Haiku 43.8% 감소했다. D 재요청은 각각 11/144와 16/144, 재요청 뒤 정답은 9/11과 13/16이었다. 표지 없는 오답과 D′·레이아웃 탐색은 결과 부록에 보고한다. [출처: `research/results/exp2-heldout/README.md:28-29,47-50,59-66,74-83`, E2-10–E2-11, E2-18–E2-30]
+두 공급자 모두 H1은 지지되지 않았다. 이는 비열등성 미입증이며 −5%p 이상 열등하다는 입증은 아니다. clean·JPEG q50에서 A와 D 정확도는 두 공급자 모두 88.9%였다. 네 조건 평균 D 입력 토큰은 A 대비 GPT-4o 23.0%, Haiku 43.8% 감소했다(반올림 전 평균 토큰으로 계산). D 재요청은 각각 11/144와 16/144, 재요청 뒤 정답은 9/11과 13/16이었다. 표지 없는 오답과 D′·레이아웃 탐색은 결과 부록에 보고한다. [출처: `research/results/exp2-heldout/README.md:28-29,47-50,59-66,74-83`, E2-10–E2-11, E2-18–E2-30]
 
 ![그림 2. 실험 2 held-out arm별 정확도와 호출당 입력 토큰](../../research/figures/exp2/heldout/fig5_exp2_accuracy_vs_tokens.png)
 
@@ -122,7 +122,7 @@ S0은 전체 유지, S1은 compact 모사, S2는 원본 보존 발췌, S3는 발
 
 가격과 캐시 배율은 2026-10-18 확인한 공급자 공개 가격표를 따른다 [25], [26]. GPT-4o는 캐시 입력 읽기 0.5배, Haiku 4.5는 5분 캐시 쓰기 1.25배와 읽기 0.1배를 적용했다. 가격표에는 `gpt-4o-2024-11-20` 스냅샷의 별도 행이 없어 같은 `gpt-4o` 행을 적용했다. [출처: `research/results/s3-heldout/README.md:50-54`, `research/plans/2026-10-18-task38-number-sheet.md` §4, C-1–C-2]
 
-표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku H4는 형식상 성립하지만 S2 비용은 S0보다 높다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:9-14`, `research/results/s3-heldout/haiku/analysis.md:9-14`, `research/results/s3-heldout/README.md:23-37,42-48`, E3-5–E3-14]
+표 3. 실험 3 가설 판정과 S0/S2 세션당 비용(USD) 패널. 괄호는 세션 단위 짝 bootstrap 95% CI다. Haiku 4.5에서 H4는 형식상 성립하지만 S2 비용은 S0보다 높다. 절감률은 반올림 전 세션 평균 비용으로 계산했다. [출처: `research/results/s3-heldout/gpt4o/analysis.md:9-14`, `research/results/s3-heldout/haiku/analysis.md:9-14`, `research/results/s3-heldout/README.md:23-37,42-48`, E3-5–E3-14]
 
 | 가설 | GPT-4o | Haiku 4.5 | 판정 |
 |---|---:|---:|---|
@@ -150,13 +150,13 @@ GPT-4o의 발췌·compact 결합 관찰과 공급자 간 차이는 DTOC의 ablat
 
 ## VII. 논의와 한계
 
-합성 이미지와 고정 대본은 실제 문서 다양성과 자율 에이전트 행동을 대표하지 않는다. 공급자별 모델·회계·캐시 조건의 차이로 결과를 다른 공급자에 일반화할 수 없다. compact는 공개 규칙의 모사이며 제품 내부 compact의 성능 평가가 아니다. 이탈과 조용한 오답 사례는 결과 부록에 둔다.
+합성 이미지와 고정 대본은 실제 문서 다양성과 자율 에이전트 행동을 대표하지 않는다. 공급자별 모델·회계·캐시 조건의 차이로 결과를 다른 공급자에 일반화할 수 없다. compact는 공개 규칙의 모사이며 제품 내부 compact의 성능 평가가 아니다. 이탈과 표지 없는 오답 사례는 결과 부록에 둔다.
 
 실험 당시 텍스트 도구는 최고점 줄 하나 주변 한 구간을 반환했다. 고정 규칙 벤치에서는 식별자 질의의 동점 때문에 근거 줄을 놓쳤다. 이후 제품 개선(동점 구간 기본 최대 5개와 `moreMatches`) 뒤 held-out entity 질의의 근거 포함은 20/24에서 24/24가 됐다. 이는 반환된 어느 발췌에든 근거 줄이 포함되는지의 값이며 모델 정확도가 아니다. 실제 세션 질의는 기록되지 않아 오답과는 세션 일치까지만 확인했고 원인을 확정하지 않는다. 기존 held-out 결과는 유지하며 개선 효과를 정확도로 주장하려면 새 사전 등록이 필요하다. [출처: `research/results/excerpt-bench-001/README.md` §1, `research/results/excerpt-bench-002/README.md:27-43`, `research/results/s3-heldout/README.md:63-77`, E3-21]
 
 ## VIII. 결론과 후속 연구
 
-원본 보존형 컨텍스트 관리는 정적 이미지의 증거와 비용을 함께 측정해야 한다. 본 결과는 단일 질의에서 비열등성을 입증하지 못했고, 세션에서는 GPT-4o에 한해 발췌·compact 결합의 늦은 회상 개선을 관찰했다. 세션에서도 두 공급자 모두 비열등성이 입증되지 않았고, Haiku에서는 비용이 증가했다. 후속 연구는 공급자·데이터·대본을 넓혀 원본 재요청과 캐시 비용을 사전 등록해야 한다.
+원본 보존형 컨텍스트 관리는 정적 이미지의 증거와 비용을 함께 측정해야 한다. 본 결과는 단일 질의에서 비열등성을 입증하지 못했고, 세션에서는 GPT-4o에 한해 발췌·compact 결합의 늦은 회상 개선을 관찰했다. 세션에서도 두 공급자 모두 비열등성이 입증되지 않았고, Haiku 4.5에서는 비용이 증가했다. 후속 연구는 공급자·데이터·대본을 넓혀 원본 재요청과 캐시 비용을 사전 등록해야 한다.
 
 ## 참고문헌
 
@@ -176,15 +176,15 @@ GPT-4o의 발췌·compact 결합 관찰과 공급자 간 차이는 DTOC의 ablat
 
 [8] Y. Wang, H. Zhang, Q. Huang, A. Cao, G. Fang, W. Wang, X. Jin, J. Song, M. Song, and X. Wang, "Rethinking token reduction for large vision-language models," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 24727–24737, Denver, CO, USA, Jun. 2026.
 
-[9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," arXiv:2310.05736, 2023.
+[9] H. Jiang, Q. Wu, C.-Y. Lin, Y. Yang, and L. Qiu, "LLMLingua: Compressing prompts for accelerated inference of large language models," in *Proc. 2023 Conf. Empirical Methods Natural Lang. Process. (EMNLP)*, pp. 13358–13376, Singapore, Dec. 2023, doi: 10.18653/v1/2023.emnlp-main.825.
 
-[10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with compression and selective augmentation," arXiv:2310.04408, 2023.
+[10] F. Xu, W. Shi, and E. Choi, "RECOMP: Improving retrieval-augmented LMs with context compression and selective augmentation," in *Proc. Int. Conf. Learn. Represent. (ICLR)*, pp. 43478–43502, Vienna, Austria, May 2024.
 
 [11] T. Lindenbauer, I. Slinko, L. Felder, E. Bogomolov, and Y. Zharov, "The complexity trap: Simple observation masking is as efficient as LLM summarization for agent context management," in *4th Workshop Deep Learn. Code (DL4C), NeurIPS 2025*, San Diego, CA, USA, Dec. 2025, arXiv:2508.21433.
 
 [12] S. Fan, M. Li, X. Ma, W. Tan, X. Huang, J. Wu, L. Zhang, S. Shang, and W. Chen, "Screenshots or tools? Eliciting tool use and managing multimodal context in hybrid GUI–MCP computer-use agents," arXiv:2608.03327v2, 2026.
 
-[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," arXiv:2512.01763v2, 2026.
+[13] X. Zhou, G. Chen, Y. Xie, Z. Li, K. Zhou, S. Wang, S. Yang, Z. Tian, and R. Shao, "HiconAgent: History context-aware policy optimization for GUI agents," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, pp. 13028–13038, Denver, CO, USA, Jun. 2026.
 
 [14] OpenAI, "Images and vision," OpenAI API documentation. Accessed: Oct. 7, 2026. [Online]. Available: https://developers.openai.com/api/docs/guides/images-vision
 
