@@ -142,3 +142,4 @@
   - [Minor] §1 이미지 열의 "통과"가 실측(`malformed_png`)과 달랐다. "경로 통과"로 고치고 설명을 붙였다
   - [Nit] 발췌에 없던 `tests/image-crop-boundaries.test.ts:56,66,109`와 PR #66 메모는 Claude가 원문으로 확인했다
 - 2차: APPROVE, 지적 0건
+- 결정 기록(§7): APPROVE, 지적 0건
