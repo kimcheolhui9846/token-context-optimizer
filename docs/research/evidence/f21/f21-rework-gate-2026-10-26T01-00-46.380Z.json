@@ -1,0 +1,206 @@
+{
+  "schema": "f21-rework-measurement/v1",
+  "mode": "gate",
+  "measuredAt": "2026-10-26T01:00:46.380Z",
+  "limits": {
+    "childTimeoutMs": 180000,
+    "overallTimeoutMs": 1800000
+  },
+  "rationale": "posthoc change approved 2026-10-25",
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F"
+  },
+  "source": {
+    "baseline": {
+      "git": "6e308c9",
+      "sha256": "f114c25c1f4f7ebbfe05d8dcf94ebbe72c43dba5042d5bb4f51a2312d2827c8b"
+    },
+    "current": {
+      "path": "src/core/policy.ts",
+      "sha256": "c22967b79d1533b97a3078a61cdcf39658421d6ec82142bce97db16c513c9572",
+      "gitHead": "0227aa7a885324ad65baad71e73be144f4c3b045"
+    }
+  },
+  "runner": {
+    "path": "scripts/measure-f21-rework.mjs",
+    "sha256": "80b27423d8d060f85dd3130c0885de9ba8f6e78322630344f0dce3d6a041be88",
+    "childPath": "scripts/measure-f21-rework-child.mjs",
+    "childSha256": "a2b5c3dcc07545bb4ec258b006084fc11f43fbc6f02a1d728c2720a9be80acac",
+    "immutableTask25RecipePath": "docs/research/evidence/task-25/measure-large-child.mjs",
+    "immutableTask25RecipeSha256": "cecb39e95a630ce6e58f5712feb563716857e41499ba972263b0f279ce20936a"
+  },
+  "method": {
+    "task25Recipes": [
+      "drop",
+      "semicolon",
+      "php_opener",
+      "tag_space",
+      "trace_spaces_equals",
+      "hyphen",
+      "dot",
+      "blanklines",
+      "bang_letter",
+      "html_comment",
+      "npm_dots_x",
+      "command_prefix"
+    ],
+    "sizeBytes": [
+      10485760
+    ],
+    "samplesPerCell": 9,
+    "warmupPerVariant": 1,
+    "orders": [
+      "baseline,bcopy,current",
+      "current,bcopy,baseline"
+    ],
+    "rationale": "dot3.4s*3*10~100s+margin",
+    "timing": "classifier operation only; compile/input construction excluded"
+  },
+  "results": [
+    {
+      "suite": "gate-summary",
+      "recipe": "drop",
+      "size": 10485760,
+      "baselineMedianNs": 2477284700,
+      "bcopyMedianNs": 2407569900,
+      "currentMedianNs": 2469320200,
+      "aaRatio": 0.9718583818807746,
+      "currentRatio": 0.9967849880153057,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "semicolon",
+      "size": 10485760,
+      "baselineMedianNs": 850435100,
+      "bcopyMedianNs": 855582400,
+      "currentMedianNs": 855623600,
+      "aaRatio": 1.0060525488658687,
+      "currentRatio": 1.0061009946555592,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "php_opener",
+      "size": 10485760,
+      "baselineMedianNs": 1912017700,
+      "bcopyMedianNs": 1887945300,
+      "currentMedianNs": 1915651100,
+      "aaRatio": 0.9874099491861399,
+      "currentRatio": 1.0019002962158772,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "tag_space",
+      "size": 10485760,
+      "baselineMedianNs": 803643600,
+      "bcopyMedianNs": 804162000,
+      "currentMedianNs": 822131100,
+      "aaRatio": 1.0006450620648257,
+      "currentRatio": 1.0230046005468096,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "trace_spaces_equals",
+      "size": 10485760,
+      "baselineMedianNs": 1013847200,
+      "bcopyMedianNs": 1034577900,
+      "currentMedianNs": 1028760600,
+      "aaRatio": 1.020447558567011,
+      "currentRatio": 1.014709711680419,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "hyphen",
+      "size": 10485760,
+      "baselineMedianNs": 1675723400,
+      "bcopyMedianNs": 1682182100,
+      "currentMedianNs": 1682328600,
+      "aaRatio": 1.003854275711612,
+      "currentRatio": 1.0039417006410485,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "dot",
+      "size": 10485760,
+      "baselineMedianNs": 3025990300,
+      "bcopyMedianNs": 3041682200,
+      "currentMedianNs": 2974403800,
+      "aaRatio": 1.0051857073038204,
+      "currentRatio": 0.98295219254338,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "blanklines",
+      "size": 10485760,
+      "baselineMedianNs": 1758314900,
+      "bcopyMedianNs": 1743621600,
+      "currentMedianNs": 1762763400,
+      "aaRatio": 0.9916435332487941,
+      "currentRatio": 1.0025299791294495,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "bang_letter",
+      "size": 10485760,
+      "baselineMedianNs": 1880480400,
+      "bcopyMedianNs": 1864669600,
+      "currentMedianNs": 1866025700,
+      "aaRatio": 0.9915921484744005,
+      "currentRatio": 0.992313293985941,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "html_comment",
+      "size": 10485760,
+      "baselineMedianNs": 1057885000,
+      "bcopyMedianNs": 1054937900,
+      "currentMedianNs": 1068189700,
+      "aaRatio": 0.9972141584387717,
+      "currentRatio": 1.0097408508486272,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "npm_dots_x",
+      "size": 10485760,
+      "baselineMedianNs": 2495568400,
+      "bcopyMedianNs": 2471234500,
+      "currentMedianNs": 2502991900,
+      "aaRatio": 0.9902491552625846,
+      "currentRatio": 1.00297467302439,
+      "allOutputsEqual": true
+    },
+    {
+      "suite": "gate-summary",
+      "recipe": "command_prefix",
+      "size": 10485760,
+      "baselineMedianNs": 1344411700,
+      "bcopyMedianNs": 1323377300,
+      "currentMedianNs": 1313436800,
+      "aaRatio": 0.984354197453057,
+      "currentRatio": 0.9769602570403099,
+      "allOutputsEqual": true
+    }
+  ],
+  "failures": [],
+  "status": "PASS",
+  "exitCodeMeaning": {
+    "0": "PASS",
+    "2": "FAIL",
+    "3": "INVALID or incomplete"
+  },
+  "finishedAt": "2026-10-26T01:10:59.585Z"
+}

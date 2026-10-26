@@ -8,6 +8,7 @@ import {
   evaluatePolicyPredicate,
   loadPolicyInternals,
 } from "./helpers/policy-test-loader.js";
+import { classifyF21Expectation } from "./helpers/policy-f21-expectations.js";
 
 interface CharacterizationFixture {
   entries: Array<{
@@ -19,6 +20,7 @@ interface CharacterizationFixture {
 }
 
 const baseline = loadPolicyInternals("tests/helpers/policy-baseline.ts");
+const f21Baseline = loadPolicyInternals("tests/helpers/policy-baseline-f21.ts");
 const current = loadPolicyInternals("src/core/policy.ts");
 const group1PatternIndexes = [13, 14, 16, 17] as const;
 
@@ -72,6 +74,11 @@ function group1DifferentialInputs(): string[] {
 }
 
 describe("policy ReDoS group 1 characterization", () => {
+  it("matches the independent F-21 oracle on all small group 1 inputs", () => {
+    for (const input of group1DifferentialInputs()) {
+      expect(current.classifyContext(input), JSON.stringify(input)).toEqual(f21Baseline.classifyContext(input));
+    }
+  });
   it("keeps zero-based rules 13, 14, 16, and 17 equivalent to the frozen oracle", () => {
     for (const patternIndex of group1PatternIndexes) {
       const [baselineReason, baselinePredicate] = baseline.EXACT_PATTERNS[patternIndex];
@@ -99,15 +106,15 @@ describe("policy ReDoS group 1 characterization", () => {
     }
   });
 
-  it("keeps the complete frozen corpus classification unchanged", () => {
+  it("matches the versioned F-21 corpus expectations", () => {
     const fixture = JSON.parse(
       readFileSync(resolve("tests/fixtures/policy/characterization.json"), "utf8"),
     ) as CharacterizationFixture;
     expect(fixture.entries.map(({ id, content }) => ({ id, content }))).toEqual(policyCorpus);
     for (const entry of fixture.entries) {
       const actual = current.classifyContext(entry.content);
-      expect(actual, entry.id).toEqual(entry.classification);
-      expect(current.lossyCompressionAllowed(actual), entry.id).toBe(entry.lossyCompressionAllowed);
+      expect(actual, entry.id).toEqual(classifyF21Expectation(entry.id, entry.content));
+      expect(current.lossyCompressionAllowed(actual), entry.id).toBe(classifyF21Expectation(entry.id, entry.content).mode === "semantic");
     }
   });
 

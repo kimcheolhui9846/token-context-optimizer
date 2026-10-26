@@ -2,8 +2,10 @@ import { spawnSync } from "node:child_process";
 import { describe, expect, it } from "vitest";
 import { policyCorpus } from "./helpers/policy-corpus.js";
 import { evaluatePolicyPredicate, loadPolicyInternals } from "./helpers/policy-test-loader.js";
+import { classifyF21Expectation } from "./helpers/policy-f21-expectations.js";
 
 const baseline = loadPolicyInternals("tests/helpers/policy-baseline.ts");
+const f21Baseline = loadPolicyInternals("tests/helpers/policy-baseline-f21.ts");
 const current = loadPolicyInternals("src/core/policy.ts");
 const childScript = "tests/helpers/policy-large-input-child.mjs";
 const sixMiB = 6_000_000;
@@ -109,7 +111,7 @@ describe("large-input policy scanner", () => {
     expect(report.outcomes.slice(0, 5).map(({ value }: { value: unknown }) => value)).toEqual(
       [true, true, true, true, true],
     );
-    expect(report.outcomes[5].value).toEqual(baseline.classifyContext("xx/a/a/a"));
+    expect(report.outcomes[5].value).toEqual(f21Baseline.classifyContext("xx/a/a/a"));
   }, 25_000);
 
   it.each([
@@ -161,7 +163,7 @@ describe("large-input policy scanner", () => {
     for (const input of inputs) {
       counts.classificationCells += 1;
       const actual = returned(() => current.classifyContext(input), "current");
-      const expected = returned(() => baseline.classifyContext(input), "oracle");
+      const expected = returned(() => f21Baseline.classifyContext(input), "oracle");
       if (expected.returned) expect(actual.returned).toBe(true);
       if (!actual.returned || !expected.returned) continue;
       counts.classificationReturned += 1;
@@ -171,10 +173,11 @@ describe("large-input policy scanner", () => {
     console.info(`[policy-large-input] differential returned cells: ${JSON.stringify(counts)}`);
   }, 25_000);
 
-  it("keeps the complete frozen corpus classification unchanged", () => {
-    for (const { content } of policyCorpus) {
+  it("matches the versioned F-21 corpus expectations", () => {
+    for (const { id, content } of policyCorpus) {
       const actual = current.classifyContext(content);
-      expect(actual).toEqual(baseline.classifyContext(content));
+      expect(actual).toEqual(classifyF21Expectation(id, content));
+      expect(f21Baseline.classifyContext(content)).toEqual(classifyF21Expectation(id, content));
       expect(current.lossyCompressionAllowed(actual)).toBe(baseline.lossyCompressionAllowed(actual));
     }
   });

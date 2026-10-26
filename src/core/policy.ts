@@ -195,12 +195,23 @@ function hasUriScheme(content: string): boolean {
       }
       continue;
     }
-    if (code === 58 && runHasEligibleStart) {
+    if (
+      code === 58 &&
+      runHasEligibleStart &&
+      index + 1 < content.length &&
+      !isPolicyWhitespaceCode(content.charCodeAt(index + 1))
+    ) {
       return true;
     }
     runHasEligibleStart = false;
   }
   return false;
+}
+
+const f21CredentialLabel = /\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \t]+|-)key|client(?:[ \t]+|-)secret|recovery(?:[ \t]+|-)codes?|secret(?:[ \t]+|-)answer|backup(?:[ \t]+|-)codes?)\b\s*[:=]/i;
+
+function hasCredentialLabel(content: string): boolean {
+  return f21CredentialLabel.test(content);
 }
 
 function hasDottedTokenShape(content: string): boolean {
@@ -587,7 +598,9 @@ function matchesPolicyPredicate(predicate: PolicyPredicate, content: string): bo
 }
 
 const EXACT_PATTERNS: Array<[string, PolicyPredicate]> = [
-  ["secret", /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu],
+  ["secret", (content) =>
+    /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu.test(content) ||
+    hasCredentialLabel(content)],
   ["secret", /\bAuthorization\s*:\s*Bearer\s+[A-Za-z0-9._~+/=-]+/iu],
   ["secret", hasBearerToken],
   ["secret", hasUriScheme],

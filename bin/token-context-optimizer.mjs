@@ -22941,12 +22941,16 @@ function hasUriScheme(content) {
       }
       continue;
     }
-    if (code === 58 && runHasEligibleStart) {
+    if (code === 58 && runHasEligibleStart && index + 1 < content.length && !isPolicyWhitespaceCode(content.charCodeAt(index + 1))) {
       return true;
     }
     runHasEligibleStart = false;
   }
   return false;
+}
+var f21CredentialLabel = /\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \t]+|-)key|client(?:[ \t]+|-)secret|recovery(?:[ \t]+|-)codes?|secret(?:[ \t]+|-)answer|backup(?:[ \t]+|-)codes?)\b\s*[:=]/i;
+function hasCredentialLabel(content) {
+  return f21CredentialLabel.test(content);
 }
 function hasDottedTokenShape(content) {
   let stemOrdinal = 0;
@@ -23284,7 +23288,7 @@ function matchesPolicyPredicate(predicate, content) {
   return typeof predicate === "function" ? predicate(content) : predicate.test(content);
 }
 var EXACT_PATTERNS = [
-  ["secret", /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu],
+  ["secret", (content) => /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu.test(content) || hasCredentialLabel(content)],
   ["secret", /\bAuthorization\s*:\s*Bearer\s+[A-Za-z0-9._~+/=-]+/iu],
   ["secret", hasBearerToken],
   ["secret", hasUriScheme],
