@@ -22,7 +22,7 @@
 
 ### 모델 호출 없이 결과 집계 다시 만들기
 
-논문의 수치는 `results/` 아래 집계·분석 파일에서 나온다. 이 파일들은 같은 폴더의 원자료(호출 기록과 응답)와 `src/`의 스크립트만으로 다시 만들 수 있다. 이 절차는 모델 API를 호출하지 않으므로 API 키와 비용이 들지 않는다.
+논문 결과 절의 수치는 실험 1과 실험 2·3 held-out의 집계·분석 파일(`results/` 아래)에서 나온다. 예외는 발췌 벤치 수치 하나(20/24 → 24/24)다. 이 수치는 MCP 서버를 띄워야 해서 이 절차에 들어 있지 않다. 집계·분석 파일은 같은 폴더의 원자료(호출 기록과 응답)와 `src/`의 스크립트만으로 다시 만들 수 있다. 이 절차는 모델 API를 호출하지 않으므로 API 키와 비용이 들지 않는다.
 
 **준비**
 
@@ -92,6 +92,7 @@ node src/variants.mjs --set exp2-heldout       # → out/exp2-heldout/slots.json
 - 바이트 단위로 비교한다(`cmp`, Windows는 `fc /b`)
 - git으로 받은 사본이고 Windows에서 `core.autocrlf=true`면, 작업 사본의 텍스트 파일 줄바꿈이 CRLF일 수 있다. 이때는 작업 사본이 아니라 커밋된 내용과 비교한다: `git cat-file -p HEAD:research/<경로> | cmp - <생성한 파일>`
 - 압축 파일로 받은 보충 자료는 줄바꿈이 LF 그대로다. 파일끼리 바로 비교하면 된다
+- 입력 원자료는 줄바꿈이 CRLF인 작업 사본을 그대로 복사해도 된다. 2026-10-26 확인 때 복사한 입력이 모두 CRLF였는데도(§4) 출력 24개가 커밋 내용과 바이트 단위로 같았다
 
 **확인된 결과와 범위**
 
@@ -113,7 +114,14 @@ node src/variants.mjs --set exp2-heldout       # → out/exp2-heldout/slots.json
 - 환경: Windows 11, Git Bash, Node v24.18.0, 새 worktree(main `7709837`)
 - §2의 1–3단계 명령을 그대로 돌렸다. 이때 `node_modules`가 없었는데도 모두 돌았다
   - 집계·분석 21개가 모두 커밋 blob과 같았다(`git cat-file -p HEAD:research/<경로> | cmp -s -`)
+  - 이 PC는 `core.autocrlf=true`이고, 복사한 입력은 모두 CRLF였다. 예: `rows.jsonl`의 CR 66개, `exp2-heldout/gpt4o/responses.jsonl` 720개, `s3-heldout/gpt4o/calls.jsonl` 1,460개. Codex 재현은 입력을 커밋 blob(LF)에서 꺼냈으므로, 두 확인을 합치면 입력 줄바꿈과 관계없이 같은 결과가 나왔다
 - `out/`을 옮긴 뒤 4단계를 돌렸다. 의존성은 새로 설치하지 않고 main checkout의 `research/node_modules`를 연결해 썼다. OCR 언어 데이터는 위 SHA-256과 같은 파일을 복사했다
   - 매니페스트 3개가 모두 커밋 blob과 같았다
 - 합계 24/24. PR #68(Claude)과 Codex 재현에 이은 세 번째 확인이다
 - 확인 뒤 임시 산출물(`out/`, 연결한 `node_modules`)은 지웠다. `figures/data/heldout-sessions.json`은 `git checkout`으로 되돌렸다
+
+## 5. 교차 확인
+- `gemini-4-argon`: REQUEST CHANGES → `codex_review/argon/2026-10-26_repro-guide-argon.md`
+  - [Major] "논문의 수치는 `results/`에서 나온다"가 발췌 벤치 수치를 빠뜨려 범위를 넓게 말했다 → 예외를 적었다
+  - [Minor] 작업 사본(CRLF) 입력을 `cp`해도 같은 결과가 나오는지 근거가 없다 → 이번 확인의 입력이 실제로 CRLF였음을 세어 적었다
+  - [Nit] 언어 데이터 크기, tesseract.js 판, README 줄 번호는 Claude가 파일·`research/package.json`·README에서 확인했다
