@@ -73,10 +73,10 @@
 - **artifactId 충돌:** 지금 `artifactId`는 경로와 sha256만으로 정한다(`image-artifacts.ts:61-63`). 그래서 같은 파일을 strict로 색인한 뒤 tolerant로 다시 색인하면 같은 ID가 나와 store의 레코드를 덮어쓴다. strict RGBA 레코드가 tolerant로 바뀌면 crop 결과도 달라진다
   - 권장: tolerant일 때만 식별 문자열에 profile을 더한다(`path\0sha256\0png-rgb8-tolerant-v1`). strict 식별 문자열과 기존 ID·증거는 그대로다. 두 레코드가 따로 남는다
     - 식별 문자열은 지금 방식(`${path}\0${sha256}`, `image-artifacts.ts:62`)처럼 구분자로 이어 붙인다. 넣는 profile은 요청 인자(`tolerant`)가 아니라 레코드에 적힌 실제 profile 이름이다. 그래야 strict 식별 문자열과 겹치지 않는다
+  - 대안: 덮어쓰기를 허용하고 문서에 적는다
 - **배열 소유권:** `MemoryImageArtifactStore`의 `get`·`put`(`image-artifacts.ts:37-43`)은 `{ ...record }` 얕은 복사다. 지금 레코드는 원시 값만 있어서 문제가 없지만, `ignoredChunks: string[]`이 들어오면 호출자가 배열을 바꿀 때 store 안의 레코드도 바뀐다
   - put·get, index·inspect가 돌려주는 레코드에서 배열을 복사한다
   - 호출자가 받은 배열을 바꿔도 store 레코드와 다음 inspect 결과가 그대로인지 테스트한다
-  - 대안: 덮어쓰기를 허용하고 문서에 적는다
 - **JPEG에 `profile: "tolerant"`가 오면**(6.12c 전)
   - 권장: strict JPEG 검사기로 검사하고, 레코드에 실제로 쓴 `jpeg-ycbcr8-baseline-444-v1`을 적는다. tolerant는 "그 형식에서 쓸 수 있는 가장 넓은 profile"이라는 뜻이다. 레코드가 실제 profile을 밝히므로 6.12c 뒤에 결과가 넓어져도 숨겨지지 않는다
   - 대안: 6.12c 전에는 `unsupported_profile`로 거부한다. 섞인 이미지를 다루는 호출자가 형식마다 인자를 바꿔야 한다
