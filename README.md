@@ -1,26 +1,54 @@
 # Token Context Optimizer
 
-Codex plugin and local STDIO MCP server for safer token-efficient context handling.
+Codex plugin and local STDIO MCP server for origin-preserving context handling, with a
+research suite that measures provider-billed tokens, accuracy and prompt-cache cost for
+text and image evidence across context compaction.
 
 The MVP indexes local UTF-8 text artifacts, records SHA-256 and line source maps, returns bounded source-backed excerpts, and blocks lossy summaries for exact-sensitive content.
-
-`query_artifact` returns up to five source excerpts around positive matches tied for the highest score by default. Candidates are retained in file order; lower-scoring lines are not added. Set `maxExcerpts` to an integer from 1 through 20 to change the cap. `maxExcerpts: 1` preserves the legacy first span and can still report omitted ties in `moreMatches`.
-
-The first accepted excerpt uses the earliest fitting highest-score anchor. When the earliest anchor fits, its legacy context-first span is preserved and overlapping later context may expand it; an oversized earliest anchor is skipped in default multi-excerpt mode, while explicit `maxExcerpts: 1` preserves the legacy refusal. Later excerpts are whole-line windows fitted into the shared `maxTokens` budget, with shared text counted once. `moreMatches` appears only when tied anchors remain uncovered and reports their exact count plus the first 20 line numbers; it is absent for unique best matches and complete coverage. A no-fit multi-tie response keeps the legacy `complete_span_required` or `source_span_exceeds_budget` fallback and adds omission metadata, while partial success keeps `warnings: []` and `fallbackReason: null`. The metadata is outside `estimatedTokens`, which sums estimated token counts for returned excerpt texts; each source map retains complete UTF-8 line boundaries.
 
 The current research direction is **image context optimization first**, with paper
 writing taking priority over feature development. Alongside the text MVP,
 [restricted PNG/JPEG ingest, inspection, and crop](docs/image-artifacts.md) provides
 image validation and caller-selected `crop_image_artifact` regions, returned as
 JPEG q75 with provenance and no file writes. Full-frame requests return the
-original reference. Resize, OCR, selection, guard and model evaluation remain
-planned. Video extension follows image
-implementation, evaluation, and explicit user approval.
+original reference. The plugin does not implement resize, OCR or query-aware region
+selection; the separate research harness under `research/` implements them for the
+experiments below, and the paper evaluates that harness path rather than the product
+crop tool. Video extension follows image implementation, evaluation, and explicit
+user approval.
 
 The JPEG profile is intentionally narrow: baseline 8-bit YCbCr JFIF with 4:4:4
 sampling. Independent checked-in fixtures and their encoder provenance are under
 `tests/fixtures/jpeg/`; fixture validation does not claim image quality or hosted
 model performance.
+
+## Research Status
+
+Three experiments have been run with GPT-4o and Claude Haiku 4.5; experiments 2
+and 3 were preregistered and analyzed with paired bootstrap 95% confidence intervals.
+The [Korean paper draft](docs/research/image-first-paper-draft.ko.md) reports all
+three. The findings are limited to these providers and conditions, and negative
+results are reported as measured.
+
+| Experiment | Design | Main result |
+|---|---|---|
+| 1. Billed image tokens (RQ1) | 66 transformed images: 49 grid points, 10 boundary cases, 7 JPEG q75 resends | GPT-4o detail high matched the public accounting rule in 66/66 cases; Haiku 4.5 billed 3 tokens more than predicted for single-image requests; all 7 PNG/JPEG q75 resend pairs billed the same |
+| 2. Single query (RQ2) | 36 held-out families × 4 input conditions | Region selection plus original requery (D) reduced input tokens relative to the assigned original (A) by 23.0% (GPT-4o) and 43.8% (Haiku 4.5); non-inferiority at the −5 pp margin was not established for either provider |
+| 3. Agent sessions (RQ3) | 24 held-out 8-turn sessions; late recall = turns 6–8 | Compaction alone (S1) lowered late recall relative to keeping all context (S0) by 79.2 pp (GPT-4o; 93.1% → 13.9%) and 20.8 pp (Haiku 4.5). Source-preserving retrieval plus compaction (S3) raised GPT-4o late recall to 81.9%, +68.1 pp [+58.3, +77.8] over S1; Haiku 4.5 was not supported, +1.4 pp [−15.3, +18.1]. Non-inferiority of retrieval alone (S2) against S0 was not established for either provider. S2 per-session cost saving relative to S0 fell from 28.5% at list price to 9.1% with prompt caching for GPT-4o; for Haiku 4.5 it went from −33.0% to −266.4%, a cost increase |
+
+| Document | Contents |
+|---|---|
+| [Paper draft (Korean)](docs/research/image-first-paper-draft.ko.md) | Evidence-linked master draft for all three experiments |
+| [Experiment 1 results](research/results/rq1-sweep-001/README.md) | Billed-token sweep and accounting comparison |
+| [Experiment 2 results](docs/research/2026-10-16-experiment2-results.md) | Single-query held-out appendix |
+| [Experiment 3 protocol](docs/research/2026-10-15-experiment3-protocol.md) and [results](docs/research/2026-10-15-experiment3-results.md) | Session design and held-out appendix |
+| [Research documents index](docs/research/README.md) | Reading order for papers, protocols, decision memos and raw evidence |
+
+## Tool Behavior
+
+`query_artifact` returns up to five source excerpts around positive matches tied for the highest score by default. Candidates are retained in file order; lower-scoring lines are not added. Set `maxExcerpts` to an integer from 1 through 20 to change the cap. `maxExcerpts: 1` preserves the legacy first span and can still report omitted ties in `moreMatches`.
+
+The first accepted excerpt uses the earliest fitting highest-score anchor. When the earliest anchor fits, its legacy context-first span is preserved and overlapping later context may expand it; an oversized earliest anchor is skipped in default multi-excerpt mode, while explicit `maxExcerpts: 1` preserves the legacy refusal. Later excerpts are whole-line windows fitted into the shared `maxTokens` budget, with shared text counted once. `moreMatches` appears only when tied anchors remain uncovered and reports their exact count plus the first 20 line numbers; it is absent for unique best matches and complete coverage. A no-fit multi-tie response keeps the legacy `complete_span_required` or `source_span_exceeds_budget` fallback and adds omission metadata, while partial success keeps `warnings: []` and `fallbackReason: null`. The metadata is outside `estimatedTokens`, which sums estimated token counts for returned excerpt texts; each source map retains complete UTF-8 line boundaries.
 
 ## Development
 
@@ -125,11 +153,12 @@ Start with the [Korean image-first paper draft](docs/research/image-first-paper-
 the [image evaluation protocol and development roadmap](docs/research/image-first-evaluation-protocol.md),
 and the [primary-source register](docs/research/image-first-sources.md).
 
-The draft proposes artifact-aware external image processing for document, chart,
-and UI questions. It contains no measured image results. The protocol links each
-planned plugin capability to the evidence needed by the paper; stable experiment
-requirements can guide development while writing continues. If priorities conflict,
-the paper's research question and evaluation requirements take precedence.
+The draft evaluates artifact-aware external image processing for document, chart,
+and UI questions and reports the measured results summarized in
+[Research Status](#research-status). The image evaluation protocol is the historical
+pre-execution design; the executed protocols and results are linked above. If
+priorities conflict, the paper's research question and evaluation requirements take
+precedence.
 
 The earlier text-research proposal studied **layered adaptation**: weight changes through fine-tuning,
 workflow instructions through skills, tool access through MCP, and distribution through
@@ -141,13 +170,14 @@ The [supplied-paper review and research application notes](docs/research/literat
 cover four versioned PDFs, their limitations, and a separate
 [agent-context hypothesis assessment](docs/research/literature/2026-09-12/05-agent-context-hypothesis.md).
 This bounded reading set is not an exhaustive related-work search or novelty proof;
-the broader novelty assessment remains incomplete. All proposed experiments remain
-unrun, including the fresh-agent versus persistent-context comparison.
+the broader novelty assessment remains incomplete. The experiments proposed in that
+text plan, including the fresh-agent versus persistent-context comparison, were not
+run; the research direction moved to the image study above.
 
 Image bytes, internal visual tokens, provider-reported usage, and monetary cost are
-different measurements. Neither existing text tests nor future image fixture tests
-alone establish hosted answer quality or billing savings. Model selection, access,
-data rights, privacy, and budget must be settled before hosted experiments.
+different measurements. Text and image fixture tests do not establish hosted answer
+quality or billing savings; the hosted measurements above cover only the providers,
+models and conditions reported in the paper.
 
 The earlier [layered-adaptation paper plan](docs/research/2026-09-07-llm-finetuning-plugin-mcp-skills-paper-plan.md)
 and [text experiment protocol](docs/research/2026-09-07-layered-adaptation-evaluation-protocol.md)
