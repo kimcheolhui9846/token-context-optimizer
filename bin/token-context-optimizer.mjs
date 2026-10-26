@@ -22948,79 +22948,9 @@ function hasUriScheme(content) {
   }
   return false;
 }
-var CREDENTIAL_LABELS = [
-  ["passwd"],
-  ["pwd"],
-  ["passphrase"],
-  ["pass"],
-  ["passcode"],
-  ["credential"],
-  ["credentials"],
-  ["private", "key"],
-  ["secret", "key"],
-  ["access", "key"],
-  ["api", "key"],
-  ["client", "secret"],
-  ["recovery", "code"],
-  ["recovery", "codes"],
-  ["secret", "answer"],
-  ["backup", "code"],
-  ["backup", "codes"],
-  ["pass", "phrase"]
-];
-function isAsciiCredentialWordCode(code) {
-  return isAsciiWordCode(code);
-}
-function matchesCredentialWordAt(content, index, word) {
-  if (index + word.length > content.length) return false;
-  for (let offset = 0; offset < word.length; offset += 1) {
-    let actual = content.charCodeAt(index + offset);
-    const expected = word.charCodeAt(offset);
-    if (actual >= 65 && actual <= 90) actual += 32;
-    if (actual !== expected) return false;
-  }
-  return true;
-}
+var f21CredentialLabel = /\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \t]+|-)key|client(?:[ \t]+|-)secret|recovery(?:[ \t]+|-)codes?|secret(?:[ \t]+|-)answer|backup(?:[ \t]+|-)codes?)\b\s*[:=]/i;
 function hasCredentialLabel(content) {
-  for (let index = 0; index < content.length; index += 1) {
-    if (!isAsciiLetterCode(content.charCodeAt(index)) || isAsciiCredentialWordCode(content.charCodeAt(index - 1))) {
-      continue;
-    }
-    for (const words of CREDENTIAL_LABELS) {
-      let cursor = index;
-      let matched = true;
-      for (let wordIndex = 0; wordIndex < words.length; wordIndex += 1) {
-        const word = words[wordIndex];
-        if (!matchesCredentialWordAt(content, cursor, word)) {
-          matched = false;
-          break;
-        }
-        cursor += word.length;
-        if (wordIndex + 1 < words.length) {
-          const separatorStart = cursor;
-          while (cursor < content.length && (content.charCodeAt(cursor) === 32 || content.charCodeAt(cursor) === 9)) {
-            cursor += 1;
-          }
-          if (cursor === separatorStart && content.charCodeAt(cursor) === 45) {
-            cursor += 1;
-          } else if (cursor === separatorStart) {
-            matched = false;
-            break;
-          }
-        }
-      }
-      if (!matched || isAsciiCredentialWordCode(content.charCodeAt(cursor))) {
-        continue;
-      }
-      while (cursor < content.length && isPolicyWhitespaceCode(content.charCodeAt(cursor))) {
-        cursor += 1;
-      }
-      if (content.charCodeAt(cursor) === 58 || content.charCodeAt(cursor) === 61) {
-        return true;
-      }
-    }
-  }
-  return false;
+  return f21CredentialLabel.test(content);
 }
 function hasDottedTokenShape(content) {
   let stemOrdinal = 0;
