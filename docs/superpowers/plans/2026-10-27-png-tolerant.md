@@ -28,10 +28,10 @@
 | ignoredChunks 종류 상한 | 32; 33종은 `unsupported_png_profile`. 개수 제한으로 바꾸지 않음 |
 | tolerant PNG 필드 | `validationProfile: "png-rgb8-tolerant-v1"`, `ignoredChunks: string[]`, `alpha: "none" \| "opaque" \| "present"` |
 | 오류 코드 | 새 코드 없음. 기존 코드 재사용 |
-| artifactId | 요청 profile이 tolerant일 때만 식별 문자열에 `\0${metadata.validationProfile}` 추가. strict는 기존 문자열 그대로 |
+| artifactId | 레코드의 실제 profile이 strict profile이 아닐 때만 식별 문자열에 `\0${metadata.validationProfile}` 추가. strict는 기존 문자열 그대로 |
 | JPEG + tolerant 요청 | strict JPEG 검사기 사용, 실제 `jpeg-ycbcr8-baseline-444-v1` 기록. PNG 전용 alpha/ignoredChunks 없음 |
 
-권장안에서 벗어난 결정은 없다. JPEG tolerant 요청의 ID에도 실제 JPEG profile을 접미사로 쓴다. 요청 문자열 `tolerant`를 ID에 넣지 않는다.
+권장안에서 벗어난 결정은 없다. ID 접미사는 요청이 아니라 레코드의 실제 profile로 정한다. JPEG tolerant 요청은 실제 profile이 strict `jpeg-ycbcr8-baseline-444-v1`이므로 접미사 없이 strict와 같은 ID·같은 레코드가 된다. 요청 문자열 `tolerant`를 ID에 넣지 않는다.
 
 ## 2. 현재 symbol과 사전 설계 줄 번호 재매핑
 
@@ -86,22 +86,23 @@ type TolerantPngFields = {
 type ImageProfileInput = { profile?: "strict" | "tolerant" };
 ```
 
-식별 문자열 규칙은 다음과 같다. metadata는 실제 선택된 검사기의 결과다.
+식별 문자열 규칙은 다음과 같다. metadata는 실제 선택된 검사기의 결과이며, 접미사 여부는 요청 `input.profile`이 아니라 이 실제 `metadata.validationProfile`로 정한다.
 
 ```ts
+const STRICT_PROFILES = new Set(["png-rgb8-static-v1", "jpeg-ycbcr8-baseline-444-v1"]);
 const identityInput = `${source.path}\0${sha256}` +
-  (input.profile === "tolerant" ? `\0${metadata.validationProfile}` : "");
+  (STRICT_PROFILES.has(metadata.validationProfile) ? "" : `\0${metadata.validationProfile}`);
 // 기존 sha256(identityInput), image_ 접두사, 16자리 절삭을 유지한다.
 ```
 
-같은 원본의 strict/tolerant 레코드는 서로 덮어쓰지 않으며 같은 profile 재색인은 같은 ID다. index 출력과 store에 넣는 값, MemoryImageArtifactStore put/get, inspect 반환값마다 tolerant ignoredChunks 배열을 복사한다. custom store가 참조를 그대로 반환해도 index/inspect 출력이 배열을 공유하지 않도록 호출 경계에서도 복사한다. strict에는 alpha/ignoredChunks 키를 만들지 않는다.
+실제 profile이 STRICT_PROFILES에 있으면 접미사가 없어 strict ID와 기존 증거가 그대로다. PNG tolerant(`png-rgb8-tolerant-v1`)에만 접미사가 붙으므로 같은 원본의 strict/tolerant PNG 레코드는 서로 덮어쓰지 않으며 같은 profile 재색인은 같은 ID다. JPEG을 tolerant로 요청하면 실제 profile이 strict JPEG이므로 strict와 같은 ID·같은 레코드가 된다. index 출력과 store에 넣는 값, MemoryImageArtifactStore put/get, inspect 반환값, crop이 `store.get()` 결과로 구성해 original/rejected/cropped에 돌려주는 `source`(`src/core/image-crop.ts:21–23`의 얕은 복사 지점)마다 tolerant ignoredChunks 배열을 복사한다. custom store가 참조를 그대로 반환해도 index/inspect/crop 출력이 store 배열을 공유하지 않도록 호출 경계에서도 복사한다. strict에는 alpha/ignoredChunks 키를 만들지 않는다.
 
 ### 3.3 다시 읽기와 crop
 
 - `inspectImageArtifact`와 `readValidatedImageArtifact`는 **레코드 validationProfile**로 검사기를 선택한다. PNG tolerant만 새 검사기로, strict PNG와 JPEG는 기존 검사기로 보낸다.
 - read → 원본 sha256/byteLength 비교 → 해당 profile 재검증 순서를 유지한다. tolerant metadata의 치수·채널·format·mimeType·profile 및 alpha와 ignoredChunks(순서 포함)를 레코드와 비교한다. 불일치는 `decode_failed`다. crop의 기존 pixels 타입/길이 검사도 유지한다.
 - metadata 조작 테스트는 파일/sha256은 그대로 둔 custom store 레코드로 만든다. alpha와 ignoredChunks 각각의 값·순서·누락 변조를 확인한다.
-- crop의 기존 순서(재검증 → 영역 경계 → full-frame original → 1536 초과 resize_required → alpha 판정)를 보존한다.
+- crop의 기존 순서(`invalid_region` → `artifact_not_indexed` → source 복사 → `region_empty` → 재검증 → 영역 경계 `region_out_of_bounds` → full-frame original → 1536 초과 resize_required → alpha 판정, `src/core/image-crop.ts:20–29`)를 보존한다.
 - 부분 crop에서 4채널 허용 조건은 PNG tolerant + alpha opaque뿐이다. strict RGBA와 tolerant present는 `alpha_unsupported`. RGB/JPEG 부분 crop은 기존 계약 유지.
 - 복사 시작 인덱스는 `((region.y + y) * source.width + region.x + x) * source.channels`다. 출력 RGBA의 alpha는 255, JPEG quality 75와 출력 재검증을 유지한다. 비균일 픽셀을 써서 4채널 stride 오류를 검출한다.
 
@@ -134,12 +135,12 @@ imageOutputSchema에 세 번째 변형을 더하고 tolerant에만 ignoredChunks
 | 사전 설계 행 | Maintain / Modify / Add 및 처리 |
 |---|---|
 | image-artifacts validatePng/index/inspect/readValidated | **Modify** profile 분기·ID·재검증·배열 복사; **Add** validatePngTolerant. strict 검사 계약 Maintain |
-| image-crop :29 | **Modify** tolerant opaque 허용 및 source.channels stride |
+| image-crop :29 | **Modify** tolerant opaque 허용 및 source.channels stride; :21–23 `store.get()` 결과로 구성하는 original/rejected/cropped `source`의 ignoredChunks 배열 복사 |
 | types :30–40 | **Add** PNG tolerant 변형; strict 변형 Maintain |
 | server 출력/index 도구 | **Modify** 선택 profile, tolerant 출력, 설명. 공유 source 전파 포함 |
 | task39/task36-base-tools.json 및 비교 테스트 | fixture **Maintain**; image-crop-mcp/query-artifact-mcp **Modify** 명시적 schema delta |
 | image-artifacts strict 거부 | **Maintain** 기존 인자 없는 거부 기대값 |
-| image-artifacts 배열 격리 | **Add** put/get/index/inspect 배열 변조 격리 테스트 |
+| image-artifacts / image-crop 배열 격리 | **Add** put/get/index/inspect 및 crop original/rejected/cropped `source` 배열 변조 격리 테스트(참조 반환 custom store 포함) |
 | image-source-race / image-packaging | **Maintain** 기존 테스트 및 기대값; 회귀 실행 |
 | jpeg-fixtures 스키마 교차 거부 | **Modify** 세 변형 간 format/mimeType/profile 교차 거부와 필수 필드 누락 사례 추가 |
 | smoke-mcp :271–304 | **Modify** 스키마 변형 수 2→3 및 tolerant 전용 검사 추가. 기존 strict 필드/값 검사는 유지 |
@@ -171,12 +172,12 @@ A3 child 검사는 동일한 작은 픽셀 입력의 iCCP 유무를 비교하고
 
 | 추가 계약 | 구체 검증 |
 |---|---|
-| ID 공존 | 동일 RGB/RGBA 원본 strict와 tolerant의 ID가 다름, store 둘 다 남음. 각 profile 재색인 ID 안정. strict ID는 기존 수식과 동일 |
-| JPEG 요청 | 생략/strict 기존 ID 유지. tolerant는 실제 JPEG profile 접미사 ID, 실제 JPEG profile 반환, alpha/ignoredChunks 없음. strict 검사 거부 범위 유지 |
-| 배열 격리 | put 인수, get 반환, index 반환, inspect 반환의 배열을 각각 push/순서 변경해도 저장값과 다음 inspect가 그대로. 참조 반환 custom store도 포함 |
+| ID 공존 | 동일 RGB/RGBA PNG 원본 strict와 tolerant의 ID가 다름(실제 profile `png-rgb8-tolerant-v1`만 접미사), store 둘 다 남음. 각 profile 재색인 ID 안정. strict ID는 기존 수식과 동일 |
+| JPEG 요청 | 생략/strict 기존 ID 유지. tolerant 요청도 strict와 같은 ID·같은 레코드(실제 `jpeg-ycbcr8-baseline-444-v1` 반환, 접미사 없음, store 레코드 1개), alpha/ignoredChunks 없음. strict 검사 거부 범위 유지 |
+| 배열 격리 | put 인수, get 반환, index 반환, inspect 반환, crop original/rejected/cropped 결과의 `source.ignoredChunks` 배열을 각각 push/순서 변경해도 저장값과 다음 inspect/crop이 그대로. 참조를 그대로 반환하는 custom store에서 crop 세 상태 `source` 변조 사례도 포함 |
 | metadata 변조 | hash/파일 고정, alpha 또는 ignoredChunks 내용/순서/누락 변조 → inspect와 crop decode_failed |
 | PNG 구조 | IHDR 중복/누락, IDAT 없음, 잘린 chunk, 잘못된 이름, IEND 길이, unsupported IHDR 모드, inflate 길이/필터 기존 제한 확인 |
-| crop stride/순서 | 비균일 opaque RGBA에서 올바른 RGB 위치 확인. full-frame original 및 1536 초과 resize_required 기존 우선순위 유지 |
+| crop stride/순서 | 비균일 opaque RGBA에서 올바른 RGB 위치 확인. invalid_region → artifact_not_indexed → region_empty → 재검증 → region_out_of_bounds → full-frame original → 1536 초과 resize_required → alpha 판정의 기존 우선순위 유지 |
 | 입력 스키마 | profile 생략/strict/tolerant 허용; 다른 문자열/null/숫자는 MCP 검증 오류 |
 | 출력 스키마 | strict 두 레코드의 기존 필드 유지, tolerant 필수 배열/alpha 누락·잘못된 값 거부, JPEG/PNG profile 교차 거부, crop source 세 상태 검사 |
 | 경로 회귀 | 6.9 index/inspect/crop 오류 매핑·경로 비노출·source race·packaging 기대값 변경 없이 통과 |
@@ -202,8 +203,8 @@ A3 child 검사는 동일한 작은 픽셀 입력의 iCCP 유무를 비교하고
 
 **파일:** image-artifacts.ts, image-crop.ts, image-artifacts.test.ts, image-crop.test.ts, image-crop-boundaries.test.ts. **입출력:** 레코드 validationProfile로 검사기를 선택하고 기존 pixels 반환/crop 상태 계약 유지.
 
-- [ ] RED: A5, R4 부분 crop, R5/R6, metadata 변조, 비균일 RGBA stride와 기존 full-frame/resize 우선순위를 실행한다. tolerant inspect 거부와 opaque 부분 crop 거부 등 행동 실패를 기록한다.
-- [ ] GREEN: 재검증 선택·metadata 비교와 opaque 조건/stride를 구현한다. reader/catch 매핑은 그대로 둔다.
+- [ ] RED: A5, R4 부분 crop, R5/R6, metadata 변조, 비균일 RGBA stride, crop original/rejected/cropped `source.ignoredChunks` 배열 격리(참조 반환 custom store 포함)와 §3.3 crop 오류 우선순위 전체를 실행한다. tolerant inspect 거부, opaque 부분 crop 거부, crop source 배열 공유 등 행동 실패를 기록한다.
+- [ ] GREEN: 재검증 선택·metadata 비교와 opaque 조건/stride, crop `source` 구성 시 ignoredChunks 배열 복사를 구현한다. reader/catch 매핑과 crop 오류 우선순위는 그대로 둔다.
 - [ ] REFACTOR: 필요한 tolerant metadata 비교/배열 복사만 공유하고 경로 오류 테스트 전체 기대값을 보존한다.
 
 ### 단계 3: MCP·문서·패키징
@@ -248,6 +249,8 @@ git diff --check
 ```
 
 이번 계획 PR의 검증은 직접 요구사항/소스 검토와 `git diff --check`뿐이다. custom 검증 스크립트, 제품 테스트, build, 성능 측정은 실행하지 않는다. Tier D에 따라 Harness reviewer를 호출하지 않으며 기존 사전 설계 검토를 이번 계획의 독립 검토로 주장하지 않는다.
+
+검토 기록: head `16ccd85`에 대해 사용자가 전달한 Claude Opus 5.5 검토 결과는 **REQUEST CHANGES, Minor 2 · Nit 1**이다(`codex_review/codex_review_feedback_2026-10-27_png-tolerant-plan-pr79.md`). m-1(artifactId 접미사를 실제 profile로 결정), m-2(crop `source`의 ignoredChunks 복사), n-1(crop 오류 우선순위 전체 서술)을 이 문서에 반영했다. 수정 반영은 **Claude 재확인 대기** 상태이며 이번 수정에서 reviewer를 따로 호출하지 않았다. merge는 Claude 재확인 → 사용자 승인 순서다.
 
 ## 10. 계획 검토 체크리스트
 
