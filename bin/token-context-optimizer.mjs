@@ -12546,14 +12546,14 @@ function inputRequiredRoundsExceededMessage(method, maxRounds) {
   return `Multi-round-trip request '${method}' still required input after ${maxRounds} rounds (inputRequired.maxRounds)`;
 }
 function sleep(ms, signal) {
-  return new Promise((resolve3, reject) => {
+  return new Promise((resolve2, reject) => {
     if (signal?.aborted) {
       reject(signal.reason instanceof SdkError ? signal.reason : new SdkError(SdkErrorCode.RequestTimeout, String(signal.reason)));
       return;
     }
     const timer = setTimeout(() => {
       signal?.removeEventListener("abort", onAbort);
-      resolve3();
+      resolve2();
     }, ms);
     const onAbort = () => {
       clearTimeout(timer);
@@ -13347,7 +13347,7 @@ var Protocol = class {
     const flowStartedAt = Date.now();
     let onAbort;
     let cleanupMessageId;
-    return new Promise((resolve3, reject) => {
+    return new Promise((resolve2, reject) => {
       const earlyReject = (error2) => {
         reject(error2);
       };
@@ -13415,7 +13415,7 @@ var Protocol = class {
         }
         if (decoded.kind === "invalid") return reject(decoded.error);
         if (decoded.kind === "input_required") {
-          if (options?.allowInputRequired === true) return resolve3(manualInputRequiredValue(decoded));
+          if (options?.allowInputRequired === true) return resolve2(manualInputRequiredValue(decoded));
           const flow = {
             codec,
             request,
@@ -13427,11 +13427,11 @@ var Protocol = class {
               params
             }, resultSchema, legOptions)
           };
-          return resolve3(this._resolveNonCompleteResult(decoded, flow));
+          return resolve2(this._resolveNonCompleteResult(decoded, flow));
         }
         const result = decoded.result;
         validateStandardSchema(resultSchema, result).then((parseResult) => {
-          if (parseResult.success) resolve3(parseResult.data);
+          if (parseResult.success) resolve2(parseResult.data);
           else reject(new SdkError(SdkErrorCode.InvalidResult, `Invalid result for ${request.method}: ${parseResult.error}`));
         }, reject);
       });
@@ -14151,9 +14151,9 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       const rhs = this.rhs === void 0 ? "" : ` = ${this.rhs}`;
       return `${varKind} ${this.name}${rhs};` + _n;
     }
-    optimizeNames(names, constants) {
+    optimizeNames(names, constants2) {
       if (!names[this.name.str]) return;
-      if (this.rhs) this.rhs = optimizeExpr(this.rhs, names, constants);
+      if (this.rhs) this.rhs = optimizeExpr(this.rhs, names, constants2);
       return this;
     }
     get names() {
@@ -14170,9 +14170,9 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
     render({ _n }) {
       return `${this.lhs} = ${this.rhs};` + _n;
     }
-    optimizeNames(names, constants) {
+    optimizeNames(names, constants2) {
       if (this.lhs instanceof code_1.Name && !names[this.lhs.str] && !this.sideEffects) return;
-      this.rhs = optimizeExpr(this.rhs, names, constants);
+      this.rhs = optimizeExpr(this.rhs, names, constants2);
       return this;
     }
     get names() {
@@ -14231,8 +14231,8 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
     optimizeNodes() {
       return `${this.code}` ? this : void 0;
     }
-    optimizeNames(names, constants) {
-      this.code = optimizeExpr(this.code, names, constants);
+    optimizeNames(names, constants2) {
+      this.code = optimizeExpr(this.code, names, constants2);
       return this;
     }
     get names() {
@@ -14258,12 +14258,12 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       }
       return nodes.length > 0 ? this : void 0;
     }
-    optimizeNames(names, constants) {
+    optimizeNames(names, constants2) {
       const { nodes } = this;
       let i2 = nodes.length;
       while (i2--) {
         const n = nodes[i2];
-        if (n.optimizeNames(names, constants)) continue;
+        if (n.optimizeNames(names, constants2)) continue;
         subtractNames(names, n.names);
         nodes.splice(i2, 1);
       }
@@ -14310,11 +14310,11 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       if (cond === false || !this.nodes.length) return void 0;
       return this;
     }
-    optimizeNames(names, constants) {
+    optimizeNames(names, constants2) {
       var _a4;
-      this.else = (_a4 = this.else) === null || _a4 === void 0 ? void 0 : _a4.optimizeNames(names, constants);
-      if (!(super.optimizeNames(names, constants) || this.else)) return;
-      this.condition = optimizeExpr(this.condition, names, constants);
+      this.else = (_a4 = this.else) === null || _a4 === void 0 ? void 0 : _a4.optimizeNames(names, constants2);
+      if (!(super.optimizeNames(names, constants2) || this.else)) return;
+      this.condition = optimizeExpr(this.condition, names, constants2);
       return this;
     }
     get names() {
@@ -14336,9 +14336,9 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
     render(opts) {
       return `for(${this.iteration})` + super.render(opts);
     }
-    optimizeNames(names, constants) {
-      if (!super.optimizeNames(names, constants)) return;
-      this.iteration = optimizeExpr(this.iteration, names, constants);
+    optimizeNames(names, constants2) {
+      if (!super.optimizeNames(names, constants2)) return;
+      this.iteration = optimizeExpr(this.iteration, names, constants2);
       return this;
     }
     get names() {
@@ -14373,9 +14373,9 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
     render(opts) {
       return `for(${this.varKind} ${this.name} ${this.loop} ${this.iterable})` + super.render(opts);
     }
-    optimizeNames(names, constants) {
-      if (!super.optimizeNames(names, constants)) return;
-      this.iterable = optimizeExpr(this.iterable, names, constants);
+    optimizeNames(names, constants2) {
+      if (!super.optimizeNames(names, constants2)) return;
+      this.iterable = optimizeExpr(this.iterable, names, constants2);
       return this;
     }
     get names() {
@@ -14414,11 +14414,11 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       (_b2 = this.finally) === null || _b2 === void 0 || _b2.optimizeNodes();
       return this;
     }
-    optimizeNames(names, constants) {
+    optimizeNames(names, constants2) {
       var _a4, _b2;
-      super.optimizeNames(names, constants);
-      (_a4 = this.catch) === null || _a4 === void 0 || _a4.optimizeNames(names, constants);
-      (_b2 = this.finally) === null || _b2 === void 0 || _b2.optimizeNames(names, constants);
+      super.optimizeNames(names, constants2);
+      (_a4 = this.catch) === null || _a4 === void 0 || _a4.optimizeNames(names, constants2);
+      (_b2 = this.finally) === null || _b2 === void 0 || _b2.optimizeNames(names, constants2);
       return this;
     }
     get names() {
@@ -14667,7 +14667,7 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
   function addExprNames(names, from) {
     return from instanceof code_1._CodeOrName ? addNames(names, from.names) : names;
   }
-  function optimizeExpr(expr, names, constants) {
+  function optimizeExpr(expr, names, constants2) {
     if (expr instanceof code_1.Name) return replaceName(expr);
     if (!canOptimize(expr)) return expr;
     return new code_1._Code(expr._items.reduce((items, c) => {
@@ -14677,13 +14677,13 @@ var require_codegen = /* @__PURE__ */ __commonJSMin(((exports) => {
       return items;
     }, []));
     function replaceName(n) {
-      const c = constants[n.str];
+      const c = constants2[n.str];
       if (c === void 0 || names[n.str] !== 1) return n;
       delete names[n.str];
       return c;
     }
     function canOptimize(e) {
-      return e instanceof code_1._Code && e._items.some((c) => c instanceof code_1.Name && names[c.str] === 1 && constants[c.str] !== void 0);
+      return e instanceof code_1._Code && e._items.some((c) => c instanceof code_1.Name && names[c.str] === 1 && constants2[c.str] !== void 0);
     }
   }
   function subtractNames(names, from) {
@@ -16343,7 +16343,7 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
     ref = (0, resolve_1.resolveUrl)(this.opts.uriResolver, baseId, ref);
     const schOrFunc = root.refs[ref];
     if (schOrFunc) return schOrFunc;
-    let _sch = resolve3.call(this, root, ref);
+    let _sch = resolve2.call(this, root, ref);
     if (_sch === void 0) {
       const schema = (_a4 = root.localRefs) === null || _a4 === void 0 ? void 0 : _a4[ref];
       const { schemaId } = this.opts;
@@ -16369,7 +16369,7 @@ var require_compile = /* @__PURE__ */ __commonJSMin(((exports) => {
   function sameSchemaEnv(s1, s2) {
     return s1.schema === s2.schema && s1.root === s2.root && s1.baseId === s2.baseId;
   }
-  function resolve3(root, ref) {
+  function resolve2(root, ref) {
     let sch;
     while (typeof (sch = this.refs[ref]) == "string") ref = sch;
     return sch || this.schemas[ref] || resolveSchema.call(this, root, ref);
@@ -16819,47 +16819,47 @@ var require_fast_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
     else if (typeof uri === "object") uri = parse3(serialize(uri, options), options);
     return uri;
   }
-  function resolve3(baseURI, relativeURI, options) {
+  function resolve2(baseURI, relativeURI, options) {
     const schemelessOptions = options ? Object.assign({ scheme: "null" }, options) : { scheme: "null" };
     const resolved = resolveComponent(parse3(baseURI, schemelessOptions), parse3(relativeURI, schemelessOptions), schemelessOptions, true);
     schemelessOptions.skipEscape = true;
     return serialize(resolved, schemelessOptions);
   }
-  function resolveComponent(base, relative3, options, skipNormalization) {
+  function resolveComponent(base, relative2, options, skipNormalization) {
     const target = {};
     if (!skipNormalization) {
       base = parse3(serialize(base, options), options);
-      relative3 = parse3(serialize(relative3, options), options);
+      relative2 = parse3(serialize(relative2, options), options);
     }
     options = options || {};
-    if (!options.tolerant && relative3.scheme) {
-      target.scheme = relative3.scheme;
-      target.userinfo = relative3.userinfo;
-      target.host = relative3.host;
-      target.port = relative3.port;
-      target.path = removeDotSegments(relative3.path || "");
-      target.query = relative3.query;
+    if (!options.tolerant && relative2.scheme) {
+      target.scheme = relative2.scheme;
+      target.userinfo = relative2.userinfo;
+      target.host = relative2.host;
+      target.port = relative2.port;
+      target.path = removeDotSegments(relative2.path || "");
+      target.query = relative2.query;
     } else {
-      if (relative3.userinfo !== void 0 || relative3.host !== void 0 || relative3.port !== void 0) {
-        target.userinfo = relative3.userinfo;
-        target.host = relative3.host;
-        target.port = relative3.port;
-        target.path = removeDotSegments(relative3.path || "");
-        target.query = relative3.query;
+      if (relative2.userinfo !== void 0 || relative2.host !== void 0 || relative2.port !== void 0) {
+        target.userinfo = relative2.userinfo;
+        target.host = relative2.host;
+        target.port = relative2.port;
+        target.path = removeDotSegments(relative2.path || "");
+        target.query = relative2.query;
       } else {
-        if (!relative3.path) {
+        if (!relative2.path) {
           target.path = base.path;
-          if (relative3.query !== void 0) target.query = relative3.query;
+          if (relative2.query !== void 0) target.query = relative2.query;
           else target.query = base.query;
         } else {
-          if (relative3.path[0] === "/") target.path = removeDotSegments(relative3.path);
+          if (relative2.path[0] === "/") target.path = removeDotSegments(relative2.path);
           else {
-            if ((base.userinfo !== void 0 || base.host !== void 0 || base.port !== void 0) && !base.path) target.path = "/" + relative3.path;
-            else if (!base.path) target.path = relative3.path;
-            else target.path = base.path.slice(0, base.path.lastIndexOf("/") + 1) + relative3.path;
+            if ((base.userinfo !== void 0 || base.host !== void 0 || base.port !== void 0) && !base.path) target.path = "/" + relative2.path;
+            else if (!base.path) target.path = relative2.path;
+            else target.path = base.path.slice(0, base.path.lastIndexOf("/") + 1) + relative2.path;
             target.path = removeDotSegments(target.path);
           }
-          target.query = relative3.query;
+          target.query = relative2.query;
         }
         target.userinfo = base.userinfo;
         target.host = base.host;
@@ -16867,7 +16867,7 @@ var require_fast_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
       }
       target.scheme = base.scheme;
     }
-    target.fragment = relative3.fragment;
+    target.fragment = relative2.fragment;
     return target;
   }
   function equal(uriA, uriB, options) {
@@ -16993,7 +16993,7 @@ var require_fast_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
   const fastUri = {
     SCHEMES,
     normalize,
-    resolve: resolve3,
+    resolve: resolve2,
     resolveComponent,
     equal,
     serialize,
@@ -22366,7 +22366,7 @@ var StdioServerTransport = class {
   }
   send(message) {
     if (this._closed) return Promise.reject(/* @__PURE__ */ new Error("StdioServerTransport is closed"));
-    return new Promise((resolve3, reject) => {
+    return new Promise((resolve2, reject) => {
       const json = serializeMessage(message);
       let settled = false;
       const onError = (error2) => {
@@ -22381,14 +22381,14 @@ var StdioServerTransport = class {
         settled = true;
         this._stdout.off("error", onError);
         this._stdout.off("drain", onDrain);
-        resolve3();
+        resolve2();
       };
       this._stdout.once("error", onError);
       if (this._stdout.write(json)) {
         if (settled) return;
         settled = true;
         this._stdout.off("error", onError);
-        resolve3();
+        resolve2();
       } else if (!settled) this._stdout.once("drain", onDrain);
     });
   }
@@ -22442,14 +22442,14 @@ var StdioConnectionChannel = class {
   */
   async whenRequestsAnswered(timeoutMs) {
     if (this._closed || this._pendingRequests.size === 0) return true;
-    return await new Promise((resolve3) => {
+    return await new Promise((resolve2) => {
       const waiter = () => {
         clearTimeout(timer);
-        resolve3(true);
+        resolve2(true);
       };
       const timer = setTimeout(() => {
         this._drainWaiters = this._drainWaiters.filter((pending) => pending !== waiter);
-        resolve3(false);
+        resolve2(false);
       }, timeoutMs);
       this._drainWaiters.push(waiter);
     });
@@ -22790,8 +22790,7 @@ function toError(value) {
 
 // src/core/artifacts.ts
 import { createHash } from "node:crypto";
-import { realpath, readFile, stat } from "node:fs/promises";
-import { basename, isAbsolute, relative, resolve } from "node:path";
+import { basename } from "node:path";
 
 // src/core/policy.ts
 var COMMANDS = /* @__PURE__ */ new Set([
@@ -23487,6 +23486,130 @@ function stripShellPunctuation(token) {
   return token.slice(start, end);
 }
 
+// src/core/read-bounded-file.ts
+import { constants } from "node:fs";
+import { lstat, open, realpath, stat } from "node:fs/promises";
+import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
+var messages = {
+  empty_roots: "No allowed roots are configured; set TCO_ALLOWED_ROOTS",
+  denied: "File is outside allowed roots",
+  read_failure: "File cannot be read",
+  changed: "File changed while reading",
+  non_regular: "Path is not a regular file",
+  too_large: "File exceeds maxBytes limit"
+};
+var ReadBoundedFileError = class extends Error {
+  code;
+  size;
+  constructor(code, size) {
+    super(size === void 0 ? messages[code] : `${messages[code]}: ${size}`);
+    this.name = "ReadBoundedFileError";
+    this.code = code;
+    this.size = size;
+  }
+};
+var isInside = (root, candidate) => {
+  const child = relative(root, candidate);
+  return !isAbsolute(child) && (child === "" || !child.startsWith(`..${sep}`) && child !== "..");
+};
+var snap = (value) => ({
+  dev: value.dev,
+  ino: value.ino,
+  size: value.size,
+  mtimeMs: value.mtimeMs,
+  ctimeMs: value.ctimeMs,
+  isRegularFile: value.isFile()
+});
+var same = (a, b) => a.dev === b.dev && a.ino === b.ino && a.size === b.size && a.mtimeMs === b.mtimeMs && a.ctimeMs === b.ctimeMs && a.isRegularFile === b.isRegularFile;
+var tryRealpath = async (path) => {
+  try {
+    return { ok: true, path: await realpath(path) };
+  } catch (error2) {
+    return { ok: false, error: error2 };
+  }
+};
+var tryLstat = async (path) => {
+  try {
+    return { ok: true, stat: await lstat(path) };
+  } catch (error2) {
+    return { ok: false, error: error2 };
+  }
+};
+var errno = (error2, code) => error2?.code === code;
+async function classifyPath(originalPath, roots) {
+  const canonicalRoots = (await Promise.all(roots.map(async (root) => (await tryRealpath(resolve(root))).path))).filter((root) => root !== void 0);
+  if (canonicalRoots.length === 0) throw new ReadBoundedFileError("denied");
+  const target = await tryRealpath(originalPath);
+  if (target.ok) {
+    if (canonicalRoots.some((root) => isInside(root, target.path))) return target.path;
+    throw new ReadBoundedFileError("denied");
+  }
+  let cursor = originalPath;
+  while (true) {
+    const ancestor = await tryRealpath(cursor);
+    if (ancestor.ok) {
+      if (canonicalRoots.some((root) => isInside(root, ancestor.path))) throw new ReadBoundedFileError("read_failure");
+      throw new ReadBoundedFileError("denied");
+    }
+    const listed = await tryLstat(cursor);
+    if (listed.ok || !errno(listed.error, "ENOENT")) throw new ReadBoundedFileError("denied");
+    const parent = dirname(cursor);
+    if (parent === cursor) throw new ReadBoundedFileError("denied");
+    cursor = parent;
+  }
+}
+async function readBoundedFile(input) {
+  if (input.allowedRoots.length === 0) throw new ReadBoundedFileError("empty_roots");
+  const originalPath = resolve(input.path);
+  const canonicalPath = await classifyPath(originalPath, input.allowedRoots);
+  let pathBefore;
+  try {
+    pathBefore = snap(await stat(canonicalPath));
+  } catch {
+    throw new ReadBoundedFileError("read_failure");
+  }
+  if (!pathBefore.isRegularFile) throw new ReadBoundedFileError("non_regular");
+  if (pathBefore.size > input.maxBytes) throw new ReadBoundedFileError("too_large", pathBefore.size);
+  let handle2;
+  try {
+    const flags = constants.O_RDONLY | (process.platform === "win32" ? 0 : (constants.O_NOFOLLOW ?? 0) | (constants.O_NONBLOCK ?? 0));
+    handle2 = await open(canonicalPath, flags);
+    const before = snap(await handle2.stat());
+    if (!before.isRegularFile) throw new ReadBoundedFileError("non_regular");
+    if (before.size > input.maxBytes) throw new ReadBoundedFileError("too_large", before.size);
+    if (!same(pathBefore, before)) throw new ReadBoundedFileError("changed");
+    const bytes = Buffer.alloc(before.size + 1);
+    let total = 0;
+    while (total <= before.size) {
+      const result = await handle2.read(bytes, total, before.size - total + 1, total);
+      if (result.bytesRead === 0) break;
+      if (result.bytesRead > before.size - total) throw new ReadBoundedFileError("changed");
+      total += result.bytesRead;
+    }
+    const after = snap(await handle2.stat());
+    let pathAfter;
+    try {
+      pathAfter = snap(await stat(canonicalPath));
+    } catch {
+      throw new ReadBoundedFileError("changed");
+    }
+    const canonicalAfter = await tryRealpath(originalPath);
+    const resolvedCanonicalAfter = await tryRealpath(canonicalPath);
+    if (!canonicalAfter.ok || !resolvedCanonicalAfter.ok || canonicalAfter.path !== canonicalPath || resolvedCanonicalAfter.path !== canonicalPath || !same(before, after) || !same(pathBefore, pathAfter) || total !== before.size) throw new ReadBoundedFileError("changed");
+    return { bytes: bytes.subarray(0, total), canonicalPath, snapshot: after };
+  } catch (error2) {
+    if (error2 instanceof ReadBoundedFileError) throw error2;
+    throw new ReadBoundedFileError("read_failure");
+  } finally {
+    if (handle2) {
+      try {
+        await handle2.close();
+      } catch {
+      }
+    }
+  }
+}
+
 // src/core/token-estimator.ts
 var PROFILE_VERSION = "heuristic-v1";
 function estimateTextTokens(text) {
@@ -23524,11 +23647,13 @@ var MemoryArtifactStore = class {
 };
 var defaultArtifactStore = new MemoryArtifactStore();
 async function indexArtifact(input) {
-  const absolutePath = await validateReadableFile(input.path, {
+  const bounded = await readBoundedFile({
+    path: input.path,
     allowedRoots: input.allowedRoots ?? [process.cwd()],
     maxBytes: input.maxBytes ?? 10 * 1024 * 1024
   });
-  const buffer = await readFile(absolutePath);
+  const absolutePath = bounded.canonicalPath;
+  const buffer = bounded.bytes;
   const content = decodeUtf8Strict(buffer);
   const sha256 = createHash("sha256").update(buffer).digest("hex");
   const identityHash = createHash("sha256").update(`${absolutePath}\0${sha256}`, "utf8").digest("hex");
@@ -23837,28 +23962,6 @@ function tokenize(text) {
 function normalizeSearchText(text) {
   return text.normalize("NFKC").toLocaleLowerCase();
 }
-async function validateReadableFile(path, options) {
-  const absolutePath = await realpath(resolve(path));
-  const allowedRoots = await Promise.all(
-    options.allowedRoots.map((root) => realpath(resolve(root)))
-  );
-  const isAllowed = allowedRoots.some((root) => isPathInside(absolutePath, root));
-  if (!isAllowed) {
-    throw new Error(`File is outside allowed roots: ${absolutePath}`);
-  }
-  const fileStat = await stat(absolutePath);
-  if (!fileStat.isFile()) {
-    throw new Error(`Path is not a regular file: ${absolutePath}`);
-  }
-  if (fileStat.size > options.maxBytes) {
-    throw new Error(`File exceeds maxBytes limit: ${fileStat.size}`);
-  }
-  return absolutePath;
-}
-function isPathInside(path, root) {
-  const relation = relative(root, path);
-  return relation === "" || !relation.startsWith("..") && !isAbsolute(relation);
-}
 function decodeUtf8Strict(buffer) {
   try {
     return new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(buffer);
@@ -23898,9 +24001,6 @@ function fallbackReasonForClassification(mode) {
 
 // src/core/image-artifacts.ts
 import { createHash as createHash2 } from "node:crypto";
-import { constants as fsConstants } from "node:fs";
-import { open, realpath as realpath2, stat as stat2 } from "node:fs/promises";
-import { isAbsolute as isAbsolute2, relative as relative2, resolve as resolve2 } from "node:path";
 import { inflateSync } from "node:zlib";
 
 // node_modules/fflate/esm/index.mjs
@@ -26140,71 +26240,21 @@ async function inspectImageArtifact(input) {
   }
   return { ...record2 };
 }
+var readerErrorCodes = {
+  empty_roots: "path_denied",
+  denied: "path_denied",
+  read_failure: "read_failure",
+  changed: "source_changed",
+  non_regular: "non_regular_file",
+  too_large: "encoded_size_exceeded"
+};
 async function readBoundedSource(path, allowedRoots) {
-  if (allowedRoots.length === 0) throw new ImageValidationError("path_denied");
-  let canonical;
-  let roots;
   try {
-    canonical = await realpath2(resolve2(path));
-  } catch {
-    throw new ImageValidationError("read_failure");
-  }
-  roots = (await Promise.all(allowedRoots.map(async (root) => {
-    try {
-      return await realpath2(resolve2(root));
-    } catch {
-      return null;
-    }
-  }))).filter((root) => root !== null);
-  if (!roots.some((root) => isInside(root, canonical))) throw new ImageValidationError("path_denied");
-  let pathBefore;
-  try {
-    pathBefore = await stat2(canonical);
-  } catch {
-    throw new ImageValidationError("read_failure");
-  }
-  if (!pathBefore.isFile()) throw new ImageValidationError("non_regular_file");
-  if (pathBefore.size > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
-  const flags = fsConstants.O_RDONLY | (process.platform === "win32" ? 0 : fsConstants.O_NONBLOCK) | (fsConstants.O_NOFOLLOW ?? 0);
-  let handle2;
-  try {
-    handle2 = await open(canonical, flags);
-  } catch {
-    throw new ImageValidationError("read_failure");
-  }
-  try {
-    const before = await handle2.stat();
-    if (!before.isFile()) throw new ImageValidationError("non_regular_file");
-    if (before.size > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
-    const bytes = Buffer.alloc(before.size + 1);
-    let total = 0;
-    while (total < bytes.length) {
-      const result = await handle2.read(bytes, total, bytes.length - total, total);
-      if (result.bytesRead === 0) break;
-      total += result.bytesRead;
-    }
-    const after = await handle2.stat();
-    let pathAfter;
-    try {
-      pathAfter = await stat2(canonical);
-      const canonicalAfter = await realpath2(resolve2(path));
-      if (canonicalAfter !== canonical) throw new Error();
-    } catch {
-      throw new ImageValidationError("source_changed");
-    }
-    if (!sameFileSnapshot(pathBefore, before) || !sameFileSnapshot(before, after) || !sameFileSnapshot(pathBefore, pathAfter) || before.mtimeMs !== after.mtimeMs || before.ino !== after.ino || total > before.size) {
-      throw new ImageValidationError("source_changed");
-    }
-    if (total > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
-    return { path: canonical, bytes: bytes.subarray(0, total) };
+    const source = await readBoundedFile({ path, allowedRoots, maxBytes: MAX_BYTES });
+    return { path: source.canonicalPath, bytes: source.bytes };
   } catch (error2) {
-    if (error2 instanceof ImageValidationError) throw error2;
+    if (error2 instanceof ReadBoundedFileError) throw new ImageValidationError(readerErrorCodes[error2.code]);
     throw new ImageValidationError("read_failure");
-  } finally {
-    try {
-      await handle2.close();
-    } catch {
-    }
   }
 }
 async function readValidatedImageArtifact(record2, allowedRoots) {
@@ -26317,16 +26367,6 @@ function crc32(bytes) {
     }
   }
   return (crc2 ^ 4294967295) >>> 0;
-}
-function isInside(root, target) {
-  const relation = relative2(root, target);
-  return relation === "" || !isAbsolute2(relation) && relation !== ".." && !relation.startsWith(`..${requireSeparator()}`);
-}
-function sameFileSnapshot(left, right) {
-  return left.dev === right.dev && left.ino === right.ino && left.size === right.size && left.mtimeMs === right.mtimeMs && left.ctimeMs === right.ctimeMs;
-}
-function requireSeparator() {
-  return process.platform === "win32" ? "\\" : "/";
 }
 
 // src/core/image-crop.ts

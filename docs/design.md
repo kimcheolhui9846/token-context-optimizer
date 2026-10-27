@@ -67,7 +67,7 @@ Exact content always wins over compression. Code, diffs, paths, hashes, IDs, num
 
 Artifact indexing is limited to configured allowed roots. The server resolves real paths, rejects paths outside those roots, enforces regular-file input, caps file size, and hashes the original byte buffer. Text indexing validates strict UTF-8. Image indexing validates the restricted PNG or baseline 4:4:4 JFIF JPEG profile, including bounded PNG inflation, JPEG structure and decoder allocation accounting, and decoded shape.
 
-Allowed roots are supplied through `TCO_ALLOWED_ROOTS`; they are intentionally separate from the plugin installation directory. When unset, indexing is blocked rather than silently reading outside the configured workspace scope.
+Allowed roots are supplied through `TCO_ALLOWED_ROOTS`; they are intentionally separate from the plugin installation directory. The server blocks indexing when `TCO_ALLOWED_ROOTS` is unset or empty: text indexing returns `No allowed roots are configured; set TCO_ALLOWED_ROOTS`, while image tools retain their `path_denied` response. When roots are omitted from a direct API call, the current working directory remains the default; callers that need another workspace must configure `allowedRoots` explicitly.
 
 ## Measurement
 

@@ -165,7 +165,7 @@ they are not successful artifact records.
 | Code | Meaning |
 |---|---|
 | `path_denied` | No authorized canonical root contains the source, or the allowlist is empty |
-| `read_failure` | Indexing cannot resolve or read the source |
+| `read_failure` | Indexing cannot read a source whose canonical path, or nearest existing ancestor, lies inside an authorized canonical root |
 | `non_regular_file` | The indexed source is not a regular file |
 | `encoded_size_exceeded` | The indexed source exceeds the encoded limit |
 | `image_dimensions_exceeded` | Dimensions are zero or exceed the supported axis/pixel ceilings |

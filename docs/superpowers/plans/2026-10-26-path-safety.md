@@ -156,6 +156,7 @@ The following classification covers every row from `git show 12f7a76:research/pl
 | `tests/core.test.ts:422-446` root-outside/prefix siblings | **Maintain** existing assertions; add existing-file/missing-file parity and no-path-message assertions nearby. |
 | `tests/image-artifacts.test.ts:133-160` empty list, sibling, `..`, missing, link | **Maintain** existing assertions exactly; add separate cases for the new mapping/privacy coverage without conditional expectation changes. |
 | `tests/image-artifacts.test.ts:274`, crop-boundaries `:56,66,109` empty list | **Maintain** `path_denied` contract and add no regression assertion for crop source changes. |
+| `tests/image-artifacts.test.ts` sole allowed-root directory removed before inspect | **Modify** only this expectation from `source_missing_or_unreadable` to `path_denied`, matching all-invalid-root denial. Explicitly approved by user on 2026-10-27; file-only removal and empty-root expectations remain unchanged. |
 | `scripts/smoke-mcp.mjs:201` `path_denied` | **Maintain** schema/error sanitization check; no script behavior change. |
 | `scripts/verify-installed-plugin.mjs:123` phrase check | **Maintain** “outside allowed roots” substring after path removal. |
 | `docs/image-artifacts.md:168` read failure meaning | **Modify** wording to authorized-root read failure. |
@@ -196,33 +197,33 @@ Before behavioral RED, run `npm.cmd run typecheck` on the untouched baseline and
 
 **Files:** create `src/core/read-bounded-file.ts`; test in `tests/read-bounded-file.test.ts`.
 
-- [ ] RED: add deterministic unit tests for the path matrix, root filtering, `isInside`, non-ENOENT errors, and N-23 snapshot/read/close behavior; run the targeted test and observe failure.
-- [ ] GREEN: implement the exact types, pseudocode, error codes, handle flags, bounded loop, and snapshot comparisons above.
-- [ ] REFACTOR: keep filesystem injection limited to tests, remove duplicated path normalization, and rerun the helper suite.
+- [x] RED: add deterministic unit tests for the path matrix, root filtering, `isInside`, non-ENOENT errors, and N-23 snapshot/read/close behavior; run the targeted test and observe failure.
+- [x] GREEN: implement the exact types, pseudocode, error codes, handle flags, bounded loop, and snapshot comparisons above.
+- [x] REFACTOR: keep filesystem injection limited to tests, remove duplicated path normalization, and rerun the helper suite.
 
 ### Task 2: text integration and privacy-preserving messages
 
 **Files:** modify `src/core/artifacts.ts`; tests `tests/core.test.ts`; docs `docs/design.md`, `README.md`.
 
-- [ ] RED: extend cases 1–7 and empty-root configuration expectations before adapting `indexArtifact`.
-- [ ] GREEN: call the shared helper, preserve fatal UTF-8/BOM/source-map/hash behavior, and map errors exactly.
-- [ ] REFACTOR: remove obsolete path-check/read duplication and verify no error includes a path.
+- [x] RED: extend cases 1–7 and empty-root configuration expectations before adapting `indexArtifact`.
+- [x] GREEN: call the shared helper, preserve fatal UTF-8/BOM/source-map/hash behavior, and map errors exactly.
+- [x] REFACTOR: remove obsolete path-check/read duplication and verify no error includes a path.
 
 ### Task 3: image integration and crop/inspect mappings
 
 **Files:** modify `src/core/image-artifacts.ts`; tests `tests/image-artifacts.test.ts`, `tests/image-crop-boundaries.test.ts`; docs `docs/image-artifacts.md`.
 
-- [ ] RED: add image cases 1–7, links/cycles/permissions/root links, and N-23 reader integration tests.
-- [ ] GREEN: route index, inspect, and crop through the helper; retain index mappings, inspect behavior, and crop `source_changed`.
-- [ ] REFACTOR: centralize mapping and preserve strict PNG/JPEG validation and existing store behavior.
+- [x] RED: add image cases 1–7, links/cycles/permissions/root links, and N-23 reader integration tests.
+- [x] GREEN: route index, inspect, and crop through the helper; retain index mappings, inspect behavior, and crop `source_changed`.
+- [x] REFACTOR: centralize mapping and preserve strict PNG/JPEG validation and existing store behavior.
 
 ### Task 4: MCP and installed-plugin regression checks
 
 **Files:** modify `tests/query-artifact-mcp.test.ts` and `tests/image-crop-mcp.test.ts` for sanitized path/error assertions; maintain `tests/image-source-race.test.ts`, `tests/image-crop.test.ts`, and `tests/image-packaging.test.ts`; do not change public fixture schemas; inspect `scripts/smoke-mcp.mjs` and `scripts/verify-installed-plugin.mjs`.
 
-- [ ] RED: run existing sanitization/phrase tests and the new MCP path-redaction cases against the new fixed messages.
-- [ ] GREEN: 기존 스크립트 계약을 유지한다. 실패하면 승인된 구현의 회귀를 먼저 수정하며, 계약/공개 동작 변경이 필요하면 구체안을 보고하고 승인을 받는다.
-- [ ] REFACTOR: remove temporary test artifacts and keep paths redacted in serialized errors.
+- [x] RED: run existing sanitization/phrase tests and the new MCP path-redaction cases against the new fixed messages.
+- [x] GREEN: 기존 스크립트 계약을 유지한다. 실패하면 승인된 구현의 회귀를 먼저 수정하며, 계약/공개 동작 변경이 필요하면 구체안을 보고하고 승인을 받는다.
+- [x] REFACTOR: remove temporary test artifacts and keep paths redacted in serialized errors.
 
 ## Verification order
 

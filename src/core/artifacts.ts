@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
-import { realpath, readFile, stat } from "node:fs/promises";
-import { basename, isAbsolute, relative, resolve } from "node:path";
+import { basename } from "node:path";
 
 import { classifyContext, lossyCompressionAllowed } from "./policy.js";
+import { readBoundedFile } from "./read-bounded-file.js";
 import { estimateTextTokens } from "./token-estimator.js";
 import type { ArtifactRecord, CommonResponseFields, SourceLine } from "./types.js";
 
@@ -31,11 +31,13 @@ export async function indexArtifact(input: {
   allowedRoots?: string[];
   maxBytes?: number;
 }): Promise<ArtifactRecord> {
-  const absolutePath = await validateReadableFile(input.path, {
+  const bounded = await readBoundedFile({
+    path: input.path,
     allowedRoots: input.allowedRoots ?? [process.cwd()],
     maxBytes: input.maxBytes ?? 10 * 1024 * 1024,
   });
-  const buffer = await readFile(absolutePath);
+  const absolutePath = bounded.canonicalPath;
+  const buffer = bounded.bytes;
   const content = decodeUtf8Strict(buffer);
   const sha256 = createHash("sha256").update(buffer).digest("hex");
   const identityHash = createHash("sha256")
@@ -475,35 +477,6 @@ function tokenize(text: string): string[] {
 
 function normalizeSearchText(text: string): string {
   return text.normalize("NFKC").toLocaleLowerCase();
-}
-
-async function validateReadableFile(
-  path: string,
-  options: { allowedRoots: string[]; maxBytes: number },
-): Promise<string> {
-  const absolutePath = await realpath(resolve(path));
-  const allowedRoots = await Promise.all(
-    options.allowedRoots.map((root) => realpath(resolve(root))),
-  );
-  const isAllowed = allowedRoots.some((root) => isPathInside(absolutePath, root));
-  if (!isAllowed) {
-    throw new Error(`File is outside allowed roots: ${absolutePath}`);
-  }
-
-  const fileStat = await stat(absolutePath);
-  if (!fileStat.isFile()) {
-    throw new Error(`Path is not a regular file: ${absolutePath}`);
-  }
-  if (fileStat.size > options.maxBytes) {
-    throw new Error(`File exceeds maxBytes limit: ${fileStat.size}`);
-  }
-
-  return absolutePath;
-}
-
-function isPathInside(path: string, root: string): boolean {
-  const relation = relative(root, path);
-  return relation === "" || (!relation.startsWith("..") && !isAbsolute(relation));
 }
 
 function decodeUtf8Strict(buffer: Buffer): string {
