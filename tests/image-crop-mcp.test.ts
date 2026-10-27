@@ -195,3 +195,87 @@ describe("crop_image_artifact MCP contract", () => {
     });
   });
 });
+
+describe('MCP image path redaction', () => {
+
+  const redact = async (value: unknown, paths: string[]) => {
+    const { realpath } = await import('node:fs/promises');
+    const canonicalPaths = await Promise.all(paths.map(async (path) => {
+      try { return await realpath(path); } catch { return path; }
+    }));
+    const json = JSON.stringify(value);
+    for (const path of [...paths, ...canonicalPaths]) {
+      expect(json).not.toContain(path);
+      expect(json).not.toContain(JSON.stringify(path).slice(1, -1));
+    }
+  };
+  const linkDir = async (ctx: import('vitest').TestContext, target: string, link: string) => {
+    const { symlink } = await import('node:fs/promises');
+    try { await symlink(target, link, process.platform === 'win32' ? 'junction' : 'dir'); }
+    catch (error: unknown) {
+      const code = (error as NodeJS.ErrnoException)?.code;
+      if (['EPERM', 'EACCES', 'ENOTSUP', 'EOPNOTSUPP', 'ENOSYS'].includes(code ?? '')) {
+        console.log('directory-link capability unavailable: ' + code);
+        ctx.skip();
+      }
+      throw error;
+    }
+  };
+
+  it('redacts outside existing and missing image paths identically', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'image-root-')); roots.push(root);
+    const outside = await fixture(makePng(2, 2, 3));
+    const missing = join(outside.root, 'missing.png');
+    await withClient(root, async (client) => {
+      const a = resultOf(await client.call('index_image_artifact', { path: outside.path }));
+      const b = resultOf(await client.call('index_image_artifact', { path: missing }));
+      expectTextOnlyError(a, 'path_denied'); expectTextOnlyError(b, 'path_denied');
+      expect(a.content[0].text).toBe(b.content[0].text);
+      await redact(a, [outside.path, outside.root, root]); await redact(b, [missing, outside.root, root]);
+    });
+  });
+
+  it('rejects image directory-link traversal', async (ctx) => {
+    const root = await mkdtemp(join(tmpdir(), 'image-root-')); roots.push(root);
+    const outside = await fixture(makePng(2, 2, 3));
+    const link = join(root, 'linked');
+    await linkDir(ctx, outside.root, link);
+    await withClient(root, async (client) => {
+      for (const path of [join(link, 'source.png'), join(link, 'missing.png')]) {
+        const result = resultOf(await client.call('index_image_artifact', { path }));
+        expectTextOnlyError(result, 'path_denied');
+        await redact(result, [path, link, outside.root, outside.path, root]);
+      }
+    });
+  });
+
+  it('rejects an image link to a missing outside target directory', async (ctx) => {
+    const root = await mkdtemp(join(tmpdir(), 'image-root-')); roots.push(root);
+    const outside = await mkdtemp(join(tmpdir(), 'image-outside-')); roots.push(outside);
+    const target = join(outside, 'missing-target');
+    const link = join(root, 'linked');
+    await linkDir(ctx, target, link);
+    await withClient(root, async (client) => {
+      const path = join(link, 'source.png');
+      const result = resultOf(await client.call('index_image_artifact', { path }));
+      expectTextOnlyError(result, 'path_denied');
+      await redact(result, [path, link, target, outside, root]);
+    });
+  });
+
+  it('redacts deleted in-root sources from inspect and crop errors', async () => {
+    const { root, path } = await fixture(makePng(2, 2, 3));
+    await withClient(root, async (client) => {
+      const indexed = resultOf(await client.call('index_image_artifact', { path }));
+      expect(indexed.isError).not.toBe(true);
+      expect(indexed.structuredContent?.artifactId).toBeDefined();
+      const artifactId = indexed.structuredContent.artifactId;
+      await rm(path);
+      const inspect = resultOf(await client.call('inspect_image_artifact', { artifactId }));
+      const crop = resultOf(await client.call('crop_image_artifact', { artifactId, region: { x: 0, y: 0, width: 1, height: 1 } }));
+      expectTextOnlyError(inspect, 'source_missing_or_unreadable');
+      expectTextOnlyError(crop, 'source_missing_or_unreadable');
+      await redact(inspect, [path, root]); await redact(crop, [path, root]);
+    });
+  });
+});

@@ -3,6 +3,7 @@ import { mkdtemp, readFile, readdir, rm, stat, unlink, writeFile } from "node:fs
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import type { ReadBoundedFileErrorCode } from "../src/core/read-bounded-file.js";
 
 const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const roots = new Set<string>();
@@ -152,5 +153,50 @@ describe("crop_image_artifact boundary and source-security contract", () => {
     const result = await cropImageArtifact({ artifactId: source.artifactId, region, allowedRoots: [f.root], store });
     expect(result).toMatchObject({ status: "cropped", region: { x: 0, y: 0, width: 1, height: 1 }, output: { width: 1, height: 1 } });
     expect(await readFile(f.path)).toEqual(beforeBytes); expect(await stat(f.path)).toMatchObject({ size: beforeStat.size, mtimeMs: beforeStat.mtimeMs }); expect(await readdir(f.root)).toEqual(beforeDir); expect(store.size).toBe(1);
+  });
+
+  it("crops a ..notes.txt source with a missing root beside a valid one and denies other roots without paths", async () => {
+    const { cropImageArtifact, indexImageArtifact, MemoryImageArtifactStore } = await core();
+    const f = await fixture(png(2, 2, 3), "..notes.txt"); const outside = await fixture();
+    const missingRoot = join(f.root, "missing-root"); const store = new MemoryImageArtifactStore();
+    const source = await indexImageArtifact({ path: f.path, allowedRoots: [missingRoot, f.root], store });
+    const region = { x: 0, y: 0, width: 1, height: 1 };
+    await expect(cropImageArtifact({ artifactId: source.artifactId, region, allowedRoots: [missingRoot, f.root], store })).resolves.toMatchObject({ status: "cropped", output: { width: 1, height: 1 } });
+    for (const allowedRoots of [[missingRoot], [outside.root]]) {
+      const error = await cropImageArtifact({ artifactId: source.artifactId, region, allowedRoots, store }).then(() => undefined, (reason: unknown) => reason);
+      expect(error).toMatchObject({ code: "path_denied" });
+      const serialized = JSON.stringify({ ...(error as object), message: (error as Error).message });
+      for (const path of [f.root, f.path, outside.root, missingRoot]) {
+        expect(serialized).not.toContain(path); expect(serialized).not.toContain(JSON.stringify(path).slice(1, -1));
+      }
+    }
+    expect(store.size).toBe(1); expect(store.get(source.artifactId)).toEqual(source);
+  });
+
+  it.each([
+    ["empty_roots", "path_denied"], ["denied", "path_denied"], ["read_failure", "source_missing_or_unreadable"],
+    ["changed", "source_changed"], ["non_regular", "source_missing_or_unreadable"], ["too_large", "source_missing_or_unreadable"],
+  ] as Array<[ReadBoundedFileErrorCode, string]>)("maps bounded-reader %s to crop %s and preserves the record", async (helperCode, cropCode) => {
+    const f = await fixture(); let failure: ReadBoundedFileErrorCode | undefined;
+    vi.doMock("../src/core/read-bounded-file.js", async () => {
+      const actual = await vi.importActual<typeof import("../src/core/read-bounded-file.js")>("../src/core/read-bounded-file.js");
+      return { ...actual, readBoundedFile: async (input: Parameters<typeof actual.readBoundedFile>[0]) => {
+        if (failure === undefined) return actual.readBoundedFile(input);
+        throw new actual.ReadBoundedFileError(failure, failure === "too_large" ? 10 * 1024 * 1024 + 1 : undefined);
+      } };
+    });
+    try {
+      const { cropImageArtifact, indexImageArtifact, MemoryImageArtifactStore } = await core();
+      const store = new MemoryImageArtifactStore();
+      const source = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store });
+      const region = { x: 0, y: 0, width: 1, height: 1 };
+      failure = helperCode;
+      await expect(cropImageArtifact({ artifactId: source.artifactId, region, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: cropCode });
+      expect(store.size).toBe(1); expect(store.get(source.artifactId)).toEqual(source);
+      failure = undefined;
+      await expect(cropImageArtifact({ artifactId: source.artifactId, region, allowedRoots: [f.root], store })).resolves.toMatchObject({ status: "cropped", output: { width: 1, height: 1 } });
+    } finally {
+      vi.doUnmock("../src/core/read-bounded-file.js"); vi.resetModules();
+    }
   });
 });

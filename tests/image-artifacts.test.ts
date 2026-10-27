@@ -1,15 +1,18 @@
 import { createHash } from "node:crypto";
 import { deflateSync } from "node:zlib";
-import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import type { TestContext } from "vitest";
 
 import {
+  ImageValidationError,
   MemoryImageArtifactStore,
   indexImageArtifact,
   inspectImageArtifact,
 } from "../src/core/image-artifacts.js";
+import type { ReadBoundedFileErrorCode } from "../src/core/read-bounded-file.js";
 
 const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const temporaryRoots = new Set<string>();
@@ -273,6 +276,207 @@ describe("image artifact ingestion", () => {
     const restoredRecord = await indexImageArtifact({ path: restored.path, allowedRoots: [restored.root], store });
     await expect(inspectImageArtifact({ artifactId: restoredRecord.artifactId, allowedRoots: [], store })).rejects.toMatchObject({ code: "path_denied" });
     await rm(dirname(restored.path), { recursive: true, force: true });
-    await expect(inspectImageArtifact({ artifactId: restoredRecord.artifactId, allowedRoots: [restored.root], store })).rejects.toMatchObject({ code: "source_missing_or_unreadable" });
+    await expect(inspectImageArtifact({ artifactId: restoredRecord.artifactId, allowedRoots: [restored.root], store })).rejects.toMatchObject({ code: "path_denied" });
+  });
+});
+
+const capabilityErrorCodes = new Set(["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"]);
+const directoryLinkType = process.platform === "win32" ? "junction" : "dir";
+
+async function linkOrSkip(ctx: TestContext, target: string, path: string, type: "junction" | "dir" | "file"): Promise<void> {
+  try {
+    await symlink(target, path, type);
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    if (code !== undefined && capabilityErrorCodes.has(code)) {
+      console.warn(`skipping ${type} link case: ${code} (platform lacks link capability or privilege)`);
+      ctx.skip();
+    }
+    throw error;
+  }
+}
+
+function serializedError(error: unknown): string {
+  const value = error as Error & { code?: string };
+  return JSON.stringify({ ...value, name: value.name, message: value.message, code: value.code });
+}
+
+function expectNoPaths(serialized: string[], paths: string[]): void {
+  for (const text of serialized) {
+    for (const path of paths) {
+      expect(text).not.toContain(path);
+      expect(text).not.toContain(JSON.stringify(path).slice(1, -1));
+      expect(text).not.toContain(basename(path));
+    }
+  }
+}
+
+async function deniedError(path: string, allowedRoots: string[]): Promise<string> {
+  const store = new MemoryImageArtifactStore();
+  const error = await indexImageArtifact({ path, allowedRoots, store }).then(() => undefined, (reason: unknown) => reason);
+  expect(error).toBeInstanceOf(ImageValidationError);
+  expect(error).toMatchObject({ code: "path_denied", message: "path_denied" });
+  expect(store.size).toBe(0);
+  return serializedError(error);
+}
+
+describe("image allowed-root and link matrix", () => {
+  it("denies outside existing and missing files identically without path details", async () => {
+    const inside = await fixture(png(1, 1, 3));
+    const outside = await fixture(png(1, 1, 3));
+    const missing = join(outside.root, "missing.png");
+    const existingError = await deniedError(outside.path, [inside.root]);
+    const missingError = await deniedError(missing, [inside.root]);
+    expect(missingError).toBe(existingError);
+    expectNoPaths([existingError, missingError], [inside.root, outside.root, outside.path, missing]);
+  });
+
+  it("accepts an in-root PNG whose name starts with two dots", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const path = join(f.root, "..notes.txt");
+    await writeFile(path, png(1, 1, 3));
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path, allowedRoots: [f.root], store });
+    expect(record).toMatchObject({ path: await realpath(path), format: "png", width: 1, height: 1 });
+    await expect(inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [f.root], store })).resolves.toEqual(record);
+  });
+
+  it("omits a missing allowed root when another root is valid", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const missingRoot = join(f.root, "missing-root");
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [missingRoot, f.root], store });
+    expect(record.path).toBe(await realpath(f.path));
+    await expect(inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [f.root, missingRoot], store })).resolves.toEqual(record);
+    const onlyMissing = await deniedError(f.path, [missingRoot]);
+    expectNoPaths([onlyMissing], [f.root, f.path, missingRoot]);
+  });
+
+  it("denies existing and missing paths alike when the allowlist is empty", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const missing = join(f.root, "missing.png");
+    const existingError = await deniedError(f.path, []);
+    const missingError = await deniedError(missing, []);
+    expect(missingError).toBe(existingError);
+    expectNoPaths([existingError, missingError], [f.root, f.path, missing]);
+  });
+
+  it("reports an in-root missing file as a sanitized read failure", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const missing = join(f.root, "missing.png");
+    const error = await indexImageArtifact({ path: missing, allowedRoots: [f.root], store: new MemoryImageArtifactStore() }).then(() => undefined, (reason: unknown) => reason);
+    expect(error).toBeInstanceOf(ImageValidationError);
+    expect(error).toMatchObject({ code: "read_failure", message: "read_failure" });
+    expectNoPaths([serializedError(error)], [f.root, missing]);
+  });
+
+  it("denies existing and missing children behind an in-root directory link to an outside root", async (ctx) => {
+    const f = await fixture(png(1, 1, 3));
+    const outside = await fixture(png(1, 1, 3));
+    const link = join(f.root, "escape-dir");
+    await linkOrSkip(ctx, outside.root, link, directoryLinkType);
+    const existingError = await deniedError(join(link, "image.png"), [f.root]);
+    const missingError = await deniedError(join(link, "missing.png"), [f.root]);
+    expect(missingError).toBe(existingError);
+    expectNoPaths([existingError, missingError], [f.root, outside.root, link]);
+  });
+
+  it("denies an in-root directory link to a missing outside directory", async (ctx) => {
+    const f = await fixture(png(1, 1, 3));
+    const outside = await fixture(png(1, 1, 3));
+    const target = join(outside.root, "missing-dir");
+    const link = join(f.root, "dangling-dir");
+    await linkOrSkip(ctx, target, link, directoryLinkType);
+    const childError = await deniedError(join(link, "image.png"), [f.root]);
+    const linkError = await deniedError(link, [f.root]);
+    expect(linkError).toBe(childError);
+    expectNoPaths([childError, linkError], [f.root, outside.root, target, link]);
+  });
+
+  it("denies a self-referencing directory link cycle", async (ctx) => {
+    const f = await fixture(png(1, 1, 3));
+    const loop = join(f.root, "loop");
+    await linkOrSkip(ctx, loop, loop, directoryLinkType);
+    const linkError = await deniedError(loop, [f.root]);
+    const childError = await deniedError(join(loop, "image.png"), [f.root]);
+    expect(childError).toBe(linkError);
+    expectNoPaths([linkError, childError], [f.root, loop]);
+  });
+
+  it("accepts a normal file under an allowed root that is itself a directory link", async (ctx) => {
+    const f = await fixture(png(1, 1, 3));
+    const holder = await mkdtemp(join(tmpdir(), "tco-image-root-link-"));
+    temporaryRoots.add(holder);
+    const rootLink = join(holder, "root-link");
+    await linkOrSkip(ctx, f.root, rootLink, directoryLinkType);
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: join(rootLink, "image.png"), allowedRoots: [rootLink], store });
+    expect(record.path).toBe(await realpath(f.path));
+    await expect(inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [rootLink], store })).resolves.toEqual(record);
+  });
+
+  it("denies in-root file symlinks to missing inside and outside targets alike", async (ctx) => {
+    const f = await fixture(png(1, 1, 3));
+    const outside = await fixture(png(1, 1, 3));
+    const insideTarget = join(f.root, "absent.png");
+    const outsideTarget = join(outside.root, "absent.png");
+    const insideLink = join(f.root, "inside-missing.png");
+    const outsideLink = join(f.root, "outside-missing.png");
+    await linkOrSkip(ctx, insideTarget, insideLink, "file");
+    await linkOrSkip(ctx, outsideTarget, outsideLink, "file");
+    const insideError = await deniedError(insideLink, [f.root]);
+    const outsideError = await deniedError(outsideLink, [f.root]);
+    expect(outsideError).toBe(insideError);
+    expectNoPaths([insideError, outsideError], [f.root, outside.root, insideTarget, outsideTarget, insideLink, outsideLink]);
+  });
+});
+
+const helperMappings: Array<[ReadBoundedFileErrorCode, string, string, string]> = [
+  ["empty_roots", "path_denied", "path_denied", "path_denied"],
+  ["denied", "path_denied", "path_denied", "path_denied"],
+  ["read_failure", "read_failure", "source_missing_or_unreadable", "source_missing_or_unreadable"],
+  ["changed", "source_changed", "source_missing_or_unreadable", "source_changed"],
+  ["non_regular", "non_regular_file", "source_missing_or_unreadable", "source_missing_or_unreadable"],
+  ["too_large", "encoded_size_exceeded", "source_missing_or_unreadable", "source_missing_or_unreadable"],
+];
+
+describe("image bounded-reader error mapping", () => {
+  it.each(helperMappings)("maps helper %s to index %s, inspect %s, and crop read %s", async (helperCode, indexCode, inspectCode, cropCode) => {
+    const f = await fixture(png(1, 1, 3));
+    let failure: ReadBoundedFileErrorCode | undefined;
+    vi.resetModules();
+    vi.doMock("../src/core/read-bounded-file.js", async () => {
+      const actual = await vi.importActual<typeof import("../src/core/read-bounded-file.js")>("../src/core/read-bounded-file.js");
+      return {
+        ...actual,
+        readBoundedFile: async (input: Parameters<typeof actual.readBoundedFile>[0]) => {
+          if (failure === undefined) return actual.readBoundedFile(input);
+          throw new actual.ReadBoundedFileError(failure, failure === "too_large" ? 10 * 1024 * 1024 + 1 : undefined);
+        },
+      };
+    });
+    try {
+      const images = await import("../src/core/image-artifacts.js");
+      const store = new images.MemoryImageArtifactStore();
+      const record = await images.indexImageArtifact({ path: f.path, allowedRoots: [f.root], store });
+      expect(record).toMatchObject({ format: "png", width: 1, height: 1, channels: 3 });
+      failure = helperCode;
+      const indexError = await images.indexImageArtifact({ path: f.path, allowedRoots: [f.root], store }).then(() => undefined, (reason: unknown) => reason);
+      expect(indexError).toBeInstanceOf(images.ImageValidationError);
+      expect(indexError).toMatchObject({ code: indexCode });
+      const inspectError = await images.inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [f.root], store }).then(() => undefined, (reason: unknown) => reason);
+      expect(inspectError).toBeInstanceOf(images.ImageValidationError);
+      expect(inspectError).toMatchObject({ code: inspectCode });
+      const cropError = await images.readValidatedImageArtifact(record, [f.root]).then(() => undefined, (reason: unknown) => reason);
+      expect(cropError).toBeInstanceOf(images.ImageValidationError);
+      expect(cropError).toMatchObject({ code: cropCode });
+      expect(store.size).toBe(1);
+      expect(store.get(record.artifactId)).toEqual(record);
+      failure = undefined;
+      await expect(images.readValidatedImageArtifact(record, [f.root])).resolves.toMatchObject({ pixels: expect.any(Uint8Array) });
+    } finally {
+      vi.doUnmock("../src/core/read-bounded-file.js");
+      vi.resetModules();
+    }
   });
 });

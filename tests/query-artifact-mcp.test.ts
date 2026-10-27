@@ -179,3 +179,110 @@ describe("query_artifact MCP contract", () => {
     }
   });
 });
+
+describe('MCP path redaction', () => {
+
+  const redact = async (value: unknown, paths: string[]) => {
+    const { realpath } = await import('node:fs/promises');
+    const canonicalPaths = await Promise.all(paths.map(async (path) => {
+      try { return await realpath(path); } catch { return path; }
+    }));
+    const json = JSON.stringify(value);
+    for (const path of [...paths, ...canonicalPaths]) {
+      expect(json).not.toContain(path);
+      expect(json).not.toContain(JSON.stringify(path).slice(1, -1));
+    }
+  };
+  const linkDir = async (ctx: import('vitest').TestContext, target: string, link: string) => {
+    const { symlink } = await import('node:fs/promises');
+    try { await symlink(target, link, process.platform === 'win32' ? 'junction' : 'dir'); }
+    catch (error: unknown) {
+      const code = (error as NodeJS.ErrnoException)?.code;
+      if (['EPERM', 'EACCES', 'ENOTSUP', 'EOPNOTSUPP', 'ENOSYS'].includes(code ?? '')) {
+        console.log('directory-link capability unavailable: ' + code);
+        ctx.skip();
+      }
+      throw error;
+    }
+  };
+
+  it('redacts outside existing and missing paths with identical errors', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'mcp-root-'));
+    const outside = await mkdtemp(join(tmpdir(), 'mcp-outside-'));
+    const existing = join(outside, 'secret.json');
+    const missing = join(outside, 'missing.json');
+    try {
+      await writeFile(existing, '{}');
+      const client = await CropMcpClient.start(undefined, root);
+      try {
+        const a = resultOf(await client.call('index_artifact', { path: existing }));
+        const b = resultOf(await client.call('index_artifact', { path: missing }));
+        expect(a.isError).toBe(true); expect(b.isError).toBe(true);
+        expect(a.content[0].text).toContain('File is outside allowed roots');
+        expect(a.content[0].text).toBe(b.content[0].text);
+        await redact(a, [existing, outside, root]); await redact(b, [missing, outside, root]);
+      } finally { await client.close(); }
+    } finally { await rm(root, { recursive: true, force: true }); await rm(outside, { recursive: true, force: true }); }
+  });
+
+  it('redacts an in-root missing path', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'mcp-root-'));
+    const missing = join(root, 'missing.json');
+    try {
+      const client = await CropMcpClient.start(undefined, root);
+      try {
+        const result = resultOf(await client.call('index_artifact', { path: missing }));
+        expect(result.isError).toBe(true);
+        expect(result.content[0].text).toContain('File cannot be read');
+        await redact(result, [missing, root]);
+      } finally { await client.close(); }
+    } finally { await rm(root, { recursive: true, force: true }); }
+  });
+
+  it('reports empty configured roots exactly', async () => {
+    const client = await CropMcpClient.start(undefined, ';');
+    try {
+      const result = resultOf(await client.call('index_artifact', { path: 'anything.json' }));
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toContain('No allowed roots are configured; set TCO_ALLOWED_ROOTS');
+    } finally { await client.close(); }
+  });
+
+  it('rejects traversal through an outside directory link', async (ctx) => {
+    const root = await mkdtemp(join(tmpdir(), 'mcp-root-'));
+    const outside = await mkdtemp(join(tmpdir(), 'mcp-outside-'));
+    const child = join(outside, 'child.json');
+    const link = join(root, 'linked');
+    try {
+      await writeFile(child, '{}');
+      await linkDir(ctx, outside, link);
+      const client = await CropMcpClient.start(undefined, root);
+      try {
+        for (const path of [join(link, 'child.json'), join(link, 'missing.json')]) {
+          const result = resultOf(await client.call('index_artifact', { path }));
+          expect(result.isError).toBe(true);
+          expect(result.content[0].text).toContain('File is outside allowed roots');
+          await redact(result, [path, link, outside, child, root]);
+        }
+      } finally { await client.close(); }
+    } finally { await rm(root, { recursive: true, force: true }); await rm(outside, { recursive: true, force: true }); }
+  });
+
+  it('rejects a link to a missing outside target directory', async (ctx) => {
+    const root = await mkdtemp(join(tmpdir(), 'mcp-root-'));
+    const outside = await mkdtemp(join(tmpdir(), 'mcp-outside-'));
+    const target = join(outside, 'missing-target');
+    const link = join(root, 'linked');
+    try {
+      await linkDir(ctx, target, link);
+      const client = await CropMcpClient.start(undefined, root);
+      try {
+        const path = join(link, 'child.json');
+        const result = resultOf(await client.call('index_artifact', { path }));
+        expect(result.isError).toBe(true);
+        expect(result.content[0].text).toContain('File is outside allowed roots');
+        await redact(result, [path, link, target, outside, root]);
+      } finally { await client.close(); }
+    } finally { await rm(root, { recursive: true, force: true }); await rm(outside, { recursive: true, force: true }); }
+  });
+});

@@ -16,7 +16,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   MemoryArtifactStore,
@@ -30,6 +30,7 @@ import {
 } from "../src/core/policy.js";
 import { parseCompleteJsonMessages } from "../src/server/smoke-output-parser.js";
 import { estimateContext } from "../src/core/token-estimator.js";
+import { ReadBoundedFileError } from "../src/core/read-bounded-file.js";
 
 const execFileAsync = promisify(execFile);
 const temporaryRoots = new Set<string>();
@@ -443,6 +444,205 @@ describe("artifact indexing and retrieval", () => {
     await expect(
       indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] }),
     ).rejects.toThrow(/outside allowed roots/);
+  });
+
+  it.each(["existing.txt", "missing.txt"])(
+    "returns the same path-free denial for a root-outside %s",
+    async (name) => {
+      const allowedRoot = await mkdtemp(join(tmpdir(), "tco-allowed-"));
+      const deniedRoot = await mkdtemp(join(tmpdir(), "tco-denied-"));
+      const filePath = join(deniedRoot, name);
+      if (name === "existing.txt") await writeFile(filePath, "secret", "utf8");
+
+      await expect(
+        indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] }),
+      ).rejects.toMatchObject({ message: "File is outside allowed roots" });
+    },
+  );
+
+  it("uses the exact setup message for explicitly empty allowed roots", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "file.txt");
+    await writeFile(filePath, "content", "utf8");
+
+    await expect(
+      indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [] }),
+    ).rejects.toThrow("No allowed roots are configured; set TCO_ALLOWED_ROOTS");
+  });
+
+  it("uses a path-free read failure for an in-root missing file", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    await expect(
+      indexArtifact({ path: join(dir, "missing.txt"), store: new MemoryArtifactStore(), allowedRoots: [dir] }),
+    ).rejects.toThrow("File cannot be read");
+  });
+
+  it("accepts names beginning with .. when they are inside the root", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "..notes.txt");
+    await writeFile(filePath, "notes", "utf8");
+    await expect(indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [dir] })).resolves.toMatchObject({ content: "notes" });
+  });
+
+  it("ignores an invalid root when a later valid root authorizes the file", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "valid.txt");
+    await writeFile(filePath, "valid", "utf8");
+    await expect(indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [join(dir, "missing-root"), dir] })).resolves.toMatchObject({ content: "valid" });
+  });
+
+  it("denies existing and missing children through an out-of-root directory link", async ({ skip }) => {
+    const allowedRoot = await mkdtemp(join(tmpdir(), "tco-allowed-"));
+    const outsideRoot = await mkdtemp(join(tmpdir(), "tco-outside-"));
+    const linkPath = join(allowedRoot, "linked");
+    await writeFile(join(outsideRoot, "existing.txt"), "secret", "utf8");
+    try {
+      await symlink(outsideRoot, linkPath, process.platform === "win32" ? "junction" : "dir");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"].includes(code ?? "")) {
+        console.info(`Skipping directory-link text safety case (${code})`);
+        skip();
+        return;
+      }
+      throw error;
+    }
+    for (const name of ["existing.txt", "missing.txt"]) {
+      await expect(
+        indexArtifact({ path: join(linkPath, name), store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] }),
+      ).rejects.toMatchObject({ message: "File is outside allowed roots" });
+    }
+  });
+
+  it("accepts a file through a linked allowed root", async ({ skip }) => {
+    const targetRoot = await mkdtemp(join(tmpdir(), "tco-target-"));
+    const linkedRoot = join(await mkdtemp(join(tmpdir(), "tco-link-parent-")), "root");
+    const filePath = join(targetRoot, "ok.txt");
+    await writeFile(filePath, "linked", "utf8");
+    try {
+      await symlink(targetRoot, linkedRoot, process.platform === "win32" ? "junction" : "dir");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"].includes(code ?? "")) { console.info(`Skipping linked-root text case (${code})`); skip(); return; }
+      throw error;
+    }
+    await expect(indexArtifact({ path: join(linkedRoot, "ok.txt"), store: new MemoryArtifactStore(), allowedRoots: [linkedRoot] })).resolves.toMatchObject({ content: "linked" });
+  });
+
+  it("denies a link whose outside target directory is missing", async ({ skip }) => {
+    const allowedRoot = await mkdtemp(join(tmpdir(), "tco-allowed-"));
+    const outsideRoot = await mkdtemp(join(tmpdir(), "tco-outside-"));
+    const linkPath = join(allowedRoot, "missing-target");
+    try {
+      await symlink(join(outsideRoot, "not-created"), linkPath, process.platform === "win32" ? "junction" : "dir");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"].includes(code ?? "")) { console.info(`Skipping missing-target link case (${code})`); skip(); return; }
+      throw error;
+    }
+    await expect(indexArtifact({ path: join(linkPath, "file.txt"), store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] })).rejects.toMatchObject({ message: "File is outside allowed roots" });
+  });
+
+  it("denies a broken in-root file link without exposing its target", async ({ skip }) => {
+    const allowedRoot = await mkdtemp(join(tmpdir(), "tco-allowed-"));
+    const linkPath = join(allowedRoot, "broken.txt");
+    try {
+      await symlink(join(allowedRoot, "does-not-exist.txt"), linkPath, "file");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"].includes(code ?? "")) {
+        console.info(`Skipping file-link text safety case (${code})`);
+        skip();
+        return;
+      }
+      throw error;
+    }
+    await expect(
+      indexArtifact({ path: linkPath, store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] }),
+    ).rejects.toMatchObject({ message: "File is outside allowed roots" });
+  });
+
+  it("denies a broken file link outside the allowed root", async ({ skip }) => {
+    const allowedRoot = await mkdtemp(join(tmpdir(), "tco-allowed-"));
+    const outsideRoot = await mkdtemp(join(tmpdir(), "tco-outside-"));
+    const linkPath = join(allowedRoot, "broken-outside.txt");
+    try {
+      await symlink(join(outsideRoot, "does-not-exist.txt"), linkPath, "file");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"].includes(code ?? "")) { console.info(`Skipping outside file-link text case (${code})`); skip(); return; }
+      throw error;
+    }
+    await expect(indexArtifact({ path: linkPath, store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] })).rejects.toMatchObject({ message: "File is outside allowed roots" });
+  });
+
+  it("denies a directory-link cycle", async ({ skip }) => {
+    const allowedRoot = await mkdtemp(join(tmpdir(), "tco-allowed-"));
+    const cyclePath = join(allowedRoot, "cycle");
+    try {
+      await symlink(cyclePath, cyclePath, process.platform === "win32" ? "junction" : "dir");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (["EPERM", "EACCES", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"].includes(code ?? "")) {
+        console.info(`Skipping directory-cycle text safety case (${code})`);
+        skip();
+        return;
+      }
+      throw error;
+    }
+    await expect(
+      indexArtifact({ path: join(cyclePath, "missing.txt"), store: new MemoryArtifactStore(), allowedRoots: [allowedRoot] }),
+    ).rejects.toMatchObject({ message: "File is outside allowed roots" });
+  });
+
+  it("maps bounded text size errors without leaking a path", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "bytes.txt");
+    await writeFile(filePath, "ABCD", "utf8");
+    await expect(indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [dir], maxBytes: 3 })).rejects.toThrow("File exceeds maxBytes limit: 4");
+  });
+
+  it("reads exactly maxBytes when the file is 3 bytes", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tco-"));
+    const filePath = join(dir, "three.txt");
+    await writeFile(filePath, "ABC", "utf8");
+    await expect(indexArtifact({ path: filePath, store: new MemoryArtifactStore(), allowedRoots: [dir], maxBytes: 3 })).resolves.toMatchObject({ content: "ABC", byteLength: 3 });
+  });
+
+  it("preserves the helper handle-before oversize message in the text adapter", async () => {
+    vi.resetModules();
+    vi.doMock("../src/core/read-bounded-file.js", () => ({
+      ReadBoundedFileError,
+      readBoundedFile: async () => { throw new ReadBoundedFileError("too_large", 4); },
+    }));
+    try {
+      const { indexArtifact } = await import("../src/core/artifacts.js");
+      const store = new MemoryArtifactStore();
+      const put = vi.spyOn(store, "put");
+      await expect(indexArtifact({ path: "fixture.txt", store, allowedRoots: ["."], maxBytes: 3 })).rejects.toMatchObject({ message: "File exceeds maxBytes limit: 4" });
+      expect(put).not.toHaveBeenCalled();
+    } finally {
+      vi.doUnmock("../src/core/read-bounded-file.js");
+      vi.resetModules();
+    }
+  });
+
+  it("preserves the helper growth message in the text adapter", async () => {
+    vi.resetModules();
+    vi.doMock("../src/core/read-bounded-file.js", () => ({
+      ReadBoundedFileError,
+      readBoundedFile: async () => { throw new ReadBoundedFileError("changed"); },
+    }));
+    try {
+      const { indexArtifact } = await import("../src/core/artifacts.js");
+      const store = new MemoryArtifactStore();
+      const put = vi.spyOn(store, "put");
+      await expect(indexArtifact({ path: "fixture.txt", store, allowedRoots: ["."], maxBytes: 3 })).rejects.toMatchObject({ message: "File changed while reading" });
+      expect(put).not.toHaveBeenCalled();
+    } finally {
+      vi.doUnmock("../src/core/read-bounded-file.js");
+      vi.resetModules();
+    }
   });
 
   it("rejects malformed UTF-8 without changing source hash semantics", async () => {

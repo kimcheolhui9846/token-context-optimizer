@@ -1,10 +1,9 @@
 import { createHash } from "node:crypto";
-import { constants as fsConstants } from "node:fs";
-import { open, realpath, stat } from "node:fs/promises";
-import { isAbsolute, relative, resolve } from "node:path";
 import { inflateSync } from "node:zlib";
 import { decode } from "fast-png";
 import { JpegValidationError, validateJpeg, validateJpegWithPixels } from "./jpeg-validation.js";
+import { ReadBoundedFileError, readBoundedFile } from "./read-bounded-file.js";
+import type { ReadBoundedFileErrorCode } from "./read-bounded-file.js";
 
 import type { ImageArtifactRecord } from "./types.js";
 
@@ -101,58 +100,27 @@ export async function inspectImageArtifact(input: {
   return { ...record };
 }
 
+// Index codes; inspect and crop narrow these in their own catch blocks.
+const readerErrorCodes: Record<ReadBoundedFileErrorCode, string> = {
+  empty_roots: "path_denied",
+  denied: "path_denied",
+  read_failure: "read_failure",
+  changed: "source_changed",
+  non_regular: "non_regular_file",
+  too_large: "encoded_size_exceeded",
+};
+
 async function readBoundedSource(
   path: string,
   allowedRoots: string[],
 ): Promise<{ path: string; bytes: Buffer }> {
-  if (allowedRoots.length === 0) throw new ImageValidationError("path_denied");
-  let canonical: string;
-  let roots: string[];
-  try { canonical = await realpath(resolve(path)); }
-  catch { throw new ImageValidationError("read_failure"); }
-  roots = (await Promise.all(allowedRoots.map(async (root) => {
-    try { return await realpath(resolve(root)); } catch { return null; }
-  }))).filter((root): root is string => root !== null);
-  if (!roots.some((root) => isInside(root, canonical))) throw new ImageValidationError("path_denied");
-  let pathBefore;
-  try { pathBefore = await stat(canonical); }
-  catch { throw new ImageValidationError("read_failure"); }
-  if (!pathBefore.isFile()) throw new ImageValidationError("non_regular_file");
-  if (pathBefore.size > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
-  const flags = fsConstants.O_RDONLY |
-    (process.platform === "win32" ? 0 : fsConstants.O_NONBLOCK) |
-    (fsConstants.O_NOFOLLOW ?? 0);
-  let handle;
-  try { handle = await open(canonical, flags); }
-  catch { throw new ImageValidationError("read_failure"); }
   try {
-    const before = await handle.stat();
-    if (!before.isFile()) throw new ImageValidationError("non_regular_file");
-    if (before.size > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
-    const bytes = Buffer.alloc(before.size + 1);
-    let total = 0;
-    while (total < bytes.length) {
-      const result = await handle.read(bytes, total, bytes.length - total, total);
-      if (result.bytesRead === 0) break;
-      total += result.bytesRead;
-    }
-    const after = await handle.stat();
-    let pathAfter;
-    try {
-      pathAfter = await stat(canonical);
-      const canonicalAfter = await realpath(resolve(path));
-      if (canonicalAfter !== canonical) throw new Error();
-    } catch { throw new ImageValidationError("source_changed"); }
-    if (!sameFileSnapshot(pathBefore, before) || !sameFileSnapshot(before, after) || !sameFileSnapshot(pathBefore, pathAfter) ||
-      before.mtimeMs !== after.mtimeMs || before.ino !== after.ino || total > before.size) {
-      throw new ImageValidationError("source_changed");
-    }
-    if (total > MAX_BYTES) throw new ImageValidationError("encoded_size_exceeded");
-    return { path: canonical, bytes: bytes.subarray(0, total) };
+    const source = await readBoundedFile({ path, allowedRoots, maxBytes: MAX_BYTES });
+    return { path: source.canonicalPath, bytes: source.bytes };
   } catch (error) {
-    if (error instanceof ImageValidationError) throw error;
+    if (error instanceof ReadBoundedFileError) throw new ImageValidationError(readerErrorCodes[error.code]);
     throw new ImageValidationError("read_failure");
-  } finally { try { await handle.close(); } catch { /* sanitized source errors must not expose close details */ } }
+  }
 }
 
 export type ValidatedImagePixels = {
@@ -261,19 +229,3 @@ function crc32(bytes: Buffer): number {
   }
   return (crc ^ 0xffffffff) >>> 0;
 }
-
-function isInside(root: string, target: string): boolean {
-  const relation = relative(root, target);
-  return relation === "" ||
-    (!isAbsolute(relation) && relation !== ".." && !relation.startsWith(`..${requireSeparator()}`));
-}
-
-function sameFileSnapshot(left: { dev: number; ino: number; size: number; mtimeMs: number; ctimeMs: number }, right: { dev: number; ino: number; size: number; mtimeMs: number; ctimeMs: number }): boolean {
-  return left.dev === right.dev &&
-    left.ino === right.ino &&
-    left.size === right.size &&
-    left.mtimeMs === right.mtimeMs &&
-    left.ctimeMs === right.ctimeMs;
-}
-
-function requireSeparator(): string { return process.platform === "win32" ? "\\" : "/"; }

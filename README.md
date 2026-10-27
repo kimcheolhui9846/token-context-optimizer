@@ -69,7 +69,7 @@ npm.cmd run benchmark
 
 Build before packaging the plugin because `.mcp.json` points to the checked-in bundle at `bin/token-context-optimizer.mjs`.
 
-Set `TCO_ALLOWED_ROOTS` to one or more workspace roots separated by `;` before using `index_artifact` or the image tools. The server intentionally separates the plugin install directory from the files Codex is allowed to index.
+Set `TCO_ALLOWED_ROOTS` to one or more workspace roots separated by `;` before using `index_artifact` or the image tools. The server blocks indexing when `TCO_ALLOWED_ROOTS` is unset or empty; text indexing reports the configuration message, while image tools retain their `path_denied` response. Direct API calls that omit `allowedRoots` retain the current-working-directory default. The server intentionally separates the plugin install directory from the files Codex is allowed to index.
 
 ## Local Install
 
