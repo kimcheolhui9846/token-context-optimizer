@@ -138,9 +138,22 @@ crop 설명은 다음으로 바꾼다(기존 full-frame 예외 보존).
 
 - `docs/image-artifacts.md`에 MCP overview use 절: 입력 예제 `{"artifactId":"<indexed image ID>","maxSide":512}`, 성공 metadata/image, 1:1 재인코드, 알파 조건, 결정적 정수 축소·q75, 오류 우선순위와 크기/메모리 제한.
 - 좌표는 `x_src = floor(x * sourceWidth / width)`, `y_src = floor(y * sourceHeight / height)`. 좌표는 overview 기준이며 crop 입력은 원본 기준임을 명시한다. 직사각형 끝점은 source 치수로 제한하고, 작은 글자/정확한 숫자는 원본 crop으로 확인한다. 소수 배율 필드는 반환하지 않는다.
-- **D-7은 6.12b 문서 변경에서 처리한다.** alpha_unsupported 행을 `A partial crop or an overview was requested from an RGBA source, unless it is a tolerant PNG record whose alpha is fully opaque`로 고친다. crop full-frame은 기존 절에서 예외임을 계속 설명한다. 6.10 D-7 제안과 동일한 허용 조건이며 overview 오류 범위만 확장한다. 6.10 전체 D-1–D-6은 건드리지 않는다. 후속 6.10 검토자는 이 행을 이전 문구로 되돌리지 않는다.
+- **D-7은 6.12b 문서 변경에서 처리한다.** alpha_unsupported 행을 `A partial crop or an overview was requested from an RGBA source, unless it is a tolerant PNG record whose alpha is fully opaque`로 고친다. crop full-frame은 기존 절에서 예외임을 계속 설명한다. 6.10 D-7 제안과 동일한 허용 조건이며 overview 오류 범위만 확장한다. 아래 표의 D-2 인접 문장도 6.12b가 처리하지만 6.10 문서 묶음 전체를 구현하지 않는다. 후속 6.10 검토자는 이 결과를 이전 문구로 되돌리지 않는다.
 - 오류 표에 invalid_overview_input(코어 artifactId/maxSide 인자가 잘못됨; MCP는 스키마에서 차단)을 추가한다. artifact_not_indexed, decode_failed, source_changed, source_missing_or_unreadable의 crop 한정 표현에는 overview도 포함한다. 기존 오류 매핑 자체는 바꾸지 않는다.
 - README 이미지 절과 `skills/optimize-context/SKILL.md`의 PNG and JPEG Input Workflow 및 compaction의 crop 안내를 함께 맞춘다. 기존 skill의 RGBA 전체 거부 문구는 tolerant opaque 예외로 좁힌다. sharp lanczos3와 다른 커널, 기존 논문 미평가, overview가 증거 선택/정확값 가독성을 보장하지 않음을 적는다. 연구 수치와 증거 링크 내용은 변경하지 않는다.
+
+문장별 변경 범위(m-1)는 다음과 같다. 위치는 main `69ebb0e` 기준이며 **후속 구현에서** 고친다. crop 자체가 overview를 만들지 않는다는 사실은 유지하고 별도 도구를 안내한다.
+
+| 위치 | 현재 문장 / 후속 처리 |
+|---|---|
+| `README.md:14` | `The plugin does not implement resize, OCR or query-aware region …`를 전체 이미지 overview 축소는 지원하지만 OCR·증거 선택·영역 선택은 하지 않는다는 문장으로 좁힌다. 예: `The plugin provides whole-image downscaled overviews through overview_image_artifact, but does not perform OCR, select evidence, or choose regions.` |
+| `docs/image-artifacts.md:248` (Research boundary) | `This slice does not resize, run OCR, …`도 전체 이미지 overview 축소 지원과 OCR·증거 선택·영역 선택 미지원으로 좁힌다. **6.10 D-2 문안은 6.12b 결과를 따른다.** D-2가 바로 앞 문장을 고칠 때 이 부정 문구를 복구하지 않으며 기존 논문은 연구 하네스를 평가했다는 경계는 유지한다. |
+| `docs/image-artifacts.md:151–152` (MCP crop use) | `optionally using an overview supplied by its own workflow. This tool does not generate an overview …`에서 crop이 overview를 생성하거나 영역을 선택하지 않는다는 사실은 유지한다. 호출자가 `overview_image_artifact` 결과 또는 자기 workflow의 overview로 원본 좌표 영역을 고를 수 있다고 명시한다. |
+| `skills/optimize-context/SKILL.md:49–50` | crop의 `it does not select evidence, generate an overview, …`는 유지하되 별도 `overview_image_artifact`를 호출하면 전체 이미지 overview를 얻는다고 연결한다. 앞의 `resize images` 부정은 index/inspect 동작에 한정하여 플러그인 전체의 축소 미지원으로 읽히지 않게 한다. |
+| `skills/optimize-context/SKILL.md:91–93` (규칙 5) | `It does not select evidence or generate an overview, and has no overview option`은 crop 자체에 관한 설명으로 유지하고 별도 overview 도구를 가리킨다. `Partial crops support RGB PNG or supported JPEG, not RGBA`는 RGB PNG/지원 JPEG 및 tolerant PNG의 `alpha === "opaque"` RGBA만 부분 crop을 허용한다는 D-7과 같은 조건으로 바꾼다. 기존 1536 제한과 full-frame 예외는 유지한다. |
+| `skills/optimize-context/SKILL.md:95–97` (규칙 5) | `view an existing overview or the authorized original`에 `overview_image_artifact` 결과를 쓸 수 있음을 추가한다. `an overview may still be too small to read exact values` 경고는 그대로 둔다. |
+
+SKILL.md 규칙 5의 연구 설계/근거 링크와 image contract 링크는 커밋 고정 URL을 그대로 두고 문장만 최소 변경한다. 규칙 4의 연구 링크나 연구 수치는 고치지 않는다. 위 문구는 제품 테스트가 자동 검출하지 않으므로 §9의 직접 문서 대조를 수행한다.
 
 ## 5. 사전 설계 §2.5 영향 표 전체 분류
 
@@ -269,7 +282,15 @@ npm.cmd run validate:plugin
 git diff --check
 ```
 
-이번 계획 PR은 직접 요구사항/현재 소스 대조와 `git diff --check`만 검증한다. 제품 tests/build/성능 측정 및 custom 검증 스크립트는 실행하지 않는다. Tier D에 따라 Harness reviewer를 호출하지 않는다. 전달문에 기록된 Gemini 교차 확인과 이전 Claude 사전 설계 검토를 이 새 계획의 독립 검토 완료로 주장하지 않는다. 주 에이전트가 계획 전체와 실제 diff를 직접 검토한다.
+구현 뒤 아래 검색으로 README·image-artifacts·SKILL에 남은 resize/overview 부정 문장을 직접 대조한다. `resize_required` 계약은 수정 대상에서 제외한다. crop/index/inspect 자체에 대해 여전히 참인 부정은 삭제하지 않고, §4 표대로 도구 범위가 명확하며 별도 overview 도구를 안내하는지 확인한다. 플러그인 전체가 축소를 지원하지 않는다거나 overview를 외부에서만 구해야 한다는 서술이 남으면 문서를 고친다. 규칙 5의 커밋 고정 링크와 정확값 가독성 경고도 diff로 보존 확인한다.
+
+```powershell
+git grep -n -i "resize\|overview" -- README.md docs/image-artifacts.md skills/optimize-context/SKILL.md
+```
+
+이번 계획 PR은 직접 요구사항/현재 소스 대조와 `git diff --check`만 검증한다. 제품 tests/build/성능 측정 및 custom 검증 스크립트는 실행하지 않는다. Tier D에 따라 Harness reviewer를 추가 호출하지 않는다. 주 에이전트가 계획 전체와 실제 diff를 직접 검토한다.
+
+검토 기록: 사용자 제공 Claude Code / Opus 5.5, head `dd59249` 계획 검토, **REQUEST CHANGES — Minor 1 · Note 2** (`codex_review/codex_review_feedback_2026-10-28_overview-plan-pr81.md`). m-1의 여섯 문장 위치·D-2 연계·링크/경고 보존을 §4에, 구현 뒤 문서 확인을 §9에 반영했다. Note 2건은 조치 불필요다. 이 수정의 Claude 재확인은 대기 상태이며 이전 사전 설계 검토나 전달문 교차 확인을 수정본 승인으로 주장하지 않는다.
 
 계획 파일만 `docs:` Conventional Commit으로 저장하고 `Agent: codex` trailer를 붙인다. codex/overview-plan을 push하고 main 대상 Draft PR을 연다. PR을 연 뒤 동일 문서 검사와 원격 head·Draft 상태를 다시 확인한다. 계획 승인·merge 뒤에도 별도 구현 지시를 기다린다.
 
