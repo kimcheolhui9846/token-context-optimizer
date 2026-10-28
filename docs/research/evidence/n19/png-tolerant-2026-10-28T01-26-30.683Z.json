@@ -1,0 +1,326 @@
+{
+  "schema": "n19-png-tolerant-measurement/v1",
+  "status": "PREPARE_ONLY",
+  "measuredAt": "2026-10-28T01:26:30.683Z",
+  "baselineCommit": "4b67d72",
+  "method": {
+    "fixedOrder": [
+      "A",
+      "A'",
+      "B"
+    ],
+    "samples": 9,
+    "warmups": 3,
+    "cropRegion": {
+      "x": 0,
+      "y": 0,
+      "width": 1536,
+      "height": 1536
+    },
+    "maxBytes": 10485760,
+    "globalGcRequired": true,
+    "prepareOnly": true
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F",
+    "gitHead": "bac0b29d69a60ba8c0aea7387985d4f088455a84",
+    "dirty": true,
+    "scriptSha256": "0b7ecd42a026b1953f45e0eacd3e9ea016a64bd6b33617497fac7b4ccf427953",
+    "childScriptSha256": "5712634d2a9ca622e986e64ca00e0ed7e380e688b5d173844dfbeeca284af0f0",
+    "packageLockSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+    "dependencies": {
+      "fast-png": "8.0.0",
+      "jpeg-js": "0.4.4",
+      "typescript": "5.9.3",
+      "zod": "4.4.3",
+      "vitest": "3.2.7",
+      "esbuild": "0.28.2"
+    }
+  },
+  "inputs": {
+    "rgb": {
+      "path": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\input-rgb.png",
+      "sha256": "a4441f68e74346004fa465a41f9698f504a3d894f7f2e34876d0e8b3ec5068ab",
+      "bytes": 250444,
+      "width": 4096,
+      "height": 4096,
+      "channels": 3
+    },
+    "tolerant": {
+      "path": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\input-tolerant-worst.png",
+      "sha256": "a774b9f1e9e83b825a67c9546ca05d5eb0b33c923feaf8f87182518f776239a4",
+      "bytes": 10485753,
+      "ancillaryCount": 873807,
+      "coreBytes": 69,
+      "chunkType": "caBX",
+      "chunkLength": 0
+    },
+    "rgba": {
+      "path": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\input-rgba.png",
+      "sha256": "292b2f177b478cb0e67be87e535cf493c50dfa1a7b880dfe2fe8ff57db019ace",
+      "bytes": 334967,
+      "width": 4096,
+      "height": 4096,
+      "channels": 4
+    }
+  },
+  "variants": {
+    "A": {
+      "sourceSha256": "fe200b1d455109ed1266853d771253b78fa4f1d61917f08cbdd1b389307b6960",
+      "compiledSha256": "bd26db40838fa20e854afb0108ce4e6a689dd8bbe991157a4742aa1b3b5ceebc",
+      "files": {
+        "src/core/artifacts.ts": {
+          "sha256": "0524020476d123b52cd3a13b806e6856fb26392e72b11c974b1cab6768726418",
+          "basis": "git-blob",
+          "bytes": 15134
+        },
+        "src/core/image-artifacts.ts": {
+          "sha256": "b64114a98ff6090db5ed97bacd5110f2c243ed7797d02ad63846b96476ac561a",
+          "basis": "git-blob",
+          "bytes": 10702
+        },
+        "src/core/image-crop.ts": {
+          "sha256": "d545b6bcff59265d45e6e94352daff83d43d0b47d135b44405d30c15709b75dd",
+          "basis": "git-blob",
+          "bytes": 4087
+        },
+        "src/core/jpeg-validation.ts": {
+          "sha256": "940c537fc48437de37c33006bd23244f9704f95f5d4fb83aebfbb7312b64e3ec",
+          "basis": "git-blob",
+          "bytes": 10383
+        },
+        "src/core/policy.ts": {
+          "sha256": "c8ff470444f932714773f4cf65b84218f73f121069695a1ee91113e868af3597",
+          "basis": "git-blob",
+          "bytes": 25876
+        },
+        "src/core/read-bounded-file.ts": {
+          "sha256": "226bcc026cbc71a6a51ec5b4da045f3f125b9e23bb9baf463576b11c8db899e5",
+          "basis": "git-blob",
+          "bytes": 6106
+        },
+        "src/core/token-estimator.ts": {
+          "sha256": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+          "basis": "git-blob",
+          "bytes": 1006
+        },
+        "src/core/types.ts": {
+          "sha256": "4e6e524008957a6ce96f4b4958fc0678a4b92389b3f0fefb0ceaa3a2054d101c",
+          "basis": "git-blob",
+          "bytes": 1315
+        }
+      },
+      "compiledFiles": {
+        "src/core/artifacts.ts": {
+          "sha256": "967df687f2be1e7c1beb43a8175b91ecdb9e0bc4e4dbaec35044ce9272ddece5",
+          "bytes": 14327
+        },
+        "src/core/image-artifacts.ts": {
+          "sha256": "295ddc467740d9a53fe5f26b54da77e148c6a430f4922a8d6bd30e684633b56f",
+          "bytes": 10959
+        },
+        "src/core/image-crop.ts": {
+          "sha256": "2803e70939b0377dcd62316097cede1e356d4574945f44c269f4843e6542ce3f",
+          "bytes": 3868
+        },
+        "src/core/jpeg-validation.ts": {
+          "sha256": "26b19f852a70616782b8ec75de2582112de1557ea81c7ff35f37f76afa0ace5a",
+          "bytes": 11354
+        },
+        "src/core/policy.ts": {
+          "sha256": "cbcafbf2ab717d682805970c163586b2872c37b459db3707ec28ed6d427b943f",
+          "bytes": 27243
+        },
+        "src/core/read-bounded-file.ts": {
+          "sha256": "08b4cd7cb92620776282471812443e464d92637d01c8605e1148339b89d87b63",
+          "bytes": 5972
+        },
+        "src/core/token-estimator.ts": {
+          "sha256": "7f2ea6d209c8707834d8b20dc9ef73e89a5c8465a90ba8ef90ec9c0185f6e8fe",
+          "bytes": 1075
+        },
+        "src/core/types.ts": {
+          "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230",
+          "bytes": 77
+        }
+      },
+      "basis": "git-blob",
+      "compiledRoot": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\compiled\\A"
+    },
+    "A'": {
+      "sourceSha256": "fe200b1d455109ed1266853d771253b78fa4f1d61917f08cbdd1b389307b6960",
+      "compiledSha256": "bd26db40838fa20e854afb0108ce4e6a689dd8bbe991157a4742aa1b3b5ceebc",
+      "files": {
+        "src/core/artifacts.ts": {
+          "sha256": "0524020476d123b52cd3a13b806e6856fb26392e72b11c974b1cab6768726418",
+          "basis": "git-blob",
+          "bytes": 15134
+        },
+        "src/core/image-artifacts.ts": {
+          "sha256": "b64114a98ff6090db5ed97bacd5110f2c243ed7797d02ad63846b96476ac561a",
+          "basis": "git-blob",
+          "bytes": 10702
+        },
+        "src/core/image-crop.ts": {
+          "sha256": "d545b6bcff59265d45e6e94352daff83d43d0b47d135b44405d30c15709b75dd",
+          "basis": "git-blob",
+          "bytes": 4087
+        },
+        "src/core/jpeg-validation.ts": {
+          "sha256": "940c537fc48437de37c33006bd23244f9704f95f5d4fb83aebfbb7312b64e3ec",
+          "basis": "git-blob",
+          "bytes": 10383
+        },
+        "src/core/policy.ts": {
+          "sha256": "c8ff470444f932714773f4cf65b84218f73f121069695a1ee91113e868af3597",
+          "basis": "git-blob",
+          "bytes": 25876
+        },
+        "src/core/read-bounded-file.ts": {
+          "sha256": "226bcc026cbc71a6a51ec5b4da045f3f125b9e23bb9baf463576b11c8db899e5",
+          "basis": "git-blob",
+          "bytes": 6106
+        },
+        "src/core/token-estimator.ts": {
+          "sha256": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+          "basis": "git-blob",
+          "bytes": 1006
+        },
+        "src/core/types.ts": {
+          "sha256": "4e6e524008957a6ce96f4b4958fc0678a4b92389b3f0fefb0ceaa3a2054d101c",
+          "basis": "git-blob",
+          "bytes": 1315
+        }
+      },
+      "compiledFiles": {
+        "src/core/artifacts.ts": {
+          "sha256": "967df687f2be1e7c1beb43a8175b91ecdb9e0bc4e4dbaec35044ce9272ddece5",
+          "bytes": 14327
+        },
+        "src/core/image-artifacts.ts": {
+          "sha256": "295ddc467740d9a53fe5f26b54da77e148c6a430f4922a8d6bd30e684633b56f",
+          "bytes": 10959
+        },
+        "src/core/image-crop.ts": {
+          "sha256": "2803e70939b0377dcd62316097cede1e356d4574945f44c269f4843e6542ce3f",
+          "bytes": 3868
+        },
+        "src/core/jpeg-validation.ts": {
+          "sha256": "26b19f852a70616782b8ec75de2582112de1557ea81c7ff35f37f76afa0ace5a",
+          "bytes": 11354
+        },
+        "src/core/policy.ts": {
+          "sha256": "cbcafbf2ab717d682805970c163586b2872c37b459db3707ec28ed6d427b943f",
+          "bytes": 27243
+        },
+        "src/core/read-bounded-file.ts": {
+          "sha256": "08b4cd7cb92620776282471812443e464d92637d01c8605e1148339b89d87b63",
+          "bytes": 5972
+        },
+        "src/core/token-estimator.ts": {
+          "sha256": "7f2ea6d209c8707834d8b20dc9ef73e89a5c8465a90ba8ef90ec9c0185f6e8fe",
+          "bytes": 1075
+        },
+        "src/core/types.ts": {
+          "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230",
+          "bytes": 77
+        }
+      },
+      "basis": "git-blob",
+      "compiledRoot": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\compiled\\A-copy"
+    },
+    "B": {
+      "sourceSha256": "1886e8414ad77d5f303c907cf98f6192987be19043787c71f4a21df811ba2401",
+      "compiledSha256": "5940cf19f6ee08c85a6d23bade4deb8a3a15fedefcf9906c28c88702da3b6759",
+      "files": {
+        "src/core/artifacts.ts": {
+          "sha256": "2e51cdeea2efd32bd37f869e8fad3f5bbd9d68d7e1043aa04fb45f387ed88f0c",
+          "basis": "worktree",
+          "bytes": 15660
+        },
+        "src/core/image-artifacts.ts": {
+          "sha256": "4e422562d6f0f862a487af211a02a1af87e14142ca71cd1cda1587c52fe36d62",
+          "basis": "worktree",
+          "bytes": 16514
+        },
+        "src/core/image-crop.ts": {
+          "sha256": "95939be5a6a1ea97a93737b59f2617f0dfeb7ace9a3da74a650e0dd0f5cab0b6",
+          "basis": "worktree",
+          "bytes": 4142
+        },
+        "src/core/jpeg-validation.ts": {
+          "sha256": "957138e9cd755e910da5fccdd7e6e44e5c1c647460777d6695aa1f894550e713",
+          "basis": "worktree",
+          "bytes": 10641
+        },
+        "src/core/policy.ts": {
+          "sha256": "c22967b79d1533b97a3078a61cdcf39658421d6ec82142bce97db16c513c9572",
+          "basis": "worktree",
+          "bytes": 26713
+        },
+        "src/core/read-bounded-file.ts": {
+          "sha256": "3c84d872dbcfddb448c9b32be43cd5f6cc695a8fa7c3b9f3911c56bddebed533",
+          "basis": "worktree",
+          "bytes": 6238
+        },
+        "src/core/token-estimator.ts": {
+          "sha256": "c08de3325f4f3111ee7e952de80dfc43e8c1e6da25ff5eb2770ad30e7c836114",
+          "basis": "worktree",
+          "bytes": 1039
+        },
+        "src/core/types.ts": {
+          "sha256": "f186fd524751b3d70129ad02d6a37a05e2496ee043611c75d22ca6c4d2a34096",
+          "basis": "worktree",
+          "bytes": 1565
+        }
+      },
+      "compiledFiles": {
+        "src/core/artifacts.ts": {
+          "sha256": "967df687f2be1e7c1beb43a8175b91ecdb9e0bc4e4dbaec35044ce9272ddece5",
+          "bytes": 14327
+        },
+        "src/core/image-artifacts.ts": {
+          "sha256": "731031acee1904e63ae15f18f8537dc0067bc47b3f0738905581ebfb63b3864c",
+          "bytes": 16736
+        },
+        "src/core/image-crop.ts": {
+          "sha256": "2803e70939b0377dcd62316097cede1e356d4574945f44c269f4843e6542ce3f",
+          "bytes": 3868
+        },
+        "src/core/jpeg-validation.ts": {
+          "sha256": "26b19f852a70616782b8ec75de2582112de1557ea81c7ff35f37f76afa0ace5a",
+          "bytes": 11354
+        },
+        "src/core/policy.ts": {
+          "sha256": "cbcafbf2ab717d682805970c163586b2872c37b459db3707ec28ed6d427b943f",
+          "bytes": 27243
+        },
+        "src/core/read-bounded-file.ts": {
+          "sha256": "08b4cd7cb92620776282471812443e464d92637d01c8605e1148339b89d87b63",
+          "bytes": 5972
+        },
+        "src/core/token-estimator.ts": {
+          "sha256": "7f2ea6d209c8707834d8b20dc9ef73e89a5c8465a90ba8ef90ec9c0185f6e8fe",
+          "bytes": 1075
+        },
+        "src/core/types.ts": {
+          "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230",
+          "bytes": 77
+        }
+      },
+      "basis": "worktree",
+      "compiledRoot": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\compiled\\B"
+    }
+  },
+  "strict": {
+    "index": [],
+    "crop": []
+  },
+  "tolerant": {},
+  "failures": []
+}

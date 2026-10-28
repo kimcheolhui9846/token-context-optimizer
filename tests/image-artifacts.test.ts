@@ -4,6 +4,7 @@ import { mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from "node
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { decode as fastPngDecode } from "fast-png";
 import type { TestContext } from "vitest";
 
 import {
@@ -13,6 +14,13 @@ import {
   inspectImageArtifact,
 } from "../src/core/image-artifacts.js";
 import type { ReadBoundedFileErrorCode } from "../src/core/read-bounded-file.js";
+
+vi.mock("fast-png", async () => {
+  const actual = await vi.importActual<typeof import("fast-png")>("fast-png");
+  return { ...actual, decode: vi.fn(actual.decode) };
+});
+
+const decodeSpy = vi.mocked(fastPngDecode);
 
 const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const temporaryRoots = new Set<string>();
@@ -78,6 +86,248 @@ afterEach(async () => {
 });
 
 describe("image artifact ingestion", () => {
+  it("accepts tolerant ancillary chunks and records alpha metadata", async () => {
+    const base = png(2, 1, 4, Buffer.from([0, 10, 20, 30, 255, 40, 50, 60, 255]));
+    const ihdrEnd = 8 + 12 + 13;
+    const bytes = Buffer.concat([
+      base.subarray(0, ihdrEnd),
+      chunk("sRGB", Buffer.from([0])),
+      chunk("gAMA", Buffer.from([1, 2, 3])),
+      chunk("pHYs", Buffer.from([1, 2, 3])),
+      base.subarray(ihdrEnd),
+    ]);
+    const f = await fixture(bytes);
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" });
+    if (record.validationProfile !== "png-rgb8-tolerant-v1") throw new Error("expected tolerant record");
+    expect(record).toMatchObject({ validationProfile: "png-rgb8-tolerant-v1", ignoredChunks: ["sRGB", "gAMA", "pHYs"], alpha: "opaque" });
+    const strict = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store }).catch((error: unknown) => error);
+    expect(strict).toMatchObject({ code: "unsupported_png_profile" });
+  });
+
+  it("passes only core PNG bytes to fast-png for iCCP payloads", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const profile = Buffer.concat([Buffer.from("profile\0", "ascii"), Buffer.from([0]), deflateSync(Buffer.alloc(64 * 1024 * 1024, 65))]);
+    const bytes = Buffer.concat([base.subarray(0, ihdrEnd), chunk("iCCP", profile), base.subarray(ihdrEnd)]);
+    const f = await fixture(bytes);
+    decodeSpy.mockClear();
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" })).resolves.toMatchObject({ ignoredChunks: ["iCCP"] });
+    expect(decodeSpy).toHaveBeenCalled();
+    expect(decodeSpy.mock.calls.at(-1)?.[0]).toEqual(base);
+  });
+
+  it.each(["PLTE", "tRNS", "acTL", "fcTL", "fdAT", "ABCD", "caBX"])("handles tolerant chunk %s", async (type) => {
+    const base = png(1, 1, 3);
+    const ihdrEnd = 8 + 12 + 13;
+    const bytes = Buffer.concat([base.subarray(0, ihdrEnd), chunk(type, Buffer.from([1])), base.subarray(ihdrEnd)]);
+    const f = await fixture(bytes);
+    const result = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" }).catch((error: unknown) => error);
+    if (type === "caBX") expect(result).toMatchObject({ validationProfile: "png-rgb8-tolerant-v1", ignoredChunks: ["caBX"] });
+    else expect(result).toMatchObject({ code: "unsupported_png_profile" });
+  });
+
+  it("accepts every named ancillary chunk without parsing payloads and keeps first order", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const types = ["caBX", "tEXt", "zTXt", "iTXt", "tIME", "bKGD", "cHRM", "eXIf", "tEXt"];
+    const chunks = types.map((type, index) => chunk(type, index === 1 ? Buffer.from([0xff]) : index === 2 ? Buffer.from([0, 1]) : index === 3 ? Buffer.from([0, 1, 2]) : Buffer.from([index])));
+    const bytes = Buffer.concat([base.subarray(0, ihdrEnd), ...chunks, base.subarray(ihdrEnd)]);
+    const f = await fixture(bytes);
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" })).resolves.toMatchObject({ ignoredChunks: ["caBX", "tEXt", "zTXt", "iTXt", "tIME", "bKGD", "cHRM", "eXIf"] });
+  });
+
+  it("rejects ancillary CRC corruption, noncontiguous IDAT, and trailing bytes", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const idat = base.subarray(ihdrEnd, base.length - 12);
+    const data = idat.subarray(8, idat.length - 4);
+    const first = data.subarray(0, Math.max(1, Math.floor(data.length / 2)));
+    const second = data.subarray(first.length);
+    const cases = [
+      Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.from([1]), true), base.subarray(ihdrEnd)]),
+      Buffer.concat([base.subarray(0, ihdrEnd), chunk("IDAT", first), chunk("caBX", Buffer.alloc(0)), chunk("IDAT", second), chunk("IEND", Buffer.alloc(0))]),
+      Buffer.concat([base, Buffer.from([1])]),
+    ];
+    for (const bytes of cases) {
+      const f = await fixture(bytes);
+      await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" })).rejects.toMatchObject({ code: "malformed_png" });
+    }
+  });
+
+  it("keeps strict and tolerant PNG identities separate and JPEG tolerant identity strict", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const store = new MemoryImageArtifactStore();
+    const strict = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store });
+    const tolerant = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" });
+    expect(tolerant.artifactId).not.toBe(strict.artifactId);
+    expect(store.size).toBe(2);
+    const jpegRoot = await mkdtemp(join(tmpdir(), "tco-jpeg-tolerant-")); temporaryRoots.add(jpegRoot);
+    const jpegPath = join(jpegRoot, "source.jpg");
+    await writeFile(jpegPath, await readFile("tests/fixtures/jpeg/checkedin-odd-17x9.jpg"));
+    const jpegStrict = await indexImageArtifact({ path: jpegPath, allowedRoots: [jpegRoot], store });
+    const jpegTolerant = await indexImageArtifact({ path: jpegPath, allowedRoots: [jpegRoot], store, profile: "tolerant" });
+    expect(jpegTolerant.artifactId).toBe(jpegStrict.artifactId);
+    expect(jpegTolerant).toEqual(jpegStrict);
+    expect(store.size).toBe(3);
+  });
+
+  it("uses the exact legacy strict identity formula and stable repeated IDs", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root] });
+    const canonical = await realpath(f.path);
+    const expected = `image_${createHash("sha256").update(`${canonical}\0${record.sha256}`).digest("hex").slice(0, 16)}`;
+    expect(record.artifactId).toBe(expected);
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root] })).resolves.toMatchObject({ artifactId: expected });
+  });
+
+  it("rejects the 33rd ignored chunk and reports non-opaque alpha", async () => {
+    const base = png(1, 1, 4, Buffer.from([0, 10, 20, 30, 254]));
+    const ihdrEnd = 8 + 12 + 13;
+    const chunks = Array.from({ length: 33 }, (_, index) => chunk(`ca${String.fromCharCode(65 + Math.floor(index / 26))}${String.fromCharCode(65 + (index % 26))}`, Buffer.alloc(0)));
+    const tooMany = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), ...chunks, base.subarray(ihdrEnd)]));
+    await expect(indexImageArtifact({ path: tooMany.path, allowedRoots: [tooMany.root], profile: "tolerant" })).rejects.toMatchObject({ code: "unsupported_png_profile" });
+    const alpha = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.alloc(0)), base.subarray(ihdrEnd)]));
+    await expect(indexImageArtifact({ path: alpha.path, allowedRoots: [alpha.root], profile: "tolerant" })).resolves.toMatchObject({ alpha: "present" });
+  });
+
+  it("accepts exactly 32 ignored chunk types and keeps tolerant IDs stable", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const chunks = Array.from({ length: 32 }, (_, index) => chunk(`c${String.fromCharCode(65 + Math.floor(index / 26))}${String.fromCharCode(65 + (index % 26))}X`, Buffer.alloc(0)));
+    const f = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), ...chunks, base.subarray(ihdrEnd)]));
+    const first = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" });
+    const second = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" });
+    expect((first as Extract<typeof first, { validationProfile: "png-rgb8-tolerant-v1" }>).ignoredChunks).toHaveLength(32);
+    expect(second.artifactId).toBe(first.artifactId);
+  });
+
+  it("preserves tolerant structural error classes and limits", async () => {
+    const base = png(1, 1, 3);
+    const ihdr = base.subarray(8, 8 + 12 + 13);
+    const afterIhdr = base.subarray(8 + 12 + 13);
+    const iend = chunk("IEND", Buffer.alloc(0));
+    const badName = Buffer.concat([signature, ihdr, chunkWithTypeBytes(Buffer.from([0, 65, 65, 65]), Buffer.alloc(0)), afterIhdr]);
+    const duplicate = Buffer.concat([signature, ihdr, ihdr, afterIhdr]);
+    const missingHeader = Buffer.concat([signature, afterIhdr]);
+    const missingIdat = Buffer.concat([signature, ihdr, iend]);
+    const truncated = base.subarray(0, base.length - 1);
+    const badIend = Buffer.concat([base.subarray(0, base.length - 12), chunk("IEND", Buffer.from([1]))]);
+    const unsupportedIhdr = Buffer.alloc(13); unsupportedIhdr.writeUInt32BE(1, 0); unsupportedIhdr.writeUInt32BE(1, 4); unsupportedIhdr[8] = 8; unsupportedIhdr[9] = 0;
+    const unsupported = Buffer.concat([signature, chunk("IHDR", unsupportedIhdr), afterIhdr]);
+    const badFilter = png(1, 1, 3, Buffer.from([5, 1, 2, 3]));
+    const badInflate = Buffer.concat([signature, ihdr, chunk("IDAT", deflateSync(Buffer.from([0]))), iend]);
+    for (const [bytes, code] of [
+      [duplicate, "malformed_png"], [missingHeader, "malformed_png"], [missingIdat, "malformed_png"],
+      [truncated, "malformed_png"], [badName, "malformed_png"], [badIend, "malformed_png"],
+      [unsupported, "unsupported_png_profile"], [badFilter, "malformed_png"], [badInflate, "malformed_png"],
+      [png(8193, 1, 3), "image_dimensions_exceeded"],
+    ] as const) {
+      const f = await fixture(bytes);
+      await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" })).rejects.toMatchObject({ code });
+    }
+  });
+
+  it("copies tolerant ignoredChunks through index, store put/get, and returned records", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const f = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.from([1])), base.subarray(ihdrEnd)]));
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" });
+    const tolerant = record as Extract<typeof record, { validationProfile: "png-rgb8-tolerant-v1" }>;
+    tolerant.ignoredChunks.push("mutated");
+    const stored = store.get(record.artifactId) as typeof tolerant; expect(stored.ignoredChunks).toEqual(["caBX"]);
+    stored.ignoredChunks.push("mutated");
+    expect((store.get(record.artifactId) as typeof tolerant).ignoredChunks).toEqual(["caBX"]);
+  });
+
+  it("keeps Memory store put input arrays isolated from later mutation", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const f = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.alloc(0)), base.subarray(ihdrEnd)]));
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant", store });
+    const input = store.get(record.artifactId)!;
+    if (!('ignoredChunks' in input)) throw new Error("expected tolerant record");
+    store.put(input);
+    input.ignoredChunks.push("mutated-input");
+    expect((store.get(record.artifactId) as typeof input).ignoredChunks).toEqual(["caBX"]);
+  });
+
+  it("accepts contiguous split IDAT followed by ancillary chunks and decodes only original core bytes", async () => {
+    const base = png(2, 1, 3);
+    const dataLength = base.readUInt32BE(33);
+    const compressed = base.subarray(41, 41 + dataLength);
+    const middle = Math.floor(compressed.length / 2);
+    const core = Buffer.concat([base.subarray(0, 33), chunk("IDAT", compressed.subarray(0, middle)), chunk("IDAT", compressed.subarray(middle)), chunk("IEND", Buffer.alloc(0))]);
+    const f = await fixture(Buffer.concat([core.subarray(0, -12), chunk("tEXt", Buffer.from([0xff])), core.subarray(-12)]));
+    decodeSpy.mockClear();
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" })).resolves.toMatchObject({ ignoredChunks: ["tEXt"], alpha: "none" });
+    expect(decodeSpy.mock.calls.at(-1)![0]).toEqual(core);
+  });
+
+  it("revalidates tolerant metadata during inspect and reports metadata tampering as decode_failed", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const f = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.alloc(0)), base.subarray(ihdrEnd)]));
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant", store });
+    const saved = store.get(record.artifactId)!;
+    if (!('ignoredChunks' in saved)) throw new Error("expected tolerant record");
+    (saved as Extract<typeof saved, { validationProfile: "png-rgb8-tolerant-v1" }>).ignoredChunks = ["different"];
+    store.put(saved);
+    await expect(inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "decode_failed" });
+  });
+
+  it("maps missing, non-array, reordered, and alpha metadata tampering to decode_failed", async () => {
+    const base = png(1, 1, 3, Buffer.from([0, 1, 2, 3]));
+    for (const mutate of [
+      (value: any) => { delete value.ignoredChunks; },
+      (value: any) => { value.ignoredChunks = "caBX"; },
+      (value: any) => { value.ignoredChunks = ["tEXt", "caBX"]; },
+      (value: any) => { delete value.alpha; },
+      (value: any) => { value.alpha = "present"; },
+    ]) {
+      const f = await fixture(Buffer.concat([base.subarray(0, 8 + 12 + 13), chunk("caBX", Buffer.alloc(0)), chunk("tEXt", Buffer.from([1])), base.subarray(8 + 12 + 13)]));
+      const store = new MemoryImageArtifactStore();
+      const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant", store });
+      const tampered: any = store.get(record.artifactId);
+      mutate(tampered);
+      store.put(tampered);
+      await expect(inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "decode_failed" });
+    }
+  });
+
+  it("does not expose arrays from a reference-returning store inspect result", async () => {
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const f = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.alloc(0)), chunk("tEXt", Buffer.from([1])), base.subarray(ihdrEnd)]));
+    let stored: any;
+    const store = { get: () => stored, put: (record: any) => { stored = record; } };
+    const indexed = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant", store });
+    const inspected = await inspectImageArtifact({ artifactId: indexed.artifactId, allowedRoots: [f.root], store });
+    (inspected as any).ignoredChunks.reverse();
+    expect((await inspectImageArtifact({ artifactId: indexed.artifactId, allowedRoots: [f.root], store }) as any).ignoredChunks).toEqual(["caBX", "tEXt"]);
+  });
+
+  it("isolates index output from a reference-returning custom store and put input mutation", async () => {
+    let stored: any;
+    const store = {
+      get: () => stored,
+      put: (record: any) => { stored = record; record.ignoredChunks.push("mutated-in-put"); },
+    };
+    const base = png(1, 1, 3); const ihdrEnd = 8 + 12 + 13;
+    const f = await fixture(Buffer.concat([base.subarray(0, ihdrEnd), chunk("caBX", Buffer.alloc(0)), base.subarray(ihdrEnd)]));
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant", store });
+    expect((record as Extract<typeof record, { validationProfile: "png-rgb8-tolerant-v1" }>).ignoredChunks).toEqual(["caBX"]);
+    expect(stored.ignoredChunks).toEqual(["caBX", "mutated-in-put"]);
+    (record as Extract<typeof record, { validationProfile: "png-rgb8-tolerant-v1" }>).ignoredChunks.push("mutated-after-return");
+    expect(stored.ignoredChunks).toEqual(["caBX", "mutated-in-put"]);
+  });
+
+  it("reports RGB alpha none in tolerant profile", async () => {
+    const f = await fixture(png(1, 1, 3));
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant" })).resolves.toMatchObject({ channels: 3, alpha: "none", ignoredChunks: [] });
+  });
+  it("reports source_changed for tolerant inspect after bytes change", async () => {
+    const f = await fixture(png(1, 1, 3));
+    const store = new MemoryImageArtifactStore();
+    const record = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], profile: "tolerant", store });
+    await writeFile(f.path, Buffer.concat([await readFile(f.path), Buffer.from([0])]));
+    await expect(inspectImageArtifact({ artifactId: record.artifactId, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "source_changed" });
+  });
   it("indexes independent RGB and RGBA PNGs and preserves the original hash", async () => {
     const rgb = await fixture(png(2, 1, 3));
     const rgba = await fixture(png(1, 2, 4));

@@ -14,11 +14,28 @@ Every chunk's bounds and CRC are checked. Inflation must consume the entire
 compressed stream and produce exactly the expected scanlines with filter bytes
 0–4 before a separate PNG decode is accepted.
 
-All other chunks are rejected, including text, color profiles, transparency
+`index_image_artifact` defaults to this strict profile. Pass
+`{"profile":"tolerant"}` to opt into `png-rgb8-tolerant-v1`: it keeps the same
+8-bit RGB/RGBA and size limits, CRC checks, and core chunk ordering, while
+ignoring at most 32 distinct ancillary chunk types (including `sRGB`, `gAMA`, and
+`pHYs`) without interpreting their payloads. Color information in `iCCP`, `sRGB`,
+`gAMA`, and `cHRM` is not applied; stored pixel values are used without color management. The returned record lists
+their first-seen names in `ignoredChunks` and reports PNG alpha as `none`,
+`opaque`, or `present`.
+RGB PNGs report `none`; RGBA PNGs report `opaque` only when every alpha byte is
+255, otherwise `present`. Repeated chunk types count once; a 33rd distinct type
+returns `unsupported_png_profile`.
+
+The tolerant decoder receives only the original PNG signature, IHDR, contiguous
+IDAT chunks, and IEND, including their original CRC bytes. Ancillary payloads
+are excluded from decoder input after their bounds and CRC are checked.
+
+In strict mode, all other chunks are rejected, including text, color profiles, transparency
 metadata and animation control. Many otherwise valid PNGs therefore do not
-qualify. The current runtime accepts `png-rgb8-static-v1` and
-`jpeg-ycbcr8-baseline-444-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
-progressive/subsampled JPEG and WEBP are not accepted. Broader format support
+qualify. The current runtime accepts `png-rgb8-static-v1`,
+`png-rgb8-tolerant-v1`, and `jpeg-ycbcr8-baseline-444-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
+progressive/subsampled JPEG and WEBP are not accepted. PLTE, tRNS, APNG control,
+and unknown critical chunks remain rejected in tolerant mode. Broader format support
 belongs to a later contract. The tools never
 convert unsupported originals automatically.
 
@@ -106,10 +123,18 @@ Both tools return the same record as JSON text and structured content:
 | `format`, `mimeType` | `png`/`image/png` or `jpeg`/`image/jpeg` |
 | `width`, `height` | Validated pixel dimensions |
 | `channels`, `bitDepth` | PNG: 3 or 4 channels; JPEG: 3 channels; 8-bit depth |
-| `validationProfile` | `png-rgb8-static-v1` or `jpeg-ycbcr8-baseline-444-v1` |
+| `validationProfile` | `png-rgb8-static-v1`, `png-rgb8-tolerant-v1`, or `jpeg-ycbcr8-baseline-444-v1` |
 
-Records contain no pixels, OCR or ancillary metadata. The same canonical path
-and bytes produce the same ID; a different path is a distinct source even if its
+Tolerant PNG records also contain `ignoredChunks` and `alpha`. Profile selection
+is part of validation: tolerant PNGs have a profile-specific artifact ID, while
+strict PNG and JPEG IDs retain their existing identity behavior. JPEG fallback
+remains strict and uses `jpeg-ycbcr8-baseline-444-v1`; it has no tolerant PNG
+fields. A JPEG indexed with `profile: "tolerant"` therefore has the same ID and
+stored record as a strict request for the same path and bytes.
+
+Records contain no pixels, OCR or ancillary metadata payload; tolerant records
+retain only ignored chunk names and alpha state. The same canonical path, bytes,
+and validation profile produce the same ID; a different path is a distinct source even if its
 bytes match. Store reads and writes copy the metadata. Failed indexing does not
 insert a record. Existing text artifact IDs and APIs remain separate.
 
@@ -119,7 +144,7 @@ Call `crop_image_artifact` with `{"artifactId":"<indexed image ID>","region":{"x
 Coordinates are zero-based safe integers. Empty regions return `region_empty`;
 negative or out-of-bounds regions return `region_out_of_bounds`; an unknown ID
 returns `artifact_not_indexed`. A full-frame region returns the validated
-original without encoding. Partial RGBA sources return `alpha_unsupported`,
+original without encoding. Strict RGBA and non-opaque tolerant RGBA partial crops return `alpha_unsupported`,
 and any non-full-frame crop wider or taller than 1536 pixels returns an
 `isError` response with `status:"rejected"` and `code:"resize_required"`.
 
@@ -127,8 +152,10 @@ The caller chooses the rectangle, optionally using an overview supplied by its
 own workflow. This tool does not generate an overview or choose an area. Right
 and bottom edges are exclusive; coordinates are never rounded or clamped.
 Full-frame requests take priority over the 1536 cap and RGBA rejection, including
-large RGBA originals. A partial RGBA crop is rejected even when all alpha values
-are 255. For an oversized partial RGBA crop, `resize_required` takes priority.
+large RGBA originals. Strict RGBA and tolerant PNGs with `alpha:"present"` are
+rejected for partial crops with `alpha_unsupported`; tolerant PNGs with
+`alpha:"opaque"` may be partially cropped. For an oversized partial RGBA crop,
+`resize_required` takes priority.
 
 Original and resize-required responses include the revalidated source record;
 they carry no image bytes or invented output/encoder fields. References describe

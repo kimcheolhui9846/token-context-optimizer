@@ -22,6 +22,15 @@ sampling. Independent checked-in fixtures and their encoder provenance are under
 `tests/fixtures/jpeg/`; fixture validation does not claim image quality or hosted
 model performance.
 
+PNG indexing is strict by default. Call `index_image_artifact` with
+`profile:"tolerant"` for bounded ancillary-chunk tolerance; the result records
+the actual `png-rgb8-tolerant-v1` profile, ignored chunk names, and alpha state.
+Color information in `iCCP`, `sRGB`, `gAMA`, and `cHRM` is not applied;
+physical-resolution metadata such as `pHYs` is also ignored. Strict RGBA remains partial-crop incompatible;
+tolerant PNG RGB partial crops remain allowed; RGBA partial crops are allowed
+only when every alpha byte is 255 (`opaque`). RGB records report `none`; RGBA
+records with any alpha byte below 255 report `present`.
+
 ## Research Status
 
 Three experiments have been run with GPT-4o and Claude Haiku 4.5; experiments 2

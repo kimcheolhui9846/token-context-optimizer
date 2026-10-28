@@ -33,6 +33,13 @@ export type ImageArtifactRecord = {
   channels: 3 | 4;
   validationProfile: "png-rgb8-static-v1";
 } | {
+  format: "png";
+  mimeType: "image/png";
+  channels: 3 | 4;
+  validationProfile: "png-rgb8-tolerant-v1";
+  ignoredChunks: string[];
+  alpha: "none" | "opaque" | "present";
+} | {
   format: "jpeg";
   mimeType: "image/jpeg";
   channels: 3;

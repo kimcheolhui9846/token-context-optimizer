@@ -6,6 +6,8 @@ import { CropMcpClient, type RpcResponse } from "./helpers/crop-mcp-client.js";
 
 const baseTools = JSON.parse(await readFile("tests/fixtures/task39-base-tools.json", "utf8")).tools as any[];
 const queryDescription = "Return bounded source excerpts for an indexed artifact with line evidence. By default, include up to five excerpts around positive highest-score ties in file order; maxExcerpts can select 1-20 excerpts. Shared excerpt text counts once toward the token budget, and omitted matches are reported in moreMatches.";
+const tolerantSchemaVariant = { type: "object", properties: { artifactId: { type: "string" }, path: { type: "string" }, sha256: { type: "string" }, byteLength: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, format: { type: "string", const: "png" }, mimeType: { type: "string", const: "image/png" }, width: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, height: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, channels: { anyOf: [{ type: "number", const: 3 }, { type: "number", const: 4 }] }, bitDepth: { type: "number", const: 8 }, validationProfile: { type: "string", const: "png-rgb8-tolerant-v1" }, ignoredChunks: { type: "array", items: { type: "string" } }, alpha: { type: "string", enum: ["none", "opaque", "present"] } }, required: ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "ignoredChunks", "alpha"], additionalProperties: false };
+function withTolerantSchema(value: any): any { if (Array.isArray(value)) return value.map(withTolerantSchema); if (!value || typeof value !== "object") return value; const copy = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withTolerantSchema(item)])); if (Array.isArray(copy.anyOf) && copy.anyOf.some((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1")) { const index = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1"); copy.anyOf.splice(index + 1, 0, tolerantSchemaVariant); } return copy; }
 
 async function fixture(text: string): Promise<{ root: string; path: string }> {
   const root = await mkdtemp(join(tmpdir(), "tco-query-mcp-"));
@@ -56,6 +58,14 @@ describe("query_artifact MCP contract", () => {
               },
             },
           });
+        } else if (expected.name === "index_image_artifact" || expected.name === "inspect_image_artifact") {
+          if (expected.name === "inspect_image_artifact") {
+            expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
+            continue;
+          }
+          expect(actual).toEqual({ ...expected, description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.", inputSchema: { ...expected.inputSchema, properties: { ...expected.inputSchema.properties, profile: { type: "string", enum: ["strict", "tolerant"] } } }, outputSchema: withTolerantSchema(expected.outputSchema) });
+        } else if (expected.name === "crop_image_artifact") {
+          expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
         } else {
           expect(actual).toStrictEqual(expected);
         }
