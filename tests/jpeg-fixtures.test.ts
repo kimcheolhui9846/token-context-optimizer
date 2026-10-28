@@ -38,9 +38,17 @@ describe("checked-in JPEG fixtures", () => {
     const tools = await toolsList(); const imageTools = tools.filter((tool) => tool.name === "index_image_artifact" || tool.name === "inspect_image_artifact");
     expect(imageTools).toHaveLength(2); expect(imageTools.map((tool) => tool.name).sort()).toEqual(["index_image_artifact", "inspect_image_artifact"]);
     const png = { artifactId: "image_png", path: "a.png", sha256: "a", byteLength: 1, format: "png", mimeType: "image/png", width: 1, height: 1, channels: 4, bitDepth: 8, validationProfile: "png-rgb8-static-v1" };
+    const tolerant = { ...png, validationProfile: "png-rgb8-tolerant-v1", ignoredChunks: ["sRGB"], alpha: "opaque" };
     const jpeg = { artifactId: "image_jpeg", path: "a.jpg", sha256: "b", byteLength: 1, format: "jpeg", mimeType: "image/jpeg", width: 17, height: 9, channels: 3, bitDepth: 8, validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
     for (const tool of imageTools) {
-      const schema = fromJSONSchema(tool.outputSchema); expect(schema.safeParse(png).success).toBe(true); expect(schema.safeParse(jpeg).success).toBe(true);
+      const schema = fromJSONSchema(tool.outputSchema); expect(schema.safeParse(png).success).toBe(true); expect(schema.safeParse(tolerant).success).toBe(true); expect(schema.safeParse(jpeg).success).toBe(true);
+      expect(schema.safeParse({ ...tolerant, alpha: undefined }).success).toBe(false);
+      expect(schema.safeParse({ ...tolerant, ignoredChunks: "sRGB" }).success).toBe(false);
+      expect(schema.safeParse({ ...tolerant, ignoredChunks: undefined }).success).toBe(false);
+      expect(schema.safeParse({ ...tolerant, alpha: "invalid" }).success).toBe(false);
+      expect(schema.safeParse({ ...tolerant, ignoredChunks: [1] }).success).toBe(false);
+      expect(schema.safeParse({ ...tolerant, format: "jpeg", mimeType: "image/jpeg" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpeg, validationProfile: "png-rgb8-tolerant-v1" }).success).toBe(false);
       for (const record of [png, jpeg]) { expect(schema.safeParse({ ...record, format: "png", mimeType: "image/jpeg" }).success).toBe(false); expect(schema.safeParse({ ...record, format: "jpeg", mimeType: "image/png" }).success).toBe(false); }
       expect(schema.safeParse({ ...jpeg, validationProfile: "png-rgb8-static-v1" }).success).toBe(false);
       expect(schema.safeParse({ ...png, validationProfile: "jpeg-ycbcr8-baseline-444-v1" }).success).toBe(false);

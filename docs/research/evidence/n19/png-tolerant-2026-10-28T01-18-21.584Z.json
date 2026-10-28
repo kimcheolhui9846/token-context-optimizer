@@ -1,0 +1,69 @@
+{
+  "schema": "n19-png-tolerant-measurement/v1",
+  "status": "PREPARE_ONLY",
+  "measuredAt": "2026-10-28T01:18:21.584Z",
+  "baselineCommit": "4b67d72",
+  "method": {
+    "fixedOrder": [
+      "A",
+      "A'",
+      "B"
+    ],
+    "samples": 9,
+    "warmups": 3,
+    "cropRegion": {
+      "x": 0,
+      "y": 0,
+      "width": 1536,
+      "height": 1536
+    },
+    "maxBytes": 10485760,
+    "globalGcRequired": true,
+    "prepareOnly": true
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F",
+    "gitHead": "bac0b29d69a60ba8c0aea7387985d4f088455a84",
+    "dirty": true
+  },
+  "inputs": {
+    "rgb": {
+      "path": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\input-rgb.png",
+      "sha256": "a4441f68e74346004fa465a41f9698f504a3d894f7f2e34876d0e8b3ec5068ab",
+      "bytes": 250444,
+      "width": 4096,
+      "height": 4096,
+      "channels": 3
+    },
+    "tolerant": {
+      "path": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\input-tolerant-worst.png",
+      "sha256": "11f69e38caec6da312703cfd6151637df519f2b82f38c05aad67ace052484147",
+      "bytes": 250828,
+      "ancillaryCount": 32
+    },
+    "rgba": {
+      "path": "C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\.artifacts\\n19\\measurement\\input-rgba.png",
+      "sha256": "292b2f177b478cb0e67be87e535cf493c50dfa1a7b880dfe2fe8ff57db019ace",
+      "bytes": 334967,
+      "width": 4096,
+      "height": 4096,
+      "channels": 4
+    }
+  },
+  "variants": {
+    "A": "fe200b1d455109ed1266853d771253b78fa4f1d61917f08cbdd1b389307b6960",
+    "A'": "fe200b1d455109ed1266853d771253b78fa4f1d61917f08cbdd1b389307b6960",
+    "B": "1886e8414ad77d5f303c907cf98f6192987be19043787c71f4a21df811ba2401"
+  },
+  "strict": {
+    "index": [],
+    "crop": []
+  },
+  "tolerant": {},
+  "failures": []
+}

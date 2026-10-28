@@ -1,0 +1,46 @@
+{
+  "schema": "n19-png-tolerant-measurement/v1",
+  "status": "ERROR",
+  "measuredAt": "2026-10-28T01:18:09.353Z",
+  "baselineCommit": "4b67d72",
+  "method": {
+    "fixedOrder": [
+      "A",
+      "A'",
+      "B"
+    ],
+    "samples": 9,
+    "warmups": 3,
+    "cropRegion": {
+      "x": 0,
+      "y": 0,
+      "width": 1536,
+      "height": 1536
+    },
+    "maxBytes": 10485760,
+    "globalGcRequired": true,
+    "prepareOnly": true
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F",
+    "gitHead": "bac0b29d69a60ba8c0aea7387985d4f088455a84",
+    "dirty": true
+  },
+  "inputs": {},
+  "variants": {},
+  "strict": {
+    "index": [],
+    "crop": []
+  },
+  "tolerant": {},
+  "failures": [
+    {
+      "message": "exports is not defined in ES module scope\nThis file is being treated as an ES module because it has a '.js' file extension and '\\\\?\\C:\\Users\\00\\Desktop\\codex_plugin_and_skill\\.artifacts\\worktrees\\png-tolerant-impl\\package.json' contains \"type\": \"module\". To treat it as a CommonJS script, rename it to use the '.cjs' file extension."
+    }
+  ]
+}

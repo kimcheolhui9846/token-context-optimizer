@@ -171,6 +171,12 @@ export function createServer(): McpServer {
     validationProfile: z.literal("png-rgb8-static-v1"),
   }), z.object({
     artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
+    format: z.literal("png"), mimeType: z.literal("image/png"), width: z.number().int(),
+    height: z.number().int(), channels: z.union([z.literal(3), z.literal(4)]), bitDepth: z.literal(8),
+    validationProfile: z.literal("png-rgb8-tolerant-v1"),
+    ignoredChunks: z.array(z.string()), alpha: z.enum(["none", "opaque", "present"]),
+  }), z.object({
+    artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
     format: z.literal("jpeg"), mimeType: z.literal("image/jpeg"), width: z.number().int(),
     height: z.number().int(), channels: z.literal(3), bitDepth: z.literal(8),
     validationProfile: z.literal("jpeg-ycbcr8-baseline-444-v1"),
@@ -179,12 +185,12 @@ export function createServer(): McpServer {
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels.",
-      inputSchema: z.object({ path: z.string().min(1) }),
+      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.",
+      inputSchema: z.object({ path: z.string().min(1), profile: z.enum(["strict", "tolerant"]).optional() }),
       outputSchema: imageOutputSchema,
     },
-    async ({ path }) => {
-      const output = await indexImageArtifact({ path, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+    async ({ path, profile }) => {
+      const output = await indexImageArtifact({ path, profile, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
       return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
     },
   );

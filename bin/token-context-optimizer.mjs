@@ -26168,6 +26168,7 @@ var PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 var MAX_BYTES = 10 * 1024 * 1024;
 var MAX_AXIS2 = 8192;
 var MAX_PIXELS2 = 16777216;
+var STRICT_PROFILES = /* @__PURE__ */ new Set(["png-rgb8-static-v1", "jpeg-ycbcr8-baseline-444-v1"]);
 var ImageValidationError = class extends Error {
   code;
   constructor(code) {
@@ -26183,10 +26184,10 @@ var MemoryImageArtifactStore = class {
   }
   get(artifactId) {
     const record2 = this.records.get(artifactId);
-    return record2 === void 0 ? void 0 : { ...record2 };
+    return record2 === void 0 ? void 0 : cloneImageArtifactRecord(record2);
   }
   put(record2) {
-    this.records.set(record2.artifactId, { ...record2 });
+    this.records.set(record2.artifactId, cloneImageArtifactRecord(record2));
   }
 };
 var defaultImageArtifactStore = new MemoryImageArtifactStore();
@@ -26194,13 +26195,14 @@ async function indexImageArtifact(input) {
   const source = await readBoundedSource(input.path, input.allowedRoots ?? [process.cwd()]);
   let metadata;
   try {
-    metadata = source.bytes[0] === 255 && source.bytes[1] === 216 ? validateJpeg(source.bytes) : validatePng(source.bytes);
+    metadata = source.bytes[0] === 255 && source.bytes[1] === 216 ? validateJpeg(source.bytes) : input.profile === "tolerant" ? validatePngTolerant(source.bytes) : validatePng(source.bytes);
   } catch (error2) {
     if (error2 instanceof JpegValidationError) throw new ImageValidationError(error2.code);
     throw error2;
   }
   const sha256 = createHash2("sha256").update(source.bytes).digest("hex");
-  const identity = createHash2("sha256").update(`${source.path}\0${sha256}`).digest("hex");
+  const identityInput = `${source.path}\0${sha256}` + (STRICT_PROFILES.has(metadata.validationProfile) ? "" : `\0${metadata.validationProfile}`);
+  const identity = createHash2("sha256").update(identityInput).digest("hex");
   const record2 = {
     artifactId: `image_${identity.slice(0, 16)}`,
     path: source.path,
@@ -26212,10 +26214,11 @@ async function indexImageArtifact(input) {
     height: metadata.height,
     channels: metadata.channels,
     bitDepth: 8,
-    validationProfile: metadata.validationProfile
+    validationProfile: metadata.validationProfile,
+    ...metadata.validationProfile === "png-rgb8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {}
   };
-  const output = { ...record2 };
-  (input.store ?? defaultImageArtifactStore).put({ ...record2 });
+  const output = cloneImageArtifactRecord(record2);
+  (input.store ?? defaultImageArtifactStore).put(cloneImageArtifactRecord(record2));
   return output;
 }
 async function inspectImageArtifact(input) {
@@ -26232,13 +26235,15 @@ async function inspectImageArtifact(input) {
   const hash = createHash2("sha256").update(source.bytes).digest("hex");
   if (hash !== record2.sha256 || source.bytes.length !== record2.byteLength) throw new ImageValidationError("source_changed");
   try {
-    if (record2.format === "jpeg") validateJpeg(source.bytes);
-    else validatePng(source.bytes);
+    const metadata = validateForRecord(source.bytes, record2);
+    if (record2.validationProfile === "png-rgb8-tolerant-v1" && !recordMetadataMatches(record2, metadata)) {
+      throw new ImageValidationError("decode_failed");
+    }
   } catch (error2) {
     if (error2 instanceof JpegValidationError) throw new ImageValidationError(error2.code);
     throw error2;
   }
-  return { ...record2 };
+  return cloneImageArtifactRecord(record2);
 }
 var readerErrorCodes = {
   empty_roots: "path_denied",
@@ -26268,9 +26273,9 @@ async function readValidatedImageArtifact(record2, allowedRoots) {
   const hash = createHash2("sha256").update(source.bytes).digest("hex");
   if (hash !== record2.sha256 || source.bytes.length !== record2.byteLength) throw new ImageValidationError("source_changed");
   try {
-    const metadata = record2.format === "jpeg" ? validateJpegWithPixels(source.bytes) : validatePng(source.bytes);
+    const metadata = validateForRecord(source.bytes, record2, true);
     const pixels = metadata.pixels;
-    if (!(pixels instanceof Uint8Array) || metadata.width !== record2.width || metadata.height !== record2.height || metadata.channels !== record2.channels || metadata.format !== record2.format || metadata.mimeType !== record2.mimeType || metadata.validationProfile !== record2.validationProfile || pixels.length !== record2.width * record2.height * record2.channels) {
+    if (!(pixels instanceof Uint8Array) || metadata.width !== record2.width || metadata.height !== record2.height || metadata.channels !== record2.channels || metadata.format !== record2.format || metadata.mimeType !== record2.mimeType || metadata.validationProfile !== record2.validationProfile || pixels.length !== record2.width * record2.height * record2.channels || record2.validationProfile === "png-rgb8-tolerant-v1" && !recordMetadataMatches(record2, metadata)) {
       throw new ImageValidationError("decode_failed");
     }
     return { pixels };
@@ -26279,6 +26284,18 @@ async function readValidatedImageArtifact(record2, allowedRoots) {
     if (error2 instanceof JpegValidationError) throw new ImageValidationError(error2.code);
     throw new ImageValidationError("decode_failed");
   }
+}
+function validateForRecord(bytes, record2, withPixels = false) {
+  if (record2.format === "jpeg") {
+    return withPixels ? validateJpegWithPixels(bytes) : validateJpeg(bytes);
+  }
+  return record2.validationProfile === "png-rgb8-tolerant-v1" ? validatePngTolerant(bytes) : validatePng(bytes);
+}
+function recordMetadataMatches(record2, metadata) {
+  if (record2.width !== metadata.width || record2.height !== metadata.height || record2.channels !== metadata.channels || record2.bitDepth !== 8 || record2.format !== metadata.format || record2.mimeType !== metadata.mimeType || record2.validationProfile !== metadata.validationProfile) return false;
+  if (record2.validationProfile !== "png-rgb8-tolerant-v1") return true;
+  if (!("ignoredChunks" in record2) || !("alpha" in record2) || !("ignoredChunks" in metadata) || !("alpha" in metadata) || !Array.isArray(record2.ignoredChunks) || !Array.isArray(metadata.ignoredChunks)) return false;
+  return record2.alpha === metadata.alpha && record2.ignoredChunks.length === metadata.ignoredChunks.length && record2.ignoredChunks.every((value, index) => value === metadata.ignoredChunks[index]);
 }
 function validatePng(bytes) {
   if (bytes.length < 8 || !bytes.subarray(0, 8).equals(PNG_SIGNATURE)) {
@@ -26358,6 +26375,96 @@ function validatePng(bytes) {
   }
   return { width, height, channels, pixels: decoded.data, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-static-v1" };
 }
+function validatePngTolerant(bytes) {
+  if (bytes.length < 8 || !bytes.subarray(0, 8).equals(PNG_SIGNATURE)) {
+    if (bytes.length >= 2 && bytes[0] === 255 && bytes[1] === 216 || bytes.length >= 12 && bytes.subarray(0, 4).toString("ascii") === "RIFF" && bytes.subarray(8, 12).toString("ascii") === "WEBP") throw new ImageValidationError("unsupported_image_format");
+    throw new ImageValidationError("malformed_png");
+  }
+  let offset = 8;
+  let sawHeader = false;
+  let sawData = false;
+  let ended = false;
+  let idatClosed = false;
+  let width = 0;
+  let height = 0;
+  let channels = 3;
+  const ignoredChunks = [];
+  const seen = /* @__PURE__ */ new Set();
+  const idats = [];
+  const core = [PNG_SIGNATURE];
+  while (offset < bytes.length) {
+    if (bytes.length - offset < 12) throw new ImageValidationError("malformed_png");
+    const length = bytes.readUInt32BE(offset);
+    const end = offset + 12 + length;
+    if (end > bytes.length) throw new ImageValidationError("malformed_png");
+    const typeBytes = bytes.subarray(offset + 4, offset + 8);
+    const type = typeBytes.toString("ascii");
+    if (![...typeBytes].every((byte) => byte >= 65 && byte <= 90 || byte >= 97 && byte <= 122)) throw new ImageValidationError("malformed_png");
+    const data = bytes.subarray(offset + 8, offset + 8 + length);
+    if (crc32(Buffer.concat([typeBytes, data])) !== bytes.readUInt32BE(offset + 8 + length)) throw new ImageValidationError("malformed_png");
+    if (!sawHeader) {
+      if (type !== "IHDR" || length !== 13) throw new ImageValidationError("malformed_png");
+      width = data.readUInt32BE(0);
+      height = data.readUInt32BE(4);
+      if (!width || !height || width > MAX_AXIS2 || height > MAX_AXIS2 || width * height > MAX_PIXELS2) throw new ImageValidationError("image_dimensions_exceeded");
+      if (data[8] !== 8 || data[9] !== 2 && data[9] !== 6 || data[10] !== 0 || data[11] !== 0 || data[12] !== 0) throw new ImageValidationError("unsupported_png_profile");
+      channels = data[9] === 2 ? 3 : 4;
+      sawHeader = true;
+      core.push(bytes.subarray(offset, end));
+    } else if (type === "IDAT") {
+      if (ended || idatClosed) throw new ImageValidationError("malformed_png");
+      sawData = true;
+      idats.push(data);
+      core.push(bytes.subarray(offset, end));
+    } else if (type === "IHDR") {
+      throw new ImageValidationError("malformed_png");
+    } else if (type === "IEND") {
+      if (!sawData || ended || length !== 0 || end !== bytes.length) throw new ImageValidationError("malformed_png");
+      ended = true;
+      core.push(bytes.subarray(offset, end));
+    } else {
+      if (sawData) idatClosed = true;
+      const ancillary = typeBytes[0] >= 97;
+      if (!ancillary || type === "PLTE" || type === "tRNS" || type === "acTL" || type === "fcTL" || type === "fdAT") throw new ImageValidationError("unsupported_png_profile");
+      if (!seen.has(type)) {
+        seen.add(type);
+        ignoredChunks.push(type);
+        if (ignoredChunks.length > 32) throw new ImageValidationError("unsupported_png_profile");
+      }
+    }
+    offset = end;
+  }
+  if (!sawHeader || !sawData || !ended) throw new ImageValidationError("malformed_png");
+  const compressed = Buffer.concat(idats);
+  const expectedLength = (width * channels + 1) * height;
+  let inflated;
+  let engine;
+  try {
+    const result = inflateSync(compressed, { maxOutputLength: expectedLength, info: true });
+    inflated = result.buffer;
+    engine = result.engine;
+  } catch {
+    throw new ImageValidationError("malformed_png");
+  }
+  if (inflated.length !== expectedLength || engine?.bytesWritten !== compressed.length) throw new ImageValidationError("malformed_png");
+  for (let row = 0; row < height; row++) if (inflated[row * (width * channels + 1)] > 4) throw new ImageValidationError("malformed_png");
+  let decoded;
+  try {
+    decoded = decodePng(Buffer.concat(core), { checkCrc: true });
+    if (decoded.width !== width || decoded.height !== height || decoded.depth !== 8 || decoded.channels !== channels) throw new Error();
+  } catch {
+    throw new ImageValidationError("malformed_png");
+  }
+  const pixels = decoded.data;
+  const alpha = channels === 3 ? "none" : (() => {
+    for (let index = 3; index < pixels.length; index += 4) if (pixels[index] !== 255) return "present";
+    return "opaque";
+  })();
+  return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-tolerant-v1", ignoredChunks, alpha };
+}
+function cloneImageArtifactRecord(record2) {
+  return "ignoredChunks" in record2 ? { ...record2, ignoredChunks: Array.isArray(record2.ignoredChunks) ? [...record2.ignoredChunks] : record2.ignoredChunks } : { ...record2 };
+}
 function crc32(bytes) {
   let crc2 = 4294967295;
   for (const byte of bytes) {
@@ -26378,16 +26485,17 @@ async function cropImageArtifact(input) {
   if (!isShape(artifactId, region)) throw new ImageValidationError("invalid_region");
   const indexed = (input.store ?? defaultImageArtifactStore).get(artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = { ...indexed };
+  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : { ...indexed };
   if (region.width <= 0 || region.height <= 0) throw new ImageValidationError("region_empty");
   const validated = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (region.x < 0 || region.y < 0 || region.x + region.width > source.width || region.y + region.height > source.height) throw new ImageValidationError("region_out_of_bounds");
   if (region.x === 0 && region.y === 0 && region.width === source.width && region.height === source.height) return { status: "original", fullFrame: true, source, region };
   if (region.width > 1536 || region.height > 1536) return { status: "rejected", code: "resize_required", fullFrame: false, source, region };
-  if (source.channels === 4) throw new ImageValidationError("alpha_unsupported");
+  const tolerantOpaque = source.validationProfile === "png-rgb8-tolerant-v1" && "alpha" in source && source.alpha === "opaque";
+  if (source.channels === 4 && !tolerantOpaque) throw new ImageValidationError("alpha_unsupported");
   const pixels = Buffer.alloc(region.width * region.height * 4);
   for (let y = 0; y < region.height; y++) for (let x2 = 0; x2 < region.width; x2++) {
-    const from = ((region.y + y) * source.width + region.x + x2) * 3;
+    const from = ((region.y + y) * source.width + region.x + x2) * source.channels;
     const to = (y * region.width + x2) * 4;
     pixels[to] = validated.pixels[from];
     pixels[to + 1] = validated.pixels[from + 1];
@@ -26581,6 +26689,20 @@ function createServer() {
     path: string2(),
     sha256: string2(),
     byteLength: number2().int(),
+    format: literal("png"),
+    mimeType: literal("image/png"),
+    width: number2().int(),
+    height: number2().int(),
+    channels: union([literal(3), literal(4)]),
+    bitDepth: literal(8),
+    validationProfile: literal("png-rgb8-tolerant-v1"),
+    ignoredChunks: array(string2()),
+    alpha: _enum(["none", "opaque", "present"])
+  }), object({
+    artifactId: string2(),
+    path: string2(),
+    sha256: string2(),
+    byteLength: number2().int(),
     format: literal("jpeg"),
     mimeType: literal("image/jpeg"),
     width: number2().int(),
@@ -26592,12 +26714,12 @@ function createServer() {
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels.",
-      inputSchema: object({ path: string2().min(1) }),
+      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.",
+      inputSchema: object({ path: string2().min(1), profile: _enum(["strict", "tolerant"]).optional() }),
       outputSchema: imageOutputSchema
     },
-    async ({ path }) => {
-      const output = await indexImageArtifact({ path, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
+    async ({ path, profile }) => {
+      const output = await indexImageArtifact({ path, profile, store: defaultImageArtifactStore, allowedRoots: getAllowedRoots() });
       return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
     }
   );

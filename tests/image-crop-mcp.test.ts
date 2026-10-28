@@ -9,6 +9,8 @@ import { CropMcpClient, type RpcResponse } from "./helpers/crop-mcp-client.js";
 import { deflateSync } from "node:zlib";
 
 const baseline = JSON.parse(await readFile("tests/fixtures/task39-base-tools.json", "utf8")) as { tools: any[] };
+const tolerantSchemaVariant = { type: "object", properties: { artifactId: { type: "string" }, path: { type: "string" }, sha256: { type: "string" }, byteLength: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, format: { type: "string", const: "png" }, mimeType: { type: "string", const: "image/png" }, width: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, height: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, channels: { anyOf: [{ type: "number", const: 3 }, { type: "number", const: 4 }] }, bitDepth: { type: "number", const: 8 }, validationProfile: { type: "string", const: "png-rgb8-tolerant-v1" }, ignoredChunks: { type: "array", items: { type: "string" } }, alpha: { type: "string", enum: ["none", "opaque", "present"] } }, required: ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "ignoredChunks", "alpha"], additionalProperties: false };
+function withTolerantSchema(value: any): any { if (Array.isArray(value)) return value.map(withTolerantSchema); if (!value || typeof value !== "object") return value; const copy = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withTolerantSchema(item)])); if (Array.isArray(copy.anyOf) && copy.anyOf.some((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1")) { const index = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1"); copy.anyOf.splice(index + 1, 0, tolerantSchemaVariant); } return copy; }
 const roots: string[] = [];
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
@@ -36,6 +38,15 @@ function makePng(width: number, height: number, channels: 3 | 4): Buffer {
     Buffer.from([0]), Buffer.from(Array.from({ length: width * channels }, (_, x) => channels === 4 && x % 4 === 3 ? 255 : (x + y) % 251)),
   ])));
   return Buffer.concat([pngSignature, chunk("IHDR", ihdr), chunk("IDAT", deflateSync(scan)), chunk("IEND", Buffer.alloc(0))]);
+}
+
+function makeAncillaryPng(width: number, height: number, channels: 3 | 4): Buffer {
+  const base = makePng(width, height, channels);
+  const idat = chunk("sRGB", Buffer.from([0]));
+  const gama = chunk("gAMA", Buffer.from([0, 0, 0, 0]));
+  const phys = chunk("pHYs", Buffer.from([0, 0, 0, 1, 0, 0, 0, 1, 1]));
+  const idatOffset = base.indexOf(Buffer.from("IDAT", "ascii")) - 4;
+  return Buffer.concat([base.subarray(0, idatOffset), idat, gama, phys, base.subarray(idatOffset)]);
 }
 
 async function fixture(bytes: Buffer, name = "source.png"): Promise<{ root: string; path: string }> {
@@ -80,6 +91,14 @@ describe("crop_image_artifact MCP contract", () => {
               properties: { ...expected.inputSchema.properties, maxExcerpts: { type: "integer", minimum: 1, maximum: 20 } },
             },
           });
+        } else if (expected.name === "index_image_artifact" || expected.name === "inspect_image_artifact") {
+          if (expected.name === "index_image_artifact") {
+            expect(actual).toEqual({ ...expected, description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.", inputSchema: { ...expected.inputSchema, properties: { ...expected.inputSchema.properties, profile: { type: "string", enum: ["strict", "tolerant"] } } }, outputSchema: withTolerantSchema(expected.outputSchema) });
+          } else {
+            expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
+          }
+        } else if (expected.name === "crop_image_artifact") {
+          expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
         } else {
           expect(actual).toEqual(expected);
         }
@@ -90,6 +109,65 @@ describe("crop_image_artifact MCP contract", () => {
       expect(crop.inputSchema.additionalProperties).toBe(false);
       expect(crop.inputSchema.required).toEqual(["artifactId", "region"]);
       expect(crop.inputSchema.properties.region.additionalProperties).toBe(false);
+    });
+  });
+
+  it("accepts an explicit tolerant profile and returns tolerant PNG metadata", async () => {
+    const f = await fixture(makeAncillaryPng(1537, 2, 4));
+    await withClient(f.root, async (client) => {
+      const response = resultOf(await client.call("index_image_artifact", {
+        path: f.path,
+        profile: "tolerant",
+      }));
+      expect(response.structuredContent).toMatchObject({
+        format: "png",
+        mimeType: "image/png",
+        channels: 4,
+        validationProfile: "png-rgb8-tolerant-v1",
+        ignoredChunks: ["sRGB", "gAMA", "pHYs"],
+        alpha: "opaque",
+      });
+      const strict = resultOf(await client.call("index_image_artifact", { path: f.path }));
+      expect(strict.isError).toBe(true);
+      expect(strict.content[0].text).toContain("unsupported_png_profile");
+      const cropped = resultOf(await client.call("crop_image_artifact", {
+        artifactId: response.structuredContent.artifactId,
+        region: { x: 0, y: 0, width: 1, height: 1 },
+      }));
+      expect(cropped.structuredContent.status).toBe("cropped");
+      expect(cropped.structuredContent.source.ignoredChunks).toEqual(["sRGB", "gAMA", "pHYs"]);
+      const inspected = resultOf(await client.call("inspect_image_artifact", { artifactId: response.structuredContent.artifactId }));
+      expect(inspected.structuredContent).toEqual(response.structuredContent);
+      const cropSchema = fromJSONSchema((await client.listTools()).find((tool) => tool.name === "crop_image_artifact").outputSchema);
+      const original = resultOf(await client.call("crop_image_artifact", { artifactId: response.structuredContent.artifactId, region: { x: 0, y: 0, width: 1537, height: 2 } }));
+      const rejected = resultOf(await client.call("crop_image_artifact", { artifactId: response.structuredContent.artifactId, region: { x: 0, y: 0, width: 1537, height: 1 } }));
+      expect(original.structuredContent.status).toBe("original");
+      expect(rejected.structuredContent.status).toBe("rejected");
+      for (const result of [cropped, original, rejected]) {
+        expect(result.structuredContent.source).toEqual(response.structuredContent);
+        expect(cropSchema.safeParse(result.structuredContent).success).toBe(true);
+        expect(cropSchema.safeParse({ ...result.structuredContent, source: { ...result.structuredContent.source, alpha: undefined } }).success).toBe(false);
+      }
+      const strictDefault = resultOf(await client.call("index_image_artifact", { path: f.path }));
+      const strictExplicit = resultOf(await client.call("index_image_artifact", { path: f.path, profile: "strict" }));
+      expect(strictDefault).toEqual(strictExplicit);
+    });
+  });
+
+  it("keeps omitted and explicit strict identity equal for plain PNG", async () => {
+    const f = await fixture(makePng(2, 2, 3));
+    await withClient(f.root, async (client) => {
+      const omitted = resultOf(await client.call("index_image_artifact", { path: f.path })).structuredContent;
+      const explicit = resultOf(await client.call("index_image_artifact", { path: f.path, profile: "strict" })).structuredContent;
+      expect(explicit).toEqual(omitted);
+    });
+  });
+
+  it.each([null, 1, "relaxed"])("rejects invalid profile input %p", async (profile) => {
+    const f = await fixture(makePng(1, 1, 3));
+    await withClient(f.root, async (client) => {
+      const response = await client.call("index_image_artifact", { path: f.path, profile });
+      expect(response.error ?? response.result?.isError).toBeTruthy();
     });
   });
 

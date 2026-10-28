@@ -20,16 +20,20 @@ export async function cropImageArtifact(input: { artifactId: string; region: Cro
   if (!isShape(artifactId, region)) throw new ImageValidationError("invalid_region");
   const indexed = (input.store ?? defaultImageArtifactStore).get(artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = { ...indexed };
+  const source = "ignoredChunks" in indexed
+    ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks }
+    : { ...indexed };
   if (region.width <= 0 || region.height <= 0) throw new ImageValidationError("region_empty");
   const validated = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (region.x < 0 || region.y < 0 || region.x + region.width > source.width || region.y + region.height > source.height) throw new ImageValidationError("region_out_of_bounds");
   if (region.x === 0 && region.y === 0 && region.width === source.width && region.height === source.height) return { status: "original", fullFrame: true, source, region };
   if (region.width > 1536 || region.height > 1536) return { status: "rejected", code: "resize_required", fullFrame: false, source, region };
-  if (source.channels === 4) throw new ImageValidationError("alpha_unsupported");
+  const tolerantOpaque = source.validationProfile === "png-rgb8-tolerant-v1" &&
+    "alpha" in source && source.alpha === "opaque";
+  if (source.channels === 4 && !tolerantOpaque) throw new ImageValidationError("alpha_unsupported");
   const pixels = Buffer.alloc(region.width * region.height * 4);
   for (let y = 0; y < region.height; y++) for (let x = 0; x < region.width; x++) {
-    const from = ((region.y + y) * source.width + region.x + x) * 3;
+    const from = ((region.y + y) * source.width + region.x + x) * source.channels;
     const to = (y * region.width + x) * 4;
     pixels[to] = validated.pixels[from]; pixels[to + 1] = validated.pixels[from + 1]; pixels[to + 2] = validated.pixels[from + 2]; pixels[to + 3] = 255;
   }

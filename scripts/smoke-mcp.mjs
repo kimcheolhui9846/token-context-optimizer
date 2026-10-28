@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
+import { deflateSync } from "node:zlib";
 
 import { RUNTIME_FILES, childHasExited, readOption, validateCliArgs } from "./plugin-runtime.mjs";
 
@@ -38,6 +39,7 @@ try {
 
   const workspaceFile = join(workspaceRoot, "artifact.txt");
   const imageFile = join(workspaceRoot, "image.png");
+  const tolerantImageFile = join(workspaceRoot, "tolerant-image.png");
   const jpegFile = join(workspaceRoot, "image.jpg");
   const malformedImageFile = join(workspaceRoot, "malformed.png");
   const malformedJpegFile = join(workspaceRoot, "malformed.jpg");
@@ -53,6 +55,7 @@ try {
     "base64",
   );
   await writeFile(imageFile, imageBytes);
+  await writeFile(tolerantImageFile, addAncillaryPng(makeOpaqueRgbaPng()));
   const jpegBytes = Buffer.from("/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAJABEDAREAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQGCP/EACoQAAEDAwICCwEAAAAAAAAAAAIBBAUDBhEAEgchCBMXJDY3VnR1lLTT/8QAGAEAAwEBAAAAAAAAAAAAAAAABAUHAgb/xAAvEQACAQIDBAcJAAAAAAAAAAABAgMEEQAFEgYUMXMTISI2VJLSMjU3UnSys7TB/9oADAMBAAIRAxEAPwA7Vvc1qcOZR+EDAWjFvBKNov5AOtNotRBp7iqmQU1VeaCq08ZIUVF5quJqiirMw6XMah5nXe1sosGt0cUShUUt8ik6uALEjrOEt6HLtnBTxzSzTzlI7IFswOp3BWzMAYlcEqxYE3UrxVO8Jpq0tmlEy98y9wOXm9pXjbdo93dN8hkM00BufOsCqu7O0CFVyiApFJG9PLJmL0oADVSK0hu6szRxR+2TIFXqAAHZFiow4q6Seiyeiy6goVh3hw+uXSSBF2jfWWmQl9BTSvEE3AJJL2d8PfSFy/Rb/wB9VjVm3iI/M3oww3TPPExeZ/RiQ6UHmjLfKsvx0tT3Ku7qcyp/dhx0+T/DnKub/KjFdb3iqI9sP6C0DtD7mm+pm/PT4mO1veSl5CfdLjV2n2DMf//Z", "base64");
   await writeFile(jpegFile, jpegBytes);
   await writeFile(malformedImageFile, Buffer.from("bad-png"));
@@ -83,6 +86,8 @@ try {
     stderr += chunk;
   });
 
+  const tolerantBytes = await readFile(tolerantImageFile);
+  const tolerantHash = createHash("sha256").update(tolerantBytes).digest("hex");
   send({
     jsonrpc: "2.0",
     id: 1,
@@ -163,6 +168,24 @@ try {
   if (inspectPayload.sha256 !== imagePayload.sha256 || createHash("sha256").update(await readFile(imageFile)).digest("hex") !== imageHash) {
     throw new Error(`Installed-layout image inspect check failed: ${JSON.stringify(inspectPayload)}`);
   }
+
+  send({
+    jsonrpc: "2.0",
+    id: 13,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: tolerantImageFile, profile: "tolerant" } },
+  });
+  const tolerantImage = await waitFor((message) => message.id === 13 && message.result);
+  const tolerantPayload = JSON.parse(tolerantImage.result.content[0].text);
+  assertTolerantImageRecord(tolerantPayload, { path: tolerantImageFile, sha256: tolerantHash });
+  assertStructuredMatchesText(tolerantImage.result, tolerantPayload);
+  if (tolerantPayload.channels !== 4 || tolerantPayload.alpha !== "opaque" || JSON.stringify(tolerantPayload.ignoredChunks) !== '["sRGB","gAMA","pHYs"]') throw new Error("Tolerant smoke metadata mismatch");
+  send({ jsonrpc: "2.0", id: 14, method: "tools/call", params: { name: "inspect_image_artifact", arguments: { artifactId: tolerantPayload.artifactId } } });
+  const tolerantInspect = await waitFor((message) => message.id === 14 && message.result);
+  assertTolerantImageRecord(JSON.parse(tolerantInspect.result.content[0].text), { path: tolerantImageFile, sha256: tolerantHash });
+  send({ jsonrpc: "2.0", id: 15, method: "tools/call", params: { name: "crop_image_artifact", arguments: { artifactId: tolerantPayload.artifactId, region: { x: 0, y: 0, width: 1, height: 1 } } } });
+  const tolerantCrop = await waitFor((message) => message.id === 15 && message.result);
+  if (tolerantCrop.result.structuredContent?.status !== "cropped" || tolerantCrop.result.structuredContent.source.validationProfile !== "png-rgb8-tolerant-v1" || !tolerantCrop.result.content.some((item) => item.type === "image")) throw new Error("Tolerant smoke crop failed");
 
   const jpegHash = createHash("sha256").update(jpegBytes).digest("hex");
   send({
@@ -265,7 +288,7 @@ function assertImageToolSchemas(tools) {
 
 function assertImageOutputSchema(output, name) {
   const schemas = output.anyOf ?? [output];
-  if (schemas.length !== 2) {
+  if (schemas.length !== 3) {
     throw new Error(`Image output schema must expose correlated PNG/JPEG variants for ${name}`);
   }
   const signatures = schemas.map((schema) => `${schema.properties?.format?.const}:${schema.properties?.mimeType?.const}:${schema.properties?.validationProfile?.const}`);
@@ -273,6 +296,9 @@ function assertImageOutputSchema(output, name) {
     if (!signatures.includes(expected)) {
       throw new Error(`Image output schema is missing correlated variant ${expected} for ${name}: ${JSON.stringify(signatures)}`);
     }
+  }
+  if (!signatures.includes("png:image/png:png-rgb8-tolerant-v1")) {
+    throw new Error(`Image output schema is missing tolerant PNG variant for ${name}: ${JSON.stringify(signatures)}`);
   }
   const properties = Object.assign({}, ...schemas.map((schema) => schema.properties ?? {}));
   const required = new Set(schemas.flatMap((schema) => schema.required ?? []));
@@ -304,6 +330,34 @@ function assertImageRecord(record, expected) {
     record.validationProfile !== (expected.format === "png" ? "png-rgb8-static-v1" : "jpeg-ycbcr8-baseline-444-v1")
   ) {
     throw new Error(`Unexpected image record: ${JSON.stringify(record)}`);
+  }
+}
+
+function pngChunk(type, data) {
+    const name = Buffer.from(type, "ascii");
+    const out = Buffer.alloc(12 + data.length);
+    out.writeUInt32BE(data.length, 0); name.copy(out, 4); data.copy(out, 8);
+    let crc = 0xffffffff;
+    for (const byte of Buffer.concat([name, data])) { crc ^= byte; for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1)); }
+    out.writeUInt32BE((crc ^ 0xffffffff) >>> 0, 8 + data.length);
+    return out;
+}
+
+function makeOpaqueRgbaPng() {
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(2, 0); header.writeUInt32BE(2, 4); header[8] = 8; header[9] = 6;
+  const pixels = Buffer.from([0, 10, 20, 30, 255, 40, 50, 60, 255, 0, 70, 80, 90, 255, 100, 110, 120, 255]);
+  return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), pngChunk("IHDR", header), pngChunk("IDAT", deflateSync(pixels)), pngChunk("IEND", Buffer.alloc(0))]);
+}
+
+function addAncillaryPng(bytes) {
+  const offset = 33;
+  return Buffer.concat([bytes.subarray(0, offset), pngChunk("sRGB", Buffer.from([0])), pngChunk("gAMA", Buffer.alloc(4)), pngChunk("pHYs", Buffer.from([0, 0, 0, 1, 0, 0, 0, 1, 1])), bytes.subarray(offset)]);
+}
+
+function assertTolerantImageRecord(record, expected) {
+  if (!record.artifactId?.startsWith("image_") || record.path !== expected.path || record.sha256 !== expected.sha256 || record.format !== "png" || record.mimeType !== "image/png" || record.bitDepth !== 8 || record.validationProfile !== "png-rgb8-tolerant-v1" || !Number.isInteger(record.width) || !Number.isInteger(record.height) || ![3, 4].includes(record.channels) || !Array.isArray(record.ignoredChunks) || !["none", "opaque", "present"].includes(record.alpha)) {
+    throw new Error(`Unexpected tolerant PNG record: ${JSON.stringify(record)}`);
   }
 }
 
