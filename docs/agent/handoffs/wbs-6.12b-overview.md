@@ -19,6 +19,9 @@
 - Measurement limits: temporary CommonJS transpilation, separate-stage probes, repeated-row compressible inputs; not representative of shippedESM/real screenshots.
 - Evidence: [measurement](../../research/evidence/wbs-6.12b/overview-2026-10-29T00-29-16.473Z.json), [maintain proof](../../research/evidence/wbs-6.12b/maintain-proof.json), [pre-PR verification](../../research/evidence/wbs-6.12b/verification-pre-pr.json).
 - Skips: POSIX FIFO onWindows1; file symlink EPERM4 (image-artifacts1,read-bounded1,core2). Existing junction/race tests ran.
-- Status: implementation/review complete; push,Draft PR and final post-PR gate pending.
+- Status: PASS WITH NOTES; pushed implementation af343334951d657b2d25af8ff4f3434f1f80c954; [Draft PR #82](https://github.com/kimcheolhui9846/token-context-optimizer/pull/82). No merge.
+- Post-PR verification: all seven commands exit0; 428passed/5skipped targeted,1140passed/5skipped full. Verified clean implementation head above; final evidence commit changes documentation only.
+- Final direct review: requirements/diff/contracts/raw logs/Maintain proof checked; no unresolved blocker/major. Initial baseline-order and RED limitations remain disclosed.
+- Final evidence: [verification](../../research/evidence/wbs-6.12b/verification-post-pr.json), [committed Maintain proof](../../research/evidence/wbs-6.12b/maintain-proof-post-pr.json).
 - Known limitations: initial verification-order/RED gaps above; nonblocking schema-sharing and coordinate-endpoint suggestions deferred to preserve approved scope.
 - Approval: Draft only; Ready/merge/nextTask await user approval.
