@@ -1,0 +1,27 @@
+# WBS 6.12b — whole-image overview
+
+- Tier E: plugin implementation with recorded performance evidence.
+- Base: `888f052`; branch: `codex/overview-impl`; approved plan: [image overview](../../superpowers/plans/2026-10-28-image-overview.md), merged PR #81.
+- Scope: `overview_image_artifact`, exact integer area-average-v1, JPEG q75, strict input64–1536/default512, source metadata preservation, no upscale, no original-reference bypass.
+- Changed: new core/test/measurement script; server; two MCP tests; smoke; README/image-artifacts/SKILL; generated bundle; new evidence only.
+- Preserved: five shared core modules, frozen/JPEG fixtures, package/lockfile, existing regression expectations, research/paper/previous evidence. No merge/rebase/force push/new dependency.
+- Acceptance: A1–A6/R1–R3 and additional metadata/ownership/error/schema contracts covered. Original-coordinate crop and existing crop precedence preserved.
+- Initial review: user-provided Claude Opus5.5, approved-plan recheck APPROVE,0 blocker/major/minor,2 notes.
+- Milestone: actual `claude-opus-5-5`, CHANGES REQUESTED,0 blocker/1 major/4 minor/6 notes; supplied missing baseline/authorization/raw evidence and added success-store assertion.
+- Scoped review: actual `claude-opus-5-5`, APPROVE,0 blocker/major,1 minor/7 notes. Minor document-context truth notes included in PR body.
+- Primary fixes: exact prescribed row algorithm; missing contract cases; six document corrections/D7; synthetic opaqueRGBA smoke; success-store assertions.
+- RED:17 core failures from throwing compiling stub;3 MCP description/schema failures with40 passes. Raw logs preserved in verification JSON; environment failures not RED.
+- TDD limitations: core stub threw instead of returning wrong values; no retained pre-registration behavioral MCP RED. Review-added tests are regression coverage, not claimed test-first evidence.
+- Baseline: clean build→typecheck passed before implementation. Related regression tests were omitted before stub creation; retrospective untouched888f052 archive build/typecheck and74passed/2skipped recorded honestly.
+- Verification before PR: all7 gate commands exit0; target11files428passed/5skipped; full37files1140passed/5skipped; build,smoke,plugin validation,diffcheck pass.
+- Measurement:5 exact synthetic inputs,3 warmups/9 samples per stage; full-call medians243.333,314.617,7.387,7.193,286.316ms. Record-only, no timing acceptance threshold.
+- Shared-core timing gate replaced by unchanged-file proof against888f052; all Maintain paths also equal69ebb0e. Worktree hashes use checkout bytes(CRLF); baseline blob hashes use LF; bases have identical product files.
+- Measurement limits: temporary CommonJS transpilation, separate-stage probes, repeated-row compressible inputs; not representative of shippedESM/real screenshots.
+- Evidence: [measurement](../../research/evidence/wbs-6.12b/overview-2026-10-29T00-29-16.473Z.json), [maintain proof](../../research/evidence/wbs-6.12b/maintain-proof.json), [pre-PR verification](../../research/evidence/wbs-6.12b/verification-pre-pr.json).
+- Skips: POSIX FIFO onWindows1; file symlink EPERM4 (image-artifacts1,read-bounded1,core2). Existing junction/race tests ran.
+- Status: PASS WITH NOTES; pushed implementation af343334951d657b2d25af8ff4f3434f1f80c954; [Draft PR #82](https://github.com/kimcheolhui9846/token-context-optimizer/pull/82). No merge.
+- Post-PR verification: all seven commands exit0; 428passed/5skipped targeted,1140passed/5skipped full. Verified clean implementation head above; final evidence commit changes documentation only.
+- Final direct review: requirements/diff/contracts/raw logs/Maintain proof checked; no unresolved blocker/major. Initial baseline-order and RED limitations remain disclosed.
+- Final evidence: [verification](../../research/evidence/wbs-6.12b/verification-post-pr.json), [committed Maintain proof](../../research/evidence/wbs-6.12b/maintain-proof-post-pr.json).
+- Known limitations: initial verification-order/RED gaps above; nonblocking schema-sharing and coordinate-endpoint suggestions deferred to preserve approved scope.
+- Approval: Draft only; Ready/merge/nextTask await user approval.

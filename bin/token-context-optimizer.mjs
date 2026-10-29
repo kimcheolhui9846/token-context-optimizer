@@ -26538,6 +26538,93 @@ function isShape(artifactId, region) {
   return typeof artifactId === "string" && artifactId.length > 0 && !!region && [region.x, region.y, region.width, region.height].every(Number.isSafeInteger) && Number.isSafeInteger(region.x + region.width) && Number.isSafeInteger(region.y + region.height);
 }
 
+// src/core/image-overview.ts
+var import_jpeg_js3 = __toESM(require_jpeg_js(), 1);
+import { createHash as createHash4 } from "node:crypto";
+function areaAverageRgba(pixels, W, H, channels, w, h) {
+  const output = Buffer.alloc(w * h * 4);
+  const accumulated = new Float64Array(w * 3);
+  const horizontal = new Uint32Array(w * 3);
+  for (let r = 0; r < h; r += 1) {
+    accumulated.fill(0);
+    const sourceRowStart = Math.floor(r * H / h);
+    const sourceRowEnd = Math.ceil((r + 1) * H / h) - 1;
+    for (let s = sourceRowStart; s <= sourceRowEnd; s += 1) {
+      horizontal.fill(0);
+      for (let j = 0; j < w; j += 1) {
+        const sourceColumnStart = Math.floor(j * W / w);
+        const sourceColumnEnd = Math.ceil((j + 1) * W / w) - 1;
+        for (let i2 = sourceColumnStart; i2 <= sourceColumnEnd; i2 += 1) {
+          const wx = Math.max(0, Math.min((i2 + 1) * w, (j + 1) * W) - Math.max(i2 * w, j * W));
+          const sourceOffset = (s * W + i2) * channels;
+          const target = j * 3;
+          horizontal[target] += pixels[sourceOffset] * wx;
+          horizontal[target + 1] += pixels[sourceOffset + 1] * wx;
+          horizontal[target + 2] += pixels[sourceOffset + 2] * wx;
+        }
+      }
+      const wy = Math.max(0, Math.min((s + 1) * h, (r + 1) * H) - Math.max(s * h, r * H));
+      for (let target = 0; target < w * 3; target += 1) accumulated[target] += horizontal[target] * wy;
+    }
+    for (let j = 0; j < w; j += 1) {
+      const outputOffset = (r * w + j) * 4;
+      const target = j * 3;
+      for (let channel = 0; channel < 3; channel += 1) {
+        output[outputOffset + channel] = Math.floor((2 * accumulated[target + channel] + W * H) / (2 * W * H));
+      }
+      output[outputOffset + 3] = 255;
+    }
+  }
+  return output;
+}
+async function overviewImageArtifact(input) {
+  if (typeof input?.artifactId !== "string" || input.artifactId.length === 0 || input.maxSide !== void 0 && (!Number.isSafeInteger(input.maxSide) || input.maxSide < 64 || input.maxSide > 1536)) {
+    throw new ImageValidationError("invalid_overview_input");
+  }
+  const store = input.store ?? defaultImageArtifactStore;
+  const indexed = store.get(input.artifactId);
+  if (!indexed) throw new ImageValidationError("artifact_not_indexed");
+  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : { ...indexed };
+  const pixels = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
+  if (source.channels === 4 && !(source.validationProfile === "png-rgb8-tolerant-v1" && "alpha" in source && source.alpha === "opaque")) {
+    throw new ImageValidationError("alpha_unsupported");
+  }
+  const maxSide = input.maxSide ?? 512;
+  const longest = Math.max(source.width, source.height);
+  const width = longest > maxSide ? Math.max(1, Math.round(source.width * maxSide / longest)) : source.width;
+  const height = longest > maxSide ? Math.max(1, Math.round(source.height * maxSide / longest)) : source.height;
+  const rgba = areaAverageRgba(pixels.pixels, source.width, source.height, source.channels, width, height);
+  let encoded;
+  try {
+    encoded = Buffer.from(import_jpeg_js3.default.encode({ data: rgba, width, height }, 75).data);
+  } catch {
+    throw new ImageValidationError("encode_failed");
+  }
+  let validation;
+  try {
+    validation = validateJpeg(encoded);
+    if (validation.width !== width || validation.height !== height) throw new Error("dimensions");
+  } catch {
+    throw new ImageValidationError("output_validation_failed");
+  }
+  return {
+    source,
+    output: {
+      image: encoded.toString("base64"),
+      width,
+      height,
+      format: "jpeg",
+      mimeType: "image/jpeg",
+      byteLength: encoded.length,
+      sha256: createHash4("sha256").update(encoded).digest("hex"),
+      quality: 75,
+      encoder: { name: "jpeg-js", version: "0.4.4" },
+      resample: "area-average-v1",
+      validation
+    }
+  };
+}
+
 // src/server/index.ts
 function createServer() {
   const server = new McpServer(
@@ -26772,7 +26859,7 @@ function createServer() {
   server.registerTool(
     "crop_image_artifact",
     {
-      description: "Crop a validated RGB PNG or JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. The caller may use an overview it already has; this tool does not generate one. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      description: "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
       inputSchema: strictObject({ artifactId: string2().min(1), region: regionSchema }),
       outputSchema: cropOutputSchema
     },
@@ -26783,6 +26870,60 @@ function createServer() {
       const { image, ...output } = result.output;
       const structured = { ...result, output };
       return { isError: false, content: [{ type: "text", text: JSON.stringify(structured) }, { type: "image", data: image, mimeType: "image/jpeg" }], structuredContent: structured };
+    }
+  );
+  const overviewOutputSchema = object({
+    source: imageOutputSchema,
+    output: object({
+      width: number2().int(),
+      height: number2().int(),
+      format: literal("jpeg"),
+      mimeType: literal("image/jpeg"),
+      byteLength: number2().int(),
+      sha256: string2(),
+      quality: literal(75),
+      encoder: object({
+        name: literal("jpeg-js"),
+        version: literal("0.4.4")
+      }),
+      resample: literal("area-average-v1"),
+      validation: object({
+        width: number2().int(),
+        height: number2().int(),
+        channels: literal(3),
+        format: literal("jpeg"),
+        mimeType: literal("image/jpeg"),
+        validationProfile: literal("jpeg-ycbcr8-baseline-444-v1")
+      })
+    })
+  });
+  server.registerTool(
+    "overview_image_artifact",
+    {
+      description: "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+      inputSchema: strictObject({
+        artifactId: string2().min(1),
+        maxSide: number2().int().min(64).max(1536).optional()
+      }),
+      outputSchema: overviewOutputSchema
+    },
+    async ({ artifactId, maxSide }) => {
+      const result = await overviewImageArtifact({
+        artifactId,
+        maxSide,
+        store: defaultImageArtifactStore,
+        allowedRoots: getAllowedRoots()
+      });
+      const { image, ...output } = result.output;
+      const structured = { source: result.source, output };
+      return {
+        isError: false,
+        content: [
+          { type: "text", text: JSON.stringify(structured) },
+          { type: "image", data: image, mimeType: "image/jpeg" }
+        ],
+        structuredContent: structured
+      };
     }
   );
   return server;

@@ -46,11 +46,21 @@ these tools do not convert it automatically.
 Image records contain metadata, not pixels or OCR. Indexing does not modify or
 back up the original. The record is session-local and inspection fails if the
 source changed or became inaccessible. Indexing and inspection do not crop or
-resize images. Use `crop_image_artifact` for an explicit supported crop as described
-below; it does not select evidence, generate an overview, estimate image tokens
-or demonstrate cost savings. For visual analysis, use the crop's returned image
-content or an available image-viewing tool on the authorized original. Full-frame
-crop requests return an original reference, not image bytes.
+resize images. Use `overview_image_artifact({artifactId, maxSide?})` for a
+whole-image, product-side orientation overview (default maxSide 512, range
+64–1536, never enlarged; invalid maxSide values are rejected, not clamped),
+then use `crop_image_artifact` for an explicit,
+caller-chosen crop in original-image pixels. The overview uses integer
+`area-average-v1`, not the research harness's `sharp`/`lanczos3` resampler; it
+does not select evidence, estimate image tokens, or demonstrate cost savings, and
+does not guarantee readability of exact values. Supported
+overview inputs are RGB PNG, tolerant fully opaque RGBA PNG, and supported JPEG;
+strict RGBA and non-opaque tolerant RGBA return `alpha_unsupported`. The crop
+tool does not select evidence, generate an overview, estimate image tokens or
+demonstrate cost savings. It retains its own 1536-pixel limit, full-frame exception, coordinate rules,
+and existing alpha/resize errors. Full-frame crop requests return an original
+reference, not image bytes. A 1:1 overview is still q75 re-encoded JPEG, not an
+original reference and not a `resize_required` response.
 
 ## Compaction Integration
 
@@ -89,11 +99,14 @@ priority when evidence is incomplete.
    answer without an unreadable warning. Use `crop_image_artifact({artifactId,
    region: {x, y, width, height}})` only with a caller-chosen in-bounds rectangle
    in original-image pixels. It does not select evidence or generate an overview,
-   and has no overview option. Partial crops support RGB PNG or supported JPEG, not
-   RGBA, and must be at most 1536 pixels per side; full-frame requests return an
-   original reference without image bytes. If the requested field is not visible,
-   or the question concerns the whole image (largest, count, layout), view an
-   existing overview or the authorized original; an overview may still be too small
+   and has no overview option. Partial crops support RGB PNG or supported JPEG,
+   plus tolerant PNG whose alpha is fully opaque; strict RGBA and non-opaque
+   tolerant RGBA return `alpha_unsupported`. Partial crops must be at
+   most 1536 pixels per side; full-frame requests return an original reference
+   without image bytes. If the requested field is not visible, or the question
+   concerns the whole image (largest, count, layout), view an
+   `overview_image_artifact` result, an existing overview or the authorized original; an overview may
+   still be too small
    to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/49c6cc685c022b9e508d406561878ea732824d62/docs/image-artifacts.md#mcp-crop-use) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
 6. **Query with the field and identifier.** Prefer context words such as "posted
    invoice INV-123 batch" to an identifier alone. By default, `query_artifact` returns

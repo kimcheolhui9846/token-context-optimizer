@@ -8,13 +8,18 @@ The MVP indexes local UTF-8 text artifacts, records SHA-256 and line source maps
 
 The current research direction is **image context optimization first**, with paper
 writing taking priority over feature development. Alongside the text MVP,
-[restricted PNG/JPEG ingest, inspection, and crop](docs/image-artifacts.md) provides
-image validation and caller-selected `crop_image_artifact` regions, returned as
-JPEG q75 with provenance and no file writes. Full-frame requests return the
-original reference. The plugin does not implement resize, OCR or query-aware region
-selection; the separate research harness under `research/` implements them for the
-experiments below, and the paper evaluates that harness path rather than the product
-crop tool. Video extension follows image implementation, evaluation, and explicit
+[restricted PNG/JPEG ingest, inspection, crop, and whole-image overview](docs/image-artifacts.md) provides
+image validation, caller-selected `crop_image_artifact` regions, and
+`overview_image_artifact` whole-image overviews, returned as
+JPEG q75 with provenance and no file writes. Full-frame crop requests return the
+original reference. Overviews use the integer `area-average-v1` resampler and are
+not the research harness's `sharp`/`lanczos3` transformation. The plugin does not
+perform OCR, select evidence, choose regions, or guarantee readability of exact
+values. Use the overview only to orient a caller, then choose an in-bounds region
+in original-image pixels for `crop_image_artifact`; the separate research harness
+under `research/` implements its own transformations for the experiments below,
+and the paper evaluates that harness path rather than the product crop/overview
+tools. Video extension follows image implementation, evaluation, and explicit
 user approval.
 
 The JPEG profile is intentionally narrow: baseline 8-bit YCbCr JFIF with 4:4:4

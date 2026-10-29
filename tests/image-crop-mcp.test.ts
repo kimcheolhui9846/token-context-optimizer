@@ -79,7 +79,10 @@ describe("crop_image_artifact MCP contract", () => {
     const root = await mkdtemp(join(tmpdir(), "tco-mcp-list-")); roots.push(root);
     await withClient(root, async (client) => {
       const tools = await client.listTools();
-      expect(tools.map((tool) => tool.name)).toEqual(baseline.tools.map((tool: any) => tool.name));
+      expect(tools.map((tool) => tool.name)).toEqual([
+        ...baseline.tools.map((tool: any) => tool.name),
+        "overview_image_artifact",
+      ]);
       for (const expected of baseline.tools) {
         const actual = tools.find((tool) => tool.name === expected.name);
         if (expected.name === "query_artifact") {
@@ -98,17 +101,148 @@ describe("crop_image_artifact MCP contract", () => {
             expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
           }
         } else if (expected.name === "crop_image_artifact") {
-          expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
+          expect(actual).toEqual({
+            ...expected,
+            description:
+              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+            outputSchema: withTolerantSchema(expected.outputSchema),
+          });
         } else {
           expect(actual).toEqual(expected);
         }
       }
       const crop = tools.find((tool) => tool.name === "crop_image_artifact");
+      expect(crop.description).toBe(
+        "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      );
       expect(crop.description).toMatch(/caller.*region/i);
       expect(crop.description).toMatch(/overview/i);
       expect(crop.inputSchema.additionalProperties).toBe(false);
       expect(crop.inputSchema.required).toEqual(["artifactId", "region"]);
       expect(crop.inputSchema.properties.region.additionalProperties).toBe(false);
+      const overview = tools.find((tool) => tool.name === "overview_image_artifact");
+      expect(overview).toMatchObject({
+        name: "overview_image_artifact",
+        description:
+          "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+        inputSchema: {
+          additionalProperties: false,
+          required: ["artifactId"],
+        },
+      });
+      expect(overview.inputSchema.properties).toEqual({
+        artifactId: { type: "string", minLength: 1 },
+        maxSide: { type: "integer", minimum: 64, maximum: 1536 },
+      });
+      expect(overview.outputSchema).toBeDefined();
+      expect(overview.outputSchema.properties.output.properties.image).toBeUndefined();
+      expect(overview.outputSchema.properties.source.anyOf).toHaveLength(3);
+      expect(Object.keys(overview.outputSchema.properties.output.properties)).toEqual([
+        "width", "height", "format", "mimeType", "byteLength", "sha256",
+        "quality", "encoder", "resample", "validation",
+      ]);
+      expect(overview.outputSchema.properties.output.required).toEqual([
+        "width", "height", "format", "mimeType", "byteLength", "sha256",
+        "quality", "encoder", "resample", "validation",
+      ]);
+      expect(overview.outputSchema.properties.source.anyOf.map((variant: any) =>
+        `${variant.properties.format.const}:${variant.properties.mimeType.const}:${variant.properties.validationProfile.const}`,
+      )).toEqual([
+        "png:image/png:png-rgb8-static-v1",
+        "png:image/png:png-rgb8-tolerant-v1",
+        "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1",
+      ]);
+    });
+  });
+
+  it("supports strict RGB, tolerant opaque RGBA, and JPEG overview flows", async () => {
+    const cases = [
+      ["strict RGB", makePng(4, 3, 3), undefined],
+      ["tolerant opaque RGBA", makeAncillaryPng(4, 3, 4), "tolerant"],
+      ["JPEG", await readFile("tests/fixtures/jpeg/checkedin-odd-17x9.jpg"), undefined],
+    ] as const;
+    for (const [_label, bytes, profile] of cases) {
+      const expectedWidth = _label === "JPEG" ? 17 : 4;
+      const expectedHeight = _label === "JPEG" ? 9 : 3;
+      const f = await fixture(bytes, "overview-source" + (profile ? "-rgba.png" : ".png"));
+      await withClient(f.root, async (client) => {
+        const sourceBytesBefore = await readFile(f.path);
+        const indexed = resultOf(await client.call("index_image_artifact", {
+          path: f.path,
+          ...(profile ? { profile } : {}),
+        })).structuredContent;
+        const overview = resultOf(await client.call("overview_image_artifact", {
+          artifactId: indexed.artifactId,
+          maxSide: 64,
+        }));
+        const overviewSchema = fromJSONSchema(
+          (await client.listTools()).find((tool) => tool.name === "overview_image_artifact").outputSchema,
+        );
+        expect(overview.content).toHaveLength(2);
+        expect(overview.content[0].type).toBe("text");
+        expect(overview.content[1]).toMatchObject({ type: "image", mimeType: "image/jpeg" });
+        expect(overview.structuredContent.output.image).toBeUndefined();
+        expect(JSON.parse(overview.content[0].text)).toEqual(overview.structuredContent);
+        expect(overview.structuredContent.source).toEqual(indexed);
+        expect(overviewSchema.safeParse(overview.structuredContent).success).toBe(true);
+        for (const field of ["quality", "encoder", "resample", "validation"]) {
+          const missing = structuredClone(overview.structuredContent);
+          delete missing.output[field];
+          expect(overviewSchema.safeParse(missing).success).toBe(false);
+        }
+        for (const [field, value] of [["quality", 74], ["resample", "nearest"], ["encoder", { name: "other", version: "0" }]] as const) {
+          const invalid = structuredClone(overview.structuredContent);
+          invalid.output[field] = value;
+          expect(overviewSchema.safeParse(invalid).success).toBe(false);
+        }
+        const invalidValidation = structuredClone(overview.structuredContent);
+        invalidValidation.output.validation.validationProfile = "jpeg-other-v1";
+        expect(overviewSchema.safeParse(invalidValidation).success).toBe(false);
+        const crossed = structuredClone(overview.structuredContent);
+        crossed.source.format = "jpeg";
+        crossed.source.mimeType = "image/png";
+        crossed.source.validationProfile = "jpeg-ycbcr8-baseline-444-v1";
+        expect(overviewSchema.safeParse(crossed).success).toBe(false);
+        if (indexed.validationProfile === "png-rgb8-tolerant-v1") {
+          const crossedAlpha = structuredClone(overview.structuredContent);
+          crossedAlpha.source.validationProfile = "png-rgb8-static-v1";
+          crossedAlpha.source.alpha = "present";
+          expect(overviewSchema.safeParse(crossedAlpha).success).toBe(false);
+        }
+        expect(overview.structuredContent.output).toMatchObject({
+          format: "jpeg", mimeType: "image/jpeg", width: expectedWidth, height: expectedHeight,
+          quality: 75, resample: "area-average-v1",
+        });
+        const inspected = resultOf(await client.call("inspect_image_artifact", {
+          artifactId: indexed.artifactId,
+        }));
+        expect(inspected.structuredContent).toEqual(indexed);
+        const cropped = resultOf(await client.call("crop_image_artifact", {
+          artifactId: indexed.artifactId,
+          region: { x: 0, y: 0, width: 1, height: 1 },
+        }));
+        expect(cropped.structuredContent.status).toBe("cropped");
+        expect(cropped.structuredContent.source).toEqual(indexed);
+        expect(JSON.parse(cropped.content[0].text)).toEqual(cropped.structuredContent);
+        expect(await readFile(f.path)).toEqual(sourceBytesBefore);
+      });
+    }
+  });
+
+  it.each([
+    [{}, "Input validation error"],
+    [{ artifactId: "missing", unknown: true }, "Input validation error"],
+    [{ artifactId: null }, "Input validation error"],
+    [{ artifactId: "missing", maxSide: null }, "Input validation error"],
+    [{ artifactId: "missing", maxSide: 64.5 }, "Input validation error"],
+    [{ artifactId: "missing", maxSide: "64" }, "Input validation error"],
+    [{ artifactId: "missing" }, "artifact_not_indexed"],
+    [{ artifactId: "missing", maxSide: 63 }, "Input validation error"],
+    [{ artifactId: "missing", maxSide: 1537 }, "Input validation error"],
+  ])("rejects overview input %j with %s", async (args, code) => {
+    const root = await mkdtemp(join(tmpdir(), "tco-mcp-overview-errors-")); roots.push(root);
+    await withClient(root, async (client) => {
+      expectTextOnlyError(resultOf(await client.call("overview_image_artifact", args)), code);
     });
   });
 

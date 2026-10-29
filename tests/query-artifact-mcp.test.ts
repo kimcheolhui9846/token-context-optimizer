@@ -30,6 +30,10 @@ describe("query_artifact MCP contract", () => {
     const client = await CropMcpClient.start();
     try {
       const tools = await client.listTools();
+      expect(tools.map((tool) => tool.name)).toEqual([
+        ...baseTools.map((tool) => tool.name),
+        "overview_image_artifact",
+      ]);
       const query = tools.find((tool) => tool.name === "query_artifact");
       expect(query).toBeDefined();
       expect(query.inputSchema.properties).toMatchObject({
@@ -65,7 +69,12 @@ describe("query_artifact MCP contract", () => {
           }
           expect(actual).toEqual({ ...expected, description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.", inputSchema: { ...expected.inputSchema, properties: { ...expected.inputSchema.properties, profile: { type: "string", enum: ["strict", "tolerant"] } } }, outputSchema: withTolerantSchema(expected.outputSchema) });
         } else if (expected.name === "crop_image_artifact") {
-          expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
+          expect(actual).toEqual({
+            ...expected,
+            description:
+              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+            outputSchema: withTolerantSchema(expected.outputSchema),
+          });
         } else {
           expect(actual).toStrictEqual(expected);
         }
