@@ -1,0 +1,111 @@
+{
+  "schema": "wbs-6.12b-maintain-proof/v1",
+  "recordedAt": "2026-10-29T05:18:23.715Z",
+  "authorization": "2026-10-29 overview implementation handoff explicitly requires base 888f052 and scripts/measure-overview.mjs; plan product baseline69ebb0e matches888f052.",
+  "results": [
+    {
+      "command": [
+        "git",
+        "merge-base",
+        "69ebb0e",
+        "888f052"
+      ],
+      "exit": 0,
+      "stdout": "69ebb0ee42a26ad071bb3c937b0845712748767d"
+    },
+    {
+      "command": [
+        "git",
+        "log",
+        "--oneline",
+        "69ebb0e..888f052"
+      ],
+      "exit": 0,
+      "stdout": "888f052 Merge pull request #81 from kimcheolhui9846/codex/overview-plan\ndb23335 docs: enumerate overview documentation corrections\ndd59249 docs: plan image overview tool for WBS 6.12b"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "69ebb0e",
+        "888f052",
+        "--",
+        "src",
+        "tests",
+        "scripts",
+        "README.md",
+        "skills",
+        "docs/image-artifacts.md",
+        "package.json",
+        "package-lock.json"
+      ],
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "69ebb0e",
+        "--",
+        "src/core/image-artifacts.ts",
+        "src/core/image-crop.ts",
+        "src/core/jpeg-validation.ts",
+        "src/core/types.ts",
+        "src/core/read-bounded-file.ts",
+        "tests/fixtures",
+        "package.json",
+        "package-lock.json",
+        "scripts/verify-installed-plugin.mjs",
+        "tests/image-artifacts.test.ts",
+        "tests/image-crop.test.ts",
+        "tests/image-crop-boundaries.test.ts",
+        "tests/image-source-race.test.ts",
+        "tests/image-packaging.test.ts",
+        "tests/core.test.ts",
+        "tests/jpeg-fixtures.test.ts",
+        "tests/read-bounded-file.test.ts",
+        "research",
+        "paper",
+        "docs/research/evidence",
+        ":(exclude)docs/research/evidence/wbs-6.12b"
+      ],
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "888f052",
+        "--",
+        "src/core/image-artifacts.ts",
+        "src/core/image-crop.ts",
+        "src/core/jpeg-validation.ts",
+        "src/core/types.ts",
+        "src/core/read-bounded-file.ts",
+        "tests/fixtures",
+        "package.json",
+        "package-lock.json",
+        "scripts/verify-installed-plugin.mjs",
+        "tests/image-artifacts.test.ts",
+        "tests/image-crop.test.ts",
+        "tests/image-crop-boundaries.test.ts",
+        "tests/image-source-race.test.ts",
+        "tests/image-packaging.test.ts",
+        "tests/core.test.ts",
+        "tests/jpeg-fixtures.test.ts",
+        "tests/read-bounded-file.test.ts",
+        "research",
+        "paper",
+        "docs/research/evidence",
+        ":(exclude)docs/research/evidence/wbs-6.12b"
+      ],
+      "exit": 0,
+      "stdout": ""
+    }
+  ]
+}

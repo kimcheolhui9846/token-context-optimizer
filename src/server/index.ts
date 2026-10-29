@@ -18,6 +18,7 @@ import {
   inspectImageArtifact,
 } from "../core/image-artifacts.js";
 import { cropImageArtifact } from "../core/image-crop.js";
+import { overviewImageArtifact } from "../core/image-overview.js";
 
 export function createServer(): McpServer {
   const server = new McpServer(
@@ -234,7 +235,7 @@ export function createServer(): McpServer {
   server.registerTool(
     "crop_image_artifact",
     {
-      description: "Crop a validated RGB PNG or JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. The caller may use an overview it already has; this tool does not generate one. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      description: "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
       inputSchema: z.strictObject({ artifactId: z.string().min(1), region: regionSchema }),
       outputSchema: cropOutputSchema,
     },
@@ -245,6 +246,62 @@ export function createServer(): McpServer {
       const { image, ...output } = result.output;
       const structured = { ...result, output };
       return { isError: false, content: [{ type: "text", text: JSON.stringify(structured) }, { type: "image", data: image, mimeType: "image/jpeg" }], structuredContent: structured };
+    },
+  );
+
+  const overviewOutputSchema = z.object({
+    source: imageOutputSchema,
+    output: z.object({
+      width: z.number().int(),
+      height: z.number().int(),
+      format: z.literal("jpeg"),
+      mimeType: z.literal("image/jpeg"),
+      byteLength: z.number().int(),
+      sha256: z.string(),
+      quality: z.literal(75),
+      encoder: z.object({
+        name: z.literal("jpeg-js"),
+        version: z.literal("0.4.4"),
+      }),
+      resample: z.literal("area-average-v1"),
+      validation: z.object({
+        width: z.number().int(),
+        height: z.number().int(),
+        channels: z.literal(3),
+        format: z.literal("jpeg"),
+        mimeType: z.literal("image/jpeg"),
+        validationProfile: z.literal("jpeg-ycbcr8-baseline-444-v1"),
+      }),
+    }),
+  });
+  server.registerTool(
+    "overview_image_artifact",
+    {
+      description:
+        "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+      inputSchema: z.strictObject({
+        artifactId: z.string().min(1),
+        maxSide: z.number().int().min(64).max(1536).optional(),
+      }),
+      outputSchema: overviewOutputSchema,
+    },
+    async ({ artifactId, maxSide }) => {
+      const result = await overviewImageArtifact({
+        artifactId,
+        maxSide,
+        store: defaultImageArtifactStore,
+        allowedRoots: getAllowedRoots(),
+      });
+      const { image, ...output } = result.output;
+      const structured = { source: result.source, output };
+      return {
+        isError: false,
+        content: [
+          { type: "text", text: JSON.stringify(structured) },
+          { type: "image", data: image, mimeType: "image/jpeg" },
+        ],
+        structuredContent: structured,
+      };
     },
   );
 

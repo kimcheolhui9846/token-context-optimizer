@@ -4,6 +4,7 @@ import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { deflateSync } from "node:zlib";
+import { validateJpeg } from "../dist/src/core/jpeg-validation.js";
 
 import { RUNTIME_FILES, childHasExited, readOption, validateCliArgs } from "./plugin-runtime.mjs";
 
@@ -118,12 +119,15 @@ try {
     "summarize_artifact",
     "index_image_artifact",
     "inspect_image_artifact",
+    "crop_image_artifact",
+    "overview_image_artifact",
   ]) {
     if (!toolNames.includes(expected)) {
       throw new Error(`Missing MCP tool: ${expected}`);
     }
   }
   assertImageToolSchemas(tools.result.tools);
+  assertOverviewToolSchema(tools.result.tools);
 
   send({
     jsonrpc: "2.0",
@@ -217,6 +221,46 @@ try {
 
   send({
     jsonrpc: "2.0",
+    id: 16,
+    method: "tools/call",
+    params: {
+      name: "overview_image_artifact",
+      arguments: { artifactId: tolerantPayload.artifactId, maxSide: 64 },
+    },
+  });
+  const overviewJpeg = await waitFor((message) => message.id === 16 && message.result);
+  if (overviewJpeg.result.isError || overviewJpeg.result.content?.length !== 2) {
+    throw new Error(`JPEG overview failed: ${JSON.stringify(overviewJpeg.result)}`);
+  }
+  const overviewPayload = JSON.parse(overviewJpeg.result.content[0].text);
+  const overviewImage = overviewJpeg.result.content.find((item) => item.type === "image");
+  const overviewBytes = Buffer.from(overviewImage?.data ?? "", "base64");
+  const overviewValidation = validateJpeg(overviewBytes);
+  assertStructuredMatchesText(overviewJpeg.result, overviewPayload);
+  if (
+    JSON.stringify(overviewPayload.source) !== JSON.stringify(tolerantPayload) ||
+    overviewPayload.output?.width !== 2 ||
+    overviewPayload.output?.height !== 2 ||
+    overviewPayload.output?.quality !== 75 ||
+    overviewPayload.output?.resample !== "area-average-v1" ||
+    overviewPayload.output?.encoder?.name !== "jpeg-js" ||
+    overviewPayload.output?.encoder?.version !== "0.4.4" ||
+    overviewPayload.output?.format !== "jpeg" ||
+    overviewPayload.output?.mimeType !== "image/jpeg" ||
+    overviewPayload.output?.validation?.validationProfile !== "jpeg-ycbcr8-baseline-444-v1" ||
+    overviewImage?.mimeType !== "image/jpeg" ||
+    overviewValidation.width !== 2 ||
+    overviewValidation.height !== 2 ||
+    overviewValidation.validationProfile !== "jpeg-ycbcr8-baseline-444-v1" ||
+    overviewPayload.output?.byteLength !== overviewBytes.length ||
+    overviewPayload.output?.sha256 !== createHash("sha256").update(overviewBytes).digest("hex") ||
+    Object.prototype.hasOwnProperty.call(overviewPayload.output, "image")
+  ) {
+    throw new Error(`JPEG overview metadata mismatch: ${JSON.stringify(overviewPayload)}`);
+  }
+
+  send({
+    jsonrpc: "2.0",
     id: 6,
     method: "tools/call",
     params: { name: "index_image_artifact", arguments: { path: outsideImageFile } },
@@ -286,10 +330,33 @@ function assertImageToolSchemas(tools) {
   }
 }
 
+function assertOverviewToolSchema(tools) {
+  const tool = tools.find((candidate) => candidate.name === "overview_image_artifact");
+  if (!tool?.inputSchema || !tool.outputSchema) {
+    throw new Error("Missing overview_image_artifact schemas");
+  }
+  if (
+    tool.inputSchema.additionalProperties !== false ||
+    JSON.stringify(tool.inputSchema.required) !== JSON.stringify(["artifactId"]) ||
+    tool.inputSchema.properties?.artifactId?.type !== "string" ||
+    tool.inputSchema.properties?.maxSide?.minimum !== 64 ||
+    tool.inputSchema.properties?.maxSide?.maximum !== 1536
+  ) {
+    throw new Error(`Unexpected overview input schema: ${JSON.stringify(tool.inputSchema)}`);
+  }
+  const output = tool.outputSchema;
+  if (output.properties?.source === undefined || output.properties?.output === undefined) {
+    throw new Error(`Unexpected overview output schema: ${JSON.stringify(output)}`);
+  }
+  if (output.properties.output.properties?.image !== undefined) {
+    throw new Error("Overview output schema must omit base64 image data");
+  }
+}
+
 function assertImageOutputSchema(output, name) {
   const schemas = output.anyOf ?? [output];
   if (schemas.length !== 3) {
-    throw new Error(`Image output schema must expose correlated PNG/JPEG variants for ${name}`);
+    throw new Error(`Image output schema must expose three correlated strict PNG, tolerant PNG, and JPEG variants for ${name}`);
   }
   const signatures = schemas.map((schema) => `${schema.properties?.format?.const}:${schema.properties?.mimeType?.const}:${schema.properties?.validationProfile?.const}`);
   for (const expected of ["png:image/png:png-rgb8-static-v1", "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1"]) {
@@ -334,13 +401,20 @@ function assertImageRecord(record, expected) {
 }
 
 function pngChunk(type, data) {
-    const name = Buffer.from(type, "ascii");
-    const out = Buffer.alloc(12 + data.length);
-    out.writeUInt32BE(data.length, 0); name.copy(out, 4); data.copy(out, 8);
-    let crc = 0xffffffff;
-    for (const byte of Buffer.concat([name, data])) { crc ^= byte; for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1)); }
-    out.writeUInt32BE((crc ^ 0xffffffff) >>> 0, 8 + data.length);
-    return out;
+  const name = Buffer.from(type, "ascii");
+  const out = Buffer.alloc(12 + data.length);
+  out.writeUInt32BE(data.length, 0);
+  name.copy(out, 4);
+  data.copy(out, 8);
+  let crc = 0xffffffff;
+  for (const byte of Buffer.concat([name, data])) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit++) {
+      crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1));
+    }
+  }
+  out.writeUInt32BE((crc ^ 0xffffffff) >>> 0, 8 + data.length);
+  return out;
 }
 
 function makeOpaqueRgbaPng() {

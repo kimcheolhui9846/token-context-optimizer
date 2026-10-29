@@ -148,8 +148,9 @@ original without encoding. Strict RGBA and non-opaque tolerant RGBA partial crop
 and any non-full-frame crop wider or taller than 1536 pixels returns an
 `isError` response with `status:"rejected"` and `code:"resize_required"`.
 
-The caller chooses the rectangle, optionally using an overview supplied by its
-own workflow. This tool does not generate an overview or choose an area. Right
+The caller chooses the rectangle, optionally using `overview_image_artifact`
+or an overview supplied by its own workflow. The crop tool does not generate an
+overview or choose an area. Right
 and bottom edges are exclusive; coordinates are never rounded or clamped.
 Full-frame requests take priority over the 1536 cap and RGBA rejection, including
 large RGBA originals. Strict RGBA and tolerant PNGs with `alpha:"present"` are
@@ -178,6 +179,67 @@ without a full-source RGBA copy. Decoder and encoder temporaries still contribut
 to memory use: there is no process RSS ceiling or wall-clock deadline. No token
 estimate is returned, and JPEG quality alone does not establish token savings.
 
+## MCP overview use
+
+Call `overview_image_artifact` with `{"artifactId":"<indexed image ID>","maxSide":512}`
+to obtain a whole-image overview as MCP image content plus structured metadata.
+`maxSide` defaults to 512 and must be an integer from 64 through 1536; images are
+never enlarged, and invalid maxSide values are rejected rather than clamped. The
+output is a quality-75 JPEG with `jpeg-js` 0.4.4 provenance,
+strict JPEG validation, and `resample:"area-average-v1"`. The integer area-average
+resampler is a product contract and is intentionally different from the research
+harness's `sharp` `lanczos3` transformation; their pixels and measurements are
+not interchangeable.
+
+The output dimensions are the source dimensions when the source already fits the
+requested bound, including a 1:1 request. Even in that case the overview is
+deterministically re-encoded as q75 JPEG; it never takes the crop tool's original-
+reference bypass and never returns `resize_required`. The MCP response keeps the
+base64 JPEG in one `image/jpeg` content item and returns JSON metadata separately:
+`structuredContent` and the text JSON contain `source` and `output` metadata but
+not the image string. Output metadata includes dimensions, format/mime type,
+byteLength, SHA-256, quality, encoder, resample, and strict JPEG validation.
+
+Overviews accept indexed RGB PNGs, tolerant PNG records whose RGBA alpha is fully
+opaque, and supported JPEG inputs. A strict RGBA source or a tolerant PNG with
+`alpha:"present"` returns `alpha_unsupported` when an overview is requested;
+there is no full-frame original-reference bypass for this operation. Tolerant
+opaque RGBA is the only RGBA overview exception.
+The source is reread and revalidated before pixels are processed; no source or
+artifact-store files are written. Invalid input, missing IDs, source changes,
+decode failures, and unreadable sources retain the existing sanitized error
+contract.
+
+Overview error precedence is deterministic: validate the input object and
+`artifactId`/`maxSide`, look up the indexed record, read and revalidate the
+source, apply the supported-profile/alpha check, encode the q75 JPEG, then
+validate the output JPEG. The first failing stage supplies the error; later
+stages are not attempted.
+
+Use the overview to orient a caller, not to choose a region automatically. Map an
+overview coordinate back to original-image pixels with
+`x_src = floor(x * sourceWidth / width)` and
+`y_src = floor(y * sourceHeight / height)`, then call `crop_image_artifact` with a
+caller-chosen, in-bounds rectangle in original-image pixels. Limit rectangle
+endpoints to the source dimensions before calling crop; crop itself does not
+clamp them. An overview does not
+select evidence and may be too small to read exact values; it provides no
+guarantee of readability or exact-value accuracy. The crop tool still owns its
+existing 1536-pixel limit, full-frame exception, coordinate semantics, and
+`alpha_unsupported`/`resize_required` behavior.
+
+For small text or questions requiring exact values, use the overview only to find
+the relevant area and then crop the original-image pixels; do not infer a value
+from downscaled overview text.
+
+Overview processing uses the same input ceilings as indexing: 10 MiB encoded,
+8192 pixels per axis, and 16,777,216 total pixels. The deterministic resampler
+uses an output RGBA buffer (`4 × width × height`, at most 9 MiB) plus two
+working rows totaling `36 × outputWidth` bytes. It does not allocate a source-sized
+RGBA copy or a source-by-output weight matrix. Decoder,
+encoder, and captured-source temporaries add to that working set. These bounds
+are not a process RSS ceiling or a wall-clock deadline.
+
 Indexing is a validated snapshot, not a backup or an immutable source archive.
 The tools never write the source, but another process can change or delete it.
 Inspection then fails; records disappear when the server restarts. If a changed
@@ -203,25 +265,26 @@ they are not successful artifact records.
 | `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |
 | `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the 128 MiB accounting ceiling |
 | `unknown_artifact_id` | The image ID is absent from this server's store |
-| `artifact_not_indexed` | The crop request references an image ID absent from the store |
+| `artifact_not_indexed` | The crop or overview request references an image ID absent from the store |
 | `region_empty` | Crop width or height is zero or negative |
 | `region_out_of_bounds` | Crop coordinates are negative or exceed the source dimensions |
-| `alpha_unsupported` | A partial crop was requested from an RGBA source |
+| `alpha_unsupported` | A partial crop or an overview was requested from an RGBA source, unless it is a tolerant PNG record whose alpha is fully opaque |
 | `resize_required` | A non-full-frame crop exceeds 1536 on either axis; structured error includes the source reference |
 | `invalid_region` | Core crop arguments are malformed or their coordinate sums are unsafe; MCP also validates its input schema |
-| `decode_failed` | Crop pixels or decoded metadata do not match the validated source |
+| `decode_failed` | Crop or overview pixels or decoded metadata do not match the validated source |
 | `encode_failed` | The JPEG encoder failed |
 | `output_validation_failed` | Encoded JPEG failed validation or has unexpected dimensions; no image is returned |
-| `source_changed` | Indexing or cropping detected a source change, or inspection successfully read bytes whose hash/length differ from the record |
-| `source_missing_or_unreadable` | Inspection or cropping cannot obtain the recorded source |
+| `source_changed` | Indexing, cropping, or overview processing detected a source change, or inspection successfully read bytes whose hash/length differ from the record |
+| `source_missing_or_unreadable` | Inspection, cropping, or overview processing cannot obtain the recorded source |
+| `invalid_overview_input` | Core overview `artifactId` is empty/non-string or provided `maxSide` is not an integer from 64 through 1536; MCP rejects invalid input through its schema |
 
-Crop preserves reader-detected `source_changed` as well as post-read SHA/length
+Crop and overview preserve reader-detected `source_changed` as well as post-read SHA/length
 mismatches. Inspection retains its existing mapping: reader failures other than
 `path_denied` become `source_missing_or_unreadable`. Crop applies that mapping to
 other reader failures too, and never attaches a valid-source reference to a
 `source_changed` error.
 
-Error precedence is deterministic. Reader and encoded-size failures occur before
+Error precedence for indexing/crop/inspection remains deterministic. Reader and encoded-size failures occur before
 format validation; a recognized but unsupported profile maps to
 `unsupported_jpeg_profile`. For JPEG, an invalid APP0 JFIF identifier or a
 missing APP0 is classified as an unsupported profile, while a duplicate APP0,
@@ -245,9 +308,12 @@ upload or model call.
 
 The [paper](research/image-first-paper-draft.ko.md) and
 [evaluation protocol](research/image-first-evaluation-protocol.md) still describe
-planned transformations and experiments. This slice does not resize, run OCR,
-select evidence, apply a guard/fallback, call a model or
-estimate image tokens. It cannot run the full four-condition image pilot.
-Software checks and the existing text benchmark are not evidence of image
-accuracy, readability, latency or billing savings. Video remains a later,
-separately approved extension after image evaluation.
+planned transformations and experiments. This product slice provides a bounded
+overview, but it does not run OCR, select evidence, choose a region, apply a
+guard/fallback, call a model or estimate image tokens. It cannot run the full
+four-condition image pilot. The paper evaluates the separate research harness,
+not this product overview/crop path: its integer `area-average-v1` output must not
+be compared as if it were the research `sharp`/`lanczos3` output. Software checks
+and the existing text benchmark are not evidence of image accuracy, readability,
+latency or billing savings, and an overview does not guarantee exact values.
+Video remains a later, separately approved extension after image evaluation.
