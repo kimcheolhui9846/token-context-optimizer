@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "attempt": "attempt2",
+  "generator": "tests/fixtures/jpeg-tolerant/generate-fixtures.mjs",
+  "generatorSha256Lf": "6ff9b8d6d2b09d3770da167f6ed3c51fe514ebf1ab15405350446000dfd5700d",
+  "historicalGenerator": {
+    "recordedPath": "tests/fixtures/jpeg-tolerant/generate-fixtures.mjs",
+    "preservedCopy": "tests/fixtures/jpeg-tolerant/generate-fixtures.attempt2.mjs",
+    "sha256Lf": "13973cb34458ceb8c1e843c2ee76d9f67c70815287eb8477786f60b2a0002417"
+  },
+  "parent": "sharp-progressive-420-50x34.jpg",
+  "parentSha256": "c25180399e04e5b1976fcdfec237367d3ecacbcdc28e4d885ab45f0c6ebbba65",
+  "baseScanCount": 10,
+  "decoder": {
+    "package": "jpeg-js",
+    "options": {
+      "tolerantDecoding": false,
+      "useTArray": true,
+      "formatAsRGBA": false,
+      "maxMemoryUsageInMB": 256,
+      "maxResolutionInMP": 16.777216
+    }
+  },
+  "records": [
+    {
+      "file": "sharp-progressive-420-50x34-sos64.jpg",
+      "parent": "sharp-progressive-420-50x34.jpg",
+      "baseScanCount": 10,
+      "addedScanCount": 54,
+      "totalScanCount": 64,
+      "scan": "EOBRUN-only AC first scan, Y Ss=Se=1 Ah=Al=0; AC3 symbol E0 and 32767-run bits 0+14 ones",
+      "byteLength": 1469,
+      "sha256": "ec7a6175bbd57b533e94c262cba6e92984bf622140fc09dedb0347ef57291a30",
+      "expected": "accept",
+      "decoderRgbSha256": "6563d0e0a2b3b02fce80681a70886a1b2a538f73a7affac990b62d94357a819b"
+    },
+    {
+      "file": "sharp-progressive-420-50x34-sos65.jpg",
+      "parent": "sharp-progressive-420-50x34.jpg",
+      "baseScanCount": 10,
+      "addedScanCount": 55,
+      "totalScanCount": 65,
+      "scan": "EOBRUN-only AC first scan, Y Ss=Se=1 Ah=Al=0; AC3 symbol E0 and 32767-run bits 0+14 ones",
+      "byteLength": 1482,
+      "sha256": "f2afe39f57f750ac913ecd386223c69ff111af3f4fde69f9d690120bb0ee9e42",
+      "expected": "jpeg_resource_limit",
+      "decoderRgbSha256": "6563d0e0a2b3b02fce80681a70886a1b2a538f73a7affac990b62d94357a819b"
+    }
+  ]
+}

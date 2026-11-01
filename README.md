@@ -40,9 +40,10 @@ this change a JPEG `profile:"tolerant"` request returned the strict record and I
 it now returns a distinct tolerant record and ID, while strict IDs are unchanged.
 Records are process-local memory only. See [the image contract](docs/image-artifacts.md)
 for the exact decoder accounting (strict 128 MiB, tolerant 256 MiB).
-Tolerant progressive JPEGs have no scan-count or wall-clock limit; repeated scans
-can multiply synchronous decode time. The encoded-size and decoder allocation
-ceilings do not bound CPU time.
+Tolerant JPEGs accept at most 64 SOS scans across the whole file; a 65th scan is
+rejected as `jpeg_resource_limit` before decoding. There is no wall-clock limit:
+accepted progressive scans still run synchronously, and the encoded-size and
+decoder allocation ceilings do not bound CPU time.
 
 PNG indexing is strict by default. Call `index_image_artifact` with
 `profile:"tolerant"` for bounded ancillary-chunk tolerance; the result records

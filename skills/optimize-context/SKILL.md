@@ -49,6 +49,8 @@ recorded SHA-256 detects later source changes. Palette/grayscale/interlaced PNG,
 APNG, CMYK/grayscale JPEG, and WEBP remain unsupported. Limits are 10 MiB
 encoded, 8192 pixels per axis and 16,777,216 total pixels. Keep an unsupported
 original unchanged; these tools do not convert it automatically.
+A tolerant JPEG may contain at most 64 SOS scans in the whole file. A 65th scan
+returns `jpeg_resource_limit` before decoding; no wall-clock deadline is provided.
 
 Image records contain metadata, not pixels or OCR. Indexing does not modify or
 back up the original. The record is session-local and inspection fails if the

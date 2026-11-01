@@ -78,10 +78,12 @@ Grayscale, CMYK/YCCK, 12-bit, lossless, arithmetic, and other sampling remain
 `unsupported_jpeg_profile`. Marker bounds, table definitions and references,
 scan parameters, restart-marker order, and the terminal EOI are checked by this
 project before the `jpeg-js` decoder runs with `tolerantDecoding: false`.
-The tolerant profile has no scan-count or wall-clock limit. Repeated progressive
-scans can require repeated full-image decoder passes, including on small encoded
-files; a caller must not treat the 10 MiB encoded-size or 256 MiB decoder
-allocation checks as a CPU-time bound.
+The tolerant profile accepts at most 64 SOS scans across the whole JPEG file.
+The walker rejects the 65th with `jpeg_resource_limit` before decoder invocation;
+the strict profile still allows one scan. There is no wall-clock deadline.
+Accepted progressive scans can require repeated full-image decoder passes,
+including on small encoded files, so the 10 MiB encoded-size and 256 MiB decoder
+allocation checks are not a CPU-time bound.
 
 APP0–APP15 and COM segments are bounds-checked and their names are recorded once,
 in first-seen order, in `ignoredSegments`; payloads and counts are not stored.

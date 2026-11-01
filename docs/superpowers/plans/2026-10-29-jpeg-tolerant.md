@@ -320,3 +320,11 @@ git diff --check
 - [x] strict 128MiB 유지, tolerant 정확 회계256MiB, 표 재정의 누적·RST 자체 검사·손상 검출 한계 명시.
 - [x] stub 이전 baseline, 값 기반 RED, 필수 strict 세 연산 성능 gate와 raw9개·중단 조건 명시.
 - [ ] 사용자 측 계획 검토·승인·merge 후 별도 구현 지시를 받는다. 구현은 아직 수행하지 않았다.
+
+## 보충 2026-11-01: scan 상한
+
+- PR #84 두 번째 시도에서 사용자 결정 (a)를 적용한다. tolerant JPEG는 파일 전체의 SOS 수가 64개까지 허용되고, 65번째 SOS를 walker에서 발견하면 decoder 호출 전에 `jpeg_resource_limit`를 반환한다. strict의 SOS 1개 규칙은 그대로 둔다.
+- 근거: Claude Code Opus 5.5의 PR #84 리뷰 §2에서 4032×3024 progressive 4:2:0에 작은 EOBRUN-only AC scan을 추가했을 때 K=0/100/1,000/5,000이 446/553/1,365/4,748 ms로 모두 통과했다. scan당 약 0.86 ms가 증가했고 10 MiB에 약 37만 개를 넣을 수 있다. 정상 sharp/libvips progressive fixture의 기본 SOS 수는 10개였다.
+- RED는 기본 scan M개에 EOBRUN-only scan을 각각 `64−M`, `65−M`개 더한 fixture를 생성하고 M과 추가 개수를 별도 provenance로 기록한다. 64개 수용과 progressive coding, 65개 `jpeg_resource_limit`, decoder 호출 0회, strict 기대값 불변을 검증한다. 주 에이전트가 실패 로그·exit code·typecheck 0을 직접 확인한 뒤 GREEN을 맡긴다.
+- 기존 evidence와 fixture는 보존한다. 새 성능 결과는 `docs/research/evidence/wbs-6.12c/measurement-attempt2-scancap.json`에만 기록한다. 8192×2048 progressive 4:2:0의 SOS 총 64/65 입력을 추가하고 준비 manifest를 직접 검토한 뒤 `--measure`를 한 번만 실행한다. A′/A가 [0.97, 1.03] 밖이면 INVALID, B/A > 1.03이면 FAIL로 멈추며 재시도하지 않는다. 커밋 후 B 소스 hash를 결속한다.
+- Claude CLI `claude-opus-5-5` 변경분 재검토, 기존 §9의 7단계 검증, `Agent: codex` 커밋, push와 Draft PR #84 본문 갱신으로 마친다. PR과 핸드오프에 `두 번째 시도` 및 수행 계정 `sol`을 적는다. Astra 최종 검토, Ready 전환, merge는 이번 범위에서 보류한다.

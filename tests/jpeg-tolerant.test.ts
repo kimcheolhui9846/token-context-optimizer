@@ -44,6 +44,11 @@ type Proof = { file: string; required: string; observed: "accept" | "reject"; wi
 const provenanceText = await readFile(join(ROOT, "provenance.json"), "utf8");
 const provenance = JSON.parse(provenanceText) as Provenance;
 const decoderProof = JSON.parse(await readFile(join(ROOT, "decoder-proof.json"), "utf8")) as { decoder: { options: Record<string, unknown> }; results: Proof[] };
+type ScanCapRecord = { file: string; parent: string; baseScanCount: number; addedScanCount: number; totalScanCount: number; byteLength: number; sha256: string; expected: string; decoderRgbSha256: string };
+const scanCapProvenance = JSON.parse(await readFile(join(ROOT, "scan-cap-provenance.json"), "utf8")) as {
+  generatorSha256Lf: string; parentSha256: string; baseScanCount: number; records: ScanCapRecord[];
+  historicalGenerator: { recordedPath: string; preservedCopy: string; sha256Lf: string };
+};
 
 const fixtureCache = new Map<string, Buffer>();
 async function fx(name: string): Promise<Buffer> {
@@ -207,6 +212,26 @@ const WRAP10 = [0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5, 0xd6, 0xd7, 0xd0];
 
 // ============================================================ provenance ====
 describe("fixture provenance (attempt2 generator output)", () => {
+  it("scan-cap supplement binds the current generator, base and decoder-valid 64/65 JPEGs", async () => {
+    const source = await readFile(join(ROOT, "generate-fixtures.mjs"), "utf8");
+    expect(scanCapProvenance.generatorSha256Lf).toBe(sha(Buffer.from(source.replace(/\r\n/g, "\n"))));
+    expect(scanCapProvenance.historicalGenerator).toMatchObject({
+      recordedPath: "tests/fixtures/jpeg-tolerant/generate-fixtures.mjs",
+      preservedCopy: "tests/fixtures/jpeg-tolerant/generate-fixtures.attempt2.mjs",
+      sha256Lf: provenance.generator.sha256Lf,
+    });
+    expect(scanCapProvenance.parentSha256).toBe(record(SHARP_PROG).sha256);
+    expect(scanCapProvenance.baseScanCount).toBe(record(SHARP_PROG).sharpProof!.scanCount);
+    for (const item of scanCapProvenance.records) {
+      const bytes = await fx(item.file);
+      expect(bytes.length).toBe(item.byteLength);
+      expect(sha(bytes)).toBe(item.sha256);
+      expect(item.baseScanCount + item.addedScanCount).toBe(item.totalScanCount);
+      expect(segmentsOf(bytes).scans).toHaveLength(item.totalScanCount);
+      const decoded = jpeg.decode(bytes, PLAN_DECODE_OPTIONS);
+      expect(sha(decoded.data)).toBe(item.decoderRgbSha256);
+    }
+  });
   it("provenance: every fixture file matches recorded byteLength and sha256", async () => {
     expect(provenance.attempt).toBe("attempt2");
     expect(provenance.fixtures.length).toBeGreaterThan(40);
@@ -214,6 +239,17 @@ describe("fixture provenance (attempt2 generator output)", () => {
       const bytes = await fx(f.file);
       expect(bytes.length, f.file).toBe(f.byteLength);
       expect(sha(bytes), f.file).toBe(f.sha256);
+    }
+  });
+
+  it("scan-cap provenance binds the 64/65 total-SOS fixtures and their parent", async () => {
+    expect(scanCapProvenance.baseScanCount).toBe(10);
+    expect(scanCapProvenance.records.map((r) => [r.totalScanCount, r.addedScanCount])).toEqual([[64, 54], [65, 55]]);
+    for (const record of scanCapProvenance.records) {
+      const bytes = await fx(record.file);
+      expect(bytes.length, record.file).toBe(record.byteLength);
+      expect(sha(bytes), record.file).toBe(record.sha256);
+      expect(record.parent).toBe(SHARP_PROG);
     }
   });
 
@@ -257,7 +293,7 @@ describe("fixture provenance (attempt2 generator output)", () => {
   });
 
   it("provenance: generator source hash (LF-normalized) matches the checked-in generator", async () => {
-    const source = await readFile(join(ROOT, "generate-fixtures.mjs"), "utf8");
+    const source = await readFile(join(ROOT, "generate-fixtures.attempt2.mjs"), "utf8");
     expect(sha(Buffer.from(source.replace(/\r\n/g, "\n"), "utf8"))).toBe(provenance.generator.sha256Lf);
     expect(provenance.generator.file).toBe("tests/fixtures/jpeg-tolerant/generate-fixtures.mjs");
   });
@@ -357,6 +393,30 @@ describe("A2 progressive and SOF1 extended", () => {
     expect(result.ignoredSegments).toEqual([]);
     expect(result.pixels.length).toBe(50 * 34 * 3);
     expect(sha(result.pixels)).toBe(proofOf(SHARP_PROG).rgbSha256);
+  });
+
+  it("scan-cap accepts total SOS=64 as progressive", async () => {
+    const record = scanCapProvenance.records.find((entry) => entry.totalScanCount === 64)!;
+    const bytes = await fx(record.file);
+    expect(record).toMatchObject({ baseScanCount: 10, addedScanCount: 54, totalScanCount: 64 });
+    expect(sha(bytes)).toBe(record.sha256);
+    expect(segmentsOf(bytes).scans).toHaveLength(64);
+    const result = validateJpegTolerant(bytes);
+    expect(result.coding).toBe("progressive");
+    expect(record.expected).toBe("accept");
+    expect(errorCode(() => validateJpeg(bytes))).toBe("unsupported_jpeg_profile");
+  });
+
+  it("scan-cap rejects total SOS=65 before decoder", async () => {
+    const record = scanCapProvenance.records.find((entry) => entry.totalScanCount === 65)!;
+    const bytes = await fx(record.file);
+    expect(record).toMatchObject({ baseScanCount: 10, addedScanCount: 55, totalScanCount: 65 });
+    expect(sha(bytes)).toBe(record.sha256);
+    expect(segmentsOf(bytes).scans).toHaveLength(65);
+    const decode = vi.spyOn(jpeg, "decode");
+    expect(errorCode(() => validateJpegTolerant(bytes))).toBe("jpeg_resource_limit");
+    expect(decode).not.toHaveBeenCalled();
+    expect(errorCode(() => validateJpeg(bytes))).toBe("unsupported_jpeg_profile");
   });
 
   it("SOF1 extended sequential mutation decodes through real jpeg-js with coding extended", async () => {

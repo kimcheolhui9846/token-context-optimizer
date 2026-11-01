@@ -38,6 +38,78 @@ const EXPECTED_SHARP = { version: "0.35.4", libvips: "8.18.6" };
 // ---------------------------------------------------------------- CLI ----
 const argv = process.argv.slice(2);
 const sharpIndex = argv.indexOf("--sharp");
+if (argv.includes("--scan-cap")) {
+  const parentFile = "sharp-progressive-420-50x34.jpg";
+  const parent = await readFile(join(HERE, parentFile));
+  const countSos = (bytes) => {
+    let p = 2, count = 0;
+    while (p + 1 < bytes.length) {
+      if (bytes[p] !== 0xff) throw new Error(`scan-cap marker missing at ${p}`);
+      while (bytes[p] === 0xff) p++;
+      const marker = bytes[p++];
+      if (marker === 0xd9) break;
+      const length = bytes.readUInt16BE(p);
+      p += length;
+      if (marker === 0xda) {
+        count++;
+        while (p + 1 < bytes.length) {
+          if (bytes[p] === 0xff && bytes[p + 1] !== 0x00 && bytes[p + 1] !== 0xff) break;
+          p++;
+        }
+      }
+    }
+    return count;
+  };
+  const baseScanCount = countSos(parent);
+  const acEobTable = Buffer.from([0xff, 0xc4, 0x00, 0x14, 0x13, 0x01, ...Array(15).fill(0), 0xe0]);
+  const scan = Buffer.concat([
+    Buffer.from([0xff, 0xda, 0x00, 0x08, 0x01, 0x01, 0x03, 0x01, 0x01, 0x00]),
+    Buffer.from([0x7f, 0xff, 0x00]),
+  ]);
+  const make = (total) => Buffer.concat([
+    parent.subarray(0, parent.length - 2),
+    acEobTable,
+    ...Array(total - baseScanCount).fill(scan),
+    parent.subarray(parent.length - 2),
+  ]);
+  const outputs = [64, 65].map((total) => ({
+    total,
+    added: total - baseScanCount,
+    file: `sharp-progressive-420-50x34-sos${total}.jpg`,
+    bytes: make(total),
+  }));
+  const records = outputs.map(({ total, added, file, bytes }) => ({
+    file, parent: parentFile, baseScanCount, addedScanCount: added,
+    totalScanCount: total, scan: "EOBRUN-only AC first scan, Y Ss=Se=1 Ah=Al=0; AC3 symbol E0 and 32767-run bits 0+14 ones",
+    byteLength: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex"), expected: total === 64 ? "accept" : "jpeg_resource_limit",
+  }));
+  for (const output of outputs) {
+    const decoded = jpeg.decode(output.bytes, DECODE_OPTIONS);
+    if (decoded.width !== 50 || decoded.height !== 34 || decoded.data.length !== 50 * 34 * 3) {
+      throw new Error(`scan-cap decoder rejected valid SOS=${output.total} fixture`);
+    }
+    records.find((record) => record.totalScanCount === output.total).decoderRgbSha256 =
+      createHash("sha256").update(decoded.data).digest("hex");
+  }
+  const generatorSource = await readFile(fileURLToPath(import.meta.url), "utf8");
+  const historicalCopy = "tests/fixtures/jpeg-tolerant/generate-fixtures.attempt2.mjs";
+  const historicalSource = await readFile(join(HERE, "generate-fixtures.attempt2.mjs"), "utf8");
+  const historicalSha256Lf = createHash("sha256").update(historicalSource.replace(/\r\n/g, "\n")).digest("hex");
+  const historicalProvenance = JSON.parse(await readFile(join(HERE, "provenance.json"), "utf8"));
+  if (historicalSha256Lf !== historicalProvenance.generator.sha256Lf) {
+    throw new Error("historical generator snapshot does not match preserved provenance");
+  }
+  for (const output of outputs) await writeFile(join(HERE, output.file), output.bytes);
+  await writeFile(join(HERE, "scan-cap-provenance.json"), JSON.stringify({
+    schemaVersion: 1, attempt: "attempt2", generator: GENERATOR_REL,
+    generatorSha256Lf: createHash("sha256").update(generatorSource.replace(/\r\n/g, "\n")).digest("hex"),
+    historicalGenerator: { recordedPath: GENERATOR_REL, preservedCopy: historicalCopy, sha256Lf: historicalSha256Lf },
+    parent: parentFile, parentSha256: createHash("sha256").update(parent).digest("hex"),
+    baseScanCount, decoder: { package: "jpeg-js", options: DECODE_OPTIONS }, records,
+  }, null, 2) + "\n");
+  console.log(JSON.stringify({ status: "OK", baseScanCount, outputs: records }));
+  process.exit(0);
+}
 if (sharpIndex < 0 || !argv[sharpIndex + 1]) {
   console.error("usage: node " + GENERATOR_REL + " --sharp <path to sharp/dist/index.mjs>");
   process.exit(2);

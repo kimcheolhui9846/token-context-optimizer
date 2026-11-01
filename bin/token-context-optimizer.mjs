@@ -26372,6 +26372,7 @@ function tolerantScan(bytes, start, payload, state) {
     if (needDc && !state.dcDefined.has(selectors >> 4)) fail();
     if (needAc && !state.acDefined.has(selectors & 15)) fail();
   }
+  if (state.scans >= 64) fail("jpeg_resource_limit");
   state.scans++;
   return walkTolerantEntropy(bytes, start, state.restartInterval);
 }

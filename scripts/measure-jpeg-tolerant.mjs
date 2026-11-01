@@ -7,11 +7,11 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { encode as encodePng } from "fast-png";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const scratch = resolve(root, ".artifacts/jpeg-tolerant-impl/measurement/attempt2-v3");
+const scratch = resolve(root, ".artifacts/jpeg-tolerant-impl/measurement/attempt2-scancap");
 const evidenceDir = resolve(root, "docs/research/evidence/wbs-6.12c");
 const manifestPath = resolve(scratch, "prepared-manifest.json");
 const sentinelPath = resolve(scratch, "measurement.once");
-const reportPath = resolve(evidenceDir, "measurement-attempt2.json");
+const reportPath = resolve(evidenceDir, "measurement-attempt2-scancap.json");
 const baselineCommit = "6e6b016";
 const baselineRoots = {
   A: resolve(root, ".artifacts/jpeg-tolerant-impl/baseline-a"),
@@ -31,6 +31,8 @@ const tolerantMatrix = [
   { name: "baseline-4-2-0", width: 8192, height: 2048, chromaSubsampling: "4:2:0", progressive: false, expected: "accepted" },
   { name: "twelve-mp-4-2-0", width: 4032, height: 3024, chromaSubsampling: "4:2:0", progressive: false, expected: "accepted" },
   { name: "twelve-mp-progressive", width: 4032, height: 3024, chromaSubsampling: "4:2:0", progressive: true, expected: "accepted" },
+  { name: "scan-cap-64-progressive", width: 8192, height: 2048, chromaSubsampling: "4:2:0", progressive: true, totalScans: 64, expected: "accepted" },
+  { name: "scan-cap-65-progressive", width: 8192, height: 2048, chromaSubsampling: "4:2:0", progressive: true, totalScans: 65, expected: "jpeg_resource_limit" },
   { name: "worst-10mib-app3-com", width: 16, height: 8, worstAncillary: true, expected: "accepted" },
 ];
 const settings = { baselineCommit, warmups, rounds, maxBytes, cropRegion, rssIntervalMs, strictJpeg, strictPng, tolerantMatrix };
@@ -145,6 +147,67 @@ async function encodeJpeg(sharp, spec) {
   return encoded[2] === 0xff && encoded[3] === 0xe0
     ? encoded : Buffer.concat([encoded.subarray(0, 2), jfif, encoded.subarray(2)]);
 }
+// An AC-first Y scan with a one-symbol AC3 table. Each EOBRUN symbol covers
+// up to 32767 blocks; the scan is small but forces a full decode pass.
+function eobrunScan(width, height) {
+  const blocks = Math.ceil(width / 8) * Math.ceil(height / 8);
+  const symbols = Math.ceil(blocks / 32767);
+  const bits = [];
+  for (let i = 0; i < symbols; i++) bits.push(0, ...Array(14).fill(1));
+  while (bits.length % 8) bits.push(1);
+  const entropy = [];
+  for (let i = 0; i < bits.length; i += 8) {
+    const byte = bits.slice(i, i + 8).reduce((value, bit) => value * 2 + bit, 0);
+    entropy.push(byte);
+    if (byte === 0xff) entropy.push(0);
+  }
+  return Buffer.concat([
+    Buffer.from([0xff, 0xda, 0, 8, 1, 1, 3, 1, 1, 0]),
+    Buffer.from(entropy),
+  ]);
+}
+function countSos(bytes) {
+  let at = 2;
+  let count = 0;
+  while (at + 1 < bytes.length) {
+    if (bytes[at++] !== 0xff) throw new Error("scan-count marker alignment failed");
+    while (bytes[at] === 0xff) at++;
+    const marker = bytes[at++];
+    if (marker === 0xd9) {
+      if (at !== bytes.length) throw new Error("scan-count trailing bytes");
+      return count;
+    }
+    if (at + 2 > bytes.length) throw new Error("scan-count segment missing length");
+    const length = bytes.readUInt16BE(at);
+    if (length < 2 || at + length > bytes.length) throw new Error("scan-count segment bounds");
+    at += length;
+    if (marker !== 0xda) continue;
+    count++;
+    for (;;) {
+      if (at + 1 >= bytes.length) throw new Error("scan-count unterminated entropy");
+      if (bytes[at] !== 0xff) { at++; continue; }
+      const next = bytes[at + 1];
+      if (next === 0 || (next >= 0xd0 && next <= 0xd7)) { at += 2; continue; }
+      if (next === 0xff) { at++; continue; }
+      break;
+    }
+  }
+  throw new Error("scan-count EOI missing");
+}
+function withTotalScans(base, totalScans, width, height) {
+  const baseScans = countSos(base);
+  const addedScans = totalScans - baseScans;
+  if (addedScans < 1 || !base.subarray(-2).equals(Buffer.from([0xff, 0xd9]))) {
+    throw new Error("scan-cap base or count invalid");
+  }
+  const ac3Dht = Buffer.from([0xff, 0xc4, 0, 20, 0x13, 1, ...Array(15).fill(0), 0xe0]);
+  const scan = eobrunScan(width, height);
+  const bytes = Buffer.concat([base.subarray(0, -2), ac3Dht, ...Array(addedScans).fill(scan), base.subarray(-2)]);
+  if (countSos(bytes) !== totalScans) throw new Error("scan-cap SOS count mismatch");
+  return { bytes, details: { baseSha256: sha256(base), baseScanCount: baseScans,
+    addedScanCount: addedScans, totalScanCount: totalScans, scanBytes: scan.length,
+    eobrunAcTable: "class 1 id 3, symbol E0; Y AC-first Ss=Se=1 Ah=Al=0" } };
+}
 function worstAncillary() {
   const core = readFileSync(resolve(root, "tests/fixtures/jpeg-tolerant/hc-444-16x8-app0.jpg"));
   const sofOffset = core.indexOf(Buffer.from([0xff, 0xc0]));
@@ -241,8 +304,12 @@ async function prepare() {
   payloads.strictPng = { bytes: pngBytes,
     entry: inputEntry("strict-4096x4096-rgb.png", pngBytes, strictPng.width, strictPng.height, "accepted") };
   const tolerant = {};
+  let scanCapBase;
   for (const spec of tolerantMatrix) {
-    const made = spec.worstAncillary ? worstAncillary() : { bytes: await encodeJpeg(sharp, spec), details: {} };
+    if (spec.totalScans && !scanCapBase) scanCapBase = await encodeJpeg(sharp, spec);
+    const made = spec.worstAncillary ? worstAncillary()
+      : spec.totalScans ? withTotalScans(scanCapBase, spec.totalScans, spec.width, spec.height)
+        : { bytes: await encodeJpeg(sharp, spec), details: {} };
     const bytes = made.bytes;
     const entry = inputEntry(spec.name + ".jpg", bytes, spec.width, spec.height, spec.expected, made.details);
     if (spec.name.startsWith("accounting-")) entry.accounting = estimate444(bytes);
@@ -284,7 +351,7 @@ async function prepare() {
     throw new Error("strict preparation validation failed");
   }
   const manifest = {
-    schema: "wbs-6.12c-prepared/v3", attempt: 2, performingAccount: "sol",
+    schema: "wbs-6.12c-prepared/scancap-v1", attempt: 2, performingAccount: "sol",
     settings, scriptHashes: scriptHashes(), environment: env,
     sharp: { version: sharpVersion, libvips: vipsVersion,
       rgbFormula: "R=x mod 256; G=y mod 256; B=(x+y) mod 256",
@@ -295,12 +362,12 @@ async function prepare() {
       tolerant: Object.fromEntries(Object.entries(tolerant).map(([name, value]) => [name, value.entry])) },
   };
   writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n", { flag: "wx" });
-  console.log(JSON.stringify({ status: "PREPARED", manifest: rel(manifestPath), inputs: 8 }));
+  console.log(JSON.stringify({ status: "PREPARED", manifest: rel(manifestPath), inputs: 2 + tolerantMatrix.length }));
 }
 function check() {
   if (!existsSync(manifestPath)) throw new Error("prepared manifest missing");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  if (manifest.schema !== "wbs-6.12c-prepared/v3" || manifest.attempt !== 2 ||
+  if (manifest.schema !== "wbs-6.12c-prepared/scancap-v1" || manifest.attempt !== 2 ||
       JSON.stringify(manifest.settings) !== JSON.stringify(settings) ||
       JSON.stringify(manifest.scriptHashes) !== JSON.stringify(scriptHashes()) ||
       JSON.stringify(manifest.variants) !== JSON.stringify(inventories()) ||
@@ -465,7 +532,7 @@ async function measure() {
   mkdirSync(evidenceDir, { recursive: true });
   writeFileSync(sentinelPath, JSON.stringify({ attemptedAt: new Date().toISOString(),
     manifestSha256: sha256(readFileSync(manifestPath)) }) + "\n", { flag: "wx" });
-  const report = { schema: "wbs-6.12c-measurement/v3", attempt: 2, performingAccount: "sol",
+  const report = { schema: "wbs-6.12c-measurement/scancap-v1", attempt: 2, performingAccount: "sol",
     status: "INCOMPLETE", manifest: rel(manifestPath), manifestSha256: sha256(readFileSync(manifestPath)),
     settings, environment: manifest.environment, sharp: manifest.sharp, variants: manifest.variants,
     inputs: manifest.inputs, strict: {}, strictGate: { status: "INCOMPLETE" }, tolerant: {},
