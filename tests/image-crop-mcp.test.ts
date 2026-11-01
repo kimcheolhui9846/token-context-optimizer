@@ -10,7 +10,40 @@ import { deflateSync } from "node:zlib";
 
 const baseline = JSON.parse(await readFile("tests/fixtures/task39-base-tools.json", "utf8")) as { tools: any[] };
 const tolerantSchemaVariant = { type: "object", properties: { artifactId: { type: "string" }, path: { type: "string" }, sha256: { type: "string" }, byteLength: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, format: { type: "string", const: "png" }, mimeType: { type: "string", const: "image/png" }, width: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, height: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, channels: { anyOf: [{ type: "number", const: 3 }, { type: "number", const: 4 }] }, bitDepth: { type: "number", const: 8 }, validationProfile: { type: "string", const: "png-rgb8-tolerant-v1" }, ignoredChunks: { type: "array", items: { type: "string" } }, alpha: { type: "string", enum: ["none", "opaque", "present"] } }, required: ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "ignoredChunks", "alpha"], additionalProperties: false };
-function withTolerantSchema(value: any): any { if (Array.isArray(value)) return value.map(withTolerantSchema); if (!value || typeof value !== "object") return value; const copy = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withTolerantSchema(item)])); if (Array.isArray(copy.anyOf) && copy.anyOf.some((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1")) { const index = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1"); copy.anyOf.splice(index + 1, 0, tolerantSchemaVariant); } return copy; }
+// WBS 6.12c explicit delta: fourth JPEG tolerant variant (fields per src/core/types.ts), appended after the strict JPEG variant.
+const jpegTolerantSchemaVariant = { type: "object", properties: { artifactId: { type: "string" }, path: { type: "string" }, sha256: { type: "string" }, byteLength: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, format: { type: "string", const: "jpeg" }, mimeType: { type: "string", const: "image/jpeg" }, width: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, height: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, channels: { type: "number", const: 3 }, bitDepth: { type: "number", const: 8 }, validationProfile: { type: "string", const: "jpeg-ycbcr8-tolerant-v1" }, coding: { type: "string", enum: ["baseline", "extended", "progressive"] }, sampling: { type: "string", enum: ["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"] }, ignoredSegments: { type: "array", items: { type: "string" } }, exifOrientation: { anyOf: [{ type: "integer", minimum: 1, maximum: 8 }, { type: "null" }] } }, required: ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "coding", "sampling", "ignoredSegments", "exifOrientation"], additionalProperties: false };
+const indexImageDescription = "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.";
+function withTolerantSchema(value: any): any { if (Array.isArray(value)) return value.map(withTolerantSchema); if (!value || typeof value !== "object") return value; const copy = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withTolerantSchema(item)])); if (Array.isArray(copy.anyOf) && copy.anyOf.some((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1")) { const index = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1"); copy.anyOf.splice(index + 1, 0, tolerantSchemaVariant); const jpegIndex = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "jpeg-ycbcr8-baseline-444-v1"); expect(jpegIndex).toBeGreaterThanOrEqual(0); copy.anyOf.splice(jpegIndex + 1, 0, jpegTolerantSchemaVariant); } return copy; }
+const jpegTolerantFixturePath = "tests/fixtures/jpeg-tolerant/metadata-mixed.jpg";
+const jpegTolerantFixtureSha256 = "ee73d0517bbe3186184a57253c1645dd63b998df9d066b8cb58636acaa12335c";
+const jpegTolerantMetadata = { format: "jpeg", mimeType: "image/jpeg", width: 32, height: 16, channels: 3, bitDepth: 8, validationProfile: "jpeg-ycbcr8-tolerant-v1", coding: "baseline", sampling: "2x2,1x1,1x1", ignoredSegments: ["APP1", "APP2", "APP13", "COM", "APP14"], exifOrientation: 6 };
+
+// Value-level contract checks for a JPEG tolerant source embedded via `wrap` (record itself, crop or overview source).
+function expectJpegTolerantSourceContract(schema: { safeParse(value: unknown): { success: boolean } }, source: any, wrap: (candidate: any) => unknown): void {
+  expect(schema.safeParse(wrap(source)).success).toBe(true);
+  for (const orientation of [null, 1, 2, 3, 4, 5, 6, 7, 8]) expect(schema.safeParse(wrap({ ...source, exifOrientation: orientation })).success).toBe(true);
+  for (const field of ["coding", "sampling", "ignoredSegments", "exifOrientation"]) {
+    const missing = { ...source }; delete missing[field];
+    expect(schema.safeParse(wrap(missing)).success).toBe(false);
+  }
+  for (const [field, value] of [
+    ["coding", "lossless"], ["coding", "arithmetic"], ["coding", null],
+    ["sampling", "4x1,1x1,1x1"], ["sampling", "2x2"], ["sampling", null],
+    ["ignoredSegments", "APP1"], ["ignoredSegments", [1]], ["ignoredSegments", null],
+    ["exifOrientation", 0], ["exifOrientation", 9], ["exifOrientation", 6.5], ["exifOrientation", "6"],
+    ["channels", 4], ["bitDepth", 16],
+  ] as const) expect(schema.safeParse(wrap({ ...source, [field]: value })).success).toBe(false);
+  expect(schema.safeParse(wrap({ ...source, format: "png", mimeType: "image/png" })).success).toBe(false);
+  expect(schema.safeParse(wrap({ ...source, validationProfile: "jpeg-ycbcr8-baseline-444-v1" })).success).toBe(false);
+  expect(schema.safeParse(wrap({ ...source, validationProfile: "png-rgb8-tolerant-v1" })).success).toBe(false);
+  expect(schema.safeParse(wrap({ ...source, ignoredChunks: [], alpha: "none" })).success).toBe(false);
+}
+
+function okResult(response: RpcResponse): any {
+  expect(response.error, JSON.stringify(response.error)).toBeUndefined();
+  expect(response.result?.isError, JSON.stringify(response.result?.content)).not.toBe(true);
+  return response.result;
+}
 const roots: string[] = [];
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
@@ -96,7 +129,7 @@ describe("crop_image_artifact MCP contract", () => {
           });
         } else if (expected.name === "index_image_artifact" || expected.name === "inspect_image_artifact") {
           if (expected.name === "index_image_artifact") {
-            expect(actual).toEqual({ ...expected, description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.", inputSchema: { ...expected.inputSchema, properties: { ...expected.inputSchema.properties, profile: { type: "string", enum: ["strict", "tolerant"] } } }, outputSchema: withTolerantSchema(expected.outputSchema) });
+            expect(actual).toEqual({ ...expected, description: indexImageDescription, inputSchema: { ...expected.inputSchema, properties: { ...expected.inputSchema.properties, profile: { type: "string", enum: ["strict", "tolerant"] } } }, outputSchema: withTolerantSchema(expected.outputSchema) });
           } else {
             expect(actual).toEqual({ ...expected, outputSchema: withTolerantSchema(expected.outputSchema) });
           }
@@ -136,7 +169,8 @@ describe("crop_image_artifact MCP contract", () => {
       });
       expect(overview.outputSchema).toBeDefined();
       expect(overview.outputSchema.properties.output.properties.image).toBeUndefined();
-      expect(overview.outputSchema.properties.source.anyOf).toHaveLength(3);
+      expect(overview.outputSchema.properties.source.anyOf).toHaveLength(4);
+      expect(overview.outputSchema.properties.source.anyOf[3]).toEqual(jpegTolerantSchemaVariant);
       expect(Object.keys(overview.outputSchema.properties.output.properties)).toEqual([
         "width", "height", "format", "mimeType", "byteLength", "sha256",
         "quality", "encoder", "resample", "validation",
@@ -151,7 +185,79 @@ describe("crop_image_artifact MCP contract", () => {
         "png:image/png:png-rgb8-static-v1",
         "png:image/png:png-rgb8-tolerant-v1",
         "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1",
+        "jpeg:image/jpeg:jpeg-ycbcr8-tolerant-v1",
       ]);
+    });
+  });
+
+  it("runs a synthetic tolerant JPEG through index, inspect, overview, and crop with strictly validated outputs", async () => {
+    const sourceBytes = await readFile(jpegTolerantFixturePath);
+    expect(createHash("sha256").update(sourceBytes).digest("hex")).toBe(jpegTolerantFixtureSha256);
+    const f = await fixture(sourceBytes, "tolerant-source.jpg");
+    await withClient(f.root, async (client) => {
+      const tools = await client.listTools();
+      const schemaOf = (name: string) => fromJSONSchema(tools.find((tool) => tool.name === name).outputSchema);
+      const indexSchema = schemaOf("index_image_artifact");
+      const inspectSchema = schemaOf("inspect_image_artifact");
+      const overviewSchema = schemaOf("overview_image_artifact");
+      const cropSchema = schemaOf("crop_image_artifact");
+
+      const strict = resultOf(await client.call("index_image_artifact", { path: f.path }));
+      expectTextOnlyError(strict, "unsupported_jpeg_profile");
+
+      const indexedResult = okResult(await client.call("index_image_artifact", { path: f.path, profile: "tolerant" }));
+      const indexed = indexedResult.structuredContent;
+      expect(indexed).toEqual({ artifactId: expect.stringMatching(/^image_/), path: f.path, sha256: jpegTolerantFixtureSha256, byteLength: sourceBytes.length, ...jpegTolerantMetadata });
+      expect(indexedResult.content).toHaveLength(1);
+      expect(indexedResult.content[0].type).toBe("text");
+      expect(JSON.parse(indexedResult.content[0].text)).toEqual(indexed);
+      expectJpegTolerantSourceContract(indexSchema, indexed, (source) => source);
+      expectJpegTolerantSourceContract(inspectSchema, indexed, (source) => source);
+
+      const inspected = okResult(await client.call("inspect_image_artifact", { artifactId: indexed.artifactId }));
+      expect(inspected.structuredContent).toEqual(indexed);
+      expect(inspected.content).toHaveLength(1);
+      expect(JSON.parse(inspected.content[0].text)).toEqual(inspected.structuredContent);
+      expect(inspectSchema.safeParse(inspected.structuredContent).success).toBe(true);
+
+      const overview = okResult(await client.call("overview_image_artifact", { artifactId: indexed.artifactId, maxSide: 64 }));
+      expect(overview.content).toHaveLength(2);
+      expect(overview.content[0].type).toBe("text");
+      expect(overview.content[1]).toMatchObject({ type: "image", mimeType: "image/jpeg" });
+      expect(JSON.parse(overview.content[0].text)).toEqual(overview.structuredContent);
+      expect(overview.content[0].text).not.toContain(overview.content[1].data);
+      expect(overview.structuredContent.output.image).toBeUndefined();
+      expect(overview.structuredContent.source).toEqual(indexed);
+      expect(overview.structuredContent.output).toMatchObject({ format: "jpeg", mimeType: "image/jpeg", width: 32, height: 16, quality: 75, resample: "area-average-v1", validation: { validationProfile: "jpeg-ycbcr8-baseline-444-v1" } });
+      const overviewBytes = Buffer.from(overview.content[1].data, "base64");
+      expect(overview.structuredContent.output.byteLength).toBe(overviewBytes.length);
+      expect(overview.structuredContent.output.sha256).toBe(createHash("sha256").update(overviewBytes).digest("hex"));
+      expect(validateJpeg(overviewBytes)).toMatchObject({ width: 32, height: 16, channels: 3, validationProfile: "jpeg-ycbcr8-baseline-444-v1" });
+      expectJpegTolerantSourceContract(overviewSchema, overview.structuredContent.source, (source) => ({ ...overview.structuredContent, source }));
+
+      const cropped = okResult(await client.call("crop_image_artifact", { artifactId: indexed.artifactId, region: { x: 8, y: 0, width: 16, height: 8 } }));
+      expect(cropped.structuredContent).toMatchObject({ status: "cropped", source: indexed, region: { x: 8, y: 0, width: 16, height: 8 } });
+      expect(cropped.content).toHaveLength(2);
+      expect(cropped.content[0].type).toBe("text");
+      expect(JSON.parse(cropped.content[0].text)).toEqual(cropped.structuredContent);
+      expect(cropped.structuredContent.output.image).toBeUndefined();
+      const cropImage = cropped.content.find((item: any) => item.type === "image");
+      expect(cropImage).toMatchObject({ mimeType: "image/jpeg" });
+      expect(cropped.content[0].text).not.toContain(cropImage.data);
+      const cropBytes = Buffer.from(cropImage.data, "base64");
+      expect(cropped.structuredContent.output).toMatchObject({ width: 16, height: 8, format: "jpeg", mimeType: "image/jpeg", quality: 75, byteLength: cropBytes.length, sha256: createHash("sha256").update(cropBytes).digest("hex") });
+      expect(validateJpeg(cropBytes)).toMatchObject({ width: 16, height: 8, channels: 3, validationProfile: "jpeg-ycbcr8-baseline-444-v1" });
+
+      const original = okResult(await client.call("crop_image_artifact", { artifactId: indexed.artifactId, region: { x: 0, y: 0, width: 32, height: 16 } }));
+      expect(original.structuredContent).toEqual({ status: "original", fullFrame: true, source: indexed, region: { x: 0, y: 0, width: 32, height: 16 } });
+      expect(original.content).toHaveLength(1);
+      expect(original.content[0].type).toBe("text");
+      // resize_required cannot be produced by a 32x16 source; the rejected branch's source union is checked at schema level.
+      const rejected = { status: "rejected", fullFrame: false, code: "resize_required", source: indexed, region: { x: 0, y: 0, width: 16, height: 8 } };
+      for (const result of [cropped.structuredContent, original.structuredContent, rejected]) {
+        expectJpegTolerantSourceContract(cropSchema, result.source, (source) => ({ ...result, source }));
+      }
+      expect(await readFile(f.path)).toEqual(sourceBytes);
     });
   });
 

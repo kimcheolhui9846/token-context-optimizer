@@ -22,7 +22,9 @@ export async function cropImageArtifact(input: { artifactId: string; region: Cro
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
   const source = "ignoredChunks" in indexed
     ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks }
-    : { ...indexed };
+    : "ignoredSegments" in indexed
+      ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments }
+      : { ...indexed };
   if (region.width <= 0 || region.height <= 0) throw new ImageValidationError("region_empty");
   const validated = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (region.x < 0 || region.y < 0 || region.x + region.width > source.width || region.y + region.height > source.height) throw new ImageValidationError("region_out_of_bounds");

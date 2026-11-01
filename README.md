@@ -22,10 +22,27 @@ and the paper evaluates that harness path rather than the product crop/overview
 tools. Video extension follows image implementation, evaluation, and explicit
 user approval.
 
-The JPEG profile is intentionally narrow: baseline 8-bit YCbCr JFIF with 4:4:4
-sampling. Independent checked-in fixtures and their encoder provenance are under
-`tests/fixtures/jpeg/`; fixture validation does not claim image quality or hosted
-model performance.
+The default strict JPEG profile is intentionally narrow: baseline 8-bit YCbCr
+JFIF with 4:4:4 sampling. Independent checked-in fixtures and their encoder
+provenance are under `tests/fixtures/jpeg/`; fixture validation does not claim
+image quality or hosted model performance.
+
+JPEG indexing is also strict by default. An explicit `profile:"tolerant"` request
+records `jpeg-ycbcr8-tolerant-v1` and accepts supported 8-bit YCbCr JPEGs with
+4:4:4, 4:2:2, 4:4:0 or 4:2:0 sampling, extended sequential (SOF1) or progressive
+(SOF2) coding, and APP0–APP15/COM segments. Segment names are listed once in
+first-seen order in `ignoredSegments`; the first valid EXIF orientation (1–8) is
+reported as `exifOrientation`, otherwise `null`. Orientation and ICC profiles are
+not applied, so images may appear rotated; crop and overview coordinates use the
+stored pixels. Validation is not corruption detection: the indexed SHA-256 and
+`source_changed` on reread detect later byte changes. Compatibility note: before
+this change a JPEG `profile:"tolerant"` request returned the strict record and ID;
+it now returns a distinct tolerant record and ID, while strict IDs are unchanged.
+Records are process-local memory only. See [the image contract](docs/image-artifacts.md)
+for the exact decoder accounting (strict 128 MiB, tolerant 256 MiB).
+Tolerant progressive JPEGs have no scan-count or wall-clock limit; repeated scans
+can multiply synchronous decode time. The encoded-size and decoder allocation
+ceilings do not bound CPU time.
 
 PNG indexing is strict by default. Call `index_image_artifact` with
 `profile:"tolerant"` for bounded ancillary-chunk tolerance; the result records

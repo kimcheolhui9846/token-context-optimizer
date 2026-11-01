@@ -66,7 +66,9 @@ export async function overviewImageArtifact(input: {
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
   const source = "ignoredChunks" in indexed
     ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks }
-    : { ...indexed };
+    : "ignoredSegments" in indexed
+      ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments }
+      : { ...indexed };
   const pixels = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (source.channels === 4 && !(source.validationProfile === "png-rgb8-tolerant-v1" && "alpha" in source && source.alpha === "opaque")) {
     throw new ImageValidationError("alpha_unsupported");

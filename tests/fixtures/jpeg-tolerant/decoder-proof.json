@@ -1,0 +1,567 @@
+{
+  "decoder": {
+    "package": "jpeg-js",
+    "version": "0.4.4",
+    "options": {
+      "tolerantDecoding": false,
+      "useTArray": true,
+      "formatAsRGBA": false,
+      "maxMemoryUsageInMB": 256,
+      "maxResolutionInMP": 16.777216
+    },
+    "proofFile": "decoder-proof.json"
+  },
+  "generatorSha256Lf": "13973cb34458ceb8c1e843c2ee76d9f67c70815287eb8477786f60b2a0002417",
+  "results": [
+    {
+      "file": "hc-444-16x8-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-444-17x9-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 17,
+      "height": 9,
+      "dataLength": 459,
+      "rgbSha256": "524727e87d4f98d0ac5f5fd550f46d96de59cfb9e35c54d5390ac5061a821cd0",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-420-32x16-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-420-32x16-noapp0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-420-17x9-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 17,
+      "height": 9,
+      "dataLength": 459,
+      "rgbSha256": "524727e87d4f98d0ac5f5fd550f46d96de59cfb9e35c54d5390ac5061a821cd0",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-422h-32x16-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-422v-16x32-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 16,
+      "height": 32,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-restart-420-80x32-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 80,
+      "height": 32,
+      "dataLength": 7680,
+      "rgbSha256": "a1fe07859d5a37e43bb6efc89e5cc77a036cc5aeaf244ed1c6c83ca7d00818e4",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-restart-multiscan-444-40x16-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 40,
+      "height": 16,
+      "dataLength": 1920,
+      "rgbSha256": "aace00299111db8ad6ccb207c9cc9d8f72cad20aeefbf75995c4fac3ea85bc98",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-tables-id23-16x8-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-dqt-presof-redefine.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-dqt-postsof-unused.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-dqt-postsof-referenced.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-dht-between-scans-444-16x16.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 16,
+      "height": 16,
+      "dataLength": 768,
+      "rgbSha256": "7f3e5e4e65eca4390e9242558012bc9bdad133d7ac9f6aed53fa156a2288f73b",
+      "allRgb128": true
+    },
+    {
+      "file": "hc-dht-undefined-ref.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading '0')"
+    },
+    {
+      "file": "unsup-grayscale-16x8.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "unsup-cmyk-adobe0-16x8.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "c84704d79dedbc73fe6ea419772151fefef0c96f79955a0ddaa2846691b6444c",
+      "allRgb128": false
+    },
+    {
+      "file": "unsup-y41-32x8.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 8,
+      "dataLength": 768,
+      "rgbSha256": "7f3e5e4e65eca4390e9242558012bc9bdad133d7ac9f6aed53fa156a2288f73b",
+      "allRgb128": true
+    },
+    {
+      "file": "unsup-chroma-21-32x16.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "unsup-ids-012-16x8.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "unsup-dqt16-16x8.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 16,
+      "height": 8,
+      "dataLength": 384,
+      "rgbSha256": "f83545d43c6939ec393b6b8310959b6174fd764b08a12fc22d908408a7e6a43e",
+      "allRgb128": true
+    },
+    {
+      "file": "sharp-baseline-420-50x34.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 50,
+      "height": 34,
+      "dataLength": 5100,
+      "rgbSha256": "6563d0e0a2b3b02fce80681a70886a1b2a538f73a7affac990b62d94357a819b",
+      "allRgb128": false
+    },
+    {
+      "file": "sharp-progressive-420-50x34.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 50,
+      "height": 34,
+      "dataLength": 5100,
+      "rgbSha256": "6563d0e0a2b3b02fce80681a70886a1b2a538f73a7affac990b62d94357a819b",
+      "allRgb128": false
+    },
+    {
+      "file": "hc-sof1-32x16.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "unsup-precision12.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "unsup-sof3-lossless.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "unknown JPEG marker ffc3"
+    },
+    {
+      "file": "unsup-sof9-arithmetic.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "unknown JPEG marker ffc9"
+    },
+    {
+      "file": "exif-ii-orient6.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-mm-orient6.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "metadata-mixed.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "adobe-transform1.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "adobe-transform0.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "adobe-transform2.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "adobe-short.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-ifd-outside-app1.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-bad-byteorder.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-bad-magic.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-value0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-value9.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-type-long.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-count2.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-truncated-entry.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-ifd-count-overflow.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "exif-first-valid-wins.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "repeats-no-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "repeats-with-app0.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "app0-invalid.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "trunc-scan-eoi.jpg",
+      "required": "reject",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "unexpected marker: ffd9"
+    },
+    {
+      "file": "trailing-after-eoi.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "missing-eoi.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "marker was not found"
+    },
+    {
+      "file": "scan-bit-flip.jpg",
+      "required": "reject",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "invalid huffman sequence"
+    },
+    {
+      "file": "fill-before-eoi.jpg",
+      "required": "accept",
+      "observed": "accept",
+      "width": 32,
+      "height": 16,
+      "dataLength": 1536,
+      "rgbSha256": "9b597b9297048e5384369c82edb61b3bb5d3b847d2286c45b8a55afe4f813c0a",
+      "allRgb128": true
+    },
+    {
+      "file": "rst-wrong-order.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 80,
+      "height": 32,
+      "dataLength": 7680,
+      "rgbSha256": "a1fe07859d5a37e43bb6efc89e5cc77a036cc5aeaf244ed1c6c83ca7d00818e4",
+      "allRgb128": true
+    },
+    {
+      "file": "rst-without-dri.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "invalid huffman sequence"
+    },
+    {
+      "file": "rst-dri-zero.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "invalid huffman sequence"
+    },
+    {
+      "file": "dri-bad-length.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "unknown JPEG marker ff"
+    },
+    {
+      "file": "rst-outside-scan.jpg",
+      "required": "record",
+      "observed": "reject",
+      "errorClass": "Error",
+      "errorMessage": "unknown JPEG marker ffd0"
+    },
+    {
+      "file": "rst-scan-continued.jpg",
+      "required": "record",
+      "observed": "accept",
+      "width": 40,
+      "height": 16,
+      "dataLength": 1920,
+      "rgbSha256": "aace00299111db8ad6ccb207c9cc9d8f72cad20aeefbf75995c4fac3ea85bc98",
+      "allRgb128": true
+    }
+  ]
+}

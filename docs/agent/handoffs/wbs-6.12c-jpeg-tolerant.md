@@ -1,0 +1,20 @@
+# WBS 6.12c — JPEG tolerant implementation
+
+- Tier E. Branch `codex/jpeg-tolerant-impl` from `79490e6` (`origin/main`). Approved plan: `docs/superpowers/plans/2026-10-29-jpeg-tolerant.md`. Root `HANDOFF.md` holds operational history.
+- This is **the second attempt** (`두 번째 시도`). The first attempt stopped before a qualifying RED; its drafts and logs remain in ignored `.artifacts/jpeg-tolerant-impl/stopped-stage1/`. Performing account: **sol** (user-provided account label). GitHub CLI login was `kimcheolhui9846` when checked on 2026-11-01.
+- Scope: opt-in JPEG tolerant validation, metadata and record ownership, four-variant MCP contract, fixtures, documentation, performance evidence. Preserve strict defaults and IDs, PNG behavior, `research/`, existing fixtures/evidence, and user work. Ready and merge are excluded.
+
+## Implementation and evidence
+
+- Attempt 2 staged RED/GREEN logs and fixture proof are in ignored `.artifacts/jpeg-tolerant-impl/attempt2/`. Existing Stage 0 baseline: 428 passed, 5 platform skips. Stage 1/2/3 logs record the value-based RED and GREEN cycles; Stage 3 GREEN had 118 passed, 2 skips in four files and smoke PASS.
+- On 2026-11-01 the primary agent directly inspected source, test, MCP, documentation and measurement diffs. It corrected cached index timing, ad hoc TS-to-CJS compilation, input generation during timing and absent parent RSS collection before the sole timed run. Frozen preparation and the post-run `--check` passed.
+- Fresh resume checks on the current worktree: `npm.cmd run build` PASS; `npm.cmd run typecheck` PASS; `npm.cmd test --` with the existing eleven plan files PASS, 461 passed / 5 Windows capability skips; `npm.cmd run smoke:mcp` PASS (`mcp smoke ok`); `npm.cmd test -- tests/jpeg-tolerant.test.ts --reporter=dot` PASS, 130 passed. Initial Vitest launch was denied while loading config in the sandbox; the approved elevated rerun passed. `git diff --check` PASS (line-ending warnings only).
+- Performance: **PASS in one timed run** on 2026-11-01; no retry. `docs/research/evidence/wbs-6.12c/measurement-attempt2.json` records nine A/A′/B samples per strict operation and nine per tolerant input. A′/A and B/A: JPEG index 1.0159/1.0116, JPEG crop 0.9991/0.9953, PNG index 0.9997/0.9913. The 256 MiB-above rejection completed faster than 10 ms RSS sampling, so its per-run parent-observed peak is null and coverage is marked partial; the other five tolerant inputs have complete per-run parent RSS coverage. This is an observed sampling limit, not a claimed RSS bound.
+- Claude Code `claude-opus-5-5`, milestone CHANGES REQUESTED: blocker 0 / major 1 / minor 5 / note 8. The major is unbounded repeated progressive SOS work; a small synthetic duplicate-scan probe confirmed acceptance. A source cap would invalidate the one-run performance evidence and needs a scope/measurement decision. Four minor items were addressed by test, documentation and raw-evidence post-analysis; commit-time source hash binding remains. Full review is in ignored `.artifacts/jpeg-tolerant-impl/milestone-review.json`.
+- Seven-stage gate PASS in order: typecheck; 12 files 591 passed / 5 Windows link-capability skips; full 38 files 1303 passed / 5 skips; build; MCP smoke; plugin validation; `git diff --check`. Strict output hashes matched across A/A′/B for all three operations. Commit, push, Draft PR, post-PR verification and direct primary final review remain pending.
+
+## Review and delivery gates
+
+- Supplied Claude Code Opus 5.5 initial-plan review of PR #83: APPROVE, blocker 0 / major 0 / minor 0 / note 3 / nit 1. This is plan review evidence, not the pending implementation review.
+- The final PR body and evidence must explicitly state **두 번째 시도** and performing account **sol**, plus the strict/tolerant JPEG ID compatibility change, measured ratios, valid skip reasons, review findings and limitations.
+- The unresolved major prevents a passing handoff. The Draft PR will carry the known risk and request a concrete decision: accept the documented scan-count/CPU limitation for this attempt, or authorize a scan cap and a revised measurement plan. Do not mark the PR Ready or merge it.
