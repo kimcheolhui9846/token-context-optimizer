@@ -346,7 +346,7 @@ they are not successful artifact records.
 | `malformed_png` | Signature, structure, CRC, compressed data or decoded shape is invalid |
 | `unsupported_jpeg_profile` | The JPEG uses an unsupported mode, sampling, or metadata profile |
 | `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |
-| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the profile's accounting ceiling (strict 128 MiB, tolerant 256 MiB), or a tolerant JPEG contains more than 64 SOS scans |
+| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the profile's accounting ceiling (strict 128 MiB, tolerant 256 MiB), a tolerant JPEG contains more than 64 SOS scans, or the pinned tolerant decoder reports its exact memory/resolution limit exception |
 | `unknown_artifact_id` | The image ID is absent from this server's store |
 | `artifact_not_indexed` | The crop or overview request references an image ID absent from the store |
 | `region_empty` | Crop width or height is zero or negative |
@@ -354,7 +354,7 @@ they are not successful artifact records.
 | `alpha_unsupported` | A partial crop or an overview was requested from an RGBA source, unless it is a tolerant PNG record whose alpha is fully opaque |
 | `resize_required` | A non-full-frame crop exceeds 1536 on either axis; structured error includes the source reference |
 | `invalid_region` | Core crop arguments are malformed or their coordinate sums are unsafe; MCP also validates its input schema |
-| `decode_failed` | Crop or overview pixels or decoded metadata do not match the validated source |
+| `decode_failed` | Inspect, read, crop, or overview finds incompatible profile-specific metadata, or pixels/decoded metadata do not match the validated source |
 | `encode_failed` | The JPEG encoder failed |
 | `output_validation_failed` | Encoded JPEG failed validation or has unexpected dimensions; no image is returned |
 | `source_changed` | Indexing, cropping, or overview processing detected a source change, or inspection successfully read bytes whose hash/length differ from the record |

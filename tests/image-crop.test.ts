@@ -143,13 +143,14 @@ describe("crop_image_artifact", () => {
     expect([...input.data]).toEqual([101, 102, 103, 255, 51, 52, 53, 255]);
   });
 
-  it("rejects tolerant transparent RGBA and strict RGBA partial crops", async () => {
+  it("rejects tolerant transparent RGBA and tampered strict RGBA metadata", async () => {
     const transparent = await fixture(png(2, 2, 4)); const store = new MemoryImageArtifactStore();
     const tolerant = await indexImageArtifact({ path: transparent.path, allowedRoots: [transparent.root], store, profile: "tolerant" });
     await expect(cropImageArtifact({ artifactId: tolerant.artifactId, region: { x: 0, y: 0, width: 1, height: 1 }, allowedRoots: [transparent.root], store })).rejects.toMatchObject({ code: "alpha_unsupported" });
     const strict = await indexImageArtifact({ path: transparent.path, allowedRoots: [transparent.root], store });
-    store.put({ ...strict, alpha: "opaque" } as any);
     await expect(cropImageArtifact({ artifactId: strict.artifactId, region: { x: 0, y: 0, width: 1, height: 1 }, allowedRoots: [transparent.root], store })).rejects.toMatchObject({ code: "alpha_unsupported" });
+    store.put({ ...strict, alpha: "opaque" } as any);
+    await expect(cropImageArtifact({ artifactId: strict.artifactId, region: { x: 0, y: 0, width: 1, height: 1 }, allowedRoots: [transparent.root], store })).rejects.toMatchObject({ code: "decode_failed" });
   });
 
   it("isolates tolerant source arrays across original, rejected, and cropped crop results", async () => {

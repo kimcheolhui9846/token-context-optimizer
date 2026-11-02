@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import jpeg from "jpeg-js";
 import type { ImageArtifactRecord } from "./types.js";
 import type { ImageArtifactStore } from "./image-artifacts.js";
-import { defaultImageArtifactStore, ImageValidationError, readValidatedImageArtifact } from "./image-artifacts.js";
+import { cloneImageArtifactRecord, defaultImageArtifactStore, ImageValidationError, readValidatedImageArtifact } from "./image-artifacts.js";
 import { validateJpeg } from "./jpeg-validation.js";
 
 export type OverviewOutput = {
@@ -64,11 +64,7 @@ export async function overviewImageArtifact(input: {
   const store = input.store ?? defaultImageArtifactStore;
   const indexed = store.get(input.artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = "ignoredChunks" in indexed
-    ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks }
-    : "ignoredSegments" in indexed
-      ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments }
-      : { ...indexed };
+  const source = cloneImageArtifactRecord(indexed);
   const pixels = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (source.channels === 4 && !(source.validationProfile === "png-rgb8-tolerant-v1" && "alpha" in source && source.alpha === "opaque")) {
     throw new ImageValidationError("alpha_unsupported");

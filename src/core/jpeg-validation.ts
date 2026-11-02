@@ -263,6 +263,17 @@ function estimateMemory(width: number, height: number, tables: Tables): number {
 // Entropy data is decoded by jpeg-js (tolerantDecoding: false); this code only
 // checks marker structure, restart order and the exact allocation estimate.
 // ---------------------------------------------------------------------------
+function isDecoderResourceLimitMessage(message: string): boolean {
+  const patterns = [
+    /^maxResolutionInMP limit exceeded by [1-9]\d*MP$/,
+    /^maxMemoryUsageInMB limit exceeded by at least [1-9]\d*MB$/,
+  ];
+  return patterns.some((pattern) => {
+    const match = pattern.exec(message);
+    return match !== null && match[0] === message;
+  });
+}
+
 export type TolerantJpegMetadata = {
   width: number; height: number; channels: 3;
   format: "jpeg"; mimeType: "image/jpeg";
@@ -316,7 +327,10 @@ function validateJpegTolerantInternal(bytes: Buffer): { metadata: TolerantJpegMe
       maxMemoryUsageInMB: 256,
       maxResolutionInMP: 16.777216,
     });
-  } catch {
+  } catch (error) {
+    if (error instanceof Error && isDecoderResourceLimitMessage(error.message)) {
+      fail("jpeg_resource_limit");
+    }
     fail();
   }
   if (!decoded || decoded.width !== frame.width || decoded.height !== frame.height ||
