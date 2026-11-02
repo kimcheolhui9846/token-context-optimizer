@@ -342,7 +342,7 @@ they are not successful artifact records.
 | `malformed_png` | Signature, structure, CRC, compressed data or decoded shape is invalid |
 | `unsupported_jpeg_profile` | The JPEG uses an unsupported mode, sampling, or metadata profile |
 | `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |
-| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the profile's accounting ceiling (strict 128 MiB, tolerant 256 MiB) |
+| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the profile's accounting ceiling (strict 128 MiB, tolerant 256 MiB), or a tolerant JPEG contains more than 64 SOS scans |
 | `unknown_artifact_id` | The image ID is absent from this server's store |
 | `artifact_not_indexed` | The crop or overview request references an image ID absent from the store |
 | `region_empty` | Crop width or height is zero or negative |
