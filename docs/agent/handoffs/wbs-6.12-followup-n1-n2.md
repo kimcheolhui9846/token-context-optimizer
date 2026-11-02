@@ -21,8 +21,8 @@
 - [x] Baseline targeted tests; Luna adds tests only; primary observed RED (13 failed / 27 passed) before authorizing implementation.
 - [x] GREEN minimum implementation and source review; final regression file 42/42 passes.
 - [x] Seven checks: typecheck, target tests, full tests, build, smoke:mcp, validate:plugin, git diff --check.
-- [ ] Claude milestone; resolve authorized findings; commit/push; final local verification and Astra verdict.
-- Current status: implementation, seven checks and Claude milestone PASS; final commit/push pending.
+- [x] Claude milestone; resolve authorized findings; commit/push; final local verification and Astra verdict.
+- Current status: implementation `830bf39` pushed to Draft PR #88; all seven checks PASS; Astra PASS WITH NOTES. Final record commit follows. Ready/merge not performed; awaiting user approval.
 
 ## Reviews and evidence
 - #85 recheck `6c09192`: Approve; document Major/minors addressed; output byte-identical to committed 20,605-byte JSON. Minor PR-body sync note: its summary still says 1.3%, while corrected document says 1.33 percentage points; also omit no longer exhaustive two-cause wording.
@@ -39,3 +39,6 @@
 - Risks: exact external-message matching; accidentally changing metadata error precedence or valid strict record behavior.
 - Normal strict/tolerant PNG/JPEG metadata/key order/full-frame/crop/overview output matches 25,932-byte baseline exactly (SHA-256 da2704a25e2fd5ee53f88b156669d730092c7cc8810fcc5a865078a1e0e9fc99); frozen strict JPEG prefix preserved. Runtime bundle included.
 - #89 at 1f16120: Approve; temporary clean install/build/probe reproduces 458 JPEG hashes / 648 slots, JSON identical excluding node. APP0-only control and protocol/source claims confirmed. Temporary worktree removed; report .artifacts/review-89-REVIEW.md. Previously sent PDF not independently checked.
+- Astra primary final: PASS WITH NOTES, blocker 0 / major 0; reviewed actual source/tests/bundle/doc diff, logs, pinned decoder messages, normal-output equality and PR state. Prior user-confirmed primary Astra routing retained; no separate Astra agent.
+- GitHub REST confirmed PR #88 open/Draft, head 830bf39, mergeable true/clean against base 410cd2f; connector mergeable=false was stale. No merge or Ready operation.
+- Remaining: existing same-profile sparse metadata/live-store concurrency deferred; #85 PR-body wording sync is read-only feedback. Task code has no unresolved blocker/major. Next Task/Ready/merge requires user approval.
