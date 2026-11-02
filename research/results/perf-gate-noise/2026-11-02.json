@@ -1,0 +1,873 @@
+{
+  "schema": "perf-gate-noise/v1",
+  "source": "docs/research/evidence/wbs-6.12c",
+  "gate": 1.03,
+  "bootstrap": 4000,
+  "withinRoundOrder": [
+    "A",
+    "A-prime",
+    "B"
+  ],
+  "runs": [
+    {
+      "file": "measurement-attempt2.json",
+      "settings": {
+        "warmups": 3,
+        "rounds": 9
+      },
+      "operations": {
+        "jpegIndex": {
+          "medianMs": {
+            "A": 149.7721,
+            "A-prime": 152.1566,
+            "B": 151.5114
+          },
+          "cv": {
+            "A": 0.0318,
+            "A-prime": 0.0235,
+            "B": 0.0271
+          },
+          "lateOverEarlyMean": {
+            "A": 0.9662,
+            "A-prime": 0.967,
+            "B": 0.98
+          },
+          "aPrimeOverA": {
+            "medianRatio": 1.0159,
+            "pairedRatio": 0.9784,
+            "pairedCi95": [
+              0.9738,
+              1.0177
+            ],
+            "medianRatioCi95": [
+              0.9738,
+              1.0177
+            ],
+            "pairedOverGate": 0.003,
+            "medianRatioOverGate": 0.003
+          },
+          "bOverA": {
+            "medianRatio": 1.0116,
+            "pairedRatio": 0.9801,
+            "pairedCi95": [
+              0.9708,
+              1.0082
+            ],
+            "medianRatioCi95": [
+              0.97,
+              1.0245
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverAPrime": {
+            "medianRatio": 0.9958,
+            "pairedRatio": 0.9968,
+            "pairedCi95": [
+              0.9783,
+              1.0153
+            ],
+            "medianRatioCi95": [
+              0.9641,
+              1.0256
+            ],
+            "pairedOverGate": 0.0015,
+            "medianRatioOverGate": 0.0185
+          },
+          "bOverPooled": {
+            "medianRatio": 1.0027,
+            "pairedRatio": 0.9852,
+            "pairedCi95": [
+              0.9812,
+              0.9974
+            ],
+            "medianRatioCi95": [
+              0.9812,
+              1.0202
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          }
+        },
+        "jpegCrop": {
+          "medianMs": {
+            "A": 230.5241,
+            "A-prime": 230.3184,
+            "B": 229.4468
+          },
+          "cv": {
+            "A": 0.0304,
+            "A-prime": 0.0221,
+            "B": 0.0242
+          },
+          "lateOverEarlyMean": {
+            "A": 1.0174,
+            "A-prime": 0.9821,
+            "B": 1.0179
+          },
+          "aPrimeOverA": {
+            "medianRatio": 0.9991,
+            "pairedRatio": 1.0109,
+            "pairedCi95": [
+              0.9762,
+              1.042
+            ],
+            "medianRatioCi95": [
+              0.9742,
+              1.0305
+            ],
+            "pairedOverGate": 0.1422,
+            "medianRatioOverGate": 0.031
+          },
+          "bOverA": {
+            "medianRatio": 0.9953,
+            "pairedRatio": 0.9896,
+            "pairedCi95": [
+              0.9794,
+              1.0518
+            ],
+            "medianRatioCi95": [
+              0.9762,
+              1.0518
+            ],
+            "pairedOverGate": 0.1435,
+            "medianRatioOverGate": 0.057
+          },
+          "bOverAPrime": {
+            "medianRatio": 0.9962,
+            "pairedRatio": 0.9963,
+            "pairedCi95": [
+              0.9688,
+              1.0385
+            ],
+            "medianRatioCi95": [
+              0.9688,
+              1.0358
+            ],
+            "pairedOverGate": 0.1495,
+            "medianRatioOverGate": 0.029
+          },
+          "bOverPooled": {
+            "medianRatio": 0.9924,
+            "pairedRatio": 1.0036,
+            "pairedCi95": [
+              0.9741,
+              1.0451
+            ],
+            "medianRatioCi95": [
+              0.9764,
+              1.038
+            ],
+            "pairedOverGate": 0.0275,
+            "medianRatioOverGate": 0.0275
+          }
+        },
+        "pngIndex": {
+          "medianMs": {
+            "A": 188.2644,
+            "A-prime": 188.1994,
+            "B": 186.6283
+          },
+          "cv": {
+            "A": 0.0235,
+            "A-prime": 0.0219,
+            "B": 0.0053
+          },
+          "lateOverEarlyMean": {
+            "A": 0.9821,
+            "A-prime": 0.9957,
+            "B": 0.999
+          },
+          "aPrimeOverA": {
+            "medianRatio": 0.9997,
+            "pairedRatio": 0.9972,
+            "pairedCi95": [
+              0.9833,
+              1.0034
+            ],
+            "medianRatioCi95": [
+              0.9711,
+              1.0379
+            ],
+            "pairedOverGate": 0.0018,
+            "medianRatioOverGate": 0.045
+          },
+          "bOverA": {
+            "medianRatio": 0.9913,
+            "pairedRatio": 0.9872,
+            "pairedCi95": [
+              0.9563,
+              1.0139
+            ],
+            "medianRatioCi95": [
+              0.9601,
+              1.0139
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverAPrime": {
+            "medianRatio": 0.9917,
+            "pairedRatio": 0.9922,
+            "pairedCi95": [
+              0.9625,
+              1.0039
+            ],
+            "medianRatioCi95": [
+              0.9625,
+              1.0076
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverPooled": {
+            "medianRatio": 0.9844,
+            "pairedRatio": 0.9905,
+            "pairedCi95": [
+              0.9702,
+              1.0036
+            ],
+            "medianRatioCi95": [
+              0.9697,
+              1.0058
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "measurement-attempt2-scancap.json",
+      "settings": {
+        "warmups": 3,
+        "rounds": 9
+      },
+      "operations": {
+        "jpegIndex": {
+          "medianMs": {
+            "A": 155.7746,
+            "A-prime": 153.949,
+            "B": 145.8421
+          },
+          "cv": {
+            "A": 0.0297,
+            "A-prime": 0.0363,
+            "B": 0.0403
+          },
+          "lateOverEarlyMean": {
+            "A": 0.9459,
+            "A-prime": 0.9607,
+            "B": 0.9384
+          },
+          "aPrimeOverA": {
+            "medianRatio": 0.9883,
+            "pairedRatio": 0.9798,
+            "pairedCi95": [
+              0.9666,
+              0.994
+            ],
+            "medianRatioCi95": [
+              0.9665,
+              1.0379
+            ],
+            "pairedOverGate": 0.0025,
+            "medianRatioOverGate": 0.1318
+          },
+          "bOverA": {
+            "medianRatio": 0.9362,
+            "pairedRatio": 0.9748,
+            "pairedCi95": [
+              0.9633,
+              0.9881
+            ],
+            "medianRatioCi95": [
+              0.9259,
+              0.9897
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverAPrime": {
+            "medianRatio": 0.9473,
+            "pairedRatio": 0.9982,
+            "pairedCi95": [
+              0.9473,
+              1.0118
+            ],
+            "medianRatioCi95": [
+              0.9345,
+              1.0085
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverPooled": {
+            "medianRatio": 0.9446,
+            "pairedRatio": 0.9907,
+            "pairedCi95": [
+              0.934,
+              0.9982
+            ],
+            "medianRatioCi95": [
+              0.9353,
+              0.9983
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          }
+        },
+        "jpegCrop": {
+          "medianMs": {
+            "A": 228.3412,
+            "A-prime": 228.5791,
+            "B": 229.3919
+          },
+          "cv": {
+            "A": 0.0373,
+            "A-prime": 0.0141,
+            "B": 0.0146
+          },
+          "lateOverEarlyMean": {
+            "A": 0.9789,
+            "A-prime": 0.9921,
+            "B": 0.9999
+          },
+          "aPrimeOverA": {
+            "medianRatio": 1.001,
+            "pairedRatio": 0.9986,
+            "pairedCi95": [
+              0.9751,
+              1.0081
+            ],
+            "medianRatioCi95": [
+              0.984,
+              1.0108
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverA": {
+            "medianRatio": 1.0046,
+            "pairedRatio": 1.0102,
+            "pairedCi95": [
+              0.989,
+              1.0195
+            ],
+            "medianRatioCi95": [
+              0.9935,
+              1.0234
+            ],
+            "pairedOverGate": 0.001,
+            "medianRatioOverGate": 0.0038
+          },
+          "bOverAPrime": {
+            "medianRatio": 1.0036,
+            "pairedRatio": 1.0139,
+            "pairedCi95": [
+              0.9922,
+              1.0206
+            ],
+            "medianRatioCi95": [
+              0.9929,
+              1.0308
+            ],
+            "pairedOverGate": 0.0013,
+            "medianRatioOverGate": 0.0258
+          },
+          "bOverPooled": {
+            "medianRatio": 1.0041,
+            "pairedRatio": 1.0061,
+            "pairedCi95": [
+              0.9885,
+              1.02
+            ],
+            "medianRatioCi95": [
+              0.9921,
+              1.0275
+            ],
+            "pairedOverGate": 0.0015,
+            "medianRatioOverGate": 0.0133
+          }
+        },
+        "pngIndex": {
+          "medianMs": {
+            "A": 186.5026,
+            "A-prime": 187.1362,
+            "B": 185.4187
+          },
+          "cv": {
+            "A": 0.0107,
+            "A-prime": 0.0314,
+            "B": 0.0198
+          },
+          "lateOverEarlyMean": {
+            "A": 1.0067,
+            "A-prime": 0.9968,
+            "B": 0.9894
+          },
+          "aPrimeOverA": {
+            "medianRatio": 1.0034,
+            "pairedRatio": 1.0019,
+            "pairedCi95": [
+              0.997,
+              1.0547
+            ],
+            "medianRatioCi95": [
+              0.9955,
+              1.0674
+            ],
+            "pairedOverGate": 0.0323,
+            "medianRatioOverGate": 0.0323
+          },
+          "bOverA": {
+            "medianRatio": 0.9942,
+            "pairedRatio": 0.9981,
+            "pairedCi95": [
+              0.9852,
+              1.013
+            ],
+            "medianRatioCi95": [
+              0.987,
+              1.0017
+            ],
+            "pairedOverGate": 0.0018,
+            "medianRatioOverGate": 0.0018
+          },
+          "bOverAPrime": {
+            "medianRatio": 0.9908,
+            "pairedRatio": 0.9943,
+            "pairedCi95": [
+              0.9318,
+              1.0013
+            ],
+            "medianRatioCi95": [
+              0.9342,
+              1
+            ],
+            "pairedOverGate": 0.0028,
+            "medianRatioOverGate": 0.0028
+          },
+          "bOverPooled": {
+            "medianRatio": 0.9918,
+            "pairedRatio": 0.9898,
+            "pairedCi95": [
+              0.9656,
+              1.0043
+            ],
+            "medianRatioCi95": [
+              0.9656,
+              0.9993
+            ],
+            "pairedOverGate": 0.002,
+            "medianRatioOverGate": 0.002
+          }
+        }
+      }
+    },
+    {
+      "file": "measurement-attempt2-scancap-r2.json",
+      "settings": {
+        "warmups": 3,
+        "rounds": 9
+      },
+      "operations": {
+        "jpegIndex": {
+          "medianMs": {
+            "A": 156.8746,
+            "A-prime": 152.2192,
+            "B": 153.652
+          },
+          "cv": {
+            "A": 0.0365,
+            "A-prime": 0.0392,
+            "B": 0.0275
+          },
+          "lateOverEarlyMean": {
+            "A": 0.9358,
+            "A-prime": 0.9535,
+            "B": 0.9881
+          },
+          "aPrimeOverA": {
+            "medianRatio": 0.9703,
+            "pairedRatio": 0.9769,
+            "pairedCi95": [
+              0.9457,
+              0.9848
+            ],
+            "medianRatioCi95": [
+              0.9208,
+              1.0373
+            ],
+            "pairedOverGate": 0.0005,
+            "medianRatioOverGate": 0.0615
+          },
+          "bOverA": {
+            "medianRatio": 0.9795,
+            "pairedRatio": 0.9785,
+            "pairedCi95": [
+              0.9612,
+              1.0412
+            ],
+            "medianRatioCi95": [
+              0.9641,
+              1.0398
+            ],
+            "pairedOverGate": 0.1383,
+            "medianRatioOverGate": 0.1363
+          },
+          "bOverAPrime": {
+            "medianRatio": 1.0094,
+            "pairedRatio": 1.014,
+            "pairedCi95": [
+              0.9814,
+              1.0837
+            ],
+            "medianRatioCi95": [
+              0.9874,
+              1.077
+            ],
+            "pairedOverGate": 0.3635,
+            "medianRatioOverGate": 0.3635
+          },
+          "bOverPooled": {
+            "medianRatio": 1.0112,
+            "pairedRatio": 0.9953,
+            "pairedCi95": [
+              0.9736,
+              1.0703
+            ],
+            "medianRatioCi95": [
+              0.9799,
+              1.0518
+            ],
+            "pairedOverGate": 0.149,
+            "medianRatioOverGate": 0.149
+          }
+        },
+        "jpegCrop": {
+          "medianMs": {
+            "A": 228.8129,
+            "A-prime": 233.3956,
+            "B": 227.8454
+          },
+          "cv": {
+            "A": 0.025,
+            "A-prime": 0.0265,
+            "B": 0.0098
+          },
+          "lateOverEarlyMean": {
+            "A": 1.009,
+            "A-prime": 0.9966,
+            "B": 0.9925
+          },
+          "aPrimeOverA": {
+            "medianRatio": 1.02,
+            "pairedRatio": 1.0245,
+            "pairedCi95": [
+              0.9873,
+              1.0389
+            ],
+            "medianRatioCi95": [
+              0.9877,
+              1.0363
+            ],
+            "pairedOverGate": 0.3673,
+            "medianRatioOverGate": 0.075
+          },
+          "bOverA": {
+            "medianRatio": 0.9958,
+            "pairedRatio": 1.0037,
+            "pairedCi95": [
+              0.9766,
+              1.0109
+            ],
+            "medianRatioCi95": [
+              0.9713,
+              1.0063
+            ],
+            "pairedOverGate": 0.0008,
+            "medianRatioOverGate": 0.0008
+          },
+          "bOverAPrime": {
+            "medianRatio": 0.9762,
+            "pairedRatio": 0.9809,
+            "pairedCi95": [
+              0.9641,
+              1.0031
+            ],
+            "medianRatioCi95": [
+              0.9655,
+              1.0047
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverPooled": {
+            "medianRatio": 0.9927,
+            "pairedRatio": 0.9928,
+            "pairedCi95": [
+              0.9638,
+              1.0031
+            ],
+            "medianRatioCi95": [
+              0.9768,
+              1.0006
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          }
+        },
+        "pngIndex": {
+          "medianMs": {
+            "A": 186.207,
+            "A-prime": 185.1571,
+            "B": 185.655
+          },
+          "cv": {
+            "A": 0.0231,
+            "A-prime": 0.0158,
+            "B": 0.0099
+          },
+          "lateOverEarlyMean": {
+            "A": 1.0308,
+            "A-prime": 1.014,
+            "B": 1.0148
+          },
+          "aPrimeOverA": {
+            "medianRatio": 0.9944,
+            "pairedRatio": 0.9982,
+            "pairedCi95": [
+              0.9809,
+              1.0088
+            ],
+            "medianRatioCi95": [
+              0.9809,
+              1.0134
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverA": {
+            "medianRatio": 0.997,
+            "pairedRatio": 0.9927,
+            "pairedCi95": [
+              0.9836,
+              1.0113
+            ],
+            "medianRatioCi95": [
+              0.9781,
+              1.0113
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverAPrime": {
+            "medianRatio": 1.0027,
+            "pairedRatio": 0.9992,
+            "pairedCi95": [
+              0.9766,
+              1.0073
+            ],
+            "medianRatioCi95": [
+              0.9799,
+              1.0118
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          },
+          "bOverPooled": {
+            "medianRatio": 1.0025,
+            "pairedRatio": 0.9954,
+            "pairedCi95": [
+              0.9846,
+              1.0093
+            ],
+            "medianRatioCi95": [
+              0.9846,
+              1.0108
+            ],
+            "pairedOverGate": 0,
+            "medianRatioOverGate": 0
+          }
+        }
+      }
+    }
+  ],
+  "crossRun": {
+    "jpegIndex": {
+      "aPrimeOverA": {
+        "medianRatio": [
+          1.0159,
+          0.9883,
+          0.9703
+        ],
+        "medianRatioSpan": 0.0456,
+        "pairedRatio": [
+          0.9784,
+          0.9798,
+          0.9769
+        ],
+        "pairedRatioSpan": 0.0029
+      },
+      "bOverA": {
+        "medianRatio": [
+          1.0116,
+          0.9362,
+          0.9795
+        ],
+        "medianRatioSpan": 0.0754,
+        "pairedRatio": [
+          0.9801,
+          0.9748,
+          0.9785
+        ],
+        "pairedRatioSpan": 0.0053
+      },
+      "bOverAPrime": {
+        "medianRatio": [
+          0.9958,
+          0.9473,
+          1.0094
+        ],
+        "medianRatioSpan": 0.0621,
+        "pairedRatio": [
+          0.9968,
+          0.9982,
+          1.014
+        ],
+        "pairedRatioSpan": 0.0172
+      },
+      "bOverPooled": {
+        "medianRatio": [
+          1.0027,
+          0.9446,
+          1.0112
+        ],
+        "medianRatioSpan": 0.0666,
+        "pairedRatio": [
+          0.9852,
+          0.9907,
+          0.9953
+        ],
+        "pairedRatioSpan": 0.0101
+      }
+    },
+    "jpegCrop": {
+      "aPrimeOverA": {
+        "medianRatio": [
+          0.9991,
+          1.001,
+          1.02
+        ],
+        "medianRatioSpan": 0.0209,
+        "pairedRatio": [
+          1.0109,
+          0.9986,
+          1.0245
+        ],
+        "pairedRatioSpan": 0.0259
+      },
+      "bOverA": {
+        "medianRatio": [
+          0.9953,
+          1.0046,
+          0.9958
+        ],
+        "medianRatioSpan": 0.0093,
+        "pairedRatio": [
+          0.9896,
+          1.0102,
+          1.0037
+        ],
+        "pairedRatioSpan": 0.0206
+      },
+      "bOverAPrime": {
+        "medianRatio": [
+          0.9962,
+          1.0036,
+          0.9762
+        ],
+        "medianRatioSpan": 0.0274,
+        "pairedRatio": [
+          0.9963,
+          1.0139,
+          0.9809
+        ],
+        "pairedRatioSpan": 0.033
+      },
+      "bOverPooled": {
+        "medianRatio": [
+          0.9924,
+          1.0041,
+          0.9927
+        ],
+        "medianRatioSpan": 0.0117,
+        "pairedRatio": [
+          1.0036,
+          1.0061,
+          0.9928
+        ],
+        "pairedRatioSpan": 0.0133
+      }
+    },
+    "pngIndex": {
+      "aPrimeOverA": {
+        "medianRatio": [
+          0.9997,
+          1.0034,
+          0.9944
+        ],
+        "medianRatioSpan": 0.009,
+        "pairedRatio": [
+          0.9972,
+          1.0019,
+          0.9982
+        ],
+        "pairedRatioSpan": 0.0047
+      },
+      "bOverA": {
+        "medianRatio": [
+          0.9913,
+          0.9942,
+          0.997
+        ],
+        "medianRatioSpan": 0.0057,
+        "pairedRatio": [
+          0.9872,
+          0.9981,
+          0.9927
+        ],
+        "pairedRatioSpan": 0.0109
+      },
+      "bOverAPrime": {
+        "medianRatio": [
+          0.9917,
+          0.9908,
+          1.0027
+        ],
+        "medianRatioSpan": 0.0119,
+        "pairedRatio": [
+          0.9922,
+          0.9943,
+          0.9992
+        ],
+        "pairedRatioSpan": 0.007
+      },
+      "bOverPooled": {
+        "medianRatio": [
+          0.9844,
+          0.9918,
+          1.0025
+        ],
+        "medianRatioSpan": 0.0181,
+        "pairedRatio": [
+          0.9905,
+          0.9898,
+          0.9954
+        ],
+        "pairedRatioSpan": 0.0056
+      }
+    }
+  }
+}
