@@ -13,6 +13,7 @@ const MAX_BYTES = 10 * 1024 * 1024;
 const MAX_AXIS = 8192;
 const MAX_PIXELS = 16_777_216;
 const STRICT_PROFILES = new Set(["png-rgb8-static-v1", "jpeg-ycbcr8-baseline-444-v1"]);
+const PNG_TOLERANT_FIELDS = ["ignoredChunks", "alpha"] as const;
 
 export class ImageValidationError extends Error {
   readonly code: string;
@@ -142,6 +143,7 @@ type ValidatedImage = { width: number; height: number; channels: 3 | 4; pixels: 
 type TolerantPngImage = ValidatedImage & { format: "png"; mimeType: "image/png"; validationProfile: "png-rgb8-tolerant-v1"; ignoredChunks: string[]; alpha: "none" | "opaque" | "present" };
 type TolerantJpegImage = ValidatedImage & TolerantJpegMetadata;
 const TOLERANT_JPEG_FIELDS = ["coding", "sampling", "ignoredSegments", "exifOrientation"] as const;
+const ALL_TOLERANT_FIELDS = [...PNG_TOLERANT_FIELDS, ...TOLERANT_JPEG_FIELDS] as const;
 
 function isTolerantProfile(record: ImageArtifactRecord): boolean {
   return record.validationProfile === "png-rgb8-tolerant-v1" || record.validationProfile === "jpeg-ycbcr8-tolerant-v1";
@@ -180,14 +182,17 @@ function validateForRecord(
   record: ImageArtifactRecord,
   withPixels = false,
 ): ValidatedImage | TolerantPngImage | TolerantJpegImage {
-  // The saved JPEG tolerant profile is recognized before format dispatch so a
-  // tampered format is reported by the metadata comparison as decode_failed.
+  const foreignFields = record.validationProfile === "png-rgb8-tolerant-v1"
+    ? TOLERANT_JPEG_FIELDS
+    : record.validationProfile === "jpeg-ycbcr8-tolerant-v1"
+      ? PNG_TOLERANT_FIELDS
+      : ALL_TOLERANT_FIELDS;
+  if (foreignFields.some((field) => field in record)) throw new ImageValidationError("decode_failed");
+  // Profile metadata is recognized before format dispatch so foreign fields and
+  // tampered format/profile combinations are reported as decode_failed.
   if (record.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
     return (withPixels ? validateJpegTolerantWithPixels(bytes) : validateJpegTolerant(bytes)) as unknown as TolerantJpegImage;
   }
-  // A record carrying JPEG tolerant metadata under any other profile is
-  // inconsistent; never silently revalidate it under a different profile.
-  if (TOLERANT_JPEG_FIELDS.some((field) => field in record)) throw new ImageValidationError("decode_failed");
   if (record.format === "jpeg") {
     return (withPixels ? validateJpegWithPixels(bytes) : validateJpeg(bytes)) as unknown as ValidatedImage;
   }
@@ -339,14 +344,18 @@ function validatePngTolerant(bytes: Buffer): TolerantPngImage {
   return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-tolerant-v1", ignoredChunks, alpha };
 }
 
-function cloneImageArtifactRecord(record: ImageArtifactRecord): ImageArtifactRecord {
-  if ("ignoredChunks" in record) {
-    return { ...record, ignoredChunks: Array.isArray(record.ignoredChunks) ? [...record.ignoredChunks] : record.ignoredChunks } as ImageArtifactRecord;
+export function cloneImageArtifactRecord(record: ImageArtifactRecord): ImageArtifactRecord {
+  const clone = { ...record } as Record<string, unknown>;
+  const source = record as unknown as Record<string, unknown>;
+  for (const field of ALL_TOLERANT_FIELDS) {
+    if (field in record) {
+      const value = source[field];
+      clone[field] = (field === "ignoredChunks" || field === "ignoredSegments") && Array.isArray(value)
+        ? [...value]
+        : value;
+    }
   }
-  if ("ignoredSegments" in record) {
-    return { ...record, ignoredSegments: Array.isArray(record.ignoredSegments) ? [...record.ignoredSegments] : record.ignoredSegments } as ImageArtifactRecord;
-  }
-  return { ...record };
+  return clone as ImageArtifactRecord;
 }
 
 function crc32(bytes: Buffer): number {

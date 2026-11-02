@@ -26162,6 +26162,16 @@ function estimateMemory(width, height, tables) {
   const blocks = Math.ceil(width / 8) * Math.ceil(height / 8);
   return blocks * 960 + width * height * 6 + tables.q.size * 256 + [...tables.dc.values(), ...tables.ac.values()].reduce((n, table) => n + 16 + table.values.length, 0);
 }
+function isDecoderResourceLimitMessage(message) {
+  const patterns = [
+    /^maxResolutionInMP limit exceeded by [1-9]\d*MP$/,
+    /^maxMemoryUsageInMB limit exceeded by at least [1-9]\d*MB$/
+  ];
+  return patterns.some((pattern) => {
+    const match = pattern.exec(message);
+    return match !== null && match[0] === message;
+  });
+}
 function validateJpegTolerant(bytes) {
   return validateJpegTolerantInternal(bytes).metadata;
 }
@@ -26190,7 +26200,10 @@ function validateJpegTolerantInternal(bytes) {
       maxMemoryUsageInMB: 256,
       maxResolutionInMP: 16.777216
     });
-  } catch {
+  } catch (error2) {
+    if (error2 instanceof Error && isDecoderResourceLimitMessage(error2.message)) {
+      fail("jpeg_resource_limit");
+    }
     fail();
   }
   if (!decoded || decoded.width !== frame.width || decoded.height !== frame.height || !decoded.data || decoded.data.length !== frame.width * frame.height * 3) fail();
@@ -26450,6 +26463,7 @@ var MAX_BYTES = 10 * 1024 * 1024;
 var MAX_AXIS2 = 8192;
 var MAX_PIXELS2 = 16777216;
 var STRICT_PROFILES = /* @__PURE__ */ new Set(["png-rgb8-static-v1", "jpeg-ycbcr8-baseline-444-v1"]);
+var PNG_TOLERANT_FIELDS = ["ignoredChunks", "alpha"];
 var ImageValidationError = class extends Error {
   code;
   constructor(code) {
@@ -26545,6 +26559,7 @@ async function readBoundedSource(path, allowedRoots) {
   }
 }
 var TOLERANT_JPEG_FIELDS = ["coding", "sampling", "ignoredSegments", "exifOrientation"];
+var ALL_TOLERANT_FIELDS = [...PNG_TOLERANT_FIELDS, ...TOLERANT_JPEG_FIELDS];
 function isTolerantProfile(record2) {
   return record2.validationProfile === "png-rgb8-tolerant-v1" || record2.validationProfile === "jpeg-ycbcr8-tolerant-v1";
 }
@@ -26572,10 +26587,11 @@ async function readValidatedImageArtifact(record2, allowedRoots) {
   }
 }
 function validateForRecord(bytes, record2, withPixels = false) {
+  const foreignFields = record2.validationProfile === "png-rgb8-tolerant-v1" ? TOLERANT_JPEG_FIELDS : record2.validationProfile === "jpeg-ycbcr8-tolerant-v1" ? PNG_TOLERANT_FIELDS : ALL_TOLERANT_FIELDS;
+  if (foreignFields.some((field) => field in record2)) throw new ImageValidationError("decode_failed");
   if (record2.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
     return withPixels ? validateJpegTolerantWithPixels(bytes) : validateJpegTolerant(bytes);
   }
-  if (TOLERANT_JPEG_FIELDS.some((field) => field in record2)) throw new ImageValidationError("decode_failed");
   if (record2.format === "jpeg") {
     return withPixels ? validateJpegWithPixels(bytes) : validateJpeg(bytes);
   }
@@ -26759,13 +26775,15 @@ function validatePngTolerant(bytes) {
   return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-tolerant-v1", ignoredChunks, alpha };
 }
 function cloneImageArtifactRecord(record2) {
-  if ("ignoredChunks" in record2) {
-    return { ...record2, ignoredChunks: Array.isArray(record2.ignoredChunks) ? [...record2.ignoredChunks] : record2.ignoredChunks };
+  const clone2 = { ...record2 };
+  const source = record2;
+  for (const field of ALL_TOLERANT_FIELDS) {
+    if (field in record2) {
+      const value = source[field];
+      clone2[field] = (field === "ignoredChunks" || field === "ignoredSegments") && Array.isArray(value) ? [...value] : value;
+    }
   }
-  if ("ignoredSegments" in record2) {
-    return { ...record2, ignoredSegments: Array.isArray(record2.ignoredSegments) ? [...record2.ignoredSegments] : record2.ignoredSegments };
-  }
-  return { ...record2 };
+  return clone2;
 }
 function crc32(bytes) {
   let crc2 = 4294967295;
@@ -26787,7 +26805,7 @@ async function cropImageArtifact(input) {
   if (!isShape(artifactId, region)) throw new ImageValidationError("invalid_region");
   const indexed = (input.store ?? defaultImageArtifactStore).get(artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : "ignoredSegments" in indexed ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments } : { ...indexed };
+  const source = cloneImageArtifactRecord(indexed);
   if (region.width <= 0 || region.height <= 0) throw new ImageValidationError("region_empty");
   const validated = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (region.x < 0 || region.y < 0 || region.x + region.width > source.width || region.y + region.height > source.height) throw new ImageValidationError("region_out_of_bounds");
@@ -26886,7 +26904,7 @@ async function overviewImageArtifact(input) {
   const store = input.store ?? defaultImageArtifactStore;
   const indexed = store.get(input.artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : "ignoredSegments" in indexed ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments } : { ...indexed };
+  const source = cloneImageArtifactRecord(indexed);
   const pixels = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (source.channels === 4 && !(source.validationProfile === "png-rgb8-tolerant-v1" && "alpha" in source && source.alpha === "opaque")) {
     throw new ImageValidationError("alpha_unsupported");
