@@ -67,6 +67,10 @@ terminal EOI are checked before the strict `jpeg-js` decoder runs. JPEG uses the
 same 10 MiB encoded, 8192 axis, and 16,777,216 pixel limits, plus a 128 MiB
 decoder allocation accounting ceiling. The decoder is synchronous; these limits
 do not provide a wall-clock deadline or total process-memory guarantee.
+Because the estimate grows by about 21 bytes per pixel for this 4:4:4 profile,
+the 128 MiB ceiling admits JPEGs up to about 6.39 million pixels (for example,
+3088×2064 is admitted but 3088×2069 is not). Larger JPEGs return
+`jpeg_resource_limit` even though they are within the 16,777,216 pixel limit.
 
 JPEG validation also defaults to this strict profile. Pass `{"profile":"tolerant"}`
 to opt into `jpeg-ycbcr8-tolerant-v1`. It accepts 8-bit three-component YCbCr
@@ -174,7 +178,7 @@ the tests cover persistent replacement, not every swap-and-restore schedule.
 On Windows, `O_NOFOLLOW` is unavailable as a complete defense. The contract
 therefore assumes trusted writers and ordinary permissions on allowed
 directories and their ancestors; atomic OS-specific path/handle containment is
-outside the current PNG artifact contract.
+outside the current image artifact contract.
 
 1. Call `index_image_artifact` with `{"path":"C:/workspace/fixture.png"}`.
 2. Retain the returned `artifactId` in the current MCP session.
@@ -185,7 +189,7 @@ Both tools return the same record as JSON text and structured content:
 
 | Field | Meaning |
 |---|---|
-| `artifactId` | `image_` identity derived from canonical path and original hash |
+| `artifactId` | `image_` identity hashed from canonical path and original hash, plus the validation profile name for non-strict profiles |
 | `path` | Canonical original file path |
 | `sha256` | SHA-256 of the exact captured bytes that were validated |
 | `byteLength` | Original encoded bytes |
@@ -392,9 +396,10 @@ upload or model call.
 
 ## Research boundary
 
-The [paper](research/image-first-paper-draft.ko.md) and
-[evaluation protocol](research/image-first-evaluation-protocol.md) still describe
-planned transformations and experiments. This product slice provides a bounded
+The [paper](research/image-first-paper-draft.ko.md) reports experiments that ran
+on the separate research harness under `research/`, which implements resize,
+OCR and query-aware region selection. [The evaluation protocol](research/image-first-evaluation-protocol.md)
+records the earlier pilot design. This product slice provides a bounded
 overview, but it does not run OCR, select evidence, choose a region, apply a
 guard/fallback, call a model or estimate image tokens. It cannot run the full
 four-condition image pilot. The paper evaluates the separate research harness,
