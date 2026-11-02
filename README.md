@@ -82,6 +82,8 @@ results are reported as measured.
 
 The first accepted excerpt uses the earliest fitting highest-score anchor. When the earliest anchor fits, its legacy context-first span is preserved and overlapping later context may expand it; an oversized earliest anchor is skipped in default multi-excerpt mode, while explicit `maxExcerpts: 1` preserves the legacy refusal. Later excerpts are whole-line windows fitted into the shared `maxTokens` budget, with shared text counted once. `moreMatches` appears only when tied anchors remain uncovered and reports their exact count plus the first 20 line numbers; it is absent for unique best matches and complete coverage. A no-fit multi-tie response keeps the legacy `complete_span_required` or `source_span_exceeds_budget` fallback and adds omission metadata, while partial success keeps `warnings: []` and `fallbackReason: null`. The metadata is outside `estimatedTokens`, which sums estimated token counts for returned excerpt texts; each source map retains complete UTF-8 line boundaries.
 
+`estimate_context` and `classify_context` receive text inline over the STDIO transport. The MCP SDK read buffer (`@modelcontextprotocol/server` 2.0.0) is 10 MiB (10,485,760 bytes) for one JSON-RPC message, including JSON escaping. A larger request is discarded before its id is read, so no JSON-RPC error response is returned; the connection may close, and what the client reports depends on the client. For larger text, write it to a file under an allowed root and use `index_artifact` and `query_artifact`. That path has its own 10 MiB (10,485,760 bytes) file limit and returns `too_large` above it; split larger text into several files.
+
 ## Development
 
 ```powershell

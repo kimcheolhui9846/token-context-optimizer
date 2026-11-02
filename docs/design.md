@@ -6,8 +6,8 @@ Build a Codex-only plugin that improves token efficiency for local text artifact
 
 The image-first research extension supports restricted PNG and baseline 4:4:4 JFIF JPEG metadata registration and
 inspection, including original SHA-256 tracking. See the [image contract](image-artifacts.md)
-for the supported profile and the [research roadmap](research/image-first-evaluation-protocol.md)
-for planned image optimization, evaluation, and broader format work.
+for the supported profile. The image experiments ran on a separate research harness; see the
+[research documents index](research/README.md). Broader format support belongs to a later contract.
 
 ## Architecture
 
@@ -60,6 +60,7 @@ Excluded:
 - Remote HTTP MCP.
 - Model prompt-cache, reasoning-token, attention, or KV-cache control.
 - UI dashboard.
+- Inline text requests larger than the 10 MiB STDIO message limit (see README "Tool Behavior").
 
 ## Safety Invariants
 
