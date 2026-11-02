@@ -281,6 +281,86 @@
       "candidateMatches": false
     }
   ],
+  "boundaries": [
+    {
+      "label": "인증_토큰:",
+      "t1": false,
+      "t2": true,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "인증-토큰:",
+      "t1": false,
+      "t2": true,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "API-키:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "unknown"
+    },
+    {
+      "label": "개인_키:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "비밀_번호:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "보안_코드:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "입력토큰:",
+      "t1": false,
+      "t2": true,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "비밀번호 :",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "비밀번호　:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "**비밀번호**:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "비밀번호  :",
+      "t1": true,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "비밀  번호:",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "semantic"
+    },
+    {
+      "label": "password :",
+      "t1": false,
+      "t2": false,
+      "currentModeInSentence": "exact"
+    }
+  ],
   "sentences": {
     "exposure": [
       {
@@ -447,18 +527,18 @@
     "rows": {
       "nearMissSpacedLabel": {
         "utf8Bytes": 8155591,
-        "candidateRegexMedianMs": 12.7,
-        "classifyContextMs": 1274
+        "candidateRegexMedianMs": 12.3,
+        "classifyContextMs": 1247
       },
       "nearMissTabs": {
         "utf8Bytes": 5242881,
-        "candidateRegexMedianMs": 10,
-        "classifyContextMs": 775
+        "candidateRegexMedianMs": 10.2,
+        "classifyContextMs": 756
       },
       "koreanProse": {
         "utf8Bytes": 8693325,
-        "candidateRegexMedianMs": 9,
-        "classifyContextMs": 1325
+        "candidateRegexMedianMs": 8.7,
+        "classifyContextMs": 1269
       }
     }
   },

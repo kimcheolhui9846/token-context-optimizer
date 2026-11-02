@@ -79,6 +79,16 @@ const sentences = {
     "비밀번호 변경: 설정 화면에서 언제든지 바꿀 수 있습니다.",
   ],
 };
+// 2b. boundary cases (regex only + current mode inside a sentence), added after Codex review 2026-11-02
+const boundaryLabels = [
+  "인증_토큰:", "인증-토큰:", "API-키:", "개인_키:", "비밀_번호:", "보안_코드:", "입력토큰:",
+  "비밀번호\u00A0:", "비밀번호\u3000:", "**비밀번호**:", "비밀번호  :", "비밀  번호:", "password\u00A0:",
+];
+report.boundaries = boundaryLabels.map((label) => {
+  const sentence = `회의실 ${label} hunter2 이니까 접속할 때 참고해 주세요.`;
+  return { label, t1: re1.test(label), t2: re2.test(label), currentModeInSentence: classifyContext(sentence).mode };
+});
+
 report.sentences = Object.fromEntries(Object.entries(sentences).map(([k, list]) => [k, list.map((s) => {
   const r = classifyContext(s);
   return { text: s, mode: r.mode, reasons: r.reasons, t1: re1.test(s), t2: re2.test(s) };
