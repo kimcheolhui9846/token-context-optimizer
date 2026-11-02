@@ -1,0 +1,469 @@
+{
+  "schema": "n17-korean-credential-probe/v1",
+  "policySha256Lf": "c8ff470444f932714773f4cf65b84218f73f121069695a1ee91113e868af3597",
+  "candidate": {
+    "separator": "[ \\t]*[:=\\uFF1A]",
+    "t1": [
+      "비밀[ \\t]?번호",
+      "비번",
+      "패스[ \\t]?워드",
+      "인증[ \\t]?키",
+      "개인[ \\t]?키",
+      "비밀[ \\t]?키",
+      "시크릿[ \\t]?키",
+      "액세스[ \\t]?키",
+      "(?<![A-Za-z0-9])api[ \\t]?키",
+      "복구[ \\t]?코드",
+      "백업[ \\t]?코드",
+      "인증[ \\t]?토큰",
+      "접근[ \\t]?토큰",
+      "액세스[ \\t]?토큰"
+    ],
+    "t2": [
+      "암호",
+      "토큰",
+      "보안[ \\t]?코드"
+    ],
+    "flags": "i",
+    "leftBoundary": "none for Hangul labels; ASCII lookbehind for api"
+  },
+  "matrix": [
+    {
+      "line": "비밀번호: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "비밀번호=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "비밀번호：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "비번: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "비번=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "비번：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "암호: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "암호=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "암호：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "패스워드: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "패스워드=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "패스워드：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "인증키: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "인증키=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "인증키：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "API 키: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "unknown",
+      "candidateMatches": true
+    },
+    {
+      "line": "API 키=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "unknown",
+      "candidateMatches": true
+    },
+    {
+      "line": "API 키：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "unknown",
+      "candidateMatches": true
+    },
+    {
+      "line": "개인키: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "개인키=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "개인키：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "토큰: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "토큰=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "토큰：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "인증 토큰: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "인증 토큰=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "인증 토큰：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "복구 코드: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "복구 코드=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "복구 코드：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "계정 비밀번호: hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "계정 비밀번호=hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "계정 비밀번호：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": true
+    },
+    {
+      "line": "password: hunter2",
+      "alone": "exact",
+      "withKoreanProseLine": "exact",
+      "inSentence": "exact",
+      "candidateMatches": false
+    },
+    {
+      "line": "password=hunter2",
+      "alone": "exact",
+      "withKoreanProseLine": "exact",
+      "inSentence": "exact",
+      "candidateMatches": false
+    },
+    {
+      "line": "password：hunter2",
+      "alone": "unknown",
+      "withKoreanProseLine": "unknown",
+      "inSentence": "semantic",
+      "candidateMatches": false
+    }
+  ],
+  "sentences": {
+    "exposure": [
+      {
+        "text": "회의실 와이파이 비밀번호: hunter2 이니까 접속할 때 참고해 주세요.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": true,
+        "t2": false
+      },
+      {
+        "text": "새로 받은 암호: hunter2 를 내일까지 바꿔야 한다고 들었어요.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": true
+      },
+      {
+        "text": "관리자 계정 비번: hunter2 으로 로그인해서 설정을 바꿔 주세요.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": true,
+        "t2": false
+      },
+      {
+        "text": "배포용 인증 토큰: hunter2 를 환경 변수에 넣어 두었습니다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": true,
+        "t2": true
+      },
+      {
+        "text": "고객센터에서 받은 OTP: 482913 을 입력하면 된다고 합니다.",
+        "mode": "exact",
+        "reasons": [
+          "numeric_or_table"
+        ],
+        "t1": false,
+        "t2": false
+      }
+    ],
+    "outOfScope": [
+      {
+        "text": "서버 접속 비밀번호는 hunter2 이니 외부에 공유하지 마세요.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": false
+      },
+      {
+        "text": "The guest wifi password is hunter2 so please share it carefully.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": false
+      },
+      {
+        "text": "Guest wifi password：hunter2 is taped under the desk for visitors.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": false
+      }
+    ],
+    "overProtection": [
+      {
+        "text": "암호: 이 장에서는 고대부터 현대까지 암호의 역사를 간단히 살펴본다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": true
+      },
+      {
+        "text": "토큰: 언어 모델이 한 번에 처리하는 텍스트의 기본 단위를 말한다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": true
+      },
+      {
+        "text": "비밀번호: 영문과 숫자를 섞어 여덟 자 이상으로 설정해야 합니다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": true,
+        "t2": false
+      }
+    ],
+    "mustNotMatch": [
+      {
+        "text": "암호화: 평문을 정해진 규칙으로 바꾸는 과정을 이 절에서 설명한다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": false
+      },
+      {
+        "text": "토큰화: 문장을 모델이 처리할 단위로 나누는 과정을 말한다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": false
+      },
+      {
+        "text": "비밀번호 변경: 설정 화면에서 언제든지 바꿀 수 있습니다.",
+        "mode": "semantic",
+        "reasons": [
+          "natural_language"
+        ],
+        "t1": false,
+        "t2": false
+      }
+    ]
+  },
+  "corpus": {
+    "files": 114,
+    "uniqueUnits": 14188,
+    "counts": {
+      "line:t2:exact": 3,
+      "paragraph:t2:exact": 5,
+      "line:t2:unknown": 2
+    },
+    "changed": [
+      {
+        "file": "research/plans/2026-10-21-ieie-captions.md",
+        "kind": "line",
+        "tier": "t2",
+        "from": "unknown",
+        "text": "  - 공급자 청구 토큰 = provider-billed tokens"
+      },
+      {
+        "file": "research/results/rq1-sweep-001/README.md",
+        "kind": "line",
+        "tier": "t2",
+        "from": "unknown",
+        "text": "  - 이미지 토큰 = 이미지 포함 호출의 입력 토큰 − 같은 텍스트만 보낸 기준선 호출의 입력 토큰"
+      }
+    ]
+  },
+  "performance": {
+    "note": "informational; 5 runs, median; not a gate",
+    "rows": {
+      "nearMissSpacedLabel": {
+        "utf8Bytes": 8155591,
+        "candidateRegexMedianMs": 12.7,
+        "classifyContextMs": 1274
+      },
+      "nearMissTabs": {
+        "utf8Bytes": 5242881,
+        "candidateRegexMedianMs": 10,
+        "classifyContextMs": 775
+      },
+      "koreanProse": {
+        "utf8Bytes": 8693325,
+        "candidateRegexMedianMs": 9,
+        "classifyContextMs": 1325
+      }
+    }
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32"
+  }
+}
