@@ -43,7 +43,9 @@
 - D-6 minor adopted: profile participates in the identity hash; it is not a literal ID suffix. Directly rechecked against src/core/image-artifacts.ts.
 - D-2 minor declined: preserve the explicitly requested later boundary sentence and its product/research transformation comparison; the proposed extra "It does not evaluate" sentence was already omitted. All link/heading/error-code confirmation notes checked locally.
 - No blocker/major fix required; no additional reviewer call under the repository review tiers.
-- Primary final review: pending PR/final verification.
+- Primary direct final review: PASS WITH NOTES; scoped diff, source consistency, tests, review dispositions and post-PR validation checked. This records the primary agent's review, without independently attesting its runtime model identity.
 - Report-only existing discrepancies: docs/design.md Goal, index_image_artifact description and Safety Invariants still describe strict 4:4:4 JPEG without tolerant support; tool list omits crop_image_artifact and overview_image_artifact. Outside approved lines; unchanged.
 - No new product behavior, public API, security, performance or compatibility changes.
-- Commit/push/Draft PR: pending. Ready/merge not authorized; next Task awaits user approval.
+- Implementation commit `914dd2f`; push succeeded; [Draft PR #87](https://github.com/kimcheolhui9846/token-context-optimizer/pull/87), base main.
+- Post-PR `npm.cmd run validate:plugin` and `git diff 8a149b0 --check`: PASS. Final record-only commit follows; full tests were not repeated for handoff wording.
+- Ready/merge not performed; next Task awaits user approval. Required Astra model identity cannot be independently confirmed from this runtime; do not treat the primary review label as identity proof.
