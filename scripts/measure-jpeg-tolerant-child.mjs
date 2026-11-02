@@ -5,7 +5,7 @@ import { pathToFileURL } from "node:url";
 
 const [relativeInput, expectedSha256, expectedStatus] = process.argv.slice(2);
 const root = process.cwd();
-const inputRoot = resolve(root, ".artifacts/jpeg-tolerant-impl/measurement/attempt2-scancap");
+const inputRoot = resolve(root, ".artifacts/jpeg-tolerant-impl/measurement/attempt2-scancap-r2");
 const inputPath = resolve(root, relativeInput ?? "");
 if (!relativeInput || !expectedSha256 || !["accepted", "jpeg_resource_limit"].includes(expectedStatus) ||
     !inputPath.startsWith(inputRoot + sep)) {

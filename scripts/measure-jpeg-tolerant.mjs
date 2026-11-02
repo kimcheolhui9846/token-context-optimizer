@@ -7,11 +7,11 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { encode as encodePng } from "fast-png";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const scratch = resolve(root, ".artifacts/jpeg-tolerant-impl/measurement/attempt2-scancap");
+const scratch = resolve(root, ".artifacts/jpeg-tolerant-impl/measurement/attempt2-scancap-r2");
 const evidenceDir = resolve(root, "docs/research/evidence/wbs-6.12c");
 const manifestPath = resolve(scratch, "prepared-manifest.json");
 const sentinelPath = resolve(scratch, "measurement.once");
-const reportPath = resolve(evidenceDir, "measurement-attempt2-scancap.json");
+const reportPath = resolve(evidenceDir, "measurement-attempt2-scancap-r2.json");
 const baselineCommit = "6e6b016";
 const baselineRoots = {
   A: resolve(root, ".artifacts/jpeg-tolerant-impl/baseline-a"),
@@ -351,7 +351,7 @@ async function prepare() {
     throw new Error("strict preparation validation failed");
   }
   const manifest = {
-    schema: "wbs-6.12c-prepared/scancap-v1", attempt: 2, performingAccount: "sol",
+    schema: "wbs-6.12c-prepared/scancap-r2-v1", attempt: 2, performingAccount: "sol",
     settings, scriptHashes: scriptHashes(), environment: env,
     sharp: { version: sharpVersion, libvips: vipsVersion,
       rgbFormula: "R=x mod 256; G=y mod 256; B=(x+y) mod 256",
@@ -367,7 +367,7 @@ async function prepare() {
 function check() {
   if (!existsSync(manifestPath)) throw new Error("prepared manifest missing");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  if (manifest.schema !== "wbs-6.12c-prepared/scancap-v1" || manifest.attempt !== 2 ||
+  if (manifest.schema !== "wbs-6.12c-prepared/scancap-r2-v1" || manifest.attempt !== 2 ||
       JSON.stringify(manifest.settings) !== JSON.stringify(settings) ||
       JSON.stringify(manifest.scriptHashes) !== JSON.stringify(scriptHashes()) ||
       JSON.stringify(manifest.variants) !== JSON.stringify(inventories()) ||
@@ -532,8 +532,9 @@ async function measure() {
   mkdirSync(evidenceDir, { recursive: true });
   writeFileSync(sentinelPath, JSON.stringify({ attemptedAt: new Date().toISOString(),
     manifestSha256: sha256(readFileSync(manifestPath)) }) + "\n", { flag: "wx" });
-  const report = { schema: "wbs-6.12c-measurement/scancap-v1", attempt: 2, performingAccount: "sol",
+  const report = { schema: "wbs-6.12c-measurement/scancap-r2-v1", attempt: 2, performingAccount: "sol",
     status: "INCOMPLETE", manifest: rel(manifestPath), manifestSha256: sha256(readFileSync(manifestPath)),
+    scriptHashes: manifest.scriptHashes,
     settings, environment: manifest.environment, sharp: manifest.sharp, variants: manifest.variants,
     inputs: manifest.inputs, strict: {}, strictGate: { status: "INCOMPLETE" }, tolerant: {},
     errors: [] };
