@@ -43,9 +43,13 @@
 - D-6 minor adopted: profile participates in the identity hash; it is not a literal ID suffix. Directly rechecked against src/core/image-artifacts.ts.
 - D-2 minor declined: preserve the explicitly requested later boundary sentence and its product/research transformation comparison; the proposed extra "It does not evaluate" sentence was already omitted. All link/heading/error-code confirmation notes checked locally.
 - No blocker/major fix required; no additional reviewer call under the repository review tiers.
-- Primary direct final review: PASS WITH NOTES; scoped diff, source consistency, tests, review dispositions and post-PR validation checked. This records the primary agent's review, without independently attesting its runtime model identity.
+- Astra final review: PASS WITH NOTES; scoped diff, source consistency, tests, review dispositions and post-PR validation checked.
 - Report-only existing discrepancies: docs/design.md Goal, index_image_artifact description and Safety Invariants still describe strict 4:4:4 JPEG without tolerant support; tool list omits crop_image_artifact and overview_image_artifact. Outside approved lines; unchanged.
 - No new product behavior, public API, security, performance or compatibility changes.
 - Implementation commit `914dd2f`; push succeeded; [Draft PR #87](https://github.com/kimcheolhui9846/token-context-optimizer/pull/87), base main.
 - Post-PR `npm.cmd run validate:plugin` and `git diff 8a149b0 --check`: PASS. Final record-only commit follows; full tests were not repeated for handoff wording.
-- Ready/merge not performed; next Task awaits user approval. Required Astra model identity cannot be independently confirmed from this runtime; do not treat the primary review label as identity proof.
+- Ready/merge not performed; both require separate user approval.
+
+## Astra 판정 확인 (2026-11-02)
+
+사용자가 `/model`로 현재 주 에이전트가 Astra임을 확인했다고 명시하고, 이미 수행한 직접 검토를 Astra 판정으로 인정하도록 승인했다. 이 사용자 확인을 근거로 최종 판정은 **PASS WITH NOTES**이며, 이전 모델 신원 확인 보류는 해소되었다. 별도 Astra 에이전트 호출이나 새 테스트를 수행했다는 뜻은 아니다. 남은 사항은 범위 밖 design 문서 누락과 D-2 경미 의견의 미채택 근거이며, 미해결 blocker/major는 없다. Ready 전환과 merge는 승인되지 않았다.
