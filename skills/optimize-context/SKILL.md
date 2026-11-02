@@ -37,11 +37,20 @@ and record its canonical path, original SHA-256, byte size and dimensions. Use
 the path and check that the source still matches. Set `TCO_ALLOWED_ROOTS` to the
 allowed workspace roots; an empty allowlist denies image access.
 
-The supported profile is static, noninterlaced, 8-bit RGB/RGBA PNG containing only
-IHDR, IDAT and IEND chunks. Metadata-bearing PNGs, palette/grayscale/interlaced
-PNG, APNG, and WEBP remain unsupported; JPEG is limited to baseline 4:4:4 JFIF. Limits are 10 MiB encoded, 8192 pixels
-per axis and 16,777,216 total pixels. Keep an unsupported original unchanged;
-these tools do not convert it automatically.
+The default strict profiles are static, noninterlaced, 8-bit RGB/RGBA PNG
+containing only IHDR, IDAT and IEND chunks, and baseline 4:4:4 JFIF JPEG. Pass
+`profile:"tolerant"` only when needed: it accepts PNG ancillary chunks, or 8-bit
+YCbCr JPEG with supported subsampling, extended sequential (SOF1) or progressive
+coding, and APPn/COM metadata. A tolerant JPEG gets a distinct
+`jpeg-ycbcr8-tolerant-v1` record and ID; it reports `exifOrientation` but does
+not rotate or apply ICC color, so the image may appear rotated and crop
+coordinates use the stored pixels. Validation is not corruption detection; the
+recorded SHA-256 detects later source changes. Palette/grayscale/interlaced PNG,
+APNG, CMYK/grayscale JPEG, and WEBP remain unsupported. Limits are 10 MiB
+encoded, 8192 pixels per axis and 16,777,216 total pixels. Keep an unsupported
+original unchanged; these tools do not convert it automatically.
+A tolerant JPEG may contain at most 64 SOS scans in the whole file. A 65th scan
+returns `jpeg_resource_limit` before decoding; no wall-clock deadline is provided.
 
 Image records contain metadata, not pixels or OCR. Indexing does not modify or
 back up the original. The record is session-local and inspection fails if the
@@ -98,16 +107,15 @@ priority when evidence is incomplete.
 5. **Verify that the crop shows the field.** A missing field can lead to an incorrect
    answer without an unreadable warning. Use `crop_image_artifact({artifactId,
    region: {x, y, width, height}})` only with a caller-chosen in-bounds rectangle
-   in original-image pixels. It does not select evidence or generate an overview,
-   and has no overview option. Partial crops support RGB PNG or supported JPEG,
-   plus tolerant PNG whose alpha is fully opaque; strict RGBA and non-opaque
-   tolerant RGBA return `alpha_unsupported`. Partial crops must be at
-   most 1536 pixels per side; full-frame requests return an original reference
-   without image bytes. If the requested field is not visible, or the question
-   concerns the whole image (largest, count, layout), view an
-   `overview_image_artifact` result, an existing overview or the authorized original; an overview may
-   still be too small
-   to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/49c6cc685c022b9e508d406561878ea732824d62/docs/image-artifacts.md#mcp-crop-use) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
+   in original-image pixels. It does not select evidence or generate an overview.
+   Partial crops support RGB PNG or supported JPEG, plus tolerant PNG whose alpha
+   is fully opaque; strict RGBA and non-opaque tolerant RGBA return
+   `alpha_unsupported`. Partial crops must be at most 1536 pixels per side;
+   full-frame requests return an original reference without image bytes. If the
+   requested field is not visible, or the question concerns the whole image
+   (largest, count, layout), view an `overview_image_artifact` result, an
+   existing overview or the authorized original; an overview may still be too
+   small to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/49c6cc685c022b9e508d406561878ea732824d62/docs/image-artifacts.md#mcp-crop-use) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
 6. **Query with the field and identifier.** Prefer context words such as "posted
    invoice INV-123 batch" to an identifier alone. By default, `query_artifact` returns
    up to five excerpts around positive highest-score ties in file order, within the

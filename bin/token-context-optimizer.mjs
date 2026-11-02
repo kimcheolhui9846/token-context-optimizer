@@ -26162,6 +26162,287 @@ function estimateMemory(width, height, tables) {
   const blocks = Math.ceil(width / 8) * Math.ceil(height / 8);
   return blocks * 960 + width * height * 6 + tables.q.size * 256 + [...tables.dc.values(), ...tables.ac.values()].reduce((n, table) => n + 16 + table.values.length, 0);
 }
+function validateJpegTolerant(bytes) {
+  return validateJpegTolerantInternal(bytes).metadata;
+}
+function validateJpegTolerantWithPixels(bytes) {
+  const { metadata, pixels } = validateJpegTolerantInternal(bytes);
+  return { ...metadata, pixels };
+}
+var TOLERANT_MAX_MEMORY = 256 * 1024 * 1024;
+var TOLERANT_Y_SAMPLING = /* @__PURE__ */ new Map([
+  [17, "1x1,1x1,1x1"],
+  [33, "2x1,1x1,1x1"],
+  [18, "1x2,1x1,1x1"],
+  [34, "2x2,1x1,1x1"]
+]);
+var ADOBE_SIGNATURE = Buffer.from("Adobe", "ascii");
+var EXIF_SIGNATURE = Buffer.from("Exif\0\0", "latin1");
+function validateJpegTolerantInternal(bytes) {
+  const { frame, state } = walkTolerantJpeg(bytes);
+  if (tolerantDecoderBytes(frame, state) > TOLERANT_MAX_MEMORY) fail("jpeg_resource_limit");
+  let decoded;
+  try {
+    decoded = import_jpeg_js.default.decode(bytes, {
+      tolerantDecoding: false,
+      useTArray: true,
+      formatAsRGBA: false,
+      maxMemoryUsageInMB: 256,
+      maxResolutionInMP: 16.777216
+    });
+  } catch {
+    fail();
+  }
+  if (!decoded || decoded.width !== frame.width || decoded.height !== frame.height || !decoded.data || decoded.data.length !== frame.width * frame.height * 3) fail();
+  const metadata = {
+    width: frame.width,
+    height: frame.height,
+    channels: 3,
+    format: "jpeg",
+    mimeType: "image/jpeg",
+    validationProfile: "jpeg-ycbcr8-tolerant-v1",
+    coding: frame.coding,
+    sampling: frame.sampling,
+    ignoredSegments: [...state.segmentNames],
+    exifOrientation: state.orientation
+  };
+  return { metadata, pixels: decoded.data };
+}
+function walkTolerantJpeg(bytes) {
+  if (bytes.length < 4 || bytes[0] !== 255 || bytes[1] !== 216) fail();
+  const state = {
+    frame: null,
+    qDefined: /* @__PURE__ */ new Set(),
+    dcDefined: /* @__PURE__ */ new Set(),
+    acDefined: /* @__PURE__ */ new Set(),
+    dqtDefinitions: 0,
+    dhtAllocationBytes: 0,
+    restartInterval: 0,
+    scans: 0,
+    segmentNames: [],
+    seenSegments: /* @__PURE__ */ new Set(),
+    orientation: null
+  };
+  let p = 2;
+  for (; ; ) {
+    if (p >= bytes.length || bytes[p] !== 255) fail();
+    while (p < bytes.length && bytes[p] === 255) p++;
+    if (p >= bytes.length) fail();
+    const marker = bytes[p++];
+    if (marker === 217) {
+      const frame = state.frame;
+      if (!frame || state.scans === 0 || p !== bytes.length) return fail();
+      return { frame, state };
+    }
+    if (marker === 216 || marker === 0 || marker === 1 || marker >= 208 && marker <= 215) fail();
+    if (bytes.length - p < 2) fail();
+    const length = bytes.readUInt16BE(p);
+    if (length < 2 || length > bytes.length - p) fail();
+    const payload = bytes.subarray(p + 2, p + length);
+    p += length;
+    if (marker === 218) p = tolerantScan(bytes, p, payload, state);
+    else tolerantSegment(marker, payload, state);
+  }
+}
+function tolerantSegment(marker, payload, state) {
+  if (marker >= 224 && marker <= 239 || marker === 254) tolerantMetadataSegment(marker, payload, state);
+  else if (marker === 219) tolerantDqt(payload, state);
+  else if (marker === 196) tolerantDht(payload, state);
+  else if (marker === 221) {
+    if (payload.length !== 2) fail();
+    state.restartInterval = payload.readUInt16BE(0);
+  } else if (marker === 192 || marker === 193 || marker === 194) tolerantSof(marker, payload, state);
+  else if (marker >= 192 && marker <= 207 || marker >= 220 && marker <= 223 || marker >= 240 && marker <= 253) {
+    fail("unsupported_jpeg_profile");
+  } else fail();
+}
+function tolerantMetadataSegment(marker, payload, state) {
+  if (marker === 224 && !isJfif(payload)) fail("unsupported_jpeg_profile");
+  if (marker === 238) {
+    if (payload.length !== 12 || !payload.subarray(0, ADOBE_SIGNATURE.length).equals(ADOBE_SIGNATURE) || payload[11] !== 1) fail("unsupported_jpeg_profile");
+  }
+  if (marker === 225 && state.orientation === null) state.orientation = readExifOrientation(payload);
+  const name = marker === 254 ? "COM" : `APP${marker - 224}`;
+  if (!state.seenSegments.has(name)) {
+    state.seenSegments.add(name);
+    state.segmentNames.push(name);
+  }
+}
+function tolerantSof(marker, payload, state) {
+  if (state.frame) fail();
+  if (payload.length < 6 || payload.length !== 6 + payload[5] * 3) fail();
+  if (payload[0] !== 8 || payload[5] !== 3) fail("unsupported_jpeg_profile");
+  const height = payload.readUInt16BE(1);
+  const width = payload.readUInt16BE(3);
+  if (!width || !height || width > MAX_AXIS || height > MAX_AXIS || width * height > MAX_PIXELS) fail("image_dimensions_exceeded");
+  const components = [];
+  for (let i2 = 0; i2 < 3; i2++) {
+    const at = 6 + i2 * 3;
+    const id = payload[at];
+    const hv = payload[at + 1];
+    const q = payload[at + 2];
+    if (id !== i2 + 1) fail("unsupported_jpeg_profile");
+    if (i2 === 0 ? !TOLERANT_Y_SAMPLING.has(hv) : hv !== 17) fail("unsupported_jpeg_profile");
+    if (q > 3 || !state.qDefined.has(q)) fail();
+    components.push({ id, h: hv >> 4, v: hv & 15, q });
+  }
+  state.frame = {
+    coding: marker === 192 ? "baseline" : marker === 193 ? "extended" : "progressive",
+    sampling: TOLERANT_Y_SAMPLING.get(payload[7]),
+    width,
+    height,
+    components
+  };
+}
+function tolerantDqt(payload, state) {
+  if (payload.length === 0) fail();
+  let p = 0;
+  while (p < payload.length) {
+    const precision = payload[p] >> 4;
+    const id = payload[p] & 15;
+    p++;
+    if (precision === 1) fail("unsupported_jpeg_profile");
+    if (precision !== 0 || id > 3 || payload.length - p < 64) fail();
+    for (let i2 = 0; i2 < 64; i2++) {
+      if (payload[p + i2] === 0) fail();
+    }
+    if (state.frame && state.frame.components.some((c) => c.q === id)) fail();
+    p += 64;
+    state.qDefined.add(id);
+    state.dqtDefinitions++;
+  }
+}
+function tolerantDht(payload, state) {
+  if (payload.length === 0) fail();
+  let p = 0;
+  while (p < payload.length) {
+    const tableClass = payload[p] >> 4;
+    const id = payload[p] & 15;
+    p++;
+    if (tableClass > 1 || id > 3 || payload.length - p < 16) fail();
+    let total = 0;
+    let code = 0;
+    for (let len = 1; len <= 16; len++) {
+      const count = payload[p + len - 1];
+      total += count;
+      code += count;
+      if (code >= 2 ** len) fail();
+      code *= 2;
+    }
+    p += 16;
+    if (total < 1 || total > 256 || payload.length - p < total) fail();
+    p += total;
+    (tableClass === 0 ? state.dcDefined : state.acDefined).add(id);
+    state.dhtAllocationBytes += 16 + total;
+  }
+}
+function tolerantScan(bytes, start, payload, state) {
+  const frame = state.frame;
+  if (!frame || payload.length < 1) return fail();
+  const ns = payload[0];
+  if (ns < 1 || ns > 3 || payload.length !== 4 + 2 * ns) fail();
+  const ss = payload[1 + 2 * ns];
+  const se = payload[2 + 2 * ns];
+  const ah = payload[3 + 2 * ns] >> 4;
+  const al = payload[3 + 2 * ns] & 15;
+  let needDc;
+  let needAc;
+  if (frame.coding !== "progressive") {
+    if (ss !== 0 || se !== 63 || ah !== 0 || al !== 0) fail();
+    needDc = true;
+    needAc = true;
+  } else {
+    if (ss > se || se > 63 || ah > 13 || al > 13 || ah !== 0 && ah !== al + 1) fail();
+    if (ss === 0) {
+      if (se !== 0) fail();
+      needDc = ah === 0;
+      needAc = false;
+    } else {
+      if (ns !== 1) fail();
+      needDc = false;
+      needAc = true;
+    }
+  }
+  const selected = /* @__PURE__ */ new Set();
+  for (let i2 = 0; i2 < ns; i2++) {
+    const id = payload[1 + 2 * i2];
+    const selectors = payload[2 + 2 * i2];
+    if (selected.has(id) || !frame.components.some((c) => c.id === id)) fail();
+    selected.add(id);
+    if (needDc && !state.dcDefined.has(selectors >> 4)) fail();
+    if (needAc && !state.acDefined.has(selectors & 15)) fail();
+  }
+  if (state.scans >= 64) fail("jpeg_resource_limit");
+  state.scans++;
+  return walkTolerantEntropy(bytes, start, state.restartInterval);
+}
+function walkTolerantEntropy(bytes, start, restartInterval) {
+  let p = start;
+  let expected = 0;
+  while (p + 1 < bytes.length) {
+    if (bytes[p] !== 255) {
+      p++;
+      continue;
+    }
+    const next = bytes[p + 1];
+    if (next === 0) {
+      p += 2;
+      continue;
+    }
+    if (next === 255) {
+      p++;
+      continue;
+    }
+    if (next >= 208 && next <= 215) {
+      if (restartInterval === 0 || next !== 208 + expected) fail();
+      expected = expected + 1 & 7;
+      p += 2;
+      continue;
+    }
+    return p;
+  }
+  return fail();
+}
+function tolerantDecoderBytes(frame, state) {
+  const { width, height, components } = frame;
+  const maxH = Math.max(...components.map((c) => c.h));
+  const maxV = Math.max(...components.map((c) => c.v));
+  const mcusPerLine = Math.ceil(width / 8 / maxH);
+  const mcusPerColumn = Math.ceil(height / 8 / maxV);
+  let estimatedBytes = width * height * 6;
+  for (const c of components) {
+    const blocksPerLine = Math.ceil(Math.ceil(width / 8) * c.h / maxH);
+    const blocksPerColumn = Math.ceil(Math.ceil(height / 8) * c.v / maxV);
+    estimatedBytes += 256 * (mcusPerLine * c.h) * (mcusPerColumn * c.v);
+    estimatedBytes += 64 * blocksPerLine * blocksPerColumn;
+  }
+  estimatedBytes += state.dqtDefinitions * 256;
+  estimatedBytes += state.dhtAllocationBytes;
+  return estimatedBytes;
+}
+function readExifOrientation(payload) {
+  if (payload.length < EXIF_SIGNATURE.length || !payload.subarray(0, EXIF_SIGNATURE.length).equals(EXIF_SIGNATURE)) return null;
+  const tiff = payload.subarray(EXIF_SIGNATURE.length);
+  if (tiff.length < 8) return null;
+  const order = tiff.toString("latin1", 0, 2);
+  if (order !== "II" && order !== "MM") return null;
+  const little = order === "II";
+  const u162 = (at) => little ? tiff.readUInt16LE(at) : tiff.readUInt16BE(at);
+  const u32 = (at) => little ? tiff.readUInt32LE(at) : tiff.readUInt32BE(at);
+  if (u162(2) !== 42) return null;
+  const ifd = u32(4);
+  if (ifd > tiff.length - 2) return null;
+  const count = u162(ifd);
+  if (count > Math.floor((tiff.length - ifd - 2) / 12)) return null;
+  for (let i2 = 0; i2 < count; i2++) {
+    const entry = ifd + 2 + i2 * 12;
+    if (u162(entry) !== 274) continue;
+    if (u162(entry + 2) !== 3 || u32(entry + 4) !== 1) return null;
+    const value = u162(entry + 8);
+    return value >= 1 && value <= 8 ? value : null;
+  }
+  return null;
+}
 
 // src/core/image-artifacts.ts
 var PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -26195,7 +26476,7 @@ async function indexImageArtifact(input) {
   const source = await readBoundedSource(input.path, input.allowedRoots ?? [process.cwd()]);
   let metadata;
   try {
-    metadata = source.bytes[0] === 255 && source.bytes[1] === 216 ? validateJpeg(source.bytes) : input.profile === "tolerant" ? validatePngTolerant(source.bytes) : validatePng(source.bytes);
+    metadata = source.bytes[0] === 255 && source.bytes[1] === 216 ? input.profile === "tolerant" ? validateJpegTolerant(source.bytes) : validateJpeg(source.bytes) : input.profile === "tolerant" ? validatePngTolerant(source.bytes) : validatePng(source.bytes);
   } catch (error2) {
     if (error2 instanceof JpegValidationError) throw new ImageValidationError(error2.code);
     throw error2;
@@ -26215,7 +26496,8 @@ async function indexImageArtifact(input) {
     channels: metadata.channels,
     bitDepth: 8,
     validationProfile: metadata.validationProfile,
-    ...metadata.validationProfile === "png-rgb8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {}
+    ...metadata.validationProfile === "png-rgb8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {},
+    ...metadata.validationProfile === "jpeg-ycbcr8-tolerant-v1" ? { coding: metadata.coding, sampling: metadata.sampling, ignoredSegments: [...metadata.ignoredSegments], exifOrientation: metadata.exifOrientation } : {}
   };
   const output = cloneImageArtifactRecord(record2);
   (input.store ?? defaultImageArtifactStore).put(cloneImageArtifactRecord(record2));
@@ -26236,7 +26518,7 @@ async function inspectImageArtifact(input) {
   if (hash !== record2.sha256 || source.bytes.length !== record2.byteLength) throw new ImageValidationError("source_changed");
   try {
     const metadata = validateForRecord(source.bytes, record2);
-    if (record2.validationProfile === "png-rgb8-tolerant-v1" && !recordMetadataMatches(record2, metadata)) {
+    if (isTolerantProfile(record2) && !recordMetadataMatches(record2, metadata)) {
       throw new ImageValidationError("decode_failed");
     }
   } catch (error2) {
@@ -26262,6 +26544,10 @@ async function readBoundedSource(path, allowedRoots) {
     throw new ImageValidationError("read_failure");
   }
 }
+var TOLERANT_JPEG_FIELDS = ["coding", "sampling", "ignoredSegments", "exifOrientation"];
+function isTolerantProfile(record2) {
+  return record2.validationProfile === "png-rgb8-tolerant-v1" || record2.validationProfile === "jpeg-ycbcr8-tolerant-v1";
+}
 async function readValidatedImageArtifact(record2, allowedRoots) {
   let source;
   try {
@@ -26275,7 +26561,7 @@ async function readValidatedImageArtifact(record2, allowedRoots) {
   try {
     const metadata = validateForRecord(source.bytes, record2, true);
     const pixels = metadata.pixels;
-    if (!(pixels instanceof Uint8Array) || metadata.width !== record2.width || metadata.height !== record2.height || metadata.channels !== record2.channels || metadata.format !== record2.format || metadata.mimeType !== record2.mimeType || metadata.validationProfile !== record2.validationProfile || pixels.length !== record2.width * record2.height * record2.channels || record2.validationProfile === "png-rgb8-tolerant-v1" && !recordMetadataMatches(record2, metadata)) {
+    if (!(pixels instanceof Uint8Array) || metadata.width !== record2.width || metadata.height !== record2.height || metadata.channels !== record2.channels || metadata.format !== record2.format || metadata.mimeType !== record2.mimeType || metadata.validationProfile !== record2.validationProfile || pixels.length !== record2.width * record2.height * record2.channels || isTolerantProfile(record2) && !recordMetadataMatches(record2, metadata)) {
       throw new ImageValidationError("decode_failed");
     }
     return { pixels };
@@ -26286,6 +26572,10 @@ async function readValidatedImageArtifact(record2, allowedRoots) {
   }
 }
 function validateForRecord(bytes, record2, withPixels = false) {
+  if (record2.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
+    return withPixels ? validateJpegTolerantWithPixels(bytes) : validateJpegTolerant(bytes);
+  }
+  if (TOLERANT_JPEG_FIELDS.some((field) => field in record2)) throw new ImageValidationError("decode_failed");
   if (record2.format === "jpeg") {
     return withPixels ? validateJpegWithPixels(bytes) : validateJpeg(bytes);
   }
@@ -26293,6 +26583,12 @@ function validateForRecord(bytes, record2, withPixels = false) {
 }
 function recordMetadataMatches(record2, metadata) {
   if (record2.width !== metadata.width || record2.height !== metadata.height || record2.channels !== metadata.channels || record2.bitDepth !== 8 || record2.format !== metadata.format || record2.mimeType !== metadata.mimeType || record2.validationProfile !== metadata.validationProfile) return false;
+  if (record2.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
+    if (!TOLERANT_JPEG_FIELDS.every((field) => field in record2) || !("ignoredSegments" in metadata) || !Array.isArray(record2.ignoredSegments) || !Array.isArray(metadata.ignoredSegments)) return false;
+    const actual = metadata.ignoredSegments;
+    const claimed = record2.ignoredSegments;
+    return record2.coding === metadata.coding && record2.sampling === metadata.sampling && record2.exifOrientation === metadata.exifOrientation && claimed.length === actual.length && actual.every((value, index) => claimed[index] === value);
+  }
   if (record2.validationProfile !== "png-rgb8-tolerant-v1") return true;
   if (!("ignoredChunks" in record2) || !("alpha" in record2) || !("ignoredChunks" in metadata) || !("alpha" in metadata) || !Array.isArray(record2.ignoredChunks) || !Array.isArray(metadata.ignoredChunks)) return false;
   return record2.alpha === metadata.alpha && record2.ignoredChunks.length === metadata.ignoredChunks.length && record2.ignoredChunks.every((value, index) => value === metadata.ignoredChunks[index]);
@@ -26463,7 +26759,13 @@ function validatePngTolerant(bytes) {
   return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-tolerant-v1", ignoredChunks, alpha };
 }
 function cloneImageArtifactRecord(record2) {
-  return "ignoredChunks" in record2 ? { ...record2, ignoredChunks: Array.isArray(record2.ignoredChunks) ? [...record2.ignoredChunks] : record2.ignoredChunks } : { ...record2 };
+  if ("ignoredChunks" in record2) {
+    return { ...record2, ignoredChunks: Array.isArray(record2.ignoredChunks) ? [...record2.ignoredChunks] : record2.ignoredChunks };
+  }
+  if ("ignoredSegments" in record2) {
+    return { ...record2, ignoredSegments: Array.isArray(record2.ignoredSegments) ? [...record2.ignoredSegments] : record2.ignoredSegments };
+  }
+  return { ...record2 };
 }
 function crc32(bytes) {
   let crc2 = 4294967295;
@@ -26485,7 +26787,7 @@ async function cropImageArtifact(input) {
   if (!isShape(artifactId, region)) throw new ImageValidationError("invalid_region");
   const indexed = (input.store ?? defaultImageArtifactStore).get(artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : { ...indexed };
+  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : "ignoredSegments" in indexed ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments } : { ...indexed };
   if (region.width <= 0 || region.height <= 0) throw new ImageValidationError("region_empty");
   const validated = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (region.x < 0 || region.y < 0 || region.x + region.width > source.width || region.y + region.height > source.height) throw new ImageValidationError("region_out_of_bounds");
@@ -26584,7 +26886,7 @@ async function overviewImageArtifact(input) {
   const store = input.store ?? defaultImageArtifactStore;
   const indexed = store.get(input.artifactId);
   if (!indexed) throw new ImageValidationError("artifact_not_indexed");
-  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : { ...indexed };
+  const source = "ignoredChunks" in indexed ? { ...indexed, ignoredChunks: Array.isArray(indexed.ignoredChunks) ? [...indexed.ignoredChunks] : indexed.ignoredChunks } : "ignoredSegments" in indexed ? { ...indexed, ignoredSegments: Array.isArray(indexed.ignoredSegments) ? [...indexed.ignoredSegments] : indexed.ignoredSegments } : { ...indexed };
   const pixels = await readValidatedImageArtifact(source, input.allowedRoots ?? [process.cwd()]);
   if (source.channels === 4 && !(source.validationProfile === "png-rgb8-tolerant-v1" && "alpha" in source && source.alpha === "opaque")) {
     throw new ImageValidationError("alpha_unsupported");
@@ -26797,11 +27099,27 @@ function createServer() {
     channels: literal(3),
     bitDepth: literal(8),
     validationProfile: literal("jpeg-ycbcr8-baseline-444-v1")
+  }), object({
+    artifactId: string2(),
+    path: string2(),
+    sha256: string2(),
+    byteLength: number2().int(),
+    format: literal("jpeg"),
+    mimeType: literal("image/jpeg"),
+    width: number2().int(),
+    height: number2().int(),
+    channels: literal(3),
+    bitDepth: literal(8),
+    validationProfile: literal("jpeg-ycbcr8-tolerant-v1"),
+    coding: _enum(["baseline", "extended", "progressive"]),
+    sampling: _enum(["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]),
+    ignoredSegments: array(string2()),
+    exifOrientation: number2().int().min(1).max(8).nullable()
   })]);
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.",
+      description: "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.",
       inputSchema: object({ path: string2().min(1), profile: _enum(["strict", "tolerant"]).optional() }),
       outputSchema: imageOutputSchema
     },

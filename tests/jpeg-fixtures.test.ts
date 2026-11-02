@@ -56,6 +56,42 @@ describe("checked-in JPEG fixtures", () => {
       for (const record of [png, jpeg]) for (const field of Object.keys(record)) expect(schema.safeParse(Object.fromEntries(Object.entries(record).filter(([key]) => key !== field))).success).toBe(false);
     }
   });
+
+  it("validates the fourth correlated JPEG tolerant variant in actual tools/list schemas", async () => {
+    const tools = await toolsList(); const imageTools = tools.filter((tool) => tool.name === "index_image_artifact" || tool.name === "inspect_image_artifact");
+    expect(imageTools.map((tool) => tool.name).sort()).toEqual(["index_image_artifact", "inspect_image_artifact"]);
+    const png = { artifactId: "image_png", path: "a.png", sha256: "a", byteLength: 1, format: "png", mimeType: "image/png", width: 1, height: 1, channels: 4, bitDepth: 8, validationProfile: "png-rgb8-static-v1" };
+    const pngTolerant = { ...png, validationProfile: "png-rgb8-tolerant-v1", ignoredChunks: ["sRGB"], alpha: "opaque" };
+    const jpeg = { artifactId: "image_jpeg", path: "a.jpg", sha256: "b", byteLength: 1, format: "jpeg", mimeType: "image/jpeg", width: 17, height: 9, channels: 3, bitDepth: 8, validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
+    const jpegTolerant = { ...jpeg, artifactId: "image_jpeg_tolerant", validationProfile: "jpeg-ycbcr8-tolerant-v1", coding: "progressive", sampling: "2x2,1x1,1x1", ignoredSegments: ["APP1", "COM"], exifOrientation: 6 };
+    for (const tool of imageTools) {
+      expect(tool.outputSchema.anyOf.map((variant: any) => variant.properties.validationProfile.const)).toEqual(["png-rgb8-static-v1", "png-rgb8-tolerant-v1", "jpeg-ycbcr8-baseline-444-v1", "jpeg-ycbcr8-tolerant-v1"]);
+      const schema = fromJSONSchema(tool.outputSchema);
+      for (const record of [png, pngTolerant, jpeg, jpegTolerant]) expect(schema.safeParse(record).success).toBe(true);
+      for (const coding of ["baseline", "extended", "progressive"]) expect(schema.safeParse({ ...jpegTolerant, coding }).success).toBe(true);
+      for (const sampling of ["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]) expect(schema.safeParse({ ...jpegTolerant, sampling }).success).toBe(true);
+      for (const exifOrientation of [null, 1, 2, 3, 4, 5, 6, 7, 8]) expect(schema.safeParse({ ...jpegTolerant, exifOrientation }).success).toBe(true);
+      expect(schema.safeParse({ ...jpegTolerant, ignoredSegments: [] }).success).toBe(true);
+      for (const field of Object.keys(jpegTolerant)) expect(schema.safeParse(Object.fromEntries(Object.entries(jpegTolerant).filter(([key]) => key !== field))).success).toBe(false);
+      for (const [field, value] of [
+        ["coding", "lossless"], ["coding", "Baseline"], ["coding", null],
+        ["sampling", "4x1,1x1,1x1"], ["sampling", "2x2,2x1,1x1"], ["sampling", null],
+        ["ignoredSegments", "APP1"], ["ignoredSegments", [1]], ["ignoredSegments", null],
+        ["exifOrientation", 0], ["exifOrientation", 9], ["exifOrientation", 6.5], ["exifOrientation", "6"], ["exifOrientation", undefined],
+        ["channels", 4], ["bitDepth", 16],
+      ] as const) expect(schema.safeParse({ ...jpegTolerant, [field]: value }).success).toBe(false);
+      expect(schema.safeParse({ ...jpegTolerant, format: "png", mimeType: "image/png" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpegTolerant, format: "png" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpegTolerant, mimeType: "image/png" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpegTolerant, validationProfile: "jpeg-ycbcr8-baseline-444-v1" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpegTolerant, validationProfile: "png-rgb8-tolerant-v1" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpegTolerant, ignoredChunks: [], alpha: "none" }).success).toBe(false);
+      expect(schema.safeParse({ ...jpeg, coding: "baseline", sampling: "1x1,1x1,1x1", ignoredSegments: [], exifOrientation: null }).success).toBe(false);
+      expect(schema.safeParse({ ...jpeg, validationProfile: "jpeg-ycbcr8-tolerant-v1" }).success).toBe(false);
+      expect(schema.safeParse({ ...pngTolerant, validationProfile: "jpeg-ycbcr8-tolerant-v1" }).success).toBe(false);
+      expect(schema.safeParse({ ...png, coding: "baseline", sampling: "1x1,1x1,1x1", ignoredSegments: [], exifOrientation: null }).success).toBe(false);
+    }
+  });
 });
 
 async function toolsList(): Promise<any[]> {

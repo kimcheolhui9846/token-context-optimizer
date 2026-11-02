@@ -1,0 +1,557 @@
+{
+  "schema": "wbs-6.12c-measurement-analysis/v1",
+  "attempt": 2,
+  "performingAccount": "sol",
+  "rawEvidence": "docs/research/evidence/wbs-6.12c/measurement-attempt2.json",
+  "rawEvidenceSha256": "cb160be39ec0e8c11fc691af3ef76e86da475f6979148d45b247e4eff4e979ea",
+  "interpretation": {
+    "pass": "Raw PASS means the three strict A/A-prime/B gates passed and the one timed run completed; it is not an RSS ceiling result.",
+    "coverage": "Complete means at least one parent RSS point fell inside each measured row; finite sampling can miss the actual peak.",
+    "peak": "Parent-observed peak and combined observed lower bound are observations, not upper bounds or guarantees.",
+    "before": "Before values use the last parent RSS point at or before the row start; sample age is recorded and a missing point is null.",
+    "after": "After values are the child process memoryUsage().rss sampled immediately after each operation.",
+    "fastRejection": "The 256 MiB-above input rejects before jpeg.decode, too quickly for an in-window parent RSS point. Its null peak means not observed, not zero; child after RSS remains available."
+  },
+  "tolerant": {
+    "accounting-below-256mib-444": {
+      "configuredParentIntervalMs": 10,
+      "medianAchievedParentIntervalMs": 17,
+      "parentPointCount": 355,
+      "rowsWithParentPointInsideWindow": 9,
+      "rowCount": 9,
+      "rows": [
+        {
+          "sample": 0,
+          "rssBeforeObservedBytes": 449769472,
+          "rssBeforeSampleAgeMs": 9,
+          "rssAfterChildBytes": 459714560,
+          "parentObservedPeakInsideWindowBytes": 637042688,
+          "parentPointCountInsideWindow": 30,
+          "combinedObservedLowerBoundBytes": 637042688
+        },
+        {
+          "sample": 1,
+          "rssBeforeObservedBytes": 455360512,
+          "rssBeforeSampleAgeMs": 5,
+          "rssAfterChildBytes": 467615744,
+          "parentObservedPeakInsideWindowBytes": 637763584,
+          "parentPointCountInsideWindow": 29,
+          "combinedObservedLowerBoundBytes": 637763584
+        },
+        {
+          "sample": 2,
+          "rssBeforeObservedBytes": 462356480,
+          "rssBeforeSampleAgeMs": 7,
+          "rssAfterChildBytes": 468856832,
+          "parentObservedPeakInsideWindowBytes": 639180800,
+          "parentPointCountInsideWindow": 29,
+          "combinedObservedLowerBoundBytes": 639180800
+        },
+        {
+          "sample": 3,
+          "rssBeforeObservedBytes": 452714496,
+          "rssBeforeSampleAgeMs": 19,
+          "rssAfterChildBytes": 473268224,
+          "parentObservedPeakInsideWindowBytes": 637321216,
+          "parentPointCountInsideWindow": 28,
+          "combinedObservedLowerBoundBytes": 637321216
+        },
+        {
+          "sample": 4,
+          "rssBeforeObservedBytes": 473268224,
+          "rssBeforeSampleAgeMs": 1,
+          "rssAfterChildBytes": 473915392,
+          "parentObservedPeakInsideWindowBytes": 641523712,
+          "parentPointCountInsideWindow": 30,
+          "combinedObservedLowerBoundBytes": 641523712
+        },
+        {
+          "sample": 5,
+          "rssBeforeObservedBytes": 467267584,
+          "rssBeforeSampleAgeMs": 10,
+          "rssAfterChildBytes": 473907200,
+          "parentObservedPeakInsideWindowBytes": 641331200,
+          "parentPointCountInsideWindow": 30,
+          "combinedObservedLowerBoundBytes": 641331200
+        },
+        {
+          "sample": 6,
+          "rssBeforeObservedBytes": 467570688,
+          "rssBeforeSampleAgeMs": 8,
+          "rssAfterChildBytes": 473616384,
+          "parentObservedPeakInsideWindowBytes": 641253376,
+          "parentPointCountInsideWindow": 28,
+          "combinedObservedLowerBoundBytes": 641253376
+        },
+        {
+          "sample": 7,
+          "rssBeforeObservedBytes": 467755008,
+          "rssBeforeSampleAgeMs": 8,
+          "rssAfterChildBytes": 473825280,
+          "parentObservedPeakInsideWindowBytes": 638746624,
+          "parentPointCountInsideWindow": 30,
+          "combinedObservedLowerBoundBytes": 638746624
+        },
+        {
+          "sample": 8,
+          "rssBeforeObservedBytes": 471318528,
+          "rssBeforeSampleAgeMs": 4,
+          "rssAfterChildBytes": 474980352,
+          "parentObservedPeakInsideWindowBytes": 644796416,
+          "parentPointCountInsideWindow": 28,
+          "combinedObservedLowerBoundBytes": 644796416
+        }
+      ]
+    },
+    "accounting-above-256mib-444": {
+      "configuredParentIntervalMs": 10,
+      "medianAchievedParentIntervalMs": null,
+      "parentPointCount": 1,
+      "rowsWithParentPointInsideWindow": 0,
+      "rowCount": 9,
+      "rows": [
+        {
+          "sample": 0,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 17,
+          "rssAfterChildBytes": 63889408,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 63889408
+        },
+        {
+          "sample": 1,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 20,
+          "rssAfterChildBytes": 65429504,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 65429504
+        },
+        {
+          "sample": 2,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 24,
+          "rssAfterChildBytes": 66965504,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 66965504
+        },
+        {
+          "sample": 3,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 27,
+          "rssAfterChildBytes": 68378624,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 68378624
+        },
+        {
+          "sample": 4,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 30,
+          "rssAfterChildBytes": 69918720,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 69918720
+        },
+        {
+          "sample": 5,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 33,
+          "rssAfterChildBytes": 71442432,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 71442432
+        },
+        {
+          "sample": 6,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 37,
+          "rssAfterChildBytes": 59969536,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 59969536
+        },
+        {
+          "sample": 7,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 41,
+          "rssAfterChildBytes": 61440000,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 61440000
+        },
+        {
+          "sample": 8,
+          "rssBeforeObservedBytes": 57274368,
+          "rssBeforeSampleAgeMs": 44,
+          "rssAfterChildBytes": 62930944,
+          "parentObservedPeakInsideWindowBytes": null,
+          "parentPointCountInsideWindow": 0,
+          "combinedObservedLowerBoundBytes": 62930944
+        }
+      ]
+    },
+    "baseline-4-2-0": {
+      "configuredParentIntervalMs": 10,
+      "medianAchievedParentIntervalMs": 18,
+      "parentPointCount": 282,
+      "rowsWithParentPointInsideWindow": 9,
+      "rowCount": 9,
+      "rows": [
+        {
+          "sample": 0,
+          "rssBeforeObservedBytes": 378740736,
+          "rssBeforeSampleAgeMs": 5,
+          "rssAfterChildBytes": 571826176,
+          "parentObservedPeakInsideWindowBytes": 571826176,
+          "parentPointCountInsideWindow": 23,
+          "combinedObservedLowerBoundBytes": 571826176
+        },
+        {
+          "sample": 1,
+          "rssBeforeObservedBytes": 571826176,
+          "rssBeforeSampleAgeMs": 1,
+          "rssAfterChildBytes": 416808960,
+          "parentObservedPeakInsideWindowBytes": 557522944,
+          "parentPointCountInsideWindow": 25,
+          "combinedObservedLowerBoundBytes": 557522944
+        },
+        {
+          "sample": 2,
+          "rssBeforeObservedBytes": 410951680,
+          "rssBeforeSampleAgeMs": 8,
+          "rssAfterChildBytes": 422490112,
+          "parentObservedPeakInsideWindowBytes": 527163392,
+          "parentPointCountInsideWindow": 23,
+          "combinedObservedLowerBoundBytes": 527163392
+        },
+        {
+          "sample": 3,
+          "rssBeforeObservedBytes": 412954624,
+          "rssBeforeSampleAgeMs": 12,
+          "rssAfterChildBytes": 422801408,
+          "parentObservedPeakInsideWindowBytes": 523177984,
+          "parentPointCountInsideWindow": 24,
+          "combinedObservedLowerBoundBytes": 523177984
+        },
+        {
+          "sample": 4,
+          "rssBeforeObservedBytes": 422801408,
+          "rssBeforeSampleAgeMs": 0,
+          "rssAfterChildBytes": 424402944,
+          "parentObservedPeakInsideWindowBytes": 522842112,
+          "parentPointCountInsideWindow": 23,
+          "combinedObservedLowerBoundBytes": 522842112
+        },
+        {
+          "sample": 5,
+          "rssBeforeObservedBytes": 419688448,
+          "rssBeforeSampleAgeMs": 8,
+          "rssAfterChildBytes": 426012672,
+          "parentObservedPeakInsideWindowBytes": 522813440,
+          "parentPointCountInsideWindow": 24,
+          "combinedObservedLowerBoundBytes": 522813440
+        },
+        {
+          "sample": 6,
+          "rssBeforeObservedBytes": 424812544,
+          "rssBeforeSampleAgeMs": 5,
+          "rssAfterChildBytes": 425803776,
+          "parentObservedPeakInsideWindowBytes": 523079680,
+          "parentPointCountInsideWindow": 20,
+          "combinedObservedLowerBoundBytes": 523079680
+        },
+        {
+          "sample": 7,
+          "rssBeforeObservedBytes": 408195072,
+          "rssBeforeSampleAgeMs": 20,
+          "rssAfterChildBytes": 423739392,
+          "parentObservedPeakInsideWindowBytes": 522948608,
+          "parentPointCountInsideWindow": 25,
+          "combinedObservedLowerBoundBytes": 522948608
+        },
+        {
+          "sample": 8,
+          "rssBeforeObservedBytes": 415936512,
+          "rssBeforeSampleAgeMs": 10,
+          "rssAfterChildBytes": 427163648,
+          "parentObservedPeakInsideWindowBytes": 512491520,
+          "parentPointCountInsideWindow": 24,
+          "combinedObservedLowerBoundBytes": 512491520
+        }
+      ]
+    },
+    "twelve-mp-4-2-0": {
+      "configuredParentIntervalMs": 10,
+      "medianAchievedParentIntervalMs": 17,
+      "parentPointCount": 217,
+      "rowsWithParentPointInsideWindow": 9,
+      "rowCount": 9,
+      "rows": [
+        {
+          "sample": 0,
+          "rssBeforeObservedBytes": 300781568,
+          "rssBeforeSampleAgeMs": 15,
+          "rssAfterChildBytes": 322195456,
+          "parentObservedPeakInsideWindowBytes": 431345664,
+          "parentPointCountInsideWindow": 20,
+          "combinedObservedLowerBoundBytes": 431345664
+        },
+        {
+          "sample": 1,
+          "rssBeforeObservedBytes": 309522432,
+          "rssBeforeSampleAgeMs": 14,
+          "rssAfterChildBytes": 326778880,
+          "parentObservedPeakInsideWindowBytes": 433152000,
+          "parentPointCountInsideWindow": 19,
+          "combinedObservedLowerBoundBytes": 433152000
+        },
+        {
+          "sample": 2,
+          "rssBeforeObservedBytes": 326778880,
+          "rssBeforeSampleAgeMs": 2,
+          "rssAfterChildBytes": 332046336,
+          "parentObservedPeakInsideWindowBytes": 433713152,
+          "parentPointCountInsideWindow": 17,
+          "combinedObservedLowerBoundBytes": 433713152
+        },
+        {
+          "sample": 3,
+          "rssBeforeObservedBytes": 330936320,
+          "rssBeforeSampleAgeMs": 4,
+          "rssAfterChildBytes": 333955072,
+          "parentObservedPeakInsideWindowBytes": 433590272,
+          "parentPointCountInsideWindow": 18,
+          "combinedObservedLowerBoundBytes": 433590272
+        },
+        {
+          "sample": 4,
+          "rssBeforeObservedBytes": 320331776,
+          "rssBeforeSampleAgeMs": 14,
+          "rssAfterChildBytes": 334680064,
+          "parentObservedPeakInsideWindowBytes": 436285440,
+          "parentPointCountInsideWindow": 18,
+          "combinedObservedLowerBoundBytes": 436285440
+        },
+        {
+          "sample": 5,
+          "rssBeforeObservedBytes": 335462400,
+          "rssBeforeSampleAgeMs": 0,
+          "rssAfterChildBytes": 335917056,
+          "parentObservedPeakInsideWindowBytes": 436506624,
+          "parentPointCountInsideWindow": 18,
+          "combinedObservedLowerBoundBytes": 436506624
+        },
+        {
+          "sample": 6,
+          "rssBeforeObservedBytes": 320593920,
+          "rssBeforeSampleAgeMs": 16,
+          "rssAfterChildBytes": 335294464,
+          "parentObservedPeakInsideWindowBytes": 435290112,
+          "parentPointCountInsideWindow": 17,
+          "combinedObservedLowerBoundBytes": 435290112
+        },
+        {
+          "sample": 7,
+          "rssBeforeObservedBytes": 327778304,
+          "rssBeforeSampleAgeMs": 7,
+          "rssAfterChildBytes": 335400960,
+          "parentObservedPeakInsideWindowBytes": 430526464,
+          "parentPointCountInsideWindow": 18,
+          "combinedObservedLowerBoundBytes": 430526464
+        },
+        {
+          "sample": 8,
+          "rssBeforeObservedBytes": 327155712,
+          "rssBeforeSampleAgeMs": 9,
+          "rssAfterChildBytes": 335319040,
+          "parentObservedPeakInsideWindowBytes": 431386624,
+          "parentPointCountInsideWindow": 19,
+          "combinedObservedLowerBoundBytes": 431386624
+        }
+      ]
+    },
+    "twelve-mp-progressive": {
+      "configuredParentIntervalMs": 10,
+      "medianAchievedParentIntervalMs": 17,
+      "parentPointCount": 276,
+      "rowsWithParentPointInsideWindow": 9,
+      "rowCount": 9,
+      "rows": [
+        {
+          "sample": 0,
+          "rssBeforeObservedBytes": 315559936,
+          "rssBeforeSampleAgeMs": 0,
+          "rssAfterChildBytes": 323280896,
+          "parentObservedPeakInsideWindowBytes": 432676864,
+          "parentPointCountInsideWindow": 23,
+          "combinedObservedLowerBoundBytes": 432676864
+        },
+        {
+          "sample": 1,
+          "rssBeforeObservedBytes": 314138624,
+          "rssBeforeSampleAgeMs": 12,
+          "rssAfterChildBytes": 326393856,
+          "parentObservedPeakInsideWindowBytes": 436047872,
+          "parentPointCountInsideWindow": 24,
+          "combinedObservedLowerBoundBytes": 436047872
+        },
+        {
+          "sample": 2,
+          "rssBeforeObservedBytes": 325148672,
+          "rssBeforeSampleAgeMs": 0,
+          "rssAfterChildBytes": 331882496,
+          "parentObservedPeakInsideWindowBytes": 437981184,
+          "parentPointCountInsideWindow": 23,
+          "combinedObservedLowerBoundBytes": 437981184
+        },
+        {
+          "sample": 3,
+          "rssBeforeObservedBytes": 321458176,
+          "rssBeforeSampleAgeMs": 11,
+          "rssAfterChildBytes": 334766080,
+          "parentObservedPeakInsideWindowBytes": 434769920,
+          "parentPointCountInsideWindow": 23,
+          "combinedObservedLowerBoundBytes": 434769920
+        },
+        {
+          "sample": 4,
+          "rssBeforeObservedBytes": 334766080,
+          "rssBeforeSampleAgeMs": 0,
+          "rssAfterChildBytes": 334315520,
+          "parentObservedPeakInsideWindowBytes": 436211712,
+          "parentPointCountInsideWindow": 25,
+          "combinedObservedLowerBoundBytes": 436211712
+        },
+        {
+          "sample": 5,
+          "rssBeforeObservedBytes": 327327744,
+          "rssBeforeSampleAgeMs": 10,
+          "rssAfterChildBytes": 335048704,
+          "parentObservedPeakInsideWindowBytes": 416616448,
+          "parentPointCountInsideWindow": 22,
+          "combinedObservedLowerBoundBytes": 416616448
+        },
+        {
+          "sample": 6,
+          "rssBeforeObservedBytes": 334581760,
+          "rssBeforeSampleAgeMs": 2,
+          "rssAfterChildBytes": 335147008,
+          "parentObservedPeakInsideWindowBytes": 439840768,
+          "parentPointCountInsideWindow": 20,
+          "combinedObservedLowerBoundBytes": 439840768
+        },
+        {
+          "sample": 7,
+          "rssBeforeObservedBytes": 326180864,
+          "rssBeforeSampleAgeMs": 12,
+          "rssAfterChildBytes": 335446016,
+          "parentObservedPeakInsideWindowBytes": 435412992,
+          "parentPointCountInsideWindow": 24,
+          "combinedObservedLowerBoundBytes": 435412992
+        },
+        {
+          "sample": 8,
+          "rssBeforeObservedBytes": 329912320,
+          "rssBeforeSampleAgeMs": 8,
+          "rssAfterChildBytes": 335187968,
+          "parentObservedPeakInsideWindowBytes": 434978816,
+          "parentPointCountInsideWindow": 21,
+          "combinedObservedLowerBoundBytes": 434978816
+        }
+      ]
+    },
+    "worst-10mib-app3-com": {
+      "configuredParentIntervalMs": 10,
+      "medianAchievedParentIntervalMs": 17,
+      "parentPointCount": 117,
+      "rowsWithParentPointInsideWindow": 9,
+      "rowCount": 9,
+      "rows": [
+        {
+          "sample": 0,
+          "rssBeforeObservedBytes": 249925632,
+          "rssBeforeSampleAgeMs": 9,
+          "rssAfterChildBytes": 262774784,
+          "parentObservedPeakInsideWindowBytes": 247111680,
+          "parentPointCountInsideWindow": 9,
+          "combinedObservedLowerBoundBytes": 262774784
+        },
+        {
+          "sample": 1,
+          "rssBeforeObservedBytes": 247111680,
+          "rssBeforeSampleAgeMs": 10,
+          "rssAfterChildBytes": 262889472,
+          "parentObservedPeakInsideWindowBytes": 247226368,
+          "parentPointCountInsideWindow": 10,
+          "combinedObservedLowerBoundBytes": 262889472
+        },
+        {
+          "sample": 2,
+          "rssBeforeObservedBytes": 247226368,
+          "rssBeforeSampleAgeMs": 15,
+          "rssAfterChildBytes": 262844416,
+          "parentObservedPeakInsideWindowBytes": 247181312,
+          "parentPointCountInsideWindow": 10,
+          "combinedObservedLowerBoundBytes": 262844416
+        },
+        {
+          "sample": 3,
+          "rssBeforeObservedBytes": 247181312,
+          "rssBeforeSampleAgeMs": 10,
+          "rssAfterChildBytes": 262799360,
+          "parentObservedPeakInsideWindowBytes": 247136256,
+          "parentPointCountInsideWindow": 11,
+          "combinedObservedLowerBoundBytes": 262799360
+        },
+        {
+          "sample": 4,
+          "rssBeforeObservedBytes": 247136256,
+          "rssBeforeSampleAgeMs": 8,
+          "rssAfterChildBytes": 263086080,
+          "parentObservedPeakInsideWindowBytes": 263430144,
+          "parentPointCountInsideWindow": 11,
+          "combinedObservedLowerBoundBytes": 263430144
+        },
+        {
+          "sample": 5,
+          "rssBeforeObservedBytes": 263430144,
+          "rssBeforeSampleAgeMs": 1,
+          "rssAfterChildBytes": 263077888,
+          "parentObservedPeakInsideWindowBytes": 247414784,
+          "parentPointCountInsideWindow": 6,
+          "combinedObservedLowerBoundBytes": 263077888
+        },
+        {
+          "sample": 6,
+          "rssBeforeObservedBytes": 247414784,
+          "rssBeforeSampleAgeMs": 26,
+          "rssAfterChildBytes": 263090176,
+          "parentObservedPeakInsideWindowBytes": 263090176,
+          "parentPointCountInsideWindow": 9,
+          "combinedObservedLowerBoundBytes": 263090176
+        },
+        {
+          "sample": 7,
+          "rssBeforeObservedBytes": 263090176,
+          "rssBeforeSampleAgeMs": 2,
+          "rssAfterChildBytes": 263122944,
+          "parentObservedPeakInsideWindowBytes": 247459840,
+          "parentPointCountInsideWindow": 10,
+          "combinedObservedLowerBoundBytes": 263122944
+        },
+        {
+          "sample": 8,
+          "rssBeforeObservedBytes": 247459840,
+          "rssBeforeSampleAgeMs": 11,
+          "rssAfterChildBytes": 263090176,
+          "parentObservedPeakInsideWindowBytes": 247427072,
+          "parentPointCountInsideWindow": 10,
+          "combinedObservedLowerBoundBytes": 263090176
+        }
+      ]
+    }
+  }
+}

@@ -181,12 +181,21 @@ export function createServer(): McpServer {
     format: z.literal("jpeg"), mimeType: z.literal("image/jpeg"), width: z.number().int(),
     height: z.number().int(), channels: z.literal(3), bitDepth: z.literal(8),
     validationProfile: z.literal("jpeg-ycbcr8-baseline-444-v1"),
+  }), z.object({
+    artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
+    format: z.literal("jpeg"), mimeType: z.literal("image/jpeg"), width: z.number().int(),
+    height: z.number().int(), channels: z.literal(3), bitDepth: z.literal(8),
+    validationProfile: z.literal("jpeg-ycbcr8-tolerant-v1"),
+    coding: z.enum(["baseline", "extended", "progressive"]),
+    sampling: z.enum(["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]),
+    ignoredSegments: z.array(z.string()),
+    exifOrientation: z.number().int().min(1).max(8).nullable(),
   })]);
 
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a restricted static PNG or baseline 4:4:4 JPEG without retaining pixels. PNG validation defaults to strict; use profile tolerant to accept bounded ancillary chunks.",
+      description: "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.",
       inputSchema: z.object({ path: z.string().min(1), profile: z.enum(["strict", "tolerant"]).optional() }),
       outputSchema: imageOutputSchema,
     },

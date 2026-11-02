@@ -33,8 +33,9 @@ are excluded from decoder input after their bounds and CRC are checked.
 In strict mode, all other chunks are rejected, including text, color profiles, transparency
 metadata and animation control. Many otherwise valid PNGs therefore do not
 qualify. The current runtime accepts `png-rgb8-static-v1`,
-`png-rgb8-tolerant-v1`, and `jpeg-ycbcr8-baseline-444-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
-progressive/subsampled JPEG and WEBP are not accepted. PLTE, tRNS, APNG control,
+`png-rgb8-tolerant-v1`, `jpeg-ycbcr8-baseline-444-v1`, and the opt-in
+`jpeg-ycbcr8-tolerant-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
+WEBP, and JPEGs outside the profiles below are not accepted. PLTE, tRNS, APNG control,
 and unknown critical chunks remain rejected in tolerant mode. Broader format support
 belongs to a later contract. The tools never
 convert unsupported originals automatically.
@@ -67,6 +68,40 @@ same 10 MiB encoded, 8192 axis, and 16,777,216 pixel limits, plus a 128 MiB
 decoder allocation accounting ceiling. The decoder is synchronous; these limits
 do not provide a wall-clock deadline or total process-memory guarantee.
 
+JPEG validation also defaults to this strict profile. Pass `{"profile":"tolerant"}`
+to opt into `jpeg-ycbcr8-tolerant-v1`. It accepts 8-bit three-component YCbCr
+(component IDs 1, 2, 3) coded as baseline SOF0, extended sequential Huffman SOF1,
+or progressive Huffman SOF2. Y sampling may be 1x1, 2x1, 1x2, or 2x2 with Cb and
+Cr at 1x1; the record reports `coding` (`baseline`, `extended`, `progressive`)
+and `sampling` (`1x1,1x1,1x1`, `2x1,1x1,1x1`, `1x2,1x1,1x1`, `2x2,1x1,1x1`).
+Grayscale, CMYK/YCCK, 12-bit, lossless, arithmetic, and other sampling remain
+`unsupported_jpeg_profile`. Marker bounds, table definitions and references,
+scan parameters, restart-marker order, and the terminal EOI are checked by this
+project before the `jpeg-js` decoder runs with `tolerantDecoding: false`.
+The tolerant profile accepts at most 64 SOS scans across the whole JPEG file.
+The walker rejects the 65th with `jpeg_resource_limit` before decoder invocation;
+the strict profile still allows one scan. There is no wall-clock deadline.
+Accepted progressive scans can require repeated full-image decoder passes,
+including on small encoded files, so the 10 MiB encoded-size and 256 MiB decoder
+allocation checks are not a CPU-time bound.
+
+APP0–APP15 and COM segments are bounds-checked and their names are recorded once,
+in first-seen order, in `ignoredSegments`; payloads and counts are not stored.
+APP0 is optional, but when present it must be valid JFIF. APP14 must be a valid
+Adobe segment with transform 1; transform 0/2 or an uninterpretable Adobe
+segment is `unsupported_jpeg_profile`. APP1 EXIF is read only to report
+`exifOrientation`: the first APP1 in file order with a valid TIFF orientation
+tag (SHORT, count 1, value 1–8) supplies the value; otherwise it is `null`.
+Neither orientation nor ICC color is applied. Images whose orientation is not 1
+may appear rotated, and dimensions, crop regions, and overviews always use the
+stored pixel coordinates.
+
+Tolerant validation is not corruption detection. A changed entropy-coded bit can
+still decode as different, valid-looking pixels, and a JPEG altered before
+indexing may be accepted if it decodes. Integrity after indexing comes from the
+whole-file SHA-256 captured at index time: a later reread whose bytes differ
+returns `source_changed`.
+
 At the end of the expected MCU data, the entropy reader accepts one trailing
 `FF 00` pair only when the MCU data ends exactly at a byte boundary, matching
 the observed `jpeg-js` encoder output. It rejects an `FF 00` pair after
@@ -85,7 +120,41 @@ The jpeg-js decoder accounting guard is separate from process RSS. For
 `960*B + 6*width*height + 256*Q + sum(16 + DHT symbol count)`, where `Q` is
 the number of defined quantization tables. It is checked before decoding and
 bounded at 128 MiB; synchronous CPU time and total process memory remain
-unbounded by this accounting value.
+unbounded by this accounting value. The strict estimate and its 128 MiB
+`maxMemoryUsageInMB` option are unchanged by the tolerant profile.
+
+The tolerant profile uses a separate 256 MiB ceiling (`256 * 1024 * 1024`
+bytes) and follows the allocations of the pinned `jpeg-js` 0.4.4 decoder
+exactly rather than an MP approximation. With SOF component sampling factors
+`h`/`v`:
+
+```text
+maxH = max(h), maxV = max(v)
+mcusPerLine   = ceil(width / 8 / maxH)
+mcusPerColumn = ceil(height / 8 / maxV)
+estimate = 6 * width * height
+for each component:
+  blocksPerLine   = ceil(ceil(width / 8) * h / maxH)
+  blocksPerColumn = ceil(ceil(height / 8) * v / maxV)
+  estimate += 256 * (mcusPerLine * h) * (mcusPerColumn * v)
+  estimate += 64 * blocksPerLine * blocksPerColumn
+estimate += 256 * (every DQT table definition)
+estimate += sum over every DHT table definition of (16 + symbol count)
+```
+
+Table terms are cumulative over the whole file: a redefined table still counts
+its earlier definitions, because the decoder does not release them. MCU
+alignment and per-component sizes therefore matter for dimensions that are not
+multiples of 16. An estimate equal to the ceiling is accepted; a larger estimate
+returns `jpeg_resource_limit` before decoding. Repinning the decoder version
+requires reviewing this formula and its boundary tests against the new source.
+
+Rough scales such as about 6.39 MP for strict 4:4:4, about 12.8 MP for tolerant
+4:4:4, and the 16,777,216-pixel cap for tolerant 4:2:0 are explanations only;
+the exact formula, including alignment and table definitions, decides
+acceptance. Like the strict value, this is decoder allocation accounting, not a
+process RSS bound: input copies, JavaScript objects and strings, COM payloads,
+and runtime overhead are not included, and no RSS guarantee is made.
 
 ## MCP use
 
@@ -123,17 +192,27 @@ Both tools return the same record as JSON text and structured content:
 | `format`, `mimeType` | `png`/`image/png` or `jpeg`/`image/jpeg` |
 | `width`, `height` | Validated pixel dimensions |
 | `channels`, `bitDepth` | PNG: 3 or 4 channels; JPEG: 3 channels; 8-bit depth |
-| `validationProfile` | `png-rgb8-static-v1`, `png-rgb8-tolerant-v1`, or `jpeg-ycbcr8-baseline-444-v1` |
+| `validationProfile` | `png-rgb8-static-v1`, `png-rgb8-tolerant-v1`, `jpeg-ycbcr8-baseline-444-v1`, or `jpeg-ycbcr8-tolerant-v1` |
 
-Tolerant PNG records also contain `ignoredChunks` and `alpha`. Profile selection
-is part of validation: tolerant PNGs have a profile-specific artifact ID, while
-strict PNG and JPEG IDs retain their existing identity behavior. JPEG fallback
-remains strict and uses `jpeg-ycbcr8-baseline-444-v1`; it has no tolerant PNG
-fields. A JPEG indexed with `profile: "tolerant"` therefore has the same ID and
-stored record as a strict request for the same path and bytes.
+Tolerant PNG records also contain `ignoredChunks` and `alpha`. Tolerant JPEG
+records also contain `coding`, `sampling`, `ignoredSegments`, and
+`exifOrientation` (integer 1–8 or `null`); strict JPEG records have none of
+these fields, and JPEG records never carry PNG fields. Profile selection is part
+of validation: tolerant PNG and tolerant JPEG records have profile-specific
+artifact IDs, while strict PNG and JPEG IDs retain their existing identity
+behavior. A JPEG that also passes strict validation still receives a tolerant
+record and a distinct ID when requested with `profile: "tolerant"`; the two
+records do not overwrite each other.
+
+Compatibility change: in earlier releases a JPEG indexed with
+`profile: "tolerant"` fell back to strict validation and returned the same ID and
+record as a strict request. It now returns the distinct tolerant profile and ID.
+Strict IDs are unchanged. Records live only in the server process's memory, so
+no persisted record migration is involved.
 
 Records contain no pixels, OCR or ancillary metadata payload; tolerant records
-retain only ignored chunk names and alpha state. The same canonical path, bytes,
+retain only ignored chunk or segment names, alpha state, and the JPEG fields
+above. The same canonical path, bytes,
 and validation profile produce the same ID; a different path is a distinct source even if its
 bytes match. Store reads and writes copy the metadata. Failed indexing does not
 insert a record. Existing text artifact IDs and APIs remain separate.
@@ -263,7 +342,7 @@ they are not successful artifact records.
 | `malformed_png` | Signature, structure, CRC, compressed data or decoded shape is invalid |
 | `unsupported_jpeg_profile` | The JPEG uses an unsupported mode, sampling, or metadata profile |
 | `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |
-| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the 128 MiB accounting ceiling |
+| `jpeg_resource_limit` | The JPEG decoder allocation estimate exceeds the profile's accounting ceiling (strict 128 MiB, tolerant 256 MiB), or a tolerant JPEG contains more than 64 SOS scans |
 | `unknown_artifact_id` | The image ID is absent from this server's store |
 | `artifact_not_indexed` | The crop or overview request references an image ID absent from the store |
 | `region_empty` | Crop width or height is zero or negative |
@@ -286,13 +365,20 @@ other reader failures too, and never attaches a valid-source reference to a
 
 Error precedence for indexing/crop/inspection remains deterministic. Reader and encoded-size failures occur before
 format validation; a recognized but unsupported profile maps to
-`unsupported_jpeg_profile`. For JPEG, an invalid APP0 JFIF identifier or a
+`unsupported_jpeg_profile`. For strict JPEG, an invalid APP0 JFIF identifier or a
 missing APP0 is classified as an unsupported profile, while a duplicate APP0,
 invalid table marker or payload, invalid entropy data, and decoded-shape mismatch
 are `malformed_jpeg`. An SOS with a missing SOF or an invalid SOS payload length
 is also `unsupported_jpeg_profile` under the current parser order. Resource
 limits are checked after structural tables and scan selectors are available and
 before the decoder call.
+For tolerant JPEG, APP0 may be absent or repeated, but each APP0 must be canonical
+JFIF; a JFXX or invalid APP0 is `unsupported_jpeg_profile`. A non-Adobe or
+otherwise invalid APP14 and a 16-bit DQT are also unsupported. Other malformed
+DQT payloads and a redefinition of a referenced DQT after SOF are
+`malformed_jpeg`. A duplicate SOF component ID is unsupported. The tolerant
+parser checks marker structure before `jpeg-js` checks entropy, and a decoder
+failure maps to `malformed_jpeg`.
 
 Inspection preserves `path_denied` from the bounded reader. It maps every other
 reader failure—including nonregular input, encoded-size excess and a concurrent

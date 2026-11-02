@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 import { inflateSync } from "node:zlib";
 import { decode } from "fast-png";
-import { JpegValidationError, validateJpeg, validateJpegWithPixels } from "./jpeg-validation.js";
+import { JpegValidationError, validateJpeg, validateJpegTolerant, validateJpegTolerantWithPixels, validateJpegWithPixels } from "./jpeg-validation.js";
+import type { TolerantJpegMetadata } from "./jpeg-validation.js";
 import { ReadBoundedFileError, readBoundedFile } from "./read-bounded-file.js";
 import type { ReadBoundedFileErrorCode } from "./read-bounded-file.js";
 
@@ -54,7 +55,9 @@ export async function indexImageArtifact(input: {
   const source = await readBoundedSource(input.path, input.allowedRoots ?? [process.cwd()]);
   let metadata;
   try {
-    metadata = source.bytes[0] === 0xff && source.bytes[1] === 0xd8 ? validateJpeg(source.bytes) : input.profile === "tolerant" ? validatePngTolerant(source.bytes) : validatePng(source.bytes);
+    metadata = source.bytes[0] === 0xff && source.bytes[1] === 0xd8
+      ? (input.profile === "tolerant" ? validateJpegTolerant(source.bytes) : validateJpeg(source.bytes))
+      : (input.profile === "tolerant" ? validatePngTolerant(source.bytes) : validatePng(source.bytes));
   } catch (error) {
     if (error instanceof JpegValidationError) throw new ImageValidationError(error.code);
     throw error;
@@ -75,6 +78,9 @@ export async function indexImageArtifact(input: {
     bitDepth: 8,
     validationProfile: metadata.validationProfile,
     ...(metadata.validationProfile === "png-rgb8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {}),
+    ...(metadata.validationProfile === "jpeg-ycbcr8-tolerant-v1"
+      ? { coding: metadata.coding, sampling: metadata.sampling, ignoredSegments: [...metadata.ignoredSegments], exifOrientation: metadata.exifOrientation }
+      : {}),
   } as ImageArtifactRecord;
   const output = cloneImageArtifactRecord(record);
   (input.store ?? defaultImageArtifactStore).put(cloneImageArtifactRecord(record));
@@ -96,7 +102,7 @@ export async function inspectImageArtifact(input: {
   if (hash !== record.sha256 || source.bytes.length !== record.byteLength) throw new ImageValidationError("source_changed");
   try {
     const metadata = validateForRecord(source.bytes, record);
-    if (record.validationProfile === "png-rgb8-tolerant-v1" && !recordMetadataMatches(record, metadata)) {
+    if (isTolerantProfile(record) && !recordMetadataMatches(record, metadata)) {
       throw new ImageValidationError("decode_failed");
     }
   } catch (error) {
@@ -134,6 +140,12 @@ export type ValidatedImagePixels = {
 };
 type ValidatedImage = { width: number; height: number; channels: 3 | 4; pixels: Uint8Array | Uint8ClampedArray; format: "png" | "jpeg"; mimeType: "image/png" | "image/jpeg"; validationProfile: string };
 type TolerantPngImage = ValidatedImage & { format: "png"; mimeType: "image/png"; validationProfile: "png-rgb8-tolerant-v1"; ignoredChunks: string[]; alpha: "none" | "opaque" | "present" };
+type TolerantJpegImage = ValidatedImage & TolerantJpegMetadata;
+const TOLERANT_JPEG_FIELDS = ["coding", "sampling", "ignoredSegments", "exifOrientation"] as const;
+
+function isTolerantProfile(record: ImageArtifactRecord): boolean {
+  return record.validationProfile === "png-rgb8-tolerant-v1" || record.validationProfile === "jpeg-ycbcr8-tolerant-v1";
+}
 
 export async function readValidatedImageArtifact(record: ImageArtifactRecord, allowedRoots: string[]): Promise<ValidatedImagePixels> {
   let source: { path: string; bytes: Buffer };
@@ -152,7 +164,7 @@ export async function readValidatedImageArtifact(record: ImageArtifactRecord, al
       metadata.channels !== record.channels || metadata.format !== record.format ||
       metadata.mimeType !== record.mimeType || metadata.validationProfile !== record.validationProfile ||
       pixels.length !== record.width * record.height * record.channels ||
-      (record.validationProfile === "png-rgb8-tolerant-v1" && !recordMetadataMatches(record, metadata))) {
+      (isTolerantProfile(record) && !recordMetadataMatches(record, metadata))) {
       throw new ImageValidationError("decode_failed");
     }
     return { pixels };
@@ -167,7 +179,15 @@ function validateForRecord(
   bytes: Buffer,
   record: ImageArtifactRecord,
   withPixels = false,
-): ValidatedImage | TolerantPngImage {
+): ValidatedImage | TolerantPngImage | TolerantJpegImage {
+  // The saved JPEG tolerant profile is recognized before format dispatch so a
+  // tampered format is reported by the metadata comparison as decode_failed.
+  if (record.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
+    return (withPixels ? validateJpegTolerantWithPixels(bytes) : validateJpegTolerant(bytes)) as unknown as TolerantJpegImage;
+  }
+  // A record carrying JPEG tolerant metadata under any other profile is
+  // inconsistent; never silently revalidate it under a different profile.
+  if (TOLERANT_JPEG_FIELDS.some((field) => field in record)) throw new ImageValidationError("decode_failed");
   if (record.format === "jpeg") {
     return (withPixels ? validateJpegWithPixels(bytes) : validateJpeg(bytes)) as unknown as ValidatedImage;
   }
@@ -178,12 +198,23 @@ function validateForRecord(
 
 function recordMetadataMatches(
   record: ImageArtifactRecord,
-  metadata: ValidatedImage | TolerantPngImage,
+  metadata: ValidatedImage | TolerantPngImage | TolerantJpegImage,
 ): boolean {
   if (record.width !== metadata.width || record.height !== metadata.height ||
       record.channels !== metadata.channels || record.bitDepth !== 8 ||
       record.format !== metadata.format || record.mimeType !== metadata.mimeType ||
       record.validationProfile !== metadata.validationProfile) return false;
+  if (record.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
+    if (!TOLERANT_JPEG_FIELDS.every((field) => field in record) || !("ignoredSegments" in metadata) ||
+        !Array.isArray(record.ignoredSegments) || !Array.isArray(metadata.ignoredSegments)) return false;
+    const actual = metadata.ignoredSegments;
+    const claimed = record.ignoredSegments;
+    // Iterate the dense parser-provided array: Array.every on the untrusted record skips holes.
+    return record.coding === metadata.coding && record.sampling === metadata.sampling &&
+      record.exifOrientation === metadata.exifOrientation &&
+      claimed.length === actual.length &&
+      actual.every((value, index) => claimed[index] === value);
+  }
   if (record.validationProfile !== "png-rgb8-tolerant-v1") return true;
   if (!("ignoredChunks" in record) || !("alpha" in record) ||
       !("ignoredChunks" in metadata) || !("alpha" in metadata) ||
@@ -309,9 +340,13 @@ function validatePngTolerant(bytes: Buffer): TolerantPngImage {
 }
 
 function cloneImageArtifactRecord(record: ImageArtifactRecord): ImageArtifactRecord {
-  return "ignoredChunks" in record
-    ? { ...record, ignoredChunks: Array.isArray(record.ignoredChunks) ? [...record.ignoredChunks] : record.ignoredChunks } as ImageArtifactRecord
-    : { ...record };
+  if ("ignoredChunks" in record) {
+    return { ...record, ignoredChunks: Array.isArray(record.ignoredChunks) ? [...record.ignoredChunks] : record.ignoredChunks } as ImageArtifactRecord;
+  }
+  if ("ignoredSegments" in record) {
+    return { ...record, ignoredSegments: Array.isArray(record.ignoredSegments) ? [...record.ignoredSegments] : record.ignoredSegments } as ImageArtifactRecord;
+  }
+  return { ...record };
 }
 
 function crc32(bytes: Buffer): number {

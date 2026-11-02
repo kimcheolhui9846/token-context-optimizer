@@ -1,0 +1,4296 @@
+{
+  "schemaVersion": 1,
+  "attempt": "attempt2",
+  "generator": {
+    "file": "tests/fixtures/jpeg-tolerant/generate-fixtures.mjs",
+    "sha256Lf": "13973cb34458ceb8c1e843c2ee76d9f67c70815287eb8477786f60b2a0002417",
+    "invocation": "node tests/fixtures/jpeg-tolerant/generate-fixtures.mjs --sharp <external-scratch>/node_modules/sharp/dist/index.mjs",
+    "node": "v24.18.0"
+  },
+  "decoder": {
+    "package": "jpeg-js",
+    "version": "0.4.4",
+    "options": {
+      "tolerantDecoding": false,
+      "useTArray": true,
+      "formatAsRGBA": false,
+      "maxMemoryUsageInMB": 256,
+      "maxResolutionInMP": 16.777216
+    },
+    "proofFile": "decoder-proof.json"
+  },
+  "encoders": {
+    "handcrafted": {
+      "description": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "bitstream": "continuous packing across MCUs; 1-padding only at scan end or DRI boundary; 0xFF stuffed with 0x00; RST D0..D7 between intervals, restarting at D0 per scan",
+      "app0": "canonical JFIF 1.02, density 1x1, units 0, no thumbnail"
+    },
+    "sharp": {
+      "version": "0.35.4",
+      "libvips": "8.18.6",
+      "location": "external scratch passed via --sharp (absolute path intentionally not persisted)",
+      "rgbFormula": "R=(3x+2y), G=(2x+4y), B=(2(x+y)+20) for 0<=x<50, 0<=y<34 (no wraparound; all < 256)",
+      "commonOptions": {
+        "quality": 90,
+        "chromaSubsampling": "4:2:0",
+        "optimiseCoding": true,
+        "trellisQuantisation": false,
+        "overshootDeringing": false,
+        "optimiseScans": false,
+        "quantisationTable": 0,
+        "mozjpeg": false,
+        "force": true
+      }
+    }
+  },
+  "mutationSemantics": "ops apply sequentially to the parent bytes; each offset is in the coordinates of the buffer produced by the previous op; replace keeps length; insert has old ''; delete has new ''",
+  "accountingExamples": [
+    {
+      "fixture": "hc-444-17x9-app0.jpg",
+      "total": 6968,
+      "calculation": "RGB 6*17*9=918; per component 256*(3*1)*(2*1)=1536 + 64*3*2=384, x3 = 5760; tables 1 DQT*256 + 2 DHT*(16+1)=290; 918+5760+290=6968"
+    },
+    {
+      "fixture": "hc-420-17x9-app0.jpg",
+      "total": 4920,
+      "calculation": "RGB 918; Y 256*(2*2)*(1*2)=2048 + 64*3*2=384; Cb/Cr each 256*2*1=512 + 64*2*1=128; tables 290; 918+2432+640*2+290=4920"
+    },
+    {
+      "fixture": "in-test 4096x3120 4:4:4",
+      "total": 268435456,
+      "calculation": "6WH=76677120; 3*(256+64)*512*390=191692800; base 268369920; 1 DQT 256 + 3840 one-symbol DHT definitions*17=65280 -> 268435456; replacing one unused DC3 definition by a 2-symbol (counts[length2]=2, values 0,1) definition gives 18 instead of 17 -> 268435457"
+    },
+    {
+      "fixture": "in-test 4095x3119 4:4:4",
+      "total": 268435456,
+      "calculation": "6*4095*3119=76633830; blocks 191692800; base 268326630; 1 DQT 256; 6385 one-symbol*17=108545 + one 9-symbol AC2 (16+9=25) -> 268435456; 10-symbol variant -> +1"
+    },
+    {
+      "fixture": "in-test 4096x3120 two DQT",
+      "total": 268435456,
+      "calculation": "base 268369920 + 2 pre-SOF id0 DQT*256=512 + 3823 one-symbol*17=64991 + one 17-symbol AC2 (33) = 268435456; 3825 one-symbol instead -> 268435457"
+    }
+  ],
+  "fixtures": [
+    {
+      "file": "hc-444-16x8-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "4:4:4 baseline with canonical APP0 (strict-supported control; tolerant 1x1 sampling)",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 166,
+      "sha256": "0c292496bd4cdd50b05aa2f72ff28543f2efc7c5facd3b2a47db67ba27e36cfa",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-444-17x9-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "odd 4:4:4; 6 MCUs x 6 bits = 36 bits packed continuously into 5 bytes; accounting literal 6968",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 17,
+        "height": 9,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 6,
+            "blocksPerUnit": 3,
+            "dataBits": 36,
+            "padBits": 4,
+            "entropyBytes": 5,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 169,
+      "sha256": "1eca96dac936a7aa74d34a765bcd1e8279152672df3a79c0416d41a7da2ea27c",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 9,
+        "width": 17,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-420-32x16-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "A1 4:2:0 baseline; SOF1/R1/R3 mutation parent",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 32,
+        "height": 16,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "2x2",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 6,
+            "dataBits": 24,
+            "padBits": 0,
+            "entropyBytes": 3,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 167,
+      "sha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-420-32x16-noapp0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "4:2:0 without APP0; EXIF/metadata insertion parent",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 32,
+        "height": 16,
+        "app0": false,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "2x2",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 6,
+            "dataBits": 24,
+            "padBits": 0,
+            "entropyBytes": 3,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 149,
+      "sha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-420-17x9-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "odd 4:2:0; accounting literal 4920",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 17,
+        "height": 9,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "2x2",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 6,
+            "dataBits": 24,
+            "padBits": 0,
+            "entropyBytes": 3,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 167,
+      "sha256": "d0d4494dd0e532ea65d068436fbceddac653edced67aac8c53c9e92e8ccb3231",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 9,
+        "width": 17,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-422h-32x16-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "A1 horizontal 4:2:2 (Y 2x1)",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 32,
+        "height": 16,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "2x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 4,
+            "blocksPerUnit": 4,
+            "dataBits": 32,
+            "padBits": 0,
+            "entropyBytes": 4,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 168,
+      "sha256": "c0ff03f5da5cfa8eed87d8ebec049ea5b457cae8aba5b93d9b9a9182811aa795",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-422v-16x32-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "A1 vertical 4:2:2 (Y 1x2)",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 16,
+        "height": 32,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x2",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 4,
+            "blocksPerUnit": 4,
+            "dataBits": 32,
+            "padBits": 0,
+            "entropyBytes": 4,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 168,
+      "sha256": "f873557907319a47ba4363e6a3a5fdd25c55d3cb68b84af11d7d231bfda57011",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 32,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-restart-420-80x32-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "A3 DRI=1, 10 interleaved MCUs, RST D0..D7,D0 between intervals",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 80,
+        "height": 32,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "2x2",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 1,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 10,
+            "blocksPerUnit": 6,
+            "dataBits": 120,
+            "padBits": 40,
+            "entropyBytes": 38,
+            "rst": [
+              "d0",
+              "d1",
+              "d2",
+              "d3",
+              "d4",
+              "d5",
+              "d6",
+              "d7",
+              "d0"
+            ]
+          }
+        ]
+      },
+      "byteLength": 208,
+      "sha256": "bed96ea06ad0c983cce220a4f522a1b91fd225ac0654d13d6477ecb69754d750",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 32,
+        "width": 80,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-restart-multiscan-444-40x16-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "A3 three non-interleaved scans, DRI=1, 10 MCUs each, RST numbering restarts at D0 per scan",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 40,
+        "height": 16,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 1,
+        "layout": "per-component",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1
+            ],
+            "units": 10,
+            "blocksPerUnit": 1,
+            "dataBits": 20,
+            "padBits": 60,
+            "entropyBytes": 28,
+            "rst": [
+              "d0",
+              "d1",
+              "d2",
+              "d3",
+              "d4",
+              "d5",
+              "d6",
+              "d7",
+              "d0"
+            ]
+          },
+          {
+            "components": [
+              2
+            ],
+            "units": 10,
+            "blocksPerUnit": 1,
+            "dataBits": 20,
+            "padBits": 60,
+            "entropyBytes": 28,
+            "rst": [
+              "d0",
+              "d1",
+              "d2",
+              "d3",
+              "d4",
+              "d5",
+              "d6",
+              "d7",
+              "d0"
+            ]
+          },
+          {
+            "components": [
+              3
+            ],
+            "units": 10,
+            "blocksPerUnit": 1,
+            "dataBits": 20,
+            "padBits": 60,
+            "entropyBytes": 28,
+            "rst": [
+              "d0",
+              "d1",
+              "d2",
+              "d3",
+              "d4",
+              "d5",
+              "d6",
+              "d7",
+              "d0"
+            ]
+          }
+        ]
+      },
+      "byteLength": 270,
+      "sha256": "530bef7e29ef69f8f428355a13d9c99a5cdc66032aaf253abaa1b8708a351ed9",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 40,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-tables-id23-16x8-app0.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "DQT ids 2/3 and DHT ids 2/3 referenced (strict rejects DHT id>1)",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 2,
+            "td": 2,
+            "ta": 3
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 3,
+            "td": 3,
+            "ta": 2
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 3,
+            "td": 3,
+            "ta": 2
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 2,
+              "value": 1,
+              "precision": 8
+            },
+            {
+              "id": 3,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 2,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 3,
+            "symbols": 1
+          },
+          {
+            "class": "DC",
+            "id": 3,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 2,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 267,
+      "sha256": "626bf4eff932c0c54935e7273ca9ef7f068c82eb5ff1291a7005adf236296562",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 2
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 3
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 3
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-dqt-presof-redefine.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "DQT id0 redefined before SOF (legal); DQT definition count 2",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 2,
+              "precision": 8
+            }
+          ],
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 235,
+      "sha256": "ca6e718b08815c66b38d1b122a51b49665d54890085793bd668bb9774bb02c91",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-dqt-postsof-unused.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "unused DQT id1 defined after SOF (legal)",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 1,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 235,
+      "sha256": "5530f4ade407c0cdd79f2b8c75f9def18c22df4d2db8958ce59ab25b64bfa6e2",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-dqt-postsof-referenced.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "referenced DQT id0 redefined after SOF (tolerant must reject)",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 1,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 235,
+      "sha256": "06ac0e24efc8dc32fd09f805ad4c033736167cd800b8adb4b4c68db09d87d62e",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-dht-between-scans-444-16x16.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "baseline non-interleaved scans; DC0/AC0 redefined before scan 2; DC1/AC1 first defined before scan 3 and referenced only there",
+      "decoderRequired": "accept",
+      "handcrafted": {
+        "width": 16,
+        "height": 16,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 1,
+            "ta": 1
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "per-component",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [
+          0,
+          1,
+          1
+        ],
+        "scans": [
+          {
+            "components": [
+              1
+            ],
+            "units": 4,
+            "blocksPerUnit": 1,
+            "dataBits": 8,
+            "padBits": 0,
+            "entropyBytes": 1,
+            "rst": []
+          },
+          {
+            "components": [
+              2
+            ],
+            "units": 4,
+            "blocksPerUnit": 1,
+            "dataBits": 8,
+            "padBits": 0,
+            "entropyBytes": 1,
+            "rst": []
+          },
+          {
+            "components": [
+              3
+            ],
+            "units": 4,
+            "blocksPerUnit": 1,
+            "dataBits": 8,
+            "padBits": 0,
+            "entropyBytes": 1,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 263,
+      "sha256": "8267976f8a7095e86f6838a2e7f990f1e74f0997d6deb2b4eae171ab3b3aae0c",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "hc-dht-undefined-ref.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "SOS references AC table 1 which is never defined (tolerant must reject)",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 1
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 166,
+      "sha256": "39960e0c96df37367bb9586845d536402f8dc5c9c6c064080e3e5243791753b1",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-grayscale-16x8.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "R1 single-component grayscale",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1
+            ],
+            "units": 2,
+            "blocksPerUnit": 1,
+            "dataBits": 4,
+            "padBits": 4,
+            "entropyBytes": 1,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 155,
+      "sha256": "7a88842680baba9cb536630724a25d278bb446a1828a9e2d995ca3c2d3ee1a8e",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-cmyk-adobe0-16x8.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "R1 four-component CMYK with Adobe transform 0",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": false,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 4,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "units": 2,
+            "blocksPerUnit": 4,
+            "dataBits": 16,
+            "padBits": 0,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 169,
+      "sha256": "fb991799f6588dd5b994b1673604e35047e928ab9f958f08a803d8d07a4b0e41",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 4,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-y41-32x8.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "R1 Y sampling 4x1",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 32,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "4x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 1,
+            "blocksPerUnit": 6,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 166,
+      "sha256": "cdb20c6664a68fab14a161aeffc679afb8331016eff29d9698833e2e379c1631",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 4,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-chroma-21-32x16.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "R1 Cb sampling 2x1 (chroma must be 1x1); 7 blocks x 2 bits = 14 bits/MCU continuous",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 32,
+        "height": 16,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "2x2",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "2x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 7,
+            "dataBits": 28,
+            "padBits": 4,
+            "entropyBytes": 4,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 168,
+      "sha256": "1fed0e7a9117de436db6d2f69a1cbdcbcda6a99f8e081b2c71c04851a5589072",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 2,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-ids-012-16x8.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "R1 component ids 0,1,2 instead of 1,2,3",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 0,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 8
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              0,
+              1,
+              2
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 166,
+      "sha256": "f6f5eca139cf1393d71b84655bc2a361f67a01acd01aaaaf2458c47d36d9b3a6",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 0,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-dqt16-16x8.jpg",
+      "kind": "root",
+      "lineage": "handcrafted",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "handcrafted constant-128 (DQT=1, DC cat0 code '0', AC EOB code '0', continuous 2-bit blocks)",
+      "purpose": "R1 16-bit DQT precision",
+      "decoderRequired": "record",
+      "handcrafted": {
+        "width": 16,
+        "height": 8,
+        "app0": true,
+        "sofMarker": "c0",
+        "precision": 8,
+        "components": [
+          {
+            "id": 1,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 2,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          },
+          {
+            "id": 3,
+            "sampling": "1x1",
+            "tq": 0,
+            "td": 0,
+            "ta": 0
+          }
+        ],
+        "restartInterval": 0,
+        "layout": "interleaved",
+        "dqtSegments": [
+          [
+            {
+              "id": 0,
+              "value": 1,
+              "precision": 16
+            }
+          ]
+        ],
+        "headerDhtDefinitions": [
+          {
+            "class": "DC",
+            "id": 0,
+            "symbols": 1
+          },
+          {
+            "class": "AC",
+            "id": 0,
+            "symbols": 1
+          }
+        ],
+        "postSofSegments": 0,
+        "interScanSegments": [],
+        "scans": [
+          {
+            "components": [
+              1,
+              2,
+              3
+            ],
+            "units": 2,
+            "blocksPerUnit": 3,
+            "dataBits": 12,
+            "padBits": 4,
+            "entropyBytes": 2,
+            "rst": []
+          }
+        ]
+      },
+      "byteLength": 230,
+      "sha256": "6713aefe8c8792c986abb083b649059f657f67c64dca82f46b5a0457fe22b485",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 8,
+        "width": 16,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "sharp-baseline-420-50x34.jpg",
+      "kind": "root",
+      "lineage": "sharp",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "sharp raw RGB -> jpeg (no withMetadata)",
+      "purpose": "A1 encoder-produced baseline 4:2:0",
+      "decoderRequired": "accept",
+      "sharp": {
+        "version": "0.35.4",
+        "libvips": "8.18.6",
+        "options": {
+          "quality": 90,
+          "chromaSubsampling": "4:2:0",
+          "optimiseCoding": true,
+          "trellisQuantisation": false,
+          "overshootDeringing": false,
+          "optimiseScans": false,
+          "quantisationTable": 0,
+          "mozjpeg": false,
+          "force": true,
+          "progressive": false
+        },
+        "width": 50,
+        "height": 34,
+        "rgbFormula": "R=(3x+2y), G=(2x+4y), B=(2(x+y)+20) for 0<=x<50, 0<=y<34 (no wraparound; all < 256)",
+        "rgbSourceSha256": "7bd770b70953096370715d82ffd56291010666b1c05d3efb5d6a33b0845a07ea"
+      },
+      "byteLength": 511,
+      "sha256": "ec00b28ce0fa0cf4e8b71a67088afa8639328b04f6105f904cdee02d9b3cfe57",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 34,
+        "width": 50,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 1
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 1
+          }
+        ]
+      },
+      "sharpProof": {
+        "appSegments": [],
+        "scanCount": 1,
+        "dhtSegments": 4,
+        "dhtAfterFirstSos": 0,
+        "eobrunSymbols": [],
+        "sosParams": [
+          {
+            "ns": 3,
+            "ss": 0,
+            "se": 63,
+            "ah": 0,
+            "al": 0
+          }
+        ],
+        "stuffedFF00": 0,
+        "meanAbsErrorVsSource": 0.8862745098039215
+      }
+    },
+    {
+      "file": "sharp-progressive-420-50x34.jpg",
+      "kind": "root",
+      "lineage": "sharp",
+      "parent": null,
+      "parentSha256": null,
+      "mutations": [],
+      "method": "sharp raw RGB -> jpeg (no withMetadata)",
+      "purpose": "A2 progressive 4:2:0 with inter-scan DHT and EOBRUN",
+      "decoderRequired": "accept",
+      "sharp": {
+        "version": "0.35.4",
+        "libvips": "8.18.6",
+        "options": {
+          "quality": 90,
+          "chromaSubsampling": "4:2:0",
+          "optimiseCoding": true,
+          "trellisQuantisation": false,
+          "overshootDeringing": false,
+          "optimiseScans": false,
+          "quantisationTable": 0,
+          "mozjpeg": false,
+          "force": true,
+          "progressive": true
+        },
+        "width": 50,
+        "height": 34,
+        "rgbFormula": "R=(3x+2y), G=(2x+4y), B=(2(x+y)+20) for 0<=x<50, 0<=y<34 (no wraparound; all < 256)",
+        "rgbSourceSha256": "7bd770b70953096370715d82ffd56291010666b1c05d3efb5d6a33b0845a07ea"
+      },
+      "byteLength": 745,
+      "sha256": "c25180399e04e5b1976fcdfec237367d3ecacbcdc28e4d885ab45f0c6ebbba65",
+      "frame": {
+        "sofMarker": "c2",
+        "precision": 8,
+        "height": 34,
+        "width": 50,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 1
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 1
+          }
+        ]
+      },
+      "sharpProof": {
+        "appSegments": [],
+        "scanCount": 10,
+        "dhtSegments": 10,
+        "dhtAfterFirstSos": 8,
+        "eobrunSymbols": [
+          "10",
+          "30",
+          "50"
+        ],
+        "sosParams": [
+          {
+            "ns": 3,
+            "ss": 0,
+            "se": 0,
+            "ah": 0,
+            "al": 1
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 5,
+            "ah": 0,
+            "al": 2
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 63,
+            "ah": 0,
+            "al": 1
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 63,
+            "ah": 0,
+            "al": 1
+          },
+          {
+            "ns": 1,
+            "ss": 6,
+            "se": 63,
+            "ah": 0,
+            "al": 2
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 63,
+            "ah": 2,
+            "al": 1
+          },
+          {
+            "ns": 3,
+            "ss": 0,
+            "se": 0,
+            "ah": 1,
+            "al": 0
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 63,
+            "ah": 1,
+            "al": 0
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 63,
+            "ah": 1,
+            "al": 0
+          },
+          {
+            "ns": 1,
+            "ss": 1,
+            "se": 63,
+            "ah": 1,
+            "al": 0
+          }
+        ],
+        "stuffedFF00": 0,
+        "meanAbsErrorVsSource": 0.8862745098039215
+      }
+    },
+    {
+      "file": "hc-sof1-32x16.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 90,
+          "old": "c0",
+          "new": "c1"
+        }
+      ],
+      "method": "SOF0 marker C0 -> C1",
+      "purpose": "D-C3 SOF1 extended sequential; must decode",
+      "decoderRequired": "accept",
+      "byteLength": 167,
+      "sha256": "abe0ebe972e3317876d5079e6405ce2283ceaef4ac8eba417dac000081ffe1d3",
+      "frame": {
+        "sofMarker": "c1",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-precision12.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 93,
+          "old": "08",
+          "new": "0c"
+        }
+      ],
+      "method": "SOF precision 8 -> 12",
+      "purpose": "R1 12-bit precision",
+      "decoderRequired": "record",
+      "byteLength": 167,
+      "sha256": "55cd8892d684697acde863b8dda806223c2d15b3bb934259b21916d2a29b8149",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 12,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-sof3-lossless.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 90,
+          "old": "c0",
+          "new": "c3"
+        }
+      ],
+      "method": "SOF0 marker C0 -> C3",
+      "purpose": "R1 lossless coding",
+      "decoderRequired": "record",
+      "byteLength": 167,
+      "sha256": "3c33770841df44f4002dec6a67e9b8b3f37ed20fb455e9524bb37acfafdc1fe2",
+      "frame": {
+        "sofMarker": "c3",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "unsup-sof9-arithmetic.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 90,
+          "old": "c0",
+          "new": "c9"
+        }
+      ],
+      "method": "SOF0 marker C0 -> C9",
+      "purpose": "R1 arithmetic coding",
+      "decoderRequired": "record",
+      "byteLength": 167,
+      "sha256": "dfef1ef042afd66a940650d587e847379eda3effe4c330198e6d6dc8785c3bdd",
+      "frame": {
+        "sofMarker": "c9",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-ii-orient6.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492a0008000000010012010300010000000600000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif II (little-endian) orientation SHORT count1 inline 6",
+      "purpose": "A4",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "4870f0204bca7ec5146d1a34f48296c3dbf66f167884b1c26b89fe0f5b9a2542",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-mm-orient6.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe100224578696600004d4d002a00000008000101120003000000010006000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif MM (big-endian) orientation SHORT count1 inline 6",
+      "purpose": "A4",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "34aa99f22cbe584872a5dcb366914c02e4315be4567c3dd928ced73a9d629e8c",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "metadata-mixed.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492a0008000000010012010300010000000600000000000000ffe200324943435f50524f46494c4500010153594e5448455449432d4943432d4d41524b45522d4e4f542d412d50524f46494c45ffed001950686f746f73686f7020332e300053594e544845544943fffe002473796e74686574696320746f6c6572616e74206669787475726520636f6d6d656e74ffee000e41646f626500640000000001"
+        }
+      ],
+      "method": "insert APP1(Exif II 6), APP2 synthetic ICC marker, APP13, COM, APP14 Adobe transform1",
+      "purpose": "A5",
+      "decoderRequired": "accept",
+      "byteLength": 318,
+      "sha256": "ee73d0517bbe3186184a57253c1645dd63b998df9d066b8cb58636acaa12335c",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "adobe-transform1.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffee000e41646f626500640000000001"
+        }
+      ],
+      "method": "insert APP14 Adobe (12-byte payload) transform 1",
+      "purpose": "APP14 transform1 accepted",
+      "decoderRequired": "accept",
+      "byteLength": 165,
+      "sha256": "88b2aca2fe9efc6dfbeed3d42344f5bdb683760ebb54fb59b4253fade1632a1a",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "adobe-transform0.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "adobe-transform1.jpg",
+      "parentSha256": "88b2aca2fe9efc6dfbeed3d42344f5bdb683760ebb54fb59b4253fade1632a1a",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 17,
+          "old": "01",
+          "new": "00"
+        }
+      ],
+      "method": "Adobe transform 1 -> 0",
+      "purpose": "R2",
+      "decoderRequired": "record",
+      "byteLength": 165,
+      "sha256": "bfc916aee269791324724bf1d60b78e29e6a58d6fe68fd55fc6ea113db50cd8e",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "adobe-transform2.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "adobe-transform1.jpg",
+      "parentSha256": "88b2aca2fe9efc6dfbeed3d42344f5bdb683760ebb54fb59b4253fade1632a1a",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 17,
+          "old": "01",
+          "new": "02"
+        }
+      ],
+      "method": "Adobe transform 1 -> 2",
+      "purpose": "R2",
+      "decoderRequired": "record",
+      "byteLength": 165,
+      "sha256": "2bc845f4c7e8487ceeda2c4abf0977a3ce15109d80d5bac2f14b8ee56a7a45d9",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "adobe-short.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffee000941646f62650064"
+        }
+      ],
+      "method": "insert APP14 'Adobe' with truncated 7-byte payload",
+      "purpose": "R2 uninterpretable Adobe declaration",
+      "decoderRequired": "record",
+      "byteLength": 160,
+      "sha256": "bf22d0cf81242a3fc40abf4f2e18b6eaad60c05b0a563640399f03c4dedeaf8f",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-ifd-outside-app1.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1001045786966000049492a000c000000ffe20014010012010300010000000600000000000000"
+        }
+      ],
+      "method": "APP1 TIFF header only with IFD0 offset 12 (outside APP1); following APP2 holds a decoy IFD with orientation 6",
+      "purpose": "A6 bounds: must be null",
+      "decoderRequired": "accept",
+      "byteLength": 189,
+      "sha256": "27dabe9f587dbab9c35946c048eac0c471c7523c4efdbe3f10e17cbf93a62e0d",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-bad-byteorder.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe10022457869660000494d2a0008000000010012010300010000000600000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with byte order 'IM'",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "0127cf66f33d3ece38692be279b133f11cd0d878c023b8a739b6078b7bbde038",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-bad-magic.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492b0008000000010012010300010000000600000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with TIFF magic 43",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "cf0e51622e653af63d10f850456b3276c491e8051b301c9197863602cb6de7f0",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-value0.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492a0008000000010012010300010000000000000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with orientation value 0",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "24dc1983044a971eb948edf8f915d8a6d6c692f0768d7c5bea8a00a8b2a4fd65",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-value9.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492a0008000000010012010300010000000900000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with orientation value 9",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "064c908872661509d56ad6c811c2bd9c7443d00f37bf64487db34791a2f69573",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-type-long.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492a0008000000010012010400010000000600000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with orientation type LONG(4)",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "3f815b2c12edc471b602273a36fbdfc764aa4a7a5269abe2da635c92f3300f1e",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-count2.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe100224578696600004d4d002a00000008000101120003000000020006000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with orientation count 2",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "7d45a35eb6ebd3458d87c9e45ecc8833422c71d66b29476f9b82fbb3bcb7f58d",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-truncated-entry.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1001845786966000049492a00080000000100120103000100"
+        }
+      ],
+      "method": "insert APP1 Exif with TIFF cut 6 bytes into the 12-byte entry",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 175,
+      "sha256": "4b02dcd2a9dfd688cfa5a1d035c93c0c83efd709566da0dc1689af5125f3b3ad",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-ifd-count-overflow.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002245786966000049492a0008000000ffff12010300010000000600000000000000"
+        }
+      ],
+      "method": "insert APP1 Exif with IFD entry count 65535 with one entry present",
+      "purpose": "A6 malformed EXIF -> null orientation",
+      "decoderRequired": "accept",
+      "byteLength": 185,
+      "sha256": "d9fc6e25c8632435f8718d82ec063996b934ad81c0fae426fd9f71f03aaf3e23",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "exif-first-valid-wins.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe1002b687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f003c783a786d706d6574612f3effe1002245786966000049492a0008000000010012010300010000000900000000000000ffe1002e4578696600004d4d002a00000008000201000003000000010020000001120003000000010003000000000000ffe1002245786966000049492a0008000000010012010300010000000800000000000000"
+        }
+      ],
+      "method": "insert APP1 XMP, APP1 Exif value 9, APP1 Exif MM (ImageWidth then orientation 3), APP1 Exif II orientation 8",
+      "purpose": "first valid orientation (3) wins",
+      "decoderRequired": "accept",
+      "byteLength": 314,
+      "sha256": "4f80e19ecee5816b7403233740390c5e1784aeaa4cd7cbb33eac065c256d9639",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "repeats-no-app0.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "fffe002473796e74686574696320746f6c6572616e74206669787475726520636f6d6d656e74ffef001153594e5448455449432d4150503135ffe1002245786966000049492a0008000000010012010300010000000300000000000000ffe3001053594e5448455449432d41505033ffe200324943435f50524f46494c4500010153594e5448455449432d4943432d4d41524b45522d4e4f542d412d50524f46494c45ffee000e41646f626500640000000001ffe4001053594e5448455449432d41505034ffe5001053594e5448455449432d41505035ffe6001053594e5448455449432d41505036ffe7001053594e5448455449432d41505037ffe8001053594e5448455449432d41505038ffe9001053594e5448455449432d41505039ffea001153594e5448455449432d4150503130ffeb001153594e5448455449432d4150503131ffec001153594e5448455449432d4150503132ffed001950686f746f73686f7020332e300053594e544845544943ffe100224578696600004d4d002a00000008000101120003000000010008000000000000fffe002473796e74686574696320746f6c6572616e74206669787475726520636f6d6d656e74ffef001153594e5448455449432d4150503135ffe3001053594e5448455449432d41505033ffee000e41646f626500640000000001ffe200324943435f50524f46494c4500010153594e5448455449432d4943432d4d41524b45522d4e4f542d412d50524f46494c45"
+        }
+      ],
+      "method": "insert repeated COM/APP1-APP15 (APP14 Adobe transform1) in fixed order",
+      "purpose": "A8 without APP0",
+      "decoderRequired": "accept",
+      "byteLength": 699,
+      "sha256": "38c819de5a52fb68c66616201c67475a7e31a9a1d2cb9d4fbc89abdf563232e9",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "repeats-with-app0.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 20,
+          "old": "",
+          "new": "fffe002473796e74686574696320746f6c6572616e74206669787475726520636f6d6d656e74ffef001153594e5448455449432d4150503135ffe1002245786966000049492a0008000000010012010300010000000300000000000000ffe3001053594e5448455449432d41505033ffe200324943435f50524f46494c4500010153594e5448455449432d4943432d4d41524b45522d4e4f542d412d50524f46494c45ffee000e41646f626500640000000001ffe4001053594e5448455449432d41505034ffe5001053594e5448455449432d41505035ffe6001053594e5448455449432d41505036ffe7001053594e5448455449432d41505037ffe8001053594e5448455449432d41505038ffe9001053594e5448455449432d41505039ffea001153594e5448455449432d4150503130ffeb001153594e5448455449432d4150503131ffec001153594e5448455449432d4150503132ffed001950686f746f73686f7020332e300053594e544845544943ffe100224578696600004d4d002a00000008000101120003000000010008000000000000fffe002473796e74686574696320746f6c6572616e74206669787475726520636f6d6d656e74ffef001153594e5448455449432d4150503135ffe3001053594e5448455449432d41505033ffee000e41646f626500640000000001ffe200324943435f50524f46494c4500010153594e5448455449432d4943432d4d41524b45522d4e4f542d412d50524f46494c45"
+        }
+      ],
+      "method": "insert the same repeated segments after canonical APP0",
+      "purpose": "A8 with APP0",
+      "decoderRequired": "accept",
+      "byteLength": 717,
+      "sha256": "d09f44b29b75d553a1bb7ceaa2fd15f07df1324e3e65d5d191df64cf5c42fa7c",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "app0-invalid.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-noapp0.jpg",
+      "parentSha256": "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 2,
+          "old": "",
+          "new": "ffe0000b4a465858001053594e"
+        }
+      ],
+      "method": "insert APP0 with non-JFIF (JFXX) payload",
+      "purpose": "APP0 present but not canonical JFIF",
+      "decoderRequired": "record",
+      "byteLength": 162,
+      "sha256": "0a814a3bfd5342754106f03de0e7468a52bcb7784dcd85623c411a63b1279b46",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "trunc-scan-eoi.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-422h-32x16-app0.jpg",
+      "parentSha256": "c0ff03f5da5cfa8eed87d8ebec049ea5b457cae8aba5b93d9b9a9182811aa795",
+      "mutations": [
+        {
+          "op": "delete",
+          "offset": 163,
+          "old": "000000",
+          "new": ""
+        }
+      ],
+      "method": "delete last 3 of 4 entropy bytes, EOI kept",
+      "purpose": "R3 truncated scan + EOI",
+      "decoderRequired": "reject",
+      "byteLength": 165,
+      "sha256": "97e24782f492bf682381eb77ff1ead78eb1a13aa75276fa723354447c3d7f30b",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "trailing-after-eoi.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 167,
+          "old": "",
+          "new": "00112233"
+        }
+      ],
+      "method": "append 4 bytes after EOI",
+      "purpose": "R3 trailing bytes",
+      "decoderRequired": "record",
+      "byteLength": 171,
+      "sha256": "dfe1eed77f8a256e0ca1e05aff6a71662a9875086e0add99bbacf12f799acda7",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "missing-eoi.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "delete",
+          "offset": 165,
+          "old": "ffd9",
+          "new": ""
+        }
+      ],
+      "method": "delete final EOI",
+      "purpose": "R3 missing EOI",
+      "decoderRequired": "record",
+      "byteLength": 165,
+      "sha256": "cb6e6d7ed6b9a1815883ee968c28593f0c490c5c9d227e56f6b924da37f97d24",
+      "frame": null
+    },
+    {
+      "file": "scan-bit-flip.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 162,
+          "old": "00",
+          "new": "80"
+        }
+      ],
+      "method": "flip bit 7 (mask 0x80) of first entropy byte: first DC Huffman bit becomes '1', which no code in the one-symbol table defines",
+      "purpose": "R3 decoder-verified scan bit mutation (this offset/bit only; no arbitrary-bit guarantee)",
+      "decoderRequired": "reject",
+      "bitMutation": {
+        "offset": 162,
+        "mask": "0x80"
+      },
+      "byteLength": 167,
+      "sha256": "e046e902591081f7862369e8a870811cbe0bbb4b2c3bbf415287dcbcc91246fe",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "fill-before-eoi.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 165,
+          "old": "",
+          "new": "ff"
+        }
+      ],
+      "method": "insert one 0xFF fill byte before EOI",
+      "purpose": "scan FF fill accepted",
+      "decoderRequired": "accept",
+      "byteLength": 168,
+      "sha256": "615553450b47b960649364a2fef2a0326f97def28a767e97b60b98b109594cd5",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 32,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "rst-wrong-order.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-restart-420-80x32-app0.jpg",
+      "parentSha256": "bed96ea06ad0c983cce220a4f522a1b91fd225ac0654d13d6477ecb69754d750",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 171,
+          "old": "d0",
+          "new": "d5"
+        }
+      ],
+      "method": "first RST D0 -> D5",
+      "purpose": "R3 RST order (jpeg-js accepts any RSTn)",
+      "decoderRequired": "record",
+      "byteLength": 208,
+      "sha256": "e9b74e267edee351fdfc86f151d316cf96999af68465613516869446f5fb35f8",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 32,
+        "width": 80,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "rst-without-dri.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-restart-420-80x32-app0.jpg",
+      "parentSha256": "bed96ea06ad0c983cce220a4f522a1b91fd225ac0654d13d6477ecb69754d750",
+      "mutations": [
+        {
+          "op": "delete",
+          "offset": 148,
+          "old": "ffdd00040001",
+          "new": ""
+        }
+      ],
+      "method": "delete DRI segment",
+      "purpose": "R3 RST without DRI",
+      "decoderRequired": "record",
+      "byteLength": 202,
+      "sha256": "92595790deaaebf936962b4bf8438bf895911b018a77c525d214e634d84fdb05",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 32,
+        "width": 80,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "rst-dri-zero.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-restart-420-80x32-app0.jpg",
+      "parentSha256": "bed96ea06ad0c983cce220a4f522a1b91fd225ac0654d13d6477ecb69754d750",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 152,
+          "old": "0001",
+          "new": "0000"
+        }
+      ],
+      "method": "DRI interval 1 -> 0",
+      "purpose": "R3 RST under zero DRI",
+      "decoderRequired": "record",
+      "byteLength": 208,
+      "sha256": "cc519c0e1a64bd1e5be6639eedba910b5bc5cf46f4a4eeb60a8c976c6c38686b",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 32,
+        "width": 80,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "dri-bad-length.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-restart-420-80x32-app0.jpg",
+      "parentSha256": "bed96ea06ad0c983cce220a4f522a1b91fd225ac0654d13d6477ecb69754d750",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 150,
+          "old": "0004",
+          "new": "0005"
+        },
+        {
+          "op": "insert",
+          "offset": 154,
+          "old": "",
+          "new": "00"
+        }
+      ],
+      "method": "DRI length 4 -> 5 with one extra payload byte",
+      "purpose": "R3 DRI payload length != 2",
+      "decoderRequired": "record",
+      "byteLength": 209,
+      "sha256": "3b1df8b6ace5d24dc1bcff62048a82f1b0c93690b28cdd1a8d61af2282f0554d",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 32,
+        "width": 80,
+        "components": [
+          {
+            "id": 1,
+            "h": 2,
+            "v": 2,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "rst-outside-scan.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-420-32x16-app0.jpg",
+      "parentSha256": "12c3a352cd6ad695e8d9f2c1f91d0059fd5ad6d678c30a1c15585d5de3425520",
+      "mutations": [
+        {
+          "op": "insert",
+          "offset": 148,
+          "old": "",
+          "new": "ffd0"
+        }
+      ],
+      "method": "insert RST0 before SOS",
+      "purpose": "R3 RST outside scan",
+      "decoderRequired": "record",
+      "byteLength": 169,
+      "sha256": "7429919b25b59d611bb3b78f4c9b2bcc6fa0944ea6f1ef0208ff6bad50ae59e6",
+      "frame": null
+    },
+    {
+      "file": "rst-scan-continued.jpg",
+      "kind": "mutation",
+      "lineage": "handcrafted",
+      "parent": "hc-restart-multiscan-444-40x16-app0.jpg",
+      "parentSha256": "530bef7e29ef69f8f428355a13d9c99a5cdc66032aaf253abaa1b8708a351ed9",
+      "mutations": [
+        {
+          "op": "replace",
+          "offset": 204,
+          "old": "d0",
+          "new": "d1"
+        },
+        {
+          "op": "replace",
+          "offset": 207,
+          "old": "d1",
+          "new": "d2"
+        },
+        {
+          "op": "replace",
+          "offset": 210,
+          "old": "d2",
+          "new": "d3"
+        },
+        {
+          "op": "replace",
+          "offset": 213,
+          "old": "d3",
+          "new": "d4"
+        },
+        {
+          "op": "replace",
+          "offset": 216,
+          "old": "d4",
+          "new": "d5"
+        },
+        {
+          "op": "replace",
+          "offset": 219,
+          "old": "d5",
+          "new": "d6"
+        },
+        {
+          "op": "replace",
+          "offset": 222,
+          "old": "d6",
+          "new": "d7"
+        },
+        {
+          "op": "replace",
+          "offset": 225,
+          "old": "d7",
+          "new": "d0"
+        },
+        {
+          "op": "replace",
+          "offset": 228,
+          "old": "d0",
+          "new": "d1"
+        }
+      ],
+      "method": "scan 2 RST markers renumbered to continue scan 1 (D1..D7,D0,D1) instead of restarting at D0",
+      "purpose": "R3 RST must restart per scan",
+      "decoderRequired": "record",
+      "byteLength": 270,
+      "sha256": "c3e43880eff36812115fe75919df542f90fbdf6306fa553ad4cac229e70e76f2",
+      "frame": {
+        "sofMarker": "c0",
+        "precision": 8,
+        "height": 16,
+        "width": 40,
+        "components": [
+          {
+            "id": 1,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 2,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          },
+          {
+            "id": 3,
+            "h": 1,
+            "v": 1,
+            "tq": 0
+          }
+        ]
+      }
+    }
+  ]
+}

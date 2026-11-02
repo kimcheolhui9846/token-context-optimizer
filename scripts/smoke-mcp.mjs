@@ -42,6 +42,7 @@ try {
   const imageFile = join(workspaceRoot, "image.png");
   const tolerantImageFile = join(workspaceRoot, "tolerant-image.png");
   const jpegFile = join(workspaceRoot, "image.jpg");
+  const tolerantJpegFile = join(workspaceRoot, "tolerant-image.jpg");
   const malformedImageFile = join(workspaceRoot, "malformed.png");
   const malformedJpegFile = join(workspaceRoot, "malformed.jpg");
   outsideRoot = await mkdtemp(join(tmpdir(), "tco-outside-"));
@@ -59,6 +60,8 @@ try {
   await writeFile(tolerantImageFile, addAncillaryPng(makeOpaqueRgbaPng()));
   const jpegBytes = Buffer.from("/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAJABEDAREAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQGCP/EACoQAAEDAwICCwEAAAAAAAAAAAIBBAUDBhEAEgchCBMXJDY3VnR1lLTT/8QAGAEAAwEBAAAAAAAAAAAAAAAABAUHAgb/xAAvEQACAQIDBAcJAAAAAAAAAAABAgMEEQAFEgYUMXMTISI2VJLSMjU3UnSys7TB/9oADAMBAAIRAxEAPwA7Vvc1qcOZR+EDAWjFvBKNov5AOtNotRBp7iqmQU1VeaCq08ZIUVF5quJqiirMw6XMah5nXe1sosGt0cUShUUt8ik6uALEjrOEt6HLtnBTxzSzTzlI7IFswOp3BWzMAYlcEqxYE3UrxVO8Jpq0tmlEy98y9wOXm9pXjbdo93dN8hkM00BufOsCqu7O0CFVyiApFJG9PLJmL0oADVSK0hu6szRxR+2TIFXqAAHZFiow4q6Seiyeiy6goVh3hw+uXSSBF2jfWWmQl9BTSvEE3AJJL2d8PfSFy/Rb/wB9VjVm3iI/M3oww3TPPExeZ/RiQ6UHmjLfKsvx0tT3Ku7qcyp/dhx0+T/DnKub/KjFdb3iqI9sP6C0DtD7mm+pm/PT4mO1veSl5CfdLjV2n2DMf//Z", "base64");
   await writeFile(jpegFile, jpegBytes);
+  const tolerantJpegBytes = makeTolerantJpeg();
+  await writeFile(tolerantJpegFile, tolerantJpegBytes);
   await writeFile(malformedImageFile, Buffer.from("bad-png"));
   await writeFile(malformedJpegFile, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
   await writeFile(outsideImageFile, imageBytes);
@@ -128,6 +131,7 @@ try {
   }
   assertImageToolSchemas(tools.result.tools);
   assertOverviewToolSchema(tools.result.tools);
+  assertCropSourceSchemas(tools.result.tools);
 
   send({
     jsonrpc: "2.0",
@@ -259,6 +263,44 @@ try {
     throw new Error(`JPEG overview metadata mismatch: ${JSON.stringify(overviewPayload)}`);
   }
 
+  const tolerantJpegHash = createHash("sha256").update(tolerantJpegBytes).digest("hex");
+  const tolerantJpegExpected = { path: tolerantJpegFile, sha256: tolerantJpegHash, byteLength: tolerantJpegBytes.length };
+  send({ jsonrpc: "2.0", id: 17, method: "tools/call", params: { name: "index_image_artifact", arguments: { path: tolerantJpegFile, profile: "tolerant" } } });
+  const tolerantJpegIndex = await waitFor((message) => message.id === 17 && (message.error || message.result));
+  const tolerantJpegResult = assertTextOnlyResult(tolerantJpegIndex, "Tolerant JPEG index");
+  const tolerantJpegPayload = JSON.parse(tolerantJpegResult.content[0].text);
+  assertTolerantJpegRecord(tolerantJpegPayload, tolerantJpegExpected);
+  assertStructuredMatchesText(tolerantJpegResult, tolerantJpegPayload);
+
+  send({ jsonrpc: "2.0", id: 18, method: "tools/call", params: { name: "inspect_image_artifact", arguments: { artifactId: tolerantJpegPayload.artifactId } } });
+  const tolerantJpegInspect = assertTextOnlyResult(await waitFor((message) => message.id === 18 && (message.error || message.result)), "Tolerant JPEG inspect");
+  const tolerantJpegInspectPayload = JSON.parse(tolerantJpegInspect.content[0].text);
+  assertTolerantJpegRecord(tolerantJpegInspectPayload, tolerantJpegExpected);
+  assertStructuredMatchesText(tolerantJpegInspect, tolerantJpegInspectPayload);
+  if (JSON.stringify(tolerantJpegInspectPayload) !== JSON.stringify(tolerantJpegPayload)) {
+    throw new Error(`Tolerant JPEG inspect mismatch: ${JSON.stringify(tolerantJpegInspectPayload)}`);
+  }
+
+  send({ jsonrpc: "2.0", id: 19, method: "tools/call", params: { name: "overview_image_artifact", arguments: { artifactId: tolerantJpegPayload.artifactId, maxSide: 64 } } });
+  const tolerantJpegOverview = await waitFor((message) => message.id === 19 && (message.error || message.result));
+  assertEncodedImageResult(tolerantJpegOverview, "Tolerant JPEG overview", tolerantJpegPayload, 32, 16);
+  if (tolerantJpegOverview.result.structuredContent.output.resample !== "area-average-v1") {
+    throw new Error(`Tolerant JPEG overview resample mismatch: ${JSON.stringify(tolerantJpegOverview.result.structuredContent)}`);
+  }
+
+  send({ jsonrpc: "2.0", id: 20, method: "tools/call", params: { name: "crop_image_artifact", arguments: { artifactId: tolerantJpegPayload.artifactId, region: { x: 8, y: 0, width: 16, height: 8 } } } });
+  const tolerantJpegCrop = await waitFor((message) => message.id === 20 && (message.error || message.result));
+  assertEncodedImageResult(tolerantJpegCrop, "Tolerant JPEG crop", tolerantJpegPayload, 16, 8);
+  if (tolerantJpegCrop.result.structuredContent.status !== "cropped") {
+    throw new Error(`Tolerant JPEG crop status mismatch: ${JSON.stringify(tolerantJpegCrop.result.structuredContent)}`);
+  }
+  if (createHash("sha256").update(await readFile(tolerantJpegFile)).digest("hex") !== tolerantJpegHash) {
+    throw new Error("Tolerant JPEG source bytes changed during smoke");
+  }
+
+  send({ jsonrpc: "2.0", id: 21, method: "tools/call", params: { name: "index_image_artifact", arguments: { path: tolerantJpegFile } } });
+  await expectToolError(21, "unsupported_jpeg_profile", [tolerantJpegFile, workspaceRoot]);
+
   send({
     jsonrpc: "2.0",
     id: 6,
@@ -351,22 +393,36 @@ function assertOverviewToolSchema(tools) {
   if (output.properties.output.properties?.image !== undefined) {
     throw new Error("Overview output schema must omit base64 image data");
   }
+  assertImageOutputSchema(output.properties.source, "overview_image_artifact source");
+}
+
+function assertCropSourceSchemas(tools) {
+  const tool = tools.find((candidate) => candidate.name === "crop_image_artifact");
+  const variants = tool?.outputSchema?.anyOf ?? [];
+  if (variants.length !== 3) {
+    throw new Error(`Unexpected crop output schema variants: ${JSON.stringify(tool?.outputSchema)}`);
+  }
+  for (const variant of variants) {
+    assertImageOutputSchema(variant.properties?.source ?? {}, `crop_image_artifact ${variant.properties?.status?.const} source`);
+  }
 }
 
 function assertImageOutputSchema(output, name) {
   const schemas = output.anyOf ?? [output];
-  if (schemas.length !== 3) {
-    throw new Error(`Image output schema must expose three correlated strict PNG, tolerant PNG, and JPEG variants for ${name}`);
+  if (schemas.length !== 4) {
+    throw new Error(`Image output schema must expose four correlated strict PNG, tolerant PNG, strict JPEG, and tolerant JPEG variants for ${name}`);
   }
   const signatures = schemas.map((schema) => `${schema.properties?.format?.const}:${schema.properties?.mimeType?.const}:${schema.properties?.validationProfile?.const}`);
-  for (const expected of ["png:image/png:png-rgb8-static-v1", "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1"]) {
-    if (!signatures.includes(expected)) {
-      throw new Error(`Image output schema is missing correlated variant ${expected} for ${name}: ${JSON.stringify(signatures)}`);
-    }
+  const expectedSignatures = [
+    "png:image/png:png-rgb8-static-v1",
+    "png:image/png:png-rgb8-tolerant-v1",
+    "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1",
+    "jpeg:image/jpeg:jpeg-ycbcr8-tolerant-v1",
+  ];
+  if (JSON.stringify(signatures) !== JSON.stringify(expectedSignatures)) {
+    throw new Error(`Image output schema correlated variants mismatch for ${name}: ${JSON.stringify(signatures)}`);
   }
-  if (!signatures.includes("png:image/png:png-rgb8-tolerant-v1")) {
-    throw new Error(`Image output schema is missing tolerant PNG variant for ${name}: ${JSON.stringify(signatures)}`);
-  }
+  assertTolerantJpegSchema(schemas[3], name);
   const properties = Object.assign({}, ...schemas.map((schema) => schema.properties ?? {}));
   const required = new Set(schemas.flatMap((schema) => schema.required ?? []));
   for (const field of ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile"]) {
@@ -433,6 +489,128 @@ function assertTolerantImageRecord(record, expected) {
   if (!record.artifactId?.startsWith("image_") || record.path !== expected.path || record.sha256 !== expected.sha256 || record.format !== "png" || record.mimeType !== "image/png" || record.bitDepth !== 8 || record.validationProfile !== "png-rgb8-tolerant-v1" || !Number.isInteger(record.width) || !Number.isInteger(record.height) || ![3, 4].includes(record.channels) || !Array.isArray(record.ignoredChunks) || !["none", "opaque", "present"].includes(record.alpha)) {
     throw new Error(`Unexpected tolerant PNG record: ${JSON.stringify(record)}`);
   }
+}
+
+function assertTolerantJpegSchema(schema, name) {
+  const properties = schema.properties ?? {};
+  const same = (actual, expected) => JSON.stringify(actual) === JSON.stringify(expected);
+  const required = ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "coding", "sampling", "ignoredSegments", "exifOrientation"];
+  const orientation = properties.exifOrientation?.anyOf ?? [];
+  const orientationInteger = orientation.find((item) => item?.type === "integer");
+  if (
+    schema.additionalProperties !== false ||
+    !same([...(schema.required ?? [])].sort(), [...required].sort()) ||
+    !same(Object.keys(properties).sort(), [...required].sort()) ||
+    properties.channels?.const !== 3 ||
+    properties.bitDepth?.const !== 8 ||
+    !same(properties.coding?.enum, ["baseline", "extended", "progressive"]) ||
+    !same(properties.sampling?.enum, ["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]) ||
+    properties.ignoredSegments?.type !== "array" ||
+    properties.ignoredSegments?.items?.type !== "string" ||
+    orientation.length !== 2 ||
+    orientationInteger?.minimum !== 1 ||
+    orientationInteger?.maximum !== 8 ||
+    !orientation.some((item) => item?.type === "null")
+  ) {
+    throw new Error(`Unexpected tolerant JPEG schema variant for ${name}: ${JSON.stringify(schema)}`);
+  }
+}
+
+function assertTolerantJpegRecord(record, expected) {
+  const keys = ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "coding", "sampling", "ignoredSegments", "exifOrientation"];
+  if (
+    JSON.stringify(Object.keys(record ?? {}).sort()) !== JSON.stringify([...keys].sort()) ||
+    !record.artifactId?.startsWith("image_") ||
+    record.path !== expected.path ||
+    record.sha256 !== expected.sha256 ||
+    record.byteLength !== expected.byteLength ||
+    record.format !== "jpeg" ||
+    record.mimeType !== "image/jpeg" ||
+    record.width !== 32 ||
+    record.height !== 16 ||
+    record.channels !== 3 ||
+    record.bitDepth !== 8 ||
+    record.validationProfile !== "jpeg-ycbcr8-tolerant-v1" ||
+    record.coding !== "baseline" ||
+    record.sampling !== "2x2,1x1,1x1" ||
+    JSON.stringify(record.ignoredSegments) !== '["APP1","APP2","APP13","COM","APP14"]' ||
+    record.exifOrientation !== 6
+  ) {
+    throw new Error(`Unexpected tolerant JPEG record: ${JSON.stringify(record)}`);
+  }
+}
+
+function assertTextOnlyResult(response, label) {
+  const result = response.result;
+  if (response.error || result?.isError || result?.content?.length !== 1 || result.content[0]?.type !== "text") {
+    throw new Error(`${label} failed: ${JSON.stringify(response)}`);
+  }
+  return result;
+}
+
+function assertEncodedImageResult(response, label, source, width, height) {
+  const result = response.result;
+  if (response.error || result?.isError || result?.content?.length !== 2 || result.content[0]?.type !== "text") {
+    throw new Error(`${label} failed: ${JSON.stringify(response)}`);
+  }
+  const payload = JSON.parse(result.content[0].text);
+  assertStructuredMatchesText(result, payload);
+  const image = result.content[1];
+  const bytes = Buffer.from(image?.type === "image" ? image.data ?? "" : "", "base64");
+  const validation = validateJpeg(bytes);
+  if (
+    image?.type !== "image" ||
+    image.mimeType !== "image/jpeg" ||
+    result.content[0].text.includes(image.data) ||
+    JSON.stringify(payload.source) !== JSON.stringify(source) ||
+    Object.prototype.hasOwnProperty.call(payload.output ?? {}, "image") ||
+    payload.output?.width !== width ||
+    payload.output?.height !== height ||
+    payload.output?.format !== "jpeg" ||
+    payload.output?.mimeType !== "image/jpeg" ||
+    payload.output?.quality !== 75 ||
+    payload.output?.byteLength !== bytes.length ||
+    payload.output?.sha256 !== createHash("sha256").update(bytes).digest("hex") ||
+    validation.width !== width ||
+    validation.height !== height ||
+    validation.validationProfile !== "jpeg-ycbcr8-baseline-444-v1"
+  ) {
+    throw new Error(`${label} metadata mismatch: ${JSON.stringify(payload)}`);
+  }
+}
+
+// Synthetic 32x16 4:2:0 constant-128 JPEG with APP1 EXIF II orientation 6, synthetic APP2 ICC marker,
+// APP13, COM and APP14 Adobe transform 1. Byte-identical to the checked-in
+// tests/fixtures/jpeg-tolerant/metadata-mixed.jpg (provenance.json: parent hc-420-32x16-noapp0.jpg plus one
+// insert at offset 2); rebuilt here so packaged smoke does not read test fixture paths.
+function makeTolerantJpeg() {
+  const hex = (text) => Buffer.from(text, "hex");
+  const singleSymbolDht = (classAndId) => Buffer.from([classAndId, 1, ...new Array(15).fill(0), 0]);
+  const parent = Buffer.concat([
+    hex("ffd8"),
+    hex("ffdb004300"), Buffer.alloc(64, 1),
+    hex("ffc00011080010002003012200021100031100"),
+    hex("ffc40026"), singleSymbolDht(0x00), singleSymbolDht(0x10),
+    hex("ffda000c03010002000300003f00"),
+    hex("000000"),
+    hex("ffd9"),
+  ]);
+  const metadata = hex(
+    "ffe1002245786966000049492a0008000000010012010300010000000600000000000000" +
+    "ffe200324943435f50524f46494c4500010153594e5448455449432d4943432d4d41524b45522d4e4f542d412d50524f46494c45" +
+    "ffed001950686f746f73686f7020332e300053594e544845544943" +
+    "fffe002473796e74686574696320746f6c6572616e74206669787475726520636f6d6d656e74" +
+    "ffee000e41646f626500640000000001",
+  );
+  const bytes = Buffer.concat([parent.subarray(0, 2), metadata, parent.subarray(2)]);
+  const digest = (value) => createHash("sha256").update(value).digest("hex");
+  if (parent.length !== 149 || digest(parent) !== "df4975e370a2115757bcdba28e26b17f728b22f70041b34aa37b4f0e82b0d0dd") {
+    throw new Error("Synthetic tolerant JPEG parent does not match recorded provenance");
+  }
+  if (bytes.length !== 318 || digest(bytes) !== "ee73d0517bbe3186184a57253c1645dd63b998df9d066b8cb58636acaa12335c") {
+    throw new Error("Synthetic tolerant JPEG does not match recorded provenance");
+  }
+  return bytes;
 }
 
 function assertStructuredMatchesText(result, payload) {

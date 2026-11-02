@@ -7,13 +7,18 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { decode as fastPngDecode } from "fast-png";
 import type { TestContext } from "vitest";
 
+import jpeg from "jpeg-js";
+
 import {
   ImageValidationError,
   MemoryImageArtifactStore,
   indexImageArtifact,
   inspectImageArtifact,
+  readValidatedImageArtifact,
 } from "../src/core/image-artifacts.js";
+import { validateJpegTolerant } from "../src/core/jpeg-validation.js";
 import type { ReadBoundedFileErrorCode } from "../src/core/read-bounded-file.js";
+import type { ImageArtifactRecord } from "../src/core/types.js";
 
 vi.mock("fast-png", async () => {
   const actual = await vi.importActual<typeof import("fast-png")>("fast-png");
@@ -152,7 +157,7 @@ describe("image artifact ingestion", () => {
     }
   });
 
-  it("keeps strict and tolerant PNG identities separate and JPEG tolerant identity strict", async () => {
+  it("keeps strict and tolerant PNG identities separate and JPEG tolerant identity distinct (D-C2)", async () => {
     const f = await fixture(png(1, 1, 3));
     const store = new MemoryImageArtifactStore();
     const strict = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store });
@@ -164,9 +169,14 @@ describe("image artifact ingestion", () => {
     await writeFile(jpegPath, await readFile("tests/fixtures/jpeg/checkedin-odd-17x9.jpg"));
     const jpegStrict = await indexImageArtifact({ path: jpegPath, allowedRoots: [jpegRoot], store });
     const jpegTolerant = await indexImageArtifact({ path: jpegPath, allowedRoots: [jpegRoot], store, profile: "tolerant" });
-    expect(jpegTolerant.artifactId).toBe(jpegStrict.artifactId);
-    expect(jpegTolerant).toEqual(jpegStrict);
-    expect(store.size).toBe(3);
+    // WBS 6.12c D-C2 (approved plan section 1): a tolerant request for a
+    // strict-supported JPEG now yields a tolerant record with a different ID.
+    // The strict record and ID are unchanged.
+    expect(jpegStrict.validationProfile).toBe("jpeg-ycbcr8-baseline-444-v1");
+    expect(jpegTolerant.validationProfile).toBe("jpeg-ycbcr8-tolerant-v1");
+    expect(jpegTolerant.artifactId).not.toBe(jpegStrict.artifactId);
+    expect(jpegTolerant.sha256).toBe(jpegStrict.sha256);
+    expect(store.size).toBe(4);
   });
 
   it("uses the exact legacy strict identity formula and stable repeated IDs", async () => {
@@ -728,5 +738,335 @@ describe("image bounded-reader error mapping", () => {
       vi.doUnmock("../src/core/read-bounded-file.js");
       vi.resetModules();
     }
+  });
+});
+
+// ===========================================================================
+// WBS 6.12c Stage 2 (approved plan sections 4, 6.2 and 7): JPEG tolerant
+// records, D-C2 identity, profile re-validation and ignoredSegments ownership.
+// Inputs are the checked-in Stage 1 fixtures, pinned to provenance.json.
+// Every decode is the real jpeg-js decoder; nothing here mocks a decoder.
+// ===========================================================================
+type TolerantJpegRecord = Extract<ImageArtifactRecord, { validationProfile: "jpeg-ycbcr8-tolerant-v1" }>;
+type KnownTolerantJpeg = Pick<TolerantJpegRecord, "width" | "height" | "coding" | "sampling" | "ignoredSegments" | "exifOrientation"> & { file: string };
+type JpegTamper = [label: string, mutate: (record: Record<string, unknown>, original: TolerantJpegRecord) => void];
+
+const TOLERANT_JPEG_PROFILE = "jpeg-ycbcr8-tolerant-v1" as const;
+const STRICT_JPEG_PROFILE = "jpeg-ycbcr8-baseline-444-v1" as const;
+const JPEG_TOLERANT_DIR = join(process.cwd(), "tests", "fixtures", "jpeg-tolerant");
+const jpegTolerantPins = (JSON.parse(await readFile(join(JPEG_TOLERANT_DIR, "provenance.json"), "utf8")) as {
+  fixtures: Array<{ file: string; sha256: string; byteLength: number }>;
+}).fixtures;
+const REPEAT_ORDER = ["COM", "APP15", "APP1", "APP3", "APP2", "APP14", "APP4", "APP5", "APP6", "APP7", "APP8", "APP9", "APP10", "APP11", "APP12", "APP13"];
+// Strict-supported 4:4:4 control (strict validateJpeg accepts it).
+const HC444: KnownTolerantJpeg = { file: "hc-444-16x8-app0.jpg", width: 16, height: 8, coding: "baseline", sampling: "1x1,1x1,1x1", ignoredSegments: ["APP0"], exifOrientation: null };
+// 4:2:0 with APP1 EXIF orientation 6, APP2 ICC, APP13, COM and APP14 Adobe transform 1.
+const MIXED: KnownTolerantJpeg = { file: "metadata-mixed.jpg", width: 32, height: 16, coding: "baseline", sampling: "2x2,1x1,1x1", ignoredSegments: ["APP1", "APP2", "APP13", "COM", "APP14"], exifOrientation: 6 };
+const PLAN_DECODE = { tolerantDecoding: false, useTArray: true, formatAsRGBA: false, maxMemoryUsageInMB: 256, maxResolutionInMP: 16.777216 } as const;
+
+const TOLERANT_JPEG_TAMPERS: JpegTamper[] = [
+  ["width", (r, o) => { r.width = o.width + 1; }],
+  ["height", (r, o) => { r.height = o.height - 1; }],
+  ["channels", (r) => { r.channels = 4; }],
+  ["bitDepth", (r) => { r.bitDepth = 16; }],
+  ["format", (r) => { r.format = "png"; }],
+  ["mimeType", (r) => { r.mimeType = "image/png"; }],
+  ["validationProfile strict downgrade", (r) => { r.validationProfile = STRICT_JPEG_PROFILE; }],
+  ["validationProfile png tolerant", (r) => { r.validationProfile = "png-rgb8-tolerant-v1"; }],
+  ["validationProfile unknown", (r) => { r.validationProfile = "invalid-profile"; }],
+  ["coding value", (r, o) => { r.coding = o.coding === "progressive" ? "baseline" : "progressive"; }],
+  ["coding missing", (r) => { delete r.coding; }],
+  ["sampling value", (r, o) => { r.sampling = o.sampling === "1x1,1x1,1x1" ? "2x2,1x1,1x1" : "1x1,1x1,1x1"; }],
+  ["sampling missing", (r) => { delete r.sampling; }],
+  ["exifOrientation value", (r, o) => { r.exifOrientation = o.exifOrientation === 6 ? 1 : 6; }],
+  ["exifOrientation type", (r, o) => { r.exifOrientation = String(o.exifOrientation); }],
+  ["exifOrientation missing", (r) => { delete r.exifOrientation; }],
+  ["ignoredSegments value", (r, o) => { r.ignoredSegments = [...o.ignoredSegments.slice(0, -1), "APP15"]; }],
+  ["ignoredSegments emptied", (r) => { r.ignoredSegments = []; }],
+  ["ignoredSegments order", (r, o) => { r.ignoredSegments = [...o.ignoredSegments].reverse(); }],
+  ["ignoredSegments missing", (r) => { delete r.ignoredSegments; }],
+  ["ignoredSegments null", (r) => { r.ignoredSegments = null; }],
+  ["ignoredSegments string", (r, o) => { r.ignoredSegments = o.ignoredSegments.join(","); }],
+];
+
+function sha256Hex(bytes: Uint8Array): string {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+async function tolerantJpegFixture(name: string): Promise<{ root: string; path: string; canonical: string; bytes: Buffer }> {
+  const bytes = await readFile(join(JPEG_TOLERANT_DIR, name));
+  const pin = jpegTolerantPins.find((entry) => entry.file === name);
+  expect(pin, name).toBeDefined();
+  expect(bytes.length, name).toBe(pin!.byteLength);
+  expect(sha256Hex(bytes), name).toBe(pin!.sha256);
+  const root = await mkdtemp(join(tmpdir(), "tco-jpeg-tolerant-"));
+  temporaryRoots.add(root);
+  const path = join(root, "source.jpg");
+  await writeFile(path, bytes);
+  return { root, path, canonical: await realpath(path), bytes };
+}
+
+// Plan section 4: sha256(path \0 sha256 \0 validationProfile), first 16 hex digits.
+function tolerantJpegId(canonical: string, sha: string): string {
+  return `image_${createHash("sha256").update(`${canonical}\0${sha}\0${TOLERANT_JPEG_PROFILE}`).digest("hex").slice(0, 16)}`;
+}
+
+function knownTolerantRecord(known: KnownTolerantJpeg, source: { canonical: string; bytes: Buffer }): TolerantJpegRecord {
+  const sha = sha256Hex(source.bytes);
+  return {
+    artifactId: tolerantJpegId(source.canonical, sha), path: source.canonical, sha256: sha, byteLength: source.bytes.length,
+    format: "jpeg", mimeType: "image/jpeg", width: known.width, height: known.height, channels: 3, bitDepth: 8,
+    validationProfile: TOLERANT_JPEG_PROFILE, coding: known.coding, sampling: known.sampling,
+    ignoredSegments: [...known.ignoredSegments], exifOrientation: known.exifOrientation,
+  };
+}
+
+// A fully correct tolerant record fabricated from literal metadata that is
+// first verified against the real Stage 1 validator. It lets record
+// re-validation be exercised independently of index support.
+async function fabricatedTolerantJpeg(known: KnownTolerantJpeg) {
+  const fixture = await tolerantJpegFixture(known.file);
+  expect(validateJpegTolerant(fixture.bytes)).toEqual({
+    width: known.width, height: known.height, channels: 3, format: "jpeg", mimeType: "image/jpeg",
+    validationProfile: TOLERANT_JPEG_PROFILE, coding: known.coding, sampling: known.sampling,
+    ignoredSegments: [...known.ignoredSegments], exifOrientation: known.exifOrientation,
+  });
+  return { ...fixture, record: knownTolerantRecord(known, fixture) };
+}
+
+function tampersFor(record: TolerantJpegRecord): JpegTamper[] {
+  // Reordering a one-element list is not a change, so the order tamper needs two or more.
+  return TOLERANT_JPEG_TAMPERS.filter(([label]) => label !== "ignoredSegments order" || record.ignoredSegments.length > 1);
+}
+
+function tamperedCopy(record: TolerantJpegRecord, mutate: JpegTamper[1]): ImageArtifactRecord {
+  const copy: Record<string, unknown> = { ...record, ignoredSegments: [...record.ignoredSegments] };
+  mutate(copy, record);
+  return copy as unknown as ImageArtifactRecord;
+}
+
+async function outcomeCode(promise: Promise<unknown>): Promise<string> {
+  return promise.then(() => "resolved", (error: unknown) => (error as { code?: string }).code ?? `uncoded:${String(error)}`);
+}
+
+function everyDecodeFailed(tampers: JpegTamper[]): Record<string, string> {
+  return Object.fromEntries(tampers.map(([label]) => [label, "decode_failed"]));
+}
+
+describe("WBS 6.12c JPEG tolerant records (Stage 2)", () => {
+  it("D-C2: hc-444-16x8-app0.jpg keeps the legacy strict ID for default and strict requests while tolerant gets a distinct stable tolerant record", async () => {
+    const f = await tolerantJpegFixture(HC444.file);
+    const store = new MemoryImageArtifactStore();
+    const sha = sha256Hex(f.bytes);
+    const legacyId = `image_${createHash("sha256").update(`${f.canonical}\0${sha}`).digest("hex").slice(0, 16)}`;
+    const strictRecord = {
+      artifactId: legacyId, path: f.canonical, sha256: sha, byteLength: f.bytes.length,
+      format: "jpeg", mimeType: "image/jpeg", width: 16, height: 8, channels: 3, bitDepth: 8,
+      validationProfile: STRICT_JPEG_PROFILE,
+    };
+    const tolerantRecord = knownTolerantRecord(HC444, f);
+    expect(await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store })).toStrictEqual(strictRecord);
+    expect(await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "strict" })).toStrictEqual(strictRecord);
+    const tolerant = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" });
+    expect(tolerant).toStrictEqual(tolerantRecord);
+    expect(tolerant.artifactId).not.toBe(legacyId);
+    expect(store.size).toBe(2);
+    // Re-indexing either profile is stable and never overwrites the other record.
+    expect((await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" })).artifactId).toBe(tolerantRecord.artifactId);
+    expect((await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store })).artifactId).toBe(legacyId);
+    expect((await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "strict" })).artifactId).toBe(legacyId);
+    expect(store.size).toBe(2);
+    expect(store.get(legacyId)).toStrictEqual(strictRecord);
+    expect(store.get(tolerantRecord.artifactId)).toStrictEqual(tolerantRecord);
+    await expect(inspectImageArtifact({ artifactId: legacyId, allowedRoots: [f.root], store })).resolves.toStrictEqual(strictRecord);
+    await expect(inspectImageArtifact({ artifactId: tolerantRecord.artifactId, allowedRoots: [f.root], store })).resolves.toStrictEqual(tolerantRecord);
+    expect(await readFile(f.path)).toEqual(f.bytes);
+  });
+
+  it("fabricated tolerant record for strict-supported hc-444-16x8-app0.jpg re-validates through inspect and readValidatedImageArtifact with real RGB pixels", async () => {
+    const f = await fabricatedTolerantJpeg(HC444);
+    const put = vi.fn();
+    const store = { get: () => f.record, put };
+    await expect(inspectImageArtifact({ artifactId: f.record.artifactId, allowedRoots: [f.root], store })).resolves.toStrictEqual(knownTolerantRecord(HC444, f));
+    const validated = await readValidatedImageArtifact(f.record, [f.root]);
+    expect(validated.pixels.length).toBe(16 * 8 * 3);
+    expect(Buffer.from(validated.pixels)).toEqual(Buffer.from(jpeg.decode(f.bytes, PLAN_DECODE).data));
+    expect(put).not.toHaveBeenCalled();
+    expect(f.record).toStrictEqual(knownTolerantRecord(HC444, f));
+  });
+
+  it("metadata tamper on a fabricated tolerant record for strict-supported hc-444-16x8-app0.jpg: inspect and readValidatedImageArtifact report decode_failed for every field", async () => {
+    const f = await fabricatedTolerantJpeg(HC444);
+    const tampers = tampersFor(f.record);
+    const inspectCodes: Record<string, string> = {};
+    const readCodes: Record<string, string> = {};
+    for (const [label, mutate] of tampers) {
+      const tampered = tamperedCopy(f.record, mutate);
+      const put = vi.fn();
+      const store = { get: () => tampered, put };
+      inspectCodes[label] = await outcomeCode(inspectImageArtifact({ artifactId: f.record.artifactId, allowedRoots: [f.root], store }));
+      readCodes[label] = await outcomeCode(readValidatedImageArtifact(tampered, [f.root]));
+      expect(put, label).not.toHaveBeenCalled();
+    }
+    expect(inspectCodes).toEqual(everyDecodeFailed(tampers));
+    expect(readCodes).toEqual(everyDecodeFailed(tampers));
+    expect(await readFile(f.path)).toEqual(f.bytes);
+    expect(sha256Hex(await readFile(f.path))).toBe(f.record.sha256);
+  });
+
+  it("metadata tamper on a fabricated tolerant record for strict-supported hc-444-16x8-app0.jpg: a sparse ignoredSegments array of the same length is decode_failed for inspect and readValidatedImageArtifact", async () => {
+    const f = await fabricatedTolerantJpeg(HC444);
+    // Built without spread/clone so the hole survives until the comparison.
+    const sparse: string[] = new Array(HC444.ignoredSegments.length);
+    expect(sparse.length).toBe(f.record.ignoredSegments.length);
+    expect(0 in sparse).toBe(false);
+    const tampered = { ...f.record, ignoredSegments: sparse } as ImageArtifactRecord;
+    const intact = knownTolerantRecord(HC444, f);
+    const tamperedPut = vi.fn();
+    const intactPut = vi.fn();
+    const tamperedStore = { get: () => tampered, put: tamperedPut };
+    const intactStore = { get: () => intact, put: intactPut };
+    const codes = {
+      intactInspect: await outcomeCode(inspectImageArtifact({ artifactId: f.record.artifactId, allowedRoots: [f.root], store: intactStore })),
+      intactRead: await outcomeCode(readValidatedImageArtifact(intact, [f.root])),
+      sparseInspect: await outcomeCode(inspectImageArtifact({ artifactId: f.record.artifactId, allowedRoots: [f.root], store: tamperedStore })),
+      sparseRead: await outcomeCode(readValidatedImageArtifact(tampered, [f.root])),
+    };
+    expect(codes).toEqual({ intactInspect: "resolved", intactRead: "resolved", sparseInspect: "decode_failed", sparseRead: "decode_failed" });
+    expect(0 in sparse).toBe(false);
+    expect(tamperedPut).not.toHaveBeenCalled();
+    expect(intactPut).not.toHaveBeenCalled();
+    expect(await readFile(f.path)).toEqual(f.bytes);
+  });
+
+  it("metadata tamper on an indexed metadata-mixed.jpg record in a MemoryImageArtifactStore: inspect and readValidatedImageArtifact report decode_failed for every field including ignoredSegments order", async () => {
+    const f = await tolerantJpegFixture(MIXED.file);
+    const store = new MemoryImageArtifactStore();
+    const original = knownTolerantRecord(MIXED, f);
+    expect(await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" })).toStrictEqual(original);
+    const tampers = tampersFor(original);
+    expect(tampers.map(([label]) => label)).toContain("ignoredSegments order");
+    const inspectCodes: Record<string, string> = {};
+    const readCodes: Record<string, string> = {};
+    for (const [label, mutate] of tampers) {
+      store.put(tamperedCopy(original, mutate));
+      inspectCodes[label] = await outcomeCode(inspectImageArtifact({ artifactId: original.artifactId, allowedRoots: [f.root], store }));
+      readCodes[label] = await outcomeCode(readValidatedImageArtifact(store.get(original.artifactId)!, [f.root]));
+      store.put(original);
+    }
+    expect(inspectCodes).toEqual(everyDecodeFailed(tampers));
+    expect(readCodes).toEqual(everyDecodeFailed(tampers));
+    expect(store.size).toBe(1);
+    await expect(inspectImageArtifact({ artifactId: original.artifactId, allowedRoots: [f.root], store })).resolves.toStrictEqual(original);
+    expect(await readFile(f.path)).toEqual(f.bytes);
+  });
+
+  it("ownership: MemoryImageArtifactStore put and get copy JPEG tolerant ignoredSegments (push and reverse)", async () => {
+    const f = await fabricatedTolerantJpeg(MIXED);
+    const store = new MemoryImageArtifactStore();
+    const input = f.record;
+    store.put(input);
+    input.ignoredSegments.push("mutated-put-input");
+    input.ignoredSegments.reverse();
+    const first = store.get(input.artifactId) as TolerantJpegRecord;
+    expect(first.ignoredSegments).toEqual(MIXED.ignoredSegments);
+    first.ignoredSegments.push("mutated-get-result");
+    first.ignoredSegments.reverse();
+    const second = store.get(input.artifactId) as TolerantJpegRecord;
+    expect(second.ignoredSegments).toEqual(MIXED.ignoredSegments);
+    expect(second.ignoredSegments).not.toBe(first.ignoredSegments);
+    await expect(inspectImageArtifact({ artifactId: input.artifactId, allowedRoots: [f.root], store })).resolves.toStrictEqual(knownTolerantRecord(MIXED, f));
+  });
+
+  it("ownership: inspect of a fabricated tolerant record for strict-supported hc-444-16x8-app0.jpg does not share ignoredSegments with a reference-returning store", async () => {
+    const f = await fabricatedTolerantJpeg(HC444);
+    const stored = f.record;
+    const store = { get: () => stored, put: vi.fn() };
+    const inspected = await inspectImageArtifact({ artifactId: stored.artifactId, allowedRoots: [f.root], store }) as TolerantJpegRecord;
+    expect(inspected.ignoredSegments).not.toBe(stored.ignoredSegments);
+    inspected.ignoredSegments.push("mutated-inspect-result");
+    inspected.ignoredSegments.reverse();
+    expect(stored.ignoredSegments).toEqual(["APP0"]);
+    await expect(inspectImageArtifact({ artifactId: stored.artifactId, allowedRoots: [f.root], store })).resolves.toStrictEqual(knownTolerantRecord(HC444, f));
+  });
+
+  it("ownership: index and inspect results for metadata-mixed.jpg are detached from reference-returning custom stores (push and reverse)", async () => {
+    const f = await tolerantJpegFixture(MIXED.file);
+    const expected = knownTolerantRecord(MIXED, f);
+    let mutatedInPut: any;
+    const mutatingStore = {
+      get: () => mutatedInPut,
+      put: (record: any) => { mutatedInPut = record; record.ignoredSegments.push("mutated-in-put"); },
+    };
+    const first = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store: mutatingStore, profile: "tolerant" });
+    expect(first).toStrictEqual(expected);
+    (first as TolerantJpegRecord).ignoredSegments.push("mutated-after-return");
+    (first as TolerantJpegRecord).ignoredSegments.reverse();
+    expect(mutatedInPut.ignoredSegments).toEqual([...MIXED.ignoredSegments, "mutated-in-put"]);
+
+    let stored: any;
+    const referenceStore = { get: () => stored, put: (record: any) => { stored = record; } };
+    const second = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store: referenceStore, profile: "tolerant" });
+    expect(second).toStrictEqual(expected);
+    expect((second as TolerantJpegRecord).ignoredSegments).not.toBe(stored.ignoredSegments);
+    (second as TolerantJpegRecord).ignoredSegments.push("mutated-index-result");
+    (second as TolerantJpegRecord).ignoredSegments.reverse();
+    expect(stored.ignoredSegments).toEqual(MIXED.ignoredSegments);
+    const inspected = await inspectImageArtifact({ artifactId: expected.artifactId, allowedRoots: [f.root], store: referenceStore }) as TolerantJpegRecord;
+    expect(inspected.ignoredSegments).not.toBe(stored.ignoredSegments);
+    inspected.ignoredSegments.push("mutated-inspect-result");
+    inspected.ignoredSegments.reverse();
+    expect(stored).toStrictEqual(expected);
+    await expect(inspectImageArtifact({ artifactId: expected.artifactId, allowedRoots: [f.root], store: referenceStore })).resolves.toStrictEqual(expected);
+  });
+
+  it.each([
+    { file: "repeats-no-app0.jpg", order: REPEAT_ORDER },
+    { file: "repeats-with-app0.jpg", order: ["APP0", ...REPEAT_ORDER] },
+  ])("A8 $file keeps every ignored segment once in first-seen order through index, store and inspect", async ({ file, order }) => {
+    const known: KnownTolerantJpeg = { file, width: 32, height: 16, coding: "baseline", sampling: "2x2,1x1,1x1", ignoredSegments: order, exifOrientation: 3 };
+    const f = await tolerantJpegFixture(file);
+    const store = new MemoryImageArtifactStore();
+    const expected = knownTolerantRecord(known, f);
+    expect(await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" })).toStrictEqual(expected);
+    expect(store.get(expected.artifactId)).toStrictEqual(expected);
+    await expect(inspectImageArtifact({ artifactId: expected.artifactId, allowedRoots: [f.root], store })).resolves.toStrictEqual(expected);
+  });
+
+  it("re-read: a valid re-encoded JPEG at the same path is source_changed for inspect and readValidatedImageArtifact (hash check, not corruption detection)", async () => {
+    const f = await tolerantJpegFixture("exif-ii-orient6.jpg");
+    const store = new MemoryImageArtifactStore();
+    const indexed = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" });
+    expect(indexed).toMatchObject({ validationProfile: TOLERANT_JPEG_PROFILE, width: 32, height: 16, exifOrientation: 6 });
+    const rgba = jpeg.decode(f.bytes, { useTArray: true, formatAsRGBA: true, tolerantDecoding: false });
+    const replacement = Buffer.from(jpeg.encode({ data: rgba.data, width: rgba.width, height: rgba.height }, 90).data);
+    expect(sha256Hex(replacement)).not.toBe(indexed.sha256);
+    expect(validateJpegTolerant(replacement)).toMatchObject({ width: 32, height: 16, validationProfile: TOLERANT_JPEG_PROFILE });
+    await writeFile(f.path, replacement);
+    await expect(inspectImageArtifact({ artifactId: indexed.artifactId, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "source_changed", message: "source_changed" });
+    await expect(readValidatedImageArtifact(store.get(indexed.artifactId)!, [f.root])).rejects.toMatchObject({ code: "source_changed", message: "source_changed" });
+    expect(store.get(indexed.artifactId)).toStrictEqual(indexed);
+    // The replacement is itself a valid tolerant JPEG: indexing it afresh succeeds under a new ID.
+    const reindexed = await indexImageArtifact({ path: f.path, allowedRoots: [f.root], store, profile: "tolerant" });
+    expect(reindexed.sha256).toBe(sha256Hex(replacement));
+    expect(reindexed.artifactId).not.toBe(indexed.artifactId);
+    expect(store.size).toBe(2);
+    // Contrast: the decoder-proven scan-bit mutation is rejected at index time instead.
+    const flipped = await tolerantJpegFixture("scan-bit-flip.jpg");
+    const flippedStore = new MemoryImageArtifactStore();
+    await expect(indexImageArtifact({ path: flipped.path, allowedRoots: [flipped.root], store: flippedStore, profile: "tolerant" })).rejects.toMatchObject({ code: "malformed_jpeg" });
+    expect(flippedStore.size).toBe(0);
+  });
+
+  it("bounded read: a 10 MiB + 1 byte JPEG-signature file is encoded_size_exceeded under the tolerant profile and nothing is stored", async () => {
+    const bytes = Buffer.alloc(10 * 1024 * 1024 + 1);
+    bytes[0] = 0xff; bytes[1] = 0xd8; bytes[2] = 0xff; bytes[3] = 0xd9;
+    const root = await mkdtemp(join(tmpdir(), "tco-jpeg-tolerant-"));
+    temporaryRoots.add(root);
+    const path = join(root, "oversized.jpg");
+    await writeFile(path, bytes);
+    const store = new MemoryImageArtifactStore();
+    await expect(indexImageArtifact({ path, allowedRoots: [root], store, profile: "tolerant" })).rejects.toMatchObject({ code: "encoded_size_exceeded", message: "encoded_size_exceeded" });
+    expect(store.size).toBe(0);
   });
 });
