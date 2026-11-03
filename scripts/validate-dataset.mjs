@@ -7,13 +7,15 @@ async function main(args) {
   if (args.length !== 1 || !args[0].trim()) return failure("usage");
   let source;
   try {
-    source = await readFile(args[0], "utf8");
+    source = await readFile(args[0]);
   } catch {
     return failure("read_error");
   }
   let input;
   try {
-    input = parseJsonObjectRejectingDuplicateKeys(source);
+    input = parseJsonObjectRejectingDuplicateKeys(
+      new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(source),
+    );
   } catch {
     return failure("invalid_json");
   }

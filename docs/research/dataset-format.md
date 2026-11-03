@@ -63,6 +63,7 @@ Schema errors stop cross-record checks until the shape is corrected. No diagnost
 includes submitted values, identifiers, unknown property names or filesystem paths.
 
 CLI-only codes are `usage`, `read_error` and `invalid_json` with root path `$`.
+The CLI decodes input as UTF-8 with fatal error handling; malformed bytes and a BOM are rejected as `invalid_json`.
 The shared parser rejects duplicate members, including escaped aliases, malformed JSON,
 more than 1,048,576 characters, and more than 128 nesting levels. Keep files small;
 the CLI currently reads the file into memory before this parser limit is checked.

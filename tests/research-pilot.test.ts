@@ -23,6 +23,12 @@ function fullManifest() {
   return manifest(categories.flatMap((category, c) => Array.from({ length: 20 }, (_, i) =>
     record(c * 20 + i, category, i < 12 ? "train" : i < 16 ? "development" : "test", i % 2 ? "ko" : "en"))));
 }
+function replaceMarkerWithMalformedUtf8(source: string, marker: string): Buffer {
+  const bytes = Buffer.from(source);
+  const markerIndex = bytes.indexOf(marker);
+  if (markerIndex === -1) throw new Error("missing malformed UTF-8 marker");
+  return Buffer.concat([bytes.subarray(0, markerIndex), Buffer.from([0xff]), bytes.subarray(markerIndex + Buffer.byteLength(marker))]);
+}
 
 describe("pilot family coverage", () => {
   it("deduplicates same-language variants within a family", () => {
@@ -151,6 +157,26 @@ describe("pilot audit CLI", () => {
     expect(JSON.parse(result.stdout).report.datasetSha256).toBe(fingerprintDataset(JSON.parse(before)));
     expect(result.stderr).toBe("");
     expect(await readFile(path, "utf8")).toBe(before);
+  });
+
+  it("rejects malformed UTF-8 while accepting the equivalent U+FFFD control", async () => {
+    const marker = "S12_PILOT_UTF8_MARKER";
+    const input = manifest([record(0)]);
+    input.records[0].source.provenance = `prefix-${marker}-suffix`;
+    const malformed = replaceMarkerWithMalformedUtf8(JSON.stringify(input), marker);
+    const lossy = JSON.parse(malformed.toString("utf8"));
+    const validPath = join(root, "lossy-utf8-pilot.json");
+    const malformedPath = join(root, "malformed-utf8-pilot.json");
+    await writeFile(validPath, JSON.stringify(lossy));
+    await writeFile(malformedPath, malformed);
+    const before = await readFile(malformedPath);
+    const validResult = await invoke([validPath]);
+    expect(validResult.code).toBe(0);
+    expect(JSON.parse(validResult.stdout)).toMatchObject({ valid: true });
+    const malformedResult = await invoke([malformedPath]);
+    expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(malformedPath)).toEqual(before);
+    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
   });
 
   it("reports complete structural counts through the real compiled entrypoint", async () => {

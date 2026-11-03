@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
-import { copyFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { promisify } from "node:util";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -21,6 +21,13 @@ function run(patch: Record<string, unknown> = {}) {
 
 function evaluation(data = dataset(), runs = [run()]) {
   return { schemaVersion: 1, datasetSha256: fingerprintDataset(data), split: "development", arms: ["baseline"], attemptsPerTask: 1, runs };
+}
+
+function replaceMarkerWithMalformedUtf8(source: string, marker: string): Buffer {
+  const bytes = Buffer.from(source);
+  const markerIndex = bytes.indexOf(marker);
+  if (markerIndex === -1) throw new Error("missing malformed UTF-8 marker");
+  return Buffer.concat([bytes.subarray(0, markerIndex), Buffer.from([0xff]), bytes.subarray(markerIndex + Buffer.byteLength(marker))]);
 }
 
 describe("research scoring", () => {
@@ -264,6 +271,56 @@ describe("research scoring CLI", () => {
     expect(result.code).toBe(0);
     expect(JSON.parse(result.stdout)).toMatchObject({ valid: true, report: { complete: true, arms: [{ successRate: 1 }] } });
     expect(result.stderr).toBe("");
+  });
+
+  it("rejects malformed UTF-8 in the dataset while accepting its U+FFFD control", async () => {
+    const marker = "S12_SCORING_DATASET_UTF8_MARKER";
+    const data = dataset();
+    data.records[0].source.provenance = `prefix-${marker}-suffix`;
+    const malformed = replaceMarkerWithMalformedUtf8(JSON.stringify(data), marker);
+    const lossy = JSON.parse(malformed.toString("utf8"));
+    const validDatasetPath = join(root, "lossy-utf8-scoring-dataset.json");
+    const malformedDatasetPath = join(root, "malformed-utf8-scoring-dataset.json");
+    const ledgerPath = join(root, "lossy-utf8-scoring-ledger.json");
+    await writeFile(validDatasetPath, JSON.stringify(lossy));
+    await writeFile(malformedDatasetPath, malformed);
+    await writeFile(ledgerPath, JSON.stringify(evaluation(lossy)));
+    const before = await readFile(malformedDatasetPath);
+    const validResult = await invoke([validDatasetPath, ledgerPath]);
+    expect(validResult.code).toBe(0);
+    expect(JSON.parse(validResult.stdout)).toMatchObject({ valid: true });
+    const malformedResult = await invoke([malformedDatasetPath, ledgerPath]);
+    expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(malformedDatasetPath)).toEqual(before);
+    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
+  });
+
+  it("reports ledger ASCII control, U+FFFD schema rejection, and malformed UTF-8 consistently", async () => {
+    const asciiLedger = evaluation();
+    asciiLedger.runs[0].judgment!.graderId = "s12-scoring-ledger-ascii-marker";
+    const asciiLedgerPath = join(root, "ascii-scoring-ledger.json");
+    await writeFile(asciiLedgerPath, JSON.stringify(asciiLedger));
+    const datasetPath = resolve("docs/research/datasets/format-demo.json");
+    const asciiResult = await invoke([datasetPath, asciiLedgerPath]);
+    expect(asciiResult.code).toBe(0);
+    expect(JSON.parse(asciiResult.stdout)).toMatchObject({ valid: true });
+
+    const marker = "s12-scoring-ledger-utf8-marker";
+    const ledger = evaluation();
+    ledger.runs[0].judgment!.graderId = marker;
+    const malformed = replaceMarkerWithMalformedUtf8(JSON.stringify(ledger), marker);
+    const lossy = JSON.parse(malformed.toString("utf8"));
+    const lossyLedgerPath = join(root, "lossy-utf8-scoring-ledger.json");
+    const malformedLedgerPath = join(root, "malformed-utf8-scoring-ledger.json");
+    await writeFile(lossyLedgerPath, JSON.stringify(lossy));
+    await writeFile(malformedLedgerPath, malformed);
+    const before = await readFile(malformedLedgerPath);
+    const lossyResult = await invoke([datasetPath, lossyLedgerPath]);
+    expect(lossyResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    const malformedResult = await invoke([datasetPath, malformedLedgerPath]);
+    expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(malformedLedgerPath)).toEqual(before);
+    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
   });
 
   it("returns a valid incomplete report for an empty ledger", async () => {
