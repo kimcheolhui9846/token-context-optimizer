@@ -247,7 +247,7 @@ describe("research scoring CLI", () => {
     cli = join(root, "scripts", "score-research.mjs");
     await copyFile(resolve("scripts/score-research.mjs"), cli);
     await copyFile(resolve("scripts/plugin-runtime.mjs"), join(root, "scripts", "plugin-runtime.mjs"));
-    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.json"), "--outDir", join(root, "dist")]);
+    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.cli-test.json"), "--outDir", join(root, "dist")]);
   });
   afterAll(async () => { if (root) await rm(root, { recursive: true, force: true }); });
   async function invoke(args: string[]) {

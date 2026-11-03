@@ -131,7 +131,7 @@ describe("research dataset CLI", () => {
     await copyFile(resolve("scripts/validate-dataset.mjs"), cli);
     await copyFile(resolve("scripts/plugin-runtime.mjs"), join(root, "scripts", "plugin-runtime.mjs"));
     // Keep the actual CLI import unchanged; isolate compilation from the workspace dist.
-    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.json"), "--outDir", join(root, "dist")]);
+    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.cli-test.json"), "--outDir", join(root, "dist")]);
   });
   afterAll(async () => {
     if (root) await rm(root, { recursive: true, force: true });
