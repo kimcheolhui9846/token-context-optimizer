@@ -179,7 +179,15 @@ describe("research dataset CLI", () => {
     const malformedResult = await run([malformedPath]);
     expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, issues: [{ code: "invalid_json", path: "$" }] }) + "\n", stderr: "", code: 1 });
     expect(await readFile(malformedPath)).toEqual(before);
-    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
+  });
+
+  it("rejects a preserved UTF-8 BOM as invalid JSON", async () => {
+    const path = join(root, "bom-dataset.json");
+    const input = Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(JSON.stringify(manifest([record("bom-dataset")])), "utf8")]);
+    await writeFile(path, input);
+    const result = await run([path]);
+    expect(result).toEqual({ stdout: JSON.stringify({ valid: false, issues: [{ code: "invalid_json", path: "$" }] }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(path)).toEqual(input);
   });
 
   it("rejects invalid records without changing the file", async () => {

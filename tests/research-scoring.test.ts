@@ -292,7 +292,30 @@ describe("research scoring CLI", () => {
     const malformedResult = await invoke([malformedDatasetPath, ledgerPath]);
     expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
     expect(await readFile(malformedDatasetPath)).toEqual(before);
-    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
+  });
+
+  it("rejects a preserved UTF-8 BOM in either scoring input", async () => {
+    const datasetPath = join(root, "bom-scoring-dataset.json");
+    const ledgerPath = join(root, "bom-scoring-ledger.json");
+    const datasetBytes = Buffer.from(JSON.stringify(dataset()), "utf8");
+    const ledgerBytes = Buffer.from(JSON.stringify(evaluation()), "utf8");
+    const bom = Buffer.from([0xef, 0xbb, 0xbf]);
+    const bomDataset = Buffer.concat([bom, datasetBytes]);
+    const bomLedger = Buffer.concat([bom, ledgerBytes]);
+    await writeFile(datasetPath, datasetBytes);
+    await writeFile(ledgerPath, ledgerBytes);
+    const controlResult = await invoke([datasetPath, ledgerPath]);
+    expect(controlResult.code).toBe(0);
+    expect(JSON.parse(controlResult.stdout)).toMatchObject({ valid: true });
+    await writeFile(datasetPath, bomDataset);
+    const datasetResult = await invoke([datasetPath, ledgerPath]);
+    expect(datasetResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(datasetPath)).toEqual(bomDataset);
+    await writeFile(datasetPath, datasetBytes);
+    await writeFile(ledgerPath, bomLedger);
+    const ledgerResult = await invoke([datasetPath, ledgerPath]);
+    expect(ledgerResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(ledgerPath)).toEqual(bomLedger);
   });
 
   it("reports ledger ASCII control, U+FFFD schema rejection, and malformed UTF-8 consistently", async () => {
@@ -320,7 +343,6 @@ describe("research scoring CLI", () => {
     const malformedResult = await invoke([datasetPath, malformedLedgerPath]);
     expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
     expect(await readFile(malformedLedgerPath)).toEqual(before);
-    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
   });
 
   it("returns a valid incomplete report for an empty ledger", async () => {

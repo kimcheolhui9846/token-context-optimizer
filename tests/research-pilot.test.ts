@@ -176,7 +176,15 @@ describe("pilot audit CLI", () => {
     const malformedResult = await invoke([malformedPath]);
     expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
     expect(await readFile(malformedPath)).toEqual(before);
-    expect(malformedResult.stdout + malformedResult.stderr).not.toContain(marker);
+  });
+
+  it("rejects a preserved UTF-8 BOM as invalid input", async () => {
+    const path = join(root, "bom-pilot.json");
+    const input = Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(JSON.stringify(manifest([record(0)])), "utf8")]);
+    await writeFile(path, input);
+    const result = await invoke([path]);
+    expect(result).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(path)).toEqual(input);
   });
 
   it("reports complete structural counts through the real compiled entrypoint", async () => {
