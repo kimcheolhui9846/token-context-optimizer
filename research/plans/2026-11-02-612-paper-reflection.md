@@ -78,4 +78,8 @@
 ## 6. 교차 확인
 
 - Argon(gemini-4-argon, 2026-11-02): APPROVE, 지적 0. 원고 전문·송부본 PDF·결정 메모 등 번들 밖 파일은 확인 불가로 표시했다. 그 부분은 Claude가 직접 확인했다(원고 전체에서 프로필·JPEG 언급 grep, PDF 텍스트에서 같은 문장 확인). 결과: `codex_review/argon/2026-11-02_612-paper-reflection-result.md`
-- Codex: (교차 검토 뒤 적는다)
+- Codex(Astra, 2026-11-02): Approve. 임시 worktree에서 458 해시·648 slot 재현, node 필드 외 JSON 동일, APP0 대조·하네스 경로·프로토콜 해석 확인. PR #89 merge(fa7fb32)
+
+## 7. 반영
+
+- 2026-11-03 P-1을 원고 §3.2에 제안 문장 그대로 반영했다(브랜치 `claude/paper-p1-encoder-profile`). P-2는 선택이라 반영하지 않았다. P-3은 다음 hwp 송부본 조판 때 반영한다

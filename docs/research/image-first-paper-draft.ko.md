@@ -66,7 +66,7 @@ compact 요약에는 아티팩트 ID를 남긴다. 이는 실험 하네스의 �
 
 ### 3.2 이미지 선택과 재요청
 
-선택기는 질문과 배정된 픽셀의 OCR 신호만 사용한다. 숨은 정답·gold evidence와 손상 조건의 canonical clean 이미지는 제공하지 않는다. family 안의 변형과 near-duplicate를 교차 split하지 않는다. 선택기는 영역만 정하며 출력 형식이나 quality를 고르지 않는다. 활성 출력은 긴 변 1536 이하 downscale(확대 없음) 뒤 JPEG quality 75다. crop을 사용하는 arm은 crop 뒤 같은 변환을 적용한다. 목표 프로필 `jpeg-ycbcr8-baseline-444-v1`의 실제 encoder 적합성은 검증되지 않았다. 세부 입력·변환 규칙은 [프로토콜](./image-first-evaluation-protocol.md)에 둔다.
+선택기는 질문과 배정된 픽셀의 OCR 신호만 사용한다. 숨은 정답·gold evidence와 손상 조건의 canonical clean 이미지는 제공하지 않는다. family 안의 변형과 near-duplicate를 교차 split하지 않는다. 선택기는 영역만 정하며 출력 형식이나 quality를 고르지 않는다. 활성 출력은 긴 변 1536 이하 downscale(확대 없음) 뒤 JPEG quality 75다. crop을 사용하는 arm은 crop 뒤 같은 변환을 적용한다. 연구 encoder 출력은 4:4:4 baseline이지만 APP0 JFIF가 없어 목표 프로필 `jpeg-ycbcr8-baseline-444-v1`을 충족하지 않았다. 목표 프로필은 실행 조건이 아니었고 연구 경로는 제품 검증기를 거치지 않았으므로 전송 바이트와 결과는 바뀌지 않는다. 실험 2가 전송한 JPEG 458개는 이후 추가된 opt-in 프로필 `jpeg-ycbcr8-tolerant-v1`을 모두 통과했다. [출처: `research/results/p612/2026-11-02.json`] 세부 입력·변환 규칙은 [프로토콜](./image-first-evaluation-protocol.md)에 둔다.
 
 선택기는 `selectWindow`, OCR은 `tesseract.js 5.1.1`이며 실험 2 하네스·분석은 held-out 호출 전에 동결했다. 연구 경로의 sharp 0.35.4/libvips 8.18.6과 제품 jpeg-js probe를 구분한다. 제품 probe의 확인을 연구 encoder의 출력 적합성으로 옮기지 않는다. [출처: `research/src/selector.mjs:81`, `research/package.json:21`, `research/results/exp2-heldout/README.md:5`, `research/plans/2026-10-18-task38-number-sheet.md` §6, E2-1]
 
