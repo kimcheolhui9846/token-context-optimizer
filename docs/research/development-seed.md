@@ -41,7 +41,7 @@ Exit 0 means valid input and a computed report, even when `meetsPilotStructure` 
 false. Exit 1 returns `valid: false` with `usage` or `invalid_input`, without echoing
 paths or input values. The CLI never modifies the dataset. It uses the shared parser's
 duplicate-key rejection and character/depth limits; files are read into memory before
-parsing, so these are not pre-read byte limits.
+parsing, so these are not pre-read byte limits. It decodes the dataset as UTF-8 with fatal error handling; malformed bytes and a BOM are rejected as `invalid_input`.
 
 `auditPilotDataset` validates a detached dataset snapshot, requires each family to have
 one category and one split, and counts family language memberships. English and Korean

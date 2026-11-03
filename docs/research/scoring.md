@@ -14,6 +14,7 @@ means valid input and a computed report, including incomplete or unsuccessful ev
 Exit 1 returns `valid: false` and `usage` or `invalid_input` without echoing file paths
 or input data. Build first. Both files use the existing duplicate-key-rejecting parser
 and its character/depth limits; files are read into memory before parsing. Neither is modified.
+Both inputs are decoded as UTF-8 with fatal error handling; malformed bytes and a BOM are rejected as `invalid_input`.
 
 ## Protecting References
 

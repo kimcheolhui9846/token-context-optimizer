@@ -34,6 +34,12 @@ export function simulateResearchRun(dataset: unknown, configuration: unknown, sc
   const limits = parsed.limits;
 
   for (let i = 0; i < slots.length; i++) {
+    // The scenario parser guarantees a positive finite run timeout and
+    // nonnegative finite durations. Starting at elapsed=0, each completed
+    // duration is strictly below deadline, and deadline <= remaining; a normal
+    // completion therefore cannot cross runTimeoutMs. A timeout breaks the loop;
+    // keep this guard for defensive protection if the loop or
+    // scenario contract changes later.
     if (elapsed >= limits.runTimeoutMs) {
       stopReason = "run_timeout";
       break;

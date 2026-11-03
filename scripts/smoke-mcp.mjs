@@ -1,12 +1,18 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { deflateSync } from "node:zlib";
 import { validateJpeg } from "../dist/src/core/jpeg-validation.js";
 
-import { RUNTIME_FILES, childHasExited, readOption, validateCliArgs } from "./plugin-runtime.mjs";
+import {
+  RUNTIME_FILES,
+  childHasExited,
+  parseCompleteJsonMessages,
+  readOption,
+  validateCliArgs,
+} from "./plugin-runtime.mjs";
 
 const args = process.argv.slice(2);
 validateCliArgs(args, {
@@ -145,7 +151,8 @@ try {
 
   const indexed = await waitFor((message) => message.id === 3 && message.result);
   const payload = JSON.parse(indexed.result.content[0].text);
-  if (payload.path !== workspaceFile || payload.lineCount !== 2) {
+  const expectedWorkspaceFile = await realpath(workspaceFile);
+  if (payload.path !== expectedWorkspaceFile || payload.lineCount !== 2) {
     throw new Error(`Installed-layout index check failed: ${JSON.stringify(payload)}`);
   }
 
@@ -158,7 +165,7 @@ try {
   const indexedImage = await waitFor((message) => message.id === 4 && message.result);
   const imagePayload = JSON.parse(indexedImage.result.content[0].text);
   const imageHash = createHash("sha256").update(imageBytes).digest("hex");
-  assertImageRecord(imagePayload, { path: imageFile, sha256: imageHash, format: "png" });
+  assertImageRecord(imagePayload, { path: await realpath(imageFile), sha256: imageHash, format: "png" });
   assertStructuredMatchesText(indexedImage.result, imagePayload);
   if (imagePayload.width !== 1 || imagePayload.height !== 1 || imagePayload.channels !== 4) {
     throw new Error(`Installed-layout image index check failed: ${JSON.stringify(imagePayload)}`);
@@ -171,7 +178,7 @@ try {
   });
   const inspectedImage = await waitFor((message) => message.id === 5 && message.result);
   const inspectPayload = JSON.parse(inspectedImage.result.content[0].text);
-  assertImageRecord(inspectPayload, { path: imageFile, sha256: imageHash, format: "png" });
+  assertImageRecord(inspectPayload, { path: await realpath(imageFile), sha256: imageHash, format: "png" });
   assertStructuredMatchesText(inspectedImage.result, inspectPayload);
   if (inspectPayload.sha256 !== imagePayload.sha256 || createHash("sha256").update(await readFile(imageFile)).digest("hex") !== imageHash) {
     throw new Error(`Installed-layout image inspect check failed: ${JSON.stringify(inspectPayload)}`);
@@ -185,12 +192,12 @@ try {
   });
   const tolerantImage = await waitFor((message) => message.id === 13 && message.result);
   const tolerantPayload = JSON.parse(tolerantImage.result.content[0].text);
-  assertTolerantImageRecord(tolerantPayload, { path: tolerantImageFile, sha256: tolerantHash });
+  assertTolerantImageRecord(tolerantPayload, { path: await realpath(tolerantImageFile), sha256: tolerantHash });
   assertStructuredMatchesText(tolerantImage.result, tolerantPayload);
   if (tolerantPayload.channels !== 4 || tolerantPayload.alpha !== "opaque" || JSON.stringify(tolerantPayload.ignoredChunks) !== '["sRGB","gAMA","pHYs"]') throw new Error("Tolerant smoke metadata mismatch");
   send({ jsonrpc: "2.0", id: 14, method: "tools/call", params: { name: "inspect_image_artifact", arguments: { artifactId: tolerantPayload.artifactId } } });
   const tolerantInspect = await waitFor((message) => message.id === 14 && message.result);
-  assertTolerantImageRecord(JSON.parse(tolerantInspect.result.content[0].text), { path: tolerantImageFile, sha256: tolerantHash });
+  assertTolerantImageRecord(JSON.parse(tolerantInspect.result.content[0].text), { path: await realpath(tolerantImageFile), sha256: tolerantHash });
   send({ jsonrpc: "2.0", id: 15, method: "tools/call", params: { name: "crop_image_artifact", arguments: { artifactId: tolerantPayload.artifactId, region: { x: 0, y: 0, width: 1, height: 1 } } } });
   const tolerantCrop = await waitFor((message) => message.id === 15 && message.result);
   if (tolerantCrop.result.structuredContent?.status !== "cropped" || tolerantCrop.result.structuredContent.source.validationProfile !== "png-rgb8-tolerant-v1" || !tolerantCrop.result.content.some((item) => item.type === "image")) throw new Error("Tolerant smoke crop failed");
@@ -204,7 +211,7 @@ try {
   });
   const indexedJpeg = await waitFor((message) => message.id === 10 && message.result);
   const jpegPayload = JSON.parse(indexedJpeg.result.content[0].text);
-  assertImageRecord(jpegPayload, { path: jpegFile, sha256: jpegHash, format: "jpeg" });
+  assertImageRecord(jpegPayload, { path: await realpath(jpegFile), sha256: jpegHash, format: "jpeg" });
   assertStructuredMatchesText(indexedJpeg.result, jpegPayload);
   if (jpegPayload.width !== 17 || jpegPayload.height !== 9 || jpegPayload.channels !== 3) {
     throw new Error(`Installed-layout JPEG index check failed: ${JSON.stringify(jpegPayload)}`);
@@ -217,7 +224,7 @@ try {
   });
   const inspectedJpeg = await waitFor((message) => message.id === 11 && message.result);
   const inspectedJpegPayload = JSON.parse(inspectedJpeg.result.content[0].text);
-  assertImageRecord(inspectedJpegPayload, { path: jpegFile, sha256: jpegHash, format: "jpeg" });
+  assertImageRecord(inspectedJpegPayload, { path: await realpath(jpegFile), sha256: jpegHash, format: "jpeg" });
   assertStructuredMatchesText(inspectedJpeg.result, inspectedJpegPayload);
   if (JSON.stringify(inspectedJpegPayload) !== JSON.stringify(jpegPayload) || createHash("sha256").update(await readFile(jpegFile)).digest("hex") !== jpegHash) {
     throw new Error(`Installed-layout JPEG inspect mismatch: ${JSON.stringify(inspectedJpegPayload)}`);
@@ -264,7 +271,7 @@ try {
   }
 
   const tolerantJpegHash = createHash("sha256").update(tolerantJpegBytes).digest("hex");
-  const tolerantJpegExpected = { path: tolerantJpegFile, sha256: tolerantJpegHash, byteLength: tolerantJpegBytes.length };
+  const tolerantJpegExpected = { path: await realpath(tolerantJpegFile), sha256: tolerantJpegHash, byteLength: tolerantJpegBytes.length };
   send({ jsonrpc: "2.0", id: 17, method: "tools/call", params: { name: "index_image_artifact", arguments: { path: tolerantJpegFile, profile: "tolerant" } } });
   const tolerantJpegIndex = await waitFor((message) => message.id === 17 && (message.error || message.result));
   const tolerantJpegResult = assertTextOnlyResult(tolerantJpegIndex, "Tolerant JPEG index");
@@ -703,26 +710,6 @@ async function copyRuntimeFiles(destination, failAfter) {
   if (/(?:from|import)\s+["'][^"']*(?:node_modules|dist\/src\/server)/u.test(bundle)) {
     throw new Error("Bundled server still references development-only paths");
   }
-}
-
-function parseCompleteJsonMessages(input) {
-  const lines = input.buffer.split(/\r?\n/u);
-  const completeLineCount = input.buffer.endsWith("\n") ? lines.length - 1 : lines.length - 1;
-  const messages = [];
-
-  for (let index = input.consumedLines; index < completeLineCount; index += 1) {
-    const line = lines[index].trim();
-    if (line.length === 0) {
-      continue;
-    }
-    try {
-      messages.push(JSON.parse(line));
-    } catch {
-      throw new Error(`Malformed MCP stdout line: ${line}`);
-    }
-  }
-
-  return { messages, consumedLines: completeLineCount };
 }
 
 function stopChild() {

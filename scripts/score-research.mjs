@@ -4,9 +4,10 @@ import { parseJsonObjectRejectingDuplicateKeys } from "./plugin-runtime.mjs";
 
 async function main(args) {
   if (args.length !== 2 || args.some((arg) => !arg.trim())) return { valid: false, code: "usage" };
+  const decoder = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
   try {
-    const dataset = parseJsonObjectRejectingDuplicateKeys(await readFile(args[0], "utf8"));
-    const ledger = parseJsonObjectRejectingDuplicateKeys(await readFile(args[1], "utf8"));
+    const dataset = parseJsonObjectRejectingDuplicateKeys(decoder.decode(await readFile(args[0])));
+    const ledger = parseJsonObjectRejectingDuplicateKeys(decoder.decode(await readFile(args[1])));
     return { valid: true, report: scoreEvaluation(dataset, ledger) };
   } catch {
     return { valid: false, code: "invalid_input" };

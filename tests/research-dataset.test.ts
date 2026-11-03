@@ -21,6 +21,13 @@ function manifest(records: unknown[] = [record()]) {
   return { schemaVersion: 1, datasetId: "format-demo", records };
 }
 
+function replaceMarkerWithMalformedUtf8(source: string, marker: string): Buffer {
+  const bytes = Buffer.from(source);
+  const markerIndex = bytes.indexOf(marker);
+  if (markerIndex === -1) throw new Error("missing malformed UTF-8 marker");
+  return Buffer.concat([bytes.subarray(0, markerIndex), Buffer.from([0xff]), bytes.subarray(markerIndex + Buffer.byteLength(marker))]);
+}
+
 describe("research dataset validation", () => {
   it("accepts declared same-family variants within one split", () => {
     expect(validateDataset(manifest([record(), record("task-2")]))).toEqual({ valid: true, issues: [] });
@@ -131,7 +138,7 @@ describe("research dataset CLI", () => {
     await copyFile(resolve("scripts/validate-dataset.mjs"), cli);
     await copyFile(resolve("scripts/plugin-runtime.mjs"), join(root, "scripts", "plugin-runtime.mjs"));
     // Keep the actual CLI import unchanged; isolate compilation from the workspace dist.
-    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.json"), "--outDir", join(root, "dist")]);
+    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.cli-test.json"), "--outDir", join(root, "dist")]);
   });
   afterAll(async () => {
     if (root) await rm(root, { recursive: true, force: true });
@@ -152,6 +159,35 @@ describe("research dataset CLI", () => {
     expect(result.code).toBe(0);
     expect(JSON.parse(result.stdout)).toEqual({ valid: true, issues: [] });
     expect(result.stderr).toBe("");
+  });
+
+  it("rejects malformed UTF-8 while accepting the equivalent U+FFFD control", async () => {
+    const marker = "S12_DATASET_UTF8_MARKER";
+    const item = record("utf8-dataset");
+    item.source.provenance = `prefix-${marker}-suffix`;
+    const input = manifest([item]);
+    const malformed = replaceMarkerWithMalformedUtf8(JSON.stringify(input), marker);
+    const lossy = JSON.parse(malformed.toString("utf8"));
+    const validPath = join(root, "lossy-utf8-dataset.json");
+    const malformedPath = join(root, "malformed-utf8-dataset.json");
+    await writeFile(validPath, JSON.stringify(lossy));
+    await writeFile(malformedPath, malformed);
+    const before = await readFile(malformedPath);
+    const validResult = await run([validPath]);
+    expect(validResult.code).toBe(0);
+    expect(JSON.parse(validResult.stdout)).toEqual({ valid: true, issues: [] });
+    const malformedResult = await run([malformedPath]);
+    expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, issues: [{ code: "invalid_json", path: "$" }] }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(malformedPath)).toEqual(before);
+  });
+
+  it("rejects a preserved UTF-8 BOM as invalid JSON", async () => {
+    const path = join(root, "bom-dataset.json");
+    const input = Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(JSON.stringify(manifest([record("bom-dataset")])), "utf8")]);
+    await writeFile(path, input);
+    const result = await run([path]);
+    expect(result).toEqual({ stdout: JSON.stringify({ valid: false, issues: [{ code: "invalid_json", path: "$" }] }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(path)).toEqual(input);
   });
 
   it("rejects invalid records without changing the file", async () => {

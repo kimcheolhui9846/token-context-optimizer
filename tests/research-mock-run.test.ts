@@ -183,6 +183,26 @@ it.each([
   },
 );
 
+it("reports an over-budget settlement when reservation exactly fills the cap", () => {
+  const { data, config, scenario } = fixture();
+  scenario.limits.spendCapMicrousd = 100;
+  Object.assign(scenario.outcomes[0], {
+    reservedCostMicrousd: 100,
+    settledCostMicrousd: 101,
+  });
+
+  const report = simulateResearchRun(data, config, scenario);
+
+  expect(report.summary).toMatchObject({
+    stopReason: "reservation_exceeded",
+    budgetExceeded: true,
+    knownSettledCostMicrousd: 101,
+    remainingBudgetMicrousd: 0,
+    heldReservationMicrousd: 0,
+    startedSlots: 1,
+  });
+});
+
 it("completes after a first duration just below the request deadline", () => {
   const { data, config, scenario } = fixture();
   scenario.outcomes[0].durationMs = 9;

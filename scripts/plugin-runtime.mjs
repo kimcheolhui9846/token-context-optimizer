@@ -207,6 +207,27 @@ export function childHasExited(child) {
   return child.exitCode !== null || child.signalCode !== null;
 }
 
+export function parseCompleteJsonMessages(input) {
+  const lines = input.buffer.split(/\r?\n/u);
+  // The final split item is the active line, including a lone trailing CR.
+  const completeLineCount = lines.length - 1;
+  const messages = [];
+
+  for (let index = input.consumedLines; index < completeLineCount; index += 1) {
+    const line = lines[index].trim();
+    if (line.length === 0) {
+      continue;
+    }
+    try {
+      messages.push(JSON.parse(line));
+    } catch {
+      throw new Error(`Malformed MCP stdout line: ${line}`);
+    }
+  }
+
+  return { messages, consumedLines: completeLineCount };
+}
+
 export function parseJsonObjectRejectingDuplicateKeys(source, context = "JSON") {
   rejectDuplicateJsonObjectKeys(source, context);
   return JSON.parse(source);

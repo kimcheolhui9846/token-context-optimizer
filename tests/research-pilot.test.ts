@@ -23,6 +23,12 @@ function fullManifest() {
   return manifest(categories.flatMap((category, c) => Array.from({ length: 20 }, (_, i) =>
     record(c * 20 + i, category, i < 12 ? "train" : i < 16 ? "development" : "test", i % 2 ? "ko" : "en"))));
 }
+function replaceMarkerWithMalformedUtf8(source: string, marker: string): Buffer {
+  const bytes = Buffer.from(source);
+  const markerIndex = bytes.indexOf(marker);
+  if (markerIndex === -1) throw new Error("missing malformed UTF-8 marker");
+  return Buffer.concat([bytes.subarray(0, markerIndex), Buffer.from([0xff]), bytes.subarray(markerIndex + Buffer.byteLength(marker))]);
+}
 
 describe("pilot family coverage", () => {
   it("deduplicates same-language variants within a family", () => {
@@ -131,7 +137,7 @@ describe("pilot audit CLI", () => {
     cli = join(root, "scripts", "audit-pilot.mjs");
     await copyFile(resolve("scripts/audit-pilot.mjs"), cli);
     await copyFile(resolve("scripts/plugin-runtime.mjs"), join(root, "scripts", "plugin-runtime.mjs"));
-    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.json"), "--outDir", join(root, "dist")]);
+    await exec(process.execPath, [resolve("node_modules/typescript/bin/tsc"), "-p", resolve("tsconfig.cli-test.json"), "--outDir", join(root, "dist")]);
   });
   afterAll(async () => { if (root) await rm(root, { recursive: true, force: true }); });
   async function invoke(args: string[]) {
@@ -151,6 +157,34 @@ describe("pilot audit CLI", () => {
     expect(JSON.parse(result.stdout).report.datasetSha256).toBe(fingerprintDataset(JSON.parse(before)));
     expect(result.stderr).toBe("");
     expect(await readFile(path, "utf8")).toBe(before);
+  });
+
+  it("rejects malformed UTF-8 while accepting the equivalent U+FFFD control", async () => {
+    const marker = "S12_PILOT_UTF8_MARKER";
+    const input = manifest([record(0)]);
+    input.records[0].source.provenance = `prefix-${marker}-suffix`;
+    const malformed = replaceMarkerWithMalformedUtf8(JSON.stringify(input), marker);
+    const lossy = JSON.parse(malformed.toString("utf8"));
+    const validPath = join(root, "lossy-utf8-pilot.json");
+    const malformedPath = join(root, "malformed-utf8-pilot.json");
+    await writeFile(validPath, JSON.stringify(lossy));
+    await writeFile(malformedPath, malformed);
+    const before = await readFile(malformedPath);
+    const validResult = await invoke([validPath]);
+    expect(validResult.code).toBe(0);
+    expect(JSON.parse(validResult.stdout)).toMatchObject({ valid: true });
+    const malformedResult = await invoke([malformedPath]);
+    expect(malformedResult).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(malformedPath)).toEqual(before);
+  });
+
+  it("rejects a preserved UTF-8 BOM as invalid input", async () => {
+    const path = join(root, "bom-pilot.json");
+    const input = Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(JSON.stringify(manifest([record(0)])), "utf8")]);
+    await writeFile(path, input);
+    const result = await invoke([path]);
+    expect(result).toEqual({ stdout: JSON.stringify({ valid: false, code: "invalid_input" }) + "\n", stderr: "", code: 1 });
+    expect(await readFile(path)).toEqual(input);
   });
 
   it("reports complete structural counts through the real compiled entrypoint", async () => {

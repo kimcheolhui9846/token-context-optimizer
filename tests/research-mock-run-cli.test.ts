@@ -109,7 +109,7 @@ describe("research mock run CLI", () => {
     await exec(process.execPath, [
       resolve("node_modules/typescript/bin/tsc"),
       "-p",
-      resolve("tsconfig.json"),
+      resolve("tsconfig.cli-test.json"),
       "--outDir",
       join(root, "dist"),
     ]);
