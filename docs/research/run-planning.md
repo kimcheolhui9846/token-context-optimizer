@@ -13,7 +13,7 @@ npm.cmd run plan:research -- docs/research/datasets/development-seed.json docs/r
 For JSON-only stdout, use
 `node scripts/plan-research.mjs <dataset> <configuration>` after building. It reads
 only those two input files and does not modify either. It uses fatal UTF-8 decoding
-and the existing duplicate-key rejecting JSON parser. Files are read into memory
+and the existing duplicate-key rejecting JSON parser. A UTF-8 BOM is not normalized away and is rejected as `invalid_input`. Files are read into memory
 before the parser's character/depth limits apply; the 100,000-slot limit bounds
 schedule construction, not input file size or total validation memory.
 

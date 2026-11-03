@@ -192,6 +192,22 @@ describe("research run planning CLI", () => {
     expect(result.stdout + result.stderr).not.toContain("private-duplicate-canary");
   });
 
+  it.each(["dataset", "configuration"] as const)("accepts unchanged %s bytes without BOM, then rejects the BOM form", async target => {
+    const sourcePath = target === "dataset" ? datasetPath : demoConfigPath;
+    const source = await readFile(sourcePath);
+    const cleanPath = join(root, `no-bom-${target}.json`);
+    const bomPath = join(root, `bom-${target}.json`);
+    await writeFile(cleanPath, source);
+    await writeFile(bomPath, Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), source]));
+
+    const cleanResult = await invoke(target === "dataset" ? [cleanPath, demoConfigPath] : [datasetPath, cleanPath]);
+    expect(cleanResult.code).toBe(0);
+    expect(JSON.parse(cleanResult.stdout)).toMatchObject({ valid: true });
+
+    const bomResult = await invoke(target === "dataset" ? [bomPath, demoConfigPath] : [datasetPath, bomPath]);
+    expect(bomResult).toEqual({ stdout: JSON.stringify(invalid("invalid_input")) + "\n", stderr: "", code: 1 });
+  });
+
   it("rejects malformed UTF-8 inside an otherwise-valid dataset", async () => {
     const marker = "MALFORMED_UTF8_DATASET_MARKER";
     const dataset = JSON.parse(readFileSync(datasetPath, "utf8"));
