@@ -106,7 +106,8 @@ try {
   });
   const indexed = await waitFor((message) => message.id === 3 && message.result);
   const payload = JSON.parse(indexed.result.content[0].text);
-  if (payload.path !== workspaceFile || payload.lineCount !== 2) {
+  const expectedWorkspaceFile = await realpath(workspaceFile);
+  if (payload.path !== expectedWorkspaceFile || payload.lineCount !== 2) {
     throw new Error(`Installed plugin verification failed: ${JSON.stringify(payload)}`);
   }
 
