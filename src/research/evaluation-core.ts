@@ -37,7 +37,7 @@ export function digestValidatedDataset(dataset: ResearchDataset): string {
 export function isEvaluationSplit(split: string): boolean {
   return splitSchema.safeParse(split).success;
 }
-export function classifyOutcome(run: EvaluationRun): OutcomeClass {
+function classifyOutcome(run: EvaluationRun): OutcomeClass {
   if (run.status !== "completed") return "failure";
   if (run.judgment === null) return "ungraded";
   return run.judgment.coveredFacts.every(Boolean) &&
