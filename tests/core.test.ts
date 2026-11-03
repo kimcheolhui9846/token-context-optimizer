@@ -38,17 +38,21 @@ async function parseCompleteJsonMessages(input: {
   buffer: string;
   consumedLines: number;
 }): Promise<{ messages: unknown[]; consumedLines: number }> {
-  const { stdout } = await execFileAsync(process.execPath, [
-    "--input-type=module",
-    "-e",
+  const { stdout } = await execFileAsync(
+    process.execPath,
     [
-      "import { parseCompleteJsonMessages } from './scripts/plugin-runtime.mjs';",
-      "const input = JSON.parse(process.argv[1]);",
-      "console.log(JSON.stringify(parseCompleteJsonMessages(input)));",
-    ].join("\n"),
-    "--",
-    JSON.stringify(input),
-  ]);
+      "--input-type=module",
+      "-e",
+      [
+        "import { parseCompleteJsonMessages } from './scripts/plugin-runtime.mjs';",
+        "const input = JSON.parse(process.argv[1]);",
+        "console.log(JSON.stringify(parseCompleteJsonMessages(input)));",
+      ].join("\n"),
+      "--",
+      JSON.stringify(input),
+    ],
+    { windowsHide: true },
+  );
   return JSON.parse(stdout) as { messages: unknown[]; consumedLines: number };
 }
 type McpConfigFixture = {
