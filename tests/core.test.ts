@@ -28,12 +28,29 @@ import {
   classifyContext,
   lossyCompressionAllowed,
 } from "../src/core/policy.js";
-import { parseCompleteJsonMessages } from "../src/server/smoke-output-parser.js";
 import { estimateContext } from "../src/core/token-estimator.js";
 import { ReadBoundedFileError } from "../src/core/read-bounded-file.js";
 
 const execFileAsync = promisify(execFile);
 const temporaryRoots = new Set<string>();
+
+async function parseCompleteJsonMessages(input: {
+  buffer: string;
+  consumedLines: number;
+}): Promise<{ messages: unknown[]; consumedLines: number }> {
+  const { stdout } = await execFileAsync(process.execPath, [
+    "--input-type=module",
+    "-e",
+    [
+      "import { parseCompleteJsonMessages } from './scripts/plugin-runtime.mjs';",
+      "const input = JSON.parse(process.argv[1]);",
+      "console.log(JSON.stringify(parseCompleteJsonMessages(input)));",
+    ].join("\n"),
+    "--",
+    JSON.stringify(input),
+  ]);
+  return JSON.parse(stdout) as { messages: unknown[]; consumedLines: number };
+}
 type McpConfigFixture = {
   mcpServers: Record<string, Record<string, unknown>>;
   [key: string]: unknown;
@@ -3665,13 +3682,13 @@ describe("project configuration", () => {
     ]);
   });
 
-  it("rejects malformed complete MCP stdout lines", () => {
-    expect(() =>
+  it("rejects malformed complete MCP stdout lines", async () => {
+    await expect(
       parseCompleteJsonMessages({
         buffer: "{\"jsonrpc\":\"2.0\",\"id\":1}\nnot-json\n",
         consumedLines: 0,
       }),
-    ).toThrow(/Malformed MCP stdout line: not-json/);
+    ).rejects.toThrow(/Malformed MCP stdout line: not-json/);
   });
 
   it("rejects escaped-equivalent, nested, and deeply nested duplicate JSON keys", async () => {
@@ -3690,14 +3707,59 @@ describe("project configuration", () => {
     ]);
   });
 
-  it("waits for complete MCP stdout lines before parsing", () => {
-    const parsed = parseCompleteJsonMessages({
+  it("waits for complete MCP stdout lines before parsing", async () => {
+    const parsed = await parseCompleteJsonMessages({
       buffer: "{\"jsonrpc\":\"2.0\"",
       consumedLines: 0,
     });
 
     expect(parsed.messages).toEqual([]);
     expect(parsed.consumedLines).toBe(0);
+  });
+
+  it("matches the script parser contract for whitespace-only lines", async () => {
+    const parsed = await parseCompleteJsonMessages({
+      buffer: "{\"a\":1}\n   \n{\"b\":2}\n",
+      consumedLines: 0,
+    });
+    expect(parsed.messages).toEqual([{ a: 1 }, { b: 2 }]);
+    expect(parsed.consumedLines).toBe(3);
+  });
+
+  it("counts blank physical lines while resuming script output", async () => {
+    const parsed = await parseCompleteJsonMessages({
+      buffer: "{\"a\":1}\n\n{\"b\":2}\n",
+      consumedLines: 1,
+    });
+    expect(parsed.messages).toEqual([{ b: 2 }]);
+    expect(parsed.consumedLines).toBe(3);
+  });
+
+  it("keeps a trailing lone CR incomplete in script output", async () => {
+    const parsed = await parseCompleteJsonMessages({
+      buffer: "{\"a\":1}\r",
+      consumedLines: 0,
+    });
+    expect(parsed.messages).toEqual([]);
+    expect(parsed.consumedLines).toBe(0);
+  });
+
+  it("treats CRLF as a complete script line", async () => {
+    const parsed = await parseCompleteJsonMessages({
+      buffer: "{\"a\":1}\r\n",
+      consumedLines: 0,
+    });
+    expect(parsed.messages).toEqual([{ a: 1 }]);
+    expect(parsed.consumedLines).toBe(1);
+  });
+
+  it("leaves an unterminated final script line for the next chunk", async () => {
+    const parsed = await parseCompleteJsonMessages({
+      buffer: "{\"a\":1}\n{\"b\":2}",
+      consumedLines: 1,
+    });
+    expect(parsed.messages).toEqual([]);
+    expect(parsed.consumedLines).toBe(1);
   });
 });
 

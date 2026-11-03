@@ -14,6 +14,7 @@ import {
   assertCanonicalMcpConfig,
   assertPluginManifestContract,
   childHasExited,
+  parseCompleteJsonMessages,
   parseJsonObjectRejectingDuplicateKeys,
   resolvePluginRoot,
   validateCliArgs,
@@ -455,26 +456,6 @@ function selectPluginServerForUnsafeEnvInspection(config) {
     return server;
   }
   throw new Error("Installed MCP config must contain a mcpServers object");
-}
-
-function parseCompleteJsonMessages(input) {
-  const lines = input.buffer.split(/\r?\n/u);
-  const completeLineCount = input.buffer.endsWith("\n") ? lines.length - 1 : lines.length - 1;
-  const messages = [];
-
-  for (let index = input.consumedLines; index < completeLineCount; index += 1) {
-    const line = lines[index].trim();
-    if (line.length === 0) {
-      continue;
-    }
-    try {
-      messages.push(JSON.parse(line));
-    } catch {
-      throw new Error(`Malformed MCP stdout line: ${line}`);
-    }
-  }
-
-  return { messages, consumedLines: completeLineCount };
 }
 
 function stopChild() {

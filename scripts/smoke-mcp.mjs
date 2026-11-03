@@ -6,7 +6,13 @@ import { dirname, join } from "node:path";
 import { deflateSync } from "node:zlib";
 import { validateJpeg } from "../dist/src/core/jpeg-validation.js";
 
-import { RUNTIME_FILES, childHasExited, readOption, validateCliArgs } from "./plugin-runtime.mjs";
+import {
+  RUNTIME_FILES,
+  childHasExited,
+  parseCompleteJsonMessages,
+  readOption,
+  validateCliArgs,
+} from "./plugin-runtime.mjs";
 
 const args = process.argv.slice(2);
 validateCliArgs(args, {
@@ -703,26 +709,6 @@ async function copyRuntimeFiles(destination, failAfter) {
   if (/(?:from|import)\s+["'][^"']*(?:node_modules|dist\/src\/server)/u.test(bundle)) {
     throw new Error("Bundled server still references development-only paths");
   }
-}
-
-function parseCompleteJsonMessages(input) {
-  const lines = input.buffer.split(/\r?\n/u);
-  const completeLineCount = input.buffer.endsWith("\n") ? lines.length - 1 : lines.length - 1;
-  const messages = [];
-
-  for (let index = input.consumedLines; index < completeLineCount; index += 1) {
-    const line = lines[index].trim();
-    if (line.length === 0) {
-      continue;
-    }
-    try {
-      messages.push(JSON.parse(line));
-    } catch {
-      throw new Error(`Malformed MCP stdout line: ${line}`);
-    }
-  }
-
-  return { messages, consumedLines: completeLineCount };
 }
 
 function stopChild() {
