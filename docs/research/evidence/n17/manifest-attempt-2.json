@@ -1,0 +1,703 @@
+{
+  "schema": "n17-policy-performance/v1",
+  "version": 1,
+  "baselineCommit": "46939f3913e2c16bbe9bbc402974208e86eb99d6",
+  "productCommit": "04ec71427b025522d8f5861458559b35714dba97",
+  "campaign": {
+    "firstAttempt": 2,
+    "maxAttempt": 3,
+    "parentCommit": "48cbaf1d23b2b1de2fca353a5c9ad96e21150414",
+    "originalManifestSha256": "92492e2c62b24d6143d5b309fb7d56b33a9bdd435ab57d641c266d44f5f02095",
+    "originalRawSha256": {
+      "manifest.json": "92492e2c62b24d6143d5b309fb7d56b33a9bdd435ab57d641c266d44f5f02095",
+      "measurement-attempt-1.json": "6f1a12e5ce7c3564ef3914b8cb0915dfeed16e85d3d346be1617334781247674",
+      "result.md": "64b94bc968eb0906b37dd074b8159d4bcb928b598ed7fcaa23ab0ae4bb138218"
+    },
+    "reason": "attempt-1 FAIL 뒤 구현 변경 + 대표 입력 측정 설계 결함 수리. 게이트 기준 불변"
+  },
+  "baselinePolicyBlob": "f60875b42be15e2504a1f9cb804733c35f1d1833",
+  "protocol": {
+    "warmupRounds": 12,
+    "warmupBlocks": 2,
+    "measuredRounds": 36,
+    "measuredBlocks": 6,
+    "roundsPerBlock": 6,
+    "callsPerRound": 3,
+    "iterations": 1,
+    "threshold": 1.03,
+    "aaLower": 0.97,
+    "aaUpper": 1.03,
+    "bootstrapResamples": 10000,
+    "bootstrapBlocksPerDraw": 6,
+    "quantiles": [
+      0.025,
+      0.975
+    ],
+    "percentile": "type-7",
+    "drift": {
+      "warmupHalf": 6,
+      "measuredHalf": 18,
+      "statistic": "arithmetic-mean",
+      "diagnosticOnly": true
+    },
+    "shuffleReset": "per-recipe; warmup followed by measurement"
+  },
+  "seeds": {
+    "shuffle": 1310142465,
+    "bootstrap": 1310142466
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F"
+  },
+  "artifacts": {
+    "source": {
+      "path": "src/core/policy.ts",
+      "normalization": "LF",
+      "sha256": "616030b7afd407cf34cb04b4a40e675d836ec63d4de571fb621108ec15c0705e"
+    },
+    "types": {
+      "path": "src/core/types.ts",
+      "normalization": "LF",
+      "sha256": "ce7963beee82eb049db328ffa9210bd0c2e3c558459be2bee5c9d59af441fbfe"
+    },
+    "tsconfig": {
+      "path": "tsconfig.json",
+      "normalization": "LF",
+      "sha256": "5be24454971e7268471cc9ed4b8fcaae9ec92bc35a89df0ce1db537616008fa8"
+    },
+    "lockfile": {
+      "path": "package-lock.json",
+      "normalization": "LF",
+      "sha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345"
+    },
+    "build": {
+      "path": "dist/src/core/policy.js",
+      "normalization": "bytes",
+      "sha256": "e90432196ff0cbf785d6f6ba6ee65dd727e7631840e5889922dd16a08a27ca6a"
+    },
+    "bundle": {
+      "path": "bin/token-context-optimizer.mjs",
+      "normalization": "LF",
+      "sha256": "bef870721f84023899d90facd7c9f6ec972d6a9f1ae951edaa4944ec1f9b5869"
+    },
+    "runner": {
+      "path": "scripts/measure-n17-policy.mjs",
+      "normalization": "LF",
+      "sha256": "d23a75542490c9e7c8d91e9de669c4f6eb4dcb30d10a23baab8af0a4f08e3d97"
+    },
+    "analyzer": {
+      "path": "scripts/analyze-n17-policy.mjs",
+      "normalization": "LF",
+      "sha256": "d9a35811ca81ff2f897fcd52348baa98f1b20c105b713fd8ab2b77a95f49b31c"
+    },
+    "evidenceTests": {
+      "path": "tests/n17-policy-evidence.test.ts",
+      "normalization": "LF",
+      "sha256": "6e39a2c5a6e140ccd9e5c58652c8cc2b2f2ef1808ba787fd81c009f9018869b8"
+    },
+    "package": {
+      "path": "package.json",
+      "normalization": "LF",
+      "sha256": "3280641f9bbc784eff6767e97c3d2529679c54b3b632112673ef40175eb2169f"
+    },
+    "compiler": {
+      "path": "node_modules/typescript/lib/typescript.js",
+      "normalization": "bytes",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "compilerCli": {
+      "path": "node_modules/typescript/lib/tsc.js",
+      "normalization": "bytes",
+      "sha256": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983"
+    }
+  },
+  "variants": {
+    "A": {
+      "path": ".artifacts/n17-policy/A/dist/policy.js",
+      "sourceSha256": "c8ff470444f932714773f4cf65b84218f73f121069695a1ee91113e868af3597",
+      "buildSha256": "2da21283720e123beebac64d7327c6f55de7975e574d09df40ad2c2b7085ba5b"
+    },
+    "A-prime": {
+      "path": ".artifacts/n17-policy/A-prime/dist/policy.js",
+      "sourceSha256": "c8ff470444f932714773f4cf65b84218f73f121069695a1ee91113e868af3597",
+      "buildSha256": "2da21283720e123beebac64d7327c6f55de7975e574d09df40ad2c2b7085ba5b"
+    },
+    "B": {
+      "path": "dist/src/core/policy.js",
+      "sourceSha256": "616030b7afd407cf34cb04b4a40e675d836ec63d4de571fb621108ec15c0705e",
+      "buildSha256": "e90432196ff0cbf785d6f6ba6ee65dd727e7631840e5889922dd16a08a27ca6a"
+    }
+  },
+  "recipes": [
+    {
+      "id": "ko-repeated-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "d59f082f169f52199838b826a1ad5658262eb34f57995ff45245df7f17a3d290",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "8dae7e529ba060b890410eed63585243df955b880c391af981385818c3ecac51",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-tab",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "e1c26e5e012098ff6858f4e05babfee380b1ef925d018e356ac90a0848d16c08",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-nbsp",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "a931b28803f05d04897f69df99bb4c47f4f2081b3c2a896241e9f101e660374d",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-wide",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "e839e5825255a6d5167b5c485fc037e05e244b8c88a52f26609d74504d8f9eea",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-lf",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "a0e7c0ccc98b1f94b3870e06da99596828fabf4e56cc96d96bd93b1e1d01f1a9",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-mixed",
+      "kind": "worst",
+      "bytes": 10485760,
+      "inputSha256": "668ca4aa31308a61108fdd8d404e11b109664feacb80a8bb7af4f781db0b57c5",
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-prose-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "inputSha256": "ac04e93bfd87645c7f2e525dad53445810a2af273d7c015c348a85b5c1f8d475",
+      "generator": {
+        "version": 1,
+        "unit": "회의실에서 다음 일정과 검토 결과를 함께 정리합니다.\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "A-prime": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "B": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "A-prime": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "B": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7"
+      }
+    },
+    {
+      "id": "en-prose-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "inputSha256": "f0cc5cbecf2757691bab1236aab098d5ca71914ea230631b5d9b4fea763aa22f",
+      "generator": {
+        "version": 1,
+        "unit": "We should review the proposed schedule before the next meeting and share the summary with everyone.\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "A-prime": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "B": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "A-prime": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "B": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7"
+      }
+    },
+    {
+      "id": "code-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "inputSha256": "872a7def5a9ed93400c90367757a47604794448a2744bfb4cf96485fc1b4418e",
+      "generator": {
+        "version": 1,
+        "unit": "const value = true;\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "exact",
+          "reasons": [
+            "code_syntax"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "exact",
+          "reasons": [
+            "code_syntax"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "exact",
+          "reasons": [
+            "code_syntax"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "0b649b2263c38dc80420af524dd3a287d60d7c7b8e5ea0a3f81d884499885795",
+        "A-prime": "0b649b2263c38dc80420af524dd3a287d60d7c7b8e5ea0a3f81d884499885795",
+        "B": "0b649b2263c38dc80420af524dd3a287d60d7c7b8e5ea0a3f81d884499885795"
+      }
+    },
+    {
+      "id": "markdown-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "inputSha256": "6e1480aa4765d498d95b9b9b6dab5b8bac007a0b6cf4eed5b04c5001a273a250",
+      "generator": {
+        "version": 1,
+        "unit": "# Project notes\n\nWe should review the proposed schedule before the next meeting.\n\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-credential-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "inputSha256": "7ac7c1a1548ca28a2ea8317e41f1b579718ec43390c35b5ec8d16ece6e8db440",
+      "generator": {
+        "version": 1,
+        "unit": "회의실 비밀번호: hunter2 이니까 접속할 때 참고해 주세요. ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "A-prime": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "B": {
+          "mode": "exact",
+          "reasons": [
+            "secret"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedOutputHashes": {
+        "A": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "A-prime": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "B": "16705de95a098e2143d856a2a5a5512d0a3765984ab58da7fc9e750df50a7820"
+      }
+    }
+  ],
+  "originalLiteralEvidence": [
+    {
+      "id": "english-credential",
+      "medianNs": {
+        "A": 22800,
+        "A-prime": 21600,
+        "B": 21900
+      },
+      "ci": [
+        0.8064900747615364,
+        0.956514188461672
+      ],
+      "aaRatio": 0.9632867132867133
+    },
+    {
+      "id": "natural-language",
+      "medianNs": {
+        "A": 42550,
+        "A-prime": 42400,
+        "B": 43550
+      },
+      "ci": [
+        0.841991341991342,
+        0.8973675966855919
+      ],
+      "aaRatio": 1.022575384851251
+    },
+    {
+      "id": "numeric",
+      "medianNs": {
+        "A": 11150,
+        "A-prime": 9700,
+        "B": 11000
+      },
+      "ci": [
+        0.7925285368384642,
+        0.807363913055189
+      ],
+      "aaRatio": 0.9107142857142857
+    },
+    {
+      "id": "code",
+      "medianNs": {
+        "A": 18450,
+        "A-prime": 16900,
+        "B": 16350
+      },
+      "ci": [
+        0.7221297836938436,
+        0.8465909090909091
+      ],
+      "aaRatio": 0.9053990610328639
+    },
+    {
+      "id": "ko-positive-literal",
+      "medianNs": {
+        "A": 40500,
+        "A-prime": 36450,
+        "B": 23100
+      },
+      "ci": [
+        0.5120010268258247,
+        0.6106442577030813
+      ],
+      "aaRatio": 0.7866751628433871
+    }
+  ],
+  "createdAt": "2026-11-05T14:22:39.301Z",
+  "notes": [
+    "Single classifier call per cell; small inputs are noise-sensitive.",
+    "No forced GC; natural runtime GC is retained.",
+    "Drift is diagnostic only.",
+    "Six-block bootstrap CI is descriptive, not an error-probability guarantee.",
+    "No timing occurs during prepare; source/build provenance is compiled and verified."
+  ],
+  "manifestSha256": "acecb58d8de2484cde6dec502290740a68acc92a8ef21d31de64d3fdb7038e08"
+}
