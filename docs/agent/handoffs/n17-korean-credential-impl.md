@@ -35,13 +35,13 @@
 - Claude `claude-opus-5-5`, rework initial: CHANGES REQUIRED (0 blocker/4 major/4 minor/2 note); provenance/명세 보완 채택, boolean 전용 술어의 match span 요구는 코드 근거로 기각.
 - Claude `claude-opus-5-5`, milestone: CHANGES REQUIRED (0 blocker/3 major/5 minor/2 note); prepare oracle·campaign/legacy 테스트·실제 tuple0 미분 검사 보완.
 - Claude `claude-opus-5-5`, scoped recheck: APPROVED (0 blocker/0 major/3 minor/4 note), M1/M2/M3 해결. 모두 제공된 코드의 정적 검토이며 CLI가 테스트를 실행한 것으로 기록하지 않는다.
-- 잔여 minor: 일부 fail-closed provenance 음성 테스트 부족; 두 재시도 음성 assertion은 다른 거부 조건과 중첩; prepare의 전체 JSON roundtrip guard 없음(현재 cpu와 기존 CI는 정의됨). 독립 검토 완료, 성능 판정은 아직 미실행.
-- 원본의 raw-byte 비교는 줄바꿈이 바뀌면 fail-closed한다. 현재 원본 3파일 SHA-256을 확인했다. 정책 기능/범위/회귀는 확인했지만 측정 전 성능 PASS를 주장하지 않는다.
+- 잔여 minor: 일부 fail-closed provenance 음성 테스트 부족; 두 재시도 음성 assertion은 다른 거부 조건과 중첩; prepare의 전체 JSON roundtrip guard 없음(현재 cpu와 기존 CI는 정의됨). 독립 검토 완료; attempt-2는 BORDERLINE(11 PASS/1 BORDERLINE), FAIL/INVALID 없음.
+- 원본의 raw-byte 비교는 줄바꿈이 바뀌면 fail-closed한다. 현재 원본 3파일 SHA-256을 확인했다. 정책 기능/범위/회귀와 원자료 재계산 일치를 확인했다. NBSP CI 상한 1.031116은 3%를 넘으므로 무조건 PASS로 표현하지 않는다.
 
 ## 현재 상태와 남은 작업
 
 - [x] 승인된 분리 구현·미분 검사·측정기 보완·독립 재검토·전체 gate.
-- [ ] 재작업 코드 커밋 → 새 manifest 사전 커밋 → --check → attempt-2 단독 측정.
-- [ ] 원자료·레시피별 점추정/CI/A′/A/상태 기록, primary Astra 최종 판정.
-- [ ] PASS/BORDERLINE일 때만 push·Draft PR·최종 local gate. 유효 FAIL/재무효면 push하지 않고 보고한다.
+- [x] 코드 `04ec714` → manifest `ad840c8` 사전 커밋 → --check → attempt-2 완료; 원자료/결과 `86319b0`.
+- [x] 432 warmup/1296 측정 cell 완료, 저장 analysis 재계산 일치·원본 보존 확인. [attempt-2 결과](../../research/evidence/n17/result-attempt-2.md): 11 PASS/1 BORDERLINE, 재시도 없음.
+- [ ] 경계 통과에 따라 push·Draft PR·PR 개설 후 최종 local gate와 primary Astra 판정 진행.
 - 다음 Task·Ready·merge는 별도 사용자 승인 대상이다.
