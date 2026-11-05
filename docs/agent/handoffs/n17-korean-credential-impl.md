@@ -17,7 +17,8 @@
 - [x] literal RED: 327개 중 새 보호 동작 294 실패, 대조군 33 통과. Primary 재실행 JSON 확인, helper 원문 일치 및 제품 미변경 확인. 별도 RED 커밋 (`Agent: codex`).
 - [x] RED `7620e3d`, GREEN `3a614ed`. #0 OR만 변경, 정책·영어/F-21 회귀 416개 및 typecheck/build 통과.
 - [x] 증거 분석기·재시도 RED/GREEN: 보완 회귀 46개 통과. 원래 정책 대비 실제 diff는 tuple #0 OR 한 줄뿐이다.
-- [ ] 측정 전 독립 재검토, 측정기 커밋, manifest 생성·커밋.
+- [x] 측정 전 독립 재검토 PASS; 측정기 커밋 `26cde59`.
+- [ ] manifest 생성·커밋 후 측정.
 - [ ] 성능 게이트 및 문서, 전체 npm 검증, push·Draft PR, 최종 로컬 검증과 primary 판정.
 
 ## 성능 사전 확정
@@ -38,8 +39,9 @@
 - Claude `claude-opus-5-5`, premeasurement: CHANGES REQUIRED (0 blocker/1 major/6 minor/7 note). 중단된 attempt의 전역 INVALID가 완료된 recipe FAIL을 가리는 오류를 재현·수정했다.
 - 재검토 보완 RED 4실패/42통과 → GREEN 46통과: localStatus로 FAIL 보존, 같은 manifest와 재계산 analysis만 재시도 허용, ordinal 키 정렬, 비유한 비율 거부. Python 독립 golden PRNG/순열/CI 및 임계값 경계도 통과했다.
 - prepare는 측정 코드·테스트·설정의 tracked/clean 상태를 요구한다. 강제 GC는 추가하지 않고 기존 자연 GC 조건을 사전 명시한다. tuple/flags/fallback 보존은 기준 커밋과 직접 diff로 확인했다.
+- Claude `claude-opus-5-5`, retry-recheck: PASS (0 blocker/0 major/2 minor), 앞선 전체 재검토 240초 timeout 뒤 범위 한정 재시도 성공. major 해결 확인. minor: 집계 INVALID 우선순위는 승인 계약대로 유지하되 local FAIL을 보고하며, 재시도 시 attempt-1을 먼저 커밋해 원본을 고정한다.
 - 크기 제한 선행 fallback 우려는 실제 코드와 달라 기각했다. 분류 후 특정 stack RangeError를 catch하며 임의 입력 길이 제한은 없다. 존재하지 않는 제한을 위한 테스트는 만들지 않는다.
 - 검증기·측정기 테스트 38개 통과. 초기 하위 에이전트의 검증기 초안은 test-first가 아니었으며, primary 보완에서 실패 7/36 및 runner 실패 2/38을 직접 기록한 뒤 수정했다. 최종 통합 수정은 독립 검토 대상이다.
 - 오류 수정: 기준 helper 복사 손상을 Git blob 직접 복사로 해결하고 원문 일치를 검사했다. 10 MiB 테스트의 공백 정규식은 검증기 자체 RangeError를 일으켜 동등한 trim 검사로 대체했다.
-- 12개 입력의 baseline/current 전체 출력이 literal 기대값과 일치했다(비측정 사전 확인). 성능 측정, push·Draft PR, 최종 Astra 판정은 아직 수행하지 않았다. 최신 전체 npm 게이트와 측정 전 Claude 재검토 진행 중이다.
+- 12개 입력의 baseline/current 전체 출력이 literal 기대값과 일치했다(비측정 사전 확인). 최신 전체 npm 게이트: typecheck/build/smoke:mcp/validate:plugin 통과, 43파일 1740테스트 통과·기존 symlink EPERM 5건 skip. 성능 측정, push·Draft PR, 최종 Astra 판정은 아직 수행하지 않았다.
 - 다음 Task·Ready·merge는 별도 사용자 승인 대상이다.
