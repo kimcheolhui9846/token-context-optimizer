@@ -43,5 +43,6 @@
 - [x] 승인된 분리 구현·미분 검사·측정기 보완·독립 재검토·전체 gate.
 - [x] 코드 `04ec714` → manifest `ad840c8` 사전 커밋 → --check → attempt-2 완료; 원자료/결과 `86319b0`.
 - [x] 432 warmup/1296 측정 cell 완료, 저장 analysis 재계산 일치·원본 보존 확인. [attempt-2 결과](../../research/evidence/n17/result-attempt-2.md): 11 PASS/1 BORDERLINE, 재시도 없음.
-- [ ] 경계 통과에 따라 push·Draft PR·PR 개설 후 최종 local gate와 primary Astra 판정 진행.
+- [x] [Draft PR #93](https://github.com/kimcheolhui9846/token-context-optimizer/pull/93) 생성·push. PR 개설 후 전체 gate 재통과(1761 pass/5 기존 skip), 최종 build/source/tool/environment 지문 일치.
+- Primary Astra 최종 판정: **PASS WITH NOTES**. 요구·diff·회귀·독립 검토·원본 보존·사전등록·실측·PR 상태 확인. NBSP 경계 통과와 검토 minor 3건을 유지하며 재측정하지 않았다. Ready·merge 미실행.
 - 다음 Task·Ready·merge는 별도 사용자 승인 대상이다.
