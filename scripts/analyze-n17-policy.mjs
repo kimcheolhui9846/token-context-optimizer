@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 export const SCHEMA = "n17-policy-performance/v1";
 export const VARIANTS = ["A", "A-prime", "B"];
 export const SEEDS = { shuffle: 0x4e173001, bootstrap: 0x4e173002 };
+export const CAMPAIGN = Object.freeze({ firstAttempt: 2, maxAttempt: 3 });
 export const PROTOCOL = {
   warmupRounds: 12, warmupBlocks: 2, measuredRounds: 36, measuredBlocks: 6,
   roundsPerBlock: 6, callsPerRound: 3, iterations: 1,
@@ -89,7 +90,12 @@ export function analyze(manifest, artifact) {
   if (!equal(manifest.protocol, PROTOCOL) || !equal(manifest.seeds, SEEDS)) fail("protocol/seed mismatch");
   if (!hashValid(manifest.manifestSha256) || manifest.manifestSha256 !== manifestHash(manifest)
       || artifact.manifestSha256 !== manifest.manifestSha256) fail("manifest digest mismatch");
-  if (![1, 2].includes(artifact.attempt) || artifact.complete !== true) fail("incomplete or invalid attempt");
+  const campaign = manifest.campaign;
+  const campaignValid = campaign === undefined
+    || (object(campaign) && campaign.firstAttempt === 2 && campaign.maxAttempt === 3);
+  if (!campaignValid) fail("invalid campaign metadata");
+  const attempts = campaignValid && campaign ? [CAMPAIGN.firstAttempt, CAMPAIGN.maxAttempt] : [1, 2];
+  if (!attempts.includes(artifact.attempt) || artifact.complete !== true) fail("incomplete or invalid attempt");
   if (!object(manifest.environment) || !equal(manifest.environment, artifact.environment)) fail("environment mismatch");
   if (!object(manifest.artifacts) || !Object.keys(manifest.artifacts).length || !object(artifact.artifactHashes)) fail("artifact hashes missing");
   else for (const [key, item] of Object.entries(manifest.artifacts)) {
@@ -181,7 +187,10 @@ export function analyze(manifest, artifact) {
   });
   const status = globalInvalid || !results.length ? "INVALID"
     : ["INVALID", "FAIL", "BORDERLINE", "PASS"].find(s => results.some(r => r.status === s));
-  return { schema: SCHEMA, status, retryEligible: status === "INVALID" && artifact.attempt === 1 && !results.some(r => r.localStatus === "FAIL"),
+  return { schema: SCHEMA, status, retryEligible: status === "INVALID"
+    && campaignValid
+    && artifact.attempt === (campaign ? CAMPAIGN.firstAttempt : 1)
+    && !results.some(r => r.localStatus === "FAIL"),
     recipes: results, errors: [...new Set(problems.map(p => `${p.recipeId ?? "global"}: ${p.message}`))] };
 }
 export function validateArtifact(manifest, artifact) { return analyze(manifest, artifact).errors; }

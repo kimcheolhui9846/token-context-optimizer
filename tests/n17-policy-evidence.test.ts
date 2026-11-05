@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 
 const api = await import("../scripts/analyze-n17-policy.mjs" as string);
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
@@ -184,6 +185,98 @@ describe("N-17 measurement recipes", () => {
     for (const row of valid.artifact.samples) if (row.variant === "B") row.elapsedNs = 110;
     expect(runner.retryAllowed(valid.manifest, valid.artifact)).toBe(false);
   });
+  it("accepts only attempts two and three for a validated campaign", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    expect(runner.attemptRange(2)).toEqual({ first: 2, last: 3 });
+    expect(runner.attemptRange(3)).toEqual({ first: 2, last: 3 });
+    expect(runner.attemptRange(1)).toBeNull();
+    expect(runner.attemptRange(4)).toBeNull();
+  });
+  it("does not grant retry to malformed campaign metadata", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    const { manifest: m, artifact: a } = fixture(); a.samples.pop();
+    expect(runner.retryAllowed({ ...m, campaign: null }, a)).toBe(false);
+    expect(runner.retryAllowed({ ...m, campaign: { firstAttempt: 2, maxAttempt: 3 } }, a)).toBe(false);
+  });
+  it("round-trips recipe manifest generator metadata without undefined fields", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    const recipes = JSON.parse(JSON.stringify(runner.recipesManifest()));
+    expect(recipes).toHaveLength(12);
+    expect(recipes.filter((r: any) => r.kind === "worst").every((r: any) => !("generator" in r))).toBe(true);
+    expect(recipes.filter((r: any) => r.kind === "representative").every((r: any) => r.generator?.version === 1 && r.generator.padding === "ascii-space")).toBe(true);
+  });
+  it("validates campaign provenance and rejects parent mutations", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    const { manifest: current } = fixture();
+    const parent = structuredClone(current);
+    current.recipes[0].kind = "worst"; parent.recipes[0].kind = "worst";
+    parent.manifestSha256 = api.manifestHash(parent);
+    const hashes = { "manifest.json": "raw-manifest", "measurement-attempt-1.json": "raw-attempt", "result.md": "raw-result" };
+    current.campaign = { firstAttempt: 2, maxAttempt: 3, parentCommit: "48cbaf1d23b2b1de2fca353a5c9ad96e21150414", originalManifestSha256: hashes["manifest.json"], originalRawSha256: { ...hashes } };
+    expect(runner.validateCampaignParent(current, parent, hashes)).toBe(true);
+    for (const mutate of [
+      (m: any) => { m.protocol.threshold++; },
+      (m: any) => { m.seeds.shuffle++; },
+      (m: any) => { m.recipes[0].inputSha256 = hash("changed"); },
+      (m: any) => { m.recipes[0].expectedOutputHashes.B = hash("changed"); },
+    ]) {
+      const changed = structuredClone(current); const changedParent = structuredClone(parent); mutate(changedParent);
+      changedParent.manifestSha256 = api.manifestHash(changedParent);
+      expect(runner.validateCampaignParent(changed, changedParent, hashes)).toBe(false);
+    }
+    const badParent = structuredClone(parent); badParent.manifestSha256 = hash("bad");
+    expect(runner.validateCampaignParent(current, badParent, hashes)).toBe(false);
+    expect(runner.validateCampaignParent(current, parent, { ...hashes, ["result.md"]: undefined } as any)).toBe(false);
+    expect(runner.validateCampaignParent(current, parent, { ...hashes, extra: "x" })).toBe(false);
+  });
+  it("enforces campaign attempt semantics and legacy compatibility in analyze", async () => {
+    const { manifest: legacy, artifact } = fixture();
+    const campaign = structuredClone(legacy); campaign.campaign = { firstAttempt: 2, maxAttempt: 3 }; campaign.manifestSha256 = api.manifestHash(campaign);
+    const attempt1 = structuredClone(artifact); attempt1.manifestSha256 = campaign.manifestSha256; attempt1.attempt = 1;
+    expect(api.analyze(campaign, attempt1).status).toBe("INVALID");
+    const attempt2 = structuredClone(artifact); attempt2.manifestSha256 = campaign.manifestSha256; attempt2.attempt = 2;
+    expect(api.analyze(campaign, attempt2).status).toBe("PASS");
+    const attempt3 = structuredClone(attempt2); attempt3.attempt = 3;
+    expect(api.analyze(campaign, attempt3).status).toBe("PASS");
+    for (const value of [1, 4, null, "2", [], {}, { firstAttempt: 1, maxAttempt: 2 }, { firstAttempt: 2, maxAttempt: 4 }]) {
+      const bad = structuredClone(campaign); bad.campaign = value; bad.manifestSha256 = api.manifestHash(bad);
+      const badArtifact = structuredClone(attempt2); badArtifact.manifestSha256 = bad.manifestSha256;
+      expect(api.analyze(bad, badArtifact).status).toBe("INVALID");
+    }
+    const attempt4 = structuredClone(attempt2); attempt4.attempt = 4;
+    expect(api.analyze(campaign, attempt4).status).toBe("INVALID");
+    const legacyAttempt2 = structuredClone(artifact); legacyAttempt2.attempt = 2;
+    expect(api.analyze(legacy, legacyAttempt2).retryEligible).toBe(false);
+  });
+  it("recomputes the committed legacy analysis and pins all seven worst recipes", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    const parentManifest = JSON.parse(readFileSync(new URL("../docs/research/evidence/n17/manifest.json", import.meta.url), "utf8"));
+    const parentArtifact = JSON.parse(readFileSync(new URL("../docs/research/evidence/n17/measurement-attempt-1.json", import.meta.url), "utf8"));
+    expect(api.canonical(api.analyze(parentManifest, parentArtifact))).toBe(api.canonical(parentArtifact.analysis));
+    const worst = (recipes: any[]) => recipes.filter(recipe => recipe.kind === "worst");
+    expect(runner.recipesManifest().filter((recipe: any) => recipe.kind === "worst")).toEqual(worst(parentManifest.recipes));
+  });
+  it("does not retry a campaign with local FAIL plus global INVALID or cached analysis drift", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    const { manifest: m, artifact: a } = fixture();
+    m.campaign = { firstAttempt: 2, maxAttempt: 3 }; m.manifestSha256 = api.manifestHash(m);
+    a.manifestSha256 = m.manifestSha256; a.attempt = 2;
+    a.samples = a.samples.filter((row: any) => row.recipeId === "good");
+    for (const row of a.samples) if (row.variant === "B") row.elapsedNs = 110;
+    a.samples.push({ ...a.samples[0], recipeId: "foreign" });
+    expect(runner.retryAllowed(m, a)).toBe(false);
+    a.analysis = { status: "PASS" };
+    expect(runner.retryAllowed(m, a)).toBe(false);
+  });
+  it("allows only the first invalid attempt in the new campaign", async () => {
+    const runner = await import("../scripts/measure-n17-policy.mjs" as string);
+    const { manifest: m, artifact: a } = fixture(); a.samples.pop();
+    m.campaign = { firstAttempt: 2, maxAttempt: 3 };
+    m.manifestSha256 = api.manifestHash(m); a.manifestSha256 = m.manifestSha256; a.attempt = 2;
+    expect(runner.retryAllowed(m, a)).toBe(true);
+    a.attempt = 3;
+    expect(runner.retryAllowed(m, a)).toBe(false);
+  });
   it("constructs seven exact UTF-8 worst inputs with the approved repetition structure", async () => {
     const runner = await import("../scripts/measure-n17-policy.mjs" as string);
     const worst = runner.RECIPES.filter((r: any) => r.kind === "worst");
@@ -201,11 +294,17 @@ describe("N-17 measurement recipes", () => {
       expect(recipe.expectedOutputs.B).toEqual({ mode: "unknown", reasons: ["insufficient_semantic_signal"], warnings: ["lossy_compression_not_allowed"] });
     }
   });
-  it("keeps representative inputs short and gives the Korean change distinct literal outputs", async () => {
+  it("constructs five deterministic 10MiB representative inputs with literal oracles", async () => {
     const runner = await import("../scripts/measure-n17-policy.mjs" as string);
-    for (const recipe of runner.RECIPES.filter((r: any) => r.kind !== "worst")) expect(runner.recipeInput(recipe).length).toBeLessThan(200);
-    const korean = runner.RECIPES.find((r: any) => r.id === "ko-positive-literal");
-    expect(korean.expectedOutputs.A).toEqual(semantic); expect(korean.expectedOutputs.B).toEqual(secret);
-    expect(runner.RECIPES.find((r: any) => r.id === "numeric").expectedOutputs.B).toEqual({ mode: "exact", reasons: ["numeric_or_table"], warnings: ["lossy_compression_not_allowed"] });
+    const representative = runner.RECIPES.filter((r: any) => r.kind === "representative");
+    expect(representative.map((r: any) => r.id)).toEqual(["ko-prose-10mib", "en-prose-10mib", "code-10mib", "markdown-10mib", "ko-credential-10mib"]);
+    for (const recipe of representative) {
+      const bytes = runner.recipeInput(recipe);
+      expect(bytes.length).toBe(10 * 1024 * 1024);
+      expect(new TextDecoder("utf-8", { fatal: true }).decode(bytes)).toBeTruthy();
+    }
+    expect(representative.find((r: any) => r.id === "ko-credential-10mib").expectedOutputs.A).toEqual(semantic);
+    expect(representative.find((r: any) => r.id === "ko-credential-10mib").expectedOutputs.B).toEqual(secret);
+    expect(representative.find((r: any) => r.id === "code-10mib").expectedOutputs.B).toEqual({ mode: "exact", reasons: ["code_syntax"], warnings: ["lossy_compression_not_allowed"] });
   });
 });
