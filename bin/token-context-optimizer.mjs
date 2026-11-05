@@ -23287,7 +23287,7 @@ function matchesPolicyPredicate(predicate, content) {
   return typeof predicate === "function" ? predicate(content) : predicate.test(content);
 }
 var EXACT_PATTERNS = [
-  ["secret", (content) => /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu.test(content) || hasCredentialLabel(content)],
+  ["secret", (content) => /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\s*[:=]/iu.test(content) || hasCredentialLabel(content) || /(?:비밀[ \t]?번호|비번|패스[ \t]?워드|인증[ \t]?키|개인[ \t]?키|비밀[ \t]?키|시크릿[ \t]?키|액세스[ \t]?키|(?<![A-Za-z0-9])api[ \t]?키|복구[ \t]?코드|백업[ \t]?코드|인증[ \t]?토큰|접근[ \t]?토큰|액세스[ \t]?토큰|암호|토큰|보안[ \t]?코드)\s*[:=：]/i.test(content)],
   ["secret", /\bAuthorization\s*:\s*Bearer\s+[A-Za-z0-9._~+/=-]+/iu],
   ["secret", hasBearerToken],
   ["secret", hasUriScheme],
