@@ -74,5 +74,7 @@ G6: `scripts/measure-n17-policy.mjs`, `scripts/analyze-n17-policy.mjs`, `tests/n
 ## 검증·리뷰·종료
 
 - Claude `claude-opus-5-5`: initial 검토 후 문법/재현/결정 상태 보완; milestone CHANGES REQUIRED(0/1/3/4), scoped RESOLVED(0blocker/0major/0minor/2note). 존재하지 않는 테스트를 근거로 한 major는 Git 증거로 철회, minor3건 반영. 전체 트리 점검 설명 note는 반영했고 assertion 메시지 보강은 선택적 후속이다.
-- 검증: 조사 재실행 byte 일치(SHA256 `ff13bd27b0e685aa18b51e453fe3f67f023f804ec597a0b0d15766d735a71919`), 경계13×2배치·행렬102·control30의632 case/variant 검사 통과. typecheck/build/smoke:mcp/validate:plugin 및 전체1367 pass/5skip, diff-check 통과. RED는 제품 변경 없는 계획이므로 해당 없음. Draft 후 최종 게이트는 아직 진행 전이다.
+- 검증: 조사 재실행 byte 일치(SHA256 `ff13bd27b0e685aa18b51e453fe3f67f023f804ec597a0b0d15766d735a71919`), 경계13×2배치·행렬102·control30의632 case/variant 검사 통과. typecheck/build/smoke:mcp/validate:plugin 및 전체1367 pass/5skip, diff-check 통과. RED는 제품 변경 없는 계획이므로 해당 없음. Draft PR #92 생성 후 d50a88f에서 최종 5개 npm 게이트도 모두 통과했다(1367 pass/5 EPERM skip).
 - 종료 조건: 허용한 3파일만 커밋(`Agent: codex`)·push·Draft PR, 최종 로컬 게이트와 primary 검토. Ready/merge/제품 구현은 하지 않는다. K-1–K-8·api 경계·N-27의 사용자 결정 뒤 별도 구현 Task를 승인받는다.
+
+- Primary 최종 검토: PASS WITH NOTES. 요구사항·3파일 범위·재현 JSON·독립 oracle·검토 해결·push/Draft 상태를 직접 확인했다. 실제 대화 분포/동적 입력과 구현 성능은 미검증이며 사용자 결정 후 후속 Task다. [기존 프로젝트 핸드오프](../HANDOFF.md)는 보존한다.
