@@ -1,0 +1,4115 @@
+{
+  "schema": "n27-n30-credential-probe/v1",
+  "policySha256Lf": "616030b7afd407cf34cb04b4a40e675d836ec63d4de571fb621108ec15c0705e",
+  "head": "27b435635b37045ef00562790213177bcca1acee",
+  "node": "v24.18.0",
+  "candidates": [
+    {
+      "id": "A",
+      "description": "N-27 only: English #0 and E-3 accept fullwidth colon",
+      "sources": [
+        "/\\b(?:api[_-]?key|token|password|secret|private[_-]?key)\\b\\s*[:=：]/iu",
+        "/\\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \\t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \\t]+|-)key|client(?:[ \\t]+|-)secret|recovery(?:[ \\t]+|-)codes?|secret(?:[ \\t]+|-)answer|backup(?:[ \\t]+|-)codes?)\\b\\s*[:=：]/i",
+        "/(?:비밀[ \\t]?번호|비번|패스[ \\t]?워드|인증[ \\t]?키|개인[ \\t]?키|비밀[ \\t]?키|시크릿[ \\t]?키|액세스[ \\t]?키|복구[ \\t]?코드|백업[ \\t]?코드|인증[ \\t]?토큰|접근[ \\t]?토큰|액세스[ \\t]?토큰|암호|토큰|보안[ \\t]?코드)\\s*[:=：]/i",
+        "/(?:(?<![A-Za-z0-9])api[ \\t]?키)\\s*[:=：]/i"
+      ]
+    },
+    {
+      "id": "B",
+      "description": "A + closing asterisk emphasis (0-3) between label and separator, English and Korean",
+      "sources": [
+        "/\\b(?:api[_-]?key|token|password|secret|private[_-]?key)\\b\\*{0,3}\\s*[:=：]/iu",
+        "/\\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \\t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \\t]+|-)key|client(?:[ \\t]+|-)secret|recovery(?:[ \\t]+|-)codes?|secret(?:[ \\t]+|-)answer|backup(?:[ \\t]+|-)codes?)\\b\\*{0,3}\\s*[:=：]/i",
+        "/(?:비밀[ \\t]?번호|비번|패스[ \\t]?워드|인증[ \\t]?키|개인[ \\t]?키|비밀[ \\t]?키|시크릿[ \\t]?키|액세스[ \\t]?키|복구[ \\t]?코드|백업[ \\t]?코드|인증[ \\t]?토큰|접근[ \\t]?토큰|액세스[ \\t]?토큰|암호|토큰|보안[ \\t]?코드)\\*{0,3}\\s*[:=：]/i",
+        "/(?:(?<![A-Za-z0-9])api[ \\t]?키)\\*{0,3}\\s*[:=：]/i"
+      ]
+    },
+    {
+      "id": "C",
+      "description": "B + underscore emphasis (_x_, __x__) with a narrow English left boundary",
+      "sources": [
+        "/(?:\\b|(?<=(?:^|[^A-Za-z0-9_])_{1,2}))(?:api[_-]?key|token|password|secret|private[_-]?key)(?:\\b\\*{0,3}|_{1,2}(?![A-Za-z0-9_]))\\s*[:=：]/iu",
+        "/(?:\\b|(?<=(?:^|[^A-Za-z0-9_])_{1,2}))(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \\t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \\t]+|-)key|client(?:[ \\t]+|-)secret|recovery(?:[ \\t]+|-)codes?|secret(?:[ \\t]+|-)answer|backup(?:[ \\t]+|-)codes?)(?:\\b\\*{0,3}|_{1,2}(?![A-Za-z0-9_]))\\s*[:=：]/i",
+        "/(?:비밀[ \\t]?번호|비번|패스[ \\t]?워드|인증[ \\t]?키|개인[ \\t]?키|비밀[ \\t]?키|시크릿[ \\t]?키|액세스[ \\t]?키|복구[ \\t]?코드|백업[ \\t]?코드|인증[ \\t]?토큰|접근[ \\t]?토큰|액세스[ \\t]?토큰|암호|토큰|보안[ \\t]?코드)(?:\\*{0,3}|_{1,2})\\s*[:=：]/i",
+        "/(?:(?<![A-Za-z0-9])api[ \\t]?키)(?:\\*{0,3}|_{1,2})\\s*[:=：]/i"
+      ]
+    },
+    {
+      "id": "C2",
+      "description": "B + one separate underscore-emphasis regex that starts with a literal underscore (English and Korean)",
+      "sources": [
+        "/\\b(?:api[_-]?key|token|password|secret|private[_-]?key)\\b\\*{0,3}\\s*[:=：]/iu",
+        "/\\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \\t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \\t]+|-)key|client(?:[ \\t]+|-)secret|recovery(?:[ \\t]+|-)codes?|secret(?:[ \\t]+|-)answer|backup(?:[ \\t]+|-)codes?)\\b\\*{0,3}\\s*[:=：]/i",
+        "/(?:비밀[ \\t]?번호|비번|패스[ \\t]?워드|인증[ \\t]?키|개인[ \\t]?키|비밀[ \\t]?키|시크릿[ \\t]?키|액세스[ \\t]?키|복구[ \\t]?코드|백업[ \\t]?코드|인증[ \\t]?토큰|접근[ \\t]?토큰|액세스[ \\t]?토큰|암호|토큰|보안[ \\t]?코드)\\*{0,3}\\s*[:=：]/i",
+        "/(?:(?<![A-Za-z0-9])api[ \\t]?키)\\*{0,3}\\s*[:=：]/i",
+        "/(?<![A-Za-z0-9_])_{1,2}(?:api[_-]?key|token|password|secret|private[_-]?key|passwd|pwd|passphrase|pass|passcode|pass(?:[ \\t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \\t]+|-)key|client(?:[ \\t]+|-)secret|recovery(?:[ \\t]+|-)codes?|secret(?:[ \\t]+|-)answer|backup(?:[ \\t]+|-)codes?|비밀[ \\t]?번호|비번|패스[ \\t]?워드|인증[ \\t]?키|개인[ \\t]?키|비밀[ \\t]?키|시크릿[ \\t]?키|액세스[ \\t]?키|복구[ \\t]?코드|백업[ \\t]?코드|인증[ \\t]?토큰|접근[ \\t]?토큰|액세스[ \\t]?토큰|암호|토큰|보안[ \\t]?코드|api[ \\t]?키)_{1,2}\\s*[:=：]/i"
+      ]
+    },
+    {
+      "id": "D",
+      "description": "C + one closing quote or parenthesis (\"x\":, 'x':, (x):) — scope extension",
+      "sources": [
+        "/(?:\\b|(?<=(?:^|[^A-Za-z0-9_])_{1,2}))(?:api[_-]?key|token|password|secret|private[_-]?key)(?:\\b(?:\\*{1,3}|[\"'”’)])?|_{1,2}(?![A-Za-z0-9_]))\\s*[:=：]/iu",
+        "/(?:\\b|(?<=(?:^|[^A-Za-z0-9_])_{1,2}))(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \\t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \\t]+|-)key|client(?:[ \\t]+|-)secret|recovery(?:[ \\t]+|-)codes?|secret(?:[ \\t]+|-)answer|backup(?:[ \\t]+|-)codes?)(?:\\b(?:\\*{1,3}|[\"'”’)])?|_{1,2}(?![A-Za-z0-9_]))\\s*[:=：]/i",
+        "/(?:비밀[ \\t]?번호|비번|패스[ \\t]?워드|인증[ \\t]?키|개인[ \\t]?키|비밀[ \\t]?키|시크릿[ \\t]?키|액세스[ \\t]?키|복구[ \\t]?코드|백업[ \\t]?코드|인증[ \\t]?토큰|접근[ \\t]?토큰|액세스[ \\t]?토큰|암호|토큰|보안[ \\t]?코드)(?:\\*{1,3}|_{1,2}|[\"'”’)])?\\s*[:=：]/i",
+        "/(?:(?<![A-Za-z0-9])api[ \\t]?키)(?:\\*{1,3}|_{1,2}|[\"'”’)])?\\s*[:=：]/i"
+      ]
+    }
+  ],
+  "matrix": [
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "plain-colon",
+      "token": "password:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "fullwidth-colon",
+      "token": "password：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "space-fullwidth",
+      "token": "password ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bold-out",
+      "token": "**password**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bold-in",
+      "token": "**password:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bold-out-fw",
+      "token": "**password**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "italic-star",
+      "token": "*password*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bold-italic",
+      "token": "***password***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bold-space",
+      "token": "**password** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bold-us",
+      "token": "__password__:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "italic-us",
+      "token": "_password_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "strike",
+      "token": "~~password~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "code-span",
+      "token": "`password`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "dquote",
+      "token": "\"password\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "squote",
+      "token": "'password':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "paren",
+      "token": "(password):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "bracket",
+      "token": "[password]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "password",
+      "form": "equals-bold",
+      "token": "**password**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "plain-colon",
+      "token": "Password:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "fullwidth-colon",
+      "token": "Password：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "space-fullwidth",
+      "token": "Password ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bold-out",
+      "token": "**Password**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bold-in",
+      "token": "**Password:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bold-out-fw",
+      "token": "**Password**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "italic-star",
+      "token": "*Password*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bold-italic",
+      "token": "***Password***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bold-space",
+      "token": "**Password** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bold-us",
+      "token": "__Password__:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "italic-us",
+      "token": "_Password_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "strike",
+      "token": "~~Password~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "code-span",
+      "token": "`Password`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "dquote",
+      "token": "\"Password\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "squote",
+      "token": "'Password':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "paren",
+      "token": "(Password):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "bracket",
+      "token": "[Password]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "Password",
+      "form": "equals-bold",
+      "token": "**Password**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "plain-colon",
+      "token": "api key:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "fullwidth-colon",
+      "token": "api key：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "space-fullwidth",
+      "token": "api key ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bold-out",
+      "token": "**api key**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bold-in",
+      "token": "**api key:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bold-out-fw",
+      "token": "**api key**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "italic-star",
+      "token": "*api key*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bold-italic",
+      "token": "***api key***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bold-space",
+      "token": "**api key** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bold-us",
+      "token": "__api key__:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "italic-us",
+      "token": "_api key_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "strike",
+      "token": "~~api key~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "code-span",
+      "token": "`api key`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "dquote",
+      "token": "\"api key\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "squote",
+      "token": "'api key':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "paren",
+      "token": "(api key):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "bracket",
+      "token": "[api key]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "api key",
+      "form": "equals-bold",
+      "token": "**api key**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "plain-colon",
+      "token": "API_KEY:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "fullwidth-colon",
+      "token": "API_KEY：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "space-fullwidth",
+      "token": "API_KEY ：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bold-out",
+      "token": "**API_KEY**:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bold-in",
+      "token": "**API_KEY:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bold-out-fw",
+      "token": "**API_KEY**：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "italic-star",
+      "token": "*API_KEY*:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bold-italic",
+      "token": "***API_KEY***:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bold-space",
+      "token": "**API_KEY** :",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bold-us",
+      "token": "__API_KEY__:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "italic-us",
+      "token": "_API_KEY_:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "strike",
+      "token": "~~API_KEY~~:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "code-span",
+      "token": "`API_KEY`:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "dquote",
+      "token": "\"API_KEY\":",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "squote",
+      "token": "'API_KEY':",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "paren",
+      "token": "(API_KEY):",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "bracket",
+      "token": "[API_KEY]:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "API_KEY",
+      "form": "equals-bold",
+      "token": "**API_KEY**=",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "plain-colon",
+      "token": "token:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "fullwidth-colon",
+      "token": "token：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "space-fullwidth",
+      "token": "token ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bold-out",
+      "token": "**token**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bold-in",
+      "token": "**token:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bold-out-fw",
+      "token": "**token**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "italic-star",
+      "token": "*token*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bold-italic",
+      "token": "***token***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bold-space",
+      "token": "**token** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bold-us",
+      "token": "__token__:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "italic-us",
+      "token": "_token_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "strike",
+      "token": "~~token~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "code-span",
+      "token": "`token`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "dquote",
+      "token": "\"token\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "squote",
+      "token": "'token':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "paren",
+      "token": "(token):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "bracket",
+      "token": "[token]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "token",
+      "form": "equals-bold",
+      "token": "**token**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "plain-colon",
+      "token": "secret:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "fullwidth-colon",
+      "token": "secret：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "space-fullwidth",
+      "token": "secret ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bold-out",
+      "token": "**secret**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bold-in",
+      "token": "**secret:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bold-out-fw",
+      "token": "**secret**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "italic-star",
+      "token": "*secret*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bold-italic",
+      "token": "***secret***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bold-space",
+      "token": "**secret** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bold-us",
+      "token": "__secret__:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "italic-us",
+      "token": "_secret_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "strike",
+      "token": "~~secret~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "code-span",
+      "token": "`secret`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "dquote",
+      "token": "\"secret\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "squote",
+      "token": "'secret':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "paren",
+      "token": "(secret):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "bracket",
+      "token": "[secret]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "secret",
+      "form": "equals-bold",
+      "token": "**secret**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "plain-colon",
+      "token": "passphrase:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "fullwidth-colon",
+      "token": "passphrase：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "space-fullwidth",
+      "token": "passphrase ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bold-out",
+      "token": "**passphrase**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bold-in",
+      "token": "**passphrase:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bold-out-fw",
+      "token": "**passphrase**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "italic-star",
+      "token": "*passphrase*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bold-italic",
+      "token": "***passphrase***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bold-space",
+      "token": "**passphrase** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bold-us",
+      "token": "__passphrase__:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "italic-us",
+      "token": "_passphrase_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "strike",
+      "token": "~~passphrase~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "code-span",
+      "token": "`passphrase`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "dquote",
+      "token": "\"passphrase\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "squote",
+      "token": "'passphrase':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "paren",
+      "token": "(passphrase):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "bracket",
+      "token": "[passphrase]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "passphrase",
+      "form": "equals-bold",
+      "token": "**passphrase**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "plain-colon",
+      "token": "pass:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "fullwidth-colon",
+      "token": "pass：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "space-fullwidth",
+      "token": "pass ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bold-out",
+      "token": "**pass**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bold-in",
+      "token": "**pass:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bold-out-fw",
+      "token": "**pass**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "italic-star",
+      "token": "*pass*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bold-italic",
+      "token": "***pass***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bold-space",
+      "token": "**pass** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bold-us",
+      "token": "__pass__:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "italic-us",
+      "token": "_pass_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "strike",
+      "token": "~~pass~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "code-span",
+      "token": "`pass`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "dquote",
+      "token": "\"pass\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "squote",
+      "token": "'pass':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "paren",
+      "token": "(pass):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "bracket",
+      "token": "[pass]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "pass",
+      "form": "equals-bold",
+      "token": "**pass**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "plain-colon",
+      "token": "recovery codes:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "fullwidth-colon",
+      "token": "recovery codes：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "space-fullwidth",
+      "token": "recovery codes ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bold-out",
+      "token": "**recovery codes**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bold-in",
+      "token": "**recovery codes:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bold-out-fw",
+      "token": "**recovery codes**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "italic-star",
+      "token": "*recovery codes*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bold-italic",
+      "token": "***recovery codes***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bold-space",
+      "token": "**recovery codes** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bold-us",
+      "token": "__recovery codes__:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "italic-us",
+      "token": "_recovery codes_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "strike",
+      "token": "~~recovery codes~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "code-span",
+      "token": "`recovery codes`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "dquote",
+      "token": "\"recovery codes\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "squote",
+      "token": "'recovery codes':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "paren",
+      "token": "(recovery codes):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "bracket",
+      "token": "[recovery codes]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "recovery codes",
+      "form": "equals-bold",
+      "token": "**recovery codes**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "plain-colon",
+      "token": "client secret:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "fullwidth-colon",
+      "token": "client secret：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "space-fullwidth",
+      "token": "client secret ：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bold-out",
+      "token": "**client secret**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bold-in",
+      "token": "**client secret:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bold-out-fw",
+      "token": "**client secret**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "italic-star",
+      "token": "*client secret*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bold-italic",
+      "token": "***client secret***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bold-space",
+      "token": "**client secret** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bold-us",
+      "token": "__client secret__:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "italic-us",
+      "token": "_client secret_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "strike",
+      "token": "~~client secret~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "code-span",
+      "token": "`client secret`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "dquote",
+      "token": "\"client secret\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "squote",
+      "token": "'client secret':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "paren",
+      "token": "(client secret):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "bracket",
+      "token": "[client secret]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "en",
+      "label": "client secret",
+      "form": "equals-bold",
+      "token": "**client secret**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "plain-colon",
+      "token": "비밀번호:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "fullwidth-colon",
+      "token": "비밀번호：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "space-fullwidth",
+      "token": "비밀번호 ：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bold-out",
+      "token": "**비밀번호**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bold-in",
+      "token": "**비밀번호:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bold-out-fw",
+      "token": "**비밀번호**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "italic-star",
+      "token": "*비밀번호*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bold-italic",
+      "token": "***비밀번호***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bold-space",
+      "token": "**비밀번호** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bold-us",
+      "token": "__비밀번호__:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "italic-us",
+      "token": "_비밀번호_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "strike",
+      "token": "~~비밀번호~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "code-span",
+      "token": "`비밀번호`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "dquote",
+      "token": "\"비밀번호\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "squote",
+      "token": "'비밀번호':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "paren",
+      "token": "(비밀번호):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "bracket",
+      "token": "[비밀번호]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "비밀번호",
+      "form": "equals-bold",
+      "token": "**비밀번호**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "plain-colon",
+      "token": "암호:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "fullwidth-colon",
+      "token": "암호：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "space-fullwidth",
+      "token": "암호 ：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bold-out",
+      "token": "**암호**:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bold-in",
+      "token": "**암호:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bold-out-fw",
+      "token": "**암호**：",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "italic-star",
+      "token": "*암호*:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bold-italic",
+      "token": "***암호***:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bold-space",
+      "token": "**암호** :",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bold-us",
+      "token": "__암호__:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "italic-us",
+      "token": "_암호_:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "strike",
+      "token": "~~암호~~:",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "semantic"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "code-span",
+      "token": "`암호`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "dquote",
+      "token": "\"암호\":",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "squote",
+      "token": "'암호':",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "paren",
+      "token": "(암호):",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "semantic",
+        "C": "semantic",
+        "C2": "semantic",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "bracket",
+      "token": "[암호]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "암호",
+      "form": "equals-bold",
+      "token": "**암호**=",
+      "alone": "unknown",
+      "inSentence": "semantic",
+      "predicted": {
+        "A": "semantic",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "plain-colon",
+      "token": "API 키:",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "fullwidth-colon",
+      "token": "API 키：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "space-fullwidth",
+      "token": "API 키 ：",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bold-out",
+      "token": "**API 키**:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bold-in",
+      "token": "**API 키:**",
+      "alone": "exact",
+      "inSentence": "exact",
+      "predicted": {
+        "A": "exact",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bold-out-fw",
+      "token": "**API 키**：",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "italic-star",
+      "token": "*API 키*:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bold-italic",
+      "token": "***API 키***:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bold-space",
+      "token": "**API 키** :",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bold-us",
+      "token": "__API 키__:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "italic-us",
+      "token": "_API 키_:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "strike",
+      "token": "~~API 키~~:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "code-span",
+      "token": "`API 키`:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "dquote",
+      "token": "\"API 키\":",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "squote",
+      "token": "'API 키':",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "paren",
+      "token": "(API 키):",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "exact"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "bracket",
+      "token": "[API 키]:",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "unknown",
+        "C": "unknown",
+        "C2": "unknown",
+        "D": "unknown"
+      }
+    },
+    {
+      "lang": "ko",
+      "label": "API 키",
+      "form": "equals-bold",
+      "token": "**API 키**=",
+      "alone": "unknown",
+      "inSentence": "unknown",
+      "predicted": {
+        "A": "unknown",
+        "B": "exact",
+        "C": "exact",
+        "C2": "exact",
+        "D": "exact"
+      }
+    }
+  ],
+  "sentences": {
+    "exposure": [
+      {
+        "text": "Guest wifi password：hunter2 is taped under the desk for visitors.",
+        "current": "semantic",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": true,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "The **password**: hunter2 works for the shared printer account too.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "Please use the *api key*: sk-test-123 only in the staging environment.",
+        "current": "exact",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "Remember that the __recovery code__: 4F7Q-PL2X is stored offline now.",
+        "current": "exact",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "회의실 **비밀번호**: hunter2 이니까 접속할 때 참고해 주세요.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "The \"password\": \"hunter2\" pair was pasted into the chat by mistake.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": true
+        }
+      }
+    ],
+    "overProtection": [
+      {
+        "text": "The **token**: a single unit of text that the model reads at once.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "**Password**: choose at least twelve characters and avoid common words.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "In this chapter the *secret*: is how the hero escapes the locked tower.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": true,
+          "C": true,
+          "C2": true,
+          "D": true
+        }
+      },
+      {
+        "text": "The \"token\": field in the response describes how billing is counted.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": true
+        }
+      }
+    ],
+    "mustNotMatch": [
+      {
+        "text": "The **password manager** keeps every login safe across your devices.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "semantic"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "Use a **token-based** approach: it scales better for many clients.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "semantic"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "We stored it in my__password__: wait, that name was never used here.",
+        "current": "exact",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "The password_hash: value is computed on the server and never shown.",
+        "current": "exact",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "Remember this **secret** of the trade: always test with real data.",
+        "current": "exact",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "The **token-based** flow: every client refreshes its session hourly.",
+        "current": "exact",
+        "predicted": {
+          "A": "exact",
+          "B": "exact",
+          "C": "exact",
+          "C2": "exact",
+          "D": "exact"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "A **passport**: issued by the state department for travel abroad.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "semantic"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "Our **passwords**: rotate them every ninety days according to policy.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "semantic"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      },
+      {
+        "text": "**Secret Santa**: draw names at the party and keep them to yourself.",
+        "current": "semantic",
+        "predicted": {
+          "A": "semantic",
+          "B": "semantic",
+          "C": "semantic",
+          "C2": "semantic",
+          "D": "semantic"
+        },
+        "predicateHit": {
+          "current": false,
+          "A": false,
+          "B": false,
+          "C": false,
+          "C2": false,
+          "D": false
+        }
+      }
+    ]
+  },
+  "corpus": {
+    "files": 208,
+    "uniqueUnits": 23720,
+    "byCandidate": {
+      "A": {
+        "newHits": 6,
+        "transitions": {
+          "exact->exact (reasons)": 6
+        },
+        "examplesNotAlreadyExact": []
+      },
+      "B": {
+        "newHits": 9,
+        "transitions": {
+          "exact->exact (reasons)": 9
+        },
+        "examplesNotAlreadyExact": []
+      },
+      "C": {
+        "newHits": 11,
+        "transitions": {
+          "exact->exact (reasons)": 9,
+          "exact->exact": 2
+        },
+        "examplesNotAlreadyExact": []
+      },
+      "C2": {
+        "newHits": 9,
+        "transitions": {
+          "exact->exact (reasons)": 9
+        },
+        "examplesNotAlreadyExact": []
+      },
+      "D": {
+        "newHits": 11,
+        "transitions": {
+          "exact->exact (reasons)": 9,
+          "exact->exact": 2
+        },
+        "examplesNotAlreadyExact": []
+      }
+    }
+  },
+  "timingMsMedianOf9": {
+    "label-space": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 2487.5,
+      "current": 38.8,
+      "A": 39,
+      "B": 38.5,
+      "C": 63.1,
+      "C2": 41.7,
+      "D": 62.5
+    },
+    "bold-label-space": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 2020.4,
+      "current": 25.6,
+      "A": 25,
+      "B": 32.9,
+      "C": 50.6,
+      "C2": 35.4,
+      "D": 50.5
+    },
+    "us-label-space": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 2306.5,
+      "current": 15.7,
+      "A": 15.5,
+      "B": 15.8,
+      "C": 41.5,
+      "C2": 34.6,
+      "D": 40.1
+    },
+    "label-stars": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 1716.5,
+      "current": 18.2,
+      "A": 18.2,
+      "B": 23.8,
+      "C": 36.6,
+      "C2": 27.2,
+      "D": 36.9
+    },
+    "underscore-run": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 1378.3,
+      "current": 3.5,
+      "A": 3.6,
+      "B": 3.6,
+      "C": 3.1,
+      "C2": 22.7,
+      "D": 3
+    },
+    "label-nbsp-run": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 755.2,
+      "current": 9.8,
+      "A": 9.5,
+      "B": 9.9,
+      "C": 11.2,
+      "C2": 11.4,
+      "D": 10.9
+    },
+    "en-prose": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 3558.1,
+      "current": 11.1,
+      "A": 11.5,
+      "B": 11.3,
+      "C": 14.4,
+      "C2": 14.4,
+      "D": 13.9
+    },
+    "ko-bold-label": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 1340.2,
+      "current": 13.3,
+      "A": 13.4,
+      "B": 19.9,
+      "C": 19.8,
+      "C2": 21.3,
+      "D": 20.6
+    },
+    "us-word-run": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 2418.7,
+      "current": 3.5,
+      "A": 3.4,
+      "B": 3.5,
+      "C": 3.2,
+      "C2": 6.7,
+      "D": 3.1
+    },
+    "bold-nbsp8": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 1222.3,
+      "current": 13,
+      "A": 13.1,
+      "B": 21.1,
+      "C": 28.4,
+      "C2": 23.6,
+      "D": 28.9
+    },
+    "bold-nbsp60": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 669.3,
+      "current": 4.1,
+      "A": 4.2,
+      "B": 10,
+      "C": 12.1,
+      "C2": 11.9,
+      "D": 12
+    },
+    "ko-bold-nbsp8": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 1048.3,
+      "current": 10.8,
+      "A": 10.9,
+      "B": 19,
+      "C": 18.5,
+      "C2": 20.4,
+      "D": 19.3
+    },
+    "bold-wide8": {
+      "bytes": 10485760,
+      "classifyCurrentMs": 1462.2,
+      "current": 25.5,
+      "A": 26.7,
+      "B": 34.2,
+      "C": 43.9,
+      "C2": 35.5,
+      "D": 45.2
+    }
+  }
+}
