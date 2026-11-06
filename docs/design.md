@@ -25,12 +25,14 @@ The plugin packages one skill and one local STDIO MCP server:
 The server exposes:
 
 - `estimate_context`: heuristic text token estimates with low-confidence metadata.
-- `classify_context`: `exact`, `semantic`, or `visual` policy classification.
+- `classify_context`: `exact`, `semantic`, `visual`, or `unknown` policy classification.
 - `index_artifact`: SHA-256 and source-map registration for a local file.
 - `query_artifact`: bounded source-backed excerpts.
 - `summarize_artifact`: extractive summary only when policy positively classifies the source as semantic.
-- `index_image_artifact`: validate a restricted PNG or baseline 4:4:4 JFIF JPEG and register original metadata without writing the source.
+- `index_image_artifact`: validate supported PNG/JPEG with strict defaults or opt into tolerant validation with `profile: "tolerant"`, and register original metadata without writing the source.
 - `inspect_image_artifact`: reauthorize the original path and verify its identity/hash in the current session.
+- `crop_image_artifact`: crop a caller-selected region from supported RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG; full-frame requests return the original reference without encoding, including RGBA sources.
+- `overview_image_artifact`: encode a whole-image overview of supported RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as quality-75 JPEG with `maxSide` default 512 (64–1536), without enlargement, automatic evidence selection, or a readability guarantee.
 
 ## Superpowers Integration
 
@@ -73,7 +75,7 @@ The Korean credential labels are `비밀·번호`, `비번`, `패스·워드`, `
 
 Narrative forms, fullwidth equals `＝`, Markdown emphasis (K-7/N-30), new internal hyphen/underscore forms (K-8), and English fullwidth-colon labels (N-27) are outside this rule. Existing T2 suffix matches such as `인증_토큰:` still count. Numeric values are protected by the separate numeric rule; unsupported label forms can still be exact or unknown through other rules.
 
-Artifact indexing is limited to configured allowed roots. The server resolves real paths, rejects paths outside those roots, enforces regular-file input, caps file size, and hashes the original byte buffer. Text indexing validates strict UTF-8. Image indexing validates the restricted PNG or baseline 4:4:4 JFIF JPEG profile, including bounded PNG inflation, JPEG structure and decoder allocation accounting, and decoded shape.
+Artifact indexing is limited to configured allowed roots. The server resolves real paths, rejects paths outside those roots, enforces regular-file input, caps file size, and hashes the original byte buffer. Text indexing validates strict UTF-8. Image indexing validates supported PNG/JPEG with strict defaults or opt-in tolerant validation, using bounded PNG inflation and PNG/JPEG structural and decoded-shape checks. Strict and tolerant image paths enforce a 10 MiB encoded-input cap, an 8,192-pixel axis cap, and a 16,777,216-pixel image cap; JPEG decoder allocation accounting is limited to 128 MiB in strict mode and 256 MiB in tolerant mode. These limits do not guarantee an overall process-memory or wall-clock bound.
 
 Allowed roots are supplied through `TCO_ALLOWED_ROOTS`; they are intentionally separate from the plugin installation directory. The server blocks indexing when `TCO_ALLOWED_ROOTS` is unset or empty: text indexing returns `No allowed roots are configured; set TCO_ALLOWED_ROOTS`, while image tools retain their `path_denied` response. When roots are omitted from a direct API call, the current working directory remains the default; callers that need another workspace must configure `allowedRoots` explicitly.
 
