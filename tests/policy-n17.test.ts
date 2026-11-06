@@ -39,6 +39,11 @@ describe("N-17 Korean credential labels", () => {
       expect(classifyBaseline(content)).not.toEqual(exactSecret);
     });
 
+  it.each(["**비밀번호**: hunter2", "password：hunter2"])("protects the newly approved positive literal %s", (content) => {
+    expect(classifyContext(content)).toEqual(exactSecret);
+    expect(classifyContext(`회의실 ${content} 이니까 접속할 때 참고해 주세요.`)).toEqual(exactSecret);
+  });
+
   it.each(labels.flatMap((forms) => forms.flatMap((label) => separators.map((separator) => [label, separator]))))
     ("protects an in-sentence label %s%s", (label, separator) => {
       const content = `회의실 ${label}${separator} hunter2 이니까 접속할 때 참고해 주세요.`;
@@ -50,10 +55,9 @@ describe("N-17 Korean credential labels", () => {
     ["암호화: hunter2", unknown, semantic], ["토큰화: hunter2", unknown, semantic],
     ["비밀번호 변경: hunter2", unknown, semantic], ["비밀번호는 hunter2", unknown, semantic],
     ["비밀번호＝hunter2", unknown, semantic], ["password＝hunter2", unknown, semantic],
-    ["**비밀번호**: hunter2", unknown, semantic], ["비밀_번호: hunter2", unknown, semantic],
+    ["비밀_번호: hunter2", unknown, semantic],
     ["비밀-번호: hunter2", unknown, semantic], ["API-키: hunter2", unknown, unknown],
     ["v2api 키: hunter2", unknown, semantic], ["`비밀번호`: hunter2", unknown, unknown],
-    ["password：hunter2", unknown, semantic],
   ])("keeps an approved negative outside the Korean label contract: %s", (content, standalone, sentence) => {
     expect(classifyContext(content)).toEqual(standalone);
     expect(classifyContext(`회의실 ${content} 이니까 접속할 때 참고해 주세요.`)).toEqual(sentence);
@@ -77,7 +81,7 @@ describe("N-17 Korean credential labels", () => {
     ["인증_토큰:", exactSecret, exactSecret], ["인증-토큰:", exactSecret, exactSecret], ["API-키:", unknown, unknown],
     ["개인_키:", unknown, semantic], ["비밀_번호:", unknown, semantic], ["보안_코드:", unknown, semantic],
     ["입력토큰:", exactSecret, exactSecret], ["비밀번호\u00a0:", exactSecret, exactSecret], ["비밀번호\u3000:", exactSecret, exactSecret],
-    ["**비밀번호**:", unknown, semantic], ["비밀번호  :", exactSecret, exactSecret], ["비밀  번호:", unknown, semantic],
+    ["**비밀번호**:", exactSecret, exactSecret], ["비밀번호  :", exactSecret, exactSecret], ["비밀  번호:", unknown, semantic],
     ["password\u00a0:", exactSecret, exactSecret],
   ])("checks the approved 13-boundary literal: %s", (content, standalone, sentence) => {
     expect(classifyContext(`${content} hunter2`)).toEqual(standalone);
