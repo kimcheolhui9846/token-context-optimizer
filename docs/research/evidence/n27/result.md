@@ -7,6 +7,9 @@
 - Provenance: `--prepare` PASS; pre-commit `--check` correctly rejected the uncommitted manifest; post-commit `--check` PASS (20 recipes, three variants, untimed). Stored analysis reproduced exactly from raw samples.
 - Ratio: median of paired round B / mean(A, A-prime); 95% CI from 10,000 whole-six-block bootstrap draws, type-7 percentiles. A-prime/A is the median paired control ratio. Decision uses full precision, not the rounded table.
 - All controls within [0.97, 1.03]; all representative variant medians exceed 1 ms. No validation errors, FAIL or INVALID. BORDERLINE means point <= 1.03 with upper CI > 1.03; it does not establish a <=3% upper confidence bound.
+- Noise/drift limits sensitivity around the 3% threshold: measured back/front means range 1.287–1.350 on `ko-repeated-space` and 0.656–0.689 on `ko-label-lf`. The former's unpaired A/A-prime medians differ by about 6.3% although its paired control median is 1.005706. Drift is diagnostic-only under the fixed protocol; paired and unpaired statistics answer different questions.
+- Several inputs show measured slowdowns around 1–2%, within the threshold: the CI lower bound exceeds 1 for `starred-password-nbsp-8`, `password-stars`, `starred-api-ko-nbsp-8`, `ko-label-tab`, `ko-prose-10mib` and `markdown-10mib`. The last two point estimates are +2.153% and +2.014%.
+- Product source provenance: `src/core/policy.ts` has the same Git blob `974bb4fb271b2b68da03d2396945d7a9e6f56914` at GREEN `510bf3e`, tools `7004539`, manifest `2c28431` and measured-results `01cd0c8`; LF SHA-256 `308043afc87102079a8b8a082199afaf26301d88f8253ffb349e0d7b1ba71744e` matches the manifest.
 
 | Recipe | Point | 95% CI | A-prime/A | Status |
 |---|---:|---|---:|---|
@@ -58,3 +61,5 @@
 - Reproduce analysis from the repository root: `node scripts/analyze-n27-policy.mjs docs/research/evidence/n27/measurement-attempt-1.json`. This analyzes saved samples; it does not rerun timing.
 - A separate local Python reference (without importing the JavaScript analyzer) reproduced all 20 point estimates, A-prime/A ratios, 95% block-bootstrap intervals, six block medians and variant medians within 1e-13. This is a second calculation by the primary agent, not an independent provider review.
 - Manifest, runner, analyzer, evidence tests, policy, recipes and thresholds were not changed after timing began. No attempt 2 was created.
+- Recipe readability: NBSP is U+00A0 (`\u00a0`), wide space U+3000 (`\u3000`); counts are encoded in recipe IDs (8 or 60). The `ko-label-*` recipes repeat the named whitespace to the exact byte limit, and mixed whitespace is ` \t\u00a0\u3000\n`. The immutable manifest contains exact units and hashes.
+- Coverage limit: the 15 worst recipes are non-matches for A/A-prime/B. The representative credential input matches all variants; a B-only new matching path was not performance-measured. No recipe was added after seeing results. The 1 ms floor is satisfied by a wide margin and supplies little discrimination for these 10 MiB inputs. Six-block bootstrap endpoints are discrete and coarse.
