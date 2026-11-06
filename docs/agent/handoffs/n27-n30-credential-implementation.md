@@ -2,13 +2,13 @@
 
 - Tier E; base `0bc79590f926a38d53b11b470b23926ff9f1377e`, branch `codex/n27-n30-credential-impl`.
 - Contract: [approved plan](n27-n30-credential-plan.md), including six classifier-output assertions and one E3 source assertion. No further existing expectations changed.
-- Status: GREEN and milestone review verified; preparing committed performance preregistration. No timing yet.
+- Status: implementation and attempt1 complete; performance BORDERLINE (boundary pass), no retry. Draft delivery and final local verification pending.
 - Product: four existing tuple-0 regexes changed in place; flags, boundaries, other tuples, fallback and reason order preserved. Design paragraph and generated bundle updated.
 - Exclusions: underscore emphasis, quotes/parentheses (N-32), strike, fullwidth equals, code spans, brackets, plurals and new internal label separators.
 
 ## TDD and verification
 - RED `67ed3eb`: 224 expected failures / 2,056 passes / 5 skips across the suite excluding unfinished N27 performance tests. Existing failures are only three migrated N17 cases and one E3 source test (seven assertions); 220 failures are new N27 tests.
-- GREEN `510bf3e`: targeted 852 PASS; full 2,331 PASS / 5 skips, 46 files. Typecheck, build, `smoke:mcp`, `validate:plugin`, exact demo and `git diff --check` PASS.
+- GREEN `510bf3e`: targeted 852 PASS, then 855 PASS after three additional boundary tests; initial full 2,331 PASS / 5 skips, 46 files. Typecheck, build, `smoke:mcp`, `validate:plugin`, exact demo and `git diff --check` PASS. Final full rerun pending.
 - New tests freeze 468 label/form/placement outputs, nine verbatim negatives, 36 boundary placements and four underscore sentences. Expected outputs are literal tables, not runtime classifier/regex derivations.
 - Frozen N27 baseline equals `0bc7959` policy except relocated type import. Differential corpus preserves old positives for all four frozen regexes; other tuple source strings unchanged.
 - N27 evidence validator: 51 synthetic tests PASS, covering malformed/hash/order/output inputs, bootstrap, FAIL/INVALID precedence, one retry, 1 ms representative floor, six block medians and exact recipe units.
@@ -29,7 +29,8 @@
 - Warmup12/measured36, six measured blocks, each containing all six permutations; seeds `0x4e173001`/`0x4e173002`, 10,000 whole-block bootstrap, threshold1.03, A-prime/A band[0.97,1.03].
 - BORDERLINE is boundary pass with six per-block medians of paired round ratios; no remeasurement. Representative variant median below1ms is INVALID. Priority INVALID>FAIL>BORDERLINE>PASS; local FAIL prevents retry.
 - At most one identical-protocol retry after INVALID-only attempt1. Any FAIL or invalid attempt2: commit evidence, push Draft, report and stop without recipe/regex tuning.
-- Tools/tests committed before `--prepare`; manifest committed before `--check` and `--measure1`. Attempt2 requires committed eligible attempt1 evidence. Actual measurement and verdict pending.
+- Tools/tests `7004539`; manifest `2c28431` committed before successful `--check` and `--measure1`. Negative control: uncommitted manifest correctly rejected. Attempt2 requires committed eligible attempt1 evidence.
+- Attempt1: PASS14 / BORDERLINE6 / FAIL0 / INVALID0, overall BORDERLINE (approved boundary pass); no retry. [Twenty-recipe results, intervals and block medians](../../research/evidence/n27/result.md). Stored analysis reproduced exactly; separate Python reference reproduces all point/AA/CI/block/variant medians. Sandbox could not resolve Python; approved unsandboxed execution succeeded.
 
 ## Reviews and next step
 - Claude `claude-opus-5-5`, initial plan: APPROVE WITH CHANGES, blocker0/major3/minor8; addressed by clean-baseline separate impact output, exact migration/failure inventory, and independent build provenance.
