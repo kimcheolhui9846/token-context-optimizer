@@ -54,18 +54,20 @@ new: /(?<![A-Za-z0-9])api[ \t]?키\*{0,3}\s*[:=：]/i
 - 밑줄 한계의 실제 문장 안 입력 네 개는 다음 baseline mode를 고정한다: `__password__:` → semantic, `_password_:` → semantic, `_비밀번호_:` → semantic, `__비밀번호__:` → unknown. 이는 13 labels로 치환한 추상 placeholder가 아니다. label에 따라 `numeric_or_table` 등 다른 reasons가 붙을 수 있으므로 literal별로 reasons도 기록한다.
 - 한국어 positive가 현재 baseline에서 이미 `exact`인 행은 예전 N-17 semantic oracle을 재사용하지 않는다. baseline/candidate full classify output을 각각 비교한다.
 
-## 성능 게이트 사전등록 — 18 recipes, 이번 Task에서는 미측정
+## 성능 게이트 사전등록 — 20 recipes, 이번 Task에서는 미측정
 
-입력은 모두 정확히 10 MiB다. generator는 `Buffer.alloc(10 * 1024 * 1024, 0x20)`로 ASCII space를 채운 뒤 UTF-8 `prefix`를 복사하고, 전체 `unit`만 들어가는 최대 구간을 반복한 다음 남은 byte를 ASCII space로 둔다. 입력 생성에는 난수가 없고 schedule/bootstrap seed만 고정한다. 표의 mode/reason은 literal oracle이며 `warnings`는 semantic에서 `[]`, exact/unknown에서 `["lossy_compression_not_allowed"]`다. 시간 측정 없는 로컬 보조 검사에서 18개 출력이 일치했지만 원자료는 이번 세 파일에 포함되지 않은 관찰이다. 구현 시 manifest에 hash와 oracle을 고정하고 재검증해야 한다.
+입력은 모두 정확히 10 MiB다. generator는 `Buffer.alloc(10 * 1024 * 1024, 0x20)`로 ASCII space를 채운 뒤 UTF-8 `prefix`를 복사하고, 전체 `unit`만 들어가는 최대 구간을 반복한 다음 남은 byte를 ASCII space로 둔다. 입력 생성에는 난수가 없고 schedule/bootstrap seed만 고정한다. 표의 mode/reason은 literal oracle이며 `warnings`는 semantic에서 `[]`, exact/unknown에서 `["lossy_compression_not_allowed"]`다. 시간 측정 없는 로컬 보조 검사에서 기존 18개와 이번에 추가한 2개 출력이 각각 일치했지만 원자료는 이번 세 파일에 포함되지 않은 관찰이다. 구현 시 manifest에 hash와 oracle을 고정하고 재검증해야 한다.
 
 | 그룹 | recipe / generator unit | A / A′ / B 기대값 |
 |---|---|---|
-| 새 worst 6 | `starred-password-nbsp-60`: prefix 없음, unit `**password**` + NBSP×60 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
-| 새 worst 6 | `starred-password-nbsp-8`: prefix 없음, unit `**password**` + NBSP×8 | 동일 |
-| 새 worst 6 | `starred-korean-nbsp-8`: prefix 없음, unit `**비밀번호**` + NBSP×8 | 동일 |
-| 새 worst 6 | `starred-password-wide-8`: prefix 없음, unit `**password**` + U+3000×8 | 동일 |
-| 새 worst 6 | `password-stars`: prefix 없음, unit `password************ ` (trailing ASCII space 포함) | 동일 |
-| 새 worst 6 | `starred-password-space`: prefix 없음, unit `**password** ` (trailing ASCII space 보존) | 동일 |
+| 새 worst 8 | `starred-password-nbsp-60`: prefix 없음, unit `**password**` + NBSP×60 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `starred-password-nbsp-8`: prefix 없음, unit `**password**` + NBSP×8 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `starred-korean-nbsp-8`: prefix 없음, unit `**비밀번호**` + NBSP×8 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `starred-password-wide-8`: prefix 없음, unit `**password**` + U+3000×8 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `password-stars`: prefix 없음, unit `password************ ` (trailing ASCII space 포함) | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `starred-password-space`: prefix 없음, unit `**password** ` (trailing ASCII space 보존) | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `starred-passwd-nbsp-60`: prefix 없음, unit `**passwd**` + NBSP×60 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
+| 새 worst 8 | `starred-api-ko-nbsp-8`: prefix 없음, unit `**api키**` + NBSP×8 | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
 | N-17 worst 7 | `ko-repeated-space`: unit `비밀 번호 ` | `unknown / insufficient_semantic_signal / #0 false` (세 variant 동일) |
 | N-17 worst 7 | `ko-label-space`, `ko-label-tab`, `ko-label-nbsp`, `ko-label-wide`, `ko-label-lf`, `ko-label-mixed`: prefix `비밀번호`, units 각각 space, TAB, NBSP, U+3000, LF, ` \t\u00a0\u3000\n` | 동일 |
 | attempt-2 reps 5 | `ko-prose-10mib`: unit `회의실에서 다음 일정과 검토 결과를 함께 정리합니다.\n` | `semantic / natural_language / #0 false` (A/A′/B 동일) |
@@ -74,17 +76,16 @@ new: /(?<![A-Za-z0-9])api[ \t]?키\*{0,3}\s*[:=：]/i
 | attempt-2 reps 5 | `markdown-10mib`: unit `# Project notes\n\nWe should review the proposed schedule before the next meeting.\n\n` | `unknown / insufficient_semantic_signal / #0 false` (A/A′/B 동일) |
 | attempt-2 reps 5 | `ko-credential-10mib`: unit `회의실 비밀번호: hunter2 이니까 접속할 때 참고해 주세요. ` | A/A′/B `exact / secret / #0 true` (N-17 is already in baseline `312a159`) |
 
-위 표의 N-17 worst 묶음은 7 recipes(첫 행 1 + label whitespace 6)이며 전체는 6 + 7 + 5 = 18이다. 모든 recipe의 generator, seed 없음, size, input hash, A/A′/B mode·reasons·tuple #0을 구현 전 primary verification에서 다시 assert한다. 불확실한 값은 추측하지 않는다.
+위 표의 N-17 worst 묶음은 7 recipes(첫 행 1 + label whitespace 6)이며 전체는 8 + 7 + 5 = 20이다. 모든 recipe의 generator, seed 없음, size, input hash, A/A′/B mode·reasons·tuple #0을 구현 전 primary verification에서 다시 assert한다. 불확실한 값은 추측하지 않는다.
 
 - schedule shuffle seed `0x4e173001`, bootstrap seed `0x4e173002`; warmup 12 rounds, measured 36 rounds, 6 blocks, 세 variant의 6 permutations, round당 각 variant 1회씩 총 3 calls를 쓴다. A/A′/B 모두 같은 방식으로 독립 빌드한 파일 module을 로드한다(조사 스크립트의 data URL을 timing에 사용하지 않음). 판정값은 per-round `B / mean(A,A′)`의 median(36)이다.
-- 지정된 18 recipe는 E-3 전용 `passwd` 및 Korean API lookbehind의 별표 near-miss를 별도로 재지 않는 한계가 있다. 두 경로는 기능 행렬로 확인하며 18개 결과를 모든 label의 성능 보장으로 일반화하지 않는다. 추가 recipe는 이 계획 범위 변경으로 별도 논의한다.
-- `median(A′/A)`는 `[0.97, 1.03]` 밖이면 INVALID다. 10,000회 six-whole-block bootstrap, type-7 quantile `.025/.975`를 기록한다. point > 1.03은 FAIL, point 이하이면서 CI upper > 1.03은 BORDERLINE, drift는 진단 전용이다.
-- PASS는 point와 CI upper 모두 ≤1.03일 때다. INVALID는 전체 판정에서 우선하지만 개별 FAIL을 보존하며 FAIL이 하나라도 있으면 retry하지 않는다. 동일 사전등록 아래 INVALID-only 캠페인만 최대 1회 재시도하고 FAIL/BORDERLINE 통과를 찾는 재측정은 금지한다. warmup cells `18×12×3=648`, measured cells `18×36×3=1,944`. 새 campaign의 attempt 1/2와 최신 baseline을 사용한다. 준비 manifest·runner/analyzer·입력/output hash를 **측정 전에 커밋**하며 대표 입력의 ms 이상 구간 여부도 측정 결과에서 확인한다. 현재 Task에는 timing 측정이 없다.
-- BORDERLINE은 PASS가 아니며 구현 완료 판정을 보류하고 사용자에게 결과를 보고한다. 대표 입력은 각 variant의 36회 median이 1 ms 이상이어야 하며 미달하면 캠페인을 INVALID로 처리한다. recipe를 빼거나 반복 수를 사후 조정해 통과시키지 않고 설계 변경 승인을 받는다.
+- `median(A′/A)`는 `[0.97, 1.03]` 밖이면 INVALID다. 10,000회 six-whole-block bootstrap, type-7 quantile `.025/.975`를 기록한다. point > 1.03은 FAIL, point ≤1.03이고 CI upper >1.03이면 BORDERLINE(경계 통과), drift는 진단 전용이다.
+- PASS 라벨은 point와 CI upper 모두 ≤1.03일 때다. 전체 판정 우선순위는 INVALID>FAIL>BORDERLINE>PASS다. INVALID는 전체 판정에서 우선하지만 개별 FAIL을 보존하며 FAIL이 하나라도 있으면 retry하지 않는다. 동일 사전등록 아래 INVALID-only 캠페인만 최대 1회 재시도하고 FAIL/BORDERLINE 통과를 찾는 재측정은 금지한다. warmup cells `20×12×3=720`, measured cells `20×36×3=2,160`. 새 campaign의 attempt 1/2와 최신 baseline을 사용한다. 준비 manifest·runner/analyzer·입력/output hash를 **측정 전에 커밋**하며 대표 입력의 ms 이상 구간 여부도 측정 결과에서 확인한다. 현재 Task에는 timing 측정이 없다.
+- BORDERLINE은 PASS 라벨이 아니지만 point ≤1.03이고 CI upper >1.03이면 경계 통과(통과)다. 결과 보고에는 블록별 중앙값을 함께 적고 재측정하지 않는다. 대표 입력은 각 variant의 36회 median이 1 ms 이상이어야 하며 미달하면 캠페인을 INVALID로 처리한다. recipe를 빼거나 반복 수를 사후 조정해 통과시키지 않고 설계 변경 승인을 받는다.
 
 ## 검토·후속 범위
 
 - Claude `claude-opus-5-5`, 최종 재검토: `APPROVE`, blocker 0 / major 0 / minor 2 → 두 minor 반영(자식 검사 미조사 명시, E3 변수 연결 assert). 정적 packet의 JSON 표시용 집계·축약은 커밋 JSON과 구분하며, 원본 결과는 별도 프로세스 재실행과 script LF hash로 검증했다.
-- 검증: N17 대상 340개 및 전체 44파일 1,761개 PASS/5 skip, typecheck/build/validate:plugin/check:exact demo PASS. 잘못된 dist hash는 결과를 쓰기 전에 exit 1로 거절했다. 제품·테스트 수정과 성능 측정은 없으며 구현 착수 승인을 기다리는 계획이다.
-- 후속 구현 예정 파일은 `src/core/policy.ts` 네 regex, tests/oracle, evidence, `docs/design.md`, bundle이다. 현재 Task는 위 3개 산출물만 허용하며 no Ready/no merge/no product implementation이다.
+- 9149946 기준 검증: N17 대상 340개 및 전체 44파일 1,761개 PASS/5 skip, typecheck/build/validate:plugin/check:exact demo PASS. 잘못된 dist hash는 결과를 쓰기 전에 exit 1로 거절했다. 제품·테스트 수정과 성능 측정은 없으며 구현 착수 승인을 기다리는 계획이다.
+- 후속 구현 예정 파일은 `src/core/policy.ts` 네 regex, tests/oracle, evidence, `docs/design.md`, bundle이다. 구현 시 `docs/design.md` 분류 절 N-17 다음 문단의 N-27 및 K-7/N-30 제외 문장을 갱신한다. 남는 한계는 밑줄 강조, 따옴표·괄호(N-32), 취소선, 전각 등호 `＝`, 코드 span·대괄호·복수형이다. 현재 Task는 위 3개 산출물만 허용하며 no Ready/no merge/no product implementation이다.
 - 후속 구현은 PR #95 merge 후 최신 main에서 시작하며, 사용자 계획 승인에 분류 출력 6개 + E3 원문 비교 1개의 이관을 명시적으로 포함한다. Ready·merge는 별도 승인 대상이다.
