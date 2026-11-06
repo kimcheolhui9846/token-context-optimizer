@@ -4,10 +4,13 @@
 
 Build a Codex-only plugin that improves token efficiency for local text artifacts without corrupting exact-sensitive data. The v1 product contract is measurable context reduction with source preservation, not guaranteed billing savings.
 
-The image-first research extension supports restricted PNG and baseline 4:4:4 JFIF JPEG metadata registration and
-inspection, including original SHA-256 tracking. See the [image contract](image-artifacts.md)
-for the supported profile. The image experiments ran on a separate research harness; see the
-[research documents index](research/README.md). Broader format support belongs to a later contract.
+The image-first research extension registers and inspects PNG/JPEG artifacts with original SHA-256 metadata.
+Strict defaults remain `png-rgb8-static-v1` and `jpeg-ycbcr8-baseline-444-v1`; passing `profile: "tolerant"`
+to `index_image_artifact` opts into `png-rgb8-tolerant-v1` or `jpeg-ycbcr8-tolerant-v1` for the source format.
+`crop_image_artifact` uses a caller-selected rectangle, while `overview_image_artifact` produces a bounded
+whole-image preview; neither performs OCR or automatic region selection. See the [image contract](image-artifacts.md)
+for supported profiles and crop/overview limits. The image experiments ran on a separate research harness;
+see the [research documents index](research/README.md). Format support outside these profiles belongs to a later contract.
 
 ## Architecture
 
@@ -66,7 +69,7 @@ Excluded:
 
 Exact content always wins over compression. Code, diffs, paths, hashes, IDs, numbers, tables, secrets, errors, stack traces, commands, and line-sensitive text must not be summarized lossily. Unknown and visual content are not eligible for lossy summaries in v1. If classification is uncertain or checks fail, the workflow returns a fallback reason and leaves source lookup to Codex.
 
-The Korean credential labels are `비밀·번호`, `비번`, `패스·워드`, `인증·키`, `개인·키`, `비밀·키`, `시크릿·키`, `액세스·키`, `api·키`, `복구·코드`, `백업·코드`, `인증·토큰`, `접근·토큰`, `액세스·토큰`, `암호`, `토큰`, and `보안·코드`. Each `·` permits zero or one ASCII space/tab. A label followed by optional JavaScript whitespace and `:`, `=`, or Korean fullwidth `：` is exact, even without a value. Only `api` rejects an immediately preceding ASCII letter/digit; Korean and underscore prefixes are allowed. Other Korean labels have no left boundary.
+The Korean credential labels are `비밀·번호`, `비번`, `패스·워드`, `인증·키`, `개인·키`, `비밀·키`, `시크릿·키`, `액세스·키`, `api·키`, `복구·코드`, `백업·코드`, `인증·토큰`, `접근·토큰`, `액세스·토큰`, `암호`, `토큰`, and `보안·코드`. Each `·` permits zero or one ASCII space/tab. A label followed by optional JavaScript whitespace and `:`, `=`, or fullwidth colon `：` is exact, even without a value. Only `api` rejects an immediately preceding ASCII letter/digit; Korean and underscore prefixes are allowed. Other Korean labels have no left boundary.
 
 Narrative forms, fullwidth equals `＝`, Markdown emphasis (K-7/N-30), new internal hyphen/underscore forms (K-8), and English fullwidth-colon labels (N-27) are outside this rule. Existing T2 suffix matches such as `인증_토큰:` still count. Numeric values are protected by the separate numeric rule; unsupported label forms can still be exact or unknown through other rules.
 
