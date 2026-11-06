@@ -1145,3 +1145,11 @@ it.each(boundaryCases)("frozen boundary $content", ({content,before,after,tuple0
   expect(classifyContext(content)).toEqual(after);
   expect(evaluatePolicyPredicate(current.EXACT_PATTERNS[0][1],content)).toBe(tuple0);
 });
+
+it.each(["passwd", "비밀번호", "api키"])("rejects four closing stars on the %s regex path", label => {
+  for (const content of [`****${label}****: hunter2`, `회의실 ****${label}****: hunter2 이니까 접속할 때 참고해 주세요.`]) {
+    expect(evaluatePolicyPredicate(current.EXACT_PATTERNS[0][1], content)).toBe(false);
+    expect(classifyContext(content).reasons).not.toContain("secret");
+    expect(classifyContext(content)).toEqual(baseline(content));
+  }
+});
