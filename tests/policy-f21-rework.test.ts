@@ -5,6 +5,7 @@ import { loadPolicyInternals } from "./helpers/policy-test-loader.js";
 const current = loadPolicyInternals("src/core/policy.ts", ["f21CredentialLabel"]);
 const oracle = loadPolicyInternals("tests/helpers/policy-baseline-f21.ts", ["f21CredentialLabel"]);
 const childScript = "tests/helpers/policy-f21-rework-child.mjs";
+const APPROVED_E3_SOURCE = String.raw`\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \t]+|-)key|client(?:[ \t]+|-)secret|recovery(?:[ \t]+|-)codes?|secret(?:[ \t]+|-)answer|backup(?:[ \t]+|-)codes?)\b\*{0,3}\s*[:=：]`;
 
 function runChild(mode: "dense" | "throw" | "timeout", recipe = "a-", timeout = 5_000) {
   const child = spawnSync(process.execPath, [childScript, mode, "src/core/policy.ts", recipe], {
@@ -27,10 +28,10 @@ function runChild(mode: "dense" | "throw" | "timeout", recipe = "a-", timeout = 
 }
 
 describe("F-21 credential-label rework", () => {
-  it("keeps the production E3 RegExp source and flags equal to the frozen oracle", () => {
+  it("keeps the production E3 RegExp source and flags equal to the approved frozen literal", () => {
     expect(current.f21CredentialLabel).toBeDefined();
     expect(oracle.f21CredentialLabel).toBeDefined();
-    expect(current.f21CredentialLabel?.source).toBe(oracle.f21CredentialLabel?.source);
+    expect(current.f21CredentialLabel?.source).toBe(APPROVED_E3_SOURCE);
     expect(current.f21CredentialLabel?.flags).toBe(oracle.f21CredentialLabel?.flags);
     expect(current.f21CredentialLabel?.flags).toBe("i");
   });
