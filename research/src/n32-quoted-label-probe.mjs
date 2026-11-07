@@ -49,6 +49,7 @@ const currentPredicate = (s) => current.en0.test(s) || current.e3.test(s) || cur
 // between the label and the optional whitespace before the separator.
 //   U*: one unpaired closing character after the label (opening side not checked)
 //   P*: a paired wrapper as an extra alternative inside the same regex
+//   L*: U-style closer accepted only when a lookbehind finds the matching opener
 const CLOSE_U1 = String.raw`["']`;
 const CLOSE_U2 = String.raw`["')]`;
 const CLOSE_U3 = String.raw`["')”’）」』]`;
@@ -73,6 +74,18 @@ function paired(pairs) {
     new RegExp(String.raw`(?:${KOAPI_LB}${KOAPI}\*{0,3}|${wrap(KOAPI)})${SEP}`, "i"),
   ];
 }
+// L*: same label-first scan as U, but each closing character is accepted only when a
+// lookbehind finds the matching opening character directly before the label
+// (suggested in the Codex cross-review of PR #98).
+function pairedAfter(pairs) {
+  const tail = (labels) => String.raw`(?:\*{1,3}|${pairs.map(([o, c]) => `${c}(?<=${o}(?:${labels})${c})`).join("|")})?${SEP}`;
+  return [
+    new RegExp(String.raw`\b(?:${EN0})\b${tail(EN0)}`, "iu"),
+    new RegExp(String.raw`\b(?:${E3})\b${tail(E3)}`, "i"),
+    new RegExp(String.raw`(?:${KO})${tail(KO)}`, "i"),
+    new RegExp(String.raw`${KOAPI_LB}${KOAPI}${tail(KOAPI)}`, "i"),
+  ];
+}
 function candidate(id, description, res) {
   return { id, description, sources: res.map((r) => `/${r.source}/${r.flags}`), test: (s) => res.some((r) => r.test(s)) };
 }
@@ -82,6 +95,8 @@ const candidates = [
   candidate("U3", "U2 + closing curly quotes, fullwidth parenthesis, CJK corner brackets", unpaired(CLOSE_U3)),
   candidate("P2", "paired \"x\" / 'x' / (x) as an extra alternative in each regex", paired(PAIRS_P2)),
   candidate("P3", "P2 + paired curly quotes, fullwidth parenthesis, CJK corner brackets", paired(PAIRS_P3)),
+  candidate("L2", "U2 closers, each accepted only after a lookbehind finds the matching opener before the label", pairedAfter(PAIRS_P2)),
+  candidate("L3", "U3 closers, each accepted only after a lookbehind finds the matching opener before the label", pairedAfter(PAIRS_P3)),
 ];
 
 // Overlay: tuple #0 is first, so a non-exact result becomes exact ["secret"];
@@ -100,7 +115,7 @@ function overlay(text, cand) {
 }
 
 const report = {
-  schema: "n32-quoted-label-probe/v1",
+  schema: "n32-quoted-label-probe/v2",
   policySha256Lf: createHash("sha256").update(policySource).digest("hex"),
   head: execFileSync("git", ["-C", checkout, "rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
   node: process.version,
@@ -199,14 +214,21 @@ const files = execFileSync("git", ["-C", checkout, "ls-files", "*.md"], { encodi
 const units = new Map();
 for (const f of files) {
   const text = readFileSync(resolve(checkout, f), "utf8").replace(/\r\n/g, "\n");
-  for (const line of text.split("\n")) if (line.trim()) units.set(`L\0${line}`, { f, kind: "line", text: line });
-  for (const para of text.split(/\n\s*\n/)) if (para.trim()) units.set(`P\0${para}`, { f, kind: "paragraph", text: para });
+  // Keep every source file of a unit so plan/handoff exclusion does not depend on file order.
+  const add = (key, kind, unitText) => {
+    const u = units.get(key) ?? { files: new Set(), kind, text: unitText };
+    u.files.add(f);
+    units.set(key, u);
+  };
+  for (const line of text.split("\n")) if (line.trim()) add(`L\0${line}`, "line", line);
+  for (const para of text.split(/\n\s*\n/)) if (para.trim()) add(`P\0${para}`, "paragraph", para);
 }
 const planSource = (f) => /^(?:research\/plans|docs\/agent\/handoffs)\//.test(f);
 report.corpus = { files: files.length, uniqueUnits: units.size, byCandidate: {} };
 for (const c of candidates) {
   const transitions = {};
   const transitionsExcludingPlans = {};
+  let mixedSourceUnits = 0;
   const examples = [];
   let newHits = 0;
   for (const u of units.values()) {
@@ -216,10 +238,13 @@ for (const c of candidates) {
     const pred = overlay(u.text, c);
     const key = `${cur.mode}->${pred.mode}${pred.changed && cur.mode === "exact" ? " (reasons)" : ""}`;
     transitions[key] = (transitions[key] ?? 0) + 1;
-    if (!planSource(u.f)) transitionsExcludingPlans[key] = (transitionsExcludingPlans[key] ?? 0) + 1;
-    if (examples.length < 15) examples.push({ file: u.f, kind: u.kind, from: cur.mode, text: u.text.slice(0, 160) });
+    const unitFiles = [...u.files].sort();
+    const nonPlan = unitFiles.filter((f) => !planSource(f));
+    if (nonPlan.length > 0) transitionsExcludingPlans[key] = (transitionsExcludingPlans[key] ?? 0) + 1;
+    if (nonPlan.length > 0 && nonPlan.length < unitFiles.length) mixedSourceUnits += 1;
+    if (examples.length < 15) examples.push({ files: unitFiles, kind: u.kind, from: cur.mode, text: u.text.slice(0, 160) });
   }
-  report.corpus.byCandidate[c.id] = { newHits, transitions, transitionsExcludingPlans, examples };
+  report.corpus.byCandidate[c.id] = { newHits, transitions, transitionsExcludingPlans, mixedSourceUnits, examples };
 }
 
 // 4. frozen N-27 literal matrix rows (first 18 forms) whose output would change
@@ -262,20 +287,25 @@ const timingInputs = {
   "ko-api-dq-nbsp8": fill("\"api키\"" + " ".repeat(8)),
 };
 function median(xs) { const s = [...xs].sort((a, b) => a - b); return (s[(s.length - 1) >> 1] + s[s.length >> 1]) / 2; }
-function time(fn, input) {
-  const samples = [];
-  for (let i = 0; i < 9; i += 1) {
-    const t0 = process.hrtime.bigint();
-    if (fn(input)) throw new Error("timing input unexpectedly matched");
-    samples.push(Number(process.hrtime.bigint() - t0) / 1e6);
+// Nine rounds per input. Within a round every function runs once; the order is
+// reversed on odd rounds so no function always runs first or last.
+function timeAll(fns, input) {
+  const samples = Object.fromEntries(Object.keys(fns).map((k) => [k, []]));
+  const order = Object.keys(fns);
+  for (let round = 0; round < 9; round += 1) {
+    for (const k of round % 2 === 0 ? order : [...order].reverse()) {
+      const t0 = process.hrtime.bigint();
+      if (fns[k](input)) throw new Error(`timing input unexpectedly matched: ${k}`);
+      samples[k].push(Number(process.hrtime.bigint() - t0) / 1e6);
+    }
   }
-  return Math.round(median(samples) * 10) / 10;
+  return Object.fromEntries(Object.entries(samples).map(([k, xs]) => [k, Math.round(median(xs) * 10) / 10]));
 }
 report.timingMsMedianOf9 = {};
 for (const [name, input] of Object.entries(timingInputs)) {
-  const row = { bytes: Buffer.byteLength(input), classifyCurrentMs: time((x) => (classifyContext(x), false), input), current: time(currentPredicate, input) };
-  for (const c of candidates) row[c.id] = time(c.test, input);
-  report.timingMsMedianOf9[name] = row;
+  const fns = { current: currentPredicate, ...Object.fromEntries(candidates.map((c) => [c.id, c.test])) };
+  const classifyCurrentMs = timeAll({ classify: (x) => (classifyContext(x), false) }, input).classify;
+  report.timingMsMedianOf9[name] = { bytes: Buffer.byteLength(input), classifyCurrentMs, ...timeAll(fns, input) };
 }
 
 const json = JSON.stringify(report, null, 2) + "\n";
