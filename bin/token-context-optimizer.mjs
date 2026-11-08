@@ -23618,7 +23618,7 @@ function estimateTextTokens(text) {
   if (text.length === 0) {
     return 0;
   }
-  const cjkChars = [...text].filter((char) => /[\u3131-\uD79D]/u.test(char)).length;
+  const cjkChars = [...text].filter((char) => /[\u3040-\u30FF\u3131-\uD7A3]/u.test(char)).length;
   const nonCjkChars = Math.max(text.length - cjkChars, 0);
   const wordishTokens = text.trim().split(/\s+/u).filter(Boolean).length;
   const charEstimate = Math.ceil(nonCjkChars / 4) + cjkChars;

@@ -82,3 +82,32 @@ Allowed roots are supplied through `TCO_ALLOWED_ROOTS`; they are intentionally s
 ## Measurement
 
 Token estimates are heuristic until actual API usage telemetry is available. Benchmark results must report raw tokens, optimized tokens, exact-gate pass/fail, warnings, and model/profile version where available.
+
+### Text estimator profile `heuristic-v1`
+
+The estimator's CJK heuristic uses the exact union `U+3040-U+30FF` and
+`U+3131-U+D7A3`. Characters in this union contribute one estimated token per
+code point. The second interval is intentionally an overinclusive legacy
+range (and includes Yi characters); it preserves the prior behavior while the
+kana interval and the final Hangul boundary are made explicit. The
+non-CJK remainder uses JavaScript UTF-16 string length, so each astral
+character contributes two code units before the four-characters-per-token
+ceiling is applied. The profile remains `heuristic-v1`, with low confidence
+and the existing billing-usage warning.
+
+Relative to pre-implementation base `c9e816e`, this correction changes the
+estimates for kana (U+3040–U+30FF) and the six final Hangul syllables
+U+D79E–U+D7A3; all other estimator metadata and
+the existing conservative minimum remain unchanged.
+
+The profile name alone does not identify the algorithm: retain the commit
+provenance when comparing or caching estimates within `heuristic-v1`. The
+base commit does not include this correction; see the
+[implementation record](agent/handoffs/6-4b-3-cjk-estimator-impl.md) for its PR.
+The exact intervals also cover punctuation and unassigned code points; they
+are a heuristic rather than a complete linguistic classification.
+
+The legacy interval includes Han and Extension A as well as non-CJK scripts
+such as Yi, Lisu, Vai, Cyrillic Extended-B and Latin Extended-D. Halfwidth
+katakana and astral CJK extensions are outside the intervals and use the
+UTF-16 remainder rule.

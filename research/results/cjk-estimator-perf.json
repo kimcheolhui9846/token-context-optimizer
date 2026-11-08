@@ -1,0 +1,3302 @@
+{
+  "schema": "cjk-estimator-perf/v1",
+  "preregistration": {
+    "units": 5,
+    "sizesBytes": [
+      1024,
+      10485760
+    ],
+    "blocks": 6,
+    "warmups": 5,
+    "samples": 20,
+    "batches": {
+      "1024": 1000,
+      "10485760": 1
+    },
+    "orders": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB",
+      "BA"
+    ],
+    "noRetries": true
+  },
+  "source": {
+    "baseCommit": "c9e816eeeeb8015f723c1b3e4ff825e42993b105",
+    "headAtRun": "c9e816eeeeb8015f723c1b3e4ff825e42993b105",
+    "currentSourceState": "working-tree",
+    "workingTreeStatusDigest": "0aee2dc04b8c7ff2a76d56e31632fb8e73a93aeaca8a13ed1fb68cab11742229",
+    "baseSourceSha256Raw": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+    "currentSourceSha256Raw": "29c311756d9403ef4e195a40d78e8bd9d7bd282c36a5b2dc8197af382ea0602b",
+    "baseSourceSha256Normalized": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+    "currentSourceSha256Normalized": "29c311756d9403ef4e195a40d78e8bd9d7bd282c36a5b2dc8197af382ea0602b",
+    "baseSourceBlob": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+    "currentSourceBlob": "ca864cee4c52d194e6c638915a0e0bcb84d5b328",
+    "patchProof": "only estimator CJK regex changed",
+    "transpiler": {
+      "module": "CommonJS",
+      "target": "ES2022",
+      "typescript": "5.9.3"
+    },
+    "moduleOrigins": [
+      "token-estimator.A.js",
+      "token-estimator.B.js",
+      "token-estimator.AA1.js",
+      "token-estimator.AA2.js"
+    ],
+    "baseEmittedSha256": "7f2ea6d209c8707834d8b20dc9ef73e89a5c8465a90ba8ef90ec9c0185f6e8fe",
+    "currentEmittedSha256": "1bb2dedb3d249dcb2f824c549f0b79bb25602cea0033bd573726113617e824f1"
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "execArgv": [],
+    "nodeOptionsPresent": false,
+    "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+    "os": {
+      "platform": "win32",
+      "release": "10.0.26200",
+      "arch": "x64"
+    },
+    "cpu": {
+      "model": "12th Gen Intel(R) Core(TM) i9-12900F",
+      "count": 24
+    },
+    "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+    "requiredNode": "v24.18.0",
+    "nodeVersionMatch": true,
+    "powerStateEncoding": "canonical JSON of plan GUID, effective overlay GUID, AC line status and battery saver; checked at each block boundary",
+    "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+    "powerPlanChanged": false
+  },
+  "preflightPowerState": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+  "runnerSha256": "573372a57ab3a86a6a5e5008bd77469b3366bec7e328efec58447f0af7722bb4",
+  "runnerSha256Normalized": "573372a57ab3a86a6a5e5008bd77469b3366bec7e328efec58447f0af7722bb4",
+  "runnerGitBlob": "30cd9ea244056b10eda5afe4ade415a10223b66d",
+  "inputGeneratorSha256": "3cc6ecd1ed5831886b1dbbbf4c71819d14b5c95b31fa89b56bea8bf682d66158",
+  "units": [
+    {
+      "id": "ascii",
+      "patternSha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+      "sizes": [
+        {
+          "sizeBytes": 1024,
+          "inputUtf8Sha256": "2edc986847e209b4016e141a6dc8716d3207350f416969382d431539bf292e4a",
+          "batch": 1000,
+          "blocks": [
+            {
+              "block": 0,
+              "order": "AB",
+              "samples": [
+                {
+                  "block": 0,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 21604100,
+                  "B": 18092200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 17783000,
+                  "B": 17696000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 18140100,
+                  "B": 19012600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 18603600,
+                  "B": 18117700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 17131900,
+                  "B": 17005200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16683500,
+                  "B": 17355900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 19236400,
+                  "B": 19305600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 18929500,
+                  "B": 22609600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 22260900,
+                  "B": 18940200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 22543000,
+                  "B": 20257900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 5,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 22696900,
+                  "B": 16920100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 6,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15865000,
+                  "B": 14999900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 7,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14471100,
+                  "B": 14040400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 8,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14199100,
+                  "B": 14400900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 9,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 17835600,
+                  "B": 14881800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 10,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15728600,
+                  "B": 14243600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 11,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14402600,
+                  "B": 14313200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 12,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13937000,
+                  "B": 14312000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 13,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14286400,
+                  "B": 15794400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 14,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14021200,
+                  "B": 14020400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 15,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13798200,
+                  "B": 13864100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 16,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14440500,
+                  "B": 14295600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 17,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14259900,
+                  "B": 16294000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 18,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15572800,
+                  "B": 14108800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 19,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14185600,
+                  "B": 14280400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "controlSamples": [
+                {
+                  "block": 0,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 18413900,
+                  "B": 17459400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 17359000,
+                  "B": 17490200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 17030000,
+                  "B": 17214100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 17515200,
+                  "B": 17108000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 17838600,
+                  "B": 18600800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 20849700,
+                  "B": 17886600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 17061000,
+                  "B": 16909300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 17755700,
+                  "B": 17633200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 17886300,
+                  "B": 17316000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 17093200,
+                  "B": 18958500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 5,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 21145900,
+                  "B": 16893100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 6,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14945500,
+                  "B": 18260200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 7,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15433900,
+                  "B": 14968900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 8,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15237300,
+                  "B": 16812900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 9,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15531200,
+                  "B": 17418000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 10,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14725900,
+                  "B": 14485600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 11,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14604600,
+                  "B": 14990400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 12,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 19817700,
+                  "B": 14078200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 13,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14689800,
+                  "B": 15145000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 14,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14465300,
+                  "B": 15191300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 15,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15411500,
+                  "B": 14650200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 16,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14434500,
+                  "B": 15301300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 17,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14451700,
+                  "B": 15528700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 18,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15148800,
+                  "B": 14512300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 0,
+                  "sample": 19,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14617300,
+                  "B": 14381100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+              "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}"
+            },
+            {
+              "block": 1,
+              "order": "BA",
+              "samples": [
+                {
+                  "block": 1,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14426500,
+                  "B": 14292900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14421500,
+                  "B": 14099500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14323800,
+                  "B": 14043700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14108300,
+                  "B": 14381100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14581600,
+                  "B": 16409200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14766300,
+                  "B": 14417800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14147500,
+                  "B": 14377700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14515200,
+                  "B": 14154800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14149500,
+                  "B": 14743500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14054800,
+                  "B": 14429200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 5,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15166000,
+                  "B": 13957300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 6,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13996900,
+                  "B": 15307800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 7,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14072600,
+                  "B": 14142300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 8,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13979800,
+                  "B": 14149000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 9,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14123800,
+                  "B": 16815300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 10,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14513700,
+                  "B": 14742000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 11,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14219500,
+                  "B": 13897700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 12,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14151000,
+                  "B": 15025100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 13,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14108800,
+                  "B": 13931800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 14,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14151200,
+                  "B": 13942100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 15,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13935400,
+                  "B": 13907100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 16,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14576000,
+                  "B": 14205600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 17,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14260100,
+                  "B": 14994600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 18,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14435700,
+                  "B": 13834500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 19,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14372300,
+                  "B": 14725400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "controlSamples": [
+                {
+                  "block": 1,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14734600,
+                  "B": 14275600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 13983200,
+                  "B": 14305600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 13977700,
+                  "B": 13915300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14001600,
+                  "B": 14401500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 13993800,
+                  "B": 14077500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 18882600,
+                  "B": 16879500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14216900,
+                  "B": 16738000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13979600,
+                  "B": 13940000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15217100,
+                  "B": 14159400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14636600,
+                  "B": 14972900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 5,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14137900,
+                  "B": 15063500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 6,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13810400,
+                  "B": 14422700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 7,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13989700,
+                  "B": 14456800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 8,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13818600,
+                  "B": 14235500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 9,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14053500,
+                  "B": 13934100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 10,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14519400,
+                  "B": 14219300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 11,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14111200,
+                  "B": 14268700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 12,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13784400,
+                  "B": 13867100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 13,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13836500,
+                  "B": 14390400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 14,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14327400,
+                  "B": 14344700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 15,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14774200,
+                  "B": 13978100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 16,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14732600,
+                  "B": 15520200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 17,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15462600,
+                  "B": 14202700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 18,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14619000,
+                  "B": 14892200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 1,
+                  "sample": 19,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14274600,
+                  "B": 14796000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+              "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}"
+            },
+            {
+              "block": 2,
+              "order": "AB",
+              "samples": [
+                {
+                  "block": 2,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14809200,
+                  "B": 14700800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14306900,
+                  "B": 14204200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14209000,
+                  "B": 13998100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14690800,
+                  "B": 16586500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14732100,
+                  "B": 14300700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14405400,
+                  "B": 14335100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14195900,
+                  "B": 13831900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14946100,
+                  "B": 14579500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14381700,
+                  "B": 14604300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13998500,
+                  "B": 14031800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 5,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13905400,
+                  "B": 14267500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 6,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13884200,
+                  "B": 14196700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 7,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14085700,
+                  "B": 14158100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 8,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14076300,
+                  "B": 14016600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 9,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14261500,
+                  "B": 14865700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 10,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14245900,
+                  "B": 13907300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 11,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14286400,
+                  "B": 14126600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 12,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14242800,
+                  "B": 14326500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 13,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14636500,
+                  "B": 14283600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 14,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14045200,
+                  "B": 14651500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 15,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14165900,
+                  "B": 13897800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 16,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14627600,
+                  "B": 14463500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 17,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14389700,
+                  "B": 16965500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 18,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14385000,
+                  "B": 13877000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 19,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14244900,
+                  "B": 13814800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "controlSamples": [
+                {
+                  "block": 2,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14502600,
+                  "B": 14545600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 15830500,
+                  "B": 17504900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 16921400,
+                  "B": 14674500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 15246700,
+                  "B": 14411200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 16481400,
+                  "B": 14506500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14956600,
+                  "B": 14614400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14776700,
+                  "B": 14264000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14938700,
+                  "B": 13975900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14088300,
+                  "B": 13902300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13952500,
+                  "B": 14459000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 5,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14531600,
+                  "B": 14639200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 6,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14908500,
+                  "B": 14252800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 7,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16540200,
+                  "B": 14332400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 8,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14220400,
+                  "B": 14410700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 9,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14585900,
+                  "B": 14799800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 10,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14390000,
+                  "B": 14176700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 11,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14566500,
+                  "B": 15912200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 12,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 17511200,
+                  "B": 15054700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 13,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16352700,
+                  "B": 14494000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 14,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13968300,
+                  "B": 14177800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 15,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14056500,
+                  "B": 14085700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 16,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14216600,
+                  "B": 15769200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 17,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16243700,
+                  "B": 15351800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 18,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15558600,
+                  "B": 14156200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 2,
+                  "sample": 19,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14327600,
+                  "B": 13903700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+              "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}"
+            },
+            {
+              "block": 3,
+              "order": "BA",
+              "samples": [
+                {
+                  "block": 3,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 13954200,
+                  "B": 14075200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14198400,
+                  "B": 14468700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14304500,
+                  "B": 14454800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14245900,
+                  "B": 14160200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 17208800,
+                  "B": 14160500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13974700,
+                  "B": 14287800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14052800,
+                  "B": 14188900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14267800,
+                  "B": 13631900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14791300,
+                  "B": 14882900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14580100,
+                  "B": 14225900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 5,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14014900,
+                  "B": 14258400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 6,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14299000,
+                  "B": 14060200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 7,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13986200,
+                  "B": 14045400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 8,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14740600,
+                  "B": 15944700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 9,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13823400,
+                  "B": 13844300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 10,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14090800,
+                  "B": 13925800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 11,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14332700,
+                  "B": 14519200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 12,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14141100,
+                  "B": 14330700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 13,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14282100,
+                  "B": 14717500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 14,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14099800,
+                  "B": 14483800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 15,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14499700,
+                  "B": 14932600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 16,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14911600,
+                  "B": 15251000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 17,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14382400,
+                  "B": 14142000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 18,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14582000,
+                  "B": 14134800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 19,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16016700,
+                  "B": 15813600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "controlSamples": [
+                {
+                  "block": 3,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 15365200,
+                  "B": 15350000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14545700,
+                  "B": 14579900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 15356500,
+                  "B": 20440100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14792700,
+                  "B": 15407100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14391900,
+                  "B": 14685500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13933600,
+                  "B": 14849300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15740600,
+                  "B": 14565400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 18107700,
+                  "B": 14580100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 18877700,
+                  "B": 18056300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16192100,
+                  "B": 20941600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 5,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14930900,
+                  "B": 14212600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 6,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15832600,
+                  "B": 16803700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 7,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14393300,
+                  "B": 17583900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 8,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14283700,
+                  "B": 14031300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 9,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14079400,
+                  "B": 13975100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 10,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14095000,
+                  "B": 13869500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 11,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14159600,
+                  "B": 14003100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 12,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13928200,
+                  "B": 14828100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 13,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14427900,
+                  "B": 14186900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 14,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14262900,
+                  "B": 16057900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 15,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14658700,
+                  "B": 14267900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 16,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14591100,
+                  "B": 14188100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 17,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14048400,
+                  "B": 14132900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 18,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14045300,
+                  "B": 14585000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 3,
+                  "sample": 19,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14110000,
+                  "B": 14299800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+              "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}"
+            },
+            {
+              "block": 4,
+              "order": "AB",
+              "samples": [
+                {
+                  "block": 4,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14170000,
+                  "B": 14067800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14535800,
+                  "B": 15131100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 13975900,
+                  "B": 14318100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14474600,
+                  "B": 14757500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14365900,
+                  "B": 14616000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14523600,
+                  "B": 14639900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14120600,
+                  "B": 14171000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14956800,
+                  "B": 14961300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14068000,
+                  "B": 14098200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15032300,
+                  "B": 13759000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 5,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14586800,
+                  "B": 14124200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 6,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14128000,
+                  "B": 14172200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 7,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14577000,
+                  "B": 15065700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 8,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14528900,
+                  "B": 14577200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 9,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 20760900,
+                  "B": 19754900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 10,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16439200,
+                  "B": 18028400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 11,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14824200,
+                  "B": 14658300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 12,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14240200,
+                  "B": 15208900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 13,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15636500,
+                  "B": 14518500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 14,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14709000,
+                  "B": 17346800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 15,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 18259000,
+                  "B": 13944400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 16,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15251800,
+                  "B": 14358700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 17,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14230700,
+                  "B": 14528300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 18,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13803500,
+                  "B": 15002600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 19,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16055400,
+                  "B": 14353800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "controlSamples": [
+                {
+                  "block": 4,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14591800,
+                  "B": 15744500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14038100,
+                  "B": 14311600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14725100,
+                  "B": 14003700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 15559600,
+                  "B": 15141900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": true,
+                  "A": 14721400,
+                  "B": 14983800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 0,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14136300,
+                  "B": 14086700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 1,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14149600,
+                  "B": 14104300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 2,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14236300,
+                  "B": 14070900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 3,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 18745000,
+                  "B": 20220800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 4,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 16096100,
+                  "B": 14069000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 5,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14152700,
+                  "B": 14041400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 6,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15134300,
+                  "B": 13838300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 7,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15529500,
+                  "B": 17658200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 8,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14184400,
+                  "B": 13934200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 9,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 13945100,
+                  "B": 13883000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 10,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14590400,
+                  "B": 14444500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 11,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14117800,
+                  "B": 15016900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 12,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14005500,
+                  "B": 15104700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 13,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14280400,
+                  "B": 14035200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 14,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15236700,
+                  "B": 14135800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 15,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14620600,
+                  "B": 13934200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 16,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14949700,
+                  "B": 14289400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 17,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14282700,
+                  "B": 14737700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 18,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 14770200,
+                  "B": 14841600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 4,
+                  "sample": 19,
+                  "order": "AB",
+                  "warmup": false,
+                  "A": 15050300,
+                  "B": 15305300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+              "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}"
+            },
+            {
+              "block": 5,
+              "order": "BA",
+              "samples": [
+                {
+                  "block": 5,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14020300,
+                  "B": 15062100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 15005300,
+                  "B": 13949100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14020600,
+                  "B": 13953000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14094000,
+                  "B": 13828900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 15675500,
+                  "B": 15492600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16136300,
+                  "B": 15053800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16583300,
+                  "B": 16808300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15876000,
+                  "B": 15051200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14763500,
+                  "B": 15656200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14547800,
+                  "B": 15310500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 5,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14401700,
+                  "B": 14561000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 6,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14648500,
+                  "B": 16116100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 7,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15693100,
+                  "B": 15686700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 8,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15770600,
+                  "B": 14801200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 9,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14259900,
+                  "B": 14012800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 10,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14221200,
+                  "B": 14494200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 11,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16063300,
+                  "B": 16536200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 12,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16082400,
+                  "B": 14305100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 13,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16930700,
+                  "B": 14288600,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 14,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14409500,
+                  "B": 14172000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 15,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14543600,
+                  "B": 14379400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 16,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13980700,
+                  "B": 14076400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 17,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14504500,
+                  "B": 14866500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 18,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14857800,
+                  "B": 14119300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 19,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14076400,
+                  "B": 13777400,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "controlSamples": [
+                {
+                  "block": 5,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14738500,
+                  "B": 16078700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 14579200,
+                  "B": 14507700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 19600900,
+                  "B": 15891500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 17798000,
+                  "B": 14414500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": true,
+                  "A": 15866100,
+                  "B": 15148000,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 0,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14506700,
+                  "B": 16850300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 1,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16186000,
+                  "B": 14710800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 2,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 16044200,
+                  "B": 14185900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 3,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 21212200,
+                  "B": 14400800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 4,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15545600,
+                  "B": 19643900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 5,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14096800,
+                  "B": 14272300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 6,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15094900,
+                  "B": 16439900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 7,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14071200,
+                  "B": 14725900,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 8,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14828200,
+                  "B": 15475300,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 9,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 17493500,
+                  "B": 14126700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 10,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14392300,
+                  "B": 14215200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 11,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14703600,
+                  "B": 15228200,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 12,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14944500,
+                  "B": 14868100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 13,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14425200,
+                  "B": 14511100,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 14,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 21861000,
+                  "B": 15311500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 15,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14373800,
+                  "B": 15257500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 16,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 15658700,
+                  "B": 17329800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 17,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13977900,
+                  "B": 15562800,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 18,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 14016200,
+                  "B": 16456700,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                },
+                {
+                  "block": 5,
+                  "sample": 19,
+                  "order": "BA",
+                  "warmup": false,
+                  "A": 13915700,
+                  "B": 14043500,
+                  "checksumA": 256000,
+                  "checksumB": 256000
+                }
+              ],
+              "powerPlanStart": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}",
+              "powerPlanEnd": "{\"plan\":\"381b4222-f694-41f0-9685-ff5bb260df2e\",\"overlay\":\"00000000-0000-0000-0000-000000000000\",\"acLineStatus\":1,\"batterySaver\":0}"
+            }
+          ],
+          "summary": {
+            "pooled120": {
+              "count": 120,
+              "medianA": 14395700,
+              "medianB": 14368200,
+              "medianRatio": 0.9980897073431649,
+              "p95A": 18259000,
+              "p95B": 17355900,
+              "p95Ratio": 0.9505394599923326
+            },
+            "strata60": {
+              "AB": {
+                "count": 60,
+                "medianA": 14404000,
+                "medianB": 14356250,
+                "medianRatio": 0.9966849486253818,
+                "p95A": 20760900,
+                "p95B": 19305600,
+                "p95Ratio": 0.9299018828663497
+              },
+              "BA": {
+                "count": 60,
+                "medianA": 14377350,
+                "medianB": 14378550,
+                "medianRatio": 1.0000834646162193,
+                "p95A": 16082400,
+                "p95B": 16116100,
+                "p95Ratio": 1.0020954583892951
+              }
+            },
+            "controlAA": {
+              "count": 120,
+              "medianAbsoluteDeviation": 0.00404169107094543,
+              "p95AbsoluteDeviation": 0.0525010991805146
+            },
+            "thresholds": {
+              "medianRatio": 1.05,
+              "p95Ratio": 1.1,
+              "strataMedianRatio": 1.05,
+              "aaMedianDeviation": 0.03,
+              "aaP95Deviation": 0.05
+            },
+            "acceptance": {
+              "medianRatio": true,
+              "p95Ratio": true,
+              "strataMedianRatio": true,
+              "aaBound": false
+            }
+          },
+          "verdict": "INCONCLUSIVE"
+        }
+      ]
+    }
+  ],
+  "status": "INCONCLUSIVE",
+  "terminalRunningInterpretation": "FAIL (crash/OOM or incomplete checkpoint)",
+  "hasFailure": false,
+  "stopReasons": [
+    "ascii/1024: A/A control bound exceeded after fully sampling the first failing input size"
+  ],
+  "inputs": [
+    {
+      "id": "ascii",
+      "sizeBytes": 1024,
+      "inputUtf8Sha256": "2edc986847e209b4016e141a6dc8716d3207350f416969382d431539bf292e4a",
+      "patternSha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+      "expectedA": 256000,
+      "expectedB": 256000,
+      "expectedAA": 256000
+    },
+    {
+      "id": "ascii",
+      "sizeBytes": 10485760,
+      "inputUtf8Sha256": "b5eec3f68ef64d15e82dad91ff908582c5f081e61a62e22427af9bec2cd35f8d",
+      "patternSha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+      "expectedA": 2621440,
+      "expectedB": 2621440,
+      "expectedAA": 2621440
+    },
+    {
+      "id": "kana",
+      "sizeBytes": 1024,
+      "inputUtf8Sha256": "4ca7ccf9f8ab26570ac0bb7cdc9df09e6a0d5a435b5ac1aab91644f5fdbb63ae",
+      "patternSha256": "23e7dd41b4e4f0709cea204d8484d623a41a079550f9421584e8de62fa2dd4ee",
+      "expectedA": 86000,
+      "expectedB": 341000,
+      "expectedAA": 86000
+    },
+    {
+      "id": "kana",
+      "sizeBytes": 10485760,
+      "inputUtf8Sha256": "4305b3eaaa584693b28067f03b16829542a91f8109a5d139fea90ccdc8e4dc05",
+      "patternSha256": "23e7dd41b4e4f0709cea204d8484d623a41a079550f9421584e8de62fa2dd4ee",
+      "expectedA": 873814,
+      "expectedB": 3495253,
+      "expectedAA": 873814
+    },
+    {
+      "id": "hangul",
+      "sizeBytes": 1024,
+      "inputUtf8Sha256": "6db8d0985dd4cf41b742f68d932605172132ac219ba391fcf7766653a8386247",
+      "patternSha256": "e03ca32825c83c14c0f92395c8fa76b0dc9f42f4142f13bc7e7709edcaa9d06e",
+      "expectedA": 214000,
+      "expectedB": 341000,
+      "expectedAA": 214000
+    },
+    {
+      "id": "hangul",
+      "sizeBytes": 10485760,
+      "inputUtf8Sha256": "41e7055972ecdd5ef11c5b626dc78ebe82388acb0e522d6a4a68366ca5f680e0",
+      "patternSha256": "e03ca32825c83c14c0f92395c8fa76b0dc9f42f4142f13bc7e7709edcaa9d06e",
+      "expectedA": 2184534,
+      "expectedB": 3495253,
+      "expectedAA": 2184534
+    },
+    {
+      "id": "astral",
+      "sizeBytes": 1024,
+      "inputUtf8Sha256": "6760052173fcf4e6590d9d1eca393a574e14e537a19424b8f325adb744f487cd",
+      "patternSha256": "feef06eed225e8522bc2f2dd45595224aa2aac83b498f11fb462dec77c7aa6a1",
+      "expectedA": 128000,
+      "expectedB": 128000,
+      "expectedAA": 128000
+    },
+    {
+      "id": "astral",
+      "sizeBytes": 10485760,
+      "inputUtf8Sha256": "07c3ad00506503d5e0eeac40b5488998c006674f3ab01c225fdb61feb5efdc3f",
+      "patternSha256": "feef06eed225e8522bc2f2dd45595224aa2aac83b498f11fb462dec77c7aa6a1",
+      "expectedA": 1310720,
+      "expectedB": 1310720,
+      "expectedAA": 1310720
+    },
+    {
+      "id": "mixed",
+      "sizeBytes": 1024,
+      "inputUtf8Sha256": "1de2b6e5c9a9b8334bf2f848d02678ff3d744dd2e73cb4a106b61eac445d37b4",
+      "patternSha256": "cb08241855304539bf86b4a56cc791888bee51a66e1cc1df210fa343dc063000",
+      "expectedA": 187000,
+      "expectedB": 256000,
+      "expectedAA": 187000
+    },
+    {
+      "id": "mixed",
+      "sizeBytes": 10485760,
+      "inputUtf8Sha256": "d9809039755ff900c55992cb85bb3780395be7f4a5c78dfa4353bfb8253d28b1",
+      "patternSha256": "cb08241855304539bf86b4a56cc791888bee51a66e1cc1df210fa343dc063000",
+      "expectedA": 1906503,
+      "expectedB": 2621440,
+      "expectedAA": 1906503
+    }
+  ]
+}

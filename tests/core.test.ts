@@ -29,7 +29,10 @@ import {
   classifyContext,
   lossyCompressionAllowed,
 } from "../src/core/policy.js";
-import { estimateContext } from "../src/core/token-estimator.js";
+import {
+  estimateContext,
+  estimateTextTokens,
+} from "../src/core/token-estimator.js";
 import { ReadBoundedFileError } from "../src/core/read-bounded-file.js";
 
 const execFileAsync = promisify(execFile);
@@ -1068,6 +1071,46 @@ describe("safety policy", () => {
 });
 
 describe("token estimation", () => {
+  it.each([
+    ["kana lower boundary", 0x3040, 4],
+    ["hiragana", 0x3041, 4],
+    ["katakana", 0x30ff, 4],
+    ["hangul new upper boundary", 0xd7a3, 4],
+    ["hangul", 0x3131, 4],
+    ["yi", 0xa000, 4],
+    ["hangul old upper boundary", 0xd79d, 4],
+    ["hangul first newly included tail", 0xd79e, 4],
+  ] as const)("counts %s as one token per code point", (_name, codePoint, expected) => {
+    expect(estimateTextTokens(String.fromCodePoint(codePoint).repeat(4))).toBe(
+      expected,
+    );
+  });
+
+  it.each([
+    ["hiragana", "かなかな", 4],
+    ["katakana", "カタカナ", 4],
+    ["mixed ASCII and kana", "aかな", 3],
+  ] as const)("counts %s with mixed text", (_name, text, expected) => {
+    expect(estimateTextTokens(text)).toBe(expected);
+  });
+
+  it.each([
+    ["below kana lower boundary", 0x303f, 1],
+    ["below legacy lower boundary", 0x3130, 1],
+    ["bopomofo lower boundary", 0x3100, 1],
+    ["bopomofo", 0x3105, 1],
+    ["hangul upper excluded next", 0xd7a4, 1],
+    ["hangul upper excluded later", 0xd7b0, 1],
+  ] as const)("counts %s using UTF-16 remainder", (_name, codePoint, expected) => {
+    expect(estimateTextTokens(String.fromCodePoint(codePoint).repeat(4))).toBe(
+      expected,
+    );
+  });
+
+  it("retains UTF-16 remainder accounting for astral characters", () => {
+    expect(estimateTextTokens(String.fromCodePoint(0x1f642).repeat(4))).toBe(2);
+  });
+
   it("estimates text tokens conservatively and reports profile metadata", () => {
     const result = estimateContext({
       text: "one two three four five six seven eight",
@@ -1078,6 +1121,19 @@ describe("token estimation", () => {
     expect(result.fitsBudget).toBe(true);
     expect(result.profileVersion).toMatch(/^heuristic-/);
     expect(result.confidence).toBe("low");
+  });
+
+  it("preserves the heuristic-v1 metadata for kana estimates", () => {
+    const result = estimateContext({ text: "かなかな" });
+    expect(result.profileVersion).toBe("heuristic-v1");
+    expect(result.confidence).toBe("low");
+    expect(result.warnings).toEqual(["heuristic_estimate_not_billing_usage"]);
+  });
+
+  it("uses the estimate when deciding whether context fits its budget", () => {
+    expect(
+      estimateContext({ text: "かなかな", maxTokens: 3 }).fitsBudget,
+    ).toBe(false);
   });
 });
 
