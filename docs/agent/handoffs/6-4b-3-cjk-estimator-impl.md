@@ -27,7 +27,7 @@
 - Benchmark exact non-time values equal baseline; exclude generated time, environment, latency fields and timing-dependent overall passed. Exact/task gates and thresholds retained; both overall gates passed.
 - Pinned impact replay: **4,234,494 bytes**, SHA-256 `dd66fbb1ec668559b744f7d7c70f4de52e59bce78d952b51b011473c7f3f2a49`, exact Git blob equality.
 - New Windows checkout uses CRLF for the historical JSON; comparison uses committed bytes, without modifying that file.
-- Latest premeasurement gate after three additive preservation tests: targeted251 PASS/2 SKIP; full3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS. Final post-Draft gate pending.
+- Latest premeasurement gate after three additive preservation tests: targeted251 PASS/2 SKIP; full3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS. Post-Draft final gate: targeted251 PASS/2 SKIP, full3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS.
 
 ## Performance protocol and status
 - Script: `research/src/cjk-estimator-perf.mjs`; fixed new output `research/results/cjk-estimator-perf.json`.
@@ -43,7 +43,7 @@
 - A/B median ratio0.9980897073, p95 ratio0.9505394600; AB/BA median ratios0.9966849486/1.0000834646. These passing ratios are not acceptance because A/A failed.
 - A/A median deviation0.4041691071% (≤3%); **p95 deviation5.2501099181% (>5%)**. Primary separately recomputed raw sample statistics/checksums and confirmed every stored ratio, count and verdict.
 - Frozen runner SHA-256 `573372a57ab3a86a6a5e5008bd77469b3366bec7e328efec58447f0af7722bb4`; same bytes before/after. Source normalized hash `29c311756d9403ef4e195a40d78e8bd9d7bd282c36a5b2dc8197af382ea0602b`.
-- Measured source Git blob `ca864cee4c52d194e6c638915a0e0bcb84d5b328`; final commit binding is checked after commit. A/A p95 values18877700/17886600ns produce the5.2501099181% deviation.
+- Measured source Git blob `ca864cee4c52d194e6c638915a0e0bcb84d5b328`; final commit blob binding verified identical. A/A p95 values18877700/17886600ns produce the5.2501099181% deviation.
 - Raw checkpoint writes are not atomic; a hard crash can corrupt the last checkpoint. Run-loop branches received static review, not an automated synthetic end-to-end simulation. Neither limit affected this completed cell.
 
 ## Review and corrections
@@ -57,6 +57,6 @@
 - `npm ci` reported 7 existing dependency vulnerabilities; upgrades are outside this Task.
 
 ## Delivery and approval boundary
-- Commits/push/PR: pending; no merge or Ready transition.
+- [Draft PR](https://github.com/kimcheolhui9846/token-context-optimizer/pull/104); implementation/evidence commit recorded in Git; no merge or Ready transition.
 - If performance is INCONCLUSIVE/FAIL, preserve evidence and report the blocking result; do not tune or remeasure.
-- Remaining: evidence-only result review, final gate, Draft PR, direct Astra review and user decision. Performance acceptance is blocked; no further measurements or implementation without a new decision.
+- Primary Astra final: **BLOCKED** — code/regression checks pass, but the required performance gate is INCONCLUSIVE. No tuning, remeasurement or next Task; user decision required.
