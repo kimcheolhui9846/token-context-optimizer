@@ -62,12 +62,96 @@ describe("research scoring", () => {
     expect(() => scoreEvaluation(data, ledger)).toThrow(/^out_of_plan$/);
   });
 
-  it("preserves floating point cost accumulation order", () => {
+  it("is independent of ledger order", () => {
     const data = dataset();
     const ledger = { ...evaluation(data, [run({ costUsd: 1e16 }), run({ attempt: 2, costUsd: 1 }), run({ attempt: 3, costUsd: 1 })]), attemptsPerTask: 3 };
-    expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBe(1e16);
+    expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBe(10000000000000002);
     ledger.runs.reverse();
     expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBe(10000000000000002);
+  });
+
+  it("sums every ledger permutation in ascending cost order", () => {
+    const data = dataset();
+    const runs = [
+      run({ attempt: 1, costUsd: 1e16 }),
+      run({ attempt: 2, costUsd: 1 }),
+      run({ attempt: 3, costUsd: 1 }),
+    ];
+    const permutations = [
+      [0, 1, 2], [0, 2, 1], [1, 0, 2],
+      [1, 2, 0], [2, 0, 1], [2, 1, 0],
+    ] as const;
+    for (const order of permutations) {
+      const ledger = { ...evaluation(data, order.map((index) => runs[index])), attemptsPerTask: 3 };
+      expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBe(10000000000000002);
+    }
+  });
+
+  it("keeps classified runs and ledger runs in input order", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data, [
+      run({ attempt: 2, costUsd: 1 }),
+      run({ attempt: 1, costUsd: 1e16 }),
+      run({ attempt: 3, costUsd: 1 }),
+    ]), attemptsPerTask: 3 };
+    const core = evaluateCore(data, ledger);
+    expect(core.ledger.runs.map(({ attempt, costUsd }) => [attempt, costUsd]))
+      .toEqual([[2, 1], [1, 1e16], [3, 1]]);
+    expect(core.classifiedRuns.map(({ run }) => [run.attempt, run.costUsd]))
+      .toEqual([[2, 1], [1, 1e16], [3, 1]]);
+  });
+
+  it("returns null total cost for null cost in every ledger order", () => {
+    const data = dataset();
+    const runs = [
+      run({ attempt: 1, costUsd: 1e16 }),
+      run({ attempt: 2, costUsd: null }),
+      run({ attempt: 3, costUsd: 1 }),
+    ];
+    const permutations = [
+      [0, 1, 2], [0, 2, 1], [1, 0, 2],
+      [1, 2, 0], [2, 0, 1], [2, 1, 0],
+    ] as const;
+    for (const order of permutations) {
+      const ledger = { ...evaluation(data, order.map((index) => runs[index])), attemptsPerTask: 3 };
+      expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBeNull();
+    }
+  });
+
+  it("returns null total cost for a missing run in every ledger order", () => {
+    const data = dataset();
+    const runs = [
+      run({ attempt: 1, costUsd: 1e16 }),
+      run({ attempt: 2, costUsd: 1 }),
+      run({ attempt: 3, costUsd: 1 }),
+    ];
+    const permutations = [
+      [0, 1, 2], [0, 2, 1], [1, 0, 2],
+      [1, 2, 0], [2, 0, 1], [2, 1, 0],
+    ] as const;
+    for (const order of permutations) {
+      const ledger = { ...evaluation(data, order.map((index) => runs[index])), attemptsPerTask: 4 };
+      expect(scoreEvaluation(data, ledger).arms[0].totalCostUsd).toBeNull();
+    }
+  });
+
+  it("preserves cost overflow with unknown cost", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data, [
+      run({ costUsd: 1e308 }),
+      run({ attempt: 2, costUsd: 1e308 }),
+      run({ attempt: 3, costUsd: null }),
+    ]), attemptsPerTask: 3 };
+    expect(() => scoreEvaluation(data, ledger)).toThrow("cost_overflow");
+  });
+
+  it("preserves cost overflow with a missing run", () => {
+    const data = dataset();
+    const ledger = { ...evaluation(data, [
+      run({ costUsd: 1e308 }),
+      run({ attempt: 2, costUsd: 1e308 }),
+    ]), attemptsPerTask: 3 };
+    expect(() => scoreEvaluation(data, ledger)).toThrow("cost_overflow");
   });
 
   it("pins nullable telemetry, ungraded outcomes, and nearest-rank latency", () => {

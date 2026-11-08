@@ -69,8 +69,9 @@ Each arm contains these counts and metrics:
 - `successRate`: successes / planned, with missing slots conservatively unsuccessful;
   null when any completed run awaits judgment. Interpret only alongside missing/complete.
   Success needs all required facts, no contradiction, and a passed exact check if applicable.
-- `totalCostUsd`: all submitted costs, including failures; null if any cost is unknown
-  or any planned slot is missing. Training cost is not included in this v1 ledger.
+- `totalCostUsd`: all submitted costs, including failures, summed in ascending order so
+  the result is independent of ledger order; null if any cost is unknown or any planned
+  slot is missing. Training cost is not included in this v1 ledger.
 - `costPerSuccessUsd`: total cost / successes; null for unknown totals, zero successes
   or pending judgments. It is not a token-estimate savings claim.
 - `latencySampleCount`, `medianLatencyMs`, `p95LatencyMs`: nearest-rank percentiles over
