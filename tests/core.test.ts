@@ -14,7 +14,8 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -1087,6 +1088,11 @@ describe("benchmarks", () => {
     expect(nearestRankPercentile([5, 1, 9, 3], 0.5)).toBe(3);
     expect(nearestRankPercentile([1, 2, 3, 4, 5], 0.95)).toBe(5);
     expect(nearestRankPercentile([10], 0.95)).toBe(10);
+    expect(summarizeLatencySamples([8, 2, 6, 4])).toMatchObject({
+      medianLatencyMs: 4,
+      p95LatencyMs: 8,
+      latencyMs: 4,
+    });
     expect(summarizeLatencySamples([8.126, 1.234, 4.555])).toEqual({
       sampleCount: 3,
       medianLatencyMs: 4.56,
@@ -1109,7 +1115,7 @@ describe("benchmarks", () => {
 
     expect(fixtures.map((fixture) => fixture.name)).toEqual([
       "semantic success phrase",
-      "numeric threshold preservation",
+      "spelled-out threshold phrase preservation",
       "negation preservation",
       "actor action preservation",
     ]);
@@ -1125,7 +1131,7 @@ describe("benchmarks", () => {
     expect(
       semanticSummaryPassesMeaningGate(
         { fallbackReason: null, summary: "Reviewers approve launch after the latency check." },
-        fixtures.find((fixture) => fixture.name === "numeric threshold preservation")!,
+        fixtures.find((fixture) => fixture.name === "spelled-out threshold phrase preservation")!,
       ),
     ).toBe(false);
     expect(
@@ -1147,7 +1153,7 @@ describe("benchmarks", () => {
       "../benchmarks/run.js"
     );
     const fixture = buildSemanticDegradationFixtures().find(
-      (candidate) => candidate.name === "numeric threshold preservation",
+      (candidate) => candidate.name === "spelled-out threshold phrase preservation",
     )!;
 
     expect(
@@ -1179,6 +1185,32 @@ describe("benchmarks", () => {
     });
     expect(result.rawTokens).toBeGreaterThanOrEqual(16000);
     expect(result.reductionPercent).toBeGreaterThanOrEqual(25);
+  });
+
+  it("classifies numeric threshold prose exactly and pins the real summary refusal", async () => {
+    const sentence = "Reviewers approve launch only when latency stays below 1000 milliseconds.";
+    const dir = await mkdtemp(join(tmpdir(), "tco-summary-numeric-threshold-"));
+    const source = Array.from({ length: 80 }, () => sentence).join("\n");
+    const path = join(dir, "numeric-threshold.md");
+    await writeFile(path, source, "utf8");
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path, store, allowedRoots: [dir] });
+    const summary = summarizeArtifact({ artifactId: artifact.artifactId, maxTokens: 120, store });
+
+    for (const candidate of [sentence, source]) {
+      expect(classifyContext(candidate)).toEqual({
+        mode: "exact",
+        reasons: ["numeric_or_table"],
+        warnings: ["lossy_compression_not_allowed"],
+      });
+    }
+    expect(summary).toMatchObject({
+      fallbackReason: "exact_content_requires_source",
+      summary: "",
+      estimatedTokens: 0,
+      warnings: ["lossy_summary_blocked", "lossy_compression_not_allowed"],
+      sourceMap: null,
+    });
   });
 
   it("characterizes real summarizer loss after the six-line prefix without policy fallback", async () => {
@@ -1292,7 +1324,7 @@ describe("benchmarks", () => {
             estimatedTokens: number;
             warnings: string[];
           };
-        }) => Promise<{ latencyMs: number }>;
+        }) => Promise<{ latencyMs: number; suiteLatencyMs?: number }>;
       };
     const dir = await mkdtemp(join(tmpdir(), "tco-semantic-latency-"));
     const fixtureSummaries = buildSemanticDegradationFixtures().map((fixture) => fixture.source);
@@ -1316,6 +1348,7 @@ describe("benchmarks", () => {
     });
 
     expect(result.latencyMs).toBe(40);
+    expect(result.suiteLatencyMs).toBe(100);
   });
 
   it("retrieves the independently specified target rather than a similar function", async () => {
@@ -1604,6 +1637,151 @@ describe("benchmarks", () => {
       latencyMs: 2,
       medianLatencyMs: 2,
       p95LatencyMs: 3,
+    });
+  });
+
+  it("summarizes suite latency across measured samples and excludes warm-up", async () => {
+    const { runSampledScenario } = await import("../benchmarks/run.js");
+    let calls = 0;
+
+    const result = await runSampledScenario({
+      sampleCount: 4,
+      runOnce: async () => {
+        calls += 1;
+        const suiteLatencyMs = [999, 10, 20, 30, 40][calls - 1];
+        return {
+          name: "repeated semantic prefix phrase-retention smoke",
+          rawTokens: 1000,
+          optimizedTokens: 100,
+          reductionPercent: 90,
+          passedExactGate: true,
+          taskGateRequired: false,
+          passedTaskGate: null,
+          latencyMs: suiteLatencyMs,
+          suiteLatencyMs,
+          profileVersion: "heuristic-v1",
+          warnings: [],
+        };
+      },
+    });
+
+    expect(result.suiteLatencyMs).toBe(20);
+    expect(result.latencyMs).toBe(20);
+  });
+
+  it("omits suite latency when sampled results do not provide it", async () => {
+    const { runSampledScenario } = await import("../benchmarks/run.js");
+    const result = await runSampledScenario({
+      sampleCount: 2,
+      runOnce: async () => ({
+        name: "custom",
+        rawTokens: 1000,
+        optimizedTokens: 100,
+        reductionPercent: 90,
+        passedExactGate: true,
+        taskGateRequired: false,
+        passedTaskGate: null,
+        latencyMs: 1,
+        profileVersion: "heuristic-v1",
+        warnings: [],
+      }),
+    });
+
+    expect(Object.prototype.hasOwnProperty.call(result, "suiteLatencyMs")).toBe(false);
+  });
+
+  it("collects environment metadata with independent Git failure fields", async () => {
+    const { collectBenchmarkEnvironment } = await import("../benchmarks/run.js");
+    const calls: Array<{ args: string[]; cwd: string; options: Record<string, unknown> }> = [];
+    const environment = collectBenchmarkEnvironment((file, args, options) => {
+      calls.push({ args, cwd: options.cwd, options: options as Record<string, unknown> });
+      if (args[0] === "rev-parse") throw new Error("no git commit");
+      throw new Error("no git status");
+    });
+
+    expect(environment).toMatchObject({
+      node: process.version,
+      platform: process.platform,
+      arch: process.arch,
+      commitSha: null,
+      dirty: null,
+    });
+    expect(calls).toHaveLength(2);
+    expect(calls[0].args).toEqual(["rev-parse", "HEAD"]);
+    expect(calls[1].args).toEqual(["status", "--porcelain"]);
+    expect(calls[0].cwd).toBe(resolve(dirname(fileURLToPath(import.meta.url)), ".."));
+    expect(calls[0].options).toMatchObject({
+      encoding: "utf8",
+      timeout: 5000,
+      windowsHide: true,
+    });
+    expect(calls[0].options).not.toHaveProperty("shell");
+  });
+
+  it("maps clean, dirty, and independent Git outcomes without shell commands", async () => {
+    const { collectBenchmarkEnvironment } = await import("../benchmarks/run.js");
+    const clean = collectBenchmarkEnvironment((_file, args) =>
+      args[0] === "rev-parse" ? "abc123\n" : "  \n",
+    );
+    const dirty = collectBenchmarkEnvironment((_file, args) =>
+      args[0] === "rev-parse" ? "def456\n" : " M tests/core.test.ts\n",
+    );
+    const missingGit = collectBenchmarkEnvironment(() => {
+      throw new Error("git missing");
+    });
+
+    expect(clean).toMatchObject({ commitSha: "abc123", dirty: false });
+    expect(dirty).toMatchObject({ commitSha: "def456", dirty: true });
+    expect(missingGit).toMatchObject({ commitSha: null, dirty: null });
+
+    const commitOnly = collectBenchmarkEnvironment((_file, args) => {
+      if (args[0] === "rev-parse") return "ghi789\n";
+      throw new Error("status failed");
+    });
+    const statusOnly = collectBenchmarkEnvironment((_file, args) => {
+      if (args[0] === "status") return "\n";
+      throw new Error("rev-parse failed");
+    });
+    expect(commitOnly).toMatchObject({ commitSha: "ghi789", dirty: null });
+    expect(statusOnly).toMatchObject({ commitSha: null, dirty: false });
+  });
+
+  it("captures injected report environment once outside scenario sampling", async () => {
+    const { runBenchmarkReport } = await import("../benchmarks/run.js");
+    let environmentCalls = 0;
+    const report = await runBenchmarkReport({
+      sampleCount: 2,
+      collectEnvironment: () => {
+        environmentCalls += 1;
+        return {
+          node: "test-node",
+          platform: "test-platform" as NodeJS.Platform,
+          arch: "test-arch",
+          commitSha: "test-sha",
+          dirty: false,
+        };
+      },
+      scenarioRunners: [async () => ({
+        name: "custom",
+        rawTokens: 1000,
+        optimizedTokens: 100,
+        reductionPercent: 90,
+        passedExactGate: true,
+        taskGateRequired: false,
+        passedTaskGate: null,
+        latencyMs: 1,
+        profileVersion: "heuristic-v1",
+        warnings: [],
+      })],
+    });
+
+    expect(environmentCalls).toBe(1);
+    expect(report.environment).toEqual({
+      node: "test-node",
+      platform: "test-platform",
+      arch: "test-arch",
+      commitSha: "test-sha",
+      dirty: false,
     });
   });
 

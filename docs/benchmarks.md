@@ -1,6 +1,6 @@
 # Benchmark Plan
 
-Run after build:
+Run the source or compiled benchmark within the project tree containing `package.json`; Git metadata is optional. Run after build:
 
 ```powershell
 npm.cmd run build
@@ -20,10 +20,15 @@ The previous `repeated semantic document extractive summary` result is now named
 - Each default scenario reduces estimated context tokens by at least 25%.
 - Exact-sensitive retrieval preserves every required source span and diagnostic string for its fixture.
 - The repeated semantic prefix smoke requires its fixture phrases to remain in the summary; its pass says nothing about broader summarization quality.
-- Code context retrieval reports `taskGateRequired: false` and `passedTaskGate: null`. The report field schema remains unchanged. Generic task-gate failures still apply when another or custom scenario requires that gate.
-- Each scenario runs one warm-up and 20 measured local samples. `latencyMs` mirrors the median, and `p95LatencyMs` must stay within the MVP local latency threshold. The semantic smoke reports the maximum single-fixture index-plus-summary latency for each sample, not total suite setup time.
+- Code context retrieval reports `taskGateRequired: false` and `passedTaskGate: null`. The code-context result fields remain unchanged. Generic task-gate failures still apply when another or custom scenario requires that gate.
+- Each scenario runs one warm-up and 20 measured local samples. `latencyMs` mirrors the nearest-rank median of measured samples, and `p95LatencyMs` uses nearest-rank `ceil(p × n)` with rank clamped to `1..n`; for an even sample count, the median is the lower middle value. The semantic smoke reports `suiteLatencyMs` as the rounded sum of its four rounded fixture index-plus-summary durations for each sample, then aggregates that field with the same measured-sample median. Warm-up samples are excluded.
+- The semantic smoke reports the maximum single-fixture index-plus-summary latency for each sample, not total suite setup time. `suiteLatencyMs` is an additional aggregate and does not replace `latencyMs` or participate in any gate.
+- The local latency gate remains the loose 1000 ms upper bound on `p95LatencyMs`; measured durations are rounded to 0.01 ms and the 20-sample nearest-rank p95 uses rank 19.
+- The report captures `environment` once per run: Node version, platform, architecture, `git rev-parse HEAD` as `commitSha`, and whether `git status --porcelain` is non-empty as `dirty`. Git commands use shell-free `execFileSync` at the repository root with a timeout; each Git field independently becomes `null` when its command fails. Porcelain includes untracked files, so these can also make `dirty` true.
 - No product claim uses estimated savings as actual billing savings.
 
 The benchmark command exits non-zero when a scenario fails its exact gate, fails a required task gate, drops below 25% reduction, exercises fewer than 25,000 estimated raw tokens for the build-log case, or exceeds the MVP p95 latency threshold. The code context scenario does not claim editing success.
 
 These local synthetic fixtures establish no LLM coding ability, general retrieval quality, hosted/API latency, actual billing savings, or empirical semantic success. Median successful-task cost, semantic degradation rates, and relative hosted/API latency remain future evaluation targets that need representative fixtures and real evaluated runs.
+
+The threshold fixture uses the spelled-out phrase `one thousand`; digit-written numeric thresholds are protected by the exact `numeric_or_table` policy and are outside this lossy-summary smoke. Fixture preparation and file writes are setup work outside measured per-sample latency; they are not included in `suiteLatencyMs` or any latency gate.
