@@ -25,7 +25,9 @@
 - N-27 analyzer는 namespace와20→28 외 동일, runner는 namespace/base/recipes/artifactPaths 외 동일. 기존20 및 승인28 전체 입력/출력/tuple 값이 계획과 일치한다.
 - warmup1008+measurement3024=4032 cell, 28 recipe, shuffle/bootstrap seed 및 통계·무효·재시도 규칙은 N-27 그대로다. baseline A/A′는 별도 파일 빌드다.
 - manifest를 측정 전에 커밋한다. FAIL/BORDERLINE 재측정 금지; 첫 INVALID이며 개별 FAIL이 없을 때만1회 재시도. 측정 뒤 regex/recipe 변경 금지.
-- 실제 성능: 아직 측정하지 않았다. recipe별 판정·point·CI·블록 중앙값과 최종 상태는 결과 기록에 추가한다.
+- 실제 성능: 첫 시도28 PASS/0 BORDERLINE/0 FAIL/0 INVALID,4032 cell 완료, 재측정 없음. [결과·recipe별 point/CI/블록 중앙값](../../research/evidence/n32/result.md).
+- 최대 point1.016215(`quoted-password-nbsp-60`), CI[1.005968,1.021152]; 최대 CI상한1.022927. 저장 분석 재현 및 별도 Python 통계 대조 PASS,15artifact/3variant 해시 일치.
+- 구현 커밋 `d9f6150`, 측정 전 manifest 커밋 `21d133a`. 측정 뒤 정규식·입력·도구·oracle은 변경하지 않았다.
 - 한계: 균형 조정 전원/백신 활성 등 읽기 전용 환경 관측이며 배경 부하를 완전히 통제하지 않는다. 신규 성능 입력은 닫는 문자 중 큰따옴표/괄호/낫표만 직접 다룬다.
 
 ## 검토 및 인계
@@ -35,4 +37,5 @@
 - 성능 도구 테스트52 PASS. 최초 도구 RED 시도는 sandbox 접근으로 시작 전 차단되어 유효 RED로 세지 않는다.
 - Claude Opus 5.5 / implementation milestone / 조건부 PASS / blocker0 major1 minor4 note5: 실제 source/flags 검사·전체정책 동등성·변경표기집합·코드tuple 검사로 보완. 기능 테스트는852개이며 기존 기대값 추가이관은 없다. Claude Opus 5.5 scoped 재검토 PASS, blocker0 major0 minor0 note4; 모든 지적 해소.
 - dist/bundle 재빌드 전후 바이트 동일. 최종 Astra는 측정 결과 및 git/PR/head 확인 후 수행한다.
-- 남은 일: manifest 커밋/측정, 결과, push/Draft, Draft 후 gate/Astra. Ready/merge는 하지 않는다.
+- Claude Opus 5.5 / result milestone / PASS / blocker0 major0 minor3 note3: 예산 내 관측 지연·Python 산술대조 범위/코드·manifest 고정 재현 절차를 보완했다. frozen analyzer는 변경하지 않았다.
+- 남은 일: push/Draft, Draft 후 gate/Astra. Ready/merge는 하지 않는다.
