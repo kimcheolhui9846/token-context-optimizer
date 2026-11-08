@@ -1,7 +1,9 @@
 import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { pathToFileURL } from "node:url";
+import { dirname, join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
   MemoryArtifactStore,
@@ -20,6 +22,7 @@ export interface ScenarioResult {
   taskGateRequired: boolean;
   passedTaskGate: boolean | null;
   latencyMs: number;
+  suiteLatencyMs?: number;
   sampleCount: number;
   medianLatencyMs: number;
   p95LatencyMs: number;
@@ -35,6 +38,7 @@ export interface BenchmarkReport {
     exactGateRequired: boolean;
   };
   results: ScenarioResult[];
+  environment: BenchmarkEnvironment;
   passed: boolean;
 }
 
@@ -47,6 +51,7 @@ export interface TimedScenarioResult {
   taskGateRequired: boolean;
   passedTaskGate: boolean | null;
   latencyMs: number;
+  suiteLatencyMs?: number;
   profileVersion: string;
   warnings: string[];
 }
@@ -62,6 +67,26 @@ export interface PreparedSemanticDegradationFixture {
   docPath: string;
   rawTokens: number;
 }
+
+export interface BenchmarkEnvironment {
+  node: string;
+  platform: NodeJS.Platform;
+  arch: string;
+  commitSha: string | null;
+  dirty: boolean | null;
+}
+
+type GitCommandRunner = (
+  file: string,
+  args: string[],
+  options: {
+    cwd: string;
+    encoding: "utf8";
+    timeout: number;
+    windowsHide: boolean;
+    stdio: ["ignore", "pipe", "pipe"];
+  },
+) => string | Buffer;
 
 const DEFAULT_LATENCY_SAMPLE_COUNT = 20;
 const MINIMUM_REDUCTION_PERCENT = 25;
@@ -89,11 +114,13 @@ export async function runBenchmarkReport(
     scenarioRunners?: Array<() => Promise<TimedScenarioResult>>;
     tmpRoot?: string;
     warmupCount?: number;
+    collectEnvironment?: () => BenchmarkEnvironment;
   } = {},
 ): Promise<BenchmarkReport> {
   const dir = await mkdtemp(join(input.tmpRoot ?? tmpdir(), "tco-bench-"));
 
   try {
+    const environment = (input.collectEnvironment ?? collectBenchmarkEnvironment)();
     const store = new MemoryArtifactStore();
     const scenarioRunners =
       input.scenarioRunners ??
@@ -122,6 +149,7 @@ export async function runBenchmarkReport(
         exactGateRequired: true,
       },
       results,
+      environment,
       passed: failed.length === 0,
     };
   } finally {
@@ -171,6 +199,52 @@ export function summarizeLatencySamples(samples: number[]): {
   };
 }
 
+function findRepositoryRoot(startPath: string): string {
+  let current = startPath;
+  while (true) {
+    if (existsSync(join(current, "package.json"))) {
+      return current;
+    }
+    const parent = dirname(current);
+    if (parent === current) {
+      throw new Error("benchmark repository root could not be found");
+    }
+    current = parent;
+  }
+}
+
+export function collectBenchmarkEnvironment(
+  runGit: GitCommandRunner = execFileSync as GitCommandRunner,
+): BenchmarkEnvironment {
+  const cwd = findRepositoryRoot(dirname(fileURLToPath(import.meta.url)));
+  const options = {
+    cwd,
+    encoding: "utf8" as const,
+    timeout: 5000,
+    windowsHide: true,
+    stdio: ["ignore", "pipe", "pipe"] as ["ignore", "pipe", "pipe"],
+  };
+  let commitSha: string | null = null;
+  let dirty: boolean | null = null;
+  try {
+    commitSha = String(runGit("git", ["rev-parse", "HEAD"], options)).trim() || null;
+  } catch {
+    commitSha = null;
+  }
+  try {
+    dirty = String(runGit("git", ["status", "--porcelain"], options)).trim().length > 0;
+  } catch {
+    dirty = null;
+  }
+  return {
+    node: process.version,
+    platform: process.platform,
+    arch: process.arch,
+    commitSha,
+    dirty,
+  };
+}
+
 export async function runSampledScenario(input: {
   runOnce: () => Promise<TimedScenarioResult>;
   sampleCount?: number;
@@ -207,8 +281,16 @@ function summarizeMeasuredScenarioResults(results: TimedScenarioResult[]): Timed
     throw new Error("latency samples must not be empty");
   }
   const latestResult = results[results.length - 1];
+  const suiteLatencySamples = results.map((result) => result.suiteLatencyMs);
+  const suiteLatencyMs = suiteLatencySamples.every(
+    (sample): sample is number => sample !== undefined,
+  )
+    ? roundLatencyMs(nearestRankPercentile(suiteLatencySamples, 0.5))
+    : undefined;
+  const { suiteLatencyMs: _latestSuiteLatencyMs, ...latestResultWithoutSuiteLatency } = latestResult;
   return {
-    ...latestResult,
+    ...latestResultWithoutSuiteLatency,
+    ...(suiteLatencyMs === undefined ? {} : { suiteLatencyMs }),
     rawTokens: Math.min(...results.map((result) => result.rawTokens)),
     optimizedTokens: Math.max(...results.map((result) => result.optimizedTokens)),
     reductionPercent: Math.min(...results.map((result) => result.reductionPercent)),
@@ -241,7 +323,7 @@ export function buildSemanticDegradationFixtures(): SemanticDegradationFixture[]
       requiredPhrases: ["Token efficiency depends on measured task success"],
     },
     {
-      name: "numeric threshold preservation",
+      name: "spelled-out threshold phrase preservation",
       source: "Reviewers approve launch only when latency stays below one thousand milliseconds.",
       requiredPhrases: ["latency", "below one thousand milliseconds"],
     },
@@ -383,6 +465,9 @@ export async function runSemanticDegradationBenchmarkScenario(input: {
     });
   }
   const docLatencyMs = Math.max(...fixtureRuns.map((fixtureRun) => fixtureRun.latencyMs));
+  const suiteLatencyMs = roundLatencyMs(
+    fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.latencyMs, 0),
+  );
   const rawTokens = fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.rawTokens, 0) * 10;
   const optimizedTokens =
     fixtureRuns.reduce((sum, fixtureRun) => sum + fixtureRun.summary.estimatedTokens, 0) * 10;
@@ -400,6 +485,7 @@ export async function runSemanticDegradationBenchmarkScenario(input: {
     taskGateRequired: false,
     passedTaskGate: null,
     latencyMs: docLatencyMs,
+    suiteLatencyMs,
     profileVersion: "heuristic-v1",
     warnings: fixtureRuns.flatMap((fixtureRun) => fixtureRun.summary.warnings),
   };
