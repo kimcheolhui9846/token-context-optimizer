@@ -28,9 +28,16 @@
 - Luna tests-only stage reviewed before product stage; first permutation draft corrected to fixed run identities before final RED.
 - Claude Opus 5.5, milestone, PASS conditional on bundle check, 0 blocker / 0 major / 1 minor / 5 notes.
 - Minor resolved: git diff --ignore-cr-at-eol -- bin/ empty; index refresh stages no bundle change. Bundle excluded.
-- Notes adopted: demo limitation, consumer list, RED names, borderline overflow rounding. Optional test deduplication deferred. Final Astra pending.
+- Notes adopted: demo limitation, consumer list, RED names, borderline overflow rounding. Optional test deduplication deferred.
 - IEEE754 rounding remains; ascending sum is deterministic for a run set, not exact arithmetic.
-- Implementation and milestone review complete; commit/push/Draft/final gate pending. Ready/merge/nextTask not authorized.
+- Implementation commit `7654bdc` pushed; Draft PR #102 targets main `ee53fa0`. Post-Draft gates and audit PASS; Ready/merge/next Task not authorized.
 
 - RED failures: `is independent of ledger order` and `sums every ledger permutation in ascending cost order`; actual 1e16, expected 10000000000000002.
 - Plan deviations: none. The finite overflow guard is unchanged; borderline rounded totals can change under the approved summation order.
+
+## Final review
+- Post-Draft: 142 targeted PASS; 3250 full PASS / 5 existing SKIP. typecheck/build/smoke:mcp/validate:plugin/score:research/check:exact/diff PASS.
+- Final audit: demo byte-identical; one existing expectation migration; protected artifacts, wrappers, package/scripts and normalized bundle unchanged.
+- Primary Astra, final, PASS WITH NOTES, 0 blocker / 0 major / 0 minor; checked actual diff, RED/GREEN logs, scope, documentation and Draft head `7654bdc`. User previously confirmed session model via /model.
+- Remaining notes: IEEE754 rounding and borderline overflow behavior; O(n log n) time/O(n) cost storage per arm; demo has null costs; external/untracked consumers outside impact survey.
+- No additional code refactor needed. Final record-only commit follows; approval remains with user.
