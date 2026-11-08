@@ -22,19 +22,20 @@
 - GREEN:213PASS/2SKIP targeted;3244PASS/5baseline-identical SKIP full; all repository gates PASS.
 - Before/after: all three scenario names/tokens/reductions/gates unchanged; semantic58000→3950/93.2%. suiteLatencyMs only semantic.
 - Compiled collector from different cwd uses correct repo; real missing Git gives nulls. Bundle has228CRLF bytes vs Git blob; LF content identical, repeat build raw SHA b7986926b47b7cf25b3c3d7018916480547361426ec40fbee738bf1a7ed65647 identical.
-- Draft-after final gates: pending.
+- Draft-after final gates at c9b0a85:213targeted/3244full PASS,5baseline-identical SKIP; typecheck/build/benchmark/smoke/plugin/exact/diff PASS.
+- Final benchmark environment:c9b0a85904a11cf6c408d31274a32d91f66fc34f,dirty=false,Nodev24.18.0/win32/x64. Semantic93.2%,latency median3.25ms,p953.62ms,suite median11.38ms; no performance improvement claim.
 
 ## Reviews
 - Claude Opus5.5, initial, REQUIRED FIXES,0blocker/1major/4minor/5note; real collector failure coverage major included in implementation.
 - Wrong legacy-packet review discarded; corrected initial call verified model `claude-opus-5-5`.
 - Claude Opus5.5, milestone, REQUIRED FIXES,0blocker/1major/4minor/4note; bundle major answered with canonical equality/repeat build; temp cleanup already handled by wrapper+afterEach; whitespace/docs corrected.
 - Claude Opus5.5, scoped, PASS,0blocker/0major/0minor/5note; all milestone findings closed with code/evidence.
-- Primary Astra final: pending Draft-after gate.
+- Primary Astra final: PASS WITH NOTES; directly checked scope/source,diff/tests,report invariants,review resolutions,Git/push/Draft. Original RED prose-only evidence limitation remains disclosed.
 
 ## Status and limits
-- Implementation verified; commit/push/Draft pending.
+- Completed implementation commit c9b0a85 pushed; [Draft PR #101](https://github.com/kimcheolhui9846/token-context-optimizer/pull/101) open/unmerged. This final record update changes documentation only.
 - Timings are local synthetic observations, not controlled before/after performance evidence.
 - Existing npm audit7 findings observed; no dependency changes authorized.
 - Git/root lookup requires project tree containing package.json; Git metadata is optional.
 - Changed existing expectations: only3fixture-name references. Existing latency40 retained; suite100 is additional.
-- Next: scoped verdict, commit/push/Draft, final local gate/Astra, user review.
+- Next: user review/approval only. Ready/merge/nextTask not performed.
