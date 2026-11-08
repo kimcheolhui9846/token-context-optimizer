@@ -208,15 +208,15 @@ function hasUriScheme(content: string): boolean {
   return false;
 }
 
-const f21CredentialLabel = /\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \t]+|-)key|client(?:[ \t]+|-)secret|recovery(?:[ \t]+|-)codes?|secret(?:[ \t]+|-)answer|backup(?:[ \t]+|-)codes?)\b\*{0,3}\s*[:=：]/i;
+const f21CredentialLabel = /\b(?:passwd|pwd|passphrase|pass|passcode|pass(?:[ \t]+|-)phrase|credentials?|(?:private|secret|access|api)(?:[ \t]+|-)key|client(?:[ \t]+|-)secret|recovery(?:[ \t]+|-)codes?|secret(?:[ \t]+|-)answer|backup(?:[ \t]+|-)codes?)\b(?:\*{1,3}|["')”’）」』])?\s*[:=：]/i;
 
 function hasCredentialLabel(content: string): boolean {
   return f21CredentialLabel.test(content);
 }
 
 const KOREAN_CREDENTIAL_LABEL =
-  /(?:비밀[ \t]?번호|비번|패스[ \t]?워드|인증[ \t]?키|개인[ \t]?키|비밀[ \t]?키|시크릿[ \t]?키|액세스[ \t]?키|복구[ \t]?코드|백업[ \t]?코드|인증[ \t]?토큰|접근[ \t]?토큰|액세스[ \t]?토큰|암호|토큰|보안[ \t]?코드)\*{0,3}\s*[:=：]/i;
-const KOREAN_API_CREDENTIAL_LABEL = /(?<![A-Za-z0-9])api[ \t]?키\*{0,3}\s*[:=：]/i;
+  /(?:비밀[ \t]?번호|비번|패스[ \t]?워드|인증[ \t]?키|개인[ \t]?키|비밀[ \t]?키|시크릿[ \t]?키|액세스[ \t]?키|복구[ \t]?코드|백업[ \t]?코드|인증[ \t]?토큰|접근[ \t]?토큰|액세스[ \t]?토큰|암호|토큰|보안[ \t]?코드)(?:\*{1,3}|["')”’）」』])?\s*[:=：]/i;
+const KOREAN_API_CREDENTIAL_LABEL = /(?<![A-Za-z0-9])api[ \t]?키(?:\*{1,3}|["')”’）」』])?\s*[:=：]/i;
 
 function hasDottedTokenShape(content: string): boolean {
   let stemOrdinal = 0;
@@ -603,7 +603,7 @@ function matchesPolicyPredicate(predicate: PolicyPredicate, content: string): bo
 
 const EXACT_PATTERNS: Array<[string, PolicyPredicate]> = [
   ["secret", (content) =>
-    /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b\*{0,3}\s*[:=：]/iu.test(content) ||
+    /\b(?:api[_-]?key|token|password|secret|private[_-]?key)\b(?:\*{1,3}|["')”’）」』])?\s*[:=：]/iu.test(content) ||
     hasCredentialLabel(content) ||
     KOREAN_CREDENTIAL_LABEL.test(content) ||
     KOREAN_API_CREDENTIAL_LABEL.test(content)],

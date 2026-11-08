@@ -1,0 +1,1598 @@
+{
+  "schema": "n32-policy-performance/v1",
+  "version": 1,
+  "baselineCommit": "b4abdb88d72f16f35de01ecaed80cd5a7325b700",
+  "productCommit": "d9f615003d23cd75f24cefc74b3530db3ac9a5fe",
+  "campaign": {
+    "firstAttempt": 1,
+    "maxAttempt": 2
+  },
+  "baselinePolicyBlob": "974bb4fb271b2b68da03d2396945d7a9e6f56914",
+  "protocol": {
+    "warmupRounds": 12,
+    "warmupBlocks": 2,
+    "measuredRounds": 36,
+    "measuredBlocks": 6,
+    "roundsPerBlock": 6,
+    "callsPerRound": 3,
+    "iterations": 1,
+    "threshold": 1.03,
+    "aaLower": 0.97,
+    "aaUpper": 1.03,
+    "bootstrapResamples": 10000,
+    "bootstrapBlocksPerDraw": 6,
+    "quantiles": [
+      0.025,
+      0.975
+    ],
+    "percentile": "type-7",
+    "drift": {
+      "warmupHalf": 6,
+      "measuredHalf": 18,
+      "statistic": "arithmetic-mean",
+      "diagnosticOnly": true
+    },
+    "shuffleReset": "per-recipe; warmup followed by measurement"
+  },
+  "seeds": {
+    "shuffle": 1310142465,
+    "bootstrap": 1310142466
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F"
+  },
+  "artifacts": {
+    "source": {
+      "path": "src/core/policy.ts",
+      "normalization": "LF",
+      "sha256": "a1374c1414c9b1f1b6f86af993f70abb69153a3f9d7e9a4dca57f8771d3023b2"
+    },
+    "types": {
+      "path": "src/core/types.ts",
+      "normalization": "LF",
+      "sha256": "ce7963beee82eb049db328ffa9210bd0c2e3c558459be2bee5c9d59af441fbfe"
+    },
+    "tsconfig": {
+      "path": "tsconfig.json",
+      "normalization": "LF",
+      "sha256": "5be24454971e7268471cc9ed4b8fcaae9ec92bc35a89df0ce1db537616008fa8"
+    },
+    "lockfile": {
+      "path": "package-lock.json",
+      "normalization": "LF",
+      "sha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345"
+    },
+    "build": {
+      "path": "dist/src/core/policy.js",
+      "normalization": "bytes",
+      "sha256": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a"
+    },
+    "bundle": {
+      "path": "bin/token-context-optimizer.mjs",
+      "normalization": "LF",
+      "sha256": "6d9c7bfed52b2146dd3e7d03dbd7aa9d17a6973507809279883cc79f93e1ab66"
+    },
+    "runner": {
+      "path": "scripts/measure-n32-policy.mjs",
+      "normalization": "LF",
+      "sha256": "af4d5578060cc16af313939326085a8a8e66c0229315b1aff9387e65b88f0bb2"
+    },
+    "analyzer": {
+      "path": "scripts/analyze-n32-policy.mjs",
+      "normalization": "LF",
+      "sha256": "ff4a9f928a4bc76a82f203561d2be90d075d27a6667b2690780392530d1e9bcb"
+    },
+    "evidenceTests": {
+      "path": "tests/n32-policy-evidence.test.ts",
+      "normalization": "LF",
+      "sha256": "0e83e804350340dfa3dd75ceaac1605aab108932babab01c7cecd3f14e027d83"
+    },
+    "oracleTests": {
+      "path": "tests/policy-n32.test.ts",
+      "normalization": "LF",
+      "sha256": "8cf1b267b4250cb3c241d6f1bb25fcc196de700a82fbbfdae60782fcb391f699"
+    },
+    "baselineHelper": {
+      "path": "tests/helpers/policy-baseline-n32.ts",
+      "normalization": "LF",
+      "sha256": "55bf9990d88a4098e565bd087e4be157dcab119de3081b91e7a668225aafd212"
+    },
+    "preflight": {
+      "path": "docs/research/evidence/n32/preflight.json",
+      "normalization": "LF",
+      "sha256": "5cbeadf5c64766dbc4a621a3520a6a526b1e4ded50067d08a583ec16a582f142"
+    },
+    "package": {
+      "path": "package.json",
+      "normalization": "LF",
+      "sha256": "3280641f9bbc784eff6767e97c3d2529679c54b3b632112673ef40175eb2169f"
+    },
+    "compiler": {
+      "path": "node_modules/typescript/lib/typescript.js",
+      "normalization": "bytes",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "compilerCli": {
+      "path": "node_modules/typescript/lib/tsc.js",
+      "normalization": "bytes",
+      "sha256": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983"
+    }
+  },
+  "variants": {
+    "A": {
+      "path": ".artifacts/n32-policy/A/dist/policy.js",
+      "sourceSha256": "308043afc87102079a8b8a082199afaf26301d88f8253ffb349e0d7b1ba7174e",
+      "buildSha256": "27b4b13f4798eb3ce654c1ffce92cc14b8ab7c93100d79737546a819d7eea701"
+    },
+    "A-prime": {
+      "path": ".artifacts/n32-policy/A-prime/dist/policy.js",
+      "sourceSha256": "308043afc87102079a8b8a082199afaf26301d88f8253ffb349e0d7b1ba7174e",
+      "buildSha256": "27b4b13f4798eb3ce654c1ffce92cc14b8ab7c93100d79737546a819d7eea701"
+    },
+    "B": {
+      "path": "dist/src/core/policy.js",
+      "sourceSha256": "a1374c1414c9b1f1b6f86af993f70abb69153a3f9d7e9a4dca57f8771d3023b2",
+      "buildSha256": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a"
+    }
+  },
+  "recipes": [
+    {
+      "id": "starred-password-nbsp-60",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**password**                                                            ",
+      "inputSha256": "0412193f8a9d50e94882210c3c01267fb997081c025a97d43e829ca4a8d730fc",
+      "generator": {
+        "version": 1,
+        "unit": "**password**                                                            ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "starred-password-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**password**        ",
+      "inputSha256": "ed2abb5eedcfeede85e4b5642a6c6747c2fb7cc4d9a38091611c666e9823a1c6",
+      "generator": {
+        "version": 1,
+        "unit": "**password**        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "starred-korean-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**비밀번호**        ",
+      "inputSha256": "5cdee0f40ec6bbaa4ee07ad42768f74510970c2a36733604d74b59d46d501e00",
+      "generator": {
+        "version": 1,
+        "unit": "**비밀번호**        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "starred-password-wide-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**password**　　　　　　　　",
+      "inputSha256": "2cafb7b80e7f0874444379d16ed8ff32ebf3f811eecc0627ddb16fd98497990c",
+      "generator": {
+        "version": 1,
+        "unit": "**password**　　　　　　　　",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "password-stars",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "password************ ",
+      "inputSha256": "eb8a6370c81506f80fc44e4a1ca2a295ae88cf8274658d4d31fc784dce6ef5e0",
+      "generator": {
+        "version": 1,
+        "unit": "password************ ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "starred-password-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**password** ",
+      "inputSha256": "a4170c226a14ddf0a4cabbea21fada06ec5c2a491122512760963c377c095ce9",
+      "generator": {
+        "version": 1,
+        "unit": "**password** ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "starred-passwd-nbsp-60",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**passwd**                                                            ",
+      "inputSha256": "fa620fdbb9c166656065526890e74e8b83fe2da2d4100b812cd54bef85bb8c26",
+      "generator": {
+        "version": 1,
+        "unit": "**passwd**                                                            ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "starred-api-ko-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "**api키**        ",
+      "inputSha256": "5f71e3faac3397e3ea9f0ccd7940f21429aef5f77af1b2a56a10f4cff358ec15",
+      "generator": {
+        "version": 1,
+        "unit": "**api키**        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-repeated-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "비밀 번호 ",
+      "inputSha256": "d59f082f169f52199838b826a1ad5658262eb34f57995ff45245df7f17a3d290",
+      "generator": {
+        "version": 1,
+        "unit": "비밀 번호 ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "비밀번호",
+      "unit": " ",
+      "inputSha256": "8dae7e529ba060b890410eed63585243df955b880c391af981385818c3ecac51",
+      "generator": {
+        "version": 1,
+        "unit": " ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-tab",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "비밀번호",
+      "unit": "\t",
+      "inputSha256": "e1c26e5e012098ff6858f4e05babfee380b1ef925d018e356ac90a0848d16c08",
+      "generator": {
+        "version": 1,
+        "unit": "\t",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-nbsp",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "비밀번호",
+      "unit": " ",
+      "inputSha256": "a931b28803f05d04897f69df99bb4c47f4f2081b3c2a896241e9f101e660374d",
+      "generator": {
+        "version": 1,
+        "unit": " ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-wide",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "비밀번호",
+      "unit": "　",
+      "inputSha256": "e839e5825255a6d5167b5c485fc037e05e244b8c88a52f26609d74504d8f9eea",
+      "generator": {
+        "version": 1,
+        "unit": "　",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-lf",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "비밀번호",
+      "unit": "\n",
+      "inputSha256": "a0e7c0ccc98b1f94b3870e06da99596828fabf4e56cc96d96bd93b1e1d01f1a9",
+      "generator": {
+        "version": 1,
+        "unit": "\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-label-mixed",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "비밀번호",
+      "unit": " \t 　\n",
+      "inputSha256": "668ca4aa31308a61108fdd8d404e11b109664feacb80a8bb7af4f781db0b57c5",
+      "generator": {
+        "version": 1,
+        "unit": " \t 　\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-prose-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "회의실에서 다음 일정과 검토 결과를 함께 정리합니다.\n",
+      "inputSha256": "ac04e93bfd87645c7f2e525dad53445810a2af273d7c015c348a85b5c1f8d475",
+      "generator": {
+        "version": 1,
+        "unit": "회의실에서 다음 일정과 검토 결과를 함께 정리합니다.\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "A-prime": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "B": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "A-prime": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "B": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7"
+      }
+    },
+    {
+      "id": "en-prose-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "We should review the proposed schedule before the next meeting and share the summary with everyone.\n",
+      "inputSha256": "f0cc5cbecf2757691bab1236aab098d5ca71914ea230631b5d9b4fea763aa22f",
+      "generator": {
+        "version": 1,
+        "unit": "We should review the proposed schedule before the next meeting and share the summary with everyone.\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "A-prime": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        },
+        "B": {
+          "mode": "semantic",
+          "reasons": [
+            "natural_language"
+          ],
+          "warnings": []
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "A-prime": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+        "B": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7"
+      }
+    },
+    {
+      "id": "code-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "const value = true;\n",
+      "inputSha256": "872a7def5a9ed93400c90367757a47604794448a2744bfb4cf96485fc1b4418e",
+      "generator": {
+        "version": 1,
+        "unit": "const value = true;\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "exact",
+          "reasons": [
+            "code_syntax"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "exact",
+          "reasons": [
+            "code_syntax"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "exact",
+          "reasons": [
+            "code_syntax"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "0b649b2263c38dc80420af524dd3a287d60d7c7b8e5ea0a3f81d884499885795",
+        "A-prime": "0b649b2263c38dc80420af524dd3a287d60d7c7b8e5ea0a3f81d884499885795",
+        "B": "0b649b2263c38dc80420af524dd3a287d60d7c7b8e5ea0a3f81d884499885795"
+      }
+    },
+    {
+      "id": "markdown-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "# Project notes\n\nWe should review the proposed schedule before the next meeting.\n\n",
+      "inputSha256": "6e1480aa4765d498d95b9b9b6dab5b8bac007a0b6cf4eed5b04c5001a273a250",
+      "generator": {
+        "version": 1,
+        "unit": "# Project notes\n\nWe should review the proposed schedule before the next meeting.\n\n",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "ko-credential-10mib",
+      "kind": "representative",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "회의실 비밀번호: hunter2 이니까 접속할 때 참고해 주세요. ",
+      "inputSha256": "7ac7c1a1548ca28a2ea8317e41f1b579718ec43390c35b5ec8d16ece6e8db440",
+      "generator": {
+        "version": 1,
+        "unit": "회의실 비밀번호: hunter2 이니까 접속할 때 참고해 주세요. ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "exact",
+          "reasons": [
+            "secret"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "exact",
+          "reasons": [
+            "secret"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "exact",
+          "reasons": [
+            "secret"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": true,
+        "A-prime": true,
+        "B": true
+      },
+      "expectedOutputHashes": {
+        "A": "16705de95a098e2143d856a2a5a5512d0a3765984ab58da7fc9e750df50a7820",
+        "A-prime": "16705de95a098e2143d856a2a5a5512d0a3765984ab58da7fc9e750df50a7820",
+        "B": "16705de95a098e2143d856a2a5a5512d0a3765984ab58da7fc9e750df50a7820"
+      }
+    },
+    {
+      "id": "quoted-password-nbsp-60",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "\"password\"                                                             ",
+      "inputSha256": "51c5c29485c49e311eb7076106824076e3354fbaf029a0b7990bab5af3c81e41",
+      "generator": {
+        "version": 1,
+        "unit": "\"password\"                                                             ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "quoted-password-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "\"password\"        ",
+      "inputSha256": "aa76d6750a4529a88e74d049b0b04462600dbb32573a40a5b857c619f1d6e978",
+      "generator": {
+        "version": 1,
+        "unit": "\"password\"        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "quoted-password-wide-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "\"password\"　　　　　　　　",
+      "inputSha256": "fe5a1367a6450b8bcbf9c935ca592c0e185628bb1d1fd9abcc1f3cfc3dd54ed0",
+      "generator": {
+        "version": 1,
+        "unit": "\"password\"　　　　　　　　",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "quoted-password-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "\"password\" ",
+      "inputSha256": "35f3ee94666a302f93d831e81df4d6e1c9f3b53d0ef062934a0490f08e150772",
+      "generator": {
+        "version": 1,
+        "unit": "\"password\" ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "paren-password-space",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "(password) ",
+      "inputSha256": "1949db727022648c0cd66006344cfd95eeb51686bf6696249ce3ce3fb4076d86",
+      "generator": {
+        "version": 1,
+        "unit": "(password) ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "quoted-korean-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "\"비밀번호\"        ",
+      "inputSha256": "10abac5931a741fb4d0093afb14c5c505b62d05def7b4bff3729a229e16f2906",
+      "generator": {
+        "version": 1,
+        "unit": "\"비밀번호\"        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "corner-korean-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "「비밀번호」        ",
+      "inputSha256": "bf4ff26ef7dfdd3d68fde06c9340ad62417ad904fc1a3d94d392961e1507a03f",
+      "generator": {
+        "version": 1,
+        "unit": "「비밀번호」        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    },
+    {
+      "id": "quoted-api-ko-nbsp-8",
+      "kind": "worst",
+      "bytes": 10485760,
+      "prefix": "",
+      "unit": "\"api키\"        ",
+      "inputSha256": "d1974f8fde3d61bab404afc680763b0b0a703546aad3dde9f6324e2122c7807c",
+      "generator": {
+        "version": 1,
+        "unit": "\"api키\"        ",
+        "padding": "ascii-space"
+      },
+      "expectedOutputs": {
+        "A": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "A-prime": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        },
+        "B": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      "expectedTuple0": {
+        "A": false,
+        "A-prime": false,
+        "B": false
+      },
+      "expectedOutputHashes": {
+        "A": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "A-prime": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "B": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+      }
+    }
+  ],
+  "createdAt": "2026-11-07T13:54:05.856Z",
+  "notes": [
+    "Single classifier call per cell; small inputs are noise-sensitive.",
+    "No forced GC; natural runtime GC is retained.",
+    "Drift is diagnostic only.",
+    "Six-block bootstrap CI is descriptive, not an error-probability guarantee.",
+    "No timing occurs during prepare; source/build provenance is compiled and verified."
+  ],
+  "manifestSha256": "29d23eebde601d56e7d9c8682cf57312dc9235a763b9d486b472db7df25de5ac"
+}
