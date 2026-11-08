@@ -66,6 +66,8 @@
 - 최초 실행 오류: cat-file batch 입력의 join 구분자를 수정하고 각 응답 blob SHA-1을 검증했다. 위치 계산과 반복 집계를 보강했으며 corpus 수치는 동일하다. variant 증거 경로만 실제 생성 경로로 보정했으며 tests 재실행 결과로 위장하지 않았다.
 - Claude Opus 5.5 초기 검토: REQUIRED FIXES; 후보/파싱/성능 정의를 구체화했고 마지막 materialization 지적은 1045개 blob 검증으로 대응했다. 마일스톤 Claude Opus 5.5: REQUIRED FIXES, 0 blocker/2 major/7 minor/4 notes; UTF-16 위치와 templateFlags 진단을 수정했다. 변경 위치 5590개를 원문으로 독립 검산해 mismatch 0, 별도 위치/invalid-template 불변식 2개 PASS; Claude Opus 5.5 scoped 재검토: 0 blocker/0 major/2 minor/3 notes, Major 모두 해소; 남은 lockfile hash/comparedFields 메타데이터 2건은 실제 copy hash와 도구 정의로 수정·확인했다.
 - 전달문 전제와 차이: F21은 live estimator prelude를 읽는다(`scripts/analyze-f21-uri-impact.mjs:247–253`); N17/N27/N30은 pinned git source다. 현재 F21 fixture는 ASCII. 결합 후보를 추가 대조했고 조사/variant 스크립트와 JSON을 각각 분리했다.
-- 성능 게이트 측정/Ready/merge/제품 구현은 미수행. Draft PR과 최종 로컬 검증 뒤 사용자 결정을 기다린다.
+- [Draft PR #103](https://github.com/kimcheolhui9846/token-context-optimizer/pull/103), 조사 commit `ad08d52` push 완료. 성능 게이트 측정/Ready/merge/제품 구현은 미수행이며 사용자 결정을 기다린다.
 - 초기 variant 실행에는 빌드 직후·테스트 전 blob 확인이 없었다. 부모 에이전트가 보존된 복사본을 **테스트 종료 후** 1045개씩 감사해 baseline 차이 0, 후보는 estimator+생성 bundle만 차이, lockfile 모두 기준과 동일함을 확인했다. 재실행 도구에는 pre-test 검증을 추가했으며 과거 실행에 있었다고 주장하지 않는다.
 - `retrospective` 감사 필드는 부모 에이전트의 사후 감사 기록이며 원래 실행 도구가 출력한 필드가 아니다. corpus 재생성은 4,234,494 bytes 전체 동일(SHA-256 `dd66fbb1ec668559b744f7d7c70f4de52e59bce78d952b51b011473c7f3f2a49`).
+- Post-Draft 최종 gate: 대상 231 PASS/2 기존 SKIP; 전체 3250 PASS/5 기존 SKIP; typecheck/build/smoke:mcp/validate:plugin/score:research/check:exact/diff PASS.
+- Primary Astra, final, **PASS WITH NOTES**, 0 blocker/0 major/0 minor: 실제 diff·기준 blob·원시 tests/benchmark·독립 검산·재현성·PR head `ad08d52` 확인. 조사 도구의 Windows/고정 TS 의존성과 과거 pre-test build-check 공백은 위 한계로 유지한다. 최종 기록만 후속 커밋한다.
