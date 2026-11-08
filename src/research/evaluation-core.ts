@@ -79,15 +79,18 @@ export function evaluateCore(input: unknown, evaluation: unknown) {
     let successes = 0;
     let ungraded = 0;
     let cost = 0;
+    const costs: number[] = [];
     let unknownCost = false;
     const latencies: number[] = [];
     for (const run of runs) {
-      if (run.costUsd === null) unknownCost = true; else cost += run.costUsd;
+      if (run.costUsd === null) unknownCost = true; else costs.push(run.costUsd);
       if (run.latencyMs !== null) latencies.push(run.latencyMs);
       const outcome = classifyOutcome(run);
       classifiedRuns.push({ run, outcome });
       if (outcome === "success") successes += 1; else if (outcome === "ungraded") ungraded += 1;
     }
+    costs.sort((a, b) => a - b);
+    for (const value of costs) cost += value;
     if (!Number.isFinite(cost)) throw new Error("cost_overflow");
     latencies.sort((a, b) => a - b);
     const missing = planned - runs.length;
