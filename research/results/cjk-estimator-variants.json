@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "f6a9c825376d2daf72c63a3822cc839247cc73f3",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "arch": "x64",
+    "lockfileSha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345"
+  },
+  "materialization": {
+    "method": "shared clone checkout at exact base commit",
+    "trackedFileCount": 1045,
+    "retrospectiveAudit": {
+      "stage": "after_tests_retrospective",
+      "copyLockfileSha256AllMatchBase": true,
+      "preTestBuildVerificationPerformed": false,
+      "note": "Existing copies were audited after the completed run; no claim is made that the new post-build pre-test verification ran during that historical execution."
+    }
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "source": {
+        "sourceSha256Before": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+        "sourceSha256After": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+        "replacements": [],
+        "regexCount": 1,
+        "lengthCount": 1
+      },
+      "trackedFiles": {
+        "before": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 0,
+          "mismatches": []
+        },
+        "after": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 0,
+          "mismatches": [],
+          "unexpectedMismatchCount": 0,
+          "expectedPatchedPaths": []
+        },
+        "retrospective": {
+          "stage": "after_tests_retrospective",
+          "trackedFileCount": 1045,
+          "mismatchCount": 0,
+          "mismatches": [],
+          "unexpectedMismatchCount": 0,
+          "estimatorSha256": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+          "lockfileSha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345",
+          "preTestBuildVerificationPerformed": false
+        }
+      },
+      "build": {
+        "exitCode": 0,
+        "timedOut": false
+      },
+      "tests": {
+        "exitCode": 0,
+        "timedOut": false,
+        "passFailSkip": {
+          "pass": 3250,
+          "fail": 0,
+          "skip": 5,
+          "total": 3255
+        },
+        "failures": {
+          "count": 0,
+          "failures": []
+        },
+        "rawReportPath": "<scratch>/baseline-run-xZ73V4/vitest.json"
+      },
+      "benchmarks": {
+        "count": 2,
+        "runs": [
+          {
+            "exitCode": 0,
+            "passed": true,
+            "passedLatencyGate": true,
+            "rawReportPath": "<scratch>/baseline-run-xZ73V4/benchmark-1.json",
+            "rawLogPath": "<scratch>/baseline-run-xZ73V4/benchmark-1.raw.log",
+            "nonTime": {
+              "thresholds": {
+                "minimumReductionPercent": 25,
+                "maximumScenarioLatencyMs": 1000,
+                "exactGateRequired": true
+              },
+              "results": [
+                {
+                  "name": "25K-style build log exact retrieval",
+                  "rawTokens": 25025,
+                  "optimizedTokens": 32,
+                  "reductionPercent": 99.9,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "repeated semantic prefix phrase-retention smoke",
+                  "rawTokens": 58000,
+                  "optimizedTokens": 3950,
+                  "reductionPercent": 93.2,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "code context fixture source-backed retrieval",
+                  "rawTokens": 8272,
+                  "optimizedTokens": 128,
+                  "reductionPercent": 98.5,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                }
+              ]
+            }
+          },
+          {
+            "exitCode": 0,
+            "passed": true,
+            "passedLatencyGate": true,
+            "rawReportPath": "<scratch>/baseline-run-xZ73V4/benchmark-2.json",
+            "rawLogPath": "<scratch>/baseline-run-xZ73V4/benchmark-2.raw.log",
+            "nonTime": {
+              "thresholds": {
+                "minimumReductionPercent": 25,
+                "maximumScenarioLatencyMs": 1000,
+                "exactGateRequired": true
+              },
+              "results": [
+                {
+                  "name": "25K-style build log exact retrieval",
+                  "rawTokens": 25025,
+                  "optimizedTokens": 32,
+                  "reductionPercent": 99.9,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "repeated semantic prefix phrase-retention smoke",
+                  "rawTokens": 58000,
+                  "optimizedTokens": 3950,
+                  "reductionPercent": 93.2,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "code context fixture source-backed retrieval",
+                  "rawTokens": 8272,
+                  "optimizedTokens": 128,
+                  "reductionPercent": 98.5,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "d1a-only",
+      "source": {
+        "sourceSha256Before": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+        "sourceSha256After": "29c311756d9403ef4e195a40d78e8bd9d7bd282c36a5b2dc8197af382ea0602b",
+        "replacements": [
+          {
+            "type": "d1a",
+            "count": 1
+          }
+        ],
+        "regexCount": 1,
+        "lengthCount": 1
+      },
+      "trackedFiles": {
+        "before": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 0,
+          "mismatches": []
+        },
+        "after": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 1,
+          "mismatches": [
+            {
+              "path": "src/core/token-estimator.ts",
+              "expected": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+              "actual": "ca864cee4c52d194e6c638915a0e0bcb84d5b328"
+            }
+          ],
+          "unexpectedMismatchCount": 0,
+          "expectedPatchedPaths": [
+            "src/core/token-estimator.ts"
+          ]
+        },
+        "retrospective": {
+          "stage": "after_tests_retrospective",
+          "trackedFileCount": 1045,
+          "mismatchCount": 2,
+          "mismatches": [
+            {
+              "path": "bin/token-context-optimizer.mjs",
+              "expected": "8a52299252e34c6b8920a19b563e3e90c0c0cd9e",
+              "actual": "63650ca89fc5c66a3a1e365896166c50369f31cc"
+            },
+            {
+              "path": "src/core/token-estimator.ts",
+              "expected": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+              "actual": "ca864cee4c52d194e6c638915a0e0bcb84d5b328"
+            }
+          ],
+          "unexpectedMismatchCount": 0,
+          "estimatorSha256": "29c311756d9403ef4e195a40d78e8bd9d7bd282c36a5b2dc8197af382ea0602b",
+          "lockfileSha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345",
+          "preTestBuildVerificationPerformed": false
+        }
+      },
+      "build": {
+        "exitCode": 0,
+        "timedOut": false
+      },
+      "tests": {
+        "exitCode": 0,
+        "timedOut": false,
+        "passFailSkip": {
+          "pass": 3250,
+          "fail": 0,
+          "skip": 5,
+          "total": 3255
+        },
+        "failures": {
+          "count": 0,
+          "failures": []
+        },
+        "rawReportPath": "<scratch>/d1a-only-run-PuOfri/vitest.json"
+      },
+      "benchmarks": {
+        "count": 1,
+        "runs": [
+          {
+            "exitCode": 0,
+            "passed": true,
+            "passedLatencyGate": true,
+            "rawReportPath": "<scratch>/d1a-only-run-PuOfri/benchmark-1.json",
+            "rawLogPath": "<scratch>/d1a-only-run-PuOfri/benchmark-1.raw.log",
+            "nonTime": {
+              "thresholds": {
+                "minimumReductionPercent": 25,
+                "maximumScenarioLatencyMs": 1000,
+                "exactGateRequired": true
+              },
+              "results": [
+                {
+                  "name": "25K-style build log exact retrieval",
+                  "rawTokens": 25025,
+                  "optimizedTokens": 32,
+                  "reductionPercent": 99.9,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "repeated semantic prefix phrase-retention smoke",
+                  "rawTokens": 58000,
+                  "optimizedTokens": 3950,
+                  "reductionPercent": 93.2,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "code context fixture source-backed retrieval",
+                  "rawTokens": 8272,
+                  "optimizedTokens": 128,
+                  "reductionPercent": 98.5,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "d2b-only",
+      "source": {
+        "sourceSha256Before": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+        "sourceSha256After": "f35cd2671868c73513cf68ee0d06e3449c805077b98f146a50eb447ec9e88056",
+        "replacements": [
+          {
+            "type": "d2b",
+            "count": 1
+          }
+        ],
+        "regexCount": 1,
+        "lengthCount": 1
+      },
+      "trackedFiles": {
+        "before": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 0,
+          "mismatches": []
+        },
+        "after": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 1,
+          "mismatches": [
+            {
+              "path": "src/core/token-estimator.ts",
+              "expected": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+              "actual": "2fe25a8fef1d3b6735baa7483f13c1d039a6209c"
+            }
+          ],
+          "unexpectedMismatchCount": 0,
+          "expectedPatchedPaths": [
+            "src/core/token-estimator.ts"
+          ]
+        },
+        "retrospective": {
+          "stage": "after_tests_retrospective",
+          "trackedFileCount": 1045,
+          "mismatchCount": 2,
+          "mismatches": [
+            {
+              "path": "bin/token-context-optimizer.mjs",
+              "expected": "8a52299252e34c6b8920a19b563e3e90c0c0cd9e",
+              "actual": "0fba9d3c55615ed4bdcfe7438960cf1eb5a7206c"
+            },
+            {
+              "path": "src/core/token-estimator.ts",
+              "expected": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+              "actual": "2fe25a8fef1d3b6735baa7483f13c1d039a6209c"
+            }
+          ],
+          "unexpectedMismatchCount": 0,
+          "estimatorSha256": "f35cd2671868c73513cf68ee0d06e3449c805077b98f146a50eb447ec9e88056",
+          "lockfileSha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345",
+          "preTestBuildVerificationPerformed": false
+        }
+      },
+      "build": {
+        "exitCode": 0,
+        "timedOut": false
+      },
+      "tests": {
+        "exitCode": 0,
+        "timedOut": false,
+        "passFailSkip": {
+          "pass": 3250,
+          "fail": 0,
+          "skip": 5,
+          "total": 3255
+        },
+        "failures": {
+          "count": 0,
+          "failures": []
+        },
+        "rawReportPath": "<scratch>/d2b-only-run-F0k7n8/vitest.json"
+      },
+      "benchmarks": {
+        "count": 1,
+        "runs": [
+          {
+            "exitCode": 0,
+            "passed": true,
+            "passedLatencyGate": true,
+            "rawReportPath": "<scratch>/d2b-only-run-F0k7n8/benchmark-1.json",
+            "rawLogPath": "<scratch>/d2b-only-run-F0k7n8/benchmark-1.raw.log",
+            "nonTime": {
+              "thresholds": {
+                "minimumReductionPercent": 25,
+                "maximumScenarioLatencyMs": 1000,
+                "exactGateRequired": true
+              },
+              "results": [
+                {
+                  "name": "25K-style build log exact retrieval",
+                  "rawTokens": 25025,
+                  "optimizedTokens": 32,
+                  "reductionPercent": 99.9,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "repeated semantic prefix phrase-retention smoke",
+                  "rawTokens": 58000,
+                  "optimizedTokens": 3950,
+                  "reductionPercent": 93.2,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "code context fixture source-backed retrieval",
+                  "rawTokens": 8272,
+                  "optimizedTokens": 128,
+                  "reductionPercent": 98.5,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "combined-a-cp",
+      "source": {
+        "sourceSha256Before": "e63375c0146e8ab5e4261b9c908e1badb21e740045e2f43871b51d2676bbd3e0",
+        "sourceSha256After": "7a3163f5b3d5c214b34515c15e9cc5c607db314bf2a1fec900f7d6638ab7211d",
+        "replacements": [
+          {
+            "type": "d1a",
+            "count": 1
+          },
+          {
+            "type": "d2b",
+            "count": 1
+          }
+        ],
+        "regexCount": 1,
+        "lengthCount": 1
+      },
+      "trackedFiles": {
+        "before": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 0,
+          "mismatches": []
+        },
+        "after": {
+          "trackedFileCount": 1045,
+          "mismatchCount": 1,
+          "mismatches": [
+            {
+              "path": "src/core/token-estimator.ts",
+              "expected": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+              "actual": "5d76209b8e4da1b0351554e53a8bf60e7376dfeb"
+            }
+          ],
+          "unexpectedMismatchCount": 0,
+          "expectedPatchedPaths": [
+            "src/core/token-estimator.ts"
+          ]
+        },
+        "retrospective": {
+          "stage": "after_tests_retrospective",
+          "trackedFileCount": 1045,
+          "mismatchCount": 2,
+          "mismatches": [
+            {
+              "path": "bin/token-context-optimizer.mjs",
+              "expected": "8a52299252e34c6b8920a19b563e3e90c0c0cd9e",
+              "actual": "a53d4e5f385e219f651770f65305759667c920eb"
+            },
+            {
+              "path": "src/core/token-estimator.ts",
+              "expected": "2f3d08db3bbd27ba16d454b29302b6d6ea731b2a",
+              "actual": "5d76209b8e4da1b0351554e53a8bf60e7376dfeb"
+            }
+          ],
+          "unexpectedMismatchCount": 0,
+          "estimatorSha256": "7a3163f5b3d5c214b34515c15e9cc5c607db314bf2a1fec900f7d6638ab7211d",
+          "lockfileSha256": "4029f68af34bc6a8e854a29d2205f9bd443633fe46187c76e5f6890e32fce345",
+          "preTestBuildVerificationPerformed": false
+        }
+      },
+      "build": {
+        "exitCode": 0,
+        "timedOut": false
+      },
+      "tests": {
+        "exitCode": 0,
+        "timedOut": false,
+        "passFailSkip": {
+          "pass": 3250,
+          "fail": 0,
+          "skip": 5,
+          "total": 3255
+        },
+        "failures": {
+          "count": 0,
+          "failures": []
+        },
+        "rawReportPath": "<scratch>/combined-a-cp-run-7FpeYK/vitest.json"
+      },
+      "benchmarks": {
+        "count": 1,
+        "runs": [
+          {
+            "exitCode": 0,
+            "passed": true,
+            "passedLatencyGate": true,
+            "rawReportPath": "<scratch>/combined-a-cp-run-7FpeYK/benchmark-1.json",
+            "rawLogPath": "<scratch>/combined-a-cp-run-7FpeYK/benchmark-1.raw.log",
+            "nonTime": {
+              "thresholds": {
+                "minimumReductionPercent": 25,
+                "maximumScenarioLatencyMs": 1000,
+                "exactGateRequired": true
+              },
+              "results": [
+                {
+                  "name": "25K-style build log exact retrieval",
+                  "rawTokens": 25025,
+                  "optimizedTokens": 32,
+                  "reductionPercent": 99.9,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "repeated semantic prefix phrase-retention smoke",
+                  "rawTokens": 58000,
+                  "optimizedTokens": 3950,
+                  "reductionPercent": 93.2,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                },
+                {
+                  "name": "code context fixture source-backed retrieval",
+                  "rawTokens": 8272,
+                  "optimizedTokens": 128,
+                  "reductionPercent": 98.5,
+                  "passedExactGate": true,
+                  "taskGateRequired": false,
+                  "passedTaskGate": null,
+                  "profileVersion": "heuristic-v1",
+                  "warnings": [],
+                  "sampleCount": 20
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "benchmarkComparison": {
+    "comparedFields": "all benchmark JSON fields after removing generatedAt, environment, latency fields, and passed",
+    "baselineAAExact": true,
+    "exactBaselineCandidateMatches": [
+      true,
+      true,
+      true
+    ],
+    "excluded": [
+      "generatedAt",
+      "environment",
+      "latencyMs",
+      "suiteLatencyMs",
+      "medianLatencyMs",
+      "p95LatencyMs",
+      "passed"
+    ]
+  }
+}
