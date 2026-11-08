@@ -59,4 +59,14 @@
 ## Delivery and approval boundary
 - [Draft PR](https://github.com/kimcheolhui9846/token-context-optimizer/pull/104); implementation/evidence commit recorded in Git; no merge or Ready transition.
 - If performance is INCONCLUSIVE/FAIL, preserve evidence and report the blocking result; do not tune or remeasure.
-- Primary Astra final: **BLOCKED** — code/regression checks pass, but the required performance gate is INCONCLUSIVE. No tuning, remeasurement or next Task; user decision required.
+- Primary Astra final: **BLOCKED** — code/regression checks pass, but the required performance gate is INCONCLUSIVE. User approved E1 below; implementation acceptance remains blocked pending v2.
+
+## Performance v2 — approved E1 amendment
+- Tier E; follows INCONCLUSIVE v1 (retained), with exactly one new run and no v3, retry, selection or threshold tuning.
+- Only sample counts increase: 60/block, pooled360/arm, strata180; A/A360/arm. All inputs/hashes, six orders, five warmups, batches, bounds, VM/transpiler, Node and stop rules remain v1.
+- Runner `research/src/cjk-estimator-perf-v2.mjs`; exclusive output `research/results/cjk-estimator-perf-v2.json`. Frozen SHA-256 `032bfd72abbdd2bec641f12fafb0807aa2aea1dacb384f4061d7495364e8b461`.
+- v1 raw worktree result SHA-256 `1ddcf612cd5e862b70441602d0d9b463e58cbe673279da4b62b42bb6f1b0b948` (CRLF); independently verified before run.
+- Allowlist preserves old header comment and `runnerGitBlob` (v1 blob); authoritative v2 identity is runtime `runnerSha256` / `runnerSha256Normalized`, independently bound to the new committed runner.
+- Self-test360/pipeline and untimed preflight10 inputs PASS; no timing pilot. RED not applicable to a sample-count-only protocol amendment; assertions and exact diff are acceptance checks.
+- Claude `claude-opus-5-5`, v2 premeasurement: APPROVE, 0 blocker/0 major/3 minor/5 notes; provenance limitations disclosed and amendment/runner committed before timing. Full v1-to-v2 diff published in PR before measurement.
+- v2 measurement: NOT RUN yet; final evidence and local gates pending.
