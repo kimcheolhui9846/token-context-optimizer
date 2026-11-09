@@ -87,7 +87,10 @@ Token estimates are heuristic until actual API usage telemetry is available. Ben
 
 The estimator's CJK heuristic uses the exact union `U+3040-U+30FF` and
 `U+3131-U+D7A3`. Characters in this union contribute one estimated token per
-code point. The second interval is intentionally an overinclusive legacy
+code point.
+The implementation counts matching UTF-16 units; because both ranges end below
+the surrogate area, this equals the matching code point count.
+The second interval is intentionally an overinclusive legacy
 range (and includes Yi characters); it preserves the prior behavior while the
 kana interval and the final Hangul boundary are made explicit. The
 non-CJK remainder uses JavaScript UTF-16 string length, so each astral
