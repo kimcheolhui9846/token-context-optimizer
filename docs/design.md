@@ -107,6 +107,12 @@ The profile name alone does not identify the algorithm: retain the commit
 provenance when comparing or caching estimates within `heuristic-v1`. The
 base commit does not include this correction; see the
 [implementation record](agent/handoffs/6-4b-3-cjk-estimator-impl.md) for its PR.
+
+The v3 measurement recorded B/A medians of 0.052–0.262 across four cells;
+its formal gate remains INCONCLUSIVE because kana 10 MiB failed the A/A control.
+User decision G1 (2026-11-09) accepts the implementation with that limitation and
+the six unmeasured Hangul, astral and mixed cells at 1 KiB and 10 MiB.
+
 The exact intervals also cover punctuation and unassigned code points; they
 are a heuristic rather than a complete linguistic classification.
 
