@@ -94,7 +94,7 @@ function seededUtf16Corpus(seed: number): string[] {
     return state >>> 0;
   };
   const noWhitespace = [
-    0x0041, 0x0062, 0x0037, 0x3040, 0x30ff, 0x3131, 0xac00, 0x4e00,
+    0x0041, 0x0062, 0x0037, 0x3040, 0x304b, 0x30ab, 0x30ff, 0x3131, 0xac00, 0x4e00,
     0xd7a3, 0xd800, 0xdbff, 0xdc00, 0xdfff, 0x1f642,
   ];
   const mixed = [...noWhitespace, 0x0020, 0x0009, 0x000a, 0x000d];
@@ -129,6 +129,11 @@ function seededUtf16Corpus(seed: number): string[] {
 
 describe("charCode estimator v3 corpus", () => {
   const corpus = seededUtf16Corpus(0x6c4b3f21);
+  const requiredBoundaryUnits = [
+    0x303f, 0x3040, 0x30ff, 0x3100, 0x3130, 0x3131,
+    0xd79d, 0xd7a3, 0xd7a4, 0xd7ff, 0xd800, 0xdbff,
+    0xdc00, 0xdfff, 0xe000, 0xffff,
+  ];
 
   it("builds 1024 deterministic UTF-16 cases with required coverage", () => {
     expect(corpus).toHaveLength(1024);
@@ -136,6 +141,9 @@ describe("charCode estimator v3 corpus", () => {
     expect(corpus[1]).toHaveLength(500);
     expect(corpus.every((text) => text.length <= 500)).toBe(true);
     expect(corpus.filter((text) => !/\s/u.test(text)).length).toBeGreaterThanOrEqual(308);
+    expect(requiredBoundaryUnits.every((unit) => corpus.some((text) => text.charCodeAt(0) === unit))).toBe(true);
+    expect(corpus.some((text) => /\s/u.test(text))).toBe(true);
+    expect(corpus.some((text) => text.includes(String.fromCodePoint(0x1f642)))).toBe(true);
   });
 
   it.each(corpus.map((text, index) => [index, text] as const))(
@@ -144,6 +152,33 @@ describe("charCode estimator v3 corpus", () => {
       expect(estimateTextTokens(text)).toBe(legacyRegexEstimateTextTokens(text));
     },
   );
+
+  it.each([
+    ["below kana lower boundary", 0x303f, 1],
+    ["kana lower boundary", 0x3040, 4],
+    ["interior hiragana", 0x304b, 4],
+    ["katakana upper boundary", 0x30ff, 4],
+    ["interior katakana", 0x30ab, 4],
+    ["above kana upper boundary", 0x3100, 1],
+    ["below legacy lower boundary", 0x3130, 1],
+    ["legacy lower boundary", 0x3131, 4],
+    ["hangul lower interior", 0xd79d, 4],
+    ["hangul upper boundary", 0xd7a3, 4],
+    ["above hangul upper boundary", 0xd7a4, 1],
+    ["between hangul and surrogate range", 0xd7ff, 1],
+    ["high surrogate start", 0xd800, 1],
+    ["high surrogate end", 0xdbff, 1],
+    ["low surrogate start", 0xdc00, 1],
+    ["low surrogate end", 0xdfff, 1],
+    ["after surrogate range", 0xe000, 1],
+    ["BMP upper boundary", 0xffff, 1],
+  ] as const)("counts %s repeated four times", (_name, codeUnit, expected) => {
+    expect(estimateTextTokens(String.fromCharCode(codeUnit).repeat(4))).toBe(expected);
+  });
+
+  it("counts typical kana as four tokens", () => {
+    expect(estimateTextTokens("かなカナ")).toBe(4);
+  });
 
   it.each([
     ["lone high surrogate", String.fromCharCode(0xd800).repeat(4)],
