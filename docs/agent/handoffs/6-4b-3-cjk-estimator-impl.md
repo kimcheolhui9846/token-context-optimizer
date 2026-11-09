@@ -27,9 +27,9 @@
 - Benchmark exact non-time values equal baseline; exclude generated time, environment, latency fields and timing-dependent overall passed. Exact/task gates and thresholds retained; both overall gates passed.
 - Pinned impact replay: **4,234,494 bytes**, SHA-256 `dd66fbb1ec668559b744f7d7c70f4de52e59bce78d952b51b011473c7f3f2a49`, exact Git blob equality.
 - New Windows checkout uses CRLF for the historical JSON; comparison uses committed bytes, without modifying that file.
-- Latest premeasurement gate after three additive preservation tests: targeted251 PASS/2 SKIP; full3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS. Post-Draft final gate: targeted251 PASS/2 SKIP, full3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS.
+- Latest premeasurement gate after three additive preservation tests: targeted 251 PASS/2 SKIP; full 3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS. Post-Draft final gate: targeted 251 PASS/2 SKIP, full 3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS.
 
-## Performance protocol and status
+## Performance v1 protocol and status
 - Script: `research/src/cjk-estimator-perf.mjs`; fixed new output `research/results/cjk-estimator-perf.json`.
 - Exact UTF-8 1024/10485760-byte inputs: ASCII, kana, Hangul, astral and mixed; whole units plus ASCII padding, hashes recorded.
 - Six AB/BA blocks; each 5 warmups then20 samples, batch1000/1, followed within each block by independent A/A under the same procedure.
@@ -59,7 +59,7 @@
 ## Delivery and approval boundary
 - [Draft PR](https://github.com/kimcheolhui9846/token-context-optimizer/pull/104); implementation/evidence commit recorded in Git; no merge or Ready transition.
 - If performance is INCONCLUSIVE/FAIL, preserve evidence and report the blocking result; do not tune or remeasure.
-- Primary Astra final: **BLOCKED** — code/regression checks pass, but the required performance gate is INCONCLUSIVE. User approved E1 below; implementation acceptance remains blocked pending v2.
+- Primary Astra final: **BLOCKED** — code/regression checks pass, but the required performance gate is INCONCLUSIVE. Approved E1 v2 also INCONCLUSIVE; implementation acceptance remains BLOCKED. No v3 or next Task.
 
 ## Performance v2 — approved E1 amendment
 - Tier E; follows INCONCLUSIVE v1 (retained), with exactly one new run and no v3, retry, selection or threshold tuning.
@@ -69,4 +69,15 @@
 - Allowlist preserves old header comment and `runnerGitBlob` (v1 blob); authoritative v2 identity is runtime `runnerSha256` / `runnerSha256Normalized`, independently bound to the new committed runner.
 - Self-test360/pipeline and untimed preflight10 inputs PASS; no timing pilot. RED not applicable to a sample-count-only protocol amendment; assertions and exact diff are acceptance checks.
 - Claude `claude-opus-5-5`, v2 premeasurement: APPROVE, 0 blocker/0 major/3 minor/5 notes; provenance limitations disclosed and amendment/runner committed before timing. Full v1-to-v2 diff published in PR before measurement.
-- v2 measurement: NOT RUN yet; final evidence and local gates pending.
+- v2 measurement: **INCONCLUSIVE**, one run from commit 4525f32; first 3 cells completed, remaining 7 NOT RUN (kana10MiB; Hangul/astral/mixed both sizes). No retry or tuning.
+| Cell | Median ratio | p95 ratio | AB / BA median | A/A median / p95 deviation | Verdict |
+|---|---:|---:|---|---|---|
+| ascii 1 KiB | 1.0036589854 | 0.9915220831 | 1.0011473249 / 1.0048734055 | 0.0833992838% / 0.2695115104% | PASS |
+| ascii 10 MiB | 0.9978582978 | 0.9927616373 | 0.9961531513 / 0.9991956574 | 0.6067740698% / 0.3334960272% | PASS |
+| kana 1 KiB | 1.5583843868 | 1.5073094135 | 1.5577696175 / 1.5574246153 | 0.5735440279% / 8.7979995401% | INCONCLUSIVE |
+- Kana A/B and both strata also exceed bounds; A/A invalidity takes precedence. No definitive FAIL or acceptance claim. Decisions use unrounded data.
+- Post-run targeted 251 PASS/2 SKIP; full 3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS. Product/v1 diff zero against396a7cf; all 10 input records and recorded power states unchanged.
+- Primary independently verified all statistics/checksums/counts/verdicts; raw result SHA-256 1d8fa6593ce17d59e4b4469de1c0ae600a61f387f081b7fc8cc27e9f04eab568; v2 runner Git blob 84e19c27934278cfef3438b0bf0fd28b15b8a317. Runner SHA unchanged.
+- Local proof initially failed because sandbox could not resolve linked Git metadata; identical read-only proof PASS with escalation. No measurement was repeated.
+- Claude `claude-opus-5-5`, v2 milestone: APPROVE WITH MINOR CHANGES, 0 blocker/0 major/4 minor/7 notes; result normalization and runner-blob labels clarified, v1 section labeled, no absolute paths published. Implementation acceptance remains BLOCKED; kana observed median is about 55.84% slower, with both order strata also above threshold, despite formal INCONCLUSIVE.
+- Result as-written SHA-256 1d8fa6593ce17d59e4b4469de1c0ae600a61f387f081b7fc8cc27e9f04eab568 (LF interior plus Windows CRLF final newline); Git-normalized result SHA-256 eddeb3c84777e2ea4517640ada693f5646e3c34e23b5e0f1047bce2f213665f3, result blob b07f6f00b1255ea947888dcd20e7dac5258781f7. Only CRLF-to-LF normalization differs; raw working file preserved. No E1 scope deviation; no v3, Ready or merge.
