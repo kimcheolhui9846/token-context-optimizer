@@ -4,14 +4,12 @@
 - Base: `c9e816eeeeb8015f723c1b3e4ff825e42993b105` (#103 merge).
 - Branch: `codex/6-4b-3-cjk-estimator-impl`; Draft only, no Ready/merge.
 - Decisions: D1a/D2a/D3a approved in the user implementation brief.
-
 ## Scope and plan
 - Change only the estimator character class to `/[\u3040-\u30FF\u3131-\uD7A3]/u`.
 - Preserve UTF-16 remainder, word count/max/ceil, empty/minimum rules, confidence, warnings and `heuristic-v1`.
 - Add independent expectations, document exact ranges/limitations and pre-change base, rebuild the installed bundle.
 - Review runner before one preregistered measurement; preserve raw data; replay pinned impact data; verify; push Draft PR.
 - Historical research results, merged plan, datasets, benchmark fixtures/thresholds, dependencies and unrelated work remain unchanged.
-
 ## Implementation and TDD
 - Source regex and generated `bin/token-context-optimizer.mjs` each have one matching change.
 - New tests cover kana, Hangul tail, budget flip, gap/outer boundaries, Yi, old boundary, emoji and metadata.
@@ -20,7 +18,6 @@
 - Existing expected-value migration: **0**. Original assertions are unchanged.
 - `docs/design.md` describes the broad legacy interval, punctuation/unassigned inclusion, UTF-16 astral limit and same-profile commit provenance.
 - No production refactor or dependency change.
-
 ## Validation
 - Baseline: targeted231 PASS/2 SKIP; full3250 PASS/5 SKIP.
 - First implementation gate: targeted248 PASS/2 SKIP; full3267 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS.
@@ -28,7 +25,6 @@
 - Pinned impact replay: **4,234,494 bytes**, SHA-256 `dd66fbb1ec668559b744f7d7c70f4de52e59bce78d952b51b011473c7f3f2a49`, exact Git blob equality.
 - New Windows checkout uses CRLF for the historical JSON; comparison uses committed bytes, without modifying that file.
 - Latest premeasurement gate after three additive preservation tests: targeted 251 PASS/2 SKIP; full 3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS. Post-Draft final gate: targeted 251 PASS/2 SKIP, full 3270 PASS/5 SKIP; typecheck/build/MCP/plugin/benchmark/diff PASS.
-
 ## Performance v1 protocol and status
 - Script: `research/src/cjk-estimator-perf.mjs`; fixed new output `research/results/cjk-estimator-perf.json`.
 - Exact UTF-8 1024/10485760-byte inputs: ASCII, kana, Hangul, astral and mixed; whole units plus ASCII padding, hashes recorded.
@@ -45,7 +41,6 @@
 - Frozen runner SHA-256 `573372a57ab3a86a6a5e5008bd77469b3366bec7e328efec58447f0af7722bb4`; same bytes before/after. Source normalized hash `29c311756d9403ef4e195a40d78e8bd9d7bd282c36a5b2dc8197af382ea0602b`.
 - Measured source Git blob `ca864cee4c52d194e6c638915a0e0bcb84d5b328`; final commit blob binding verified identical. A/A p95 values18877700/17886600ns produce the5.2501099181% deviation.
 - Raw checkpoint writes are not atomic; a hard crash can corrupt the last checkpoint. Run-loop branches received static review, not an automated synthetic end-to-end simulation. Neither limit affected this completed cell.
-
 ## Review and corrections
 - Claude `claude-opus-5-5`, initial: APPROVE WITH CHANGES, 0 blocker/1 major/7 minor/6 notes.
 - Claude `claude-opus-5-5`, premeasurement: APPROVE WITH CHANGES, 0 blocker/1 major/9 minor/8 notes; normalized/emitted parity, provenance, checksum/count/status checks corrected before timing.
@@ -55,12 +50,10 @@
 - Luna first pass used D79E and failed to save RED log. Primary rejected the draft, restored only this Task's source change, saved RED JSON, applied D7A3 and revalidated. No incorrect change was committed or measured.
 - Local audit first compared CRLF checkout JSON with LF replay; assertion rendering exhausted its buffer. Direct committed-blob comparison passed; no measurement was involved.
 - `npm ci` reported 7 existing dependency vulnerabilities; upgrades are outside this Task.
-
 ## Delivery and approval boundary
 - [Draft PR](https://github.com/kimcheolhui9846/token-context-optimizer/pull/104); implementation/evidence commit recorded in Git; no merge or Ready transition.
 - If performance is INCONCLUSIVE/FAIL, preserve evidence and report the blocking result; do not tune or remeasure.
 - Primary Astra final: **BLOCKED** — code/regression checks pass, but the required performance gate is INCONCLUSIVE. Approved E1 v2 also INCONCLUSIVE; implementation acceptance remains BLOCKED. No v3 or next Task.
-
 ## Performance v2 — approved E1 amendment
 - Tier E; follows INCONCLUSIVE v1 (retained), with exactly one new run and no v3, retry, selection or threshold tuning.
 - Only sample counts increase: 60/block, pooled360/arm, strata180; A/A360/arm. All inputs/hashes, six orders, five warmups, batches, bounds, VM/transpiler, Node and stop rules remain v1.
@@ -68,7 +61,7 @@
 - v1 raw worktree result SHA-256 `1ddcf612cd5e862b70441602d0d9b463e58cbe673279da4b62b42bb6f1b0b948` (CRLF); independently verified before run.
 - Allowlist preserves old header comment and `runnerGitBlob` (v1 blob); authoritative v2 identity is runtime `runnerSha256` / `runnerSha256Normalized`, independently bound to the new committed runner.
 - Self-test360/pipeline and untimed preflight10 inputs PASS; no timing pilot. RED not applicable to a sample-count-only protocol amendment; assertions and exact diff are acceptance checks.
-- Claude `claude-opus-5-5`, v2 premeasurement: APPROVE, 0 blocker/0 major/3 minor/5 notes; provenance limitations disclosed and amendment/runner committed before timing. Full v1-to-v2 diff published in PR before measurement.
+- Claude `claude-opus-5-5`, v2 premeasurement: APPROVE, 0 blocker/0 major/3 minor/5 notes; provenance limitations disclosed and amendment/runner committed before timing. Premeasurement PR diff transfer was attempted but later found corrupted; exact local diff was reviewed.
 - v2 measurement: **INCONCLUSIVE**, one run from commit 4525f32; first 3 cells completed, remaining 7 NOT RUN (kana10MiB; Hangul/astral/mixed both sizes). No retry or tuning.
 | Cell | Median ratio | p95 ratio | AB / BA median | A/A median / p95 deviation | Verdict |
 |---|---:|---:|---|---|---|
@@ -80,4 +73,6 @@
 - Primary independently verified all statistics/checksums/counts/verdicts; raw result SHA-256 1d8fa6593ce17d59e4b4469de1c0ae600a61f387f081b7fc8cc27e9f04eab568; v2 runner Git blob 84e19c27934278cfef3438b0bf0fd28b15b8a317. Runner SHA unchanged.
 - Local proof initially failed because sandbox could not resolve linked Git metadata; identical read-only proof PASS with escalation. No measurement was repeated.
 - Claude `claude-opus-5-5`, v2 milestone: APPROVE WITH MINOR CHANGES, 0 blocker/0 major/4 minor/7 notes; result normalization and runner-blob labels clarified, v1 section labeled, no absolute paths published. Implementation acceptance remains BLOCKED; kana observed median is about 55.84% slower, with both order strata also above threshold, despite formal INCONCLUSIVE.
-- Result as-written SHA-256 1d8fa6593ce17d59e4b4469de1c0ae600a61f387f081b7fc8cc27e9f04eab568 (LF interior plus Windows CRLF final newline); Git-normalized result SHA-256 eddeb3c84777e2ea4517640ada693f5646e3c34e23b5e0f1047bce2f213665f3, result blob b07f6f00b1255ea947888dcd20e7dac5258781f7. Only CRLF-to-LF normalization differs; raw working file preserved. No E1 scope deviation; no v3, Ready or merge.
+- Result as-written SHA-256 1d8fa6593ce17d59e4b4469de1c0ae600a61f387f081b7fc8cc27e9f04eab568 (LF interior plus Windows CRLF final newline); Git-normalized result SHA-256 eddeb3c84777e2ea4517640ada693f5646e3c34e23b5e0f1047bce2f213665f3, result blob b07f6f00b1255ea947888dcd20e7dac5258781f7. Only CRLF-to-LF normalization differs; raw working file preserved. No product/measurement scope deviation; publication deviation below. No v3, Ready or merge.
+- Process deviation: final remote-body verification found PTY/base64 transfer corruption in the previously published full diff and result prose. Thus the complete readable diff was not correctly published before timing. The exact local diff was independently reviewed and the frozen runner/amendment were committed and pushed as4525f32 before the single run. Product, runner and raw evidence were unaffected. Corrected via direct file-based PR update after the run; no retry. This premeasurement publication gap cannot be repaired retroactively.
+- Claude claude-opus-5-5, publication scoped review: Draft evidence delivery APPROVE WITH MINOR CHANGES; 0 blocker/1 major/4 minor/6 notes. Major remains OPEN: premeasurement exact PR diff publication was corrupted and cannot be retroactively fulfilled; user decision required, no self-waiver. Final Astra: BLOCKED on performance and publication gap. Corruption affected diff hunks and later result prose; separately authored protocol summary remained readable. Exact reviewed FULL V2 packet equals git show4525f32 runner; frozen SHA and raw result hashes were rechecked. Push-before-run is supported by session tool order; independent GitHub push-event timestamp was NOT verified. Remote-body verification uses gh api and UTF-8 string equality after only CRLF-to-LF normalization; matching SHA evidence saved locally. Prior milestone document minors corrected; scoped external timestamp proof remains unavailable. Use direct body-file/API payload plus remote equality for future PR updates. No Ready/merge/v3.
