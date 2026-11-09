@@ -29,7 +29,10 @@ import {
   classifyContext,
   lossyCompressionAllowed,
 } from "../src/core/policy.js";
-import { estimateContext } from "../src/core/token-estimator.js";
+import {
+  estimateContext,
+  estimateTextTokens,
+} from "../src/core/token-estimator.js";
 import { ReadBoundedFileError } from "../src/core/read-bounded-file.js";
 
 const execFileAsync = promisify(execFile);
@@ -65,6 +68,124 @@ afterEach(async () => {
   const roots = [...temporaryRoots].sort((left, right) => right.length - left.length);
   temporaryRoots.clear();
   await Promise.all(roots.map((root) => rm(root, { recursive: true, force: true })));
+});
+
+// Frozen at authoring time from src/core/token-estimator.ts at baseline 782ad48.
+// This is intentionally independent of the implementation under test.
+function legacyRegexEstimateTextTokens(text: string): number {
+  if (text.length === 0) {
+    return 0;
+  }
+
+  const cjkChars = [...text].filter((char) => /[\u3040-\u30FF\u3131-\uD7A3]/u.test(char)).length;
+  const nonCjkChars = Math.max(text.length - cjkChars, 0);
+  const wordishTokens = text.trim().split(/\s+/u).filter(Boolean).length;
+  const charEstimate = Math.ceil(nonCjkChars / 4) + cjkChars;
+
+  return Math.max(1, Math.ceil(Math.max(wordishTokens, charEstimate)));
+}
+
+function seededUtf16Corpus(seed: number): string[] {
+  let state = seed >>> 0;
+  const next = (): number => {
+    state ^= state << 13;
+    state ^= state >>> 17;
+    state ^= state << 5;
+    return state >>> 0;
+  };
+  const noWhitespace = [
+    0x0041, 0x0062, 0x0037, 0x3040, 0x304b, 0x30ab, 0x30ff, 0x3131, 0xac00, 0x4e00,
+    0xd7a3, 0xd800, 0xdbff, 0xdc00, 0xdfff, 0x1f642,
+  ];
+  const mixed = [...noWhitespace, 0x0020, 0x0009, 0x000a, 0x000d];
+  const boundaryUnits = [
+    0x303f, 0x3040, 0x30ff, 0x3100, 0x3130, 0x3131,
+    0xd79d, 0xd7a3, 0xd7a4, 0xd7ff, 0xd800, 0xdbff,
+    0xdc00, 0xdfff, 0xe000, 0xffff,
+  ];
+  const cases: string[] = [];
+  for (let index = 0; index < 1024; index += 1) {
+    const length = index === 0 ? 0 : index === 1 ? 500 : next() % 501;
+    const units: number[] = [];
+    const alphabet = index % 3 === 0 ? mixed : noWhitespace;
+    for (let offset = 0; offset < length; offset += 1) {
+      let unit = index === 1 ? 0x0041 : alphabet[next() % alphabet.length];
+      if (offset === 0 && index >= 2 && index < boundaryUnits.length + 2) {
+        unit = boundaryUnits[index - 2];
+      }
+      if (unit === 0x1f642) {
+        if (offset + 1 < length) {
+          units.push(0xd83d, 0xde42);
+          offset += 1;
+        }
+      } else {
+        units.push(unit);
+      }
+    }
+    cases.push(String.fromCharCode(...units));
+  }
+  return cases;
+}
+
+describe("charCode estimator v3 corpus", () => {
+  const corpus = seededUtf16Corpus(0x6c4b3f21);
+  const requiredBoundaryUnits = [
+    0x303f, 0x3040, 0x30ff, 0x3100, 0x3130, 0x3131,
+    0xd79d, 0xd7a3, 0xd7a4, 0xd7ff, 0xd800, 0xdbff,
+    0xdc00, 0xdfff, 0xe000, 0xffff,
+  ];
+
+  it("builds 1024 deterministic UTF-16 cases with required coverage", () => {
+    expect(corpus).toHaveLength(1024);
+    expect(corpus[0]).toHaveLength(0);
+    expect(corpus[1]).toHaveLength(500);
+    expect(corpus.every((text) => text.length <= 500)).toBe(true);
+    expect(corpus.filter((text) => !/\s/u.test(text)).length).toBeGreaterThanOrEqual(308);
+    expect(requiredBoundaryUnits.every((unit) => corpus.some((text) => text.charCodeAt(0) === unit))).toBe(true);
+    expect(corpus.some((text) => /\s/u.test(text))).toBe(true);
+    expect(corpus.some((text) => text.includes(String.fromCodePoint(0x1f642)))).toBe(true);
+  });
+
+  it.each(corpus.map((text, index) => [index, text] as const))(
+    "matches the frozen regex reference for case %i",
+    (_index, text) => {
+      expect(estimateTextTokens(text)).toBe(legacyRegexEstimateTextTokens(text));
+    },
+  );
+
+  it.each([
+    ["below kana lower boundary", 0x303f, 1],
+    ["kana lower boundary", 0x3040, 4],
+    ["interior hiragana", 0x304b, 4],
+    ["katakana upper boundary", 0x30ff, 4],
+    ["interior katakana", 0x30ab, 4],
+    ["above kana upper boundary", 0x3100, 1],
+    ["below legacy lower boundary", 0x3130, 1],
+    ["legacy lower boundary", 0x3131, 4],
+    ["hangul lower interior", 0xd79d, 4],
+    ["hangul upper boundary", 0xd7a3, 4],
+    ["above hangul upper boundary", 0xd7a4, 1],
+    ["between hangul and surrogate range", 0xd7ff, 1],
+    ["high surrogate start", 0xd800, 1],
+    ["high surrogate end", 0xdbff, 1],
+    ["low surrogate start", 0xdc00, 1],
+    ["low surrogate end", 0xdfff, 1],
+    ["after surrogate range", 0xe000, 1],
+    ["BMP upper boundary", 0xffff, 1],
+  ] as const)("counts %s repeated four times", (_name, codeUnit, expected) => {
+    expect(estimateTextTokens(String.fromCharCode(codeUnit).repeat(4))).toBe(expected);
+  });
+
+  it("counts typical kana as four tokens", () => {
+    expect(estimateTextTokens("かなカナ")).toBe(4);
+  });
+
+  it.each([
+    ["lone high surrogate", String.fromCharCode(0xd800).repeat(4)],
+    ["lone low surrogate", String.fromCharCode(0xdc00).repeat(4)],
+  ] as const)("counts %s as one token", (_name, text) => {
+    expect(estimateTextTokens(text)).toBe(1);
+  });
 });
 
 async function mkdtemp(prefix: string): Promise<string> {
@@ -1068,6 +1189,46 @@ describe("safety policy", () => {
 });
 
 describe("token estimation", () => {
+  it.each([
+    ["kana lower boundary", 0x3040, 4],
+    ["hiragana", 0x3041, 4],
+    ["katakana", 0x30ff, 4],
+    ["hangul new upper boundary", 0xd7a3, 4],
+    ["hangul", 0x3131, 4],
+    ["yi", 0xa000, 4],
+    ["hangul old upper boundary", 0xd79d, 4],
+    ["hangul first newly included tail", 0xd79e, 4],
+  ] as const)("counts %s as one token per code point", (_name, codePoint, expected) => {
+    expect(estimateTextTokens(String.fromCodePoint(codePoint).repeat(4))).toBe(
+      expected,
+    );
+  });
+
+  it.each([
+    ["hiragana", "かなかな", 4],
+    ["katakana", "カタカナ", 4],
+    ["mixed ASCII and kana", "aかな", 3],
+  ] as const)("counts %s with mixed text", (_name, text, expected) => {
+    expect(estimateTextTokens(text)).toBe(expected);
+  });
+
+  it.each([
+    ["below kana lower boundary", 0x303f, 1],
+    ["below legacy lower boundary", 0x3130, 1],
+    ["bopomofo lower boundary", 0x3100, 1],
+    ["bopomofo", 0x3105, 1],
+    ["hangul upper excluded next", 0xd7a4, 1],
+    ["hangul upper excluded later", 0xd7b0, 1],
+  ] as const)("counts %s using UTF-16 remainder", (_name, codePoint, expected) => {
+    expect(estimateTextTokens(String.fromCodePoint(codePoint).repeat(4))).toBe(
+      expected,
+    );
+  });
+
+  it("retains UTF-16 remainder accounting for astral characters", () => {
+    expect(estimateTextTokens(String.fromCodePoint(0x1f642).repeat(4))).toBe(2);
+  });
+
   it("estimates text tokens conservatively and reports profile metadata", () => {
     const result = estimateContext({
       text: "one two three four five six seven eight",
@@ -1078,6 +1239,19 @@ describe("token estimation", () => {
     expect(result.fitsBudget).toBe(true);
     expect(result.profileVersion).toMatch(/^heuristic-/);
     expect(result.confidence).toBe("low");
+  });
+
+  it("preserves the heuristic-v1 metadata for kana estimates", () => {
+    const result = estimateContext({ text: "かなかな" });
+    expect(result.profileVersion).toBe("heuristic-v1");
+    expect(result.confidence).toBe("low");
+    expect(result.warnings).toEqual(["heuristic_estimate_not_billing_usage"]);
+  });
+
+  it("uses the estimate when deciding whether context fits its budget", () => {
+    expect(
+      estimateContext({ text: "かなかな", maxTokens: 3 }).fitsBudget,
+    ).toBe(false);
   });
 });
 
