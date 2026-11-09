@@ -70,6 +70,89 @@ afterEach(async () => {
   await Promise.all(roots.map((root) => rm(root, { recursive: true, force: true })));
 });
 
+// Frozen at authoring time from src/core/token-estimator.ts at baseline 782ad48.
+// This is intentionally independent of the implementation under test.
+function legacyRegexEstimateTextTokens(text: string): number {
+  if (text.length === 0) {
+    return 0;
+  }
+
+  const cjkChars = [...text].filter((char) => /[\u3040-\u30FF\u3131-\uD7A3]/u.test(char)).length;
+  const nonCjkChars = Math.max(text.length - cjkChars, 0);
+  const wordishTokens = text.trim().split(/\s+/u).filter(Boolean).length;
+  const charEstimate = Math.ceil(nonCjkChars / 4) + cjkChars;
+
+  return Math.max(1, Math.ceil(Math.max(wordishTokens, charEstimate)));
+}
+
+function seededUtf16Corpus(seed: number): string[] {
+  let state = seed >>> 0;
+  const next = (): number => {
+    state ^= state << 13;
+    state ^= state >>> 17;
+    state ^= state << 5;
+    return state >>> 0;
+  };
+  const noWhitespace = [
+    0x0041, 0x0062, 0x0037, 0x3040, 0x30ff, 0x3131, 0xac00, 0x4e00,
+    0xd7a3, 0xd800, 0xdbff, 0xdc00, 0xdfff, 0x1f642,
+  ];
+  const mixed = [...noWhitespace, 0x0020, 0x0009, 0x000a, 0x000d];
+  const boundaryUnits = [
+    0x303f, 0x3040, 0x30ff, 0x3100, 0x3130, 0x3131,
+    0xd79d, 0xd7a3, 0xd7a4, 0xd7ff, 0xd800, 0xdbff,
+    0xdc00, 0xdfff, 0xe000, 0xffff,
+  ];
+  const cases: string[] = [];
+  for (let index = 0; index < 1024; index += 1) {
+    const length = index === 0 ? 0 : index === 1 ? 500 : next() % 501;
+    const units: number[] = [];
+    const alphabet = index % 3 === 0 ? mixed : noWhitespace;
+    for (let offset = 0; offset < length; offset += 1) {
+      let unit = index === 1 ? 0x0041 : alphabet[next() % alphabet.length];
+      if (offset === 0 && index >= 2 && index < boundaryUnits.length + 2) {
+        unit = boundaryUnits[index - 2];
+      }
+      if (unit === 0x1f642) {
+        if (offset + 1 < length) {
+          units.push(0xd83d, 0xde42);
+          offset += 1;
+        }
+      } else {
+        units.push(unit);
+      }
+    }
+    cases.push(String.fromCharCode(...units));
+  }
+  return cases;
+}
+
+describe("charCode estimator v3 corpus", () => {
+  const corpus = seededUtf16Corpus(0x6c4b3f21);
+
+  it("builds 1024 deterministic UTF-16 cases with required coverage", () => {
+    expect(corpus).toHaveLength(1024);
+    expect(corpus[0]).toHaveLength(0);
+    expect(corpus[1]).toHaveLength(500);
+    expect(corpus.every((text) => text.length <= 500)).toBe(true);
+    expect(corpus.filter((text) => !/\s/u.test(text)).length).toBeGreaterThanOrEqual(308);
+  });
+
+  it.each(corpus.map((text, index) => [index, text] as const))(
+    "matches the frozen regex reference for case %i",
+    (_index, text) => {
+      expect(estimateTextTokens(text)).toBe(legacyRegexEstimateTextTokens(text));
+    },
+  );
+
+  it.each([
+    ["lone high surrogate", String.fromCharCode(0xd800).repeat(4)],
+    ["lone low surrogate", String.fromCharCode(0xdc00).repeat(4)],
+  ] as const)("counts %s as one token", (_name, text) => {
+    expect(estimateTextTokens(text)).toBe(1);
+  });
+});
+
 async function mkdtemp(prefix: string): Promise<string> {
   const root = await createTempDir(prefix);
   trackTemporaryRoot(root);
