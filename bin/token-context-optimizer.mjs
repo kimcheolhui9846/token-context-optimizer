@@ -23618,7 +23618,13 @@ function estimateTextTokens(text) {
   if (text.length === 0) {
     return 0;
   }
-  const cjkChars = [...text].filter((char) => /[\u3040-\u30FF\u3131-\uD7A3]/u.test(char)).length;
+  let cjkChars = 0;
+  for (let i2 = 0; i2 < text.length; i2++) {
+    const unit = text.charCodeAt(i2);
+    if (unit >= 12352 && unit <= 12543 || unit >= 12593 && unit <= 55203) {
+      cjkChars++;
+    }
+  }
   const nonCjkChars = Math.max(text.length - cjkChars, 0);
   const wordishTokens = text.trim().split(/\s+/u).filter(Boolean).length;
   const charEstimate = Math.ceil(nonCjkChars / 4) + cjkChars;

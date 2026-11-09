@@ -7,7 +7,15 @@ export function estimateTextTokens(text: string): number {
     return 0;
   }
 
-  const cjkChars = [...text].filter((char) => /[\u3040-\u30FF\u3131-\uD7A3]/u.test(char)).length;
+  let cjkChars = 0;
+  // Both ranges end below D800, so paired or unpaired surrogate units cannot count.
+  // Therefore this UTF-16-unit count equals the matching code point count.
+  for (let i = 0; i < text.length; i++) {
+    const unit = text.charCodeAt(i);
+    if ((unit >= 0x3040 && unit <= 0x30ff) || (unit >= 0x3131 && unit <= 0xd7a3)) {
+      cjkChars++;
+    }
+  }
   const nonCjkChars = Math.max(text.length - cjkChars, 0);
   const wordishTokens = text.trim().split(/\s+/u).filter(Boolean).length;
   const charEstimate = Math.ceil(nonCjkChars / 4) + cjkChars;
