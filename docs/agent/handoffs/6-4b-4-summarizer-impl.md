@@ -2,7 +2,7 @@
 
 - Tier E; base `c8580e91c0c1e077453290c7080e0dc671e519d7`; branch `codex/6-4b-4-summarizer-impl`.
 - Scope: approved D1–D4, trailing-whitespace warning exception, tests/bundle/current docs, preregistered performance evidence, verified prototype cleanup. Historical docs/results remain unchanged.
-- Status: CHANGES REQUIRED for complete evidence; mandatory performance gates PASS but required third-invalid-A/A stop reached. Draft delivery and post-Draft verification pending.
+- Status: CHANGES REQUIRED for complete evidence; mandatory performance gates PASS but required third-invalid-A/A stop reached. Draft PR #106 created and post-Draft verification PASS.
 
 ## Acceptance / design
 - Longest contiguous complete-line prefix, single sourceMap; exponential probes and binary search use existing renderer/estimator without formula duplication.
@@ -25,15 +25,15 @@
 - Differential:238 fixtures,50346 comparisons; allfit21378,truncated22403,blank-tail717,spanfallback2947,blocked2901; >6lines33578,>32lines5008;119indexed/119synthetic. Monotonicity128seeded+10fixed PASS.
 - Benchmark: optimizedTokens3950→4400,reduction93.2→92.4,CLI distinctsummary_truncated1; directexpectation4. Other non-time fields unchanged. Bundle rebuilt; legacy cap string absent.
 - Claude Code `claude-opus-5-5`, milestone: approve with changes, blocker0/major0/minor6/note6; duplicate probe removed, benchmark/docs and A/A wording clarified, arm identity frozen before preregistration.
-- Final selector review fix: redundant probe evaluation removed; fresh targeted1295pass/2skip and build PASS. Post-Draft gate pending.
+- Final selector review fix: redundant probe evaluation removed; fresh targeted1295pass/2skip and build PASS. Post-Draft build/core/full/typecheck/smoke:mcp/validate:plugin/benchmark PASS; full4332pass/0fail/5skip.
 - Specification clarifications: late88 selection fields remain identical but D2 intentionally adds a warning; whitespace-tail controls pass BASE and are not RED. Zero-budget core selection can contain one blank line with empty summary and warning.
 
 ## Performance result / stop condition
 - Preregistration and measurement HEAD: `7273824eeb9c8463f12f034c27b26a717be4e0a7`; implementation: `231084b7e2f79074f664ff502bd4a03c362f2038`.
 - Overall `invalid_aa`: mandatory G1/G2/G3 all PASS, but informational blank/reference2000 exhausted three A/A attempts. No further timing or tuning performed. Raw result: [JSON](../../../research/results/6-4b-4-summarizer-perf.json).
-- Every failed reference comparison had invalid BASE p95 A/A (reference A/A itself passed); absolute p95 differences/limits: 4.3075/3.4171, 5.2834/4.2886, 4.9254/3.3382 ms. All attempts retained; no valid comparison selected.
+- G1 blank also needed attempt2 because of BASE p95 A/A noise. Every failed reference comparison had invalid BASE p95 A/A (reference A/A itself passed); absolute p95 differences/limits: 4.3075/3.4171, 5.2834/4.2886, 4.9254/3.3382 ms. All attempts retained; no valid comparison selected.
 - NOT RUN after mandatory stop: prose/reference2000, classify-only controls, reference50000 diagnostics. No timeout or classifier timing claim is made.
-- Node24.18.0 / Windows10.0.26200 / i9-12900F,24logicalCPUs; power scheme GUID381b4222-f694-41f0-9685-ff5bb260df2e unchanged. Registry identity readable; localized powercfg label has encoding replacement characters. 1066 tracked files unchanged; guarded temp cleanup confirmed.
+- Node24.18.0 / Windows NT 10.0.26200 (edition not recorded) / i9-12900F,24logicalCPUs; power scheme GUID381b4222-f694-41f0-9685-ff5bb260df2e unchanged. Registry identity readable; localized powercfg label has encoding replacement characters. 1066 tracked files unchanged; guarded temp cleanup confirmed.
 
 | Gate/input/budget | Base median/p95 ms | Optimized median/p95 ms | Verdict |
 |---|---:|---:|---|
@@ -44,7 +44,7 @@
 | G3/late/88 | 0.1975/0.2392 | 0.1971/0.2619 | PASS (attempt 1) |
 | G3/single/120 | 0.0421/0.0562 | 0.0425/0.0519 | PASS (attempt 1) |
 
-- Result review: Claude Code `claude-opus-5-5`, result stage, blocker0/major2/minor5/note5. M1 remains an explicit evidence gap under the stop rule; no new timing. M2 was conditional: Git proves implementation, measured HEAD and current source/bundle blobs identical (`e4a24bf...` / `b6a5b76...`); duplicate probe was fixed BEFORE implementation commit and measurement. Scoped review requested.
+- Result review: Claude Code `claude-opus-5-5`, result stage, blocker0/major2/minor5/note5. M1 remains an explicit evidence gap under the stop rule; no new timing. M2 was conditional: Git proves implementation, measured HEAD and current source/bundle blobs identical (`e4a24bf...` / `b6a5b76...`); duplicate probe was fixed BEFORE implementation commit and measurement. Scoped review: Claude Code `claude-opus-5-5`, CHANGES REQUIRED, blocker0/major1(open M1)/minor2/note3; M2 withdrawn/resolved.
 - Interpretation: G2 median is report-only; G3 uses signed overhead, and these results also pass absolute differences. Blank optimized/reference2000 equality was checked during raw A/A calls after D2 warning normalization; prose reference equality was NOT RUN. Raw events retain the projections although the overall correctness summary is absent after stop.
 - Protocol limitation: informational reference was ordered before classify-only and stress diagnostics; its stop therefore prevented required supplementary evidence. Any follow-up requires a separately approved preregistration and new output file, preserving this result.
 - Local audit recomputed all A/A statistics and six gates from 1660 raw calls; environment and 1066 tracked files unchanged. OS label is Windows NT release10.0.26200; edition was not measured.
@@ -56,6 +56,9 @@
 - `$null`, `.tmp-map.txt`, `.claude/`, `pixel-office/`, `skill_kit_kch/` and all unlisted paths untouched. Audit/deletion logs remain in original ignored `.artifacts/summarizer-impl-cleanup-*`.
 
 ## Delivery / remaining work
-- Implementation and mandatory gates complete; overall performance evidence incomplete by explicit stop rule. Preserve results in Draft PR; independent result review and post-Draft verification pending.
+- [Draft PR #106](https://github.com/kimcheolhui9846/token-context-optimizer/pull/106); implementation231084b, prereg7273824, evidence3e91581; push verified. No merge.
+- Final primary Astra review: CHANGES REQUIRED solely for open M1 (unrun supplementary performance evidence after the mandatory stop). Functional implementation, scope, regressions, measured-source identity and six mandatory gates verified. No Ready/merge; user amendment decision required.
+- Post-Draft `git diff 7273824 -- src bin` empty; benchmark expected fields and cap0 confirmed. Raw audit: original ignored `.artifacts/summarizer-impl-audit.cjs`.
+- Implementation and mandatory gates complete; overall performance evidence incomplete by explicit stop rule. Preserve results in Draft PR; independent result/scoped reviews complete and post-Draft verification PASS.
 - Approval needed only for any separate protocol amendment/follow-up measurement to fill unrun controls; no new timing authorized after this stop.
 - No Ready or merge. User approves next Task after final report; historical N-03 status update belongs to Claude after merge.
