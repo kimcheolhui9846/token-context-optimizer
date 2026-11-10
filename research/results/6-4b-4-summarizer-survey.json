@@ -1,0 +1,3515 @@
+{
+  "schema": "summarizer-impact/v1",
+  "status": "complete",
+  "run_metadata": {
+    "startedAt": "2026-11-09T13:24:02.611Z",
+    "node": "v24.18.0",
+    "platform": "win32",
+    "osRelease": "10.0.26200",
+    "arch": "x64",
+    "base": "cf77b524445be3550c942a795d7c992e64d0e4b0",
+    "npmVersion": "11.16.0",
+    "runnerSha256": "8f5ad9d5dc0bc44ddac8926896aa025a6d0fd4304073386883ae40935e6c1a02",
+    "workerSha256": "669682eaa057c4e9461b2c3a82902136c0a65839b28b8a050863c46138c8935c",
+    "finalRunnerSha256": "8f5ad9d5dc0bc44ddac8926896aa025a6d0fd4304073386883ae40935e6c1a02",
+    "finalWorkerSha256": "669682eaa057c4e9461b2c3a82902136c0a65839b28b8a050863c46138c8935c",
+    "finishedAt": "2026-11-09T13:27:17.710Z"
+  },
+  "variants": {
+    "BASE": {
+      "transform": null,
+      "sourceSha256": "2e51cdeea2efd32bd37f869e8fad3f5bbd9d68d7e1043aa04fb45f387ed88f0c",
+      "compiledSha256": "e936f2f1d982a65a2628f611c1ab8c5beef1a492405ec9d5596d02f403e76dda",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "modules": {
+        "dist/src/core/artifacts.js": "e936f2f1d982a65a2628f611c1ab8c5beef1a492405ec9d5596d02f403e76dda",
+        "dist/src/core/token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "dist/src/core/policy.js": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a",
+        "dist/benchmarks/run.js": "9f51320aed51dd39e061ee14f608317520d269da902e0f8360b261d17eaf7cc8"
+      },
+      "buildExit": 0,
+      "typecheckExit": 0,
+      "targeted": {
+        "exit": 0,
+        "total": 1281,
+        "identitiesSha256": "c1b6d55b9f3526291fe86eef3352ae574d2a167d2dfafdb95bcdb2c31c0e32b9",
+        "passed": 1279,
+        "failedCount": 0,
+        "skippedCount": 2,
+        "todo": 0,
+        "failedSuites": 0,
+        "success": true,
+        "failed": [],
+        "skipped": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken in-root file link without exposing its target",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken file link outside the allowed root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          }
+        ],
+        "suiteErrors": [],
+        "unhandledErrors": [],
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        }
+      },
+      "full": {
+        "exit": 0,
+        "total": 4321,
+        "identitiesSha256": "89c4a3e9ac898ba98f298d8e73949bde3e168348a2f490a532642ca2eeabe02b",
+        "passed": 4316,
+        "failedCount": 0,
+        "skippedCount": 5,
+        "todo": 0,
+        "failedSuites": 0,
+        "success": true,
+        "failed": [],
+        "skipped": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken in-root file link without exposing its target",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken file link outside the allowed root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/image-artifacts.test.ts",
+            "name": "image artifact ingestion rejects a FIFO without blocking",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/image-artifacts.test.ts",
+            "name": "image allowed-root and link matrix denies in-root file symlinks to missing inside and outside targets alike",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/read-bounded-file.test.ts",
+            "name": "readBoundedFile denies an in-root symlink that resolves outside the root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          }
+        ],
+        "suiteErrors": [],
+        "unhandledErrors": [],
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        }
+      },
+      "benchmark": {
+        "exit": 0,
+        "report": {
+          "generatedAt": "2026-11-09T13:24:55.760Z",
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 1.38,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20,
+              "medianLatencyMs": 1.38,
+              "p95LatencyMs": 2.03
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 3950,
+              "reductionPercent": 93.2,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 2.81,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "suiteLatencyMs": 10.15,
+              "sampleCount": 20,
+              "medianLatencyMs": 2.81,
+              "p95LatencyMs": 3.1
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 1.06,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20,
+              "medianLatencyMs": 1.06,
+              "p95LatencyMs": 1.24
+            }
+          ],
+          "environment": {
+            "node": "v24.18.0",
+            "platform": "win32",
+            "arch": "x64",
+            "commitSha": null,
+            "dirty": null
+          },
+          "passed": true
+        }
+      },
+      "matrix": {
+        "snapshotRoot": "BASE",
+        "fixtureRoot": "fixtures",
+        "caseCount": 23,
+        "cases": [
+          {
+            "id": "late8lines",
+            "inputSha256": "dc28aa42c0983b70b440fcdc34263cf6be7aac1d6b92ce85e101615e38ce4779",
+            "inputLines": 8,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "late8lines.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 88,
+            "fullEstimate": 123,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The archive stores ordinary notes for the planning group.\nMembers review the notes during a quiet morning meeting.\nThe team records decisions in a shared paper journal.\nEveryone can suggest a correction before the meeting ends.\nThe coordinator reads the older entries aloud to the group.\nParticipants discuss the wording and agree on a clear version.",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1203,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "late8lines-full",
+            "inputSha256": "dc28aa42c0983b70b440fcdc34263cf6be7aac1d6b92ce85e101615e38ce4779",
+            "inputLines": 8,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "late8lines-full.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 88,
+            "fullEstimate": 123,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The archive stores ordinary notes for the planning group.\nMembers review the notes during a quiet morning meeting.\nThe team records decisions in a shared paper journal.\nEveryone can suggest a correction before the meeting ends.\nThe coordinator reads the older entries aloud to the group.\nParticipants discuss the wording and agree on a clear version.",
+            "meaningGate": false,
+            "budget": 123,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1203,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed7",
+            "inputSha256": "bd6ebdc8e053feb2ea944c96e4f65aa7e88113138add2220732e340b940e38e7",
+            "inputLines": 7,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "mixed7.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 93,
+            "fullEstimate": 124,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The garden committee reviews ordinary plans during a calm afternoon.\nSeveral members bring notes and share them around the table.\nThe group discusses the path near the old stone fountain.\nA volunteer reads the latest observations to everyone present.\nThe committee compares suggestions before choosing a direction.\nPeople leave room for questions and thoughtful revisions.",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1320,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed7-full",
+            "inputSha256": "bd6ebdc8e053feb2ea944c96e4f65aa7e88113138add2220732e340b940e38e7",
+            "inputLines": 7,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "mixed7-full.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 93,
+            "fullEstimate": 124,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The garden committee reviews ordinary plans during a calm afternoon.\nSeveral members bring notes and share them around the table.\nThe group discusses the path near the old stone fountain.\nA volunteer reads the latest observations to everyone present.\nThe committee compares suggestions before choosing a direction.\nPeople leave room for questions and thoughtful revisions.",
+            "meaningGate": false,
+            "budget": 124,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1320,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-semantic-success-phrase",
+            "inputSha256": "1fc0d4340528586db98454be484625ca7a66e803951eed67bb57aa130f1a9ae0",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-semantic-success-phrase.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 21,
+            "fullEstimate": 21,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 82,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-semantic-success-phrase-80",
+            "inputSha256": "ca6da051d0d76a8c7a072c8c04d709fdad9f2569fb67e20088cc1334fcdfd3b3",
+            "inputLines": 80,
+            "selectedLineCount": 5,
+            "sourceMap": {
+              "path": "semantic-semantic-success-phrase-80.txt",
+              "startLine": 1,
+              "endLine": 5
+            },
+            "estimatedTokens": 104,
+            "fullEstimate": 1660,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1737,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-spelled-out-threshold-phrase-preservation",
+            "inputSha256": "1ce04d8993672bd769acf8fca03ced15c2fbfc56e24e1b1b5888eae0bb1da091",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-spelled-out-threshold-phrase-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 21,
+            "fullEstimate": 21,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Reviewers approve launch only when latency stays below one thousand milliseconds.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 81,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-spelled-out-threshold-phrase-preservation-80",
+            "inputSha256": "22e214641e7a78418ab47abffe7a6a3178197289ce45b52959e1df13faa2d301",
+            "inputLines": 80,
+            "selectedLineCount": 5,
+            "sourceMap": {
+              "path": "semantic-spelled-out-threshold-phrase-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 5
+            },
+            "estimatedTokens": 103,
+            "fullEstimate": 1640,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Reviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1716,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-negation-preservation",
+            "inputSha256": "36fdfc435e889c6ebea5f0a846107ab432cba682313f7e550c6b96c2735b470f",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-negation-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 15,
+            "fullEstimate": 15,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Operators must not delete source excerpts during cleanup.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 57,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-negation-preservation-80",
+            "inputSha256": "dca65ef6d7b761dbc7434174ad5e6db0b2d4eae032570d1084d7fa1b9585a436",
+            "inputLines": 80,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "semantic-negation-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 87,
+            "fullEstimate": 1160,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Operators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1212,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-actor-action-preservation",
+            "inputSha256": "2a31ee28ed885d5dc82e17220d52e7d4154b03d0cb355bfc3890ac055493f287",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-actor-action-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 17,
+            "fullEstimate": 17,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The shift captain updates the readiness notes before opening hour.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 66,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-actor-action-preservation-80",
+            "inputSha256": "35c18385410d04f38718408fc7ee124734b6d922ced054296a3da24237c633ec",
+            "inputLines": 80,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "semantic-actor-action-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 101,
+            "fullEstimate": 1340,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1401,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "empty",
+            "inputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "inputLines": 0,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 0,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "twelve-blank",
+            "inputSha256": "636159b35205da4142a43bc02d2849d77d3ac07a0946211585cde15a9c6ff21f",
+            "inputLines": 11,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 3,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "twenty-short",
+            "inputSha256": "edc299e56624dec008e7f4cfa78dc8dee0b9ad53303aac4d05f199da0afd0d03",
+            "inputLines": 20,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 20,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "semantic-20-blank",
+            "inputSha256": "5f0d22cab5b4f4ccac8e32c66406731d10956de9168d0fa52f25a3680e403d2e",
+            "inputLines": 20,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "semantic-20-blank.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 22,
+            "fullEstimate": 26,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.\n\n\n\n\n",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 507,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-20-short",
+            "inputSha256": "9cbc015f8af391cd4e8b9d749619f49c71b196ad959514b6e847fef729769f53",
+            "inputLines": 21,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 31,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "too-long-budget10",
+            "inputSha256": "d0ff1cd369b2be2f2416137ffc21ab224a39a20d96028fc475c98529c72e2d65",
+            "inputLines": 1,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 19,
+            "fallbackReason": "summary_span_exceeds_budget",
+            "warnings": [
+              "complete_summary_span_required"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 10,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 74,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "korean-natural",
+            "inputSha256": "aafa1b2caba72a9c1c08850c865ea5338e2f2cbc9cd567a30fb9fc89ea402fbb",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "korean-natural.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 26,
+            "fullEstimate": 26,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "팀은 검토 결과를 기록하고 다음 작업의 근거를 보존합니다.",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 32,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed-crlf-cr",
+            "inputSha256": "a1f64f64516ce1d28a13a794cde5e167762538b25d420dbceb9cb95b7d64b413",
+            "inputLines": 4,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 19,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "mixed-delimiters-semantic",
+            "inputSha256": "bfbb4f604212709b9104ccc57232b6794325191313630959593b2f4dfda38664",
+            "inputLines": 7,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "mixed-delimiters-semantic.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 59,
+            "fullEstimate": 71,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The team reviews these ordinary notes.\nEvery member reads the next sentence.\nThe group keeps a clear record.\nThese notes describe a quiet morning.\nEach person can suggest another revision.\nThe discussion ends with shared understanding.",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 791,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "short-prose-semantic",
+            "inputSha256": "cf8a3a10cb43b271f59d1f595daa74180d0d91c620fe96fb9e88538befa1aaab",
+            "inputLines": 30,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "short-prose-semantic.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 33,
+            "fullEstimate": 165,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "We all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 456,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "policy-blocked",
+            "inputSha256": "737d355433ccf9d480aabcc62e6aa54e79d1a7942c81d7ff80af6e58ed4ca435",
+            "inputLines": 1,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 15,
+            "fallbackReason": "exact_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "exact",
+              "reasons": [
+                "numeric_or_table",
+                "code_or_path"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          }
+        ],
+        "seededMonotonicity": {
+          "count": 128,
+          "fixedCount": 10,
+          "finalEstimates": [
+            17,
+            21,
+            1,
+            5
+          ]
+        },
+        "invariants": {
+          "pathConsistency": true,
+          "summariesArePrefixes": true,
+          "sourceMapsContiguous": true
+        }
+      }
+    },
+    "A": {
+      "transform": {
+        "beforeSha256": "2e51cdeea2efd32bd37f869e8fad3f5bbd9d68d7e1043aa04fb45f387ed88f0c",
+        "afterSha256": "794b0e0fa96d85443f6bbf6512d916c144032f56e8c2071c42195f9c7d3f2b9b",
+        "changes": [
+          {
+            "line": 297,
+            "before": "  const candidateLines = artifact.sourceMap.slice(0, 6);\r",
+            "after": "  const candidateLines = artifact.sourceMap;\r"
+          }
+        ]
+      },
+      "sourceSha256": "794b0e0fa96d85443f6bbf6512d916c144032f56e8c2071c42195f9c7d3f2b9b",
+      "compiledSha256": "d6513f29d3543d01bdbe7ed0a46d83a74d77fbbf64be2b22745f28b67eda6621",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "modules": {
+        "dist/src/core/artifacts.js": "d6513f29d3543d01bdbe7ed0a46d83a74d77fbbf64be2b22745f28b67eda6621",
+        "dist/src/core/token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "dist/src/core/policy.js": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a",
+        "dist/benchmarks/run.js": "9f51320aed51dd39e061ee14f608317520d269da902e0f8360b261d17eaf7cc8"
+      },
+      "buildExit": 0,
+      "typecheckExit": 0,
+      "targeted": {
+        "exit": 1,
+        "total": 1281,
+        "identitiesSha256": "c1b6d55b9f3526291fe86eef3352ae574d2a167d2dfafdb95bcdb2c31c0e32b9",
+        "passed": 1278,
+        "failedCount": 1,
+        "skippedCount": 2,
+        "todo": 0,
+        "failedSuites": 2,
+        "success": false,
+        "failed": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "benchmarks characterizes real summarizer loss after the six-line prefix without policy fallback",
+            "status": "failed",
+            "location": null,
+            "failureMessages": [
+              "AssertionError: expected 'The archive stores ordinary notes for…' to be 'The archive stores ordinary notes for…' // Object.is equality\n    at <snapshot>/tests/core.test.ts:1413:29\n    at file:///<snapshot>/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+            ]
+          }
+        ],
+        "skipped": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken in-root file link without exposing its target",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken file link outside the allowed root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          }
+        ],
+        "suiteErrors": [],
+        "unhandledErrors": [],
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        }
+      },
+      "full": {
+        "exit": 1,
+        "total": 4321,
+        "identitiesSha256": "89c4a3e9ac898ba98f298d8e73949bde3e168348a2f490a532642ca2eeabe02b",
+        "passed": 4315,
+        "failedCount": 1,
+        "skippedCount": 5,
+        "todo": 0,
+        "failedSuites": 2,
+        "success": false,
+        "failed": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "benchmarks characterizes real summarizer loss after the six-line prefix without policy fallback",
+            "status": "failed",
+            "location": null,
+            "failureMessages": [
+              "AssertionError: expected 'The archive stores ordinary notes for…' to be 'The archive stores ordinary notes for…' // Object.is equality\n    at <snapshot>/tests/core.test.ts:1413:29\n    at file:///<snapshot>/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+            ]
+          }
+        ],
+        "skipped": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken in-root file link without exposing its target",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken file link outside the allowed root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/image-artifacts.test.ts",
+            "name": "image artifact ingestion rejects a FIFO without blocking",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/image-artifacts.test.ts",
+            "name": "image allowed-root and link matrix denies in-root file symlinks to missing inside and outside targets alike",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/read-bounded-file.test.ts",
+            "name": "readBoundedFile denies an in-root symlink that resolves outside the root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          }
+        ],
+        "suiteErrors": [],
+        "unhandledErrors": [],
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        }
+      },
+      "benchmark": {
+        "exit": 0,
+        "report": {
+          "generatedAt": "2026-11-09T13:25:49.296Z",
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 1.56,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20,
+              "medianLatencyMs": 1.56,
+              "p95LatencyMs": 1.95
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 2.87,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "suiteLatencyMs": 10.15,
+              "sampleCount": 20,
+              "medianLatencyMs": 2.87,
+              "p95LatencyMs": 3.95
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 1.09,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20,
+              "medianLatencyMs": 1.09,
+              "p95LatencyMs": 1.42
+            }
+          ],
+          "environment": {
+            "node": "v24.18.0",
+            "platform": "win32",
+            "arch": "x64",
+            "commitSha": null,
+            "dirty": null
+          },
+          "passed": true
+        }
+      },
+      "matrix": {
+        "snapshotRoot": "A",
+        "fixtureRoot": "fixtures",
+        "caseCount": 23,
+        "cases": [
+          {
+            "id": "late8lines",
+            "inputSha256": "dc28aa42c0983b70b440fcdc34263cf6be7aac1d6b92ce85e101615e38ce4779",
+            "inputLines": 8,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "late8lines.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 107,
+            "fullEstimate": 123,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The archive stores ordinary notes for the planning group.\nMembers review the notes during a quiet morning meeting.\nThe team records decisions in a shared paper journal.\nEveryone can suggest a correction before the meeting ends.\nThe coordinator reads the older entries aloud to the group.\nParticipants discuss the wording and agree on a clear version.\nThe required observation is that the blue lantern remains beside the window.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 8,
+            "derivedPrefixUTF16Scanned": 2119,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "late8lines-full",
+            "inputSha256": "dc28aa42c0983b70b440fcdc34263cf6be7aac1d6b92ce85e101615e38ce4779",
+            "inputLines": 8,
+            "selectedLineCount": 8,
+            "sourceMap": {
+              "path": "late8lines-full.txt",
+              "startLine": 1,
+              "endLine": 8
+            },
+            "estimatedTokens": 123,
+            "fullEstimate": 123,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The archive stores ordinary notes for the planning group.\nMembers review the notes during a quiet morning meeting.\nThe team records decisions in a shared paper journal.\nEveryone can suggest a correction before the meeting ends.\nThe coordinator reads the older entries aloud to the group.\nParticipants discuss the wording and agree on a clear version.\nThe required observation is that the blue lantern remains beside the window.\nThe group leaves the room after the conversation is complete.",
+            "meaningGate": true,
+            "budget": 123,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 8,
+            "derivedPrefixUTF16Scanned": 2119,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed7",
+            "inputSha256": "bd6ebdc8e053feb2ea944c96e4f65aa7e88113138add2220732e340b940e38e7",
+            "inputLines": 7,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "mixed7.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 93,
+            "fullEstimate": 124,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The garden committee reviews ordinary plans during a calm afternoon.\nSeveral members bring notes and share them around the table.\nThe group discusses the path near the old stone fountain.\nA volunteer reads the latest observations to everyone present.\nThe committee compares suggestions before choosing a direction.\nPeople leave room for questions and thoughtful revisions.",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 7,
+            "derivedPrefixUTF16Scanned": 1816,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed7-full",
+            "inputSha256": "bd6ebdc8e053feb2ea944c96e4f65aa7e88113138add2220732e340b940e38e7",
+            "inputLines": 7,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "mixed7-full.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 124,
+            "fullEstimate": 124,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The garden committee reviews ordinary plans during a calm afternoon.\nSeveral members bring notes and share them around the table.\nThe group discusses the path near the old stone fountain.\nA volunteer reads the latest observations to everyone present.\nThe committee compares suggestions before choosing a direction.\nPeople leave room for questions and thoughtful revisions.\nThe report says the silver bell remains beneath the cedar tree. Other observations describe the path and the morning light.",
+            "meaningGate": true,
+            "budget": 124,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 7,
+            "derivedPrefixUTF16Scanned": 1816,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-semantic-success-phrase",
+            "inputSha256": "1fc0d4340528586db98454be484625ca7a66e803951eed67bb57aa130f1a9ae0",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-semantic-success-phrase.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 21,
+            "fullEstimate": 21,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 82,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-semantic-success-phrase-80",
+            "inputSha256": "ca6da051d0d76a8c7a072c8c04d709fdad9f2569fb67e20088cc1334fcdfd3b3",
+            "inputLines": 80,
+            "selectedLineCount": 5,
+            "sourceMap": {
+              "path": "semantic-semantic-success-phrase-80.txt",
+              "startLine": 1,
+              "endLine": 5
+            },
+            "estimatedTokens": 104,
+            "fullEstimate": 1660,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1737,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-spelled-out-threshold-phrase-preservation",
+            "inputSha256": "1ce04d8993672bd769acf8fca03ced15c2fbfc56e24e1b1b5888eae0bb1da091",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-spelled-out-threshold-phrase-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 21,
+            "fullEstimate": 21,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Reviewers approve launch only when latency stays below one thousand milliseconds.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 81,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-spelled-out-threshold-phrase-preservation-80",
+            "inputSha256": "22e214641e7a78418ab47abffe7a6a3178197289ce45b52959e1df13faa2d301",
+            "inputLines": 80,
+            "selectedLineCount": 5,
+            "sourceMap": {
+              "path": "semantic-spelled-out-threshold-phrase-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 5
+            },
+            "estimatedTokens": 103,
+            "fullEstimate": 1640,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Reviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1716,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-negation-preservation",
+            "inputSha256": "36fdfc435e889c6ebea5f0a846107ab432cba682313f7e550c6b96c2735b470f",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-negation-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 15,
+            "fullEstimate": 15,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Operators must not delete source excerpts during cleanup.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 57,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-negation-preservation-80",
+            "inputSha256": "dca65ef6d7b761dbc7434174ad5e6db0b2d4eae032570d1084d7fa1b9585a436",
+            "inputLines": 80,
+            "selectedLineCount": 8,
+            "sourceMap": {
+              "path": "semantic-negation-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 8
+            },
+            "estimatedTokens": 116,
+            "fullEstimate": 1160,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Operators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 9,
+            "derivedPrefixUTF16Scanned": 2601,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-actor-action-preservation",
+            "inputSha256": "2a31ee28ed885d5dc82e17220d52e7d4154b03d0cb355bfc3890ac055493f287",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-actor-action-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 17,
+            "fullEstimate": 17,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The shift captain updates the readiness notes before opening hour.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 66,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-actor-action-preservation-80",
+            "inputSha256": "35c18385410d04f38718408fc7ee124734b6d922ced054296a3da24237c633ec",
+            "inputLines": 80,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "semantic-actor-action-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 117,
+            "fullEstimate": 1340,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 8,
+            "derivedPrefixUTF16Scanned": 2404,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "empty",
+            "inputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "inputLines": 0,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 0,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "twelve-blank",
+            "inputSha256": "636159b35205da4142a43bc02d2849d77d3ac07a0946211585cde15a9c6ff21f",
+            "inputLines": 11,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 3,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "twenty-short",
+            "inputSha256": "edc299e56624dec008e7f4cfa78dc8dee0b9ad53303aac4d05f199da0afd0d03",
+            "inputLines": 20,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 20,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "semantic-20-blank",
+            "inputSha256": "5f0d22cab5b4f4ccac8e32c66406731d10956de9168d0fa52f25a3680e403d2e",
+            "inputLines": 20,
+            "selectedLineCount": 20,
+            "sourceMap": {
+              "path": "semantic-20-blank.txt",
+              "startLine": 1,
+              "endLine": 20
+            },
+            "estimatedTokens": 26,
+            "fullEstimate": 26,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 20,
+            "derivedPrefixUTF16Scanned": 1830,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-20-short",
+            "inputSha256": "9cbc015f8af391cd4e8b9d749619f49c71b196ad959514b6e847fef729769f53",
+            "inputLines": 21,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 31,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "too-long-budget10",
+            "inputSha256": "d0ff1cd369b2be2f2416137ffc21ab224a39a20d96028fc475c98529c72e2d65",
+            "inputLines": 1,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 19,
+            "fallbackReason": "summary_span_exceeds_budget",
+            "warnings": [
+              "complete_summary_span_required"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 10,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 74,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "korean-natural",
+            "inputSha256": "aafa1b2caba72a9c1c08850c865ea5338e2f2cbc9cd567a30fb9fc89ea402fbb",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "korean-natural.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 26,
+            "fullEstimate": 26,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "팀은 검토 결과를 기록하고 다음 작업의 근거를 보존합니다.",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 32,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed-crlf-cr",
+            "inputSha256": "a1f64f64516ce1d28a13a794cde5e167762538b25d420dbceb9cb95b7d64b413",
+            "inputLines": 4,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 19,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "mixed-delimiters-semantic",
+            "inputSha256": "bfbb4f604212709b9104ccc57232b6794325191313630959593b2f4dfda38664",
+            "inputLines": 7,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "mixed-delimiters-semantic.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 70,
+            "fullEstimate": 71,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The team reviews these ordinary notes.\nEvery member reads the next sentence.\nThe group keeps a clear record.\nThese notes describe a quiet morning.\nEach person can suggest another revision.\nThe discussion ends with shared understanding.\nThe blue lantern remains beside the window.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 7,
+            "derivedPrefixUTF16Scanned": 1070,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "short-prose-semantic",
+            "inputSha256": "cf8a3a10cb43b271f59d1f595daa74180d0d91c620fe96fb9e88538befa1aaab",
+            "inputLines": 30,
+            "selectedLineCount": 21,
+            "sourceMap": {
+              "path": "short-prose-semantic.txt",
+              "startLine": 1,
+              "endLine": 21
+            },
+            "estimatedTokens": 116,
+            "fullEstimate": 165,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "We all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 22,
+            "derivedPrefixUTF16Scanned": 5544,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "policy-blocked",
+            "inputSha256": "737d355433ccf9d480aabcc62e6aa54e79d1a7942c81d7ff80af6e58ed4ca435",
+            "inputLines": 1,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 15,
+            "fallbackReason": "exact_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "exact",
+              "reasons": [
+                "numeric_or_table",
+                "code_or_path"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          }
+        ],
+        "seededMonotonicity": {
+          "count": 128,
+          "fixedCount": 10,
+          "finalEstimates": [
+            17,
+            21,
+            1,
+            5
+          ]
+        },
+        "invariants": {
+          "pathConsistency": true,
+          "summariesArePrefixes": true,
+          "sourceMapsContiguous": true
+        }
+      }
+    },
+    "B": {
+      "transform": {
+        "beforeSha256": "2e51cdeea2efd32bd37f869e8fad3f5bbd9d68d7e1043aa04fb45f387ed88f0c",
+        "afterSha256": "87849ec479891ce3703365e206b52571da753b49a7994b7ed0d3ca589a801c06",
+        "changes": [
+          {
+            "line": 297,
+            "before": "  const candidateLines = artifact.sourceMap.slice(0, 6);\r",
+            "after": "  const candidateLines = artifact.sourceMap;\r"
+          },
+          {
+            "line": 316,
+            "before": "    ...commonFields(artifact, estimateTextTokens(summary), [], null),\r",
+            "after": "    ...commonFields(artifact, estimateTextTokens(summary), selectedLines.length < artifact.sourceMap.length ? [\"summary_truncated\"] : [], null),\r"
+          }
+        ]
+      },
+      "sourceSha256": "87849ec479891ce3703365e206b52571da753b49a7994b7ed0d3ca589a801c06",
+      "compiledSha256": "8f9f4a3d44ca788d7a57f849dc8d4e83843ac8e3a5f1e5965afc8ad35c2ad155",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "modules": {
+        "dist/src/core/artifacts.js": "8f9f4a3d44ca788d7a57f849dc8d4e83843ac8e3a5f1e5965afc8ad35c2ad155",
+        "dist/src/core/token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "dist/src/core/policy.js": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a",
+        "dist/benchmarks/run.js": "9f51320aed51dd39e061ee14f608317520d269da902e0f8360b261d17eaf7cc8"
+      },
+      "buildExit": 0,
+      "typecheckExit": 0,
+      "targeted": {
+        "exit": 1,
+        "total": 1281,
+        "identitiesSha256": "c1b6d55b9f3526291fe86eef3352ae574d2a167d2dfafdb95bcdb2c31c0e32b9",
+        "passed": 1277,
+        "failedCount": 2,
+        "skippedCount": 2,
+        "todo": 0,
+        "failedSuites": 2,
+        "success": false,
+        "failed": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "benchmarks semantic benchmark reports all degradation fixture requirements",
+            "status": "failed",
+            "location": null,
+            "failureMessages": [
+              "AssertionError: expected { …(11) } to match object { …(5) }\n(6 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///<snapshot>/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///<snapshot>/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///<snapshot>/node_modules/chai/index.js:1686:25)\n    at <snapshot>/tests/core.test.ts:1353:20\n    at file:///<snapshot>/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+            ]
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "benchmarks characterizes real summarizer loss after the six-line prefix without policy fallback",
+            "status": "failed",
+            "location": null,
+            "failureMessages": [
+              "AssertionError: expected 'The archive stores ordinary notes for…' to be 'The archive stores ordinary notes for…' // Object.is equality\n    at <snapshot>/tests/core.test.ts:1413:29\n    at file:///<snapshot>/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+            ]
+          }
+        ],
+        "skipped": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken in-root file link without exposing its target",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken file link outside the allowed root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          }
+        ],
+        "suiteErrors": [],
+        "unhandledErrors": [],
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        }
+      },
+      "full": {
+        "exit": 1,
+        "total": 4321,
+        "identitiesSha256": "89c4a3e9ac898ba98f298d8e73949bde3e168348a2f490a532642ca2eeabe02b",
+        "passed": 4314,
+        "failedCount": 2,
+        "skippedCount": 5,
+        "todo": 0,
+        "failedSuites": 2,
+        "success": false,
+        "failed": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "benchmarks semantic benchmark reports all degradation fixture requirements",
+            "status": "failed",
+            "location": null,
+            "failureMessages": [
+              "AssertionError: expected { …(11) } to match object { …(5) }\n(6 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///<snapshot>/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///<snapshot>/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///<snapshot>/node_modules/chai/index.js:1686:25)\n    at <snapshot>/tests/core.test.ts:1353:20\n    at file:///<snapshot>/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+            ]
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "benchmarks characterizes real summarizer loss after the six-line prefix without policy fallback",
+            "status": "failed",
+            "location": null,
+            "failureMessages": [
+              "AssertionError: expected 'The archive stores ordinary notes for…' to be 'The archive stores ordinary notes for…' // Object.is equality\n    at <snapshot>/tests/core.test.ts:1413:29\n    at file:///<snapshot>/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+            ]
+          }
+        ],
+        "skipped": [
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken in-root file link without exposing its target",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/core.test.ts",
+            "name": "artifact indexing and retrieval denies a broken file link outside the allowed root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/image-artifacts.test.ts",
+            "name": "image artifact ingestion rejects a FIFO without blocking",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/image-artifacts.test.ts",
+            "name": "image allowed-root and link matrix denies in-root file symlinks to missing inside and outside targets alike",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          },
+          {
+            "file": "<snapshot>/tests/read-bounded-file.test.ts",
+            "name": "readBoundedFile denies an in-root symlink that resolves outside the root",
+            "status": "skipped",
+            "location": null,
+            "failureMessages": []
+          }
+        ],
+        "suiteErrors": [],
+        "unhandledErrors": [],
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        }
+      },
+      "benchmark": {
+        "exit": 0,
+        "report": {
+          "generatedAt": "2026-11-09T13:26:43.842Z",
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 1.46,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20,
+              "medianLatencyMs": 1.46,
+              "p95LatencyMs": 1.94
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 2.93,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "suiteLatencyMs": 10.23,
+              "sampleCount": 20,
+              "medianLatencyMs": 2.93,
+              "p95LatencyMs": 3.4
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "latencyMs": 1.06,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20,
+              "medianLatencyMs": 1.06,
+              "p95LatencyMs": 1.48
+            }
+          ],
+          "environment": {
+            "node": "v24.18.0",
+            "platform": "win32",
+            "arch": "x64",
+            "commitSha": null,
+            "dirty": null
+          },
+          "passed": true
+        }
+      },
+      "matrix": {
+        "snapshotRoot": "B",
+        "fixtureRoot": "fixtures",
+        "caseCount": 23,
+        "cases": [
+          {
+            "id": "late8lines",
+            "inputSha256": "dc28aa42c0983b70b440fcdc34263cf6be7aac1d6b92ce85e101615e38ce4779",
+            "inputLines": 8,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "late8lines.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 107,
+            "fullEstimate": 123,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "The archive stores ordinary notes for the planning group.\nMembers review the notes during a quiet morning meeting.\nThe team records decisions in a shared paper journal.\nEveryone can suggest a correction before the meeting ends.\nThe coordinator reads the older entries aloud to the group.\nParticipants discuss the wording and agree on a clear version.\nThe required observation is that the blue lantern remains beside the window.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 8,
+            "derivedPrefixUTF16Scanned": 2119,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "late8lines-full",
+            "inputSha256": "dc28aa42c0983b70b440fcdc34263cf6be7aac1d6b92ce85e101615e38ce4779",
+            "inputLines": 8,
+            "selectedLineCount": 8,
+            "sourceMap": {
+              "path": "late8lines-full.txt",
+              "startLine": 1,
+              "endLine": 8
+            },
+            "estimatedTokens": 123,
+            "fullEstimate": 123,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The archive stores ordinary notes for the planning group.\nMembers review the notes during a quiet morning meeting.\nThe team records decisions in a shared paper journal.\nEveryone can suggest a correction before the meeting ends.\nThe coordinator reads the older entries aloud to the group.\nParticipants discuss the wording and agree on a clear version.\nThe required observation is that the blue lantern remains beside the window.\nThe group leaves the room after the conversation is complete.",
+            "meaningGate": true,
+            "budget": 123,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 8,
+            "derivedPrefixUTF16Scanned": 2119,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed7",
+            "inputSha256": "bd6ebdc8e053feb2ea944c96e4f65aa7e88113138add2220732e340b940e38e7",
+            "inputLines": 7,
+            "selectedLineCount": 6,
+            "sourceMap": {
+              "path": "mixed7.txt",
+              "startLine": 1,
+              "endLine": 6
+            },
+            "estimatedTokens": 93,
+            "fullEstimate": 124,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "The garden committee reviews ordinary plans during a calm afternoon.\nSeveral members bring notes and share them around the table.\nThe group discusses the path near the old stone fountain.\nA volunteer reads the latest observations to everyone present.\nThe committee compares suggestions before choosing a direction.\nPeople leave room for questions and thoughtful revisions.",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 7,
+            "derivedPrefixUTF16Scanned": 1816,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed7-full",
+            "inputSha256": "bd6ebdc8e053feb2ea944c96e4f65aa7e88113138add2220732e340b940e38e7",
+            "inputLines": 7,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "mixed7-full.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 124,
+            "fullEstimate": 124,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The garden committee reviews ordinary plans during a calm afternoon.\nSeveral members bring notes and share them around the table.\nThe group discusses the path near the old stone fountain.\nA volunteer reads the latest observations to everyone present.\nThe committee compares suggestions before choosing a direction.\nPeople leave room for questions and thoughtful revisions.\nThe report says the silver bell remains beneath the cedar tree. Other observations describe the path and the morning light.",
+            "meaningGate": true,
+            "budget": 124,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 7,
+            "derivedPrefixUTF16Scanned": 1816,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-semantic-success-phrase",
+            "inputSha256": "1fc0d4340528586db98454be484625ca7a66e803951eed67bb57aa130f1a9ae0",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-semantic-success-phrase.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 21,
+            "fullEstimate": 21,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 82,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-semantic-success-phrase-80",
+            "inputSha256": "ca6da051d0d76a8c7a072c8c04d709fdad9f2569fb67e20088cc1334fcdfd3b3",
+            "inputLines": 80,
+            "selectedLineCount": 5,
+            "sourceMap": {
+              "path": "semantic-semantic-success-phrase-80.txt",
+              "startLine": 1,
+              "endLine": 5
+            },
+            "estimatedTokens": 104,
+            "fullEstimate": 1660,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.\nToken efficiency depends on measured task success and careful source preservation.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1737,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-spelled-out-threshold-phrase-preservation",
+            "inputSha256": "1ce04d8993672bd769acf8fca03ced15c2fbfc56e24e1b1b5888eae0bb1da091",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-spelled-out-threshold-phrase-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 21,
+            "fullEstimate": 21,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Reviewers approve launch only when latency stays below one thousand milliseconds.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 81,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-spelled-out-threshold-phrase-preservation-80",
+            "inputSha256": "22e214641e7a78418ab47abffe7a6a3178197289ce45b52959e1df13faa2d301",
+            "inputLines": 80,
+            "selectedLineCount": 5,
+            "sourceMap": {
+              "path": "semantic-spelled-out-threshold-phrase-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 5
+            },
+            "estimatedTokens": 103,
+            "fullEstimate": 1640,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "Reviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.\nReviewers approve launch only when latency stays below one thousand milliseconds.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 6,
+            "derivedPrefixUTF16Scanned": 1716,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-negation-preservation",
+            "inputSha256": "36fdfc435e889c6ebea5f0a846107ab432cba682313f7e550c6b96c2735b470f",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-negation-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 15,
+            "fullEstimate": 15,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Operators must not delete source excerpts during cleanup.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 57,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-negation-preservation-80",
+            "inputSha256": "dca65ef6d7b761dbc7434174ad5e6db0b2d4eae032570d1084d7fa1b9585a436",
+            "inputLines": 80,
+            "selectedLineCount": 8,
+            "sourceMap": {
+              "path": "semantic-negation-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 8
+            },
+            "estimatedTokens": 116,
+            "fullEstimate": 1160,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "Operators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.\nOperators must not delete source excerpts during cleanup.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 9,
+            "derivedPrefixUTF16Scanned": 2601,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-actor-action-preservation",
+            "inputSha256": "2a31ee28ed885d5dc82e17220d52e7d4154b03d0cb355bfc3890ac055493f287",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "semantic-actor-action-preservation.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 17,
+            "fullEstimate": 17,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The shift captain updates the readiness notes before opening hour.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 66,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-actor-action-preservation-80",
+            "inputSha256": "35c18385410d04f38718408fc7ee124734b6d922ced054296a3da24237c633ec",
+            "inputLines": 80,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "semantic-actor-action-preservation-80.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 117,
+            "fullEstimate": 1340,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "The shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.\nThe shift captain updates the readiness notes before opening hour.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 8,
+            "derivedPrefixUTF16Scanned": 2404,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "empty",
+            "inputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "inputLines": 0,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 0,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "twelve-blank",
+            "inputSha256": "636159b35205da4142a43bc02d2849d77d3ac07a0946211585cde15a9c6ff21f",
+            "inputLines": 11,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 3,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "twenty-short",
+            "inputSha256": "edc299e56624dec008e7f4cfa78dc8dee0b9ad53303aac4d05f199da0afd0d03",
+            "inputLines": 20,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 20,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "semantic-20-blank",
+            "inputSha256": "5f0d22cab5b4f4ccac8e32c66406731d10956de9168d0fa52f25a3680e403d2e",
+            "inputLines": 20,
+            "selectedLineCount": 20,
+            "sourceMap": {
+              "path": "semantic-20-blank.txt",
+              "startLine": 1,
+              "endLine": 20
+            },
+            "estimatedTokens": 26,
+            "fullEstimate": 26,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "Token efficiency depends on measured task success and careful source preservation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 20,
+            "derivedPrefixUTF16Scanned": 1830,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "semantic-20-short",
+            "inputSha256": "9cbc015f8af391cd4e8b9d749619f49c71b196ad959514b6e847fef729769f53",
+            "inputLines": 21,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 31,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": false,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "too-long-budget10",
+            "inputSha256": "d0ff1cd369b2be2f2416137ffc21ab224a39a20d96028fc475c98529c72e2d65",
+            "inputLines": 1,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 19,
+            "fallbackReason": "summary_span_exceeds_budget",
+            "warnings": [
+              "complete_summary_span_required"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 10,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 74,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "korean-natural",
+            "inputSha256": "aafa1b2caba72a9c1c08850c865ea5338e2f2cbc9cd567a30fb9fc89ea402fbb",
+            "inputLines": 1,
+            "selectedLineCount": 1,
+            "sourceMap": {
+              "path": "korean-natural.txt",
+              "startLine": 1,
+              "endLine": 1
+            },
+            "estimatedTokens": 26,
+            "fullEstimate": 26,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "팀은 검토 결과를 기록하고 다음 작업의 근거를 보존합니다.",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 1,
+            "derivedPrefixUTF16Scanned": 32,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "mixed-crlf-cr",
+            "inputSha256": "a1f64f64516ce1d28a13a794cde5e167762538b25d420dbceb9cb95b7d64b413",
+            "inputLines": 4,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 19,
+            "fallbackReason": "unknown_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          },
+          {
+            "id": "mixed-delimiters-semantic",
+            "inputSha256": "bfbb4f604212709b9104ccc57232b6794325191313630959593b2f4dfda38664",
+            "inputLines": 7,
+            "selectedLineCount": 7,
+            "sourceMap": {
+              "path": "mixed-delimiters-semantic.txt",
+              "startLine": 1,
+              "endLine": 7
+            },
+            "estimatedTokens": 70,
+            "fullEstimate": 71,
+            "fallbackReason": null,
+            "warnings": [],
+            "summary": "The team reviews these ordinary notes.\nEvery member reads the next sentence.\nThe group keeps a clear record.\nThese notes describe a quiet morning.\nEach person can suggest another revision.\nThe discussion ends with shared understanding.\nThe blue lantern remains beside the window.",
+            "meaningGate": true,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 7,
+            "derivedPrefixUTF16Scanned": 1070,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "short-prose-semantic",
+            "inputSha256": "cf8a3a10cb43b271f59d1f595daa74180d0d91c620fe96fb9e88538befa1aaab",
+            "inputLines": 30,
+            "selectedLineCount": 21,
+            "sourceMap": {
+              "path": "short-prose-semantic.txt",
+              "startLine": 1,
+              "endLine": 21
+            },
+            "estimatedTokens": 116,
+            "fullEstimate": 165,
+            "fallbackReason": null,
+            "warnings": [
+              "summary_truncated"
+            ],
+            "summary": "We all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.\nWe all like warm tea.",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "derivedEstimateCalls": 22,
+            "derivedPrefixUTF16Scanned": 5544,
+            "derivedFinalEstimateCalls": 1
+          },
+          {
+            "id": "policy-blocked",
+            "inputSha256": "737d355433ccf9d480aabcc62e6aa54e79d1a7942c81d7ff80af6e58ed4ca435",
+            "inputLines": 1,
+            "selectedLineCount": 0,
+            "sourceMap": null,
+            "estimatedTokens": 0,
+            "fullEstimate": 15,
+            "fallbackReason": "exact_content_requires_source",
+            "warnings": [
+              "lossy_summary_blocked",
+              "lossy_compression_not_allowed"
+            ],
+            "summary": "",
+            "meaningGate": null,
+            "budget": 120,
+            "classification": {
+              "mode": "exact",
+              "reasons": [
+                "numeric_or_table",
+                "code_or_path"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "derivedEstimateCalls": 0,
+            "derivedPrefixUTF16Scanned": 0,
+            "derivedFinalEstimateCalls": 0
+          }
+        ],
+        "seededMonotonicity": {
+          "count": 128,
+          "fixedCount": 10,
+          "finalEstimates": [
+            17,
+            21,
+            1,
+            5
+          ]
+        },
+        "invariants": {
+          "pathConsistency": true,
+          "summariesArePrefixes": true,
+          "sourceMapsContiguous": true
+        }
+      }
+    }
+  },
+  "comparison": {
+    "matrix": [
+      {
+        "id": "late8lines",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "late8lines-full",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "mixed7",
+        "nonCapBound": false,
+        "baseEqualsA": true,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "mixed7-full",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-semantic-success-phrase",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-semantic-success-phrase-80",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-spelled-out-threshold-phrase-preservation",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-spelled-out-threshold-phrase-preservation-80",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-negation-preservation",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-negation-preservation-80",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-actor-action-preservation",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-actor-action-preservation-80",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "empty",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "twelve-blank",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "twenty-short",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-20-blank",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "semantic-20-short",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "too-long-budget10",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "korean-natural",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "mixed-crlf-cr",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "mixed-delimiters-semantic",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "short-prose-semantic",
+        "nonCapBound": false,
+        "baseEqualsA": false,
+        "warningAdded": true,
+        "warningOnlyDifferenceVerified": true
+      },
+      {
+        "id": "policy-blocked",
+        "nonCapBound": true,
+        "baseEqualsA": true,
+        "warningAdded": false,
+        "warningOnlyDifferenceVerified": true
+      }
+    ],
+    "benchmark": {
+      "aVsBase": [
+        {
+          "path": "results.1.optimizedTokens",
+          "baseline": 3950,
+          "candidate": 4400
+        },
+        {
+          "path": "results.1.reductionPercent",
+          "baseline": 93.2,
+          "candidate": 92.4
+        }
+      ],
+      "bVsBase": [
+        {
+          "path": "results.1.optimizedTokens",
+          "baseline": 3950,
+          "candidate": 4400
+        },
+        {
+          "path": "results.1.reductionPercent",
+          "baseline": 93.2,
+          "candidate": 92.4
+        },
+        {
+          "path": "results.1.warnings.0",
+          "baseline": null,
+          "candidate": "summary_truncated"
+        }
+      ],
+      "bVsA": [
+        {
+          "path": "results.1.warnings.0",
+          "baseline": null,
+          "candidate": "summary_truncated"
+        }
+      ],
+      "excludedFields": [
+        "generatedAt",
+        "environment",
+        "latencyMs",
+        "suiteLatencyMs",
+        "medianLatencyMs",
+        "p95LatencyMs"
+      ]
+    },
+    "failures": {
+      "aVsBase": [
+        "<snapshot>/tests/core.test.ts::benchmarks characterizes real summarizer loss after the six-line prefix without policy fallback"
+      ],
+      "bVsBase": [
+        "<snapshot>/tests/core.test.ts::benchmarks characterizes real summarizer loss after the six-line prefix without policy fallback",
+        "<snapshot>/tests/core.test.ts::benchmarks semantic benchmark reports all degradation fixture requirements"
+      ],
+      "bOnly": [
+        "<snapshot>/tests/core.test.ts::benchmarks semantic benchmark reports all degradation fixture requirements"
+      ]
+    }
+  },
+  "diagnostics": [
+    {
+      "kind": "blank",
+      "budget": 2000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "indexMs": 25.5644,
+          "hash": "dfaa58d53bfd69721640839b11946d66a6feca615428c09984c93caa719b6370",
+          "generatedLines": 100001,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "dfaa58d53bfd69721640839b11946d66a6feca615428c09984c93caa719b6370",
+          "inputLines": 100000,
+          "selectedLineCount": 0,
+          "sourceMap": null,
+          "estimatedTokens": 0,
+          "fullEstimate": 25000,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "meaningGate": null,
+          "budget": 2000,
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "summarizeMs": 17.419100000000014,
+          "derivedEstimateCalls": 0,
+          "derivedPrefixUTF16Scanned": 0,
+          "derivedFinalEstimateCalls": 0,
+          "summarySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "blank",
+      "budget": 50000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "indexMs": 26.0974,
+          "hash": "dfaa58d53bfd69721640839b11946d66a6feca615428c09984c93caa719b6370",
+          "generatedLines": 100001,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "dfaa58d53bfd69721640839b11946d66a6feca615428c09984c93caa719b6370",
+          "inputLines": 100000,
+          "selectedLineCount": 0,
+          "sourceMap": null,
+          "estimatedTokens": 0,
+          "fullEstimate": 25000,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "meaningGate": null,
+          "budget": 50000,
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "summarizeMs": 16.553500000000014,
+          "derivedEstimateCalls": 0,
+          "derivedPrefixUTF16Scanned": 0,
+          "derivedFinalEstimateCalls": 0,
+          "summarySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "short",
+      "budget": 2000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "indexMs": 25.844700000000003,
+          "hash": "8a40f053e913c9d3775f769653f3bc2a917646d69ddbe62e205b6b4af3343164",
+          "generatedLines": 100000,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "8a40f053e913c9d3775f769653f3bc2a917646d69ddbe62e205b6b4af3343164",
+          "inputLines": 100000,
+          "selectedLineCount": 0,
+          "sourceMap": null,
+          "estimatedTokens": 0,
+          "fullEstimate": 100000,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "meaningGate": null,
+          "budget": 2000,
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "summarizeMs": 54.43639999999996,
+          "derivedEstimateCalls": 0,
+          "derivedPrefixUTF16Scanned": 0,
+          "derivedFinalEstimateCalls": 0,
+          "summarySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "short",
+      "budget": 50000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "indexMs": 26.075899999999997,
+          "hash": "8a40f053e913c9d3775f769653f3bc2a917646d69ddbe62e205b6b4af3343164",
+          "generatedLines": 100000,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "8a40f053e913c9d3775f769653f3bc2a917646d69ddbe62e205b6b4af3343164",
+          "inputLines": 100000,
+          "selectedLineCount": 0,
+          "sourceMap": null,
+          "estimatedTokens": 0,
+          "fullEstimate": 100000,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "meaningGate": null,
+          "budget": 50000,
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "summarizeMs": 54.69750000000002,
+          "derivedEstimateCalls": 0,
+          "derivedPrefixUTF16Scanned": 0,
+          "derivedFinalEstimateCalls": 0,
+          "summarySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "semantic-blank",
+      "budget": 2000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "indexMs": 23.615500000000004,
+          "hash": "edf130c3841eaea10d645bbfe8f4ac52af7610890cb9e7d011049f052eb49a56",
+          "generatedLines": 100001,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "edf130c3841eaea10d645bbfe8f4ac52af7610890cb9e7d011049f052eb49a56",
+          "inputLines": 100000,
+          "selectedLineCount": 7919,
+          "sourceMap": {
+            "path": "diagnostic-semantic-blank.txt",
+            "startLine": 1,
+            "endLine": 7919
+          },
+          "estimatedTokens": 2000,
+          "fullEstimate": 25021,
+          "fallbackReason": null,
+          "warnings": [],
+          "meaningGate": true,
+          "budget": 2000,
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "summarizeMs": 432.0753,
+          "derivedEstimateCalls": 7920,
+          "derivedPrefixUTF16Scanned": 32008680,
+          "derivedFinalEstimateCalls": 1,
+          "summarySha256": "410e52844e13d65376dfa44375f8a8aa38c28f326ac5c6c5c799a808aba7a3f7"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "semantic-blank",
+      "budget": 50000,
+      "status": "timeout_censored",
+      "timeoutPhase": "summary-and-result",
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 1,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "indexMs": 24.793600000000005,
+          "hash": "edf130c3841eaea10d645bbfe8f4ac52af7610890cb9e7d011049f052eb49a56",
+          "generatedLines": 100001,
+          "lineCount": 100000
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "semantic-short",
+      "budget": 2000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "indexMs": 26.547799999999995,
+          "hash": "15a77607fc6c0fe9d943481c74456d078389c036ad092eca6923c105645b8684",
+          "generatedLines": 100000,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "15a77607fc6c0fe9d943481c74456d078389c036ad092eca6923c105645b8684",
+          "inputLines": 100000,
+          "selectedLineCount": 0,
+          "sourceMap": null,
+          "estimatedTokens": 0,
+          "fullEstimate": 100010,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "meaningGate": false,
+          "budget": 2000,
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "summarizeMs": 54.43430000000001,
+          "derivedEstimateCalls": 0,
+          "derivedPrefixUTF16Scanned": 0,
+          "derivedFinalEstimateCalls": 0,
+          "summarySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "semantic-short",
+      "budget": 50000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "indexMs": 26.753899999999994,
+          "hash": "15a77607fc6c0fe9d943481c74456d078389c036ad092eca6923c105645b8684",
+          "generatedLines": 100000,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "15a77607fc6c0fe9d943481c74456d078389c036ad092eca6923c105645b8684",
+          "inputLines": 100000,
+          "selectedLineCount": 0,
+          "sourceMap": null,
+          "estimatedTokens": 0,
+          "fullEstimate": 100010,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "meaningGate": false,
+          "budget": 50000,
+          "classification": {
+            "mode": "unknown",
+            "reasons": [
+              "insufficient_semantic_signal"
+            ],
+            "warnings": [
+              "lossy_compression_not_allowed"
+            ]
+          },
+          "summarizeMs": 54.262400000000014,
+          "derivedEstimateCalls": 0,
+          "derivedPrefixUTF16Scanned": 0,
+          "derivedFinalEstimateCalls": 0,
+          "summarySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "prose-short",
+      "budget": 2000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "indexMs": 32.640299999999996,
+          "hash": "166bf85ef7e8221a2411a18fec016e0f1fc99d509660c204de0d8df6ea8485be",
+          "generatedLines": 100000,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "166bf85ef7e8221a2411a18fec016e0f1fc99d509660c204de0d8df6ea8485be",
+          "inputLines": 100000,
+          "selectedLineCount": 363,
+          "sourceMap": {
+            "path": "diagnostic-prose-short.txt",
+            "startLine": 1,
+            "endLine": 363
+          },
+          "estimatedTokens": 1997,
+          "fullEstimate": 550000,
+          "fallbackReason": null,
+          "warnings": [],
+          "meaningGate": null,
+          "budget": 2000,
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "summarizeMs": 789.8803,
+          "derivedEstimateCalls": 364,
+          "derivedPrefixUTF16Scanned": 1461096,
+          "derivedFinalEstimateCalls": 1,
+          "summarySha256": "eb0adc15a3d659d31ced4d611376fea946d3c6309c06da86c286f7332d73c003"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    },
+    {
+      "kind": "prose-short",
+      "budget": 50000,
+      "status": "completed",
+      "timeoutPhase": null,
+      "timeoutLimitMs": 15000,
+      "heapLimitMiB": 512,
+      "code": 0,
+      "signal": null,
+      "events": [
+        {
+          "type": "index-ready",
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "indexMs": 34.0107,
+          "hash": "166bf85ef7e8221a2411a18fec016e0f1fc99d509660c204de0d8df6ea8485be",
+          "generatedLines": 100000,
+          "lineCount": 100000
+        },
+        {
+          "type": "result",
+          "inputSha256": "166bf85ef7e8221a2411a18fec016e0f1fc99d509660c204de0d8df6ea8485be",
+          "inputLines": 100000,
+          "selectedLineCount": 9090,
+          "sourceMap": {
+            "path": "diagnostic-prose-short.txt",
+            "startLine": 1,
+            "endLine": 9090
+          },
+          "estimatedTokens": 49995,
+          "fullEstimate": 550000,
+          "fallbackReason": null,
+          "warnings": [],
+          "meaningGate": null,
+          "budget": 50000,
+          "classification": {
+            "mode": "semantic",
+            "reasons": [
+              "natural_language"
+            ],
+            "warnings": []
+          },
+          "summarizeMs": 10410.5962,
+          "derivedEstimateCalls": 9091,
+          "derivedPrefixUTF16Scanned": 909200001,
+          "derivedFinalEstimateCalls": 1,
+          "summarySha256": "549ca3b0c612153f1612e4214ea48471f266150b267439cbad133ad7a2cbba1e"
+        }
+      ],
+      "malformedLines": [],
+      "stderr": "",
+      "counters": "derived from completed selected prefix; fit calls and sum of UTF-16 prefix lengths, not instrumented timing"
+    }
+  ],
+  "preservation": {
+    "trackedFiles": 1057,
+    "beforeManifestSha256": "116d2d03fdd446312fe13f9f0e503fcdd987ab800c9095051288eec8618c6a86",
+    "afterManifestSha256": "116d2d03fdd446312fe13f9f0e503fcdd987ab800c9095051288eec8618c6a86",
+    "changed": []
+  },
+  "tempCleanup": true
+}
