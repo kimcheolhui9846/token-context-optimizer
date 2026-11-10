@@ -11,7 +11,10 @@ const BASE = 'e906015a4be6bac2904d4ee83b52ae36ab0f2e59';
 const RUNNER = 'research/src/6-4b-5-store-memory.mjs', WORKER = 'research/src/6-4b-5-store-memory-worker.mjs';
 const FLAGS = ['--expose-gc', '--max-old-space-size=6144'];
 const SIZES = [1024, 1048576, 10485760];
-const SHAPES = [
+const MIXED = process.argv.includes('--mixed-shapes');
+const SHAPES = MIXED ? [
+  ['ascii12crlfEmoji', 'abcdefghijkl\r\n'], ['crlfEmoji', 'We all like warm tea.\r\n'], ['ascii12Emoji', 'abcdefghijkl\n'],
+] : [
   ['ascii1', 'a\n'], ['empty', '\n'], ['short40', 'We all like warm tea.'.padEnd(39, ' ') + '\n'],
   ['long400', 'Long source line '.padEnd(399, 'x') + '\n'], ['cjk', '한국어と中文の文章です。\n'],
   ['crlf', 'We all like warm tea.\r\n'], ['single', 'a'], ['ascii12', 'abcdefghijkl\n'],
@@ -26,6 +29,7 @@ function fixture(name, seed, size) {
   const bytes = Buffer.from(seed, 'utf8'), out = Buffer.alloc(size, 0x61);
   if (name === 'oneEmoji') bytes.copy(out, size - bytes.length);
   else for (let offset = 0; offset + bytes.length <= size; offset += bytes.length) bytes.copy(out, offset);
+  if (MIXED) Buffer.from('😀').copy(out, size - 4);
   const text = new TextDecoder('utf-8', { fatal: true }).decode(out);
   let delimiters = 0;
   for (let i = 0; i < out.length; i++) if (out[i] === 10) delimiters++;
@@ -37,7 +41,8 @@ function checks() {
   for (const [name, seed] of SHAPES) for (const size of SIZES) {
     const f = fixture(name, seed, size); assert.equal(f.bytes.length, size);
     const full = Math.floor(size / Buffer.byteLength(seed));
-    assert.equal(f.meta.lineCount, seed.endsWith('\n') ? full + (size % Buffer.byteLength(seed) ? 1 : 0) : 1);
+    assert.equal(f.meta.lineCount, MIXED ? f.bytes.toString('utf8').split('\n').length : seed.endsWith('\n') ? full + (size % Buffer.byteLength(seed) ? 1 : 0) : 1);
+    if (MIXED) assert.equal(f.bytes.toString().split('😀').length, 2);
     if (name === 'oneEmoji') assert.equal(f.bytes.toString().split('😀').length, 2);
     metadata.push(f.meta);
   }
@@ -112,7 +117,7 @@ async function main() {
     environment: { node: process.version, v8: process.versions.v8, platform: process.platform, os: release(),
       cpu: [...new Set(cpus().map(cpu => cpu.model))], logicalCPUs: cpus().length, totalMemory: totalmem(), freeMemoryAtStart: freemem(),
       pointerCompression: process.config.variables.v8_enable_pointer_compression ?? null, childFlags: FLAGS },
-    protocol: { repeats: 3, gcTurns: 3, childTimeoutMs: 180000, sizes: SIZES, smallBatch: 100, imageBatch: 10000,
+    protocol: { mixedShapes: MIXED, repeats: 3, gcTurns: 3, childTimeoutMs: 180000, sizes: SIZES, smallBatch: 100, imageBatch: 10000,
       metric: 'heapUsed+external retained delta; arrayBuffers already included; maxRSSKiB is process high-water, not exact indexing heap peak' },
     files: {}, fixtures, text: [], images: [], controls: [], defaultHeap: [], startedAt: new Date().toISOString() };
   const normalize = value => JSON.parse(JSON.stringify(value).replaceAll(temp.replaceAll('\\', '\\\\'), '<temp>').replaceAll(ROOT.replaceAll('\\', '\\\\'), '<repo>'));
@@ -143,18 +148,18 @@ async function main() {
         save(); console.log(JSON.stringify({ name, size, mode, repeat, status: raw.status, bytesPerRecord: raw.observation?.perRecordBytes }));
       }
     }
-    for (const profile of ['strict', 'tolerant']) for (let repeat = 0; repeat < 3; repeat++) {
+    for (const profile of (MIXED ? [] : ['strict', 'tolerant'])) for (let repeat = 0; repeat < 3; repeat++) {
       const raw = await childRun({ kind: 'image', profile, count: 10000 }, temp, sequence++);
       result.images.push({ name: profile, mode: 'metadata10000', size: 68, repeat, ...raw }); save();
       console.log(JSON.stringify({ profile, repeat, status: raw.status, bytesPerRecord: raw.observation?.perRecordBytes }));
     }
     result.textSummary = aggregate(result.text); result.imageSummary = aggregate(result.images); result.formulas = formulas(result.text);
-    for (const name of ['ascii1', 'empty', 'crlf']) {
+    for (const name of (MIXED ? [] : ['ascii1', 'empty', 'crlf'])) {
       const raw = await childRun({ kind: 'text', paths: [join(temp, `${name}-10485760.txt`)], warmPath, allowedRoots: [temp] }, temp, sequence++, ['--expose-gc']);
       result.defaultHeap.push({ name, informational: true, ...raw }); save();
       console.log(JSON.stringify({ defaultHeap: name, status: raw.status }));
     }
-    result.coverage = { textExpected: 132, textCompleted: result.text.filter(row => row.status === 'completed').length, imageExpected: 6, imageCompleted: result.images.filter(row => row.status === 'completed').length };
+    result.coverage = { textExpected: SHAPES.length * 12, textCompleted: result.text.filter(row => row.status === 'completed').length, imageExpected: MIXED ? 0 : 6, imageCompleted: result.images.filter(row => row.status === 'completed').length };
     result.noiseFloor = result.controls.map(row => row.observation?.retainedDelta ?? null);
     result.status = [...result.text, ...result.images, ...result.controls].every(row => row.status === 'completed') ? 'complete' : 'complete_with_failures';
   } catch (error) { result.status = 'error'; result.error = error.stack; }
