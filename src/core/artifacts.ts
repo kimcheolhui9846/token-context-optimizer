@@ -294,8 +294,11 @@ export function summarizeArtifact(input: {
     };
   }
 
-  const candidateLines = artifact.sourceMap.slice(0, 6);
-  const selectedLines = fitCompleteSummaryLines(candidateLines, input.maxTokens);
+  const selectedCount = longestFittingSummaryPrefix(
+    artifact.sourceMap,
+    input.maxTokens,
+  );
+  const selectedLines = artifact.sourceMap.slice(0, selectedCount);
 
   if (selectedLines.length === 0 && artifact.sourceMap.length > 0) {
     return {
@@ -311,9 +314,21 @@ export function summarizeArtifact(input: {
   }
 
   const summary = renderSummaryText(selectedLines);
+  let omittedMeaningfulLine = false;
+  for (let index = selectedCount; index < artifact.sourceMap.length; index += 1) {
+    if (/\S/u.test(artifact.sourceMap[index].text)) {
+      omittedMeaningfulLine = true;
+      break;
+    }
+  }
 
   return {
-    ...commonFields(artifact, estimateTextTokens(summary), [], null),
+    ...commonFields(
+      artifact,
+      estimateTextTokens(summary),
+      omittedMeaningfulLine ? ["summary_truncated"] : [],
+      null,
+    ),
     summary,
     sourceMap:
       selectedLines.length === 0
@@ -403,19 +418,42 @@ function trimToTokenBudget(text: string, maxTokens: number): string {
   return candidate;
 }
 
-function fitCompleteSummaryLines(
+function longestFittingSummaryPrefix(
   lines: SourceLine[],
   maxTokens: number,
-): SourceLine[] {
-  const selected: SourceLine[] = [];
-  for (const line of lines) {
-    const candidate = renderSummaryText([...selected, line]);
-    if (estimateTextTokens(candidate) > maxTokens) {
-      break;
-    }
-    selected.push(line);
+): number {
+  if (lines.length === 0) return 0;
+
+  let low = 0;
+  let probe = 1;
+  // Adding a complete line with LF cannot reduce the estimator. Bracket the
+  // first overflow, then find the same prefix as the uncapped greedy loop.
+  let probeFits = fitsSummaryPrefix(lines, probe, maxTokens);
+  while (probe < lines.length && probeFits) {
+    low = probe;
+    probe = Math.min(lines.length, probe * 2);
+    probeFits = fitsSummaryPrefix(lines, probe, maxTokens);
   }
-  return selected;
+  if (probeFits) {
+    return probe;
+  }
+  let high = probe - 1;
+
+  while (low < high) {
+    const middle = Math.ceil((low + high) / 2);
+    if (fitsSummaryPrefix(lines, middle, maxTokens)) low = middle;
+    else high = middle - 1;
+  }
+  return low;
+}
+
+function fitsSummaryPrefix(
+  lines: SourceLine[],
+  count: number,
+  maxTokens: number,
+): boolean {
+  // Keep the greedy loop's comparison semantics for direct core NaN callers.
+  return !(estimateTextTokens(renderSummaryText(lines.slice(0, count))) > maxTokens);
 }
 
 function renderSummaryText(lines: SourceLine[]): string {

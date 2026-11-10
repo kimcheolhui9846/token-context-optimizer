@@ -1355,7 +1355,7 @@ describe("benchmarks", () => {
       passedExactGate: true,
       taskGateRequired: false,
       passedTaskGate: null,
-      warnings: [],
+      warnings: Array(4).fill("summary_truncated"),
     });
     expect(result.rawTokens).toBeGreaterThanOrEqual(16000);
     expect(result.reductionPercent).toBeGreaterThanOrEqual(25);
@@ -1387,7 +1387,7 @@ describe("benchmarks", () => {
     });
   });
 
-  it("characterizes real summarizer loss after the six-line prefix without policy fallback", async () => {
+  it("preserves late required prose within the complete-line token budget", async () => {
     const dir = await mkdtemp(join(tmpdir(), "tco-summary-prefix-loss-"));
     const lines = [
       "The archive stores ordinary notes for the planning group.",
@@ -1408,11 +1408,12 @@ describe("benchmarks", () => {
     const { semanticSummaryPassesMeaningGate } = await import("../benchmarks/run.js");
 
     expect(summary.fallbackReason).toBeNull();
-    // Record the current prefix behavior. If it improves, update this characterization
-    // to match observed behavior without weakening the meaning gate.
-    expect(summary.summary).toBe(lines.slice(0, 6).join("\n"));
-    expect(summary.summary).not.toContain(fixture.requiredPhrases[0]);
-    expect(semanticSummaryPassesMeaningGate(summary, fixture)).toBe(false);
+    expect(summary.summary).toBe(lines.slice(0, 7).join("\n"));
+    expect(summary.estimatedTokens).toBe(107);
+    expect(summary.sourceMap).toMatchObject({ startLine: 1, endLine: 7 });
+    expect(summary.warnings).toEqual(["summary_truncated"]);
+    expect(summary.summary).toContain(fixture.requiredPhrases[0]);
+    expect(semanticSummaryPassesMeaningGate(summary, fixture)).toBe(true);
   });
 
   it("characterizes missing meaning in mixed-sentence prose without policy fallback", async () => {

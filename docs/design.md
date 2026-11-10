@@ -28,7 +28,7 @@ The server exposes:
 - `classify_context`: `exact`, `semantic`, `visual`, or `unknown` policy classification.
 - `index_artifact`: SHA-256 and source-map registration for a local file.
 - `query_artifact`: bounded source-backed excerpts.
-- `summarize_artifact`: extractive summary only when policy positively classifies the source as semantic.
+- `summarize_artifact`: extractive summary only when policy positively classifies the source as semantic. It selects the longest contiguous prefix of complete source lines that fits the requested token budget and returns one `{ path, startLine, endLine }` source map for that span. The MCP `maxTokens` input remains a positive integer no greater than 2000. The budget may omit later lines; a successful nonempty selection adds `summary_truncated` only when omitted later lines contain a non-whitespace character (`/\S/u`). Omitted blank or whitespace-only lines do not trigger the warning, and existing fallback reasons remain unchanged.
 - `index_image_artifact`: validate supported PNG/JPEG with strict defaults or opt into tolerant validation with `profile: "tolerant"`, and register original metadata without writing the source.
 - `inspect_image_artifact`: reauthorize the original path and verify its identity/hash in the current session.
 - `crop_image_artifact`: crop a caller-selected region from supported RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG; full-frame requests return the original reference without encoding, including RGBA sources.
