@@ -1,0 +1,1162 @@
+{
+  "schema": "6-4b-5-store-candidates/v2",
+  "base": "e906015a4be6bac2904d4ee83b52ae36ab0f2e59",
+  "k": 128,
+  "fixed": 32768,
+  "node": "v24.18.0",
+  "snapshots": [
+    {
+      "variant": "base",
+      "informational": false,
+      "archiveStatus": 0,
+      "extractStatus": 0,
+      "steps": [
+        {
+          "name": "npm-ci",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js ci --ignore-scripts",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\nadded 61 packages, and audited 62 packages in 1s\n\n16 packages are looking for funding\n  run `npm fund` for details\n\n7 vulnerabilities (1 moderate, 4 high, 2 critical)\n\nTo address issues that do not require attention, run:\n  npm audit fix\n\nTo address all issues (including breaking changes), run:\n  npm audit fix --force\n\nRun `npm audit` for details.\n",
+          "stderr": "",
+          "logSha256": "8d8c56c377b13dcb10fef8b4183422cb6f28ac5bde6c310d6d9b80f38d4b7545"
+        },
+        {
+          "name": "build",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run build",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 build\n> tsc -p tsconfig.json && node scripts/build-bundle.mjs\n\n",
+          "stderr": "\n  bin\\token-context-optimizer.mjs  967.3kb\n\nDone in 46ms\n",
+          "logSha256": "cafcd5e143ab0b57568b0292e11f82f211dce3271206b9a195e9af02c72ca313"
+        },
+        {
+          "name": "typecheck",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 typecheck\n> tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json\n\n",
+          "stderr": "",
+          "logSha256": "7cc2c940ad43da8b48fedfd619a0464fc89e616c740d0b3d5eb2d95980038f1d"
+        },
+        {
+          "name": "test",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js test -- --reporter=json --outputFile=<temp>\\base-tests.json",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 test\n> vitest run --reporter=json --outputFile=<temp>\\base-tests.json\n\nJSON report written to C:/Users/00/AppData/Local/Temp/6-4b-5-store-candidates-UM0MnE/base-tests.json\n",
+          "stderr": "",
+          "logSha256": "e09a8e43794faef04fc8c65c98d69d731d592b84c3cde8fc3abe74a926959615"
+        },
+        {
+          "name": "benchmark",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run benchmark",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 benchmark\n> node dist/benchmarks/run.js\n\n{\n  \"generatedAt\": \"2026-11-10T10:38:40.263Z\",\n  \"thresholds\": {\n    \"minimumReductionPercent\": 25,\n    \"maximumScenarioLatencyMs\": 1000,\n    \"exactGateRequired\": true\n  },\n  \"results\": [\n    {\n      \"name\": \"25K-style build log exact retrieval\",\n      \"rawTokens\": 25025,\n      \"optimizedTokens\": 32,\n      \"reductionPercent\": 99.9,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1.33,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1.33,\n      \"p95LatencyMs\": 2.13\n    },\n    {\n      \"name\": \"repeated semantic prefix phrase-retention smoke\",\n      \"rawTokens\": 58000,\n      \"optimizedTokens\": 4400,\n      \"reductionPercent\": 92.4,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 2.61,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [\n        \"summary_truncated\"\n      ],\n      \"suiteLatencyMs\": 9.36,\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 2.61,\n      \"p95LatencyMs\": 3.27\n    },\n    {\n      \"name\": \"code context fixture source-backed retrieval\",\n      \"rawTokens\": 8272,\n      \"optimizedTokens\": 128,\n      \"reductionPercent\": 98.5,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 0.86,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 0.86,\n      \"p95LatencyMs\": 1.26\n    }\n  ],\n  \"environment\": {\n    \"node\": \"v24.18.0\",\n    \"platform\": \"win32\",\n    \"arch\": \"x64\",\n    \"commitSha\": null,\n    \"dirty\": null\n  },\n  \"passed\": true\n}\n",
+          "stderr": "",
+          "logSha256": "950c33d761736bf7c495150eb2a9e74c3ab5bea8cd3e7a8caa72fcc84e890a90"
+        }
+      ],
+      "sourceBeforeSha256": "16cd7686a10642bf870dc51b16535e743041cbcaa4dce56ea1d20f0c3a1bf0af",
+      "sourceAfterSha256": "16cd7686a10642bf870dc51b16535e743041cbcaa4dce56ea1d20f0c3a1bf0af",
+      "testSummary": {
+        "numTotalTests": 4337,
+        "numPassedTests": 4332,
+        "numFailedTests": 0,
+        "failedTestNames": []
+      },
+      "scenario": {
+        "command": "C:\\Program Files\\nodejs\\node.exe <repo>\\research\\src\\6-4b-5-store-scenarios.mjs --snapshot=<temp>\\base --k=128 --fixed=32768 --json",
+        "status": 1,
+        "signal": null,
+        "timedOut": false,
+        "stdout": "{\"schema\":\"6-4b-5-store-scenarios/v1\",\"snapshotRoot\":\"C:\\\\Users\\\\00\\\\AppData\\\\Local\\\\Temp\\\\6-4b-5-store-candidates-UM0MnE\\\\base\",\"k\":128,\"fixed\":32768,\"checks\":[{\"name\":\"initial LRU eviction\",\"ok\":false,\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'a',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/a.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"get promotion\",\"ok\":false,\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'b',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/b.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"get miss unchanged\",\"ok\":true},{\"name\":\"same ID replacement updates weights\",\"ok\":false,\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ undefined\\n- 33096\\n\"},{\"name\":\"same ID replacement supports shrink and grow\",\"ok\":false,\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ undefined\\n- 32916\\n\"},{\"name\":\"re-put promotes\",\"ok\":false,\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'b',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/b.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"oversized entry evicts existing entries but remains\",\"ok\":false,\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'a',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/a.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"query missing ID preserves exact error\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"summary missing ID preserves exact error\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:0\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:NaN\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:Infinity\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:-1\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:1.5\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:9007199254740992\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor string:100\",\"ok\":false,\"error\":\"Missing expected exception.\"},{\"name\":\"same ID never double counts observable capacity\",\"ok\":true},{\"name\":\"oversized empty and same ID replacement\",\"ok\":true},{\"name\":\"zero argument and maximum safe limit accepted\",\"ok\":true}],\"failures\":[{\"name\":\"initial LRU eviction\",\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'a',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/a.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"get promotion\",\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'b',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/b.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"same ID replacement updates weights\",\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ undefined\\n- 33096\\n\"},{\"name\":\"same ID replacement supports shrink and grow\",\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ undefined\\n- 32916\\n\"},{\"name\":\"re-put promotes\",\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'b',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/b.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"oversized entry evicts existing entries but remains\",\"error\":\"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ {\\n+   artifactId: 'a',\\n+   byteLength: 10,\\n+   content: 'xxxxxxxxxx',\\n+   lineCount: 1,\\n+   path: '/fixture/a.txt',\\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\\n+   sourceMap: [\\n+     {\\n+       delimiter: '',\\n+       endByte: 10,\\n+       line: 1,\\n+       startByte: 0,\\n+       text: 'xxxxxxxxxx'\\n+     }\\n+   ]\\n+ }\\n- undefined\\n\"},{\"name\":\"query missing ID preserves exact error\",\"error\":\"Missing expected exception.\"},{\"name\":\"summary missing ID preserves exact error\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:0\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:NaN\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:Infinity\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:-1\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:1.5\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor number:9007199254740992\",\"error\":\"Missing expected exception.\"},{\"name\":\"invalid constructor string:100\",\"error\":\"Missing expected exception.\"}],\"pass\":false}\n",
+        "stderr": "",
+        "logSha256": "6790fb389a3ec6baefc279a0564729bbcc42e429f87ba23ae54688650456548f",
+        "parsed": {
+          "schema": "6-4b-5-store-scenarios/v1",
+          "snapshotRoot": "<temp>\\base",
+          "k": 128,
+          "fixed": 32768,
+          "checks": [
+            {
+              "name": "initial LRU eviction",
+              "ok": false,
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'a',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/a.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "get promotion",
+              "ok": false,
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'b',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/b.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "get miss unchanged",
+              "ok": true
+            },
+            {
+              "name": "same ID replacement updates weights",
+              "ok": false,
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 33096\n"
+            },
+            {
+              "name": "same ID replacement supports shrink and grow",
+              "ok": false,
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 32916\n"
+            },
+            {
+              "name": "re-put promotes",
+              "ok": false,
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'b',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/b.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "oversized entry evicts existing entries but remains",
+              "ok": false,
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'a',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/a.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "query missing ID preserves exact error",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "summary missing ID preserves exact error",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:0",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:NaN",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:Infinity",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:-1",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:1.5",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:9007199254740992",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor string:100",
+              "ok": false,
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "same ID never double counts observable capacity",
+              "ok": true
+            },
+            {
+              "name": "oversized empty and same ID replacement",
+              "ok": true
+            },
+            {
+              "name": "zero argument and maximum safe limit accepted",
+              "ok": true
+            }
+          ],
+          "failures": [
+            {
+              "name": "initial LRU eviction",
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'a',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/a.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "get promotion",
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'b',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/b.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "same ID replacement updates weights",
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 33096\n"
+            },
+            {
+              "name": "same ID replacement supports shrink and grow",
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 32916\n"
+            },
+            {
+              "name": "re-put promotes",
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'b',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/b.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "oversized entry evicts existing entries but remains",
+              "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   artifactId: 'a',\n+   byteLength: 10,\n+   content: 'xxxxxxxxxx',\n+   lineCount: 1,\n+   path: '/fixture/a.txt',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000',\n+   sourceMap: [\n+     {\n+       delimiter: '',\n+       endByte: 10,\n+       line: 1,\n+       startByte: 0,\n+       text: 'xxxxxxxxxx'\n+     }\n+   ]\n+ }\n- undefined\n"
+            },
+            {
+              "name": "query missing ID preserves exact error",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "summary missing ID preserves exact error",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:0",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:NaN",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:Infinity",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:-1",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:1.5",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor number:9007199254740992",
+              "error": "Missing expected exception."
+            },
+            {
+              "name": "invalid constructor string:100",
+              "error": "Missing expected exception."
+            }
+          ],
+          "pass": false
+        }
+      }
+    },
+    {
+      "variant": "A",
+      "informational": false,
+      "archiveStatus": 0,
+      "extractStatus": 0,
+      "steps": [
+        {
+          "name": "npm-ci",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js ci --ignore-scripts",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\nadded 61 packages, and audited 62 packages in 1s\n\n16 packages are looking for funding\n  run `npm fund` for details\n\n7 vulnerabilities (1 moderate, 4 high, 2 critical)\n\nTo address issues that do not require attention, run:\n  npm audit fix\n\nTo address all issues (including breaking changes), run:\n  npm audit fix --force\n\nRun `npm audit` for details.\n",
+          "stderr": "",
+          "logSha256": "8d8c56c377b13dcb10fef8b4183422cb6f28ac5bde6c310d6d9b80f38d4b7545"
+        },
+        {
+          "name": "build",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run build",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 build\n> tsc -p tsconfig.json && node scripts/build-bundle.mjs\n\n",
+          "stderr": "\n  bin\\token-context-optimizer.mjs  968.4kb\n\nDone in 45ms\n",
+          "logSha256": "0ce07e73bcfd5987dd5ae6a822c6b091ca919b140d73850433596b22a87fa0a0"
+        },
+        {
+          "name": "typecheck",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 typecheck\n> tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json\n\n",
+          "stderr": "",
+          "logSha256": "7cc2c940ad43da8b48fedfd619a0464fc89e616c740d0b3d5eb2d95980038f1d"
+        },
+        {
+          "name": "test",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js test -- --reporter=json --outputFile=<temp>\\A-tests.json",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 test\n> vitest run --reporter=json --outputFile=<temp>\\A-tests.json\n\nJSON report written to C:/Users/00/AppData/Local/Temp/6-4b-5-store-candidates-UM0MnE/A-tests.json\n",
+          "stderr": "",
+          "logSha256": "510a6b62cf9da5ee4dab2bcf3d0b4277ed13f4d66fa3231fcf0da710557f202a"
+        },
+        {
+          "name": "benchmark",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run benchmark",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 benchmark\n> node dist/benchmarks/run.js\n\n{\n  \"generatedAt\": \"2026-11-10T10:39:23.293Z\",\n  \"thresholds\": {\n    \"minimumReductionPercent\": 25,\n    \"maximumScenarioLatencyMs\": 1000,\n    \"exactGateRequired\": true\n  },\n  \"results\": [\n    {\n      \"name\": \"25K-style build log exact retrieval\",\n      \"rawTokens\": 25025,\n      \"optimizedTokens\": 32,\n      \"reductionPercent\": 99.9,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1.42,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1.42,\n      \"p95LatencyMs\": 1.79\n    },\n    {\n      \"name\": \"repeated semantic prefix phrase-retention smoke\",\n      \"rawTokens\": 58000,\n      \"optimizedTokens\": 4400,\n      \"reductionPercent\": 92.4,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 2.7,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [\n        \"summary_truncated\"\n      ],\n      \"suiteLatencyMs\": 9.47,\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 2.7,\n      \"p95LatencyMs\": 3.18\n    },\n    {\n      \"name\": \"code context fixture source-backed retrieval\",\n      \"rawTokens\": 8272,\n      \"optimizedTokens\": 128,\n      \"reductionPercent\": 98.5,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1.03,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1.03,\n      \"p95LatencyMs\": 1.31\n    }\n  ],\n  \"environment\": {\n    \"node\": \"v24.18.0\",\n    \"platform\": \"win32\",\n    \"arch\": \"x64\",\n    \"commitSha\": null,\n    \"dirty\": null\n  },\n  \"passed\": true\n}\n",
+          "stderr": "",
+          "logSha256": "6663801c813bfc451c710826afa0c56903d7f313a8adf46ca6f9956326b9a92c"
+        }
+      ],
+      "sourceBeforeSha256": "16cd7686a10642bf870dc51b16535e743041cbcaa4dce56ea1d20f0c3a1bf0af",
+      "sourceAfterSha256": "b0bad6dda5f7690c71cbb056f5a6b2350b337c837fa0e48d53eb2ad4ba887a32",
+      "testSummary": {
+        "numTotalTests": 4337,
+        "numPassedTests": 4332,
+        "numFailedTests": 0,
+        "failedTestNames": []
+      },
+      "scenario": {
+        "command": "C:\\Program Files\\nodejs\\node.exe <repo>\\research\\src\\6-4b-5-store-scenarios.mjs --snapshot=<temp>\\A --k=128 --fixed=32768 --json",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "stdout": "{\"schema\":\"6-4b-5-store-scenarios/v1\",\"snapshotRoot\":\"C:\\\\Users\\\\00\\\\AppData\\\\Local\\\\Temp\\\\6-4b-5-store-candidates-UM0MnE\\\\A\",\"k\":128,\"fixed\":32768,\"checks\":[{\"name\":\"initial LRU eviction\",\"ok\":true},{\"name\":\"get promotion\",\"ok\":true},{\"name\":\"get miss unchanged\",\"ok\":true},{\"name\":\"same ID replacement updates weights\",\"ok\":true},{\"name\":\"same ID replacement supports shrink and grow\",\"ok\":true},{\"name\":\"re-put promotes\",\"ok\":true},{\"name\":\"oversized entry evicts existing entries but remains\",\"ok\":true},{\"name\":\"query missing ID preserves exact error\",\"ok\":true},{\"name\":\"summary missing ID preserves exact error\",\"ok\":true},{\"name\":\"invalid constructor number:0\",\"ok\":true},{\"name\":\"invalid constructor number:NaN\",\"ok\":true},{\"name\":\"invalid constructor number:Infinity\",\"ok\":true},{\"name\":\"invalid constructor number:-1\",\"ok\":true},{\"name\":\"invalid constructor number:1.5\",\"ok\":true},{\"name\":\"invalid constructor number:9007199254740992\",\"ok\":true},{\"name\":\"invalid constructor string:100\",\"ok\":true},{\"name\":\"same ID never double counts observable capacity\",\"ok\":true},{\"name\":\"oversized empty and same ID replacement\",\"ok\":true},{\"name\":\"zero argument and maximum safe limit accepted\",\"ok\":true}],\"failures\":[],\"pass\":true}\n",
+        "stderr": "",
+        "logSha256": "b82950c90dbe9cff02c16c95b35084aeb01563a43d80b92392ca36c5fa91bb83",
+        "parsed": {
+          "schema": "6-4b-5-store-scenarios/v1",
+          "snapshotRoot": "<temp>\\A",
+          "k": 128,
+          "fixed": 32768,
+          "checks": [
+            {
+              "name": "initial LRU eviction",
+              "ok": true
+            },
+            {
+              "name": "get promotion",
+              "ok": true
+            },
+            {
+              "name": "get miss unchanged",
+              "ok": true
+            },
+            {
+              "name": "same ID replacement updates weights",
+              "ok": true
+            },
+            {
+              "name": "same ID replacement supports shrink and grow",
+              "ok": true
+            },
+            {
+              "name": "re-put promotes",
+              "ok": true
+            },
+            {
+              "name": "oversized entry evicts existing entries but remains",
+              "ok": true
+            },
+            {
+              "name": "query missing ID preserves exact error",
+              "ok": true
+            },
+            {
+              "name": "summary missing ID preserves exact error",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:0",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:NaN",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:Infinity",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:-1",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:1.5",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:9007199254740992",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor string:100",
+              "ok": true
+            },
+            {
+              "name": "same ID never double counts observable capacity",
+              "ok": true
+            },
+            {
+              "name": "oversized empty and same ID replacement",
+              "ok": true
+            },
+            {
+              "name": "zero argument and maximum safe limit accepted",
+              "ok": true
+            }
+          ],
+          "failures": [],
+          "pass": true
+        }
+      },
+      "benchmarkNonTimeDiff": {
+        "base": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "candidate": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "equal": true
+      }
+    },
+    {
+      "variant": "B",
+      "informational": false,
+      "archiveStatus": 0,
+      "extractStatus": 0,
+      "steps": [
+        {
+          "name": "npm-ci",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js ci --ignore-scripts",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\nadded 61 packages, and audited 62 packages in 1s\n\n16 packages are looking for funding\n  run `npm fund` for details\n\n7 vulnerabilities (1 moderate, 4 high, 2 critical)\n\nTo address issues that do not require attention, run:\n  npm audit fix\n\nTo address all issues (including breaking changes), run:\n  npm audit fix --force\n\nRun `npm audit` for details.\n",
+          "stderr": "",
+          "logSha256": "8d8c56c377b13dcb10fef8b4183422cb6f28ac5bde6c310d6d9b80f38d4b7545"
+        },
+        {
+          "name": "build",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run build",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 build\n> tsc -p tsconfig.json && node scripts/build-bundle.mjs\n\n",
+          "stderr": "\n  bin\\token-context-optimizer.mjs  968.4kb\n\nDone in 47ms\n",
+          "logSha256": "bb805fa97fe90317d1f3976739780ff170078909a832de0a4fe9dba0033f2996"
+        },
+        {
+          "name": "typecheck",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 typecheck\n> tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json\n\n",
+          "stderr": "",
+          "logSha256": "7cc2c940ad43da8b48fedfd619a0464fc89e616c740d0b3d5eb2d95980038f1d"
+        },
+        {
+          "name": "test",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js test -- --reporter=json --outputFile=<temp>\\B-tests.json",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 test\n> vitest run --reporter=json --outputFile=<temp>\\B-tests.json\n\nJSON report written to C:/Users/00/AppData/Local/Temp/6-4b-5-store-candidates-UM0MnE/B-tests.json\n",
+          "stderr": "",
+          "logSha256": "0e7720909fdae49c9f6fa03fad48ad43a8c57d1206e13a06743871690fe6fc69"
+        },
+        {
+          "name": "benchmark",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run benchmark",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 benchmark\n> node dist/benchmarks/run.js\n\n{\n  \"generatedAt\": \"2026-11-10T10:40:05.978Z\",\n  \"thresholds\": {\n    \"minimumReductionPercent\": 25,\n    \"maximumScenarioLatencyMs\": 1000,\n    \"exactGateRequired\": true\n  },\n  \"results\": [\n    {\n      \"name\": \"25K-style build log exact retrieval\",\n      \"rawTokens\": 25025,\n      \"optimizedTokens\": 32,\n      \"reductionPercent\": 99.9,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1.38,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1.38,\n      \"p95LatencyMs\": 1.68\n    },\n    {\n      \"name\": \"repeated semantic prefix phrase-retention smoke\",\n      \"rawTokens\": 58000,\n      \"optimizedTokens\": 4400,\n      \"reductionPercent\": 92.4,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 2.63,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [\n        \"summary_truncated\"\n      ],\n      \"suiteLatencyMs\": 9.56,\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 2.63,\n      \"p95LatencyMs\": 3.66\n    },\n    {\n      \"name\": \"code context fixture source-backed retrieval\",\n      \"rawTokens\": 8272,\n      \"optimizedTokens\": 128,\n      \"reductionPercent\": 98.5,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 0.91,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 0.91,\n      \"p95LatencyMs\": 1.15\n    }\n  ],\n  \"environment\": {\n    \"node\": \"v24.18.0\",\n    \"platform\": \"win32\",\n    \"arch\": \"x64\",\n    \"commitSha\": null,\n    \"dirty\": null\n  },\n  \"passed\": true\n}\n",
+          "stderr": "",
+          "logSha256": "094f97ccb557460c0ff9c63e21ce567bb3224528bd0b8a153c905545b85626c2"
+        }
+      ],
+      "sourceBeforeSha256": "16cd7686a10642bf870dc51b16535e743041cbcaa4dce56ea1d20f0c3a1bf0af",
+      "sourceAfterSha256": "1414939f5e68ff9fa64a226eaa4b910e33ee67f3158a3561b8aee57694e7ade1",
+      "testSummary": {
+        "numTotalTests": 4337,
+        "numPassedTests": 4332,
+        "numFailedTests": 0,
+        "failedTestNames": []
+      },
+      "scenario": {
+        "command": "C:\\Program Files\\nodejs\\node.exe <repo>\\research\\src\\6-4b-5-store-scenarios.mjs --snapshot=<temp>\\B --k=128 --fixed=32768 --json",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "stdout": "{\"schema\":\"6-4b-5-store-scenarios/v1\",\"snapshotRoot\":\"C:\\\\Users\\\\00\\\\AppData\\\\Local\\\\Temp\\\\6-4b-5-store-candidates-UM0MnE\\\\B\",\"k\":128,\"fixed\":32768,\"checks\":[{\"name\":\"initial LRU eviction\",\"ok\":true},{\"name\":\"get promotion\",\"ok\":true},{\"name\":\"get miss unchanged\",\"ok\":true},{\"name\":\"same ID replacement updates weights\",\"ok\":true},{\"name\":\"same ID replacement supports shrink and grow\",\"ok\":true},{\"name\":\"re-put promotes\",\"ok\":true},{\"name\":\"oversized entry evicts existing entries but remains\",\"ok\":true},{\"name\":\"query missing ID preserves exact error\",\"ok\":true},{\"name\":\"summary missing ID preserves exact error\",\"ok\":true},{\"name\":\"invalid constructor number:0\",\"ok\":true},{\"name\":\"invalid constructor number:NaN\",\"ok\":true},{\"name\":\"invalid constructor number:Infinity\",\"ok\":true},{\"name\":\"invalid constructor number:-1\",\"ok\":true},{\"name\":\"invalid constructor number:1.5\",\"ok\":true},{\"name\":\"invalid constructor number:9007199254740992\",\"ok\":true},{\"name\":\"invalid constructor string:100\",\"ok\":true},{\"name\":\"same ID never double counts observable capacity\",\"ok\":true},{\"name\":\"oversized empty and same ID replacement\",\"ok\":true},{\"name\":\"zero argument and maximum safe limit accepted\",\"ok\":true}],\"failures\":[],\"pass\":true}\n",
+        "stderr": "",
+        "logSha256": "4c731a74963a5b611b6322ac553592b1accfa14327f76a9896fe9abe53cc9e31",
+        "parsed": {
+          "schema": "6-4b-5-store-scenarios/v1",
+          "snapshotRoot": "<temp>\\B",
+          "k": 128,
+          "fixed": 32768,
+          "checks": [
+            {
+              "name": "initial LRU eviction",
+              "ok": true
+            },
+            {
+              "name": "get promotion",
+              "ok": true
+            },
+            {
+              "name": "get miss unchanged",
+              "ok": true
+            },
+            {
+              "name": "same ID replacement updates weights",
+              "ok": true
+            },
+            {
+              "name": "same ID replacement supports shrink and grow",
+              "ok": true
+            },
+            {
+              "name": "re-put promotes",
+              "ok": true
+            },
+            {
+              "name": "oversized entry evicts existing entries but remains",
+              "ok": true
+            },
+            {
+              "name": "query missing ID preserves exact error",
+              "ok": true
+            },
+            {
+              "name": "summary missing ID preserves exact error",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:0",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:NaN",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:Infinity",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:-1",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:1.5",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor number:9007199254740992",
+              "ok": true
+            },
+            {
+              "name": "invalid constructor string:100",
+              "ok": true
+            },
+            {
+              "name": "same ID never double counts observable capacity",
+              "ok": true
+            },
+            {
+              "name": "oversized empty and same ID replacement",
+              "ok": true
+            },
+            {
+              "name": "zero argument and maximum safe limit accepted",
+              "ok": true
+            }
+          ],
+          "failures": [],
+          "pass": true
+        }
+      },
+      "benchmarkNonTimeDiff": {
+        "base": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "candidate": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "equal": true
+      }
+    },
+    {
+      "variant": "A-instrumented256",
+      "informational": true,
+      "archiveStatus": 0,
+      "extractStatus": 0,
+      "steps": [
+        {
+          "name": "npm-ci",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js ci --ignore-scripts",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\nadded 61 packages, and audited 62 packages in 1s\n\n16 packages are looking for funding\n  run `npm fund` for details\n\n7 vulnerabilities (1 moderate, 4 high, 2 critical)\n\nTo address issues that do not require attention, run:\n  npm audit fix\n\nTo address all issues (including breaking changes), run:\n  npm audit fix --force\n\nRun `npm audit` for details.\n",
+          "stderr": "",
+          "logSha256": "8d8c56c377b13dcb10fef8b4183422cb6f28ac5bde6c310d6d9b80f38d4b7545",
+          "instrumentation": []
+        },
+        {
+          "name": "build",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run build",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 build\n> tsc -p tsconfig.json && node scripts/build-bundle.mjs\n\n",
+          "stderr": "\n  bin\\token-context-optimizer.mjs  969.2kb\n\nDone in 48ms\n",
+          "logSha256": "2f035b33cb23a8de0bd1ffc2a110c557c9d56962174c8b3fa3695d98a4ae0843",
+          "instrumentation": []
+        },
+        {
+          "name": "typecheck",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 typecheck\n> tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json\n\n",
+          "stderr": "",
+          "logSha256": "7cc2c940ad43da8b48fedfd619a0464fc89e616c740d0b3d5eb2d95980038f1d",
+          "instrumentation": []
+        },
+        {
+          "name": "test",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js test -- --reporter=json --outputFile=<temp>\\A-instrumented256-tests.json",
+          "status": 1,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 test\n> vitest run --reporter=json --outputFile=<temp>\\A-instrumented256-tests.json\n\nJSON report written to C:/Users/00/AppData/Local/Temp/6-4b-5-store-candidates-UM0MnE/A-instrumented256-tests.json\n",
+          "stderr": "",
+          "logSha256": "fa398135062fa4ff4c86eb39d2ca379cd10171401e530512b0c3c545c0d1d7e0",
+          "instrumentation": [
+            {
+              "puts": 1,
+              "gets": 1,
+              "evictions": 0,
+              "maxBeforeEviction": 21004416,
+              "maxRecords": 1,
+              "maxAfterEviction": 21004416
+            }
+          ]
+        },
+        {
+          "name": "benchmark",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run benchmark",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 benchmark\n> node dist/benchmarks/run.js\n\n{\n  \"generatedAt\": \"2026-11-10T10:40:47.745Z\",\n  \"thresholds\": {\n    \"minimumReductionPercent\": 25,\n    \"maximumScenarioLatencyMs\": 1000,\n    \"exactGateRequired\": true\n  },\n  \"results\": [\n    {\n      \"name\": \"25K-style build log exact retrieval\",\n      \"rawTokens\": 25025,\n      \"optimizedTokens\": 32,\n      \"reductionPercent\": 99.9,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1.4,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1.4,\n      \"p95LatencyMs\": 1.73\n    },\n    {\n      \"name\": \"repeated semantic prefix phrase-retention smoke\",\n      \"rawTokens\": 58000,\n      \"optimizedTokens\": 4400,\n      \"reductionPercent\": 92.4,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 2.75,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [\n        \"summary_truncated\"\n      ],\n      \"suiteLatencyMs\": 9.54,\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 2.75,\n      \"p95LatencyMs\": 3.19\n    },\n    {\n      \"name\": \"code context fixture source-backed retrieval\",\n      \"rawTokens\": 8272,\n      \"optimizedTokens\": 128,\n      \"reductionPercent\": 98.5,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1,\n      \"p95LatencyMs\": 1.3\n    }\n  ],\n  \"environment\": {\n    \"node\": \"v24.18.0\",\n    \"platform\": \"win32\",\n    \"arch\": \"x64\",\n    \"commitSha\": null,\n    \"dirty\": null\n  },\n  \"passed\": true\n}\n",
+          "stderr": "",
+          "logSha256": "2b80e848da4aabadac0b5689870fc977679f04be7ece94fb4d5d87d206e84269",
+          "instrumentation": [
+            {
+              "puts": 126,
+              "gets": 126,
+              "evictions": 0,
+              "maxBeforeEviction": 800570,
+              "maxRecords": 6,
+              "maxAfterEviction": 800570
+            }
+          ]
+        }
+      ],
+      "sourceBeforeSha256": "16cd7686a10642bf870dc51b16535e743041cbcaa4dce56ea1d20f0c3a1bf0af",
+      "sourceAfterSha256": "8cb395b12b62235dbbafbe66bbc011a38d9da87c71cf1a8b9eb46af00159bc80",
+      "testSummary": {
+        "numTotalTests": 4337,
+        "numPassedTests": 4331,
+        "numFailedTests": 1,
+        "failedTestNames": [
+          "project configuration verifier strips ambient Node execution hooks before launching the installed MCP server"
+        ]
+      },
+      "instrumentation": [],
+      "benchmarkNonTimeDiff": {
+        "base": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "candidate": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "equal": true
+      }
+    },
+    {
+      "variant": "TinyA1",
+      "informational": true,
+      "archiveStatus": 0,
+      "extractStatus": 0,
+      "steps": [
+        {
+          "name": "npm-ci",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js ci --ignore-scripts",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\nadded 61 packages, and audited 62 packages in 1s\n\n16 packages are looking for funding\n  run `npm fund` for details\n\n7 vulnerabilities (1 moderate, 4 high, 2 critical)\n\nTo address issues that do not require attention, run:\n  npm audit fix\n\nTo address all issues (including breaking changes), run:\n  npm audit fix --force\n\nRun `npm audit` for details.\n",
+          "stderr": "",
+          "logSha256": "8d8c56c377b13dcb10fef8b4183422cb6f28ac5bde6c310d6d9b80f38d4b7545",
+          "instrumentation": []
+        },
+        {
+          "name": "build",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run build",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 build\n> tsc -p tsconfig.json && node scripts/build-bundle.mjs\n\n",
+          "stderr": "\n  bin\\token-context-optimizer.mjs  969.1kb\n\nDone in 48ms\n",
+          "logSha256": "8c58946feb9bf5ffd5a4d243bc4ebabb64c37c2ae791d0d28e2d1f277cd58b21",
+          "instrumentation": []
+        },
+        {
+          "name": "typecheck",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 typecheck\n> tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json\n\n",
+          "stderr": "",
+          "logSha256": "7cc2c940ad43da8b48fedfd619a0464fc89e616c740d0b3d5eb2d95980038f1d",
+          "instrumentation": []
+        },
+        {
+          "name": "test",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js test -- --reporter=json --outputFile=<temp>\\TinyA1-tests.json",
+          "status": 1,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 test\n> vitest run --reporter=json --outputFile=<temp>\\TinyA1-tests.json\n\nJSON report written to C:/Users/00/AppData/Local/Temp/6-4b-5-store-candidates-UM0MnE/TinyA1-tests.json\n",
+          "stderr": "",
+          "logSha256": "eebcdac4ef90a1645cd126c4759c6de7ea38292f40469d312de49b7c8312d575",
+          "instrumentation": [
+            {
+              "puts": 1,
+              "gets": 1,
+              "evictions": 0,
+              "maxBeforeEviction": 21004416,
+              "maxRecords": 1,
+              "maxAfterEviction": 21004416
+            }
+          ]
+        },
+        {
+          "name": "benchmark",
+          "command": "C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js run benchmark",
+          "status": 0,
+          "signal": null,
+          "timedOut": false,
+          "stdout": "\n> token-context-optimizer@0.1.0 benchmark\n> node dist/benchmarks/run.js\n\n{\n  \"generatedAt\": \"2026-11-10T10:41:30.797Z\",\n  \"thresholds\": {\n    \"minimumReductionPercent\": 25,\n    \"maximumScenarioLatencyMs\": 1000,\n    \"exactGateRequired\": true\n  },\n  \"results\": [\n    {\n      \"name\": \"25K-style build log exact retrieval\",\n      \"rawTokens\": 25025,\n      \"optimizedTokens\": 32,\n      \"reductionPercent\": 99.9,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 1.39,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 1.39,\n      \"p95LatencyMs\": 1.71\n    },\n    {\n      \"name\": \"repeated semantic prefix phrase-retention smoke\",\n      \"rawTokens\": 58000,\n      \"optimizedTokens\": 4400,\n      \"reductionPercent\": 92.4,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 2.62,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [\n        \"summary_truncated\"\n      ],\n      \"suiteLatencyMs\": 9.55,\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 2.62,\n      \"p95LatencyMs\": 2.96\n    },\n    {\n      \"name\": \"code context fixture source-backed retrieval\",\n      \"rawTokens\": 8272,\n      \"optimizedTokens\": 128,\n      \"reductionPercent\": 98.5,\n      \"passedExactGate\": true,\n      \"taskGateRequired\": false,\n      \"passedTaskGate\": null,\n      \"latencyMs\": 0.9,\n      \"profileVersion\": \"heuristic-v1\",\n      \"warnings\": [],\n      \"sampleCount\": 20,\n      \"medianLatencyMs\": 0.9,\n      \"p95LatencyMs\": 1.12\n    }\n  ],\n  \"environment\": {\n    \"node\": \"v24.18.0\",\n    \"platform\": \"win32\",\n    \"arch\": \"x64\",\n    \"commitSha\": null,\n    \"dirty\": null\n  },\n  \"passed\": true\n}\n",
+          "stderr": "",
+          "logSha256": "e67250f5a8e0dbe511bbbf349d02b1156d8b1d48ad1f3de26f251918da71ba6e",
+          "instrumentation": [
+            {
+              "puts": 126,
+              "gets": 126,
+              "evictions": 85,
+              "maxBeforeEviction": 498400,
+              "maxRecords": 2,
+              "maxAfterEviction": 442114
+            }
+          ]
+        }
+      ],
+      "sourceBeforeSha256": "16cd7686a10642bf870dc51b16535e743041cbcaa4dce56ea1d20f0c3a1bf0af",
+      "sourceAfterSha256": "717931ba01cef1832788fe10652f9a8746fd9e44ac301f8a64f177d1cc27b1f1",
+      "testSummary": {
+        "numTotalTests": 4337,
+        "numPassedTests": 4330,
+        "numFailedTests": 2,
+        "failedTestNames": [
+          "safety policy uses mode-specific fallback reasons for blocked lossy summaries",
+          "project configuration verifier strips ambient Node execution hooks before launching the installed MCP server"
+        ]
+      },
+      "instrumentation": [],
+      "benchmarkNonTimeDiff": {
+        "base": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "candidate": {
+          "thresholds": {
+            "minimumReductionPercent": 25,
+            "maximumScenarioLatencyMs": 1000,
+            "exactGateRequired": true
+          },
+          "results": [
+            {
+              "name": "25K-style build log exact retrieval",
+              "rawTokens": 25025,
+              "optimizedTokens": 32,
+              "reductionPercent": 99.9,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            },
+            {
+              "name": "repeated semantic prefix phrase-retention smoke",
+              "rawTokens": 58000,
+              "optimizedTokens": 4400,
+              "reductionPercent": 92.4,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [
+                "summary_truncated"
+              ],
+              "sampleCount": 20
+            },
+            {
+              "name": "code context fixture source-backed retrieval",
+              "rawTokens": 8272,
+              "optimizedTokens": 128,
+              "reductionPercent": 98.5,
+              "passedExactGate": true,
+              "taskGateRequired": false,
+              "passedTaskGate": null,
+              "profileVersion": "heuristic-v1",
+              "warnings": [],
+              "sampleCount": 20
+            }
+          ],
+          "passed": true
+        },
+        "equal": true
+      }
+    }
+  ],
+  "status": "complete",
+  "files": {
+    "research/src/6-4b-5-store-candidates.mjs": "8a5b6a82357a940f621fef9bb6576c817f0ca9f43942cf38fa544230e30ef19c",
+    "research/src/6-4b-5-store-scenarios.mjs": "9547d5a46aafa5de6d7146b4a12b5b7cb1b40c000ea147eee078ac05ad32aac9",
+    "package-lock.json": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343"
+  },
+  "startedAt": "2026-11-10T10:37:57.471Z",
+  "preservation": {
+    "changed": [],
+    "trackedCount": 1067
+  },
+  "tempCleanup": true,
+  "finishedAt": "2026-11-10T10:41:33.266Z"
+}
