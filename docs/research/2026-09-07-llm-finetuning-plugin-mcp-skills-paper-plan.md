@@ -20,10 +20,13 @@ and its [readiness checklist](2026-09-07-layered-adaptation-evaluation-protocol.
 define what is still needed before results can be written.
 
 Benchmark claims in this historical plan were reconciled with the current
-[benchmark scope](../benchmarks.md) on 2026-10-05. The repeated semantic fixture
+[benchmark scope](../benchmarks.md) on 2026-10-05. The current summarizer behavior
+was updated here on 2026-11-10. The repeated semantic fixture
 is a prefix phrase-retention smoke, not evidence of broad semantic success. Real
-summarizer characterizations expose omitted late prose after the six-line
-prefix. The code scenario measures source-backed retrieval from a synthetic
+summarizer characterizations expose omitted late prose when the token budget
+stops the contiguous complete-line prefix; successful selections of at least one line report
+`summary_truncated` when omitted later lines contain non-whitespace text, while
+whitespace-only tails do not trigger the warning. The code scenario measures source-backed retrieval from a synthetic
 context fixture and has no editing task gate. Historical references below to a
 code-editing task gate or general semantic degradation results are superseded;
 they are not empirical findings. The result names `repeated semantic document
@@ -104,7 +107,7 @@ fine-tuning alternatives, illustrative costs and the remaining execution gates.
 5. Case Study: Token Context Optimizer
    - Describe the MCP/plugin architecture.
    - Explain exact-content policy: source-backed excerpts are required for code, paths, identifiers, secrets, commands, and numeric/table content.
-   - Explain semantic summary policy, the repeated-prefix smoke, and the separately recorded known limitation that real summaries can omit required late prose after the six-line prefix.
+   - Explain semantic summary policy, the repeated-prefix smoke, and the separately recorded known limitation that real summaries can omit required late prose after the budget-limited complete-line prefix, with `summary_truncated` warning when meaningful omitted text remains.
    - Explain local install verification, manifest checks, marketplace entry handling, and plugin validation.
 
 6. Evaluation Design
@@ -125,7 +128,7 @@ fine-tuning alternatives, illustrative costs and the remaining execution gates.
 7. Threats To Validity
    - Heuristic token estimation differs from provider billing.
    - Local benchmark latency excludes hosted network/model latency.
-   - Repeated semantic inputs test prefix phrase retention only. Separate real-summarizer characterization observes known omission after the six-line prefix; neither observation estimates broad semantic quality.
+   - Repeated semantic inputs test prefix phrase retention only. Separate real-summarizer characterization observes known omission after the budget-limited complete-line prefix and its conditional `summary_truncated` warning; neither observation estimates broad semantic quality.
    - The code context retrieval fixture is synthetic and lexical. It does not measure editing success or representative retrieval quality.
    - Fine-tuning is discussed as a comparative layer; this repository does not run a real fine-tuning job.
 
