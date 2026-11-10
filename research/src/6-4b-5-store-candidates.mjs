@@ -28,6 +28,12 @@ function run(command, commandArgs, cwd, env, timeout = 600000) {
 function transform(text, { removeTrim = false, instrument = false, limitOverride = null } = {}) {
   const start = text.indexOf('export class MemoryArtifactStore'); const defaultStart = text.indexOf('export const defaultArtifactStore', start); const end = text.lastIndexOf('\n}', defaultStart) + 2;
   if (start < 0 || end < 3) throw new Error('MemoryArtifactStore transform anchor not found');
+  let braces = 0, classEnd = -1;
+  for (let i = text.indexOf('{', start); i < end; i++) {
+    if (text[i] === '{') braces++;
+    if (text[i] === '}' && --braces === 0) { classEnd = i + 1; break; }
+  }
+  assert.equal(classEnd, end, 'transform must replace exactly the base class');
   const counter = instrument ? `\nimport { appendFileSync } from "node:fs";\nimport { threadId as __tcoThreadId } from "node:worker_threads";\nconst __tcoSurveyStats: { puts: number; gets: number; evictions: number; maxAccountedResident: number; maxRecords: number } = { puts: 0, gets: 0, evictions: 0, maxAccountedResident: 0, maxRecords: 0 };\nprocess.once("exit", () => { if (process.env.TCO_SURVEY_STATS_DIR) appendFileSync(process.env.TCO_SURVEY_STATS_DIR + "/stats-" + process.pid + "-" + __tcoThreadId + ".jsonl", JSON.stringify(__tcoSurveyStats) + "\\n"); });\n` : '';
   const replacement = `export class MemoryArtifactStore implements ArtifactStore {\n  private readonly records = new Map<string, { record: ArtifactRecord; weight: number }>();\n  private total = 0;\n  private readonly maxEstimatedBytes: number;\n  constructor(options?: { maxEstimatedBytes?: number }) {\n    const value = options?.maxEstimatedBytes ?? ${limitOverride ?? '256 * 1024 * 1024'};\n    if (!Number.isSafeInteger(value) || value <= 0) throw new Error("maxEstimatedBytes must be a finite positive safe integer");\n    this.maxEstimatedBytes = value;\n  }\n  get(artifactId: string): ArtifactRecord | undefined {\n    ${instrument ? '__tcoSurveyStats.gets++;' : ''}\n    const entry = this.records.get(artifactId);\n    if (!entry) return undefined;\n    this.records.delete(artifactId); this.records.set(artifactId, entry); return entry.record;\n  }\n  put(record: ArtifactRecord): void {\n    ${instrument ? '__tcoSurveyStats.puts++;' : ''}\n    const weight = 2 * record.byteLength + ${k || 0} * record.sourceMap.length + ${fixed};\n    if (!Number.isSafeInteger(weight) || weight < 0) throw new Error("record estimated weight must be a non-negative safe integer");\n    const previous = this.records.get(record.artifactId);\n    if (previous) this.total -= previous.weight;\n    this.records.delete(record.artifactId); this.records.set(record.artifactId, { record, weight }); this.total += weight;\n    ${instrument ? '__tcoSurveyStats.maxAccountedResident = Math.max(__tcoSurveyStats.maxAccountedResident, this.total); __tcoSurveyStats.maxRecords = Math.max(__tcoSurveyStats.maxRecords, this.records.size);' : ''}\n    while (this.total > this.maxEstimatedBytes && this.records.size > 1) {\n      const oldest = this.records.keys().next().value!; const removed = this.records.get(oldest)!;\n      this.records.delete(oldest); this.total -= removed.weight;\n      ${instrument ? '__tcoSurveyStats.evictions++;' : ''}\n    }\n  }\n}`;
   let result = counter + text.slice(0, start) + replacement + text.slice(end);
@@ -39,6 +45,11 @@ function transform(text, { removeTrim = false, instrument = false, limitOverride
     result = result.replace('maxRecords: number }', 'maxRecords: number; maxAfterEviction: number }');
     result = result.replace('maxRecords: 0 };', 'maxRecords: 0, maxAfterEviction: 0 };');
     result = result.replace('__tcoSurveyStats.evictions++;\n    }', '__tcoSurveyStats.evictions++;\n    }\n    __tcoSurveyStats.maxAfterEviction = Math.max(__tcoSurveyStats.maxAfterEviction, this.total); __tcoSurveyFlush();');
+    assert(!result.includes('process.once("exit"'));
+    assert(result.includes('writeFileSync as __tcoSurveyWrite'));
+    assert(result.includes('maxAfterEviction: number') && result.includes('maxAfterEviction: 0'));
+    assert.equal((result.match(/__tcoSurveyFlush\(\)/g) || []).length, 3);
+    assert(result.includes('__tcoSurveyStats.maxAfterEviction = Math.max(__tcoSurveyStats.maxAfterEviction, this.total); __tcoSurveyFlush();'));
   }
   if (removeTrim) result = result.replace(/\r?\nfunction trimToTokenBudget\([\s\S]*?\r?\n}\r?\n\r?\n(?=function longestFittingSummaryPrefix)/, '\n');
   assert.notEqual(result, text); assert(result.includes('private total = 0'));
@@ -46,7 +57,7 @@ function transform(text, { removeTrim = false, instrument = false, limitOverride
   return result;
 }
 function checkOnly() { const text = readFileSync(resolve(args.get('fixture') || join(root, 'src/core/artifacts.ts')), 'utf8'); const a = transform(text); const b = transform(text, { removeTrim: true }); const trim = (x) => (x.match(/function trimToTokenBudget\(/g) || []).length; if (trim(text) !== 1 || trim(b) !== 0 || !a.includes('private total = 0')) throw new Error('transform fixture validation failed'); process.stdout.write(`${JSON.stringify({ mode: 'check-only', pass: true, beforeSha256: sha(text), aSha256: sha(a), bSha256: sha(b) }, null, 2)}\n`); }
-if (args.has('check-only')) { checkOnly(); process.exit(0); }
+if (args.has('check-only')) { checkOnly(); const source = readFileSync(join(root, 'src/core/artifacts.ts'), 'utf8'); transform(source, { instrument: true }); transform(source, { instrument: true, limitOverride: 1 }); process.exit(0); }
 if (process.version !== 'v24.18.0') throw new Error(`Node v24.18.0 required, got ${process.version}`);
 const temp = resolve(mkdtempSync(join(tmpdir(), '6-4b-5-store-candidates-'))); const result = { schema: '6-4b-5-store-candidates/v2', base, k, fixed, node: process.version, snapshots: [], status: 'running' };
 const manifest = git(['ls-files', '-z']).split('\0').filter(Boolean).map(file => ({ file, sha256: sha(readFileSync(join(root, file))) }));
@@ -76,9 +87,11 @@ try {
     }
     if (existsSync(testFile)) { try { const report = JSON.parse(readFileSync(testFile, 'utf8')); entry.testSummary = { numTotalTests: report.numTotalTests, numPassedTests: report.numPassedTests, numFailedTests: report.numFailedTests, failedTestNames: (report.testResults || []).flatMap((x) => (x.assertionResults || []).filter((a) => a.status === 'failed').map((a) => a.fullName || a.title)) }; } catch (error) { entry.testSummaryError = error.message; } }
     if (existsSync(testFile)) {
-      const report = JSON.parse(readFileSync(testFile, 'utf8'));
-      entry.testFailures = (report.testResults || []).flatMap(file => (file.assertionResults || []).filter(test => test.status === 'failed').map(test => ({ file: file.name, name: test.fullName, failureMessages: test.failureMessages })));
-      entry.testSummary.numSkippedTests = report.numPendingTests;
+      try {
+        const report = JSON.parse(readFileSync(testFile, 'utf8'));
+        entry.testFailures = (report.testResults || []).flatMap(file => (file.assertionResults || []).filter(test => test.status === 'failed').map(test => ({ file: file.name, name: test.fullName, failureMessages: test.failureMessages })));
+        if (entry.testSummary) entry.testSummary.numSkippedTests = report.numPendingTests;
+      } catch (error) { entry.testSummaryError = error.message; }
     }
     if (!entry.steps.some((x) => x.name === 'build' && x.status !== 0) && !spec.instrument) { const scenario = await run(process.execPath, [join(root, 'research/src/6-4b-5-store-scenarios.mjs'), `--snapshot=${dir}`, `--k=${k}`, `--fixed=${fixed}`, '--json'], root, undefined); entry.scenario = { ...scenario, parsed: (() => { try { return JSON.parse(scenario.stdout); } catch { return null; } })() }; save(); }
   }
