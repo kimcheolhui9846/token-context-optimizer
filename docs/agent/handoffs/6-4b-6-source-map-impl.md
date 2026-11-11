@@ -82,4 +82,22 @@ run4 timing(`perf-run4-timing.json`, 사본당 측정 30, B1 vs C1 median/p95 ms
 - 승인 범위: 같은 PR #111에서 P1만 적용한다. private `buildSourceMap`이 하나의 delimiter scan helper를 두 번 써서 먼저 줄 수를 세고, 정확한 길이 배열을 할당한 뒤 인덱스로 채운다. 그다음 bin 재생성, targeted·전체 gate, 사전등록 §10 커밋, run5(timing → 커밋 → memory → 커밋 → diagnostic → 커밋)를 한다. 기준은 §9 R2 그대로다.
 - 근거: run4 D2 S4 retained 유효 FAIL(보존)과 scratch 진단(`codex_review/n33-retained-recovery/`, 함수 단독·3입력·≤1 MiB 관측). 진단은 public API 전체 PASS가 아니다. P1 peak가 push와 같거나 늘지 않는다고 보장하지 않는다(진단 S4 maxRSS median push 157.05 vs prealloc 157.69 MiB). 실제 회귀 여부는 run5로 판단한다.
 - 제외: P2 slice 전환, public API·schema·오류·상한·의존성 변경, 기준 완화, run6, Ready/merge, S-10.
+- 실행 기록(2026-11-11): handoff `5346546` → P1 제품 `daaac32`(`scanLines` 공유, count 후 `new Array<SourceLine>(count)` 인덱스 채움, bin 재생성) → 사전등록 §10 `727961c`(측정 head = 사전등록, harness `032b1de` 이후 변경 0, check-only PASS) → `perf-run5-timing.json` `ec6f182` → `perf-run5-memory.json` `7ef74b5` → `perf-run5-diagnostic.json` `9002cab`. 블록은 하나씩 순서대로 실행했고, 사전 검사 거부나 재시도는 없었다.
+- RED 근거: 기존 BASE public API 3건 실패 로그와 run4 D2 S4 유효 FAIL(보존). 새 메모리 단위 테스트는 넣지 않았다. GREEN: `tests/source-map.test.ts` 22건(differential 10,381 포함) 통과.
+- 전체 gate: P1 작업 트리(커밋 전, 빌드 전 상태 `M src/core/artifacts.ts`)와 최종 head `9002cab`에서 각각 npm ci·build·test(50파일 4354 통과/5 skip)·typecheck·smoke:mcp·validate:plugin·benchmark(passed) 모두 exit 0. `9002cab` 빌드 뒤 변경 0.
 
+run5 timing(`perf-run5-timing.json`, 모두 1차 시도 유효, 사본당 측정 30, B1 vs C1 median/p95 ms):
+
+| 형태 | K | BASE | 후보 | 한계 | A/A 비(B, C) | 판정 |
+|---|---|---|---|---|---|---|
+| S1 | 32 | 105.45 / 121.98 | 93.20 / 101.34 | 115.99 / 146.38 | 1.004, 1.001 | PASS |
+| S2 | 32 | 140.62 / 157.13 | 119.18 / 135.35 | 154.68 / 188.56 | 0.982, 0.979 | PASS |
+| S3 | 4 | 420.50 / 519.98 | 112.56 / 155.33 | 462.55 / 623.98 | 1.018, 0.996 | PASS |
+| S4 | 2 | 493.63 / 581.03 | 110.12 / 157.67 | 542.99 / 697.24 | 0.996, 0.957 | PASS |
+| S5 | 16 | 110.74 / 127.65 | 80.81 / 107.26 | 121.82 / 153.18 | 1.000, 0.958 | PASS |
+| S6 | 1 | 595.04 / 767.97 | 590.56 / 695.47 | 654.55 / 921.56 | 1.020, 0.959 | PASS |
+
+- K는 run4와 다른 형태가 있다(S2 16→32, S3 2→4, S5 32→16). §9 보정 규칙대로 다시 고른 값이며, 형태 사이나 run 사이의 절대 시간은 비교하지 않는다.
+- run5 memory(`perf-run5-memory.json`, fresh child 30개 모두 completed, 형태별 digest 1종, 3회 median, MiB, BASE/후보): S1 R 1.033/1.033 P 53.1/53.1, S3 R 37.037/37.043 P 226.0/126.5, **S4 R 73.040/73.042(한계 74.501)** P 362.7/160.5, S5 R 6.106/2.988 P 61.4/56.2, M10 R 10.033/10.033 P 71.2/71.2. 모두 PASS. S4 후보 R raw는 [76590528, 76590528, 76590528] B(BASE median 76588408 B, 차이 +2,120 B)다. S4 후보 P는 run4 148.5 → run5 160.5 MiB로 높아졌지만 한계 431.0 MiB 안이다. run 사이 차이의 원인은 확인하지 않았다.
+- run5 diagnostic(정보용, 각 1회, 모두 completed·digest 일치): R1 후보 21.2 ms. 빈 줄 10 MiB 후보 537.8 ms·P 826.0·R 730.0 vs BASE 2,265.4 ms·P 2,645.8·R 730.0 MiB(R 차이 +2,136 B). `a`+LF 10 MiB 후보 332.7 ms·P 457.7·R 370.0 vs BASE 1,326.5 ms·P 1,564.4·R 370.0 MiB(R 차이 +2,952 B).
+- **판정(작성자 자기 검증): timing PASS 그리고 memory PASS → 사전등록 최종 승인 조건 충족.** Astra 최종 판정 전이며 N-33은 아직 해결로 기록하지 않는다. Ready/merge·run6·S-10은 미승인이다.
