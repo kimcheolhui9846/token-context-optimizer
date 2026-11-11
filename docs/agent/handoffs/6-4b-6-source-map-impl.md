@@ -6,7 +6,7 @@ Tier E. base origin/main `dd334602bbbeb3777fcfe8ea3c40c7e0a682b2ca`(#110 merge),
 
 ## 1. 계획 (승인 범위)
 
-- `src/core/artifacts.ts` private `buildSourceMap`: 전체 `matchAll` 배열 + filter/map → 한 번의 전진 CR/LF 스캔. 첫 구현(`499a7bb`)은 code unit마다 charCode, perf-run1 S1 유효 FAIL 뒤 `cb76744`에서 다음 CR·LF를 `indexOf`로 찾도록 바꿈(계획 §5 "같은 의미의 더 빠른 구현" 경로, 요청서 문구 'charCode 스캔'과 다름 — Astra 판정 대상). CR(13) 뒤 LF(10)는 CRLF 하나. 줄마다 `slice` + `Buffer.byteLength`, delimiter는 ASCII라 길이=바이트. 끝 delimiter 뒤가 비면 줄 없음.
+- `src/core/artifacts.ts` private `buildSourceMap`: 전체 `matchAll` 배열 + filter/map → 한 번의 전진 CR/LF 스캔. 첫 구현(`499a7bb`)은 code unit마다 charCode, perf-run1 S1 유효 FAIL 뒤 `cb76744`에서 다음 CR·LF를 `indexOf`로 찾도록 바꿈(계획 §5 "같은 의미의 더 빠른 구현" 경로, 요청서 문구 'charCode 스캔'과 다름 — 2026-11-11 코디네이터가 같은 의미의 국소 성능 수정으로 허용). CR(13) 뒤 LF(10)는 CRLF 하나. 줄마다 `slice` + `Buffer.byteLength`, delimiter는 ASCII라 길이=바이트. 끝 delimiter 뒤가 비면 줄 없음.
 - 바꾸지 않음: public API/export/schema/상한/오류 정책/estimator/policy, strict UTF-8 decode. 범위 밖: 저장소 상한·LRU·E8 trim, 이미지/영상, 논문, 의존성.
 
 ## 2. RED → GREEN (tests/source-map.test.ts, public `indexArtifact`만 사용)
@@ -45,9 +45,12 @@ Tier E. base origin/main `dd334602bbbeb3777fcfe8ea3c40c7e0a682b2ca`(#110 merge),
 | run2 | `97853ec` / `97853ec`(구현 `cb76744` indexOf) | S1 K=2, 3시도 모두 A/A p95 Δ 초과(BASE·후보 각 1–2개 표본 7–8 ms 급등) → **필수 INVALID**, 중단. 메모리·정보용 블록 미실행 |
 
 - run2 비교 블록 median(정보, 판정 아님): 후보 4.51–4.65 vs BASE 5.14–5.28 ms. INVALID라 G-T PASS로 쓰지 않는다.
-- **D1·D2 필수 gate는 아직 PASS 아님.** 다음 단계(새 사전등록)는 코디네이터 결정 대기.
+- 잡음 재분석(새 측정 없음, `research/src/6-4b-6-source-map-noise.mjs` → `noise-analysis.jsonl`): 급등 표본(arm median×1.3 초과)이 arm과 무관하게 16–17표본(K=2라 약 33호출) 간격으로 반복되고, 이 간격이 ABBA 주기 4와 맞물려 한 쌍의 같은 arm에 몰린다(예: run2 시도1 AA-base B1 3개·B2 0개, 비교 B1 3개·C1 0개). 원인은 1 MiB 문자열 반복 할당에 따른 GC 주기로 **추정**하며, raw 표본만으로 GC 인과는 입증되지 않았다.
+- **D1·D2 필수 gate는 아직 PASS 아님.** 새 프로토콜(K 보정 목표 상향)은 사용자 승인 대기이며 승인 전 run3을 실행하지 않는다.
 
 ## 5. 교차 확인·검토·남은 위험
 
 - Argon 초기 계획 교차 확인(`codex_review/argon/2026-11-11_n33-impl-initial-*`): gemini-4-argon APPROVE, Minor 1(메모리 digest 불일치가 invalid로 분류) → 직접 확인 뒤 반영, 확인 불가 5건은 원문으로 직접 대조.
-- Astra 최종 검토 전이며 N-33은 아직 "해결"이 아니다.
+- Astra 중간 검토 `codex_review/review_2026-11-11_pr111-n33-impl.md`(CHANGES REQUIRED): run2 보존(`fffd213`), handoff 갱신(`855189a`), diff-check(결과 폴더 `.gitattributes`로 원자료 바이트 보존, `855189a` 기준 0), root 로컬 `HANDOFF.md`(`.gitignore` 대상) 생성 반영. 남은 Major = 필수 성능·메모리 증거 미완료.
+- 남은 위험: S2–S6·메모리 R/P·D4 대형 진단이 아직 한 번도 측정되지 않았다. 10 MiB 빈 줄 BASE는 이전 보고상 maxRSS 약 2.7 GB로 OOM/timeout 가능성이 있다(정보용).
+- N-33은 아직 "해결"이 아니다. Ready/merge 미승인.
