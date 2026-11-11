@@ -76,3 +76,10 @@ run4 timing(`perf-run4-timing.json`, 사본당 측정 30, B1 vs C1 median/p95 ms
 - Astra 중간 검토 `codex_review/review_2026-11-11_pr111-n33-impl.md`(CHANGES REQUIRED): run2 보존(`fffd213`), handoff 갱신(`855189a`), diff-check(결과 폴더 `.gitattributes`로 원자료 바이트 보존, `855189a` 기준 0), root 로컬 `HANDOFF.md`(`.gitignore` 대상) 생성 반영. 남은 Major = 필수 성능·메모리 증거 미완료.
 - 남은 위험: D2 S4 retained 유효 FAIL(원인 추정, 미검증). 빈 줄·`a`+LF 10 MiB에서도 retained가 후보 쪽으로 늘었다(정보용). timing PASS는 R2 프로토콜 한 번의 결과다. 순번 균형은 실제 경과 시간의 균형을 뜻하지 않는다.
 - N-33은 아직 "해결"이 아니다. Ready/merge 미승인.
+
+## 6. P1 수정 + run5 (2026-11-11 사용자 승인 "승인 그리고 다시 검토", 요청서 `codex_review/codex_paste_2026-11-11_n33-p1-run5-request.md`)
+
+- 승인 범위: 같은 PR #111에서 P1만 적용한다. private `buildSourceMap`이 하나의 delimiter scan helper를 두 번 써서 먼저 줄 수를 세고, 정확한 길이 배열을 할당한 뒤 인덱스로 채운다. 그다음 bin 재생성, targeted·전체 gate, 사전등록 §10 커밋, run5(timing → 커밋 → memory → 커밋 → diagnostic → 커밋)를 한다. 기준은 §9 R2 그대로다.
+- 근거: run4 D2 S4 retained 유효 FAIL(보존)과 scratch 진단(`codex_review/n33-retained-recovery/`, 함수 단독·3입력·≤1 MiB 관측). 진단은 public API 전체 PASS가 아니다. P1 peak가 push와 같거나 늘지 않는다고 보장하지 않는다(진단 S4 maxRSS median push 157.05 vs prealloc 157.69 MiB). 실제 회귀 여부는 run5로 판단한다.
+- 제외: P2 slice 전환, public API·schema·오류·상한·의존성 변경, 기준 완화, run6, Ready/merge, S-10.
+
