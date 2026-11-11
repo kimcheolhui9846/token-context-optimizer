@@ -78,3 +78,13 @@
 - **그대로:** nearest-rank n=30(median `sorted[14]`, p95 `sorted[28]`), A/A 조건(참조=첫 사본), G-T, 최대 3시도·30 s 쿨다운·3번째 무효 INVALID, 유효 FAIL 즉시 중단, 형태 S1–S6·seed, child timeout, D2 절차·임계, D4 목록·timeout, 출력 거부·dirty 거부·추적 파일 보존·임시 폴더 정리. GC 수집·강제 GC 없음.
 - **블록 분리:** `--block=timing|memory|diagnostic`, 같은 사전등록 커밋으로 `perf-run4-timing.json` → `perf-run4-memory.json` → `perf-run4-diag.json`을 순서대로 하나씩 실행한다. timing이 FAIL·INVALID여도 memory와 diagnostic은 각각 실행한다. 블록 판정: timing = S1–S6 행이 정확히 하나씩 있고 비교된 행이 모두 pass, memory = M 형태 5개 모두 pass, diagnostic = 정보용(판정 없음). **최종 승인 = timing pass 그리고 memory pass일 때만.**
 - **S1–S6 전부 새로 측정.** run3 S1·S2 PASS는 이전 프로토콜의 보존 결과로만 인용하고 run4 실패를 덮지 않는다. run1–3 원자료와 v1·v2 계획은 보존한다. run5는 이번 승인 범위가 아니다.
+
+## 10. 재사전등록 (perf-run5, 2026-11-11 사용자 승인 P1 + run5)
+
+근거: run4(`032b1de`) timing PASS, memory 유효 FAIL(S4 retained, 보존). scratch 진단(`codex_review/n33-retained-recovery/`, 함수 단독·3입력·≤1 MiB, gate 아님)과 계획 `codex_review/codex_paste_2026-11-11_n33-retained-recovery-plan.md`, 요청서 `codex_review/codex_paste_2026-11-11_n33-p1-run5-request.md`.
+
+- **유일한 변경: 측정 대상 제품.** 후보 = P1 커밋 `daaac32`의 private `buildSourceMap`. 같은 delimiter scan helper(`scanLines`)로 먼저 줄 수를 세고, `new Array<SourceLine>(count)`를 인덱스로 채운다. public API·schema·오류·상한은 바꾸지 않았다. BASE는 그대로 `dd33460`이다.
+- **§9 R2를 그대로 쓴다.** 고정 12-순환 스케줄과 사본 대응, warmup 2·측정 10순환, 양 arm K 보정 ≥ 50 ms(maxK 1024), A/A·G-T·D2 임계, nearest-rank n=30, 형태 S1–S6·seed `0x6a4b6`, child timeout, 최대 3시도·30 s 쿨다운·3번째 무효 INVALID, 유효 FAIL 즉시 중단, D2 절차(fresh child 3회 median), D4 목록, 덮어쓰기·dirty 거부를 유지한다. harness(runner·worker) 변경은 없다. 이 절 추가는 runner가 요구하는 사전등록 커밋을 만들기 위한 것이다.
+- **새 측정 범위:** timing S1–S6 전부, memory 5형태 전부, diagnostic D4 전부. run4 timing PASS를 run5 결과 대신 쓰지 않는다. run1–4 원자료, 진단 원자료, v1·v2 계획은 보존한다.
+- **실행 순서(블록마다 결과 커밋):** `perf-run5-timing.json` 실행 → 커밋 → `perf-run5-memory.json` 실행 → 커밋 → `perf-run5-diagnostic.json` 실행 → 커밋. 모두 `--prereg=<이 절의 커밋>`. timing이 FAIL·INVALID여도 memory와 diagnostic은 각각 실행한다. 대형 child를 동시에 실행하지 않는다.
+- **최종 승인 = timing pass 그리고 memory pass일 때만.** 유효 FAIL·INVALID는 보존·보고하고, run6은 새 승인 없이 하지 않는다. 수치 예측은 적지 않는다. 진단의 maxRSS 관측(S4 push 157.05 vs prealloc 157.69 MiB)은 peak가 같거나 늘지 않는다는 보장이 아니다.
