@@ -1560,7 +1560,7 @@ var require_decoder = __commonJS({
       function decodeScan(data, offset, frame, components, resetInterval, spectralStart, spectralEnd, successivePrev, successive, opts) {
         var precision = frame.precision;
         var samplesPerLine = frame.samplesPerLine;
-        var scanLines = frame.scanLines;
+        var scanLines2 = frame.scanLines;
         var mcusPerLine = frame.mcusPerLine;
         var progressive = frame.progressive;
         var maxH = frame.maxH, maxV = frame.maxV;
@@ -23878,23 +23878,55 @@ function summarizeArtifact(input) {
     }
   };
 }
+function scanLines(content, onLine) {
+  let lineStart = 0;
+  let nextLineFeed = content.indexOf("\n");
+  let nextCarriageReturn = content.indexOf("\r");
+  while (nextLineFeed !== -1 || nextCarriageReturn !== -1) {
+    let end;
+    let delimiter;
+    if (nextCarriageReturn !== -1 && (nextLineFeed === -1 || nextCarriageReturn < nextLineFeed)) {
+      end = nextCarriageReturn;
+      delimiter = nextLineFeed === nextCarriageReturn + 1 ? "\r\n" : "\r";
+    } else {
+      end = nextLineFeed;
+      delimiter = "\n";
+    }
+    onLine(lineStart, end, delimiter);
+    lineStart = end + delimiter.length;
+    if (nextLineFeed !== -1 && nextLineFeed < lineStart) {
+      nextLineFeed = content.indexOf("\n", lineStart);
+    }
+    if (nextCarriageReturn !== -1 && nextCarriageReturn < lineStart) {
+      nextCarriageReturn = content.indexOf("\r", lineStart);
+    }
+  }
+  if (lineStart < content.length) {
+    onLine(lineStart, content.length, "");
+  }
+}
 function buildSourceMap(content) {
-  const matches = [...content.matchAll(/([^\r\n]*)(\r\n|\n|\r|$)/gu)];
+  let count = 0;
+  scanLines(content, () => {
+    count += 1;
+  });
+  const lines = new Array(count);
+  let index = 0;
   let byteCursor = 0;
-  return matches.filter((match, index) => match[1].length > 0 || index < matches.length - 1).map((match, index) => {
-    const text = match[1];
-    const delimiter = match[2];
+  scanLines(content, (start, end, delimiter) => {
+    const text = content.slice(start, end);
     const lineBytes = Buffer.byteLength(text, "utf8");
-    const sourceLine = {
+    lines[index] = {
       line: index + 1,
       startByte: byteCursor,
       endByte: byteCursor + lineBytes,
       text,
       delimiter
     };
-    byteCursor += lineBytes + Buffer.byteLength(delimiter, "utf8");
-    return sourceLine;
+    index += 1;
+    byteCursor += lineBytes + delimiter.length;
   });
+  return lines;
 }
 function findBestLines(artifact, query) {
   const terms = tokenize(query);

@@ -1,0 +1,42 @@
+
+ RUN  v3.2.7 <repo>
+
+stdout | tests/core.test.ts > artifact indexing and retrieval > denies a broken in-root file link without exposing its target
+Skipping file-link text safety case (EPERM)
+
+stdout | tests/core.test.ts > artifact indexing and retrieval > denies a broken file link outside the allowed root
+Skipping outside file-link text case (EPERM)
+
+ ✓ tests/query-artifact-boundaries.test.ts (18 tests) 444ms
+ ✓ tests/query-artifact-mcp.test.ts (16 tests) 2526ms
+ ✓ tests/core.test.ts (1281 tests | 2 skipped) 16285ms
+   ✓ benchmarks > keeps source-backed retrieval task gate explicitly null across samples  549ms
+   ✓ benchmarks > cleans benchmark temporary directory after report generation  944ms
+   ✓ project configuration > verifies an installed plugin can index a separate allowed workspace  367ms
+   ✓ project configuration > cleans up verifier temporary workspaces after installed verification  385ms
+   ✓ project configuration > uses the same USERPROFILE default root for install and verification  387ms
+   ✓ project configuration > verifier rejects noncanonical installed MCP launch metadata  958ms
+   ✓ project configuration > source validator rejects noncanonical MCP descriptors  498ms
+   ✓ project configuration > installer rejects noncanonical source plugin manifests before copying  340ms
+   ✓ project configuration > installer rejects incomplete source plugin manifests before copying  514ms
+   ✓ project configuration > verifier rejects duplicate raw installed MCP descriptor members  416ms
+   ✓ project configuration > verifier rejects duplicate raw installed plugin manifest members  397ms
+   ✓ project configuration > verifier rejects incomplete installed plugin manifests  665ms
+   ✓ project configuration > verifier requires installed MCP env_vars to exactly inherit TCO_ALLOWED_ROOTS  415ms
+   ✓ project configuration > verifier strips ambient Node execution hooks before launching the installed MCP server  375ms
+   ✓ project configuration > cleans up smoke MCP temporary roots  846ms
+ ✓ tests/source-map.test.ts (22 tests) 22374ms
+   ✓ N-33 differential against the legacy regex oracle > matches on every input over the 9-symbol alphabet up to length 4 (7,381 inputs)  15152ms
+   ✓ N-33 differential against the legacy regex oracle > matches on 3,000 seeded random inputs up to 512 symbols  6686ms
+stdout | tests/summarizer-selection.test.ts > budget-bound complete-line summarizer > matches the uncapped naive oracle across a nonvacuous deterministic corpus
+SUMMARIZER_DIFFERENTIAL {"fixtures":238,"comparisons":50346,"allFit":21378,"truncated":22403,"blankTail":717,"spanFallback":2947,"blocked":2901,"over6":33578,"over32":5008,"indexed":119,"synthetic":119}
+
+ ✓ tests/summarizer-selection.test.ts (16 tests) 36690ms
+   ✓ budget-bound complete-line summarizer > calibrates the preregistered G3 and large-input semantic paths without timing  2517ms
+   ✓ budget-bound complete-line summarizer > matches the uncapped naive oracle across a nonvacuous deterministic corpus  34041ms
+
+ Test Files  5 passed (5)
+      Tests  1351 passed | 2 skipped (1353)
+   Start at  18:59:46
+   Duration  37.36s (transform 395ms, setup 0ms, collect 978ms, tests 78.32s, environment 1ms, prepare 989ms)
+

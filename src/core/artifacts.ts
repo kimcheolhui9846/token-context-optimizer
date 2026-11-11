@@ -341,26 +341,71 @@ export function summarizeArtifact(input: {
   };
 }
 
-function buildSourceMap(content: string): SourceLine[] {
-  const matches = [...content.matchAll(/([^\r\n]*)(\r\n|\n|\r|$)/gu)];
-  let byteCursor = 0;
+// One forward pass over the content, reporting each line as (start, end, delimiter) in
+// order. The next CR and the next LF are each found with indexOf and only searched
+// again once the cursor has passed them, so every code unit is scanned at most once per
+// delimiter character. CR LF is a single delimiter; a lone CR or LF is its own
+// delimiter. Text after the last delimiter becomes a final line only when it is
+// non-empty, so a trailing newline never yields a phantom empty line. CR and LF are
+// never surrogate halves, so slicing at them cannot split a code point.
+function scanLines(
+  content: string,
+  onLine: (start: number, end: number, delimiter: string) => void,
+): void {
+  let lineStart = 0;
+  let nextLineFeed = content.indexOf("\n");
+  let nextCarriageReturn = content.indexOf("\r");
 
-  return matches
-    .filter((match, index) => match[1].length > 0 || index < matches.length - 1)
-    .map((match, index) => {
-      const text = match[1];
-      const delimiter = match[2];
-      const lineBytes = Buffer.byteLength(text, "utf8");
-      const sourceLine = {
-        line: index + 1,
-        startByte: byteCursor,
-        endByte: byteCursor + lineBytes,
-        text,
-        delimiter,
-      };
-      byteCursor += lineBytes + Buffer.byteLength(delimiter, "utf8");
-      return sourceLine;
-    });
+  while (nextLineFeed !== -1 || nextCarriageReturn !== -1) {
+    let end: number;
+    let delimiter: string;
+    if (nextCarriageReturn !== -1 && (nextLineFeed === -1 || nextCarriageReturn < nextLineFeed)) {
+      end = nextCarriageReturn;
+      delimiter = nextLineFeed === nextCarriageReturn + 1 ? "\r\n" : "\r";
+    } else {
+      end = nextLineFeed;
+      delimiter = "\n";
+    }
+    onLine(lineStart, end, delimiter);
+    lineStart = end + delimiter.length;
+    if (nextLineFeed !== -1 && nextLineFeed < lineStart) {
+      nextLineFeed = content.indexOf("\n", lineStart);
+    }
+    if (nextCarriageReturn !== -1 && nextCarriageReturn < lineStart) {
+      nextCarriageReturn = content.indexOf("\r", lineStart);
+    }
+  }
+  if (lineStart < content.length) {
+    onLine(lineStart, content.length, "");
+  }
+}
+
+// Two passes of the same scan: the first only counts lines, the second fills an array
+// allocated at exactly that length. Growing the array with push instead left spare
+// backing-store capacity alive with the artifact (N-33, D2 S4 retained memory).
+function buildSourceMap(content: string): SourceLine[] {
+  let count = 0;
+  scanLines(content, () => {
+    count += 1;
+  });
+
+  const lines = new Array<SourceLine>(count);
+  let index = 0;
+  let byteCursor = 0;
+  scanLines(content, (start, end, delimiter) => {
+    const text = content.slice(start, end);
+    const lineBytes = Buffer.byteLength(text, "utf8");
+    lines[index] = {
+      line: index + 1,
+      startByte: byteCursor,
+      endByte: byteCursor + lineBytes,
+      text,
+      delimiter,
+    };
+    index += 1;
+    byteCursor += lineBytes + delimiter.length; // delimiters are ASCII: 1 byte per unit
+  });
+  return lines;
 }
 
 function findBestLines(
