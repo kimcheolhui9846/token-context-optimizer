@@ -12,7 +12,7 @@ Claude Code가 이 저장소(모든 worktree 포함)에서 자동으로 읽는 �
   - `paper/`: 논문 원고
 - 공동 작업 지침은 메인 checkout의 상위 폴더에 있는 `AI_COLLABORATION.md`다. 찾지 못하면 사용자에게 위치를 묻는다. 역할은 아래 "역할"이 우선한다(그 지침 §2·§14: 사용자의 최신 지시 우선)
 - 메인 checkout에는 목적을 모르는 추적 안 된 파일이 남아 있을 수 있다. 그곳에서는 checkout, 정리, 코드 작업을 하지 않는다. 코드 작업은 항상 별도 worktree에서 한다
-- 같은 상위 폴더의 `AGENTS.md`는 다른 프로젝트(Kaggle) 규칙서다. 이 저장소에는 적용하지 않는다
+- 상위 폴더나 저장소 안의 다른 지침 파일(`AGENTS.md` 등)을 일괄 제외하지 않는다. 내용을 읽어 적용 범위를 확인하고, 다른 프로젝트 전용임이 확인된 지침만 제외한다(예: 옛 Desktop 위치의 RSNA Kaggle `AGENTS.md`). 판단이 서지 않으면 사용자에게 묻는다
 - 현재 상태, 결정 대기 항목, 이력은 `codex_review/`의 가장 최근 `HANDOFF_*.md`와 WBS를 본다. 이 파일에는 자주 바뀌는 상태를 적지 않는다
 
 ## 역할 (2026-11-10 사용자 결정)
@@ -74,7 +74,10 @@ Claude Code가 이 저장소(모든 worktree 포함)에서 자동으로 읽는 �
 
 `npm ci --ignore-scripts` → `npm run build` → `npm test` → `npm run typecheck` → `npm run smoke:mcp` → `npm run validate:plugin` → `npm run benchmark`
 
-- `npm run build`는 `bin/` 번들을 다시 만든다. autocrlf 때문에 내용이 같아도 수정됨으로 보일 수 있다. 의도한 변경이 아니면 그 파일만 되돌린다
+- `npm run build`는 `bin/` 번들을 다시 만든다. autocrlf 때문에 내용이 같아도 수정됨으로 보일 수 있다
+  - 빌드 전에 `git status --short`로 변경 상태를 기록한다
+  - 빌드 전 이미 수정돼 있던 파일(사용자·다른 작업의 변경)은 자동으로 checkout·restore하지 않고 보고한다
+  - 빌드 전 깨끗했고 이번 빌드로만 바뀐 파일이 의도한 변경이 아니면 그 파일만 되돌린다
 
 ## 기록
 
