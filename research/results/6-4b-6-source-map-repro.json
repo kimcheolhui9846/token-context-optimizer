@@ -1,0 +1,393 @@
+{
+  "task": "6.4b-6 N-33 plan reproduction (public indexArtifact)",
+  "generatedAt": "2026-11-11T05:19:06.193Z",
+  "env": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "osRelease": "10.0.26200",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900F",
+    "cpuCount": 24,
+    "totalMemBytes": 34163982336,
+    "childFlags": [],
+    "stackSizeFlag": "default",
+    "head": "82a5cd4e209a5ccc1e3215cefb923ae8e482f16c",
+    "artifactsTsBlob": "e4a24bf60fd4053128b576d3d5b6a7aebd141ab0",
+    "scriptBlob": "0a2f3791849a50c7b00fa9dcac81eed49e75b6e9",
+    "distArtifactsSha256WorkingCopy": "f4712abc9d4d5fed075bab009a44365088c871cd03a3a2f3d7fde9946de81a41",
+    "srcStatus": ""
+  },
+  "limitBytes": 10485760,
+  "repeats": 3,
+  "summary": {
+    "ascii10MiB": {
+      "role": "control",
+      "runs": 3,
+      "success": 3,
+      "matchesExpected": 3,
+      "errors": [],
+      "allTempRemoved": true
+    },
+    "asciiEmoji10MiB": {
+      "role": "red",
+      "runs": 3,
+      "success": 0,
+      "matchesExpected": 0,
+      "errors": [
+        "RangeError: Maximum call stack size exceeded"
+      ],
+      "allTempRemoved": true
+    },
+    "asciiEmoji1MiB": {
+      "role": "control",
+      "runs": 3,
+      "success": 3,
+      "matchesExpected": 3,
+      "errors": [],
+      "allTempRemoved": true
+    }
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "ascii10MiB",
+        "role": "control",
+        "fixtureBytes": 10485760,
+        "fixtureSha256": "b5eec3f68ef64d15e82dad91ff908582c5f081e61a62e22427af9bec2cd35f8d",
+        "utf16Length": 10485760,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485760,
+          "delimiter": "",
+          "byteLength": 10485760
+        },
+        "result": "success",
+        "elapsedMs": 17.8948,
+        "actual": {
+          "lineCount": 1,
+          "byteLength": 10485760,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485760,
+          "textEqualsContent": true,
+          "delimiter": "",
+          "stored": true
+        },
+        "matchesExpected": true,
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 1,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "asciiEmoji10MiB",
+        "role": "red",
+        "fixtureBytes": 10485760,
+        "fixtureSha256": "da3de678c7d7092d1e2ba8ff8beda5dc421891791ed199dffd47adda1d11462a",
+        "utf16Length": 10485758,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485758,
+          "delimiter": "",
+          "byteLength": 10485760
+        },
+        "result": "error",
+        "elapsedMs": 46.9481,
+        "error": {
+          "name": "RangeError",
+          "message": "Maximum call stack size exceeded",
+          "frames": [
+            "at RegExpStringIterator.next (<anonymous>)",
+            "at buildSourceMap (dist/src/core/artifacts.js:220:33)",
+            "at indexArtifact (dist/src/core/artifacts.js:29:23)",
+            "at async childMain (file:///D:/orca/worktrees/codex_plugin_and_skill/n33-source-map-plan/research/src/6-4b-6-source-map-repro.mjs:50:22)",
+            "at async file:///D:/orca/worktrees/codex_plugin_and_skill/n33-source-map-plan/research/src/6-4b-6-source-map-repro.mjs:112:16"
+          ]
+        },
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 1,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "asciiEmoji1MiB",
+        "role": "control",
+        "fixtureBytes": 1048576,
+        "fixtureSha256": "4159c13c1c7857beed4d1703e3bb7590e09054537322a6febea9021a7985de9f",
+        "utf16Length": 1048574,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 1048576,
+          "textUtf16Length": 1048574,
+          "delimiter": "",
+          "byteLength": 1048576
+        },
+        "result": "success",
+        "elapsedMs": 9.2851,
+        "actual": {
+          "lineCount": 1,
+          "byteLength": 1048576,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 1048576,
+          "textUtf16Length": 1048574,
+          "textEqualsContent": true,
+          "delimiter": "",
+          "stored": true
+        },
+        "matchesExpected": true,
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 2,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "ascii10MiB",
+        "role": "control",
+        "fixtureBytes": 10485760,
+        "fixtureSha256": "b5eec3f68ef64d15e82dad91ff908582c5f081e61a62e22427af9bec2cd35f8d",
+        "utf16Length": 10485760,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485760,
+          "delimiter": "",
+          "byteLength": 10485760
+        },
+        "result": "success",
+        "elapsedMs": 17.4427,
+        "actual": {
+          "lineCount": 1,
+          "byteLength": 10485760,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485760,
+          "textEqualsContent": true,
+          "delimiter": "",
+          "stored": true
+        },
+        "matchesExpected": true,
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 2,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "asciiEmoji10MiB",
+        "role": "red",
+        "fixtureBytes": 10485760,
+        "fixtureSha256": "da3de678c7d7092d1e2ba8ff8beda5dc421891791ed199dffd47adda1d11462a",
+        "utf16Length": 10485758,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485758,
+          "delimiter": "",
+          "byteLength": 10485760
+        },
+        "result": "error",
+        "elapsedMs": 47.3341,
+        "error": {
+          "name": "RangeError",
+          "message": "Maximum call stack size exceeded",
+          "frames": [
+            "at RegExpStringIterator.next (<anonymous>)",
+            "at buildSourceMap (dist/src/core/artifacts.js:220:33)",
+            "at indexArtifact (dist/src/core/artifacts.js:29:23)",
+            "at async childMain (file:///D:/orca/worktrees/codex_plugin_and_skill/n33-source-map-plan/research/src/6-4b-6-source-map-repro.mjs:50:22)",
+            "at async file:///D:/orca/worktrees/codex_plugin_and_skill/n33-source-map-plan/research/src/6-4b-6-source-map-repro.mjs:112:16"
+          ]
+        },
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 2,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "asciiEmoji1MiB",
+        "role": "control",
+        "fixtureBytes": 1048576,
+        "fixtureSha256": "4159c13c1c7857beed4d1703e3bb7590e09054537322a6febea9021a7985de9f",
+        "utf16Length": 1048574,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 1048576,
+          "textUtf16Length": 1048574,
+          "delimiter": "",
+          "byteLength": 1048576
+        },
+        "result": "success",
+        "elapsedMs": 8.8596,
+        "actual": {
+          "lineCount": 1,
+          "byteLength": 1048576,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 1048576,
+          "textUtf16Length": 1048574,
+          "textEqualsContent": true,
+          "delimiter": "",
+          "stored": true
+        },
+        "matchesExpected": true,
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 3,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "ascii10MiB",
+        "role": "control",
+        "fixtureBytes": 10485760,
+        "fixtureSha256": "b5eec3f68ef64d15e82dad91ff908582c5f081e61a62e22427af9bec2cd35f8d",
+        "utf16Length": 10485760,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485760,
+          "delimiter": "",
+          "byteLength": 10485760
+        },
+        "result": "success",
+        "elapsedMs": 17.386,
+        "actual": {
+          "lineCount": 1,
+          "byteLength": 10485760,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485760,
+          "textEqualsContent": true,
+          "delimiter": "",
+          "stored": true
+        },
+        "matchesExpected": true,
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 3,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "asciiEmoji10MiB",
+        "role": "red",
+        "fixtureBytes": 10485760,
+        "fixtureSha256": "da3de678c7d7092d1e2ba8ff8beda5dc421891791ed199dffd47adda1d11462a",
+        "utf16Length": 10485758,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 10485760,
+          "textUtf16Length": 10485758,
+          "delimiter": "",
+          "byteLength": 10485760
+        },
+        "result": "error",
+        "elapsedMs": 48.0904,
+        "error": {
+          "name": "RangeError",
+          "message": "Maximum call stack size exceeded",
+          "frames": [
+            "at RegExpStringIterator.next (<anonymous>)",
+            "at buildSourceMap (dist/src/core/artifacts.js:220:33)",
+            "at indexArtifact (dist/src/core/artifacts.js:29:23)",
+            "at async childMain (file:///D:/orca/worktrees/codex_plugin_and_skill/n33-source-map-plan/research/src/6-4b-6-source-map-repro.mjs:50:22)",
+            "at async file:///D:/orca/worktrees/codex_plugin_and_skill/n33-source-map-plan/research/src/6-4b-6-source-map-repro.mjs:112:16"
+          ]
+        },
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    },
+    {
+      "repeat": 3,
+      "exitCode": 0,
+      "signal": null,
+      "parsed": {
+        "name": "asciiEmoji1MiB",
+        "role": "control",
+        "fixtureBytes": 1048576,
+        "fixtureSha256": "4159c13c1c7857beed4d1703e3bb7590e09054537322a6febea9021a7985de9f",
+        "utf16Length": 1048574,
+        "withinLimit": true,
+        "expected": {
+          "lineCount": 1,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 1048576,
+          "textUtf16Length": 1048574,
+          "delimiter": "",
+          "byteLength": 1048576
+        },
+        "result": "success",
+        "elapsedMs": 9.6446,
+        "actual": {
+          "lineCount": 1,
+          "byteLength": 1048576,
+          "line": 1,
+          "startByte": 0,
+          "endByte": 1048576,
+          "textUtf16Length": 1048574,
+          "textEqualsContent": true,
+          "delimiter": "",
+          "stored": true
+        },
+        "matchesExpected": true,
+        "tempRemoved": true
+      },
+      "stderrTail": ""
+    }
+  ],
+  "termination": "fixed repeats; no retry on error; children sequential"
+}
