@@ -1560,7 +1560,7 @@ var require_decoder = __commonJS({
       function decodeScan(data, offset, frame, components, resetInterval, spectralStart, spectralEnd, successivePrev, successive, opts) {
         var precision = frame.precision;
         var samplesPerLine = frame.samplesPerLine;
-        var scanLines = frame.scanLines;
+        var scanLines2 = frame.scanLines;
         var mcusPerLine = frame.mcusPerLine;
         var progressive = frame.progressive;
         var maxH = frame.maxH, maxV = frame.maxV;
@@ -23878,24 +23878,10 @@ function summarizeArtifact(input) {
     }
   };
 }
-function buildSourceMap(content) {
-  const lines = [];
+function scanLines(content, onLine) {
   let lineStart = 0;
-  let byteCursor = 0;
   let nextLineFeed = content.indexOf("\n");
   let nextCarriageReturn = content.indexOf("\r");
-  const pushLine = (end, delimiter) => {
-    const text = content.slice(lineStart, end);
-    const lineBytes = Buffer.byteLength(text, "utf8");
-    lines.push({
-      line: lines.length + 1,
-      startByte: byteCursor,
-      endByte: byteCursor + lineBytes,
-      text,
-      delimiter
-    });
-    byteCursor += lineBytes + delimiter.length;
-  };
   while (nextLineFeed !== -1 || nextCarriageReturn !== -1) {
     let end;
     let delimiter;
@@ -23906,7 +23892,7 @@ function buildSourceMap(content) {
       end = nextLineFeed;
       delimiter = "\n";
     }
-    pushLine(end, delimiter);
+    onLine(lineStart, end, delimiter);
     lineStart = end + delimiter.length;
     if (nextLineFeed !== -1 && nextLineFeed < lineStart) {
       nextLineFeed = content.indexOf("\n", lineStart);
@@ -23916,8 +23902,30 @@ function buildSourceMap(content) {
     }
   }
   if (lineStart < content.length) {
-    pushLine(content.length, "");
+    onLine(lineStart, content.length, "");
   }
+}
+function buildSourceMap(content) {
+  let count = 0;
+  scanLines(content, () => {
+    count += 1;
+  });
+  const lines = new Array(count);
+  let index = 0;
+  let byteCursor = 0;
+  scanLines(content, (start, end, delimiter) => {
+    const text = content.slice(start, end);
+    const lineBytes = Buffer.byteLength(text, "utf8");
+    lines[index] = {
+      line: index + 1,
+      startByte: byteCursor,
+      endByte: byteCursor + lineBytes,
+      text,
+      delimiter
+    };
+    index += 1;
+    byteCursor += lineBytes + delimiter.length;
+  });
   return lines;
 }
 function findBestLines(artifact, query) {
