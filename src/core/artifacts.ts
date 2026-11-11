@@ -341,26 +341,50 @@ export function summarizeArtifact(input: {
   };
 }
 
+const CARRIAGE_RETURN = 13;
+const LINE_FEED = 10;
+
+// One sequential scan over UTF-16 code units. CR LF is a single delimiter; a lone CR or
+// LF is its own delimiter. Text after the last delimiter becomes a final line only when
+// it is non-empty, so a trailing newline never yields a phantom empty line. CR and LF are
+// never surrogate halves, so slicing at them cannot split a code point.
 function buildSourceMap(content: string): SourceLine[] {
-  const matches = [...content.matchAll(/([^\r\n]*)(\r\n|\n|\r|$)/gu)];
+  const lines: SourceLine[] = [];
+  let lineStart = 0;
   let byteCursor = 0;
 
-  return matches
-    .filter((match, index) => match[1].length > 0 || index < matches.length - 1)
-    .map((match, index) => {
-      const text = match[1];
-      const delimiter = match[2];
-      const lineBytes = Buffer.byteLength(text, "utf8");
-      const sourceLine = {
-        line: index + 1,
-        startByte: byteCursor,
-        endByte: byteCursor + lineBytes,
-        text,
-        delimiter,
-      };
-      byteCursor += lineBytes + Buffer.byteLength(delimiter, "utf8");
-      return sourceLine;
+  const pushLine = (end: number, delimiter: string): void => {
+    const text = content.slice(lineStart, end);
+    const lineBytes = Buffer.byteLength(text, "utf8");
+    lines.push({
+      line: lines.length + 1,
+      startByte: byteCursor,
+      endByte: byteCursor + lineBytes,
+      text,
+      delimiter,
     });
+    byteCursor += lineBytes + delimiter.length; // delimiters are ASCII: 1 byte per unit
+  };
+
+  for (let index = 0; index < content.length; index++) {
+    const code = content.charCodeAt(index);
+    if (code === LINE_FEED) {
+      pushLine(index, "\n");
+      lineStart = index + 1;
+    } else if (code === CARRIAGE_RETURN) {
+      if (content.charCodeAt(index + 1) === LINE_FEED) {
+        pushLine(index, "\r\n");
+        index++;
+      } else {
+        pushLine(index, "\r");
+      }
+      lineStart = index + 1;
+    }
+  }
+  if (lineStart < content.length) {
+    pushLine(content.length, "");
+  }
+  return lines;
 }
 
 function findBestLines(

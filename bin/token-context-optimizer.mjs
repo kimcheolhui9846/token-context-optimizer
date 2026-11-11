@@ -23878,23 +23878,43 @@ function summarizeArtifact(input) {
     }
   };
 }
+var CARRIAGE_RETURN = 13;
+var LINE_FEED = 10;
 function buildSourceMap(content) {
-  const matches = [...content.matchAll(/([^\r\n]*)(\r\n|\n|\r|$)/gu)];
+  const lines = [];
+  let lineStart = 0;
   let byteCursor = 0;
-  return matches.filter((match, index) => match[1].length > 0 || index < matches.length - 1).map((match, index) => {
-    const text = match[1];
-    const delimiter = match[2];
+  const pushLine = (end, delimiter) => {
+    const text = content.slice(lineStart, end);
     const lineBytes = Buffer.byteLength(text, "utf8");
-    const sourceLine = {
-      line: index + 1,
+    lines.push({
+      line: lines.length + 1,
       startByte: byteCursor,
       endByte: byteCursor + lineBytes,
       text,
       delimiter
-    };
-    byteCursor += lineBytes + Buffer.byteLength(delimiter, "utf8");
-    return sourceLine;
-  });
+    });
+    byteCursor += lineBytes + delimiter.length;
+  };
+  for (let index = 0; index < content.length; index++) {
+    const code = content.charCodeAt(index);
+    if (code === LINE_FEED) {
+      pushLine(index, "\n");
+      lineStart = index + 1;
+    } else if (code === CARRIAGE_RETURN) {
+      if (content.charCodeAt(index + 1) === LINE_FEED) {
+        pushLine(index, "\r\n");
+        index++;
+      } else {
+        pushLine(index, "\r");
+      }
+      lineStart = index + 1;
+    }
+  }
+  if (lineStart < content.length) {
+    pushLine(content.length, "");
+  }
+  return lines;
 }
 function findBestLines(artifact, query) {
   const terms = tokenize(query);
