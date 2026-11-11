@@ -52,3 +52,10 @@
 - 추적 파일 해시가 실행 전후 같아야 하고, 임시 폴더(`tco-6-4b-6-perf-*`)는 삭제를 확인한다.
 - 제품을 다시 고치면 새 사전등록 커밋과 새 결과 파일로 다시 잰다. 이전 유효 FAIL·INVALID 결과는 지우거나 덮어쓰지 않는다.
 - 실행: `node research/src/6-4b-6-source-map-perf.mjs --prereg=<이 문서 커밋> --output=research/results/6-4b-6-source-map-impl/perf-<이름>.json`. 검사만: `--check-only`.
+
+## 7. 재사전등록 (perf-run2, 제품 수정 뒤)
+
+- perf-run1(`research/results/6-4b-6-source-map-impl/perf-run1.json`, 사전등록 `c709812`, 측정 head `499a7bb`): S1 A/A 두 쌍 유효, 후보(charCode 루프) median 9.48 ms·p95 11.04 ms vs BASE 5.29 ms·7.73 ms(K=2) → D1 한계(5.82 ms·9.28 ms) 초과, **유효 FAIL**. 규칙대로 재시도 없이 중단했고 이 결과는 그대로 보존한다(삭제·덮어쓰기·완화 없음).
+- 원인 탐색(gate 아님, `research/src/6-4b-6-source-map-explore.mjs`, `explore-after-run1.txt`): 긴 한 줄에서 code unit마다 charCodeAt 하는 루프가 native 정규식보다 느렸다.
+- 제품 수정 `cb76744`: 같은 한 번의 전진 스캔과 SourceLine 의미를 유지하고, 다음 CR·LF 위치만 `indexOf`로 찾는다. targeted 테스트(RED 3건 포함 22건, differential 10,381건) 재통과.
+- 이 절을 담은 커밋이 새 사전등록이다. §1–§6의 절차·임계값·입력·seed·timeout·순서는 **한 글자도 바꾸지 않는다.** 출력은 새 파일 `perf-run2.json`.
