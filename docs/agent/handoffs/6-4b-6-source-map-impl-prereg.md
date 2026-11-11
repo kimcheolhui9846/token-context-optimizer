@@ -59,3 +59,10 @@
 - 원인 탐색(gate 아님, `research/src/6-4b-6-source-map-explore.mjs`, `explore-after-run1.txt`): 긴 한 줄에서 code unit마다 charCodeAt 하는 루프가 native 정규식보다 느렸다.
 - 제품 수정 `cb76744`: 같은 한 번의 전진 스캔과 SourceLine 의미를 유지하고, 다음 CR·LF 위치만 `indexOf`로 찾는다. targeted 테스트(RED 3건 포함 22건, differential 10,381건) 재통과.
 - 이 절을 담은 커밋이 새 사전등록이다. §1–§6의 절차·임계값·입력·seed·timeout·순서는 **한 글자도 바꾸지 않는다.** 출력은 새 파일 `perf-run2.json`.
+
+## 8. 재사전등록 (perf-run3, 2026-11-11 사용자 승인 A안)
+
+- perf-run2(사전등록 `97853ec`): S1 3시도 모두 A/A p95 무효 → **필수 INVALID**, 보존. 커밋된 raw 표본 재분석(`noise-analysis.jsonl`, 새 측정 없음): 급등 표본이 대부분 16–17표본 간격으로 ABBA 주기와 맞물려 한 arm에 몰렸다. 원인은 GC 주기로 **추정**(인과 미입증).
+- **유일한 변경:** §3 K 보정 정지 조건 "BASE 사본1 K호출 묶음 5개 최솟값 ≥ 5 ms" → **≥ 50 ms**(`P.minSampleMs` 5 → 50). K는 여전히 1부터 2배씩, maxK 1024, 두 arm 동일, 기록.
+- 그대로: 표본 단위(K호출 묶음), A/A 조건, G-T·D2 임계, ABBA 15주기, warmup 5, 형태·seed, timeout, 최대 시도 3·쿨다운 30 s, 중단 규칙, D2·D4 절차. 강제 GC 추가 없음. 구현은 승인된 `indexOf` 전진 스캔(`cb76744`) 그대로.
+- 유효 FAIL 또는 세 번째 A/A 무효면 재시도·증액 없이 중단하고 보고한다. 출력은 새 파일 `perf-run3.json`.

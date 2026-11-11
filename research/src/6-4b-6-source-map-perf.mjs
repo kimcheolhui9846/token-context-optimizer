@@ -25,7 +25,7 @@ const MIB = 1024 * 1024;
 const LIMIT = 10 * MIB;
 const SEED = 0x6a4b6;
 const P = Object.freeze({
-  warmups: 5, cycles: 15, samplesPerArm: 30, minSampleMs: 5, maxK: 1024, maxAttempts: 3, cooldownMs: 30000,
+  warmups: 5, cycles: 15, samplesPerArm: 30, minSampleMs: 50, maxK: 1024, maxAttempts: 3, cooldownMs: 30000,
   timingChildTimeoutMs: 600000, memoryChildTimeoutMs: 300000, memoryRepeats: 3,
   r1DiagnosticTimeoutMs: 120000, largeDiagnosticTimeoutMs: 300000,
 });
