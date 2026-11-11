@@ -40,14 +40,20 @@ const out = { type: config.op, node: process.version, v8: process.versions.v8, s
 const record = (label, arm, ms) => out.samples.push({ order: out.samples.length, label, arm, ms });
 try {
   if (config.op === 'calibrate') {
-    // BASE only: smallest power of two K whose minimum of 5 batch samples is >= 5 ms.
+    // run4 (prereg section 9): K = 1, 2, 4, ...; at each K, 5 batch samples of BASE copy 1 then 5 of
+    // candidate copy 1. Stop at the smallest K where both minima are >= minSampleMs. Not used for verdicts.
     out.steps = [];
     let k = 1;
     for (;;) {
-      const values = [];
-      for (let i = 0; i < 5; i++) values.push(await sample('B1', k));
-      out.steps.push({ k, values });
-      if (Math.min(...values) >= config.minSampleMs) { out.k = k; break; }
+      const step = { k, base: [], candidate: [] };
+      out.steps.push(step);
+      for (let i = 0; i < config.calibrationSamples; i++) {
+        try { step.base.push(await sample('B1', k)); } catch (error) { out.failedArm = 'B1'; throw error; }
+      }
+      for (let i = 0; i < config.calibrationSamples; i++) {
+        try { step.candidate.push(await sample('C1', k)); } catch (error) { out.failedArm = 'C1'; throw error; }
+      }
+      if (Math.min(...step.base) >= config.minSampleMs && Math.min(...step.candidate) >= config.minSampleMs) { out.k = k; break; }
       if (k >= config.maxK) throw new Error(`calibration exceeded maxK ${config.maxK}`);
       k *= 2;
     }
@@ -61,13 +67,9 @@ try {
         out.digests[arm].push(sourceMapDigest(r));
       }
     }
+    // run4: run the parent's fixed schedule exactly (warmup circuits then measured circuits).
     const k = config.k;
-    for (const arm of ['B1', 'B2', 'C1', 'C2']) for (let i = 0; i < config.warmups; i++) record(`warmup/${i}`, arm, await sample(arm, k));
-    for (const [block, first, second] of [['AA-base', 'B1', 'B2'], ['AA-candidate', 'C1', 'C2'], ['comparison', 'B1', 'C1']]) {
-      for (let cycle = 0; cycle < config.cycles; cycle++) {
-        for (const arm of [first, second, second, first]) record(`${block}/${cycle}`, arm, await sample(arm, k));
-      }
-    }
+    for (const entry of config.schedule) record(entry.label, entry.arm, await sample(entry.arm, k));
   } else {
     throw new Error(`unknown op ${config.op}`);
   }

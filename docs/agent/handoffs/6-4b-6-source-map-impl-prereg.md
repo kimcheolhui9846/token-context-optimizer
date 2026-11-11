@@ -66,3 +66,15 @@
 - **유일한 변경:** §3 K 보정 정지 조건 "BASE 사본1 K호출 묶음 5개 최솟값 ≥ 5 ms" → **≥ 50 ms**(`P.minSampleMs` 5 → 50). K는 여전히 1부터 2배씩, maxK 1024, 두 arm 동일, 기록.
 - 그대로: 표본 단위(K호출 묶음), A/A 조건, G-T·D2 임계, ABBA 15주기, warmup 5, 형태·seed, timeout, 최대 시도 3·쿨다운 30 s, 중단 규칙, D2·D4 절차. 강제 GC 추가 없음. 구현은 승인된 `indexOf` 전진 스캔(`cb76744`) 그대로.
 - 유효 FAIL 또는 세 번째 A/A 무효면 재시도·증액 없이 중단하고 보고한다. 출력은 새 파일 `perf-run3.json`.
+
+## 9. 재사전등록 (perf-run4, 2026-11-11 사용자 승인 계획 R2)
+
+근거: run3(`f13d42d`) S3 필수 INVALID 뒤 읽기 전용 분석과 계획 R2(`codex_review/codex_paste_2026-11-11_n33-measurement-recovery-plan-v2.md`). 이 절은 §3 시간 gate의 스케줄·보정·실행 단위를 바꾸고, §4·§5를 독립 블록으로 실행하게 한다. 제품 코드(`src/`)는 바꾸지 않는다.
+
+- **스케줄(§3 (b)–(e) 대체):** 형태·시도마다 fresh hidden child 하나에서 고정 12-순환 `A B C D B D C A D A C B`(A=B1, B=B2, D=C1, C=C2)를 warmup 2순환(24표본, 사본당 6) → 측정 10순환(120표본, 사본당 30)으로 돌린다. 표본 = K호출 묶음.
+- check-only로 검증하는 사실: 측정 120, 사본당 측정 30·warmup 6, 직전쌍(측정 첫 표본의 직전 = warmup 마지막 표본, B2>B1 포함) 서로 다른 12쌍 각 10회, 같은 사본 연속 0, 측정 평균 순번 B1·B2·C1 59.3333, C2 60. 평균 순번은 순번 통계일 뿐이며 **실제 경과 시간의 균형을 뜻하지 않는다**. 2차 이월, 주기 12 근처 잡음, 비선형 드리프트는 통제하지 않는다.
+- **판정 표본:** A/A(B1/B2, C1/C2)와 비교(B1/C1)를 같은 측정 120표본에서 사본별 30개로 계산한다. 시간 밖 correctness(네 사본 digest 일치), 표본마다 출력 확인, 기록 순서·라벨·사본이 스케줄과 정확히 일치하는지 확인(아니면 INVALID).
+- **K 보정(§3 K 보정 대체):** K=1부터 2배씩, 각 K에서 B1 5묶음 → C1 5묶음. **두 최솟값이 모두 ≥ 50 ms**인 가장 작은 K(maxK 1024, 넘으면 INVALID). 네 사본에 같은 K, 보정 표본은 판정에 쓰지 않음. 보정 중 B1 예외는 base_failed_excluded, C1 예외는 INVALID.
+- **그대로:** nearest-rank n=30(median `sorted[14]`, p95 `sorted[28]`), A/A 조건(참조=첫 사본), G-T, 최대 3시도·30 s 쿨다운·3번째 무효 INVALID, 유효 FAIL 즉시 중단, 형태 S1–S6·seed, child timeout, D2 절차·임계, D4 목록·timeout, 출력 거부·dirty 거부·추적 파일 보존·임시 폴더 정리. GC 수집·강제 GC 없음.
+- **블록 분리:** `--block=timing|memory|diagnostic`, 같은 사전등록 커밋으로 `perf-run4-timing.json` → `perf-run4-memory.json` → `perf-run4-diag.json`을 순서대로 하나씩 실행한다. timing이 FAIL·INVALID여도 memory와 diagnostic은 각각 실행한다. 블록 판정: timing = S1–S6 행이 정확히 하나씩 있고 비교된 행이 모두 pass, memory = M 형태 5개 모두 pass, diagnostic = 정보용(판정 없음). **최종 승인 = timing pass 그리고 memory pass일 때만.**
+- **S1–S6 전부 새로 측정.** run3 S1·S2 PASS는 이전 프로토콜의 보존 결과로만 인용하고 run4 실패를 덮지 않는다. run1–3 원자료와 v1·v2 계획은 보존한다. run5는 이번 승인 범위가 아니다.

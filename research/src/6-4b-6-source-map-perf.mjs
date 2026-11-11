@@ -25,7 +25,9 @@ const MIB = 1024 * 1024;
 const LIMIT = 10 * MIB;
 const SEED = 0x6a4b6;
 const P = Object.freeze({
-  warmups: 5, cycles: 15, samplesPerArm: 30, minSampleMs: 50, maxK: 1024, maxAttempts: 3, cooldownMs: 30000,
+  // run4 (prereg section 9, user-approved plan R2): one shared 4-copy block in a fixed 12-step circuit.
+  circuit: 'ABCDBDCADACB', circuitMap: Object.freeze({ A: 'B1', B: 'B2', C: 'C2', D: 'C1' }), warmupCircuits: 2, measureCircuits: 10,
+  calibrationSamples: 5, samplesPerArm: 30, minSampleMs: 50, maxK: 1024, maxAttempts: 3, cooldownMs: 30000,
   timingChildTimeoutMs: 600000, memoryChildTimeoutMs: 300000, memoryRepeats: 3,
   r1DiagnosticTimeoutMs: 120000, largeDiagnosticTimeoutMs: 300000,
 });
@@ -125,6 +127,53 @@ function timeGate(base, candidate) {
   const p95Limit = Math.max(base.p95 * 1.20, base.p95 + 1);
   return { medianLimit, p95Limit, medianOk: candidate.median <= medianLimit, p95Ok: candidate.p95 <= p95Limit, pass: candidate.median <= medianLimit && candidate.p95 <= p95Limit };
 }
+// Fixed schedule: warmup circuits then measured circuits; each entry is one K-call sample of one copy.
+function schedule() {
+  const arms = [...P.circuit].map(letter => P.circuitMap[letter]);
+  const list = [];
+  for (let c = 0; c < P.warmupCircuits; c++) for (const arm of arms) list.push({ label: `warmup/${c}`, arm });
+  for (let c = 0; c < P.measureCircuits; c++) for (const arm of arms) list.push({ label: `measure/${c}`, arm });
+  return list;
+}
+// Verifiable schedule facts: counts per copy, predecessor pairs of measured samples (the first measured
+// sample's predecessor is the last warmup sample), self-repeats and mean measured index per copy.
+// Mean index balance is an index statistic only; it says nothing about elapsed-time balance.
+function scheduleFacts(list) {
+  const count = filter => list.filter(filter).reduce((m, e) => ({ ...m, [e.arm]: (m[e.arm] ?? 0) + 1 }), {});
+  const pairs = {}, meanIndex = {};
+  let self = 0, firstMeasured = -1;
+  list.forEach((entry, index) => {
+    if (!entry.label.startsWith('measure/')) return;
+    if (firstMeasured < 0) firstMeasured = index;
+    const prev = list[index - 1];
+    if (prev.arm === entry.arm) self++;
+    const key = `${prev.arm}>${entry.arm}`; pairs[key] = (pairs[key] ?? 0) + 1;
+    (meanIndex[entry.arm] ??= []).push(index - firstMeasured);
+  });
+  return { total: list.length, warmupPerCopy: count(e => e.label.startsWith('warmup/')), measuredPerCopy: count(e => e.label.startsWith('measure/')), pairs, self,
+    boundary: `${list[firstMeasured - 1]?.arm}>${list[firstMeasured]?.arm}`,
+    meanMeasuredIndex: Object.fromEntries(Object.entries(meanIndex).map(([a, v]) => [a, +(v.reduce((x, y) => x + y, 0) / v.length).toFixed(4)])) };
+}
+// K calibration stop: BASE copy 1 and candidate copy 1 both have min of their 5 batch samples >= minSampleMs.
+function calibrationDone(baseValues, candidateValues) {
+  return baseValues.length === P.calibrationSamples && candidateValues.length === P.calibrationSamples
+    && baseValues.every(Number.isFinite) && candidateValues.every(Number.isFinite)
+    && Math.min(...baseValues) >= P.minSampleMs && Math.min(...candidateValues) >= P.minSampleMs;
+}
+// Block aggregation. Timing passes only if each of S1..S6 has exactly one row and every non-excluded row
+// passed (at least one compared). Memory passes only if every memory shape row passed. Approval needs both.
+const TIMING_SHAPES = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
+function timingStatus(rows) {
+  const names = rows.map(row => row.shape);
+  const timed = rows.filter(row => row.status !== 'base_failed_excluded');
+  return rows.length === TIMING_SHAPES.length && TIMING_SHAPES.every(name => names.includes(name))
+    && timed.length > 0 && timed.every(row => row.status === 'pass') ? 'pass' : 'not_passed';
+}
+function memoryStatus(rows) {
+  return rows.length === MEMORY_SHAPES.length && MEMORY_SHAPES.every(name => rows.some(row => row.shape === name))
+    && rows.every(row => row.pass === true && row.status === 'pass') ? 'pass' : 'not_passed';
+}
+const finalApproval = (timing, memory) => (timing === 'pass' && memory === 'pass' ? 'pass' : 'not_passed');
 // D2 on medians of 3 fresh children per arm.
 function memoryGate(base, candidate) {
   const measurable = [base.R, base.P, candidate.R, candidate.P].every(Number.isFinite) && base.P > 0 && candidate.P > 0;
@@ -152,6 +201,26 @@ function checks() {
   assert(memoryGate({ R: 100 * MIB, P: 100 * MIB }, { R: 102 * MIB, P: 100 * MIB }).pass);
   assert(!memoryGate({ R: 10 * MIB, P: 100 * MIB }, { R: 10 * MIB, P: 142 * MIB + 1 }).pass);
   assert.equal(memoryGate({ R: 1, P: 0 }, { R: 1, P: 0 }).status, 'unmeasurable');
+  // run4 schedule (prereg section 9)
+  const list = schedule(), facts = scheduleFacts(list);
+  assert.equal(facts.total, 144); assert.equal(list.filter(e => e.label.startsWith('measure/')).length, 120);
+  for (const copy of ['B1', 'B2', 'C1', 'C2']) { assert.equal(facts.warmupPerCopy[copy], 6); assert.equal(facts.measuredPerCopy[copy], 30); }
+  assert.equal(Object.keys(facts.pairs).length, 12); assert(Object.values(facts.pairs).every(n => n === 10)); assert.equal(facts.self, 0);
+  assert.equal(facts.boundary, 'B2>B1'); assert.equal(list[23].label, 'warmup/1'); assert.equal(list[24].label, 'measure/0');
+  for (let i = 1; i < list.length; i++) assert.notEqual(list[i].arm, list[i - 1].arm);
+  assert.deepEqual(facts.meanMeasuredIndex, { B1: 59.3333, B2: 59.3333, C2: 60, C1: 59.3333 });
+  const five = v => Array(5).fill(v);
+  assert(calibrationDone(five(50), five(50))); assert(!calibrationDone(five(49.999), five(80))); assert(!calibrationDone(five(80), [80, 80, 80, 80, 49.999]));
+  assert(!calibrationDone(five(80), five(80).slice(1))); assert(!calibrationDone(five(80), [80, 80, 80, 80, NaN]));
+  const rows = status => TIMING_SHAPES.map(shape => ({ shape, status }));
+  assert.equal(timingStatus(rows('pass')), 'pass'); assert.equal(timingStatus([]), 'not_passed'); assert.equal(timingStatus(rows('pass').slice(0, 5)), 'not_passed');
+  assert.equal(timingStatus([...rows('pass').slice(0, 5), { shape: 'S6', status: 'invalid' }]), 'not_passed');
+  assert.equal(timingStatus([...rows('pass'), { shape: 'S1', status: 'pass' }]), 'not_passed');
+  assert.equal(timingStatus(rows('base_failed_excluded')), 'not_passed');
+  const memRows = MEMORY_SHAPES.map(shape => ({ shape, status: 'pass', pass: true }));
+  assert.equal(memoryStatus(memRows), 'pass'); assert.equal(memoryStatus([]), 'not_passed'); assert.equal(memoryStatus(memRows.slice(1)), 'not_passed');
+  assert.equal(memoryStatus([...memRows.slice(1), { shape: 'S1', status: 'unmeasurable', pass: false }]), 'not_passed');
+  assert.equal(finalApproval('pass', 'pass'), 'pass'); assert.equal(finalApproval('pass', 'not_passed'), 'not_passed'); assert.equal(finalApproval('not_passed', 'pass'), 'not_passed');
   const all = shapes();
   for (const [name, files] of Object.entries(all)) {
     const total = files.reduce((sum, file) => sum + bytesOf(file.text), 0);
@@ -222,13 +291,16 @@ async function npm(args, cwd, log) {
 // ---------- main ----------
 async function main() {
   checks();
-  if (process.argv.includes('--check-only')) { console.log(JSON.stringify({ status: 'PASS', timedCalls: 0, checks: 'statistics, gates, fixtures' })); return; }
+  if (process.argv.includes('--check-only')) { console.log(JSON.stringify({ status: 'PASS', timedCalls: 0, checks: 'statistics, gates, fixtures, schedule, calibration, aggregation', schedule: scheduleFacts(schedule()) })); return; }
+  const BLOCK = process.argv.find(arg => arg.startsWith('--block='))?.slice(8);
+  assert(['timing', 'memory', 'diagnostic'].includes(BLOCK), '--block=timing|memory|diagnostic is required');
   assert.equal(process.platform, 'win32', 'validated platform is Windows');
   assert.equal(process.version, 'v24.18.0');
   const outputArg = process.argv.find(arg => arg.startsWith('--output='))?.slice(9);
   assert(outputArg, '--output is required');
   const OUTPUT = resolve(ROOT, outputArg);
   assert.equal(dirname(OUTPUT), join(ROOT, RESULTS_DIR)); assert(/^perf-[a-z0-9-]+\.json$/.test(basename(OUTPUT)));
+  assert(basename(OUTPUT).endsWith(`-${BLOCK}.json`), 'output name must end with -<block>.json');
   assert(!existsSync(OUTPUT), 'refusing to overwrite previous evidence');
   assert.equal(git(['status', '--porcelain']), '', 'commit preregistration and implementation before measurement');
   const head = git(['rev-parse', 'HEAD']);
@@ -243,9 +315,9 @@ async function main() {
   const temp = mkdtempSync(join(tmpdir(), 'tco-6-4b-6-perf-'));
   const fixtureRoot = join(temp, 'fixtures'); mkdirSync(fixtureRoot);
   const logs = join(temp, 'logs'); mkdirSync(logs);
-  const result = { schema: 'source-map-perf/v1', status: 'incomplete', startedAt: new Date().toISOString(), preregistrationCommit: prereg, measurementHead: head, base: BASE,
+  const result = { schema: 'source-map-perf/v2', block: BLOCK, status: 'incomplete', startedAt: new Date().toISOString(), preregistrationCommit: prereg, measurementHead: head, base: BASE,
     protocol: P, seed: SEED, files: Object.fromEntries([RUNNER, PERF_WORKER, MEM_WORKER, PROTOCOL, 'src/core/artifacts.ts', 'package-lock.json'].map(file => [file, { blobSha1: git(['rev-parse', `HEAD:${file}`]), workingCopySha256: hashFile(join(ROOT, file)) }])),
-    environment: environment(), snapshots: {}, fixtures: {}, timing: { shapes: [] }, memory: { runs: [], shapes: [] }, informational: [] };
+    environment: environment(), schedule: BLOCK === 'timing' ? scheduleFacts(schedule()) : undefined, snapshots: {}, fixtures: {}, timing: { shapes: [] }, memory: { runs: [], shapes: [] }, informational: [] };
   const normalized = value => JSON.parse(JSON.stringify(value).replaceAll(temp.replaceAll('\\', '\\\\'), '<temp>').replaceAll(ROOT.replaceAll('\\', '\\\\'), '<repo>'));
   const save = () => writeFileSync(OUTPUT, JSON.stringify(normalized(result), null, 2) + '\n');
   let failure;
@@ -289,55 +361,60 @@ async function main() {
     let configCounter = 0;
     const writeConfig = config => { const path = join(temp, `config-${configCounter++}.json`); writeFileSync(path, JSON.stringify(config)); return path; };
 
-    // ---- D1 timing gates, S1..S6 in order ----
+    const memChild = (arm, file, timeoutMs) => runChild(['--expose-gc', join(ROOT, MEM_WORKER), writeConfig({ module: ARM_MODULES[arm], file, fixtureRoot })], timeoutMs);
+    if (BLOCK === 'timing') {
+    // ---- D1 timing gates, S1..S6 in order, plan R2 schedule ----
+    const SCHEDULE = schedule();
     for (const [shape, files] of Object.entries(timingFiles)) {
       const entry = { shape, attempts: [], status: 'incomplete' }; result.timing.shapes.push(entry);
-      const calibration = await runChild([join(ROOT, PERF_WORKER), writeConfig({ op: 'calibrate', modules: { B1: ARM_MODULES.B1 }, files, fixtureRoot, minSampleMs: P.minSampleMs, maxK: P.maxK })], P.timingChildTimeoutMs);
+      const calibration = await runChild([join(ROOT, PERF_WORKER), writeConfig({ op: 'calibrate', modules: { B1: ARM_MODULES.B1, C1: ARM_MODULES.C1 }, files, fixtureRoot, minSampleMs: P.minSampleMs, maxK: P.maxK, calibrationSamples: P.calibrationSamples })], P.timingChildTimeoutMs);
       entry.calibration = calibration;
       if (calibration.status !== 'completed') {
         // BASE failing on its own shape removes that shape from timing comparison (correctness only).
-        entry.status = calibration.status === 'child_error' ? 'base_failed_excluded' : `invalid_${calibration.status}`; save();
-        if (entry.status === 'base_failed_excluded') continue;
+        const baseFailed = calibration.status === 'child_error' && calibration.payload?.failedArm === 'B1';
+        entry.status = baseFailed ? 'base_failed_excluded' : `invalid_${calibration.status}`; save();
+        if (baseFailed) continue;
         throw stop('invalid', `${shape} calibration ${calibration.status}`);
       }
+      const lastStep = calibration.payload.steps.at(-1);
+      assert.equal(lastStep.k, calibration.payload.k); assert(calibrationDone(lastStep.base, lastStep.candidate), 'calibration stop condition not met');
       entry.k = calibration.payload.k; save();
       for (let number = 1; number <= P.maxAttempts; number++) {
-        const run = await runChild([join(ROOT, PERF_WORKER), writeConfig({ op: 'attempt', modules: ARM_MODULES, files, fixtureRoot, k: entry.k, warmups: P.warmups, cycles: P.cycles })], P.timingChildTimeoutMs);
+        const run = await runChild([join(ROOT, PERF_WORKER), writeConfig({ op: 'attempt', modules: ARM_MODULES, files, fixtureRoot, k: entry.k, schedule: SCHEDULE })], P.timingChildTimeoutMs);
         const attempt = { number, child: { status: run.status, exitCode: run.exitCode, signal: run.signal, stderrTail: run.stderrTail, message: run.message, error: run.payload?.error }, samples: run.payload?.samples ?? [], digests: run.payload?.digests };
         entry.attempts.push(attempt);
         if (run.status !== 'completed') { attempt.status = `invalid_${run.status}`; entry.status = attempt.status; save(); throw stop('invalid', `${shape} attempt ${number}: ${run.status}`); }
         const digests = Object.values(run.payload.digests).map(list => list.join(','));
         if (new Set(digests).size !== 1) { attempt.status = 'output_mismatch'; entry.status = 'failed_correctness'; save(); throw stop('failed_correctness', `${shape}: source map differs between arms`); }
-        const values = (block, arm) => attempt.samples.filter(s => s.label.startsWith(`${block}/`) && s.arm === arm).map(s => s.ms);
+        const values = arm => attempt.samples.filter(s => s.label.startsWith('measure/') && s.arm === arm).map(s => s.ms);
         try {
-          attempt.stats = {
-            aaBase: { B1: stats(values('AA-base', 'B1')), B2: stats(values('AA-base', 'B2')) },
-            aaCandidate: { C1: stats(values('AA-candidate', 'C1')), C2: stats(values('AA-candidate', 'C2')) },
-            comparison: { B1: stats(values('comparison', 'B1')), C1: stats(values('comparison', 'C1')) },
-          };
-          assert.equal(attempt.samples.filter(s => s.label.startsWith('warmup/')).length, 4 * P.warmups);
+          assert.equal(attempt.samples.length, SCHEDULE.length);
+          attempt.samples.forEach((s, i) => { assert.equal(s.label, SCHEDULE[i].label); assert.equal(s.arm, SCHEDULE[i].arm); });
+          // A/A and comparison come from the same measured samples (one shared block).
+          attempt.stats = { B1: stats(values('B1')), B2: stats(values('B2')), C1: stats(values('C1')), C2: stats(values('C2')) };
         } catch (error) { attempt.status = 'invalid_missing_samples'; entry.status = attempt.status; save(); throw stop('invalid', `${shape}: ${error.message}`); }
-        attempt.aa = { base: aaValid(attempt.stats.aaBase.B1, attempt.stats.aaBase.B2), candidate: aaValid(attempt.stats.aaCandidate.C1, attempt.stats.aaCandidate.C2) };
+        attempt.aa = { base: aaValid(attempt.stats.B1, attempt.stats.B2), candidate: aaValid(attempt.stats.C1, attempt.stats.C2) };
         if (!attempt.aa.base.valid || !attempt.aa.candidate.valid) {
           attempt.status = 'invalid_aa'; save();
           console.log(`${shape} attempt ${number}: invalid A/A`);
           if (number === P.maxAttempts) { entry.status = 'invalid'; save(); throw stop('invalid', `${shape}: third invalid A/A attempt`); }
           await sleep(P.cooldownMs); continue;
         }
-        attempt.gate = timeGate(attempt.stats.comparison.B1, attempt.stats.comparison.C1);
+        attempt.gate = timeGate(attempt.stats.B1, attempt.stats.C1);
         attempt.status = 'valid'; entry.selectedAttempt = number;
         entry.status = attempt.gate.pass ? 'pass' : 'failed_gate'; save();
-        console.log(JSON.stringify({ shape, k: entry.k, attempt: number, status: entry.status, base: attempt.stats.comparison.B1, candidate: attempt.stats.comparison.C1 }));
+        console.log(JSON.stringify({ shape, k: entry.k, attempt: number, status: entry.status, base: attempt.stats.B1, candidate: attempt.stats.C1 }));
         if (!attempt.gate.pass) throw stop('failed_gate', `${shape}: valid timing gate failed; no retry`);
         break;
       }
     }
-    const timed = result.timing.shapes.filter(row => row.status !== 'base_failed_excluded');
-    result.timing.status = timed.length > 0 && timed.every(row => row.status === 'pass') ? 'pass' : 'not_passed';
-    if (result.timing.status !== 'pass') throw stop('invalid', 'no passing timing shapes');
+    result.timing.status = timingStatus(result.timing.shapes);
+    if (result.timing.status !== 'pass') throw stop('invalid', 'timing block not passed');
+    result.status = 'pass';
+    }
 
-    // ---- D2 memory gates: one fresh child at a time, arm order alternates by repeat ----
-    const memChild = (arm, file, timeoutMs) => runChild(['--expose-gc', join(ROOT, MEM_WORKER), writeConfig({ module: ARM_MODULES[arm], file, fixtureRoot })], timeoutMs);
+    if (BLOCK === 'memory') {
+    // ---- D2 memory gates (independent mandatory block): one fresh child at a time, arm order alternates by repeat ----
     for (let repeat = 0; repeat < P.memoryRepeats; repeat++) {
       for (const shape of MEMORY_SHAPES) {
         for (const arm of repeat % 2 === 0 ? ['B1', 'C1'] : ['C1', 'B1']) {
@@ -361,14 +438,16 @@ async function main() {
       Object.assign(row, memoryGate(row.base, row.candidate));
       result.memory.shapes.push(row);
     }
-    result.memory.status = result.memory.shapes.length === MEMORY_SHAPES.length && result.memory.shapes.every(row => row.pass) ? 'pass' : 'not_passed';
+    result.memory.status = memoryStatus(result.memory.shapes);
     save();
     if (result.memory.status !== 'pass') {
       const has = status => result.memory.shapes.some(row => row.status === status);
       throw stop(has('failed_correctness') ? 'failed_correctness' : has('failed_gate') ? 'failed_gate' : 'invalid', 'memory gate not passed');
     }
-    result.mandatory = 'pass';
+    result.status = 'pass';
+    }
 
+    if (BLOCK === 'diagnostic') {
     // ---- D4 / plan informational diagnostics: single child at a time, never gate-bearing ----
     const plan = [
       ['R1', 'C1', P.r1DiagnosticTimeoutMs],
@@ -380,10 +459,10 @@ async function main() {
       result.informational.push({ name, arm, timeoutMs, status: run.status, exitCode: run.exitCode, signal: run.signal, stderrTail: run.stderrTail, message: run.message, ...(run.payload ?? {}) });
       save();
     }
-    result.status = 'pass';
+    result.status = 'completed_informational';
+    }
   } catch (error) {
     failure = error; result.status = error.status || 'error'; result.error = String(error.message);
-    result.mandatory ??= 'not_passed';
   } finally {
     const finalize = action => { try { action(); } catch (error) {
       failure ||= error; if (['pass', 'incomplete'].includes(result.status)) result.status = 'error';
@@ -401,7 +480,7 @@ async function main() {
     });
     result.finishedAt = new Date().toISOString(); save();
   }
-  console.log(JSON.stringify({ status: result.status, mandatory: result.mandatory, output: OUTPUT }));
+  console.log(JSON.stringify({ block: BLOCK, status: result.status, output: OUTPUT }));
   if (failure) process.exitCode = 1;
 }
 main().catch(error => { console.error(error.stack); process.exitCode = 1; });
