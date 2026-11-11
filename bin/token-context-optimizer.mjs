@@ -23878,12 +23878,12 @@ function summarizeArtifact(input) {
     }
   };
 }
-var CARRIAGE_RETURN = 13;
-var LINE_FEED = 10;
 function buildSourceMap(content) {
   const lines = [];
   let lineStart = 0;
   let byteCursor = 0;
+  let nextLineFeed = content.indexOf("\n");
+  let nextCarriageReturn = content.indexOf("\r");
   const pushLine = (end, delimiter) => {
     const text = content.slice(lineStart, end);
     const lineBytes = Buffer.byteLength(text, "utf8");
@@ -23896,19 +23896,23 @@ function buildSourceMap(content) {
     });
     byteCursor += lineBytes + delimiter.length;
   };
-  for (let index = 0; index < content.length; index++) {
-    const code = content.charCodeAt(index);
-    if (code === LINE_FEED) {
-      pushLine(index, "\n");
-      lineStart = index + 1;
-    } else if (code === CARRIAGE_RETURN) {
-      if (content.charCodeAt(index + 1) === LINE_FEED) {
-        pushLine(index, "\r\n");
-        index++;
-      } else {
-        pushLine(index, "\r");
-      }
-      lineStart = index + 1;
+  while (nextLineFeed !== -1 || nextCarriageReturn !== -1) {
+    let end;
+    let delimiter;
+    if (nextCarriageReturn !== -1 && (nextLineFeed === -1 || nextCarriageReturn < nextLineFeed)) {
+      end = nextCarriageReturn;
+      delimiter = nextLineFeed === nextCarriageReturn + 1 ? "\r\n" : "\r";
+    } else {
+      end = nextLineFeed;
+      delimiter = "\n";
+    }
+    pushLine(end, delimiter);
+    lineStart = end + delimiter.length;
+    if (nextLineFeed !== -1 && nextLineFeed < lineStart) {
+      nextLineFeed = content.indexOf("\n", lineStart);
+    }
+    if (nextCarriageReturn !== -1 && nextCarriageReturn < lineStart) {
+      nextCarriageReturn = content.indexOf("\r", lineStart);
     }
   }
   if (lineStart < content.length) {

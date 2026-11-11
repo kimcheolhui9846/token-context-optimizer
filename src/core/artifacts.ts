@@ -341,17 +341,18 @@ export function summarizeArtifact(input: {
   };
 }
 
-const CARRIAGE_RETURN = 13;
-const LINE_FEED = 10;
-
-// One sequential scan over UTF-16 code units. CR LF is a single delimiter; a lone CR or
-// LF is its own delimiter. Text after the last delimiter becomes a final line only when
-// it is non-empty, so a trailing newline never yields a phantom empty line. CR and LF are
-// never surrogate halves, so slicing at them cannot split a code point.
+// One forward pass over the content. The next CR and the next LF are each found with
+// indexOf and only searched again once the cursor has passed them, so every code unit
+// is scanned at most once per delimiter character. CR LF is a single delimiter; a lone
+// CR or LF is its own delimiter. Text after the last delimiter becomes a final line only
+// when it is non-empty, so a trailing newline never yields a phantom empty line. CR and
+// LF are never surrogate halves, so slicing at them cannot split a code point.
 function buildSourceMap(content: string): SourceLine[] {
   const lines: SourceLine[] = [];
   let lineStart = 0;
   let byteCursor = 0;
+  let nextLineFeed = content.indexOf("\n");
+  let nextCarriageReturn = content.indexOf("\r");
 
   const pushLine = (end: number, delimiter: string): void => {
     const text = content.slice(lineStart, end);
@@ -366,19 +367,23 @@ function buildSourceMap(content: string): SourceLine[] {
     byteCursor += lineBytes + delimiter.length; // delimiters are ASCII: 1 byte per unit
   };
 
-  for (let index = 0; index < content.length; index++) {
-    const code = content.charCodeAt(index);
-    if (code === LINE_FEED) {
-      pushLine(index, "\n");
-      lineStart = index + 1;
-    } else if (code === CARRIAGE_RETURN) {
-      if (content.charCodeAt(index + 1) === LINE_FEED) {
-        pushLine(index, "\r\n");
-        index++;
-      } else {
-        pushLine(index, "\r");
-      }
-      lineStart = index + 1;
+  while (nextLineFeed !== -1 || nextCarriageReturn !== -1) {
+    let end: number;
+    let delimiter: string;
+    if (nextCarriageReturn !== -1 && (nextLineFeed === -1 || nextCarriageReturn < nextLineFeed)) {
+      end = nextCarriageReturn;
+      delimiter = nextLineFeed === nextCarriageReturn + 1 ? "\r\n" : "\r";
+    } else {
+      end = nextLineFeed;
+      delimiter = "\n";
+    }
+    pushLine(end, delimiter);
+    lineStart = end + delimiter.length;
+    if (nextLineFeed !== -1 && nextLineFeed < lineStart) {
+      nextLineFeed = content.indexOf("\n", lineStart);
+    }
+    if (nextCarriageReturn !== -1 && nextCarriageReturn < lineStart) {
+      nextCarriageReturn = content.indexOf("\r", lineStart);
     }
   }
   if (lineStart < content.length) {
