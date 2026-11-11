@@ -43,10 +43,12 @@ Tier E. base origin/main `dd334602bbbeb3777fcfe8ea3c40c7e0a682b2ca`(#110 merge),
 |---|---|---|
 | run1 | `c709812` / `c709812`(구현 `499a7bb` charCode) | S1 K=2, A/A 유효, 후보 median 9.48·p95 11.04 vs BASE 5.29·7.73 ms → **유효 FAIL**, 중단 |
 | run2 | `97853ec` / `97853ec`(구현 `cb76744` indexOf) | S1 K=2, 3시도 모두 A/A p95 Δ 초과(블록별 한쪽 arm에 급등 표본 최대 3–4개, 6.7–10.3 ms) → **필수 INVALID**, 중단. 메모리·정보용 블록 미실행 |
+| run3 | `f13d42d` / `f13d42d`(K 보정 ≥50 ms, 사용자 승인 A안) | S1 K=32 A/A 유효, 후보 median 91.01·p95 102.19 vs BASE 105.99·120.90 ms(한계 116.59·145.08) **PASS**. S2 K=16 후보 59.23·70.98 vs BASE 65.26·80.04(한계 71.79·96.05) **PASS**. S3 K=1 3시도 모두 A/A 무효(BASE median 비 2회·p95 1회, 후보 p95 1회) → **필수 INVALID**, 중단. S4–S6·메모리·D4 미실행 |
 
 - run2 비교 블록 median(정보, 판정 아님): 후보 4.51–4.65 vs BASE 5.14–5.28 ms. INVALID라 G-T PASS로 쓰지 않는다.
 - 잡음 재분석(새 측정 없음, `research/src/6-4b-6-source-map-noise.mjs` → `noise-analysis.jsonl`): 급등 표본(arm median×1.3 초과)이 arm과 무관하게 대부분 16–17표본(K=2라 약 33호출) 간격으로 반복되고(예외: run1의 3·8, run2 시도3의 13), 이 간격이 ABBA 주기 4와 맞물려 한 쌍의 같은 arm에 몰린다(예: run2 시도1 AA-base B1 3개·B2 0개, 비교 B1 3개·C1 0개). 원인은 1 MiB 문자열 반복 할당에 따른 GC 주기로 **추정**하며, raw 표본만으로 GC 인과는 입증되지 않았다.
-- **D1·D2 필수 gate는 아직 PASS 아님.** 새 프로토콜(K 보정 목표 상향)은 사용자 승인 대기이며 승인 전 run3을 실행하지 않는다.
+- run3 S3 A/A(정보, 판정 아님): BASE B1/B2 median 104.95/93.99, 132.15/122.90, 123.01/119.88 ms로 흔들렸고 후보 C1/C2는 19.34/19.70, 26.63/26.06, 29.51/30.10 ms. 비교 median은 BASE 90.36–122.56 vs 후보 19.91–32.25 ms이지만 INVALID라 G-T 판정에 쓰지 않는다.
+- **D1·D2 필수 gate는 아직 PASS 아님(S1·S2만 PASS, S3 INVALID, S4–S6·메모리 미측정).** 승인 조건대로 재시도·증액 없이 중단했고 다음 프로토콜은 사용자·Astra 결정 대기.
 
 ## 5. 교차 확인·검토·남은 위험
 
