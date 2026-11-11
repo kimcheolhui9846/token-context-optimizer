@@ -2,7 +2,7 @@
 
 Tier E. base origin/main `dd334602bbbeb3777fcfe8ea3c40c7e0a682b2ca`(#110 merge), 브랜치 `claude/n33-source-map-impl`(Orca worktree `n33-source-map-impl`, 시작 시 fetch 결과 base와 origin/main 일치, 끼어든 작업 없음). 작성 Claude Code, 최종 검토 Codex(Astra). 승인 범위: 구현→검증→commit/push/Draft PR. Ready/merge·6.4b-5 착수는 미승인. 근거 계획: [계획](6-4b-6-source-map-plan.md), 원본 `codex_review/review_2026-11-11_pr110-n33-plan.md`, 사용자 승인 D1–D4.
 - 실행 모델 근거: 이 세션 transcript(jsonl)의 assistant `model` 필드가 `claude-opus-5-5` 단일 값. 하위 에이전트 미사용.
-- 이 worktree 루트에는 `HANDOFF.md`가 없다(공유 파일, 새로 만들지 않음).
+- worktree 루트 `HANDOFF.md`는 `.gitignore` 대상 로컬 파일로 2026-11-11 생성했다(추적 안 함).
 
 ## 1. 계획 (승인 범위)
 
@@ -42,10 +42,10 @@ Tier E. base origin/main `dd334602bbbeb3777fcfe8ea3c40c7e0a682b2ca`(#110 merge),
 | 실행 | 사전등록 / 측정 head | 결과 |
 |---|---|---|
 | run1 | `c709812` / `c709812`(구현 `499a7bb` charCode) | S1 K=2, A/A 유효, 후보 median 9.48·p95 11.04 vs BASE 5.29·7.73 ms → **유효 FAIL**, 중단 |
-| run2 | `97853ec` / `97853ec`(구현 `cb76744` indexOf) | S1 K=2, 3시도 모두 A/A p95 Δ 초과(BASE·후보 각 1–2개 표본 7–8 ms 급등) → **필수 INVALID**, 중단. 메모리·정보용 블록 미실행 |
+| run2 | `97853ec` / `97853ec`(구현 `cb76744` indexOf) | S1 K=2, 3시도 모두 A/A p95 Δ 초과(블록별 한쪽 arm에 급등 표본 최대 3–4개, 6.7–10.3 ms) → **필수 INVALID**, 중단. 메모리·정보용 블록 미실행 |
 
 - run2 비교 블록 median(정보, 판정 아님): 후보 4.51–4.65 vs BASE 5.14–5.28 ms. INVALID라 G-T PASS로 쓰지 않는다.
-- 잡음 재분석(새 측정 없음, `research/src/6-4b-6-source-map-noise.mjs` → `noise-analysis.jsonl`): 급등 표본(arm median×1.3 초과)이 arm과 무관하게 16–17표본(K=2라 약 33호출) 간격으로 반복되고, 이 간격이 ABBA 주기 4와 맞물려 한 쌍의 같은 arm에 몰린다(예: run2 시도1 AA-base B1 3개·B2 0개, 비교 B1 3개·C1 0개). 원인은 1 MiB 문자열 반복 할당에 따른 GC 주기로 **추정**하며, raw 표본만으로 GC 인과는 입증되지 않았다.
+- 잡음 재분석(새 측정 없음, `research/src/6-4b-6-source-map-noise.mjs` → `noise-analysis.jsonl`): 급등 표본(arm median×1.3 초과)이 arm과 무관하게 대부분 16–17표본(K=2라 약 33호출) 간격으로 반복되고(예외: run1의 3·8, run2 시도3의 13), 이 간격이 ABBA 주기 4와 맞물려 한 쌍의 같은 arm에 몰린다(예: run2 시도1 AA-base B1 3개·B2 0개, 비교 B1 3개·C1 0개). 원인은 1 MiB 문자열 반복 할당에 따른 GC 주기로 **추정**하며, raw 표본만으로 GC 인과는 입증되지 않았다.
 - **D1·D2 필수 gate는 아직 PASS 아님.** 새 프로토콜(K 보정 목표 상향)은 사용자 승인 대기이며 승인 전 run3을 실행하지 않는다.
 
 ## 5. 교차 확인·검토·남은 위험
