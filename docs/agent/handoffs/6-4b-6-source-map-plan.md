@@ -17,7 +17,7 @@ Tier E(새 재현 실행 결과 포함). 기준 main `82a5cd4e209a5ccc1e3215cefb
 | `a`×1,048,572 + 😀 | 1,048,576 / 1,048,574 | 1 MiB+emoji 대조군 | 성공 3/3, 기대값 일치 3/3 |
 
 세 입력 모두 상한 이하(`≤ 10485760`)라 정상 상한 거부가 아니다. 기록된 elapsedMs는 정보용이며 실패한 BASE 시간은 어떤 성공 기준에도 쓰지 않는다.
-정보용 사전 확인: RED 입력의 수학적 source map을 손으로 만든 기록을 store에 넣으면 BASE `queryArtifact`(maxTokens 200)는 `source_span_exceeds_budget`, `summarizeArtifact`는 `exact_content_requires_source`로 예외 없이 끝났다. 구현 뒤 public 경로로 다시 확인한다.
+정보용 사전 확인(scratch 1회, 원자료 미보존): RED 입력의 수학적 source map을 손으로 만든 기록을 store에 넣으면 BASE `queryArtifact`(maxTokens 200)는 `source_span_exceeds_budget`, `summarizeArtifact`는 `exact_content_requires_source`로 예외 없이 끝났다. 구현 뒤 public 경로로 다시 확인한다.
 
 ## 2. 보존 계약 (BASE에서 literal로 확인, 10/10 일치)
 
@@ -53,7 +53,7 @@ UTF-16 인덱스로 content를 한 번 순차 스캔해 `\r`/`\n`(charCode 13/10
 - 비교 대상은 **BASE가 성공하는 입력만**. R1 같은 실패 입력은 correctness/recovery 전용이며 BASE 시간과 비율을 만들지 않는다. 측정 단위는 public `indexArtifact` 왕복(파일 읽기·SHA 포함, 호출마다 fresh store). BASE/후보는 별도 archive·build를 같은 프로세스에서 교대한다.
 - 필수 형태(각 1 MiB, 측정 전 BASE 1회 사전 실행으로 성공 확인, 실패 형태는 측정 전에 correctness 집합으로 옮겨 기록): S1 ASCII 한 줄, S2 다국어 긴 줄(64 KiB 줄에 한글·中文·é·😀 반복), S3 짧은 줄 밀집(`a\n`), S4 LF 빈 줄(`\n`), S5 CRLF/LF/CR 혼합 문장, S6 2 KiB 문장 파일 batch.
 - 표본: 호출 K개를 묶어 표본당 ≥5 ms. K는 BASE 보정으로 측정 전에 정해 기록하고 두 arm에 같게 쓴다. arm당 warmup 5, ABBA 15주기(arm당 30표본). 중앙값 `sorted[ceil(.5n)-1]`, p95 `sorted[ceil(.95n)-1]`.
-- A/A(BASE 두 사본, 후보 두 사본 각각): 중앙값 비 [0.95, 1.05] 또는 |Δ| ≤ 0.5 ms, 그리고 |Δp95| ≤ max(1 ms, 20%). 무효면 30초 뒤 시도 전체 재실행, 최대 2회 재시도. 세 번째 무효는 필수 gate INVALID(PASS 아님)로 멈춘다.
+- A/A(BASE 두 사본, 후보 두 사본 각각): 중앙값 비 [0.95, 1.05] 또는 |Δ| ≤ 0.1 ms, 그리고 |Δp95| ≤ max(0.2 ms, 20%). 절대 하한은 6.4b-4 사전등록과 같게 두어 표본 ≥5 ms에서 비율 창을 느슨하게 만들지 않는다. 무효면 30초 뒤 시도 전체 재실행, 최대 2회 재시도. 세 번째 무효는 필수 gate INVALID(PASS 아님)로 멈춘다.
 - **후보 임계값 G-T:** 형태마다 후보 중앙값 ≤ max(BASE×1.10, BASE+0.5 ms), p95 ≤ max(BASE×1.20, BASE+1 ms). 근거: F-21에서 3%는 잡음으로 경계 판정이 났고(research/plans/2026-11-02-perf-gate-noise.md), 단일 스캔은 match 배열 할당을 없애 BASE 이하가 예상되나 미측정이다. 0% 비회귀는 쓰지 않는다. 유효 FAIL은 재시도·강등·사후 완화하지 않고 멈춘 뒤, 같은 의미의 더 빠른 구현을 새 사전등록 커밋으로 다시 낸다.
 - 정보용 블록(필수 gate 뒤, A/A 무효여도 전체를 막지 않음): 10 MiB ASCII 한 줄 BASE/후보, R1 입력의 후보 단독 완료 시간(비율 없음, child timeout 120초).
 - 보존: 원시 표본 순서·시간·상태, 환경, 소스 blob 해시(blob 기준임을 표기)와 dist 작업 사본 해시, 사전등록 커밋, 종료 조건, 기존 출력 덮어쓰기 거부.
@@ -69,4 +69,5 @@ UTF-16 인덱스로 content를 한 번 순차 스캔해 `\r`/`\n`(charCode 13/10
 
 - D-1 G-T 허용폭(10%/20% + 절대 하한) 채택 여부. D-2 메모리 허용폭(R 2%/1 MiB, P 10%+32 MiB). D-3 differential을 public `indexArtifact` 경유로 할지(권장, export 변경 없음), 내부 모듈 분리 export를 허용할지. D-4 구현 단계 빈 줄 10 MiB 단독 진단 실행 여부(권장: 실행, 정보용).
 - 범위 밖: S-10 저장소 상한·LRU·E8 trim 삭제, estimator/policy/이미지/영상 코드, 의존성 업그레이드, 논문·기존 research 데이터. 이번 PR은 이 문서, 재현 스크립트와 그 원자료만 추가한다.
+- Argon(gemini-4-argon) 교차 확인: APPROVE, 지적 0, 확인 불가 4(줄 번호·하드웨어·사전 확인·과거 수치)는 Claude가 원문·JSON env·read-bounded-file.ts:33·6.4b-5 계획으로 직접 대조. A/A 절대 하한 완화 참고 의견은 채택해 6.4b-4 값으로 맞췄다. 최종 판정은 Astra.
 - 재현 명령(PowerShell, worktree): `npm ci --ignore-scripts`; `npx tsc -p tsconfig.json`; `node research/src/6-4b-6-source-map-repro.mjs --output=research/results/<새 이름>.json`.
