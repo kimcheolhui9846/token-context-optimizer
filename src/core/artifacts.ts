@@ -93,9 +93,18 @@ export function queryArtifact(input: {
     throw new Error("maxExcerpts must be an integer from 1 to 20");
   }
   const maxExcerpts = requestedMaxExcerpts ?? 5;
+  const requestedContextLines = input.contextLines;
+  if (
+    requestedContextLines !== undefined &&
+    (typeof requestedContextLines !== "number" ||
+      !Number.isSafeInteger(requestedContextLines) ||
+      requestedContextLines < 0)
+  ) {
+    throw new Error("contextLines must be a non-negative safe integer");
+  }
   const store = input.store ?? defaultArtifactStore;
   const artifact = requireArtifact(store, input.artifactId);
-  const contextLines = input.contextLines ?? 2;
+  const contextLines = requestedContextLines ?? 2;
   const match = findBestLines(artifact, input.query);
   if (match.reason) {
     return {
@@ -553,7 +562,12 @@ function renderSpanText(
 }
 
 function tokenize(text: string): string[] {
-  return [...normalizeSearchText(text).matchAll(/[\p{L}\p{N}_./:-]+/gu)].map(
+  // A term starts with a letter, number or _./:- and keeps following combining marks
+  // (\p{M}), so Indic/Arabic/Hebrew/Thai words stay whole. A mark never starts a term:
+  // a stand-alone mark, or a variation selector after an emoji (a non-term character),
+  // does not become its own term. Marks after a term character are kept, e.g. the
+  // selector and keycap mark after a digit stay in that digit's term.
+  return [...normalizeSearchText(text).matchAll(/[\p{L}\p{N}_./:-][\p{L}\p{M}\p{N}_./:-]*/gu)].map(
     (match) => match[0],
   );
 }

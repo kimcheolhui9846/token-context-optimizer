@@ -23687,9 +23687,13 @@ function queryArtifact(input) {
     throw new Error("maxExcerpts must be an integer from 1 to 20");
   }
   const maxExcerpts = requestedMaxExcerpts ?? 5;
+  const requestedContextLines = input.contextLines;
+  if (requestedContextLines !== void 0 && (typeof requestedContextLines !== "number" || !Number.isSafeInteger(requestedContextLines) || requestedContextLines < 0)) {
+    throw new Error("contextLines must be a non-negative safe integer");
+  }
   const store = input.store ?? defaultArtifactStore;
   const artifact = requireArtifact(store, input.artifactId);
-  const contextLines = input.contextLines ?? 2;
+  const contextLines = requestedContextLines ?? 2;
   const match = findBestLines(artifact, input.query);
   if (match.reason) {
     return {
@@ -24023,7 +24027,7 @@ function renderSpanText(artifact, startIndex, endIndex) {
   ).join("");
 }
 function tokenize(text) {
-  return [...normalizeSearchText(text).matchAll(/[\p{L}\p{N}_./:-]+/gu)].map(
+  return [...normalizeSearchText(text).matchAll(/[\p{L}\p{N}_./:-][\p{L}\p{M}\p{N}_./:-]*/gu)].map(
     (match) => match[0]
   );
 }
