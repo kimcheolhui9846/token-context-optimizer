@@ -34,7 +34,7 @@ const TAR = 'C:/Windows/System32/tar.exe';
 const MIB = 1024 * 1024;
 const TEMP_PREFIX = 'tco-n34-perf-';
 const P = Object.freeze({
-  circuit: 'ABCDBDCADACB', circuitMap: Object.freeze({ A: 'B1', B: 'B2', C: 'C2', D: 'C1' }), warmupCircuits: 2, measureCircuits: 10,
+  circuits: Object.freeze(['ABCDBDCADACB']), circuitMap: Object.freeze({ A: 'B1', B: 'B2', C: 'C2', D: 'C1' }), warmupCircuits: 2, measureCircuits: 10,
   calibrationSamples: 5, samplesPerArm: 30, minSampleMs: 50, maxK: 1024, maxAttempts: 3, cooldownMs: 30000,
   timingChildTimeoutMs: 1800000, memoryChildTimeoutMs: 600000, memoryRepeats: 3,
   gateArms: Object.freeze({ candidate: 'C1', reference: 'B1' }),
@@ -71,25 +71,49 @@ function memoryGate(reference, candidate) {
   const pass = candidate.R <= rLimit && candidate.P <= pLimit;
   return { rLimit, pLimit, rOk: candidate.R <= rLimit, pOk: candidate.P <= pLimit, status: pass ? 'pass' : 'failed_gate', pass };
 }
-function schedule() {
-  const arms = [...P.circuit].map(letter => P.circuitMap[letter]);
+// Circuit c of each block (warmup, measure) uses circuits[c % circuits.length], so both blocks
+// start with the first circuit.
+function schedule(circuits = P.circuits) {
+  const armsOf = circuit => [...circuit].map(letter => P.circuitMap[letter]);
   const list = [];
-  for (let c = 0; c < P.warmupCircuits; c++) for (const arm of arms) list.push({ label: `warmup/${c}`, arm });
-  for (let c = 0; c < P.measureCircuits; c++) for (const arm of arms) list.push({ label: `measure/${c}`, arm });
+  for (let c = 0; c < P.warmupCircuits; c++) for (const arm of armsOf(circuits[c % circuits.length])) list.push({ label: `warmup/${c}`, arm });
+  for (let c = 0; c < P.measureCircuits; c++) for (const arm of armsOf(circuits[c % circuits.length])) list.push({ label: `measure/${c}`, arm });
   return list;
 }
+// pairs: transitions into every measured sample, including the one from the last warmup sample (120).
+// innerPairs: transitions with both samples measured (119). parity: [even, odd] index in the attempt.
 function scheduleFacts(list) {
   const count = filter => list.filter(filter).reduce((m, e) => ({ ...m, [e.arm]: (m[e.arm] ?? 0) + 1 }), {});
-  const pairs = {};
+  const pairs = {}, innerPairs = {};
   let self = 0;
   list.forEach((entry, index) => {
     if (!entry.label.startsWith('measure/')) return;
     const prev = list[index - 1];
     if (prev.arm === entry.arm) self++;
     const key = `${prev.arm}>${entry.arm}`; pairs[key] = (pairs[key] ?? 0) + 1;
+    if (prev.label.startsWith('measure/')) innerPairs[key] = (innerPairs[key] ?? 0) + 1;
   });
-  return { total: list.length, warmupPerCopy: count(e => e.label.startsWith('warmup/')), measuredPerCopy: count(e => e.label.startsWith('measure/')), pairs, self };
+  const parity = block => list.reduce((m, e, i) => { if (e.label.startsWith(block)) (m[e.arm] ??= [0, 0])[i % 2]++; return m; }, {});
+  return { total: list.length, warmupPerCopy: count(e => e.label.startsWith('warmup/')), measuredPerCopy: count(e => e.label.startsWith('measure/')),
+    warmupParity: parity('warmup/'), measuredParity: parity('measure/'), pairs, innerPairs, self };
 }
+// run2 schedule invariants (approved plan A). Returns the list of violated invariants.
+const COPIES = Object.freeze(['B1', 'B2', 'C1', 'C2']);
+function scheduleViolations(list) {
+  const f = scheduleFacts(list), violations = [];
+  if (f.total !== 144 || list.filter(e => e.label.startsWith('measure/')).length !== 120) violations.push('total');
+  for (const copy of COPIES) {
+    if (f.warmupPerCopy[copy] !== 6) violations.push(`warmupCount:${copy}`);
+    if (f.measuredPerCopy[copy] !== 30) violations.push(`measuredCount:${copy}`);
+    if (String(f.warmupParity[copy]) !== '3,3') violations.push(`warmupParity:${copy}`);
+    if (String(f.measuredParity[copy]) !== '15,15') violations.push(`measuredParity:${copy}`);
+  }
+  const distinct = Object.entries(f.pairs).filter(([key]) => key.split('>')[0] !== key.split('>')[1]);
+  if (distinct.length !== 12 || !distinct.every(([, n]) => n === 10)) violations.push('transitions');
+  if (f.self !== 0) violations.push('self');
+  return violations;
+}
+const SCHEDULE_CONTROLS = Object.freeze({ originalOnly: Object.freeze(['ABCDBDCADACB']), simpleReverse: Object.freeze(['ABCDBDCADACB', 'BCADACDBDCBA']) });
 function calibrationDone(baseValues, candidateValues) {
   return baseValues.length === P.calibrationSamples && candidateValues.length === P.calibrationSamples
     && baseValues.every(Number.isFinite) && candidateValues.every(Number.isFinite)
@@ -152,12 +176,21 @@ function checks() {
   assert(!memoryGate({ R: 10 * MIB, P: 100 * MIB }, { R: 10 * MIB, P: 142 * MIB + 1 }).pass);
   assert.equal(memoryGate({ R: 1, P: 0 }, { R: 1, P: 0 }).status, 'unmeasurable');
   assert.equal(memoryGate({ R: 1, P: 1 }, { R: NaN, P: 1 }).status, 'unmeasurable');
-  // schedule
+  // schedule: negative controls first (they must fail the invariants), then the approved schedule
+  const original = scheduleViolations(schedule(SCHEDULE_CONTROLS.originalOnly));
+  assert(original.includes('measuredParity:C2') && original.includes('warmupParity:C2'), 'control: original-only must fail parity');
+  assert(!original.includes('transitions') && !original.includes('self') && !original.some(v => v.includes('Count')), 'control: original-only fails parity only');
+  const reverse = scheduleViolations(schedule(SCHEDULE_CONTROLS.simpleReverse));
+  assert(reverse.includes('transitions') && reverse.includes('self'), 'control: simple reverse must fail transition/self');
+  assert(!reverse.some(v => v.includes('Parity') || v.includes('Count')), 'control: simple reverse keeps parity and counts');
+  assert.deepEqual(P.circuits, ['ABCDBDCADACB', 'ADACDBDCBABC'], 'approved circuits (plan A)');
   const list = schedule(), facts = scheduleFacts(list);
-  assert.equal(facts.total, 144); assert.equal(list.filter(e => e.label.startsWith('measure/')).length, 120);
-  for (const copy of ['B1', 'B2', 'C1', 'C2']) { assert.equal(facts.warmupPerCopy[copy], 6); assert.equal(facts.measuredPerCopy[copy], 30); }
-  assert.equal(Object.keys(facts.pairs).length, 12); assert(Object.values(facts.pairs).every(n => n === 10)); assert.equal(facts.self, 0);
-  assert.equal(list.slice(0, 12).map(e => e.arm).join(','), 'B1,B2,C2,C1,B2,C1,C2,B1,C1,B1,C2,B2');
+  assert.deepEqual(scheduleViolations(list), [], 'approved schedule invariants');
+  assert.equal(list.slice(0, 24).map(e => e.arm).join(','), 'B1,B2,C2,C1,B2,C1,C2,B1,C1,B1,C2,B2,B1,C1,B1,C2,C1,B2,C1,C2,B2,B1,B2,C2');
+  assert.equal(list.slice(24, 36).map(e => e.arm).join(','), 'B1,B2,C2,C1,B2,C1,C2,B1,C1,B1,C2,B2');
+  const inner = Object.entries(facts.innerPairs);
+  assert.equal(inner.reduce((sum, [, n]) => sum + n, 0), 119);
+  assert.deepEqual(inner.filter(([, n]) => n !== 10), [['C2>B1', 9]], 'inner measured transitions: C>A 9, others 10');
   const five = v => Array(5).fill(v);
   assert(calibrationDone(five(50), five(50))); assert(!calibrationDone(five(49.999), five(80))); assert(!calibrationDone(five(80), [80, 80, 80, 80, 49.999]));
   assert(!calibrationDone(five(80), five(80).slice(1))); assert(!calibrationDone(five(80), [80, 80, 80, 80, NaN]));
@@ -405,7 +438,8 @@ async function selfCheck(result, temp, head, logs, save) {
 async function main() {
   checks();
   if (process.argv.includes('--check-only')) {
-    console.log(JSON.stringify({ status: 'PASS', timedCalls: 0, checks: 'statistics, gates, schedule, calibration, classification, aggregation, inputs', schedule: scheduleFacts(schedule()) }));
+    console.log(JSON.stringify({ status: 'PASS', timedCalls: 0, checks: 'statistics, gates, schedule, schedule controls, calibration, classification, aggregation, inputs', circuits: P.circuits, schedule: scheduleFacts(schedule()),
+      controls: Object.fromEntries(Object.entries(SCHEDULE_CONTROLS).map(([name, circuits]) => [name, { circuits, violations: scheduleViolations(schedule(circuits)) }])) }));
     return;
   }
   const SELF = process.argv.includes('--self-check');
