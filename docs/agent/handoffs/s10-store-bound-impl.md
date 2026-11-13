@@ -32,6 +32,7 @@ Tier E. 기준 origin/main `5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3`, 브랜치
     - D1(weight 1,698,725,888): 매 단계 기록 1개, 합계는 singleton weight와 같음. retained 764.8–765.7 MB(약 730 MiB), 한도 약 876 MiB(M 기반). flush 잔존 −0.5 MiB.
     - D2(1 MiB CRLF, weight 9,424,480): 기록 수 최대 28(= floor(256 MiB / weight)), 합계 최대 263,885,440 ≤ 256 MiB, LRU 순서 일치. retained 최대 154.4 MiB, 한도 329.0 MiB.
     - maxRSS(정보용, retained와 다름): D1 약 2,437 MiB, D2 약 361 MiB.
+- fix(review) 2026-11-13: 진단 parent가 결과와 무관하게 exit 0이던 것을 고쳤다(pass·harnessValid가 모두 true일 때만 0). 합성 stub으로 pass 0 / invalid·fail·crash 1을 확인했다(`exit-code-check/`). run1·run2는 이전 parent의 raw이고 다시 실행하지 않았다(`script-provenance.md`). README·design의 재색인 문장에 같은 ID가 돌아오는 조건(경로·바이트 불변, 바뀌면 새 ID와 hash 비교)을 적었다.
 - 하지 않은 것: D0 재보정(K160 corpus 재측정). 정보용이며 이번 범위 밖이다.
 
 ## 진행 상태

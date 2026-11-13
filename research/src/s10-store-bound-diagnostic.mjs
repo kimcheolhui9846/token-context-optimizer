@@ -18,6 +18,11 @@
 // RSS high-water (maxRSS) is informational only.
 //
 // Usage: node research/src/s10-store-bound-diagnostic.mjs --output=<new json path>
+// Exit code: 0 only when the diagnostic passes and the harness is valid; 1 for a diagnostic
+// FAIL, an invalid harness self-check or a crashed/no-JSON child (added after run1/run2,
+// which were measured with the earlier parent that always exited 0; criteria unchanged).
+// --worker=<path> replaces the child script; it exists only to test the exit-code
+// branches with stub children and is recorded in provenance.workerOverride.
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -40,7 +45,8 @@ const sha = (data) => createHash('sha256').update(data).digest('hex');
 const gitBlob = (rel) => spawnSync('git', ['rev-parse', `HEAD:${rel}`], { cwd: repo, encoding: 'utf8', windowsHide: true }).stdout.trim();
 
 const modulePath = join(repo, 'dist', 'src', 'core', 'artifacts.js');
-const workerPath = join(here, 's10-store-bound-diagnostic-worker.mjs');
+const workerArg = process.argv.find((arg) => arg.startsWith('--worker='));
+const workerPath = workerArg ? resolve(workerArg.slice('--worker='.length)) : join(here, 's10-store-bound-diagnostic-worker.mjs');
 const provenance = {
   head: spawnSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8', windowsHide: true }).stdout.trim(),
   statusShort: spawnSync('git', ['status', '--short'], { cwd: repo, encoding: 'utf8', windowsHide: true }).stdout,
@@ -49,6 +55,7 @@ const provenance = {
   distArtifactsSha256: sha(readFileSync(modulePath)),
   workerWorkingCopySha256: sha(readFileSync(workerPath)),
   parentWorkingCopySha256: sha(readFileSync(fileURLToPath(import.meta.url))),
+  workerOverride: workerArg ? workerPath : null,
   hashNote: 'sha256 values are of working-copy bytes (CRLF on this checkout); HEAD blob ids are git LF blobs',
 };
 
@@ -141,3 +148,4 @@ for (const s of result.series) {
   }
 }
 console.log(`PASS=${result.pass} harnessValid=${result.harnessValid} -> ${output}`);
+process.exitCode = result.pass === true && result.harnessValid === true ? 0 : 1;

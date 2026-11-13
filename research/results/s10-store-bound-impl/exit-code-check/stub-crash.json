@@ -1,0 +1,131 @@
+{
+  "type": "s10-store-bound-diagnostic",
+  "startedAt": "2026-11-13T00:58:37.621Z",
+  "provenance": {
+    "head": "d2b2975fcdd9edf3921bb2087648ea26c2eadb7d",
+    "statusShort": " M research/src/s10-store-bound-diagnostic.mjs\n?? research/results/s10-store-bound-impl/exit-code-check/\n?? research/src/s10-store-bound-diagnostic-stub-worker.mjs\n",
+    "sourceWorkingCopySha256": "143b08a1a2f432887282aa1972bf5a32e516ec34005de2ae9deaa86ec182b599",
+    "sourceHeadBlob": "1a11f27a10735ca1975ba8b8485ebbe422916a90",
+    "distArtifactsSha256": "f94cdbc0947b4da77f1e2025a6f648109aac2968d47d9089d3da9ca0c9b764f6",
+    "workerWorkingCopySha256": "6cc853e23d31a592bab41d9718528a89cd0acb1a59536c8ba39d02f2c457ecce",
+    "parentWorkingCopySha256": "f7b8f089ed0c241dc8bfa90d1a3bbbd1b392df68f3afc156de8170d043598a1c",
+    "workerOverride": "D:\\orca\\worktrees\\codex_plugin_and_skill\\s10-store-bound-impl\\research\\src\\s10-store-bound-diagnostic-stub-worker.mjs",
+    "hashNote": "sha256 values are of working-copy bytes (CRLF on this checkout); HEAD blob ids are git LF blobs"
+  },
+  "budget": 268435456,
+  "repeats": 3,
+  "series": [
+    {
+      "name": "D1",
+      "unit": "\"\\n\"",
+      "byteLength": 10485760,
+      "lineCount": 10485760,
+      "fixtureSha256": "ab02e108e006e57369eac278af619e4118904f60ea9417acae0ff1f7472eab28",
+      "fixtureWeight": 1698725888,
+      "S": 1967161344,
+      "sLimit": 2360593612.8,
+      "maxCount": 0,
+      "children": [
+        {
+          "status": "no_json",
+          "exitCode": 3,
+          "signal": null,
+          "stderrTail": "",
+          "checks": [
+            {
+              "name": "completed",
+              "pass": false
+            }
+          ],
+          "pass": false
+        },
+        {
+          "status": "no_json",
+          "exitCode": 3,
+          "signal": null,
+          "stderrTail": "",
+          "checks": [
+            {
+              "name": "completed",
+              "pass": false
+            }
+          ],
+          "pass": false
+        },
+        {
+          "status": "no_json",
+          "exitCode": 3,
+          "signal": null,
+          "stderrTail": "",
+          "checks": [
+            {
+              "name": "completed",
+              "pass": false
+            }
+          ],
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "harnessValid": false
+    },
+    {
+      "name": "D2",
+      "unit": "\"We all like warm tea.\\r\\n\"",
+      "byteLength": 1048576,
+      "lineCount": 45591,
+      "fixtureSha256": "fa63803aea94c7a8c3cb8931e8501171b670ccddfbbae339ffbedbb07060ab19",
+      "fixtureWeight": 9424480,
+      "S": 277859936,
+      "sLimit": 344968800,
+      "maxCount": 28,
+      "children": [
+        {
+          "status": "no_json",
+          "exitCode": 3,
+          "signal": null,
+          "stderrTail": "",
+          "checks": [
+            {
+              "name": "completed",
+              "pass": false
+            }
+          ],
+          "pass": false
+        },
+        {
+          "status": "no_json",
+          "exitCode": 3,
+          "signal": null,
+          "stderrTail": "",
+          "checks": [
+            {
+              "name": "completed",
+              "pass": false
+            }
+          ],
+          "pass": false
+        },
+        {
+          "status": "no_json",
+          "exitCode": 3,
+          "signal": null,
+          "stderrTail": "",
+          "checks": [
+            {
+              "name": "completed",
+              "pass": false
+            }
+          ],
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "harnessValid": false
+    }
+  ],
+  "fixtureRootRemoved": true,
+  "finishedAt": "2026-11-13T00:58:38.153Z",
+  "pass": false,
+  "harnessValid": false
+}
