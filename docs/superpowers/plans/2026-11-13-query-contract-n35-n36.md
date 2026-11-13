@@ -58,7 +58,7 @@ distractor `नदी हवा नदी`는 세 자음을 모두 포함하므�
 
 ### 1.4 호출자와 문서 계약 (전수 검색)
 
-`package.json`은 `"private": true`이고 `main`/`exports`가 없다. 저장소 밖 라이브러리 소비자는 계약상 없다. 다만 연구 스크립트가 `dist/src/core/artifacts.js`를 직접 import한다.
+`package.json`은 `"private": true`이고 `main`/`exports`가 없다. 따라서 공개 npm 진입점은 없다. 그러나 이것만으로 저장소 밖 소비자가 없다고 단정하지 않는다. 저장소를 받아 `src/` 또는 `dist/`를 직접 import하는 외부 사용은 확인할 수 없었다(사용 미확인이며, 없음을 확인한 것은 아니다). 저장소 안에서는 연구 스크립트가 `dist/src/core/artifacts.js`를 직접 import한다.
 
 | 호출자 | 경로 | `contextLines` |
 |---|---|---|
@@ -132,7 +132,8 @@ B가 A와 다른 입력은 "결합 문자가 term 문자가 아닌 것 뒤에 �
 
 ### 2.4 바뀌지 않아야 할 control
 
-- 결합 문자가 없는 질의: ASCII 경로·식별자·숫자·`_./:-`, 한글 음절, 한자, 합성형이 있는 라틴(NFC/NFD 모두 NFKC 합성)은 term 목록이 같다. 따라서 결과가 바이트 단위로 같다
+- 결합 문자가 없는 질의: 여기서 "결합 문자 없음"은 원문이 아니라 **NFKC + `toLocaleLowerCase` 뒤**의 문자열 기준이다. 이 기준을 만족하는 ASCII 경로·식별자·숫자·`_./:-`, 한글 음절, 한자, 합성형이 있는 라틴(NFC/NFD 모두 NFKC 합성)은 term 목록이 같다. 따라서 결과가 바이트 단위로 같다
+  - 반례: 원문 `İ`(U+0130)는 결합 문자가 아니지만 소문자화가 `i` + U+0307(Mn)을 만든다. 따라서 `İ`가 든 질의는 control이 아니라 §2.3-2의 변화 대상이다
 - 단독 결합 문자·공백 뒤 결합 문자·이모지 선택자: term 목록 같음(B 기준)
 - 기존 테스트 전부(결합 문자 질의 0건, §1.4)와 benchmark 출력
 
@@ -188,8 +189,10 @@ C2를 권장하는 이유:
  function tokenize(text: string): string[] {
 -  return [...normalizeSearchText(text).matchAll(/[\p{L}\p{N}_./:-]+/gu)].map(
 +  // A term starts with a letter, number or _./:- and keeps following combining marks
-+  // (\p{M}), so Indic/Arabic/Hebrew/Thai words stay whole while stand-alone marks
-+  // and emoji variation selectors still produce no term.
++  // (\p{M}), so Indic/Arabic/Hebrew/Thai words stay whole. A mark never starts a term:
++  // a stand-alone mark, or a variation selector after an emoji (a non-term character),
++  // does not become its own term. Marks after a term character are kept, e.g. the
++  // selector and keycap mark after a digit stay in that digit's term.
 +  return [...normalizeSearchText(text).matchAll(/[\p{L}\p{N}_./:-][\p{L}\p{M}\p{N}_./:-]*/gu)].map(
      (match) => match[0],
    );
