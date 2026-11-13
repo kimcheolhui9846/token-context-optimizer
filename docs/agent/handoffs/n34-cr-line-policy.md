@@ -34,7 +34,7 @@
   - [x] 표준 7단계 @`de2f499`: 모두 exit 0, test 51파일 4440 통과·5 skip, build 뒤 작업 트리 깨끗(bin 차이 없음)
   - [x] self-check `selfcheck-run2.json` @`de2f499`(gate 아님): 결함 분류 9/9, 합성 5행 144표본 왕복, 메모리 child 30/30, 추적 1118파일 무변경, 임시 폴더 삭제
   - [x] 불변: `45ee43e`→`de2f499`에서 src·bin·package*·입력/시간/메모리 worker·run1 prereg·results 변경 0. run1 raw sha256 `45e2dc3b…` 그대로
-  - [ ] Argon 구현 검토
+  - [x] Argon 구현 검토(`codex_review/argon/2026-11-13_n34-run2-prep-impl-{bundle,argon}.md`): APPROVE, 지적 0. 발췌 밖(생략된 하네스 줄, run1 raw 내용, 승인 문서 원문)은 확인 불가로 남음
   - [ ] 2단계(run2 실측)는 primary가 diff·preflight 확인 뒤 실행권을 넘길 때만
 
 ## 기록
