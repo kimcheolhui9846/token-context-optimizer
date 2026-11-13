@@ -17,8 +17,8 @@
 8. 성공 JSON은 기존 6필드를 유지하고 필드를 추가한다: `requiredTools`, `imageIndexProfile`, `imageOverview`, `deniedOutsideRootImage`, `deniedPluginRootImage`, `scope`(기능 smoke이며 설치 진위·host 활성화·정확한 release identity를 증명하지 않음).
 
 ## RED·수용 행렬 (`tests/verify-installed.test.ts`)
-- 실제 번들: 현재 번들 통과(control), 990aa9f 번들(5도구) 거부(RED).
-- fake 서버(install 사본의 bin만 교체): 5도구, 중복, 비문자열·빈 이름, tools 비배열, 정상+여분 도구(통과 control), 이미지 JSON-RPC 오류, 이미지 isError, hash·치수·profile·path 위조, overview isError·image 누락·hash 불일치·JPEG 아님, 루트 밖 허용, plugin root 허용, 거부 응답 경로 유출, 다른 오류 코드, 이미지 호출 무응답(timeout).
+- 실제 번들: 현재 번들 통과(control). 990aa9f 실제 번들은 git 과거 객체가 필요하므로 기본 테스트에서 빼고 아래 별도 재현 명령으로 기록한다. 기본 회귀는 같은 5도구 상황을 fake 서버로 재현한다.
+- fake 서버(install 사본의 bin만 교체): 키 순서만 다른 structuredContent·source 통과(control), structuredContent 값 변경 거부, 5도구, 중복, 비문자열·빈 이름, tools 비배열, 정상+여분 도구(통과 control), 이미지 JSON-RPC 오류, 이미지 isError, hash·치수·profile·path 위조, overview isError·image 누락·hash 불일치·JPEG 아님, 루트 밖 허용, plugin root 허용, 거부 응답 경로 유출, 다른 오류 코드, 이미지 호출 무응답(timeout).
 - 정리: 실패·timeout 뒤 임시 루트 0개, timeout 시 child 종료 확인.
 - 정적: 필수 목록 = `src/server/index.ts`의 `registerTool` 이름.
 - 한계: 정상 응답을 모두 위조하는 fake 서버(정상+여분 control)는 통과한다. 같은 버전 다른 바이트도 구별하지 않는다.
@@ -29,3 +29,14 @@
 - GREEN: 27/27(검증 1건당 약 0.24–0.51초, timeout 사례 5.35초). 기존 `tests/core.test.ts` 설치·verifier 관련 32건 통과(`-t "verif|installed|USERPROFILE default root"`).
 - 원자료: 메인 `codex_review/n38-impl-2026-11-13/{red,green}-vitest.json`, `core-verifier-targeted.json`.
 - 이번 A 단독 행렬이 A의 증거다. 이전 B scratch 34회 결과는 쓰지 않았다.
+- 커밋 81ef35f, push, Draft PR #114.
+- primary 중간 검토 Minor 3건 반영(fix(review)):
+  1. text/structuredContent와 overview source 비교를 `node:util` `isDeepStrictEqual`로 바꿨다. 키 순서만 다른 응답은 통과하고 값이 다르면 거부한다. 81ef35f verifier는 재정렬 fake에서 exit 1 `structuredContent differs from text`, 수정본은 exit 0.
+  2. 테스트가 만든 임시 루트(`tco-n38-` 접두어, tmpdir 직속, 일반 디렉터리)만 등록해 `afterEach`에서 성공·실패 모두 지운다. verifier 자체 leftovers 단언은 그 전에 한다. 기존에 남은 디렉터리는 지우지 않았다(실행 전후 `tco-n38-*` 106→106).
+  3. 990aa9f 실제 번들 테스트를 기본 회귀에서 뺐다. 기본 회귀는 fake 5도구 사례가 맡는다.
+- 최종 대상 테스트: 28/28(기존 27 − 990aa9f 1 + 재정렬 control 1 + 값 변경 거부 1).
+
+## 990aa9f 실제 번들 별도 재현
+- 전제: 990aa9f 객체가 있는 전체 git 이력, `npm run build` 뒤의 bin, 임시 대상 경로 `<T>`.
+- 명령: `node scripts/install-local-plugin.mjs --target <T> --no-marketplace` → `git show 990aa9f:bin/token-context-optimizer.mjs > <T>/bin/token-context-optimizer.mjs` → `node scripts/verify-installed-plugin.mjs --plugin-root <T>`.
+- 기대: base(5d668f9) verifier는 exit 0으로 통과(RED, `red-vitest.json`), 이 브랜치 verifier는 exit 1 `missing required tools: index_image_artifact, inspect_image_artifact, crop_image_artifact, overview_image_artifact`(2026-11-13 수동 실행 `historical-990aa9f-new.err`).

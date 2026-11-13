@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { lstat, mkdtemp, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, isAbsolute, join, parse, relative, resolve } from "node:path";
+import { isDeepStrictEqual } from "node:util";
 import { deflateSync } from "node:zlib";
 
 import {
@@ -347,7 +348,7 @@ function assertOverview(result, source) {
       throw new Error(`${label} metadata mismatch: ${field}`);
     }
   }
-  if (JSON.stringify(payload.source) !== JSON.stringify(source)) {
+  if (!isDeepStrictEqual(payload.source, source)) {
     throw new Error(`${label} metadata mismatch: source`);
   }
 }
@@ -370,7 +371,7 @@ function parseTextPayload(result, label) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     throw new Error(`${label} content mismatch: text is not a JSON object`);
   }
-  if (JSON.stringify(result.structuredContent) !== JSON.stringify(payload)) {
+  if (!isDeepStrictEqual(result.structuredContent, payload)) {
     throw new Error(`${label} content mismatch: structuredContent differs from text`);
   }
   return payload;

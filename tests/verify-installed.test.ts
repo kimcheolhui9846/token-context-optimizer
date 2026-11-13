@@ -1,15 +1,14 @@
 import { execFile } from "node:child_process";
-import { mkdtemp, readFile, readdir, writeFile } from "node:fs/promises";
+import { lstat, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { promisify } from "node:util";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 // N-38 minimal option A: installed verifier checks the required tool surface
 // and a small image smoke. These tests run the real verifier script as a child.
 const execFileAsync = promisify(execFile);
 const VERIFIER = "scripts/verify-installed-plugin.mjs";
-const HISTORICAL_FIVE_TOOL_COMMIT = "990aa9f8fa875aafeaaa6fbf38fdfcc5b1e094a9";
 const OWNED_TEMP_PREFIXES = ["tco-installed-workspace-", "tco-installed-outside-"];
 const REQUIRED_TOOLS = [
   "estimate_context",
@@ -25,8 +24,34 @@ const REQUIRED_TOOLS = [
 
 type FakeConfig = Record<string, unknown>;
 
+// Every temp root a test creates is registered here and removed after the test, pass or fail.
+const TEST_TEMP_PREFIX = "tco-n38-";
+const ownedTestRoots: string[] = [];
+
+async function makeTestRoot(label: string): Promise<string> {
+  const root = await mkdtemp(join(tmpdir(), `${TEST_TEMP_PREFIX}${label}-`));
+  ownedTestRoots.push(root);
+  return root;
+}
+
+afterEach(async () => {
+  const parent = resolve(tmpdir());
+  for (const root of ownedTestRoots.splice(0)) {
+    const resolved = resolve(root);
+    if (dirname(resolved) !== parent || !basename(resolved).startsWith(TEST_TEMP_PREFIX)) {
+      throw new Error("Refusing to remove a test temp path that this test file did not create");
+    }
+    const rootStat = await lstat(resolved).catch(() => null);
+    if (!rootStat) continue;
+    if (rootStat.isSymbolicLink() || !rootStat.isDirectory()) {
+      throw new Error("Refusing to remove a test temp path that is not a plain directory");
+    }
+    await rm(resolved, { recursive: true, force: true });
+  }
+});
+
 async function installTarget(label: string): Promise<string> {
-  const target = await mkdtemp(join(tmpdir(), `tco-n38-${label}-`));
+  const target = await makeTestRoot(label);
   await execFileAsync(
     process.execPath,
     ["scripts/install-local-plugin.mjs", "--target", target, "--no-marketplace"],
@@ -49,7 +74,7 @@ async function installFake(label: string, config: FakeConfig): Promise<string> {
 }
 
 async function runVerifier(target: string) {
-  const tempParent = await mkdtemp(join(tmpdir(), "tco-n38-verify-parent-"));
+  const tempParent = await makeTestRoot("verify-parent");
   const env = { ...process.env, TEMP: tempParent, TMP: tempParent, TMPDIR: tempParent };
   try {
     const { stdout } = await execFileAsync(process.execPath, [VERIFIER, "--plugin-root", target], {
@@ -108,32 +133,6 @@ describe("N-38 installed verifier: real bundles", () => {
     expect(result.scope).toMatch(/does not prove/);
     expect(await leftovers(run.tempParent)).toEqual([]);
   }, 60_000);
-
-  it("rejects the historical pre-image bundle from 990aa9f", async () => {
-    const target = await installTarget("historical");
-    let bundle: string;
-    try {
-      bundle = (
-        await execFileAsync(
-          "git",
-          ["show", `${HISTORICAL_FIVE_TOOL_COMMIT}:bin/token-context-optimizer.mjs`],
-          { maxBuffer: 16 * 1024 * 1024, windowsHide: true },
-        )
-      ).stdout;
-    } catch (error) {
-      throw new Error(
-        `This test needs git history containing ${HISTORICAL_FIVE_TOOL_COMMIT}; it is not skipped silently`,
-        { cause: error },
-      );
-    }
-    expect(bundle).not.toContain("index_image_artifact");
-    await writeFile(join(target, "bin", "token-context-optimizer.mjs"), bundle, "utf8");
-
-    await expectRejected(
-      target,
-      /missing required tools: index_image_artifact, inspect_image_artifact, crop_image_artifact, overview_image_artifact/,
-    );
-  }, 60_000);
 });
 
 describe("N-38 installed verifier: tool list contract", () => {
@@ -187,6 +186,18 @@ describe("N-38 installed verifier: tool list contract", () => {
 });
 
 describe("N-38 installed verifier: image index smoke", () => {
+  it("accepts structured content and source records that differ only in key order (control)", async () => {
+    const target = await installFake("reorder", { reorder: true });
+    const run = await runVerifier(target);
+    expect(run.ok, run.stderr).toBe(true);
+    expect(await leftovers(run.tempParent)).toEqual([]);
+  }, 60_000);
+
+  it("rejects structured content whose values differ from the text payload", async () => {
+    const target = await installFake("structured-diff", { structuredDiff: true });
+    await expectRejected(target, /index_image_artifact content mismatch: structuredContent differs from text/);
+  }, 60_000);
+
   it("rejects a JSON-RPC error from index_image_artifact", async () => {
     const target = await installFake("img-rpc", { image: "rpcError" });
     await expectRejected(target, /MCP error response: image tools unavailable/);
@@ -267,7 +278,7 @@ describe("N-38 installed verifier: image authorization denials", () => {
 
 describe("N-38 installed verifier: cleanup", () => {
   it("times out on an unanswered image call, stops the child, and removes owned temp roots", async () => {
-    const pidDir = await mkdtemp(join(tmpdir(), "tco-n38-pid-"));
+    const pidDir = await makeTestRoot("pid");
     const pidFile = join(pidDir, "server.pid");
     const target = await installFake("hang", { image: "hang", pidFile });
 

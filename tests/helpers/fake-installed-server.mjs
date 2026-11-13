@@ -59,6 +59,13 @@ function isAllowed(path) {
   return allowedRoots.some((root) => isInside(root, path));
 }
 
+// Same values, reversed key order at every object level.
+function reorder(value) {
+  if (Array.isArray(value)) return value.map(reorder);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.entries(value).reverse().map(([key, item]) => [key, reorder(item)]));
+}
+
 function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
 }
@@ -148,7 +155,9 @@ function indexImage(id, path) {
     validationProfile: mode === "badProfile" ? "png-rgb8-tolerant-v1" : "png-rgb8-static-v1",
   };
   images.set(record.artifactId, record);
-  reply(id, { content: [{ type: "text", text: JSON.stringify(record) }], structuredContent: record });
+  let structured = CONFIG.reorder ? reorder(record) : record;
+  if (CONFIG.structuredDiff) structured = { ...record, byteLength: record.byteLength + 1 };
+  reply(id, { content: [{ type: "text", text: JSON.stringify(record) }], structuredContent: structured });
 }
 
 function overview(id, artifactId) {
@@ -187,9 +196,10 @@ function overview(id, artifactId) {
     source: mode === "badSource" ? { ...source, sha256: "1".repeat(64) } : source,
     output,
   };
-  const content = [{ type: "text", text: JSON.stringify(structured) }];
+  const textPayload = CONFIG.reorder ? { ...structured, source: reorder(structured.source) } : structured;
+  const content = [{ type: "text", text: JSON.stringify(textPayload) }];
   if (mode !== "noImage") {
     content.push({ type: "image", data: jpeg.toString("base64"), mimeType: "image/jpeg" });
   }
-  reply(id, { isError: false, content, structuredContent: structured });
+  reply(id, { isError: false, content, structuredContent: CONFIG.reorder ? reorder(structured) : structured });
 }
