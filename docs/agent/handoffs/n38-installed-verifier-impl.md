@@ -36,6 +36,11 @@
   3. 990aa9f 실제 번들 테스트를 기본 회귀에서 뺐다. 기본 회귀는 fake 5도구 사례가 맡는다.
 - 최종 대상 테스트: 28/28(기존 27 − 990aa9f 1 + 재정렬 control 1 + 값 변경 거부 1).
 
+- 전체 gate @12e27b1(Draft 이후, 2026-11-13 00:51–00:52Z, 자원 실행권 받은 뒤 단독 실행): npm ci --ignore-scripts, build, test(51파일 4382 통과·5 skip), typecheck, smoke:mcp, validate:plugin, benchmark 모두 rc 0. benchmark 수치는 성능 판정에 쓰지 않는다.
+- build 뒤 `bin/token-context-optimizer.mjs`가 수정됨으로 보였으나 hash-object가 HEAD blob `a8e9aa9`와 같고 EOL 무시 diff 0줄이라 빌드 잡음으로 보고 그 파일만 restore했다. gate 뒤 node 잔존 프로세스 0, worktree clean.
+- Argon 완료 검토: APPROVE, 지적 0(`codex_review/argon/2026-11-13_n38-impl-final-{bundle,argon}.md`). 확인 불가로 남긴 테스트 본문·bin 잡음은 직접 확인했다.
+- 이 기록 커밋은 문서만 바꾼다. gate를 실행한 코드 head는 12e27b1이다.
+
 ## 990aa9f 실제 번들 별도 재현
 - 전제: 990aa9f 객체가 있는 전체 git 이력, `npm run build` 뒤의 bin, 임시 대상 경로 `<T>`.
 - 명령: `node scripts/install-local-plugin.mjs --target <T> --no-marketplace` → `git show 990aa9f:bin/token-context-optimizer.mjs > <T>/bin/token-context-optimizer.mjs` → `node scripts/verify-installed-plugin.mjs --plugin-root <T>`.
