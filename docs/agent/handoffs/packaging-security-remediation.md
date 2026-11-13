@@ -40,7 +40,11 @@
 - 전체 gate는 coordinator 실행권을 받은 뒤 최종 head에서 실행한다.
 
 ## 미결정(사용자)
-- 프로젝트 자체 LICENSE·권리자: manifest와 package는 MIT를 적지만 루트 LICENSE가 없다. 권리자 이름을 임의로 쓰지 않는다. 구체안은 완료 보고에 적는다.
+- 프로젝트 자체 LICENSE·권리자: manifest와 package는 MIT를 적지만 루트 LICENSE가 없다. 권리자 이름을 임의로 쓰지 않는다.
+  - 안 A(권장): 루트 `LICENSE`에 MIT 본문과 사용자가 확정한 권리자·연도를 쓴다. `.codex-plugin/plugin.json`의 `"license": "MIT"`와 맞는다.
+  - 안 B: 공개 라이선스를 정하기 전까지 manifest `license`를 실제 상태(미지정)에 맞춘다.
+  - 안 C: 다른 라이선스를 고르고 manifest와 함께 바꾼다.
+  - 어느 안이든 권리자 표기는 사용자 결정이다. 이 PR은 아무것도 만들지 않았다.
 
 ## 진행 기록
 - 2026-11-13: 격리 확인(worktree HEAD=origin/main 5d668f9, clean), 브랜치 이름을 `claude/packaging-security-remediation`으로 바꿈. 기준선 측정, 계획 고정.
@@ -52,4 +56,15 @@
 - 계약: 정규화 stdio 프로브 23항목이 main 번들·새 번들·임시 설치 사본(runtime 파일 4개, bin 바이트 동일)에서 모두 같다. SDK 2.3.0 ReadBuffer 상한도 `10 * 1024 * 1024`. README의 SDK 버전 표기만 2.3.0으로 바꿨다.
 - 번들 크기(작업 사본 LF): 기준 1,036,467 → 고지 추가 1,043,219 → 의존성 갱신 1,092,440 bytes. 시간 성능 주장은 하지 않는다.
 - Argon 중간(gemini-4-argon, 1회): APPROVE, 지적 0. bin·라이선스 원문·커밋 메시지는 발췌 밖이라 확인 불가로 명시됨.
-- 남은 일: coordinator 실행권 뒤 최종 head 전체 gate, PR 본문 갱신, Codex 검토.
+- 전체 gate 1차(`6ee4372`, coordinator 실행권 받음): test exit 1, 2건 실패(`tests/jpeg-fixtures.test.ts`, `tests/image-crop-mcp.test.ts`). 나머지 6단계 exit 0.
+  - 원인: zod 4.5.0~4.6.7의 `fromJSONSchema`가 `type:"object"`+`anyOf` 노드를 모든 variant가 거부하는 객체도 받는 validator로 바꾼다(4.4.3은 거부). 최소 재현으로 확인.
+  - 영향 범위: 테스트가 tools/list 스키마를 읽는 오라클뿐이다. 서버는 `fromJSONSchema`를 쓰지 않고(번들 0회) 등록된 zod 스키마로 출력 검증한다. 광고 스키마는 main과 같다.
+  - 수정 `5b5f794`: `tests/helpers/advertised-schema.ts`가 모든 variant가 object일 때만 바깥 `type`을 지우고 그 밖의 형태는 throw. 기존 단언 변경 0, helper 단위 테스트 3개.
+- 전체 gate 2차(최종 코드 head `5b5f794`): 7단계 모두 exit 0. test 4367 pass / 5 skip(52 files). 실행 전후 `git status` clean(빌드 재현 시 bin 변화 없음). benchmark 비시간 값: 25,025→32(99.9%), 58,000→4,400(92.4%), 8,272→128(98.5%), exact gate 모두 true.
+- Argon 오라클 수정(1회): APPROVE, 지적 0. 묶음·결과: `codex_review/argon/2026-11-13_packaging-security-oracle-{bundle,argon}.md`.
+
+## 남은 경고와 후속 제안 (major, 미적용)
+- vitest 3.2.7(GHSA-82fw, <4.1.11), @vitest/mocker 3.2.7(GHSA-82fw, GHSA-qxg6 <4.1.12), tinypool 1.1.1(GHSA-5gmw ≤2.1.0, GHSA-85c8 <2.1.2). 모두 dev 전용이고 번들에 없다.
+- 노출 조건(공식 원문): mocker 두 건은 dev server WebSocket에 닿는 공격자. tinypool 두 건은 같은 프로세스의 prototype pollution primitive가 따로 있어야 하고, 85c8은 caller가 `run()` options를 넘길 때만. 이 저장소의 vitest 실행에서 그 조건이 성립하는지는 확인하지 않았다.
+- 후보: vitest `^4.1.12`(3→4 major). 4.1.12는 @vitest/mocker 4.1.12를 쓰고 tinypool 의존이 없다. engines `^20 || ^22 || >=24`. audit이 제시한 5.1.0은 engines `^22.12.0`부터라 저장소 `>=22.0.0`보다 좁다.
+- 회귀 영향: vitest 4 설정·API 변화로 테스트 수정이 필요할 수 있다. 4.1.12 적용 뒤 audit 0이 되는지는 실행하지 않아 미확인. 별도 Task로 제안한다.
