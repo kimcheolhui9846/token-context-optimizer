@@ -1,0 +1,796 @@
+{
+ "base": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+ "exp3": {
+  "gpt4o": {
+   "config": {
+    "model": "gpt-4o-2024-11-20",
+    "maxTokens": 60,
+    "toolRounds": 3,
+    "toolMaxTokens": null,
+    "compactAfterTurns": [
+     3,
+     6
+    ]
+   },
+   "resultFiles": 120,
+   "callsInFile": 1460,
+   "activeCalls": 1453,
+   "activeCallsWithStopReasonField": 0,
+   "models": {
+    "gpt-4o-2024-11-20": 1453
+   },
+   "callsByConditionKind": {
+    "S0/turn": 192,
+    "S1/compact": 48,
+    "S1/turn": 192,
+    "S2/auto-original": 10,
+    "S2/tool-round": 172,
+    "S2/turn": 192,
+    "S3/auto-original": 14,
+    "S3/compact": 48,
+    "S3/tool-round": 201,
+    "S3/turn": 192,
+    "S4/turn": 192
+   },
+   "stopReasons": {
+    "S0/turn/None": 192,
+    "S1/compact/None": 48,
+    "S1/turn/None": 192,
+    "S2/auto-original/None": 10,
+    "S2/tool-round/None": 172,
+    "S2/turn/None": 192,
+    "S3/auto-original/None": 14,
+    "S3/compact/None": 48,
+    "S3/tool-round/None": 201,
+    "S3/turn/None": 192,
+    "S4/turn/None": 192
+   },
+   "maxTokensStopsByTurn": {},
+   "completionAtCap": {
+    "S2/turn": 18,
+    "S3/turn": 22
+   },
+   "compactCompletionMax": 213,
+   "compactSummaries": {
+    "S1/stored": 48,
+    "S3/stored": 48
+   },
+   "conditionOrderPerSession": {
+    "S0->S1->S2->S3->S4": 24
+   },
+   "sessionMeans": {
+    "S0": {
+     "accuracy": 0.8958333333333334,
+     "lateRecall": 0.9305555555555556,
+     "meanPromptTokens": 33891.75,
+     "listUsd": 0.08504187499999999,
+     "cacheUsd": 0.05177520833333334,
+     "listSavingVsS0": 0.0,
+     "cacheSavingVsS0": 0.0
+    },
+    "S1": {
+     "accuracy": 0.4010416666666667,
+     "lateRecall": 0.1388888888888889,
+     "meanPromptTokens": 16021.041666666666,
+     "listUsd": 0.0429784375,
+     "cacheUsd": 0.029438437499999998,
+     "listSavingVsS0": 0.49462029735350954,
+     "cacheSavingVsS0": 0.43141827048820836
+    },
+    "S2": {
+     "accuracy": 0.8489583333333334,
+     "lateRecall": 0.8472222222222222,
+     "meanPromptTokens": 23294.833333333332,
+     "listUsd": 0.06082041666666666,
+     "cacheUsd": 0.04704041666666666,
+     "listSavingVsS0": 0.28481801857418276,
+     "cacheSavingVsS0": 0.0914490123571049
+    },
+    "S3": {
+     "accuracy": 0.8385416666666666,
+     "lateRecall": 0.8194444444444444,
+     "meanPromptTokens": 22256.5,
+     "listUsd": 0.06147208333333334,
+     "cacheUsd": 0.049938750000000004,
+     "listSavingVsS0": 0.277155127008508,
+     "cacheSavingVsS0": 0.03546983957090155
+    },
+    "S4": {
+     "accuracy": 0.890625,
+     "lateRecall": 0.9166666666666666,
+     "meanPromptTokens": 33883.833333333336,
+     "listUsd": 0.08500166666666667,
+     "cacheUsd": 0.05255500000000001,
+     "listSavingVsS0": 0.00047280628905843614,
+     "cacheSavingVsS0": -0.015061101476333993
+    }
+   }
+  },
+  "haiku": {
+   "config": {
+    "model": "claude-haiku-4-5-20251001",
+    "maxTokens": 60,
+    "toolRounds": 3,
+    "toolMaxTokens": 512,
+    "compactAfterTurns": [
+     3,
+     6
+    ]
+   },
+   "resultFiles": 120,
+   "callsInFile": 1589,
+   "activeCalls": 1589,
+   "activeCallsWithStopReasonField": 1589,
+   "models": {
+    "claude-haiku-4-5-20251001": 1589
+   },
+   "callsByConditionKind": {
+    "S0/turn": 192,
+    "S1/compact": 48,
+    "S1/turn": 192,
+    "S2/auto-original": 4,
+    "S2/tool-round": 247,
+    "S2/turn": 192,
+    "S3/compact": 48,
+    "S3/tool-round": 282,
+    "S3/turn": 192,
+    "S4/turn": 192
+   },
+   "stopReasons": {
+    "S0/turn/end_turn": 192,
+    "S1/compact/end_turn": 24,
+    "S1/compact/max_tokens": 24,
+    "S1/turn/end_turn": 190,
+    "S1/turn/max_tokens": 2,
+    "S2/auto-original/end_turn": 4,
+    "S2/tool-round/end_turn": 163,
+    "S2/tool-round/tool_use": 84,
+    "S2/turn/end_turn": 29,
+    "S2/turn/tool_use": 163,
+    "S3/compact/end_turn": 47,
+    "S3/compact/max_tokens": 1,
+    "S3/tool-round/end_turn": 178,
+    "S3/tool-round/tool_use": 104,
+    "S3/turn/end_turn": 14,
+    "S3/turn/tool_use": 178,
+    "S4/turn/end_turn": 192
+   },
+   "maxTokensStopsByTurn": {
+    "S1/compact/turn3": 9,
+    "S1/compact/turn6": 15,
+    "S1/turn/turn4": 2,
+    "S3/compact/turn6": 1
+   },
+   "completionAtCap": {
+    "S1/compact": 24,
+    "S1/turn": 2,
+    "S3/compact": 1
+   },
+   "compactCompletionMax": 400,
+   "compactSummaries": {
+    "S1/stored": 48,
+    "S3/stored": 48
+   },
+   "conditionOrderPerSession": {
+    "S0->S1->S2->S3->S4": 24
+   },
+   "sessionMeans": {
+    "S0": {
+     "accuracy": 0.9010416666666666,
+     "lateRecall": 0.9305555555555556,
+     "meanPromptTokens": 46142.875,
+     "listUsd": 0.04641183333333333,
+     "cacheUsd": 0.014842518749999999,
+     "listSavingVsS0": 0.0,
+     "cacheSavingVsS0": 0.0
+    },
+    "S1": {
+     "accuracy": 0.7916666666666666,
+     "lateRecall": 0.7222222222222222,
+     "meanPromptTokens": 22742.875,
+     "listUsd": 0.026796416666666666,
+     "cacheUsd": 0.011445691666666665,
+     "listSavingVsS0": 0.42263826394849013,
+     "cacheSavingVsS0": 0.22885786035024103
+    },
+    "S2": {
+     "accuracy": 0.7708333333333334,
+     "lateRecall": 0.7083333333333334,
+     "meanPromptTokens": 56695.75,
+     "listUsd": 0.06173866666666667,
+     "cacheUsd": 0.0543823,
+     "listSavingVsS0": -0.33023546437510554,
+     "cacheSavingVsS0": -2.663953599519624
+    },
+    "S3": {
+     "accuracy": 0.7447916666666666,
+     "lateRecall": 0.7361111111111112,
+     "meanPromptTokens": 56574.583333333336,
+     "listUsd": 0.06525583333333333,
+     "cacheUsd": 0.055330389583333334,
+     "listSavingVsS0": -0.40601714361639085,
+     "cacheSavingVsS0": -2.727830196160833
+    },
+    "S4": {
+     "accuracy": 0.8854166666666666,
+     "lateRecall": 0.9027777777777778,
+     "meanPromptTokens": 46142.583333333336,
+     "listUsd": 0.04641133333333333,
+     "cacheUsd": 0.014842570833333332,
+     "listSavingVsS0": 1.0773114615170165e-05,
+     "cacheSavingVsS0": -3.509062997286705e-06
+    }
+   }
+  }
+ },
+ "exp2": {
+  "gpt4o": {
+   "Dqueries": 144,
+   "DpromptTokensTotal": 91438,
+   "Drequeries": 11,
+   "Dcalls": 155,
+   "perQuery": 634.9861111111111,
+   "perCall": 589.9225806451612,
+   "promptTokensMissing": 0
+  },
+  "haiku": {
+   "Dqueries": 144,
+   "DpromptTokensTotal": 110139,
+   "Drequeries": 16,
+   "Dcalls": 160,
+   "perQuery": 764.8541666666666,
+   "perCall": 688.36875,
+   "promptTokensMissing": 0
+  }
+ },
+ "figures": {
+  "coordinatesIdentical": true,
+  "base": [
+   {
+    "figure": "exp2/heldout/fig5_exp2_accuracy_vs_tokens",
+    "sizeCm": [
+     7.0,
+     5.6
+    ],
+    "panels": [
+     {
+      "xlabel": "Mean input tokens per call",
+      "xlabelInsideFigure": true,
+      "points": [
+       {
+        "x": 824.4722222222222,
+        "y": 85.41666666666666,
+        "lo": 75.69444444444443,
+        "hi": 93.75
+       },
+       {
+        "x": 824.4722222222222,
+        "y": 84.02777777777779,
+        "lo": 75.0,
+        "hi": 92.36111111111113
+       },
+       {
+        "x": 571.8333333333334,
+        "y": 72.22222222222221,
+        "lo": 60.41666666666666,
+        "hi": 83.33333333333333
+       },
+       {
+        "x": 634.9861111111111,
+        "y": 78.47222222222221,
+        "lo": 68.75,
+        "hi": 87.5
+       },
+       {
+        "x": 373.5,
+        "y": 89.58333333333334,
+        "lo": 84.02777777777779,
+        "hi": 94.44444444444444
+       },
+       {
+        "x": 629.2777777777778,
+        "y": 79.16666666666666,
+        "lo": 68.05555555555556,
+        "hi": 88.88888888888889
+       },
+       {
+        "x": 1360.8333333333333,
+        "y": 81.25,
+        "lo": 70.13888888888889,
+        "hi": 90.97222222222223
+       },
+       {
+        "x": 1360.8333333333333,
+        "y": 81.94444444444444,
+        "lo": 70.83333333333334,
+        "hi": 91.66666666666666
+       },
+       {
+        "x": 620.8819444444445,
+        "y": 68.05555555555556,
+        "lo": 54.861111111111114,
+        "hi": 79.86111111111111
+       },
+       {
+        "x": 764.8541666666666,
+        "y": 77.08333333333334,
+        "lo": 65.97222222222223,
+        "hi": 87.5
+       },
+       {
+        "x": 129.11111111111111,
+        "y": 82.63888888888889,
+        "lo": 75.0,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 764.8541666666666,
+        "y": 76.38888888888889,
+        "lo": 65.27777777777779,
+        "hi": 86.11111111111111
+       }
+      ],
+      "overlaps": [
+       "label C(#D55E00) x errorbar",
+       "label D(#D55E00) x errorbar",
+       "label D(#D55E00) x errorbar"
+      ]
+     }
+    ]
+   },
+   {
+    "figure": "exp2/calibration-v2/fig5_exp2_accuracy_vs_tokens",
+    "sizeCm": [
+     7.0,
+     5.6
+    ],
+    "panels": [
+     {
+      "xlabel": "Mean input tokens per call",
+      "xlabelInsideFigure": true,
+      "points": [
+       {
+        "x": 823.25,
+        "y": 79.16666666666666,
+        "lo": 60.41666666666666,
+        "hi": 93.75
+       },
+       {
+        "x": 823.25,
+        "y": 68.75,
+        "lo": 45.83333333333333,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 593.0416666666666,
+        "y": 75.0,
+        "lo": 54.166666666666664,
+        "hi": 91.66666666666666
+       },
+       {
+        "x": 593.0416666666666,
+        "y": 75.0,
+        "lo": 54.166666666666664,
+        "hi": 91.66666666666666
+       },
+       {
+        "x": 384.0833333333333,
+        "y": 83.33333333333334,
+        "lo": 72.91666666666667,
+        "hi": 93.75
+       },
+       {
+        "x": 593.0416666666666,
+        "y": 85.41666666666666,
+        "lo": 75.0,
+        "hi": 95.83333333333333
+       },
+       {
+        "x": 1359.6666666666667,
+        "y": 77.08333333333334,
+        "lo": 54.16666666666667,
+        "hi": 95.83333333333334
+       },
+       {
+        "x": 1359.6666666666667,
+        "y": 75.0,
+        "lo": 52.083333333333336,
+        "hi": 95.83333333333334
+       },
+       {
+        "x": 605.9791666666666,
+        "y": 66.66666666666666,
+        "lo": 47.916666666666664,
+        "hi": 85.41666666666666
+       },
+       {
+        "x": 674.3541666666666,
+        "y": 72.91666666666666,
+        "lo": 54.16666666666666,
+        "hi": 89.58333333333333
+       },
+       {
+        "x": 133.58333333333334,
+        "y": 77.08333333333334,
+        "lo": 62.50000000000001,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 674.3541666666666,
+        "y": 75.0,
+        "lo": 56.25,
+        "hi": 91.66666666666666
+       }
+      ],
+      "overlaps": [
+       "label D(#0072B2) x marker",
+       "label D′(#0072B2) x errorbar",
+       "label D′(#0072B2) x errorbar"
+      ]
+     }
+    ]
+   },
+   {
+    "figure": "fig2_heldout_accuracy_vs_tokens",
+    "sizeCm": [
+     7.0,
+     5.6
+    ],
+    "panels": [
+     {
+      "xlabel": "Mean input tokens per session (×1,000)",
+      "xlabelInsideFigure": true,
+      "points": [
+       {
+        "x": 33.89175,
+        "y": 89.58333333333334,
+        "lo": 85.9375,
+        "hi": 93.22916666666666
+       },
+       {
+        "x": 16.021041666666665,
+        "y": 40.10416666666667,
+        "lo": 36.45833333333333,
+        "hi": 43.75
+       },
+       {
+        "x": 23.294833333333333,
+        "y": 84.89583333333334,
+        "lo": 79.16666666666666,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 22.2565,
+        "y": 83.85416666666666,
+        "lo": 78.125,
+        "hi": 89.0625
+       },
+       {
+        "x": 33.883833333333335,
+        "y": 89.0625,
+        "lo": 85.9375,
+        "hi": 92.1875
+       },
+       {
+        "x": 46.142875,
+        "y": 90.10416666666666,
+        "lo": 86.45833333333334,
+        "hi": 93.75
+       },
+       {
+        "x": 22.742875,
+        "y": 79.16666666666666,
+        "lo": 74.47916666666666,
+        "hi": 83.85416666666666
+       },
+       {
+        "x": 56.69575,
+        "y": 77.08333333333334,
+        "lo": 72.91666666666666,
+        "hi": 81.25
+       },
+       {
+        "x": 56.57458333333334,
+        "y": 74.47916666666666,
+        "lo": 70.83333333333334,
+        "hi": 78.64583333333334
+       },
+       {
+        "x": 46.142583333333334,
+        "y": 88.54166666666666,
+        "lo": 85.41666666666666,
+        "hi": 91.66666666666666
+       }
+      ],
+      "overlaps": []
+     }
+    ]
+   }
+  ],
+  "work": [
+   {
+    "figure": "exp2/heldout/fig5_exp2_accuracy_vs_tokens",
+    "sizeCm": [
+     7.0,
+     5.6
+    ],
+    "panels": [
+     {
+      "xlabel": "Mean total input tokens per query\n(including re-requests)",
+      "xlabelInsideFigure": true,
+      "points": [
+       {
+        "x": 824.4722222222222,
+        "y": 85.41666666666666,
+        "lo": 75.69444444444443,
+        "hi": 93.75
+       },
+       {
+        "x": 824.4722222222222,
+        "y": 84.02777777777779,
+        "lo": 75.0,
+        "hi": 92.36111111111113
+       },
+       {
+        "x": 571.8333333333334,
+        "y": 72.22222222222221,
+        "lo": 60.41666666666666,
+        "hi": 83.33333333333333
+       },
+       {
+        "x": 634.9861111111111,
+        "y": 78.47222222222221,
+        "lo": 68.75,
+        "hi": 87.5
+       },
+       {
+        "x": 373.5,
+        "y": 89.58333333333334,
+        "lo": 84.02777777777779,
+        "hi": 94.44444444444444
+       },
+       {
+        "x": 629.2777777777778,
+        "y": 79.16666666666666,
+        "lo": 68.05555555555556,
+        "hi": 88.88888888888889
+       },
+       {
+        "x": 1360.8333333333333,
+        "y": 81.25,
+        "lo": 70.13888888888889,
+        "hi": 90.97222222222223
+       },
+       {
+        "x": 1360.8333333333333,
+        "y": 81.94444444444444,
+        "lo": 70.83333333333334,
+        "hi": 91.66666666666666
+       },
+       {
+        "x": 620.8819444444445,
+        "y": 68.05555555555556,
+        "lo": 54.861111111111114,
+        "hi": 79.86111111111111
+       },
+       {
+        "x": 764.8541666666666,
+        "y": 77.08333333333334,
+        "lo": 65.97222222222223,
+        "hi": 87.5
+       },
+       {
+        "x": 129.11111111111111,
+        "y": 82.63888888888889,
+        "lo": 75.0,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 764.8541666666666,
+        "y": 76.38888888888889,
+        "lo": 65.27777777777779,
+        "hi": 86.11111111111111
+       }
+      ],
+      "overlaps": []
+     }
+    ]
+   },
+   {
+    "figure": "exp2/calibration-v2/fig5_exp2_accuracy_vs_tokens",
+    "sizeCm": [
+     7.0,
+     5.6
+    ],
+    "panels": [
+     {
+      "xlabel": "Mean total input tokens per query\n(including re-requests)",
+      "xlabelInsideFigure": true,
+      "points": [
+       {
+        "x": 823.25,
+        "y": 79.16666666666666,
+        "lo": 60.41666666666666,
+        "hi": 93.75
+       },
+       {
+        "x": 823.25,
+        "y": 68.75,
+        "lo": 45.83333333333333,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 593.0416666666666,
+        "y": 75.0,
+        "lo": 54.166666666666664,
+        "hi": 91.66666666666666
+       },
+       {
+        "x": 593.0416666666666,
+        "y": 75.0,
+        "lo": 54.166666666666664,
+        "hi": 91.66666666666666
+       },
+       {
+        "x": 384.0833333333333,
+        "y": 83.33333333333334,
+        "lo": 72.91666666666667,
+        "hi": 93.75
+       },
+       {
+        "x": 593.0416666666666,
+        "y": 85.41666666666666,
+        "lo": 75.0,
+        "hi": 95.83333333333333
+       },
+       {
+        "x": 1359.6666666666667,
+        "y": 77.08333333333334,
+        "lo": 54.16666666666667,
+        "hi": 95.83333333333334
+       },
+       {
+        "x": 1359.6666666666667,
+        "y": 75.0,
+        "lo": 52.083333333333336,
+        "hi": 95.83333333333334
+       },
+       {
+        "x": 605.9791666666666,
+        "y": 66.66666666666666,
+        "lo": 47.916666666666664,
+        "hi": 85.41666666666666
+       },
+       {
+        "x": 674.3541666666666,
+        "y": 72.91666666666666,
+        "lo": 54.16666666666666,
+        "hi": 89.58333333333333
+       },
+       {
+        "x": 133.58333333333334,
+        "y": 77.08333333333334,
+        "lo": 62.50000000000001,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 674.3541666666666,
+        "y": 75.0,
+        "lo": 56.25,
+        "hi": 91.66666666666666
+       }
+      ],
+      "overlaps": []
+     }
+    ]
+   },
+   {
+    "figure": "fig2_heldout_accuracy_vs_tokens",
+    "sizeCm": [
+     7.0,
+     5.6
+    ],
+    "panels": [
+     {
+      "xlabel": "Mean input tokens per session (×1,000)",
+      "xlabelInsideFigure": true,
+      "points": [
+       {
+        "x": 33.89175,
+        "y": 89.58333333333334,
+        "lo": 85.9375,
+        "hi": 93.22916666666666
+       },
+       {
+        "x": 16.021041666666665,
+        "y": 40.10416666666667,
+        "lo": 36.45833333333333,
+        "hi": 43.75
+       },
+       {
+        "x": 23.294833333333333,
+        "y": 84.89583333333334,
+        "lo": 79.16666666666666,
+        "hi": 89.58333333333334
+       },
+       {
+        "x": 22.2565,
+        "y": 83.85416666666666,
+        "lo": 78.125,
+        "hi": 89.0625
+       },
+       {
+        "x": 33.883833333333335,
+        "y": 89.0625,
+        "lo": 85.9375,
+        "hi": 92.1875
+       },
+       {
+        "x": 46.142875,
+        "y": 90.10416666666666,
+        "lo": 86.45833333333334,
+        "hi": 93.75
+       },
+       {
+        "x": 22.742875,
+        "y": 79.16666666666666,
+        "lo": 74.47916666666666,
+        "hi": 83.85416666666666
+       },
+       {
+        "x": 56.69575,
+        "y": 77.08333333333334,
+        "lo": 72.91666666666666,
+        "hi": 81.25
+       },
+       {
+        "x": 56.57458333333334,
+        "y": 74.47916666666666,
+        "lo": 70.83333333333334,
+        "hi": 78.64583333333334
+       },
+       {
+        "x": 46.142583333333334,
+        "y": 88.54166666666666,
+        "lo": 85.41666666666666,
+        "hi": 91.66666666666666
+       }
+      ],
+      "overlaps": []
+     }
+    ]
+   }
+  ]
+ },
+ "manuscript": {
+  "brokenLinks": [],
+  "tables": 4,
+  "badTableRows": [],
+  "controlChars": 0,
+  "fig2AltTextPerCall": false,
+  "fig2AltTextQueryUnit": true,
+  "fig2CaptionQueryUnit": true,
+  "readmePerCall": false,
+  "readmeQueryUnit": true
+ },
+ "checks": {
+  "P1 haiku S1 compact max_tokens 24/48": true,
+  "P1 haiku S3 compact max_tokens 1/48": true,
+  "P1 haiku S1 turn max_tokens 2/192": true,
+  "P1 gpt4o 1453 active calls without stop reason": true,
+  "P1 caps 60/512/400, tool rounds 3": true,
+  "P2 gpt4o D 91438/144": true,
+  "P2 haiku D 110139/144": true,
+  "P3 gpt4o S3 cache 0.0499388, 3.5% vs S0": true,
+  "order S0..S4 in all 24 sessions": true,
+  "P2 figure coordinates identical to base": true,
+  "P2 exp2 fig5 x label is per query": true,
+  "P2 x labels fit the canvas": true,
+  "P2 no label overlaps in fig5/fig2": true,
+  "P2 manuscript figure 2 unit": true,
+  "P2 README unit": true,
+  "manuscript links resolve": true,
+  "manuscript tables well formed": true,
+  "manuscript control chars 0": true
+ }
+}
