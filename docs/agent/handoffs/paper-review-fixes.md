@@ -66,3 +66,4 @@
 - 2026-11-13 원고: 초록 국·영(S1→S3, S2 비용 구분, S0 93.1%), 3.2 선택기 의사코드, 표 2·그림 2 단위, 6.2 출력 한도·도구 왕복·실행 순서, 6.3 content-match 정의·한계, 표 3 S1·S3 비용(기술 통계), 6.4 S3 비교, VII 종료 분포·관측 공백·캐시 순서 범위, VIII 재현 묶음 남은 작업
 - 리뷰 원문과 다른 사실 2건: 요약문은 결과 파일에 저장돼 있음, 중단된 것은 시도 1개의 호출 7건
 - NOT RUN: 최종 2단 제출본(HWP·PDF) 검증. 메인 checkout `paper/`에 제출 파일이 없다
+- 2026-11-13 Argon milestone(`codex_review/argon/2026-11-13_paper-fixes-milestone-argon.md`, 실제 응답 모델 gemini-4-argon): APPROVE, 지적 0. 확인 불가로 남긴 YESNO 집합은 `selector.mjs:79`에서 직접 확인했고 원고 출처 줄 범위에 79를 더했다

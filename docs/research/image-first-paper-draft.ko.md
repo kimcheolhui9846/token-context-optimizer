@@ -87,7 +87,7 @@ selectWindow(OCR 줄 목록, 질문, W, H)
   창을 가운데 기준으로 최소 256 × 128까지 넓힌 뒤 이미지 경계로 자른다
 ```
 
-OCR confidence는 동점 처리에만 쓰며 신뢰도 임계값은 없다. 미발견이면 실험 2의 C·D는 B와 같은 전체 1536/q75 변환을, 실험 3은 썸네일 없이 전체 arm 변환 이미지를 쓴다. 이 의사코드는 실험 경로의 규칙을 기술한 것이며 일반 crop 알고리즘으로서의 우월성을 뜻하지 않는다. [출처: `research/src/selector.mjs:13,35-41,81-112`, `research/src/variants.mjs:85-94`, `research/src/session-harness.mjs:166-167`]
+OCR confidence는 동점 처리에만 쓰며 신뢰도 임계값은 없다. 미발견이면 실험 2의 C·D는 B와 같은 전체 1536/q75 변환을, 실험 3은 썸네일 없이 전체 arm 변환 이미지를 쓴다. 이 의사코드는 실험 경로의 규칙을 기술한 것이며 일반 crop 알고리즘으로서의 우월성을 뜻하지 않는다. [출처: `research/src/selector.mjs:13,35-41,79-112`, `research/src/variants.mjs:85-94`, `research/src/session-harness.mjs:166-167`]
 
 사전 OCR guard는 없으며 첫 응답의 대소문자 구분 없는 `UNREADABLE` substring만 검사한다. 표지가 있으면 같은 배정 variant를 변환 없이 최대 한 번 재요청한다. 손상 조건에서 원본 재요청은 손상된 입력으로 돌아갈 뿐 숨은 clean 이미지를 복구하지 않는다. 응답·실제 variant·crop 경계·변환 이력을 기록하며 재요청이 가독성을 보장한다고 해석하지 않는다.
 
