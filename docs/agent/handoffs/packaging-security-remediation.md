@@ -30,6 +30,7 @@
 3. vendored: `docs/licenses/vendored-components.json`(이름·버전·npm integrity·원문 파일·sha256)과 정확 버전 npm tarball에서 꺼낸 LICENSE 원문. 표지가 manifest에 없거나 버전이 다르면 빌드 실패.
 4. jpeg-js의 기존 decoder/encoder 부가 고지는 유지한다. 고지 텍스트 줄끝은 LF로 맞춘다.
 5. 배포: 고지는 설치되는 `bin/token-context-optimizer.mjs` 머리말에 들어간다(설치 runtime 파일 4개 그대로). README에 위치를 적는다.
+6. 탐지 한계: 실패 조건은 metafile 패키지의 LICENSE 부재와 인식된 `#region …node_modules…` 표지의 버전·원문 불일치뿐이다. 표지 없이 인라인된 upstream 코드는 잡지 못하므로 의존성을 올릴 때 upstream dist 구조를 따로 대조한다(2026-11-13 primary 지적으로 README·주석 표현을 좁힘).
 
 ## RED·수용 행렬
 - `tests/third-party-notices.test.ts`: (a) 현재 번들 입력을 esbuild metafile로 다시 계산해 node_modules 패키지와 vendored 구성요소를 모두 얻고, 커밋된 번들과 설치 사본 각각에 이름·정확 버전·LICENSE 원문이 있는지 본다. 기준 번들에서 MCP·zod·vendored 6개가 빠져 RED.

@@ -9,7 +9,11 @@
 //   other packages (rolldown/rollup `//#region ../../node_modules/.pnpm/<dir>/node_modules/<pkg>/`
 //   markers). Those packages are not installed, so their license texts are kept in
 //   docs/licenses/vendored/ and pinned by docs/licenses/vendored-components.json.
-// Anything that cannot be attributed to an exact version and a recorded license fails the build.
+// The build fails when a metafile package has no license file, or when a recognised
+// `//#region …node_modules…` marker cannot be attributed to an exact version with a recorded
+// license. Detection is limited to those two sources: code that a dependency inlines without such
+// a marker (another bundler, stripped comments, copied source) is not seen here, so a dependency
+// upgrade still needs a separate look at the upstream dist layout.
 // This is notice coverage only; it is not a legal compatibility review.
 import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
@@ -69,7 +73,10 @@ function packageDirFromInput(input, name) {
   return normalized.slice(0, index + "node_modules/".length + name.length);
 }
 
-/** Parses prebuilt-dist region markers that name code from other packages. Fails closed. */
+/**
+ * Parses prebuilt-dist `#region` markers that name code from other packages. A recognised marker
+ * that cannot be attributed throws; code without such a marker is not detected.
+ */
 export function parseVendoredMarkers(source) {
   const found = [];
   const seen = new Set();
