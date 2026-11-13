@@ -6,7 +6,7 @@
 - 상태: 구현·전체 gate 완료, Astra 최종 검토 대기. Ready·merge 안 함.
 
 ## 1. base 기준선 (5d668f9, Node 24.18.0, npm 11.16.0, vitest 3.2.7)
-- 실행(build 뒤 `vitest run`): 50 files, 4354 pass / 5 skip (4359). `vitest list`는 4358을 보고한다(두 버전 모두 같은 차이, 수집 방식 차이로 판단하고 원인은 확인하지 않음). #116의 52 files/4367은 다른 base라 쓰지 않는다.
+- 실행(build 뒤 `vitest run`): 50 files, 4354 pass / 5 skip (4359). `vitest list`는 4358을 보고한다(두 버전 모두 같은 차이, 수집 방식 차이로 판단하고 원인은 확인하지 않음). #116의 52 files/4367은 같은 base 5d668f9에 #116 테스트를 더한 다른 Task head(1112702)의 수치라 이 브랜치 기준선으로 쓰지 않는다.
 - `npm audit` 전체 7(critical 2, high 4, moderate 1) / `--omit=dev` 2.
   - runtime 2(이번 범위 밖, #116에서 처리): `@modelcontextprotocol/server` 2.0.0, `zod` 4.4.3.
   - dev 5: vitest 3.2.7, @vitest/mocker 3.2.7, tinypool 1.1.1, vite 7.3.6, source-map-js 1.2.1.
@@ -32,7 +32,7 @@
 - ci 0, build 0, test 0, typecheck 0, smoke 0, validate 0, benchmark 0. 로그는 `gate2-546280a/`.
 - test 50 files, 4354 pass / 5 skip (4359). base 실행(`base-run-5d668f9/`, build 뒤)과 파일별 상태 수, skip 5건 목록이 모두 같다. mock(`vi.mock`/`doMock`/`importActual`/`resetModules`/`restoreAllMocks`)과 기본 pool(forks) 회귀는 없다.
 - base 복사본에서 build 없이 실행했을 때 smoke 관련 4건이 실패했다(`test-nobuild.log`). gate 순서(build 먼저)로 다시 실행해 통과했다. 이번 변경과는 관계없다.
-- `bin/`은 build 뒤 CRLF만 달라지고 내용(`--ignore-cr-at-eol`)은 같아서 그 파일만 되돌렸다. status는 gate 전후 모두 clean이다.
+- status 순서(`gate2-546280a/`): gate 전(`status-before.txt`)·build 전(`status-before-build.txt`) clean → build 직후(`status-after-build.txt`)와 gate 직후(`status-after.txt`)에 `M bin/token-context-optimizer.mjs`(CRLF만 다름) → `--ignore-cr-at-eol`로 내용 동치를 확인(`bin-diff.txt`)한 뒤 그 생성물만 되돌림 → 최종 clean.
 
 ## 5. Node 버전
 - runtime `engines.node >=22.0.0`은 바꾸지 않았다.
