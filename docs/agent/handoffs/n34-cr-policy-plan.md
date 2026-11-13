@@ -48,7 +48,12 @@
 
 - 계획 수치와 경로를 위 raw·현재 소스로 직접 대조했다
 - `git diff --check` 통과(커밋 전)
-- Argon 교차 확인 결과는 완료 보고 `codex_review/codex_paste_2026-11-13_n34-plan.md`에 적는다
+- Argon(gemini-4-argon) 1회 성공: APPROVE, Nit 2건 직접 확인 후 채택
+  - §8.5 메모리 timeout이 N-33 D2(300 s)와 다른데 설명이 없었다 → 600 s 고정 사유와 module import 순서를 적었다
+  - §2 diff 삽입 위치 표기가 §6과 달랐다 → `]);` 다음 빈 줄 뒤로 통일했다(분석 `candidate-c2.diff`와 같음)
+  - 추가로 OOM 분류가 N-33과 다른 점(메모리 블록 CAND 단독 OOM = FAIL, 시간 블록은 INVALID)을 명시했다
+- Argon이 발췌 밖이라 "확인 불가"로 남긴 항목(`"terraform",` 앵커 1회, split 리터럴 3회, N-33 R2 12-순환·≥50 ms, D2 임계, run5 진단 수치)은 원문에서 직접 확인했다
+- 완료 보고: `codex_review/codex_paste_2026-11-13_n34-plan.md`
 
 ## 다음
 

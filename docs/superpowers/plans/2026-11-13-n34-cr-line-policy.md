@@ -31,7 +31,7 @@
 `src/core/policy.ts`만 바꾼다. 원문 텍스트, 해시, sourceMap, `EXACT_PATTERNS`, `COMMANDS`, 다른 predicate는 바꾸지 않는다. 공개 API·스키마·오류 문구 변화 없음.
 
 ```diff
-@@ "terraform",\n]);\n 바로 뒤
+@@ COMMANDS의 `]);` 다음 빈 줄 뒤(= '  "terraform",\n]);\n\n' 뒤), `type PolicyPredicate` 앞
 +// Same line terminators as scanLines in artifacts.ts: CRLF, lone CR, lone LF.
 +const POLICY_LINE_BREAK = /\r\n|\r|\n/u;
 +
@@ -179,14 +179,16 @@
 - 통계: nearest-rank, median = `sorted[14]`, p95 = `sorted[28]`(n=30). n≠30 또는 비유한 값 = INVALID.
 - A/A 유효(B1/B2, C1/C2 각각): 중앙값 비 ∈ [0.95, 1.05] 또는 |Δmedian| ≤ 0.1 ms, 그리고 |Δp95| ≤ max(0.2 ms, 참조 p95 × 0.20). 무효면 30 s 뒤 새 child로 시도 전체 재실행, 최대 3시도. **세 번째 무효 = 필수 INVALID, 측정 중단(PASS 아님).**
 - 판정(G-R·G-C 공통, N-33 D1 임계): CAND median ≤ max(REF median × 1.10, REF median + 0.5 ms), CAND p95 ≤ max(REF p95 × 1.20, REF p95 + 1 ms). REF = 해당 비교의 BASE 사본 B1. 유효 FAIL은 재시도·완화·진단 강등 없이 중단한다.
+- 시간 블록의 timeout·spawn 실패·JSON 1줄 아님·비정상 종료·OOM·표본 누락은 N-33 §3처럼 INVALID로 중단한다(빈 집계·exit 0은 PASS가 아님).
 - child timeout 1,800 s(10 MiB × 144표본 + 보정을 위해 N-33의 1 MiB용 600 s에서 늘림. 결과를 보기 전 고정). 순서: O1(F3, F4, F5, F6L, F7L, F1, F2, F6, F7) → O2(같은 순서).
 
 ### 8.5 메모리·자원 gate(필수, 시간 gate 뒤 독립 블록)
 
-- N-33 D2 절차: 비교마다 arm × 3회, 반복마다 fresh hidden child, `--expose-gc`만(heap 플래그 없음 = 기본 heap), 한 번에 한 child, 짝수 반복 BASE→CAND·홀수 CAND→BASE. timeout 600 s.
-- child: 입력 문자열 생성(O2는 파일 쓰기까지) → GC 3회 → before = `heapUsed + external` → 연산 1회 → 결과(O2는 record·store)를 전역에 살려 둔 채 GC 3회 → after. **R(retained) = after − before. P(peak 대용) = `process.resourceUsage().maxRSS` × 1024**(프로세스 high-water, split 순간의 정확한 heap peak가 아님). 출력 digest 기록.
+- N-33 D2 절차: 비교마다 arm × 3회, 반복마다 fresh hidden child, `--expose-gc`만(heap 플래그 없음 = 기본 heap), 한 번에 한 child, 짝수 반복 BASE→CAND·홀수 CAND→BASE. timeout 600 s(N-33 D2는 1 MiB 입력에 300 s. 10 MiB·O2 파일 쓰기 때문에 결과를 보기 전 600 s로 고정).
+- child: 모듈 import → 입력 문자열 생성(O2는 파일 쓰기까지) → GC 3회 → before = `heapUsed + external` → 연산 1회 → 결과(O2는 record·store)를 전역에 살려 둔 채 GC 3회 → after. **R(retained) = after − before. P(peak 대용) = `process.resourceUsage().maxRSS` × 1024**(프로세스 high-water, split 순간의 정확한 heap peak가 아님). 출력 digest 기록.
 - 3회 nearest-rank median. 판정(N-33 D2 임계): R_CAND ≤ R_REF + max(1 MiB, R_REF × 0.02), **그리고** P_CAND ≤ P_REF × 1.10 + 32 MiB. P가 0·비유한이면 `unmeasurable`(PASS 아님).
-- 자원 실패 정의: REF가 완료한 입력에서 CAND child가 OOM(비정상 종료, `FATAL ERROR … heap` stderr)·timeout·`RangeError`를 내면 **`failed_gate`(자원 FAIL)**, 재시도하지 않는다. REF가 실패하면 `ref_failed`로 기록하고 그 비교는 판정 불가 → 필수 gate는 PASS가 아니며 새 사용자 결정이 필요하다. spawn 실패·JSON 1줄 아님·표본 누락 = INVALID.
+- N-33과 다른 점(의도적): N-33 §3은 OOM·timeout을 모두 INVALID로 보았다. 시간 블록은 네 사본이 한 child에 있어 원인을 arm에 귀속할 수 없으므로 그대로 INVALID로 둔다. 메모리 블록은 arm마다 child가 따로라서 CR-dense 할당 위험을 직접 판정하도록 아래처럼 FAIL로 분류한다.
+- 자원 실패 정의(메모리 블록): REF가 완료한 입력에서 CAND child가 OOM(비정상 종료, `FATAL ERROR … heap` stderr)·timeout·`RangeError`를 내면 **`failed_gate`(자원 FAIL)**, 재시도하지 않는다. REF가 실패하면 `ref_failed`로 기록하고 그 비교는 판정 불가 → 필수 gate는 PASS가 아니며 새 사용자 결정이 필요하다. spawn 실패·JSON 1줄 아님·표본 누락 = INVALID.
 - 종료 사유 우선순위: failed_correctness > failed_gate > invalid. **최종 승인 = 시간 gate PASS 그리고 메모리 gate PASS일 때만.**
 
 ### 8.6 보존·금지·재현
