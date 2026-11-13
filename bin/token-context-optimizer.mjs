@@ -22823,6 +22823,7 @@ var COMMANDS = /* @__PURE__ */ new Set([
   "systemctl",
   "terraform"
 ]);
+var POLICY_LINE_BREAK = /\r\n|\r|\n/u;
 var SQL_LEADING_KEYWORD = /\b(?:SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|JOIN|CREATE|ALTER|DROP)\b/gu;
 var SQL_TRAILING_KEYWORD = /\b(?:FROM|WHERE|SET|VALUES|TABLE)\b/gu;
 var PHP_OPENER = /<\?[A-Za-z]/gu;
@@ -23379,7 +23380,7 @@ function isPositiveSemanticText(content) {
   if (trimmed.length < 24) {
     return false;
   }
-  const lines = trimmed.split(/\r?\n/u).map((line) => line.trim()).filter(Boolean);
+  const lines = trimmed.split(POLICY_LINE_BREAK).map((line) => line.trim()).filter(Boolean);
   if (lines.length === 0) {
     return false;
   }
@@ -23430,10 +23431,10 @@ function hasCommandArgumentShape(content) {
   return false;
 }
 function containsTechnicalTokenShape(content) {
-  return content.split(/\r?\n/u).some((line) => hasTechnicalTokenShape(line));
+  return content.split(POLICY_LINE_BREAK).some((line) => hasTechnicalTokenShape(line));
 }
 function containsShellCommand(content) {
-  return content.split(/\r?\n/u).some((line) => isShellCommandLine(line));
+  return content.split(POLICY_LINE_BREAK).some((line) => isShellCommandLine(line));
 }
 function isShellCommandLine(line) {
   const tokens = line.trim().split(/\s+/u).filter(Boolean);
