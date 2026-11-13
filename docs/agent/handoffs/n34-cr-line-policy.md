@@ -26,7 +26,12 @@
 - [x] 읽기 전용 원인 조사(새 측정·하네스 수정 없음, 아래 기록, 2026-11-13 인과 문구 정정)
 - [x] milestone Argon(`codex_review/argon/2026-11-13_n34-cr-line-policy-milestone-{bundle,argon}.md`, APPROVE 지적 0; 이때 본 단순 역순안은 뒤에 철회) → 완료 보고 `codex_review/codex_paste_2026-11-13_n34-cr-line-policy.md`
 - [x] primary 최종 검토(2026-11-13): **CHANGES REQUIRED**(`codex_review/review_2026-11-13_pr119-n34-impl-review.md`). 필수 시간 gate INVALID·메모리 NOTRUN이라 완료 판정 불가. primary가 직접 검토했고 별도 Astra agent는 없다
-- [ ] run2: 구체안 `codex_review/review_2026-11-13_n34-run2-proposal.md`(권장안 A: 원 순환과 `ADACDBDCBABC` 교대, 새 prereg·run2, 임계·입력·중단 기준 유지) **사용자 결정 대기**. 승인 전 구현·측정·Ready·merge 없음
+- [x] run2 A안 사용자 승인(2026-11-13, `codex_review/review_2026-11-13_n34-run2-approved.md`). 승인은 검증 PASS가 아니다
+- run2 1단계(측정 전 준비, 실행권 = 준비 gate·check-only·self-check만, 10 MiB 실측 없음):
+  - [ ] RED: 순서 불변조건·음성/양성 control을 check-only에 추가(순서는 원 순환 그대로) → 실패 증거
+  - [ ] GREEN + 새 prereg: 원 순환과 `ADACDBDCBABC` 교대, `n34-cr-line-policy-prereg-run2.md`(기존 prereg 보존)
+  - [ ] check-only → 표준 7단계 → self-check `selfcheck-run2.json` → 불변 파일 hash → Argon 구현 검토
+  - [ ] 2단계(run2 실측)는 primary가 diff·preflight 확인 뒤 실행권을 넘길 때만
 
 ## 기록
 - 완료 보고·Argon 기록은 메인 checkout의 비추적 `codex_review/`에 둔다(저장소 커밋 대상 아님).
