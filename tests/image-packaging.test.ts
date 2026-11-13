@@ -23,7 +23,8 @@ function normalizeNotice(text: string): string {
 
 async function expectedLicenseNotice(packageName: string): Promise<string> {
   const license = await readFile(join("node_modules", packageName, "LICENSE"), "utf8");
-  return normalizeNotice(`Package: ${packageName}\n${license}`);
+  const pkg = JSON.parse(await readFile(join("node_modules", packageName, "package.json"), "utf8")) as { version: string; license: string };
+  return normalizeNotice(`Package: ${packageName}@${pkg.version}\nDeclared license: ${pkg.license}\nFile: LICENSE\n${license}`);
 }
 
 async function expectedDecoderApacheNotice(): Promise<string> {

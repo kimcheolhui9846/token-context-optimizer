@@ -3,7 +3,7 @@ import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { fromJSONSchema } from "zod/v4";
+import { fromAdvertisedSchema } from "./helpers/advertised-schema.js";
 import { validateJpeg } from "../src/core/jpeg-validation.js";
 import { CropMcpClient, type RpcResponse } from "./helpers/crop-mcp-client.js";
 import { deflateSync } from "node:zlib";
@@ -196,7 +196,7 @@ describe("crop_image_artifact MCP contract", () => {
     const f = await fixture(sourceBytes, "tolerant-source.jpg");
     await withClient(f.root, async (client) => {
       const tools = await client.listTools();
-      const schemaOf = (name: string) => fromJSONSchema(tools.find((tool) => tool.name === name).outputSchema);
+      const schemaOf = (name: string) => fromAdvertisedSchema(tools.find((tool) => tool.name === name).outputSchema);
       const indexSchema = schemaOf("index_image_artifact");
       const inspectSchema = schemaOf("inspect_image_artifact");
       const overviewSchema = schemaOf("overview_image_artifact");
@@ -281,7 +281,7 @@ describe("crop_image_artifact MCP contract", () => {
           artifactId: indexed.artifactId,
           maxSide: 64,
         }));
-        const overviewSchema = fromJSONSchema(
+        const overviewSchema = fromAdvertisedSchema(
           (await client.listTools()).find((tool) => tool.name === "overview_image_artifact").outputSchema,
         );
         expect(overview.content).toHaveLength(2);
@@ -378,7 +378,7 @@ describe("crop_image_artifact MCP contract", () => {
       expect(cropped.structuredContent.source.ignoredChunks).toEqual(["sRGB", "gAMA", "pHYs"]);
       const inspected = resultOf(await client.call("inspect_image_artifact", { artifactId: response.structuredContent.artifactId }));
       expect(inspected.structuredContent).toEqual(response.structuredContent);
-      const cropSchema = fromJSONSchema((await client.listTools()).find((tool) => tool.name === "crop_image_artifact").outputSchema);
+      const cropSchema = fromAdvertisedSchema((await client.listTools()).find((tool) => tool.name === "crop_image_artifact").outputSchema);
       const original = resultOf(await client.call("crop_image_artifact", { artifactId: response.structuredContent.artifactId, region: { x: 0, y: 0, width: 1537, height: 2 } }));
       const rejected = resultOf(await client.call("crop_image_artifact", { artifactId: response.structuredContent.artifactId, region: { x: 0, y: 0, width: 1537, height: 1 } }));
       expect(original.structuredContent.status).toBe("original");
@@ -434,7 +434,7 @@ describe("crop_image_artifact MCP contract", () => {
       expect(structured.output.byteLength).toBe(encoded.length);
       expect(structured.output.sha256).toBe(createHash("sha256").update(encoded).digest("hex"));
       expect(validateJpeg(encoded)).toMatchObject({ width: 2, height: 1, channels: 3, format: "jpeg", mimeType: "image/jpeg", validationProfile: "jpeg-ycbcr8-baseline-444-v1" });
-      expect(fromJSONSchema((await client.listTools()).find((tool) => tool.name === "crop_image_artifact").outputSchema).safeParse(structured).success).toBe(true);
+      expect(fromAdvertisedSchema((await client.listTools()).find((tool) => tool.name === "crop_image_artifact").outputSchema).safeParse(structured).success).toBe(true);
       expect(await readFile(f.path)).toEqual(before);
     });
   });
@@ -449,7 +449,7 @@ describe("crop_image_artifact MCP contract", () => {
         expect(result.structuredContent.source).toEqual(indexed); expect(result.structuredContent.output).toBeUndefined();
         expect(result.content).toHaveLength(1); expect(result.content[0].type).toBe("text");
         const crop = (await client.listTools()).find((tool) => tool.name === "crop_image_artifact");
-        expect(fromJSONSchema(crop.outputSchema).safeParse(result.structuredContent).success).toBe(true);
+        expect(fromAdvertisedSchema(crop.outputSchema).safeParse(result.structuredContent).success).toBe(true);
       });
     }
   });
@@ -462,7 +462,7 @@ describe("crop_image_artifact MCP contract", () => {
       expect(result.isError).toBe(true); expect(result.content).toHaveLength(1); expect(result.content[0].type).toBe("text");
       expect(result.structuredContent).toMatchObject({ status: "rejected", code: "resize_required", fullFrame: false, source: indexed });
       const crop = (await client.listTools()).find((tool) => tool.name === "crop_image_artifact");
-      expect(fromJSONSchema(crop.outputSchema).safeParse(result.structuredContent).success).toBe(true);
+      expect(fromAdvertisedSchema(crop.outputSchema).safeParse(result.structuredContent).success).toBe(true);
     });
   });
 
