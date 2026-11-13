@@ -64,6 +64,7 @@
 - Argon 오라클 수정(1회): APPROVE, 지적 0. 묶음·결과: `codex_review/argon/2026-11-13_packaging-security-oracle-{bundle,argon}.md`.
 
 ## 남은 경고와 후속 제안 (major, 미적용)
+- 상세 조사·승인안·oracle truth table: [packaging-security-dev-advisories.md](packaging-security-dev-advisories.md)(2026-11-13 coordinator 추가 요청, 구현 변경 없음).
 - vitest 3.2.7(GHSA-82fw, <4.1.11), @vitest/mocker 3.2.7(GHSA-82fw, GHSA-qxg6 <4.1.12), tinypool 1.1.1(GHSA-5gmw ≤2.1.0, GHSA-85c8 <2.1.2). 모두 dev 전용이고 번들에 없다.
 - 노출 조건(공식 원문): mocker 두 건은 dev server WebSocket에 닿는 공격자. tinypool 두 건은 같은 프로세스의 prototype pollution primitive가 따로 있어야 하고, 85c8은 caller가 `run()` options를 넘길 때만. 이 저장소의 vitest 실행에서 그 조건이 성립하는지는 확인하지 않았다.
 - 후보: vitest `^4.1.12`(3→4 major). 4.1.12는 @vitest/mocker 4.1.12를 쓰고 tinypool 의존이 없다. engines `^20 || ^22 || >=24`. audit이 제시한 5.1.0은 engines `^22.12.0`부터라 저장소 `>=22.0.0`보다 좁다.
