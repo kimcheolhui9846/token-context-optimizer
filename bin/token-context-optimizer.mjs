@@ -23644,13 +23644,57 @@ function estimateContext(input) {
 }
 
 // src/core/artifacts.ts
+var DEFAULT_MAX_ESTIMATED_BYTES = 256 * 1024 * 1024;
 var MemoryArtifactStore = class {
-  records = /* @__PURE__ */ new Map();
+  entries = /* @__PURE__ */ new Map();
+  maxEstimatedBytes;
+  totalEstimatedBytes = 0;
+  constructor(options) {
+    if (options === void 0) {
+      this.maxEstimatedBytes = DEFAULT_MAX_ESTIMATED_BYTES;
+      return;
+    }
+    if (options === null || typeof options !== "object" || Array.isArray(options)) {
+      throw new Error("MemoryArtifactStore options must be an object");
+    }
+    const max2 = options.maxEstimatedBytes;
+    if (max2 === void 0) {
+      this.maxEstimatedBytes = DEFAULT_MAX_ESTIMATED_BYTES;
+      return;
+    }
+    if (!Number.isSafeInteger(max2) || max2 <= 0) {
+      throw new Error("maxEstimatedBytes must be a positive safe integer");
+    }
+    this.maxEstimatedBytes = max2;
+  }
   get(artifactId) {
-    return this.records.get(artifactId);
+    const entry = this.entries.get(artifactId);
+    if (!entry) return void 0;
+    this.entries.delete(artifactId);
+    this.entries.set(artifactId, entry);
+    return entry.record;
   }
   put(record2) {
-    this.records.set(record2.artifactId, record2);
+    const { byteLength, lineCount } = record2;
+    if (!Number.isSafeInteger(byteLength) || byteLength < 0 || !Number.isSafeInteger(lineCount) || lineCount < 0) {
+      throw new Error("Artifact record byteLength and lineCount must be non-negative safe integers");
+    }
+    const weight = 2 * byteLength + 160 * lineCount + 32768;
+    if (!Number.isSafeInteger(weight)) {
+      throw new Error("Artifact record estimated weight must be a safe integer");
+    }
+    const previous = this.entries.get(record2.artifactId);
+    if (previous) {
+      this.totalEstimatedBytes -= previous.weight;
+      this.entries.delete(record2.artifactId);
+    }
+    this.entries.set(record2.artifactId, { record: record2, weight });
+    this.totalEstimatedBytes += weight;
+    while (this.totalEstimatedBytes > this.maxEstimatedBytes && this.entries.size > 1) {
+      const [oldestId, oldest] = this.entries.entries().next().value;
+      this.entries.delete(oldestId);
+      this.totalEstimatedBytes -= oldest.weight;
+    }
   }
 };
 var defaultArtifactStore = new MemoryArtifactStore();

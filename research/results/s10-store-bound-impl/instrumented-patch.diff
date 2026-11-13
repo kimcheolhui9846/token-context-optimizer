@@ -1,0 +1,88 @@
+diff --git a/bin/token-context-optimizer.mjs b/bin/token-context-optimizer.mjs
+index 6a9bdf5..6e175ee 100644
+--- a/bin/token-context-optimizer.mjs
++++ b/bin/token-context-optimizer.mjs
+@@ -22790,6 +22790,7 @@ function toError(value) {
+ 
+ // src/core/artifacts.ts
+ import { createHash } from "node:crypto";
++import { appendFileSync as s10AppendFileSync } from "node:fs";
+ import { basename } from "node:path";
+ 
+ // src/core/policy.ts
+@@ -23644,6 +23645,16 @@ function estimateContext(input) {
+ }
+ 
+ // src/core/artifacts.ts
++var s10ProcessMaxTotal = 0;
++function s10Instrument(max2, total, count, evicted) {
++  const log = process.env.S10_EVICTION_LOG;
++  if (!log) return;
++  const preTotalApprox = total;
++  if (evicted > 0 || preTotalApprox > s10ProcessMaxTotal) {
++    if (preTotalApprox > s10ProcessMaxTotal) s10ProcessMaxTotal = preTotalApprox;
++    s10AppendFileSync(log, JSON.stringify({ pid: process.pid, max: max2, total, count, evicted, defaultBudget: max2 === DEFAULT_MAX_ESTIMATED_BYTES }) + String.fromCharCode(10));
++  }
++}
+ var DEFAULT_MAX_ESTIMATED_BYTES = 256 * 1024 * 1024;
+ var MemoryArtifactStore = class {
+   entries = /* @__PURE__ */ new Map();
+@@ -23690,11 +23701,14 @@ var MemoryArtifactStore = class {
+     }
+     this.entries.set(record2.artifactId, { record: record2, weight });
+     this.totalEstimatedBytes += weight;
++    let s10Evicted = 0;
+     while (this.totalEstimatedBytes > this.maxEstimatedBytes && this.entries.size > 1) {
+       const [oldestId, oldest] = this.entries.entries().next().value;
+       this.entries.delete(oldestId);
+       this.totalEstimatedBytes -= oldest.weight;
++      s10Evicted += 1;
+     }
++    s10Instrument(this.maxEstimatedBytes, this.totalEstimatedBytes, this.entries.size, s10Evicted);
+   }
+ };
+ var defaultArtifactStore = new MemoryArtifactStore();
+diff --git a/src/core/artifacts.ts b/src/core/artifacts.ts
+index 1a11f27..9196cc7 100644
+--- a/src/core/artifacts.ts
++++ b/src/core/artifacts.ts
+@@ -1,4 +1,5 @@
+ import { createHash } from "node:crypto";
++import { appendFileSync as s10AppendFileSync } from "node:fs";
+ import { basename } from "node:path";
+ 
+ import { classifyContext, lossyCompressionAllowed } from "./policy.js";
+@@ -11,6 +12,18 @@ export interface ArtifactStore {
+   put(record: ArtifactRecord): void;
+ }
+ 
++// S10-INSTRUMENT (temporary copy only, never committed)
++let s10ProcessMaxTotal = 0;
++function s10Instrument(max: number, total: number, count: number, evicted: number): void {
++  const log = process.env.S10_EVICTION_LOG;
++  if (!log) return;
++  const preTotalApprox = total;
++  if (evicted > 0 || preTotalApprox > s10ProcessMaxTotal) {
++    if (preTotalApprox > s10ProcessMaxTotal) s10ProcessMaxTotal = preTotalApprox;
++    s10AppendFileSync(log, JSON.stringify({ pid: process.pid, max, total, count, evicted, defaultBudget: max === DEFAULT_MAX_ESTIMATED_BYTES }) + String.fromCharCode(10));
++  }
++}
++
+ const DEFAULT_MAX_ESTIMATED_BYTES = 256 * 1024 * 1024;
+ 
+ // Process-local text artifact store with an estimated-bytes soft bound (S-10).
+@@ -74,11 +87,14 @@ export class MemoryArtifactStore implements ArtifactStore {
+     this.totalEstimatedBytes += weight;
+ 
+     // The new entry is the most recent, so with size > 1 the oldest is never the new one.
++    let s10Evicted = 0;
+     while (this.totalEstimatedBytes > this.maxEstimatedBytes && this.entries.size > 1) {
+       const [oldestId, oldest] = this.entries.entries().next().value!;
+       this.entries.delete(oldestId);
+       this.totalEstimatedBytes -= oldest.weight;
++      s10Evicted += 1;
+     }
++    s10Instrument(this.maxEstimatedBytes, this.totalEstimatedBytes, this.entries.size, s10Evicted);
+   }
+ }
+ 
