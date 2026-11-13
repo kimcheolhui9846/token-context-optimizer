@@ -4,7 +4,7 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { fromJSONSchema } from "zod/v4";
+import { fromAdvertisedSchema } from "./helpers/advertised-schema.js";
 import { indexImageArtifact, inspectImageArtifact, MemoryImageArtifactStore } from "../src/core/image-artifacts.js";
 import { validateJpeg } from "../src/core/jpeg-validation.js";
 
@@ -41,7 +41,7 @@ describe("checked-in JPEG fixtures", () => {
     const tolerant = { ...png, validationProfile: "png-rgb8-tolerant-v1", ignoredChunks: ["sRGB"], alpha: "opaque" };
     const jpeg = { artifactId: "image_jpeg", path: "a.jpg", sha256: "b", byteLength: 1, format: "jpeg", mimeType: "image/jpeg", width: 17, height: 9, channels: 3, bitDepth: 8, validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
     for (const tool of imageTools) {
-      const schema = fromJSONSchema(tool.outputSchema); expect(schema.safeParse(png).success).toBe(true); expect(schema.safeParse(tolerant).success).toBe(true); expect(schema.safeParse(jpeg).success).toBe(true);
+      const schema = fromAdvertisedSchema(tool.outputSchema); expect(schema.safeParse(png).success).toBe(true); expect(schema.safeParse(tolerant).success).toBe(true); expect(schema.safeParse(jpeg).success).toBe(true);
       expect(schema.safeParse({ ...tolerant, alpha: undefined }).success).toBe(false);
       expect(schema.safeParse({ ...tolerant, ignoredChunks: "sRGB" }).success).toBe(false);
       expect(schema.safeParse({ ...tolerant, ignoredChunks: undefined }).success).toBe(false);
@@ -66,7 +66,7 @@ describe("checked-in JPEG fixtures", () => {
     const jpegTolerant = { ...jpeg, artifactId: "image_jpeg_tolerant", validationProfile: "jpeg-ycbcr8-tolerant-v1", coding: "progressive", sampling: "2x2,1x1,1x1", ignoredSegments: ["APP1", "COM"], exifOrientation: 6 };
     for (const tool of imageTools) {
       expect(tool.outputSchema.anyOf.map((variant: any) => variant.properties.validationProfile.const)).toEqual(["png-rgb8-static-v1", "png-rgb8-tolerant-v1", "jpeg-ycbcr8-baseline-444-v1", "jpeg-ycbcr8-tolerant-v1"]);
-      const schema = fromJSONSchema(tool.outputSchema);
+      const schema = fromAdvertisedSchema(tool.outputSchema);
       for (const record of [png, pngTolerant, jpeg, jpegTolerant]) expect(schema.safeParse(record).success).toBe(true);
       for (const coding of ["baseline", "extended", "progressive"]) expect(schema.safeParse({ ...jpegTolerant, coding }).success).toBe(true);
       for (const sampling of ["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]) expect(schema.safeParse({ ...jpegTolerant, sampling }).success).toBe(true);
