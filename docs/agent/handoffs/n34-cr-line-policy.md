@@ -24,8 +24,9 @@
 - [x] 시간 gate run1 → **최종 INVALID(exit 5)**: O2/F1 C1/C2 A/A 3시도 모두 무효. 사전등록대로 중단, 메모리·정보용 미실행, 재실행 없음
 - [x] 자원 gate 상태: 시간 **INVALID**(14 PASS + 1 INVALID + 3 NOTRUN), 메모리·정보용 **NOTRUN**. run1을 PASS로 바꾸지 않음
 - [x] 읽기 전용 원인 조사(새 측정·하네스 수정 없음, 아래 기록, 2026-11-13 인과 문구 정정)
-- [ ] run2 여부: 구체안 검토 뒤 coordinator·사용자 결정
-- [ ] milestone Argon → 완료 보고 `codex_review/codex_paste_2026-11-13_n34-cr-line-policy.md`
+- [x] milestone Argon(`codex_review/argon/2026-11-13_n34-cr-line-policy-milestone-{bundle,argon}.md`, APPROVE 지적 0; 이때 본 단순 역순안은 뒤에 철회) → 완료 보고 `codex_review/codex_paste_2026-11-13_n34-cr-line-policy.md`
+- [x] primary 최종 검토(2026-11-13): **CHANGES REQUIRED**(`codex_review/review_2026-11-13_pr119-n34-impl-review.md`). 필수 시간 gate INVALID·메모리 NOTRUN이라 완료 판정 불가. primary가 직접 검토했고 별도 Astra agent는 없다
+- [ ] run2: 구체안 `codex_review/review_2026-11-13_n34-run2-proposal.md`(권장안 A: 원 순환과 `ADACDBDCBABC` 교대, 새 prereg·run2, 임계·입력·중단 기준 유지) **사용자 결정 대기**. 승인 전 구현·측정·Ready·merge 없음
 
 ## 기록
 - 완료 보고·Argon 기록은 메인 checkout의 비추적 `codex_review/`에 둔다(저장소 커밋 대상 아님).
