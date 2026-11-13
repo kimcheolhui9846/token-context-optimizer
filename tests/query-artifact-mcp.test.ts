@@ -200,6 +200,48 @@ describe("query_artifact MCP contract", () => {
       await rm(f.root, { recursive: true, force: true });
     }
   });
+
+  // N-35/N-36 (plan PR #117). Non-ASCII text is built from code points.
+  it("T35-5 returns the spaced Hindi target over MCP instead of reporting it in moreMatches", async () => {
+    const cp = (...points: number[]) => String.fromCodePoint(...points);
+    const hindi = cp(0x939, 0x93f, 0x928, 0x94d, 0x926, 0x940);
+    const distractor = `${cp(0x928, 0x926, 0x940)} ${cp(0x939, 0x935, 0x93e)} ${cp(0x928, 0x926, 0x940)}`;
+    const lines: string[] = [];
+    for (let index = 0; index < 6; index += 1) lines.push(distractor, "filler", "filler", "filler", "filler", "filler");
+    lines.push(`${hindi} ${cp(0x92d, 0x93e, 0x937, 0x93e)}`);
+    const f = await fixture(lines.join("\n"));
+    const client = await CropMcpClient.start(undefined, f.root);
+    try {
+      const source = await indexed(client, f.path);
+      const response = resultOf(await client.call("query_artifact", { artifactId: source.artifactId, query: hindi, maxTokens: 400 }));
+      const spans = response.structuredContent.excerpts.map((excerpt: any) => [excerpt.sourceMap.startLine, excerpt.sourceMap.endLine]);
+      expect(spans).toEqual([[35, 37]]);
+      expect(Object.prototype.hasOwnProperty.call(response.structuredContent, "moreMatches")).toBe(false);
+      expect(response.structuredContent.fallbackReason).toBeNull();
+      expect(JSON.parse(response.content[0].text)).toStrictEqual(response.structuredContent);
+    } finally {
+      await client.close();
+      await rm(f.root, { recursive: true, force: true });
+    }
+  });
+
+  it.each([11, 1.5, -1])("C36-2 keeps rejecting contextLines %p at the MCP boundary", async (contextLines) => {
+    const f = await fixture("needle\nother\n");
+    const client = await CropMcpClient.start(undefined, f.root);
+    try {
+      const source = await indexed(client, f.path);
+      const response = await client.call("query_artifact", {
+        artifactId: source.artifactId,
+        query: "needle",
+        maxTokens: 100,
+        contextLines,
+      });
+      expect(response.error ?? response.result?.isError).toBeTruthy();
+    } finally {
+      await client.close();
+      await rm(f.root, { recursive: true, force: true });
+    }
+  });
 });
 
 describe('MCP path redaction', () => {
