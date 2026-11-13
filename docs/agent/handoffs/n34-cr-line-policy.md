@@ -17,13 +17,15 @@
 
 ## 진행
 - [x] 초기 계획 Argon
-- [ ] RED 테스트 커밋 → Draft PR
-- [ ] GREEN(C2·§6 delta·D4) → targeted
-- [ ] 표준 7단계(coordinator 실행권 필요)
-- [ ] prereg 커밋(§8 전체) → harness self-check
+- [x] RED 테스트 커밋 `b760f14` → Draft PR #119. 구현 전 vitest: `[RED-CR]` 20 실패, `[control]` 66 통과(라벨 불일치 0)
+- [x] GREEN `1add2aa`(§2 diff 그대로·§6 delta·D4 영어 문장) → targeted 4파일: 963 통과, M1 1건은 bin 재빌드 대기. 기준 3 파이프 표 불일치 159/88(계획 수치와 같음)
+- [ ] 표준 7단계: 2026-11-13 coordinator 승인 범위, dev-security-license가 실행권 반환 뒤 부여 예정(대기)
+- [ ] prereg 커밋(§8 전체) → harness self-check. 하네스·사전등록 문서 작성, `--check-only` PASS(측정 호출 0)
 - [ ] 시간 gate → 메모리 gate(coordinator 실행권 필요)
 - [ ] milestone Argon → 완료 보고 `codex_review/codex_paste_2026-11-13_n34-cr-line-policy.md`
 
 ## 기록
 - 완료 보고·Argon 기록은 메인 checkout의 비추적 `codex_review/`에 둔다(저장소 커밋 대상 아님).
 - 초기 계획 Argon: `codex_review/argon/2026-11-13_n34-cr-line-policy-initplan-{bundle,argon}.md`. Minor 1(prereg·handoff 경로 명시) 채택, Nit 1(codex_paste 위치) 위 줄로 명시.
+- `env git` R2 행: 처음 쓴 문장은 현행 CR에서도 통과해 RED가 아니었다. 분석 probe4 원문 문장으로 바꾼 뒤 RED. 사례 문장은 모두 분석 probe 원자에서 옮겼다.
+- D4: design.md가 영어 문서라 승인 문장을 영어로 옮겼다(세 predicate 한정, 예외 문장 그대로).
