@@ -1,7 +1,9 @@
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { lstat, mkdtemp, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { isAbsolute, join, parse, relative, resolve } from "node:path";
+import { basename, dirname, isAbsolute, join, parse, relative, resolve } from "node:path";
+import { deflateSync } from "node:zlib";
 
 import {
   BUNDLED_SERVER_ENTRYPOINT,
@@ -10,6 +12,7 @@ import {
   PLUGIN_NAME,
   PLUGIN_SKILLS_PATH,
   REQUIRED_MCP_ENV_VARS,
+  REQUIRED_MCP_TOOL_NAMES,
   RUNTIME_FILES,
   assertCanonicalMcpConfig,
   assertPluginManifestContract,
@@ -29,7 +32,17 @@ await assertInstalledRuntime(pluginRoot);
 const serverConfig = await readInstalledServerConfig(pluginRoot);
 const launchConfig = await resolveInstalledLaunchConfig(pluginRoot, serverConfig);
 
+const WORKSPACE_PREFIX = "tco-installed-workspace-";
+const OUTSIDE_PREFIX = "tco-installed-outside-";
+const STDERR_TAIL_CHARS = 2000;
+const VERIFICATION_SCOPE =
+  "functional smoke of the installed runtime: required tool names, text index, 2x2 PNG index and overview, " +
+  "and path_denied for an outside-root image and a plugin-root file. It does not prove installation " +
+  "authenticity, host cache activation, or exact release identity.";
+
+const tempParent = resolve(tmpdir());
 let workspaceRoot = null;
+let outsideRoot = null;
 let child = null;
 let childStdin = null;
 let buffer = "";
@@ -38,11 +51,24 @@ let consumedLines = 0;
 let childError = null;
 
 try {
-  workspaceRoot = await mkdtemp(join(tmpdir(), "tco-installed-workspace-"));
+  workspaceRoot = await mkdtemp(join(tempParent, WORKSPACE_PREFIX));
   const physicalWorkspaceRoot = await realpath(workspaceRoot);
   if (isEqualOrInsideRoot(pluginRoot, physicalWorkspaceRoot)) {
     throw new Error("Installed verification workspace must be outside the plugin root");
   }
+  outsideRoot = await mkdtemp(join(tempParent, OUTSIDE_PREFIX));
+  const physicalOutsideRoot = await realpath(outsideRoot);
+  if (
+    isEqualOrInsideRoot(pluginRoot, physicalOutsideRoot) ||
+    isEqualOrInsideRoot(physicalWorkspaceRoot, physicalOutsideRoot)
+  ) {
+    throw new Error("Installed verification outside root must be outside the plugin root and workspace");
+  }
+  const imageBytes = createRgbPng2x2();
+  const workspaceImage = join(workspaceRoot, "image.png");
+  const outsideImage = join(outsideRoot, "outside.png");
+  await writeFile(workspaceImage, imageBytes);
+  await writeFile(outsideImage, imageBytes);
   const workspaceFile = join(workspaceRoot, "artifact.txt");
   await writeFile(
     workspaceFile,
@@ -55,6 +81,7 @@ try {
     cwd: launchConfig.cwd,
     stdio: ["pipe", "pipe", "pipe"],
     env: buildVerifierEnv(process.env, workspaceRoot),
+    windowsHide: true,
   });
   if (!child.stdin || !child.stdout || !child.stderr) {
     throw new Error("MCP verifier requires piped child stdio");
@@ -72,7 +99,7 @@ try {
     buffer += chunk;
   });
   childStderr.on("data", (chunk) => {
-    stderr += chunk;
+    stderr = `${stderr}${chunk}`.slice(-STDERR_TAIL_CHARS);
   });
 
   send({
@@ -89,11 +116,8 @@ try {
 
   send({ jsonrpc: "2.0", method: "notifications/initialized", params: {} });
   send({ jsonrpc: "2.0", id: 2, method: "tools/list", params: {} });
-  const tools = await waitFor((message) => message.id === 2 && message.result?.tools);
-  const toolNames = tools.result.tools.map((tool) => tool.name);
-  if (!toolNames.includes("index_artifact")) {
-    throw new Error("Installed MCP server did not expose index_artifact");
-  }
+  const tools = await waitFor((message) => message.id === 2 && message.result);
+  const requiredTools = assertRequiredTools(tools.result);
 
   send({
     jsonrpc: "2.0",
@@ -126,6 +150,60 @@ try {
     throw new Error("Installed plugin allowed indexing from the plugin root");
   }
 
+  send({
+    jsonrpc: "2.0",
+    id: 5,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: workspaceImage, profile: "strict" } },
+  });
+  const indexedImage = await waitFor((message) => message.id === 5 && message.result);
+  const imagePayload = assertIndexedImage(indexedImage.result, {
+    path: await realpath(workspaceImage),
+    sha256: sha256Hex(imageBytes),
+    byteLength: imageBytes.length,
+    format: "png",
+    mimeType: "image/png",
+    width: 2,
+    height: 2,
+    channels: 3,
+    bitDepth: 8,
+    validationProfile: "png-rgb8-static-v1",
+  });
+
+  send({
+    jsonrpc: "2.0",
+    id: 6,
+    method: "tools/call",
+    params: { name: "overview_image_artifact", arguments: { artifactId: imagePayload.artifactId, maxSide: 64 } },
+  });
+  const overview = await waitFor((message) => message.id === 6 && message.result);
+  assertOverview(overview.result, imagePayload);
+
+  send({
+    jsonrpc: "2.0",
+    id: 7,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: outsideImage } },
+  });
+  assertExactPathDenied(
+    await waitFor((message) => message.id === 7 && message.result),
+    "outside-root image",
+    [outsideImage, await realpath(outsideImage), outsideRoot, physicalOutsideRoot],
+  );
+
+  const pluginRootFile = join(pluginRoot, ".codex-plugin", "plugin.json");
+  send({
+    jsonrpc: "2.0",
+    id: 8,
+    method: "tools/call",
+    params: { name: "index_image_artifact", arguments: { path: pluginRootFile } },
+  });
+  assertExactPathDenied(
+    await waitFor((message) => message.id === 8 && message.result),
+    "plugin-root file",
+    [pluginRootFile, pluginRoot],
+  );
+
   console.log(
     JSON.stringify({
       ok: true,
@@ -134,16 +212,266 @@ try {
       indexedPath: payload.path,
       indexedLineCount: payload.lineCount,
       deniedPluginRootIndex: true,
+      requiredTools,
+      imageIndexProfile: imagePayload.validationProfile,
+      imageOverview: true,
+      deniedOutsideRootImage: true,
+      deniedPluginRootImage: true,
+      scope: VERIFICATION_SCOPE,
     }),
   );
 } finally {
   try {
     await stopChild();
   } finally {
-    if (workspaceRoot) {
-      await rm(workspaceRoot, { recursive: true, force: true });
+    try {
+      if (workspaceRoot) {
+        await removeOwnedTempRoot(workspaceRoot, WORKSPACE_PREFIX);
+      }
+    } finally {
+      if (outsideRoot) {
+        await removeOwnedTempRoot(outsideRoot, OUTSIDE_PREFIX);
+      }
     }
   }
+}
+
+/**
+ * Inclusion-only check of a single tools/list response. Extra well-formed tools are allowed;
+ * nextCursor is not followed, so required tools must appear in this one response.
+ * @param {any} result
+ */
+function assertRequiredTools(result) {
+  const tools = result?.tools;
+  if (!Array.isArray(tools)) {
+    throw new Error("Installed MCP tools/list did not return a tools array");
+  }
+  const seen = new Set();
+  for (const tool of tools) {
+    const name = tool && typeof tool === "object" && !Array.isArray(tool) ? tool.name : undefined;
+    if (typeof name !== "string" || name.length === 0) {
+      throw new Error("Installed MCP server returned an invalid MCP tool name");
+    }
+    if (seen.has(name)) {
+      const printable = /^[A-Za-z0-9_.-]{1,64}$/u.test(name) ? name : "(unprintable)";
+      throw new Error(`Installed MCP server returned a duplicate MCP tool name: ${printable}`);
+    }
+    seen.add(name);
+  }
+  const missing = REQUIRED_MCP_TOOL_NAMES.filter((name) => !seen.has(name));
+  if (missing.length > 0) {
+    throw new Error(`Installed MCP server is missing required tools: ${missing.join(", ")}`);
+  }
+  return [...REQUIRED_MCP_TOOL_NAMES];
+}
+
+/**
+ * @param {any} result
+ * @param {Record<string, string | number>} expected
+ */
+function assertIndexedImage(result, expected) {
+  const label = "Installed index_image_artifact";
+  if (result?.isError === true) {
+    throw new Error(`${label} returned an error result`);
+  }
+  const payload = parseTextPayload(result, label);
+  for (const [field, value] of Object.entries(expected)) {
+    if (payload[field] !== value) {
+      throw new Error(`${label} metadata mismatch: ${field}`);
+    }
+  }
+  if (typeof payload.artifactId !== "string" || !/^image_[0-9a-f]{16}$/u.test(payload.artifactId)) {
+    throw new Error(`${label} metadata mismatch: artifactId`);
+  }
+  return payload;
+}
+
+/**
+ * Basic wire/provenance consistency only. A 2x2 source stays 2x2 at maxSide 64, so this does
+ * not exercise downscaling or pixel accuracy, and SOI/EOI plus a self-consistent hash is not a
+ * full JPEG validation.
+ * @param {any} result
+ * @param {Record<string, unknown>} source
+ */
+function assertOverview(result, source) {
+  const label = "Installed overview_image_artifact";
+  if (result?.isError === true) {
+    throw new Error(`${label} returned an error result`);
+  }
+  const content = result?.content;
+  const image = Array.isArray(content) ? content[1] : undefined;
+  if (
+    !Array.isArray(content) ||
+    content.length !== 2 ||
+    image?.type !== "image" ||
+    image.mimeType !== "image/jpeg" ||
+    typeof image.data !== "string" ||
+    image.data.length === 0
+  ) {
+    throw new Error(`${label} content mismatch`);
+  }
+  const bytes = Buffer.from(image.data, "base64");
+  if (bytes.toString("base64") !== image.data) {
+    throw new Error(`${label} content mismatch: image data is not canonical base64`);
+  }
+  const payload = parseTextPayload(result, label);
+  if (content[0].text.includes(image.data)) {
+    throw new Error(`${label} content mismatch: text repeats image data`);
+  }
+  const output = payload.output;
+  if (!output || typeof output !== "object" || Object.prototype.hasOwnProperty.call(output, "image")) {
+    throw new Error(`${label} metadata mismatch: output`);
+  }
+  const length = bytes.length;
+  if (
+    length < 4 ||
+    bytes[0] !== 0xff ||
+    bytes[1] !== 0xd8 ||
+    bytes[length - 2] !== 0xff ||
+    bytes[length - 1] !== 0xd9
+  ) {
+    throw new Error(`${label} metadata mismatch: jpeg markers`);
+  }
+  const checks = [
+    ["output.width", output.width, 2],
+    ["output.height", output.height, 2],
+    ["output.format", output.format, "jpeg"],
+    ["output.mimeType", output.mimeType, "image/jpeg"],
+    ["output.byteLength", output.byteLength, length],
+    ["output.sha256", output.sha256, sha256Hex(bytes)],
+    ["output.validation.width", output.validation?.width, 2],
+    ["output.validation.height", output.validation?.height, 2],
+  ];
+  for (const [field, actual, expected] of checks) {
+    if (actual !== expected) {
+      throw new Error(`${label} metadata mismatch: ${field}`);
+    }
+  }
+  if (JSON.stringify(payload.source) !== JSON.stringify(source)) {
+    throw new Error(`${label} metadata mismatch: source`);
+  }
+}
+
+/**
+ * @param {any} result
+ * @param {string} label
+ */
+function parseTextPayload(result, label) {
+  const text = Array.isArray(result?.content) && result.content[0]?.type === "text" ? result.content[0].text : null;
+  if (typeof text !== "string") {
+    throw new Error(`${label} content mismatch`);
+  }
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    throw new Error(`${label} content mismatch: text is not JSON`);
+  }
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    throw new Error(`${label} content mismatch: text is not a JSON object`);
+  }
+  if (JSON.stringify(result.structuredContent) !== JSON.stringify(payload)) {
+    throw new Error(`${label} content mismatch: structuredContent differs from text`);
+  }
+  return payload;
+}
+
+/**
+ * Same contract as smoke-mcp expectToolError: isError, no structuredContent, exactly one text
+ * item equal to the code, and no path detail anywhere in the response. The response body is
+ * never copied into the error message.
+ * @param {any} response
+ * @param {string} label
+ * @param {string[]} forbidden
+ */
+function assertExactPathDenied(response, label, forbidden) {
+  const result = response.result;
+  const content = result?.content;
+  if (
+    result?.isError !== true ||
+    result.structuredContent !== undefined ||
+    !Array.isArray(content) ||
+    content.length !== 1 ||
+    content[0]?.type !== "text" ||
+    content[0].text !== "path_denied"
+  ) {
+    throw new Error(`Installed index_image_artifact ${label} was not denied with exact path_denied`);
+  }
+  const serialized = JSON.stringify(response);
+  for (const value of forbidden) {
+    if (!value) continue;
+    const jsonEscaped = JSON.stringify(value).slice(1, -1);
+    if (serialized.includes(value) || serialized.includes(jsonEscaped)) {
+      throw new Error(`Installed index_image_artifact ${label} denial leaked path detail`);
+    }
+  }
+}
+
+function createRgbPng2x2() {
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(2, 0);
+  header.writeUInt32BE(2, 4);
+  header[8] = 8; // bit depth
+  header[9] = 2; // RGB
+  // Two rows, each with filter byte 0 and two RGB pixels.
+  const pixels = Buffer.from([0, 255, 0, 0, 0, 255, 0, 0, 0, 0, 255, 255, 255, 255]);
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    pngChunk("IHDR", header),
+    pngChunk("IDAT", deflateSync(pixels)),
+    pngChunk("IEND", Buffer.alloc(0)),
+  ]);
+}
+
+/**
+ * @param {string} type
+ * @param {Buffer} data
+ */
+function pngChunk(type, data) {
+  const name = Buffer.from(type, "ascii");
+  const out = Buffer.alloc(12 + data.length);
+  out.writeUInt32BE(data.length, 0);
+  name.copy(out, 4);
+  data.copy(out, 8);
+  let crc = 0xffffffff;
+  for (const byte of Buffer.concat([name, data])) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1));
+    }
+  }
+  out.writeUInt32BE((crc ^ 0xffffffff) >>> 0, 8 + data.length);
+  return out;
+}
+
+/** @param {Buffer} bytes */
+function sha256Hex(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+/**
+ * Removes a temp directory only when it is a direct child of the verifier temp parent with
+ * the owned prefix, and only when it is a real directory rather than a link.
+ * @param {string} path
+ * @param {string} prefix
+ */
+async function removeOwnedTempRoot(path, prefix) {
+  const resolved = resolve(path);
+  const name = basename(resolved);
+  if (dirname(resolved) !== tempParent || !name.startsWith(prefix) || name.length <= prefix.length) {
+    throw new Error("Refusing to remove a verifier temp path outside the owned temp root");
+  }
+  let rootStat;
+  try {
+    rootStat = await lstat(resolved);
+  } catch (error) {
+    if (isNotFoundError(error)) return;
+    throw error;
+  }
+  if (rootStat.isSymbolicLink() || !rootStat.isDirectory()) {
+    throw new Error("Refusing to remove a verifier temp path that is not a plain directory");
+  }
+  await rm(resolved, { recursive: true, force: true });
 }
 
 function send(message) {

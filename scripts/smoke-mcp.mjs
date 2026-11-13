@@ -7,6 +7,7 @@ import { deflateSync } from "node:zlib";
 import { validateJpeg } from "../dist/src/core/jpeg-validation.js";
 
 import {
+  REQUIRED_MCP_TOOL_NAMES,
   RUNTIME_FILES,
   childHasExited,
   parseCompleteJsonMessages,
@@ -120,17 +121,7 @@ try {
 
   const tools = await waitFor((message) => message.id === 2 && message.result?.tools);
   const toolNames = tools.result.tools.map((tool) => tool.name);
-  for (const expected of [
-    "estimate_context",
-    "classify_context",
-    "index_artifact",
-    "query_artifact",
-    "summarize_artifact",
-    "index_image_artifact",
-    "inspect_image_artifact",
-    "crop_image_artifact",
-    "overview_image_artifact",
-  ]) {
+  for (const expected of REQUIRED_MCP_TOOL_NAMES) {
     if (!toolNames.includes(expected)) {
       throw new Error(`Missing MCP tool: ${expected}`);
     }
