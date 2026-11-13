@@ -11,15 +11,74 @@ export interface ArtifactStore {
   put(record: ArtifactRecord): void;
 }
 
+const DEFAULT_MAX_ESTIMATED_BYTES = 256 * 1024 * 1024;
+
+// Process-local text artifact store with an estimated-bytes soft bound (S-10).
+// Each record is weighed once at put time as 2 * byteLength + 160 * lineCount + 32768
+// bytes; later mutation of the record is not re-weighed. Entries are kept in LRU order:
+// a get hit and a re-put of the same ID make the entry the most recent, a get miss
+// changes nothing. When the estimated total exceeds the bound, the least recently used
+// entries are evicted, but the record just put is never evicted, so a record larger than
+// the bound stays alone until the next put. The bound covers stored estimates only; it
+// is not a heap or RSS cap (indexing transients, concurrent indexing and references held
+// outside the store are not counted). Evicted IDs read as missing and must be reindexed.
 export class MemoryArtifactStore implements ArtifactStore {
-  private readonly records = new Map<string, ArtifactRecord>();
+  private readonly entries = new Map<string, { record: ArtifactRecord; weight: number }>();
+  private readonly maxEstimatedBytes: number;
+  private totalEstimatedBytes = 0;
+
+  constructor(options?: { maxEstimatedBytes?: number }) {
+    if (options === undefined) {
+      this.maxEstimatedBytes = DEFAULT_MAX_ESTIMATED_BYTES;
+      return;
+    }
+    if (options === null || typeof options !== "object" || Array.isArray(options)) {
+      throw new Error("MemoryArtifactStore options must be an object");
+    }
+    const max = options.maxEstimatedBytes;
+    if (max === undefined) {
+      this.maxEstimatedBytes = DEFAULT_MAX_ESTIMATED_BYTES;
+      return;
+    }
+    if (!Number.isSafeInteger(max) || max <= 0) {
+      throw new Error("maxEstimatedBytes must be a positive safe integer");
+    }
+    this.maxEstimatedBytes = max;
+  }
 
   get(artifactId: string): ArtifactRecord | undefined {
-    return this.records.get(artifactId);
+    const entry = this.entries.get(artifactId);
+    if (!entry) return undefined;
+    this.entries.delete(artifactId);
+    this.entries.set(artifactId, entry);
+    return entry.record;
   }
 
   put(record: ArtifactRecord): void {
-    this.records.set(record.artifactId, record);
+    // Validate before any state change so a rejected put leaves entries, order and total intact.
+    const { byteLength, lineCount } = record;
+    if (!Number.isSafeInteger(byteLength) || byteLength < 0 || !Number.isSafeInteger(lineCount) || lineCount < 0) {
+      throw new Error("Artifact record byteLength and lineCount must be non-negative safe integers");
+    }
+    const weight = 2 * byteLength + 160 * lineCount + 32768;
+    if (!Number.isSafeInteger(weight)) {
+      throw new Error("Artifact record estimated weight must be a safe integer");
+    }
+
+    const previous = this.entries.get(record.artifactId);
+    if (previous) {
+      this.totalEstimatedBytes -= previous.weight;
+      this.entries.delete(record.artifactId);
+    }
+    this.entries.set(record.artifactId, { record, weight });
+    this.totalEstimatedBytes += weight;
+
+    // The new entry is the most recent, so with size > 1 the oldest is never the new one.
+    while (this.totalEstimatedBytes > this.maxEstimatedBytes && this.entries.size > 1) {
+      const [oldestId, oldest] = this.entries.entries().next().value!;
+      this.entries.delete(oldestId);
+      this.totalEstimatedBytes -= oldest.weight;
+    }
   }
 }
 
@@ -453,14 +512,6 @@ function findBestLines(
     score: bestScore,
     warning: "",
   };
-}
-
-function trimToTokenBudget(text: string, maxTokens: number): string {
-  let candidate = text.trim();
-  while (estimateTextTokens(candidate) > maxTokens && candidate.length > 0) {
-    candidate = candidate.slice(0, Math.max(0, candidate.length - 8)).trimEnd();
-  }
-  return candidate;
 }
 
 function longestFittingSummaryPrefix(
