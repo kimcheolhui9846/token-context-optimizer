@@ -88,10 +88,10 @@
 |---|---|---|---|
 | **D1** | C2 채택(§2 diff 그대로) | **채택.** 세 줄 단위 predicate의 줄 경계가 sourceMap과 같아진다 | **현상유지:** §1 재현과 (a)–(d) 우회가 남는다. CR로 이은 명령 줄이 semantic으로 요약될 수 있고, sourceMap 줄 수와 정책 줄 판정이 계속 어긋난다 |
 | **D1-a** | 엄격화 수용 범위 | lone CR 입력에서 semantic→exact/unknown(관찰 79/4,166). 예: §3 terraform·systemctl·quick reminder 행 | (현상유지와 같음) |
-| **D1-b** | 완화 수용 범위 | lone CR 입력에서 exact/unknown→semantic(관찰 12/4,166)은 **같은 줄 구성의 LF 현행 결과와 같은 경우에만** 수용. 예: `… today.\r--force is never used …` | 완화를 거부하면 C2를 채택할 수 없다(C2 하나로 엄격화와 완화가 함께 생긴다). 구현 PR의 R5·수용기준 3이 "LF판과 다른 완화"를 실패로 잡는다 |
+| **D1-b** | 완화 수용 범위 | lone CR 입력에서 exact/unknown→semantic(관찰 12/4,166) 수용. 근거는 **관찰·테스트 corpus**에서 완화 12건이 모두 같은 줄 구성의 LF 현행 결과와 같았다는 것뿐이다. C2에는 "LF 결과와 같을 때만 완화"를 강제하는 런타임 검사가 없으므로 **모든 입력에서 완화 결과 = LF 현행 결과를 보장하지 않는다.** 구현 PR은 R5와 수용기준 3(시드 고정 corpus)에서 LF판과 다른 완화를 실패로 잡지만, 그 검증 범위도 해당 corpus·사례에 한정된다. 예: `… today.\r--force is never used …` | 완화를 거부하면 C2를 채택할 수 없다(C2 하나로 엄격화와 완화가 함께 생긴다) |
 | **D2** | 범위 고정 | 파이프 표 LF 전용, 전역 `/m`, U+2028/U+2029/NEL 현행 유지. 테스트로 현행 동작을 고정 | 넓히면 sourceMap 계약·기존 group3 고정 테스트가 바뀌므로 별도 finding·계획이 필요하다 |
 | **D3** | 자원 사전 gate(§8) 채택 | §8 임계값·절차 그대로 사전등록 | §8 각 항목에 대안 근거를 적었다. 구현 PR에서 수치를 본 뒤 바꾸지 않는다 |
-| **D4** | `docs/design.md` Safety Invariants에 한 문장 추가 | 추가: "줄 단위 정책 판정은 sourceMap과 같은 CRLF·lone CR·lone LF를 줄 경계로 쓴다. U+2028/U+2029/NEL은 줄로 보지 않는다" | 생략 가능(동작 무관) |
+| **D4** | `docs/design.md` Safety Invariants에 한 문장 추가 | 추가: "세 줄 단위 정책 predicate(`isPositiveSemanticText`, `containsTechnicalTokenShape`, `containsShellCommand`)는 sourceMap과 같은 CRLF·lone CR·lone LF를 줄 경계로 쓰고 U+2028/U+2029/NEL은 줄로 보지 않는다. 그 밖의 정책 규칙의 줄 처리(LF 전용 파이프 표 규칙, CR·U+2028·U+2029 뒤를 줄 시작으로 보는 전역 `/m` 줄머리·코드 키워드 정규식)는 현행 유지다" | 생략 가능(동작 무관) |
 
 - 분석 보고 §3의 다른 후보는 결정 선택지로 올리지 않는다. C1은 C2와 동작이 같은 표기 차이이고, C3(artifacts.ts 공통 모듈)·C4(lone CR 전면 unknown)·C5(이중 판정)는 범위 확장·기능 후퇴·CR≠LF 고착으로 분석에서 비권장이었다.
 - 결정 요청 형태: "PR #<이 PR>의 D1(C2, 엄격화 D1-a·완화 D1-b 포함), D2, D3, D4를 권장안대로 승인" 또는 항목별 거부. 포괄 승인 문구가 아니라 위 사례와 §8 수치에 대한 승인이다.
@@ -178,7 +178,7 @@
 - 시간 밖 correctness: 네 사본의 공개 출력 digest. G-R은 BASE와 CAND 출력이 같아야 한다. G-C는 CAND(X)와 BASE(LF(X)) 출력이 같아야 한다(F1–F7에는 파이프가 없다). O2 비교 필드는 classification·`summary`·`sourceMap.startLine/endLine`·`fallbackReason`·`warnings`이고 artifact id·sha256·path는 뺀다. 불일치 = `failed_correctness`.
 - 통계: nearest-rank, median = `sorted[14]`, p95 = `sorted[28]`(n=30). n≠30 또는 비유한 값 = INVALID.
 - A/A 유효(B1/B2, C1/C2 각각): 중앙값 비 ∈ [0.95, 1.05] 또는 |Δmedian| ≤ 0.1 ms, 그리고 |Δp95| ≤ max(0.2 ms, 참조 p95 × 0.20). 무효면 30 s 뒤 새 child로 시도 전체 재실행, 최대 3시도. **세 번째 무효 = 필수 INVALID, 측정 중단(PASS 아님).**
-- 판정(G-R·G-C 공통, N-33 D1 임계): CAND median ≤ max(REF median × 1.10, REF median + 0.5 ms), CAND p95 ≤ max(REF p95 × 1.20, REF p95 + 1 ms). REF = 해당 비교의 BASE 사본 B1. 유효 FAIL은 재시도·완화·진단 강등 없이 중단한다.
+- 판정(G-R·G-C 공통, N-33 D1 임계): CAND median ≤ max(REF median × 1.10, REF median + 0.5 ms), CAND p95 ≤ max(REF p95 × 1.20, REF p95 + 1 ms). 판정 arm은 측정 전에 고정한다: **CAND = C1, REF = B1** (N-33 runner `research/src/6-4b-6-source-map-perf.mjs:403` `timeGate(attempt.stats.B1, attempt.stats.C1)`와 같은 규칙). B2·C2는 A/A 유효성(`aaValid(B1, B2)`, `aaValid(C1, C2)`, 참조 = 첫 사본)에만 쓰고 판정에 쓰지 않는다. C2 또는 B2로 바꿔 판정하거나, 네 사본을 합치거나, 더 유리한 쌍을 고르는 것은 금지한다. 두 A/A가 모두 유효할 때만 B1/C1 판정이 유효하다. 유효 FAIL은 재시도·완화·진단 강등 없이 중단한다.
 - 시간 블록의 timeout·spawn 실패·JSON 1줄 아님·비정상 종료·OOM·표본 누락은 N-33 §3처럼 INVALID로 중단한다(빈 집계·exit 0은 PASS가 아님).
 - child timeout 1,800 s(10 MiB × 144표본 + 보정을 위해 N-33의 1 MiB용 600 s에서 늘림. 결과를 보기 전 고정). 순서: O1(F3, F4, F5, F6L, F7L, F1, F2, F6, F7) → O2(같은 순서).
 

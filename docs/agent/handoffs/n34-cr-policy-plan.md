@@ -22,10 +22,10 @@
 |---|---|---|
 | D1 | C2 채택 | 대안은 현상유지뿐. 현상유지면 CR 연결 명령 줄 요약(재현)이 남는다 |
 | D1-a | 엄격화 수용 | lone CR 입력 semantic→exact/unknown, 관찰 79/4,166 |
-| D1-b | 완화 수용(LF 현행과 같을 때만) | `… today.\r--force is never used …` exact→semantic, 관찰 12/4,166 모두 LF 치환본 현행과 같음 |
+| D1-b | 완화 수용 | `… today.\r--force is never used …` exact→semantic, 관찰 12/4,166 모두 LF 치환본 현행과 같음. 관찰·테스트 corpus 범위의 근거이며 모든 입력 보장이 아님 |
 | D2 | 범위 고정 | 파이프 표 LF 전용(CR=LF 분류 불일치 247, 모두 차단), `/m`, U+2028/U+2029/NEL 유지 |
 | D3 | 자원 gate 채택 | 10 MiB F1–F7, O1 classify·O2 index→summary, G-R/G-C 분리, N-33 D1/D2/R2 임계·절차 |
-| D4 | design.md 한 문장 | 줄 정의 명시(동작 무관) |
+| D4 | design.md 한 문장 | 세 split predicate의 줄 경계만 명시, 파이프 표·전역 `/m` 등은 현행 유지라고 적음(동작 무관) |
 
 ## 근거로 쓴 기존 자료(새 실행 없음)
 
@@ -37,6 +37,12 @@
   - `matrix.txt`, `candidate-c2.diff`
 - 현재 소스 직접 확인: `split(/\r?\n/u)` 리터럴이 `policy.ts:710/777/781` 세 곳에만 있다. `tests/policy-n32.test.ts:243-248` 전문 비교와 group3 `:161` 파이프 표 고정
 - gate 근거: `docs/agent/handoffs/6-4b-6-source-map-impl-prereg.md` §3·§4·§9·§10, `research/plans/2026-11-02-perf-gate-noise.md`, N-33 run5 진단 10 MiB `\n` index(정보용)
+
+## 2026-11-13 PM 검토 반영(fix(review))
+
+- D4 문장 범위를 세 split predicate로 제한하고 파이프 표 LF 전용·전역 `/m`은 현행 유지로 명시
+- §8.4 판정 arm을 CAND = C1, REF = B1로 고정(N-33 runner `timeGate(B1, C1)` 확인). B2·C2는 A/A 전용, 사후 arm 선택 금지
+- D1-b를 관찰·테스트 corpus 근거로 한정, 모든 입력 보장 아님을 결정표에 명시
 
 ## 하지 않은 것
 
