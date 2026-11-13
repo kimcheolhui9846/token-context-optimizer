@@ -28,9 +28,13 @@
 - [x] primary 최종 검토(2026-11-13): **CHANGES REQUIRED**(`codex_review/review_2026-11-13_pr119-n34-impl-review.md`). 필수 시간 gate INVALID·메모리 NOTRUN이라 완료 판정 불가. primary가 직접 검토했고 별도 Astra agent는 없다
 - [x] run2 A안 사용자 승인(2026-11-13, `codex_review/review_2026-11-13_n34-run2-approved.md`). 승인은 검증 PASS가 아니다
 - run2 1단계(측정 전 준비, 실행권 = 준비 gate·check-only·self-check만, 10 MiB 실측 없음):
-  - [ ] RED: 순서 불변조건·음성/양성 control을 check-only에 추가(순서는 원 순환 그대로) → 실패 증거
-  - [ ] GREEN + 새 prereg: 원 순환과 `ADACDBDCBABC` 교대, `n34-cr-line-policy-prereg-run2.md`(기존 prereg 보존)
-  - [ ] check-only → 표준 7단계 → self-check `selfcheck-run2.json` → 불변 파일 hash → Argon 구현 검토
+  - [x] RED `b5703f0`: 순서 불변조건·음성/양성 control을 check-only에 추가(순서는 원 순환 그대로). check-only exit 1: 음성 control 2개는 기대대로, 양성(승인 순환) 단언에서 실패
+  - [x] GREEN = **run2 prereg `de2f499`**: 원 순환과 `ADACDBDCBABC` 교대, schema v2, `n34-cr-line-policy-prereg-run2.md`(기존 prereg 보존). 하네스·protocol을 마지막으로 바꾼 커밋 = `de2f499`
+  - [x] check-only PASS(시간 측정 호출 0; 사본별 warmup 3/3·측정 15/15, 전이 12종×10, self 0, 내부 C2>B1 9). 음성 control: 원 순환만 = 홀짝 위반 8건, 단순 역순 = transitions·self
+  - [x] 표준 7단계 @`de2f499`: 모두 exit 0, test 51파일 4440 통과·5 skip, build 뒤 작업 트리 깨끗(bin 차이 없음)
+  - [x] self-check `selfcheck-run2.json` @`de2f499`(gate 아님): 결함 분류 9/9, 합성 5행 144표본 왕복, 메모리 child 30/30, 추적 1118파일 무변경, 임시 폴더 삭제
+  - [x] 불변: `45ee43e`→`de2f499`에서 src·bin·package*·입력/시간/메모리 worker·run1 prereg·results 변경 0. run1 raw sha256 `45e2dc3b…` 그대로
+  - [ ] Argon 구현 검토
   - [ ] 2단계(run2 실측)는 primary가 diff·preflight 확인 뒤 실행권을 넘길 때만
 
 ## 기록
