@@ -1,5 +1,6 @@
-// N-34 preregistered resource gates (plan PR #115 @4a5b390 section 8; protocol
-// docs/agent/handoffs/n34-cr-line-policy-prereg.md). Mandatory blocks: timing (8.4) and memory (8.5).
+// N-34 preregistered resource gates (plan PR #115 @4a5b390 section 8; run2 protocol
+// docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md, approved plan A: alternating circuits; the run1
+// protocol docs/agent/handoffs/n34-cr-line-policy-prereg.md is kept unchanged). Mandatory blocks: timing (8.4) and memory (8.5).
 // Informational block (after both mandatory blocks pass): CAND(X) vs BASE(X) on the G-C inputs.
 // Every child is a fresh hidden process with a hard timeout. Spawn/parse failures, missing samples,
 // abnormal exits and invalid repeats are explicit states, never an implicit PASS. Writes one new
@@ -20,21 +21,22 @@ import { fileURLToPath } from 'node:url';
 import { COMPARISONS, INPUTS, ROWS, SIZE, makeInput } from './n34-cr-policy-perf-inputs.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const SCHEMA = 'n34-cr-policy-perf/v1';
+const SCHEMA = 'n34-cr-policy-perf/v2';
 const BASE = '5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3'; // origin/main at task start = plan base
 const RUNNER = 'research/src/n34-cr-policy-perf.mjs';
 const INPUTS_MODULE = 'research/src/n34-cr-policy-perf-inputs.mjs';
 const PERF_WORKER = 'research/src/n34-cr-policy-perf-worker.mjs';
 const MEM_WORKER = 'research/src/n34-cr-policy-perf-mem-worker.mjs';
-const PROTOCOL = 'docs/agent/handoffs/n34-cr-line-policy-prereg.md';
-const HARNESS_FILES = [RUNNER, INPUTS_MODULE, PERF_WORKER, MEM_WORKER, PROTOCOL];
+const PROTOCOL = 'docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md';
+const PROTOCOL_RUN1 = 'docs/agent/handoffs/n34-cr-line-policy-prereg.md';
+const HARNESS_FILES = [RUNNER, INPUTS_MODULE, PERF_WORKER, MEM_WORKER, PROTOCOL, PROTOCOL_RUN1];
 const RESULTS_DIR = 'research/results/n34-cr-policy';
 const NPM = process.env.npm_execpath || join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js');
 const TAR = 'C:/Windows/System32/tar.exe';
 const MIB = 1024 * 1024;
 const TEMP_PREFIX = 'tco-n34-perf-';
 const P = Object.freeze({
-  circuits: Object.freeze(['ABCDBDCADACB']), circuitMap: Object.freeze({ A: 'B1', B: 'B2', C: 'C2', D: 'C1' }), warmupCircuits: 2, measureCircuits: 10,
+  circuits: Object.freeze(['ABCDBDCADACB', 'ADACDBDCBABC']), circuitMap: Object.freeze({ A: 'B1', B: 'B2', C: 'C2', D: 'C1' }), warmupCircuits: 2, measureCircuits: 10,
   calibrationSamples: 5, samplesPerArm: 30, minSampleMs: 50, maxK: 1024, maxAttempts: 3, cooldownMs: 30000,
   timingChildTimeoutMs: 1800000, memoryChildTimeoutMs: 600000, memoryRepeats: 3,
   gateArms: Object.freeze({ candidate: 'C1', reference: 'B1' }),
