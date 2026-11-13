@@ -45,3 +45,11 @@
 ## 진행 기록
 - 2026-11-13: 격리 확인(worktree HEAD=origin/main 5d668f9, clean), 브랜치 이름을 `claude/packaging-security-remediation`으로 바꿈. 기준선 측정, 계획 고정.
 - Argon 초기 계획(gemini-4-argon, 1회): REQUEST CHANGES, Major 2. (1) pnpm peer 접미사 파싱 누락 → 채택, 고지 계획 1 수정. (2) zod advisory 제목·본문 상충 → 채택, 수정 커밋 원문을 확인해 적용성 서술 수정. 묶음·결과: 메인 `codex_review/argon/2026-11-13_packaging-security-plan-{bundle,argon}.md`.
+- RED: (1) helper 모듈 부재로 실패. (2) 기준 번들 대상 coverage 테스트 missing 26(패키지 7·vendored 6 × 생성본/설치본). 내용 기준으로는 MCP·zod·vendored 6개 원문이 없고, 이미지 4개는 원문은 있으나 정확 버전 머리말이 없다.
+- GREEN `c833ddf`: helper·manifest·vendored 원문 6개, 번들 재생성. targeted 11/11. 번들 코드 본문(머리말 뒤)은 기준과 바이트 동일. Draft PR #116.
+- `49b1664`: server/core 2.3.0, zod 4.6.6, vite 7.3.7, source-map-js 1.2.2. lock 변경은 이 5개뿐이고 추가·삭제 transitive 0. vite 7.3.8은 보안 무관 수정이라 쓰지 않았다(임시 직접 지정 후 제거해 lock만 남김).
+- 사후 audit: `--omit=dev` 0(exit 0). 전체 3(critical 2: vitest·tinypool, moderate 1: @vitest/mocker), exit 1. 셋 다 vitest 5.1.0(major) 필요. 별도 Task 제안.
+- 계약: 정규화 stdio 프로브 23항목이 main 번들·새 번들·임시 설치 사본(runtime 파일 4개, bin 바이트 동일)에서 모두 같다. SDK 2.3.0 ReadBuffer 상한도 `10 * 1024 * 1024`. README의 SDK 버전 표기만 2.3.0으로 바꿨다.
+- 번들 크기(작업 사본 LF): 기준 1,036,467 → 고지 추가 1,043,219 → 의존성 갱신 1,092,440 bytes. 시간 성능 주장은 하지 않는다.
+- Argon 중간(gemini-4-argon, 1회): APPROVE, 지적 0. bin·라이선스 원문·커밋 메시지는 발췌 밖이라 확인 불가로 명시됨.
+- 남은 일: coordinator 실행권 뒤 최종 head 전체 gate, PR 본문 갱신, Codex 검토.
