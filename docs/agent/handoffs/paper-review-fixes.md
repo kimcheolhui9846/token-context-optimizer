@@ -26,7 +26,7 @@
   - 도구 왕복 최대 3회(4번째 호출은 `tool_choice` none). 두 공급자 같음
 - 종료 사유(유효 attempt만, 결과 파일의 `attemptId`로 선택)
   - Haiku 1589호출: S1 compact 24/48 `max_tokens`(턴3 뒤 9, 턴6 뒤 15), S3 compact 1/48(턴6 뒤), S1 응답 2/192(턴4)
-  - GPT-4o 유효 1453호출(전체 1460, 중단 시도 7건 제외): `finishReason`·`stopReason` 필드 없음
+  - GPT-4o 유효 1453호출(전체 1460, 중단된 시도 1개의 호출 7건 제외. 리뷰의 "시도 7건"은 호출 7건이다): `finishReason`·`stopReason` 필드 없음
   - 대리 관측: GPT-4o compact 96건의 완료 토큰 최대 213 < 400. 한도에 닿은 요약은 없다. 응답 호출 중 완료 토큰이 60인 것은 S2 18, S3 22건이며 종료 사유는 판정할 수 없다
 - **리뷰와 다른 점:** 리뷰 P1은 "저장된 결과파일에는 요약문이 없다"고 적었다. 실제로는 두 공급자의 S1·S3 결과 파일 `turns[].summary`에 요약문 96건씩이 저장돼 있다. 원고에는 "요약문은 저장돼 있으나 정답 소실 대조는 하지 않았다"로 쓴다
 - 실행 순서: 하네스가 세션 바깥 루프·조건 안쪽 루프다(`session-harness.mjs` 실행부). `calls.jsonl` 순서도 두 공급자 24세션 모두 S0→S1→S2→S3→S4다
@@ -60,3 +60,9 @@
 ## 5. 진행 기록
 
 - 2026-11-13 계획 Argon 초기 확인(`codex_review/argon/2026-11-13_paper-fixes-plan-argon.md`, 실제 응답 모델 gemini-4-argon): APPROVE, 지적 0. "확인 불가" 3건(자동 원본 호출 60, 하네스 루프, `paper/` 목록)은 발췌에 없던 부분이며 primary가 코드·목록으로 직접 확인했다
+- 2026-11-13 Draft PR #112 생성(첫 커밋 `e3ba275`)
+- 2026-11-13 재검증 스크립트 `research/results/paper-review-fixes/verify.py`. base 임시 worktree에서 18건 중 4건 FAIL(그림 축 문구, 라벨 겹침, 원고 그림 2 단위, README 단위) → 수정 후 18/18 PASS. 결과 `verify.json`, 설명 `README.md`
+- 2026-11-13 그림: `exp2_figures.py`의 x축 문구를 두 줄 질의당 단위로 바꾸고 `place_labels`(겹치면 후보 위치로 이동)를 넣었다. heldout·calibration-v2 fig5만 재생성. 점·오차막대 좌표와 캔버스 동일. fig6 PDF는 날짜만 바뀌어 되돌림. 논문 그림 3(`fig2_heldout_*`)은 라벨 겹침 0건이라 그대로 둠
+- 2026-11-13 원고: 초록 국·영(S1→S3, S2 비용 구분, S0 93.1%), 3.2 선택기 의사코드, 표 2·그림 2 단위, 6.2 출력 한도·도구 왕복·실행 순서, 6.3 content-match 정의·한계, 표 3 S1·S3 비용(기술 통계), 6.4 S3 비교, VII 종료 분포·관측 공백·캐시 순서 범위, VIII 재현 묶음 남은 작업
+- 리뷰 원문과 다른 사실 2건: 요약문은 결과 파일에 저장돼 있음, 중단된 것은 시도 1개의 호출 7건
+- NOT RUN: 최종 2단 제출본(HWP·PDF) 검증. 메인 checkout `paper/`에 제출 파일이 없다
