@@ -222,25 +222,26 @@ private 정규식이나 `tokenize`를 직접 부르는 테스트는 쓰지 않�
 |---|---|---|---|---|
 | T35-1 | direct | distractor `नदी हवा नदी` 6개를 비일치 5줄씩 띄우고 마지막에 목표 `हिन्दी भाषा`, 질의 `हिन्दी`, 기본 옵션 | 목표 37행이 `moreMatches.lines`에 있음 | excerpt 1개 `[35,37]`(목표 ± 2), `moreMatches` 없음, `fallbackReason: null` |
 | T35-2 | direct | T35-1 파일, `contextLines: 0`, `maxExcerpts: 1` | 1행 반환, `moreMatches.count` 6 | `[37,37]`, `moreMatches` 없음 |
-| T35-3 | direct | 목표 2개(서로 띄움) + distractor 6개, `maxExcerpts: 1` | — | 첫 목표 1개, `moreMatches {count:1, lines:[둘째 목표 행]}`. distractor 행은 `moreMatches`에 없음 |
+| T35-3 | direct | 목표 2개(서로 띄움) + distractor 6개(distractor가 파일 앞), `maxExcerpts: 1` | 1행 distractor 반환, `moreMatches`에 distractor 행 포함 | 첫 목표 1개, `moreMatches {count:1, lines:[둘째 목표 행]}`. distractor 행은 `moreMatches`에 없음 |
 | T35-4 | direct | 태국 `กิน`(목표)과 `ก`·`น`만 가진 distractor, 합성형 없는 라틴 `q\u0307x` 목표와 `q … x` distractor | distractor 동점/우선 | 목표만 반환 |
+| T35-6 | direct | 아랍 harakat 질의 vs 무표기 원문 | 자음 단편으로 일치(excerpt 반환, `fallbackReason: null`) | `no_query_match`(§2.3-2의 의도된 동작 변화를 고정) |
 | T35-5 | MCP | T35-1과 같은 파일·질의를 `query_artifact`로 | 목표가 `moreMatches` | excerpt가 목표 span, `structuredContent`와 `content[0].text`가 같음 |
 | C35-1 | direct | ASCII 경로·식별자 질의 `src/core/artifacts.ts:555`, `queryArtifact_v2`, 한글 `검색어`, 한자, `café`(NFC)와 `cafe\u0301`(NFD) | 통과 | 같은 결과(현행과 같은 excerpt·moreMatches. 기대값은 RED 단계 현행 출력으로 먼저 고정) |
 | C35-2 | direct | 질의 `\u0301`만 | `no_query_terms` | `no_query_terms` 유지 |
 | C35-3 | direct | 질의 `❤\uFE0F error`, 원문에 `error` 1줄과 `\uFE0F`만 가진 줄 여러 개 | `error` 줄만 | 같음(A안이면 실패하는 control) |
-| C35-4 | direct | 아랍 harakat 질의 vs 무표기 원문 | 자음 단편으로 일치 | `no_query_match`(§2.3-2의 의도된 변화를 고정) |
 | T36-1 | direct | `contextLines` ∈ {`1.5`, `0.5`, `-1`, `NaN`, `Infinity`, `-Infinity`, `Number.MAX_SAFE_INTEGER + 1`, `"1"`, `true`, `null`} | TypeError, 잘못된 fallback, 비대칭 span, 기본값 | 모두 `"contextLines must be a non-negative safe integer"`로 throw(정확 문구) |
 | T36-2 | direct | 빈 store + 없는 artifactId + `contextLines: -1` | `Artifact not indexed` | contextLines 오류(store 전 검증) |
-| T36-3 | direct | `maxExcerpts: 0` + `contextLines: -1` | maxExcerpts 오류 | maxExcerpts 오류 유지(우선순위) |
-| T36-4 | direct | S-10 merge 뒤: 두 artifact를 넣은 bounded store에서 잘못된 `contextLines`로 하나를 질의한 뒤 축출 순서 확인 | (S-10 전에는 생략) | 거부된 호출이 LRU 순서를 바꾸지 않음 |
+| T36-3 | direct | `get`/`put`을 감싼 spy `ArtifactStore`(색인된 artifact 1개) + 잘못된 `contextLines`(`-1`, `1.5`) | throw 전 `requireArtifact`가 `get`을 1회 호출(`-1`은 throw 없이 fallback 반환) | contextLines 오류로 throw, spy `get` 호출 0회. S-10 merge 없이 실행 가능한 독립 RED |
+| T36-4 (S-10 조건부) | direct | S-10 merge 뒤에만: 두 artifact를 넣은 bounded `MemoryArtifactStore`에서 잘못된 `contextLines`로 오래된 쪽을 질의한 뒤 새 put으로 축출 순서 확인 | S-10 통합 전에는 실행하지 않음(RED 단계 대상 아님) | 거부된 호출이 LRU 순서를 바꾸지 않음(오래된 쪽이 먼저 축출) |
 | C36-1 | direct | `contextLines` 생략, `0`, `-0`, `10`, `11`, `1000`, `Number.MAX_SAFE_INTEGER` | 통과 | 현행과 같은 span. `11` 이상은 7줄 파일에서 `[1,7]` |
+| C36-3 | direct | `maxExcerpts: 0` + `contextLines: -1` | maxExcerpts 오류(현행도 통과) | maxExcerpts 오류 유지(오류 우선순위 control) |
 | C36-2 | MCP | 기존 `inputSchema.properties.contextLines` = `{type:"integer",minimum:0,maximum:10}` 단언, base fixture `toStrictEqual` | 통과 | 불변. MCP `contextLines: 11`/`1.5`/`-1`은 계속 MCP 경계에서 거부(기존 maxExcerpts 경계 테스트와 같은 단언 형식) |
 
-RED 확인 규칙: T35-*, C35-4, T36-1~3을 먼저 추가해 현행 코드에서 실패함을 확인하고 로그를 PR 본문에 남긴다. control(C*)은 RED 단계에서 통과해야 한다. C35-3은 B안이 A안과 구별되는지 보는 control이므로, 구현 PR에서 A안 정규식으로 잠깐 바꿔 실패하는지 scratch로 확인한다(커밋하지 않음).
+RED 확인 규칙: T35-1~6, T36-1~3을 먼저 추가해 현행 코드에서 모두 실패함을 확인하고 로그를 PR 본문에 남긴다. T36-4는 S-10 조건부라 RED 단계 대상이 아니며, S-10을 merge commit으로 합친 뒤 GREEN만 확인한다(§5). control(C35-1~3, C36-1~3)은 RED 단계와 GREEN 단계 모두 통과해야 한다. C35-3은 B안이 A안과 구별되는지 보는 control이므로, 구현 PR에서 A안 정규식으로 잠깐 바꿔 실패하는지 scratch로 확인한다(커밋하지 않음).
 
 ### 4.4 수용 기준
 
-1. §4.3의 T*가 RED에서 실패하고 GREEN에서 통과한다. C*는 두 단계 모두 통과한다
+1. §4.3의 T35-1~6, T36-1~3이 RED에서 실패하고 GREEN에서 통과한다. C*는 두 단계 모두 통과한다. T36-4(S-10 조건부)는 이 RED 규칙에서 제외하며, S-10 통합 뒤 GREEN 통과를 수용 조건으로 한다(S-10이 merge되지 않은 상태로 구현 PR을 판정하면 T36-4는 미실행으로 표시)
 2. `src/server/index.ts`·MCP 스키마·base tool fixture(`tests/fixtures/task36-base-tools.json`, `task39-base-tools.json`) diff 0
 3. `src/core/policy.ts` diff 0, 기존 테스트 기대값 수정 0
 4. `npm run benchmark`의 query 결과(excerpt 범위, sourceMap, 통과/실패 판정)가 기준 실행과 같다. 결합 문자 질의가 없으므로 같아야 하며, 다르면 중단하고 원인을 보고한다. 시간 수치는 비교 대상이 아니다(성능 주장을 하지 않는다)
