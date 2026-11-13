@@ -230,7 +230,7 @@ const n32ApprovedRegexes = [
 ];
 
 describe("N-32 product source invariants", () => {
-  it("checks actual product regex sources/flags and exact four-suffix-only change", () => {
+  it("checks actual product regex sources/flags and exact N-32 suffix + approved N-34 line-break delta", () => {
     const current = loadPolicyInternals("src/core/policy.ts", ["f21CredentialLabel", "KOREAN_CREDENTIAL_LABEL", "KOREAN_API_CREDENTIAL_LABEL"]) as ReturnType<typeof loadPolicyInternals> & {
       f21CredentialLabel: RegExp; KOREAN_CREDENTIAL_LABEL: RegExp; KOREAN_API_CREDENTIAL_LABEL: RegExp;
     };
@@ -249,6 +249,21 @@ describe("N-32 product source invariants", () => {
     const newSuffix = "(?:\\*{1,3}|[\"')”’）」』])?";
     expect(frozen.split(oldSuffix)).toHaveLength(5);
     expect(product.split(newSuffix)).toHaveLength(5);
-    expect(product).toBe(frozen.replaceAll(oldSuffix, newSuffix));
+    const n32 = frozen.replaceAll(oldSuffix, newSuffix);
+    // N-34 approved delta (plan PR #115 @4a5b390 section 6): one private constant after COMMANDS,
+    // and exactly the three line splits switched to it. Any other source change still fails.
+    const n34Delta = (text: string) => {
+      const anchor = '  "terraform",\n]);\n\n';
+      expect(text.split(anchor)).toHaveLength(2);
+      const constant = "// Same line terminators as scanLines in artifacts.ts: CRLF, lone CR, lone LF.\n" +
+        String.raw`const POLICY_LINE_BREAK = /\r\n|\r|\n/u;` + "\n\n";
+      const withConstant = text.replace(anchor, anchor + constant);
+      const oldSplit = String.raw`.split(/\r?\n/u)`;
+      expect(withConstant.split(oldSplit)).toHaveLength(4);
+      return withConstant.replaceAll(oldSplit, ".split(POLICY_LINE_BREAK)");
+    };
+    expect(product).toBe(n34Delta(n32));
+    expect(product.split(String.raw`split(/\r?\n/u)`)).toHaveLength(1);
+    expect(product.split("POLICY_LINE_BREAK")).toHaveLength(5);
   });
 });

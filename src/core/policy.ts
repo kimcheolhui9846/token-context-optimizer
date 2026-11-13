@@ -31,6 +31,9 @@ const COMMANDS = new Set([
   "terraform",
 ]);
 
+// Same line terminators as scanLines in artifacts.ts: CRLF, lone CR, lone LF.
+const POLICY_LINE_BREAK = /\r\n|\r|\n/u;
+
 type PolicyPredicate = RegExp | ((content: string) => boolean);
 
 const SQL_LEADING_KEYWORD = /\b(?:SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|JOIN|CREATE|ALTER|DROP)\b/gu;
@@ -707,7 +710,7 @@ function isPositiveSemanticText(content: string): boolean {
   }
 
   const lines = trimmed
-    .split(/\r?\n/u)
+    .split(POLICY_LINE_BREAK)
     .map((line) => line.trim())
     .filter(Boolean);
   if (lines.length === 0) {
@@ -774,11 +777,11 @@ function hasCommandArgumentShape(content: string): boolean {
 }
 
 function containsTechnicalTokenShape(content: string): boolean {
-  return content.split(/\r?\n/u).some((line) => hasTechnicalTokenShape(line));
+  return content.split(POLICY_LINE_BREAK).some((line) => hasTechnicalTokenShape(line));
 }
 
 function containsShellCommand(content: string): boolean {
-  return content.split(/\r?\n/u).some((line) => isShellCommandLine(line));
+  return content.split(POLICY_LINE_BREAK).some((line) => isShellCommandLine(line));
 }
 
 function isShellCommandLine(line: string): boolean {
