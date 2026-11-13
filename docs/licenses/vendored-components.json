@@ -1,0 +1,59 @@
+{
+  "description": "License texts for code that a bundled package ships pre-bundled inside its own dist files. Each text is copied unmodified from the npm tarball of the exact version named by the dist region marker. sha256 is over the text with LF line endings.",
+  "components": [
+    {
+      "name": "ajv",
+      "version": "8.18.0",
+      "license": "MIT",
+      "source": "npm registry tarball ajv-8.18.0.tgz, file package/LICENSE",
+      "integrity": "sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==",
+      "licenseFile": "docs/licenses/vendored/ajv-8.18.0-LICENSE.txt",
+      "sha256": "a05350a88e318e4f5f2c2a1ff1e2e88daa4dd38e6e78b71cccae422bdc762cc3"
+    },
+    {
+      "name": "ajv-formats",
+      "version": "3.0.1",
+      "license": "MIT",
+      "source": "npm registry tarball ajv-formats-3.0.1.tgz, file package/LICENSE",
+      "integrity": "sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==",
+      "licenseFile": "docs/licenses/vendored/ajv-formats-3.0.1-LICENSE.txt",
+      "sha256": "9df3bb69929a3b650ed73b3bfa1756725aaff0ac296461605753547004eafeaf"
+    },
+    {
+      "name": "content-type",
+      "version": "1.0.5",
+      "license": "MIT",
+      "source": "npm registry tarball content-type-1.0.5.tgz, file package/LICENSE",
+      "integrity": "sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==",
+      "licenseFile": "docs/licenses/vendored/content-type-1.0.5-LICENSE.txt",
+      "sha256": "257aed98914108e91a337912727b6a802eef218248507f74b76faffaff517a38"
+    },
+    {
+      "name": "fast-deep-equal",
+      "version": "3.1.3",
+      "license": "MIT",
+      "source": "npm registry tarball fast-deep-equal-3.1.3.tgz, file package/LICENSE",
+      "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
+      "licenseFile": "docs/licenses/vendored/fast-deep-equal-3.1.3-LICENSE.txt",
+      "sha256": "7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a"
+    },
+    {
+      "name": "fast-uri",
+      "version": "3.1.0",
+      "license": "BSD-3-Clause",
+      "source": "npm registry tarball fast-uri-3.1.0.tgz, file package/LICENSE",
+      "integrity": "sha512-iPeeDKJSWf4IEOasVVrknXpaBV0IApz/gp7S2bb7Z4Lljbl2MGJRqInZiUrQwV16cpzw/D3S5j5Julj/gT52AA==",
+      "licenseFile": "docs/licenses/vendored/fast-uri-3.1.0-LICENSE.txt",
+      "sha256": "185ef4f377743572c2bf0931f741fae52401268cbe70c880b74063799814083e"
+    },
+    {
+      "name": "json-schema-traverse",
+      "version": "1.0.0",
+      "license": "MIT",
+      "source": "npm registry tarball json-schema-traverse-1.0.0.tgz, file package/LICENSE",
+      "integrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==",
+      "licenseFile": "docs/licenses/vendored/json-schema-traverse-1.0.0-LICENSE.txt",
+      "sha256": "7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a"
+    }
+  ]
+}
