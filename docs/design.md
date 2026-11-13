@@ -19,7 +19,9 @@ The plugin packages one skill and one local STDIO MCP server:
 - The skill decides when optimization is safe.
 - The MCP server performs deterministic, read-oriented artifact operations.
 - The artifact store records UTF-8 source text, SHA-256, and line source maps.
-- A separate image store records validated PNG/JPEG metadata and original SHA-256; it retains no pixels.
+- The text artifact store is process-local and bounded by estimated bytes. Each record is weighed once when it is stored as `2 * byteLength + 160 * lineCount + 32768` bytes. The default bound is 256 MiB (`MemoryArtifactStore` accepts only a `maxEstimatedBytes` constructor option; there is no environment setting). Records are kept in least-recently-used order: a successful lookup and re-indexing the same ID make a record the most recent. When the estimated total exceeds the bound, the least recently used records are evicted. The record just stored is never evicted, so a record larger than the bound stays alone until the next store. An evicted ID fails with the existing `Artifact not indexed: <id>` error and is recovered by indexing the original again.
+- The bound limits the sum of stored estimates only; it is not a heap or RSS cap. The estimated total can reach the larger of the bound and one oversized record (a 10 MiB file of empty lines is estimated at about 1,620 MiB). Memory used while a file is being indexed, concurrent indexing, references to records held outside the store (for example a returned record kept by a direct API caller), and changes made to a record after it was stored are not counted.
+- A separate image store records validated PNG/JPEG metadata and original SHA-256; it retains no pixels. The image store has no bound: its metadata records (about 0.6–0.7 KiB each in a small synthetic profile, more for long paths or segment lists) accumulate for the life of the server process.
 - The installed plugin launches a checked-in bundled server from `bin/token-context-optimizer.mjs`, so it does not depend on local `dist/` or `node_modules/` being present.
 
 The server exposes:
