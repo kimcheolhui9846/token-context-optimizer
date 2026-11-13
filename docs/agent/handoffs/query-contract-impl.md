@@ -16,6 +16,17 @@
 | C35-3 구별력 | 정규식을 A안으로 잠시 바꾸면 C35-2·C35-3 fail. 원복 후 byte 동일, 커밋 없음 |
 | T36-4 | **NOTRUN**: S-10(#113) 미merge. S-10 merge 뒤 통합 회귀에서 작성·실행 |
 
+## 리뷰 수정 (문서 전용)
+
+- primary Minor 1건: README 81행의 N-35 문장("matches only as a whole", "no longer matches it")이 `includes` 부분 문자열 검색과 term별 점수를 과장했다
+  - primary가 dist 공개 API로 재현한 3건(모두 excerpt 1, fallback null)
+    1. 접두·접미가 붙은 원문 속 힌디어 일치
+    2. `q`+U+0307 질의가 `q`+U+0307+U+0301 원문과 일치
+    3. 모음 표기 아랍어+`needle` 질의가 `needle` term으로 일치
+- `fix(review)`로 README 문장만 고쳤다. NFKC·소문자화 뒤 시작 문자에 이어지는 결합 문자를 한 term에 보존하고, term은 줄의 부분 문자열로 1점씩 채점하며, 표기가 다르면 그 term의 일치만 줄 수 있다고 적었다. `contextLines` 문장은 유지했다
+- 코드 gate 기준 SHA는 `3b50def` 그대로다(src·tests·bin 무변경). 확인은 `git diff --check`, `findBestLines` 직접 대조, 3건 재현 재실행으로 했고 full gate는 다시 돌리지 않았다
+- Argon 마일스톤 APPROVE는 수정 전 README 기준이다. Minor 문서 수정이라 재호출하지 않았다
+
 ## 바뀐 것
 
 - `tokenize`: `/[\p{L}\p{N}_./:-][\p{L}\p{M}\p{N}_./:-]*/gu`. term은 결합 문자로 시작하지 않고, 뒤따르는 결합 문자는 유지한다
