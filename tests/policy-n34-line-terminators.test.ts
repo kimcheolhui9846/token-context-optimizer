@@ -176,6 +176,108 @@ describe("N-34 internal constant (auxiliary)", () => {
   });
 });
 
+// Plan A (run3, user-approved 2026-11-14): containsShellCommand / containsTechnicalTokenShape use a
+// private array-free line scanner. Oracle: the previous `content.split(POLICY_LINE_BREAK).some(predicate)`
+// on the same input — same line sequence, same return value, same predicate call prefix (early return),
+// same exception propagation. Before the helper exists this block fails as a preparation failure; that
+// is not a performance RED (the performance RED is the preserved run2 valid FAIL).
+describe("N-34 run3 A: somePolicyLine equals split(POLICY_LINE_BREAK).some", () => {
+  type Predicate = (line: string) => boolean;
+  type Internals = { somePolicyLine: (content: string, predicate: Predicate) => boolean; POLICY_LINE_BREAK: RegExp };
+  let internals: Internals;
+  beforeAll(() => {
+    internals = loadPolicyInternals("src/core/policy.ts", ["somePolicyLine", "POLICY_LINE_BREAK"]) as unknown as Internals;
+  });
+
+  const HIGH = String.fromCharCode(0xd83d);
+  const LOW = String.fromCharCode(0xde00);
+  const ALPHABET = [CR, LF, "x", " ", LS, PS, NEL, "|", HIGH + LOW, HIGH, LOW];
+  const STOP = new Error("stop");
+
+  // Returns a description of the first difference, or null.
+  function differs(content: string): string | null {
+    const expected = content.split(internals.POLICY_LINE_BREAK);
+    const run = (fn: (p: Predicate) => boolean, decide: (call: number, line: string) => boolean) => {
+      const calls: string[] = [];
+      let result: unknown;
+      let error: unknown;
+      try {
+        result = fn((line) => { calls.push(line); return decide(calls.length, line); });
+      } catch (caught) {
+        error = caught;
+      }
+      return JSON.stringify({ result, error: error === undefined ? null : String(error), same: error === STOP, calls });
+    };
+    const oracle = (p: Predicate) => content.split(internals.POLICY_LINE_BREAK).some(p);
+    const actual = (p: Predicate) => internals.somePolicyLine(content, p);
+    const n = expected.length;
+    const mid = Math.floor((n - 1) / 2);
+    const decisions: Array<[string, (call: number) => boolean]> = [
+      ["alwaysFalse", () => false],
+      ["alwaysTrue", () => true],
+      ["hitFirst", (call) => call === 1],
+      ["hitMiddle", (call) => call === mid + 1],
+      ["hitLast", (call) => call === n],
+      ["throwFirst", () => { throw STOP; }],
+      ["throwMiddle", (call) => { if (call === mid + 1) throw STOP; return false; }],
+    ];
+    for (const [name, decide] of decisions) {
+      const want = run(oracle, decide);
+      const got = run(actual, decide);
+      if (want !== got) return `${name} ${JSON.stringify(content)}: want ${want} got ${got}`;
+    }
+    return null;
+  }
+
+  function* exhaustive(maxLength: number): Generator<string> {
+    const atoms = [CR, LF, "x"];
+    let level = [""];
+    yield "";
+    for (let length = 1; length <= maxLength; length++) {
+      const next: string[] = [];
+      for (const prefix of level) for (const atom of atoms) { next.push(prefix + atom); yield prefix + atom; }
+      level = next;
+    }
+  }
+
+  it("explicit boundaries: empty, lone/consecutive/leading/trailing CR and LF, CRLF first, LS/PS/NEL, surrogates", () => {
+    const cases = ["", CR, LF, CRLF, CR + CR, LF + CR, CRLF + LF, CR + CRLF, "a" + CR, CR + "a", "a" + CRLF + "b" + CR + "c" + LF,
+      "a" + CR + CR + "b", LF + LF + "a" + LF, "a" + LS + "b" + PS + "c" + NEL + "d", HIGH + LOW + CR + HIGH + LF + LOW, "a" + CR + LF + LF + CR];
+    for (const content of cases) expect(differs(content)).toBeNull();
+    const lines: string[] = [];
+    expect(internals.somePolicyLine("", (line) => { lines.push(line); return false; })).toBe(false);
+    expect(lines).toEqual([""]);
+  });
+
+  it("exhaustive {CR, LF, x} strings of length 0..8 (9,841 cases)", () => {
+    let count = 0;
+    let first: string | null = null;
+    let mismatches = 0;
+    for (const content of exhaustive(8)) {
+      count++;
+      const diff = differs(content);
+      if (diff) { mismatches++; first ??= diff; }
+    }
+    expect(count).toBe(9841);
+    expect({ mismatches, first }).toEqual({ mismatches: 0, first: null });
+  });
+
+  it("seeded random strings over CR, LF, x, space, LS, PS, NEL, pipe and surrogates (200,000 cases)", () => {
+    let seed = 0x34c0ffee >>> 0;
+    const random = () => (seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 2 ** 32;
+    let first: string | null = null;
+    let mismatches = 0;
+    for (let i = 0; i < 200000; i++) {
+      const length = Math.floor(random() * 40);
+      let content = "";
+      for (let j = 0; j < length; j++) content += ALPHABET[Math.floor(random() * ALPHABET.length)];
+      const diff = differs(content);
+      if (diff) { mismatches++; first ??= diff; }
+    }
+    expect({ mismatches, first }).toEqual({ mismatches: 0, first: null });
+  });
+});
+
 describe("N-34 M1 MCP (rebuilt bin)", () => {
   function result(response: RpcResponse): any {
     if (response.error) throw new Error(`MCP error: ${JSON.stringify(response.error)}`);
