@@ -57,6 +57,7 @@
   - [x] primary 준비 검토 PASS WITH NOTES(`codex_review/review_2026-11-14_n34-run3-preflight.md`): 문서 Minor 2곳(범위·측정 기준 구분) 이 커밋에서 정정
   - [ ] 2단계 실측(`review_2026-11-14_n34-run3-phase2-request.md`, 실행권 발효): prereg `870f446`, 시간 → 시간 전체 pass일 때만 메모리 → 둘 다 pass일 때만 정보용. 블록 사이 raw commit/push로 clean, 블록별 measurementHead 기록. 첫 비PASS에서 중단, run4·다음 안 자동 없음
     - [x] run3 시간 블록(`perf-run3-timing.json`, prereg `870f446`, 측정 HEAD `d5a7e38`, 2026-11-14 20:12–2026-11-15 00:01 KST): **pass(exit 0), 18행 전체 pass**, 행마다 시도 1회·K=1·A/A 유효. C1/B1 중앙값 비 0.769–1.026(O1/F1 0.836). 구현자 재계산 불일치 0. 원인은 단정하지 않는다
+    - [x] run3 메모리 블록(`perf-run3-memory.json`, 측정 HEAD `db12625`, 2026-11-15 00:02–00:07 KST): **pass(exit 0), 108 child 완료, 18행 pass**, ref_failed 0. 후보 R은 기준과 같은 수준(한계 안), P 비 0.106–0.838. 구현자 재계산 불일치 0
 - 측정 기준 구분: run2는 prereg `de2f499`, 측정 HEAD `57f945b`, raw `78e52af`(보존). run3는 코드 `462d1f9`(표준 7단계 통과), prereg `870f446`. run3 prereg 이후 커밋은 src·하네스(HARNESS_FILES) 변경 0이며 문서·self-check·raw만 더한다.
 
 ## 기록
