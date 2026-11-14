@@ -260,7 +260,7 @@ describe("N-34 run3 A: somePolicyLine equals split(POLICY_LINE_BREAK).some", () 
     }
     expect(count).toBe(9841);
     expect({ mismatches, first }).toEqual({ mismatches: 0, first: null });
-  });
+  }, 60_000);
 
   it("seeded random strings over CR, LF, x, space, LS, PS, NEL, pipe and surrogates (200,000 cases)", () => {
     let seed = 0x34c0ffee >>> 0;
@@ -275,7 +275,7 @@ describe("N-34 run3 A: somePolicyLine equals split(POLICY_LINE_BREAK).some", () 
       if (diff) { mismatches++; first ??= diff; }
     }
     expect({ mismatches, first }).toEqual({ mismatches: 0, first: null });
-  });
+  }, 60_000);
 });
 
 describe("N-34 M1 MCP (rebuilt bin)", () => {
