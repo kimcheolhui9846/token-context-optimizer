@@ -39,7 +39,8 @@
 - [x] run2 시간 블록(`perf-run2-timing.json`, prereg `de2f499`, 측정 HEAD `57f945b`, 2026-11-14 16:37–17:47): **failed_gate(exit 4), 유효 FAIL**. 5 PASS(O1/F3·F4·F5·F6L·F7L) + O1/F1 FAIL + 12 NOTRUN
   - O1/F1(G-C, CAND F1 vs REF F4), K=1, 시도 1: A/A 둘 다 유효(B2/B1 1.004, C2/C1 1.002), digest 4사본 동일. C1 중앙값 4,241.95 ms > 한계 4,095.72 ms(B1 3,723.38 ×1.10), 비 1.139. p95는 한계 안(4,328 ≤ 4,601)
   - 사전등록대로 즉시 중단: 재시도·임계 완화·강등 없음, 메모리·정보용 **NOTRUN**, run3 없음. 추적 1119파일 변경 0, tempCleanup true
-  - 관찰(원인 미확정): 절대 시간이 run1의 약 2.2배(O1/F1 B1 1,641→3,723 ms). 같은 보정 child에서 B1 최솟값 1,739 ms, 바로 뒤 C1 3,805 ms. run1 O1/F1은 비 1.041로 PASS였다. 환경 시작·끝 동일 단언은 통과
+  - 관찰(원인 미확정): 절대 시간이 run1의 약 2.2배(O1/F1 B1 1,641→3,723 ms). 같은 보정 child(K=1)의 B1 5묶음이 1,739→2,150→3,683→3,803→3,770 ms로 느려졌고, 이어진 C1 5묶음은 3,805–3,968 ms였다. run1 O1/F1은 비 1.041로 PASS였다. 환경 시작·끝 동일 단언은 통과
+  - Argon(`codex_review/argon/2026-11-14_n34-run2-timing-{bundle,argon}.md`): APPROVE. 유효 FAIL 판정·블록 중단 일치. Nit(보정 순서 문구) 채택. Minor(발췌 밖 run1 수치·NOTRUN·행 수 확인 불가)는 구현자가 원자료로 직접 대조함
 - [ ] primary 최종 검토 → 사용자 결정(N34 처리 방향). Ready·merge 없음
 
 ## 기록
