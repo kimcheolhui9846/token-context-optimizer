@@ -1,6 +1,8 @@
-// N-34 preregistered resource gates (plan PR #115 @4a5b390 section 8; run2 protocol
-// docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md, approved plan A: alternating circuits; the run1
-// protocol docs/agent/handoffs/n34-cr-line-policy-prereg.md is kept unchanged). Mandatory blocks: timing (8.4) and memory (8.5).
+// N-34 preregistered resource gates (plan PR #115 @4a5b390 section 8; run3 protocol
+// docs/agent/handoffs/n34-cr-line-policy-prereg-run3.md, approved remediation A: array-free policy line scan,
+// run2 protocol otherwise inherited; the run2 protocol docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md
+// (alternating circuits) and the run1 protocol docs/agent/handoffs/n34-cr-line-policy-prereg.md are kept
+// unchanged). Mandatory blocks: timing (8.4) and memory (8.5).
 // Informational block (after both mandatory blocks pass): CAND(X) vs BASE(X) on the G-C inputs.
 // Every child is a fresh hidden process with a hard timeout. Spawn/parse failures, missing samples,
 // abnormal exits and invalid repeats are explicit states, never an implicit PASS. Writes one new
@@ -27,9 +29,10 @@ const RUNNER = 'research/src/n34-cr-policy-perf.mjs';
 const INPUTS_MODULE = 'research/src/n34-cr-policy-perf-inputs.mjs';
 const PERF_WORKER = 'research/src/n34-cr-policy-perf-worker.mjs';
 const MEM_WORKER = 'research/src/n34-cr-policy-perf-mem-worker.mjs';
-const PROTOCOL = 'docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md';
+const PROTOCOL = 'docs/agent/handoffs/n34-cr-line-policy-prereg-run3.md';
+const PROTOCOL_RUN2 = 'docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md';
 const PROTOCOL_RUN1 = 'docs/agent/handoffs/n34-cr-line-policy-prereg.md';
-const HARNESS_FILES = [RUNNER, INPUTS_MODULE, PERF_WORKER, MEM_WORKER, PROTOCOL, PROTOCOL_RUN1];
+const HARNESS_FILES = [RUNNER, INPUTS_MODULE, PERF_WORKER, MEM_WORKER, PROTOCOL, PROTOCOL_RUN2, PROTOCOL_RUN1];
 const RESULTS_DIR = 'research/results/n34-cr-policy';
 const NPM = process.env.npm_execpath || join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js');
 const TAR = 'C:/Windows/System32/tar.exe';
