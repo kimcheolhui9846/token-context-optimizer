@@ -49,10 +49,10 @@
   - run1 INVALID와 run2 유효 FAIL은 원자료·판정 그대로 보존한다.
 - [x] 사용자 보완안 승인(2026-11-14, `codex_review/review_2026-11-14_n34-a-run3-approved.md`): **A(배열 없는 줄 순회) + 새 prereg run3**. B·C는 선택하지 않았다. 승인은 gate PASS가 아니다
 - run3 1단계(실행권: 구현·targeted·표준 7단계·check-only·합성 self-check·prereg 고정·Argon·WBS. 10 MiB 실측 없음):
-  - [ ] 동치 테스트 먼저: 기존 `split(POLICY_LINE_BREAK)`을 oracle로 한 `somePolicyLine` 대조(전수 9,841 + seed 200,000, 호출 접두열·예외 전파). 함수가 없어 실패하면 준비 실패일 뿐 성능 RED가 아니다. 성능 RED = run2 유효 FAIL 1.1392739
-  - [ ] 구현: `src/core/policy.ts`에 비공개 `somePolicyLine` 추가, `containsShellCommand`·`containsTechnicalTokenShape`의 두 `split(...).some(...)`만 교체. 정규식·`isPositiveSemanticText`·EXACT_PATTERNS·호출 순서·public API 불변
-  - [ ] N-32 delta에 helper와 두 호출 교체만 추가 → targeted → 표준 7단계 → bin 반영
-  - [ ] 새 prereg `n34-cr-line-policy-prereg-run3.md` + runner PROTOCOL 참조만 변경 → prereg 커밋 고정 → check-only → `selfcheck-run3.json`(gate 아님)
+  - [x] 동치 테스트 먼저 `c699c3e`: `split(POLICY_LINE_BREAK).some` oracle 대조(명시 경계, 전수 9,841, seed 200,000; 반환값·호출 접두열·예외 전파). 함수 부재로 3건 실패 = 준비 실패이며 성능 RED가 아니다(성능 RED = run2 유효 FAIL 1.1392739)
+  - [x] 구현 `744c5db`: 비공개 `somePolicyLine` + 두 `split(...).some(...)` 교체만. N-32 oracle은 동결 hash 유지 + helper·두 호출 delta만 추가. targeted 941 통과
+  - [x] 표준 7단계 @`744c5db`: `npm test`만 exit 1(seed 200,000 테스트가 전체 실행 부하에서 vitest 기본 5 s 초과). `f3aa7c0`에서 두 동치 테스트에 60 s timeout(사례 수 그대로), bin `462d1f9`. 재실행 @`462d1f9`: 7단계 모두 exit 0, 51파일 4443 통과·5 skip, build 뒤 작업 트리 깨끗
+  - [x] **run3 prereg `870f446`**(`n34-cr-line-policy-prereg-run3.md` + runner PROTOCOL·보존 목록·주석만). check-only PASS(시간 호출 0). `selfcheck-run3.json`(gate 아님, 64 KiB 시도 1회): 하네스 수용 조건 통과, 시간 판정 기록값 4 pass + O1/F6 A/A 무효, 메모리 30/30·5행 pass, 추적 파일 변경 0. 입력·worker·run1/run2 prereg 무변경, run1/run2 raw sha256 그대로
   - [ ] milestone Argon → WBS → 보고 `codex_review/codex_paste_2026-11-14_n34-a-run3-prep.md`
   - [ ] 2단계(run3 실측: 시간 → 메모리 → 정보용)는 primary가 준비 검토 뒤 실행권을 넘길 때만. 첫 비PASS에서 중단, run4·다음 안 자동 없음
 - 측정 기준과 문서 head 구분: run2 측정 HEAD `57f945b`, prereg `de2f499`, raw 커밋 `78e52af`. 그 뒤 커밋은 문서만 바꿨다(제품·하네스·raw 변경 0).
