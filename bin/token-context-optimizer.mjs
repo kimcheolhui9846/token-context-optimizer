@@ -23430,11 +23430,22 @@ function hasCommandArgumentShape(content) {
   }
   return false;
 }
+function somePolicyLine(content, predicate) {
+  let start = 0;
+  for (let i2 = 0; i2 < content.length; i2++) {
+    const char = content.charCodeAt(i2);
+    if (char !== 13 && char !== 10) continue;
+    if (predicate(content.slice(start, i2))) return true;
+    if (char === 13 && content.charCodeAt(i2 + 1) === 10) i2++;
+    start = i2 + 1;
+  }
+  return predicate(content.slice(start));
+}
 function containsTechnicalTokenShape(content) {
-  return content.split(POLICY_LINE_BREAK).some((line) => hasTechnicalTokenShape(line));
+  return somePolicyLine(content, (line) => hasTechnicalTokenShape(line));
 }
 function containsShellCommand(content) {
-  return content.split(POLICY_LINE_BREAK).some((line) => isShellCommandLine(line));
+  return somePolicyLine(content, (line) => isShellCommandLine(line));
 }
 function isShellCommandLine(line) {
   const tokens = line.trim().split(/\s+/u).filter(Boolean);
