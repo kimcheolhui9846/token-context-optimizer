@@ -53,7 +53,7 @@
   - [x] 구현 `744c5db`: 비공개 `somePolicyLine` + 두 `split(...).some(...)` 교체만. N-32 oracle은 동결 hash 유지 + helper·두 호출 delta만 추가. targeted 941 통과
   - [x] 표준 7단계 @`744c5db`: `npm test`만 exit 1(seed 200,000 테스트가 전체 실행 부하에서 vitest 기본 5 s 초과). `f3aa7c0`에서 두 동치 테스트에 60 s timeout(사례 수 그대로), bin `462d1f9`. 재실행 @`462d1f9`: 7단계 모두 exit 0, 51파일 4443 통과·5 skip, build 뒤 작업 트리 깨끗
   - [x] **run3 prereg `870f446`**(`n34-cr-line-policy-prereg-run3.md` + runner PROTOCOL·보존 목록·주석만). check-only PASS(시간 호출 0). `selfcheck-run3.json`(gate 아님, 64 KiB 시도 1회): 하네스 수용 조건 통과, 시간 판정 기록값 4 pass + O1/F6 A/A 무효, 메모리 30/30·5행 pass, 추적 파일 변경 0. 입력·worker·run1/run2 prereg 무변경, run1/run2 raw sha256 그대로
-  - [ ] milestone Argon → WBS → 보고 `codex_review/codex_paste_2026-11-14_n34-a-run3-prep.md`
+  - [x] milestone Argon(`codex_review/argon/2026-11-14_n34-a-run3-prep-{bundle,argon}.md`): APPROVE, 지적 0. 발췌 밖(N-32 동결 hash 원값, windowsHide, author 원문)은 확인 불가로 남음. WBS O104·F90 append-only(수식 381, XlError 0, 진행중/미해결 유지). 보고 `codex_review/codex_paste_2026-11-14_n34-a-run3-prep.md`. **1단계 준비 완료, run3 성능 미측정(NOT RUN)**
   - [ ] 2단계(run3 실측: 시간 → 메모리 → 정보용)는 primary가 준비 검토 뒤 실행권을 넘길 때만. 첫 비PASS에서 중단, run4·다음 안 자동 없음
 - 측정 기준과 문서 head 구분: run2 측정 HEAD `57f945b`, prereg `de2f499`, raw 커밋 `78e52af`. 그 뒤 커밋은 문서만 바꿨다(제품·하네스·raw 변경 0).
 
