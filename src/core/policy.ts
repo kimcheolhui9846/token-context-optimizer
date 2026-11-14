@@ -776,12 +776,25 @@ function hasCommandArgumentShape(content: string): boolean {
   return false;
 }
 
+// Same lines and early return as content.split(POLICY_LINE_BREAK).some(predicate), without the array.
+function somePolicyLine(content: string, predicate: (line: string) => boolean): boolean {
+  let start = 0;
+  for (let i = 0; i < content.length; i++) {
+    const char = content.charCodeAt(i);
+    if (char !== 13 && char !== 10) continue;
+    if (predicate(content.slice(start, i))) return true;
+    if (char === 13 && content.charCodeAt(i + 1) === 10) i++;
+    start = i + 1;
+  }
+  return predicate(content.slice(start));
+}
+
 function containsTechnicalTokenShape(content: string): boolean {
-  return content.split(POLICY_LINE_BREAK).some((line) => hasTechnicalTokenShape(line));
+  return somePolicyLine(content, (line) => hasTechnicalTokenShape(line));
 }
 
 function containsShellCommand(content: string): boolean {
-  return content.split(POLICY_LINE_BREAK).some((line) => isShellCommandLine(line));
+  return somePolicyLine(content, (line) => isShellCommandLine(line));
 }
 
 function isShellCommandLine(line: string): boolean {

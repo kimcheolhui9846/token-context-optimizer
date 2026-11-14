@@ -230,7 +230,7 @@ const n32ApprovedRegexes = [
 ];
 
 describe("N-32 product source invariants", () => {
-  it("checks actual product regex sources/flags and exact N-32 suffix + approved N-34 line-break delta", () => {
+  it("checks actual product regex sources/flags and exact N-32 suffix + approved N-34 line-break delta + plan A helper", () => {
     const current = loadPolicyInternals("src/core/policy.ts", ["f21CredentialLabel", "KOREAN_CREDENTIAL_LABEL", "KOREAN_API_CREDENTIAL_LABEL"]) as ReturnType<typeof loadPolicyInternals> & {
       f21CredentialLabel: RegExp; KOREAN_CREDENTIAL_LABEL: RegExp; KOREAN_API_CREDENTIAL_LABEL: RegExp;
     };
@@ -262,8 +262,39 @@ describe("N-32 product source invariants", () => {
       expect(withConstant.split(oldSplit)).toHaveLength(4);
       return withConstant.replaceAll(oldSplit, ".split(POLICY_LINE_BREAK)");
     };
-    expect(product).toBe(n34Delta(n32));
+    // N-34 plan A (run3, user-approved 2026-11-14): one private array-free line helper before
+    // containsTechnicalTokenShape, and exactly the two split(...).some(...) calls switched to it.
+    // isPositiveSemanticText keeps its split. Any other source change still fails.
+    const planADelta = (text: string) => {
+      const oldCall = "content.split(POLICY_LINE_BREAK).some((line) =>";
+      const technical = "function containsTechnicalTokenShape(content: string): boolean {\n" +
+        `  return ${oldCall} hasTechnicalTokenShape(line));\n}\n`;
+      const shell = "function containsShellCommand(content: string): boolean {\n" +
+        `  return ${oldCall} isShellCommandLine(line));\n}\n`;
+      expect(text.split(technical)).toHaveLength(2);
+      expect(text.split(shell)).toHaveLength(2);
+      expect(text.split(oldCall)).toHaveLength(3);
+      const helper = "// Same lines and early return as content.split(POLICY_LINE_BREAK).some(predicate), without the array.\n" +
+        "function somePolicyLine(content: string, predicate: (line: string) => boolean): boolean {\n" +
+        "  let start = 0;\n" +
+        "  for (let i = 0; i < content.length; i++) {\n" +
+        "    const char = content.charCodeAt(i);\n" +
+        "    if (char !== 13 && char !== 10) continue;\n" +
+        "    if (predicate(content.slice(start, i))) return true;\n" +
+        "    if (char === 13 && content.charCodeAt(i + 1) === 10) i++;\n" +
+        "    start = i + 1;\n" +
+        "  }\n" +
+        "  return predicate(content.slice(start));\n" +
+        "}\n\n";
+      const newCall = "somePolicyLine(content, (line) =>";
+      return text
+        .replace(technical, helper + technical.replace(oldCall, newCall))
+        .replace(shell, shell.replace(oldCall, newCall));
+    };
+    expect(product).toBe(planADelta(n34Delta(n32)));
     expect(product.split(String.raw`split(/\r?\n/u)`)).toHaveLength(1);
-    expect(product.split("POLICY_LINE_BREAK")).toHaveLength(5);
+    // Derived count after plan A: constant, the helper comment and the isPositiveSemanticText split.
+    expect(product.split("POLICY_LINE_BREAK")).toHaveLength(4);
+    expect(product.split("somePolicyLine(")).toHaveLength(4);
   });
 });
