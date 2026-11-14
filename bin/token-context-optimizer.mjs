@@ -22823,6 +22823,7 @@ var COMMANDS = /* @__PURE__ */ new Set([
   "systemctl",
   "terraform"
 ]);
+var POLICY_LINE_BREAK = /\r\n|\r|\n/u;
 var SQL_LEADING_KEYWORD = /\b(?:SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|JOIN|CREATE|ALTER|DROP)\b/gu;
 var SQL_TRAILING_KEYWORD = /\b(?:FROM|WHERE|SET|VALUES|TABLE)\b/gu;
 var PHP_OPENER = /<\?[A-Za-z]/gu;
@@ -23379,7 +23380,7 @@ function isPositiveSemanticText(content) {
   if (trimmed.length < 24) {
     return false;
   }
-  const lines = trimmed.split(/\r?\n/u).map((line) => line.trim()).filter(Boolean);
+  const lines = trimmed.split(POLICY_LINE_BREAK).map((line) => line.trim()).filter(Boolean);
   if (lines.length === 0) {
     return false;
   }
@@ -23429,11 +23430,22 @@ function hasCommandArgumentShape(content) {
   }
   return false;
 }
+function somePolicyLine(content, predicate) {
+  let start = 0;
+  for (let i2 = 0; i2 < content.length; i2++) {
+    const char = content.charCodeAt(i2);
+    if (char !== 13 && char !== 10) continue;
+    if (predicate(content.slice(start, i2))) return true;
+    if (char === 13 && content.charCodeAt(i2 + 1) === 10) i2++;
+    start = i2 + 1;
+  }
+  return predicate(content.slice(start));
+}
 function containsTechnicalTokenShape(content) {
-  return content.split(/\r?\n/u).some((line) => hasTechnicalTokenShape(line));
+  return somePolicyLine(content, (line) => hasTechnicalTokenShape(line));
 }
 function containsShellCommand(content) {
-  return content.split(/\r?\n/u).some((line) => isShellCommandLine(line));
+  return somePolicyLine(content, (line) => isShellCommandLine(line));
 }
 function isShellCommandLine(line) {
   const tokens = line.trim().split(/\s+/u).filter(Boolean);
