@@ -59,7 +59,7 @@
     - [x] run3 시간 블록(`perf-run3-timing.json`, prereg `870f446`, 측정 HEAD `d5a7e38`, 2026-11-14 20:12–2026-11-15 00:01 KST): **pass(exit 0), 18행 전체 pass**, 행마다 시도 1회·K=1·A/A 유효. C1/B1 중앙값 비 0.769–1.026(O1/F1 0.836). 구현자 재계산 불일치 0. 원인은 단정하지 않는다
     - [x] run3 메모리 블록(`perf-run3-memory.json`, 측정 HEAD `db12625`, 2026-11-15 00:02–00:07 KST): **pass(exit 0), 108 child 완료, 18행 pass**, ref_failed 0. 후보 R은 기준과 같은 수준(한계 안), P 비 0.106–0.838. 구현자 재계산 불일치 0
     - [x] run3 정보용 블록(`perf-run3-info.json`, 측정 HEAD `175158f`, 2026-11-15 00:07–01:56 KST, gate 아님): completed_informational(exit 0), 8행 child 완료·A/A 유효. 같은 입력 CAND/BASE 중앙값 비: **O1/F1 1.642·O2/F1 1.391은 정보용 failed_gate**, 나머지 6행 0.853–0.941 pass. 정보용 raw는 표본 없이 stats만 저장(하네스 설계), stats 기준 재계산 불일치 0
-    - [ ] primary 최종 검토 대기: 필수 시간·메모리 run3 pass. 정보용 F1(CR-dense) 같은 입력 비 1.39–1.64는 별도 판단 대상. 원인은 단정하지 않는다
+    - [ ] primary 최종 검토 대기: 필수 시간·메모리 run3 pass. 정보용 F1(CR-dense) 같은 입력 비 1.39–1.64는 별도 판단 대상. 원인은 단정하지 않는다. Argon(`codex_review/argon/2026-11-15_n34-run3-result-{bundle,argon}.md`) APPROVE 지적 0. WBS O104·F90 append-only(수식 381, XlError 0, 진행중/미해결). 보고 `codex_review/codex_paste_2026-11-14_n34-run3-result.md`
 - 측정 기준 구분: run2는 prereg `de2f499`, 측정 HEAD `57f945b`, raw `78e52af`(보존). run3는 코드 `462d1f9`(표준 7단계 통과), prereg `870f446`. run3 prereg 이후 커밋은 src·하네스(HARNESS_FILES) 변경 0이며 문서·self-check·raw만 더한다.
 
 ## 기록
