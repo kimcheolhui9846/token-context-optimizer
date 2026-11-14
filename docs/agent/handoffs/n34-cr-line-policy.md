@@ -35,7 +35,12 @@
   - [x] self-check `selfcheck-run2.json` @`de2f499`(gate 아님): 결함 분류 9/9, 합성 5행 144표본 왕복, 메모리 child 30/30, 추적 1118파일 무변경, 임시 폴더 삭제
   - [x] 불변: `45ee43e`→`de2f499`에서 src·bin·package*·입력/시간/메모리 worker·run1 prereg·results 변경 0. run1 raw sha256 `45e2dc3b…` 그대로
   - [x] Argon 구현 검토(`codex_review/argon/2026-11-13_n34-run2-prep-impl-{bundle,argon}.md`): APPROVE, 지적 0. 발췌 밖(생략된 하네스 줄, run1 raw 내용, 승인 문서 원문)은 확인 불가로 남음
-  - [ ] 2단계(run2 실측)는 primary가 diff·preflight 확인 뒤 실행권을 넘길 때만
+  - [x] 2단계 실행권: primary preflight PASS WITH NOTES(`codex_review/review_2026-11-14_n34-run2-preflight.md`)
+- [x] run2 시간 블록(`perf-run2-timing.json`, prereg `de2f499`, 측정 HEAD `57f945b`, 2026-11-14 16:37–17:47): **failed_gate(exit 4), 유효 FAIL**. 5 PASS(O1/F3·F4·F5·F6L·F7L) + O1/F1 FAIL + 12 NOTRUN
+  - O1/F1(G-C, CAND F1 vs REF F4), K=1, 시도 1: A/A 둘 다 유효(B2/B1 1.004, C2/C1 1.002), digest 4사본 동일. C1 중앙값 4,241.95 ms > 한계 4,095.72 ms(B1 3,723.38 ×1.10), 비 1.139. p95는 한계 안(4,328 ≤ 4,601)
+  - 사전등록대로 즉시 중단: 재시도·임계 완화·강등 없음, 메모리·정보용 **NOTRUN**, run3 없음. 추적 1119파일 변경 0, tempCleanup true
+  - 관찰(원인 미확정): 절대 시간이 run1의 약 2.2배(O1/F1 B1 1,641→3,723 ms). 같은 보정 child에서 B1 최솟값 1,739 ms, 바로 뒤 C1 3,805 ms. run1 O1/F1은 비 1.041로 PASS였다. 환경 시작·끝 동일 단언은 통과
+- [ ] primary 최종 검토 → 사용자 결정(N34 처리 방향). Ready·merge 없음
 
 ## 기록
 - 완료 보고·Argon 기록은 메인 checkout의 비추적 `codex_review/`에 둔다(저장소 커밋 대상 아님).

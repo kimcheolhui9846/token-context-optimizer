@@ -1,0 +1,6326 @@
+{
+  "schema": "n34-cr-policy-perf/v2",
+  "block": "timing",
+  "status": "failed_gate",
+  "startedAt": "2026-11-14T07:37:52.011Z",
+  "preregistrationCommit": "de2f4996948da10b4f866e38a7e7bf96bc3f6b70",
+  "measurementHead": "57f945b84e9ad4c968044cf1ca8667e2acc13745",
+  "base": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+  "protocol": {
+    "circuits": [
+      "ABCDBDCADACB",
+      "ADACDBDCBABC"
+    ],
+    "circuitMap": {
+      "A": "B1",
+      "B": "B2",
+      "C": "C2",
+      "D": "C1"
+    },
+    "warmupCircuits": 2,
+    "measureCircuits": 10,
+    "calibrationSamples": 5,
+    "samplesPerArm": 30,
+    "minSampleMs": 50,
+    "maxK": 1024,
+    "maxAttempts": 3,
+    "cooldownMs": 30000,
+    "timingChildTimeoutMs": 1800000,
+    "memoryChildTimeoutMs": 600000,
+    "memoryRepeats": 3,
+    "gateArms": {
+      "candidate": "C1",
+      "reference": "B1"
+    }
+  },
+  "inputs": {
+    "F1": {
+      "kind": "CR-dense",
+      "unitBytes": 1,
+      "count": 10485760,
+      "padBytes": 0,
+      "sha256": "d86de82e3333b6dc14821939e23e017ff761ccad224179380d8101aeb9826528"
+    },
+    "F2": {
+      "kind": "CR-dense",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "3ed5f01ed8341640fd69f7f647be42543eaff8f8cd1e533711e7e1919a2fbc67"
+    },
+    "F3": {
+      "kind": "CRLF regression",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "af03adf7f7fc77345c1076bc4c14ccf92fd1b3ac6b42550a2897a1608fe09f04"
+    },
+    "F4": {
+      "kind": "LF regression (LF of F1)",
+      "unitBytes": 1,
+      "count": 10485760,
+      "padBytes": 0,
+      "sha256": "ab02e108e006e57369eac278af619e4118904f60ea9417acae0ff1f7472eab28"
+    },
+    "F5": {
+      "kind": "LF regression (LF of F2)",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "f8ddfb084704f6b84e4e0e7b7d2be92edbfecb5b8e49986373f1718a931a234e"
+    },
+    "F6": {
+      "kind": "mixed",
+      "unitBytes": 7,
+      "count": 1497965,
+      "padBytes": 5,
+      "sha256": "b2618a7c5d85826f35e7d68570219170cd0d46c9961de4c0d62d91e5b7005025"
+    },
+    "F6L": {
+      "kind": "F6 baseline (lone CR -> LF)",
+      "unitBytes": 7,
+      "count": 1497965,
+      "padBytes": 5,
+      "sha256": "43d079137ac93de14d352ca2f13b8bf6ef60b3dcac3d52e37dd8928e05b7fb49"
+    },
+    "F7": {
+      "kind": "prose CR",
+      "unitBytes": 184,
+      "count": 56987,
+      "padBytes": 152,
+      "sha256": "a003600dd89767739ab2b521565186779a9913ddf4014e9d0e4094d899895115"
+    },
+    "F7L": {
+      "kind": "prose LF (F7 baseline)",
+      "unitBytes": 184,
+      "count": 56987,
+      "padBytes": 152,
+      "sha256": "77a2dab5c9ae24e85c2577b2ae9c81901929215fc7ef37a84386d9af43bd829c"
+    }
+  },
+  "files": {
+    "research/src/n34-cr-policy-perf.mjs": {
+      "blobSha1": "0a0e46561ce35662ef7735215cb4fe25f689f88c",
+      "workingCopySha256": "a8f9b2c101901be4fb274c948dbd04759ce385c590c9a4de03753448ab565c6b"
+    },
+    "research/src/n34-cr-policy-perf-inputs.mjs": {
+      "blobSha1": "e03a6197ddeca9cb78fbf4fb002c87b238d03095",
+      "workingCopySha256": "ebd7e8f14d3347f7ae74d774e835652c85fc4fd6128f7f1f6369df40595c1aa3"
+    },
+    "research/src/n34-cr-policy-perf-worker.mjs": {
+      "blobSha1": "c5ca276327c02134bb1a0ca111b22d43486b0bdb",
+      "workingCopySha256": "f132a05a1b7d474330a4e70b05cd698ea254c592d98dd298088c119c204d4fb3"
+    },
+    "research/src/n34-cr-policy-perf-mem-worker.mjs": {
+      "blobSha1": "f225aa8e62975657089110439374987b7f49e60b",
+      "workingCopySha256": "707568578620fbd6e4bf0b08c9ff19972edeeb47598b5156e6a4a15da899d04f"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md": {
+      "blobSha1": "f3a1ba433748a5174141473de86ae33cef91a812",
+      "workingCopySha256": "cfc2b85d80cbbfce458a6bd7684ed2534fbd6dc63dc602e91b8dfd1467447eb8"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg.md": {
+      "blobSha1": "55f3da93636bcd752677325e27ee70280a4fe979",
+      "workingCopySha256": "74d5a8dac3c4942f294e1b8ba91aea1108696a690775047bdd9f85cba4e38263"
+    },
+    "src/core/policy.ts": {
+      "blobSha1": "5571302c87b38dde0932959b5c50fbf4e42bdcab",
+      "workingCopySha256": "2c41532c0d72fb083542b9ccf7b38f09dae8ee99143f3b5b4092e0a70e963576"
+    },
+    "package-lock.json": {
+      "blobSha1": "4c65f8860373f5b6331b3c870427a3f90897e7c6",
+      "workingCopySha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343"
+    }
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpuModels": [
+      "12th Gen Intel(R) Core(TM) i9-12900F"
+    ],
+    "logicalCPUs": 24,
+    "totalMemBytes": 34163982336,
+    "powerScheme": "���� ����ǥ GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (���� ����)"
+  },
+  "schedule": {
+    "total": 144,
+    "warmupPerCopy": {
+      "B1": 6,
+      "B2": 6,
+      "C2": 6,
+      "C1": 6
+    },
+    "measuredPerCopy": {
+      "B1": 30,
+      "B2": 30,
+      "C2": 30,
+      "C1": 30
+    },
+    "warmupParity": {
+      "B1": [
+        3,
+        3
+      ],
+      "B2": [
+        3,
+        3
+      ],
+      "C2": [
+        3,
+        3
+      ],
+      "C1": [
+        3,
+        3
+      ]
+    },
+    "measuredParity": {
+      "B1": [
+        15,
+        15
+      ],
+      "B2": [
+        15,
+        15
+      ],
+      "C2": [
+        15,
+        15
+      ],
+      "C1": [
+        15,
+        15
+      ]
+    },
+    "pairs": {
+      "C2>B1": 10,
+      "B1>B2": 10,
+      "B2>C2": 10,
+      "C2>C1": 10,
+      "C1>B2": 10,
+      "B2>C1": 10,
+      "C1>C2": 10,
+      "B1>C1": 10,
+      "C1>B1": 10,
+      "B1>C2": 10,
+      "C2>B2": 10,
+      "B2>B1": 10
+    },
+    "innerPairs": {
+      "B1>B2": 10,
+      "B2>C2": 10,
+      "C2>C1": 10,
+      "C1>B2": 10,
+      "B2>C1": 10,
+      "C1>C2": 10,
+      "C2>B1": 9,
+      "B1>C1": 10,
+      "C1>B1": 10,
+      "B1>C2": 10,
+      "C2>B2": 10,
+      "B2>B1": 10
+    },
+    "self": 0
+  },
+  "snapshots": {
+    "base": {
+      "ref": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+      "policyBlobSha1": "d983503e697dde4939d216a6310110674917ca6b",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "distCoreSha256": {
+        "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+        "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+        "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+        "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+        "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+        "policy.js": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a",
+        "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+        "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    "candidate": {
+      "ref": "57f945b84e9ad4c968044cf1ca8667e2acc13745",
+      "policyBlobSha1": "5571302c87b38dde0932959b5c50fbf4e42bdcab",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "distCoreSha256": {
+        "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+        "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+        "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+        "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+        "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+        "policy.js": "3c2cce991144fc87ffb6aa1baadd8efe73a6ca3add533c541b255f9182e5be72",
+        "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+        "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    }
+  },
+  "rows": [
+    {
+      "key": "O1/F3",
+      "op": "O1",
+      "gate": "G-R",
+      "cand": "F3",
+      "ref": "F3",
+      "attempts": [
+        {
+          "number": 1,
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 373390
+          },
+          "samples": [
+            {
+              "order": 0,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 2472.9521000000004
+            },
+            {
+              "order": 1,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 2521.4974999999995
+            },
+            {
+              "order": 2,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 2532.7388999999985
+            },
+            {
+              "order": 3,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 2503.984200000001
+            },
+            {
+              "order": 4,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 2481.6449999999986
+            },
+            {
+              "order": 5,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 2503.6188
+            },
+            {
+              "order": 6,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 2523.0555999999997
+            },
+            {
+              "order": 7,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 2433.330899999997
+            },
+            {
+              "order": 8,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 2519.023100000002
+            },
+            {
+              "order": 9,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 2419.618300000002
+            },
+            {
+              "order": 10,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 2500.836800000001
+            },
+            {
+              "order": 11,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 2492.5675000000047
+            },
+            {
+              "order": 12,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 2512.8462999999974
+            },
+            {
+              "order": 13,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 2432.535300000003
+            },
+            {
+              "order": 14,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 2616.0612000000037
+            },
+            {
+              "order": 15,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 2570.7462000000014
+            },
+            {
+              "order": 16,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 2599.118500000004
+            },
+            {
+              "order": 17,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 2529.1509000000005
+            },
+            {
+              "order": 18,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 2598.5072
+            },
+            {
+              "order": 19,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 2527.483699999997
+            },
+            {
+              "order": 20,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 2545.146299999993
+            },
+            {
+              "order": 21,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 2529.7589000000007
+            },
+            {
+              "order": 22,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 2629.197899999999
+            },
+            {
+              "order": 23,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 2591.794000000009
+            },
+            {
+              "order": 24,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 2572.0329000000056
+            },
+            {
+              "order": 25,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 2590.5748999999923
+            },
+            {
+              "order": 26,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 2598.5546999999933
+            },
+            {
+              "order": 27,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 2580.9226000000053
+            },
+            {
+              "order": 28,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 2548.28409999999
+            },
+            {
+              "order": 29,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 2557.930500000002
+            },
+            {
+              "order": 30,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 2543.860799999995
+            },
+            {
+              "order": 31,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 2537.0580999999947
+            },
+            {
+              "order": 32,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 2573.863999999987
+            },
+            {
+              "order": 33,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 2536.1485000000102
+            },
+            {
+              "order": 34,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 2434.9590000000026
+            },
+            {
+              "order": 35,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 2595.278999999995
+            },
+            {
+              "order": 36,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 2646.0581999999995
+            },
+            {
+              "order": 37,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 2524.7114
+            },
+            {
+              "order": 38,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 2515.1528999999864
+            },
+            {
+              "order": 39,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 2550.225000000006
+            },
+            {
+              "order": 40,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 2557.557700000005
+            },
+            {
+              "order": 41,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 2581.228600000002
+            },
+            {
+              "order": 42,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 2530.604099999997
+            },
+            {
+              "order": 43,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 2629.535300000003
+            },
+            {
+              "order": 44,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 2579.339500000002
+            },
+            {
+              "order": 45,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 2539.679900000003
+            },
+            {
+              "order": 46,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 2651.9900000000052
+            },
+            {
+              "order": 47,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 2579.883999999991
+            },
+            {
+              "order": 48,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 2561.9775999999983
+            },
+            {
+              "order": 49,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 2546.1480999999912
+            },
+            {
+              "order": 50,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 2537.5964000000095
+            },
+            {
+              "order": 51,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 2518.1306999999797
+            },
+            {
+              "order": 52,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 2442.732000000018
+            },
+            {
+              "order": 53,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 2490.9194000000134
+            },
+            {
+              "order": 54,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 2708.5855999999912
+            },
+            {
+              "order": 55,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 2655.9998999999953
+            },
+            {
+              "order": 56,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 2606.1120999999985
+            },
+            {
+              "order": 57,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 2524.845000000001
+            },
+            {
+              "order": 58,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 2510.611499999999
+            },
+            {
+              "order": 59,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 2491.5824999999895
+            },
+            {
+              "order": 60,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 2573.2797999999893
+            },
+            {
+              "order": 61,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 2524.6416000000027
+            },
+            {
+              "order": 62,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 2504.7016000000003
+            },
+            {
+              "order": 63,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 2533.1735000000044
+            },
+            {
+              "order": 64,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 2485.782199999987
+            },
+            {
+              "order": 65,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 2488.0896999999823
+            },
+            {
+              "order": 66,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 2558.4903999999806
+            },
+            {
+              "order": 67,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 2547.74470000001
+            },
+            {
+              "order": 68,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 2531.749299999996
+            },
+            {
+              "order": 69,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 2481.597999999998
+            },
+            {
+              "order": 70,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 2530.6749999999884
+            },
+            {
+              "order": 71,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 2557.9314000000013
+            },
+            {
+              "order": 72,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 2534.5598000000173
+            },
+            {
+              "order": 73,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 2638.6013000000094
+            },
+            {
+              "order": 74,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 2591.4721999999892
+            },
+            {
+              "order": 75,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 2607.5687000000034
+            },
+            {
+              "order": 76,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 2599.896699999983
+            },
+            {
+              "order": 77,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 2744.674500000023
+            },
+            {
+              "order": 78,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 2542.919899999979
+            },
+            {
+              "order": 79,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 2673.4282999999996
+            },
+            {
+              "order": 80,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 2714.763899999991
+            },
+            {
+              "order": 81,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 2723.3542000000016
+            },
+            {
+              "order": 82,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 2843.6266999999934
+            },
+            {
+              "order": 83,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 2738.8316999999806
+            },
+            {
+              "order": 84,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 2621.279999999999
+            },
+            {
+              "order": 85,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 2559.5167000000074
+            },
+            {
+              "order": 86,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 2740.137700000021
+            },
+            {
+              "order": 87,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 2688.7967000000062
+            },
+            {
+              "order": 88,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 2654.11559999999
+            },
+            {
+              "order": 89,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 2705.5368000000017
+            },
+            {
+              "order": 90,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 2695.5236999999906
+            },
+            {
+              "order": 91,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 2671.123399999982
+            },
+            {
+              "order": 92,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 2646.737299999979
+            },
+            {
+              "order": 93,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 2684.507899999997
+            },
+            {
+              "order": 94,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 2646.903900000005
+            },
+            {
+              "order": 95,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 2674.1607000000076
+            },
+            {
+              "order": 96,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 2618.287500000006
+            },
+            {
+              "order": 97,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 2590.046000000002
+            },
+            {
+              "order": 98,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 2510.90830000001
+            },
+            {
+              "order": 99,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 2463.337499999994
+            },
+            {
+              "order": 100,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 2558.240599999961
+            },
+            {
+              "order": 101,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 2744.7176999999792
+            },
+            {
+              "order": 102,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 2523.1961999999476
+            },
+            {
+              "order": 103,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 2472.6607000000076
+            },
+            {
+              "order": 104,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 2485.4189999999944
+            },
+            {
+              "order": 105,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 2393.1019000000088
+            },
+            {
+              "order": 106,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 2630.3242999999784
+            },
+            {
+              "order": 107,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 2484.603800000041
+            },
+            {
+              "order": 108,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 2495.3328999999794
+            },
+            {
+              "order": 109,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 2514.325899999996
+            },
+            {
+              "order": 110,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 2390.784900000028
+            },
+            {
+              "order": 111,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 2446.915500000003
+            },
+            {
+              "order": 112,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 2467.03740000003
+            },
+            {
+              "order": 113,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 2449.0127999999677
+            },
+            {
+              "order": 114,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 2480.13949999999
+            },
+            {
+              "order": 115,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 2419.195299999963
+            },
+            {
+              "order": 116,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 2492.915799999959
+            },
+            {
+              "order": 117,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 2431.880200000014
+            },
+            {
+              "order": 118,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 2432.70630000002
+            },
+            {
+              "order": 119,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 2442.7253999999957
+            },
+            {
+              "order": 120,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 2464.963299999945
+            },
+            {
+              "order": 121,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 2452.017700000026
+            },
+            {
+              "order": 122,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 2480.293399999966
+            },
+            {
+              "order": 123,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 2430.9355000000214
+            },
+            {
+              "order": 124,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 2488.6226000000024
+            },
+            {
+              "order": 125,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 2409.7030999999843
+            },
+            {
+              "order": 126,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 2466.347599999979
+            },
+            {
+              "order": 127,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 2537.4990000000107
+            },
+            {
+              "order": 128,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 2507.7974000000395
+            },
+            {
+              "order": 129,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 2424.0205000000424
+            },
+            {
+              "order": 130,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 2395.007500000007
+            },
+            {
+              "order": 131,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 2469.631800000032
+            },
+            {
+              "order": 132,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 2508.7936000000336
+            },
+            {
+              "order": 133,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 2463.0576
+            },
+            {
+              "order": 134,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 2663.0956000000006
+            },
+            {
+              "order": 135,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 2597.048300000024
+            },
+            {
+              "order": 136,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 2587.8130000000237
+            },
+            {
+              "order": 137,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 2608.9868000000133
+            },
+            {
+              "order": 138,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 2373.324500000046
+            },
+            {
+              "order": 139,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 2580.126199999999
+            },
+            {
+              "order": 140,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 2561.606700000004
+            },
+            {
+              "order": 141,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 2476.780999999959
+            },
+            {
+              "order": 142,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 2636.922899999947
+            },
+            {
+              "order": 143,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 2589.663899999985
+            }
+          ],
+          "digests": {
+            "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+          },
+          "views": {
+            "B1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "B2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            }
+          },
+          "stats": {
+            "B1": {
+              "n": 30,
+              "median": 2536.1485000000102,
+              "p95": 2723.3542000000016
+            },
+            "B2": {
+              "n": 30,
+              "median": 2558.240599999961,
+              "p95": 2705.5368000000017
+            },
+            "C1": {
+              "n": 30,
+              "median": 2524.7114,
+              "p95": 2744.674500000023
+            },
+            "C2": {
+              "n": 30,
+              "median": 2547.74470000001,
+              "p95": 2708.5855999999912
+            }
+          },
+          "aa": {
+            "base": {
+              "ratio": 1.0087108858175895,
+              "medianDelta": 22.092099999950733,
+              "p95Delta": -17.817399999999907,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            },
+            "candidate": {
+              "ratio": 1.0091231417579094,
+              "medianDelta": 23.03330000001006,
+              "p95Delta": -36.08890000003157,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            }
+          },
+          "gate": {
+            "medianLimit": 2789.7633500000115,
+            "p95Limit": 3268.025040000002,
+            "medianOk": true,
+            "p95Ok": true,
+            "pass": true
+          },
+          "ratioC1toB1Median": 0.9954903665932772,
+          "status": "valid"
+        }
+      ],
+      "status": "pass",
+      "calibration": {
+        "child": {
+          "status": "completed",
+          "exitCode": 0,
+          "signal": null,
+          "wallMs": 21454
+        },
+        "steps": [
+          {
+            "k": 1,
+            "base": [
+              1137.5372,
+              1089.4517,
+              1537.5475999999999,
+              2753.8318,
+              2445.9317999999994
+            ],
+            "candidate": [
+              2485.1982000000007,
+              2470.7037,
+              2518.754899999998,
+              2395.4088999999985,
+              2526.8174
+            ]
+          }
+        ],
+        "k": 1
+      },
+      "k": 1,
+      "selectedAttempt": 1
+    },
+    {
+      "key": "O1/F4",
+      "op": "O1",
+      "gate": "G-R",
+      "cand": "F4",
+      "ref": "F4",
+      "attempts": [
+        {
+          "number": 1,
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 541828
+          },
+          "samples": [
+            {
+              "order": 0,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 3712.3614
+            },
+            {
+              "order": 1,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 3668.0174000000006
+            },
+            {
+              "order": 2,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 3660.7767999999996
+            },
+            {
+              "order": 3,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 3697.4297000000006
+            },
+            {
+              "order": 4,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 3648.4905
+            },
+            {
+              "order": 5,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 3795.373599999999
+            },
+            {
+              "order": 6,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 3685.0116000000053
+            },
+            {
+              "order": 7,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 3698.2969999999987
+            },
+            {
+              "order": 8,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 3697.756000000001
+            },
+            {
+              "order": 9,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 3677.4763999999996
+            },
+            {
+              "order": 10,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 3583.8710999999967
+            },
+            {
+              "order": 11,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 3672.792699999998
+            },
+            {
+              "order": 12,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 3651.980499999998
+            },
+            {
+              "order": 13,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 3622.897299999997
+            },
+            {
+              "order": 14,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 3652.890900000006
+            },
+            {
+              "order": 15,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 3660.1837000000087
+            },
+            {
+              "order": 16,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 3734.0121999999974
+            },
+            {
+              "order": 17,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 3667.806899999996
+            },
+            {
+              "order": 18,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 3583.144100000005
+            },
+            {
+              "order": 19,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 3672.0705000000016
+            },
+            {
+              "order": 20,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 3658.295100000003
+            },
+            {
+              "order": 21,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 3606.7165999999997
+            },
+            {
+              "order": 22,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 3703.1304999999993
+            },
+            {
+              "order": 23,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 3632.6775000000052
+            },
+            {
+              "order": 24,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 3717.3637000000017
+            },
+            {
+              "order": 25,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 3697.1843999999983
+            },
+            {
+              "order": 26,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 3770.932799999995
+            },
+            {
+              "order": 27,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 3693.315300000002
+            },
+            {
+              "order": 28,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 3641.7476000000024
+            },
+            {
+              "order": 29,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 3733.9856
+            },
+            {
+              "order": 30,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 3727.405899999998
+            },
+            {
+              "order": 31,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 3689.979600000006
+            },
+            {
+              "order": 32,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 3680.9177000000054
+            },
+            {
+              "order": 33,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 3653.001900000003
+            },
+            {
+              "order": 34,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 3778.97530000002
+            },
+            {
+              "order": 35,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 3705.6038999999873
+            },
+            {
+              "order": 36,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 3685.0074000000022
+            },
+            {
+              "order": 37,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 3581.445800000016
+            },
+            {
+              "order": 38,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 3575.146299999993
+            },
+            {
+              "order": 39,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 3597.706199999986
+            },
+            {
+              "order": 40,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 3704.844299999997
+            },
+            {
+              "order": 41,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 3710.3024999999907
+            },
+            {
+              "order": 42,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 3557.5610999999917
+            },
+            {
+              "order": 43,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 3684.6294000000053
+            },
+            {
+              "order": 44,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 3653.4121999999916
+            },
+            {
+              "order": 45,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 3752.9007000000274
+            },
+            {
+              "order": 46,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 3752.270499999984
+            },
+            {
+              "order": 47,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 3847.2188000000024
+            },
+            {
+              "order": 48,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 3741.1224999999977
+            },
+            {
+              "order": 49,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 3682.6982000000135
+            },
+            {
+              "order": 50,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 3687.2687999999907
+            },
+            {
+              "order": 51,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 3709.8018999999913
+            },
+            {
+              "order": 52,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 3737.549100000004
+            },
+            {
+              "order": 53,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 3656.443399999989
+            },
+            {
+              "order": 54,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 3632.2572999999975
+            },
+            {
+              "order": 55,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 3622.4014000000025
+            },
+            {
+              "order": 56,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 3612.780299999984
+            },
+            {
+              "order": 57,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 3607.3287999999884
+            },
+            {
+              "order": 58,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 3638.2646999999997
+            },
+            {
+              "order": 59,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 3590.270499999984
+            },
+            {
+              "order": 60,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 3723.346500000014
+            },
+            {
+              "order": 61,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 3738.482699999993
+            },
+            {
+              "order": 62,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 3629.792599999986
+            },
+            {
+              "order": 63,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 3724.3168000000005
+            },
+            {
+              "order": 64,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 3725.2755999999936
+            },
+            {
+              "order": 65,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 3709.064400000003
+            },
+            {
+              "order": 66,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 3684.5406000000075
+            },
+            {
+              "order": 67,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 3643.2435000000114
+            },
+            {
+              "order": 68,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 3729.0841000000073
+            },
+            {
+              "order": 69,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 3703.7072000000044
+            },
+            {
+              "order": 70,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 3651.0550999999978
+            },
+            {
+              "order": 71,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 3650.173199999961
+            },
+            {
+              "order": 72,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 3735.3924000000115
+            },
+            {
+              "order": 73,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 3621.4621000000043
+            },
+            {
+              "order": 74,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 3673.450499999977
+            },
+            {
+              "order": 75,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 3668.5704999999725
+            },
+            {
+              "order": 76,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 3681.816899999976
+            },
+            {
+              "order": 77,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 3659.9237999999896
+            },
+            {
+              "order": 78,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 3599.8053000000073
+            },
+            {
+              "order": 79,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 3695.861499999999
+            },
+            {
+              "order": 80,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 3712.0181999999913
+            },
+            {
+              "order": 81,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 3652.6564999999828
+            },
+            {
+              "order": 82,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 3810.6074999999837
+            },
+            {
+              "order": 83,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 3868.719700000016
+            },
+            {
+              "order": 84,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 3877.7406999999657
+            },
+            {
+              "order": 85,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 3777.75
+            },
+            {
+              "order": 86,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 3699.845100000035
+            },
+            {
+              "order": 87,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 3723.5260000000126
+            },
+            {
+              "order": 88,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 3700.4922999999835
+            },
+            {
+              "order": 89,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 3705.967900000047
+            },
+            {
+              "order": 90,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 3586.204299999983
+            },
+            {
+              "order": 91,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 3719.698800000013
+            },
+            {
+              "order": 92,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 3661.947199999995
+            },
+            {
+              "order": 93,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 3675.717799999984
+            },
+            {
+              "order": 94,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 3713.5786999999546
+            },
+            {
+              "order": 95,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 3848.4893000000156
+            },
+            {
+              "order": 96,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 3676.251099999994
+            },
+            {
+              "order": 97,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 3579.892700000026
+            },
+            {
+              "order": 98,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 3674.1834999999846
+            },
+            {
+              "order": 99,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 3585.640000000014
+            },
+            {
+              "order": 100,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 3642.0173999999533
+            },
+            {
+              "order": 101,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 3713.1077000000514
+            },
+            {
+              "order": 102,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 3657.579800000007
+            },
+            {
+              "order": 103,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 3681.315600000031
+            },
+            {
+              "order": 104,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 3721.075499999977
+            },
+            {
+              "order": 105,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 3648.2490000000107
+            },
+            {
+              "order": 106,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 3712.2737000000197
+            },
+            {
+              "order": 107,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 3692.898600000015
+            },
+            {
+              "order": 108,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 3761.7583999999915
+            },
+            {
+              "order": 109,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 3733.6515000000363
+            },
+            {
+              "order": 110,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 3684.511499999964
+            },
+            {
+              "order": 111,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 3678.0993000000017
+            },
+            {
+              "order": 112,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 3622.918400000024
+            },
+            {
+              "order": 113,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 3611.596099999966
+            },
+            {
+              "order": 114,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 3635.289999999979
+            },
+            {
+              "order": 115,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 3736.349500000011
+            },
+            {
+              "order": 116,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 3640.14439999999
+            },
+            {
+              "order": 117,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 3631.4971999999834
+            },
+            {
+              "order": 118,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 3709.083900000027
+            },
+            {
+              "order": 119,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 3671.4118000000017
+            },
+            {
+              "order": 120,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 3716.6592999999993
+            },
+            {
+              "order": 121,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 3730.643400000001
+            },
+            {
+              "order": 122,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 3674.323299999989
+            },
+            {
+              "order": 123,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 3692.450099999958
+            },
+            {
+              "order": 124,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 3663.526599999983
+            },
+            {
+              "order": 125,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 3650.4523000000045
+            },
+            {
+              "order": 126,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 3582.979400000011
+            },
+            {
+              "order": 127,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 3657.3494000000064
+            },
+            {
+              "order": 128,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 3811.8764000000083
+            },
+            {
+              "order": 129,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 3692.097599999979
+            },
+            {
+              "order": 130,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 3630.9553000000305
+            },
+            {
+              "order": 131,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 3660.3340000000317
+            },
+            {
+              "order": 132,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 3691.494000000006
+            },
+            {
+              "order": 133,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 3692.7259000000195
+            },
+            {
+              "order": 134,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 3698.8838000000105
+            },
+            {
+              "order": 135,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 3698.732400000037
+            },
+            {
+              "order": 136,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 3728.023999999976
+            },
+            {
+              "order": 137,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 3566.157899999991
+            },
+            {
+              "order": 138,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 3618.3320999999996
+            },
+            {
+              "order": 139,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 3716.525800000003
+            },
+            {
+              "order": 140,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 3727.6663999999873
+            },
+            {
+              "order": 141,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 3672.685300000012
+            },
+            {
+              "order": 142,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 3742.353000000003
+            },
+            {
+              "order": 143,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 3718.8462999999756
+            }
+          ],
+          "digests": {
+            "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+          },
+          "views": {
+            "B1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "B2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            }
+          },
+          "stats": {
+            "B1": {
+              "n": 30,
+              "median": 3685.0074000000022,
+              "p95": 3761.7583999999915
+            },
+            "B2": {
+              "n": 30,
+              "median": 3682.6982000000135,
+              "p95": 3752.270499999984
+            },
+            "C1": {
+              "n": 30,
+              "median": 3692.450099999958,
+              "p95": 3777.75
+            },
+            "C2": {
+              "n": 30,
+              "median": 3684.6294000000053,
+              "p95": 3847.2188000000024
+            }
+          },
+          "aa": {
+            "base": {
+              "ratio": 0.999373352683094,
+              "medianDelta": -2.3091999999887776,
+              "p95Delta": -9.487900000007357,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            },
+            "candidate": {
+              "ratio": 0.9978819754395725,
+              "medianDelta": -7.820699999952922,
+              "p95Delta": 69.46880000000237,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            }
+          },
+          "gate": {
+            "medianLimit": 4053.5081400000026,
+            "p95Limit": 4514.1100799999895,
+            "medianOk": true,
+            "p95Ok": true,
+            "pass": true
+          },
+          "ratioC1toB1Median": 1.0020197245736755,
+          "status": "valid"
+        }
+      ],
+      "status": "pass",
+      "calibration": {
+        "child": {
+          "status": "completed",
+          "exitCode": 0,
+          "signal": null,
+          "wallMs": 34454
+        },
+        "steps": [
+          {
+            "k": 1,
+            "base": [
+              1766.4232,
+              2200.2055,
+              3683.3465,
+              3943.1631000000007,
+              3886.680700000001
+            ],
+            "candidate": [
+              3996.5796999999984,
+              3669.8652,
+              3807.9299999999967,
+              3711.6767,
+              3697.6854999999996
+            ]
+          }
+        ],
+        "k": 1
+      },
+      "k": 1,
+      "selectedAttempt": 1
+    },
+    {
+      "key": "O1/F5",
+      "op": "O1",
+      "gate": "G-R",
+      "cand": "F5",
+      "ref": "F5",
+      "attempts": [
+        {
+          "number": 1,
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 779181
+          },
+          "samples": [
+            {
+              "order": 0,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 5327.852200000001
+            },
+            {
+              "order": 1,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 5332.827999999998
+            },
+            {
+              "order": 2,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 5187.5495999999985
+            },
+            {
+              "order": 3,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 5234.947899999999
+            },
+            {
+              "order": 4,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 5109.680800000002
+            },
+            {
+              "order": 5,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 5222.303099999997
+            },
+            {
+              "order": 6,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 5146.911499999995
+            },
+            {
+              "order": 7,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 5441.021099999998
+            },
+            {
+              "order": 8,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 5111.099099999999
+            },
+            {
+              "order": 9,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 5385.391000000003
+            },
+            {
+              "order": 10,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 5156.089600000007
+            },
+            {
+              "order": 11,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 5311.299299999999
+            },
+            {
+              "order": 12,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 5162.188399999999
+            },
+            {
+              "order": 13,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 5405.269499999995
+            },
+            {
+              "order": 14,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 5133.284599999999
+            },
+            {
+              "order": 15,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 5391.017300000007
+            },
+            {
+              "order": 16,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 5146.5478999999905
+            },
+            {
+              "order": 17,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 5286.227800000008
+            },
+            {
+              "order": 18,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 5178.446599999996
+            },
+            {
+              "order": 19,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 5253.433300000004
+            },
+            {
+              "order": 20,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 5189.540999999997
+            },
+            {
+              "order": 21,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 5314.397499999992
+            },
+            {
+              "order": 22,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 5167.325899999996
+            },
+            {
+              "order": 23,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 5175.113099999988
+            },
+            {
+              "order": 24,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 5150.255700000009
+            },
+            {
+              "order": 25,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 5282.050399999978
+            },
+            {
+              "order": 26,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 5049.772499999992
+            },
+            {
+              "order": 27,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 5237.439800000022
+            },
+            {
+              "order": 28,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 5223.744600000005
+            },
+            {
+              "order": 29,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 5180.948600000003
+            },
+            {
+              "order": 30,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 5086.6236999999965
+            },
+            {
+              "order": 31,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 5303.93240000002
+            },
+            {
+              "order": 32,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 5265.147800000006
+            },
+            {
+              "order": 33,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 5256.931500000006
+            },
+            {
+              "order": 34,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 5033.184000000008
+            },
+            {
+              "order": 35,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 5325.1802000000025
+            },
+            {
+              "order": 36,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 5131.3111999999965
+            },
+            {
+              "order": 37,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 5196.709299999988
+            },
+            {
+              "order": 38,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 5174.554200000013
+            },
+            {
+              "order": 39,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 5165.721300000005
+            },
+            {
+              "order": 40,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 5028.256499999989
+            },
+            {
+              "order": 41,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 5259.454500000022
+            },
+            {
+              "order": 42,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 5098.482500000013
+            },
+            {
+              "order": 43,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 5214.884700000024
+            },
+            {
+              "order": 44,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 5158.701199999981
+            },
+            {
+              "order": 45,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 5267.75509999998
+            },
+            {
+              "order": 46,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 5109.400900000008
+            },
+            {
+              "order": 47,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 5376.797300000035
+            },
+            {
+              "order": 48,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 5012.982299999974
+            },
+            {
+              "order": 49,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 5243.138400000054
+            },
+            {
+              "order": 50,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 5142.883999999962
+            },
+            {
+              "order": 51,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 5285.3979999999865
+            },
+            {
+              "order": 52,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 5283.492399999988
+            },
+            {
+              "order": 53,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 5294.33739999996
+            },
+            {
+              "order": 54,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 5161.482200000028
+            },
+            {
+              "order": 55,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 5261.579000000027
+            },
+            {
+              "order": 56,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 5278.776500000036
+            },
+            {
+              "order": 57,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 5332.161299999978
+            },
+            {
+              "order": 58,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 5120.340599999996
+            },
+            {
+              "order": 59,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 5222.7104999999865
+            },
+            {
+              "order": 60,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 5121.299999999988
+            },
+            {
+              "order": 61,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 5323.950799999991
+            },
+            {
+              "order": 62,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 5232.551299999992
+            },
+            {
+              "order": 63,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 5241.549599999969
+            },
+            {
+              "order": 64,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 5103.6634000000195
+            },
+            {
+              "order": 65,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 5579.139900000009
+            },
+            {
+              "order": 66,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 5633.823800000013
+            },
+            {
+              "order": 67,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 5752.640699999989
+            },
+            {
+              "order": 68,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 5729.563499999989
+            },
+            {
+              "order": 69,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 5494.488099999959
+            },
+            {
+              "order": 70,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 5294.789400000009
+            },
+            {
+              "order": 71,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 5608.8799
+            },
+            {
+              "order": 72,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 5544.468200000003
+            },
+            {
+              "order": 73,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 5933.416700000002
+            },
+            {
+              "order": 74,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 5749.354300000006
+            },
+            {
+              "order": 75,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 5913.304199999955
+            },
+            {
+              "order": 76,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 5353.507500000007
+            },
+            {
+              "order": 77,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 5479.035700000008
+            },
+            {
+              "order": 78,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 5242.408699999971
+            },
+            {
+              "order": 79,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 5434.678599999985
+            },
+            {
+              "order": 80,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 5097.82699999999
+            },
+            {
+              "order": 81,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 5272.170500000007
+            },
+            {
+              "order": 82,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 5062.995600000024
+            },
+            {
+              "order": 83,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 5316.134299999976
+            },
+            {
+              "order": 84,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 5129.2089999999735
+            },
+            {
+              "order": 85,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 5302.719000000041
+            },
+            {
+              "order": 86,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 5359.785899999959
+            },
+            {
+              "order": 87,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 5393.975399999996
+            },
+            {
+              "order": 88,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 5288.731000000029
+            },
+            {
+              "order": 89,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 5245.7265999999945
+            },
+            {
+              "order": 90,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 5329.001199999999
+            },
+            {
+              "order": 91,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 5211.810999999987
+            },
+            {
+              "order": 92,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 5257.286699999997
+            },
+            {
+              "order": 93,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 5363.590000000026
+            },
+            {
+              "order": 94,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 5259.196400000015
+            },
+            {
+              "order": 95,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 5337.043400000024
+            },
+            {
+              "order": 96,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 5373.583900000085
+            },
+            {
+              "order": 97,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 5270.016499999911
+            },
+            {
+              "order": 98,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 5209.592100000009
+            },
+            {
+              "order": 99,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 5271.761700000032
+            },
+            {
+              "order": 100,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 5205.0611999999965
+            },
+            {
+              "order": 101,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 5266.279399999999
+            },
+            {
+              "order": 102,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 5322.681100000045
+            },
+            {
+              "order": 103,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 5332.245200000005
+            },
+            {
+              "order": 104,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 5163.4345999999205
+            },
+            {
+              "order": 105,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 5264.5296999999555
+            },
+            {
+              "order": 106,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 5149.765300000086
+            },
+            {
+              "order": 107,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 5374.152300000074
+            },
+            {
+              "order": 108,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 5242.8432999999495
+            },
+            {
+              "order": 109,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 5437.56680000003
+            },
+            {
+              "order": 110,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 5322.61950000003
+            },
+            {
+              "order": 111,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 5265.275400000042
+            },
+            {
+              "order": 112,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 5131.988400000031
+            },
+            {
+              "order": 113,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 5225.958600000013
+            },
+            {
+              "order": 114,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 5172.255099999951
+            },
+            {
+              "order": 115,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 5358.96259999997
+            },
+            {
+              "order": 116,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 5245.353000000003
+            },
+            {
+              "order": 117,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 5555.4218999999575
+            },
+            {
+              "order": 118,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 5178.509300000034
+            },
+            {
+              "order": 119,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 5388.64730000007
+            },
+            {
+              "order": 120,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 5280.5158999999985
+            },
+            {
+              "order": 121,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 5455.743099999963
+            },
+            {
+              "order": 122,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 5281.16650000005
+            },
+            {
+              "order": 123,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 5368.7031000000425
+            },
+            {
+              "order": 124,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 5134.33480000007
+            },
+            {
+              "order": 125,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 5303.184000000008
+            },
+            {
+              "order": 126,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 5115.976900000009
+            },
+            {
+              "order": 127,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 5326.732800000114
+            },
+            {
+              "order": 128,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 5249.590099999914
+            },
+            {
+              "order": 129,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 5317.2174999999115
+            },
+            {
+              "order": 130,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 5310.8154000000795
+            },
+            {
+              "order": 131,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 5300.280200000037
+            },
+            {
+              "order": 132,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 5358.118500000099
+            },
+            {
+              "order": 133,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 5293.2489999999525
+            },
+            {
+              "order": 134,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 5205.894999999902
+            },
+            {
+              "order": 135,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 5482.3429999999935
+            },
+            {
+              "order": 136,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 5390.039899999974
+            },
+            {
+              "order": 137,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 5400.734999999986
+            },
+            {
+              "order": 138,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 5208.8288000000175
+            },
+            {
+              "order": 139,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 5330.796299999929
+            },
+            {
+              "order": 140,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 5300.468200000003
+            },
+            {
+              "order": 141,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 5365.2643999999855
+            },
+            {
+              "order": 142,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 5388.142899999977
+            },
+            {
+              "order": 143,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 5452.369600000093
+            }
+          ],
+          "digests": {
+            "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+          },
+          "views": {
+            "B1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "B2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            }
+          },
+          "stats": {
+            "B1": {
+              "n": 30,
+              "median": 5280.5158999999985,
+              "p95": 5544.468200000003
+            },
+            "B2": {
+              "n": 30,
+              "median": 5270.016499999911,
+              "p95": 5729.563499999989
+            },
+            "C1": {
+              "n": 30,
+              "median": 5271.761700000032,
+              "p95": 5633.823800000013
+            },
+            "C2": {
+              "n": 30,
+              "median": 5242.408699999971,
+              "p95": 5749.354300000006
+            }
+          },
+          "aa": {
+            "base": {
+              "ratio": 0.9980116715489696,
+              "medianDelta": -10.499400000087917,
+              "p95Delta": 185.0952999999863,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            },
+            "candidate": {
+              "ratio": 0.994432032085202,
+              "medianDelta": -29.353000000061,
+              "p95Delta": 115.53049999999348,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            }
+          },
+          "gate": {
+            "medianLimit": 5808.5674899999985,
+            "p95Limit": 6653.361840000003,
+            "medianOk": true,
+            "p95Ok": true,
+            "pass": true
+          },
+          "ratioC1toB1Median": 0.9983421695596132,
+          "status": "valid"
+        }
+      ],
+      "status": "pass",
+      "calibration": {
+        "child": {
+          "status": "completed",
+          "exitCode": 0,
+          "signal": null,
+          "wallMs": 49191
+        },
+        "steps": [
+          {
+            "k": 1,
+            "base": [
+              2488.464,
+              4542.923000000001,
+              5266.1176000000005,
+              5212.750199999999,
+              5295.664000000001
+            ],
+            "candidate": [
+              5374.3982,
+              5164.7238,
+              5273.6371,
+              5159.874599999996,
+              5326.404699999999
+            ]
+          }
+        ],
+        "k": 1
+      },
+      "k": 1,
+      "selectedAttempt": 1
+    },
+    {
+      "key": "O1/F6L",
+      "op": "O1",
+      "gate": "G-R",
+      "cand": "F6L",
+      "ref": "F6L",
+      "attempts": [
+        {
+          "number": 1,
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 704324
+          },
+          "samples": [
+            {
+              "order": 0,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 4814.116
+            },
+            {
+              "order": 1,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 4715.623100000001
+            },
+            {
+              "order": 2,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 4949.715400000001
+            },
+            {
+              "order": 3,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 4784.443899999998
+            },
+            {
+              "order": 4,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 4867.165399999998
+            },
+            {
+              "order": 5,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 4795.0746
+            },
+            {
+              "order": 6,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 4830.590199999999
+            },
+            {
+              "order": 7,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 4866.322399999997
+            },
+            {
+              "order": 8,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 4728.914599999996
+            },
+            {
+              "order": 9,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 4896.304600000003
+            },
+            {
+              "order": 10,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 4844.6319
+            },
+            {
+              "order": 11,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 4967.230100000001
+            },
+            {
+              "order": 12,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 4875.9421
+            },
+            {
+              "order": 13,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 4844.2456999999995
+            },
+            {
+              "order": 14,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 4670.481499999994
+            },
+            {
+              "order": 15,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 4877.188900000008
+            },
+            {
+              "order": 16,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 4788.604300000006
+            },
+            {
+              "order": 17,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 4846.315900000001
+            },
+            {
+              "order": 18,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 4674.8269
+            },
+            {
+              "order": 19,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 4693.656300000002
+            },
+            {
+              "order": 20,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 4629.012199999997
+            },
+            {
+              "order": 21,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 4664.479999999996
+            },
+            {
+              "order": 22,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 4789.38870000001
+            },
+            {
+              "order": 23,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 4677.960500000001
+            },
+            {
+              "order": 24,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 4775.879700000005
+            },
+            {
+              "order": 25,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 4749.953100000013
+            },
+            {
+              "order": 26,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 4832.219400000002
+            },
+            {
+              "order": 27,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 4645.162299999996
+            },
+            {
+              "order": 28,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 4861.360799999995
+            },
+            {
+              "order": 29,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 4763.642900000006
+            },
+            {
+              "order": 30,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 4811.6438999999955
+            },
+            {
+              "order": 31,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 4765.094100000017
+            },
+            {
+              "order": 32,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 4961.025399999984
+            },
+            {
+              "order": 33,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 4707.597200000018
+            },
+            {
+              "order": 34,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 4773.8348000000115
+            },
+            {
+              "order": 35,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 4783.028900000005
+            },
+            {
+              "order": 36,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 4782.089700000011
+            },
+            {
+              "order": 37,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 4816.150200000004
+            },
+            {
+              "order": 38,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 4750.568100000004
+            },
+            {
+              "order": 39,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 4808.918000000005
+            },
+            {
+              "order": 40,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 4723.300799999997
+            },
+            {
+              "order": 41,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 4770.820399999997
+            },
+            {
+              "order": 42,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 4730.275599999994
+            },
+            {
+              "order": 43,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 4689.36480000001
+            },
+            {
+              "order": 44,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 4826.84169999999
+            },
+            {
+              "order": 45,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 4770.377299999993
+            },
+            {
+              "order": 46,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 4714.713400000008
+            },
+            {
+              "order": 47,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 4749.5072999999975
+            },
+            {
+              "order": 48,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 4647.555099999998
+            },
+            {
+              "order": 49,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 4917.184200000018
+            },
+            {
+              "order": 50,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 4642.90849999999
+            },
+            {
+              "order": 51,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 4914.13949999999
+            },
+            {
+              "order": 52,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 4838.173300000024
+            },
+            {
+              "order": 53,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 4868.039300000004
+            },
+            {
+              "order": 54,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 4703.236600000004
+            },
+            {
+              "order": 55,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 4834.08349999995
+            },
+            {
+              "order": 56,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 4750.159400000004
+            },
+            {
+              "order": 57,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 4765.967799999984
+            },
+            {
+              "order": 58,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 4838.616500000004
+            },
+            {
+              "order": 59,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 4867.325599999982
+            },
+            {
+              "order": 60,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 4914.306299999997
+            },
+            {
+              "order": 61,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 4766.365500000014
+            },
+            {
+              "order": 62,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 4845.066400000011
+            },
+            {
+              "order": 63,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 4745.8838000000105
+            },
+            {
+              "order": 64,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 4941.596499999985
+            },
+            {
+              "order": 65,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 4842.408799999976
+            },
+            {
+              "order": 66,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 4857.127999999968
+            },
+            {
+              "order": 67,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 4745.722899999993
+            },
+            {
+              "order": 68,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 4762.648199999996
+            },
+            {
+              "order": 69,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 4678.166399999987
+            },
+            {
+              "order": 70,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 4642.967200000014
+            },
+            {
+              "order": 71,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 4660.739100000006
+            },
+            {
+              "order": 72,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 4625.880899999989
+            },
+            {
+              "order": 73,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 4818.53389999998
+            },
+            {
+              "order": 74,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 4929.398300000001
+            },
+            {
+              "order": 75,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 4785.870500000019
+            },
+            {
+              "order": 76,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 4835.216600000043
+            },
+            {
+              "order": 77,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 4806.88559999998
+            },
+            {
+              "order": 78,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 4840.184799999988
+            },
+            {
+              "order": 79,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 4780.615800000029
+            },
+            {
+              "order": 80,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 4899.052999999956
+            },
+            {
+              "order": 81,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 4780.651799999992
+            },
+            {
+              "order": 82,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 4788.32289999997
+            },
+            {
+              "order": 83,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 4778.159900000028
+            },
+            {
+              "order": 84,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 4856.6786999999895
+            },
+            {
+              "order": 85,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 4739.193299999984
+            },
+            {
+              "order": 86,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 4695.743599999987
+            },
+            {
+              "order": 87,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 4762.867100000032
+            },
+            {
+              "order": 88,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 4792.15889999998
+            },
+            {
+              "order": 89,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 4775.5388000000385
+            },
+            {
+              "order": 90,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 4804.765799999994
+            },
+            {
+              "order": 91,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 4859.093099999998
+            },
+            {
+              "order": 92,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 4730.321699999971
+            },
+            {
+              "order": 93,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 4807.130200000014
+            },
+            {
+              "order": 94,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 4634.585800000001
+            },
+            {
+              "order": 95,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 4829.091000000015
+            },
+            {
+              "order": 96,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 4635.578500000003
+            },
+            {
+              "order": 97,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 4738.993499999982
+            },
+            {
+              "order": 98,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 4683.131200000003
+            },
+            {
+              "order": 99,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 4723.826599999971
+            },
+            {
+              "order": 100,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 4831.531799999997
+            },
+            {
+              "order": 101,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 4908.582200000004
+            },
+            {
+              "order": 102,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 4815.137500000012
+            },
+            {
+              "order": 103,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 4790.0481000000145
+            },
+            {
+              "order": 104,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 4787.174299999955
+            },
+            {
+              "order": 105,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 4758.706699999981
+            },
+            {
+              "order": 106,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 4795.806699999957
+            },
+            {
+              "order": 107,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 4696.207700000028
+            },
+            {
+              "order": 108,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 4884.11109999998
+            },
+            {
+              "order": 109,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 4643.129399999976
+            },
+            {
+              "order": 110,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 4837.349799999967
+            },
+            {
+              "order": 111,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 4732.190399999963
+            },
+            {
+              "order": 112,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 4802.059100000071
+            },
+            {
+              "order": 113,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 4796.177799999947
+            },
+            {
+              "order": 114,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 4710.800200000056
+            },
+            {
+              "order": 115,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 4766.711299999966
+            },
+            {
+              "order": 116,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 4796.199200000032
+            },
+            {
+              "order": 117,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 4853.518700000015
+            },
+            {
+              "order": 118,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 4726.860299999942
+            },
+            {
+              "order": 119,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 4699.506000000052
+            },
+            {
+              "order": 120,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 4639.458999999915
+            },
+            {
+              "order": 121,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 4848.425099999993
+            },
+            {
+              "order": 122,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 4685.4277
+            },
+            {
+              "order": 123,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 4762.3429999999935
+            },
+            {
+              "order": 124,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 4798.902400000021
+            },
+            {
+              "order": 125,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 4703.787500000093
+            },
+            {
+              "order": 126,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 4798.286100000027
+            },
+            {
+              "order": 127,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 4835.0163000000175
+            },
+            {
+              "order": 128,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 4853.4839999999385
+            },
+            {
+              "order": 129,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 4730.255300000077
+            },
+            {
+              "order": 130,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 4834.116000000038
+            },
+            {
+              "order": 131,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 4695.766999999993
+            },
+            {
+              "order": 132,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 4885.923999999999
+            },
+            {
+              "order": 133,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 4785.920700000017
+            },
+            {
+              "order": 134,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 4781.082300000009
+            },
+            {
+              "order": 135,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 4747.099500000011
+            },
+            {
+              "order": 136,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 4728.606200000038
+            },
+            {
+              "order": 137,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 4776.119399999967
+            },
+            {
+              "order": 138,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 4804.885500000091
+            },
+            {
+              "order": 139,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 4869.659499999951
+            },
+            {
+              "order": 140,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 4828.0196
+            },
+            {
+              "order": 141,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 4720.185300000012
+            },
+            {
+              "order": 142,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 4815.13599999994
+            },
+            {
+              "order": 143,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 4659.127800000017
+            }
+          ],
+          "digests": {
+            "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+          },
+          "views": {
+            "B1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "B2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            }
+          },
+          "stats": {
+            "B1": {
+              "n": 30,
+              "median": 4775.879700000005,
+              "p95": 4885.923999999999
+            },
+            "B2": {
+              "n": 30,
+              "median": 4783.028900000005,
+              "p95": 4867.325599999982
+            },
+            "C1": {
+              "n": 30,
+              "median": 4785.920700000017,
+              "p95": 4941.596499999985
+            },
+            "C2": {
+              "n": 30,
+              "median": 4766.711299999966,
+              "p95": 4869.659499999951
+            }
+          },
+          "aa": {
+            "base": {
+              "ratio": 1.0014969388780877,
+              "medianDelta": 7.149199999999837,
+              "p95Delta": -18.598400000017136,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            },
+            "candidate": {
+              "ratio": 0.9959862686400026,
+              "medianDelta": -19.209400000050664,
+              "p95Delta": -71.93700000003446,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            }
+          },
+          "gate": {
+            "medianLimit": 5253.4676700000055,
+            "p95Limit": 5863.108799999999,
+            "medianOk": true,
+            "p95Ok": true,
+            "pass": true
+          },
+          "ratioC1toB1Median": 1.0021024398918617,
+          "status": "valid"
+        }
+      ],
+      "status": "pass",
+      "calibration": {
+        "child": {
+          "status": "completed",
+          "exitCode": 0,
+          "signal": null,
+          "wallMs": 44033
+        },
+        "steps": [
+          {
+            "k": 1,
+            "base": [
+              2257.3044,
+              3718.3927000000003,
+              4799.0624,
+              4779.710300000001,
+              4776.358199999999
+            ],
+            "candidate": [
+              4748.1342,
+              4748.727800000001,
+              4748.972099999999,
+              4648.650799999996,
+              4706.037900000003
+            ]
+          }
+        ],
+        "k": 1
+      },
+      "k": 1,
+      "selectedAttempt": 1
+    },
+    {
+      "key": "O1/F7L",
+      "op": "O1",
+      "gate": "G-R",
+      "cand": "F7L",
+      "ref": "F7L",
+      "attempts": [
+        {
+          "number": 1,
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 926228
+          },
+          "samples": [
+            {
+              "order": 0,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 6371.759299999998
+            },
+            {
+              "order": 1,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 6238.408800000005
+            },
+            {
+              "order": 2,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 6237.774900000004
+            },
+            {
+              "order": 3,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 6214.0985
+            },
+            {
+              "order": 4,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 6178.2143
+            },
+            {
+              "order": 5,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 6181.051500000001
+            },
+            {
+              "order": 6,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 6203.085099999997
+            },
+            {
+              "order": 7,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 6156.827099999995
+            },
+            {
+              "order": 8,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 6136.7339000000065
+            },
+            {
+              "order": 9,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 6192.693700000003
+            },
+            {
+              "order": 10,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 6280.5965
+            },
+            {
+              "order": 11,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 6308.138399999996
+            },
+            {
+              "order": 12,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 6236.0436000000045
+            },
+            {
+              "order": 13,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 6162.394400000005
+            },
+            {
+              "order": 14,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 6248.346700000009
+            },
+            {
+              "order": 15,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 6264.426900000006
+            },
+            {
+              "order": 16,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 6208.144800000009
+            },
+            {
+              "order": 17,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 6234.001399999994
+            },
+            {
+              "order": 18,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 6302.399399999995
+            },
+            {
+              "order": 19,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 6269.058699999994
+            },
+            {
+              "order": 20,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 6188.027899999986
+            },
+            {
+              "order": 21,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 6224.528099999996
+            },
+            {
+              "order": 22,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 6256.482100000023
+            },
+            {
+              "order": 23,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 6184.108500000002
+            },
+            {
+              "order": 24,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 6281.514200000005
+            },
+            {
+              "order": 25,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 6281.756499999989
+            },
+            {
+              "order": 26,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 6187.347299999994
+            },
+            {
+              "order": 27,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 6122.828199999989
+            },
+            {
+              "order": 28,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 6063.820299999992
+            },
+            {
+              "order": 29,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 6224.638999999996
+            },
+            {
+              "order": 30,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 6187.5668000000005
+            },
+            {
+              "order": 31,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 6191.592600000004
+            },
+            {
+              "order": 32,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 6296.890400000004
+            },
+            {
+              "order": 33,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 6314.592600000004
+            },
+            {
+              "order": 34,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 6245.050500000012
+            },
+            {
+              "order": 35,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 6255.803899999999
+            },
+            {
+              "order": 36,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 6189.450299999997
+            },
+            {
+              "order": 37,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 6210.127500000002
+            },
+            {
+              "order": 38,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 6318.145999999979
+            },
+            {
+              "order": 39,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 6332.8973000000115
+            },
+            {
+              "order": 40,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 6428.183099999966
+            },
+            {
+              "order": 41,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 6239.457300000009
+            },
+            {
+              "order": 42,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 6383.427300000039
+            },
+            {
+              "order": 43,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 6205.165899999964
+            },
+            {
+              "order": 44,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 6259.607100000023
+            },
+            {
+              "order": 45,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 6282.254599999986
+            },
+            {
+              "order": 46,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 6240.027999999991
+            },
+            {
+              "order": 47,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 6269.420500000007
+            },
+            {
+              "order": 48,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 6348.406399999978
+            },
+            {
+              "order": 49,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 6238.681999999972
+            },
+            {
+              "order": 50,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 6323.067899999965
+            },
+            {
+              "order": 51,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 6361.928400000033
+            },
+            {
+              "order": 52,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 6407.764999999956
+            },
+            {
+              "order": 53,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 6395.530800000008
+            },
+            {
+              "order": 54,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 6309.365499999956
+            },
+            {
+              "order": 55,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 6326.865099999995
+            },
+            {
+              "order": 56,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 6293.559300000023
+            },
+            {
+              "order": 57,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 6221.451100000006
+            },
+            {
+              "order": 58,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 6647.007099999988
+            },
+            {
+              "order": 59,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 6136.667399999977
+            },
+            {
+              "order": 60,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 6240.369799999986
+            },
+            {
+              "order": 61,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 6262.6338000000105
+            },
+            {
+              "order": 62,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 6332.212600000028
+            },
+            {
+              "order": 63,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 6199.831000000006
+            },
+            {
+              "order": 64,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 6217.428799999994
+            },
+            {
+              "order": 65,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 6204.59580000001
+            },
+            {
+              "order": 66,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 6284.6015999999945
+            },
+            {
+              "order": 67,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 6269.0096000000485
+            },
+            {
+              "order": 68,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 6300.449800000002
+            },
+            {
+              "order": 69,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 6353.2729999999865
+            },
+            {
+              "order": 70,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 6314.378299999982
+            },
+            {
+              "order": 71,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 6214.478800000041
+            },
+            {
+              "order": 72,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 6281.851699999999
+            },
+            {
+              "order": 73,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 6280.720399999991
+            },
+            {
+              "order": 74,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 6248.524699999951
+            },
+            {
+              "order": 75,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 6265.064400000032
+            },
+            {
+              "order": 76,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 6194.517300000007
+            },
+            {
+              "order": 77,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 6150.644900000014
+            },
+            {
+              "order": 78,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 6136.334999999963
+            },
+            {
+              "order": 79,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 6210.375300000014
+            },
+            {
+              "order": 80,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 6204.851200000034
+            },
+            {
+              "order": 81,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 6321.552799999947
+            },
+            {
+              "order": 82,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 6150.395499999984
+            },
+            {
+              "order": 83,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 6222.071099999943
+            },
+            {
+              "order": 84,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 6248.806899999967
+            },
+            {
+              "order": 85,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 6227.299200000009
+            },
+            {
+              "order": 86,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 6215.76939999999
+            },
+            {
+              "order": 87,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 6304.104399999953
+            },
+            {
+              "order": 88,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 6328.970399999991
+            },
+            {
+              "order": 89,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 6229.704400000046
+            },
+            {
+              "order": 90,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 6303.294600000023
+            },
+            {
+              "order": 91,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 6335.932700000005
+            },
+            {
+              "order": 92,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 6234.443899999955
+            },
+            {
+              "order": 93,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 6300.408999999985
+            },
+            {
+              "order": 94,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 6368.227799999993
+            },
+            {
+              "order": 95,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 6354.115000000107
+            },
+            {
+              "order": 96,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 6352.824000000022
+            },
+            {
+              "order": 97,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 6277.597799999989
+            },
+            {
+              "order": 98,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 6465.16379999998
+            },
+            {
+              "order": 99,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 6894.696699999971
+            },
+            {
+              "order": 100,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 6606.545999999973
+            },
+            {
+              "order": 101,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 6453.861200000043
+            },
+            {
+              "order": 102,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 6382.3892999999225
+            },
+            {
+              "order": 103,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 6516.65830000001
+            },
+            {
+              "order": 104,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 6183.429400000023
+            },
+            {
+              "order": 105,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 6183.3107999999775
+            },
+            {
+              "order": 106,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 6169.6406000000425
+            },
+            {
+              "order": 107,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 6154.153000000049
+            },
+            {
+              "order": 108,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 6288.658900000039
+            },
+            {
+              "order": 109,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 6302.237199999974
+            },
+            {
+              "order": 110,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 6302.727400000091
+            },
+            {
+              "order": 111,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 6334.360999999917
+            },
+            {
+              "order": 112,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 6304.226800000062
+            },
+            {
+              "order": 113,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 6241.543500000029
+            },
+            {
+              "order": 114,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 6253.793199999956
+            },
+            {
+              "order": 115,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 6321.133999999962
+            },
+            {
+              "order": 116,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 6348.469299999997
+            },
+            {
+              "order": 117,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 6258.690399999963
+            },
+            {
+              "order": 118,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 6352.952099999995
+            },
+            {
+              "order": 119,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 6275.527300000074
+            },
+            {
+              "order": 120,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 6121.895400000038
+            },
+            {
+              "order": 121,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 6205.9179
+            },
+            {
+              "order": 122,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 6230.759699999937
+            },
+            {
+              "order": 123,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 6281.589999999967
+            },
+            {
+              "order": 124,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 6277.103100000066
+            },
+            {
+              "order": 125,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 6399.374199999962
+            },
+            {
+              "order": 126,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 6275.864399999962
+            },
+            {
+              "order": 127,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 6428.128600000055
+            },
+            {
+              "order": 128,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 6391.406200000085
+            },
+            {
+              "order": 129,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 6270.334000000032
+            },
+            {
+              "order": 130,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 6320.643599999952
+            },
+            {
+              "order": 131,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 6247.7828000000445
+            },
+            {
+              "order": 132,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 6205.46510000003
+            },
+            {
+              "order": 133,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 6202.799899999984
+            },
+            {
+              "order": 134,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 6225.871900000027
+            },
+            {
+              "order": 135,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 6351.269800000009
+            },
+            {
+              "order": 136,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 6258.22649999999
+            },
+            {
+              "order": 137,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 6241.774600000004
+            },
+            {
+              "order": 138,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 6511.781899999944
+            },
+            {
+              "order": 139,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 6315.066100000055
+            },
+            {
+              "order": 140,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 6159.401599999983
+            },
+            {
+              "order": 141,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 6369.163300000015
+            },
+            {
+              "order": 142,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 6334.1152
+            },
+            {
+              "order": 143,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 6311.898399999947
+            }
+          ],
+          "digests": {
+            "B1": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+            "B2": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+            "C1": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7",
+            "C2": "f9b8abbc39bd8ae3ba4cf6472f21f1d6650f6ab08d1209a7a542604aa9da82d7"
+          },
+          "views": {
+            "B1": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "B2": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "C1": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            },
+            "C2": {
+              "mode": "semantic",
+              "reasons": [
+                "natural_language"
+              ],
+              "warnings": []
+            }
+          },
+          "stats": {
+            "B1": {
+              "n": 30,
+              "median": 6281.851699999999,
+              "p95": 6428.128600000055
+            },
+            "B2": {
+              "n": 30,
+              "median": 6241.774600000004,
+              "p95": 6407.764999999956
+            },
+            "C1": {
+              "n": 30,
+              "median": 6284.6015999999945,
+              "p95": 6511.781899999944
+            },
+            "C2": {
+              "n": 30,
+              "median": 6275.864399999962,
+              "p95": 6465.16379999998
+            }
+          },
+          "aa": {
+            "base": {
+              "ratio": 0.993620177311732,
+              "medianDelta": -40.07709999999497,
+              "p95Delta": -20.363600000098813,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            },
+            "candidate": {
+              "ratio": 0.9986097448086395,
+              "medianDelta": -8.737200000032317,
+              "p95Delta": -46.618099999963306,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            }
+          },
+          "gate": {
+            "medianLimit": 6910.03687,
+            "p95Limit": 7713.7543200000655,
+            "medianOk": true,
+            "p95Ok": true,
+            "pass": true
+          },
+          "ratioC1toB1Median": 1.0004377530911777,
+          "status": "valid"
+        }
+      ],
+      "status": "pass",
+      "calibration": {
+        "child": {
+          "status": "completed",
+          "exitCode": 0,
+          "signal": null,
+          "wallMs": 59425
+        },
+        "steps": [
+          {
+            "k": 1,
+            "base": [
+              3171.3369000000002,
+              6314.453799999999,
+              6125.3351,
+              6242.351700000001,
+              6147.533299999999
+            ],
+            "candidate": [
+              6330.268999999997,
+              6405.379799999995,
+              6206.4925,
+              6164.333900000005,
+              6224.911599999999
+            ]
+          }
+        ],
+        "k": 1
+      },
+      "k": 1,
+      "selectedAttempt": 1
+    },
+    {
+      "key": "O1/F1",
+      "op": "O1",
+      "gate": "G-C",
+      "cand": "F1",
+      "ref": "F4",
+      "attempts": [
+        {
+          "number": 1,
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 587931
+          },
+          "samples": [
+            {
+              "order": 0,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 3707.7690000000002
+            },
+            {
+              "order": 1,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 3903.4202000000005
+            },
+            {
+              "order": 2,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 4271.508999999998
+            },
+            {
+              "order": 3,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 4202.482099999997
+            },
+            {
+              "order": 4,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 3758.371900000002
+            },
+            {
+              "order": 5,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 4321.722099999999
+            },
+            {
+              "order": 6,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 4168.036699999997
+            },
+            {
+              "order": 7,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 3842.199900000007
+            },
+            {
+              "order": 8,
+              "label": "warmup/0",
+              "arm": "C1",
+              "ms": 4257.6806
+            },
+            {
+              "order": 9,
+              "label": "warmup/0",
+              "arm": "B1",
+              "ms": 3751.4579999999987
+            },
+            {
+              "order": 10,
+              "label": "warmup/0",
+              "arm": "C2",
+              "ms": 4252.882899999997
+            },
+            {
+              "order": 11,
+              "label": "warmup/0",
+              "arm": "B2",
+              "ms": 3824.8447000000015
+            },
+            {
+              "order": 12,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 3672.756199999996
+            },
+            {
+              "order": 13,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 4285.410900000003
+            },
+            {
+              "order": 14,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 3680.2602000000043
+            },
+            {
+              "order": 15,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 4126.034599999999
+            },
+            {
+              "order": 16,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 4240.866699999999
+            },
+            {
+              "order": 17,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 3759.9207000000024
+            },
+            {
+              "order": 18,
+              "label": "warmup/1",
+              "arm": "C1",
+              "ms": 4252.441500000001
+            },
+            {
+              "order": 19,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 4360.767099999997
+            },
+            {
+              "order": 20,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 3772.504700000005
+            },
+            {
+              "order": 21,
+              "label": "warmup/1",
+              "arm": "B1",
+              "ms": 3764.269499999995
+            },
+            {
+              "order": 22,
+              "label": "warmup/1",
+              "arm": "B2",
+              "ms": 3799.7016000000003
+            },
+            {
+              "order": 23,
+              "label": "warmup/1",
+              "arm": "C2",
+              "ms": 4265.256600000008
+            },
+            {
+              "order": 24,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 3834.3315999999904
+            },
+            {
+              "order": 25,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 3661.6466999999975
+            },
+            {
+              "order": 26,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 4156.688399999999
+            },
+            {
+              "order": 27,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 4192.166599999997
+            },
+            {
+              "order": 28,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 3833.813000000009
+            },
+            {
+              "order": 29,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 4237.0599000000075
+            },
+            {
+              "order": 30,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 4419.328099999984
+            },
+            {
+              "order": 31,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 3722.6820999999763
+            },
+            {
+              "order": 32,
+              "label": "measure/0",
+              "arm": "C1",
+              "ms": 4320.57269999999
+            },
+            {
+              "order": 33,
+              "label": "measure/0",
+              "arm": "B1",
+              "ms": 3776.7498000000196
+            },
+            {
+              "order": 34,
+              "label": "measure/0",
+              "arm": "C2",
+              "ms": 4243.911999999982
+            },
+            {
+              "order": 35,
+              "label": "measure/0",
+              "arm": "B2",
+              "ms": 3720.5278999999864
+            },
+            {
+              "order": 36,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 3674.4996999999858
+            },
+            {
+              "order": 37,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 4360.154499999975
+            },
+            {
+              "order": 38,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 3789.3115000000107
+            },
+            {
+              "order": 39,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 4344.307499999995
+            },
+            {
+              "order": 40,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 4240.0386
+            },
+            {
+              "order": 41,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 3710.772500000021
+            },
+            {
+              "order": 42,
+              "label": "measure/1",
+              "arm": "C1",
+              "ms": 4215.119699999981
+            },
+            {
+              "order": 43,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 4174.782800000015
+            },
+            {
+              "order": 44,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 3726.7720000000263
+            },
+            {
+              "order": 45,
+              "label": "measure/1",
+              "arm": "B1",
+              "ms": 3635.131699999998
+            },
+            {
+              "order": 46,
+              "label": "measure/1",
+              "arm": "B2",
+              "ms": 3750.2655999999843
+            },
+            {
+              "order": 47,
+              "label": "measure/1",
+              "arm": "C2",
+              "ms": 4133.138399999996
+            },
+            {
+              "order": 48,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 3723.380899999989
+            },
+            {
+              "order": 49,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 3667.362599999993
+            },
+            {
+              "order": 50,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 4264.443800000008
+            },
+            {
+              "order": 51,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 4247.829700000002
+            },
+            {
+              "order": 52,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 3781.329800000007
+            },
+            {
+              "order": 53,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 4172.607599999988
+            },
+            {
+              "order": 54,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 4386.1918000000005
+            },
+            {
+              "order": 55,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 3675.6916999999958
+            },
+            {
+              "order": 56,
+              "label": "measure/2",
+              "arm": "C1",
+              "ms": 4170.124299999996
+            },
+            {
+              "order": 57,
+              "label": "measure/2",
+              "arm": "B1",
+              "ms": 3704.7116999999853
+            },
+            {
+              "order": 58,
+              "label": "measure/2",
+              "arm": "C2",
+              "ms": 4232.526299999998
+            },
+            {
+              "order": 59,
+              "label": "measure/2",
+              "arm": "B2",
+              "ms": 3797.1024000000034
+            },
+            {
+              "order": 60,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 3713.483600000007
+            },
+            {
+              "order": 61,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 4328.215300000011
+            },
+            {
+              "order": 62,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 3725.165100000013
+            },
+            {
+              "order": 63,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 4239.459900000016
+            },
+            {
+              "order": 64,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 4241.950799999991
+            },
+            {
+              "order": 65,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 3818.7702999999747
+            },
+            {
+              "order": 66,
+              "label": "measure/3",
+              "arm": "C1",
+              "ms": 4264.8833999999915
+            },
+            {
+              "order": 67,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 4250.205000000016
+            },
+            {
+              "order": 68,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 3738.672499999986
+            },
+            {
+              "order": 69,
+              "label": "measure/3",
+              "arm": "B1",
+              "ms": 3792.4455000000307
+            },
+            {
+              "order": 70,
+              "label": "measure/3",
+              "arm": "B2",
+              "ms": 3659.0313000000315
+            },
+            {
+              "order": 71,
+              "label": "measure/3",
+              "arm": "C2",
+              "ms": 4224.554699999979
+            },
+            {
+              "order": 72,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 3655.9664999999804
+            },
+            {
+              "order": 73,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 3653.6539999999804
+            },
+            {
+              "order": 74,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 4177.831800000044
+            },
+            {
+              "order": 75,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 4126.0949000000255
+            },
+            {
+              "order": 76,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 3683.469999999972
+            },
+            {
+              "order": 77,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 4252.200700000045
+            },
+            {
+              "order": 78,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 4290.393099999987
+            },
+            {
+              "order": 79,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 3671.5072999999975
+            },
+            {
+              "order": 80,
+              "label": "measure/4",
+              "arm": "C1",
+              "ms": 4258.943000000028
+            },
+            {
+              "order": 81,
+              "label": "measure/4",
+              "arm": "B1",
+              "ms": 3754.0580999999656
+            },
+            {
+              "order": 82,
+              "label": "measure/4",
+              "arm": "C2",
+              "ms": 4207.534799999965
+            },
+            {
+              "order": 83,
+              "label": "measure/4",
+              "arm": "B2",
+              "ms": 3859.120600000024
+            },
+            {
+              "order": 84,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 3870.3027999999467
+            },
+            {
+              "order": 85,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 4215.288700000034
+            },
+            {
+              "order": 86,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 3735.4658000000054
+            },
+            {
+              "order": 87,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 4266.64519999997
+            },
+            {
+              "order": 88,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 4327.907100000011
+            },
+            {
+              "order": 89,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 3772.588400000008
+            },
+            {
+              "order": 90,
+              "label": "measure/5",
+              "arm": "C1",
+              "ms": 4232.118200000026
+            },
+            {
+              "order": 91,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 4262.002299999993
+            },
+            {
+              "order": 92,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 3913.4308999999776
+            },
+            {
+              "order": 93,
+              "label": "measure/5",
+              "arm": "B1",
+              "ms": 3822.332400000014
+            },
+            {
+              "order": 94,
+              "label": "measure/5",
+              "arm": "B2",
+              "ms": 3824.1888000000035
+            },
+            {
+              "order": 95,
+              "label": "measure/5",
+              "arm": "C2",
+              "ms": 4143.034800000023
+            },
+            {
+              "order": 96,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 3699.8705999999656
+            },
+            {
+              "order": 97,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 3646.2110000000102
+            },
+            {
+              "order": 98,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 4321.139199999976
+            },
+            {
+              "order": 99,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 4318.169400000013
+            },
+            {
+              "order": 100,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 3699.7490999999573
+            },
+            {
+              "order": 101,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 4212.036599999992
+            },
+            {
+              "order": 102,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 4240.830599999987
+            },
+            {
+              "order": 103,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 3725.3052000000025
+            },
+            {
+              "order": 104,
+              "label": "measure/6",
+              "arm": "C1",
+              "ms": 4170.501199999999
+            },
+            {
+              "order": 105,
+              "label": "measure/6",
+              "arm": "B1",
+              "ms": 3730.6824999999953
+            },
+            {
+              "order": 106,
+              "label": "measure/6",
+              "arm": "C2",
+              "ms": 4129.902399999963
+            },
+            {
+              "order": 107,
+              "label": "measure/6",
+              "arm": "B2",
+              "ms": 3701.8175000000047
+            },
+            {
+              "order": 108,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 3745.6599999999744
+            },
+            {
+              "order": 109,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 4133.8036999999895
+            },
+            {
+              "order": 110,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 3686.033800000034
+            },
+            {
+              "order": 111,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 4275.229700000025
+            },
+            {
+              "order": 112,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 4164.510999999999
+            },
+            {
+              "order": 113,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 3834.639900000009
+            },
+            {
+              "order": 114,
+              "label": "measure/7",
+              "arm": "C1",
+              "ms": 4253.988200000022
+            },
+            {
+              "order": 115,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 4270.987399999984
+            },
+            {
+              "order": 116,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 3856.6034999999683
+            },
+            {
+              "order": 117,
+              "label": "measure/7",
+              "arm": "B1",
+              "ms": 3732.420000000042
+            },
+            {
+              "order": 118,
+              "label": "measure/7",
+              "arm": "B2",
+              "ms": 3815.934799999988
+            },
+            {
+              "order": 119,
+              "label": "measure/7",
+              "arm": "C2",
+              "ms": 4207.018299999996
+            },
+            {
+              "order": 120,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 3723.744400000025
+            },
+            {
+              "order": 121,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 3732.0731999999844
+            },
+            {
+              "order": 122,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 4283.818700000003
+            },
+            {
+              "order": 123,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 4306.583900000027
+            },
+            {
+              "order": 124,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 3620.641500000027
+            },
+            {
+              "order": 125,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 4268.0223000000115
+            },
+            {
+              "order": 126,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 4273.91730000003
+            },
+            {
+              "order": 127,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 3674.165399999998
+            },
+            {
+              "order": 128,
+              "label": "measure/8",
+              "arm": "C1",
+              "ms": 4308.300200000056
+            },
+            {
+              "order": 129,
+              "label": "measure/8",
+              "arm": "B1",
+              "ms": 3724.0935999999056
+            },
+            {
+              "order": 130,
+              "label": "measure/8",
+              "arm": "C2",
+              "ms": 4321.246600000071
+            },
+            {
+              "order": 131,
+              "label": "measure/8",
+              "arm": "B2",
+              "ms": 3791.6263000000035
+            },
+            {
+              "order": 132,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 3619.4891999999527
+            },
+            {
+              "order": 133,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 4317.465199999977
+            },
+            {
+              "order": 134,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 3701.6450000000186
+            },
+            {
+              "order": 135,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 4204.430799999973
+            },
+            {
+              "order": 136,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 4295.098999999929
+            },
+            {
+              "order": 137,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 3575.5914999999804
+            },
+            {
+              "order": 138,
+              "label": "measure/9",
+              "arm": "C1",
+              "ms": 4182.69570000004
+            },
+            {
+              "order": 139,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 4312.052499999991
+            },
+            {
+              "order": 140,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 3826.780700000003
+            },
+            {
+              "order": 141,
+              "label": "measure/9",
+              "arm": "B1",
+              "ms": 3709.54170000006
+            },
+            {
+              "order": 142,
+              "label": "measure/9",
+              "arm": "B2",
+              "ms": 3798.7171999999555
+            },
+            {
+              "order": 143,
+              "label": "measure/9",
+              "arm": "C2",
+              "ms": 4327.320100000012
+            }
+          ],
+          "digests": {
+            "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+            "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+          },
+          "views": {
+            "B1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "B2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C1": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            },
+            "C2": {
+              "mode": "unknown",
+              "reasons": [
+                "insufficient_semantic_signal"
+              ],
+              "warnings": [
+                "lossy_compression_not_allowed"
+              ]
+            }
+          },
+          "stats": {
+            "B1": {
+              "n": 30,
+              "median": 3723.380899999989,
+              "p95": 3834.3315999999904
+            },
+            "B2": {
+              "n": 30,
+              "median": 3738.672499999986,
+              "p95": 3859.120600000024
+            },
+            "C1": {
+              "n": 30,
+              "median": 4241.950799999991,
+              "p95": 4328.215300000011
+            },
+            "C2": {
+              "n": 30,
+              "median": 4250.205000000016,
+              "p95": 4386.1918000000005
+            }
+          },
+          "aa": {
+            "base": {
+              "ratio": 1.0041069126180449,
+              "medianDelta": 15.291599999996834,
+              "p95Delta": 24.78900000003341,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            },
+            "candidate": {
+              "ratio": 1.0019458500084502,
+              "medianDelta": 8.254200000024866,
+              "p95Delta": 57.976499999989755,
+              "medianOk": true,
+              "p95Ok": true,
+              "valid": true
+            }
+          },
+          "gate": {
+            "medianLimit": 4095.7189899999885,
+            "p95Limit": 4601.197919999989,
+            "medianOk": false,
+            "p95Ok": true,
+            "pass": false
+          },
+          "ratioC1toB1Median": 1.1392739324628334,
+          "status": "valid"
+        }
+      ],
+      "status": "failed_gate",
+      "calibration": {
+        "child": {
+          "status": "completed",
+          "exitCode": 0,
+          "signal": null,
+          "wallMs": 34663
+        },
+        "steps": [
+          {
+            "k": 1,
+            "base": [
+              1739.2292,
+              2150.3044999999997,
+              3683.2625000000003,
+              3802.7160000000003,
+              3769.9734000000008
+            ],
+            "candidate": [
+              3883.0439000000006,
+              3968.3339000000014,
+              3942.005000000001,
+              3833.0897000000004,
+              3805.1552999999985
+            ]
+          }
+        ],
+        "k": 1
+      },
+      "k": 1,
+      "selectedAttempt": 1,
+      "reason": "valid timing gate failed; no retry"
+    }
+  ],
+  "runs": [],
+  "finalEnvironment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpuModels": [
+      "12th Gen Intel(R) Core(TM) i9-12900F"
+    ],
+    "logicalCPUs": 24,
+    "totalMemBytes": 34163982336,
+    "powerScheme": "���� ����ǥ GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (���� ����)"
+  },
+  "preservation": {
+    "trackedFiles": 1119,
+    "changed": []
+  },
+  "tempCleanup": true,
+  "finishedAt": "2026-11-14T08:47:19.280Z",
+  "exitCode": 4
+}
