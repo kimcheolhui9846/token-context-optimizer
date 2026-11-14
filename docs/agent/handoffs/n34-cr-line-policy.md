@@ -41,7 +41,18 @@
   - 사전등록대로 즉시 중단: 재시도·임계 완화·강등 없음, 메모리·정보용 **NOTRUN**, run3 없음. 추적 1119파일 변경 0, tempCleanup true
   - 관찰(원인 미확정): 절대 시간이 run1의 약 2.2배(O1/F1 B1 1,641→3,723 ms). 같은 보정 child(K=1)의 B1 5묶음이 1,739→2,150→3,683→3,803→3,770 ms로 느려졌고, 이어진 C1 5묶음은 3,805–3,968 ms였다. run1 O1/F1은 비 1.041로 PASS였다. 환경 시작·끝 동일 단언은 통과
   - Argon(`codex_review/argon/2026-11-14_n34-run2-timing-{bundle,argon}.md`): APPROVE. 유효 FAIL 판정·블록 중단 일치. Nit(보정 순서 문구) 채택. Minor(발췌 밖 run1 수치·NOTRUN·행 수 확인 불가)는 구현자가 원자료로 직접 대조함
-- [ ] primary 최종 검토 → 사용자 결정(N34 처리 방향). Ready·merge 없음
+- [x] run2 원인 분석(읽기 전용, `codex_review/codex_paste_2026-11-14_n34-run2-failure-analysis.md`).
+  - primary 지적 9개를 2026-11-14에 정정했다. 원인은 미확정이다.
+- [x] primary run2 최종 검토(2026-11-14, `codex_review/review_2026-11-14_pr119-n34-run2-final.md`): **CHANGES REQUIRED**.
+  - primary 재계산: 6시도, 측정 720 / 전체 864표본에서 median·p95·A/A·판정 불일치 0.
+  - run2: 5 PASS + 1 유효 FAIL(O1/F1) + 12 NOTRUN. 메모리·정보용은 **NOTRUN**.
+  - run1 INVALID와 run2 유효 FAIL은 원자료·판정 그대로 보존한다.
+- [ ] 사용자 보완안 결정 대기(`codex_review/review_2026-11-14_n34-remediation-proposal.md`).
+  - A: 배열 없는 순회(primary 권장). B: 정규식만(Claude 원안). C: 보류.
+  - 어느 안도 승인되지 않았으므로 구현하지 않는다.
+  - 새 prereg + `run3`은 사용자 명시 승인 뒤에만 진행한다. 실패 시 다음 안·run4 자동 없음.
+  - Ready·merge 없음.
+- 측정 기준과 문서 head 구분: run2 측정 HEAD `57f945b`, prereg `de2f499`, raw 커밋 `78e52af`. 그 뒤 커밋은 문서만 바꿨다(제품·하네스·raw 변경 0).
 
 ## 기록
 - 완료 보고·Argon 기록은 메인 checkout의 비추적 `codex_review/`에 둔다(저장소 커밋 대상 아님).
