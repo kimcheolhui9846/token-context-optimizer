@@ -8,8 +8,8 @@
 - 계획 원문: PR #115 `docs/superpowers/plans/2026-11-13-n34-cr-line-policy.md`(main 미병합, 고정 커밋 `4a5b390`에서 읽음).
 
 ## 범위
-- `src/core/policy.ts`: `POLICY_LINE_BREAK = /\r\n|\r|\n/u`(비공개) + 세 split 교체만(계획 §2).
-- `tests/policy-n32.test.ts`: 소스 전문 비교를 "N-32 suffix + 승인된 N-34 delta"로 확장(계획 §6). 동결본·oracle·characterization 무변경.
+- `src/core/policy.ts`: CR 경계 정합(계획 §2) — 비공개 `POLICY_LINE_BREAK = /\r\n|\r|\n/u`. `isPositiveSemanticText`는 이 정규식 split 하나, `containsTechnicalTokenShape`·`containsShellCommand`는 run3 A안의 비공개 `somePolicyLine`(배열 없는 순회, 같은 줄 경계·조기 반환·예외 전파)으로 판정한다. 세 predicate의 줄 경계 의미는 같다.
+- `tests/policy-n32.test.ts`: 소스 전문 비교를 "N-32 suffix + 승인된 N-34 delta + A안 helper·두 호출 delta"로 확장(계획 §6). 동결본·oracle·characterization 무변경.
 - `tests/policy-n34-line-terminators.test.ts` 신규: R1–R5·M1, control G1·G3–G6, 수용 기준 2·3(계획 §7).
 - `docs/design.md` Safety Invariants D4 한 문장. `bin/`은 build 생성.
 - research: 이 Task runner·worker(`research/src/n34-cr-policy-perf*.mjs`)·결과(`research/results/n34-cr-policy/`)만. prereg·handoff는 `docs/agent/handoffs/n34-cr-line-policy*.md`(계획 §8·§9).
@@ -54,8 +54,9 @@
   - [x] 표준 7단계 @`744c5db`: `npm test`만 exit 1(seed 200,000 테스트가 전체 실행 부하에서 vitest 기본 5 s 초과). `f3aa7c0`에서 두 동치 테스트에 60 s timeout(사례 수 그대로), bin `462d1f9`. 재실행 @`462d1f9`: 7단계 모두 exit 0, 51파일 4443 통과·5 skip, build 뒤 작업 트리 깨끗
   - [x] **run3 prereg `870f446`**(`n34-cr-line-policy-prereg-run3.md` + runner PROTOCOL·보존 목록·주석만). check-only PASS(시간 호출 0). `selfcheck-run3.json`(gate 아님, 64 KiB 시도 1회): 하네스 수용 조건 통과, 시간 판정 기록값 4 pass + O1/F6 A/A 무효, 메모리 30/30·5행 pass, 추적 파일 변경 0. 입력·worker·run1/run2 prereg 무변경, run1/run2 raw sha256 그대로
   - [x] milestone Argon(`codex_review/argon/2026-11-14_n34-a-run3-prep-{bundle,argon}.md`): APPROVE, 지적 0. 발췌 밖(N-32 동결 hash 원값, windowsHide, author 원문)은 확인 불가로 남음. WBS O104·F90 append-only(수식 381, XlError 0, 진행중/미해결 유지). 보고 `codex_review/codex_paste_2026-11-14_n34-a-run3-prep.md`. **1단계 준비 완료, run3 성능 미측정(NOT RUN)**
-  - [ ] 2단계(run3 실측: 시간 → 메모리 → 정보용)는 primary가 준비 검토 뒤 실행권을 넘길 때만. 첫 비PASS에서 중단, run4·다음 안 자동 없음
-- 측정 기준과 문서 head 구분: run2 측정 HEAD `57f945b`, prereg `de2f499`, raw 커밋 `78e52af`. 그 뒤 커밋은 문서만 바꿨다(제품·하네스·raw 변경 0).
+  - [x] primary 준비 검토 PASS WITH NOTES(`codex_review/review_2026-11-14_n34-run3-preflight.md`): 문서 Minor 2곳(범위·측정 기준 구분) 이 커밋에서 정정
+  - [ ] 2단계 실측(`review_2026-11-14_n34-run3-phase2-request.md`, 실행권 발효): prereg `870f446`, 시간 → 시간 전체 pass일 때만 메모리 → 둘 다 pass일 때만 정보용. 블록 사이 raw commit/push로 clean, 블록별 measurementHead 기록. 첫 비PASS에서 중단, run4·다음 안 자동 없음
+- 측정 기준 구분: run2는 prereg `de2f499`, 측정 HEAD `57f945b`, raw `78e52af`(보존). run3는 코드 `462d1f9`(표준 7단계 통과), prereg `870f446`. run3 prereg 이후 커밋은 src·하네스(HARNESS_FILES) 변경 0이며 문서·self-check·raw만 더한다.
 
 ## 기록
 - 완료 보고·Argon 기록은 메인 checkout의 비추적 `codex_review/`에 둔다(저장소 커밋 대상 아님).
