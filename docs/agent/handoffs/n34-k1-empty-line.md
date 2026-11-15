@@ -32,6 +32,7 @@
     - memory는 timing pass 뒤에만 시작한다
   - self-check `3599657`(`selfcheck-k1preflightfix.json`, 64 KiB, gate 아님)
   - 전체 npm 7단계 @`8754d90` exit 0
+  - scoped Argon 1회: APPROVE, 지적 0(`codex_review/argon/2026-11-15_n34-k1-preflight-fix-{bundle,argon}.md`)
 - [ ] primary 재검토 → 2단계 실측. 10 MiB 성능 측정·profiling은 아직 하지 않았다
 
 ## 제품 변경 (정확히 두 곳)
