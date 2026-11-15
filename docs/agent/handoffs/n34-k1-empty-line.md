@@ -18,6 +18,9 @@
   - check-only PASS: 18행, 음성 대조, 원자료 완결성, run3 사본 가드
 - [x] synthetic self-check `4af1abf`(64 KiB, gate 아님)
   - 결함 분류 9/9, timing 5행·memory 30 child 완료, raw 누락 0, 추적 파일 무변경
+- [x] milestone Argon 1회: APPROVE, Minor 1·Nit 1(`codex_review/argon/2026-11-15_n34-k1-prep-{bundle,argon}.md`)
+  - Minor(현재 소스를 기존 loader extraExports로 로드) 반영 `02fd545`. Nit은 묶음 요약 표기 문제로 보고서에 밝힌다
+- [x] 전체 npm 7단계 재실행 @`02fd545`: 모두 exit 0, 4,455 통과·5 skip, build 결과 변경 0
 - [ ] PM 1단계 preflight → 2단계 실측. 10 MiB 성능 측정·profiling은 아직 하지 않았다
 
 ## 제품 변경 (정확히 두 곳)
