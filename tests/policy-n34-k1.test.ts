@@ -13,6 +13,7 @@ import { describe, expect, it } from "vitest";
 import { classifyContext as publicClassify, lossyCompressionAllowed as publicLossy } from "../src/core/policy.js";
 import type { ContextClassification } from "../src/core/types.js";
 import { policyCorpus } from "./helpers/policy-corpus.js";
+import { loadPolicyInternals } from "./helpers/policy-test-loader.js";
 
 const CR = String.fromCharCode(13);
 const LF = String.fromCharCode(10);
@@ -40,7 +41,8 @@ type Internals = {
 type CompilableModule = Module & { paths: string[]; _compile(source: string, filename: string): unknown };
 const nodePaths = Module as typeof Module & { _nodeModulePaths(from: string): string[] };
 
-// Same transpile path as tests/helpers/policy-test-loader.ts, but from source text.
+// Same transpile path as tests/helpers/policy-test-loader.ts, but from source text (the loader reads
+// only files; the pre-K1 policy exists only as text). The K1 module itself uses the loader.
 function compilePolicy(text: string): Internals {
   const root = process.cwd();
   const sourcePath = resolve(root, "src/core/policy.ts");
@@ -60,7 +62,7 @@ function compilePolicy(text: string): Internals {
 const productText = readFileSync("src/core/policy.ts", "utf8").replaceAll(CRLF, LF);
 const guardCount = productText.split(GUARD).length - 1;
 const preK1Text = productText.replaceAll(GUARD, "");
-const k1 = compilePolicy(productText);
+const k1 = loadPolicyInternals("src/core/policy.ts", ["isShellCommandLine", "containsShellCommand", "TRACE_PREFIX_SCAN"]) as unknown as Internals;
 const pre = compilePolicy(preK1Text);
 
 describe("N-34 K1 source scope and pre-K1 oracle", () => {
