@@ -21,7 +21,18 @@
 - [x] milestone Argon 1회: APPROVE, Minor 1·Nit 1(`codex_review/argon/2026-11-15_n34-k1-prep-{bundle,argon}.md`)
   - Minor(현재 소스를 기존 loader extraExports로 로드) 반영 `02fd545`. Nit은 묶음 요약 표기 문제로 보고서에 밝힌다
 - [x] 전체 npm 7단계 재실행 @`02fd545`: 모두 exit 0, 4,455 통과·5 skip, build 결과 변경 0
-- [ ] PM 1단계 preflight → 2단계 실측. 10 MiB 성능 측정·profiling은 아직 하지 않았다
+- [x] PM 1단계 preflight @`0dfbc79`: CHANGES REQUIRED(`codex_review/review_2026-11-15_n34-k1-preflight.md`)
+  - R1 Major: 원자료 누락 래퍼가 유효 failed_gate를 invalid로 바꾸고 ref_failed 식별을 잃었다
+  - R2 Minor: F1 서술 구간 0.95 경계가 겹쳤다
+- [x] R1/R2 보완
+  - RED `89e9789`: 기존 의미를 공통 함수로 옮기고 집계 회귀 검사를 넣었다. failed_gate → invalid(exit 4 → 5), refFailedRows 소실이 재현됐다
+  - 수정 + **새 prereg `8754d90`**
+    - pass였을 행만 invalid로 만든다. 유효 FAIL과 ref_failed는 상태와 사유를 유지하고, 누락은 따로 기록한다
+    - F1 구간은 ≤0.95 / >0.95·≤1.05 / >1.05로 나눴다
+    - memory는 timing pass 뒤에만 시작한다
+  - self-check `3599657`(`selfcheck-k1preflightfix.json`, 64 KiB, gate 아님)
+  - 전체 npm 7단계 @`8754d90` exit 0
+- [ ] primary 재검토 → 2단계 실측. 10 MiB 성능 측정·profiling은 아직 하지 않았다
 
 ## 제품 변경 (정확히 두 곳)
 - `src/core/policy.ts`의 `hasTechnicalTokenShape(line)`, `isShellCommandLine(line)` 맨 앞에
