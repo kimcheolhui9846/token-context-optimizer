@@ -5,6 +5,7 @@
 - 승인: 사용자 2026-11-13 async — 계획 PR #115@`4a5b390` D1(C2, D1-a 엄격화·D1-b 완화), D2, D3, D4 권장안 승인(`codex_review/review_2026-11-13_followup-implementation-approved.md`).
 - **현재 상태(2026-11-15): primary 최종 PASS WITH NOTES**(`codex_review/review_2026-11-15_pr119-n34-run3-final.md`). 승인된 필수 기준(run3 시간·메모리)은 충족했고, 정보용 F1 위험(아래)은 남는다. **사용자 검토 대기.** 모든 입력의 성능 개선 보장이 아니다.
 - 미승인: Ready, merge, 설치, 릴리스, 외부 송부, 승인 기준 사후 완화.
+- **K1 보완 진행 중(2026-11-15)**: 빈 줄 빠른 반환. 경과는 [`n34-k1-empty-line.md`](n34-k1-empty-line.md), 측정 계획은 [`n34-k1-prereg.md`](n34-k1-prereg.md)에 있다. 위 run3 PASS WITH NOTES는 pre-K1 `7e732e0` 기준이며 K1 HEAD의 PASS가 아니다. K1 성능은 아직 측정하지 않았다.
 - Base: origin/main `5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3`(= 계획 base, 차이 없음). Branch `claude/n34-cr-line-policy`, Orca 독립 worktree.
 - 계획 원문: PR #115 `docs/superpowers/plans/2026-11-13-n34-cr-line-policy.md`(main 미병합, 고정 커밋 `4a5b390`에서 읽음).
 

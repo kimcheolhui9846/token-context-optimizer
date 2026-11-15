@@ -9,9 +9,16 @@
 - [x] 1단계 시작: worktree clean, HEAD = origin = PR head `7e732e0`, Draft OPEN
 - [x] baseline targeted (pre-K1 `7e732e0`): policy 9개 파일, 1,872 통과
 - [x] 초기 계획 교차 확인(아래): blocker/major 없음
-- [ ] 테스트 먼저(scope guard RED) → 두 guard 구현 → targeted GREEN → 전체 npm gate
-- [ ] 2단계 측정 prereg·하네스 check-only: `docs/agent/handoffs/n34-k1-prereg.md`
-- [ ] PM 1단계 preflight. 10 MiB 성능 측정·profiling은 아직 하지 않는다
+- [x] 테스트 먼저 `ad1d3e6`: 예상된 scope guard RED 3개, 기능 control 전부 통과(기능 RED 없음)
+  - n32 exact source에 K1 delta, guard 2개, 비공개 `lastIndex` 차이
+- [x] 구현 `b4f60ed`: src +2줄(두 guard), bin은 build 결과(+2줄)
+  - targeted 10파일 1,884 통과(baseline 1,872 + 신규 12)
+- [x] 전체 npm 7단계 @`b4f60ed`: 모두 exit 0, test 52파일 4,455 통과·5 skip
+- [x] 2단계 prereg·하네스 `85e8200`: `n34-k1-prereg.md`, `research/src/n34-k1-perf*.mjs`
+  - check-only PASS: 18행, 음성 대조, 원자료 완결성, run3 사본 가드
+- [x] synthetic self-check `4af1abf`(64 KiB, gate 아님)
+  - 결함 분류 9/9, timing 5행·memory 30 child 완료, raw 누락 0, 추적 파일 무변경
+- [ ] PM 1단계 preflight → 2단계 실측. 10 MiB 성능 측정·profiling은 아직 하지 않았다
 
 ## 제품 변경 (정확히 두 곳)
 - `src/core/policy.ts`의 `hasTechnicalTokenShape(line)`, `isShellCommandLine(line)` 맨 앞에
