@@ -3,6 +3,7 @@
 ## 상태와 승인
 - Tier E. 작업자: Claude Code(`claude-opus-5-5`, 개발자). PM·최종 판정: Codex(Astra).
 - 승인: 사용자 2026-11-13 async — 계획 PR #115@`4a5b390` D1(C2, D1-a 엄격화·D1-b 완화), D2, D3, D4 권장안 승인(`codex_review/review_2026-11-13_followup-implementation-approved.md`).
+- **현재 상태(2026-11-15): primary 최종 PASS WITH NOTES**(`codex_review/review_2026-11-15_pr119-n34-run3-final.md`). 승인된 필수 기준(run3 시간·메모리)은 충족했고, 정보용 F1 위험(아래)은 남는다. **사용자 검토 대기.** 모든 입력의 성능 개선 보장이 아니다.
 - 미승인: Ready, merge, 설치, 릴리스, 외부 송부, 승인 기준 사후 완화.
 - Base: origin/main `5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3`(= 계획 base, 차이 없음). Branch `claude/n34-cr-line-policy`, Orca 독립 worktree.
 - 계획 원문: PR #115 `docs/superpowers/plans/2026-11-13-n34-cr-line-policy.md`(main 미병합, 고정 커밋 `4a5b390`에서 읽음).
@@ -55,11 +56,13 @@
   - [x] **run3 prereg `870f446`**(`n34-cr-line-policy-prereg-run3.md` + runner PROTOCOL·보존 목록·주석만). check-only PASS(시간 호출 0). `selfcheck-run3.json`(gate 아님, 64 KiB 시도 1회): 하네스 수용 조건 통과, 시간 판정 기록값 4 pass + O1/F6 A/A 무효, 메모리 30/30·5행 pass, 추적 파일 변경 0. 입력·worker·run1/run2 prereg 무변경, run1/run2 raw sha256 그대로
   - [x] milestone Argon(`codex_review/argon/2026-11-14_n34-a-run3-prep-{bundle,argon}.md`): APPROVE, 지적 0. 발췌 밖(N-32 동결 hash 원값, windowsHide, author 원문)은 확인 불가로 남음. WBS O104·F90 append-only(수식 381, XlError 0, 진행중/미해결 유지). 보고 `codex_review/codex_paste_2026-11-14_n34-a-run3-prep.md`. **1단계 준비 완료, run3 성능 미측정(NOT RUN)**
   - [x] primary 준비 검토 PASS WITH NOTES(`codex_review/review_2026-11-14_n34-run3-preflight.md`): 문서 Minor 2곳(범위·측정 기준 구분) 이 커밋에서 정정
-  - [ ] 2단계 실측(`review_2026-11-14_n34-run3-phase2-request.md`, 실행권 발효): prereg `870f446`, 시간 → 시간 전체 pass일 때만 메모리 → 둘 다 pass일 때만 정보용. 블록 사이 raw commit/push로 clean, 블록별 measurementHead 기록. 첫 비PASS에서 중단, run4·다음 안 자동 없음
-    - [x] run3 시간 블록(`perf-run3-timing.json`, prereg `870f446`, 측정 HEAD `d5a7e38`, 2026-11-14 20:12–2026-11-15 00:01 KST): **pass(exit 0), 18행 전체 pass**, 행마다 시도 1회·K=1·A/A 유효. C1/B1 중앙값 비 0.769–1.026(O1/F1 0.836). 구현자 재계산 불일치 0. 원인은 단정하지 않는다
-    - [x] run3 메모리 블록(`perf-run3-memory.json`, 측정 HEAD `db12625`, 2026-11-15 00:02–00:07 KST): **pass(exit 0), 108 child 완료, 18행 pass**, ref_failed 0. 후보 R은 기준과 같은 수준(한계 안), P 비 0.106–0.838. 구현자 재계산 불일치 0
-    - [x] run3 정보용 블록(`perf-run3-info.json`, 측정 HEAD `175158f`, 2026-11-15 00:07–01:56 KST, gate 아님): completed_informational(exit 0), 8행 child 완료·A/A 유효. 같은 입력 CAND/BASE 중앙값 비: **O1/F1 1.642·O2/F1 1.391은 정보용 failed_gate**, 나머지 6행 0.853–0.941 pass. 정보용 raw는 표본 없이 stats만 저장(하네스 설계), stats 기준 재계산 불일치 0
-    - [ ] primary 최종 검토 대기: 필수 시간·메모리 run3 pass. 정보용 F1(CR-dense) 같은 입력 비 1.39–1.64는 별도 판단 대상. 원인은 단정하지 않는다. Argon(`codex_review/argon/2026-11-15_n34-run3-result-{bundle,argon}.md`) APPROVE 지적 0. WBS O104·F90 append-only(수식 381, XlError 0, 진행중/미해결). 보고 `codex_review/codex_paste_2026-11-14_n34-run3-result.md`
+  - [x] 2단계 실측 완료(`review_2026-11-14_n34-run3-phase2-request.md`): prereg `870f446`, 코드 `462d1f9`. 시간 → 메모리 → 정보용 순서, 블록 사이 raw commit/push로 clean. 측정 HEAD / raw 커밋은 블록마다 다르다(아래). 실측 실행권은 종료됐다
+    - [x] run3 시간 블록(`perf-run3-timing.json`, prereg `870f446`, 측정 HEAD `d5a7e38`, raw `db12625`, 2026-11-14 20:12–2026-11-15 00:01 KST): **pass(exit 0), 18행 전체 pass**, 행마다 시도 1회·K=1·A/A 유효. C1/B1 중앙값 비 0.769–1.026(O1/F1 0.836). 구현자 재계산 불일치 0. 원인은 단정하지 않는다
+    - [x] run3 메모리 블록(`perf-run3-memory.json`, 측정 HEAD `db12625`, raw `175158f`, 2026-11-15 00:02–00:07 KST): **pass(exit 0), 108 child 완료, 18행 pass**, ref_failed 0. 후보 R은 기준과 같은 수준(한계 안), P 비 0.106–0.838. 구현자 재계산 불일치 0
+    - [x] run3 정보용 블록(`perf-run3-info.json`, 측정 HEAD `175158f`, raw `e2e77ae`, 2026-11-15 00:07–01:56 KST, gate 아님): completed_informational(exit 0), 8행 child 완료·A/A 유효. 같은 입력 CAND/BASE 중앙값 비: **O1/F1 1.642·O2/F1 1.391은 정보용 failed_gate**, 나머지 6행 0.853–0.941 pass. 정보용 raw는 개별 표본·views·digest 없이 stats만 저장(하네스 설계), stats 산술 재계산 불일치 0
+  - [x] primary 최종 검토 **PASS WITH NOTES**(`codex_review/review_2026-11-15_pr119-n34-run3-final.md`, primary Argon APPROVE): 필수 두 gate 충족, primary 독립 재계산(시간 2,592표본·메모리 108 runs) 불일치 0. 구현자 보고 `codex_review/codex_paste_2026-11-14_n34-run3-result.md`, 구현자 Argon `codex_review/argon/2026-11-15_n34-run3-result-{bundle,argon}.md` APPROVE
+  - 남은 위험(해결 아님): 정보용 CR-only F1 same-input 중앙값 비 **O1 1.642342(+64.2%)·O2 1.390836(+39.1%)**. 정보용 표본·views·digest 미보존, 원인 미확정. 원인 분리·추가 최적화는 별도 계획·승인 사항이다. N34 base의 기존 npm ci 취약점 7건은 이 Task에서 바꾸지 않았다
+  - [ ] 사용자 검토·승인 대기(Ready·merge 미승인). WBS 6.15·N-34는 리뷰중
 - 측정 기준 구분: run2는 prereg `de2f499`, 측정 HEAD `57f945b`, raw `78e52af`(보존). run3는 코드 `462d1f9`(표준 7단계 통과), prereg `870f446`. run3 prereg 이후 커밋은 src·하네스(HARNESS_FILES) 변경 0이며 문서·self-check·raw만 더한다.
 
 ## 기록
