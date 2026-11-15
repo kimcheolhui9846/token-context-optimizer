@@ -230,7 +230,7 @@ const n32ApprovedRegexes = [
 ];
 
 describe("N-32 product source invariants", () => {
-  it("checks actual product regex sources/flags and exact N-32 suffix + approved N-34 line-break delta + plan A helper", () => {
+  it("checks actual product regex sources/flags and exact N-32 suffix + approved N-34 line-break delta + plan A helper + K1 guards", () => {
     const current = loadPolicyInternals("src/core/policy.ts", ["f21CredentialLabel", "KOREAN_CREDENTIAL_LABEL", "KOREAN_API_CREDENTIAL_LABEL"]) as ReturnType<typeof loadPolicyInternals> & {
       f21CredentialLabel: RegExp; KOREAN_CREDENTIAL_LABEL: RegExp; KOREAN_API_CREDENTIAL_LABEL: RegExp;
     };
@@ -291,7 +291,18 @@ describe("N-32 product source invariants", () => {
         .replace(technical, helper + technical.replace(oldCall, newCall))
         .replace(shell, shell.replace(oldCall, newCall));
     };
-    expect(product).toBe(planADelta(n34Delta(n32)));
+    // N-34 K1 (user-approved 2026-11-15, review_2026-11-15_n34-k1-implementation-request): one
+    // empty-line early false at the top of exactly these two predicates. Any other source change still fails.
+    const k1Delta = (text: string) => {
+      const technical = "function hasTechnicalTokenShape(line: string): boolean {\n";
+      const shell = "function isShellCommandLine(line: string): boolean {\n";
+      expect(text.split(technical)).toHaveLength(2);
+      expect(text.split(shell)).toHaveLength(2);
+      const guard = "  if (line.length === 0) return false;\n";
+      return text.replace(technical, technical + guard).replace(shell, shell + guard);
+    };
+    expect(product).toBe(k1Delta(planADelta(n34Delta(n32))));
+    expect(product.split("if (line.length === 0) return false;")).toHaveLength(3);
     expect(product.split(String.raw`split(/\r?\n/u)`)).toHaveLength(1);
     // Derived count after plan A: constant, the helper comment and the isPositiveSemanticText split.
     expect(product.split("POLICY_LINE_BREAK")).toHaveLength(4);
