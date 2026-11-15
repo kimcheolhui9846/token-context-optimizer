@@ -196,6 +196,22 @@ function memoryRawViolations(run) {
   if (run.status === 'completed' && !has(run, 'retainedBytes', 'maxRssBytes', 'elapsedMs', 'before', 'after', 'outputDigest', 'view')) v.push(`${run.key}/${run.arm}/${run.repeat}:payload`);
   return v;
 }
+// Shared by the timing loop, the memory block and checks(): records raw completeness on a judged row.
+function applyRawCheck(row, violations) {
+  row.rawViolations = violations;
+  if (violations.length > 0 && row.status !== 'failed_correctness') { row.gateStatus = row.status; row.status = 'invalid'; row.reason = `raw_incomplete: ${violations.join(',')}`; }
+  return row;
+}
+const timingRowFinal = entry => applyRawCheck(entry, timingRawViolations(entry));
+function timingOutcome(rows) {
+  const status = blockStatus(rows);
+  return { status, exitCode: exitCodeFor(status), notRun: ROWS.slice(rows.length).map(r => r.key) };
+}
+function memoryOutcome(runs) {
+  const rows = memoryRowsFrom(runs, ROWS).map(row => applyRawCheck(row, runs.filter(r => r.key === row.key).flatMap(memoryRawViolations)));
+  const status = blockStatus(rows);
+  return { rows, status, exitCode: exitCodeFor(status), refFailedRows: rows.filter(r => r.status === 'ref_failed').map(r => r.key) };
+}
 // Copy guard: line diff (LCS) of this file against the unchanged run3 runner.
 function copyDelta() {
   const lf = text => text.replaceAll('\r\n', '\n');
@@ -316,6 +332,40 @@ function checks() {
   const goodMem = { key: 'O1/F1', repeat: 0, arm: 'B1', inputId: 'F1', ...child, retainedBytes: 1, maxRssBytes: 1, elapsedMs: 1, before: {}, after: {}, outputDigest: 'd', view: {} };
   assert.deepEqual(memoryRawViolations(goodMem), []);
   for (const key of ['retainedBytes', 'maxRssBytes', 'outputDigest', 'view', 'startedAt', 'inputId']) assert(memoryRawViolations(without(goodMem, key)).length > 0, `control: memory without ${key}`);
+  // wrapper -> aggregation -> exit code (preflight R1): a raw gap never turns a validated FAIL into
+  // invalid and never hides a REF failure; it turns only a would-be pass into invalid.
+  const timingRows = mutate => ROWS.map((r, i) => {
+    const attempt = { ...goodAttempt, samples: samples.map(s => ({ ...s })) };
+    const row = { ...goodRow, key: r.key, op: r.op, cand: r.cand, ref: r.ref, attempts: [attempt], status: 'pass' };
+    return mutate(row, i) ?? row;
+  });
+  const timingCase = rows => { const finals = []; for (const row of rows) { const f = timingRowFinal(row); finals.push(f); if (f.status !== 'pass') break; } return { rows: finals, ...timingOutcome(finals) }; };
+  const dropViews = row => { row.attempts = [without(row.attempts[0], 'views')]; return row; };
+  let c = timingCase(timingRows(() => undefined));
+  assert.deepEqual([c.status, c.exitCode, c.rows.length, c.rows.every(r => r.rawViolations.length === 0)], ['pass', 0, 18, true], 'timing: complete raw stays pass');
+  c = timingCase(timingRows((row, i) => (i === 7 ? dropViews(row) : undefined)));
+  assert.deepEqual([c.status, c.exitCode, c.rows[7].status, c.rows[7].reason, c.notRun.length], ['invalid', 5, 'invalid', 'raw_incomplete: attempt1:views', 10], 'timing: pass with a raw gap becomes invalid');
+  const gateFail = row => { row.status = 'failed_gate'; row.reason = 'valid timing gate failed; no retry'; return row; };
+  c = timingCase(timingRows((row, i) => (i === 5 ? gateFail(row) : undefined)));
+  assert.deepEqual([c.status, c.exitCode, c.rows[5].status], ['failed_gate', 4, 'failed_gate'], 'timing: complete validated FAIL');
+  c = timingCase(timingRows((row, i) => (i === 5 ? dropViews(gateFail(row)) : undefined)));
+  assert.deepEqual([c.status, c.exitCode, c.rows[5].status, c.rows[5].reason, c.rows[5].rawViolations], ['failed_gate', 4, 'failed_gate', 'valid timing gate failed; no retry', ['attempt1:views']], 'timing: validated FAIL with a raw gap stays failed_gate');
+  c = timingCase(timingRows((row, i) => (i === 3 ? dropViews(Object.assign(row, { status: 'failed_correctness', reason: 'public output differs between arms' })) : undefined)));
+  assert.deepEqual([c.status, c.exitCode, c.rows[3].status, c.rows[3].reason], ['failed_correctness', 3, 'failed_correctness', 'public output differs between arms'], 'timing: correctness FAIL with a raw gap');
+  const memRuns = () => ROWS.flatMap(r => [0, 1, 2].flatMap(repeat => ['B1', 'C1'].map(arm => ({ ...goodMem, key: r.key, repeat, arm, inputId: r.cand, nodeArgs: ['--expose-gc'], retainedBytes: MIB, maxRssBytes: 100 * MIB }))));
+  const at = (runs, key, arm, repeat, change) => runs.map(r => (r.key === key && r.arm === arm && r.repeat === repeat ? change(r) : r));
+  let m = memoryOutcome(memRuns());
+  assert.deepEqual([m.status, m.exitCode, m.refFailedRows, m.rows.every(r => r.rawViolations.length === 0)], ['pass', 0, [], true], 'memory: complete raw stays pass');
+  m = memoryOutcome(at(memRuns(), 'O1/F1', 'C1', 1, r => without(r, 'view')));
+  assert.deepEqual([m.status, m.exitCode, m.rows.find(r => r.key === 'O1/F1').status], ['invalid', 5, 'invalid'], 'memory: pass with a raw gap becomes invalid');
+  const failedRun = (r, drop) => ({ ...without(r, drop), status: 'oom', retainedBytes: undefined, maxRssBytes: undefined, outputDigest: undefined, view: undefined });
+  m = memoryOutcome(at(memRuns(), 'O2/F7', 'B1', 0, r => failedRun(r, 'startedAt')));
+  const refRow = m.rows.find(r => r.key === 'O2/F7');
+  assert.deepEqual([m.status, m.exitCode, m.refFailedRows, refRow.status, refRow.rawViolations.length > 0], ['invalid', 5, ['O2/F7'], 'ref_failed', true], 'memory: REF failure stays identified with a raw gap');
+  m = memoryOutcome(at(memRuns(), 'O1/F2', 'C1', 2, r => failedRun(r, 'finishedAt')));
+  assert.deepEqual([m.status, m.exitCode, m.rows.find(r => r.key === 'O1/F2').status], ['failed_gate', 4, 'failed_gate'], 'memory: validated CAND FAIL with a raw gap stays failed_gate');
+  m = memoryOutcome(at(at(memRuns(), 'O1/F3', 'C1', 0, r => ({ ...r, outputDigest: 'y' })), 'O1/F3', 'B1', 1, r => without(r, 'elapsedMs')));
+  assert.deepEqual([m.status, m.exitCode, m.rows.find(r => r.key === 'O1/F3').status], ['failed_correctness', 3, 'failed_correctness'], 'memory: digest mismatch with a raw gap');
   // copy guard against the unchanged run3 runner
   const delta = copyDelta();
   assert.equal(delta.run3Sha256, RUN3_RUNNER_SHA256, 'run3 runner changed');
@@ -585,16 +635,15 @@ async function main() {
       if (BLOCK === 'timing') {
         // Section 8.4. Stop at the first row that is not a pass (valid FAIL: no retry, no relaxation).
         for (const row of ROWS) {
-          const entry = await timingRow(row, ctx, modules, { size: SIZE, maxAttempts: P.maxAttempts, cooldownMs: P.cooldownMs, log });
-          entry.rawViolations = timingRawViolations(entry); // K1
-          if (entry.rawViolations.length > 0 && entry.status !== 'failed_correctness') { entry.gateStatus = entry.status; entry.status = 'invalid'; entry.reason = `raw_incomplete: ${entry.rawViolations.join(',')}`; } // K1
+          const entry = timingRowFinal(await timingRow(row, ctx, modules, { size: SIZE, maxAttempts: P.maxAttempts, cooldownMs: P.cooldownMs, log })); // K1
           result.rows.push(entry); save();
           const sel = entry.attempts.find(a => a.number === entry.selectedAttempt);
           log(JSON.stringify({ key: entry.key, k: entry.k, status: entry.status, reason: entry.reason, reference: sel?.stats?.B1, candidate: sel?.stats?.C1 }));
           if (entry.status !== 'pass') break;
         }
-        result.notRun = ROWS.slice(result.rows.length).map(r => r.key); // K1: rows not run after a stop
-        result.status = blockStatus(result.rows);
+        const outcome = timingOutcome(result.rows); // K1
+        result.notRun = outcome.notRun; // K1: rows not run after a stop
+        result.status = outcome.status; // K1
       } else if (BLOCK === 'memory') {
         // Section 8.5. One child at a time; even repeats BASE->CAND, odd repeats CAND->BASE.
         for (let repeat = 0; repeat < P.memoryRepeats; repeat++) for (const row of ROWS) for (const arm of repeat % 2 === 0 ? ['B1', 'C1'] : ['C1', 'B1']) {
@@ -602,15 +651,10 @@ async function main() {
           result.runs.push(run); save();
           log(JSON.stringify({ key: run.key, repeat, arm, status: run.status, R: run.retainedBytes, P: run.maxRssBytes }));
         }
-        result.rows = memoryRowsFrom(result.runs, ROWS);
-        // K1> a run with an incomplete raw record makes its row invalid (never a pass)
-        for (const row of result.rows) {
-          const missing = result.runs.filter(r => r.key === row.key).flatMap(memoryRawViolations);
-          if (missing.length > 0 && row.status !== 'failed_correctness') { row.gateStatus = row.status; row.status = 'invalid'; row.reason = `raw_incomplete: ${missing.join(',')}`; }
-        }
-        // K1<
-        result.status = blockStatus(result.rows);
-        result.refFailedRows = result.rows.filter(r => r.status === 'ref_failed').map(r => r.key);
+        const outcome = memoryOutcome(result.runs); // K1
+        result.rows = outcome.rows; // K1
+        result.status = outcome.status; // K1
+        result.refFailedRows = outcome.refFailedRows; // K1
       }
     }
     if (!['pass', 'completed_informational', 'self_check_completed'].includes(result.status)) failure = new Error(`block status ${result.status}`);
