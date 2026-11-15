@@ -33,7 +33,7 @@ const RUNNER = 'research/src/n34-k1-perf.mjs';
 const ROWS_MODULE = 'research/src/n34-k1-perf-rows.mjs';
 const RUN3_RUNNER = 'research/src/n34-cr-policy-perf.mjs'; // copy source; must stay unchanged
 const RUN3_RUNNER_SHA256 = '61866e8def9604cb41eee908593420c86f0d413cc53cb9d8a0b27e9448e1eee9'; // LF text at 7e732e0
-const RUN3_REMOVED_SHA256 = 'ae611cccc77d4720e881c2d932b41e719beb7bd7568fb843fff1254ae5dc3cd9'; // the 53 run3 lines this copy removes or replaces (listed by --check-only)
+const RUN3_REMOVED_SHA256 = '56426d0eaa4087d80fcd519456b29b901b6fe5e9cdfe5058d4f8b00041bbeab8'; // the 58 run3 lines this copy removes or replaces (listed by --check-only)
 // K1<
 const INPUTS_MODULE = 'research/src/n34-cr-policy-perf-inputs.mjs';
 const PERF_WORKER = 'research/src/n34-cr-policy-perf-worker.mjs';
@@ -167,8 +167,9 @@ function blockStatus(rows) {
   return 'invalid';
 }
 const exitCodeFor = status => EXIT[status] ?? 1;
-// K1> Raw completeness. A row whose saved record misses a required raw field is invalid
-// ('raw_incomplete'), never a pass. Checked on synthetic records in checks() before any run.
+// K1> Raw completeness. A row whose saved record misses a required raw field is never a pass: a
+// would-be pass becomes invalid ('raw_incomplete'); a validated FAIL or ref_failed keeps its status
+// and reason, and the gap is recorded beside it. Checked on synthetic records in checks() before any run.
 const has = (value, ...keys) => value != null && keys.every(key => value[key] !== undefined);
 function childViolations(child, where) {
   if (!has(child, 'status', 'wallMs', 'startedAt', 'finishedAt', 'nodeArgs')) return [`${where}:child`];
@@ -197,20 +198,24 @@ function memoryRawViolations(run) {
   return v;
 }
 // Shared by the timing loop, the memory block and checks(): records raw completeness on a judged row.
+// The gap list is always kept in rawViolations/rawComplete. Only a would-be pass becomes invalid
+// (statusBeforeRaw keeps 'pass'); every other judged status and its reason stay as they were, so a
+// validated failed_correctness/failed_gate keeps its priority and exit code and ref_failed stays listed.
 function applyRawCheck(row, violations) {
   row.rawViolations = violations;
-  if (violations.length > 0 && row.status !== 'failed_correctness') { row.gateStatus = row.status; row.status = 'invalid'; row.reason = `raw_incomplete: ${violations.join(',')}`; }
+  row.rawComplete = violations.length === 0;
+  if (!row.rawComplete && row.status === 'pass') { row.statusBeforeRaw = 'pass'; row.status = 'invalid'; row.reason = `raw_incomplete: ${violations.join(',')}`; }
   return row;
 }
 const timingRowFinal = entry => applyRawCheck(entry, timingRawViolations(entry));
 function timingOutcome(rows) {
   const status = blockStatus(rows);
-  return { status, exitCode: exitCodeFor(status), notRun: ROWS.slice(rows.length).map(r => r.key) };
+  return { status, exitCode: exitCodeFor(status), notRun: ROWS.slice(rows.length).map(r => r.key), rawIncompleteRows: rows.filter(r => !r.rawComplete).map(r => r.key) };
 }
 function memoryOutcome(runs) {
   const rows = memoryRowsFrom(runs, ROWS).map(row => applyRawCheck(row, runs.filter(r => r.key === row.key).flatMap(memoryRawViolations)));
   const status = blockStatus(rows);
-  return { rows, status, exitCode: exitCodeFor(status), refFailedRows: rows.filter(r => r.status === 'ref_failed').map(r => r.key) };
+  return { rows, status, exitCode: exitCodeFor(status), refFailedRows: rows.filter(r => r.status === 'ref_failed').map(r => r.key), rawIncompleteRows: rows.filter(r => !r.rawComplete).map(r => r.key) };
 }
 // Copy guard: line diff (LCS) of this file against the unchanged run3 runner.
 function copyDelta() {
@@ -350,6 +355,7 @@ function checks() {
   assert.deepEqual([c.status, c.exitCode, c.rows[5].status], ['failed_gate', 4, 'failed_gate'], 'timing: complete validated FAIL');
   c = timingCase(timingRows((row, i) => (i === 5 ? dropViews(gateFail(row)) : undefined)));
   assert.deepEqual([c.status, c.exitCode, c.rows[5].status, c.rows[5].reason, c.rows[5].rawViolations], ['failed_gate', 4, 'failed_gate', 'valid timing gate failed; no retry', ['attempt1:views']], 'timing: validated FAIL with a raw gap stays failed_gate');
+  assert.deepEqual([c.rawIncompleteRows, c.rows[5].rawComplete, c.rows[5].statusBeforeRaw], [['O1/F1'], false, undefined], 'timing: the gap is recorded beside the FAIL');
   c = timingCase(timingRows((row, i) => (i === 3 ? dropViews(Object.assign(row, { status: 'failed_correctness', reason: 'public output differs between arms' })) : undefined)));
   assert.deepEqual([c.status, c.exitCode, c.rows[3].status, c.rows[3].reason], ['failed_correctness', 3, 'failed_correctness', 'public output differs between arms'], 'timing: correctness FAIL with a raw gap');
   const memRuns = () => ROWS.flatMap(r => [0, 1, 2].flatMap(repeat => ['B1', 'C1'].map(arm => ({ ...goodMem, key: r.key, repeat, arm, inputId: r.cand, nodeArgs: ['--expose-gc'], retainedBytes: MIB, maxRssBytes: 100 * MIB }))));
@@ -362,6 +368,7 @@ function checks() {
   m = memoryOutcome(at(memRuns(), 'O2/F7', 'B1', 0, r => failedRun(r, 'startedAt')));
   const refRow = m.rows.find(r => r.key === 'O2/F7');
   assert.deepEqual([m.status, m.exitCode, m.refFailedRows, refRow.status, refRow.rawViolations.length > 0], ['invalid', 5, ['O2/F7'], 'ref_failed', true], 'memory: REF failure stays identified with a raw gap');
+  assert.deepEqual([m.rawIncompleteRows, refRow.reason], [['O2/F7'], 'oom,completed,completed'], 'memory: REF reason kept, gap recorded');
   m = memoryOutcome(at(memRuns(), 'O1/F2', 'C1', 2, r => failedRun(r, 'finishedAt')));
   assert.deepEqual([m.status, m.exitCode, m.rows.find(r => r.key === 'O1/F2').status], ['failed_gate', 4, 'failed_gate'], 'memory: validated CAND FAIL with a raw gap stays failed_gate');
   m = memoryOutcome(at(at(memRuns(), 'O1/F3', 'C1', 0, r => ({ ...r, outputDigest: 'y' })), 'O1/F3', 'B1', 1, r => without(r, 'elapsedMs')));
@@ -600,6 +607,12 @@ async function main() {
   if (SELF) assert(/^selfcheck-[a-z0-9-]+\.json$/.test(basename(OUTPUT)), 'self-check output must be selfcheck-<name>.json');
   else { assert(/^perf-[a-z0-9]+-(timing|memory)\.json$/.test(basename(OUTPUT))); assert(basename(OUTPUT).endsWith(`-${BLOCK}.json`), 'output name must end with -<block>.json'); } // K1
   assert(!existsSync(OUTPUT), 'refusing to overwrite previous evidence');
+  if (BLOCK === 'memory') { // K1> memory runs only after the same run's timing block passed (all 18 rows)
+    const timingFile = join(ROOT, RESULTS_DIR, basename(OUTPUT).replace(/-memory[.]json$/, '-timing.json'));
+    assert(existsSync(timingFile), `memory runs only after ${basename(timingFile)}`);
+    const timing = JSON.parse(readFileSync(timingFile, 'utf8'));
+    assert(timing.status === 'pass' && timing.rows.length === 18 && timing.rows.every(r => r.status === 'pass'), 'memory runs only after a passing timing block');
+  } // K1<
   assert.equal(git(['status', '--porcelain']), '', 'commit preregistration and implementation before running');
   const head = git(['rev-parse', 'HEAD']);
   let prereg = null;
@@ -643,6 +656,7 @@ async function main() {
         }
         const outcome = timingOutcome(result.rows); // K1
         result.notRun = outcome.notRun; // K1: rows not run after a stop
+        result.rawIncompleteRows = outcome.rawIncompleteRows; // K1
         result.status = outcome.status; // K1
       } else if (BLOCK === 'memory') {
         // Section 8.5. One child at a time; even repeats BASE->CAND, odd repeats CAND->BASE.
@@ -655,6 +669,7 @@ async function main() {
         result.rows = outcome.rows; // K1
         result.status = outcome.status; // K1
         result.refFailedRows = outcome.refFailedRows; // K1
+        result.rawIncompleteRows = outcome.rawIncompleteRows; // K1
       }
     }
     if (!['pass', 'completed_informational', 'self_check_completed'].includes(result.status)) failure = new Error(`block status ${result.status}`);

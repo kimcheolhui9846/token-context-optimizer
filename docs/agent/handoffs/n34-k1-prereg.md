@@ -2,6 +2,7 @@
 
 - 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md`. Task handoff: `n34-k1-empty-line.md`
 - 상태: **미실측.** 2단계 실행은 PM preflight와 실행권 전달 뒤에만 한다. 이 문서는 실측 전에 고정한다
+- 개정: primary preflight(`codex_review/review_2026-11-15_n34-k1-preflight.md`)의 R1(원자료 누락 처리, §5)과 R2(F1 서술 구간, §6)를 반영했다. §7에 memory 진입 조건을 명시했다. 임계·재시도·입력·schedule·BASE는 바꾸지 않았다
 - 하네스
   - `research/src/n34-k1-perf.mjs`: run3 runner의 검토용 사본. 바뀐 줄마다 K1 표시를 붙였다
   - `research/src/n34-k1-perf-rows.mjs`: K1 전용 행 정의
@@ -68,7 +69,7 @@
   - digest 불일치는 `failed_correctness`
 - timing child에는 메모리·GC 계측을 넣지 않는다
 
-## 5. 원자료 보존 (누락 = 해당 행 invalid)
+## 5. 원자료 보존 (누락 행은 pass 불가)
 - child마다 보존하는 것: status·exitCode·signal·wallMs, **startedAt·finishedAt**, **nodeArgs**(플래그), stderr 끝부분
 - 보정: steps 전체와 K
 - attempt: samples(`order, label, arm, ms`) 144개, digests·views 4개, stats, A/A, gate, 비율
@@ -78,16 +79,25 @@
   - prereg·측정 HEAD
   - 하네스·worker·prereg·`policy.ts`·lockfile 해시, 환경(Node, V8, OS, CPU, 전원 계획)
   - 시작·종료 시각
-- `timingRawViolations` / `memoryRawViolations`
-  - 저장 전에 판정하고, 하나라도 빠지면 그 행을 `raw_incomplete` → invalid로 만든다
-  - check-only가 합성 레코드로 양성 대조와 필드 제거 음성 대조를 먼저 확인한다
+- `timingRawViolations` / `memoryRawViolations`: 행 판정 뒤, 저장 전에 공통 함수 `applyRawCheck`로 적용한다
+  - 누락 목록은 상태와 무관하게 항상 행의 `rawViolations`·`rawComplete`, 블록의 `rawIncompleteRows`에 따로 남긴다
+  - pass였을 행만 `invalid`가 된다(`statusBeforeRaw: pass`, 사유 `raw_incomplete: …`). 종료 코드는 5다
+  - 이미 판정된 `failed_correctness`·`failed_gate`·`ref_failed`·`invalid`는 상태와 원래 사유를 그대로 둔다
+    - 그래서 유효 FAIL의 우선순위와 종료 코드(3, 4)가 유지된다
+    - `ref_failed` 행도 `refFailedRows`에 그대로 남는다
+  - check-only가 먼저 확인하는 것
+    - 합성 레코드의 양성 대조와 필드 제거 음성 대조
+    - 실제 공통 함수 → `blockStatus` → `exitCodeFor` → `refFailedRows` 경로의 회귀 검사
+      - timing: 온전 pass 0, 누락 pass 5, 유효 failed_gate(온전·누락) 4, failed_correctness+누락 3
+      - memory: 온전 pass 0, 누락 pass 5, REF 실패+누락은 `ref_failed` 유지·5, CAND 실패+누락 4, digest 불일치+누락 3
 - 실패·무효·미실행도 그대로 남긴다. 결과를 본 뒤 attempt를 고르거나, 합산하거나, 최선값만 보고하지 않는다
 
 ## 6. F1 관찰 기준 (정보, gate 아님)
 - O1/F1·O2/F1의 C1/B1 median 비를 그대로 보고한다
-  - ≤ 0.95: 개선 관찰
-  - 0.95–1.05: 차이 없음 범위
-  - 1.05 초과: 증가 관찰. 증가는 gate로 따로 판정된다
+  - 비 ≤ 0.95: 개선 관찰
+  - 0.95 < 비 ≤ 1.05: 차이 작음 범위
+  - 비 > 1.05: 증가 관찰. 증가는 gate로 따로 판정된다
+  - 관찰된 비율 범위를 나눈 서술일 뿐이다. 통계적 동등성이나 유의성을 주장하지 않는다. gate 수치는 §3 그대로다
 - 한 번의 실행은 관찰 1회다. 재현을 주장하려면 별도 승인을 받아 같은 명령으로 새 파일에 다시 측정해야 한다
 - **main 대비 F1 위험 해소는 이 측정으로 주장하지 않는다.** 그러려면 같은 F1에 대한 K1 대 main 직접 비교를 따로 등록하고 기록해야 한다(이번 범위 밖)
 
@@ -102,6 +112,8 @@ node research/src/n34-k1-perf.mjs --prereg=<prereg sha> --block=memory --output=
   - `--prereg`은 하네스 파일을 마지막으로 바꾼 커밋이어야 한다
   - 덮어쓰기는 거부된다
 - 순서: timing → memory. 블록마다 raw를 바로 커밋한다
+  - memory는 같은 run 이름의 timing 결과가 `pass`(18행 모두 pass)일 때만 시작한다. runner가 시작 전에 확인하고 거부한다
+  - timing이 pass가 아니면 memory는 실행하지 않고(NOTRUN) 결과를 보고한다
 - 예상 시간(run3 기준): timing 약 3.8시간(18행, 행당 6–17분), memory 약 5–10분, snapshot 빌드 블록당 수 분
   - A/A 재시도가 있으면 해당 행 시간이 최대 3배다
   - PC를 독점하므로 다른 무거운 작업을 하지 않는다
