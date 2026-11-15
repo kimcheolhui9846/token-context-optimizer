@@ -23394,6 +23394,7 @@ function isPositiveSemanticLine(line) {
   return letterRatio >= 0.6 && wordCount >= 5 && /[.!?]$/u.test(line) && !/[`{}[\]|<>\\]/u.test(line) && !/\b[A-Z_]{2,}\b/u.test(line) && !hasTechnicalTokenShape(line);
 }
 function hasTechnicalTokenShape(line) {
+  if (line.length === 0) return false;
   return [
     hasDottedTokenShape,
     /\b(?:run|execute|invoke)\s+[a-z][a-z0-9._-]*(?:\s+[A-Za-z0-9._+=:/-]+){0,5}/iu,
@@ -23448,6 +23449,7 @@ function containsShellCommand(content) {
   return somePolicyLine(content, (line) => isShellCommandLine(line));
 }
 function isShellCommandLine(line) {
+  if (line.length === 0) return false;
   const tokens = line.trim().split(/\s+/u).filter(Boolean);
   if (tokens.length === 0) {
     return false;

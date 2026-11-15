@@ -737,6 +737,7 @@ function isPositiveSemanticLine(line: string): boolean {
 }
 
 function hasTechnicalTokenShape(line: string): boolean {
+  if (line.length === 0) return false;
   return [
     hasDottedTokenShape,
     /\b(?:run|execute|invoke)\s+[a-z][a-z0-9._-]*(?:\s+[A-Za-z0-9._+=:/-]+){0,5}/iu,
@@ -798,6 +799,7 @@ function containsShellCommand(content: string): boolean {
 }
 
 function isShellCommandLine(line: string): boolean {
+  if (line.length === 0) return false;
   const tokens = line.trim().split(/\s+/u).filter(Boolean);
   if (tokens.length === 0) {
     return false;
