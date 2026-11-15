@@ -1,6 +1,6 @@
 # N-34 K1: 빈 줄 빠른 반환 (Task handoff)
 
-- 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md`, 2단계 `review_2026-11-15_n34-k1-phase2-request.md`, 원인 분석 `review_2026-11-15_n34-k1-invalid-analysis-request.md` (Codex PM, 추적 안 됨)
+- 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md`, 2단계 `review_2026-11-15_n34-k1-phase2-request.md`, 원인 분석 `review_2026-11-15_n34-k1-invalid-analysis-request.md`·보완 `review_2026-11-15_n34-k1-analysis-revision-request.md` (Codex PM, 추적 안 됨)
 - 범위: N-34 F1 정보용 위험에 대한 보완. 같은 branch `claude/n34-cr-line-policy`, 같은 Draft PR #119
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
 - 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
@@ -8,6 +8,8 @@
 ## 현재 상태: 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, primary **CHANGES REQUIRED**
 - primary 판정 `review_2026-11-15_n34-k1-phase2-final.md`: 1,728표본 독립 재계산 불일치 0. 필수 timing과 memory가 미충족이다
 - 문서 정정 M1·M2와 읽기 전용 원인 분석을 마쳤다. 새 측정은 하지 않았다
+- 분석 검토 `review_2026-11-15_n34-k1-analysis-final.md`: CHANGES REQUIRED(R1·R2 Major, R3 Minor)
+  - 분석·D1 설계를 보완했다. primary 재검토를 기다린다
 - 다음 진단(D1)은 사용자·PM 승인 뒤에만 한다
 - K1 PASS와 main 대비 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다
 
@@ -42,16 +44,9 @@
     - C2/C1 median 비 1.1220, 0.8884, 0.8692로 0.95–1.05 밖이다
     - 차이 +250.44, −262.11, −308.10 ms로 0.1 ms를 넘는다
   - p95 조건은 3회 모두 통과했다(`p95Ok=true`, 정정 M1)
-    - 차이 −0.84, −2.74, −74.96 ms
-    - 허용 절댓값 490.06, 494.21, 505.09 ms
-  - CAND 표본은 약 1.9–2.2 s와 2.3–2.5 s 두 무리로 갈렸다. 무리별 표본 수가 attempt마다 달라 median이 옮겨 갔다
-  - 원인은 확인하지 않았다(profiling 금지)
-- 독립 재계산: `codex_review/remediation-impl-2026-11-13/n34-k1/phase2-recompute.{mjs,json}`
-  - 확인 항목: 행 순서와 notRun, 보정 K, schedule 144개, nearest-rank median/p95, A/A, gate, 비율, digest/view, 행·블록 상태, exit
-  - 불일치 0
-- O1 행 C1/B1 median 비(같은 입력, K = 1, gate 모두 통과)
-  - F3 0.6198, F4 0.4742, F5 1.0209, F6L 1.0126, F7L 0.9950
-  - F1 0.4664, F2 1.0334, F6 1.0092, F7 1.0048
+    - 차이 −0.84, −2.74, −74.96 ms, 허용 절댓값 490.06, 494.21, 505.09 ms
+- 독립 재계산 `codex_review/remediation-impl-2026-11-13/n34-k1/phase2-recompute.{mjs,json}`: 순서·K·schedule·median/p95·A/A·gate·digest·상태·exit 불일치 0
+- O1 행 C1/B1 median 비(같은 입력, K = 1, gate 모두 통과): F3 0.6198, F4 0.4742, F5 1.0209, F6L 1.0126, F7L 0.9950, F1 0.4664, F2 1.0334, F6 1.0092, F7 1.0048
 - F1 관찰(§6, gate 아님)
   - **O1/F1**: median 비 0.466374(C1 2184.09 / B1 4683.13 ms), p95 비 0.462862. 구간은 "≤0.95 개선 관찰"
     - 블록이 INVALID라 이 값은 무효 블록 안의 1회 관찰이다
@@ -63,14 +58,20 @@
 - 사실
   - O2/F3의 CAND는 3회 모두 두 무리가 뚜렷하다(간격 116–168 ms). BASE는 덜 뚜렷하다. 가장 큰 간격으로 나눈 hi−lo 차이는 B·C 모두 약 345–389 ms다(B는 약한 근거)
   - 사본별 lo 개수(C1/C2, 가장 큰 간격 경계)는 20/14, 14/22, 12/18이다. 30개 중 15번째 값인 median이 두 사본에서 서로 다른 무리에 놓여 A/A가 무효가 됐다
-  - hi가 놓이는 자리에 사본·circuit·직전 arm·직전 무리·시간순 구조가 뚜렷하지 않다(연속 구간 z ≈ 0)
+  - hi가 놓이는 자리에 사본·circuit·직전 arm에 따른 뚜렷한 단순 구조는 보이지 않았다
+    - 이진 runs z ≈ 0은 독립성·lag·상호작용의 부재 증명이 아니다
   - 두 무리는 주로 O2 행에 나타난다(run3 O2 여러 행 포함). O1에서는 K1 O1/F6 B 하나뿐이다
-- 가설(미확정): 공유 heap GC(sourceMap 줄 객체 524만 개)가 유력하다. 그 밖에 I/O·OS 대기, CPU 스케줄, 사본별 JIT가 있다. K1 자체 원인은 근거가 없다
-- 권장 D1(실행 안 함)
-  - O2/F3 한정 진단이다. 공식 gate와 분리한다
-  - 진단 전용 worker로 표본마다 GC 사건, cpuUsage, index/summarize 구간, heap을 기록한다
-  - 두 조건(그대로, 표본 사이 gc 강제)을 각 child 3개로 교대한다
-  - 상한 60분, 재시도·gate 없음
+- 가설(미확정)
+  - 공유 heap GC가 유력 후보다. 표본 결과의 실제 수명과 수집 시점은 관측하지 않았다
+  - 그 밖에 I/O·OS 대기, CPU 스케줄, 사본별 JIT가 있다
+  - K1 고유 원인으로 귀속할 근거는 부족하지만, 혼합 비율이나 GC 시점과의 상호작용은 배제할 수 없다
+  - iid 모형 2q(1−q)는 median 무리 불일치 확률 예시일 뿐이다. 공식 A/A 무효 확률이나 재실행 예측이 아니다
+- 권장 D1(개정 설계, 실행 안 함)
+  - 대상: O2/F3. BASE `7e732e0e07a1…`, CAND `4999c1f14b22…`
+  - a·b 두 조건 모두 `--expose-gc`를 쓰고, b만 표본 사이에 `gc()`를 부른다. child 6개를 a b b a a b 순서로 돈다
+  - 기록: GC 사건 원자료(startTime·duration·`detail.kind/flags`), probe, 유한 drain, 합집합 겹침 산식, cpuUsage, index/summarize, heap
+  - 서술: child × 역할별 연속 통계와 관측 GC 겹침. 최대 간격 분할은 보조 서술만 하고 판정 기준은 없다
+  - 상한 75분, child timeout 12분, 부분 raw 보존, 재시도·gate 없음
   - 대안: 같은 프로토콜 재실행, K1 보류
 
 ## 이후 (사용자·PM 결정 필요)
