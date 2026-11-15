@@ -1,82 +1,57 @@
 # N-34 K1: 빈 줄 빠른 반환 (Task handoff)
 
-- 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md` (Codex PM, 추적 안 됨)
+- 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md`, 2단계 `review_2026-11-15_n34-k1-phase2-request.md` (Codex PM, 추적 안 됨)
 - 범위: N-34 F1 정보용 위험에 대한 보완. 같은 branch `claude/n34-cr-line-policy`, 같은 Draft PR #119
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
-- 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`
+- 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
 
-## 상태
-- [x] 1단계 시작: worktree clean, HEAD = origin = PR head `7e732e0`, Draft OPEN
-- [x] baseline targeted (pre-K1 `7e732e0`): policy 9개 파일, 1,872 통과
-- [x] 초기 계획 교차 확인(아래): blocker/major 없음
-- [x] 테스트 먼저 `ad1d3e6`: 예상된 scope guard RED 3개, 기능 control 전부 통과(기능 RED 없음)
-  - n32 exact source에 K1 delta, guard 2개, 비공개 `lastIndex` 차이
-- [x] 구현 `b4f60ed`: src +2줄(두 guard), bin은 build 결과(+2줄)
-  - targeted 10파일 1,884 통과(baseline 1,872 + 신규 12)
-- [x] 전체 npm 7단계 @`b4f60ed`: 모두 exit 0, test 52파일 4,455 통과·5 skip
-- [x] 2단계 prereg·하네스 `85e8200`: `n34-k1-prereg.md`, `research/src/n34-k1-perf*.mjs`
-  - check-only PASS: 18행, 음성 대조, 원자료 완결성, run3 사본 가드
-- [x] synthetic self-check `4af1abf`(64 KiB, gate 아님)
-  - 결함 분류 9/9, timing 5행·memory 30 child 완료, raw 누락 0, 추적 파일 무변경
-- [x] milestone Argon 1회: APPROVE, Minor 1·Nit 1(`codex_review/argon/2026-11-15_n34-k1-prep-{bundle,argon}.md`)
-  - Minor(현재 소스를 기존 loader extraExports로 로드) 반영 `02fd545`. Nit은 묶음 요약 표기 문제로 보고서에 밝힌다
-- [x] 전체 npm 7단계 재실행 @`02fd545`: 모두 exit 0, 4,455 통과·5 skip, build 결과 변경 0
-- [x] PM 1단계 preflight @`0dfbc79`: CHANGES REQUIRED(`codex_review/review_2026-11-15_n34-k1-preflight.md`)
-  - R1 Major: 원자료 누락 래퍼가 유효 failed_gate를 invalid로 바꾸고 ref_failed 식별을 잃었다
-  - R2 Minor: F1 서술 구간 0.95 경계가 겹쳤다
-- [x] R1/R2 보완
-  - RED `89e9789`: 기존 의미를 공통 함수로 옮기고 집계 회귀 검사를 넣었다. failed_gate → invalid(exit 4 → 5), refFailedRows 소실이 재현됐다
-  - 수정 + **새 prereg `8754d90`**
-    - pass였을 행만 invalid로 만든다. 유효 FAIL과 ref_failed는 상태와 사유를 유지하고, 누락은 따로 기록한다
-    - F1 구간은 ≤0.95 / >0.95·≤1.05 / >1.05로 나눴다
-    - memory는 timing pass 뒤에만 시작한다
-  - self-check `3599657`(`selfcheck-k1preflightfix.json`, 64 KiB, gate 아님)
-  - 전체 npm 7단계 @`8754d90` exit 0
-  - scoped Argon 1회: APPROVE, 지적 0(`codex_review/argon/2026-11-15_n34-k1-preflight-fix-{bundle,argon}.md`)
-- [ ] primary 재검토 → 2단계 실측. 10 MiB 성능 측정·profiling은 아직 하지 않았다
+## 현재 상태: 2단계 timing **INVALID**(exit 5), memory **NOTRUN**
+- K1 성능 판정은 나오지 않았다. 재실행·임계 완화·하네스 수정은 하지 않았고 PM 판단을 기다린다
+- main 대비 F1 위험 해소, 통계적 유의성, 재현성은 주장하지 않는다
+
+## 1단계 (완료)
+- 테스트 먼저 `ad1d3e6`(scope guard RED 3개, 기능 RED 없음) → 구현 `b4f60ed`(src +2줄, bin +2줄)
+- prereg·하네스 `85e8200` → Argon Minor 반영 `02fd545` → PM preflight CHANGES REQUIRED
+- R1/R2 보완 `89e9789`(RED) → `8754d90`(수정 + 새 prereg)
+  - pass였을 행만 raw 누락으로 invalid가 된다. 유효 FAIL과 ref_failed는 유지된다
+  - F1 구간: ≤0.95 / >0.95·≤1.05 / >1.05
+- 각 단계 전체 npm 7단계 exit 0, Argon APPROVE
 
 ## 제품 변경 (정확히 두 곳)
 - `src/core/policy.ts`의 `hasTechnicalTokenShape(line)`, `isShellCommandLine(line)` 맨 앞에
   `if (line.length === 0) return false;`
-- 그 밖의 소스(`somePolicyLine`, 줄 경계, `isPositiveSemanticText`, EXACT_PATTERNS, 공개 API)는 그대로다
-- 공백만 있는 비어 있지 않은 줄은 대상이 아니다. K2(배열 상수화)와 classify 우회는 하지 않는다
+- 그 밖의 소스와 공개 API는 그대로다. 공백만 있는 줄은 대상이 아니다. K2와 classify 우회는 하지 않는다
+- 빈 문자열의 기존 반환값은 둘 다 false다. 차이는 빈 줄 뒤 `TRACE_PREFIX_SCAN.lastIndex`(비공개)뿐이며 반복 시퀀스 테스트로 확인한다
+- 테스트: `tests/policy-n34-k1.test.ts`(pre-K1 oracle 대조), `tests/policy-n32.test.ts` exact source에 K1 delta
 
-## 초기 계획 교차 확인 (소스 `7e732e0` 대조)
-- 호출처
-  - `hasTechnicalTokenShape`: 735행(`isPositiveSemanticLine`)과 793행(`containsTechnicalTokenShape`)
-    - 735행 경로의 줄은 `trim` 후 `filter(Boolean)`을 거친다. 빈 줄이 오지 않아 guard에 닿지 않는다
-  - `isShellCommandLine`: 797행(`containsShellCommand`)만
-- 빈 문자열의 기존 반환값은 둘 다 false다
-  - shell: `"".trim().split(/\s+/u)` → `[""]` → filter → `[]` → false
-  - technical의 하위 predicate 5개
-    - `hasDottedTokenShape("")`, `hasTraceLikeValue("")`: false
-    - regex 2개: `""`에 일치하지 않는다
-    - `hasCommandArgumentShape("")`: index 0에서 char가 undefined라 false. 이때 `COMMAND_ARGUMENT_SUFFIX`는 쓰지 않는다
-  - 빈 문자열 경로에는 throw 지점이 없다
-- 상태 차이
-  - `TRACE_PREFIX_SCAN`을 참조하는 곳은 68행(선언), 499행(0 대입), 500행(exec 루프) 세 줄뿐이다
-  - `hasTraceLikeValue`를 부르는 곳은 633행(EXACT_PATTERNS)과 744행이다. 매 진입마다 499행에서 0으로 초기화한다
-  - K1 뒤에는 빈 줄에서 `hasTraceLikeValue`를 부르지 않는다
-    - 그래서 직전 양성 호출이 남긴 0이 아닌 `lastIndex`가 다음 진입까지 남을 수 있다(pre-K1은 빈 줄 호출 뒤 0)
-    - 이 차이는 비공개 내부 상태다. 공개 출력과 호출 순서가 같다는 것은 반복 시퀀스 테스트로 확인한다
-  - 그 밖의 regex는 non-global이거나 사용 직전에 `lastIndex`를 대입한다
-- 판정: blocker/major 없음
-- 세부 보완: pre-K1 oracle의 출처
-  - 현재 소스에서 두 guard를 정확히 제거해 만든다
-  - 그 결과가 `7e732e0` blob(LF)의 sha256 `a44c77d7…`과 같은지 테스트에서 고정한다
-  - helper·baseline 파일은 바꾸지 않는다
+## 2단계 timing 실측 (`research/results/n34-k1/perf-k1run1-timing.json`, 커밋 `944f25c`)
+- 명령: `node research/src/n34-k1-perf.mjs --prereg=8754d90… --block=timing --output=…/perf-k1run1-timing.json`
+- 측정 HEAD `4999c1f`, BASE `7e732e0`, Node v24.18.0
+  - 2026-11-15 17:11:04–19:16:27 KST
+  - 파일 sha256 `8f2a8d55…`(작업 사본 LF)
+- 결과: 블록 `invalid`, exit 5
+  - O1 9행은 모두 pass(attempt 1회)
+  - O2/F3는 3회 모두 CAND A/A 무효라 `invalid`
+  - O2 나머지 8행은 `notRun`
+  - `rawIncompleteRows` 0, 추적 파일 1,132개 무변경, 임시 폴더 삭제
+- O2/F3 무효의 내용(BASE A/A는 3회 모두 유효)
+  - C2/C1 median 비가 1.1220, 0.8884, 0.8692로 0.95–1.05를 벗어났다
+  - 차이도 0.1 ms를 넘는다. p95는 3회 모두 허용 안이다
+  - CAND 표본은 약 1.9–2.2 s와 2.3–2.5 s 두 무리로 갈렸다. 무리별 표본 수가 attempt마다 달라 median이 옮겨 갔다
+  - 원인은 확인하지 않았다(profiling 금지)
+- 독립 재계산: `codex_review/remediation-impl-2026-11-13/n34-k1/phase2-recompute.{mjs,json}`
+  - 확인 항목: 행 순서와 notRun, 보정 K, schedule 144개, nearest-rank median/p95, A/A, gate, 비율, digest/view, 행·블록 상태, exit
+  - 불일치 0
+- O1 행 C1/B1 median 비(같은 입력, K = 1, gate 모두 통과)
+  - F3 0.6198, F4 0.4742, F5 1.0209, F6L 1.0126, F7L 0.9950
+  - F1 0.4664, F2 1.0334, F6 1.0092, F7 1.0048
+- F1 관찰(§6, gate 아님)
+  - **O1/F1**: median 비 0.466374(C1 2184.09 / B1 4683.13 ms), p95 비 0.462862. 구간은 "≤0.95 개선 관찰"
+    - 블록이 INVALID라 이 값은 무효 블록 안의 1회 관찰이다
+  - **O2/F1**: 실행 안 됨, 비율 없음
+  - run3의 main 대비 비율과 곱하지 않는다
+- memory: timing이 pass가 아니므로 prereg §7에 따라 **NOTRUN**
 
-## 테스트 계획
-- 기능 RED: 해당 없음. 두 함수는 빈 줄에서 이미 false를 반환하므로, 동치 테스트는 수정 전에도 통과한다(baseline → GREEN)
-- scope guard RED
-  - `tests/policy-n32.test.ts` exact full-source 불변식에 K1 delta(두 anchor, 각 1회)를 더한다
-  - 구현 전에는 이 테스트가 실패하는 것이 예상 동작이다. 성능 실패가 아니다
-- 새 `tests/policy-n34-k1.test.ts`
-  - pre-K1 대 K1 비교: 빈 문자열, CR·LF·CRLF 경계, 공백·Unicode 공백, 산문, 명령·식별자·trace 양성/음성
-  - 반복 시퀀스: trace 양성 → 빈 줄 → 음성 → 양성
-  - 시드 corpus: 공개 mode/reasons/warnings와 요약 허용
-- 기존 9,841·200,000 콜백 동치 테스트, F-21·N-32 oracle, baseline helper는 바꾸지 않는다
-
-## 이후
-- 진행과 결과는 이 파일에 갱신한다. N-34 handoff에는 링크만 남긴다
-- run3 PASS를 K1 HEAD의 PASS로 쓰지 않는다. F1 위험은 해소로 표시하지 않는다
+## 이후 (PM 결정 필요)
+- K1 판정을 위한 다음 실측(새 run 이름, A/A 대응 등)은 PM·사용자 결정 뒤에만 한다
+- run3 PASS를 K1 HEAD의 PASS로 쓰지 않는다. N-34 handoff에는 링크만 남긴다
