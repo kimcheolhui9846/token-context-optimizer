@@ -194,6 +194,13 @@ export function safeRemove(path, allowedRoot, prefix) {
   rmSync(actual, { recursive: true, force: true });
   return !existsSync(actual);
 }
+// RED (preflight fix): not implemented yet.
+const notYet = name => () => { throw new Error(`${name}: not implemented`); };
+export class BudgetExpired extends Error {}
+export const createDeadline = notYet('createDeadline');
+export const runBudgeted = notYet('runBudgeted');
+export const executeRun = notYet('executeRun');
+export const spawnBudgeted = notYet('spawnBudgeted');
 // ==== PURE FUNCTIONS END ====
 
 // ---------- descriptive summaries (no verdicts) ----------
@@ -319,14 +326,14 @@ export function syntheticChecks() {
     assert.deepEqual(parseJsonl(''), { records: [], problems: [], endsWithNewline: true });
   });
   const fullChild = condition => {
-    const s = schedule(), recs = [{ type: 'start' }, { type: 'probe', supported: true, clockOk: true }];
-    for (const arm of ['B1', 'B2', 'C1', 'C2']) recs.push({ type: 'digest', arm, digest: 'x' });
+    const s = schedule(), recs = [{ type: 'start', condition }, { type: 'probe', supported: true, clockOk: true, before: 1, after: 2, waitedMs: 3, observedEvents: 1, forcedEvents: [{ startTime: 1.5, duration: 0.2, flags: 4 }] }];
+    for (const arm of ['B1', 'B2', 'C1', 'C2']) recs.push({ type: 'digest', arm, digest: 'a'.repeat(64) });
     s.forEach((e, i) => {
       const t0 = 100 * i + 10;
       if (condition === 'b') recs.push({ type: 'forced', i, start: t0 - 8, end: t0 - 2 });
-      recs.push({ type: 'sample', i, label: e.label, arm: e.arm, t0, t1: t0 + 5, t2: t0 + 9, wallMs: 9, indexMs: 5, summarizeMs: 4, cpuUserUs: 1, cpuSystemUs: 1, heapBefore: {}, heapAfter: {} });
+      recs.push({ type: 'sample', i, label: e.label, arm: e.arm, t0, t1: t0 + 5, t2: t0 + 9, wallMs: 9, indexMs: 5, summarizeMs: 4, cpuUserUs: 1, cpuSystemUs: 1, heapBefore: { used: 1, total: 2 }, heapAfter: { used: 1, total: 2 } });
     });
-    recs.push({ type: 'drain', complete: true }, { type: 'end', status: 'completed' });
+    recs.push({ type: 'drain', complete: true, steps: 2, drainMs: 200, totalEvents: 0 }, { type: 'end', status: 'completed' });
     return recs;
   };
   const ok = { status: 'exited', exitCode: 0 };
@@ -399,6 +406,126 @@ export function syntheticChecks() {
       for (const d of [t, wrongPrefix]) rmSync(d, { recursive: true, force: true });
     }
   });
+  // ---- preflight fix R1: global 75 min budget (fake clock, no subprocess) ----
+  const fakeClock = () => { const c = { t: 0 }; c.now = () => c.t; return c; };
+  check('R1 deadline: timeout is min(individual, remaining); expired refuses to start', () => {
+    const c = fakeClock(), dl = createDeadline(75 * MIN, c.now);
+    assert.deepEqual(dl.timeoutFor(10 * MIN), { ms: 10 * MIN, budgetLimited: false });
+    c.t = 70 * MIN; assert.deepEqual(dl.timeoutFor(10 * MIN), { ms: 5 * MIN, budgetLimited: true });
+    assert.equal(dl.remaining(), 5 * MIN); assert.equal(dl.elapsed(), 70 * MIN);
+    c.t = 75 * MIN; assert.equal(dl.expired(), true); assert.equal(dl.remaining(), 0);
+    assert.throws(() => dl.timeoutFor(10 * MIN), BudgetExpired);
+    c.t = 80 * MIN; assert.equal(dl.remaining(), 0); assert.throws(() => dl.timeoutFor(1), BudgetExpired);
+  });
+  check('R1 runBudgeted: cumulative 8 build steps stop at 75 min, no start after expiry', () => {
+    const c = fakeClock(), dl = createDeadline(75 * MIN, c.now), given = [];
+    // a fake step that needs `takes` ms; it is killed at its timeout like execFileSync (code ETIMEDOUT)
+    const step = takes => runBudgeted(dl, 10 * MIN, ms => {
+      given.push(ms);
+      if (takes > ms) { c.t += ms; const e = new Error('spawnSync ETIMEDOUT'); e.code = 'ETIMEDOUT'; throw e; }
+      c.t += takes; return 'ok';
+    }, 'fake');
+    for (let k = 0; k < 7; k++) assert.equal(step(594000), 'ok'); // 7 x 9.9 min = 69.3 min, each under its own 10 min
+    assert.throws(() => step(594000), BudgetExpired); // 8th step only gets the 5.7 min left
+    assert.deepEqual(given, [594000, 594000, 594000, 594000, 594000, 594000, 594000, 342000]);
+    assert.equal(c.t, 75 * MIN);
+    assert.throws(() => step(1), BudgetExpired); assert.equal(given.length, 8); // never started
+  });
+  check('R1 runBudgeted: own 10 min timeout is not reported as budget expiry', () => {
+    const c = fakeClock(), dl = createDeadline(75 * MIN, c.now);
+    const err = (() => { try { runBudgeted(dl, 10 * MIN, ms => { c.t += ms; const e = new Error('t'); e.code = 'ETIMEDOUT'; throw e; }, 'fake'); } catch (e) { return e; } })();
+    assert(!(err instanceof BudgetExpired)); assert.equal(err.code, 'ETIMEDOUT');
+    const other = (() => { try { c.t = 70 * MIN; runBudgeted(dl, 10 * MIN, () => { throw new Error('exit 1'); }, 'fake'); } catch (e) { return e; } })();
+    assert(!(other instanceof BudgetExpired)); assert.equal(other.message, 'exit 1');
+  });
+
+  // ---- preflight fix R2: record integrity ----
+  const HEX = 'a'.repeat(64);
+  const fullChildV = (condition, gcEvents = []) => {
+    const recs = fullChild(condition);
+    const probeGc = { type: 'gc', seq: 0, source: 'callback', startTime: 1.5, duration: 0.2, kind: 4, flags: 4, arrivedAt: 2.5 };
+    const extra = gcEvents.map((e, k) => ({ type: 'gc', seq: k + 1, source: 'callback', flags: 0, arrivedAt: e.startTime + 50, ...e }));
+    recs.splice(recs.findIndex(r => r.type === 'drain'), 0, probeGc, ...extra);
+    return recs;
+  };
+  const sample = (recs, i) => recs.find(r => r.type === 'sample' && r.i === i);
+  check('R2 valid fixture stays completed/supported', () => {
+    for (const cond of ['a', 'b']) {
+      const o = childOutcome({ condition: cond, exit: ok, records: fullChildV(cond), problems: [] });
+      assert.equal(o.status, 'completed', o.reasons.join(';')); assert.equal(o.observation, 'supported', (o.observationReasons ?? []).join(';'));
+    }
+  });
+  check('R2 sample values: string, non-finite, negative, fraction, heap, time order, derived mismatch -> invalid', () => {
+    const cases = [
+      [r => { r.wallMs = 'bad'; }, 'sample24:value:wallMs'],
+      [r => { r.t1 = Infinity; }, 'sample24:value:t1'],
+      [r => { r.cpuUserUs = -1; }, 'sample24:value:cpuUserUs'],
+      [r => { r.cpuSystemUs = 1.5; }, 'sample24:value:cpuSystemUs'],
+      [r => { r.heapAfter = { used: 1 }; }, 'sample24:value:heapAfter'],
+      [r => { r.heapBefore = 'x'; }, 'sample24:value:heapBefore'],
+      [r => { r.t1 = r.t0 - 1; r.indexMs = 0; r.summarizeMs = r.t2 - r.t1; }, 'sample24:time_order'],
+      [r => { r.t0 -= 95; r.t1 -= 95; r.t2 -= 95; }, 'sample24:time_order'], // starts before sample 23 ended
+      [r => { r.wallMs = 8; }, 'sample24:derived_mismatch'],
+      [r => { r.indexMs = 4; }, 'sample24:derived_mismatch'],
+    ];
+    for (const [mutate, reason] of cases) {
+      const recs = fullChildV('a'); mutate(sample(recs, 24));
+      const o = childOutcome({ condition: 'a', exit: ok, records: recs, problems: [] });
+      assert.equal(o.status, 'invalid', reason); assert(o.reasons.includes(reason), `${reason} not in ${o.reasons.join(';')}`);
+      const s = childSummary(recs, o); // must not throw; the damaged sample is excluded, the rest kept
+      assert.deepEqual(s.excludedSamples, [24], reason); assert.equal(s.roles.B.wall.n, 59); assert.equal(s.roles.C.wall.n, 60);
+    }
+  });
+  check('R2 forced, digest and control records -> invalid', () => {
+    const run = (cond, mutate) => { const recs = fullChildV(cond); mutate(recs); return childOutcome({ condition: cond, exit: ok, records: recs, problems: [] }); };
+    const forced = (recs, i) => recs.find(r => r.type === 'forced' && r.i === i);
+    assert(run('b', r => { const f = forced(r, 5); f.start = f.end + 1; }).reasons.includes('forced5:value'));
+    assert(run('b', r => { forced(r, 5).start = 'x'; }).reasons.includes('forced5:value'));
+    assert(run('b', r => { forced(r, 5).start = sample(r, 4).t2 - 1; }).reasons.includes('forced5:position'));
+    assert(run('a', r => { r.find(x => x.type === 'digest').digest = 'z'.repeat(64); }).reasons.includes('digest'));
+    assert(run('a', r => { r.filter(x => x.type === 'digest').forEach(x => { x.digest = 'XYZ'; }); }).reasons.includes('digest'));
+    assert(run('a', r => { r.filter(x => x.type === 'digest')[3].arm = 'B1'; }).reasons.includes('digest'));
+    assert(run('a', r => { r[0].condition = 'b'; }).reasons.includes('start'));
+    assert(run('a', r => { r.splice(5, 0, { type: 'end', status: 'completed' }); }).reasons.includes('end:position'));
+    assert(run('a', r => { r.splice(5, 0, null); }).reasons.includes('record:invalid'));
+    assert(run('a', r => { r.splice(5, 0, { type: 'mystery' }); }).reasons.includes('record:unknown_type:mystery'));
+    assert(run('a', r => { r.splice(5, 0, { type: 'error', message: 'x' }); }).reasons.includes('record:error'));
+    for (const cond of ['a', 'b']) assert.equal(run(cond, () => {}).status, 'completed');
+  });
+  check('R2 GC metadata: missing/bad kind, flags, times, seq -> incomplete and null, wall kept', () => {
+    const mutations = { kindNull: e => { e.kind = null; }, flagsNull: e => { e.flags = null; }, kindUnknown: e => { e.kind = 99; }, startString: e => { e.startTime = 'x'; },
+      durationNegative: e => { e.duration = -1; }, seqDuplicate: e => { e.seq = 0; }, arrivedMissing: e => { delete e.arrivedAt; }, flagsFraction: e => { e.flags = 0.5; } };
+    for (const [name, mutate] of Object.entries(mutations)) {
+      const recs = fullChildV('a', [{ startTime: sample(fullChild('a'), 24).t0 + 1, duration: 1, kind: 4 }]);
+      mutate(recs.find(r => r.type === 'gc' && r.seq === 1));
+      const o = childOutcome({ condition: 'a', exit: ok, records: recs, problems: [] });
+      assert.equal(o.status, 'completed', name); assert.equal(o.observation, 'incomplete', name); assert(o.observationReasons.length > 0, name);
+      const s = childSummary(recs, o);
+      assert.equal(s.attribution[24].status, 'incomplete', name); assert.equal(s.attribution[24].overlapMs, null, name);
+      assert.equal(s.roles.B.gc.majorOverlapFraction, null, name); assert.equal(s.roles.B.wall.n, 60, name);
+    }
+  });
+  check('R2 valid GC metadata kept: union per kind and phase', () => {
+    const t0 = sample(fullChild('a'), 24).t0; // 2410; t1 = 2415, t2 = 2419
+    const recs = fullChildV('a', [{ startTime: t0 + 1, duration: 2, kind: 4 }, { startTime: t0 + 2, duration: 2, kind: 4 }, { startTime: t0 + 8, duration: 3, kind: 1 }]);
+    const o = childOutcome({ condition: 'a', exit: ok, records: recs, problems: [] });
+    assert.equal(o.status, 'completed'); assert.equal(o.observation, 'supported', (o.observationReasons ?? []).join(';'));
+    const a = childSummary(recs, o).attribution[24];
+    assert.equal(a.status, 'observed'); near(a.overlapMs.major, 3); near(a.overlapMs.minor, 1); near(a.overlapMs.any, 4);
+    near(a.phaseMajorMs.index, 3); near(a.phaseMajorMs.summarize, 0);
+    assert.equal(childSummary(recs, o).roles.B.gc.majorOverlapFraction, 0.017); // 1 of 60
+  });
+  check('R2 probe and drain metadata -> incomplete, missing probe -> unsupported', () => {
+    const obs = mutate => { const recs = fullChildV('a'); mutate(recs); return childOutcome({ condition: 'a', exit: ok, records: recs, problems: [] }); };
+    const probe = r => r.find(x => x.type === 'probe'), drain = r => r.find(x => x.type === 'drain');
+    for (const [name, m] of Object.entries({
+      clockString: r => { probe(r).clockOk = 'yes'; }, beforeString: r => { probe(r).before = 'x'; }, windowReversed: r => { probe(r).after = probe(r).before - 1; },
+      twoProbes: r => { r.splice(2, 0, { ...probe(r) }); }, drainStepsMissing: r => { delete drain(r).steps; }, drainMissing: r => { r.splice(r.indexOf(drain(r)), 1); },
+      drainCompleteString: r => { drain(r).complete = 'true'; } })) {
+      const o = obs(m); assert.equal(o.observation, 'incomplete', name); assert.equal(o.status, 'completed', `${name}: ${o.reasons.join(';')}`);
+    }
+    const none = obs(r => { r.splice(r.indexOf(probe(r)), 1); }); assert.equal(none.observation, 'unsupported');
+  });
   return results;
 }
 
@@ -447,6 +574,85 @@ export async function processChecks() {
     await check('worker refuses an existing stream file', async () => {
       const r = await runFake('a', ['--expose-gc'], true);
       assert.notEqual(r.exit.exitCode, 0); assert.equal(r.text, 'existing');
+    });
+    // ---- preflight fix R1: executeRun with a fake clock (no subprocess) ----
+    const fakeClock = () => { const c = { t: 0 }; c.now = () => c.t; return c; };
+    const fakeRun = async ({ buildSteps, buildTakes, childTakes }) => {
+      const c = fakeClock(), dl = createDeadline(75 * MIN, c.now), started = [], timeouts = [];
+      const build = async () => {
+        for (let k = 0; k < buildSteps; k++) runBudgeted(dl, 10 * MIN, ms => { if (buildTakes > ms) { c.t += ms; const e = new Error('t'); e.code = 'ETIMEDOUT'; throw e; } c.t += buildTakes; }, `step${k}`);
+        return { fake: true };
+      };
+      const runOne = async (position, condition, timeoutMs) => { started.push(position); timeouts.push(timeoutMs); c.t += Math.min(childTakes, timeoutMs); };
+      const out = await executeRun({ deadline: dl, order: D.order, build, runOne });
+      return { out, started, timeouts, t: c.t };
+    };
+    await check('R1 executeRun: build hits the budget -> no child starts, all notRun build_incomplete', async () => {
+      const r = await fakeRun({ buildSteps: 8, buildTakes: 594000, childTakes: 1 });
+      assert.equal(r.out.build.status, 'budget_expired'); assert.deepEqual(r.started, []); assert.equal(r.t, 75 * MIN);
+      assert.deepEqual(r.out.notRun.map(x => [x.position, x.reason]), [[1, 'build_incomplete'], [2, 'build_incomplete'], [3, 'build_incomplete'], [4, 'build_incomplete'], [5, 'build_incomplete'], [6, 'build_incomplete']]);
+    });
+    await check('R1 executeRun: child start boundary at exactly 12 min remaining', async () => {
+      const edge = await fakeRun({ buildSteps: 7, buildTakes: 9 * MIN, childTakes: 1 }); // build 63 min -> 12 min left
+      assert.equal(edge.out.build.status, 'completed'); assert.deepEqual(edge.started, [1]); assert.deepEqual(edge.timeouts, [12 * MIN]);
+      assert.deepEqual(edge.out.notRun.map(x => x.reason), ['budget', 'budget', 'budget', 'budget', 'budget']);
+      const over = await fakeRun({ buildSteps: 7, buildTakes: 9 * MIN + 1, childTakes: 1 }); // 12 min - 7 ms left
+      assert.deepEqual(over.started, []); assert.equal(over.out.notRun.length, 6);
+    });
+    await check('R1 executeRun: children stop starting when less than 12 min remain', async () => {
+      const fit = await fakeRun({ buildSteps: 0, buildTakes: 0, childTakes: 12 * MIN }); // starts at 0,12,...,60
+      assert.deepEqual(fit.started, [1, 2, 3, 4, 5, 6]); assert.equal(fit.t, 72 * MIN); assert.deepEqual(fit.out.notRun, []);
+      const slow = await fakeRun({ buildSteps: 0, buildTakes: 0, childTakes: 13 * MIN }); // 6th would start at 65 min
+      assert.deepEqual(slow.started, [1, 2, 3, 4, 5]); assert.deepEqual(slow.out.notRun.map(x => [x.position, x.reason]), [[6, 'budget']]);
+      assert(slow.t <= 75 * MIN);
+    });
+    await check('R1 executeRun: a failing child does not stop later children; other build errors propagate', async () => {
+      const c = fakeClock(), dl = createDeadline(75 * MIN, c.now), started = [];
+      const out = await executeRun({ deadline: dl, order: D.order, build: async () => ({}), runOne: async p => { started.push(p); if (p === 2) throw new Error('child boom'); } });
+      assert.deepEqual(started, [1, 2, 3, 4, 5, 6]); assert.deepEqual(out.childErrors.map(x => x.position), [2]);
+      await assert.rejects(executeRun({ deadline: createDeadline(75 * MIN, c.now), order: D.order, build: async () => { throw new Error('lockfile differs'); }, runOne: async () => {} }), /lockfile differs/);
+    });
+
+    // ---- preflight fix R1: real subprocesses under the budget ----
+    const sleeper = join(temp, 'sleeper.mjs');
+    writeFileSync(sleeper, [
+      "import { writeFileSync } from 'node:fs';",
+      'const [out, text] = process.argv.slice(2);',
+      'if (out) writeFileSync(out, text);',
+      "if (text) process.stdout.write('partial-output');",
+      'setTimeout(() => {}, 20000);',
+    ].join(String.fromCharCode(10)));
+    await check('R1 command: expired budget -> BudgetExpired and the process never starts', async () => {
+      const c = fakeClock(), dl = createDeadline(1000, c.now); c.t = 1000;
+      const marker = join(temp, 'marker-command.txt');
+      assert.throws(() => command(process.execPath, [sleeper, marker, 'x'], { deadline: dl }), BudgetExpired);
+      assert.equal(existsSync(marker), false);
+    });
+    await check('R1 command: budget-limited timeout stops a real child and reports BudgetExpired', async () => {
+      const dl = createDeadline(400); const t = Date.now();
+      assert.throws(() => command(process.execPath, [sleeper], { deadline: dl }), BudgetExpired);
+      assert(Date.now() - t < 15000, `took ${Date.now() - t}`);
+    });
+    await check('R1 spawnBudgeted (npm path): expired -> not started; budget timeout keeps partial log', async () => {
+      const c = fakeClock(), gone = createDeadline(1000, c.now); c.t = 1000;
+      const log0 = join(temp, 'spawn0.log'), marker = join(temp, 'marker-spawn.txt');
+      await assert.rejects(spawnBudgeted(process.execPath, [sleeper, marker, 'x'], { cwd: temp, deadline: gone, log: log0, what: 'fake npm' }), BudgetExpired);
+      assert.equal(existsSync(marker), false); assert.equal(existsSync(log0), false);
+      const log1 = join(temp, 'spawn1.log'), t = Date.now();
+      await assert.rejects(spawnBudgeted(process.execPath, [sleeper, join(temp, 'm1.txt'), 'x'], { cwd: temp, deadline: createDeadline(1500), log: log1, what: 'fake npm' }), BudgetExpired);
+      assert(Date.now() - t < 15000); assert.equal(readFileSync(log1, 'utf8'), 'partial-output');
+    });
+    await check('R1 runChild: budget-limited child timeout keeps the partial JSONL as written', async () => {
+      const stream = join(temp, 'partial.jsonl'), text = ['{"type":"start","condition":"a"}', '{"type":"sam'].join(String.fromCharCode(10));
+      const r = await runChild([sleeper, stream, text], 600);
+      assert.equal(r.status, 'timeout'); assert.equal(readFileSync(stream, 'utf8'), text);
+      const p = parseJsonl(readFileSync(stream, 'utf8'));
+      assert.deepEqual(p.problems, [{ line: 1, problem: 'truncated_last_line' }]);
+      assert.equal(childOutcome({ condition: 'a', exit: r, records: p.records, problems: p.problems }).status, 'timeout');
+    });
+    await check('R1 environment: expired budget skips powercfg instead of a fresh 10 min', async () => {
+      const c = fakeClock(), dl = createDeadline(1000, c.now); c.t = 1000;
+      const env = environment(dl); assert.equal(env.powerSchemeGuid, null); assert.equal(env.powerSchemeStatus, 'skipped_budget_expired'); assert.equal(env.node, process.version);
     });
   } finally { safeRemove(temp, tmpdir(), TEMP_PREFIX); }
   return results;
