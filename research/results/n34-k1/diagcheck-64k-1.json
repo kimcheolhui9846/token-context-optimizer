@@ -1,0 +1,7570 @@
+{
+ "schema": "n34-k1-diag/v1",
+ "mode": "check-run",
+ "status": "completed",
+ "startedAt": "2026-11-16T02:41:56.852Z",
+ "preregistrationCommit": "8f29f1938b5833409193af25b55fe39c0cddb599",
+ "measurementHead": "8f29f1938b5833409193af25b55fe39c0cddb599",
+ "base": "7e732e0e07a1977dbf0c754319fd3a726924621e",
+ "candidate": "4999c1f14b229d8c856200d49fdacd2d4611dc81",
+ "design": {
+  "input": "F3",
+  "op": "O2",
+  "k": 1,
+  "mainSize": 10485760,
+  "checkSize": 65536,
+  "circuits": [
+   "ABCDBDCADACB",
+   "ADACDBDCBABC"
+  ],
+  "circuitMap": {
+   "A": "B1",
+   "B": "B2",
+   "C": "C2",
+   "D": "C1"
+  },
+  "warmupCircuits": 2,
+  "measureCircuits": 10,
+  "samplesPerChild": 144,
+  "measuredPerCopy": 30,
+  "order": [
+   "a",
+   "b"
+  ],
+  "checkOrder": [
+   "a",
+   "b"
+  ],
+  "pairs": [
+   [
+    1,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    6
+   ]
+  ],
+  "nodeArgs": [
+   "--expose-gc"
+  ],
+  "capMs": 4500000,
+  "childTimeoutMs": 720000,
+  "probeWaitMs": 1000,
+  "drainStepMs": 100,
+  "drainQuietSteps": 2,
+  "drainMaxMs": 2000,
+  "modeGapMs": 100,
+  "modeMinSide": 10,
+  "size": 65536
+ },
+ "files": {
+  "research/src/n34-k1-diag.mjs": {
+   "blobSha1": "77a3ba027b7eb9dcfc2ddd8a42eca1e80b3cf275",
+   "workingCopySha256": "39dd63498b293ff7c8efc1ff0dd176adfacaec0ae492984af879e59614ea41e6"
+  },
+  "research/src/n34-k1-diag-worker.mjs": {
+   "blobSha1": "b1fe51db68622fd888c3b87d61327762e14d423f",
+   "workingCopySha256": "8c56fc1c63d0ecb2aa8f3e237e2e6bc20d41db7d1f356bc9b2afeb5cea3522e2"
+  },
+  "research/src/n34-cr-policy-perf-inputs.mjs": {
+   "blobSha1": "e03a6197ddeca9cb78fbf4fb002c87b238d03095",
+   "workingCopySha256": "ebd7e8f14d3347f7ae74d774e835652c85fc4fd6128f7f1f6369df40595c1aa3"
+  },
+  "docs/agent/handoffs/n34-k1-diag-prereg.md": {
+   "blobSha1": "0a0285b0e20fe4bbeb08c2124768fe7684e6ddc7",
+   "workingCopySha256": "88b1bdb6229c21c0440699832a026f209a992c8c178795ce203b5c455c07c2bd"
+  },
+  "package-lock.json": {
+   "blobSha1": "4c65f8860373f5b6331b3c870427a3f90897e7c6",
+   "workingCopySha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343"
+  }
+ },
+ "environment": {
+  "node": "v24.18.0",
+  "v8": "13.6.233.17-node.50",
+  "platform": "win32",
+  "os": "10.0.26200",
+  "arch": "x64",
+  "cpuModels": [
+   "12th Gen Intel(R) Core(TM) i9-12900F"
+  ],
+  "logicalCPUs": 24,
+  "totalMemBytes": 34163982336,
+  "powerSchemeGuid": "381b4222-f694-41f0-9685-ff5bb260df2e"
+ },
+ "snapshots": {
+  "base": {
+   "ref": "7e732e0e07a1977dbf0c754319fd3a726924621e",
+   "policyBlobSha1": "34457148efd50be29ff703043bf0407ff765ab84",
+   "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+   "distCoreSha256": {
+    "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+    "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+    "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+    "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+    "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+    "policy.js": "5ada39538c6b68a5d300d78ca8c0c85cef5668e6c009f4a6cb36fc1a1781fe34",
+    "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+    "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+    "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+   }
+  },
+  "candidate": {
+   "ref": "4999c1f14b229d8c856200d49fdacd2d4611dc81",
+   "policyBlobSha1": "1945abe5095971cc157d0d38d9a886228354b3e7",
+   "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+   "distCoreSha256": {
+    "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+    "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+    "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+    "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+    "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+    "policy.js": "9c9beb3f1c9914e2f6f8446846f49d56a5c650776a8c8ef5d631934fc4ce2417",
+    "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+    "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+    "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+   }
+  }
+ },
+ "children": [
+  {
+   "position": 1,
+   "condition": "a",
+   "name": "child-1-a",
+   "stream": "child-1-a.jsonl",
+   "streamSha256": "c3f14ed1e287170aed51c462c29e59a7492c3de5d8f984adf1a153ae43438a39",
+   "exit": {
+    "status": "exited",
+    "exitCode": 0,
+    "signal": null,
+    "startedAt": "2026-11-16T02:42:06.054Z",
+    "finishedAt": "2026-11-16T02:42:07.561Z",
+    "wallMs": 1507,
+    "nodeArgs": [
+     "--expose-gc"
+    ]
+   },
+   "problems": [],
+   "status": "completed",
+   "reasons": [],
+   "observation": "supported",
+   "counts": {
+    "samples": 144,
+    "forced": 0,
+    "gcEvents": 105
+   },
+   "summary": {
+    "copies": {
+     "B1": {
+      "wall": {
+       "n": 30,
+       "median": 7.778,
+       "p95": 9.828,
+       "spread": 2.05,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 2.165,
+       "p95": 4.387,
+       "spread": 2.223,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 5.407,
+       "p95": 7.102,
+       "spread": 1.695,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     },
+     "B2": {
+      "wall": {
+       "n": 30,
+       "median": 7.953,
+       "p95": 10.198,
+       "spread": 2.245,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 2.565,
+       "p95": 4.257,
+       "spread": 1.691,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 5.347,
+       "p95": 6.882,
+       "spread": 1.536,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     },
+     "C1": {
+      "wall": {
+       "n": 30,
+       "median": 5.701,
+       "p95": 7.969,
+       "spread": 2.268,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 2.299,
+       "p95": 4.534,
+       "spread": 2.234,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 3.41,
+       "p95": 4.169,
+       "spread": 0.758,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     },
+     "C2": {
+      "wall": {
+       "n": 30,
+       "median": 5.579,
+       "p95": 7.61,
+       "spread": 2.031,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 2.262,
+       "p95": 4.159,
+       "spread": 1.898,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 3.305,
+       "p95": 4.165,
+       "spread": 0.86,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     }
+    },
+    "roles": {
+     "B": {
+      "wall": {
+       "n": 60,
+       "median": 7.953,
+       "p95": 9.828,
+       "spread": 1.875,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "index": {
+       "n": 60,
+       "median": 2.256,
+       "p95": 4.364,
+       "spread": 2.108,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "summarize": {
+       "n": 60,
+       "median": 5.407,
+       "p95": 6.882,
+       "spread": 1.475,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "copyMedianRatio": 1.022,
+      "cpuWall": {
+       "n": 60,
+       "median": 0,
+       "p95": 4.353,
+       "spread": 4.353,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "gc": {
+       "attributionStatus": {
+        "observed": 60,
+        "ambiguous": 0,
+        "unobserved": 0,
+        "incomplete": 0
+       },
+       "majorOverlapFraction": 0.083,
+       "majorOverlap": {
+        "n": 60,
+        "median": 0,
+        "p95": 0.697,
+        "spread": 0.697,
+        "rankNote": "sorted[29]/sorted[56]"
+       },
+       "majorOverlapSumMs": 3.739,
+       "nullReason": null
+      },
+      "spearmanWallMajor": {
+       "value": 0.4451614434217205,
+       "reason": null
+      },
+      "clusters": {
+       "gapMs": 0.3705999999999676,
+       "boundary": 10.013100000000009,
+       "below": 57,
+       "above": 3,
+       "modes": "no-separated-modes"
+      }
+     },
+     "C": {
+      "wall": {
+       "n": 60,
+       "median": 5.634,
+       "p95": 7.737,
+       "spread": 2.103,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "index": {
+       "n": 60,
+       "median": 2.263,
+       "p95": 4.242,
+       "spread": 1.979,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "summarize": {
+       "n": 60,
+       "median": 3.341,
+       "p95": 4.165,
+       "spread": 0.824,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "copyMedianRatio": 0.979,
+      "cpuWall": {
+       "n": 60,
+       "median": 0,
+       "p95": 4.112,
+       "spread": 4.112,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "gc": {
+       "attributionStatus": {
+        "observed": 60,
+        "ambiguous": 0,
+        "unobserved": 0,
+        "incomplete": 0
+       },
+       "majorOverlapFraction": 0.083,
+       "majorOverlap": {
+        "n": 60,
+        "median": 0,
+        "p95": 0.68,
+        "spread": 0.68,
+        "rankNote": "sorted[29]/sorted[56]"
+       },
+       "majorOverlapSumMs": 3.449,
+       "nullReason": null
+      },
+      "spearmanWallMajor": {
+       "value": 0.4754185102792905,
+       "reason": null
+      },
+      "clusters": {
+       "gapMs": 0.24459999999999127,
+       "boundary": 7.41579999999999,
+       "below": 54,
+       "above": 6,
+       "modes": "no-separated-modes"
+      }
+     }
+    },
+    "attribution": [
+     {
+      "i": 0,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.570900022983551,
+       "minor": 1.8027999997138977,
+       "incremental": 0.17089998722076416,
+       "weakcb": 0,
+       "other": 0,
+       "any": 2.544600009918213
+      },
+      "phaseMajorMs": {
+       "index": 0.570900022983551,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 2,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 1,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.9567999839782715,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.9567999839782715
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 2,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 2,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.8578999638557434,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8578999638557434
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 3,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.4814000129699707,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.4814000129699707
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 4,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6118000149726868,
+       "minor": 0,
+       "incremental": 0.17800003290176392,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.7898000478744507
+      },
+      "phaseMajorMs": {
+       "index": 0.6118000149726868,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 5,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.4984999895095825,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.4984999895095825
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 6,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.4625999927520752,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.4625999927520752
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 7,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.464199960231781,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.464199960231781
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 8,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 9,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.51419997215271,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.51419997215271
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 10,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 11,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.22079998254776,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.22079998254776
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 12,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.14329999685287476,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.14329999685287476
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 13,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.18639999628067017,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.18639999628067017
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 14,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6455999612808228,
+       "minor": 0,
+       "incremental": 0.18610000610351562,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8316999673843384
+      },
+      "phaseMajorMs": {
+       "index": 0.6455999612808228,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 15,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.465999960899353,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.465999960899353
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 16,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 17,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.6467999815940857,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.6467999815940857
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 18,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 19,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.46630001068115234,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.46630001068115234
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 20,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 21,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.17370003461837769,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.17370003461837769
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 22,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.26020002365112305,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.26020002365112305
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 23,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 24,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.9003999829292297,
+       "minor": 0,
+       "incremental": 0.20090001821517944,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.1013000011444092
+      },
+      "phaseMajorMs": {
+       "index": 0.9003999829292297,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 25,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.5127999782562256,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.5127999782562256
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 26,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.4941999912261963,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.4941999912261963
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 27,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 28,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.4481000304222107,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.4481000304222107
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 29,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 30,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 31,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.1624000072479248,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.1624000072479248
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 32,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.2857000231742859,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.2857000231742859
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 33,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 34,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.7918000221252441,
+       "minor": 0,
+       "incremental": 0.17710000276565552,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9689000248908997
+      },
+      "phaseMajorMs": {
+       "index": 0.7918000221252441,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 35,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.5055999755859375,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.5055999755859375
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 36,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 37,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.5425999760627747,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.5425999760627747
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 38,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.2226000428199768,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.2226000428199768
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 39,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 40,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 41,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.2087000012397766,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.2087000012397766
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 42,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 43,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.5875999927520752,
+       "minor": 0,
+       "incremental": 0.15679997205734253,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.7443999648094177
+      },
+      "phaseMajorMs": {
+       "index": 0.5875999927520752,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 44,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.49160003662109375,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.49160003662109375
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 45,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 46,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.546500027179718,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.546500027179718
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 47,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.19689995050430298,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.19689995050430298
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 48,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 49,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.15149998664855957,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.15149998664855957
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 50,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.17890000343322754,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.17890000343322754
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 51,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 52,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.7572999596595764,
+       "minor": 0,
+       "incremental": 0.18930000066757202,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9465999603271484
+      },
+      "phaseMajorMs": {
+       "index": 0.7572999596595764,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 53,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.5147000551223755,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.5147000551223755
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 54,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 55,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.4510999917984009,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.4510999917984009
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 56,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6913999915122986,
+       "minor": 0,
+       "incremental": 0.20410001277923584,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8955000042915344
+      },
+      "phaseMajorMs": {
+       "index": 0.6913999915122986,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 57,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 58,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 59,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.4805999994277954,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.4805999994277954
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 60,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 61,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 62,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.4926000237464905,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.4926000237464905
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 63,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 64,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 65,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6679999828338623,
+       "minor": 0,
+       "incremental": 0.1905999779701233,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8585999608039856
+      },
+      "phaseMajorMs": {
+       "index": 0.6679999828338623,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 66,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 67,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 68,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.6198999881744385,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.6198999881744385
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 69,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 70,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 71,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.47450000047683716,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.47450000047683716
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 72,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 73,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 74,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.211899995803833,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.211899995803833
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 75,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6800999641418457,
+       "minor": 0,
+       "incremental": 0.15689998865127563,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8369999527931213
+      },
+      "phaseMajorMs": {
+       "index": 0.6800999641418457,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 76,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 77,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 78,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 79,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.625,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.625
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 80,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 81,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 82,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.508899986743927,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.508899986743927
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 83,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 84,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 85,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6985000371932983,
+       "minor": 0,
+       "incremental": 0.18250000476837158,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8810000419616699
+      },
+      "phaseMajorMs": {
+       "index": 0.6985000371932983,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 86,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 87,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 88,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.9731000065803528,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9731000065803528
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 89,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 90,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 91,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 92,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.183899998664856,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.183899998664856
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 93,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 94,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.25950002670288086,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.25950002670288086
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 95,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 96,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.9203999638557434,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9203999638557434
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 97,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 98,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 99,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 100,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.9337999820709229,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9337999820709229
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 101,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 102,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 103,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.9025000333786011,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9025000333786011
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 104,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 105,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 106,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 107,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.8695999979972839,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8695999979972839
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 108,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 109,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.18460005521774292,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.18460005521774292
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 110,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.6970999836921692,
+       "minor": 0,
+       "incremental": 0.1794000267982483,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8765000104904175
+      },
+      "phaseMajorMs": {
+       "index": 0.6970999836921692,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 111,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 112,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 113,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.049299955368042,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.049299955368042
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 114,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 115,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 116,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.3068000078201294,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.3068000078201294
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 117,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 118,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 119,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.098099946975708,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.098099946975708
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 120,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 121,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.877299964427948,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.877299964427948
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 122,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 123,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 124,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 125,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.8603000044822693,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8603000044822693
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 126,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 127,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 128,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 129,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0.7158000469207764,
+       "minor": 0,
+       "incremental": 0.21630001068115234,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.9321000576019287
+      },
+      "phaseMajorMs": {
+       "index": 0.7158000469207764,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 1,
+       "minor": 0,
+       "incremental": 1,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 130,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 131,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.027899980545044,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.027899980545044
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 132,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 133,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 134,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.0483999848365784,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.0483999848365784
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 135,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 136,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 137,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 138,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.0373000502586365,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.0373000502586365
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 139,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 140,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 141,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.251800000667572,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.251800000667572
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 142,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 143,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.17469996213912964,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.17469996213912964
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     }
+    ],
+    "gcEventsBetweenSamples": 20,
+    "gcEventsInForcedWindows": 0
+   }
+  },
+  {
+   "position": 2,
+   "condition": "b",
+   "name": "child-2-b",
+   "stream": "child-2-b.jsonl",
+   "streamSha256": "acbfc1708c47428a3ff3ddab96a74f6b63ae2dcda50ab1f3aa63ea938882a239",
+   "exit": {
+    "status": "exited",
+    "exitCode": 0,
+    "signal": null,
+    "startedAt": "2026-11-16T02:42:07.568Z",
+    "finishedAt": "2026-11-16T02:42:09.331Z",
+    "wallMs": 1763,
+    "nodeArgs": [
+     "--expose-gc"
+    ]
+   },
+   "problems": [],
+   "status": "completed",
+   "reasons": [],
+   "observation": "supported",
+   "counts": {
+    "samples": 144,
+    "forced": 144,
+    "gcEvents": 170
+   },
+   "summary": {
+    "copies": {
+     "B1": {
+      "wall": {
+       "n": 30,
+       "median": 8.605,
+       "p95": 8.947,
+       "spread": 0.342,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 3.072,
+       "p95": 3.375,
+       "spread": 0.304,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 5.516,
+       "p95": 5.711,
+       "spread": 0.195,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     },
+     "B2": {
+      "wall": {
+       "n": 30,
+       "median": 8.457,
+       "p95": 8.899,
+       "spread": 0.442,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 2.969,
+       "p95": 3.292,
+       "spread": 0.322,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 5.478,
+       "p95": 5.865,
+       "spread": 0.387,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     },
+     "C1": {
+      "wall": {
+       "n": 30,
+       "median": 6.575,
+       "p95": 6.997,
+       "spread": 0.422,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 3.034,
+       "p95": 3.392,
+       "spread": 0.358,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 3.515,
+       "p95": 3.606,
+       "spread": 0.09,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     },
+     "C2": {
+      "wall": {
+       "n": 30,
+       "median": 6.593,
+       "p95": 6.973,
+       "spread": 0.38,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "index": {
+       "n": 30,
+       "median": 2.988,
+       "p95": 3.325,
+       "spread": 0.338,
+       "rankNote": "sorted[14]/sorted[28]"
+      },
+      "summarize": {
+       "n": 30,
+       "median": 3.589,
+       "p95": 3.764,
+       "spread": 0.176,
+       "rankNote": "sorted[14]/sorted[28]"
+      }
+     }
+    },
+    "roles": {
+     "B": {
+      "wall": {
+       "n": 60,
+       "median": 8.528,
+       "p95": 8.917,
+       "spread": 0.389,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "index": {
+       "n": 60,
+       "median": 3.004,
+       "p95": 3.33,
+       "spread": 0.327,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "summarize": {
+       "n": 60,
+       "median": 5.514,
+       "p95": 5.711,
+       "spread": 0.197,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "copyMedianRatio": 0.983,
+      "cpuWall": {
+       "n": 60,
+       "median": 0,
+       "p95": 3.725,
+       "spread": 3.725,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "gc": {
+       "attributionStatus": {
+        "observed": 60,
+        "ambiguous": 0,
+        "unobserved": 0,
+        "incomplete": 0
+       },
+       "majorOverlapFraction": 0,
+       "majorOverlap": {
+        "n": 60,
+        "median": 0,
+        "p95": 0,
+        "spread": 0,
+        "rankNote": "sorted[29]/sorted[56]"
+       },
+       "majorOverlapSumMs": 0,
+       "nullReason": null
+      },
+      "spearmanWallMajor": {
+       "value": null,
+       "reason": "zero_variance_y"
+      },
+      "clusters": {
+       "gapMs": 0.31700000000012096,
+       "boundary": 9.145399999999938,
+       "below": 59,
+       "above": 1,
+       "modes": "no-separated-modes"
+      }
+     },
+     "C": {
+      "wall": {
+       "n": 60,
+       "median": 6.593,
+       "p95": 6.973,
+       "spread": 0.38,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "index": {
+       "n": 60,
+       "median": 3.01,
+       "p95": 3.35,
+       "spread": 0.34,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "summarize": {
+       "n": 60,
+       "median": 3.541,
+       "p95": 3.696,
+       "spread": 0.155,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "copyMedianRatio": 1.003,
+      "cpuWall": {
+       "n": 60,
+       "median": 0,
+       "p95": 4.865,
+       "spread": 4.865,
+       "rankNote": "sorted[29]/sorted[56]"
+      },
+      "gc": {
+       "attributionStatus": {
+        "observed": 60,
+        "ambiguous": 0,
+        "unobserved": 0,
+        "incomplete": 0
+       },
+       "majorOverlapFraction": 0,
+       "majorOverlap": {
+        "n": 60,
+        "median": 0,
+        "p95": 0,
+        "spread": 0,
+        "rankNote": "sorted[29]/sorted[56]"
+       },
+       "majorOverlapSumMs": 0,
+       "nullReason": null
+      },
+      "spearmanWallMajor": {
+       "value": null,
+       "reason": "zero_variance_y"
+      },
+      "clusters": {
+       "gapMs": 0.1069999999999709,
+       "boundary": 6.919300000000021,
+       "below": 56,
+       "above": 4,
+       "modes": "no-separated-modes"
+      }
+     }
+    },
+    "attribution": [
+     {
+      "i": 0,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 1.788699984550476,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 1.788699984550476
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 2,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 1,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 2.242199957370758,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 2.242199957370758
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 2,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 2,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.926099956035614,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.926099956035614
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 3,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.8447999954223633,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8447999954223633
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 4,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0.8995000123977661,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0.8995000123977661
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 1,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 5,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 6,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 7,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 8,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 9,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 10,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 11,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 12,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 13,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 14,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 15,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 16,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 17,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 18,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 19,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 20,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 21,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 22,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 23,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 24,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 25,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 26,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 27,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 28,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 29,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 30,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 31,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 32,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 33,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 34,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 35,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 36,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 37,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 38,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 39,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 40,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 41,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 42,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 43,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 44,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 45,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 46,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 47,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 48,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 49,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 50,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 51,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 52,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 53,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 54,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 55,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 56,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 57,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 58,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 59,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 60,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 61,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 62,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 63,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 64,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 65,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 66,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 67,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 68,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 69,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 70,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 71,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 72,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 73,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 74,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 75,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 76,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 77,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 78,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 79,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 80,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 81,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 82,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 83,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 84,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 85,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 86,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 87,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 88,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 89,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 90,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 91,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 92,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 93,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 94,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 95,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 96,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 97,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 98,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 99,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 100,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 101,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 102,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 103,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 104,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 105,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 106,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 107,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 108,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 109,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 110,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 111,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 112,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 113,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 114,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 115,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 116,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 117,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 118,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 119,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 120,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 121,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 122,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 123,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 124,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 125,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 126,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 127,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 128,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 129,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 130,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 131,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 132,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 133,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 134,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 135,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 136,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 137,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 138,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 139,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 140,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 141,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 142,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     },
+     {
+      "i": 143,
+      "status": "observed",
+      "crossoverEvents": [],
+      "overlapMs": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0,
+       "any": 0
+      },
+      "phaseMajorMs": {
+       "index": 0,
+       "summarize": 0
+      },
+      "startedInSample": {
+       "major": 0,
+       "minor": 0,
+       "incremental": 0,
+       "weakcb": 0,
+       "other": 0
+      }
+     }
+    ],
+    "gcEventsBetweenSamples": 163,
+    "gcEventsInForcedWindows": 144
+   }
+  }
+ ],
+ "notRun": [],
+ "buildMs": 9201,
+ "comparisons": null,
+ "finalEnvironment": {
+  "node": "v24.18.0",
+  "v8": "13.6.233.17-node.50",
+  "platform": "win32",
+  "os": "10.0.26200",
+  "arch": "x64",
+  "cpuModels": [
+   "12th Gen Intel(R) Core(TM) i9-12900F"
+  ],
+  "logicalCPUs": 24,
+  "totalMemBytes": 34163982336,
+  "powerSchemeGuid": "381b4222-f694-41f0-9685-ff5bb260df2e"
+ },
+ "preservation": {
+  "trackedFiles": 1136,
+  "changed": []
+ },
+ "tempCleanup": true,
+ "finishedAt": "2026-11-16T02:42:11.182Z",
+ "totalMs": 14330,
+ "exitCode": 0
+}
