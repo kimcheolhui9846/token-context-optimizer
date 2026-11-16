@@ -42,9 +42,12 @@
 
 ## WBS 재설정(메인 checkout, 비추적·커밋 안 함)
 
-- 진행 중. 결과는 이 문서의 후속 커밋과 완료 보고에 적는다
-- 원칙: 기존 4시트·107행·381수식·이력 보존, 새 `완성도현황`·`실행계획` 시트 추가, 보류 5행·부모 6.4b는 비고만 추가
-- 새 Findings 후보: N-39(exp2 README 단위, Minor), N-40(관리 문서 현재 상태 불일치, Minor)
+- 적용 완료: sha256 `ffaeaae3…def0a6`(적용 직전 재확인) → `d4e75768d999a82dd899dfc769a4d23b006cfbab1dfb6e0504d5b59e394f6e85`
+- 새 시트 `완성도현황`(첫 화면)·`실행계획`(27행)을 앞에 추가. 기존 4시트 이름·순서·107행·381수식·서식·검증·메모 보존
+- 원장 변경은 두 가지뿐: 보류 5행(5.1, 5.3–5.6)과 6.4b 비고 끝에 날짜 비고 추가, Findings N-39(미해결)·N-40(리뷰중) 추가
+- 대시보드 수식은 그대로다. Findings 두 행이 늘어 리뷰중 7·미해결 2·합계 94로 값이 바뀐다
+- 선행 미충족·gate 미완료 수는 스칼라 COUNTIFS로 계산한다. 배열식은 Artifact Tool 엔진에서 0으로 계산돼 버렸다
+- 증거(비추적): 메인 checkout `codex_review/quality-plan-2026-11-16/`의 backup, candidate, tools, verify, render
 
 ## 결정 항목(임의 확정하지 않음)
 
@@ -63,7 +66,12 @@
 ## 검증
 
 - npm gate: NOT RUN(문서·WBS Task, 제품 source 변경 0)
-- 문서: `git diff --check`, 직접 읽기. WBS 검증 결과는 후속 커밋에 적는다
+- 문서: `git diff --check`, 직접 읽기
+- WBS 검사 41개 PASS(후보와 적용본 모두): formulas 재계산 수식 883개 오류 0, 독립 Python 집계 대조, 원장 셀·서식·검증·메모 보존, 선행 ID·순환·상태·승인 검사, 임시 복사본 시나리오 5개
+- 시나리오: 선행 하나만 완료해도 gate 미완료 유지, 수동 충족 판정과 남은 Task의 불일치 표시, 조건부 `비선택` 처리, 목록 밖 단계 표시, ID 표기 오류 표시
+- 두 엔진 대조: Artifact Tool 재계산값과 formulas 값 177셀 일치, 오류 검색 0. 렌더 9개 직접 확인
+- 시트 XML(셀 밖): 기존 3시트 동일, Findings는 dimension만 A1:F96으로 변경
+- native Excel: NOT RUN
 - Argon 1회 교차 확인 예정
 
 ## 다음 작업자
