@@ -50,23 +50,150 @@ export const GC_FLAG_FORCED = PERF.NODE_PERFORMANCE_GC_FLAGS_FORCED;
 const KINDS = ['major', 'minor', 'incremental', 'weakcb', 'other'];
 
 // ==== PURE FUNCTIONS BEGIN ====
-// RED: not implemented yet; the synthetic checks below must fail.
-const notImplemented = name => () => { throw new Error(`${name}: not implemented`); };
-export const schedule = notImplemented('schedule');
-export const nearestRank = notImplemented('nearestRank');
-export const clip = notImplemented('clip');
-export const unionLength = notImplemented('unionLength');
-export const cpuWallRatio = notImplemented('cpuWallRatio');
-export const attributeSample = notImplemented('attributeSample');
-export const spearman = notImplemented('spearman');
-export const largestGap = notImplemented('largestGap');
-export const parseJsonl = notImplemented('parseJsonl');
-export const childOutcome = notImplemented('childOutcome');
-export const canStartChild = notImplemented('canStartChild');
-export const pairDirections = notImplemented('pairDirections');
-export const refuseOverwrite = notImplemented('refuseOverwrite');
-export const safeRemove = notImplemented('safeRemove');
+// Official schedule shape: circuit c of each block uses circuits[c % 2]; warmup 2 + measure 10 circuits.
+export function schedule() {
+  const list = [];
+  for (const [block, n] of [['warmup', D.warmupCircuits], ['measure', D.measureCircuits]])
+    for (let c = 0; c < n; c++) for (const letter of D.circuits[c % D.circuits.length]) list.push({ label: `${block}/${c}`, arm: D.circuitMap[letter] });
+  return list;
+}
+// Nearest rank: sorted[ceil(n*p) - 1].
+export function nearestRank(values, p) {
+  if (!values.length) return null;
+  const s = [...values].sort((a, b) => a - b);
+  return s[Math.ceil(s.length * p) - 1];
+}
+// Intersection of [s, e] with window [ws, we]; null when the overlap has zero length.
+export function clip([s, e], [ws, we]) {
+  const lo = Math.max(s, ws), hi = Math.min(e, we);
+  return hi > lo ? [lo, hi] : null;
+}
+// Length of the union of intervals (overlapping or duplicated intervals counted once).
+export function unionLength(intervals) {
+  const sorted = intervals.filter(Boolean).map(([a, b]) => [a, b]).sort((x, y) => x[0] - y[0]);
+  let total = 0, cur = null;
+  for (const [a, b] of sorted) {
+    if (!cur || a > cur[1]) { if (cur) total += cur[1] - cur[0]; cur = [a, b]; } else cur[1] = Math.max(cur[1], b);
+  }
+  if (cur) total += cur[1] - cur[0];
+  return total;
+}
 export const eventInterval = e => [e.startTime, e.startTime + e.duration];
+// CPU/wall, dimensionless: (user us + system us) / (1000 * wall ms). Process-wide CPU.
+export function cpuWallRatio(userUs, systemUs, wallMs) {
+  if (![userUs, systemUs, wallMs].every(Number.isFinite) || wallMs <= 0) return null;
+  return (userUs + systemUs) / (1000 * wallMs);
+}
+// GC attribution for one sample. observation: 'supported' | 'unsupported' | 'incomplete'.
+// Values stay null (never a clean 0) unless observation is supported and the sample is unambiguous.
+export function attributeSample(sample, events, forcedWindows, observation) {
+  const win = [sample.t0, sample.t2], phases = { index: [sample.t0, sample.t1], summarize: [sample.t1, sample.t2] };
+  const touching = events.filter(e => clip(eventInterval(e), win));
+  const crossover = touching.filter(e => forcedWindows.some(f => clip(eventInterval(e), [f.start, f.end])));
+  const out = { status: null, crossoverEvents: crossover.map(e => e.seq), overlapMs: null, phaseMajorMs: null, startedInSample: null };
+  if (observation !== 'supported') { out.status = observation === 'unsupported' ? 'unobserved' : 'incomplete'; return out; }
+  if (crossover.length) { out.status = 'ambiguous'; return out; }
+  out.status = 'observed';
+  out.overlapMs = Object.fromEntries(KINDS.map(k => [k, unionLength(touching.filter(e => e.kindName === k).map(e => clip(eventInterval(e), win)))]));
+  out.overlapMs.any = unionLength(touching.map(e => clip(eventInterval(e), win)));
+  const majors = touching.filter(e => e.kindName === 'major');
+  out.phaseMajorMs = Object.fromEntries(Object.entries(phases).map(([k, w]) => [k, unionLength(majors.map(e => clip(eventInterval(e), w)))]));
+  out.startedInSample = Object.fromEntries(KINDS.map(k => [k, touching.filter(e => e.kindName === k && e.startTime >= sample.t0 && e.startTime < sample.t2).length]));
+  return out;
+}
+// Spearman rank correlation with average ranks for ties. Returns { value, reason }.
+export function spearman(x, y) {
+  if (x.length !== y.length) return { value: null, reason: 'length_mismatch' };
+  if (x.some(v => !Number.isFinite(v)) || y.some(v => !Number.isFinite(v))) return { value: null, reason: 'missing_values' };
+  if (x.length < 3) return { value: null, reason: 'too_few' };
+  const rank = v => { const idx = v.map((val, i) => [val, i]).sort((a, b) => a[0] - b[0]); const r = new Array(v.length); let i = 0;
+    while (i < idx.length) { let j = i; while (j + 1 < idx.length && idx[j + 1][0] === idx[i][0]) j++; const avg = (i + j) / 2 + 1; for (let k = i; k <= j; k++) r[idx[k][1]] = avg; i = j + 1; } return r; };
+  const rx = rank(x), ry = rank(y), n = x.length;
+  const mx = rx.reduce((a, b) => a + b, 0) / n, my = ry.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0, sxx = 0, syy = 0;
+  for (let i = 0; i < n; i++) { sxy += (rx[i] - mx) * (ry[i] - my); sxx += (rx[i] - mx) ** 2; syy += (ry[i] - my) ** 2; }
+  if (sxx === 0) return { value: null, reason: 'zero_variance_x' };
+  if (syy === 0) return { value: null, reason: 'zero_variance_y' };
+  return { value: sxy / Math.sqrt(sxx * syy), reason: null };
+}
+// Auxiliary cluster description only (largest gap). Never used to invalidate continuous statistics.
+export function largestGap(values) {
+  if (values.length < 2) return { gapMs: null, below: values.length, above: 0, modes: 'no-separated-modes' };
+  const s = [...values].sort((a, b) => a - b);
+  let best = 1;
+  for (let i = 2; i < s.length; i++) if (s[i] - s[i - 1] > s[best] - s[best - 1]) best = i;
+  const gapMs = s[best] - s[best - 1], below = best, above = s.length - best;
+  return { gapMs, boundary: (s[best] + s[best - 1]) / 2, below, above, modes: gapMs >= D.modeGapMs && below >= D.modeMinSide && above >= D.modeMinSide ? 'separated' : 'no-separated-modes' };
+}
+// JSONL parser that never normalizes a damaged stream: every problem is listed.
+export function parseJsonl(text) {
+  const records = [], problems = [];
+  if (!text) return { records, problems, endsWithNewline: true };
+  const endsWithNewline = text.endsWith('\n');
+  const lines = text.split('\n');
+  if (endsWithNewline) lines.pop();
+  lines.forEach((line, i) => {
+    const last = i === lines.length - 1;
+    if (!line.trim()) { problems.push({ line: i, problem: 'blank_line' }); return; }
+    try { records.push(JSON.parse(line)); } catch { problems.push({ line: i, problem: last && !endsWithNewline ? 'truncated_last_line' : 'parse_error' }); }
+  });
+  if (!endsWithNewline && !problems.some(p => p.problem === 'truncated_last_line')) problems.push({ line: lines.length - 1, problem: 'missing_final_newline' });
+  return { records, problems, endsWithNewline };
+}
+const SAMPLE_FIELDS = ['i', 'label', 'arm', 't0', 't1', 't2', 'wallMs', 'indexMs', 'summarizeMs', 'cpuUserUs', 'cpuSystemUs', 'heapBefore', 'heapAfter'];
+// Validates one child's parsed stream against the approved design. condition 'a' | 'b'.
+export function childOutcome({ condition, exit, records, problems, expected = schedule() }) {
+  const reasons = [];
+  const by = type => records.filter(r => r.type === type);
+  const samples = by('sample'), forced = by('forced'), gc = by('gc');
+  const start = by('start')[0], probe = by('probe')[0], drain = by('drain')[0], end = by('end')[0], digests = by('digest');
+  if (exit.status !== 'exited' || exit.exitCode !== 0) reasons.push(`process:${exit.status}:${exit.exitCode}`);
+  if (problems.length) reasons.push(`stream:${problems.map(p => p.problem).join(',')}`);
+  if (!start) reasons.push('missing:start');
+  if (!end || end.status !== 'completed') reasons.push('missing:end');
+  if (samples.length !== expected.length) reasons.push(`samples:${samples.length}`);
+  samples.forEach((s, i) => {
+    const missing = SAMPLE_FIELDS.filter(f => s[f] === undefined || s[f] === null);
+    if (missing.length) reasons.push(`sample${i}:missing:${missing.join('/')}`);
+    if (s.i !== i || s.label !== expected[i]?.label || s.arm !== expected[i]?.arm) reasons.push(`sample${i}:order`);
+  });
+  if (digests.length !== 4 || new Set(digests.map(d => d.digest)).size !== 1) reasons.push('digest');
+  if (condition === 'a' && forced.length !== 0) reasons.push(`forced:${forced.length}`);
+  if (condition === 'b') {
+    if (forced.length !== expected.length) reasons.push(`forced:${forced.length}`);
+    forced.forEach((f, i) => { const s = samples[i]; if (f.i !== i || !s || !(f.end <= s.t0)) reasons.push(`forced${i}:position`); });
+  }
+  let observation;
+  if (!probe || probe.supported !== true) observation = 'unsupported';
+  else if (!drain || drain.complete !== true || probe.clockOk !== true) observation = 'incomplete';
+  else observation = 'supported';
+  const status = reasons.length === 0 ? 'completed' : (exit.status === 'timeout' ? 'timeout' : 'invalid');
+  return { status, reasons, observation, counts: { samples: samples.length, forced: forced.length, gcEvents: gc.length } };
+}
+// Whether the next child may start: remaining time since runner start must be >= one child timeout.
+export function canStartChild(elapsedMs, capMs = D.capMs, childTimeoutMs = D.childTimeoutMs) {
+  return capMs - elapsedMs >= childTimeoutMs;
+}
+const dir = d => (d === null ? 'unavailable' : d < 0 ? 'lower' : d > 0 ? 'higher' : 'tied');
+// b - a for the approved pairs; values: position (1-based) -> number | null.
+export function pairDirections(values) {
+  const diffs = D.pairs.map(([a, b]) => (Number.isFinite(values[a]) && Number.isFinite(values[b]) ? values[b] - values[a] : null));
+  const dirs = diffs.map(dir);
+  const overall = dirs.includes('unavailable') ? 'unavailable' : new Set(dirs).size === 1 ? dirs[0] : 'mixed';
+  return { diffs, directions: dirs, overall };
+}
+// Refuse to overwrite any existing path.
+export function refuseOverwrite(path) {
+  if (existsSync(path)) throw new Error(`refusing to overwrite ${path}`);
+}
+// Remove an owned temporary directory: real path must sit directly under the allowed root with our prefix.
+export function safeRemove(path, allowedRoot, prefix) {
+  const actual = realpathSync(path);
+  if (dirname(actual).toLowerCase() !== realpathSync(allowedRoot).toLowerCase()) throw new Error(`not under allowed root: ${actual}`);
+  if (!basename(actual).startsWith(prefix)) throw new Error(`not an owned temp dir: ${actual}`);
+  rmSync(actual, { recursive: true, force: true });
+  return !existsSync(actual);
+}
 // ==== PURE FUNCTIONS END ====
 
 // ---------- descriptive summaries (no verdicts) ----------
@@ -250,6 +377,14 @@ export function syntheticChecks() {
     assert.equal(pairDirections({ 1: 5, 2: 5, 3: 2, 4: 2, 5: 9, 6: 9 }).overall, 'tied');
     assert.equal(pairDirections({ 1: 5, 2: null, 3: 1, 4: 2, 5: 9, 6: 8 }).overall, 'unavailable');
   });
+  check('comparisons pick metrics by position and skip non-completed children', () => {
+    const child = (position, median, status = 'completed') => ({ position, status, summary: { roles: { C: { wall: { median } }, B: {} } } });
+    const rows = comparisons([child(1, 10), child(2, 8), child(3, 13), child(4, 12), child(5, 11), child(6, 11)]);
+    const c = rows.find(r => r.metric === 'C.wall.median'); assert.deepEqual(c.diffs, [-2, 1, 0]); assert.equal(c.overall, 'mixed');
+    assert.equal(rows.find(r => r.metric === 'B.wall.median').overall, 'unavailable');
+    const inv = comparisons([child(1, 10), child(2, 8, 'invalid'), child(3, 13), child(4, 12), child(5, 11), child(6, 11)]);
+    assert.deepEqual(inv.find(r => r.metric === 'C.wall.median').directions, ['unavailable', 'higher', 'tied']);
+  });
   check('overwrite refusal and owned temp removal', () => {
     const t = mkdtempSync(join(tmpdir(), TEMP_PREFIX));
     const f = join(t, 'x.json'); writeFileSync(f, '{}');
@@ -260,6 +395,56 @@ export function syntheticChecks() {
     assert.throws(() => safeRemove(wrongPrefix, tmpdir(), TEMP_PREFIX)); assert(existsSync(wrongPrefix)); rmSync(wrongPrefix, { recursive: true, force: true });
     assert.equal(safeRemove(t, tmpdir(), TEMP_PREFIX), true);
   });
+  return results;
+}
+
+// ---------- process-level synthetic checks (fake modules, no product code) ----------
+const FAKE_ARTIFACTS = [
+  'export class MemoryArtifactStore { constructor() { this.m = new Map(); } put(r) { this.m.set(r.artifactId, r); } get(id) { return this.m.get(id); } }',
+  'export async function indexArtifact({ path, store }) { const { readFile } = await import("node:fs/promises"); const b = await readFile(path); const junk = Array.from({ length: 20000 }, (_, i) => ({ i })); const r = { artifactId: "a1", byteLength: b.byteLength, junk }; store.put(r); return r; }',
+  'export function summarizeArtifact({ artifactId, store }) { const r = store.get(artifactId); return { summary: "", sourceMap: null, fallbackReason: "fake", warnings: [], confidence: 0, estimatedTokens: r ? 0 : -1 }; }',
+].join(String.fromCharCode(10));
+export async function processChecks() {
+  const results = [];
+  const check = async (name, fn) => { try { await fn(); results.push({ name, ok: true }); } catch (error) { results.push({ name, ok: false, detail: String(error.message).slice(0, 300) }); } };
+  const temp = mkdtempSync(join(tmpdir(), TEMP_PREFIX));
+  try {
+    const mod = join(temp, 'fake'); mkdirSync(join(mod, 'src/core'), { recursive: true });
+    writeFileSync(join(mod, 'src/core/artifacts.js'), FAKE_ARTIFACTS); writeFileSync(join(mod, 'src/core/policy.js'), 'export const fake = true;');
+    const modules = { B1: mod, B2: mod, C1: mod, C2: mod };
+    let n = 0;
+    const runFake = async (condition, nodeArgs, preStream) => {
+      const stream = join(temp, `s${n}.jsonl`), configPath = join(temp, `c${n}.json`), workDir = join(temp, `w${n++}`);
+      if (preStream) writeFileSync(stream, 'existing');
+      writeFileSync(configPath, JSON.stringify({ condition, modules, size: 64, schedule: schedule(), workDir, stream, k: 1, probeWaitMs: D.probeWaitMs, drainStepMs: D.drainStepMs, drainQuietSteps: D.drainQuietSteps, drainMaxMs: D.drainMaxMs }));
+      const exit = await runChild([...nodeArgs, join(ROOT, WORKER), configPath], 60000);
+      const text = readFileSync(stream, 'utf8');
+      const parsed = parseJsonl(preStream ? '' : text);
+      return { exit, text, ...parsed, outcome: childOutcome({ condition, exit, records: parsed.records, problems: parsed.problems }) };
+    };
+    await check('runChild timeout kills own child', async () => {
+      const r = await runChild(['-e', 'setTimeout(() => {}, 20000)'], 500);
+      assert.equal(r.status, 'timeout'); assert(r.wallMs < 15000, `wall ${r.wallMs}`);
+    });
+    await check('fake worker a: 144 samples, 0 forced, probe supported', async () => {
+      const r = await runFake('a', ['--expose-gc']);
+      assert.equal(r.outcome.status, 'completed', r.outcome.reasons.join(';')); assert.equal(r.outcome.counts.forced, 0); assert.equal(r.outcome.observation, 'supported');
+      const s = childSummary(r.records, r.outcome); assert.equal(s.roles.C.wall.n, 60);
+    });
+    await check('fake worker b: 144 forced, each before its sample', async () => {
+      const r = await runFake('b', ['--expose-gc']);
+      assert.equal(r.outcome.status, 'completed', r.outcome.reasons.join(';')); assert.equal(r.outcome.counts.forced, 144);
+      assert(r.records.filter(x => x.type === 'gc').length >= 145, 'forced and probe GC events observed');
+    });
+    await check('fake worker without --expose-gc: a unsupported, b invalid', async () => {
+      const a = await runFake('a', []); assert.equal(a.outcome.observation, 'unsupported'); assert.equal(a.outcome.status, 'completed');
+      const b = await runFake('b', []); assert.equal(b.outcome.status, 'invalid'); assert(b.records.some(x => x.type === 'error'));
+    });
+    await check('worker refuses an existing stream file', async () => {
+      const r = await runFake('a', ['--expose-gc'], true);
+      assert.notEqual(r.exit.exitCode, 0); assert.equal(r.text, 'existing');
+    });
+  } finally { safeRemove(temp, tmpdir(), TEMP_PREFIX); }
   return results;
 }
 
@@ -329,6 +514,7 @@ async function buildSnapshots(temp, logs) {
 
 async function main() {
   const results = syntheticChecks();
+  if (process.argv.includes('--check-only')) results.push(...await processChecks());
   const failed = results.filter(r => !r.ok);
   if (process.argv.includes('--check-only')) {
     console.log(JSON.stringify({ status: failed.length ? 'FAIL' : 'PASS', passed: results.length - failed.length, total: results.length, failed, timedCalls: 0 }, null, 1));
