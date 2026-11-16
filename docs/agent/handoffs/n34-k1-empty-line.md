@@ -14,7 +14,11 @@
     - R1: 75분 예산이 빌드·보조 명령에 미적용
     - R2: 손상 레코드가 completed/supported로 통과
     - M1: CPU 틱 원인 단정
-  - 수정 완료: RED `aa328ef` → GREEN `07f88fa` → **보완 prereg `00404de`**. 본 실행의 `--prereg`는 `00404de`다
+  - 수정: RED `aa328ef` → GREEN `07f88fa` → 보완 1 `00404de`
+  - P01 primary(`review_2026-11-16_p01-preflight-primary.md`): CHANGES REQUIRED
+    - Major: GC 손실과 probe·drain 모순이 completed/supported로 통과
+    - Minor: 부분 요약의 rankNote가 실제 n과 다름
+  - P01 수정: RED `7fb5526` → GREEN `d2101bb` → **보완 2 `f28b6ac`**. 본 실행의 `--prereg`는 `f28b6ac`다
   - **본 10 MiB D1은 미실행이다. primary 재검토와 실행권 전달을 기다린다**
 - K1 PASS와 main 대비 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다
 
@@ -54,7 +58,7 @@
 
 ## D1 진단 (승인안 기준, 준비 중)
 - 파일: `research/src/n34-k1-diag.mjs`(runner·synthetic check), `research/src/n34-k1-diag-worker.mjs`
-  - prereg `n34-k1-diag-prereg.md`(동결) + `n34-k1-diag-prereg-amendment-1.md`(무결성 검증·전역 예산)
+  - prereg `n34-k1-diag-prereg.md`(동결) + 보완 1(무결성·전역 예산, 동결) + 보완 2(GC·probe·drain 교차 무결성, 실제 n 순위 표기)
 - 고정: BASE `7e732e0e07a1977dbf0c754319fd3a726924621e`, CAND `4999c1f14b229d8c856200d49fdacd2d4611dc81`, Node v24.18.0, 기존 lockfile 빌드
 - O2/F3, K = 1, 사본 B1/B2/C1/C2, 공식과 같은 교대 circuit
   - child당 warmup 24 + 측정 120 = 144표본
@@ -73,6 +77,8 @@
 - 상한: runner 시작부터 빌드 포함 75분, child 12분. 남은 시간이 12분 미만이면 notRun. 재시도 없음
   - 모든 subprocess는 min(자기 상한, 남은 예산)을 받는다. 만료 뒤에는 새 단계를 시작하지 않는다
 - 무결성: 표본·forced·digest·control이 손상되면 invalid다. GC·probe·drain 메타데이터가 손상되면 incomplete/null이고 wall은 유지한다
+  - 교차 검사(worker 불변식): drain `totalEvents` = GC 레코드 수, 완료 drain은 2단계 이상, probe 강제 사건 = probe 앞 FORCED GC 레코드, clockOk 창
+  - 부분 요약은 `partial_diagnostic_only`이고 비교에서 빠진다. rankNote는 실제 n의 nearest-rank 위치를 적는다
 - 해석 한계
   - observer의 동기식 JSONL 쓰기가 wall에 포함될 수 있다
   - 64 KiB 확인에서 CPU 증분은 이산 값으로만 관찰됐다(0인 표본이 a 73개, b 69개). 해상도의 원인은 입증하지 않았다
