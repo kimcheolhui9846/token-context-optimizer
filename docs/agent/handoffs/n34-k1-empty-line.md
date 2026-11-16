@@ -5,7 +5,7 @@
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
 - 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
 
-## 현재 상태: 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, primary **CHANGES REQUIRED**
+## 현재 상태: K1 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, K1 primary **CHANGES REQUIRED** / D1 사전검증 P01 **PASS WITH NOTES**, D1 **NOT RUN**
 - primary 판정 `review_2026-11-15_n34-k1-phase2-final.md`: 1,728표본 독립 재계산 불일치 0. 필수 timing과 memory가 미충족이다
 - 문서 정정 M1·M2와 읽기 전용 원인 분석을 마쳤다. 새 측정은 하지 않았다
 - 분석 보완은 primary PASS WITH NOTES(`review_2026-11-16_n34-k1-analysis-revision-final.md`)를 받았다
@@ -18,8 +18,11 @@
   - P01 primary(`review_2026-11-16_p01-preflight-primary.md`): CHANGES REQUIRED
     - Major: GC 손실과 probe·drain 모순이 completed/supported로 통과
     - Minor: 부분 요약의 rankNote가 실제 n과 다름
-  - P01 수정: RED `7fb5526` → GREEN `d2101bb` → **보완 2 `f28b6ac`**. 본 실행의 `--prereg`는 `f28b6ac`다
-  - **본 10 MiB D1은 미실행이다. primary 재검토와 실행권 전달을 기다린다**
+  - P01 수정: RED `7fb5526` → 코드 GREEN `d2101bb` → 검증·보완 2 prereg **`f28b6ac`**(본 실행 `--prereg`) → 제출 head `d7ac4d7`
+  - **P01 primary 재검토: PASS WITH NOTES**(`review_2026-11-16_p01-r2-primary.md`). 이 판정은 D1 사전검증 통과만 뜻한다. K1 전체 판정과 F1 위험은 바뀌지 않는다
+    - 검증 범위: 작성자 재분석은 모순 12건(6종 × a·b), primary 확장은 20건(10종 × a·b, 초기 12건 포함). 모두 incomplete/null이다. 동결된 보완 2는 고치지 않는다
+  - 마감: 이 handoff와 PR·WBS 동기화(문서 head는 PR #119 최신)
+  - **본 10 MiB D1은 미실행이다. PM의 별도 실행권 전달을 기다린다**
 - K1 PASS와 main 대비 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다
 
 ## 1단계 (완료)
