@@ -70,9 +70,9 @@
 - WBS 검사 41개 PASS(후보와 적용본 모두): formulas 재계산 수식 883개 오류 0, 독립 Python 집계 대조, 원장 셀·서식·검증·메모 보존, 선행 ID·순환·상태·승인 검사, 임시 복사본 시나리오 5개
 - 시나리오: 선행 하나만 완료해도 gate 미완료 유지, 수동 충족 판정과 남은 Task의 불일치 표시, 조건부 `비선택` 처리, 목록 밖 단계 표시, ID 표기 오류 표시
 - 두 엔진 대조: Artifact Tool 재계산값과 formulas 값 177셀 일치, 오류 검색 0. 렌더 9개 직접 확인
-- 시트 XML(셀 밖): 기존 3시트 동일, Findings는 dimension만 A1:F96으로 변경
+- 시트 XML(셀 밖): 기존 3시트 동일, Findings는 dimension만 A1:F94→A1:F96(머리글 1 + 기존 93 + 신규 2행)
 - native Excel: NOT RUN
-- Argon 1회 교차 확인 예정
+- Argon 1회(`codex_review/argon/2026-11-16_quality-plan-wbs-argon.md`): APPROVE, Nit 1(위 dimension 표기) 직접 확인 뒤 반영
 
 ## 다음 작업자
 
