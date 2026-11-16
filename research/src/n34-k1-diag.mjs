@@ -387,13 +387,17 @@ export function syntheticChecks() {
   });
   check('overwrite refusal and owned temp removal', () => {
     const t = mkdtempSync(join(tmpdir(), TEMP_PREFIX));
-    const f = join(t, 'x.json'); writeFileSync(f, '{}');
-    assert.throws(() => refuseOverwrite(f)); refuseOverwrite(join(t, 'absent.json'));
-    const foreign = mkdtempSync(join(t, 'other-'));
-    assert.throws(() => safeRemove(foreign, tmpdir(), TEMP_PREFIX)); assert(existsSync(foreign));
     const wrongPrefix = mkdtempSync(join(tmpdir(), 'tco-other-'));
-    assert.throws(() => safeRemove(wrongPrefix, tmpdir(), TEMP_PREFIX)); assert(existsSync(wrongPrefix)); rmSync(wrongPrefix, { recursive: true, force: true });
-    assert.equal(safeRemove(t, tmpdir(), TEMP_PREFIX), true);
+    try {
+      const f = join(t, 'x.json'); writeFileSync(f, '{}');
+      assert.throws(() => refuseOverwrite(f)); refuseOverwrite(join(t, 'absent.json'));
+      const foreign = mkdtempSync(join(t, 'other-'));
+      assert.throws(() => safeRemove(foreign, tmpdir(), TEMP_PREFIX)); assert(existsSync(foreign));
+      assert.throws(() => safeRemove(wrongPrefix, tmpdir(), TEMP_PREFIX)); assert(existsSync(wrongPrefix));
+      assert.equal(safeRemove(t, tmpdir(), TEMP_PREFIX), true);
+    } finally { // test-owned dirs are removed even when an assertion (or a RED stub) fails
+      for (const d of [t, wrongPrefix]) rmSync(d, { recursive: true, force: true });
+    }
   });
   return results;
 }
