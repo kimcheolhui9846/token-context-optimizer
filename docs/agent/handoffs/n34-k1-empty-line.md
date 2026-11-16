@@ -5,27 +5,16 @@
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
 - 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
 
-## 현재 상태: K1 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, K1 primary **CHANGES REQUIRED** / D1 사전검증 P01 **PASS WITH NOTES**, D1(P02) **1회 실행 완료, exit 0, primary 검토 대기**
-- primary 판정 `review_2026-11-15_n34-k1-phase2-final.md`: 1,728표본 독립 재계산 불일치 0. 필수 timing과 memory가 미충족이다
-- 문서 정정 M1·M2와 읽기 전용 원인 분석을 마쳤다. 새 측정은 하지 않았다
-- 분석 보완은 primary PASS WITH NOTES(`review_2026-11-16_n34-k1-analysis-revision-final.md`)를 받았다
-- **D1은 2026-11-16 사용자 승인**을 받았다(승인안이 analysis §6보다 우선)
-  - 준비(`8f29f19`, 64 KiB 확인 `d170881`) 뒤 primary preflight가 CHANGES REQUIRED였다(`review_2026-11-16_n34-k1-d1-preflight.md`)
-    - R1: 75분 예산이 빌드·보조 명령에 미적용
-    - R2: 손상 레코드가 completed/supported로 통과
-    - M1: CPU 틱 원인 단정
-  - 수정: RED `aa328ef` → GREEN `07f88fa` → 보완 1 `00404de`
-  - P01 primary(`review_2026-11-16_p01-preflight-primary.md`): CHANGES REQUIRED
-    - Major: GC 손실과 probe·drain 모순이 completed/supported로 통과
-    - Minor: 부분 요약의 rankNote가 실제 n과 다름
-  - P01 수정: RED `7fb5526` → 코드 GREEN `d2101bb` → 검증·보완 2 prereg **`f28b6ac`**(본 실행 `--prereg`) → 제출 head `d7ac4d7`
-  - **P01 primary 재검토: PASS WITH NOTES**(`review_2026-11-16_p01-r2-primary.md`). 이 판정은 D1 사전검증 통과만 뜻한다. K1 전체 판정과 F1 위험은 바뀌지 않는다
-    - 검증 범위: 작성자 재분석은 모순 12건(6종 × a·b), primary 확장은 20건(10종 × a·b, 초기 12건 포함). 모두 incomplete/null이다. 동결된 보완 2는 고치지 않는다
-  - 마감: 이 handoff와 PR·WBS 동기화(문서 head는 PR #119 최신)
-  - **P02 본 10 MiB D1 1회 실행**(PM 실행권, 측정 HEAD `4c19971`, prereg `f28b6ac`): exit 0, child 6개 completed·supported, 39.6분. 재시도 없음
-    - 결과·한계: `n34-k1-d1-result.md`. 원자료 `research/results/n34-k1/diag-k1d1-1{.json,/}`. 독립 재계산 불일치 0
-    - b − a: C wall median 세 짝 모두 높음, major 겹침 비율·CPU/wall 높음, 나머지 섞임. 원인·유의성 판정 아님
-- K1 PASS와 main 대비 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다
+## 현재 상태: K1 **CHANGES REQUIRED**(timing INVALID, memory NOTRUN) / D1 사전검증 P01·D1 진단 P02 **PASS WITH NOTES·완료**
+- K1 판정(`review_2026-11-15_n34-k1-phase2-final.md`): 1,728표본 재계산 불일치 0, 필수 timing·memory 미충족. 분석 보완 PASS WITH NOTES(`review_2026-11-16_n34-k1-analysis-revision-final.md`)
+- D1(2026-11-16 사용자 1회 조건부 승인)
+  - 사전검증: preflight R1/R2/M1 수정(`aa328ef`→`07f88fa`→보완 1 `00404de`), P01 Major/Minor 수정(`7fb5526`→`d2101bb`→보완 2 prereg **`f28b6ac`**)
+  - P01 PASS WITH NOTES·완료(`review_2026-11-16_p01-final.md`). 모순 검증: 작성자 12건, primary 20건(초기 12건 포함)
+  - **P02 본 10 MiB D1 1회**(측정 HEAD `4c19971`): exit 0, child 6개 completed·supported, 39.6분, 재시도 없음. 원자료 `568e7b1`, 결과 `n34-k1-d1-result.md`
+  - **P02 primary PASS WITH NOTES·완료**(`review_2026-11-16_p02-primary.md`): 864표본·GC 44,160건·digest 24개·전체 통계 독립 일치
+  - b − a: C wall median·major 겹침 비율·CPU/wall median 세 짝 모두 높음, B wall median·B/C spread·사본 비 섞임. 원인·유의성 판정 아님
+  - 1회 승인은 소진됐다. 다음 P03는 사용자 결정 대기이며 착수하지 않았다
+- K1 PASS와 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다. Ready·merge 없음
 
 ## 1단계 (완료)
 - 테스트 먼저 `ad1d3e6`(scope guard RED 3개, 기능 RED 없음) → 구현 `b4f60ed`(src +2줄, bin +2줄)

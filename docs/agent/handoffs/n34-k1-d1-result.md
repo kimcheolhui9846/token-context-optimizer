@@ -9,6 +9,7 @@
   - child wall 377,878–413,096 ms(12분 상한 안), 순서 a b b a a b, 재시도 없음
 - 추적 파일 변경 0(1,141개), 임시 폴더 정리 완료, 실행한 child PID 6개 모두 종료
 - 원자료: `research/results/n34-k1/diag-k1d1-1.json`, `diag-k1d1-1/child-{1..6}-{a,b}.jsonl`(수신 그대로)
+- 주 검토: primary PASS WITH NOTES(`review_2026-11-16_p02-primary.md`). 원자료 864표본·GC 44,160건·digest 24개와 전체 통계를 독립 대조해 일치, 원자료 보존 확인
 
 ## 1. 무결성 (저장 원자료 독립 재계산, runner 코드 미사용)
 - child마다 144표본(warmup 24 + measure 120), 일정·사본·시각 순서·구간 길이가 prereg와 같다
