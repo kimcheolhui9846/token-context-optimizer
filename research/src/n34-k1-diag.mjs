@@ -1,6 +1,6 @@
 // N-34 K1 D1 diagnostic runner (exploratory, NOT a performance gate).
 // Approval: codex_review/review_2026-11-16_n34-k1-d1-approval.md (user approved 2026-11-16).
-// Protocol: docs/agent/handoffs/n34-k1-diag-prereg.md. Separate from the official K1 timing/memory
+// Protocol: docs/agent/handoffs/n34-k1-diag-prereg.md (frozen) + n34-k1-diag-prereg-amendment-1.md. Separate from the official K1 timing/memory
 // protocol (n34-k1-perf.mjs, n34-k1-prereg.md), whose files and raw are not touched.
 //
 // Modes
@@ -16,7 +16,7 @@ import { createHash } from 'node:crypto';
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { cpus, release, tmpdir, totalmem } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
-import { constants as PERF } from 'node:perf_hooks';
+import { constants as PERF, performance } from 'node:perf_hooks';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -26,8 +26,9 @@ const CAND = '4999c1f14b229d8c856200d49fdacd2d4611dc81';
 const RUNNER = 'research/src/n34-k1-diag.mjs';
 const WORKER = 'research/src/n34-k1-diag-worker.mjs';
 const INPUTS_MODULE = 'research/src/n34-cr-policy-perf-inputs.mjs';
-const PROTOCOL = 'docs/agent/handoffs/n34-k1-diag-prereg.md';
-const HARNESS_FILES = [RUNNER, WORKER, INPUTS_MODULE, PROTOCOL];
+const PROTOCOL = 'docs/agent/handoffs/n34-k1-diag-prereg.md'; // frozen at 8f29f19
+const AMENDMENT = 'docs/agent/handoffs/n34-k1-diag-prereg-amendment-1.md'; // preflight fix: integrity + budget
+const HARNESS_FILES = [RUNNER, WORKER, INPUTS_MODULE, PROTOCOL, AMENDMENT];
 const RESULTS_DIR = 'research/results/n34-k1';
 const NPM = process.env.npm_execpath || join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js');
 const TAR = 'C:/Windows/System32/tar.exe';
@@ -141,34 +142,100 @@ export function parseJsonl(text) {
   return { records, problems, endsWithNewline };
 }
 const SAMPLE_FIELDS = ['i', 'label', 'arm', 't0', 't1', 't2', 'wallMs', 'indexMs', 'summarizeMs', 'cpuUserUs', 'cpuSystemUs', 'heapBefore', 'heapAfter'];
+const RECORD_TYPES = new Set(['start', 'probe', 'digest', 'forced', 'sample', 'gc', 'drain', 'end', 'error']);
+const ARMS = ['B1', 'B2', 'C1', 'C2'];
+const EPS = 1e-6;
+const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
+const isNum = v => typeof v === 'number' && Number.isFinite(v);
+const isCount = v => Number.isInteger(v) && v >= 0;
+const isHeap = h => isObj(h) && isNum(h.used) && h.used >= 0 && isNum(h.total) && h.total >= 0;
+const isDigest = v => typeof v === 'string' && /^[0-9a-f]{64}$/.test(v);
+// Integrity problems of one sample (preflight fix R2): structure, finite values, ranges, time relations.
+export function sampleProblems(s, i, expected = schedule(), prev = null) {
+  if (!isObj(s)) return ['record'];
+  const p = [];
+  const missing = SAMPLE_FIELDS.filter(f => s[f] === undefined || s[f] === null);
+  if (missing.length) p.push(`missing:${missing.join('/')}`);
+  if (s.i !== i || s.label !== expected[i]?.label || s.arm !== expected[i]?.arm) p.push('order');
+  const present = f => s[f] !== undefined && s[f] !== null;
+  for (const f of ['t0', 't1', 't2']) if (present(f) && !isNum(s[f])) p.push(`value:${f}`);
+  for (const f of ['wallMs', 'indexMs', 'summarizeMs']) if (present(f) && !(isNum(s[f]) && s[f] >= 0)) p.push(`value:${f}`);
+  for (const f of ['cpuUserUs', 'cpuSystemUs']) if (present(f) && !isCount(s[f])) p.push(`value:${f}`);
+  for (const f of ['heapBefore', 'heapAfter']) if (present(f) && !isHeap(s[f])) p.push(`value:${f}`);
+  if ([s.t0, s.t1, s.t2].every(isNum)) {
+    if (!(s.t0 <= s.t1 && s.t1 <= s.t2) || (isObj(prev) && isNum(prev.t2) && s.t0 < prev.t2)) p.push('time_order');
+    if ([s.wallMs, s.indexMs, s.summarizeMs].every(isNum)
+      && (Math.abs(s.wallMs - (s.t2 - s.t0)) > EPS || Math.abs(s.indexMs - (s.t1 - s.t0)) > EPS || Math.abs(s.summarizeMs - (s.t2 - s.t1)) > EPS)) p.push('derived_mismatch');
+  }
+  return p;
+}
+// Problems of one GC event record; k is its position among GC records (the worker numbers them 0, 1, ...).
+export function gcProblems(e, k) {
+  if (!isObj(e)) return ['record'];
+  const p = [];
+  if (e.seq !== k) p.push('seq');
+  if (!(isNum(e.startTime) && e.startTime >= 0)) p.push('startTime');
+  if (!(isNum(e.duration) && e.duration >= 0)) p.push('duration');
+  if (!Number.isInteger(e.kind) || !(e.kind in GC_KIND)) p.push('kind');
+  if (!isCount(e.flags)) p.push('flags');
+  if (!isNum(e.arrivedAt)) p.push('arrivedAt');
+  return p;
+}
 // Validates one child's parsed stream against the approved design. condition 'a' | 'b'.
+// reasons (measurement/structure) -> invalid; observationReasons (GC/probe/drain metadata) -> incomplete, values null.
 export function childOutcome({ condition, exit, records, problems, expected = schedule() }) {
-  const reasons = [];
-  const by = type => records.filter(r => r.type === type);
-  const samples = by('sample'), forced = by('forced'), gc = by('gc');
-  const start = by('start')[0], probe = by('probe')[0], drain = by('drain')[0], end = by('end')[0], digests = by('digest');
+  const reasons = [], observationReasons = [];
+  const valid = [];
+  for (const r of records) {
+    if (!isObj(r) || typeof r.type !== 'string') { reasons.push('record:invalid'); continue; }
+    if (!RECORD_TYPES.has(r.type)) { reasons.push(`record:unknown_type:${r.type}`); continue; }
+    valid.push(r);
+  }
+  const by = type => valid.filter(r => r.type === type);
+  const samples = by('sample'), forced = by('forced'), gc = by('gc'), starts = by('start'), probes = by('probe'), drains = by('drain'), ends = by('end'), digests = by('digest');
   if (exit.status !== 'exited' || exit.exitCode !== 0) reasons.push(`process:${exit.status}:${exit.exitCode}`);
   if (problems.length) reasons.push(`stream:${problems.map(p => p.problem).join(',')}`);
-  if (!start) reasons.push('missing:start');
-  if (!end || end.status !== 'completed') reasons.push('missing:end');
+  if (by('error').length) reasons.push('record:error');
+  if (!starts.length) reasons.push('missing:start');
+  else if (starts.length !== 1 || records[0] !== starts[0] || starts[0].condition !== condition) reasons.push('start');
+  if (!ends.length || ends.at(-1).status !== 'completed') reasons.push('missing:end');
+  if (ends.length > 1 || (ends.length === 1 && records.at(-1) !== ends[0])) reasons.push('end:position');
   if (samples.length !== expected.length) reasons.push(`samples:${samples.length}`);
-  samples.forEach((s, i) => {
-    const missing = SAMPLE_FIELDS.filter(f => s[f] === undefined || s[f] === null);
-    if (missing.length) reasons.push(`sample${i}:missing:${missing.join('/')}`);
-    if (s.i !== i || s.label !== expected[i]?.label || s.arm !== expected[i]?.arm) reasons.push(`sample${i}:order`);
-  });
-  if (digests.length !== 4 || new Set(digests.map(d => d.digest)).size !== 1) reasons.push('digest');
+  samples.forEach((s, i) => { for (const p of sampleProblems(s, i, expected, samples[i - 1])) reasons.push(`sample${i}:${p}`); });
+  if (digests.length !== 4 || ARMS.some(arm => digests.filter(d => d.arm === arm).length !== 1) || !digests.every(d => isDigest(d.digest))
+    || new Set(digests.map(d => d.digest)).size !== 1) reasons.push('digest');
   if (condition === 'a' && forced.length !== 0) reasons.push(`forced:${forced.length}`);
   if (condition === 'b') {
     if (forced.length !== expected.length) reasons.push(`forced:${forced.length}`);
-    forced.forEach((f, i) => { const s = samples[i]; if (f.i !== i || !s || !(f.end <= s.t0)) reasons.push(`forced${i}:position`); });
+    forced.forEach((f, k) => {
+      if (f.i !== k || !isNum(f.start) || !isNum(f.end) || f.start > f.end) { reasons.push(`forced${k}:value`); return; }
+      const s = samples[k], prev = samples[k - 1];
+      if (!s || !isNum(s.t0) || !(f.end <= s.t0) || (prev && !(isNum(prev.t2) && f.start >= prev.t2))) reasons.push(`forced${k}:position`);
+    });
   }
   let observation;
-  if (!probe || probe.supported !== true) observation = 'unsupported';
-  else if (!drain || drain.complete !== true || probe.clockOk !== true) observation = 'incomplete';
-  else observation = 'supported';
+  const probe = probes[0];
+  if (!probes.length || (probes.length === 1 && probe.supported === false)) observation = 'unsupported';
+  else {
+    if (probes.length !== 1) observationReasons.push('probe:count');
+    if (probe.supported !== true) observationReasons.push('probe:supported');
+    if (typeof probe.clockOk !== 'boolean') observationReasons.push('probe:clockOk_value');
+    else if (!probe.clockOk) observationReasons.push('probe:clock');
+    if (!isNum(probe.before) || !isNum(probe.after) || probe.before > probe.after) observationReasons.push('probe:window');
+    if (!Array.isArray(probe.forcedEvents) || !probe.forcedEvents.length || !probe.forcedEvents.every(e => isObj(e) && isNum(e.startTime) && isNum(e.duration) && e.duration >= 0))
+      observationReasons.push('probe:forcedEvents');
+    if (drains.length !== 1) observationReasons.push(`drain:count:${drains.length}`);
+    else {
+      const d = drains[0];
+      if (typeof d.complete !== 'boolean') observationReasons.push('drain:complete_value');
+      else if (!d.complete) observationReasons.push('drain:incomplete');
+      if (!isCount(d.steps) || !(isNum(d.drainMs) && d.drainMs >= 0)) observationReasons.push('drain:value');
+    }
+    gc.forEach((e, k) => { for (const p of gcProblems(e, k)) observationReasons.push(`gc${k}:${p}`); });
+    observation = observationReasons.length ? 'incomplete' : 'supported';
+  }
   const status = reasons.length === 0 ? 'completed' : (exit.status === 'timeout' ? 'timeout' : 'invalid');
-  return { status, reasons, observation, counts: { samples: samples.length, forced: forced.length, gcEvents: gc.length } };
+  return { status, reasons, observation, observationReasons, counts: { samples: samples.length, forced: forced.length, gcEvents: gc.length } };
 }
 // Whether the next child may start: remaining time since runner start must be >= one child timeout.
 export function canStartChild(elapsedMs, capMs = D.capMs, childTimeoutMs = D.childTimeoutMs) {
@@ -194,13 +261,56 @@ export function safeRemove(path, allowedRoot, prefix) {
   rmSync(actual, { recursive: true, force: true });
   return !existsSync(actual);
 }
-// RED (preflight fix): not implemented yet.
-const notYet = name => () => { throw new Error(`${name}: not implemented`); };
-export class BudgetExpired extends Error {}
-export const createDeadline = notYet('createDeadline');
-export const runBudgeted = notYet('runBudgeted');
-export const executeRun = notYet('executeRun');
-export const spawnBudgeted = notYet('spawnBudgeted');
+// ---- global run budget (preflight fix R1) ----
+// One monotonic deadline from runner start. Every subprocess step gets min(its own timeout, remaining);
+// once remaining is 0 no new step starts. A step stopped by the budget-limited timeout is BudgetExpired.
+export class BudgetExpired extends Error {
+  constructor(message) { super(message); this.name = 'BudgetExpired'; }
+}
+export function createDeadline(capMs, now = () => performance.now()) {
+  const start = now();
+  const d = {
+    capMs,
+    elapsed: () => now() - start,
+    remaining: () => Math.max(0, capMs - (now() - start)),
+    expired: () => now() - start >= capMs,
+    timeoutFor(individualMs, what = 'step') {
+      const remaining = d.remaining();
+      if (remaining <= 0) throw new BudgetExpired(`${what}: global ${capMs} ms budget expired before start`);
+      return remaining < individualMs ? { ms: Math.max(1, Math.floor(remaining)), budgetLimited: true } : { ms: individualMs, budgetLimited: false };
+    },
+  };
+  return d;
+}
+const isTimeoutError = error => error?.code === 'ETIMEDOUT' || error?.timedOut === true;
+export function runBudgeted(deadline, individualMs, fn, what = 'step') {
+  const { ms, budgetLimited } = deadline.timeoutFor(individualMs, what);
+  try { return fn(ms); } catch (error) {
+    if (budgetLimited && isTimeoutError(error)) throw new BudgetExpired(`${what}: stopped at the global budget`);
+    throw error;
+  }
+}
+// Build, then children in order. Build stopped by the budget -> every child notRun(build_incomplete).
+// A child starts only with >= one child timeout remaining, and gets min(child timeout, remaining).
+// A child that throws is recorded and later children still run; other build errors propagate.
+export async function executeRun({ deadline, order, build, runOne, onNotRun = () => {} }) {
+  const out = { build: { status: 'not_started' }, started: [], notRun: [], childErrors: [] };
+  let modules = null;
+  try { modules = await build(); out.build = { status: 'completed', elapsedMs: deadline.elapsed() }; } catch (error) {
+    if (!(error instanceof BudgetExpired)) throw error;
+    out.build = { status: 'budget_expired', message: error.message, elapsedMs: deadline.elapsed() };
+  }
+  for (let p = 0; p < order.length; p++) {
+    const position = p + 1, condition = order[p], elapsedMs = deadline.elapsed(), remainingMs = deadline.remaining();
+    const reason = !modules ? 'build_incomplete' : !canStartChild(elapsedMs, deadline.capMs) ? 'budget' : null;
+    if (reason) { const item = { position, condition, reason, elapsedMs, remainingMs }; out.notRun.push(item); onNotRun(item); continue; }
+    out.started.push(position);
+    try { await runOne(position, condition, Math.min(D.childTimeoutMs, Math.floor(remainingMs)), modules); } catch (error) {
+      out.childErrors.push({ position, condition, message: String(error?.message) });
+    }
+  }
+  return out;
+}
 // ==== PURE FUNCTIONS END ====
 
 // ---------- descriptive summaries (no verdicts) ----------
@@ -211,14 +321,26 @@ function desc(values, perCopy) {
   return { n: values.length, median: r3(median), p95: r3(p95), spread: r3(p95 - median), rankNote: perCopy ? 'sorted[14]/sorted[28]' : 'sorted[29]/sorted[56]' };
 }
 export function childSummary(records, outcome) {
-  const samples = records.filter(r => r.type === 'sample');
-  const gc = records.filter(r => r.type === 'gc').map(e => ({ ...e, kindName: GC_KIND[e.kind] ?? 'other' }));
-  const forced = records.filter(r => r.type === 'forced');
-  const attrib = samples.map(s => ({ s, a: attributeSample(s, gc, forced, outcome.observation) }));
+  try { return childSummaryUnsafe(records, outcome); } catch (error) { // never lose the child entry over a damaged record
+    return { error: String(error?.message) };
+  }
+}
+function childSummaryUnsafe(records, outcome) {
+  const expected = schedule();
+  const objects = records.filter(isObj);
+  const rawSamples = objects.filter(r => r.type === 'sample');
+  // Only samples that pass the integrity checks enter statistics; damaged ones are listed, never coerced.
+  const excludedSamples = [], samples = [];
+  rawSamples.forEach((s, k) => { if (sampleProblems(s, k, expected, rawSamples[k - 1]).length) excludedSamples.push(isNum(s.i) ? s.i : k); else samples.push(s); });
+  const observation = outcome.observation;
+  const rawGc = objects.filter(r => r.type === 'gc');
+  const gc = rawGc.filter((e, k) => gcProblems(e, k).length === 0).map(e => ({ ...e, kindName: GC_KIND[e.kind] }));
+  const forced = objects.filter(r => r.type === 'forced' && isNum(r.start) && isNum(r.end));
+  const attrib = samples.map(s => ({ s, a: attributeSample(s, gc, forced, observation) }));
   const measured = attrib.filter(x => x.s.label.startsWith('measure/'));
   const roles = { B: ['B1', 'B2'], C: ['C1', 'C2'] };
-  const out = { copies: {}, roles: {}, attribution: {} };
-  for (const arm of ['B1', 'B2', 'C1', 'C2']) {
+  const out = { excludedSamples, copies: {}, roles: {}, attribution: {} };
+  for (const arm of ARMS) {
     const m = measured.filter(x => x.s.arm === arm);
     out.copies[arm] = { wall: desc(m.map(x => x.s.wallMs), true), index: desc(m.map(x => x.s.indexMs), true), summarize: desc(m.map(x => x.s.summarizeMs), true) };
   }
@@ -229,7 +351,7 @@ export function childSummary(records, outcome) {
     const majors = observed.map(x => x.a.overlapMs.major);
     const cpu = m.map(x => cpuWallRatio(x.s.cpuUserUs, x.s.cpuSystemUs, x.s.wallMs)).filter(v => v !== null);
     const m1 = out.copies[one].wall?.median, m2 = out.copies[two].wall?.median;
-    const allObserved = observed.length === m.length;
+    const allObserved = m.length > 0 && observed.length === m.length;
     out.roles[role] = {
       wall: desc(walls, false), index: desc(m.map(x => x.s.indexMs), false), summarize: desc(m.map(x => x.s.summarizeMs), false),
       copyMedianRatio: m1 && m2 ? r3(m2 / m1) : null, cpuWall: desc(cpu, false),
@@ -242,8 +364,9 @@ export function childSummary(records, outcome) {
     };
   }
   out.attribution = attrib.map(x => ({ i: x.s.i, status: x.a.status, crossoverEvents: x.a.crossoverEvents, overlapMs: x.a.overlapMs, phaseMajorMs: x.a.phaseMajorMs, startedInSample: x.a.startedInSample }));
-  out.gcEventsBetweenSamples = gc.filter(e => !samples.some(s => clip(eventInterval(e), [s.t0, s.t2]))).length;
-  out.gcEventsInForcedWindows = gc.filter(e => forced.some(f => clip(eventInterval(e), [f.start, f.end]))).length;
+  const counted = observation === 'supported';
+  out.gcEventsBetweenSamples = counted ? gc.filter(e => !samples.some(s => clip(eventInterval(e), [s.t0, s.t2]))).length : null;
+  out.gcEventsInForcedWindows = counted ? gc.filter(e => forced.some(f => clip(eventInterval(e), [f.start, f.end]))).length : null;
   return out;
 }
 const METRICS = [['C', 'wall', 'median'], ['C', 'wall', 'spread'], ['B', 'wall', 'median'], ['B', 'wall', 'spread'], ['C', 'copyMedianRatio'], ['B', 'copyMedianRatio'],
@@ -427,7 +550,7 @@ export function syntheticChecks() {
     }, 'fake');
     for (let k = 0; k < 7; k++) assert.equal(step(594000), 'ok'); // 7 x 9.9 min = 69.3 min, each under its own 10 min
     assert.throws(() => step(594000), BudgetExpired); // 8th step only gets the 5.7 min left
-    assert.deepEqual(given, [594000, 594000, 594000, 594000, 594000, 594000, 594000, 342000]);
+    assert.deepEqual(given, [600000, 600000, 600000, 600000, 600000, 600000, 600000, 342000]); // timeouts given: own 10 min, then the 5.7 min left
     assert.equal(c.t, 75 * MIN);
     assert.throws(() => step(1), BudgetExpired); assert.equal(given.length, 8); // never started
   });
@@ -602,9 +725,9 @@ export async function processChecks() {
     await check('R1 executeRun: children stop starting when less than 12 min remain', async () => {
       const fit = await fakeRun({ buildSteps: 0, buildTakes: 0, childTakes: 12 * MIN }); // starts at 0,12,...,60
       assert.deepEqual(fit.started, [1, 2, 3, 4, 5, 6]); assert.equal(fit.t, 72 * MIN); assert.deepEqual(fit.out.notRun, []);
-      const slow = await fakeRun({ buildSteps: 0, buildTakes: 0, childTakes: 13 * MIN }); // 6th would start at 65 min
+      const slow = await fakeRun({ buildSteps: 1, buildTakes: 5 * MIN, childTakes: 12 * MIN }); // children start at 5,17,29,41,53; 6th would start at 65 min
       assert.deepEqual(slow.started, [1, 2, 3, 4, 5]); assert.deepEqual(slow.out.notRun.map(x => [x.position, x.reason]), [[6, 'budget']]);
-      assert(slow.t <= 75 * MIN);
+      assert.equal(slow.t, 65 * MIN); assert.deepEqual(slow.timeouts, [12 * MIN, 12 * MIN, 12 * MIN, 12 * MIN, 12 * MIN]);
     });
     await check('R1 executeRun: a failing child does not stop later children; other build errors propagate', async () => {
       const c = fakeClock(), dl = createDeadline(75 * MIN, c.now), started = [];
@@ -659,70 +782,98 @@ export async function processChecks() {
 }
 
 // ---------- process helpers ----------
+// Every subprocess runs hidden and under the run deadline (preflight fix R1): no step gets a fresh
+// fixed timeout of its own once the global budget is shorter, and none starts after it is spent.
 const digest = data => createHash('sha256').update(data).digest('hex');
 const hashFile = file => digest(readFileSync(file));
-const command = (exe, args, cwd = ROOT) => execFileSync(exe, args, { cwd, windowsHide: true, encoding: 'utf8', timeout: 600000, maxBuffer: 64 * MIB });
-const git = args => command('git', args).trim();
-// Kills only our own child process tree (by its PID) on timeout.
+const STEP_MS = 10 * MIN;
+export function command(exe, args, { cwd = ROOT, deadline, individualMs = STEP_MS } = {}) {
+  assert(deadline, 'command needs the run deadline');
+  return runBudgeted(deadline, individualMs, ms => execFileSync(exe, args, { cwd, windowsHide: true, encoding: 'utf8', timeout: ms, maxBuffer: 64 * MIB }), `${basename(exe)} ${args[0] ?? ''}`.trim());
+}
+const git = (args, deadline) => command('git', args, { deadline }).trim();
+// Kills only our own child process tree (by its PID). Bounded at 10 s; this is cleanup, not new work.
 function killOwnChild(child) {
   if (child.exitCode !== null) return;
   try { execFileSync('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore', timeout: 10000 }); } catch { child.kill(); }
 }
+// Async subprocess (npm path) under the deadline; output captured to `log`, including partial output on timeout.
+export function spawnBudgeted(exe, args, { cwd, deadline, individualMs = STEP_MS, log, env = process.env, what = basename(exe) }) {
+  return new Promise((done, reject) => {
+    let budget;
+    try { budget = deadline.timeoutFor(individualMs, what); } catch (error) { reject(error); return; }
+    let output = '', timedOut = false, settled = false;
+    const settle = (fn, value) => { if (!settled) { settled = true; clearTimeout(timer); fn(value); } };
+    const child = spawn(exe, args, { cwd, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'], env });
+    const timer = setTimeout(() => { timedOut = true; killOwnChild(child); }, budget.ms);
+    child.stdout.on('data', d => { output += d; }); child.stderr.on('data', d => { output += d; });
+    child.on('error', error => { try { writeFileSync(log, output); } catch {} settle(reject, error); });
+    child.on('close', code => {
+      writeFileSync(log, output);
+      if (timedOut) settle(reject, budget.budgetLimited ? new BudgetExpired(`${what}: stopped at the global budget`) : new Error(`${what} timed out after ${budget.ms} ms`));
+      else if (code === 0) settle(done);
+      else settle(reject, new Error(`${what} failed (${code})`));
+    });
+  });
+}
+const npm = (args, cwd, log, deadline) => spawnBudgeted(process.execPath, [NPM, ...args], { cwd, deadline, log, env: { ...process.env, CI: '1' }, what: `npm ${args.join(' ')}` });
 export function runChild(args, timeoutMs) {
   return new Promise(done => {
     const started = Date.now(), startedAt = new Date(started).toISOString();
     let child, stderr = '', timedOut = false, settled = false;
-    const finish = value => { if (!settled) { settled = true; clearTimeout(timer); done({ ...value, startedAt, finishedAt: new Date().toISOString(), wallMs: Date.now() - started, nodeArgs: args.filter(a => a.startsWith('--')) }); } };
+    const finish = value => { if (!settled) { settled = true; clearTimeout(timer); done({ ...value, timeoutMs, startedAt, finishedAt: new Date().toISOString(), wallMs: Date.now() - started, nodeArgs: args.filter(a => a.startsWith('--')) }); } };
     try { child = spawn(process.execPath, args, { cwd: ROOT, windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] }); }
-    catch (error) { done({ status: 'spawn_error', message: String(error.message), startedAt, finishedAt: startedAt, wallMs: 0 }); return; }
+    catch (error) { done({ status: 'spawn_error', message: String(error.message), timeoutMs, startedAt, finishedAt: startedAt, wallMs: 0 }); return; }
     const timer = setTimeout(() => { timedOut = true; killOwnChild(child); }, timeoutMs);
     child.stderr.setEncoding('utf8'); child.stderr.on('data', d => { stderr = (stderr + d).slice(-4000); });
     child.on('error', error => finish({ status: 'spawn_error', message: String(error.message) }));
     child.on('close', (exitCode, signal) => finish({ status: timedOut ? 'timeout' : 'exited', exitCode, signal, stderrTail: stderr || undefined }));
   });
 }
-function environment() {
+// powercfg runs only inside the remaining budget; after expiry it is skipped and recorded as such.
+export function environment(deadline) {
   const cpu = cpus();
-  return { node: process.version, v8: process.versions.v8, platform: process.platform, os: release(), arch: process.arch,
-    cpuModels: [...new Set(cpu.map(item => item.model))], logicalCPUs: cpu.length, totalMemBytes: totalmem(),
-    powerSchemeGuid: (command('powercfg', ['/GETACTIVESCHEME']).match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i) ?? [null])[0] };
-}
-function npm(args, cwd, log) {
-  return new Promise((done, reject) => {
-    const child = spawn(process.execPath, [NPM, ...args], { cwd, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, CI: '1' } });
-    let output = '', timedOut = false;
-    const timer = setTimeout(() => { timedOut = true; killOwnChild(child); }, 600000);
-    child.stdout.on('data', d => { output += d; }); child.stderr.on('data', d => { output += d; });
-    child.on('error', error => { clearTimeout(timer); reject(error); });
-    child.on('close', code => { clearTimeout(timer); writeFileSync(log, output); code === 0 && !timedOut ? done() : reject(new Error(`npm ${args.join(' ')} failed (${code}, timeout=${timedOut})`)); });
-  });
+  const env = { node: process.version, v8: process.versions.v8, platform: process.platform, os: release(), arch: process.arch,
+    cpuModels: [...new Set(cpu.map(item => item.model))], logicalCPUs: cpu.length, totalMemBytes: totalmem(), powerSchemeGuid: null, powerSchemeStatus: null };
+  if (deadline.expired()) { env.powerSchemeStatus = 'skipped_budget_expired'; return env; }
+  try {
+    env.powerSchemeGuid = (command('powercfg', ['/GETACTIVESCHEME'], { deadline }).match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i) ?? [null])[0];
+    env.powerSchemeStatus = 'read';
+  } catch (error) {
+    if (!(error instanceof BudgetExpired)) throw error;
+    env.powerSchemeStatus = 'stopped_budget_expired';
+  }
+  return env;
 }
 // Same snapshot method as the official K1 harness: git archive -> npm ci --ignore-scripts -> tsc,
-// A/A copies are byte copies of dist. CAND is the fixed SHA, not the current HEAD.
-async function buildSnapshots(temp, logs) {
+// A/A copies are byte copies of dist. CAND is the fixed SHA, not the current HEAD. All steps under the deadline.
+async function buildSnapshots(temp, logs, deadline) {
   const snapshots = {}, dirs = {};
   for (const [variant, ref] of [['base', BASE], ['candidate', CAND]]) {
     const snapshot = join(temp, variant); mkdirSync(snapshot);
     const archive = join(temp, `${variant}.tar`);
-    command('git', ['archive', '--format=tar', ref, '-o', archive]);
-    command(TAR, ['-xf', archive, '-C', snapshot]);
-    await npm(['ci', '--ignore-scripts'], snapshot, join(logs, `${variant}-ci.log`));
-    command(process.execPath, [join(snapshot, 'node_modules/typescript/bin/tsc'), '-p', 'tsconfig.json'], snapshot);
+    command('git', ['archive', '--format=tar', ref, '-o', archive], { deadline });
+    command(TAR, ['-xf', archive, '-C', snapshot], { deadline });
+    await npm(['ci', '--ignore-scripts'], snapshot, join(logs, `${variant}-ci.log`), deadline);
+    command(process.execPath, [join(snapshot, 'node_modules/typescript/bin/tsc'), '-p', 'tsconfig.json'], { cwd: snapshot, deadline });
     cpSync(join(snapshot, 'dist'), join(snapshot, 'dist-aa'), { recursive: true });
     const core = d => Object.fromEntries(readdirSync(join(snapshot, d, 'src/core')).filter(f => f.endsWith('.js')).sort().map(f => [f, hashFile(join(snapshot, d, 'src/core', f))]));
     const dist = core('dist');
     assert.deepEqual(core('dist-aa'), dist, 'A/A copy differs');
-    snapshots[variant] = { ref, policyBlobSha1: git(['rev-parse', `${ref}:src/core/policy.ts`]), lockfileSha256: hashFile(join(snapshot, 'package-lock.json')), distCoreSha256: dist };
+    snapshots[variant] = { ref, policyBlobSha1: git(['rev-parse', `${ref}:src/core/policy.ts`], deadline), lockfileSha256: hashFile(join(snapshot, 'package-lock.json')), distCoreSha256: dist };
     dirs[variant] = [join(snapshot, 'dist'), join(snapshot, 'dist-aa')];
   }
   assert.equal(snapshots.base.lockfileSha256, snapshots.candidate.lockfileSha256, 'lockfile differs between arms');
-  assert.equal(git(['diff', '--numstat', BASE, CAND, '--', 'src']), ['2', '0', 'src/core/policy.ts'].join(String.fromCharCode(9)), 'src delta must be the two K1 guards');
+  assert.equal(git(['diff', '--numstat', BASE, CAND, '--', 'src'], deadline), ['2', '0', 'src/core/policy.ts'].join(String.fromCharCode(9)), 'src delta must be the two K1 guards');
   for (const file of Object.keys(snapshots.base.distCoreSha256))
     if (file !== 'policy.js') assert.equal(snapshots.base.distCoreSha256[file], snapshots.candidate.distCoreSha256[file], `${file} differs between arms`);
   return { snapshots, modules: { B1: dirs.base[0], B2: dirs.base[1], C1: dirs.candidate[0], C2: dirs.candidate[1] } };
 }
 
 async function main() {
+  // The 75 min budget starts here (runner start) and covers checks, build, children and final powercfg.
+  const runnerStart = Date.now();
+  const deadline = createDeadline(D.capMs);
   const results = syntheticChecks();
   if (process.argv.includes('--check-only')) results.push(...await processChecks());
   const failed = results.filter(r => !r.ok);
@@ -742,63 +893,70 @@ async function main() {
   assert(CHECK ? /^diagcheck-[a-z0-9-]+\.json$/.test(basename(OUTPUT)) : /^diag-[a-z0-9-]+\.json$/.test(basename(OUTPUT)), 'output must be diagcheck-<name>.json (--check-run) or diag-<name>.json');
   const STREAM_DIR = OUTPUT.replace(/\.json$/, '');
   refuseOverwrite(OUTPUT); refuseOverwrite(STREAM_DIR);
-  assert.equal(git(['status', '--porcelain']), '', 'commit preregistration and implementation before running');
-  const head = git(['rev-parse', 'HEAD']);
+  assert.equal(git(['status', '--porcelain'], deadline), '', 'commit preregistration and implementation before running');
+  const head = git(['rev-parse', 'HEAD'], deadline);
   const preregArg = process.argv.find(a => a.startsWith('--prereg='))?.slice(9);
   assert(preregArg, '--prereg=<committed-sha> is required');
-  const prereg = git(['rev-parse', preregArg]);
-  git(['merge-base', '--is-ancestor', prereg, head]);
-  git(['diff', '--exit-code', prereg, head, '--', ...HARNESS_FILES]);
-  assert.equal(prereg, git(['log', '-1', '--format=%H', head, '--', ...HARNESS_FILES]), '--prereg must be the last commit that touched the diagnostic harness or protocol');
+  const prereg = git(['rev-parse', preregArg], deadline);
+  git(['merge-base', '--is-ancestor', prereg, head], deadline);
+  git(['diff', '--exit-code', prereg, head, '--', ...HARNESS_FILES], deadline);
+  assert.equal(prereg, git(['log', '-1', '--format=%H', head, '--', ...HARNESS_FILES], deadline), '--prereg must be the last commit that touched the diagnostic harness or protocol');
   const order = CHECK ? D.checkOrder : D.order;
   const size = CHECK ? D.checkSize : D.mainSize;
-  const runnerStart = Date.now();
   mkdirSync(STREAM_DIR);
-  const tracked = git(['ls-files', '-z']).split('\0').filter(Boolean);
+  const tracked = git(['ls-files', '-z'], deadline).split('\0').filter(Boolean);
   const before = tracked.map(file => ({ file, hash: existsSync(join(ROOT, file)) ? hashFile(join(ROOT, file)) : null }));
   const temp = mkdtempSync(join(tmpdir(), TEMP_PREFIX));
   const logs = join(temp, 'logs'); mkdirSync(logs);
   const result = { schema: SCHEMA, mode: CHECK ? 'check-run' : 'main', status: 'incomplete', startedAt: new Date(runnerStart).toISOString(), preregistrationCommit: prereg, measurementHead: head,
-    base: BASE, candidate: CAND, design: { ...D, size, order }, files: Object.fromEntries([...HARNESS_FILES, 'package-lock.json'].map(f => [f, { blobSha1: git(['rev-parse', `HEAD:${f}`]), workingCopySha256: hashFile(join(ROOT, f)) }])),
-    environment: environment(), snapshots: {}, children: [], notRun: [] };
+    base: BASE, candidate: CAND, design: { ...D, size, order },
+    files: Object.fromEntries([...HARNESS_FILES, 'package-lock.json'].map(f => [f, { blobSha1: git(['rev-parse', `HEAD:${f}`], deadline), workingCopySha256: hashFile(join(ROOT, f)) }])),
+    environment: environment(deadline), snapshots: {}, children: [], notRun: [] };
   const normalized = value => JSON.parse(JSON.stringify(value).replaceAll(temp.replaceAll('\\', '\\\\'), '<temp>').replaceAll(ROOT.replaceAll('\\', '\\\\'), '<repo>'));
   const save = () => writeFileSync(OUTPUT, JSON.stringify(normalized(result), null, 1) + '\n');
   let failure;
   try {
     save();
-    const { snapshots, modules } = await buildSnapshots(temp, logs);
-    result.snapshots = snapshots; result.buildMs = Date.now() - runnerStart; save();
-    for (let p = 0; p < order.length; p++) {
-      const position = p + 1, condition = order[p];
+    const build = async () => {
+      const { snapshots, modules } = await buildSnapshots(temp, logs, deadline);
+      result.snapshots = snapshots; result.buildMs = Math.round(deadline.elapsed()); save();
+      return modules;
+    };
+    const runOne = async (position, condition, timeoutMs, modules) => {
       const name = `child-${position}-${condition}`;
-      const elapsed = Date.now() - runnerStart;
-      if (!canStartChild(elapsed)) { result.notRun.push({ position, condition, elapsedMs: elapsed }); save(); continue; }
       const stream = join(STREAM_DIR, `${name}.jsonl`);
       const workDir = join(temp, `work-${position}`);
       const configPath = join(temp, `${name}.json`);
       writeFileSync(configPath, JSON.stringify({ condition, modules, size, schedule: schedule(), workDir, stream, k: D.k,
         probeWaitMs: D.probeWaitMs, drainStepMs: D.drainStepMs, drainQuietSteps: D.drainQuietSteps, drainMaxMs: D.drainMaxMs }));
-      const exit = await runChild([...D.nodeArgs, join(ROOT, WORKER), configPath], D.childTimeoutMs);
+      const exit = await runChild([...D.nodeArgs, join(ROOT, WORKER), configPath], timeoutMs);
       const text = existsSync(stream) ? readFileSync(stream, 'utf8') : '';
       const { records, problems } = parseJsonl(text);
-      const outcome = childOutcome({ condition, exit, records, problems });
-      const entry = { position, condition, name, stream: `${name}.jsonl`, streamSha256: digest(text), exit, problems, ...outcome };
-      entry.summary = childSummary(records, outcome);
+      const entry = { position, condition, name, stream: `${name}.jsonl`, streamSha256: digest(text), exit, problems };
+      try { Object.assign(entry, childOutcome({ condition, exit, records, problems })); } catch (error) { entry.status = 'invalid'; entry.reasons = [`outcome_error:${error.message}`]; entry.observation = 'incomplete'; }
+      entry.summary = childSummary(records, entry);
       result.children.push(entry); save();
       console.log(JSON.stringify({ position, condition, status: entry.status, observation: entry.observation, counts: entry.counts, wallMs: exit.wallMs }));
-    }
+    };
+    const run = await executeRun({ deadline, order, build, runOne, onNotRun: item => { result.notRun.push(item); save(); } });
+    result.build = run.build; result.childErrors = run.childErrors;
     result.comparisons = CHECK ? null : comparisons(result.children);
-    result.status = result.children.length === order.length && result.children.every(c => c.status === 'completed') ? 'completed' : 'partial';
+    result.status = run.build.status === 'completed' && result.children.length === order.length && result.children.every(c => c.status === 'completed') ? 'completed' : 'partial';
   } catch (error) {
     failure = error; result.status = 'error'; result.error = String(error.stack ?? error.message);
   } finally {
+    // Finalization: no new measurement or build work. powercfg only within the budget; local hashing and
+    // removal of the owned temp dir may run past the deadline and are timed separately.
+    const finalStart = Date.now();
+    result.budget = { capMs: D.capMs, elapsedAtFinalizationMs: Math.round(deadline.elapsed()), expiredAtFinalization: deadline.expired() };
     const finalize = action => { try { action(); } catch (error) { failure ||= error; (result.finalizationErrors ??= []).push(String(error.message)); } };
-    finalize(() => { result.finalEnvironment = environment(); });
+    finalize(() => { result.finalEnvironment = environment(deadline); });
     finalize(() => {
       const changed = before.filter(row => row.hash !== (existsSync(join(ROOT, row.file)) ? hashFile(join(ROOT, row.file)) : null));
       result.preservation = { trackedFiles: before.length, changed: changed.map(row => row.file) }; assert.equal(changed.length, 0);
     });
     finalize(() => { result.tempCleanup = safeRemove(temp, tmpdir(), TEMP_PREFIX); });
+    result.finalizationMs = Date.now() - finalStart; result.budget.overrunMs = Math.max(0, Math.round(deadline.elapsed() - D.capMs));
     result.finishedAt = new Date().toISOString(); result.totalMs = Date.now() - runnerStart; result.exitCode = failure ? 1 : result.status === 'completed' ? 0 : 2; save();
   }
   console.log(JSON.stringify({ mode: result.mode, status: result.status, exitCode: result.exitCode, output: OUTPUT }));
