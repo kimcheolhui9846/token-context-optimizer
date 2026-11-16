@@ -5,7 +5,7 @@
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
 - 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
 
-## 현재 상태: K1 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, K1 primary **CHANGES REQUIRED** / D1 사전검증 P01 **PASS WITH NOTES**, D1 **NOT RUN**
+## 현재 상태: K1 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, K1 primary **CHANGES REQUIRED** / D1 사전검증 P01 **PASS WITH NOTES**, D1(P02) **1회 실행 완료, exit 0, primary 검토 대기**
 - primary 판정 `review_2026-11-15_n34-k1-phase2-final.md`: 1,728표본 독립 재계산 불일치 0. 필수 timing과 memory가 미충족이다
 - 문서 정정 M1·M2와 읽기 전용 원인 분석을 마쳤다. 새 측정은 하지 않았다
 - 분석 보완은 primary PASS WITH NOTES(`review_2026-11-16_n34-k1-analysis-revision-final.md`)를 받았다
@@ -22,7 +22,9 @@
   - **P01 primary 재검토: PASS WITH NOTES**(`review_2026-11-16_p01-r2-primary.md`). 이 판정은 D1 사전검증 통과만 뜻한다. K1 전체 판정과 F1 위험은 바뀌지 않는다
     - 검증 범위: 작성자 재분석은 모순 12건(6종 × a·b), primary 확장은 20건(10종 × a·b, 초기 12건 포함). 모두 incomplete/null이다. 동결된 보완 2는 고치지 않는다
   - 마감: 이 handoff와 PR·WBS 동기화(문서 head는 PR #119 최신)
-  - **본 10 MiB D1은 미실행이다. PM의 별도 실행권 전달을 기다린다**
+  - **P02 본 10 MiB D1 1회 실행**(PM 실행권, 측정 HEAD `4c19971`, prereg `f28b6ac`): exit 0, child 6개 completed·supported, 39.6분. 재시도 없음
+    - 결과·한계: `n34-k1-d1-result.md`. 원자료 `research/results/n34-k1/diag-k1d1-1{.json,/}`. 독립 재계산 불일치 0
+    - b − a: C wall median 세 짝 모두 높음, major 겹침 비율·CPU/wall 높음, 나머지 섞임. 원인·유의성 판정 아님
 - K1 PASS와 main 대비 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다
 
 ## 1단계 (완료)
