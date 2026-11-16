@@ -1,6 +1,6 @@
 // N-34 K1 D1 diagnostic runner (exploratory, NOT a performance gate).
 // Approval: codex_review/review_2026-11-16_n34-k1-d1-approval.md (user approved 2026-11-16).
-// Protocol: docs/agent/handoffs/n34-k1-diag-prereg.md (frozen) + n34-k1-diag-prereg-amendment-1.md. Separate from the official K1 timing/memory
+// Protocol: docs/agent/handoffs/n34-k1-diag-prereg.md (frozen) + amendment-1 (frozen) + amendment-2. Separate from the official K1 timing/memory
 // protocol (n34-k1-perf.mjs, n34-k1-prereg.md), whose files and raw are not touched.
 //
 // Modes
@@ -27,8 +27,9 @@ const RUNNER = 'research/src/n34-k1-diag.mjs';
 const WORKER = 'research/src/n34-k1-diag-worker.mjs';
 const INPUTS_MODULE = 'research/src/n34-cr-policy-perf-inputs.mjs';
 const PROTOCOL = 'docs/agent/handoffs/n34-k1-diag-prereg.md'; // frozen at 8f29f19
-const AMENDMENT = 'docs/agent/handoffs/n34-k1-diag-prereg-amendment-1.md'; // preflight fix: integrity + budget
-const HARNESS_FILES = [RUNNER, WORKER, INPUTS_MODULE, PROTOCOL, AMENDMENT];
+const AMENDMENT = 'docs/agent/handoffs/n34-k1-diag-prereg-amendment-1.md'; // preflight fix: integrity + budget (frozen at 00404de)
+const AMENDMENT2 = 'docs/agent/handoffs/n34-k1-diag-prereg-amendment-2.md'; // P01: GC/probe/drain cross-integrity, rankNote
+const HARNESS_FILES = [RUNNER, WORKER, INPUTS_MODULE, PROTOCOL, AMENDMENT, AMENDMENT2];
 const RESULTS_DIR = 'research/results/n34-k1';
 const NPM = process.env.npm_execpath || join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js');
 const TAR = 'C:/Windows/System32/tar.exe';
@@ -222,14 +223,31 @@ export function childOutcome({ condition, exit, records, problems, expected = sc
     if (typeof probe.clockOk !== 'boolean') observationReasons.push('probe:clockOk_value');
     else if (!probe.clockOk) observationReasons.push('probe:clock');
     if (!isNum(probe.before) || !isNum(probe.after) || probe.before > probe.after) observationReasons.push('probe:window');
-    if (!Array.isArray(probe.forcedEvents) || !probe.forcedEvents.length || !probe.forcedEvents.every(e => isObj(e) && isNum(e.startTime) && isNum(e.duration) && e.duration >= 0))
-      observationReasons.push('probe:forcedEvents');
+    const forcedList = Array.isArray(probe.forcedEvents) ? probe.forcedEvents : [];
+    const forcedValid = forcedList.length > 0 && forcedList.every(e => isObj(e) && isNum(e.startTime) && isNum(e.duration) && e.duration >= 0 && isCount(e.flags) && (e.flags & GC_FLAG_FORCED) !== 0);
+    if (!forcedValid) observationReasons.push('probe:forcedEvents');
+    // Cross-integrity with the worker (P01). The worker attaches the observer synchronously right before the
+    // probe capture starts and writes the probe record synchronously right after it ends, and every captured
+    // entry is also written as a GC record. So the GC records before the probe record are exactly the capture.
+    const probeAt = records.indexOf(probe);
+    const captured = records.slice(0, probeAt).filter(r => isObj(r) && r.type === 'gc');
+    if (!isCount(probe.observedEvents) || probe.observedEvents !== captured.length) observationReasons.push('probe:observedEvents');
+    const view = e => JSON.stringify({ startTime: e?.startTime, duration: e?.duration, flags: e?.flags });
+    const streamForced = captured.filter(e => isCount(e.flags) && (e.flags & GC_FLAG_FORCED) !== 0).map(view);
+    if (forcedList.length !== streamForced.length || forcedList.some((e, k) => view(e) !== streamForced[k])) observationReasons.push('probe:stream_mismatch');
+    if (probe.clockOk === true && forcedValid && isNum(probe.before) && isNum(probe.after)
+      && !forcedList.some(e => e.startTime >= probe.before && e.startTime <= probe.after)) observationReasons.push('probe:clock_contradiction');
     if (drains.length !== 1) observationReasons.push(`drain:count:${drains.length}`);
     else {
       const d = drains[0];
       if (typeof d.complete !== 'boolean') observationReasons.push('drain:complete_value');
       else if (!d.complete) observationReasons.push('drain:incomplete');
       if (!isCount(d.steps) || !(isNum(d.drainMs) && d.drainMs >= 0)) observationReasons.push('drain:value');
+      // worker: complete means drainQuietSteps consecutive quiet steps were taken
+      else if (d.complete === true && d.steps < D.drainQuietSteps) observationReasons.push('drain:steps_below_quiet');
+      // worker: totalEvents is the number of GC records it wrote; a lost or extra record is a contradiction
+      if (!Number.isSafeInteger(d.totalEvents) || d.totalEvents < 0) observationReasons.push('drain:totalEvents_value');
+      else if (d.totalEvents !== gc.length) observationReasons.push(`drain:totalEvents_mismatch:${d.totalEvents}/${gc.length}`);
     }
     gc.forEach((e, k) => { for (const p of gcProblems(e, k)) observationReasons.push(`gc${k}:${p}`); });
     observation = observationReasons.length ? 'incomplete' : 'supported';
@@ -315,10 +333,11 @@ export async function executeRun({ deadline, order, build, runOne, onNotRun = ()
 
 // ---------- descriptive summaries (no verdicts) ----------
 const r3 = v => (v === null || v === undefined ? null : Math.round(v * 1000) / 1000);
-function desc(values, perCopy) {
+// rankNote states the 0-based nearest-rank indexes for the actual n (n 30 -> [14]/[28], n 60 -> [29]/[56]).
+function desc(values) {
   if (!values.length) return null;
-  const median = nearestRank(values, 0.5), p95 = nearestRank(values, 0.95);
-  return { n: values.length, median: r3(median), p95: r3(p95), spread: r3(p95 - median), rankNote: perCopy ? 'sorted[14]/sorted[28]' : 'sorted[29]/sorted[56]' };
+  const n = values.length, median = nearestRank(values, 0.5), p95 = nearestRank(values, 0.95);
+  return { n, median: r3(median), p95: r3(p95), spread: r3(p95 - median), rankNote: `sorted[${Math.ceil(n * 0.5) - 1}]/sorted[${Math.ceil(n * 0.95) - 1}]` };
 }
 export function childSummary(records, outcome) {
   try { return childSummaryUnsafe(records, outcome); } catch (error) { // never lose the child entry over a damaged record
@@ -339,10 +358,11 @@ function childSummaryUnsafe(records, outcome) {
   const attrib = samples.map(s => ({ s, a: attributeSample(s, gc, forced, observation) }));
   const measured = attrib.filter(x => x.s.label.startsWith('measure/'));
   const roles = { B: ['B1', 'B2'], C: ['C1', 'C2'] };
-  const out = { excludedSamples, copies: {}, roles: {}, attribution: {} };
+  // A summary of a child that is not completed is diagnostic only: comparisons() never uses it.
+  const out = { scope: outcome.status === 'completed' ? 'completed' : 'partial_diagnostic_only', excludedSamples, copies: {}, roles: {}, attribution: {} };
   for (const arm of ARMS) {
     const m = measured.filter(x => x.s.arm === arm);
-    out.copies[arm] = { wall: desc(m.map(x => x.s.wallMs), true), index: desc(m.map(x => x.s.indexMs), true), summarize: desc(m.map(x => x.s.summarizeMs), true) };
+    out.copies[arm] = { wall: desc(m.map(x => x.s.wallMs)), index: desc(m.map(x => x.s.indexMs)), summarize: desc(m.map(x => x.s.summarizeMs)) };
   }
   for (const [role, [one, two]] of Object.entries(roles)) {
     const m = measured.filter(x => x.s.arm === one || x.s.arm === two);
@@ -353,11 +373,11 @@ function childSummaryUnsafe(records, outcome) {
     const m1 = out.copies[one].wall?.median, m2 = out.copies[two].wall?.median;
     const allObserved = m.length > 0 && observed.length === m.length;
     out.roles[role] = {
-      wall: desc(walls, false), index: desc(m.map(x => x.s.indexMs), false), summarize: desc(m.map(x => x.s.summarizeMs), false),
-      copyMedianRatio: m1 && m2 ? r3(m2 / m1) : null, cpuWall: desc(cpu, false),
+      wall: desc(walls), index: desc(m.map(x => x.s.indexMs)), summarize: desc(m.map(x => x.s.summarizeMs)),
+      copyMedianRatio: m1 && m2 ? r3(m2 / m1) : null, cpuWall: desc(cpu),
       gc: { attributionStatus: Object.fromEntries(['observed', 'ambiguous', 'unobserved', 'incomplete'].map(k => [k, m.filter(x => x.a.status === k).length])),
         majorOverlapFraction: allObserved ? r3(majors.filter(v => v > 0).length / majors.length) : null,
-        majorOverlap: allObserved ? desc(majors, false) : null, majorOverlapSumMs: allObserved ? r3(majors.reduce((a, b) => a + b, 0)) : null,
+        majorOverlap: allObserved ? desc(majors) : null, majorOverlapSumMs: allObserved ? r3(majors.reduce((a, b) => a + b, 0)) : null,
         nullReason: allObserved ? null : 'not_all_samples_observed_unambiguous' },
       spearmanWallMajor: allObserved ? spearman(walls, majors) : { value: null, reason: 'not_all_samples_observed_unambiguous' },
       clusters: largestGap(walls),
