@@ -449,14 +449,15 @@ export function syntheticChecks() {
     assert.deepEqual(parseJsonl(''), { records: [], problems: [], endsWithNewline: true });
   });
   const fullChild = condition => {
-    const s = schedule(), recs = [{ type: 'start', condition }, { type: 'probe', supported: true, clockOk: true, before: 1, after: 2, waitedMs: 3, observedEvents: 1, forcedEvents: [{ startTime: 1.5, duration: 0.2, flags: 4 }] }];
+    const s = schedule(), recs = [{ type: 'start', condition }, { type: 'gc', seq: 0, source: 'callback', startTime: 1.5, duration: 0.2, kind: 4, flags: 4, arrivedAt: 2.5 },
+      { type: 'probe', supported: true, clockOk: true, before: 1, after: 2, waitedMs: 3, observedEvents: 1, forcedEvents: [{ startTime: 1.5, duration: 0.2, flags: 4 }] }];
     for (const arm of ['B1', 'B2', 'C1', 'C2']) recs.push({ type: 'digest', arm, digest: 'a'.repeat(64) });
     s.forEach((e, i) => {
       const t0 = 100 * i + 10;
       if (condition === 'b') recs.push({ type: 'forced', i, start: t0 - 8, end: t0 - 2 });
       recs.push({ type: 'sample', i, label: e.label, arm: e.arm, t0, t1: t0 + 5, t2: t0 + 9, wallMs: 9, indexMs: 5, summarizeMs: 4, cpuUserUs: 1, cpuSystemUs: 1, heapBefore: { used: 1, total: 2 }, heapAfter: { used: 1, total: 2 } });
     });
-    recs.push({ type: 'drain', complete: true, steps: 2, drainMs: 200, totalEvents: 0 }, { type: 'end', status: 'completed' });
+    recs.push({ type: 'drain', complete: true, steps: 2, drainMs: 200, totalEvents: 1 }, { type: 'end', status: 'completed' });
     return recs;
   };
   const ok = { status: 'exited', exitCode: 0 };
@@ -565,10 +566,11 @@ export function syntheticChecks() {
   // ---- preflight fix R2: record integrity ----
   const HEX = 'a'.repeat(64);
   const fullChildV = (condition, gcEvents = []) => {
-    const recs = fullChild(condition);
-    const probeGc = { type: 'gc', seq: 0, source: 'callback', startTime: 1.5, duration: 0.2, kind: 4, flags: 4, arrivedAt: 2.5 };
+    const recs = fullChild(condition); // already holds the probe GC record (seq 0)
     const extra = gcEvents.map((e, k) => ({ type: 'gc', seq: k + 1, source: 'callback', flags: 0, arrivedAt: e.startTime + 50, ...e }));
-    recs.splice(recs.findIndex(r => r.type === 'drain'), 0, probeGc, ...extra);
+    const drain = recs.find(r => r.type === 'drain');
+    recs.splice(recs.indexOf(drain), 0, ...extra);
+    drain.totalEvents = recs.filter(r => r.type === 'gc').length;
     return recs;
   };
   const sample = (recs, i) => recs.find(r => r.type === 'sample' && r.i === i);
@@ -637,6 +639,101 @@ export function syntheticChecks() {
     assert.equal(a.status, 'observed'); near(a.overlapMs.major, 3); near(a.overlapMs.minor, 1); near(a.overlapMs.any, 4);
     near(a.phaseMajorMs.index, 3); near(a.phaseMajorMs.summarize, 0);
     assert.equal(childSummary(recs, o).roles.B.gc.majorOverlapFraction, 0.017); // 1 of 60
+  });
+
+  // ---- P01-R1: GC stream, probe and drain must agree with each other (worker invariants) ----
+  check('P01 fixtures carry the worker facts: probe GC before probe record, totalEvents = GC records', () => {
+    for (const cond of ['a', 'b']) {
+      const r = fullChild(cond), g = r.filter(x => x.type === 'gc');
+      assert.equal(r.find(x => x.type === 'drain').totalEvents, g.length); assert(r.indexOf(g[0]) < r.findIndex(x => x.type === 'probe'));
+      const o = childOutcome({ condition: cond, exit: ok, records: r, problems: [] });
+      assert.equal(o.status, 'completed'); assert.equal(o.observation, 'supported', (o.observationReasons ?? []).join(';'));
+      const z = childSummary(r, o).attribution.filter(x => x.status === 'observed' && x.overlapMs.major === 0).length;
+      assert.equal(z, 144, 'clean zero overlap stays observed when the stream is consistent');
+    }
+  });
+  check('P01 GC count and loss: all/last GC removed, totalEvents wrong/missing/bad -> incomplete and null', () => {
+    const t0 = sample(fullChild('a'), 24).t0;
+    const mk = () => fullChildV('a', [{ startTime: t0 + 1, duration: 2, kind: 4 }, { startTime: t0 + 3, duration: 1, kind: 1 }]);
+    const drain = r => r.find(x => x.type === 'drain');
+    const cases = {
+      removeAllGc: r => { for (let i = r.length - 1; i >= 0; i--) if (r[i].type === 'gc') r.splice(i, 1); },
+      removeLastGc: r => { r.splice(r.findLastIndex(x => x.type === 'gc'), 1); },
+      totalPlusOne: r => { drain(r).totalEvents += 1; },
+      totalMinusOne: r => { drain(r).totalEvents -= 1; },
+      totalMissing: r => { delete drain(r).totalEvents; },
+      totalNegative: r => { drain(r).totalEvents = -1; },
+      totalFraction: r => { drain(r).totalEvents = 2.5; },
+      totalString: r => { drain(r).totalEvents = '3'; },
+    };
+    for (const [name, mutate] of Object.entries(cases)) {
+      const r = mk(); mutate(r);
+      const o = childOutcome({ condition: 'a', exit: ok, records: r, problems: [] });
+      assert.equal(o.status, 'completed', name); assert.equal(o.observation, 'incomplete', name);
+      const s = childSummary(r, o);
+      assert.equal(s.attribution[24].overlapMs, null, name); assert.equal(s.roles.B.gc.majorOverlapFraction, null, name); assert.equal(s.roles.B.wall.n, 60, name);
+    }
+    const good = mk(), og = childOutcome({ condition: 'a', exit: ok, records: good, problems: [] });
+    assert.equal(og.observation, 'supported'); near(childSummary(good, og).attribution[24].overlapMs.major, 2);
+  });
+  check('P01 drain: complete with fewer than the quiet steps -> incomplete; two steps -> supported', () => {
+    const run = steps => { const r = fullChildV('a'); r.find(x => x.type === 'drain').steps = steps; return childOutcome({ condition: 'a', exit: ok, records: r, problems: [] }).observation; };
+    assert.equal(run(0), 'incomplete'); assert.equal(run(1), 'incomplete'); assert.equal(run(D.drainQuietSteps), 'supported'); assert.equal(run(7), 'supported');
+    const slow = fullChildV('a'); slow.find(x => x.type === 'drain').drainMs = 5000; // OS delay is not invalidated by a new upper bound
+    assert.equal(childOutcome({ condition: 'a', exit: ok, records: slow, problems: [] }).observation, 'supported');
+  });
+  check('P01 probe forced events: flags, FORCED bit, window, stream match, counts -> incomplete', () => {
+    const probe = r => r.find(x => x.type === 'probe');
+    const cases = {
+      flagsZero: r => { probe(r).forcedEvents.forEach(e => { e.flags = 0; }); },
+      flagsMissing: r => { probe(r).forcedEvents.forEach(e => { delete e.flags; }); },
+      outsideWindow: r => { const p = probe(r); p.forcedEvents.forEach(e => { e.startTime = p.after + 100; }); },
+      notInStream: r => { probe(r).forcedEvents[0].startTime = 1.6; }, // inside [1, 2] but no such GC record
+      streamDiffers: r => { r.find(x => x.type === 'gc' && x.seq === 0).duration = 0.3; },
+      duplicated: r => { const p = probe(r); p.forcedEvents.push({ ...p.forcedEvents[0] }); },
+      emptyForced: r => { probe(r).forcedEvents = []; },
+      observedCountWrong: r => { probe(r).observedEvents = 2; },
+      observedCountMissing: r => { delete probe(r).observedEvents; },
+      clockFlagContradicts: r => { probe(r).forcedEvents[0].startTime = 0.5; r.find(x => x.type === 'gc' && x.seq === 0).startTime = 0.5; }, // consistent stream, clockOk true but outside window
+      probeGcAfterProbe: r => { const g = r.find(x => x.type === 'gc' && x.seq === 0); r.splice(r.indexOf(g), 1); r.splice(r.indexOf(probe(r)) + 1, 0, g); },
+    };
+    for (const [name, mutate] of Object.entries(cases)) {
+      const r = fullChildV('a'); mutate(r);
+      const o = childOutcome({ condition: 'a', exit: ok, records: r, problems: [] });
+      assert.equal(o.observation, 'incomplete', name); assert.equal(o.status, 'completed', `${name}: ${o.reasons.join(';')}`);
+      assert.equal(childSummary(r, o).attribution[24].overlapMs, null, name);
+    }
+    const two = fullChildV('a'); // two GC records in the probe window, one forced: still consistent
+    two.splice(1, 0, { type: 'gc', seq: 0, source: 'callback', startTime: 1.1, duration: 0.1, kind: 1, flags: 0, arrivedAt: 2.4 });
+    two.filter(x => x.type === 'gc').forEach((g, k) => { g.seq = k; });
+    probe(two).observedEvents = 2; two.find(x => x.type === 'drain').totalEvents = two.filter(x => x.type === 'gc').length;
+    assert.equal(childOutcome({ condition: 'a', exit: ok, records: two, problems: [] }).observation, 'supported');
+    const un = fullChildV('a'); Object.assign(probe(un), { supported: false, clockOk: false, forcedEvents: [], observedEvents: 0 });
+    un.splice(un.findIndex(x => x.type === 'gc'), 1); un.find(x => x.type === 'drain').totalEvents = 0;
+    assert.equal(childOutcome({ condition: 'a', exit: ok, records: un, problems: [] }).observation, 'unsupported');
+  });
+  // ---- P01-M1: rank description follows the actual n; partial summaries are marked diagnostic only ----
+  check('P01 rankNote uses the actual n; partial summary is diagnostic and excluded from comparisons', () => {
+    const r = fullChildV('a');
+    const cs = r.filter(x => x.type === 'sample' && x.label.startsWith('measure/') && x.arm.startsWith('C')).slice(0, 2);
+    for (const x of cs) x.wallMs = 'bad';
+    const o = childOutcome({ condition: 'a', exit: ok, records: r, problems: [] }); assert.equal(o.status, 'invalid');
+    const s = childSummary(r, o);
+    assert.equal(s.roles.C.wall.n, 58); assert.equal(s.roles.C.wall.rankNote, 'sorted[28]/sorted[55]');
+    const short = cs.map(x => x.arm);
+    for (const arm of ['C1', 'C2']) {
+      const n = 30 - short.filter(a => a === arm).length;
+      assert.equal(s.copies[arm].wall.n, n); assert.equal(s.copies[arm].wall.rankNote, n === 29 ? 'sorted[14]/sorted[27]' : 'sorted[14]/sorted[28]');
+    }
+    assert.equal(s.roles.B.wall.rankNote, 'sorted[29]/sorted[56]'); assert.equal(s.copies.B1.wall.rankNote, 'sorted[14]/sorted[28]');
+    assert.equal(s.scope, 'partial_diagnostic_only');
+    const okSum = childSummary(fullChildV('a'), childOutcome({ condition: 'a', exit: ok, records: fullChildV('a'), problems: [] }));
+    assert.equal(okSum.scope, 'completed'); assert.equal(okSum.roles.C.wall.rankNote, 'sorted[29]/sorted[56]');
+    // nearest-rank values on a known n = 58 set: 1..58 -> median 29 (index 28), p95 56 (index 55)
+    assert.equal(nearestRank(Array.from({ length: 58 }, (_, i) => i + 1), 0.5), 29); assert.equal(nearestRank(Array.from({ length: 58 }, (_, i) => i + 1), 0.95), 56);
+    const row = comparisons([1, 2, 3, 4, 5, 6].map(position => ({ position, status: position === 2 ? 'invalid' : 'completed', summary: position === 2 ? s : okSum })))
+      .find(x => x.metric === 'C.wall.median');
+    assert.equal(row.directions[0], 'unavailable');
   });
   check('R2 probe and drain metadata -> incomplete, missing probe -> unsupported', () => {
     const obs = mutate => { const recs = fullChildV('a'); mutate(recs); return childOutcome({ condition: 'a', exit: ok, records: recs, problems: [] }); };
