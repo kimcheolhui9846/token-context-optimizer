@@ -1,7 +1,7 @@
 # P03: N34 K1 처리 경로 결정 자료 (Task handoff)
 
 - 요청: PM 요청서 `codex_review/review_2026-11-16_p03-decision-request.md`, PM 핸드오프 `HANDOFF_2026-11-16_p03-decision.md`(메인 checkout, git 비추적)
-- 승인: P02 최종 보고 뒤 사용자 '승인' = **P03 착수 승인**. K1 경로 A/B/C 선택, P10 실행, 새 측정, Ready, merge 승인은 포함하지 않는다
+- 승인: P02 최종 보고 뒤 사용자 '승인' = **P03 착수 승인**. 그 뒤 사용자가 P03에서 **A**를 선택했다(아래 "P03 마감"). P10 실행, 새 측정, Ready, merge 승인은 포함하지 않는다
 - 역할: Claude Code(`claude-opus-5-5`) 비판 검토·결정 문서·WBS 단일 writer. Codex primary PM이 최종 검토. 사용자가 경로를 선택한다
 - Tier D: 추적 산출물은 Markdown 2개(이 파일, `docs/plans/2026-11-16-n34-k1-decision.md`). 제품 source·tests·연구 코드·raw·prereg·package·논문 변경 없음
 
@@ -31,7 +31,16 @@
   - 승인된 임계·정보용 지위는 바꾸지 않았다
 - R2: 위 1차 제출 항목 5–7을 실제 완료 상태로 맞췄다. PR #122 본문과 WBS도 함께 맞춘다
 - R3: C2 예외 사례를 확인된 반례가 아니라 조건부 증명 의무로 고쳤다
-- 보완은 같은 branch의 `fix(review)` commit, scoped Argon 1회, WBS 정합화, 보고 `codex_paste_2026-11-16_p03-decision-fix.md`로 한다
+- 보완 `9108451`(`fix(review)`), scoped Argon APPROVE, WBS 정합화, 보고 `codex_paste_2026-11-16_p03-decision-fix.md`
+- primary 재검토(`review_2026-11-16_p03-r2-primary.md`): 자료 판정 PASS WITH NOTES @`9108451`, R1–R3 해소. 문구 주석 N1·N2
+
+## P03 마감: 사용자 A 선택
+- 선택 원문: **A — K1 유지, 공식 검증·F1 위험 판정 계획 준비 (권장)**
+- 승인 범위: 경로 확정과 후속 계획 준비 방향까지. 새 측정, 구현, Ready, merge, 새 프로토콜 실행, F1 임계 변경, 미확인 위험 수용은 승인되지 않았다
+- 결정 문서 §0.1·§2.4·§7·§8에 기록했다
+- N1: §5 "B와 같다"는 위험 수용이 필요한 구조가 같다는 뜻으로 한정했다(위험의 크기·불확실성이 같다는 뜻이 아님)
+- N2: §4 C2의 catch 설명을 실제 코드에 맞췄다. 특정 message의 RangeError만 `classification_resource_limit`이고 나머지 예외는 다시 던져진다
+- P10은 `계획`·`Task 승인 필요`다. 요청서·branch·구현·측정은 시작하지 않았다
 
 ## 검증 범위
 - RED/GREEN·npm 7 gate: N/A(문서만). 검증용 코드나 벤치마크를 새로 만들지 않는다
@@ -39,15 +48,14 @@
 - 이 worker의 자기 검토는 독립 검토가 아니다. primary 최종 검토와 구분한다
 
 ## 승인 경계
-- 이번 Task로 하지 않는 것: 경로 선택 기록, P10 착수, 새 성능 run·프로토콜 변경, source 변경, 기존 PR branch·본문 수정, Ready, merge
+- 이번 Task로 하지 않는 것: P10 착수(요청서·branch 포함), 새 성능 run·프로토콜 변경, source 변경, 기존 PR branch·본문 수정, Ready, merge
 - 공유 `HANDOFF.md`, `docs/agent/HANDOFF.md`, PM 소유 `codex_review/` 파일(요청서·PM 핸드오프·primary 검토)은 수정하지 않는다
 
 ## 현재 상태
-- 결정 자료: [2026-11-16-n34-k1-decision.md](../../plans/2026-11-16-n34-k1-decision.md), Draft PR #122
-- Claude 추천은 A, **조건부 검증 추천**이다
-  - K1 유지 + K1 HEAD 대 main 직접 공식 gate 1회 상한 + 실행 전 F1 처분 절차
-  - 실패하거나 F1이 처분되지 않으면 B를 기본으로 재결정한다
-  - 반대 근거와 B 전환 조건은 결정 문서 §5
-- 핵심 지적: K1 증분 gate와 run3 PASS를 합쳐도 K1 대 main 판정이 아니다(비율 곱 금지). 공식 PASS만으로 F1 same-input 위험 해소를 표시하지 않는다
-- primary 1차 CHANGES REQUIRED 보완 제출, **primary 재검토 대기**
-- 사용자 경로 선택 대기(**미결정**, P03 미완료, P10 미착수). WBS P03은 구현제출이며 완료가 아니다
+- 결정 자료와 선택 기록: [2026-11-16-n34-k1-decision.md](../../plans/2026-11-16-n34-k1-decision.md), Draft PR #122
+- **P03 결과: 사용자 A 선택**(K1 유지, 공식 검증·F1 위험 판정 계획 준비). primary 자료 판정 PASS WITH NOTES @`9108451`
+- 이 선택 기록·N1/N2 정리판의 primary 최종 검토는 대기다
+- 핵심 지적은 유지한다
+  - K1 증분 gate와 run3 PASS를 합쳐도 K1 대 main 판정이 아니다
+  - 공식 PASS만으로 F1 same-input 위험 해소를 표시하지 않는다
+- K1 timing INVALID·memory NOT RUN·F1 위험 미해결. P10은 별도 Task 승인 뒤 계획부터 시작한다
