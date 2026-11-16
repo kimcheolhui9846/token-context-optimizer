@@ -1,6 +1,6 @@
 # N-34 K1: 빈 줄 빠른 반환 (Task handoff)
 
-- 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md`, 2단계 `review_2026-11-15_n34-k1-phase2-request.md`, 원인 분석 `review_2026-11-15_n34-k1-invalid-analysis-request.md`·보완 `review_2026-11-15_n34-k1-analysis-revision-request.md` (Codex PM, 추적 안 됨)
+- 요청서: `codex_review/review_2026-11-15_n34-k1-implementation-request.md`, 2단계 `review_2026-11-15_n34-k1-phase2-request.md`, 원인 분석 `review_2026-11-15_n34-k1-invalid-analysis-request.md`·보완 `review_2026-11-15_n34-k1-analysis-revision-request.md`, D1 승인안 `review_2026-11-16_n34-k1-d1-approval.md`·준비 `review_2026-11-16_n34-k1-d1-prep-request.md` (Codex PM, 추적 안 됨)
 - 범위: N-34 F1 정보용 위험에 대한 보완. 같은 branch `claude/n34-cr-line-policy`, 같은 Draft PR #119
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
 - 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
@@ -8,9 +8,10 @@
 ## 현재 상태: 2단계 timing **INVALID**(exit 5), memory **NOTRUN**, primary **CHANGES REQUIRED**
 - primary 판정 `review_2026-11-15_n34-k1-phase2-final.md`: 1,728표본 독립 재계산 불일치 0. 필수 timing과 memory가 미충족이다
 - 문서 정정 M1·M2와 읽기 전용 원인 분석을 마쳤다. 새 측정은 하지 않았다
-- 분석 검토 `review_2026-11-15_n34-k1-analysis-final.md`: CHANGES REQUIRED(R1·R2 Major, R3 Minor)
-  - 분석·D1 설계를 보완했다. primary 재검토를 기다린다
-- 다음 진단(D1)은 사용자·PM 승인 뒤에만 한다
+- 분석 보완은 primary PASS WITH NOTES(`review_2026-11-16_n34-k1-analysis-revision-final.md`)를 받았다
+- **D1은 2026-11-16 사용자 승인**을 받았다(승인안이 analysis §6보다 우선)
+  - 지금은 준비·검증 단계다: 하네스, prereg, synthetic RED/GREEN, npm 7단계, 64 KiB 확인 1회
+  - 본 10 MiB D1 1회는 primary preflight와 실행권 전달 뒤에만 한다
 - K1 PASS와 main 대비 F1 위험 해소는 미해결이다. 통계적 유의성과 재현성은 주장하지 않는다
 
 ## 1단계 (완료)
@@ -54,26 +55,33 @@
   - run3의 main 대비 비율과 곱하지 않는다
 - memory: timing이 pass가 아니므로 prereg §7에 따라 **NOTRUN**
 
-## 읽기 전용 원인 분석 (`codex_review/remediation-impl-2026-11-13/n34-k1-analysis/`)
+## 읽기 전용 원인 분석 (`codex_review/remediation-impl-2026-11-13/n34-k1-analysis/analysis.md`)
 - 사실
-  - O2/F3의 CAND는 3회 모두 두 무리가 뚜렷하다(간격 116–168 ms). BASE는 덜 뚜렷하다. 가장 큰 간격으로 나눈 hi−lo 차이는 B·C 모두 약 345–389 ms다(B는 약한 근거)
-  - 사본별 lo 개수(C1/C2, 가장 큰 간격 경계)는 20/14, 14/22, 12/18이다. 30개 중 15번째 값인 median이 두 사본에서 서로 다른 무리에 놓여 A/A가 무효가 됐다
-  - hi가 놓이는 자리에 사본·circuit·직전 arm에 따른 뚜렷한 단순 구조는 보이지 않았다
-    - 이진 runs z ≈ 0은 독립성·lag·상호작용의 부재 증명이 아니다
-  - 두 무리는 주로 O2 행에 나타난다(run3 O2 여러 행 포함). O1에서는 K1 O1/F6 B 하나뿐이다
-- 가설(미확정)
-  - 공유 heap GC가 유력 후보다. 표본 결과의 실제 수명과 수집 시점은 관측하지 않았다
-  - 그 밖에 I/O·OS 대기, CPU 스케줄, 사본별 JIT가 있다
-  - K1 고유 원인으로 귀속할 근거는 부족하지만, 혼합 비율이나 GC 시점과의 상호작용은 배제할 수 없다
-  - iid 모형 2q(1−q)는 median 무리 불일치 확률 예시일 뿐이다. 공식 A/A 무효 확률이나 재실행 예측이 아니다
-- 권장 D1(개정 설계, 실행 안 함)
-  - 대상: O2/F3. BASE `7e732e0e07a1…`, CAND `4999c1f14b22…`
-  - a·b 두 조건 모두 `--expose-gc`를 쓰고, b만 표본 사이에 `gc()`를 부른다. child 6개를 a b b a a b 순서로 돈다
-  - 기록: GC 사건 원자료(startTime·duration·`detail.kind/flags`), probe, 유한 drain, 합집합 겹침 산식, cpuUsage, index/summarize, heap
-  - 서술: child × 역할별 연속 통계와 관측 GC 겹침. 최대 간격 분할은 보조 서술만 하고 판정 기준은 없다
-  - 상한 75분, child timeout 12분, 부분 raw 보존, 재시도·gate 없음
-  - 대안: 같은 프로토콜 재실행, K1 보류
+  - O2/F3 CAND는 3회 모두 두 무리였다(BASE는 덜 뚜렷)
+  - 관찰된 A/A 무효는 rank-15 median이 두 사본에서 다른 무리에 놓인 것과 일치한다(C1/C2 lo 20/14, 14/22, 12/18)
+  - 두 무리는 주로 O2 행에 나타난다
+- 가설(미확정): 공유 heap GC 유력, I/O·스케줄·JIT. K1 고유 원인 근거는 부족하나 상호작용은 배제할 수 없다
+
+## D1 진단 (승인안 기준, 준비 중)
+- 파일: `research/src/n34-k1-diag.mjs`(runner·synthetic check), `research/src/n34-k1-diag-worker.mjs`, prereg `n34-k1-diag-prereg.md`
+- 고정: BASE `7e732e0e07a1977dbf0c754319fd3a726924621e`, CAND `4999c1f14b229d8c856200d49fdacd2d4611dc81`, Node v24.18.0, 기존 lockfile 빌드
+- O2/F3, K = 1, 사본 B1/B2/C1/C2, 공식과 같은 교대 circuit
+  - child당 warmup 24 + 측정 120 = 144표본
+- child 순서 a1 b1 b2 a2 a3 b3. 모두 `--expose-gc`
+  - a: 표본별 GC 0회
+  - b: 144표본 각각 직전 GC 1회(heap·CPU 사전값 읽기 전)
+  - 공통 probe GC 1회/child는 따로 센다
+- 기록: GC 사건 원자료, probe·시계·drain 상태, wall, index/summarize, CPU µs, heap, digest
+  - 표본마다 JSONL로 바로 써서 부분 raw도 보존한다
+- 서술
+  - CPU/wall = (user + system µs) / (1000 × wall ms)
+  - GC 겹침은 합집합이다. 강제 창과 표본 창 양쪽에 걸친 사건은 ambiguous로 표시한다
+  - 비교 짝은 위치 (1,2), (4,3), (5,6)의 b − a다
+  - Spearman은 동률 평균순위를 쓰고, 분산 0이면 null과 이유를 남긴다
+  - 유의성·인과 판정은 없다
+- 상한: runner 시작부터 빌드 포함 75분, child 12분. 남은 시간이 12분 미만이면 notRun. 재시도 없음
+- D1 결과는 K1 PASS나 F1 위험 해소로 쓰지 않는다
 
 ## 이후 (사용자·PM 결정 필요)
-- D1, 새 공식 run, 프로토콜 변경, Ready, merge는 모두 승인 대상이다
+- 새 공식 run, 프로토콜 변경, Ready, merge는 모두 승인 대상이다
 - run3 PASS를 K1 HEAD의 PASS로 쓰지 않는다. N-34 handoff에는 링크만 남긴다
