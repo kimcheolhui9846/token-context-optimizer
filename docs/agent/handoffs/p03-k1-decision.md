@@ -36,11 +36,12 @@
 
 ## P03 마감: 사용자 A 선택
 - 선택 원문: **A — K1 유지, 공식 검증·F1 위험 판정 계획 준비 (권장)**
-- 승인 범위: 경로 확정과 후속 계획 준비 방향까지. 새 측정, 구현, Ready, merge, 새 프로토콜 실행, F1 임계 변경, 미확인 위험 수용은 승인되지 않았다
+- 승인 범위: 경로 확정과 후속 계획(P10) 준비까지. 계획 준비는 이미 승인됐다
+- 미승인: 구체적 계획 내용의 채택, 새 측정, 구현, Ready, merge, 새 프로토콜 실행, F1 임계 변경, 미확인 위험 수용
 - 결정 문서 §0.1·§2.4·§7·§8에 기록했다
 - N1: §5 "B와 같다"는 위험 수용이 필요한 구조가 같다는 뜻으로 한정했다(위험의 크기·불확실성이 같다는 뜻이 아님)
 - N2: §4 C2의 catch 설명을 실제 코드에 맞췄다. 특정 message의 RangeError만 `classification_resource_limit`이고 나머지 예외는 다시 던져진다
-- P10은 `계획`·`Task 승인 필요`다. 요청서·branch·구현·측정은 시작하지 않았다
+- WBS P10 `계획`·`Task 승인 필요`는 구체적 실행 계획의 채택·실행 범위를 뜻한다. 이 작업자는 P10 요청서·branch·구현·측정을 만들지 않았다(업무 분리, primary가 계획 준비 진행)
 
 ## 검증 범위
 - RED/GREEN·npm 7 gate: N/A(문서만). 검증용 코드나 벤치마크를 새로 만들지 않는다
@@ -48,7 +49,7 @@
 - 이 worker의 자기 검토는 독립 검토가 아니다. primary 최종 검토와 구분한다
 
 ## 승인 경계
-- 이번 Task로 하지 않는 것: P10 착수(요청서·branch 포함), 새 성능 run·프로토콜 변경, source 변경, 기존 PR branch·본문 수정, Ready, merge
+- 이번 Task로 하지 않는 것: P10 계획 작성·요청서·branch(업무 분리. 계획 준비 자체는 사용자 A 선택으로 승인됨), 새 성능 run·프로토콜 변경, source 변경, 기존 PR branch·본문 수정, Ready, merge
 - 공유 `HANDOFF.md`, `docs/agent/HANDOFF.md`, PM 소유 `codex_review/` 파일(요청서·PM 핸드오프·primary 검토)은 수정하지 않는다
 
 ## 현재 상태
@@ -58,4 +59,5 @@
 - 핵심 지적은 유지한다
   - K1 증분 gate와 run3 PASS를 합쳐도 K1 대 main 판정이 아니다
   - 공식 PASS만으로 F1 same-input 위험 해소를 표시하지 않는다
-- K1 timing INVALID·memory NOT RUN·F1 위험 미해결. P10은 별도 Task 승인 뒤 계획부터 시작한다
+- K1 timing INVALID·memory NOT RUN·F1 위험 미해결
+- P10 계획 준비는 승인됐다. 구체적 계획의 채택과 실행은 별도 승인이다
