@@ -13,10 +13,10 @@
 ## 1. 무결성 (저장 원자료 독립 재계산, runner 코드 미사용)
 - child마다 144표본(warmup 24 + measure 120), 일정·사본·시각 순서·구간 길이가 prereg와 같다
 - 강제 GC 창: a 0개, b 144개. 모두 해당 표본 t0 전, 앞 표본 t2 뒤에 있다
-- digest: 사본 4개 × child 6개에서 모두 같은 값 하나다(B·C 출력 동일)
+- digest: 사본 4개 × child 6개의 24개가 모두 같은 값 하나다(B·C 출력 동일)
 - GC 스트림 seq 연속, drain totalEvents = GC 기록 수, probe 사건과 스트림 일치, 시계 확인 통과
 - 귀속: 측정 표본 720개 모두 observed, ambiguous 0. 강제 창 안 GC 사건은 b child마다 144개였고, 표본 창과 겹친 것은 없다
-- 저장 요약·비교와의 불일치 0(역할별 통계, 사본 비, CPU/wall, GC 겹침, Spearman, 표본 밖·강제 창 사건 수, 10개 비교 지표)
+- 저장 요약·비교와의 불일치 0(사본별·역할별 통계, 사본 비, CPU/wall, GC 겹침, Spearman, 최대 간격 군집, 표본 밖·강제 창 사건 수, 10개 비교 지표)
 
 ## 2. 서술 통계 (역할별 측정 60표본, nearest-rank, ms)
 | 위치 | 조건 | C wall median / p95 − median | B wall median / p95 − median | C major 겹침 비율 | B major 겹침 비율 | major 사건 수 |
@@ -29,6 +29,7 @@
 | 6 | b | 2432.0 / 147.3 | 2999.1 / 268.2 | 1 | 1 | 302 |
 
 - major 사건 수에는 b의 강제 GC 144개와 probe 1개가 들어 있다
+- 보조 군집(최대 간격 ≥ 100 ms, 양쪽 ≥ 10): 위치 3 B(30/30), 위치 6 C(26/34)만 `separated`다. 나머지 10개는 `no-separated-modes`다. 연속 통계는 그대로 쓴다
 - b − a, 짝 (1,2), (4,3), (5,6)
 
 | 지표 | 차이 | 방향 |
