@@ -1,6 +1,7 @@
 # P10 계획 단계 — K1 공식 검증·F1 위험 판정 계획 (2026-11-17)
 
-- 상태: **primary 재검토 CHANGES REQUIRED(@`8530162`, P10-R2-01–04) 지적을 반영한 2차 보완본 제출, primary 재검토 대기.** P10 전체 완료가 아니다. 필수 완료 4/24는 그대로다
+- 상태: **primary 최종 PASS WITH NOTES(@`47c290e`, 비추적 `codex_review/review_2026-11-17_p10-plan-final.md`). 사용자 U1–U4 권장안 채택(2026-11-17).** 계획 단계만 끝났다. P10 전체 완료가 아니고 필수 완료 4/24는 그대로다
+  - 이전 상태: primary 재검토 CHANGES REQUIRED(@`8530162`, P10-R2-01–04)를 반영한 2차 보완본 제출(@`47c290e`)
 - 작업자: Claude Code(`claude-opus-5-5`), 기술 계획·Task handoff·WBS 단일 writer. 최종 판정은 Codex primary(PM)
 - Tier D: 추적 산출물은 Markdown 2개다. 제품 source·tests·research 코드·raw·prereg·논문은 바꾸지 않는다
 - PM 소유(git 비추적, 읽기 전용): 요청서 `codex_review/review_2026-11-17_p10-plan-request.md`, 1차 검토 `review_2026-11-17_p10-primary.md`, 재검토 `review_2026-11-17_p10-r2-primary.md`
@@ -38,8 +39,10 @@
 
 ## 승인 경계
 - 승인됨: 이 계획의 조사·작성·검증·commit/push/같은 Draft PR 보완(사용자 A + P10 요청서 + 1차·재검토 보완 범위)
+- 채택(2026-11-17, 사용자 "승인하고 미해결 문제 해결방안 찾고 해결해"): U1 = P-1, U2 = 정보용 F1 + §7.3 처분표(사전 위험 수용 없음), U3 = 운영 예산 10 h / 1 h / 4 h·R 10분(C 안)·운영 창 C + 30분·필수 A/A 최대 3시도, U4 = PR #119 branch, 제품 `4999c1f` 유지
+- 후속 구현 승인: P-1 하네스·prereg 구현과 synthetic 검증·7단계 gate·Draft 기록을 PR #119에서 진행한다(구현 요청서 `review_2026-11-17_p10-impl-request.md`, 실행 보완 `review_2026-11-17_p10-impl-execution.md`, 비추적)
 - DQ1(2026-11-17): main 순차 통합 결정. 결합 후보 검증과 PR별 merge 승인은 그대로다. merge 승인이 아니다
-- 미승인: 프로토콜 채택, 구현·사전검증 실행, 새 측정·진단·파일럿·시뮬레이션, F1 지위·기준 변경, 위험 수용, Ready, merge. D1의 1회 승인은 P02에서 소진됐다
+- 미승인: 공식 측정 1회 실행, 새 측정·진단·파일럿·시뮬레이션, F1 지위·기준 변경, 위험 수용, Ready, merge. D1의 1회 승인은 P02에서 소진됐다
 - 다른 PR branch와 메인 checkout은 읽기 전용이다
 
 ## 유지할 사실
@@ -59,4 +62,5 @@
 - PR [#123](https://github.com/kimcheolhui9846/token-context-optimizer/pull/123): OPEN·Draft·미병합. 최신 head는 PR과 보고에서 확인
 - WBS(비추적): P10 계획 유지, 실행계획 9행·완성도현황 A4·B35를 보완 제출 상태로 동기화. 근거 `codex_review/remediation-impl-2026-11-13/p10-plan/wbs-r2/`
 - 보고: `codex_review/codex_paste_2026-11-17_p10-plan-r2.md`
-- 다음: primary 재검토 → 사용자 결정 U1–U4(권장 초안 P-1 유지) → 별도 구현 요청·승인 → 측정 1회 실행 승인
+- primary 최종: PASS WITH NOTES(@`47c290e`), 열린 blocker·major·minor 없음
+- 다음: PR #119의 P-1 구현 primary 검토 → primary preflight → 측정 1회 실행 승인(별도)
