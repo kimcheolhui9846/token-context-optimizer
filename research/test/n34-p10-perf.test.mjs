@@ -242,7 +242,7 @@ class FakeChild extends EventEmitter {
 test('ownership: no kill for unowned, bad pid, spawn error, exit/signal codes, exit or close seen', () => {
   const calls = [];
   const exec = (...args) => { calls.push(args); return ''; };
-  const own = C.createOwnership({ execFileSync: exec });
+  const own = C.createOwnership({ execFileSync: exec, lifecycleConfirmed: true });
   const cases = [];
   cases.push(['unregistered', new FakeChild(10)]);
   const bad = new FakeChild(-1); assert.equal(own.register(bad, {}), null, 'bad pid not registered'); cases.push(['bad pid', bad]);
@@ -263,12 +263,30 @@ test('ownership: no kill for unowned, bad pid, spawn error, exit/signal codes, e
 });
 
 test('ownership: taskkill failure falls back to child.kill only while still owned and live', () => {
-  const own = C.createOwnership({ execFileSync: () => { throw new Error('taskkill failed'); } });
+  const own = C.createOwnership({ execFileSync: () => { throw new Error('taskkill failed'); }, lifecycleConfirmed: true });
   const live = new FakeChild(21); own.register(live, {});
   assert.equal(own.kill(live, 500), true);
   assert.equal(live.killed, 1);
   const rec = own.record(live);
   assert.deepEqual(rec.kills.map(k => [k.method, k.ok]), [['taskkill', false], ['child.kill', true]]);
+  live.emit('close', null, 'SIGTERM');
+  assert.deepEqual(C.cleanupViolations(own.records()), ['tree_kill_unconfirmed:21'], 'root-only fallback leaves descendants unconfirmed');
+});
+
+test('ownership: fail closed when the runtime lifecycle premise is not confirmed (M-2)', () => {
+  const calls = [];
+  const own = C.createOwnership({ execFileSync: (...args) => { calls.push(args); return ''; } });
+  const live = new FakeChild(31); own.register(live, {});
+  assert.equal(own.kill(live, 1000), false);
+  assert.deepEqual([calls.length, live.killed, own.record(live).kills[0].skipped], [0, 0, 'lifecycle_unconfirmed']);
+});
+
+test('cleanup evidence: close and a successful tree kill are both required', () => {
+  const rec = (pid, closeObserved, kills = []) => ({ pid, closeObserved, kills });
+  assert.deepEqual(C.cleanupViolations([rec(1, true), rec(2, true, [{ method: 'taskkill', ok: true }])]), []);
+  assert.deepEqual(C.cleanupViolations([rec(3, false)]), ['no_close:3']);
+  assert.deepEqual(C.cleanupViolations([rec(4, true, [{ method: 'none', ok: false, skipped: 'exit_seen' }])]), ['tree_kill_unconfirmed:4']);
+  assert.deepEqual(C.cleanupViolations([rec(5, false, [{ method: 'taskkill', ok: false }, { method: 'child.kill', ok: true }])]), ['no_close:5', 'tree_kill_unconfirmed:5']);
 });
 
 test('ownership: real root + grandchild timeout fixture is killed and closed', { timeout: 60_000 }, async () => {
@@ -321,7 +339,7 @@ function fixtureRepo() {
 }
 const commitRaw = (repo, block, { content, receipt, extraFile, message } = {}) => {
   const path = C.officialOutput(block);
-  const text = content ?? JSON.stringify({ block, status: 'pass' }) + '\n';
+  const text = content ?? JSON.stringify({ block, status: 'pass', exitCode: 0 }) + '\n';
   writeFileSync(join(repo.dir, path), text);
   if (extraFile) writeFileSync(join(repo.dir, extraFile), 'y\n');
   repo.g(['add', '.']);
@@ -620,6 +638,20 @@ test('runner: partial raw is saved as incomplete while the block runs (parent ab
     assert.equal(seen.status, 'incomplete');
     assert.equal(seen.rows.length, 2);
     assert.equal(seen.children.length >= 4, true, 'child pid records saved before the end');
+  } finally { world.cleanup(); }
+});
+
+test('runner (plan 6.2): each child pid and spawn times are saved before the child closes', async () => {
+  const world = fakeWorld();
+  try {
+    const open = [];
+    const original = world.runtime.writeOutput;
+    world.runtime.writeOutput = (path, text) => { original(path, text); for (const c of JSON.parse(text).children) if (!c.closeObserved && !open.some(o => o.pid === c.pid)) open.push(c); };
+    await runFake(world, 'timing');
+    const doc = world.read('timing');
+    assert.equal(open.length, doc.children.length, 'every owned child appeared in a save while still open');
+    assert(open.every(c => Number.isSafeInteger(c.pid) && c.spawnedAt && Number.isFinite(c.spawnedMonoMs) && Number.isFinite(c.spawnReturnedMonoMs)));
+    assert.deepEqual([doc.leftoverPids, doc.cleanupViolations], [[], []]);
   } finally { world.cleanup(); }
 });
 
