@@ -343,7 +343,7 @@ const commitRaw = (repo, block, { content, receipt, extraFile, message } = {}) =
   writeFileSync(join(repo.dir, path), text);
   if (extraFile) writeFileSync(join(repo.dir, extraFile), 'y\n');
   repo.g(['add', '.']);
-  const r = receipt ?? { receipt: 'p10', run: 'p10run1', block, output: path, sha256: sha256(text), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs[block], capOverrunMs: 0 };
+  const r = receipt ?? { receipt: 'p10', run: 'p10run1', block, output: path, sha256: sha256(text), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs[block], capOverrunMs: 0, errors: [] };
   repo.g(['commit', '-q', '-m', message ?? `research(n34-p10): ${block} raw\n\n${C.formatReceipt(r)}\n\nAgent: claude-code`]);
   return repo.head();
 };
@@ -370,9 +370,9 @@ test('raw chain: every deviation is refused', () => {
     deleteRaw: repo => { commitRaw(repo, 'timing'); const hm = repo.head(); repo.g(['rm', '-q', C.officialOutput('timing')]); repo.g(['commit', '-q', '-m', 'rm']); return [hm, repo.head(), 'memory']; },
     renameRaw: repo => { commitRaw(repo, 'timing'); const hm = repo.head(); repo.g(['mv', C.officialOutput('timing'), C.officialOutput('memory')]); repo.g(['commit', '-q', '-m', 'mv']); return [hm, repo.head(), 'memory']; },
     noReceipt: repo => { const ht = repo.head(); return [ht, commitRaw(repo, 'timing', { message: 'raw without receipt' }), 'timing']; },
-    forgedSha: repo => { const ht = repo.head(); return [ht, commitRaw(repo, 'timing', { receipt: { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: '0'.repeat(64), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 0 } }), 'timing']; },
-    failedExit: repo => { const ht = repo.head(); const text = '{"status":"pass"}\n'; return [ht, commitRaw(repo, 'timing', { content: text, receipt: { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: sha256(text), status: 'pass', exitCode: 1, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 0 } }), 'timing']; },
-    capOverrun: repo => { const ht = repo.head(); const text = '{"status":"pass"}\n'; return [ht, commitRaw(repo, 'timing', { content: text, receipt: { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: sha256(text), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 5 } }), 'timing']; },
+    forgedSha: repo => { const ht = repo.head(); return [ht, commitRaw(repo, 'timing', { receipt: { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: '0'.repeat(64), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 0, errors: [] } }), 'timing']; },
+    failedExit: repo => { const ht = repo.head(); const text = '{"status":"pass"}\n'; return [ht, commitRaw(repo, 'timing', { content: text, receipt: { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: sha256(text), status: 'pass', exitCode: 1, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 0, errors: [] } }), 'timing']; },
+    capOverrun: repo => { const ht = repo.head(); const text = '{"status":"pass"}\n'; return [ht, commitRaw(repo, 'timing', { content: text, receipt: { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: sha256(text), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 5, errors: [] } }), 'timing']; },
     wrongBlock: repo => { const ht = repo.head(); return [ht, commitRaw(repo, 'timing'), 'memory']; },
   };
   for (const [name, make] of Object.entries(cases)) {
@@ -385,7 +385,7 @@ test('raw chain: every deviation is refused', () => {
 });
 
 test('receipts: format and parse one line; duplicates and garbage are rejected', () => {
-  const r = { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: 'a'.repeat(64), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: 1, capOverrunMs: 0 };
+  const r = { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: 'a'.repeat(64), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: 1, capOverrunMs: 0, errors: [] };
   const line = C.formatReceipt(r);
   assert(line.startsWith('P10-Receipt: ') && !line.includes('\n'));
   assert.deepEqual(C.parseReceipts(`title\n\n${line}\n\nAgent: claude-code`), [r]);
@@ -539,7 +539,7 @@ test('runner: memory refuses without the exact timing raw commit; info refuses a
     writeFileSync(path, JSON.stringify(doc, null, 2) + '\n');
     const forged = C.officialOutput('timing');
     const text = readFileSync(path, 'utf8');
-    world.lines = [C.formatReceipt({ receipt: 'p10', run: 'p10run1', block: 'timing', output: forged, sha256: sha256(text), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 0 })];
+    world.lines = [C.formatReceipt({ receipt: 'p10', run: 'p10run1', block: 'timing', output: forged, sha256: sha256(text), status: 'pass', exitCode: 0, elapsedMs: 1, capMs: C.P10.capMs.timing, capOverrunMs: 0, errors: [] })];
     world.commit('timing');
     out = await runFake(world, 'memory');
     assert.equal(out.status, 'refused');
@@ -653,6 +653,178 @@ test('runner (plan 6.2): each child pid and spawn times are saved before the chi
     assert(open.every(c => Number.isSafeInteger(c.pid) && c.spawnedAt && Number.isFinite(c.spawnedMonoMs) && Number.isFinite(c.spawnReturnedMonoMs)));
     assert.deepEqual([doc.leftoverPids, doc.cleanupViolations], [[], []]);
   } finally { world.cleanup(); }
+});
+
+// ---------- E. primary review r1 (review_2026-11-17_p10-impl-primary-r1.md) ----------
+// A prior block is edited after a normal fake run, its receipt keeps the edited file hash, and the next
+// block must refuse before its output exists. mutateReceipt changes only the receipt.
+async function priorCase(mutateDoc, { mutateReceipt = r => r, next = 'memory' } = {}) {
+  const w = fakeWorld();
+  try {
+    assert.equal((await runFake(w, 'timing')).status, 'pass');
+    if (next === 'info') { w.commit('timing'); assert.equal((await runFake(w, 'memory')).status, 'pass'); }
+    const block = next === 'info' ? 'memory' : 'timing';
+    const path = join(w.root, C.officialOutput(block));
+    const doc = w.read(block);
+    mutateDoc(doc);
+    const text = JSON.stringify(doc, null, 2) + '\n';
+    writeFileSync(path, text);
+    w.lines = [C.formatReceipt(mutateReceipt({ ...w.receipt(), sha256: sha256(text) }))];
+    w.commit(block);
+    const out = await runFake(w, next);
+    return { out, last: JSON.parse(w.lines.at(-1)), outputExists: existsSync(join(w.root, C.officialOutput(next))) };
+  } finally { w.cleanup(); }
+}
+const assertPriorRefused = (r, name, next) => {
+  assert.deepEqual([r.out.status, r.out.exitCode, r.outputExists], ['refused', 1, false], name);
+  assert(r.last.reasonCode.startsWith('prior'), `${name}: ${r.last.reasonCode}`);
+  if (next === 'info') assert.equal(r.last.disposition, 'D-3', `${name}: J2 not established`);
+};
+
+test('primary r1 R1: a prior pass is re-derived from its raw data; contradictions and damage are refused', async () => {
+  const positive = await priorCase(() => {});
+  assert.equal(positive.out.status, 'pass', 'unchanged timing raw is accepted');
+  assert.equal((await priorCase(() => {}, { next: 'info' })).out.status, 'completed_informational', 'unchanged memory raw is accepted');
+  const cases = {
+    timing_no_attempts_but_pass: [d => { d.rows[0].attempts = []; delete d.rows[0].selectedAttempt; }],
+    timing_failed_gate_but_row_pass: [d => { d.rows[0].attempts[0].gate.pass = false; }],
+    timing_timeout_calibration_but_pass: [d => { d.rows[0].calibration.child.status = 'timeout'; delete d.rows[0].calibration.steps; delete d.rows[0].calibration.k; d.rows[0].attempts = []; delete d.rows[0].selectedAttempt; }],
+    timing_stats_not_from_samples: [d => { d.rows[2].attempts[0].stats.C1.median = 1; }],
+    timing_aa_not_from_stats: [d => { d.rows[3].attempts[0].aa.base.valid = false; }],
+    timing_row_mapping: [d => { d.rows[5].ref = 'F3'; }],
+    timing_attempt_number: [d => { d.rows[4].attempts[0].number = 2; d.rows[4].selectedAttempt = 2; }],
+    timing_schedule_facts: [d => { d.schedule.total = 143; }],
+    timing_damaged_attempts: [d => { d.rows[0].attempts = null; }],
+    timing_damaged_rows: [d => { d.rows = 'broken'; }],
+    prior_unclosed_child_but_empty_summary: [d => { d.children[0].closeObserved = false; d.cleanupViolations = ['no_close']; }],
+    prior_row_child_not_closed: [d => { d.rows[1].attempts[0].child.closeObserved = false; }],
+    prior_child_record_missing: [d => { const pid = d.rows[1].attempts[0].child.pid; d.children = d.children.filter(c => c.pid !== pid); }],
+    prior_integrity_errors: [d => { d.integrityErrors = ['snapshot_integrity: x']; }],
+    memory_duplicate_repeats_wrong_inputs: [d => { for (const r of d.runs) { r.repeat = 0; r.inputId = 'F3'; } }, 'info'],
+    memory_order_swapped: [d => { [d.runs[0], d.runs[1]] = [d.runs[1], d.runs[0]]; }, 'info'],
+    memory_row_value_not_from_runs: [d => { d.rows[0].candidate.R = 1; }, 'info'],
+    memory_run_not_closed: [d => { d.runs[7].closeObserved = false; }, 'info'],
+    memory_damaged_runs: [d => { d.runs = 'broken'; }, 'info'],
+  };
+  for (const [name, [mutate, next = 'memory']] of Object.entries(cases)) assertPriorRefused(await priorCase(mutate, { next }), name, next);
+});
+
+test('primary r1 R2: receipt schema, budget arithmetic and error fields', async () => {
+  const cap = C.P10.capMs.timing;
+  const ok = { receipt: 'p10', run: 'p10run1', block: 'timing', output: C.officialOutput('timing'), sha256: 'a'.repeat(64), status: 'pass', exitCode: 0, elapsedMs: 1000, capMs: cap, capOverrunMs: 0, errors: [] };
+  assert.deepEqual(C.successReceiptViolations(ok, 'timing'), []);
+  assert.deepEqual(C.successReceiptViolations({ ...ok, elapsedMs: cap }, 'timing'), [], 'elapsed = C is inside the budget');
+  assert.deepEqual(C.successReceiptViolations({ ...ok, elapsedMs: 0 }, 'timing'), []);
+  const bad = {
+    notObject: 'receipt', nullReceipt: null,
+    missingElapsed: without(ok, 'elapsedMs'), nullElapsed: { ...ok, elapsedMs: null }, stringElapsed: { ...ok, elapsedMs: '1000' }, negativeElapsed: { ...ok, elapsedMs: -1 }, fractionElapsed: { ...ok, elapsedMs: 1.5 },
+    missingCap: without(ok, 'capMs'), wrongCap: { ...ok, capMs: 1 }, stringCap: { ...ok, capMs: String(cap) }, otherBlockCap: { ...ok, capMs: C.P10.capMs.memory },
+    missingOverrun: without(ok, 'capOverrunMs'), nullOverrun: { ...ok, capOverrunMs: null }, negativeOverrun: { ...ok, capOverrunMs: -1 },
+    elapsedPastCapOverrunZero: { ...ok, elapsedMs: cap + 1, capOverrunMs: 0 }, elapsedPastCapConsistent: { ...ok, elapsedMs: cap + 5, capOverrunMs: 5 }, overrunWithoutElapsed: { ...ok, capOverrunMs: 5 },
+    missingErrors: without(ok, 'errors'), nullErrors: { ...ok, errors: null }, stringErrors: { ...ok, errors: '' }, errorsWhilePass: { ...ok, errors: ['body'] },
+    saveFailed: { ...ok, saveFailed: true }, saveFailedFalse: { ...ok, saveFailed: false }, saveError: { ...ok, saveError: 'disk' }, extraField: { ...ok, note: 'x' },
+    badSha: { ...ok, sha256: 'x' }, nullSha: { ...ok, sha256: null }, errorStatus: { ...ok, status: 'error', exitCode: 1 }, stringExit: { ...ok, exitCode: '0' },
+    wrongBlock: { ...ok, block: 'memory' }, wrongOutput: { ...ok, output: C.officialOutput('memory') },
+  };
+  for (const [name, receipt] of Object.entries(bad)) assert(C.successReceiptViolations(receipt, 'timing').length > 0, name);
+  const runnerCases = {
+    receipt_elapsed_exceeds_cap_but_overrun_zero: r => ({ ...r, elapsedMs: cap + 1, capOverrunMs: 0 }),
+    receipt_wrong_cap: r => ({ ...r, capMs: 1 }),
+    receipt_error_while_pass: r => ({ ...r, errors: ['save_failed'], saveFailed: true }),
+    receipt_missing_errors: r => without(r, 'errors'),
+    receipt_null_elapsed: r => ({ ...r, elapsedMs: null }),
+    receipt_elapsed_before_raw_cutoff: r => ({ ...r, elapsedMs: 0 }),
+  };
+  for (const [name, mutateReceipt] of Object.entries(runnerCases)) {
+    const r = await priorCase(d => { if (name === 'receipt_elapsed_before_raw_cutoff') d.budget.finalEndMs = 5; }, { mutateReceipt });
+    assertPriorRefused(r, name, 'memory');
+    assert.equal(r.last.reasonCode, 'prior_chain', name);
+  }
+});
+
+test('primary r1 R3: info snapshot assertion failures are integrity D-4; install errors stay D-2', async () => {
+  const infoWith = async hook => {
+    const w = fakeWorld();
+    try {
+      await runFake(w, 'timing'); w.commit('timing'); await runFake(w, 'memory'); w.commit('memory');
+      const original = w.runtime.execFileSync;
+      w.runtime.execFileSync = (exe, args, opts = {}) => hook(original, exe, args, opts) ?? original(exe, args, opts);
+      const out = await runFake(w, 'info');
+      return { out, info: w.read('info') };
+    } finally { w.cleanup(); }
+  };
+  const after = f => (original, exe, args, opts) => { const value = original(exe, args, opts); f(exe, args, opts); return value; };
+  const isTsc = (exe, args) => exe === process.execPath && String(args[0]).endsWith('tsc');
+  const integrity = {
+    lockfile: after((exe, args) => { if (exe.endsWith('tar.exe') && args.at(-1).endsWith('candidate')) writeFileSync(join(args.at(-1), 'package-lock.json'), 'wrong lock\n'); }),
+    aaCopy: after((exe, args, opts) => { if (isTsc(exe, args) && opts.cwd.endsWith('candidate')) { mkdirSync(join(opts.cwd, 'dist-aa/src/core'), { recursive: true }); writeFileSync(join(opts.cwd, 'dist-aa/src/core/extra.js'), 'x\n'); } }),
+    coreFile: after((exe, args, opts) => { if (isTsc(exe, args) && opts.cwd.endsWith('candidate')) writeFileSync(join(opts.cwd, 'dist/src/core/artifacts.js'), 'other\n'); }),
+    policySame: after((exe, args, opts) => { if (isTsc(exe, args) && opts.cwd.endsWith('candidate')) writeFileSync(join(opts.cwd, 'dist/src/core/policy.js'), 'base\n'); }),
+  };
+  for (const [name, hook] of Object.entries(integrity)) {
+    const { out, info } = await infoWith(hook);
+    assert.deepEqual([out.status, out.exitCode, info.disposition], ['error', 1, 'D-4'], name);
+    assert(info.integrityErrors.some(e => e.startsWith('snapshot_integrity')), `${name}: ${info.integrityErrors}`);
+    assert.equal(info.integrity.failure, true, name);
+  }
+  const install = await infoWith((original, exe, args) => { if (exe === 'git' && args[0] === 'archive') throw new Error('archive failed (fake install error)'); });
+  assert.deepEqual([install.out.status, install.info.disposition, install.info.integrityErrors], ['error', 'D-2', []], 'general install error');
+});
+
+test('primary r1 R5: an npm log write failure settles the block (error 1, finalization, receipt)', { timeout: 30_000 }, async () => {
+  for (const failFinalSave of [false, true]) {
+    const w = fakeWorld({ failFinalSave });
+    const original = w.runtime.spawn;
+    let injected = false;
+    w.runtime.spawn = (exe, args, opts) => {
+      if (!injected && args[1] === 'ci') { mkdirSync(join(resolve(opts.cwd, '..'), 'logs', 'base-ci.log')); injected = true; }
+      return original(exe, args, opts);
+    };
+    try {
+      const out = await runFake(w, 'timing');
+      assert.equal(injected, true);
+      const receipt = w.receipt();
+      assert.deepEqual([out.status, out.exitCode, receipt.status, receipt.exitCode], ['error', 1, 'error', 1], `failFinalSave=${failFinalSave}`);
+      if (failFinalSave) { assert.deepEqual([receipt.saveFailed, receipt.sha256], [true, null], 'no success receipt'); continue; }
+      const doc = w.read('timing');
+      assert.deepEqual([doc.status, doc.build.status, doc.tempCleanup], ['error', 'error', true]);
+      assert(doc.error.includes('EISDIR'), 'the log error is kept');
+      assert.deepEqual([doc.leftoverPids, doc.cleanupViolations, doc.finalizationErrors], [[], [], []]);
+      assert(receipt.errors.includes('body'));
+      assert.equal(receipt.sha256, sha256(readFileSync(join(w.root, C.officialOutput('timing')))));
+    } finally { w.cleanup(); }
+  }
+});
+
+test('primary r1 M1: block-end kills re-evaluate the remaining total budget per child', () => {
+  const run = (startMs, spendMs) => {
+    let t = 0;
+    const budget = C.createBudget({ capMs: 20_000, reserveMs: 0, now: () => t });
+    t = startMs;
+    const calls = [];
+    const own = C.createOwnership({ execFileSync: (exe, args, opts) => { calls.push(opts.timeout); t += spendMs; return ''; }, lifecycleConfirmed: true });
+    const kids = [41, 42, 43].map(pid => { const c = new FakeChild(pid); own.register(c, {}); return c; });
+    const out = own.killUnclosed(() => budget.finalTimeout(S.kill)?.ms ?? 0);
+    return { calls, out, skipped: kids.map(c => own.record(c).kills.at(-1)?.skipped) };
+  };
+  const spent = run(20_000 - 6_000, 6_000);
+  assert.deepEqual(spent.calls, [6_000], 'the first kill used all that was left; no later taskkill starts');
+  assert.deepEqual(spent.skipped, [undefined, 'no_budget', 'no_budget']);
+  const partial = run(20_000 - 6_000, 4_000);
+  assert.deepEqual(partial.calls, [6_000, 2_000], 'the second kill gets the reduced remainder');
+  assert.deepEqual(partial.skipped, [undefined, undefined, 'no_budget']);
+  const plenty = run(0, 1_000);
+  assert.deepEqual(plenty.calls, [S.kill, S.kill, S.kill], 'Tkill caps each kill');
+});
+
+test('primary r1 R4: parent-abort recovery never kills from a stored pid and parent-observed times', () => {
+  const text = readFileSync(join(REPO, 'docs/agent/handoffs/n34-p10-prereg.md'), 'utf8').replaceAll('\r\n', '\n');
+  const start = text.indexOf('**부모 중단 뒤 복구');
+  assert(start > 0, 'recovery section');
+  const recovery = text.slice(start, text.indexOf('\n## ', start));
+  assert(!recovery.includes('taskkill /PID'), 'no kill instruction in the parent-abort procedure');
+  assert(recovery.includes('OS 생성 시각 기준선을 기록하지 않는다'), 'the missing OS baseline is stated');
+  assert(recovery.includes('중단·수동 확인 필요'));
 });
 
 test('runner: check-only and node --test never start a product measurement', () => {
