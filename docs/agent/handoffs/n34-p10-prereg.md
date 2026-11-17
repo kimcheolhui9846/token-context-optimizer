@@ -75,10 +75,10 @@ node research/src/n34-p10-perf.mjs --prereg=<동결 sha> --block=info   --output
 - 운영자는 receipt의 sha256이 파일과 같고 실제 exit이 receipt와 같은지 확인한 뒤, 그 파일 하나만 추가하는 commit을 만든다. commit 본문에 receipt 줄을 그대로 한 번 넣는다. 다른 파일은 넣지 않는다
 - memory 시작 조건: `--prereg..HEAD`가 commit 1개, `--name-status --no-renames` = `A research/results/n34-p10/perf-p10run1-timing.json` 한 줄, receipt 1개(파일 blob sha256·block·run·output 일치, status pass, exit 0, `capOverrunMs` 0), 파일 status·exitCode가 receipt와 같음
 - 정보용 시작 조건: 위 timing 조건 + `Hm..HEAD`가 memory 파일 하나만 추가하는 commit 1개와 같은 receipt 조건
-- receipt 검사(primary r1 R2): 필드가 정확히 `receipt, run, block, output, sha256, status, exitCode, elapsedMs, capMs, capOverrunMs, errors`이고, `sha256`은 64자리 16진수, `capMs` = 그 블록의 C, `elapsedMs`·`capOverrunMs`는 0 이상의 정수, `capOverrunMs` = max(0, `elapsedMs` − C) = 0, `errors` = `[]`, `saveFailed`·`saveError` 없음. 원자료의 `budget.capMs`가 receipt와 다르거나 원자료 `budget.finalEndMs`가 receipt `elapsedMs`보다 늦으면 모순으로 거부한다(원자료는 마지막 저장 전 시각이라 두 값이 같기를 요구하지 않는다)
+- receipt 검사(primary r1 R2): 필드가 정확히 `receipt, run, block, output, sha256, status, exitCode, elapsedMs, capMs, capOverrunMs, errors`이고, `sha256`은 64자리 16진수, `capMs` = 그 블록의 C, `elapsedMs`·`capOverrunMs`는 0 이상의 정수, `capOverrunMs` = max(0, `elapsedMs` − C) = 0, `errors` = `[]`, `saveFailed`·`saveError` 없음. receipt 줄이 JSON으로 읽혔는지와 그 값을 따로 본다: 읽힌 값이 객체가 아니면(`null`·`false`·`0`·빈 문자열·배열·스칼라) 같은 검사에서 `receipt_type`으로 거부하고, 객체일 때만 hash·status·예산을 더 대조한다(primary r2 R2-01). 원자료의 `budget.capMs`가 receipt와 다르거나 원자료 `budget.finalEndMs`가 receipt `elapsedMs`보다 늦으면 모순으로 거부한다(원자료는 마지막 저장 전 시각이라 두 값이 같기를 요구하지 않는다)
 - 앞 블록은 저장된 `pass`만 믿지 않는다. 18 key 순서·각 1회·pass·`rawComplete`, 단계별 원자료 검사 재실행(timing) 또는 memory 판정 재계산 일치·child 108개, `finalizationErrors` 0, 잔류 pid 0, 임시 폴더 정리, 추적 파일 불변, 환경 불변, `capOverrunMs` 0이어야 한다
-- 원자료 재판정(primary r1 R1, 기존 run3 정의 그대로): timing은 행 매핑, 보정 child 완료·마지막 단계 k·멈춤 조건, attempt 번호 1부터 연속·최대 3회·멈춘 뒤 attempt 없음, digest 4개 일치, 표본 144개의 order·label·arm이 schedule과 같음, 표본에서 다시 낸 통계·A/A·gate·비율이 저장값과 같음, `selectedAttempt`, 다시 낸 행 판정 = 저장 판정, `schedule` 요약 일치. memory는 (row, repeat, arm, inputId) 108개가 정확한 실행 순서와 같고, run에서 다시 낸 행·블록 판정·`refFailedRows`·`rawIncompleteRows`가 저장값과 같음
-- child 정리 증거(primary r1 R1): `children` 기록마다 안전한 pid·close 관측·종료 시도 없음, 기록에서 다시 낸 `cleanupViolations`·`leftoverPids`가 비어 있고 저장값도 `[]`, timing 행과 memory run이 가리키는 child가 모두 close된 소유 기록으로 있음, `blockEndKills`·`spawnSaveErrors` 없음. 또한 `build.status` completed, `integrityErrors` `[]`, 본문 오류·예산 중단 없음, `budget.capMs`·`reserveMs`가 사전 등록 값
+- 원자료 재판정(primary r1 R1, 기존 run3 정의 그대로): timing은 행 매핑, 보정 child 완료·마지막 단계 k·멈춤 조건, 보정 사다리(primary r2 R2-03, run3 worker 정의 그대로: K = 1, 2, 4, …로 두 배씩 maxK 1024 이하, 단계마다 B1·C1 표본 5개씩 유한한 0 이상 ms, 마지막 이전 단계는 멈춤 조건 미충족·마지막 단계만 충족, 마지막 단계 k = 보정 k = 행 k), attempt 번호 1부터 연속·최대 3회·멈춘 뒤 attempt 없음, digest 4개 일치, 표본 144개의 order·label·arm이 schedule과 같음, 표본에서 다시 낸 통계·A/A·gate·비율이 저장값과 같음, `selectedAttempt`, 다시 낸 행 판정 = 저장 판정, `schedule` 요약 일치. memory는 (row, repeat, arm, inputId) 108개가 정확한 실행 순서와 같고, run에서 다시 낸 행·블록 판정·`refFailedRows`·`rawIncompleteRows`가 저장값과 같음
+- child 정리 증거(primary r1 R1, r2 R2-02): `children` 기록은 pid가 아니라 블록 안 spawn별 `childId`(1..n, spawn 순서)로 대조한다. pid는 OS 값이라 앞 child가 끝난 뒤 다른 child에 다시 쓰일 수 있으므로 블록 전체에서 유일하기를 요구하지 않는다. 기록마다 안전한 양의 pid, 관측 사건이 정확히 spawn → exit → close, exit code 0·signal 없음·spawn 오류 없음·종료 시도 없음, 부모 단조 시각 spawn 직전 ≤ 직후 ≤ close이고, runner가 child를 하나씩 기다리므로 각 기록의 close가 다음 기록의 spawn보다 늦지 않다(재사용된 pid의 수명이 겹치지 않음). 앞의 두 기록은 build의 `npm ci --ignore-scripts` 두 개이고, 나머지는 행이 가리키는 child(timing: 행마다 보정 뒤 attempt, memory: run 순서)와 순서대로 하나씩 `childId`·pid·시작 시각·node 인자·역할 script(성능/메모리 worker)가 맞아야 한다. 가리키는 child 기록은 completed·exit code 0·signal 없음·close 관측·종료 시도 없음이다. 기록에서 다시 낸 `cleanupViolations`·`leftoverPids`가 비어 있고 저장값도 `[]`, `blockEndKills`·`spawnSaveErrors` 없음. 또한 `build.status` completed, `integrityErrors` `[]`, 본문 오류·예산 중단 없음, `budget.capMs`·`reserveMs`가 사전 등록 값
 - 원자료 형태가 깨졌거나 검사 중 예외가 나도 거부 JSON 한 줄과 exit 1로 끝낸다(결과 파일 미생성)
 - 신원 대조: run, schema, `preregistrationCommit`, `files`(하네스·prereg·`policy.ts`·package 파일 blob), BASE, CAND 제품(`HEAD:src` tree, package blob, numstat), `inputs`, `protocol`, `p10` 상수, `environment` 전체, snapshot(CAND ref 제외). 다르면 거부한다
 
@@ -86,7 +86,8 @@ node research/src/n34-p10-perf.mjs --prereg=<동결 sha> --block=info   --output
 - runner가 spawn한 같은 ChildProcess 객체만 종료한다. 조건: pid가 안전한 양의 정수, `exitCode`·`signalCode` 모두 null, spawn 오류·exit·close 미관측. 검사 뒤 양보 없이 `taskkill /PID <pid> /T /F`를 동기 호출한다. timeout = min(Tkill, remainingTotal). 실패하면 같은 조건에서만 `child.kill()`을 쓴다
 - 이 종료 규칙은 Windows·Node `v24.18.0`(exit 상태를 설정한 뒤 handle을 닫는 생명주기를 확인한 고정 런타임)에서만 켜진다. 아니면 아무것도 종료하지 않는다(fail closed)
 - 이미지 이름이나 파일에서 읽은 PID로 종료하지 않는다. WMIC·private `_handle`을 쓰지 않는다. OS 생성 시각을 매 child마다 조회하지 않는다
-- 기록: child마다 pid, 부모가 본 spawn 직전·직후 wall·단조 시각(OS CreationDate가 아님), spawn·exit·close 관측, 종료 시도와 결과. spawn 직후 결과 파일을 저장한다
+- 기록: child마다 블록 안 spawn별 `childId`(1부터 등록 순서), pid, 부모가 본 spawn 직전·직후 wall·단조 시각(OS CreationDate가 아님), spawn·exit·close 관측과 관측 순서(`events`), exit code·signal, close 단조 시각, 종료 시도와 결과. 행·run의 child 요약에도 같은 `childId`를 남긴다. spawn 직후 결과 파일을 저장한다
+- `childId`는 아직 실행 전인 이 P10 하네스의 내부 증거 필드다(primary r2 R2-02). 종료 권한을 주지 않는다: 종료는 위 조건의 살아 있는 같은 ChildProcess 객체로만 하고, 저장된 `childId`나 pid로는 하지 않는다. 새 OS 조회·시작 시각 추정은 없다
 - 블록 끝: close가 없는 소유 child에 같은 규칙으로 종료를 시도하고 `leftoverPids`로 남긴다. close 미수신, 종료가 필요했는데 성공한 `taskkill /T`가 없음(`child.kill`만 성공한 경우 포함)은 `cleanupViolations`로 기록하고 비PASS다
 - **부모 중단 뒤 복구(운영자, 읽기 전용 대조 먼저)**
   1. 결과 파일은 `incomplete`로 둔다. 재개하지 않고 같은 이름을 다시 쓰지 않는다
@@ -110,15 +111,15 @@ node research/src/n34-p10-perf.mjs --self-check --output=<저장소 밖 절대 �
 - 하네스 검증(node:test·check-only·self-check) 통과는 성능·F1 해소의 근거가 아니다
 
 ## 10. 동결 기록 (blob pin, 이 prereg 자신은 제외)
-- primary r1 보완 뒤 다시 동결했다. 이전 동결 `7735d42`는 실행 후보에서 제외됐다(primary r1 CHANGES REQUIRED). runner·contract·test blob이 바뀌었고 나머지는 같다
+- primary r2 보완 뒤 다시 동결했다. 이전 동결 `7735d42`(primary r1 CHANGES REQUIRED)와 `c52826a`(primary r2 CHANGES REQUIRED)는 실행 후보에서 제외됐다. runner·contract·test blob이 바뀌었고 나머지는 같다
 - 동결 commit은 이 파일을 마지막으로 바꾼 commit이다. 실행 때 `--prereg=<그 sha>`로 넘기고, timing 시작 HEAD가 그 commit과 같아야 한다
 - 아래 blob은 `git rev-parse HEAD:<path>`(커밋 blob, LF 기준) 값이다. runner는 실행마다 같은 값을 `files`에 다시 기록하고 블록 사이에 대조한다
 
 | 파일 | blob |
 |---|---|
-| `research/src/n34-p10-perf.mjs` | `77bc8e406fdcc085e6633962a31d666d9e7dc1a3` |
-| `research/src/n34-p10-perf-contract.mjs` | `19e04e7ea17da71ffe710a579223215c6ec5bf7c` |
-| `research/test/n34-p10-perf.test.mjs` | `7575bd7e61f2114aab05bb39f17e4b020d02c173` |
+| `research/src/n34-p10-perf.mjs` | `28e9d7f58c72da8b3cefea65bc0ce98274632fb2` |
+| `research/src/n34-p10-perf-contract.mjs` | `7a0ea8da93c5cb07ada319b99e7bd6fc7bbdddc3` |
+| `research/test/n34-p10-perf.test.mjs` | `b56053b09ffae4bcaf9cb33112f0ab5d279be88f` |
 | `research/src/n34-cr-policy-perf-inputs.mjs` | `e03a6197ddeca9cb78fbf4fb002c87b238d03095` |
 | `research/src/n34-cr-policy-perf-worker.mjs` | `c5ca276327c02134bb1a0ca111b22d43486b0bdb` |
 | `research/src/n34-cr-policy-perf-mem-worker.mjs` | `f225aa8e62975657089110439374987b7f49e60b` |
