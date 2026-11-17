@@ -7,7 +7,9 @@
 
 ## 목적
 - 사용자 A 선택(K1 유지, 2026-11-16)에 따라 K1 대 main 공식 검증과 F1 same-input 위험 처분 절차를 사용자가 채택할 수 있는 구체 계획으로 만든다
-- 상세 제안: `docs/plans/2026-11-17-n34-k1-validation-plan.md`(같은 PR 다음 commit에서 추가)
+- 상세 제안: [docs/plans/2026-11-17-n34-k1-validation-plan.md](../../plans/2026-11-17-n34-k1-validation-plan.md)
+  - 대안 P-1(run3 그대로)·P-2(K 하한 4 묶음 표본, 권장 초안)·P-3(child 단위 반복). P-2는 추정 대상 변경이라 별도 정책 승인 대상
+  - S-2 권장: same-input F1 정보용 유지 + 실행 전 승인된 처분표. S-3 제안: 블록 상한 24 h·2 h·10 h
 
 ## 기준 (시작 시 직접 확인)
 - remote main `5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3`. 요청서의 PM 확인값과 같다
@@ -51,8 +53,8 @@
 ## 진행 상태
 - [x] 시작 상태·신원·base 확인, branch 생성
 - [x] 근거 읽기
-- [ ] handoff commit/push, Draft PR
-- [ ] 상세 계획 문서
+- [x] handoff commit/push(`bbcc05a`), Draft PR [#123](https://github.com/kimcheolhui9846/token-context-optimizer/pull/123)
+- [x] 상세 계획 문서
 - [ ] 직접 검증, Argon
 - [ ] WBS 동기화와 검증
 - [ ] 보고(codex_paste), worker_done
