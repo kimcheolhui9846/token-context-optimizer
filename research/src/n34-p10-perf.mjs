@@ -180,9 +180,22 @@ function memoryOutcome(runs) {
 // Primary r1 R1 (supplement m-7): a prior pass is re-derived from its raw data with the run3 definitions above
 // (row mapping, calibration stop condition, attempt order, schedule, samples, statistics, A/A, gate; memory run
 // order and rows). The thresholds and verdict rules are the ones the block itself used. Returns violations.
+// Primary r2 R2-03: a completed calibration is the run3 worker's ladder (worker unchanged): K = 1, 2, 4, ... at most
+// maxK, five B1 then five C1 batch samples per K (finite, non-negative ms), stopping at the first K where both minima
+// reach minSampleMs. So every step before the last has not converged and the last one has.
+function calibrationLadderOk(steps) {
+  if (!Array.isArray(steps) || steps.length === 0) return false;
+  return steps.every((step, index) => {
+    const k = 2 ** index;
+    if (step === null || typeof step !== 'object' || step.k !== k || k > P.maxK) return false;
+    if (![step.base, step.candidate].every(values => Array.isArray(values) && values.length === P.calibrationSamples && values.every(x => Number.isFinite(x) && x >= 0))) return false;
+    return calibrationDone(step.base, step.candidate) === (index === steps.length - 1);
+  });
+}
 function timingDerivedStatus(entry, at) {
   const cal = entry.calibration, last = Array.isArray(cal?.steps) ? cal.steps.at(-1) : undefined;
   if (cal?.child?.status !== 'completed') return 'invalid';
+  if (!calibrationLadderOk(cal.steps)) { at('calibration_ladder'); return 'invalid'; }
   if (!last || last.k !== cal.k || !calibrationDone(last.base, last.candidate)) return 'invalid';
   if (entry.k !== cal.k) at('k');
   if (!Array.isArray(entry.attempts)) { at('attempts'); return 'invalid'; }
@@ -368,7 +381,7 @@ const realRuntime = () => ({ now: () => performance.now(), wallNow: () => new Da
   stdout: line => console.log(line), root: REPO_ROOT, tmpRoot: tmpdir(), platform: process.platform, nodeVersion: process.version, writeOutput: (path, text) => writeFileSync(path, text) });
 let RT = realRuntime();
 // Kills need the fixed runtime whose child lifecycle was checked (M-2); otherwise ownership never kills.
-const newOwnership = () => C.createOwnership({ execFileSync: (...args) => RT.execFileSync(...args), lifecycleConfirmed: process.platform === 'win32' && process.version === 'v24.18.0' });
+const newOwnership = () => C.createOwnership({ execFileSync: (...args) => RT.execFileSync(...args), lifecycleConfirmed: process.platform === 'win32' && process.version === 'v24.18.0', now: () => RT.now() });
 let OWN = newOwnership();
 let BUDGET = null, PHASE = 'work', ON_SPAWN = null;
 const SPAWN_SAVE_ERRORS = [];
@@ -404,13 +417,13 @@ function runChild(args, timeoutMs, exe = process.execPath) {
     const stamp = { startedAt, nodeArgs, timeoutMs: t.ms, budgetLimited: t.budgetLimited };
     let child;
     try { child = RT.spawn(exe, args, { cwd: ROOT, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }); }
-    catch (error) { done({ status: 'spawn_error', message: String(error.message), ...stamp, finishedAt: startedAt, wallMs: 0, pid: null, closeObserved: false, kills: [] }); return; }
+    catch (error) { done({ status: 'spawn_error', message: String(error.message), ...stamp, finishedAt: startedAt, wallMs: 0, childId: null, pid: null, closeObserved: false, kills: [] }); return; }
     const rec = OWN.register(child, { spawnedAt: startedAt, spawnedMonoMs: startedMono, spawnReturnedAt: RT.wallNow().toISOString(), spawnReturnedMonoMs: RT.now(), script: basename(String(args.find(arg => String(arg).endsWith('.mjs')) ?? exe)), nodeArgs });
     let stdout = '', stderr = '', timedOut = false, settled = false, sawOom = false, closeTimer;
     const finish = value => {
       if (settled) return;
       settled = true; clearTimeout(timer); clearTimeout(closeTimer);
-      done({ ...value, ...stamp, finishedAt: RT.wallNow().toISOString(), wallMs: RT.now() - startedMono, pid: Number.isSafeInteger(child.pid) ? child.pid : null, closeObserved: rec?.closeObserved ?? false, kills: rec ? rec.kills.map(k => ({ ...k })) : [] });
+      done({ ...value, ...stamp, finishedAt: RT.wallNow().toISOString(), wallMs: RT.now() - startedMono, childId: rec?.childId ?? null, pid: Number.isSafeInteger(child.pid) ? child.pid : null, closeObserved: rec?.closeObserved ?? false, kills: rec ? rec.kills.map(k => ({ ...k })) : [] });
     };
     const timer = setTimeout(() => { timedOut = true; kill(child); closeTimer = setTimeout(() => finish({ status: 'timeout', closeMissing: true }), C.P10.steps.kill); }, t.ms);
     child.stdout.setEncoding('utf8'); child.stderr.setEncoding('utf8');
@@ -507,7 +520,7 @@ function makeContext(temp) {
     workDir: () => join(temp, `work-${counter++}`),
   };
 }
-const childRecord = run => ({ status: run.status, exitCode: run.exitCode, signal: run.signal, wallMs: run.wallMs, startedAt: run.startedAt, finishedAt: run.finishedAt, nodeArgs: run.nodeArgs, pid: run.pid ?? null, timeoutMs: run.timeoutMs, budgetLimited: run.budgetLimited, closeObserved: run.closeObserved, closeMissing: run.closeMissing, kills: run.kills, stderrTail: run.stderrTail, message: run.message, error: run.payload?.error }); // P10 K1 stamps + owned pid (M-2)
+const childRecord = run => ({ status: run.status, exitCode: run.exitCode, signal: run.signal, wallMs: run.wallMs, startedAt: run.startedAt, finishedAt: run.finishedAt, nodeArgs: run.nodeArgs, childId: run.childId ?? null, pid: run.pid ?? null, timeoutMs: run.timeoutMs, budgetLimited: run.budgetLimited, closeObserved: run.closeObserved, closeMissing: run.closeMissing, kills: run.kills, stderrTail: run.stderrTail, message: run.message, error: run.payload?.error }); // P10 K1 stamps + owned pid (M-2)
 
 // One timing row: calibration child, then up to 3 attempt children. Returns the row entry.
 async function timingRow(row, ctx, modules, options) {
@@ -758,7 +771,7 @@ async function runBlock({ mode, output, prereg: preregArg, checks: runChecks = t
       try { v = to ? C.verifyRawOnlyCommit({ git, readBlob, from, to, path: C.officialOutput(block), block }) : { reasons: ['no_parent'] }; }
       catch (error) { v = { reasons: [`exception:${String(error.message).slice(0, 200)}`] }; }
       if (v.reasons.length) return refuse('prior_chain', true, `${block}: one raw-only commit with a passing receipt`, `${block}: ${v.reasons.join(',')}`);
-      try { reasons = C.validatePriorBlock(v.doc, { block, expected: identity, timingFinal, memoryOutcome, rederive: priorRederive }); }
+      try { reasons = C.validatePriorBlock(v.doc, { block, expected: identity, timingFinal, memoryOutcome, rederive: priorRederive, childScript: basename(block === 'timing' ? PERF_WORKER : MEM_WORKER) }); }
       catch (error) { reasons = [`prior_validation_exception:${String(error.message).slice(0, 200)}`]; }
       const blockReasons = reasons.filter(r => !r.startsWith('identity:'));
       if (blockReasons.length) return refuse('prior_block_invalid', true, `${block}: verified pass`, `${block}: ${blockReasons.join(',')}`);

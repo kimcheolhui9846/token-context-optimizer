@@ -210,18 +210,27 @@ export function mandatoryBlockStatus({ rows, expectedKeys = MANDATORY_KEYS, body
 // The check and the taskkill call run synchronously with no yield in between. A pid restored from a
 // file or any other object is never killed. The lifecycle premise (exit state set before the handle closes,
 // supplement M-2) is checked for the fixed runtime only; when it is not confirmed nothing is killed (fail closed).
-export function createOwnership({ execFileSync, lifecycleConfirmed = false }) {
+// Primary r2 R2-02: every registered spawn gets its own childId (1, 2, ... in registration order within this
+// ownership, i.e. within one block). It is evidence only: the pid stays an OS value that may come back after an
+// earlier child is gone, and neither the childId nor a stored pid ever gives kill rights (only the live object does).
+// The record keeps the observed events in order, the exit code and signal, and the monotonic close time.
+export function createOwnership({ execFileSync, lifecycleConfirmed = false, now = () => null }) {
   const owned = new Map();
+  let nextChildId = 0;
   const own = {
     lifecycleConfirmed,
     register(child, info = {}) {
       if (!child || !Number.isSafeInteger(child.pid) || child.pid <= 0) return null;
-      const rec = { pid: child.pid, ...info, spawnEventSeen: false, spawnError: false, exitSeen: false, closeObserved: false, kills: [] };
+      const rec = { childId: ++nextChildId, pid: child.pid, ...info, spawnEventSeen: false, spawnError: false, exitSeen: false, closeObserved: false,
+        events: [], exitCode: null, signal: null, closeMonoMs: null, kills: [] };
       owned.set(child, rec);
-      child.once('spawn', () => { rec.spawnEventSeen = true; });
-      child.once('error', () => { rec.spawnError = true; });
-      child.once('exit', () => { rec.exitSeen = true; });
-      child.once('close', () => { rec.closeObserved = true; });
+      child.once('spawn', () => { rec.spawnEventSeen = true; rec.events.push('spawn'); });
+      child.once('error', () => { rec.spawnError = true; rec.events.push('error'); });
+      child.once('exit', (code, signal) => { rec.exitSeen = true; rec.events.push('exit'); rec.exitCode = code ?? null; rec.signal = signal ?? null; });
+      child.once('close', (code, signal) => {
+        rec.closeObserved = true; rec.events.push('close'); rec.closeMonoMs = now();
+        if (!rec.exitSeen) { rec.exitCode = code ?? null; rec.signal = signal ?? null; }
+      });
       return rec;
     },
     record: child => owned.get(child),
@@ -346,7 +355,7 @@ export function successReceiptViolations(receipt, block) {
 // between them is refused (raw C differs, or the raw finalEndMs is later than the receipt elapsedMs).
 export function verifyRawOnlyCommit({ git, readBlob, from, to, path, block }) {
   const reasons = [];
-  let receipt = null, doc = null;
+  let receipt = null, receiptRead = false, doc = null;
   const parents = git(['rev-list', '--parents', '-n', '1', to]).split(' ').filter(Boolean);
   if (parents.length !== 2 || parents[1] !== from) reasons.push('not_single_child_commit');
   if (git(['rev-list', '--count', `${from}..${to}`]) !== '1') reasons.push('commit_count');
@@ -354,45 +363,65 @@ export function verifyRawOnlyCommit({ git, readBlob, from, to, path, block }) {
   if (changes !== `A${TAB}${path}`) reasons.push(`changes:${changes.split('\n').length}`);
   let blob = null;
   try { blob = readBlob(to, path); } catch { reasons.push('blob_missing'); }
-  try { [receipt] = parseReceipts(git(['log', '-1', '--format=%B', to])); } catch (error) { reasons.push(`receipt:${error.message}`); }
-  if (receipt) {
-    reasons.push(...successReceiptViolations(receipt, block));
-    if (receipt?.output !== path) reasons.push('receipt_output');
-  }
-  if (blob && receipt && receipt.sha256 !== sha256(blob)) reasons.push('receipt_sha256');
+  try { [receipt] = parseReceipts(git(['log', '-1', '--format=%B', to])); receiptRead = true; } catch (error) { reasons.push(`receipt:${error.message}`); }
+  // Primary r2 R2-01: whether the receipt line parsed is kept apart from the value it holds. Any parsed value
+  // (null, false, 0, '', an array, a scalar) goes through the success checks; only an object is read further.
+  const receiptObject = receiptRead && receipt !== null && typeof receipt === 'object' && !Array.isArray(receipt);
+  if (receiptRead) reasons.push(...successReceiptViolations(receipt, block));
+  if (receiptObject && receipt.output !== path) reasons.push('receipt_output');
+  if (blob && receiptObject && receipt.sha256 !== sha256(blob)) reasons.push('receipt_sha256');
   if (blob) { try { doc = JSON.parse(blob.toString('utf8')); } catch { reasons.push('raw_unreadable'); } }
-  if (doc && receipt && (doc.status !== receipt.status || doc.exitCode !== receipt.exitCode)) reasons.push('receipt_file_mismatch');
-  if (doc?.budget && receipt && typeof receipt === 'object') {
+  if (doc && receiptObject && (doc.status !== receipt.status || doc.exitCode !== receipt.exitCode)) reasons.push('receipt_file_mismatch');
+  if (doc?.budget && receiptObject) {
     if (doc.budget.capMs !== receipt.capMs) reasons.push('receipt_raw_cap');
     if (!(Number.isFinite(doc.budget.finalEndMs) && Number.isFinite(receipt.elapsedMs) && doc.budget.finalEndMs <= receipt.elapsedMs)) reasons.push('receipt_raw_elapsed');
   }
   return { reasons, receipt, doc };
 }
-// Primary r1 R1: the owned-child evidence of a prior block must agree with itself. Every child record is closed with
-// no kill, the stored summaries are empty and equal the ones derived from the records, and every child that a timing
-// row or memory run names exists as a closed owned record.
-function priorChildViolations(doc, block) {
+// Primary r1 R1 + r2 R2-02: the owned-child evidence of a prior block must agree with itself. Records are keyed by
+// their childId (1..n in spawn order), not by pid: an OS pid may come back for a later child once the earlier one is
+// gone. Every record has one successful spawn, exit code 0 with no signal, and a close, in that order, with no kill.
+// The runner awaits each child, so each record closed before the next one spawned (a reused pid never overlaps).
+// The first records are the two build installs; the rest are, one for one and in order, the children the rows name
+// (timing: calibration then attempts per row; memory: runs), each linked by childId, pid, start stamp, node arguments
+// and its role script, and each recorded as a completed child with exit code 0, no signal and no kill.
+export const BUILD_CHILD_SCRIPTS = Object.freeze(['npm ci --ignore-scripts', 'npm ci --ignore-scripts']);
+const CHILD_EVENTS = Object.freeze(['spawn', 'exit', 'close']);
+const finite = value => typeof value === 'number' && Number.isFinite(value);
+function priorChildViolations(doc, block, childScript) {
   const v = [];
   const children = doc.children;
-  const byPid = new Map(children.map(c => [c?.pid, c]));
-  if (byPid.size !== children.length || !children.every(c => Number.isSafeInteger(c?.pid) && c.pid > 0 && Array.isArray(c.kills))) return ['prior_children_records'];
+  const shaped = (c, index) => c !== null && typeof c === 'object' && c.childId === index + 1 && Number.isSafeInteger(c.pid) && c.pid > 0 && Array.isArray(c.kills) && Array.isArray(c.events);
+  if (!children.every(shaped)) return ['prior_children_records'];
   if (cleanupViolations(children).length || !isDeepStrictEqual(doc.cleanupViolations, [])) v.push('prior_cleanup_evidence');
   if (children.some(c => c.closeObserved !== true || c.kills.length) || !isDeepStrictEqual(doc.leftoverPids, [])) v.push('prior_leftovers');
+  const lifecycleOk = c => isDeepStrictEqual(c.events, CHILD_EVENTS) && c.spawnEventSeen === true && c.spawnError === false && c.exitSeen === true
+    && c.closeObserved === true && c.exitCode === 0 && c.signal === null && c.kills.length === 0 && typeof c.spawnedAt === 'string'
+    && finite(c.spawnedMonoMs) && finite(c.spawnReturnedMonoMs) && finite(c.closeMonoMs) && c.spawnedMonoMs <= c.spawnReturnedMonoMs && c.spawnReturnedMonoMs <= c.closeMonoMs;
+  if (!children.every(lifecycleOk)) v.push('prior_child_lifecycle');
+  if (children.some((c, i) => i > 0 && !(finite(children[i - 1].closeMonoMs) && finite(c.spawnedMonoMs) && children[i - 1].closeMonoMs <= c.spawnedMonoMs))) v.push('prior_child_overlap');
+  const build = children.slice(0, BUILD_CHILD_SCRIPTS.length), measured = children.slice(BUILD_CHILD_SCRIPTS.length);
+  if (!isDeepStrictEqual(build.map(c => c.script), [...BUILD_CHILD_SCRIPTS])) v.push('prior_build_children');
   const named = block === 'timing'
     ? doc.rows.flatMap(row => [row?.calibration?.child, ...(Array.isArray(row?.attempts) ? row.attempts.map(a => a?.child) : [])]).filter(c => c !== undefined)
     : doc.runs;
-  if (!named.every(c => c?.closeObserved === true && byPid.get(c.pid)?.closeObserved === true)) v.push('prior_child_close');
+  const linked = (ref, rec) => ref !== null && typeof ref === 'object' && rec !== undefined && ref.childId === rec.childId && ref.pid === rec.pid
+    && ref.startedAt === rec.spawnedAt && isDeepStrictEqual(ref.nodeArgs, rec.nodeArgs) && rec.script === childScript;
+  if (named.length !== measured.length || !named.every((ref, i) => linked(ref, measured[i]))) v.push('prior_child_links');
+  if (!named.every(ref => ref?.status === 'completed' && ref.exitCode === 0 && ref.signal === null && ref.closeObserved === true
+    && ref.closeMissing === undefined && isDeepStrictEqual(ref.kills, []))) v.push('prior_child_close');
   if (doc.blockEndKills?.length || doc.spawnSaveErrors?.length) v.push('prior_block_end');
   return v;
 }
 // m-7: a prior block is accepted only when its stored verdicts survive the validators again, its verdicts are
 // re-derived from the raw data by the runner (`rederive`, primary r1 R1), every success condition holds and its
 // identity matches the current block. A hand-written 'pass' is not enough. Damaged shapes are refused.
-export function validatePriorBlock(doc, { block, expected, timingFinal, memoryOutcome, rederive }) {
+export function validatePriorBlock(doc, { block, expected, timingFinal, memoryOutcome, rederive, childScript }) {
   const r = [];
   if (doc === null || typeof doc !== 'object' || Array.isArray(doc)) return ['prior_missing'];
   if (!Array.isArray(doc.rows) || !Array.isArray(doc.children) || (block === 'memory' && !Array.isArray(doc.runs))) return ['prior_shape'];
   if (typeof rederive !== 'function') return ['prior_rederive_missing'];
+  if (typeof childScript !== 'string' || !childScript) return ['prior_child_script_missing'];
   if (doc.schema !== P10.schema || doc.run !== P10.runId || doc.block !== block) r.push('prior_identity');
   if (doc.status !== 'pass' || doc.exitCode !== 0) r.push('prior_status');
   const keys = (doc.rows ?? []).map(x => x.key);
@@ -408,7 +437,7 @@ export function validatePriorBlock(doc, { block, expected, timingFinal, memoryOu
     if ((doc.runs ?? []).length !== 108) r.push('prior_runs');
   }
   r.push(...rederive(block, doc).map(reason => `prior_${reason}`));
-  r.push(...priorChildViolations(doc, block));
+  r.push(...priorChildViolations(doc, block, childScript));
   if (doc.build?.status !== 'completed') r.push('prior_build');
   if (!isDeepStrictEqual(doc.integrityErrors, [])) r.push('prior_integrity');
   if (doc.budgetStop !== undefined || doc.budgetExpired !== undefined || doc.error !== undefined) r.push('prior_body');
