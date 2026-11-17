@@ -177,6 +177,74 @@ function memoryOutcome(runs) {
   const status = C.mandatoryBlockStatus({ rows });
   return { rows, status, exitCode: exitCodeFor(status), refFailedRows: rows.filter(r => r.status === 'ref_failed').map(r => r.key), rawIncompleteRows: rows.filter(r => !r.rawComplete).map(r => r.key) };
 }
+// Primary r1 R1 (supplement m-7): a prior pass is re-derived from its raw data with the run3 definitions above
+// (row mapping, calibration stop condition, attempt order, schedule, samples, statistics, A/A, gate; memory run
+// order and rows). The thresholds and verdict rules are the ones the block itself used. Returns violations.
+function timingDerivedStatus(entry, at) {
+  const cal = entry.calibration, last = Array.isArray(cal?.steps) ? cal.steps.at(-1) : undefined;
+  if (cal?.child?.status !== 'completed') return 'invalid';
+  if (!last || last.k !== cal.k || !calibrationDone(last.base, last.candidate)) return 'invalid';
+  if (entry.k !== cal.k) at('k');
+  if (!Array.isArray(entry.attempts)) { at('attempts'); return 'invalid'; }
+  if (entry.attempts.length > P.maxAttempts) at('attempt_count');
+  const SCHEDULE = schedule();
+  for (const [index, a] of entry.attempts.entries()) {
+    const number = index + 1, isLast = index === entry.attempts.length - 1;
+    const stop = status => { if (!isLast) at(`attempt${number}_after_stop`); return status; };
+    if (a?.number !== number) at(`attempt${number}_number`);
+    if (a?.child?.status !== 'completed') return stop('invalid');
+    const digests = a.digests ?? {};
+    if (new Set(Object.values(digests)).size !== 1 || Object.keys(digests).length !== 4) { if (a.status !== 'output_mismatch') at(`attempt${number}_status`); return stop('failed_correctness'); }
+    let derived;
+    try {
+      assert.equal(a.samples.length, SCHEDULE.length);
+      a.samples.forEach((s, i) => { assert.equal(s.order, i); assert.equal(s.label, SCHEDULE[i].label); assert.equal(s.arm, SCHEDULE[i].arm); });
+      const values = arm => a.samples.filter(s => s.label.startsWith('measure/') && s.arm === arm).map(s => s.ms);
+      derived = { B1: stats(values('B1')), B2: stats(values('B2')), C1: stats(values('C1')), C2: stats(values('C2')) };
+    } catch { if (a.status !== 'invalid_samples') at(`attempt${number}_status`); return stop('invalid'); }
+    const aa = { base: aaValid(derived.B1, derived.B2), candidate: aaValid(derived.C1, derived.C2) };
+    const gate = timeGate(derived[P.gateArms.reference], derived[P.gateArms.candidate]);
+    if (!isDeepStrictEqual(a.stats, json(derived))) at(`attempt${number}_stats`);
+    if (!isDeepStrictEqual(a.aa, json(aa))) at(`attempt${number}_aa`);
+    if (!isDeepStrictEqual(a.gate, json(gate))) at(`attempt${number}_gate`);
+    if (!isDeepStrictEqual(a.ratioC1toB1Median, json(derived.C1.median / derived.B1.median))) at(`attempt${number}_ratio`);
+    if (!aa.base.valid || !aa.candidate.valid) {
+      if (a.status !== 'invalid_aa') at(`attempt${number}_status`);
+      if (isLast) return 'invalid'; // last allowed attempt, or no retry within the budget
+      continue;
+    }
+    if (a.status !== 'valid') at(`attempt${number}_status`);
+    if (entry.selectedAttempt !== number) at('selectedAttempt');
+    return stop(gate.pass ? 'pass' : 'failed_gate');
+  }
+  return 'invalid';
+}
+function timingRederive(entry, row) {
+  if (!row) return ['row_extra'];
+  const v = [];
+  const at = what => v.push(`${row.key}:${what}`);
+  for (const field of ['key', 'op', 'gate', 'cand', 'ref']) if (entry?.[field] !== row[field]) at(`mapping_${field}`);
+  if (entry?.status === 'notRun') return v; // a notRun row is refused by the pass condition
+  const derived = timingDerivedStatus(entry ?? {}, at);
+  if (derived !== entry?.status) at(`status_${entry?.status}_derived_${derived}`);
+  return v;
+}
+const memoryRunPlan = () => {
+  const plan = [];
+  for (let repeat = 0; repeat < P.memoryRepeats; repeat++) for (const row of ROWS) for (const arm of repeat % 2 === 0 ? ['B1', 'C1'] : ['C1', 'B1']) plan.push([row.key, repeat, arm, row[arm.startsWith('C') ? 'cand' : 'ref']]);
+  return plan;
+};
+function priorRederive(block, doc) {
+  const v = [];
+  if (!isDeepStrictEqual(doc.schedule, json(scheduleFacts(schedule())))) v.push('schedule');
+  if (block === 'timing') doc.rows.forEach((entry, index) => v.push(...timingRederive(entry, ROWS[index])));
+  else {
+    if (!isDeepStrictEqual(doc.runs.map(r => [r?.key, r?.repeat, r?.arm, r?.inputId]), memoryRunPlan())) v.push('run_order');
+    const out = json(memoryOutcome(structuredClone(doc.runs)));
+    if (!isDeepStrictEqual(out.rows, doc.rows) || out.status !== doc.status || !isDeepStrictEqual(out.refFailedRows, doc.refFailedRows) || !isDeepStrictEqual(out.rawIncompleteRows, doc.rawIncompleteRows)) v.push('memory_rows');
+  }
+  return v.map(reason => `rederive:${reason}`);
+}
 // Copy guard pins (supplement M-1): run3 runner bytes (LF) and the run3 lines this runner removes.
 const RUN3_SHA256 = '61866e8def9604cb41eee908593420c86f0d413cc53cb9d8a0b27e9448e1eee9';
 const REMOVED_SHA256 = '6b49bb89f6c94850a714d73d5f3a732121e2f0c166c8101b832604f822dced5e';
@@ -371,6 +439,8 @@ function environment() {
     powerScheme: command('powercfg', ['/GETACTIVESCHEME']).trim() };
 }
 // P10> npm: owned child, budgeted timeout. A timeout cut by the work budget is BudgetExpired (build_incomplete).
+// Primary r1 R5: a failed log write in the close callback rejects the promise instead of escaping as an uncaught
+// exception; the promise settles once, and a budget-limited timeout keeps its BudgetExpired cause.
 async function npm(args, cwd, log) {
   const t = stepTimeout(C.P10.steps.cmd, 'npm');
   return new Promise((done, reject) => {
@@ -384,10 +454,13 @@ async function npm(args, cwd, log) {
     child.on('error', error => { clearTimeout(timer); reject(error); });
     spawned();
     child.on('close', code => {
-      clearTimeout(timer); clearTimeout(closeTimer); writeFileSync(log, output);
-      if (code === 0 && !timedOut) done();
-      else if (timedOut && t.budgetLimited) reject(new C.BudgetExpired(`npm ${args.join(' ')} stopped at the work budget`));
-      else reject(new Error(`npm ${args.join(' ')} failed (${code}, timeout=${timedOut})`));
+      clearTimeout(timer); clearTimeout(closeTimer);
+      let logError = null;
+      try { writeFileSync(log, output); } catch (error) { logError = error; }
+      const logNote = logError ? `; log not written: ${logError.message}` : '';
+      if (code === 0 && !timedOut && !logError) done();
+      else if (timedOut && t.budgetLimited) reject(new C.BudgetExpired(`npm ${args.join(' ')} stopped at the work budget${logNote}`));
+      else reject(new Error(code === 0 && !timedOut ? `npm ${args.join(' ')}: completed${logNote}` : `npm ${args.join(' ')} failed (${code}, timeout=${timedOut})${logNote}`, logError ? { cause: logError } : undefined));
     });
   });
 }
@@ -419,6 +492,13 @@ async function buildSnapshots(temp, head, logs) {
   return { snapshots, modules: { B1: dirs.base[0], B2: dirs.base[1], C1: dirs.candidate[0], C2: dirs.candidate[1] } };
 }
 
+// P10> Primary r1 R3: the assertions in buildSnapshots are its snapshot integrity checks (A/A copy, lockfile,
+// dist/core file set and differences); it has no other assertion. They are reported by type as IntegrityError.
+async function buildChecked(temp, head, logs) {
+  try { return await buildSnapshots(temp, head, logs); }
+  catch (error) { if (error instanceof assert.AssertionError) throw new C.IntegrityError('snapshot_integrity', String(error.message).slice(0, 300)); throw error; }
+}
+// P10<
 // ---------- block procedures ----------
 function makeContext(temp) {
   let counter = 0;
@@ -674,9 +754,12 @@ async function runBlock({ mode, output, prereg: preregArg, checks: runChecks = t
     const chain = mode === 'memory' ? [['timing', prereg, head]] : [['timing', prereg, hm], ['memory', hm, head]];
     const identityReasons = [];
     for (const [block, from, to] of chain) {
-      const v = to ? C.verifyRawOnlyCommit({ git, readBlob, from, to, path: C.officialOutput(block), block }) : { reasons: ['no_parent'] };
+      let v, reasons;
+      try { v = to ? C.verifyRawOnlyCommit({ git, readBlob, from, to, path: C.officialOutput(block), block }) : { reasons: ['no_parent'] }; }
+      catch (error) { v = { reasons: [`exception:${String(error.message).slice(0, 200)}`] }; }
       if (v.reasons.length) return refuse('prior_chain', true, `${block}: one raw-only commit with a passing receipt`, `${block}: ${v.reasons.join(',')}`);
-      const reasons = C.validatePriorBlock(v.doc, { block, expected: identity, timingFinal, memoryOutcome });
+      try { reasons = C.validatePriorBlock(v.doc, { block, expected: identity, timingFinal, memoryOutcome, rederive: priorRederive }); }
+      catch (error) { reasons = [`prior_validation_exception:${String(error.message).slice(0, 200)}`]; }
       const blockReasons = reasons.filter(r => !r.startsWith('identity:'));
       if (blockReasons.length) return refuse('prior_block_invalid', true, `${block}: verified pass`, `${block}: ${blockReasons.join(',')}`);
       identityReasons.push(...reasons.map(r => `${block}:${r}`));
@@ -704,8 +787,9 @@ async function runBlock({ mode, output, prereg: preregArg, checks: runChecks = t
     if (self) result.status = await selfCheck(result, temp, head, logs, save);
     else {
       let built = null;
-      try { built = await buildSnapshots(temp, head, logs); result.build = { status: 'completed' }; }
+      try { built = await buildChecked(temp, head, logs); result.build = { status: 'completed' }; }
       catch (error) {
+        if (error instanceof C.IntegrityError) result.integrityErrors.push(`${error.code}: ${error.message}`);
         if (!(error instanceof C.BudgetExpired)) { result.build = { status: 'error' }; throw error; }
         result.build = { status: 'build_incomplete', reason: error.message };
       }
@@ -777,7 +861,7 @@ async function runBlock({ mode, output, prereg: preregArg, checks: runChecks = t
   });
   finalize('owned_processes', () => {
     const unclosed = OWN.leftovers();
-    if (unclosed.length) result.blockEndKills = OWN.killUnclosed(BUDGET.finalTimeout(C.P10.steps.kill)?.ms ?? 0);
+    if (unclosed.length) result.blockEndKills = OWN.killUnclosed(() => BUDGET.finalTimeout(C.P10.steps.kill)?.ms ?? 0); // primary r1 M1
     result.leftoverPids = unclosed;
     result.cleanupViolations = C.cleanupViolations(OWN.records());
     if (result.cleanupViolations.length) throw new Error(`owned process cleanup not confirmed: ${result.cleanupViolations.join(',')}`);

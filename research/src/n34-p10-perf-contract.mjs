@@ -67,6 +67,11 @@ export function createBudget({ capMs, reserveMs, now }) {
   };
   return b;
 }
+// Primary r1 R3: a failed snapshot integrity check (A/A copy, lockfile, dist/core files) is reported by type,
+// apart from install, build and resource errors, so that the informational block records it as integrity (D-4).
+export class IntegrityError extends Error {
+  constructor(code, message) { super(message); this.name = 'IntegrityError'; this.code = code; }
+}
 export const isTimeoutError = error => error?.code === 'ETIMEDOUT' || error?.timedOut === true;
 export function runBudgeted(budget, capStepMs, fn, what = 'step') {
   const { ms, budgetLimited } = budget.workTimeout(capStepMs, what);
@@ -249,8 +254,11 @@ export function createOwnership({ execFileSync, lifecycleConfirmed = false }) {
       }
     },
     leftovers: () => [...owned.values()].filter(r => !r.closeObserved).map(r => r.pid),
-    // Block end (plan 6.2): try the same ownership kill on every owned child that has not closed.
-    killUnclosed: timeoutMs => [...owned.entries()].filter(([, r]) => !r.closeObserved).map(([child, r]) => ({ pid: r.pid, killed: own.kill(child, timeoutMs) })),
+    // Block end (plan 6.2): try the same ownership kill on every owned child that has not closed. The timeout is
+    // evaluated again right before each kill (primary r1 M1), so a kill that spent the remaining total budget leaves
+    // nothing for the next one; without a function nothing is killed (fail closed).
+    killUnclosed: timeoutFor => [...owned.entries()].filter(([, r]) => !r.closeObserved)
+      .map(([child, r]) => ({ pid: r.pid, killed: own.kill(child, typeof timeoutFor === 'function' ? timeoutFor() : 0) })),
     records: () => [...owned.values()],
   };
   return own;
@@ -311,8 +319,31 @@ export function selfCheckOutputViolations(path, root) {
 }
 
 // ---------- raw-only commit chain (plan 6.5, supplement n-2/m-6/m-7) ----------
-// `to` must be exactly one commit on top of `from` whose only change adds `path`, with exactly one
-// receipt naming the same file hash, block, pass status, exit 0 and no cap overrun.
+// Primary r1 R2: a receipt can open the next block only with exactly the success fields, the block's fixed C,
+// whole non-negative ms, capOverrunMs = max(0, elapsedMs - C) = 0, no errors and no save failure.
+export const RECEIPT_FIELDS = Object.freeze(['receipt', 'run', 'block', 'output', 'sha256', 'status', 'exitCode', 'elapsedMs', 'capMs', 'capOverrunMs', 'errors']);
+const wholeMs = value => Number.isSafeInteger(value) && value >= 0;
+export function successReceiptViolations(receipt, block) {
+  if (receipt === null || typeof receipt !== 'object' || Array.isArray(receipt)) return ['receipt_type'];
+  const v = [];
+  const keys = Object.keys(receipt);
+  if (keys.length !== RECEIPT_FIELDS.length || !RECEIPT_FIELDS.every(key => Object.hasOwn(receipt, key))) v.push('receipt_fields');
+  if (receipt.receipt !== 'p10' || receipt.run !== P10.runId || receipt.block !== block || receipt.output !== officialOutput(block)) v.push('receipt_identity');
+  if (typeof receipt.sha256 !== 'string' || !/^[0-9a-f]{64}$/.test(receipt.sha256)) v.push('receipt_sha256_format');
+  if (receipt.status !== 'pass' || receipt.exitCode !== 0) v.push('receipt_status');
+  const cap = P10.capMs[block];
+  if (receipt.capMs !== cap) v.push('receipt_cap');
+  if (!wholeMs(receipt.elapsedMs)) v.push('receipt_elapsed');
+  if (!wholeMs(receipt.capOverrunMs)) v.push('receipt_cap_overrun_type');
+  else if (wholeMs(receipt.elapsedMs) && receipt.capOverrunMs !== Math.max(0, receipt.elapsedMs - cap)) v.push('receipt_cap_arithmetic');
+  if (receipt.capOverrunMs !== 0) v.push('receipt_cap_overrun');
+  if (!Array.isArray(receipt.errors) || receipt.errors.length !== 0) v.push('receipt_errors');
+  if (Object.hasOwn(receipt, 'saveFailed') || Object.hasOwn(receipt, 'saveError')) v.push('receipt_save_failed');
+  return v;
+}
+// `to` must be exactly one commit on top of `from` whose only change adds `path`, with exactly one success
+// receipt (above) naming the same file hash. The raw cut-off precedes the receipt time, so only a contradiction
+// between them is refused (raw C differs, or the raw finalEndMs is later than the receipt elapsedMs).
 export function verifyRawOnlyCommit({ git, readBlob, from, to, path, block }) {
   const reasons = [];
   let receipt = null, doc = null;
@@ -324,21 +355,44 @@ export function verifyRawOnlyCommit({ git, readBlob, from, to, path, block }) {
   let blob = null;
   try { blob = readBlob(to, path); } catch { reasons.push('blob_missing'); }
   try { [receipt] = parseReceipts(git(['log', '-1', '--format=%B', to])); } catch (error) { reasons.push(`receipt:${error.message}`); }
-  if (blob && receipt) {
-    if (receipt.receipt !== 'p10' || receipt.run !== P10.runId || receipt.block !== block || receipt.output !== path) reasons.push('receipt_identity');
-    if (receipt.sha256 !== sha256(blob)) reasons.push('receipt_sha256');
-    if (receipt.status !== 'pass' || receipt.exitCode !== 0) reasons.push('receipt_status');
-    if (receipt.capOverrunMs !== 0) reasons.push('receipt_cap_overrun');
+  if (receipt) {
+    reasons.push(...successReceiptViolations(receipt, block));
+    if (receipt?.output !== path) reasons.push('receipt_output');
   }
+  if (blob && receipt && receipt.sha256 !== sha256(blob)) reasons.push('receipt_sha256');
   if (blob) { try { doc = JSON.parse(blob.toString('utf8')); } catch { reasons.push('raw_unreadable'); } }
   if (doc && receipt && (doc.status !== receipt.status || doc.exitCode !== receipt.exitCode)) reasons.push('receipt_file_mismatch');
+  if (doc?.budget && receipt && typeof receipt === 'object') {
+    if (doc.budget.capMs !== receipt.capMs) reasons.push('receipt_raw_cap');
+    if (!(Number.isFinite(doc.budget.finalEndMs) && Number.isFinite(receipt.elapsedMs) && doc.budget.finalEndMs <= receipt.elapsedMs)) reasons.push('receipt_raw_elapsed');
+  }
   return { reasons, receipt, doc };
 }
-// m-7: a prior block is accepted only when its stored verdicts survive the validators again, every
-// success condition holds and its identity matches the current block. A hand-written 'pass' is not enough.
-export function validatePriorBlock(doc, { block, expected, timingFinal, memoryOutcome }) {
+// Primary r1 R1: the owned-child evidence of a prior block must agree with itself. Every child record is closed with
+// no kill, the stored summaries are empty and equal the ones derived from the records, and every child that a timing
+// row or memory run names exists as a closed owned record.
+function priorChildViolations(doc, block) {
+  const v = [];
+  const children = doc.children;
+  const byPid = new Map(children.map(c => [c?.pid, c]));
+  if (byPid.size !== children.length || !children.every(c => Number.isSafeInteger(c?.pid) && c.pid > 0 && Array.isArray(c.kills))) return ['prior_children_records'];
+  if (cleanupViolations(children).length || !isDeepStrictEqual(doc.cleanupViolations, [])) v.push('prior_cleanup_evidence');
+  if (children.some(c => c.closeObserved !== true || c.kills.length) || !isDeepStrictEqual(doc.leftoverPids, [])) v.push('prior_leftovers');
+  const named = block === 'timing'
+    ? doc.rows.flatMap(row => [row?.calibration?.child, ...(Array.isArray(row?.attempts) ? row.attempts.map(a => a?.child) : [])]).filter(c => c !== undefined)
+    : doc.runs;
+  if (!named.every(c => c?.closeObserved === true && byPid.get(c.pid)?.closeObserved === true)) v.push('prior_child_close');
+  if (doc.blockEndKills?.length || doc.spawnSaveErrors?.length) v.push('prior_block_end');
+  return v;
+}
+// m-7: a prior block is accepted only when its stored verdicts survive the validators again, its verdicts are
+// re-derived from the raw data by the runner (`rederive`, primary r1 R1), every success condition holds and its
+// identity matches the current block. A hand-written 'pass' is not enough. Damaged shapes are refused.
+export function validatePriorBlock(doc, { block, expected, timingFinal, memoryOutcome, rederive }) {
   const r = [];
-  if (!doc) return ['prior_missing'];
+  if (doc === null || typeof doc !== 'object' || Array.isArray(doc)) return ['prior_missing'];
+  if (!Array.isArray(doc.rows) || !Array.isArray(doc.children) || (block === 'memory' && !Array.isArray(doc.runs))) return ['prior_shape'];
+  if (typeof rederive !== 'function') return ['prior_rederive_missing'];
   if (doc.schema !== P10.schema || doc.run !== P10.runId || doc.block !== block) r.push('prior_identity');
   if (doc.status !== 'pass' || doc.exitCode !== 0) r.push('prior_status');
   const keys = (doc.rows ?? []).map(x => x.key);
@@ -353,6 +407,12 @@ export function validatePriorBlock(doc, { block, expected, timingFinal, memoryOu
     if (out.status !== 'pass' || !isDeepStrictEqual(out.rows.map(x => [x.key, x.status]), (doc.rows ?? []).map(x => [x.key, x.status]))) r.push('prior_raw_recheck');
     if ((doc.runs ?? []).length !== 108) r.push('prior_runs');
   }
+  r.push(...rederive(block, doc).map(reason => `prior_${reason}`));
+  r.push(...priorChildViolations(doc, block));
+  if (doc.build?.status !== 'completed') r.push('prior_build');
+  if (!isDeepStrictEqual(doc.integrityErrors, [])) r.push('prior_integrity');
+  if (doc.budgetStop !== undefined || doc.budgetExpired !== undefined || doc.error !== undefined) r.push('prior_body');
+  if (doc.budget?.capMs !== P10.capMs[block] || doc.budget?.reserveMs !== P10.reserveMs) r.push('prior_budget');
   if ((doc.finalizationErrors ?? []).length) r.push('prior_finalization');
   if ((doc.leftoverPids ?? []).length || doc.tempCleanup !== true) r.push('prior_cleanup');
   if ((doc.preservation?.changed ?? ['?']).length) r.push('prior_preservation');

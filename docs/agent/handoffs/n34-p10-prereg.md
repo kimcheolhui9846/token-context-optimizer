@@ -52,6 +52,7 @@
 - memory: 3반복이 모두 끝난 행만 확정 판정이다. 완결 행 CAND OOM은 failed_gate(4), 반복 부족 + OOM은 `missing_runs` invalid(5)이고 OOM raw는 남긴다. repeat 우선 순서(짝수 회 BASE→CAND, 홀수 회 CAND→BASE)
 - 원자료: 계획 §6.4 단계 표. 필수 행은 pass만 invalid(`raw_incomplete`)가 되고, 정보용 행은 V만 I(raw)가 된다. C·X·I(aa)·I(run)은 그대로 두고 빠진 항목을 옆에 적는다
 - 정보용 행: V·X·C·I(aa)·I(run)·I(raw)·N. 블록은 I(run)·I(raw)·N·`rawComplete` false·마무리 실패·`capOverrunMs` > 0이면 error(1), 아니면 `completed_informational`(0)
+- snapshot 무결성(primary r1 R3): `buildSnapshots`의 assertion(A/A 사본 일치, lockfile 동일, dist/core 파일 집합, `policy.js`만 다름)이 실패하면 `IntegrityError`(`snapshot_integrity`)로 `integrityErrors`에 남는다. 일반 설치·빌드·자원 오류와 구별하며, 정보용에서는 D-4다
 - F1 처분(계획 §7.3, 위에서 처음 맞는 것): D-3(J2 PASS 아님) > D-4(무결성: C 행·신원·snapshot·환경·추적 파일 변화) > D-2(블록 비수용 또는 F1 I(aa)) > D-1(F1 두 행 V·X, X ≥ 1) > D-0(F1 두 행 V). F1 행은 `O1/F1:same-input`, `O2/F1:same-input`
 - D-0도 측정 범위의 관찰일 뿐이다. 성능 보장·위험 해소로 쓰지 않는다. 결과를 보고 재실행·선택·합산하지 않는다
 
@@ -74,7 +75,11 @@ node research/src/n34-p10-perf.mjs --prereg=<동결 sha> --block=info   --output
 - 운영자는 receipt의 sha256이 파일과 같고 실제 exit이 receipt와 같은지 확인한 뒤, 그 파일 하나만 추가하는 commit을 만든다. commit 본문에 receipt 줄을 그대로 한 번 넣는다. 다른 파일은 넣지 않는다
 - memory 시작 조건: `--prereg..HEAD`가 commit 1개, `--name-status --no-renames` = `A research/results/n34-p10/perf-p10run1-timing.json` 한 줄, receipt 1개(파일 blob sha256·block·run·output 일치, status pass, exit 0, `capOverrunMs` 0), 파일 status·exitCode가 receipt와 같음
 - 정보용 시작 조건: 위 timing 조건 + `Hm..HEAD`가 memory 파일 하나만 추가하는 commit 1개와 같은 receipt 조건
+- receipt 검사(primary r1 R2): 필드가 정확히 `receipt, run, block, output, sha256, status, exitCode, elapsedMs, capMs, capOverrunMs, errors`이고, `sha256`은 64자리 16진수, `capMs` = 그 블록의 C, `elapsedMs`·`capOverrunMs`는 0 이상의 정수, `capOverrunMs` = max(0, `elapsedMs` − C) = 0, `errors` = `[]`, `saveFailed`·`saveError` 없음. 원자료의 `budget.capMs`가 receipt와 다르거나 원자료 `budget.finalEndMs`가 receipt `elapsedMs`보다 늦으면 모순으로 거부한다(원자료는 마지막 저장 전 시각이라 두 값이 같기를 요구하지 않는다)
 - 앞 블록은 저장된 `pass`만 믿지 않는다. 18 key 순서·각 1회·pass·`rawComplete`, 단계별 원자료 검사 재실행(timing) 또는 memory 판정 재계산 일치·child 108개, `finalizationErrors` 0, 잔류 pid 0, 임시 폴더 정리, 추적 파일 불변, 환경 불변, `capOverrunMs` 0이어야 한다
+- 원자료 재판정(primary r1 R1, 기존 run3 정의 그대로): timing은 행 매핑, 보정 child 완료·마지막 단계 k·멈춤 조건, attempt 번호 1부터 연속·최대 3회·멈춘 뒤 attempt 없음, digest 4개 일치, 표본 144개의 order·label·arm이 schedule과 같음, 표본에서 다시 낸 통계·A/A·gate·비율이 저장값과 같음, `selectedAttempt`, 다시 낸 행 판정 = 저장 판정, `schedule` 요약 일치. memory는 (row, repeat, arm, inputId) 108개가 정확한 실행 순서와 같고, run에서 다시 낸 행·블록 판정·`refFailedRows`·`rawIncompleteRows`가 저장값과 같음
+- child 정리 증거(primary r1 R1): `children` 기록마다 안전한 pid·close 관측·종료 시도 없음, 기록에서 다시 낸 `cleanupViolations`·`leftoverPids`가 비어 있고 저장값도 `[]`, timing 행과 memory run이 가리키는 child가 모두 close된 소유 기록으로 있음, `blockEndKills`·`spawnSaveErrors` 없음. 또한 `build.status` completed, `integrityErrors` `[]`, 본문 오류·예산 중단 없음, `budget.capMs`·`reserveMs`가 사전 등록 값
+- 원자료 형태가 깨졌거나 검사 중 예외가 나도 거부 JSON 한 줄과 exit 1로 끝낸다(결과 파일 미생성)
 - 신원 대조: run, schema, `preregistrationCommit`, `files`(하네스·prereg·`policy.ts`·package 파일 blob), BASE, CAND 제품(`HEAD:src` tree, package blob, numstat), `inputs`, `protocol`, `p10` 상수, `environment` 전체, snapshot(CAND ref 제외). 다르면 거부한다
 
 ## 7. 프로세스 소유·중단·정리 (보완 M-2, 계획 §6.2)
@@ -87,9 +92,9 @@ node research/src/n34-p10-perf.mjs --prereg=<동결 sha> --block=info   --output
   1. 결과 파일은 `incomplete`로 둔다. 재개하지 않고 같은 이름을 다시 쓰지 않는다
   2. 결과 파일의 `children`에서 `closeObserved: false`인 pid와 `spawnedAt`·`script`를 적는다
   3. PowerShell에서 읽기만 한다: `Get-CimInstance Win32_Process -Filter "ProcessId=<pid>" | Select-Object ProcessId, ParentProcessId, Name, ExecutablePath, CommandLine, CreationDate`
-  4. 실행 파일이 `node.exe`이고 명령행에 기록된 worker 경로 또는 임시 폴더(`tco-n34-p10-`)가 있으며, `CreationDate`가 기록된 `spawnedAt` 뒤이고 부모 중단 앞일 때만 같은 프로세스로 본다. 시간 허용오차를 임의로 정하지 않는다
-  5. 위가 모두 맞을 때만 `taskkill /PID <pid> /T /F`로 그 트리를 끝내고 명령·결과를 기록한다. 하나라도 확인되지 않으면 종료하지 않고 "중단·수동 확인 필요"로 남긴다
-  6. 임시 폴더는 `%TEMP%`의 `tco-n34-p10-` 접두사·위치를 확인한 뒤 지운다
+  4. 이 하네스는 child의 OS 생성 시각 기준선을 기록하지 않는다. 결과 파일의 `spawnedAt`·`spawnReturnedAt`은 부모가 본 시각이고 OS `CreationDate`가 아니다. 그래서 저장된 PID, 부모 시각, 그 사이 구간, 실행 파일·명령행 일치만으로는 같은 프로세스임을 확인할 수 없다(PID 재사용, 같은 작업의 다른 실행을 배제하지 못함). 시간 허용오차를 정하지 않는다
+  5. 따라서 부모 중단 뒤에는 저장된 PID로 어떤 프로세스도 종료하지 않는다. 3의 조회 결과(일치·불일치·없음)를 기록하고 "중단·수동 확인 필요"로 보고하는 데서 멈춘다. 남은 프로세스의 처리는 이 하네스 밖에서 사용자·PM이 따로 확인해 결정한다. 이 절차에 새 OS 조회나 자동 종료를 더하지 않는다
+  6. 임시 폴더(`%TEMP%`의 `tco-n34-p10-` 접두사)는 5의 확인이 끝난 뒤, 접두사·위치를 확인하고 지운다
 - 전원 차단·OS 중단에서는 저장과 정리를 보장하지 않는다
 
 ## 8. self-check (저장소 밖)
