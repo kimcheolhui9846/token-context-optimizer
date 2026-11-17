@@ -103,3 +103,26 @@ node research/src/n34-p10-perf.mjs --self-check --output=<저장소 밖 절대 �
 - 공식 timing·memory·정보용: **미실행.** K1 timing INVALID, memory NOT RUN, same-input F1 미해결은 그대로다
 - O2 A/A 불안정의 기제는 미확인이다. P-1은 이를 고치지 않는다(계획 §9)
 - 하네스 검증(node:test·check-only·self-check) 통과는 성능·F1 해소의 근거가 아니다
+
+## 10. 동결 기록 (blob pin, 이 prereg 자신은 제외)
+- 동결 commit은 이 파일을 마지막으로 바꾼 commit이다. 실행 때 `--prereg=<그 sha>`로 넘기고, timing 시작 HEAD가 그 commit과 같아야 한다
+- 아래 blob은 `git rev-parse HEAD:<path>`(커밋 blob, LF 기준) 값이다. runner는 실행마다 같은 값을 `files`에 다시 기록하고 블록 사이에 대조한다
+
+| 파일 | blob |
+|---|---|
+| `research/src/n34-p10-perf.mjs` | `a9e2eb65ac76facb701e9e00fcff2f9ed9b854f2` |
+| `research/src/n34-p10-perf-contract.mjs` | `3bd4cb0067156dcefae5c1b9220ab9524f59d096` |
+| `research/test/n34-p10-perf.test.mjs` | `5a028d09a9ddfdfe330a6e174f25224bb95c351a` |
+| `research/src/n34-cr-policy-perf-inputs.mjs` | `e03a6197ddeca9cb78fbf4fb002c87b238d03095` |
+| `research/src/n34-cr-policy-perf-worker.mjs` | `c5ca276327c02134bb1a0ca111b22d43486b0bdb` |
+| `research/src/n34-cr-policy-perf-mem-worker.mjs` | `f225aa8e62975657089110439374987b7f49e60b` |
+| `research/src/n34-cr-policy-perf.mjs`(run3, copy guard 기준) | `d5ccf45356493ed4c1b6d2fa2b3f77e9d03cb42f` |
+| `docs/agent/handoffs/n34-cr-line-policy-prereg-run3.md` | `2338e888f0d76c7955ff86c6c4afcabbd67debed` |
+| `docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md` | `f3a1ba433748a5174141473de86ae33cef91a812` |
+| `docs/agent/handoffs/n34-cr-line-policy-prereg.md` | `55f3da93636bcd752677325e27ee70280a4fe979` |
+| `src/core/policy.ts` | `1945abe5095971cc157d0d38d9a886228354b3e7` |
+| `package.json` | `00130ae89264bd8241860857bf5c8d58efbc6d7d` |
+| `package-lock.json` | `4c65f8860373f5b6331b3c870427a3f90897e7c6` |
+| `HEAD:src` tree | `2fe72eaacbbf8afd75187e881d41cef044c21ce5` |
+
+- 하네스나 이 prereg를 다시 고치면 새 동결 commit이 생긴다. 그때는 새 SHA를 primary preflight에 다시 올린다
