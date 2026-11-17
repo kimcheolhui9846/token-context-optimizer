@@ -112,6 +112,7 @@ node research/src/n34-p10-perf.mjs --self-check --output=<저장소 밖 절대 �
 
 ## 10. 동결 기록 (blob pin, 이 prereg 자신은 제외)
 - primary r2 보완 뒤 다시 동결했다. 이전 동결 `7735d42`(primary r1 CHANGES REQUIRED)와 `c52826a`(primary r2 CHANGES REQUIRED)는 실행 후보에서 제외됐다. runner·contract·test blob이 바뀌었고 나머지는 같다
+- primary r3(@`89cfce8`, 하네스 코드 PASS WITH NOTES·문서 Minor 3) 뒤 문서 마감만 넣어 다시 동결했다. 바뀐 것은 Task handoff 정리와 이 절의 설명뿐이고, 하네스 코드·실행 정의·아래 blob pin 14개는 `89cfce8`과 같다. 실행 HEAD는 마지막 동결 commit이어야 하므로 `89cfce8`도 `--prereg` 후보가 아니다
 - 동결 commit은 이 파일을 마지막으로 바꾼 commit이다. 실행 때 `--prereg=<그 sha>`로 넘기고, timing 시작 HEAD가 그 commit과 같아야 한다
 - 아래 blob은 `git rev-parse HEAD:<path>`(커밋 blob, LF 기준) 값이다. runner는 실행마다 같은 값을 `files`에 다시 기록하고 블록 사이에 대조한다
 
