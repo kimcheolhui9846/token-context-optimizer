@@ -9,7 +9,7 @@
 
 ## 0. 요약
 - 질문: K1 제품 코드를 main과 직접 비교하는 공식 run 1회를 **어떤 프로토콜로** 하고, 같은 입력 F1 결과를 **어떻게 처분할지** 실행 전에 정한다
-- 권장 초안: **P-1 run3 측정 논리 그대로 + 운영 보강**(BASE main·CAND K1, 블록 시간 예산 집행, 정보용 원자료 완비, 블록 간 신원 대조)
+- 권장 초안: **P-1 run3 측정 논리 그대로 + 운영 보강**(BASE main·CAND K1, 블록 운영 예산 집행(수용 상한), 정보용 원자료 완비, 블록 간 신원 대조)
   - 승인된 N34 자원 gate가 묻는 것은 공개 호출 1회의 시간(median·p95)이다. P-1은 그 질문을 바꾸지 않는다
   - 알려진 위험: 같은 K1 CAND 코드에서 O2/F3 A/A가 3/3 무효였다(O-3). 다시 INVALID면 재실행하지 않고 중단·재결정한다
 - 정책 선택지: **P-2 고정 묶음 표본**은 질문을 "4연속 호출 합"으로 바꾸는 별도 정책 선택이다. 기본 권장이 아니다(§9)
@@ -53,7 +53,7 @@
 |---|---|---|
 | J1 A/A 측정 유효성 | 시도마다 B2/B1, C2/C1이 각각 median 비 0.95–1.05(또는 차 ≤ 0.1 ms)이고 p95 차의 절댓값 ≤ max(0.2 ms, 참조 p95 × 0.20). 필수 행은 최대 3시도, 정보용 행은 1시도 | 유효 / 무효. 필수 행 3회째 무효 = 행 INVALID |
 | J2 공식 필수 성능 | timing 블록 `pass`(18행 모두 pass) **그리고** memory 블록 `pass`. 블록 상태에는 마무리 검사(§6.3)가 포함된다 | PASS / failed_correctness / failed_gate / INVALID / error / `ref_failed` 포함 비PASS |
-| J3 정보용 기록 | (a) 정보용 행 8개 각각의 판정 (b) 정보용 블록 상태와 수용 조건(§7.2) | 행: §7.2의 V/X/C/I/N. 블록: 수용 / 측정 미완·운영 실패 / 무결성 실패 / 미실행 |
+| J3 정보용 기록 | (a) 정보용 행 8개 각각의 판정 (b) 정보용 블록 상태와 수용 조건(§7.2) | 행: §7.2의 V/X/C/I(aa·run·raw)/N. 블록: 수용 / 측정 미완·운영 실패 / 무결성 실패 / 미실행 |
 | J4 F1 최종 처분 | J2와 J3를 §7.3 우선순위로 합친 처분 | D-0 / D-1 / D-2 / D-3 / D-4 |
 
 - J1은 J2·J3의 전제다. J1 무효 행의 비율은 기록하되 해석하지 않는다
@@ -78,7 +78,7 @@
 | 관측 근거 | O-1 run3 PASS, O-6 | O-4·O-7: 무효의 모양이 사본 median이 두 무리 중 어느 쪽에 놓이느냐와 일치 | 반복 단위를 프로세스로 두는 일반 원칙 |
 | 가설(미확인) | 이번 run에서 두 무리 비율이 경계에서 벗어날 수 있다. 근거는 없다 | 묶음 합에서 한 호출의 무리 차이는 약 Δ/(K·T)로 작아진다. Δ 345–389 ms, T 2.05–2.35 s, K=4 → 약 3.7–4.8%. 이는 한 호출 차이의 크기 산술이며 A/A median 차이의 상한·확률·효과 증거가 아니다 | child 간 변동이 child 안 무리 효과보다 작다 |
 | 정책 | 기존 정책 안(측정 판정 동일). 운영 보강은 S-3 운영값 | 추정 대상 변경 → **별도 정책 승인 필요** | A/A·판정 집계·반복 단위 변경 → 큰 정책 변경 |
-| 자원 | 블록 예산 10 h / 1 h / 4 h 제안(§6.1). run3 실측 3.8 h + 5 min + 1.8 h | 블록 예산 24 h / 2 h / 10 h 제안. 검증된 소요 없음 | 미정(설계 없음) |
+| 자원 | 블록 운영 예산 C 10 h / 1 h / 4 h 제안(§6.1, 수용 상한). run3 실측 3.8 h + 5 min + 1.8 h | 운영 예산 C 24 h / 2 h / 10 h 제안. 검증된 소요 없음 | 미정(설계 없음) |
 | 회귀 위험 | K1 run1과 같은 CAND 코드에서 O2/F3 A/A 3/3 무효(O-3). 재발 가능 | 효과 미검증, 시간 약 4배, 다시 INVALID 가능 | 미정 |
 | 실패·무효 시 | 중단, 사용자 재결정(B 기본, P03 §6.1) | 같음 | 같음 |
 | 이 문서의 완성도 | 실행 전 prereg로 옮길 수 있는 수치·절차를 §5–§8에 적었다 | §4 표와 §6.1의 차이만 적었다. 정책 승인 뒤 같은 형식으로 prereg에 옮긴다 | timeout·예산·A/A 집계·오류 처리가 없다. 고르면 별도 설계·검토·승인이 필요하다 |
@@ -107,7 +107,7 @@
 | memory | 108 child, `--expose-gc`만, 600 s | 같음 | 같음 | 같음 | 아니오 | 아니오 |
 | 정보용 측정 | 필수 두 블록 pass 뒤, G-C 4입력 same-input × O1·O2, 1시도 | 같음 | 실효 K 규칙 적용 | 같음 | 아니오 | P-2만 예 |
 | 정보용 원자료 | O-9의 요약 필드만 | **전체 timing 행 형식**(§6.4, 구현 예정) | 같음 | 기록 강화 | 아니오 | 아니오 |
-| 시간 예산 | child timeout만, 블록 전체 상한 없음 | **블록 마감 시각과 남은 예산 집행**(§6.1, 구현 예정) | 같음, 수치만 다름 | 측정 같음 | 운영값(S-3) | 아니오 |
+| 시간 예산 | child timeout만, 블록 전체 상한 없음 | **블록 운영 예산 C와 단계 진입·timeout 집행**(§6.1, 구현 예정, 수용 상한) | 같음, 수치만 다름 | 측정 같음 | 운영값(S-3) | 아니오 |
 | 블록 간 신원 | 같은 run 이름의 이전 블록 `status`만 확인 | **run·prereg·하네스·제품 tree·snapshot·입력·protocol·환경 대조**(§6.5, 구현 예정) | 같음 | 기록 강화 | 아니오 | 아니오 |
 | 잔류 프로세스 | 기록 없음 | child pid·시작 시각 기록과 종료 확인(§6.2, 구현 예정) | 같음 | 기록 강화 | 아니오 | 아니오 |
 
@@ -129,8 +129,8 @@
 | 정보용 | 행마다 보정 child 1 + 시도 child 1 | 8행 | 같은 run의 timing·memory 모두 `pass`와 신원 일치 |
 
 - 순서: timing → memory → 정보용. timing은 첫 비PASS 행에서 멈춘다(기존). memory는 108 child를 모두 시도한다(기존, 예산 안에서)
-- 블록마다 raw를 바로 commit한다. 이 commit은 결과 파일만 바꾼다(§6.5)
-- 결과 파일(구현 예정 이름): `research/results/n34-p10/perf-p10run1-{timing,memory,info}.json`. 덮어쓰기 거부(기존)
+- 블록마다 raw를 바로 commit한다. 이 commit은 그 블록의 결과 파일 하나를 추가할 뿐이다(§6.5)
+- 결과 파일: run ID `p10run1`에서 도출한 정확한 이름 3개(§6.5). 덮어쓰기 거부(기존)
 
 ### 5.3 시도 child 안 (timing·정보용 공통, 기존 worker와 같음)
 1. 사본 4개(B1·B2 = BASE dist, C1·C2 = CAND dist 바이트 복사) import
@@ -148,28 +148,59 @@
 - 블록 본문의 예외(snapshot 명령 실패, snapshot 동일성 단언 실패 등)는 기존 `catch`에서 `error`(exit 1)가 된다
 
 ## 6. 시간 예산·실패 처리·원자료
-### 6.1 블록 시간 예산 (구현 예정, D1 방식 이식)
-- runner 시작 때 단조 시계로 블록 마감 시각 하나를 만든다. 예산 = 블록 상한 − 마무리 예비 R
-  - 제안: R = 10분. 마무리(소유 child 종료, raw 저장, 환경·추적 파일 검사, 임시 폴더 삭제, 잔류 확인)는 R 안에서 한다
-- 모든 하위 단계 timeout = min(그 단계의 기존 상한, 남은 예산 − R)
-  - 대상: preflight `git`·`powercfg`, snapshot의 `git archive`·`tar`·`npm ci`·`tsc`, 보정 child, 시도 child, memory child. 기존 상한은 명령 600 s, child 1,800 s·600 s다
-  - 남은 예산 − R ≤ 0이면 새 단계를 시작하지 않는다
-- **child 시작 조건:** 남은 예산 − R ≥ 그 child의 기존 timeout(timing·정보용 1,800 s, memory 600 s). 그래서 측정 중인 child를 예산 때문에 자르지 않는다. 시작하지 못한 것은 `notRun(budget)`이다
-- cooldown 30 s는 남은 예산 − R ≥ 30 s + 1,800 s일 때만 하고 다음 시도로 간다. 아니면 그 행은 `invalid(budget_before_retry)`다
-- snapshot 빌드가 **예산 때문에** 끝나지 않으면 모든 행이 `notRun(build_incomplete)`이고 블록은 invalid(exit 5)다. 이는 P10 구현 예정 규칙이다. 기존 K1 runner에서는 같은 상황이 예외 → `error`(exit 1)이고, D1에서는 `partial`(exit 2)이었다. 예산이 아닌 빌드 실패는 기존대로 `error`(exit 1)다
-- 동기 명령(`git`·`tar`·`tsc`·`powercfg`)은 timeout이 되면 직접 띄운 프로세스만 끝난다. `npm`과 child는 기록한 PID 트리를 `taskkill /PID <pid> /T /F`(최대 10 s)로 끝낸다. 이미지 이름으로 종료하지 않는다(D1 보완 1 §1의 한계와 같음)
+### 6.1 블록 운영 예산 (구현 예정, D1 방식 이식)
+- 정의는 블록마다 하나이고, 마무리 예비 R은 한 번만 뺀다
+  - t0 = runner 시작 단조 시각, C = 블록 운영 예산(아래 표), D = t0 + C, R = 10분, Dwork = D − R
+  - remainingWork = max(0, Dwork − now), remainingTotal = max(0, D − now)
+  - 작업 단계(preflight 명령, snapshot, 보정, 시도, cooldown, memory child)는 remainingWork만 쓴다. 마무리 단계(소유 child 종료, raw 저장, 환경·추적 파일 검사, 임시 폴더 삭제, 잔류 확인)는 remainingTotal만 쓴다
+- 단계 상한은 선택한 프로토콜 값을 prereg에 고정한다
 
-| 블록 | 기존 child 상한 | 블록 상한 없을 때 구성상 최대 | **제안 블록 상한(S-3)** | 과거 실측(검증된 P10 소요 아님) |
-|---|---|---|---|---|
-| P-1 timing | 보정 1,800 s + 시도 3 × 1,800 s + cooldown 60 s = 7,260 s/행 | 18행 × 7,260 s = 36.3 h | **10 h**(R 포함) | run3 3.8 h(O-1) |
-| P-1 memory | 600 s × 108 | 18 h | **1 h** | run3 약 5 min |
-| P-1 정보용 | (1,800 + 1,800) s × 8 | 8 h | **4 h** | run3 1.8 h |
-| P-2 timing / memory / 정보용 | 시도 7,200 s 기준 117.3 h / 18 h / 20 h | — | 24 h / 2 h / 10 h | 없음 |
-| snapshot 빌드 | 명령 600 s | 블록마다 | 블록 상한 안 | 수 분(K1 prereg §7) |
+| 기호 | 단계 | P-1 | P-2 |
+|---|---|---|---|
+| Tcmd | 명령 하나(`git`·`powercfg`·`git archive`·`tar`·`npm ci`·`tsc`) | 600 s | 600 s |
+| Tcal | 보정 child | 1,800 s | 1,800 s |
+| Tatt | 시도 child | 1,800 s | 7,200 s |
+| Tcool | A/A 무효 뒤 cooldown(필수 행만, 정보용은 1시도) | 30 s | 30 s |
+| Tmem | memory child | 600 s | 600 s |
+| Tkill | 소유 PID 트리 종료 | 10 s | 10 s |
 
-- P-1 runner 실행 시간 상한 합계는 15 h다. 마무리가 R을 넘으면 `overrunMs`를 기록하고 `pass`를 `error`로 바꾼다(상한도 승인된 protocol이다)
-- 상한에 들어가지 않는 시간: 블록 사이 대기·사용자 유휴, raw commit, 독립 재계산, 7단계 gate, 실행 전후 운영 확인(§6.2). 운영 창은 블록마다 상한 + 30분을 제안한다
-- 상한을 넘기지 않는다는 보장은 runner가 살아 있을 때만이다. 전원 차단·OS 중단에서는 저장과 정리를 보장하지 않는다
+- 진입 조건과 timeout(작업 단계)
+  - 명령: remainingWork > 0일 때만 시작한다. timeout = min(Tcmd, remainingWork)
+  - 행 시작(보정 child): remainingWork ≥ Tcal + Tatt. 아니면 그 행과 뒤 행은 `notRun(budget)`
+  - 시도 child: remainingWork ≥ Tatt일 때만 시작하고 timeout은 Tatt 그대로다. 진입 조건 때문에 시작한 child를 예산으로 자르지 않아도 Dwork 안에 끝난다
+  - 재시도: remainingWork ≥ Tcool + Tatt일 때만 cooldown 뒤 다음 시도로 간다. 아니면 그 행은 `invalid(budget_before_retry)`
+  - memory child: remainingWork ≥ Tmem. 아니면 남은 child는 `notRun(budget)`이고, 반복이 모자란 행은 기존 규칙대로 `missing_runs` invalid다
+- 마무리 단계: 각 단계 timeout = min(그 단계 상한, remainingTotal). remainingTotal이 0이어도 raw 저장은 시도하고 결과를 기록한다
+- snapshot 빌드가 remainingWork 부족으로 끝나지 않으면 모든 행이 `notRun(build_incomplete)`이고 블록은 invalid(exit 5)다
+  - 이는 P10 구현 예정 규칙이다. 기존 K1 runner에서는 같은 상황이 예외 → `error`(exit 1)이고, D1에서는 `partial`(exit 2)이었다
+  - 예산이 아닌 빌드 실패는 기존대로 `error`(exit 1)다
+- 종료 한계: 동기 명령(`git`·`tar`·`tsc`·`powercfg`)은 timeout이 되면 직접 띄운 프로세스만 끝난다. `npm`과 child는 기록한 PID 트리를 `taskkill /PID <pid> /T /F`(Tkill)로 끝낸다. 이미지 이름으로 종료하지 않는다(D1 보완 1 §1의 한계와 같음)
+
+#### C는 운영·수용 상한이다 (hard wall 아님)
+- 집행되는 것: 단계 진입 거부, 명령·child timeout. 정상 경로의 작업은 Dwork 안에 끝나도록 짜여 있다
+- 집행되지 않는 것: 동기 파일 작업(JSON 저장, 해시, 임시 폴더 삭제), OS 지연, 프로세스 종료 지연. runner는 이 작업을 중간에 끊지 않는다. 그래서 C는 "넘지 않는다"를 보장하는 벽이 아니다. **넘으면 비PASS로 처리하는 수용 상한**이다
+- 시간 기록(ms, 단조 시계)
+  - `workOverrunMs` = max(0, 작업 종료 − Dwork): 작업이 마무리 예비를 침범한 양
+  - `finalizationMs` = 마무리 종료 − 마무리 시작, `finalizationOverReserveMs` = max(0, finalizationMs − R): 마무리 자체가 R보다 오래 걸린 양
+  - `capOverrunMs` = max(0, 마무리 종료 − D): 총 예산 C를 넘은 양
+- 수용 규칙: **`capOverrunMs` > 0이면 블록 비PASS**다. 필수 블록 `pass`와 정보용 `completed_informational`만 `error`(exit 1)로 바꾸고, 이미 판정된 실패 상태는 그대로 둔다(§6.3, §7.2)
+  - `workOverrunMs`나 `finalizationOverReserveMs`가 0보다 커도 `capOverrunMs`가 0이면 기록만 한다
+  - 초과가 하나라도 있으면 원인과 실제 시간을 보고하고, 운영자가 잔류 프로세스·임시 폴더 상태를 확인해 기록한다
+- 엄밀한 hard wall(별도 watchdog 프로세스 등)이 필요하면 별도 설계·승인 대상이다. 이 계획은 그것을 추가하지 않는다
+- 전원 차단·OS 중단에서는 저장과 정리를 보장하지 않는다(§6.2)
+
+| 블록 | 예산이 없을 때 단계 상한으로 본 구성상 최대 | **제안 운영 예산 C(S-3, R 포함)** | 과거 실측(검증된 P10 소요 아님) |
+|---|---|---|---|
+| P-1 timing | 행마다 Tcal + 3 × Tatt + 2 × Tcool = 7,260 s, 18행 36.3 h | **10 h** | run3 3.8 h(O-1) |
+| P-1 memory | Tmem × 108 = 18 h | **1 h** | run3 약 5 min |
+| P-1 정보용 | (Tcal + Tatt) × 8 = 8 h | **4 h** | run3 1.8 h |
+| P-2 timing / memory / 정보용 | 행마다 1,800 + 3 × 7,200 + 60 = 23,460 s, 18행 117.3 h / 18 h / (1,800 + 7,200) s × 8 = 20 h | 24 h / 2 h / 10 h | 없음 |
+| snapshot 빌드 | 명령마다 Tcmd | 각 블록 C 안 | 수 분(K1 prereg §7) |
+
+- 용어를 하나로 쓴다
+  - **운영 예산 C**: runner 시작부터 마무리 종료까지. P-1 합계 15 h
+  - **운영 창**: 사용자가 PC를 비워 두는 시간. 블록마다 C + 30분(실행 전 확인, 실행 뒤 잔류 확인 포함)을 제안한다
+- C와 운영 창에 들어가지 않는 시간: 블록 사이 대기·사용자 유휴, raw commit, 독립 재계산, 7단계 gate
 
 ### 6.2 부모 중단·잔류 프로세스
 - child를 띄우는 즉시 pid와 시작 시각을 결과 파일에 저장한다(구현 예정)
@@ -181,35 +212,61 @@
 |---|---|---|---|
 | 1 | 판정된 행 중 failed_correctness가 있음 | 그대로 | failed_correctness, 3 |
 | 2 | 판정된 행 중 failed_gate가 있음 | 그대로 | failed_gate, 4 |
-| 3 | invalid 행(child 실패·A/A 3회 무효·원자료 누락·`missing_runs`·`budget_before_retry`) 또는 notRun(budget·build_incomplete)이 있음 | 사유별로 그대로 | invalid, 5 |
+| 3 | invalid 행(child 실패·A/A 3회 무효·원자료 누락·`missing_runs`·`budget_before_retry`), notRun(budget·build_incomplete), 또는 memory `ref_failed` 행이 있음 | 사유별로 그대로. `ref_failed` 행은 상태와 사유(REF child 상태 목록)를 유지 | invalid, 5. `refFailedRows`에 행 목록 |
 | 4 | 위가 없고 블록 본문 예외(예산 외 snapshot·명령 실패, 단언 실패) | 저장된 행까지 | error, 1(기존 `catch`). `error`에 원인 |
-| 5 | 위가 없고 마무리 검사 실패·`overrunMs` > 0·잔류 pid | 행은 pass | error, 1. `finalizationErrors`·`leftoverPids`·`overrunMs`에 원인 |
+| 5 | 위가 없고 마무리 검사 실패·`capOverrunMs` > 0·잔류 pid | 행은 pass | error, 1. `finalizationErrors`·`leftoverPids`·시간 기록에 원인 |
 | 6 | 부모 중단 | 저장된 행까지 | 파일에 `incomplete`가 남음(처분상 INVALID, 중단). 재개 없음 |
 | 7 | 모두 아님 | 18행 pass | pass, 0 |
 
 - 예산은 이미 판정된 행의 상태를 덮지 않는다. memory에서 앞 행이 failed_gate·failed_correctness로 끝났으면 뒤 child가 예산으로 notRun이어도 블록 상태는 1·2번이 우선이다
+- `ref_failed`는 REF(main) 쪽 자원 실패라 판정이 없는 행이다(기존 [memoryRow][k1-mem], [blockStatus][k1-block], [memoryOutcome][k1-memout])
+  - 더 높은 실패가 없으면 블록은 invalid(exit 5)다. failed_gate나 failed_correctness가 함께 있으면 블록 상태는 그쪽이고, `refFailedRows`와 각 행의 사유는 그대로 남는다
+  - 어느 경우든 J2 비PASS → D-3이다. 보고에는 블록 상태와 함께 "REF 실패 행: 새 사용자 결정 필요"를 올린다
 - 외부 원인 추정(백신 검사, 업데이트 등)만으로 INVALID·FAIL을 지우거나 재분류하지 않는다
 
-### 6.4 정보용 원자료 (구현 예정, K1 `timingRawViolations` 기준 확장)
+### 6.4 단계별 원자료 (구현 예정, K1 `timingRawViolations` 기준 확장)
 - 정보용 행도 필수 timing 행과 같은 형식으로 저장한다. 요약만 남기는 O-9 방식을 쓰지 않는다
-- 행 필드: `key, op, gate(원 행 값 G-C), cand, ref(=cand), informational: true, calibration, attempts, selectedAttempt, status, reason, rawViolations, rawComplete`
-  - `calibration`: `child`, `steps[]`(각 K와 B1·C1 5개 ms), `k`
-  - `attempts[0]`: `number, child, samples, digests, views, stats, aa, gate, ratioC1toB1Median, status`
-  - `samples`: 정확히 144개(warmup 24 + 측정 120), 각 `order, label, arm, ms`(ms 단위). P-2이면 `stampsMs`(K+1개) 추가
-  - `digests`·`views`: 사본 4개. `stats`: 사본 4개의 n=30·median·p95
-  - `selectedAttempt`: A/A 유효이면 1, 아니면 없음
+- 행 공통 필드(항상 필수): `key, op, gate(원 행 값 G-C), cand, ref(=cand), informational: true, calibration.child, attempts(배열, 비어 있을 수 있음), status, reason, rawViolations, rawComplete`
 - `child` 기록 필드: `status, exitCode, signal, wallMs, startedAt, finishedAt, nodeArgs, pid, stderrTail`
-- **실제 child 실패와 원자료 손실을 구분한다.** child가 `completed`가 아니면 `child` 기록만 필수이고 표본·digest·통계는 없어도 된다(사유 = child 상태). child가 `completed`인데 위 필드가 빠지거나 개수가 맞지 않으면 원자료 손실이며 행은 `I(raw)`다
-- 정보용 블록 수준: 필수 블록과 같은 `files`·`snapshots`·`inputs`·`protocol`·`environment`·`preservation`·`tempCleanup`·`finalizationErrors`·`budget` 기록
+- worker가 낸 **원시 자료**와 부모가 단계마다 계산하는 **파생 자료**를 나눈다
+  - 원시: `calibration.steps`(각 K와 B1·C1 5개 ms)·`calibration.k`, 시도의 `samples`(정확히 144개, 각 `order, label, arm, ms`, P-2이면 `stampsMs` K+1개 추가), `digests`·`views`(사본 4개)
+  - 파생: `stats`(사본 4개의 n=30·median·p95), `aa`, `gate`, `ratioC1toB1Median`, `selectedAttempt`
 
-### 6.5 블록 간 신원 (구현 예정)
-- 블록마다 raw commit 때문에 측정 HEAD가 달라질 수 있다. 그래서 이름과 `pass` 값만으로 이전 블록을 받아들이지 않는다
-- memory·정보용은 시작 전에 같은 run의 앞 블록 파일과 다음이 모두 같은지 확인하고, 다르면 실행을 거부한다
-  - run 이름, schema, `preregistrationCommit`, 하네스·prereg 파일 blob 해시(`files`)
+| 도달 단계(시도 상태) | 필수 | 그 단계에서 계산하지 않아 없어도 되는 것 | 정보용 행 판정 |
+|---|---|---|---|
+| 보정 child 비완료 | 공통 | `calibration.steps`·`k`, 시도(attempts = []) | I(run) |
+| 보정 완료, 정지 조건 미충족 | 공통 + `steps`·`k` | 시도(attempts = []) | I(run) |
+| 시도 child 비완료 | 위 + 시도 `number`·`child` | 그 시도의 원시·파생 전부 | I(run) |
+| 시도 완료, digest 불일치(`output_mismatch`) | 위 + `samples`·`digests`·`views` | 파생 전부 | C |
+| 시도 완료, 표본 순서·개수 오류(`invalid_samples`) | 위 + `digests`·`views`, `samples`는 받은 그대로 | 파생 전부 | I(raw) |
+| A/A 무효(`invalid_aa`) | 위 + `samples` 144개 + `stats`·`aa`·`gate`·`ratioC1toB1Median` | `selectedAttempt` | I(aa) |
+| 유효(`valid`) | 위 전부 + `selectedAttempt` = 1 | 없음 | V 또는 X |
+
+- `selectedAttempt`는 정확성·표본·A/A가 모두 유효할 때만 생긴다. 보정 실패처럼 시도가 없는 행에는 없다
+- "없어도 되는 것"의 부재는 손실이 아니다. 그 단계에서 계산하지 않았기 때문이다. 손실은 도달한 단계의 필수 항목이 빠진 경우뿐이다
+- 판정 보존(K1 [`applyRawCheck`][k1-raw]와 같은 원칙)
+  - 필수 항목이 빠지면 `rawViolations`에 적고 `rawComplete` = false다
+  - 행 판정은 **V만** `I(raw)`로 바뀐다(기존: pass만 invalid). 이미 판정된 C·X·I(aa)·I(run)은 그대로 두고 빠진 항목만 옆에 기록한다. C를 I(raw)로 덮지 않는다
+- 필수 timing 행도 같은 단계 표를 쓴다. 기존 [`timingRawViolations`][k1-rawv]가 이미 `output_mismatch`·`invalid_samples`에서 파생 필드 부재를 허용한다. 필수 행은 시도가 최대 3개이고, 판정 이름이 pass·failed_gate·failed_correctness·invalid다
+- 정보용 블록 수준: 필수 블록과 같은 `files`·`snapshots`·`inputs`·`protocol`·`environment`·`preservation`·`tempCleanup`·`finalizationErrors`·`budget`(§6.1 시간 기록 포함)
+
+### 6.5 블록 간 신원과 앞 블록 원자료 불변 (구현 예정)
+- run ID는 prereg에 `p10run1`로 고정한다. 결과 파일 이름은 run ID에서만 나온다
+  - timing `research/results/n34-p10/perf-p10run1-timing.json`
+  - memory `research/results/n34-p10/perf-p10run1-memory.json`
+  - 정보용 `research/results/n34-p10/perf-p10run1-info.json`
+  - `--output`이 블록에 맞는 이 이름과 다르면 실행을 거부한다. 파일이 이미 있으면 덮어쓰지 않는다(기존)
+- 블록마다 시작 HEAD를 `measurementHead`로 기록한다. 자기 결과 파일은 그 HEAD에 아직 없고, 블록이 끝난 뒤 raw commit 하나로 추가된다. 그래서 블록마다 HEAD가 다른 것은 정상이다
+- memory·정보용은 시작 전에 앞 블록 파일과 다음이 모두 같은지 확인한다. 다르면 실행을 거부한다
+  - run ID, schema, `preregistrationCommit`, 하네스·prereg 파일 blob 해시(`files`)
   - BASE ref와 BASE snapshot(`policyBlobSha1`, `lockfileSha256`, `distCoreSha256`)
   - CAND 제품 tree: `HEAD:src` tree 해시, `package.json`·`package-lock.json` blob, CAND snapshot 해시
   - 입력 sha256(`inputs`), protocol 상수(`protocol`), 환경(`environment` 전체)
-- 앞 블록의 측정 HEAD와 현재 HEAD의 차이는 **이 run의 결과 파일만** 허용한다(`git diff --name-only` ⊆ `research/results/n34-p10/`). 문서·하네스·제품 차이는 거부한다. 문서 수정은 run이 끝난 뒤 한다
+- 앞 블록 HEAD와 현재 HEAD 사이에 허용하는 변경은 아래뿐이다. Ht·Hm·Hi는 timing·memory·정보용 블록의 `measurementHead`다
+  - memory 시작: `Ht..Hm`이 정확히 commit 1개이고, 그 commit의 `git diff --name-status`가 `A research/results/n34-p10/perf-p10run1-timing.json` 한 줄
+  - 정보용 시작: `Ht..Hm` 조건을 다시 확인하고, `Hm..Hi`도 정확히 commit 1개이며 `A research/results/n34-p10/perf-p10run1-memory.json` 한 줄
+  - 앞 블록 파일 불변: 현재 HEAD의 앞 블록 결과 파일 blob이 그 파일을 추가한 commit의 blob과 같고, 작업 사본이 깨끗하다(기존 dirty 거부)
+- 거부: 앞 블록 raw의 수정(M)·삭제(D)·rename(R), 다른 run의 결과 파일 추가, 문서·하네스·제품 변경, raw commit 외의 commit. 문서 수정은 run이 끝난 뒤 한다
 
 ## 7. F1 same-input 처분 (S-2)
 ### 7.1 정보용 유지 대 필수 기준 신설
@@ -224,31 +281,45 @@
 
 - 권장: S2-a. 선택적으로 사용자가 실행 **전에** "수용할 수 있는 same-input F1 비의 상한"을 적어 둘 수 있다. 어느 쪽도 이 문서가 정하지 않는다
 
-### 7.2 정보용 행 판정과 블록 수용 조건
-| 행 판정 | 조건 |
+### 7.2 정보용 행 판정과 블록 상태
+| 행 판정 | 조건(§6.4 단계 표) |
 |---|---|
-| V | 시도 child completed, digest 4개 같음, 원자료 완비, A/A 유효, 정보용 한계 안 |
-| X | 위와 같고 정보용 한계 초과(`failed_gate` 표기) |
+| V | 유효 시도, 정보용 한계 안, 원자료 완비 |
+| X | 유효 시도, 정보용 한계 초과(`failed_gate` 표기) |
 | C | digest 불일치(`failed_correctness`, O-10). A/A·비율은 계산되지 않는다 |
-| I | A/A 무효 `I(aa)`, 보정·시도 child 실패 `I(run)`, completed child의 원자료 손실 `I(raw)` |
-| N | 실행되지 않음: 블록 미실행, 예산 `N(budget)`, 앞 child 실패나 중단 뒤 미도달 |
+| I(aa) | 시도 완료, 정확성·표본 정상, A/A 무효 |
+| I(run) | 보정 child 실패 또는 정지 조건 미충족, 시도 child 실패 |
+| I(raw) | 시도 완료지만 표본 순서·개수 오류, 또는 V가 될 행의 필수 원자료 누락 |
+| N | 실행되지 않음: 블록 미실행, 예산 `N(budget)`, 부모 중단 뒤 미도달 |
 
-- **정보용 블록 수용**(D-0·D-1의 전제): 8행 모두 시도 child completed, 원자료 완비, 마무리 검사 통과(환경 동일·추적 파일 불변·임시 폴더 정리), `overrunMs` = 0, 잔류 pid 없음, §6.5 신원 일치
-- 수용 실패 원인을 두 갈래로 기록한다
-  - **측정 미완·운영 실패**: child 실패, A/A 무효, 예산 notRun, 부모 중단, 임시 폴더 정리 실패, 잔류 pid, overrun. 행 값은 기록하되 F1을 V·X로 쓰지 않는다
-  - **무결성 실패**: 어느 행이든 digest 불일치(C), 신원 불일치, snapshot 동일성 단언 실패, 환경 변화, 추적 파일 변경. 성능 위험 수용으로 넘기지 않는다
-  - 정보용 블록이 본문 예외로 `error`가 되면 원인에 따라 위 두 갈래 중 하나로 기록한다
+- 정보용 블록은 행 하나가 실패해도 다음 행을 계속한다(run3와 같음). 그래서 행 판정은 다른 행에 영향을 주지 않는다
+- **정보용 블록 상태**(구현 예정, run3 규칙 확장). 위에서부터 처음 맞는 것 하나다
+  1. 부모 중단: 파일에 `incomplete`가 남는다
+  2. 본문 예외: `error`, exit 1
+  3. 어느 행이든 I(run)·I(raw)·N이거나 `rawComplete` = false: `error`, exit 1. run3도 child가 완료되지 않은 행이 있으면 `error`였다
+  4. 마무리 검사 실패·`capOverrunMs` > 0·잔류 pid: `error`, exit 1
+  5. 그 밖: `completed_informational`, exit 0. 행에 C·X·I(aa)가 있어도 블록 exit는 0이다. 처분은 §7.3이 따로 정한다
+- 실패 원인 두 갈래(J3 기록)
+  - **무결성 실패**: 어느 행이든 C, §6.5 신원·앞 블록 원자료 불변 위반, snapshot 동일성 단언 실패, 환경 변화, 추적 파일 변경. 성능 위험 수용으로 넘기지 않는다
+  - **측정 미완·운영 실패**: 블록 상태가 `completed_informational`이 아니고 원인이 무결성 실패가 아닌 경우. child 실패, 원자료 누락, 예산 notRun, 부모 중단, 임시 폴더 정리 실패, 잔류 pid, C 초과가 여기에 든다
+- **정보용 블록 수용**(D-0·D-1의 전제): 블록 상태 `completed_informational`이고 무결성 실패가 없다
 
 ### 7.3 F1 최종 처분 (우선순위 순)
 | 처분 | 조건 | 다음 단계 |
 |---|---|---|
-| D-3 | J2가 PASS가 아님(정보용은 미실행) | 중단. 사용자 재결정, B를 기본 후속으로 올린다(P03 §6.1). 필수 G-C F1 행(CR 대 LF)의 유효 FAIL이면 P03 §5의 C 전환 조건도 함께 올린다. 비PASS 원인(측정·정리·중단·예산)은 §6.3 기록 그대로 보고한다 |
-| D-4 | J2 PASS이고 정보용 무결성 실패(§7.2) | 중단. 원인 조사와 사용자 재결정. **위험 수용 대상이 아니다.** 출력 차이가 의도된 N34 동작 차이로 확인되면 그 행은 같은 작업 비교가 아니라고 기록하고, 처분은 사용자가 다시 정한다 |
-| D-2 | J2 PASS, 무결성 실패 없음, 그리고 F1 두 행 중 하나라도 I·N이거나 블록이 측정 미완·운영 실패 | 사용자 명시적 선택: (a) 미확인 범위를 적은 위험 수용. pre-K1 run3 비율은 K1 값이 아니므로 대신 쓰지 않는다 (b) 중단·재결정 (c) 별도 승인을 받은 새 측정(새 prereg·새 run 이름). 측정된 X가 있으면 함께 적는다 |
+| D-3 | J2가 PASS가 아님(정보용은 미실행) | 중단. 사용자 재결정, B를 기본 후속으로 올린다(P03 §6.1). 필수 G-C F1 행(CR 대 LF)의 유효 FAIL이면 P03 §5의 C 전환 조건도 함께 올린다. 비PASS 원인(측정·정리·중단·예산·`ref_failed`)은 §6.3 기록 그대로 보고한다 |
+| D-4 | J2 PASS이고 정보용 무결성 실패(어느 행이든 C 포함, §7.2) | 중단. 원인 조사와 사용자 재결정. **위험 수용 대상이 아니다.** 출력 차이가 의도된 N34 동작 차이로 확인되면 그 행은 같은 작업 비교가 아니라고 기록하고, 처분은 사용자가 다시 정한다 |
+| D-2 | J2 PASS, 무결성 실패 없음, 그리고 (a) 정보용 블록이 수용되지 않음(측정 미완·운영 실패) 또는 (b) F1 두 행 중 하나라도 I(aa) | 사용자 명시적 선택: (a) 미확인 범위를 적은 위험 수용. pre-K1 run3 비율은 K1 값이 아니므로 대신 쓰지 않는다 (b) 중단·재결정 (c) 별도 승인을 받은 새 측정(새 prereg·새 run ID). 측정된 X가 있으면 함께 적는다 |
 | D-1 | J2 PASS, 블록 수용, F1 두 행이 V·X이고 X가 하나 이상 | 사용자 명시적 선택: (a) 측정 비율을 적은 위험 수용 (b) 중단·재결정(B 철회 또는 C). 자동 재실행 없음 |
 | D-0 | J2 PASS, 블록 수용, F1 두 행 모두 V | 측정한 corpus·PC·Node 범위의 관찰로 기록. 일반 성능 보장이나 "위험 해소"로 쓰지 않는다. P10 완료 조건(§8.2)으로 진행 |
 
-- 처분은 위에서부터 처음 맞는 것 하나다. F2·F6·F7 same-input 6행은 C(무결성)일 때만 처분에 영향을 주고, 그 밖에는 기록만 한다
+- 처분은 위에서부터 처음 맞는 것 하나다. 같은 입력 상태는 처분이 하나뿐이다
+- 비-F1 6행(F2·F6·F7 × O1·O2)이 처분에 주는 영향
+  - C → 무결성 실패 → D-4
+  - I(run)·I(raw)·N → 블록 상태 `error` → 블록 비수용 → D-2
+  - X·I(aa) → 블록 상태와 처분을 바꾸지 않는다. 행 값과 사유를 보고에 기록한다
+- F1 행: C → D-4, I(run)·I(raw)·N → 블록 비수용 → D-2, I(aa) → F1 값이 없으므로 D-2
+- 이 정합안은 primary 재검토 권장안을 따른 것이다. 비-F1 X·I(aa)를 처분 사유로 쓰지 않는 근거는 S-2의 처분 대상이 P03에서 미해결로 남은 F1 위험이라는 데 있다. 비-F1 X도 처분 사유로 삼을지는 U2(S-2)에서 사용자가 바꿀 수 있다. 이 문서는 정하지 않는다
 - 어떤 경우도 조용히 완료로 처리하지 않는다. D-1·D-2 수용 기록에는 측정 범위, 미측정 범위, 남는 위험을 함께 적는다
 
 ## 8. 후속 구현·검증·통합
@@ -288,12 +359,12 @@
 | 행·매핑 | 18행 고유·순서, run3 G-C 매핑 거부 음성 대조 | 필수 행 = run3 G-C 매핑(F1→F4 등) 양성, same-input 치환 음성. 정보용 = `ref = cand` 양성, F4 치환 음성 |
 | snapshot | src numstat·`policy.js`만 다름·lockfile 동일 | BASE `5d668f9`, numstat `21 3`, 제품 코드 = `4999c1f` |
 | 순서 | 홀짝 15/15, 전이 12종 각 10, self 0, 음성 control 2종 | 같은 검사 재사용 |
-| 원자료 | timing·memory `applyRawCheck` 양성·음성, exit code 경로 | 정보용 정상 raw만으로 median·p95·A/A·비율 독립 재계산, 필드 제거·표본 개수 손상 → `I(raw)`, child 실패 시 필드 부재는 `I(run)` |
-| R1 처분 | `blockStatus`, memory 우선순위 | J2 PASS + F1 digest 불일치 → C·D-4. F1 V/V + 정보용 환경 변화 → D-4. F1 V/V + 임시 폴더 정리 실패 → D-2. memory 앞 행 failed_gate·failed_correctness 뒤 예산 notRun → 3·4 유지. 실패 없이 예산 notRun → invalid·5. 중단·미실행 → incomplete·D-3 또는 N |
-| R2 예산 | D1: 마감 시각·`min(상한, 남은 예산)`·child 시작 조건(가짜 시계 검사) | snapshot 단계 예산 부족 → `build_incomplete`. 동기 명령 timeout = 남은 예산. 보정 직전·cooldown 직전 예산 부족 → notRun·`budget_before_retry`. 마무리 R 초과 → pass만 error. 부모 중단 파일 `incomplete`. 소유 PID만 종료(다른 pid·시작 시각 불일치 거부) |
-| R3 신원 | — | 다른 run·prereg·하네스·제품 tree·snapshot·입력·protocol·환경 블록 혼입 거부. 결과 파일만 바뀐 raw commit 뒤 동일 신원 허용. 문서·제품 변경 commit 뒤 거부 |
+| 원자료 | timing·memory `applyRawCheck` 양성·음성, `output_mismatch`·`invalid_samples`의 파생 필드 부재 허용, exit code 경로 | §6.4 단계 표의 각 단계 양성(없어도 되는 필드 부재 허용). 도달 단계 필수 항목 제거 → `rawViolations` 기록, V만 I(raw), C·X·I(aa)·I(run) 판정 유지. 보정 실패·시도 없음·C·I(aa)에서 `selectedAttempt` 없음. 정보용 정상 raw만으로 median·p95·A/A·비율 독립 재계산 |
+| R1 처분 | `blockStatus`, memory 우선순위, `refFailedRows` | 정보용(F1 V/V 기준): 비-F1 X → `completed_informational`·0·D-0. 비-F1 I(aa) → `completed_informational`·0·D-0. 비-F1 I(run)·I(raw)·N 각각 → `error`·1·D-2. 비-F1 C → `completed_informational`·0·D-4. F1 C → D-4. F1 I(aa) + 나머지 V → `completed_informational`·0·D-2. 환경 변화 → `error`·1·D-4. 임시 폴더 정리 실패 → `error`·1·D-2. memory: `ref_failed` 단독 → 행 `ref_failed`, 블록 invalid·5, `refFailedRows` = [그 행], D-3. `ref_failed` + failed_gate → failed_gate·4, `refFailedRows` 유지, D-3. `ref_failed` + failed_correctness → failed_correctness·3, D-3. 앞 행 failed_gate·failed_correctness 뒤 예산 notRun → 4·3 유지, D-3. 실패 없이 예산 notRun → invalid·5, D-3. 부모 중단 → `incomplete`, 필수면 D-3, 정보용이면 블록 비수용·D-2 |
+| R2 예산 | D1: 마감 시각·`min(상한, 남은 예산)`·child 시작 조건(가짜 시계 검사) | 가짜 시계로 경계 확인: 행 시작 remainingWork = Tcal + Tatt 양성, 1 ms 부족 → `notRun(budget)`. 시도·memory child 진입 경계. 재시도 직전 Tcool + Tatt 부족 → `budget_before_retry`. 명령 timeout = min(Tcmd, remainingWork). 마무리 timeout은 remainingTotal(R 중복 차감 없음). Tatt를 선택 프로토콜(P-1 1,800 s, P-2 7,200 s) prereg 값에서 읽음. `capOverrunMs` > 0 → pass·`completed_informational`만 error, `workOverrunMs`·`finalizationOverReserveMs`만 > 0 → 기록만. snapshot 예산 부족 → `build_incomplete`·invalid·5. 부모 중단 파일 `incomplete`. 소유 PID만 종료(다른 pid·시작 시각 불일치 거부) |
+| R3 신원 | 덮어쓰기 거부, dirty 거부 | 정상: 앞 블록 결과 파일 `A` 한 줄 raw commit 1개 뒤 시작 허용. 거부: 앞 블록 raw 수정(M)·삭제(D)·rename(R), 다른 run 결과 파일 추가, raw commit 외 commit 추가(문서·하네스·제품), `--output` 이름이 run ID 도출 이름과 다름, 다른 run·prereg·하네스·제품 tree·snapshot·입력·protocol·환경 블록 혼입 |
 | 진입 | 덮어쓰기 거부, memory는 timing pass 뒤, dirty 거부, prereg = 마지막 하네스 commit | 정보용은 timing·memory pass와 신원 일치 뒤 |
-| 실패 주입 | 비정상 종료·출력 없음·2줄·잘못된 JSON·오류 상태·모의/실제 OOM·timeout·spawn 실패 | 같은 주입 + 작은 블록 상한, 정보용 child 실패 → 블록 측정 미완·운영 실패 |
+| 실패 주입 | 비정상 종료·출력 없음·2줄·잘못된 JSON·오류 상태·모의/실제 OOM·timeout·spawn 실패 | 같은 주입 + 작은 운영 예산 C, 정보용 child 실패 → 행 I(run)·블록 `error`·D-2 |
 | P-2 선택 시 | 보정 정지 조건 | 실효 K = max(4, 보정 K) 경계(보정 1·4·8, maxK 초과), 시각 K+1개, 판정값 = 끝 − 시작, 단조 증가 |
 
 ## 9. 권고의 근거·반대 근거·선택이 바뀔 조건
@@ -309,14 +380,14 @@
   - 사용자가 묶음 처리량을 제품 질문으로 명시하고, 호출 1회 꼬리 보장을 포기하며, 과거 run과 비교할 수 없음을 받아들임 → P-2(별도 정책 승인)
   - INVALID 위험을 줄이는 것이 시간보다 중요하고 별도 설계·검토를 기다릴 수 있음 → P-3 또는 다른 측정 설계(별도 계획)
   - 추가 측정 없이 끝내려 함 → B(별도 철회·위험 수용 계획과 승인)
-  - S-3 운영 창이 P-1 블록 상한(합계 15 h)보다 짧음 → 상한 조정 또는 B
+  - 사용자가 비울 수 있는 운영 창이 P-1 운영 예산 C(합계 15 h) + 블록마다 30분보다 짧음 → C 조정 또는 B
 
 ## 10. 사용자 결정 (이 문서는 정하지 않음)
 | ID | 결정 | 이 문서에서 바로 채택 가능한 선택지 | 별도 설계·승인이 필요한 경로 | 권장 초안 | 상태 |
 |---|---|---|---|---|---|
 | U1 | 프로토콜 | P-1, P-2(추정 대상 변경 정책 승인과 함께) | P-3, K 하한 8, 다른 측정 설계, B 철회 | P-1 | 사용자 결정 필요 |
 | U2 = S-2 | F1 same-input 지위·위험 수준 | S2-a 정보용 + §7.3 처분표(선택적 사전 수용 상한) | S2-b 필수 기준 신설(정책 변경) | S2-a | 사용자 결정 필요 |
-| U3 = S-3 | 시간·시도 예산 | P-1: 블록 상한 10 h / 1 h / 4 h, R 10분, 운영 창 상한 + 30분, A/A 최대 3시도 유지 | 3시도 규칙 변경(정책) | 제안값 | 사용자 결정 필요 |
+| U3 = S-3 | 시간·시도 예산 | P-1: 블록 운영 예산 C 10 h / 1 h / 4 h(운영·수용 상한, hard wall 아님), R 10분(C 안), 운영 창 C + 30분, A/A 최대 3시도 유지 | 3시도 규칙 변경(정책), hard wall watchdog(별도 설계) | 제안값 | 사용자 결정 필요 |
 | U4 | 후속 구현 범위·위치 | #119 branch에 runner 사본·prereg 추가(K1·D1 선례) | 새 PR(별도 결정) | #119, 제품 코드 변경 없음 | 사용자 결정 필요 |
 | DQ1 | 통합 방식 | main 순차 통합 | — | — | **결정됨(2026-11-17)** |
 | — | 구현 실행, 측정 1회 실행, Ready, merge | — | — | — | 각각 별도 승인 |
@@ -326,6 +397,7 @@
 - §3의 백분율은 기존 보고값으로 한 산술이며 확률이나 효과 추정이 아니다. 새 통계·시뮬레이션은 만들지 않았다
 - O2 두 무리의 원인은 미확인이다(GC 가설 포함). 권장 P-1은 그 원인에 대응하지 않는다
 - §6의 예산 집행·신원·원자료 보강은 D1 runner의 선례와 K1 runner 검사를 근거로 한 설계이며, N34 성능 runner에서는 구현·검증 전이다
+- 운영 예산 C는 동기 파일 작업·OS 지연을 끊지 않으므로 hard wall이 아니다. 넘으면 비PASS로 처리하는 수용 상한이다(§6.1)
 
 [plan]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/32e2ba6830ebf4cbb6800b22f52948171793349c/docs/plans/2026-11-16-quality-completion.md
 [p03]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/cfd4e30971e5c784ccca22b77b7e09bee0dc75bc/docs/plans/2026-11-16-n34-k1-decision.md
@@ -350,6 +422,9 @@
 [r3-digest]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-cr-policy-perf.mjs#L348-L350
 [k1-rows]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf-rows.mjs#L11
 [k1-raw]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L204-L209
+[k1-rawv]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L178-L193
+[k1-block]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L159-L168
+[k1-memout]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L215-L219
 [k1-mem]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L144-L158
 [k1-build]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L442-L467
 [k1-final]: https://github.com/kimcheolhui9846/token-context-optimizer/blob/fd93c543114fc80a111533cb64ef99e13a282932/research/src/n34-k1-perf.mjs#L678-L693
