@@ -110,14 +110,15 @@ node research/src/n34-p10-perf.mjs --self-check --output=<저장소 밖 절대 �
 - 하네스 검증(node:test·check-only·self-check) 통과는 성능·F1 해소의 근거가 아니다
 
 ## 10. 동결 기록 (blob pin, 이 prereg 자신은 제외)
+- primary r1 보완 뒤 다시 동결했다. 이전 동결 `7735d42`는 실행 후보에서 제외됐다(primary r1 CHANGES REQUIRED). runner·contract·test blob이 바뀌었고 나머지는 같다
 - 동결 commit은 이 파일을 마지막으로 바꾼 commit이다. 실행 때 `--prereg=<그 sha>`로 넘기고, timing 시작 HEAD가 그 commit과 같아야 한다
 - 아래 blob은 `git rev-parse HEAD:<path>`(커밋 blob, LF 기준) 값이다. runner는 실행마다 같은 값을 `files`에 다시 기록하고 블록 사이에 대조한다
 
 | 파일 | blob |
 |---|---|
-| `research/src/n34-p10-perf.mjs` | `a9e2eb65ac76facb701e9e00fcff2f9ed9b854f2` |
-| `research/src/n34-p10-perf-contract.mjs` | `3bd4cb0067156dcefae5c1b9220ab9524f59d096` |
-| `research/test/n34-p10-perf.test.mjs` | `5a028d09a9ddfdfe330a6e174f25224bb95c351a` |
+| `research/src/n34-p10-perf.mjs` | `77bc8e406fdcc085e6633962a31d666d9e7dc1a3` |
+| `research/src/n34-p10-perf-contract.mjs` | `19e04e7ea17da71ffe710a579223215c6ec5bf7c` |
+| `research/test/n34-p10-perf.test.mjs` | `7575bd7e61f2114aab05bb39f17e4b020d02c173` |
 | `research/src/n34-cr-policy-perf-inputs.mjs` | `e03a6197ddeca9cb78fbf4fb002c87b238d03095` |
 | `research/src/n34-cr-policy-perf-worker.mjs` | `c5ca276327c02134bb1a0ca111b22d43486b0bdb` |
 | `research/src/n34-cr-policy-perf-mem-worker.mjs` | `f225aa8e62975657089110439374987b7f49e60b` |

@@ -6,10 +6,12 @@
 - 구현: Claude Code(`claude-opus-5-5`). 계획·최종 판정: Codex PM(primary)
 - Tier E(측정 하네스·사전 등록). **이 단계에서 공식 timing·memory·정보용 실행, 새 진단·파일럿은 하지 않았다**
 
-## 현재 상태: 구현 제출, primary 검토 대기
+## 현재 상태: primary r1 보완 제출, primary 재검토 대기
+- 1차 제출 동결 `7735d42`는 primary 1차 검토(`codex_review/review_2026-11-17_p10-impl-primary-r1.md`)에서 CHANGES REQUIRED(Major 5·Minor 1)였다. **`7735d42`는 실행 후보에서 제외됐다**
+- 보완: RED `464fbc9` → GREEN `6e94fd9` → 재동결(이 handoff와 prereg §10을 함께 넣은 commit). 재동결 SHA는 PR #119 본문과 비추적 보고에 적는다
 - K1 timing INVALID, memory NOT RUN, same-input F1 미해결은 그대로다. 하네스 검증 통과를 성능 해소로 쓰지 않는다
 - O2 A/A 불안정의 기제는 미확인이다. P-1은 추정 대상·통계·임계·표본 정의를 바꾸지 않는다
-- prereg: [n34-p10-prereg.md](n34-p10-prereg.md). 동결 commit = 이 handoff와 prereg §10을 함께 넣은 commit(이 branch에서 하네스를 마지막으로 바꾼 commit). SHA는 PR #119 본문과 비추적 보고에 적는다
+- prereg: [n34-p10-prereg.md](n34-p10-prereg.md). 동결 commit = 이 branch에서 하네스·prereg를 마지막으로 바꾼 commit
 
 ## 승인 경계
 - 승인됨: 하네스·prereg 구현, synthetic 검증(64 KiB self-check, 실패 주입), 프로젝트 7단계 gate, commit·push·Draft 기록, WBS 동기화
@@ -44,6 +46,19 @@
 | n-3 | self-check 출력은 저장소 밖 절대 경로 `selfcheck-*.json`만, 공식 이름·폴더 거부 |
 | n-4 | 임시 git fixture는 `git -c`로만 신원 지정 |
 
+## primary r1 지적 처분 (`7735d42` → `6e94fd9`)
+| 지적 | 구현 | 재현 사례 결과(수정 후) |
+|---|---|---|
+| R1 선행 raw 재판정 | runner `priorRederive`가 run3 정의(행 매핑, 보정 멈춤 조건, attempt 번호·최대 3회·멈춘 뒤 없음, schedule, 표본 order·label·arm, 통계·A/A·gate·비율, `selectedAttempt`, 행 판정)로 timing을 다시 판정하고, memory는 (row, repeat, arm, inputId) 108개 순서와 행·블록 판정을 다시 낸다. contract `priorChildViolations`가 child 기록·`cleanupViolations`·`leftoverPids`·행/run의 child close를 대조한다. build·`integrityErrors`·본문 오류·예산 값도 확인. 형태 손상·예외도 거부 JSON + exit 1 | primary 5사례 + 추가 14사례 모두 `refused`(사유가 사례마다 다름), 정상 timing·memory는 그대로 수용 |
+| R2 receipt | contract `successReceiptViolations`: 필드 정확히 11개, sha256 형식, 블록 C, 0 이상 정수 ms, `capOverrunMs` = max(0, elapsed − C) = 0, `errors` `[]`, `saveFailed`·`saveError` 없음. 원자료 `budget.capMs` 불일치·`finalEndMs` > receipt `elapsedMs`는 모순으로 거부 | primary 3사례 + 추가 3사례 `prior_chain` 거부, 계약 표 음성 31종·양성 경계(elapsed = C, 0) |
+| R3 snapshot 무결성 | `buildChecked`가 `buildSnapshots`의 assertion(그 함수의 유일한 assertion = A/A 사본·lockfile·dist/core)을 타입으로 `IntegrityError('snapshot_integrity')`로 바꾸고 `integrityErrors`에 남긴다. run3 줄은 바꾸지 않음 | lock·A/A 사본·core 파일·`policy.js` 같음 4종 모두 error 1·D-4, 일반 설치 오류는 D-2·`integrityErrors` `[]` |
+| R4 부모 중단 복구 | prereg §7 4–6단계: 하네스는 OS 생성 시각 기준선을 기록하지 않음을 적고, 저장 PID·부모 시각으로 어떤 프로세스도 종료하지 않으며 조회 결과를 기록하고 "중단·수동 확인 필요"로 멈춘다. 새 OS 조회·허용오차 없음 | 문서 테스트 1개 |
+| R5 npm 로그 | close 콜백의 로그 쓰기를 try/catch로 감싸 Promise를 reject한다. Promise는 한 번만 정산되고, 예산 제한 timeout의 `BudgetExpired`가 먼저다 | 미처리 예외 없음, error 1, 원자료·정리·receipt 정상. 최종 저장도 실패하면 `saveFailed` receipt만 |
+| M1 블록 끝 종료 예산 | `killUnclosed(timeoutFor)`가 child마다 남은 총예산을 다시 평가하고, 0이면 taskkill을 시작하지 않는다(`no_budget`) | fake 시계: 첫 종료가 다 쓰면 둘째 0회, 일부 쓰면 줄어든 timeout |
+
+- copy guard: 제거 run3 줄 집합·해시 그대로(152줄, `6b49bb89…`). npm 수정 중 한 번 LCS 정렬이 바뀌어 run3 줄이 원문 그대로 남도록 고쳤다(고정값 변경 없음)
+- 측정 정의·임계·예산 값·제품·의존성은 바꾸지 않았다
+
 ## 검증 기록
 | 단계 | 명령 | 결과 |
 |---|---|---|
@@ -58,15 +73,30 @@
 | npm 7단계 (`e671711`) | `npm ci --ignore-scripts` → `build` → `test` → `typecheck` → `smoke:mcp` → `validate:plugin` → `benchmark` | 모두 exit 0. test 52 files·4,455 pass·5 skip. 빌드 전후 `git status` 0줄 |
 
 - 64 KiB self-check의 행 판정은 기록일 뿐 gate가 아니다(정보용 `O2/F1:same-input`이 I(aa)였다. 해석하지 않는다)
-- 동결 commit은 문서(이 handoff·prereg §10)만 바꾼다. 하네스 코드는 `e671711`과 같다. 동결 HEAD에서 node:test·check-only를 다시 돌린 결과는 PR #119 본문에 적는다
+- 위 표는 1차 제출(`7735d42`) 기록이다. primary r1 보완 기록은 아래에 있다
+
+### primary r1 보완 검증 (증거: 메인 checkout `codex_review/remediation-impl-2026-11-13/p10-impl/rework-r1/`)
+| 단계 | 명령 | 결과 |
+|---|---|---|
+| RED (`464fbc9`) | `node --test research/test/n34-p10-perf.test.mjs` | exit 1, 40개 중 34 통과·6 실패(R1·R2·R3·R5·M1·R4, R5는 미처리 EISDIR). 기존 34개는 통과 |
+| GREEN (`6e94fd9`) | 같은 명령 | exit 0, 40/40 |
+| check-only | P10·run3·K1 `--check-only` | 모두 exit 0. P10 copy guard 위반 0 |
+| primary probe 재실행 | 원본 그대로 복사해 실행 | 8사례 모두 `refused`, lock 사례 error·D-4·`integrityErrors` 기록. npm probe 원본은 미처리 예외 없이 exit 0 |
+| 사유 기록 | `rework-r1/reasons-probe.mjs`(합성) | 25사례 거부 사유, 양성 2사례 pass·`completed_informational` D-0, npm 2사례 |
+| 실제 self-check (`6e94fd9`) | `--self-check --output=<메인 checkout>/…/rework-r1/selfcheck/selfcheck-p10r1-1.json` | exit 0, 162 s, fault 9종 기대대로, root·grandchild `taskkill /T` 성공·close·grandchild 종료, 소유 child 54개 close, 잔류·정리 위반·마무리 오류 0, 추적 파일 1,154개 불변, receipt sha256 = 파일 |
+| Argon(scoped 1회) | 묶음 = primary r1 전문, 실행 보완 발췌, runner·contract·test·prereg diff 전문, `buildSnapshots` | `gemini-4-argon` APPROVE, 지적 0. 확인 불가: 로컬 실행·Git·WBS |
+| npm 7단계 (`6e94fd9`) | `npm ci --ignore-scripts` → … → `benchmark` | 7개 모두 exit 0. test 52 files·4,455 pass·5 skip. 빌드 직후 `git status` 0줄. npm ci 경고 7건은 기존 P04 범위(의존성 변경 없음) |
+
+- 재동결 commit은 문서(이 handoff·prereg §10)만 바꾼다. 하네스 코드는 `6e94fd9`와 같다
 
 ## 남은 위험
 - P-1은 O2 A/A 불안정에 대응하지 않는다. 공식 timing이 다시 INVALID일 수 있다(계획 §9)
 - C는 hard wall이 아니다. 동기 저장·hash·OS 지연은 끊지 않고 초과를 비PASS로 기록한다
 - 자식이 정상 종료한 직후 timeout 타이머가 먼저 돌면 종료가 거부되고(`exit_seen`) 그 child는 timeout·정리 미확인으로 남는다. 보수적 비PASS이며 30분 상한에서는 드물다
-- 부모 중단 뒤 복구는 운영자 수동 절차다. 자동 종료·재개는 없다
+- 부모 중단 뒤에는 남은 child를 이 하네스 기록만으로 같은 프로세스라고 확인할 수 없다(OS 생성 시각 기준선 없음). 종료하지 않고 보고에서 멈추므로, 남은 프로세스 처리는 사용자·PM의 별도 확인이 필요하다
+- 앞 블록 재판정은 저장된 원자료와 run3 정의의 일관성만 확인한다. 원자료 자체가 실제 측정과 같은지는 receipt hash·raw-only commit·운영자 기록에 기댄다
 
 ## 다음
-1. primary 구현 검토(실제 diff·로그·PR·WBS 대조)
-2. primary preflight(동결 SHA 지정)
+1. primary 재검토(r1 보완 diff·로그·PR·WBS 대조)
+2. primary preflight(재동결 SHA 지정, `7735d42` 아님)
 3. 사용자 1회 실행 승인 뒤 timing → raw commit → memory → raw commit → 정보용 → raw commit
