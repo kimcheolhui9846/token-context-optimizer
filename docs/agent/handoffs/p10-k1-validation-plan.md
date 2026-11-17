@@ -54,7 +54,10 @@
 - [x] 시작 상태·신원·base 확인, branch 생성
 - [x] 근거 읽기
 - [x] handoff commit/push(`bbcc05a`), Draft PR [#123](https://github.com/kimcheolhui9846/token-context-optimizer/pull/123)
-- [x] 상세 계획 문서
-- [ ] 직접 검증, Argon
-- [ ] WBS 동기화와 검증
-- [ ] 보고(codex_paste), worker_done
+- [x] 상세 계획 문서(`b171246`)
+- [x] 직접 검증: `git diff --check origin/main...HEAD` PASS, 링크 18개 실제 객체 확인, 제어 문자·백슬래시 0
+- [x] Argon `gemini-4-argon` 1회: APPROVE, 지적 0. "발췌로 확인 불가" 항목(22 commit, D1 소수값, rows L11 등)은 작성자가 원자료로 직접 확인
+- [x] WBS(비추적): 시작 `6a51d131…` → 최종 `fbf29a8d…`. 허용 15셀(실행계획 L8·T8·U8·K9·L9·N9·Q9·S9·T9·U9·V9, 완성도현황 A4·D35, WBS O104, Findings F90)과 행 9 높이 75→160만 변경
+  - F9 계획·M9 Task 승인 필요·F8 완료·G104 진행중·C90 리뷰중 유지. 27 ID·필수 24·조건부 3·완료 4, 수식 1,681개 텍스트 동일
+  - `formulas` 재계산 8,855값 오류 0, 계산 차이 17(편집 15 + 결정 대기 C15 2→1 + D35:D39 범위). PNG 4장 확인. native Excel 미실행
+- [ ] 보고(codex_paste), worker_done. primary 최종 검토와 사용자 결정 U1–U4는 이후 단계
