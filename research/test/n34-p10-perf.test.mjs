@@ -12,6 +12,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import * as C from '../src/n34-p10-perf-contract.mjs';
 import * as R from '../src/n34-p10-perf.mjs';
 import { ROWS } from '../src/n34-cr-policy-perf-inputs.mjs';
@@ -409,7 +410,7 @@ test('self-check output: must be outside the repository and never an official na
 
 // ---------- D. real runner orchestration with fake processes, clock and git ----------
 const BASE = C.P10.base, CAND = C.P10.candProduct;
-function fakeWorld({ attemptMs = 60_000, calibrationMs = 30_000, memoryMs = 5_000, npmMs = 1_000, buildError, slowFinalSaveMs = 0, failFinalSave = false, cMedian = 100, digestMismatch, preBuildAdvanceMs = 0 } = {}) {
+function fakeWorld({ attemptMs = 60_000, calibrationMs = 30_000, memoryMs = 5_000, npmMs = 1_000, buildError, slowFinalSaveMs = 0, failFinalSave = false, cMedian = 100, digestMismatch, preBuildAdvanceMs = 0, calibrationSteps } = {}) {
   const world = { t: 0, lines: [], commits: {}, saves: 0, taskkills: [] };
   const root = mkdtempSync(join(tmpdir(), 'tco-p10-root-'));
   const tmpRoot = mkdtempSync(join(tmpdir(), 'tco-p10-tmp-'));
@@ -458,13 +459,14 @@ function fakeWorld({ attemptMs = 60_000, calibrationMs = 30_000, memoryMs = 5_00
     const script = String(args.find(arg => String(arg).endsWith('.mjs')) ?? '');
     if (script.endsWith('perf-worker.mjs')) {
       const config = JSON.parse(readFileSync(args.at(-1), 'utf8'));
-      if (config.op === 'calibrate') { ms = calibrationMs; payload = { status: 'completed', steps: [{ k: 1, base: [60, 60, 60, 60, 60], candidate: [60, 60, 60, 60, 60] }], k: 1 }; }
+      if (config.op === 'calibrate') { ms = calibrationMs; const steps = calibrationSteps ?? [{ k: 1, base: [60, 60, 60, 60, 60], candidate: [60, 60, 60, 60, 60] }]; payload = { status: 'completed', steps, k: steps.at(-1).k }; }
       else {
         ms = attemptMs;
         const digests = { B1: 'd', B2: 'd', C1: 'd', C2: digestMismatch ? 'e' : 'd' };
         payload = { status: 'completed', digests, views: { B1: {}, B2: {}, C1: {}, C2: {} }, samples: config.schedule.map((s, order) => ({ order, label: s.label, arm: s.arm, ms: s.arm.startsWith('C') ? cMedian : 100 })) };
       }
     } else if (script.endsWith('mem-worker.mjs')) { ms = memoryMs; payload = { status: 'completed', retainedBytes: MIB, maxRssBytes: 100 * MIB, elapsedMs: 1, before: {}, after: {}, outputDigest: 'x', view: {} }; }
+    process.nextTick(() => c.emit('spawn'));
     setImmediate(() => {
       world.t += ms;
       if (payload) c.stdout.emit('data', JSON.stringify(payload) + '\n');
@@ -825,6 +827,124 @@ test('primary r1 R4: parent-abort recovery never kills from a stored pid and par
   assert(!recovery.includes('taskkill /PID'), 'no kill instruction in the parent-abort procedure');
   assert(recovery.includes('OS 생성 시각 기준선을 기록하지 않는다'), 'the missing OS baseline is stated');
   assert(recovery.includes('중단·수동 확인 필요'));
+});
+
+// ---------- F. primary review r2 (review_2026-11-17_p10-impl-primary-r2.md) ----------
+// Producer -> raw/receipt -> commit -> next runBlock, with world options and an optional spawn hook.
+async function producerChain({ worldOptions = {}, spawnHook } = {}) {
+  const w = fakeWorld(worldOptions);
+  try {
+    if (spawnHook) { const original = w.runtime.spawn; let n = 0; w.runtime.spawn = (...args) => spawnHook(original(...args), ++n); }
+    const timing = await runFake(w, 'timing');
+    const doc = w.read('timing');
+    w.commit('timing');
+    const memory = await runFake(w, 'memory');
+    return { timing, doc, memory, last: JSON.parse(w.lines.at(-1)) };
+  } finally { w.cleanup(); }
+}
+const ladder = (K, converged = 60, below = 10) => { const steps = []; for (let k = 1; k <= K; k *= 2) steps.push({ k, base: Array(5).fill(k < K ? below : converged), candidate: Array(5).fill(k < K ? below : converged) }); return steps; };
+const five = v => Array(5).fill(v);
+
+test('primary r2 R2-01: falsy and non-object receipts never skip the receipt checks', async () => {
+  for (const value of [null, false, 0, '', [], 'receipt', 5, true]) {
+    const repo = fixtureRepo();
+    try {
+      const ht = repo.head();
+      const hm = commitRaw(repo, 'timing', { message: `research(n34-p10): timing raw\n\n${C.formatReceipt(value)}\n` });
+      const v = verify(repo, ht, hm, 'timing');
+      assert(v.reasons.includes('receipt_type'), `${JSON.stringify(value)}: ${v.reasons}`);
+    } finally { rmSync(repo.dir, { recursive: true, force: true }); }
+    const r = await priorCase(() => {}, { mutateReceipt: () => value });
+    assertPriorRefused(r, `runner receipt ${JSON.stringify(value)}`, 'memory');
+    assert.equal(r.last.reasonCode, 'prior_chain');
+  }
+  assert.equal((await priorCase(() => {})).out.status, 'pass', 'object receipt from the producer is accepted');
+});
+
+test('primary r2 R2-03: the calibration ladder must be the worker sequence with the earliest convergence', async () => {
+  for (const K of [1, 2, 4, 1024]) {
+    const r = await producerChain({ worldOptions: { calibrationSteps: ladder(K) } });
+    assert.deepEqual([r.timing.status, r.doc.rows[0].k, r.memory.status], ['pass', K, 'pass'], `K=${K} from the producer is accepted`);
+  }
+  const setCal = steps => d => { const row = d.rows[0]; row.calibration.steps = steps; const k = steps.at(-1)?.k; row.calibration.k = k; row.k = k; };
+  const conv = k => ({ k, base: five(60), candidate: five(60) }), low = k => ({ k, base: five(10), candidate: five(10) });
+  const cases = {
+    probe_k_zero: d => { d.rows[0].k = 0; d.rows[0].calibration.k = 0; d.rows[0].calibration.steps.at(-1).k = 0; },
+    probe_k_over_max: d => { d.rows[0].k = 2048; d.rows[0].calibration.k = 2048; d.rows[0].calibration.steps.at(-1).k = 2048; },
+    ladder_past_max: setCal(ladder(2048)),
+    k_negative: setCal([conv(-1)]),
+    k_fraction: setCal([conv(0.5)]),
+    k_string: setCal([conv('1')]),
+    non_power_of_two: setCal([low(1), conv(3)]),
+    missing_step: setCal([low(1), conv(4)]),
+    duplicate_step: setCal([low(1), conv(1)]),
+    reversed_steps: setCal([low(2), conv(1)]),
+    continued_after_convergence: setCal([conv(1), conv(2)]),
+    last_step_not_converged: setCal([low(1)]),
+    empty_steps: d => { d.rows[0].calibration.steps = []; },
+    sample_count: setCal([{ k: 1, base: five(60).slice(1), candidate: five(60) }]),
+    sample_null_before: setCal([{ k: 1, base: [null, 10, 10, 10, 10], candidate: five(10) }, conv(2)]),
+    sample_negative_before: setCal([{ k: 1, base: five(10), candidate: [-1, 10, 10, 10, 10] }, conv(2)]),
+    sample_string: setCal([{ k: 1, base: ['60', 60, 60, 60, 60], candidate: five(60) }]),
+    entry_k_differs: d => { d.rows[0].k = 2; },
+  };
+  for (const [name, mutate] of Object.entries(cases)) assertPriorRefused(await priorCase(mutate), name, 'memory');
+});
+
+test('primary r2 R2-02: the producer records a per-spawn childId and the real lifecycle order', async () => {
+  const w = fakeWorld();
+  try {
+    assert.equal((await runFake(w, 'timing')).status, 'pass');
+    const doc = w.read('timing');
+    assert.deepEqual(doc.children.map(c => c.childId), doc.children.map((_, i) => i + 1), 'childId 1..n in spawn order');
+    assert(doc.children.every(c => isDeepStrictEqual(c.events, ['spawn', 'exit', 'close']) && c.exitCode === 0 && c.signal === null && Number.isFinite(c.closeMonoMs) && c.closeMonoMs >= c.spawnedMonoMs));
+    const refs = doc.rows.flatMap(r => [r.calibration.child, ...r.attempts.map(a => a.child)]);
+    const byId = new Map(doc.children.map(c => [c.childId, c]));
+    assert(refs.every(c => byId.get(c.childId)?.pid === c.pid && byId.get(c.childId).spawnedAt === c.startedAt), 'row child references link to their own records');
+    assert.deepEqual(doc.children.filter(c => !refs.some(r => r.childId === c.childId)).map(c => c.script), ['npm ci --ignore-scripts', 'npm ci --ignore-scripts']);
+  } finally { w.cleanup(); }
+  const own = C.createOwnership({ execFileSync: () => '', lifecycleConfirmed: true, now: () => 7 });
+  const a = new FakeChild(50), b = new FakeChild(50);
+  own.register(a, {}); a.emit('spawn'); a.emit('exit', 0, null); a.emit('close', 0, null);
+  own.register(b, {});
+  assert.deepEqual([own.record(a).childId, own.record(b).childId], [1, 2], 'same pid, separate spawns, separate ids');
+  assert.deepEqual([own.record(a).events, own.record(a).exitCode, own.record(a).closeMonoMs], [['spawn', 'exit', 'close'], 0, 7]);
+  assert.equal(own.kill(a, 1000), false, 'a closed record is never killed through its pid');
+});
+
+test('primary r2 R2-02: sequential PID reuse is accepted; wrong child links and lifecycle contradictions are refused', async () => {
+  const reuse = await producerChain({ spawnHook: (child, n) => { if (n === 4) child.pid = 1003; return child; } });
+  assert.equal(reuse.timing.status, 'pass');
+  const same = reuse.doc.children.filter(c => c.pid === 1003);
+  assert.equal(same.length, 2, 'two records share pid 1003');
+  assert.equal(reuse.memory.status, 'pass', `sequential PID reuse must be accepted: ${reuse.last.actual}`);
+  assert(same[0].closeMonoMs <= same[1].spawnedMonoMs, 'the first closed before the second spawned');
+  const reuseMemory = await priorCase(() => {}, { next: 'info' });
+  assert.equal(reuseMemory.out.status, 'completed_informational');
+  const rec = (d, ref) => d.children.find(c => c.childId === ref.childId);
+  const cases = {
+    probe_attempt_completed_with_exit_1: [d => { d.rows[0].attempts[0].child.exitCode = 1; }],
+    probe_wrong_closed_child_reference: [d => { d.rows[0].attempts[0].child.pid = d.rows[1].calibration.child.pid; }],
+    probe_spawn_error_in_closed_child: [d => { d.children[2].spawnError = true; }],
+    duplicate_child_id: [d => { d.children[3].childId = d.children[2].childId; }],
+    reference_to_other_record: [d => { const other = d.rows[1].calibration.child; Object.assign(d.rows[0].attempts[0].child, { childId: other.childId, pid: other.pid, startedAt: other.startedAt }); }],
+    reference_without_child_id: [d => { delete d.rows[0].calibration.child.childId; }],
+    reference_start_mismatch: [d => { d.rows[2].calibration.child.startedAt = '2000-01-01T00:00:00.000Z'; }],
+    record_wrong_role: [d => { rec(d, d.rows[0].calibration.child).script = 'n34-cr-policy-perf-mem-worker.mjs'; }],
+    record_event_order: [d => { rec(d, d.rows[0].attempts[0].child).events = ['exit', 'spawn', 'close']; }],
+    record_no_spawn_event: [d => { const r = rec(d, d.rows[1].attempts[0].child); r.spawnEventSeen = false; r.events = ['exit', 'close']; }],
+    record_exit_nonzero: [d => { rec(d, d.rows[1].attempts[0].child).exitCode = 1; }],
+    record_signal: [d => { rec(d, d.rows[1].attempts[0].child).signal = 'SIGTERM'; }],
+    record_missing_close_time: [d => { delete rec(d, d.rows[1].attempts[0].child).closeMonoMs; }],
+    extra_unreferenced_child: [d => { d.children.push({ ...d.children.at(-1), childId: d.children.length + 1, pid: 99_999, spawnedMonoMs: d.children.at(-1).closeMonoMs + 1 }); }],
+    npm_child_failed: [d => { d.children[0].exitCode = 1; }],
+    child_order: [d => { [d.children[2], d.children[3]] = [d.children[3], d.children[2]]; }],
+    pid_overlap: [d => { const a = d.children[2], b = d.children[3]; const ref = d.rows[0].attempts[0].child; b.pid = a.pid; ref.pid = a.pid; a.closeMonoMs = b.spawnedMonoMs + 1; }],
+    memory_run_links_swapped: [d => { const [x, y] = d.runs; for (const f of ['childId', 'pid', 'startedAt']) [x[f], y[f]] = [y[f], x[f]]; }, 'info'],
+    memory_run_wrong_role: [d => { rec(d, d.runs[5]).script = 'n34-cr-policy-perf-worker.mjs'; }, 'info'],
+    memory_run_exit_signal: [d => { rec(d, d.runs[9]).signal = 'SIGKILL'; }, 'info'],
+  };
+  for (const [name, [mutate, next = 'memory']] of Object.entries(cases)) assertPriorRefused(await priorCase(mutate, { next }), name, next);
 });
 
 test('runner: check-only and node --test never start a product measurement', () => {
