@@ -2,7 +2,7 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { MemoryArtifactStore, indexArtifact, queryArtifact } from "../src/core/artifacts.js";
+import { MemoryArtifactStore, indexArtifact, queryArtifact, type ArtifactStore } from "../src/core/artifacts.js";
 import * as tokenEstimator from "../src/core/token-estimator.js";
 
 async function query(content: string, options: Partial<Parameters<typeof queryArtifact>[0]> = {}) {
@@ -218,4 +218,198 @@ describe("query artifact boundary behavior", () => {
     expect(result.excerpts[0].text).toBe("aaaax\n\nx");
     expect(result).not.toHaveProperty("moreMatches");
   });
+});
+
+// N-35/N-36 query contract (plan PR #117, docs/superpowers/plans/2026-11-13-query-contract-n35-n36.md).
+// Non-ASCII text is built from code points so the source carries no escape that a tool could unfold.
+const cp = (...points: number[]) => String.fromCodePoint(...points);
+const HINDI = cp(0x939, 0x93f, 0x928, 0x94d, 0x926, 0x940);
+const HINDI_DISTRACTOR = `${cp(0x928, 0x926, 0x940)} ${cp(0x939, 0x935, 0x93e)} ${cp(0x928, 0x926, 0x940)}`;
+const HINDI_TARGET = `${HINDI} ${cp(0x92d, 0x93e, 0x937, 0x93e)}`;
+const CONTEXT_ERROR = /^contextLines must be a non-negative safe integer$/;
+
+// Six distractors separated by five non-matching lines (1, 7, ..., 31), then the target on line 37.
+// The spacing keeps default context windows from merging, so a missed target cannot be hidden by
+// an accidental span merge.
+function spacedHindiFixture(): string {
+  const lines: string[] = [];
+  for (let distractor = 0; distractor < 6; distractor += 1) {
+    lines.push(HINDI_DISTRACTOR, "filler", "filler", "filler", "filler", "filler");
+  }
+  lines.push(HINDI_TARGET);
+  return lines.join("\n");
+}
+
+function lineSpans(result: ReturnType<typeof queryArtifact>): Array<[number, number]> {
+  return result.excerpts.map((excerpt) => [excerpt.sourceMap.startLine, excerpt.sourceMap.endLine]);
+}
+
+class CountingStore implements ArtifactStore {
+  readonly inner = new MemoryArtifactStore();
+  gets = 0;
+  puts = 0;
+  get(artifactId: string) {
+    this.gets += 1;
+    return this.inner.get(artifactId);
+  }
+  put(record: Parameters<ArtifactStore["put"]>[0]) {
+    this.puts += 1;
+    this.inner.put(record);
+  }
+}
+
+describe("N-35 combining-mark query terms", () => {
+  it("T35-1 keeps a Hindi query whole so a spaced target is not pushed into moreMatches", async () => {
+    const { result } = await query(spacedHindiFixture(), { query: HINDI, contextLines: undefined });
+    expect(lineSpans(result)).toEqual([[35, 37]]);
+    expect(result).not.toHaveProperty("moreMatches");
+    expect(result.fallbackReason).toBeNull();
+    expect(result.warnings).toEqual([]);
+  });
+
+  it("T35-2 finds the Hindi target with zero context and a single excerpt", async () => {
+    const { result } = await query(spacedHindiFixture(), { query: HINDI, contextLines: 0, maxExcerpts: 1 });
+    expect(lineSpans(result)).toEqual([[37, 37]]);
+    expect(result).not.toHaveProperty("moreMatches");
+    expect(result.fallbackReason).toBeNull();
+  });
+
+  it("T35-3 ranks Hindi targets above leading distractors and omits only the second target", async () => {
+    const lines = [
+      ...Array.from({ length: 6 }, () => HINDI_DISTRACTOR),
+      "filler", "filler", "filler", "filler", "filler",
+      HINDI_TARGET,
+      "filler", "filler", "filler", "filler", "filler",
+      HINDI_TARGET,
+    ];
+    const { result } = await query(lines.join("\n"), { query: HINDI, contextLines: undefined, maxExcerpts: 1 });
+    expect(lineSpans(result)).toEqual([[10, 14]]);
+    expect(result.moreMatches).toEqual({ count: 1, lines: [18] });
+  });
+
+  it("T35-4 keeps Thai and non-composing Latin marks inside the term", async () => {
+    const thai = cp(0xe01, 0xe34, 0xe19);
+    const thaiDistractor = cp(0xe01, 0xe32, 0xe19, 0xe32);
+    const thaiResult = await query(`${thaiDistractor}\nfiller\n${thai}`, { query: thai });
+    expect(lineSpans(thaiResult.result)).toEqual([[3, 3]]);
+    expect(thaiResult.result).not.toHaveProperty("moreMatches");
+    const latin = `q${cp(0x307)}x`;
+    const latinResult = await query(`q then x\nfiller\n${latin}`, { query: latin });
+    expect(lineSpans(latinResult.result)).toEqual([[3, 3]]);
+    expect(latinResult.result).not.toHaveProperty("moreMatches");
+  });
+
+  it("T35-6 no longer matches unvoweled Arabic text from a query with harakat (accepted recall change D6)", async () => {
+    const voweled = cp(0x643, 0x64e, 0x62a, 0x64e, 0x628, 0x64e);
+    const { result } = await query(`${cp(0x643, 0x62a, 0x628)}\nfiller`, { query: voweled });
+    expect(result.excerpts).toEqual([]);
+    expect(result.fallbackReason).toBe("no_query_match");
+    expect(result).not.toHaveProperty("moreMatches");
+  });
+
+  it("C35-1 leaves ASCII paths, identifiers, Hangul, Han and composed Latin queries unchanged", async () => {
+    const hangul = cp(0xac80, 0xc0c9, 0xc5b4);
+    const han = cp(0x6f22, 0x5b57);
+    const content = [
+      "alpha",
+      "see src/core/artifacts.ts:555 for queryArtifact_v2",
+      "other src/core line",
+      `${cp(0xd55c, 0xad6d, 0xc5b4)} ${hangul} ${cp(0xc608, 0xc2dc)}`,
+      `${han} ${cp(0xd45c, 0xae30)}`,
+      `a caf${cp(0xe9)} menu`,
+      "filler",
+    ].join("\n");
+    const cases: Array<[string, Array<[number, number]>]> = [
+      ["src/core/artifacts.ts:555", [[2, 2]]],
+      ["queryArtifact_v2", [[2, 2]]],
+      ["src/core queryArtifact_v2", [[2, 2]]],
+      [hangul, [[4, 4]]],
+      [han, [[5, 5]]],
+      [`caf${cp(0xe9)}`, [[6, 6]]],
+      [`cafe${cp(0x301)}`, [[6, 6]]],
+    ];
+    for (const [text, spans] of cases) {
+      const { result } = await query(content, { query: text });
+      expect(lineSpans(result), text).toEqual(spans);
+      expect(result, text).not.toHaveProperty("moreMatches");
+      expect(result.fallbackReason, text).toBeNull();
+    }
+  });
+
+  it("C35-2 keeps a stand-alone combining mark query as no_query_terms", async () => {
+    const { result } = await query("alpha\nbeta", { query: cp(0x301) });
+    expect(result.excerpts).toEqual([]);
+    expect(result.fallbackReason).toBe("no_query_terms");
+  });
+
+  it("C35-3 does not turn an emoji variation selector into its own term", async () => {
+    const selector = cp(0xfe0f);
+    const content = [`ok${selector} one`, `ok${selector} two`, `ok${selector} three`, "an error line"].join("\n");
+    const { result } = await query(content, { query: `${cp(0x2764)}${selector} error` });
+    expect(lineSpans(result)).toEqual([[4, 4]]);
+    expect(result).not.toHaveProperty("moreMatches");
+  });
+});
+
+describe("N-36 direct contextLines contract", () => {
+  const sevenLines = ["l1", "l2", "l3", "needle", "l5", "l6", "l7"].join("\n");
+
+  it("T36-1 rejects non-integer, negative, non-finite, unsafe, non-number and null contextLines exactly", async () => {
+    const { artifact } = await query(sevenLines);
+    const store = new MemoryArtifactStore();
+    store.put(artifact);
+    const values = [1.5, 0.5, -1, Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.MAX_SAFE_INTEGER + 1, "1", true, null];
+    for (const value of values) {
+      expect(
+        () => queryArtifact({ artifactId: artifact.artifactId, query: "needle", maxTokens: 400, contextLines: value as never, store }),
+        String(value),
+      ).toThrow(CONTEXT_ERROR);
+    }
+  });
+
+  it("T36-2 validates contextLines before looking up the artifact", () => {
+    const store = new MemoryArtifactStore();
+    expect(() => queryArtifact({ artifactId: "artifact_missing", query: "needle", maxTokens: 400, contextLines: -1, store })).toThrow(CONTEXT_ERROR);
+  });
+
+  it("T36-3 does not touch the store when contextLines is invalid", async () => {
+    const { artifact } = await query(sevenLines);
+    const store = new CountingStore();
+    store.put(artifact);
+    store.gets = 0;
+    store.puts = 0;
+    for (const value of [-1, 1.5]) {
+      expect(() => queryArtifact({ artifactId: artifact.artifactId, query: "needle", maxTokens: 400, contextLines: value, store }), String(value)).toThrow(CONTEXT_ERROR);
+    }
+    expect(store.gets).toBe(0);
+    expect(store.puts).toBe(0);
+  });
+
+  it("C36-1 keeps omitted, zero, negative zero and large safe-integer contextLines results", async () => {
+    const { artifact } = await query(sevenLines);
+    const store = new MemoryArtifactStore();
+    store.put(artifact);
+    const base = { artifactId: artifact.artifactId, query: "needle", maxTokens: 400, store };
+    expect(lineSpans(queryArtifact(base))).toEqual([[2, 6]]);
+    expect(lineSpans(queryArtifact({ ...base, contextLines: undefined }))).toEqual([[2, 6]]);
+    const cases: Array<[number, [number, number]]> = [
+      [0, [4, 4]],
+      [-0, [4, 4]],
+      [10, [1, 7]],
+      [11, [1, 7]],
+      [1000, [1, 7]],
+      [Number.MAX_SAFE_INTEGER, [1, 7]],
+    ];
+    for (const [contextLines, span] of cases) {
+      expect(lineSpans(queryArtifact({ ...base, contextLines })), String(contextLines)).toEqual([span]);
+    }
+  });
+
+  it("C36-3 keeps the maxExcerpts error ahead of the contextLines error", () => {
+    const store = new MemoryArtifactStore();
+    expect(() => queryArtifact({ artifactId: "artifact_missing", query: "needle", maxTokens: 400, maxExcerpts: 0, contextLines: -1, store })).toThrow(/^maxExcerpts must be an integer from 1 to 20$/);
+  });
+
+  // T36-4 (bounded MemoryArtifactStore LRU order) depends on S-10 (#113), which is not on this
+  // branch base. It is written and run only after S-10 is merged into main.
 });
