@@ -95,6 +95,15 @@ npm.cmd run validate:plugin
 npm.cmd run benchmark
 ```
 
+Node.js requirements differ by role:
+
+- Runtime (the installed MCP server): `engines.node` is `>=22.0.0`.
+- Development and tests: the dev tools declare a narrower range. Vite 7.3.7 requires `^20.19.0 || >=22.12.0`, and Vitest 4.1.12 requires `^20.0.0 || ^22.0.0 || >=24.0.0`, so use Node 22.12 or later and avoid Node 23. The full gate has been run on Node 24 only; other versions are untested.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
 ## Codex Components
 
 - Plugin manifest: `.codex-plugin/plugin.json`
