@@ -163,8 +163,12 @@ export async function collectThirdPartyComponents({ metafile, rootDir }) {
 }
 
 /** Renders the leading bundle comment. License texts are copied verbatim (line endings as LF). */
-export function renderThirdPartyNotices({ packages, vendored }) {
+export function renderThirdPartyNotices(options) {
+  const { packages, vendored, projectLicense = null } = options;
   const sections = [];
+  if (projectLicense !== null) {
+    sections.push(`Project license (LICENSE)\n${lf(projectLicense)}`);
+  }
   for (const pkg of packages) {
     const lines = [`Package: ${pkg.name}@${pkg.version}`, `Declared license: ${pkg.license ?? "(none declared)"}`];
     for (const file of pkg.licenseFiles) sections.push(`${lines.join("\n")}\nFile: ${file.file}\n${file.text}`);

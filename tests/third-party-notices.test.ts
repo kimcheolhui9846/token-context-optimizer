@@ -217,4 +217,15 @@ describe("third-party notice helper", () => {
       }),
     ).toThrow(/comment terminator/u);
   });
+
+  it("never lets the project license close the banner comment", () => {
+    const options = {
+      packages: [],
+      vendored: [],
+      projectLicense: "evil */ code",
+    };
+    expect(() =>
+      renderThirdPartyNotices(options),
+    ).toThrow(/comment terminator/u);
+  });
 });

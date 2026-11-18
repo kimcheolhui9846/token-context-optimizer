@@ -8,5 +8,8 @@ const outfile = bundleBuildOptions.outfile;
 const bundled = await readFile(outfile, "utf8");
 const shebang = "#!/usr/bin/env node\n";
 const body = bundled.startsWith(shebang) ? bundled.slice(shebang.length) : bundled;
-const notices = renderThirdPartyNotices(await collectThirdPartyComponents({ metafile: result.metafile, rootDir: "." }));
+const notices = renderThirdPartyNotices({
+  ...(await collectThirdPartyComponents({ metafile: result.metafile, rootDir: "." })),
+  projectLicense: await readFile("LICENSE", "utf8"),
+});
 await writeFile(outfile, `${shebang}${notices}${body}`.replace(/[ \t]+$/gmu, ""), "utf8");

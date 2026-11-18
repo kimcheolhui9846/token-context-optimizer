@@ -1,6 +1,8 @@
-import { cp, mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { cp, mkdir, mkdtemp, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { dirname, join, relative } from "node:path";
+import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 
 const licensePackages = ["fast-png", "fflate", "iobuffer", "jpeg-js"] as const;
@@ -11,6 +13,7 @@ const runtimeFiles = [
   "skills/optimize-context/SKILL.md",
 ] as const;
 const temporaryRoots = new Set<string>();
+const execFileAsync = promisify(execFile);
 
 afterEach(async () => {
   for (const root of temporaryRoots) await rm(root, { recursive: true, force: true });
@@ -19,6 +22,25 @@ afterEach(async () => {
 
 function normalizeNotice(text: string): string {
   return text.replace(/\s+/gu, " ").trim();
+}
+
+function normalizeLineEndings(text: string): string {
+  return text.replace(/\r\n?/gu, "\n");
+}
+
+async function enumerateInstalledFiles(root: string, current = root): Promise<string[]> {
+  const files: string[] = [];
+  for (const entry of await readdir(current, { withFileTypes: true })) {
+    const path = join(current, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await enumerateInstalledFiles(root, path)));
+    } else if (entry.isFile()) {
+      files.push(relative(root, path).replaceAll("\\", "/"));
+    } else {
+      throw new Error(`Unexpected installed entry type: ${relative(root, path)}`);
+    }
+  }
+  return files.sort();
 }
 
 async function expectedLicenseNotice(packageName: string): Promise<string> {
@@ -56,6 +78,37 @@ async function expectCompleteApacheLicense(text: string): Promise<void> {
 }
 
 describe("image dependency bundle notices", () => {
+  it("installs the complete project license in exactly the four runtime files", async () => {
+    const projectLicense = normalizeLineEndings(await readFile("LICENSE", "utf8"));
+    const generatedBundle = normalizeLineEndings(await readFile("bin/token-context-optimizer.mjs", "utf8"));
+    const installRoot = await mkdtemp(join(tmpdir(), "tco-project-license-install-"));
+    temporaryRoots.add(installRoot);
+    const result = await execFileAsync(
+      process.execPath,
+      ["scripts/install-local-plugin.mjs", "--target", installRoot, "--no-marketplace"],
+      { windowsHide: true },
+    );
+    expect(JSON.parse(result.stdout)).toMatchObject({
+      ok: true,
+      copiedFiles: runtimeFiles,
+    });
+    const installedBundle = normalizeLineEndings(
+      await readFile(join(installRoot, "bin/token-context-optimizer.mjs"), "utf8"),
+    );
+    for (const bundle of [generatedBundle, installedBundle]) {
+      expect(bundle.includes("Project license (LICENSE)\n")).toBe(true);
+      expect(bundle.split(projectLicense).length - 1).toBe(1);
+      expect(bundle.startsWith("#!/usr/bin/env node\n")).toBe(true);
+      expect(bundle).toContain("Bundled third-party license notices");
+    }
+    expect(await enumerateInstalledFiles(installRoot)).toEqual([
+      ".codex-plugin/plugin.json",
+      ".mcp.json",
+      "bin/token-context-optimizer.mjs",
+      "skills/optimize-context/SKILL.md",
+    ]);
+  });
+
   it("embeds complete license notices in the generated and installed bundle", async () => {
     const generatedBundle = normalizeNotice(await readFile("bin/token-context-optimizer.mjs", "utf8"));
     const installRoot = await mkdtemp(join(tmpdir(), "tco-license-install-"));
