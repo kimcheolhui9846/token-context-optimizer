@@ -36,6 +36,7 @@
 ## Status and handoff
 
 - Worker commit: `dd3656c716e73f668e954cf75e1b03aa7a261635` (`fix(packaging): include project license in installed bundle`); no push or remote action performed.
+- Final branch HEAD after handoff bookkeeping: `2755ad721e022bc6493c396257b74b4cd6bcd96b`; no push or remote action performed.
 - Tracked diff is limited to README, generated bundle, two build/notice scripts, two tests, and this handoff.
 - Worker selected model: exact runtime model ID is not exposed in this worker surface; no model identity is inferred. Independent plan provider was Claude Opus 5.5.
 - Coordinator owns remote publication, Draft PR, post-PR verification, final Astra review, and approval gate.
