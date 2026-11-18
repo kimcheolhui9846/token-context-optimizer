@@ -227,4 +227,19 @@ describe("third-party notice helper", () => {
       }),
     ).toThrow(/comment terminator/u);
   });
+
+  it("preserves project-license whitespace while normalizing line endings", () => {
+    const projectLicense = "MIT License\r\n\r\nCopyright (c) 2026 example  \r\n";
+    const normalizedProjectLicense = projectLicense.replace(/\r\n?/gu, "\n");
+    const rendered = renderThirdPartyNotices({
+      packages: [],
+      vendored: [],
+      projectLicense,
+    });
+
+    expect(rendered).toContain(
+      `Project license (MIT) for token-context-optimizer (source: LICENSE)\n${normalizedProjectLicense}\nBundled third-party license notices`,
+    );
+    expect(rendered.split(normalizedProjectLicense).length - 1).toBe(1);
+  });
 });
