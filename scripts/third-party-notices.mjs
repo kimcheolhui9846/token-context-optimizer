@@ -175,7 +175,7 @@ export function renderThirdPartyNotices({ packages, vendored, projectLicense = n
       `Component: ${component.name}@${component.version}\nDeclared license: ${component.license}\nIncluded inside: ${component.via.join(", ")} (prebuilt dist)\n${component.text}`,
     );
   }
-  const body = sections.join("\n\n");
+  const body = sections.join("\n\n").replace(/[ \t]+$/gmu, "");
   const projectSection = projectLicense === null
     ? ""
     : `Project license (MIT) for token-context-optimizer (source: LICENSE)\n${lf(projectLicense)}`;

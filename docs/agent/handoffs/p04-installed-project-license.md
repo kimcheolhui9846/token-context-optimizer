@@ -13,6 +13,7 @@
 - `tests/third-party-notices.test.ts` covers project-license comment-terminator protection.
 - `README.md` states the complete project MIT license is embedded and root `LICENSE` is the source of truth.
 - Milestone review fixes: `scripts/third-party-notices.d.mts` now declares the optional project-license field; the generated comment identifies the project MIT license before the unchanged third-party heading; cleanup preserves project-license bytes while retaining prior third-party/code cleanup; the real-install test has a 120-second timeout and reuses `runtimeFiles` for the exact recursive file assertion.
+- Final simplification: third-party horizontal-whitespace cleanup now occurs once while rendering its body; `build-bundle.mjs` concatenates the untouched rendered comment and sanitized JS directly, with no heading-based reparsing. README now uses the exact final project-license heading.
 
 ## TDD and review evidence
 
@@ -35,6 +36,7 @@
 - `npm.cmd audit`: exit 1 with five high `picomatch` dev-tool vulnerabilities; no dependency changes authorized; `.artifacts/p04-installed-project-license/audit-full.log`.
 - Two consecutive builds produced identical SHA-256 `39188EA64276D6BE7B33C1BC6859AA22AB5504C296CFF589F55B009533A44549`; isolated install copied identical bundle bytes; `.artifacts/p04-installed-project-license/build-reproducibility.txt`, `reproducibility.txt`, and `repro-install.log`.
 - Review-fix reproducibility: two builds and the real isolated install matched SHA-256 `782663CC7601DDFDF28C005E1C1DD554A81E2E03F7195EF9CB854E8824322FEB`; the prior third-party notice section was byte-equal. Evidence: `.artifacts/p04-installed-project-license/review-fix-reproducibility.txt` and `notice-preservation.txt`.
+- Final simplification verification: build, targeted 13/13, and typecheck passed; exact UTF-8 byte comparison of the third-party section returned `True` for 1,092,921-byte slices. Evidence: `.artifacts/p04-installed-project-license/simplify-build.log`, `simplify-targeted.log`, `simplify-typecheck.log`, and `notice-preservation-simplify.txt`.
 - `git diff --check`: pass; `.artifacts/p04-installed-project-license/diff-check.log` (expected Git LF/CRLF warning only).
 
 ## Status and handoff

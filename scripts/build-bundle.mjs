@@ -12,9 +12,4 @@ const notices = renderThirdPartyNotices({
   ...(await collectThirdPartyComponents({ metafile: result.metafile, rootDir: "." })),
   projectLicense: await readFile("LICENSE", "utf8"),
 });
-const thirdPartyHeading = "Bundled third-party license notices";
-const thirdPartyOffset = notices.indexOf(thirdPartyHeading);
-if (thirdPartyOffset < 0) throw new Error(`Generated bundle is missing ${thirdPartyHeading}`);
-const projectNotice = notices.slice(0, thirdPartyOffset);
-const thirdPartyNotice = notices.slice(thirdPartyOffset).replace(/[ \t]+$/gmu, "");
-await writeFile(outfile, `${shebang}${projectNotice}${thirdPartyNotice}${body.replace(/[ \t]+$/gmu, "")}`, "utf8");
+await writeFile(outfile, `${shebang}${notices}${body.replace(/[ \t]+$/gmu, "")}`, "utf8");
