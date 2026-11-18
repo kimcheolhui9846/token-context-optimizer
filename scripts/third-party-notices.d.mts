@@ -26,6 +26,7 @@ export interface VendoredComponent {
 export interface ThirdPartyComponents {
   packages: BundledPackage[];
   vendored: VendoredComponent[];
+  projectLicense?: string | null;
 }
 
 export declare const bundleBuildOptions: Readonly<BuildOptions>;

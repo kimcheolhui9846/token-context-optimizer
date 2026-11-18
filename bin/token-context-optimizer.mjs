@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 /*
-Bundled third-party license notices
-
-This file bundles the following third-party code. Each license text below is copied from the
-installed package or, for code a package bundled into its own dist files, from the exact
-published version.
-
-Project license (LICENSE)
+Project license (MIT) for token-context-optimizer (source: LICENSE)
 MIT License
 
 Copyright (c) 2026 kim cheol hui
@@ -26,6 +20,11 @@ EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+Bundled third-party license notices
+
+This file bundles the following third-party code. Each license text below is copied from the
+installed package or, for code a package bundled into its own dist files, from the exact
+published version.
 
 Package: @modelcontextprotocol/core@2.3.0
 Declared license: Apache-2.0

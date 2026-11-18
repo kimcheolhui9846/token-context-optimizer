@@ -219,13 +219,12 @@ describe("third-party notice helper", () => {
   });
 
   it("never lets the project license close the banner comment", () => {
-    const options = {
-      packages: [],
-      vendored: [],
-      projectLicense: "evil */ code",
-    };
     expect(() =>
-      renderThirdPartyNotices(options),
+      renderThirdPartyNotices({
+        packages: [],
+        vendored: [],
+        projectLicense: "evil */ code",
+      }),
     ).toThrow(/comment terminator/u);
   });
 });

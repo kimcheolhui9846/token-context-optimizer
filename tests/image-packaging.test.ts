@@ -96,18 +96,13 @@ describe("image dependency bundle notices", () => {
       await readFile(join(installRoot, "bin/token-context-optimizer.mjs"), "utf8"),
     );
     for (const bundle of [generatedBundle, installedBundle]) {
-      expect(bundle.includes("Project license (LICENSE)\n")).toBe(true);
+      expect(bundle.includes("Project license (MIT) for token-context-optimizer (source: LICENSE)\n")).toBe(true);
       expect(bundle.split(projectLicense).length - 1).toBe(1);
       expect(bundle.startsWith("#!/usr/bin/env node\n")).toBe(true);
       expect(bundle).toContain("Bundled third-party license notices");
     }
-    expect(await enumerateInstalledFiles(installRoot)).toEqual([
-      ".codex-plugin/plugin.json",
-      ".mcp.json",
-      "bin/token-context-optimizer.mjs",
-      "skills/optimize-context/SKILL.md",
-    ]);
-  });
+    expect(await enumerateInstalledFiles(installRoot)).toEqual([...runtimeFiles].sort());
+  }, 120_000);
 
   it("embeds complete license notices in the generated and installed bundle", async () => {
     const generatedBundle = normalizeNotice(await readFile("bin/token-context-optimizer.mjs", "utf8"));

@@ -163,12 +163,8 @@ export async function collectThirdPartyComponents({ metafile, rootDir }) {
 }
 
 /** Renders the leading bundle comment. License texts are copied verbatim (line endings as LF). */
-export function renderThirdPartyNotices(options) {
-  const { packages, vendored, projectLicense = null } = options;
+export function renderThirdPartyNotices({ packages, vendored, projectLicense = null }) {
   const sections = [];
-  if (projectLicense !== null) {
-    sections.push(`Project license (LICENSE)\n${lf(projectLicense)}`);
-  }
   for (const pkg of packages) {
     const lines = [`Package: ${pkg.name}@${pkg.version}`, `Declared license: ${pkg.license ?? "(none declared)"}`];
     for (const file of pkg.licenseFiles) sections.push(`${lines.join("\n")}\nFile: ${file.file}\n${file.text}`);
@@ -180,6 +176,11 @@ export function renderThirdPartyNotices(options) {
     );
   }
   const body = sections.join("\n\n");
-  if (body.includes("*/")) throw new Error("A license text contains a comment terminator and cannot be embedded");
-  return `/*\nBundled third-party license notices\n\nThis file bundles the following third-party code. Each license text below is copied from the\ninstalled package or, for code a package bundled into its own dist files, from the exact\npublished version.\n\n${body}\n*/\n`;
+  const projectSection = projectLicense === null
+    ? ""
+    : `Project license (MIT) for token-context-optimizer (source: LICENSE)\n${lf(projectLicense)}`;
+  const embeddedText = [projectSection, body].filter(Boolean).join("\n");
+  if (embeddedText.includes("*/")) throw new Error("A license text contains a comment terminator and cannot be embedded");
+  const projectSeparator = projectSection.length === 0 ? "" : projectSection.endsWith("\n") ? "\n" : "\n\n";
+  return `/*\n${projectSection}${projectSeparator}Bundled third-party license notices\n\nThis file bundles the following third-party code. Each license text below is copied from the\ninstalled package or, for code a package bundled into its own dist files, from the exact\npublished version.\n\n${body}\n*/\n`;
 }
