@@ -1,6 +1,12 @@
 # N-34 P10 K1 공식 1회 실행 결과 (run `p10run1`)
 
-- 상태: **사용자 승인 공식 1회 실행 종료.** timing → memory → 정보용을 모두 1회씩 실행했다. primary(Codex) 최종 판정 전이다. 이 문서는 P10 완료나 F1 위험 수용을 뜻하지 않는다
+- 상태: **사용자 승인 공식 1회 실행 종료, primary 공식 결과 PASS WITH NOTES.** timing → memory → 정보용을 모두 1회씩 실행했다. 남은 것은 문서 마감 최종 확인과 아래 §7의 후속 통합 단계다. 이 문서는 P10 완료, Ready, merge를 뜻하지 않는다
+- primary 판정(`codex_review/review_2026-11-18_p10-official-primary.md`, 검토 HEAD `1e0097f`)
+  - J1 유효: 필수 18행과 정보용 8행 모두 attempt 1에서 A/A 유효, K = 1, 재시도 0
+  - J2 PASS: timing 18/18, memory 18/18
+  - J3: 정보용 8행 모두 V, 블록 수용
+  - J4: **D-0**
+  - primary 독립 raw 대조 3,633개 항목 일치(불일치 0). primary scoped Argon APPROVE, 추가 지적 0
 - 승인: 사용자 "승인" 2026-11-17 21:35 KST. 요청 `codex_review/review_2026-11-17_p10-official-run1-request.md`, Approval Gate `review_2026-11-17_p10-impl-final.md`(추적 안 됨)
 - 기준: [n34-p10-prereg.md](n34-p10-prereg.md)(동결 `4b3e06e`). 실행 중 하네스·prereg·제품·worker·입력·임계·예산은 바꾸지 않았다
 - 실행 환경: 같은 PC, Windows 10.0.26200, Node `v24.18.0`, 숨김 실행. 사용자 앱은 그대로 두었다
@@ -28,12 +34,16 @@
 
 ## 3. 필수 K1 결과 (run3 정의, REF = B1, CAND = C1, nearest-rank n = 30)
 - **timing**: 18행 모두 `pass`. 모두 attempt 1에서 A/A가 유효했고 재시도는 0이다. 보정 K는 모든 행에서 1(사다리 1단계)이다
-  - C1/B1 median 비는 G-R 0.407–1.016, G-C 0.464–1.030이다. 최대는 `O1/F7` 1.030으로, 한도(REF median × 1.10)보다 작다
-  - p95는 모든 행에서 한도(REF p95 × 1.20) 안이다. A/A 비는 0.975–1.018이다(허용 0.95–1.05)
+  - 시간 한도(run3 정의)
+    - median ≤ max(REF median × 1.10, REF median + 0.5 ms)
+    - p95 ≤ max(REF p95 × 1.20, REF p95 + 1 ms)
+    - 이번 26행(필수 18, 정보용 8)은 모두 곱셈항이 더 크다. 그래서 아래 비교는 곱셈 한도와 같다
+  - C1/B1 median 비는 G-R 0.407–1.016, G-C 0.464–1.030이다. 최대는 `O1/F7` 1.030이고 median 한도 안이다
+  - p95는 모든 행에서 한도 안이다. A/A 비는 0.975–1.018이다(허용 0.95–1.05)
 - **memory**: 18행 모두 `pass`. 3반복이 모두 완료됐고 행마다 output digest가 하나로 일치한다
   - R(보존 바이트): CAND − REF는 −26,344 ~ +6,792 bytes다. 모든 행이 한도(REF + max(1 MiB, 2 %)) 안이다
   - P(최대 RSS): CAND/REF가 0.104–0.837이다(한도 REF × 1.10 + 32 MiB)
-- 따라서 사전등록 판정으로 J2(timing·memory 모두 pass)가 성립한다. 이것은 runner의 판정과 아래 §5의 독립 재계산이 일치한다는 뜻이다. 최종 판정은 primary가 한다
+- 따라서 사전등록 판정으로 J2(timing·memory 모두 pass)가 성립한다. runner 판정, §5 구현자 재계산, primary 독립 대조가 모두 일치했다
 
 ## 4. 정보용 F1 (same-input, 행마다 1회)
 | 행 | 판정 | C1/B1 median | A/A 비(B, C) |
@@ -49,12 +59,14 @@
 
 - 집계: V 8, X 0, C 0, I 0, N 0. 무결성 실패 0
 - F1 처분(prereg §4 순서 D-3 > D-4 > D-2 > D-1 > D-0): J2가 성립하고, 무결성 실패와 C 행이 없고, 블록이 `completed_informational`이며, F1 두 행이 모두 V다. 따라서 **D-0**이다
-- D-0은 이 입력(10 MiB 합성 F1)과 이 PC에서 관찰한 결과다. 일반 성능 보장이나 F1 위험 해소가 아니고, 위험 수용 결정도 아니다
+- D-0은 이 입력(10 MiB 합성 F1), 이 PC, 이 Node로 한 번 관찰한 결과다. 일반 성능 보장이나 F1 위험 해소가 아니다
+- 계획 §7.3에 따라 D-0은 기록하고 §8.2 완료 조건으로 진행한다. 추가 F1 위험 수용 결정은 필요하지 않다(D-1·D-2에만 필요)
 
-## 5. 독립 읽기 전용 재계산
+## 5. 구현자 읽기 전용 재계산 (자기 검증)
 - 스크립트: 메인 checkout `codex_review/remediation-impl-2026-11-13/p10-impl/official-p10run1/recalc/recalc.mjs`
   - runner와 contract를 import하지 않고, run3 정의를 다시 구현해 커밋 blob을 읽는다. 결과는 `recalc-out.json`에 있다
-  - 검사 130개, 불일치 0
+  - 대조 항목(assertion) 130개, 불일치 0. 실험·테스트 수가 아니다
+  - 구현자의 자기 검증이다. primary의 독립 대조 3,633개 항목과는 별개다
 - 대조 항목
   - raw-only commit 사슬: 부모, name-status, 저자, trailer, receipt 1줄 원문
   - receipt 필드 11개, blob sha256, cap, 실제 exit
@@ -72,5 +84,18 @@
 ## 6. 남은 위험·한계
 - 한 PC에서 1회 실행한 결과다. 이번 A/A는 모두 attempt 1에서 유효했지만, 이전 run에서 본 O2 A/A 불안정의 기제는 여전히 미확인이다. 재현성은 이 결과로 보장되지 않는다
 - 사용자 백그라운드 앱(게임 런처, 브라우저 등)이 켜진 상태로 측정했다. A/A·교대 설계가 공통 잡음을 대조하지만, 외부 부하가 없었다고 보장하지는 않는다
-- raw 일관성과 hash/commit 사슬은 기록끼리의 모순만 잡는다. 일관되게 꾸민 기록의 외부 진실은 보장하지 않는다. 재계산 스크립트는 구현자가 쓴 것이라 독립 검토가 아니다
-- F1 same-input은 정보용 블록이다. D-0은 위험 수용이나 해소가 아니며, 위험 수용, Ready, merge는 별도 결정이다
+- raw 일관성과 hash/commit 사슬은 기록끼리의 모순만 잡는다. 일관되게 꾸민 기록의 외부 진실은 보장하지 않는다
+- D-0은 위험 해소가 아니다. P04 의존성 경고 7건과 P08 최종 통합 검증은 남는다
+
+## 7. 다음 단계 (계획 §8.1–§8.3, 각 단계는 별도 승인 경계)
+1. 이 문서 마감에 대한 primary 최종 확인
+2. 후속 통합 준비 요청과 승인
+3. 기준 main SHA와 PR #119 head SHA를 요청서에 고정
+4. Orca가 관리하는 별도 후보 공간에서 결합(공유 branch·main·사용자 checkout 밖)
+5. 후보 SHA에서 전체 gate, 결합 lock·audit, 교차 계약 검사
+6. 사용자 Ready·merge 승인. 결합 후보 검증이 이 승인보다 먼저다
+7. head 고정 merge, 반영 뒤 main tree와 후보 tree의 동등성 확인
+8. #115 merge 또는 흡수·close 기록
+
+- 지금은 위 2–8 단계의 실행 권한이 없다. 후보 생성, cherry-pick, Ready, merge를 하지 않는다
+- P10 완료 조건(§8.2)은 그대로다: J2 PASS, 7단계 gate, primary 판정, §7.3 처분 기록, #119 처분, #115 처분
