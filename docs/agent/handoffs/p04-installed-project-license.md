@@ -1,52 +1,27 @@
-# P04 Installed Project License
+# P04 installed project license
 
-- Tier C implementation on `kimcheolhui9846/p04-installed-project-license`, based on `8ab526bdabd13886e33a2701fb29a0a9beac8419`.
-- Scope: embed the complete root MIT `LICENSE` in the shipped bundle; prove the real isolated installer preserves it and the exact four-file runtime layout; correct README wording and retain third-party notice behavior.
-- Worker exclusions: `LICENSE`, `research/`, dependencies/package files, installer contract, base PRs, and central handoff. Coordinator-owned remote publication, Draft PR, Ready, and merge remain outside this worker scope.
+Tier C. [Draft PR #124](https://github.com/kimcheolhui9846/token-context-optimizer/pull/124) targets `main` after #119 (`011db6a`). Its integration baseline `8ab526b` contains #116 (`1112702`) and #118 (`8f500e4`). The license-delivery diff starts at that baseline.
 
-## Changes
+## What ships
 
-- `scripts/build-bundle.mjs` reads root `LICENSE` for every generated bundle.
-- `scripts/third-party-notices.mjs` emits a distinct `Project license (LICENSE)` section, LF-normalizes line endings, and retains comment-terminator rejection.
-- `bin/token-context-optimizer.mjs` regenerated with shebang first, full project license/holder, and existing third-party notices.
-- `tests/image-packaging.test.ts` invokes `scripts/install-local-plugin.mjs` in an isolated target, compares the complete root license in generated and installed bundles with LF-only normalization, checks shebang/notices, and recursively asserts exactly four installed files.
-- `tests/third-party-notices.test.ts` covers project-license comment-terminator protection.
-- `README.md` states the complete project MIT license is embedded and root `LICENSE` is the source of truth.
-- Milestone review fixes: `scripts/third-party-notices.d.mts` now declares the optional project-license field; the generated comment identifies the project MIT license before the unchanged third-party heading; cleanup preserves project-license bytes while retaining prior third-party/code cleanup; the real-install test has a 120-second timeout and reuses `runtimeFiles` for the exact recursive file assertion.
-- Final simplification: third-party horizontal-whitespace cleanup now occurs once while rendering its body; `build-bundle.mjs` concatenates the untouched rendered comment and sanitized JS directly, with no heading-based reparsing. README now uses the exact final project-license heading.
-- Final regression: `tests/third-party-notices.test.ts` characterizes CRLF-to-LF normalization while preserving project-license trailing spaces and the single blank separator.
-
-## TDD and review evidence
-
-- RED: `.artifacts/p04-installed-project-license/red-concise.log`; focused test failed 1/1 because the unchanged bundle lacked `Project license (LICENSE)`.
-- GREEN: `.artifacts/p04-installed-project-license/build-green.log` and `targeted-green.log`; build passed and 2 files/13 tests passed.
-- Initial-plan cross-check: Claude Opus 5.5, proceed with conditions for exact LF-normalized unique license block, holder/paragraph preservation, exact four-file enumeration, shebang/notice compatibility, comment safety, reproducibility, README attribution, and clean scope. All conditions were implemented and checked.
-- Milestone re-review: Claude Opus 5.5 requested one major, three minor, and two note-level fixes; all were applied in the scoped rework and targeted checks passed.
+- The build reads the root `LICENSE` and embeds its complete MIT text and copyright line at the beginning of `bin/token-context-optimizer.mjs`, immediately after the shebang and the project notice heading. Project license text preserves whitespace and uses LF line endings.
+- The third-party notices follow under their existing heading. From this heading through the end of the executable, the shipped bytes match the integration baseline. The lockfile and installer file list also match that baseline.
+- The build helper and its TypeScript declaration accept the project license. The README identifies its location in the installed bundle.
+- The regression tests in `tests/image-packaging.test.ts` and `tests/third-party-notices.test.ts` cover the real isolated installer, exactly four installed files, the unique complete license, CRLF and trailing whitespace, and comment-terminator rejection.
 
 ## Verification
 
-- `npm.cmd ci --ignore-scripts`: completed; unchanged base reported five high dev-tool vulnerabilities.
-- `npm.cmd test`: 54 files, 4470 passed, 5 skipped; `.artifacts/p04-installed-project-license/full-test.log`.
-- Review-fix default `npm.cmd test` reproduced two existing 5-second timeouts in `tests/policy-redos-group3.test.ts` (4468 passed, 5 skipped); isolated default run passed 4/4, and full `npm.cmd test -- --testTimeout 30000` passed 4470/4475 with 5 skips. Evidence: `.artifacts/p04-installed-project-license/review-fix-full-test.log`, `review-fix-full-test-rerun.log`, `review-fix-policy-redos-default.log`, and `review-fix-full-test-timeout30s.log`.
-- `npm.cmd run typecheck`: pass; `.artifacts/p04-installed-project-license/typecheck.log`.
-- `npm.cmd run build`: pass; `.artifacts/p04-installed-project-license/build-final.log`.
-- `npm.cmd run smoke:mcp`: `mcp smoke ok`; `.artifacts/p04-installed-project-license/smoke-mcp.log`.
-- `npm.cmd run validate:plugin`: `plugin manifest ok`; `.artifacts/p04-installed-project-license/validate-plugin.log`.
-- `npm.cmd run benchmark`: pass with `passed: true`; `.artifacts/p04-installed-project-license/benchmark.log`.
-- `npm.cmd audit --omit=dev`: 0 vulnerabilities; `.artifacts/p04-installed-project-license/audit-runtime.log`.
-- `npm.cmd audit`: exit 1 with five high `picomatch` dev-tool vulnerabilities; no dependency changes authorized; `.artifacts/p04-installed-project-license/audit-full.log`.
-- Two consecutive builds produced identical SHA-256 `39188EA64276D6BE7B33C1BC6859AA22AB5504C296CFF589F55B009533A44549`; isolated install copied identical bundle bytes; `.artifacts/p04-installed-project-license/build-reproducibility.txt`, `reproducibility.txt`, and `repro-install.log`.
-- Review-fix reproducibility: two builds and the real isolated install matched SHA-256 `782663CC7601DDFDF28C005E1C1DD554A81E2E03F7195EF9CB854E8824322FEB`; the prior third-party notice section was byte-equal. Evidence: `.artifacts/p04-installed-project-license/review-fix-reproducibility.txt` and `notice-preservation.txt`.
-- Final simplification verification: build, targeted 13/13, and typecheck passed; exact UTF-8 byte comparison of the third-party section returned `True` for 1,092,921-byte slices. Evidence: `.artifacts/p04-installed-project-license/simplify-build.log`, `simplify-targeted.log`, `simplify-typecheck.log`, and `notice-preservation-simplify.txt`.
-- Follow-up verification: targeted packaging/notice tests passed 14/14, typecheck and build passed, and pre/post build bundle bytes matched exactly at 1,094,083 bytes with SHA-256 `782663CC7601DDFDF28C005E1C1DD554A81E2E03F7195EF9CB854E8824322FEB`. Evidence: `.artifacts/p04-installed-project-license/final-whitespace-targeted.log`, `final-whitespace-typecheck.log`, `final-whitespace-build.log`, and `final-pre-post-bundle-comparison.txt`.
-- `git diff --check`: pass; `.artifacts/p04-installed-project-license/diff-check.log` (expected Git LF/CRLF warning only).
+- RED on the unchanged integration bundle. The new real-install test failed because the project license section was missing. The original targeted run passed after the build change. The final targeted suite passed 14/14.
+- Two fresh builds and the installed executable matched the committed bundle. SHA-256 `782663cc7601ddfdf28c005e1c1dd554a81e2e03f7195ef9cb854e8824322feb`.
+- Post-draft clean checkout at `a919377`: 54 test files passed, 4,471 tests passed and five skipped with the default timeout. Clean install, both builds, typecheck, MCP smoke, manifest validation, benchmark and the scoped diff check passed.
+- During implementation, two existing policy tests hit their default 5-second timeout in a full run. Their isolated default run passed. The full run at a 30-second limit passed 4,470 tests with five skipped before the final whitespace test was added.
+- Runtime audit returned zero. Full audit reported five high development-tool packages affected by one picomatch advisory. This task preserves the integration lock. [GitHub Advisory](https://github.com/advisories/GHSA-fc5q-39xc-vjpf)
+- Local worker evidence is in `.artifacts/p04-installed-project-license/` in the task worktree. The coordinator ran a separate clean-checkout gate after opening the draft.
 
-## Status and handoff
+## Review and approval
 
-- Worker commit: `dd3656c716e73f668e954cf75e1b03aa7a261635` (`fix(packaging): include project license in installed bundle`); no push or remote action performed.
-- Pre-milestone-review handoff bookkeeping HEAD: `2755ad721e022bc6493c396257b74b4cd6bcd96b`; no push or remote action performed.
-- Milestone rework commit: `45ef134b3df2eea029241ac0bd7fd20ec25c7498` (`fix(packaging): preserve project license fidelity`); no push or remote action performed.
-- Tracked diff is limited to README, generated bundle, two build/notice scripts, two tests, and this handoff.
-- Worker selected model: `gpt-5.6-luna`, launched by Orca for this dispatch. Independent plan and milestone provider: Claude Opus 5.5.
-- Coordinator owns remote publication, Draft PR, post-PR verification, final Astra review, and approval gate.
-- Post-commit `.artifacts/p04-installed-project-license/post-commit-verification.txt` confirms the committed LF Git blob, regenerated source, and isolated installed bundle all match; worktree is clean.
+- Implementer — GPT-5.6 Luna.
+- Claude Code Opus 5.5, initial plan — proceed with conditions, 0 blocker, 3 major, 2 minor, 1 note.
+- Claude Code Opus 5.5, milestone — changes requested, 0 blocker, 1 major, 3 minor, 2 notes. The main finding was the missing TypeScript option declaration.
+- Claude Code Opus 5.5, scoped re-review at `a919377` — approve, 0 blocker, 0 major, 1 minor, 3 notes. This handoff corrects the minor wording about the declaration and review notes.
+- Ready and merge await user approval. #116 and #118 remain separate open drafts.
