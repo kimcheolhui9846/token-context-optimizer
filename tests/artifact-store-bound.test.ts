@@ -162,7 +162,7 @@ describe("S-10 controls (pass on BASE too)", () => {
   });
 });
 
-describe("S-10 bound policy (RED on BASE)", () => {
+describe("query and store integration", () => {
   it("T36-4 keeps invalid direct queries from refreshing LRU order", async () => {
     const dir = await fixtureDir();
     const first = await writeFixture(dir, "first.txt", "alpha needle\n");
@@ -208,7 +208,9 @@ describe("S-10 bound policy (RED on BASE)", () => {
     expect(validStore.get(secondRecord.artifactId)).toBeUndefined();
     expect(validStore.get(thirdRecord.artifactId)).toBeDefined();
   });
+});
 
+describe("S-10 bound policy (RED on BASE)", () => {
   it("R1 evicts the oldest record once the estimate exceeds the bound", () => {
     const store = bounded(3 * F);
     for (const id of ["A", "B", "C", "D"]) store.put(rec(id, F));
