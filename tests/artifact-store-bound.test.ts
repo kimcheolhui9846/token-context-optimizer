@@ -163,6 +163,52 @@ describe("S-10 controls (pass on BASE too)", () => {
 });
 
 describe("S-10 bound policy (RED on BASE)", () => {
+  it("T36-4 keeps invalid direct queries from refreshing LRU order", async () => {
+    const dir = await fixtureDir();
+    const first = await writeFixture(dir, "first.txt", "alpha needle\n");
+    const second = await writeFixture(dir, "second.txt", "beta needle\n");
+    const third = await writeFixture(dir, "third.txt", "gamma needle\n");
+    const probe = new MemoryArtifactStore();
+    const firstRecord = await indexArtifact({ path: first, store: probe, allowedRoots: [dir] });
+    const secondRecord = await indexArtifact({ path: second, store: probe, allowedRoots: [dir] });
+    const thirdRecord = await indexArtifact({ path: third, store: probe, allowedRoots: [dir] });
+    const bound = weightOf(firstRecord) + weightOf(thirdRecord);
+
+    const invalidStore = bounded(bound);
+    await indexArtifact({ path: first, store: invalidStore, allowedRoots: [dir] });
+    await indexArtifact({ path: second, store: invalidStore, allowedRoots: [dir] });
+    expect(() =>
+      queryArtifact({
+        artifactId: firstRecord.artifactId,
+        query: "needle",
+        maxTokens: 40,
+        contextLines: -1,
+        store: invalidStore,
+      }),
+    ).toThrow(new Error("contextLines must be a non-negative safe integer"));
+    await indexArtifact({ path: third, store: invalidStore, allowedRoots: [dir] });
+    expect(invalidStore.get(firstRecord.artifactId)).toBeUndefined();
+    expect(invalidStore.get(secondRecord.artifactId)).toBeDefined();
+    expect(invalidStore.get(thirdRecord.artifactId)).toBeDefined();
+
+    const validStore = bounded(bound);
+    await indexArtifact({ path: first, store: validStore, allowedRoots: [dir] });
+    await indexArtifact({ path: second, store: validStore, allowedRoots: [dir] });
+    expect(
+      queryArtifact({
+        artifactId: firstRecord.artifactId,
+        query: "needle",
+        maxTokens: 40,
+        contextLines: 0,
+        store: validStore,
+      }).excerpts,
+    ).toHaveLength(1);
+    await indexArtifact({ path: third, store: validStore, allowedRoots: [dir] });
+    expect(validStore.get(firstRecord.artifactId)).toBeDefined();
+    expect(validStore.get(secondRecord.artifactId)).toBeUndefined();
+    expect(validStore.get(thirdRecord.artifactId)).toBeDefined();
+  });
+
   it("R1 evicts the oldest record once the estimate exceeds the bound", () => {
     const store = bounded(3 * F);
     for (const id of ["A", "B", "C", "D"]) store.put(rec(id, F));
