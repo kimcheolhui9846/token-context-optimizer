@@ -1,13 +1,17 @@
 # N-34 CR 줄 경계 정책 구현 — Task handoff
 
-## 상태와 승인
+## 마감 (2026-11-18)
+
+P10 완료. 사용자 승인 후 구현 [#119](https://github.com/kimcheolhui9846/token-context-optimizer/pull/119)를 `011db6a`로 병합하고, 원본 계획 [#115](https://github.com/kimcheolhui9846/token-context-optimizer/pull/115)를 Ready로 전환해 `b070cb8`로 병합했다. 두 계획 문서의 blob은 `4a5b390`과 일치한다. K1 유지 결정과 측정 한계는 [P10 마감 기록](p10-k1-validation-impl.md)에 기록했다.
+
+## 2026-11-15 구현 검토 당시 상태와 승인
 - Tier E. 작업자: Claude Code(`claude-opus-5-5`, 개발자). PM·최종 판정: Codex(Astra).
 - 승인: 사용자 2026-11-13 async — 계획 PR #115@`4a5b390` D1(C2, D1-a 엄격화·D1-b 완화), D2, D3, D4 권장안 승인(`codex_review/review_2026-11-13_followup-implementation-approved.md`).
 - **현재 상태(2026-11-15): primary 최종 PASS WITH NOTES**(`codex_review/review_2026-11-15_pr119-n34-run3-final.md`). 승인된 필수 기준(run3 시간·메모리)은 충족했고, 정보용 F1 위험(아래)은 남는다. **사용자 검토 대기.** 모든 입력의 성능 개선 보장이 아니다.
 - 미승인: Ready, merge, 설치, 릴리스, 외부 송부, 승인 기준 사후 완화.
 - **K1 보완 진행 중(2026-11-15)**: 빈 줄 빠른 반환. 경과는 [`n34-k1-empty-line.md`](n34-k1-empty-line.md), 측정 계획은 [`n34-k1-prereg.md`](n34-k1-prereg.md)에 있다. 위 run3 PASS WITH NOTES는 pre-K1 `7e732e0` 기준이며 K1 HEAD의 PASS가 아니다. K1 성능은 아직 측정하지 않았다.
 - Base: origin/main `5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3`(= 계획 base, 차이 없음). Branch `claude/n34-cr-line-policy`, Orca 독립 worktree.
-- 계획 원문: PR #115 `docs/superpowers/plans/2026-11-13-n34-cr-line-policy.md`(main 미병합, 고정 커밋 `4a5b390`에서 읽음).
+- 계획 원문은 `docs/superpowers/plans/2026-11-13-n34-cr-line-policy.md`다. 구현 검토 때는 #115의 고정 커밋 `4a5b390`을 사용했다.
 
 ## 범위
 - `src/core/policy.ts`: CR 경계 정합(계획 §2) — 비공개 `POLICY_LINE_BREAK = /\r\n|\r|\n/u`. `isPositiveSemanticText`는 이 정규식 split 하나, `containsTechnicalTokenShape`·`containsShellCommand`는 run3 A안의 비공개 `somePolicyLine`(배열 없는 순회, 같은 줄 경계·조기 반환·예외 전파)으로 판정한다. 세 predicate의 줄 경계 의미는 같다.
@@ -17,7 +21,7 @@
 - research: 이 Task runner·worker(`research/src/n34-cr-policy-perf*.mjs`)·결과(`research/results/n34-cr-policy/`)만. prereg·handoff는 `docs/agent/handoffs/n34-cr-line-policy*.md`(계획 §8·§9).
 - 바꾸지 않음: `src/core/artifacts.ts`, `tests/helpers/policy-baseline*.ts`, `tests/fixtures/policy/characterization.json`, `package*.json`.
 
-## 진행
+## 구현 당시 진행 기록
 - [x] 초기 계획 Argon
 - [x] RED 테스트 커밋 `b760f14` → Draft PR #119. 구현 전 vitest: `[RED-CR]` 20 실패, `[control]` 66 통과(라벨 불일치 0)
 - [x] GREEN `1add2aa`(§2 diff 그대로·§6 delta·D4 영어 문장) → targeted 4파일: 963 통과, M1 1건은 bin 재빌드 대기. 기준 3 파이프 표 불일치 159/88(계획 수치와 같음)

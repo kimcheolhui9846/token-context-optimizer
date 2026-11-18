@@ -2,11 +2,17 @@
 
 - 요청서: `codex_review/review_2026-11-17_p10-impl-request.md`, 실행 보완 `review_2026-11-17_p10-impl-execution.md`(충돌 시 보완 우선), 공식 1회 실행 요청 `review_2026-11-17_p10-official-run1-request.md` (Codex PM, 추적 안 됨)
 - 채택 계획: PR #123 `docs/plans/2026-11-17-n34-k1-validation-plan.md`(검토 head `47c290e`, 채택 기록 `6e6730b`). 사용자 채택: U1 = P-1, U2 = 정보용 F1 + §7.3 처분표, U3 = 운영 예산 10 h / 1 h / 4 h·R 10분, U4 = 이 branch
-- 범위: branch `claude/n34-cr-line-policy`, Draft PR #119, 시작 HEAD `fd93c54`, PR base `main` `5d668f9`
+- 범위: branch `claude/n34-cr-line-policy`, 구현 당시 Draft PR #119, 시작 HEAD `fd93c54`, PR base `main` `5d668f9`
 - 역할: 구현·실행 Claude Code(`claude-opus-5-5`), 계획·최종 판정 Codex PM(primary)
 - prereg: [n34-p10-prereg.md](n34-p10-prereg.md)(동결 `4b3e06e`). 결과: [n34-p10-result.md](n34-p10-result.md)
 
-## 현재 상태: 공식 결과 primary PASS WITH NOTES, 문서 마감 최종 확인 대기
+## 마감 (2026-11-18)
+
+**P10 완료 · PASS WITH NOTES.** 사용자 승인 후 구현 [#119](https://github.com/kimcheolhui9846/token-context-optimizer/pull/119)를 `011db6a`로 병합하고, 원본 계획 [#115](https://github.com/kimcheolhui9846/token-context-optimizer/pull/115)를 Ready로 전환해 `b070cb8`로 병합했다. 두 계획 문서의 blob은 `4a5b390`과 일치한다. 공식 1회 측정에서 시간과 메모리는 각각 18/18을 통과했고 F1 판정은 D-0이었다. 관찰 범위는 해당 입력·PC·Node에 한정된다.
+
+#119 후보 `f3cc6c9`의 전체 테스트는 4,455개 통과·5개 건너뜀이었다. 원자료 3,633개 항목을 `1e0097f`에서 대조했다. G-P2의 남은 선행 작업은 P05·P07, G-P3의 남은 선행 작업은 P07·P08이다. P08 자체는 P05·P06·P07 완료를 기다린다.
+
+## 공식 측정 및 문서 마감 당시의 판정
 - 하네스 코드: primary r3 **PASS WITH NOTES**(@`89cfce8`). 동결 `4b3e06e`
 - 공식 1회(사용자 승인 2026-11-17 21:35 KST, 이번 실행으로 소진)
   - timing `pass`(exit 0), raw `6459820`
@@ -17,11 +23,11 @@
   - J2 PASS, J3 정보용 8 V·수용, J4 **D-0**
   - primary 독립 raw 대조 3,633개 항목 불일치 0. 구현자 자기 검증 130개 항목과는 별개다
 - D-0은 계획 §7.3대로 기록하고 §8.2로 진행한다. 추가 F1 위험 수용 결정은 필요 없다. 위험 해소나 일반 성능 보장도 아니다
-- P10 완료, Ready, merge가 아니다
+- 이 판정은 공식 측정에 대한 판정이며, 후속 병합은 위 마감 절에 기록했다.
 
 ## 승인 경계
 - 승인되어 수행함: 하네스·prereg 구현, primary r1·r2 보완, r3 문서 마감, 공식 1회 실행, 결과 문서, primary M1 문서 정정, commit·push·Draft 기록, WBS 동기화
-- 별도 승인 필요: 재실행·추가 진단, 프로토콜·통계·임계·예산·제품·의존성 변경, 후속 통합(후보 생성·결합 검증), Ready, merge
+- #119와 #115의 Ready·병합은 각각 사용자 승인을 받아 수행했다. 추가 측정·진단과 프로토콜·통계·임계·예산·제품·의존성 변경은 별도 승인 대상이다.
 - 보존(diff 0): 제품 `4999c1f`(src·bin·package·lock), run3·K1·D1 하네스, P10 하네스·prereg(`4b3e06e` 이후 불변), 기존 raw, 공유 `HANDOFF.md`·`docs/agent/HANDOFF.md`, 논문
 
 ## 산출물
@@ -63,9 +69,9 @@
 - 한 PC에서 1회 실행한 결과다. 이전 O2 A/A 불안정의 기제는 미확인이고, 다른 환경에서의 재현은 보장되지 않는다
 - 사용자 백그라운드 앱이 켜진 상태에서 측정했다. 외부 부하가 없었다고 보장하지는 않는다
 - hash/commit 사슬과 재판정은 기록끼리의 모순만 잡는다. 외부 진실을 보증하지 않는다
-- P04 의존성 경고 7건과 P08 최종 통합 검증이 남는다
+- 병합 후 런타임 감사와 개발 의존성 후속 조치는 [P04 핸드오프](p04-installed-project-license.md)에 기록했다.
 
-## 다음 (계획 §8.1–§8.3, 단계마다 별도 승인 경계, 지금은 실행 권한 없음)
+## 공식 측정 후 적용한 통합 절차 (계획 §8.1–§8.3)
 1. 이 문서 마감에 대한 primary 최종 확인
 2. 후속 통합 준비 요청·승인 → 기준 main SHA·PR #119 head SHA 고정
 3. Orca 별도 후보 공간에서 결합 → 후보 SHA에서 gate, 결합 lock·audit, 교차 계약 검사

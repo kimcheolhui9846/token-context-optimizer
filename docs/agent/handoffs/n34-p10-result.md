@@ -1,6 +1,6 @@
 # N-34 P10 K1 공식 1회 실행 결과 (run `p10run1`)
 
-- 상태: **사용자 승인 공식 1회 실행 종료, primary 공식 결과 PASS WITH NOTES.** timing → memory → 정보용을 모두 1회씩 실행했다. 남은 것은 문서 마감 최종 확인과 아래 §7의 후속 통합 단계다. 이 문서는 P10 완료, Ready, merge를 뜻하지 않는다
+- 최종 판정 (2026-11-18) **P10 완료 · PASS WITH NOTES.** 사용자 승인 후 구현 [#119](https://github.com/kimcheolhui9846/token-context-optimizer/pull/119)를 `011db6a`로 병합하고, 원본 계획 [#115](https://github.com/kimcheolhui9846/token-context-optimizer/pull/115)를 Ready로 전환해 `b070cb8`로 병합했다. 두 계획 문서의 blob은 `4a5b390`과 일치한다. 공식 1회 측정에서 시간과 메모리는 각각 18/18을 통과했고 F1 판정은 D-0이었다. 관찰 범위는 해당 입력·PC·Node에 한정된다.
 - primary 판정(`codex_review/review_2026-11-18_p10-official-primary.md`, 검토 HEAD `1e0097f`)
   - J1 유효: 필수 18행과 정보용 8행 모두 attempt 1에서 A/A 유효, K = 1, 재시도 0
   - J2 PASS: timing 18/18, memory 18/18
@@ -85,9 +85,9 @@
 - 한 PC에서 1회 실행한 결과다. 이번 A/A는 모두 attempt 1에서 유효했지만, 이전 run에서 본 O2 A/A 불안정의 기제는 여전히 미확인이다. 재현성은 이 결과로 보장되지 않는다
 - 사용자 백그라운드 앱(게임 런처, 브라우저 등)이 켜진 상태로 측정했다. A/A·교대 설계가 공통 잡음을 대조하지만, 외부 부하가 없었다고 보장하지는 않는다
 - raw 일관성과 hash/commit 사슬은 기록끼리의 모순만 잡는다. 일관되게 꾸민 기록의 외부 진실은 보장하지 않는다
-- D-0은 위험 해소가 아니다. P04 의존성 경고 7건과 P08 최종 통합 검증은 남는다
+- 2026-11-18 병합 후 `main@b070cb8` 감사에서 런타임 경고는 0건이었다. 개발용 권고 한 건의 후속 조치는 [P04 핸드오프](p04-installed-project-license.md)에 있다. P08 최종 통합 검증은 남아 있다.
 
-## 7. 다음 단계 (계획 §8.1–§8.3, 각 단계는 별도 승인 경계)
+## 7. 공식 실행 후 적용한 승인·병합 절차 (계획 §8.1–§8.3)
 1. 이 문서 마감에 대한 primary 최종 확인
 2. 후속 통합 준비 요청과 승인
 3. 기준 main SHA와 PR #119 head SHA를 요청서에 고정
@@ -97,5 +97,5 @@
 7. head 고정 merge, 반영 뒤 main tree와 후보 tree의 동등성 확인
 8. #115 merge 또는 흡수·close 기록
 
-- 지금은 위 2–8 단계의 실행 권한이 없다. 후보 생성, cherry-pick, Ready, merge를 하지 않는다
+- 공식 실행 직후에는 2–8단계가 승인 대기였다. 이후 사용자 승인과 병합 커밋은 이 문서의 최종 판정에 기록했다.
 - P10 완료 조건(§8.2)은 그대로다: J2 PASS, 7단계 gate, primary 판정, §7.3 처분 기록, #119 처분, #115 처분

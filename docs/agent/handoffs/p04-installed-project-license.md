@@ -1,6 +1,6 @@
 # P04 installed project license
 
-Tier C. [Draft PR #124](https://github.com/kimcheolhui9846/token-context-optimizer/pull/124) targets `main` after #119 (`011db6a`). Its integration baseline `8ab526b` contains #116 (`1112702`) and #118 (`8f500e4`). The license-delivery diff starts at that baseline.
+Tier C. P04 closed on 2026-11-18 when [PR #124](https://github.com/kimcheolhui9846/token-context-optimizer/pull/124) merged at `a2f1824`. It includes #116 (`1112702`) and #118 (`8f500e4`) through integration baseline `8ab526b`. The license-delivery changes start at that baseline.
 
 ## What ships
 
@@ -24,4 +24,5 @@ Tier C. [Draft PR #124](https://github.com/kimcheolhui9846/token-context-optimiz
 - Claude Code Opus 5.5, initial plan — proceed with conditions, 0 blocker, 3 major, 2 minor, 1 note.
 - Claude Code Opus 5.5, milestone — changes requested, 0 blocker, 1 major, 3 minor, 2 notes. The main finding was the missing TypeScript option declaration.
 - Claude Code Opus 5.5, scoped re-review at `a919377` — approve, 0 blocker, 0 major, 1 minor, 3 notes. This handoff corrects the minor wording about the declaration and review notes.
-- Ready and merge await user approval. #116 and #118 remain separate open drafts.
+- After #115 merged, the coordinator verified `main@b070cb8`. The default-timeout suite passed 4,471 tests with five skipped. Type checking, MCP smoke, plugin validation, benchmark and isolated installation passed. The installed executable matched the bundle hash recorded above.
+- On that same commit the runtime audit reported zero findings. The full audit reported five high development packages associated with GHSA-fc5q-39xc-vjpf. The Codex plugin maintainer will repeat both audits when a compatible fix ships or the relevant lockfile changes, and again during P08. G-P3 still requires P07 and P08.
