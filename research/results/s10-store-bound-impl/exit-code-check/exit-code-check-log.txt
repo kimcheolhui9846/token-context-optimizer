@@ -1,0 +1,47 @@
+# S-10 diagnostic parent exit-code check with synthetic stub children (2026-11-13, Node v24.18.0)
+# parent working-copy sha256 f7b8f089ed0c241dc8bfa90d1a3bbbd1b392df68f3afc156de8170d043598a1c; stub sha256 6cc853e23d31a592bab41d9718528a89cd0acb1a59536c8ba39d02f2c457ecce
+# Numbers in these JSON files are synthetic stub output, not measurements.
+$ S10_STUB_MODE=pass node research/src/s10-store-bound-diagnostic.mjs --output=research/results/s10-store-bound-impl/exit-code-check/stub-pass.json --worker=research/src/s10-store-bound-diagnostic-stub-worker.mjs
+D1 weight=1698725888 lines=10485760 pass=true harnessValid=true
+  child1 status=completed exit=0 pass=true limit=164.0MiB retained=[100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0] flush=0.0 maxRSS=-
+  child2 status=completed exit=0 pass=true limit=164.0MiB retained=[100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0] flush=0.0 maxRSS=-
+  child3 status=completed exit=0 pass=true limit=164.0MiB retained=[100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0] flush=0.0 maxRSS=-
+D2 weight=9424480 lines=45591 pass=true harnessValid=true
+  child1 status=completed exit=0 pass=true limit=329.0MiB retained=[100.0,100.0,100.0..max 100.0] flush=0.0 maxRSS=-
+  child2 status=completed exit=0 pass=true limit=329.0MiB retained=[100.0,100.0,100.0..max 100.0] flush=0.0 maxRSS=-
+  child3 status=completed exit=0 pass=true limit=329.0MiB retained=[100.0,100.0,100.0..max 100.0] flush=0.0 maxRSS=-
+PASS=true harnessValid=true -> D:\orca\worktrees\codex_plugin_and_skill\s10-store-bound-impl\research\results\s10-store-bound-impl\exit-code-check\stub-pass.json
+exit=0
+$ S10_STUB_MODE=invalid node research/src/s10-store-bound-diagnostic.mjs --output=research/results/s10-store-bound-impl/exit-code-check/stub-invalid.json --worker=research/src/s10-store-bound-diagnostic-stub-worker.mjs
+D1 weight=1698725888 lines=10485760 pass=true harnessValid=false
+  child1 status=completed exit=0 pass=true limit=164.0MiB retained=[100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0] flush=100.0 maxRSS=-
+  child2 status=completed exit=0 pass=true limit=164.0MiB retained=[100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0] flush=100.0 maxRSS=-
+  child3 status=completed exit=0 pass=true limit=164.0MiB retained=[100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0] flush=100.0 maxRSS=-
+D2 weight=9424480 lines=45591 pass=true harnessValid=false
+  child1 status=completed exit=0 pass=true limit=329.0MiB retained=[100.0,100.0,100.0..max 100.0] flush=100.0 maxRSS=-
+  child2 status=completed exit=0 pass=true limit=329.0MiB retained=[100.0,100.0,100.0..max 100.0] flush=100.0 maxRSS=-
+  child3 status=completed exit=0 pass=true limit=329.0MiB retained=[100.0,100.0,100.0..max 100.0] flush=100.0 maxRSS=-
+PASS=true harnessValid=false -> D:\orca\worktrees\codex_plugin_and_skill\s10-store-bound-impl\research\results\s10-store-bound-impl\exit-code-check\stub-invalid.json
+exit=1
+$ S10_STUB_MODE=fail node research/src/s10-store-bound-diagnostic.mjs --output=research/results/s10-store-bound-impl/exit-code-check/stub-fail.json --worker=research/src/s10-store-bound-diagnostic-stub-worker.mjs
+D1 weight=1698725888 lines=10485760 pass=false harnessValid=true
+  child1 status=completed exit=0 pass=false limit=2251.2MiB retained=[5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0] flush=0.0 maxRSS=-
+  child2 status=completed exit=0 pass=false limit=2251.2MiB retained=[5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0] flush=0.0 maxRSS=-
+  child3 status=completed exit=0 pass=false limit=2251.2MiB retained=[5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0,5120.0] flush=0.0 maxRSS=-
+D2 weight=9424480 lines=45591 pass=false harnessValid=true
+  child1 status=completed exit=0 pass=false limit=329.0MiB retained=[5120.0,5120.0,5120.0..max 5120.0] flush=0.0 maxRSS=-
+  child2 status=completed exit=0 pass=false limit=329.0MiB retained=[5120.0,5120.0,5120.0..max 5120.0] flush=0.0 maxRSS=-
+  child3 status=completed exit=0 pass=false limit=329.0MiB retained=[5120.0,5120.0,5120.0..max 5120.0] flush=0.0 maxRSS=-
+PASS=false harnessValid=true -> D:\orca\worktrees\codex_plugin_and_skill\s10-store-bound-impl\research\results\s10-store-bound-impl\exit-code-check\stub-fail.json
+exit=1
+$ S10_STUB_MODE=crash node research/src/s10-store-bound-diagnostic.mjs --output=research/results/s10-store-bound-impl/exit-code-check/stub-crash.json --worker=research/src/s10-store-bound-diagnostic-stub-worker.mjs
+D1 weight=1698725888 lines=10485760 pass=false harnessValid=false
+  childundefined status=no_json exit=3 pass=false limit=-MiB retained=[] flush=- maxRSS=-
+  childundefined status=no_json exit=3 pass=false limit=-MiB retained=[] flush=- maxRSS=-
+  childundefined status=no_json exit=3 pass=false limit=-MiB retained=[] flush=- maxRSS=-
+D2 weight=9424480 lines=45591 pass=false harnessValid=false
+  childundefined status=no_json exit=3 pass=false limit=-MiB retained=[] flush=- maxRSS=-
+  childundefined status=no_json exit=3 pass=false limit=-MiB retained=[] flush=- maxRSS=-
+  childundefined status=no_json exit=3 pass=false limit=-MiB retained=[] flush=- maxRSS=-
+PASS=false harnessValid=false -> D:\orca\worktrees\codex_plugin_and_skill\s10-store-bound-impl\research\results\s10-store-bound-impl\exit-code-check\stub-crash.json
+exit=1

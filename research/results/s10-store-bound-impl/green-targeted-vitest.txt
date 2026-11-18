@@ -1,0 +1,33 @@
+
+ RUN  v3.2.7 D:/orca/worktrees/codex_plugin_and_skill/s10-store-bound-impl
+
+ ✓ tests/artifact-store-default-bound.test.ts (1 test) 14ms
+ ✓ tests/artifact-store-bound.test.ts (24 tests) 29ms
+stdout | tests/core.test.ts > artifact indexing and retrieval > denies a broken in-root file link without exposing its target
+Skipping file-link text safety case (EPERM)
+
+stdout | tests/core.test.ts > artifact indexing and retrieval > denies a broken file link outside the allowed root
+Skipping outside file-link text case (EPERM)
+
+ ✓ tests/query-artifact-boundaries.test.ts (18 tests) 361ms
+ ✓ tests/core.test.ts (1281 tests | 2 skipped) 12770ms
+   ✓ benchmarks > keeps source-backed retrieval task gate explicitly null across samples  479ms
+   ✓ benchmarks > cleans benchmark temporary directory after report generation  756ms
+   ✓ project configuration > verifies an installed plugin can index a separate allowed workspace  319ms
+   ✓ project configuration > cleans up verifier temporary workspaces after installed verification  304ms
+   ✓ project configuration > uses the same USERPROFILE default root for install and verification  326ms
+   ✓ project configuration > verifier rejects noncanonical installed MCP launch metadata  729ms
+   ✓ project configuration > source validator rejects noncanonical MCP descriptors  354ms
+   ✓ project configuration > installer rejects incomplete source plugin manifests before copying  327ms
+   ✓ project configuration > verifier rejects duplicate raw installed MCP descriptor members  314ms
+   ✓ project configuration > verifier rejects duplicate raw installed plugin manifest members  306ms
+   ✓ project configuration > verifier rejects incomplete installed plugin manifests  537ms
+   ✓ project configuration > verifier requires installed MCP env_vars to exactly inherit TCO_ALLOWED_ROOTS  319ms
+   ✓ project configuration > verifier strips ambient Node execution hooks before launching the installed MCP server  312ms
+   ✓ project configuration > cleans up smoke MCP temporary roots  862ms
+
+ Test Files  4 passed (4)
+      Tests  1322 passed | 2 skipped (1324)
+   Start at  09:24:16
+   Duration  13.29s (transform 333ms, setup 0ms, collect 715ms, tests 13.17s, environment 1ms, prepare 439ms)
+

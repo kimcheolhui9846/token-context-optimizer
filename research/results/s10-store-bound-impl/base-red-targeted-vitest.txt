@@ -1,0 +1,395 @@
+
+ RUN  v3.2.7 C:/Users/00/AppData/Local/Temp/claude/e82c64232a08115e/2511ef89-71f5-4126-8029-0e37497b8e75/scratchpad/s10wt/base
+
+ ❯ tests/artifact-store-default-bound.test.ts (1 test | 1 failed) 13ms
+   × S-10 defaultArtifactStore bound (RED on BASE) > R15 evicts from the default store above 256 MiB, fails with the existing error and recovers by reindexing 10ms
+     → expected function to throw an error, but it didn't
+ ❯ tests/artifact-store-bound.test.ts (24 tests | 16 failed) 43ms
+   ✓ S-10 controls (pass on BASE too) > C1 keeps the zero-argument constructor and returns the stored object 1ms
+   ✓ S-10 controls (pass on BASE too) > C2 returns undefined from an empty store 0ms
+   ✓ S-10 controls (pass on BASE too) > C3 does not re-enter overridable get/put while promoting or evicting 1ms
+   ✓ S-10 controls (pass on BASE too) > R6 lighter same-ID replacement is not double counted 0ms
+   ✓ S-10 controls (pass on BASE too) > R8 keeps records whose estimates sum exactly to the default 256 MiB budget 0ms
+   ✓ S-10 controls (pass on BASE too) > R11 keeps an oversized record put into an empty store 0ms
+   ✓ S-10 controls (pass on BASE too) > R18 accepts the default forms, 1 and MAX_SAFE_INTEGER 0ms
+   ✓ S-10 controls (pass on BASE too) > R20a keeps two real indexed records when the bound equals their estimate sum 10ms
+   × S-10 bound policy (RED on BASE) > R1 evicts the oldest record once the estimate exceeds the bound 6ms
+     → expected { A: true, B: true, C: true, D: true } to deeply equal { A: false, B: true, C: true, D: true }
+   × S-10 bound policy (RED on BASE) > R2 promotes a record on a get hit 1ms
+     → expected { A: true, B: true, C: true } to deeply equal { A: true, B: false, C: true }
+   × S-10 bound policy (RED on BASE) > R3 leaves the order unchanged on a get miss 1ms
+     → expected { A: true, B: true, C: true } to deeply equal { A: false, B: true, C: true }
+   × S-10 bound policy (RED on BASE) > R4 promotes a record re-put under the same ID 0ms
+     → expected { A: true, B: true, C: true, D: true } to deeply equal { A: true, B: false, C: true, D: true }
+   × S-10 bound policy (RED on BASE) > R5 a heavier same-ID replacement evicts only the next oldest record 0ms
+     → expected { A: true, B: true, C: true } to deeply equal { A: true, B: false, C: true }
+   × S-10 bound policy (RED on BASE) > R7 evicts several records for one large put 0ms
+     → expected { A: true, B: true, C: true, …(2) } to deeply equal { A: false, B: false, C: false, …(2) }
+   × S-10 bound policy (RED on BASE) > R9 evicts when the estimate exceeds the default 256 MiB budget by 2 bytes 0ms
+     → expected { A: true, B: true, C: true } to deeply equal { A: false, B: true, C: true }
+   × S-10 bound policy (RED on BASE) > R10 evicts at one byte over an odd custom bound 0ms
+     → expected { A: true, B: true } to deeply equal { A: false, B: true }
+   × S-10 bound policy (RED on BASE) > R12 an oversized record evicts every other record and stays as a singleton 0ms
+     → expected { A: true, B: true, BIG: true } to deeply equal { A: false, B: false, BIG: true }
+   × S-10 bound policy (RED on BASE) > R13 the next put after a singleton evicts the singleton again 0ms
+     → expected { BIG: true, N: true } to deeply equal { BIG: false, N: true }
+   × S-10 bound policy (RED on BASE) > R14 a same-ID record growing past the bound becomes the singleton 0ms
+     → expected { A: true, B: true } to deeply equal { A: true, B: false }
+   × S-10 bound policy (RED on BASE) > R16/R17 an evicted ID fails query and summary with the existing error and recovers by reindexing 7ms
+     → expected function to throw an error, but it didn't
+   × S-10 bound policy (RED on BASE) > R18 rejects invalid constructor options with explicit errors 1ms
+     → expected function to throw an error, but it didn't
+   × S-10 bound policy (RED on BASE) > R19 rejects invalid records before changing entries, order or accounting 1ms
+     → expected function to throw an error, but it didn't
+   × S-10 bound policy (RED on BASE) > R19b a rejected same-ID put keeps the original object 3ms
+     → expected [Function] to throw an error
+   × S-10 bound policy (RED on BASE) > R20b evicts the first real indexed record when the bound is one below their estimate sum 9ms
+     → expected { …(2) } to deeply equal { …(2) }
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R1 evicts the oldest record once the estimate exceeds the bound
+AssertionError: expected { A: true, B: true, C: true, D: true } to deeply equal { A: false, B: true, C: true, D: true }
+
+- Expected
++ Received
+
+  {
+-   "A": false,
++   "A": true,
+    "B": true,
+    "C": true,
+    "D": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:169:47
+    167|     const store = bounded(3 * F);
+    168|     for (const id of ["A", "B", "C", "D"]) store.put(rec(id, F));
+    169|     expect(hits(store, ["A", "B", "C", "D"])).toEqual({ A: false, B: t…
+       |                                               ^
+    170|   });
+    171| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R2 promotes a record on a get hit
+AssertionError: expected { A: true, B: true, C: true } to deeply equal { A: true, B: false, C: true }
+
+- Expected
++ Received
+
+  {
+    "A": true,
+-   "B": false,
++   "B": true,
+    "C": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:178:42
+    176|     store.get("A");
+    177|     store.put(rec("C", F));
+    178|     expect(hits(store, ["A", "B", "C"])).toEqual({ A: true, B: false, …
+       |                                          ^
+    179|   });
+    180| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R3 leaves the order unchanged on a get miss
+AssertionError: expected { A: true, B: true, C: true } to deeply equal { A: false, B: true, C: true }
+
+- Expected
++ Received
+
+  {
+-   "A": false,
++   "A": true,
+    "B": true,
+    "C": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:187:42
+    185|     expect(store.get("none")).toBeUndefined();
+    186|     store.put(rec("C", F));
+    187|     expect(hits(store, ["A", "B", "C"])).toEqual({ A: false, B: true, …
+       |                                          ^
+    188|   });
+    189| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R4 promotes a record re-put under the same ID
+AssertionError: expected { A: true, B: true, C: true, D: true } to deeply equal { A: true, B: false, C: true, D: true }
+
+- Expected
++ Received
+
+  {
+    "A": true,
+-   "B": false,
++   "B": true,
+    "C": true,
+    "D": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:195:47
+    193|     store.put(rec("A", F));
+    194|     store.put(rec("D", F));
+    195|     expect(hits(store, ["A", "B", "C", "D"])).toEqual({ A: true, B: fa…
+       |                                               ^
+    196|   });
+    197| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R5 a heavier same-ID replacement evicts only the next oldest record
+AssertionError: expected { A: true, B: true, C: true } to deeply equal { A: true, B: false, C: true }
+
+- Expected
++ Received
+
+  {
+    "A": true,
+-   "B": false,
++   "B": true,
+    "C": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:203:42
+    201|     const a2 = rec("A", 2 * F);
+    202|     store.put(a2);
+    203|     expect(hits(store, ["A", "B", "C"])).toEqual({ A: true, B: false, …
+       |                                          ^
+    204|     expect(store.get("A")).toBe(a2);
+    205|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R7 evicts several records for one large put
+AssertionError: expected { A: true, B: true, C: true, …(2) } to deeply equal { A: false, B: false, C: false, …(2) }
+
+- Expected
++ Received
+
+  {
+-   "A": false,
+-   "B": false,
+-   "C": false,
++   "A": true,
++   "B": true,
++   "C": true,
+    "D": true,
+    "E": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:211:52
+    209|     for (const id of ["A", "B", "C", "D"]) store.put(rec(id, F));
+    210|     store.put(rec("E", 3 * F));
+    211|     expect(hits(store, ["A", "B", "C", "D", "E"])).toEqual({ A: false,…
+       |                                                    ^
+    212|   });
+    213| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R9 evicts when the estimate exceeds the default 256 MiB budget by 2 bytes
+AssertionError: expected { A: true, B: true, C: true } to deeply equal { A: false, B: true, C: true }
+
+- Expected
++ Received
+
+  {
+-   "A": false,
++   "A": true,
+    "B": true,
+    "C": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:219:42
+    217|     store.put(rec("B", 128 * MiB - F));
+    218|     store.put(rec("C", F + 2));
+    219|     expect(hits(store, ["A", "B", "C"])).toEqual({ A: false, B: true, …
+       |                                          ^
+    220|   });
+    221| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R10 evicts at one byte over an odd custom bound
+AssertionError: expected { A: true, B: true } to deeply equal { A: false, B: true }
+
+- Expected
++ Received
+
+  {
+-   "A": false,
++   "A": true,
+    "B": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:226:37
+    224|     store.put(rec("A", F));
+    225|     store.put(rec("B", F + 2));
+    226|     expect(hits(store, ["A", "B"])).toEqual({ A: false, B: true });
+       |                                     ^
+    227|   });
+    228| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R12 an oversized record evicts every other record and stays as a singleton
+AssertionError: expected { A: true, B: true, BIG: true } to deeply equal { A: false, B: false, BIG: true }
+
+- Expected
++ Received
+
+  {
+-   "A": false,
+-   "B": false,
++   "A": true,
++   "B": true,
+    "BIG": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:234:44
+    232|     store.put(rec("B", F));
+    233|     store.put(rec("BIG", 10 * F));
+    234|     expect(hits(store, ["A", "B", "BIG"])).toEqual({ A: false, B: fals…
+       |                                            ^
+    235|   });
+    236| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R13 the next put after a singleton evicts the singleton again
+AssertionError: expected { BIG: true, N: true } to deeply equal { BIG: false, N: true }
+
+- Expected
++ Received
+
+  {
+-   "BIG": false,
++   "BIG": true,
+    "N": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:243:39
+    241|     store.put(rec("BIG", 10 * F));
+    242|     store.put(rec("N", F));
+    243|     expect(hits(store, ["BIG", "N"])).toEqual({ BIG: false, N: true });
+       |                                       ^
+    244|   });
+    245| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R14 a same-ID record growing past the bound becomes the singleton
+AssertionError: expected { A: true, B: true } to deeply equal { A: true, B: false }
+
+- Expected
++ Received
+
+  {
+    "A": true,
+-   "B": false,
++   "B": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:252:37
+    250|     const a2 = rec("A", 10 * F);
+    251|     store.put(a2);
+    252|     expect(hits(store, ["A", "B"])).toEqual({ A: true, B: false });
+       |                                     ^
+    253|     expect(store.get("A")).toBe(a2);
+    254|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R16/R17 an evicted ID fails query and summary with the existing error and recovers by reindexing
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/artifact-store-bound.test.ts:264:104
+    262|     const r2 = await indexArtifact({ path: second, store, allowedRoots…
+    263| 
+    264|     expect(() => queryArtifact({ artifactId: r1.artifactId, query: "ne…
+       |                                                                                                        ^
+    265|       new Error(`Artifact not indexed: ${r1.artifactId}`),
+    266|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R18 rejects invalid constructor options with explicit errors
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/artifact-store-bound.test.ts:284:36
+    282|     const optionsError = "MemoryArtifactStore options must be an objec…
+    283|     for (const arg of [null, 0, 1, "x", true, [], [1]]) {
+    284|       expect(() => construct(arg)).toThrow(new Error(optionsError));
+       |                                    ^
+    285|     }
+    286|     const limitError = "maxEstimatedBytes must be a positive safe inte…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R19 rejects invalid records before changing entries, order or accounting
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/artifact-store-bound.test.ts:316:61
+    314|     for (const [patch, message] of bad) {
+    315|       // Same ID as the oldest entry: a rejected put must neither remo…
+    316|       expect(() => store.put({ ...rec("A", F), ...patch })).toThrow(ne…
+       |                                                             ^
+    317|       expect(() => store.put({ ...rec("X", F), ...patch })).toThrow(ne…
+    318|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R19b a rejected same-ID put keeps the original object
+AssertionError: expected [Function] to throw an error
+ ❯ tests/artifact-store-bound.test.ts:330:65
+    328|     store.put(a);
+    329|     store.put(rec("B", F));
+    330|     expect(() => store.put({ ...rec("A", F), byteLength: -2 })).toThro…
+       |                                                                 ^
+    331|     expect(store.get("A")).toBe(a);
+    332|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/17]⎯
+
+ FAIL  tests/artifact-store-bound.test.ts > S-10 bound policy (RED on BASE) > R20b evicts the first real indexed record when the bound is one below their estimate sum
+AssertionError: expected { …(2) } to deeply equal { …(2) }
+
+- Expected
++ Received
+
+  {
+    "artifact_bcfe03f805759fd7": true,
+-   "artifact_c0fb7f86d45f7857": false,
++   "artifact_c0fb7f86d45f7857": true,
+  }
+
+ ❯ tests/artifact-store-bound.test.ts:344:57
+    342|     await indexArtifact({ path: first, store, allowedRoots: [dir] });
+    343|     const kept = await indexArtifact({ path: second, store, allowedRoo…
+    344|     expect(hits(store, [r1.artifactId, r2.artifactId])).toEqual({ [r1.…
+       |                                                         ^
+    345|     expect(store.get(r2.artifactId)).toBe(kept);
+    346|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/17]⎯
+
+ FAIL  tests/artifact-store-default-bound.test.ts > S-10 defaultArtifactStore bound (RED on BASE) > R15 evicts from the default store above 256 MiB, fails with the existing error and recovers by reindexing
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/artifact-store-default-bound.test.ts:52:96
+     50|     // A record whose estimate equals the whole budget leaves only its…
+     51|     defaultArtifactStore.put(rec("D", 256 * MiB));
+     52|     expect(() => queryArtifact({ artifactId: x.artifactId, query: "nee…
+       |                                                                                                ^
+     53|       new Error(`Artifact not indexed: ${x.artifactId}`),
+     54|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/17]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  17 failed | 8 passed (25)
+   Start at  09:27:42
+   Duration  527ms (transform 92ms, setup 0ms, collect 187ms, tests 56ms, environment 0ms, prepare 246ms)
+

@@ -87,7 +87,9 @@ priority when evidence is incomplete.
    instruction or you write a summary handoff, request a list of artifact IDs, short
    titles, original paths and SHA-256 values; include crop regions when relevant.
    Example: "List the artifact IDs and source references needed to retrieve the
-   evidence again." IDs are session-local, not persistent backups. If an ID is
+   evidence again." IDs are session-local, not persistent backups. A text ID can
+   also disappear within a session because the text store evicts the least recently
+   used records when its estimated-memory bound is exceeded. If an ID is
    unavailable, re-index the authorized original and compare its hash with the
    recorded source; treat a changed hash as a new version. Do not assume a particular
    host preserves this list automatically.

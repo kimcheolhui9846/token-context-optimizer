@@ -1,0 +1,7 @@
+# node --expose-gc research/src/s10-store-bound-harness-probe.mjs <dist/src/core/artifacts.js @8b7c49a> <10 MiB "\n" file> <dir> <mode>
+# Node v24.18.0, Windows, default heap, 2026-11-13. Values are MiB of heapUsed+external above the pre-index baseline.
+{"mode":"plain","afterFlushMiB":"730.0","afterTickMiB":"0.0","defaultCount":1}
+{"mode":"thenTiny","afterFlushMiB":"0.0","afterTickMiB":"0.1","defaultCount":1}
+{"mode":"wrapped","afterFlushMiB":"0.0","afterTickMiB":"0.0","defaultCount":1}
+direct count 1
+{"mode":"directStore","afterFlushMiB":"730.1","afterTickMiB":"0.1","defaultCount":1}
