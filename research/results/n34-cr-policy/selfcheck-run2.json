@@ -1,0 +1,2476 @@
+{
+  "schema": "n34-cr-policy-perf/v2",
+  "block": "selfcheck",
+  "status": "self_check_completed",
+  "startedAt": "2026-11-13T06:43:28.002Z",
+  "preregistrationCommit": null,
+  "measurementHead": "de2f4996948da10b4f866e38a7e7bf96bc3f6b70",
+  "base": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+  "protocol": {
+    "circuits": [
+      "ABCDBDCADACB",
+      "ADACDBDCBABC"
+    ],
+    "circuitMap": {
+      "A": "B1",
+      "B": "B2",
+      "C": "C2",
+      "D": "C1"
+    },
+    "warmupCircuits": 2,
+    "measureCircuits": 10,
+    "calibrationSamples": 5,
+    "samplesPerArm": 30,
+    "minSampleMs": 50,
+    "maxK": 1024,
+    "maxAttempts": 3,
+    "cooldownMs": 30000,
+    "timingChildTimeoutMs": 1800000,
+    "memoryChildTimeoutMs": 600000,
+    "memoryRepeats": 3,
+    "gateArms": {
+      "candidate": "C1",
+      "reference": "B1"
+    }
+  },
+  "inputs": {
+    "F1": {
+      "kind": "CR-dense",
+      "unitBytes": 1,
+      "count": 10485760,
+      "padBytes": 0,
+      "sha256": "d86de82e3333b6dc14821939e23e017ff761ccad224179380d8101aeb9826528"
+    },
+    "F2": {
+      "kind": "CR-dense",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "3ed5f01ed8341640fd69f7f647be42543eaff8f8cd1e533711e7e1919a2fbc67"
+    },
+    "F3": {
+      "kind": "CRLF regression",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "af03adf7f7fc77345c1076bc4c14ccf92fd1b3ac6b42550a2897a1608fe09f04"
+    },
+    "F4": {
+      "kind": "LF regression (LF of F1)",
+      "unitBytes": 1,
+      "count": 10485760,
+      "padBytes": 0,
+      "sha256": "ab02e108e006e57369eac278af619e4118904f60ea9417acae0ff1f7472eab28"
+    },
+    "F5": {
+      "kind": "LF regression (LF of F2)",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "f8ddfb084704f6b84e4e0e7b7d2be92edbfecb5b8e49986373f1718a931a234e"
+    },
+    "F6": {
+      "kind": "mixed",
+      "unitBytes": 7,
+      "count": 1497965,
+      "padBytes": 5,
+      "sha256": "b2618a7c5d85826f35e7d68570219170cd0d46c9961de4c0d62d91e5b7005025"
+    },
+    "F6L": {
+      "kind": "F6 baseline (lone CR -> LF)",
+      "unitBytes": 7,
+      "count": 1497965,
+      "padBytes": 5,
+      "sha256": "43d079137ac93de14d352ca2f13b8bf6ef60b3dcac3d52e37dd8928e05b7fb49"
+    },
+    "F7": {
+      "kind": "prose CR",
+      "unitBytes": 184,
+      "count": 56987,
+      "padBytes": 152,
+      "sha256": "a003600dd89767739ab2b521565186779a9913ddf4014e9d0e4094d899895115"
+    },
+    "F7L": {
+      "kind": "prose LF (F7 baseline)",
+      "unitBytes": 184,
+      "count": 56987,
+      "padBytes": 152,
+      "sha256": "77a2dab5c9ae24e85c2577b2ae9c81901929215fc7ef37a84386d9af43bd829c"
+    }
+  },
+  "files": {
+    "research/src/n34-cr-policy-perf.mjs": {
+      "blobSha1": "0a0e46561ce35662ef7735215cb4fe25f689f88c",
+      "workingCopySha256": "a8f9b2c101901be4fb274c948dbd04759ce385c590c9a4de03753448ab565c6b"
+    },
+    "research/src/n34-cr-policy-perf-inputs.mjs": {
+      "blobSha1": "e03a6197ddeca9cb78fbf4fb002c87b238d03095",
+      "workingCopySha256": "ebd7e8f14d3347f7ae74d774e835652c85fc4fd6128f7f1f6369df40595c1aa3"
+    },
+    "research/src/n34-cr-policy-perf-worker.mjs": {
+      "blobSha1": "c5ca276327c02134bb1a0ca111b22d43486b0bdb",
+      "workingCopySha256": "f132a05a1b7d474330a4e70b05cd698ea254c592d98dd298088c119c204d4fb3"
+    },
+    "research/src/n34-cr-policy-perf-mem-worker.mjs": {
+      "blobSha1": "f225aa8e62975657089110439374987b7f49e60b",
+      "workingCopySha256": "707568578620fbd6e4bf0b08c9ff19972edeeb47598b5156e6a4a15da899d04f"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md": {
+      "blobSha1": "f3a1ba433748a5174141473de86ae33cef91a812",
+      "workingCopySha256": "cfc2b85d80cbbfce458a6bd7684ed2534fbd6dc63dc602e91b8dfd1467447eb8"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg.md": {
+      "blobSha1": "55f3da93636bcd752677325e27ee70280a4fe979",
+      "workingCopySha256": "74d5a8dac3c4942f294e1b8ba91aea1108696a690775047bdd9f85cba4e38263"
+    },
+    "src/core/policy.ts": {
+      "blobSha1": "5571302c87b38dde0932959b5c50fbf4e42bdcab",
+      "workingCopySha256": "2c41532c0d72fb083542b9ccf7b38f09dae8ee99143f3b5b4092e0a70e963576"
+    },
+    "package-lock.json": {
+      "blobSha1": "4c65f8860373f5b6331b3c870427a3f90897e7c6",
+      "workingCopySha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343"
+    }
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpuModels": [
+      "12th Gen Intel(R) Core(TM) i9-12900F"
+    ],
+    "logicalCPUs": 24,
+    "totalMemBytes": 34163982336,
+    "powerScheme": "���� ����ǥ GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (���� ����)"
+  },
+  "schedule": {
+    "total": 144,
+    "warmupPerCopy": {
+      "B1": 6,
+      "B2": 6,
+      "C2": 6,
+      "C1": 6
+    },
+    "measuredPerCopy": {
+      "B1": 30,
+      "B2": 30,
+      "C2": 30,
+      "C1": 30
+    },
+    "warmupParity": {
+      "B1": [
+        3,
+        3
+      ],
+      "B2": [
+        3,
+        3
+      ],
+      "C2": [
+        3,
+        3
+      ],
+      "C1": [
+        3,
+        3
+      ]
+    },
+    "measuredParity": {
+      "B1": [
+        15,
+        15
+      ],
+      "B2": [
+        15,
+        15
+      ],
+      "C2": [
+        15,
+        15
+      ],
+      "C1": [
+        15,
+        15
+      ]
+    },
+    "pairs": {
+      "C2>B1": 10,
+      "B1>B2": 10,
+      "B2>C2": 10,
+      "C2>C1": 10,
+      "C1>B2": 10,
+      "B2>C1": 10,
+      "C1>C2": 10,
+      "B1>C1": 10,
+      "C1>B1": 10,
+      "B1>C2": 10,
+      "C2>B2": 10,
+      "B2>B1": 10
+    },
+    "innerPairs": {
+      "B1>B2": 10,
+      "B2>C2": 10,
+      "C2>C1": 10,
+      "C1>B2": 10,
+      "B2>C1": 10,
+      "C1>C2": 10,
+      "C2>B1": 9,
+      "B1>C1": 10,
+      "C1>B1": 10,
+      "B1>C2": 10,
+      "C2>B2": 10,
+      "B2>B1": 10
+    },
+    "self": 0
+  },
+  "snapshots": {
+    "base": {
+      "ref": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+      "policyBlobSha1": "d983503e697dde4939d216a6310110674917ca6b",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "distCoreSha256": {
+        "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+        "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+        "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+        "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+        "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+        "policy.js": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a",
+        "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+        "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    "candidate": {
+      "ref": "de2f4996948da10b4f866e38a7e7bf96bc3f6b70",
+      "policyBlobSha1": "5571302c87b38dde0932959b5c50fbf4e42bdcab",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "distCoreSha256": {
+        "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+        "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+        "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+        "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+        "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+        "policy.js": "3c2cce991144fc87ffb6aa1baadd8efe73a6ca3add533c541b255f9182e5be72",
+        "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+        "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    }
+  },
+  "rows": [],
+  "runs": [],
+  "selfCheck": {
+    "faults": [
+      {
+        "name": "exit1",
+        "expected": "abnormal_exit",
+        "actual": "abnormal_exit",
+        "exitCode": 1,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "noOutput",
+        "expected": "parse_error",
+        "actual": "parse_error",
+        "exitCode": 0,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "twoLines",
+        "expected": "parse_error",
+        "actual": "parse_error",
+        "exitCode": 0,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "badJson",
+        "expected": "parse_error",
+        "actual": "parse_error",
+        "exitCode": 0,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "errorStatus",
+        "expected": "child_error",
+        "actual": "child_error",
+        "exitCode": 0,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "fakeOom",
+        "expected": "oom",
+        "actual": "oom",
+        "exitCode": 134,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "realOom",
+        "expected": "oom",
+        "actual": "oom",
+        "exitCode": 134,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "timeout",
+        "expected": "timeout",
+        "actual": "timeout",
+        "exitCode": 1,
+        "timingVerdict": "invalid",
+        "exitCodeIfBlock": 5
+      },
+      {
+        "name": "spawnError",
+        "expected": "spawn_error",
+        "actual": "spawn_error"
+      }
+    ],
+    "size": 65536,
+    "timing": [
+      {
+        "key": "O1/F2",
+        "op": "O1",
+        "gate": "G-C",
+        "cand": "F2",
+        "ref": "F5",
+        "attempts": [
+          {
+            "number": 1,
+            "child": {
+              "status": "completed",
+              "exitCode": 0,
+              "signal": null,
+              "wallMs": 8812
+            },
+            "samples": 144,
+            "digests": {
+              "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+            },
+            "views": {
+              "B1": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "B2": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "C1": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "C2": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "stats": {
+              "B1": {
+                "n": 30,
+                "median": 58.03489999999965,
+                "p95": 61.5021999999999
+              },
+              "B2": {
+                "n": 30,
+                "median": 57.92000000000007,
+                "p95": 61.55189999999948
+              },
+              "C1": {
+                "n": 30,
+                "median": 60.24489999999969,
+                "p95": 64.93099999999959
+              },
+              "C2": {
+                "n": 30,
+                "median": 60.26870000000008,
+                "p95": 62.27099999999882
+              }
+            },
+            "aa": {
+              "base": {
+                "ratio": 0.9980201568366693,
+                "medianDelta": -0.11489999999957945,
+                "p95Delta": 0.049699999999575084,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              },
+              "candidate": {
+                "ratio": 1.000395054187166,
+                "medianDelta": 0.023800000000392174,
+                "p95Delta": -2.660000000000764,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              }
+            },
+            "gate": {
+              "medianLimit": 63.83838999999962,
+              "p95Limit": 73.80263999999988,
+              "medianOk": true,
+              "p95Ok": true,
+              "pass": true
+            },
+            "ratioC1toB1Median": 1.03808053429919,
+            "status": "valid"
+          }
+        ],
+        "status": "pass",
+        "calibration": {
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 1173
+          },
+          "steps": [
+            {
+              "k": 1,
+              "base": [
+                28.520599999999998,
+                17.225700000000003,
+                15.671499999999995,
+                15.169899999999998,
+                18.420500000000004
+              ],
+              "candidate": [
+                24.451600000000013,
+                16.729600000000005,
+                16.107499999999987,
+                16.108300000000014,
+                16.689700000000016
+              ]
+            },
+            {
+              "k": 2,
+              "base": [
+                30.275900000000007,
+                33.86080000000004,
+                31.15209999999996,
+                30.297799999999995,
+                29.061800000000005
+              ],
+              "candidate": [
+                34.898199999999974,
+                33.47380000000004,
+                33.97589999999997,
+                29.97739999999999,
+                30.176600000000008
+              ]
+            },
+            {
+              "k": 4,
+              "base": [
+                59.34699999999998,
+                58.99490000000003,
+                59.72000000000003,
+                63.953700000000026,
+                59.116300000000024
+              ],
+              "candidate": [
+                60.35349999999994,
+                63.289800000000014,
+                59.52520000000004,
+                62.96049999999991,
+                61.59850000000006
+              ]
+            }
+          ],
+          "k": 4
+        },
+        "k": 4,
+        "selectedAttempt": 1
+      },
+      {
+        "key": "O1/F5",
+        "op": "O1",
+        "gate": "G-R",
+        "cand": "F5",
+        "ref": "F5",
+        "attempts": [
+          {
+            "number": 1,
+            "child": {
+              "status": "completed",
+              "exitCode": 0,
+              "signal": null,
+              "wallMs": 8710
+            },
+            "samples": 144,
+            "digests": {
+              "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+            },
+            "views": {
+              "B1": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "B2": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "C1": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "C2": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "stats": {
+              "B1": {
+                "n": 30,
+                "median": 58.14810000000034,
+                "p95": 66.3475999999996
+              },
+              "B2": {
+                "n": 30,
+                "median": 58.14550000000054,
+                "p95": 63.479200000000674
+              },
+              "C1": {
+                "n": 30,
+                "median": 58.63040000000001,
+                "p95": 61.85310000000027
+              },
+              "C2": {
+                "n": 30,
+                "median": 58.659200000000055,
+                "p95": 61.03319999999985
+              }
+            },
+            "aa": {
+              "base": {
+                "ratio": 0.9999552865871834,
+                "medianDelta": -0.002599999999802094,
+                "p95Delta": -2.8683999999989283,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              },
+              "candidate": {
+                "ratio": 1.0004912127497005,
+                "medianDelta": 0.028800000000046566,
+                "p95Delta": -0.8199000000004162,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              }
+            },
+            "gate": {
+              "medianLimit": 63.96291000000038,
+              "p95Limit": 79.61711999999952,
+              "medianOk": true,
+              "p95Ok": true,
+              "pass": true
+            },
+            "ratioC1toB1Median": 1.0082943380781086,
+            "status": "valid"
+          }
+        ],
+        "status": "pass",
+        "calibration": {
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 1162
+          },
+          "steps": [
+            {
+              "k": 1,
+              "base": [
+                28.686099999999996,
+                16.85799999999999,
+                15.964600000000004,
+                15.0899,
+                15.855699999999999
+              ],
+              "candidate": [
+                26.289799999999985,
+                16.267599999999987,
+                15.624099999999999,
+                15.485900000000015,
+                15.393299999999982
+              ]
+            },
+            {
+              "k": 2,
+              "base": [
+                31.59820000000002,
+                31.216199999999986,
+                38.961900000000014,
+                32.195899999999995,
+                29.53019999999998
+              ],
+              "candidate": [
+                35.06200000000001,
+                32.83729999999997,
+                31.13870000000003,
+                30.321500000000015,
+                29.763000000000034
+              ]
+            },
+            {
+              "k": 4,
+              "base": [
+                59.24079999999992,
+                58.03710000000001,
+                59.398000000000025,
+                57.92420000000004,
+                58.88239999999996
+              ],
+              "candidate": [
+                60.320100000000025,
+                62.36659999999995,
+                59.84680000000003,
+                62.20369999999991,
+                59.37390000000005
+              ]
+            }
+          ],
+          "k": 4
+        },
+        "k": 4,
+        "selectedAttempt": 1
+      },
+      {
+        "key": "O1/F6",
+        "op": "O1",
+        "gate": "G-C",
+        "cand": "F6",
+        "ref": "F6L",
+        "attempts": [
+          {
+            "number": 1,
+            "child": {
+              "status": "completed",
+              "exitCode": 0,
+              "signal": null,
+              "wallMs": 8066
+            },
+            "samples": 144,
+            "digests": {
+              "B1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "B2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "C1": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+              "C2": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f"
+            },
+            "views": {
+              "B1": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "B2": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "C1": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              },
+              "C2": {
+                "mode": "unknown",
+                "reasons": [
+                  "insufficient_semantic_signal"
+                ],
+                "warnings": [
+                  "lossy_compression_not_allowed"
+                ]
+              }
+            },
+            "stats": {
+              "B1": {
+                "n": 30,
+                "median": 52.62700000000041,
+                "p95": 54.40740000000005
+              },
+              "B2": {
+                "n": 30,
+                "median": 52.423499999999876,
+                "p95": 56.28729999999996
+              },
+              "C1": {
+                "n": 30,
+                "median": 55.64439999999968,
+                "p95": 58.14179999999942
+              },
+              "C2": {
+                "n": 30,
+                "median": 56.425500000000284,
+                "p95": 60.83880000000045
+              }
+            },
+            "aa": {
+              "base": {
+                "ratio": 0.9961331635852219,
+                "medianDelta": -0.20350000000053114,
+                "p95Delta": 1.8798999999999069,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              },
+              "candidate": {
+                "ratio": 1.014037351467544,
+                "medianDelta": 0.7811000000006061,
+                "p95Delta": 2.697000000001026,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              }
+            },
+            "gate": {
+              "medianLimit": 57.88970000000045,
+              "p95Limit": 65.28888000000006,
+              "medianOk": true,
+              "p95Ok": true,
+              "pass": true
+            },
+            "ratioC1toB1Median": 1.0573355881961588,
+            "status": "valid"
+          }
+        ],
+        "status": "pass",
+        "calibration": {
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 1065
+          },
+          "steps": [
+            {
+              "k": 1,
+              "base": [
+                26.518399999999996,
+                14.691200000000002,
+                15.712199999999996,
+                14.5929,
+                14.660899999999998
+              ],
+              "candidate": [
+                22.837599999999995,
+                14.942700000000002,
+                15.614200000000011,
+                14.237099999999998,
+                14.82510000000002
+              ]
+            },
+            {
+              "k": 2,
+              "base": [
+                28.3759,
+                26.448700000000002,
+                29.81359999999998,
+                29.78540000000004,
+                27.885400000000004
+              ],
+              "candidate": [
+                32.17610000000002,
+                28.758700000000033,
+                27.550299999999993,
+                27.169299999999964,
+                30.47629999999998
+              ]
+            },
+            {
+              "k": 4,
+              "base": [
+                51.47809999999998,
+                54.48659999999995,
+                52.79829999999993,
+                51.481899999999996,
+                52.998500000000035
+              ],
+              "candidate": [
+                54.93400000000008,
+                57.77279999999996,
+                54.65649999999994,
+                56.28649999999993,
+                58.288099999999986
+              ]
+            }
+          ],
+          "k": 4
+        },
+        "k": 4,
+        "selectedAttempt": 1
+      },
+      {
+        "key": "O2/F2",
+        "op": "O2",
+        "gate": "G-C",
+        "cand": "F2",
+        "ref": "F5",
+        "attempts": [
+          {
+            "number": 1,
+            "child": {
+              "status": "completed",
+              "exitCode": 0,
+              "signal": null,
+              "wallMs": 10320
+            },
+            "samples": 144,
+            "digests": {
+              "B1": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+              "B2": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+              "C1": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+              "C2": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164"
+            },
+            "views": {
+              "B1": {
+                "summary": "",
+                "startLine": null,
+                "endLine": null,
+                "fallbackReason": "unknown_content_requires_source",
+                "warnings": [
+                  "lossy_summary_blocked",
+                  "lossy_compression_not_allowed"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 0
+              },
+              "B2": {
+                "summary": "",
+                "startLine": null,
+                "endLine": null,
+                "fallbackReason": "unknown_content_requires_source",
+                "warnings": [
+                  "lossy_summary_blocked",
+                  "lossy_compression_not_allowed"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 0
+              },
+              "C1": {
+                "summary": "",
+                "startLine": null,
+                "endLine": null,
+                "fallbackReason": "unknown_content_requires_source",
+                "warnings": [
+                  "lossy_summary_blocked",
+                  "lossy_compression_not_allowed"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 0
+              },
+              "C2": {
+                "summary": "",
+                "startLine": null,
+                "endLine": null,
+                "fallbackReason": "unknown_content_requires_source",
+                "warnings": [
+                  "lossy_summary_blocked",
+                  "lossy_compression_not_allowed"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 0
+              }
+            },
+            "stats": {
+              "B1": {
+                "n": 30,
+                "median": 68.79910000000018,
+                "p95": 73.82440000000042
+              },
+              "B2": {
+                "n": 30,
+                "median": 69.5026999999991,
+                "p95": 73.84470000000056
+              },
+              "C1": {
+                "n": 30,
+                "median": 68.50579999999991,
+                "p95": 73.88370000000032
+              },
+              "C2": {
+                "n": 30,
+                "median": 69.03870000000006,
+                "p95": 74.78359999999884
+              }
+            },
+            "aa": {
+              "base": {
+                "ratio": 1.0102268779678645,
+                "medianDelta": 0.7035999999989144,
+                "p95Delta": 0.020300000000133878,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              },
+              "candidate": {
+                "ratio": 1.0077789033921238,
+                "medianDelta": 0.5329000000001543,
+                "p95Delta": 0.8998999999985244,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              }
+            },
+            "gate": {
+              "medianLimit": 75.6790100000002,
+              "p95Limit": 88.5892800000005,
+              "medianOk": true,
+              "p95Ok": true,
+              "pass": true
+            },
+            "ratioC1toB1Median": 0.9957368628368646,
+            "status": "valid"
+          }
+        ],
+        "status": "pass",
+        "calibration": {
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 1381
+          },
+          "steps": [
+            {
+              "k": 1,
+              "base": [
+                34.625,
+                22.493899999999996,
+                27.994500000000002,
+                23.04210000000002,
+                20.724199999999996
+              ],
+              "candidate": [
+                31.940300000000008,
+                21.30850000000001,
+                27.653599999999983,
+                18.399400000000014,
+                18.911
+              ]
+            },
+            {
+              "k": 2,
+              "base": [
+                36.807600000000036,
+                35.17490000000004,
+                37.1422,
+                33.518700000000024,
+                33.534400000000005
+              ],
+              "candidate": [
+                41.60980000000001,
+                35.30789999999996,
+                33.469100000000026,
+                33.41229999999996,
+                37.78989999999999
+              ]
+            },
+            {
+              "k": 4,
+              "base": [
+                70.01690000000008,
+                72.31050000000005,
+                76.92600000000004,
+                67.44839999999999,
+                72.74720000000002
+              ],
+              "candidate": [
+                68.2749,
+                68.88499999999999,
+                70.2165,
+                67.34930000000008,
+                74.48249999999985
+              ]
+            }
+          ],
+          "k": 4
+        },
+        "k": 4,
+        "selectedAttempt": 1
+      },
+      {
+        "key": "O2/F7",
+        "op": "O2",
+        "gate": "G-C",
+        "cand": "F7",
+        "ref": "F7L",
+        "attempts": [
+          {
+            "number": 1,
+            "child": {
+              "status": "completed",
+              "exitCode": 0,
+              "signal": null,
+              "wallMs": 11654
+            },
+            "samples": 144,
+            "digests": {
+              "B1": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+              "B2": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+              "C1": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+              "C2": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6"
+            },
+            "views": {
+              "B1": {
+                "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+                "startLine": 1,
+                "endLine": 26,
+                "fallbackReason": null,
+                "warnings": [
+                  "summary_truncated"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 398
+              },
+              "B2": {
+                "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+                "startLine": 1,
+                "endLine": 26,
+                "fallbackReason": null,
+                "warnings": [
+                  "summary_truncated"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 398
+              },
+              "C1": {
+                "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+                "startLine": 1,
+                "endLine": 26,
+                "fallbackReason": null,
+                "warnings": [
+                  "summary_truncated"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 398
+              },
+              "C2": {
+                "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+                "startLine": 1,
+                "endLine": 26,
+                "fallbackReason": null,
+                "warnings": [
+                  "summary_truncated"
+                ],
+                "confidence": "low",
+                "estimatedTokens": 398
+              }
+            },
+            "stats": {
+              "B1": {
+                "n": 30,
+                "median": 78.8806999999997,
+                "p95": 83.82740000000013
+              },
+              "B2": {
+                "n": 30,
+                "median": 78.10950000000048,
+                "p95": 81.86649999999827
+              },
+              "C1": {
+                "n": 30,
+                "median": 78.1994999999988,
+                "p95": 81.73530000000028
+              },
+              "C2": {
+                "n": 30,
+                "median": 78.19880000000012,
+                "p95": 79.28680000000031
+              }
+            },
+            "aa": {
+              "base": {
+                "ratio": 0.9902232104938314,
+                "medianDelta": -0.7711999999992258,
+                "p95Delta": -1.9609000000018568,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              },
+              "candidate": {
+                "ratio": 0.9999910485361327,
+                "medianDelta": -0.0006999999986874172,
+                "p95Delta": -2.4484999999999673,
+                "medianOk": true,
+                "p95Ok": true,
+                "valid": true
+              }
+            },
+            "gate": {
+              "medianLimit": 86.76876999999968,
+              "p95Limit": 100.59288000000015,
+              "medianOk": true,
+              "p95Ok": true,
+              "pass": true
+            },
+            "ratioC1toB1Median": 0.9913641739994586,
+            "status": "valid"
+          }
+        ],
+        "status": "pass",
+        "calibration": {
+          "child": {
+            "status": "completed",
+            "exitCode": 0,
+            "signal": null,
+            "wallMs": 1536
+          },
+          "steps": [
+            {
+              "k": 1,
+              "base": [
+                38.074299999999994,
+                22.1507,
+                21.765,
+                20.531499999999994,
+                20.650500000000022
+              ],
+              "candidate": [
+                31.91840000000002,
+                21.574599999999975,
+                20.872800000000012,
+                20.956799999999987,
+                20.938900000000018
+              ]
+            },
+            {
+              "k": 2,
+              "base": [
+                48.129099999999994,
+                43.11099999999999,
+                43.35269999999997,
+                40.100599999999986,
+                39.18649999999997
+              ],
+              "candidate": [
+                46.24969999999996,
+                45.801900000000046,
+                43.98529999999994,
+                42.0453,
+                39.42809999999997
+              ]
+            },
+            {
+              "k": 4,
+              "base": [
+                80.56409999999994,
+                81.08980000000008,
+                80.18110000000001,
+                78.33799999999997,
+                78.7808
+              ],
+              "candidate": [
+                79.37559999999985,
+                80.6364000000001,
+                80.04269999999997,
+                81.71219999999994,
+                80.37049999999999
+              ]
+            }
+          ],
+          "k": 4
+        },
+        "k": 4,
+        "selectedAttempt": 1
+      }
+    ],
+    "memoryRuns": [
+      {
+        "key": "O1/F2",
+        "repeat": 0,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 104,
+        "retainedBytes": 297496,
+        "maxRssBytes": 60518400,
+        "elapsedMs": 29.681399999999996,
+        "before": {
+          "heapUsed": 5187872,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498831
+        },
+        "after": {
+          "heapUsed": 5485328,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7796327
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F2",
+        "repeat": 0,
+        "arm": "C1",
+        "inputId": "F2",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 100,
+        "retainedBytes": 294600,
+        "maxRssBytes": 60575744,
+        "elapsedMs": 28.457099999999997,
+        "before": {
+          "heapUsed": 5188584,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499543
+        },
+        "after": {
+          "heapUsed": 5483144,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794143
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F5",
+        "repeat": 0,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 100,
+        "retainedBytes": 296016,
+        "maxRssBytes": 60596224,
+        "elapsedMs": 28.91819999999999,
+        "before": {
+          "heapUsed": 5187872,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498831
+        },
+        "after": {
+          "heapUsed": 5483848,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794847
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F5",
+        "repeat": 0,
+        "arm": "C1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 100,
+        "retainedBytes": 297512,
+        "maxRssBytes": 60424192,
+        "elapsedMs": 29.2765,
+        "before": {
+          "heapUsed": 5188584,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499543
+        },
+        "after": {
+          "heapUsed": 5486056,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7797055
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F6",
+        "repeat": 0,
+        "arm": "B1",
+        "inputId": "F6L",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 97,
+        "retainedBytes": 295856,
+        "maxRssBytes": 60248064,
+        "elapsedMs": 26.930299999999995,
+        "before": {
+          "heapUsed": 5188032,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498991
+        },
+        "after": {
+          "heapUsed": 5483848,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794847
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F6",
+        "repeat": 0,
+        "arm": "C1",
+        "inputId": "F6",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 98,
+        "retainedBytes": 297088,
+        "maxRssBytes": 59998208,
+        "elapsedMs": 26.800400000000003,
+        "before": {
+          "heapUsed": 5188744,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499703
+        },
+        "after": {
+          "heapUsed": 5485792,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7796791
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O2/F2",
+        "repeat": 0,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 107,
+        "retainedBytes": 2702232,
+        "maxRssBytes": 67411968,
+        "elapsedMs": 34.2309,
+        "before": {
+          "heapUsed": 5253816,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7564775
+        },
+        "after": {
+          "heapUsed": 7956008,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 10267007
+        },
+        "lineCount": 32768,
+        "outputDigest": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+        "view": {
+          "summary": "",
+          "startLine": null,
+          "endLine": null,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 0
+        }
+      },
+      {
+        "key": "O2/F2",
+        "repeat": 0,
+        "arm": "C1",
+        "inputId": "F2",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 108,
+        "retainedBytes": 2699160,
+        "maxRssBytes": 67862528,
+        "elapsedMs": 34.308499999999995,
+        "before": {
+          "heapUsed": 5254384,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7565343
+        },
+        "after": {
+          "heapUsed": 7953504,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 10264503
+        },
+        "lineCount": 32768,
+        "outputDigest": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+        "view": {
+          "summary": "",
+          "startLine": null,
+          "endLine": null,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 0
+        }
+      },
+      {
+        "key": "O2/F7",
+        "repeat": 0,
+        "arm": "B1",
+        "inputId": "F7L",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 107,
+        "retainedBytes": 490232,
+        "maxRssBytes": 59437056,
+        "elapsedMs": 36.144499999999994,
+        "before": {
+          "heapUsed": 5253672,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7564631
+        },
+        "after": {
+          "heapUsed": 5743864,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 8054863
+        },
+        "lineCount": 1069,
+        "outputDigest": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+        "view": {
+          "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+          "startLine": 1,
+          "endLine": 26,
+          "fallbackReason": null,
+          "warnings": [
+            "summary_truncated"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 398
+        }
+      },
+      {
+        "key": "O2/F7",
+        "repeat": 0,
+        "arm": "C1",
+        "inputId": "F7",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 109,
+        "retainedBytes": 491504,
+        "maxRssBytes": 59207680,
+        "elapsedMs": 36.1754,
+        "before": {
+          "heapUsed": 5254384,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7565343
+        },
+        "after": {
+          "heapUsed": 5745848,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 8056847
+        },
+        "lineCount": 1069,
+        "outputDigest": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+        "view": {
+          "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+          "startLine": 1,
+          "endLine": 26,
+          "fallbackReason": null,
+          "warnings": [
+            "summary_truncated"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 398
+        }
+      },
+      {
+        "key": "O1/F2",
+        "repeat": 1,
+        "arm": "C1",
+        "inputId": "F2",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 101,
+        "retainedBytes": 294600,
+        "maxRssBytes": 60477440,
+        "elapsedMs": 29.077800000000003,
+        "before": {
+          "heapUsed": 5188584,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499543
+        },
+        "after": {
+          "heapUsed": 5483144,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794143
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F2",
+        "repeat": 1,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 99,
+        "retainedBytes": 296016,
+        "maxRssBytes": 60317696,
+        "elapsedMs": 28.7476,
+        "before": {
+          "heapUsed": 5187944,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498903
+        },
+        "after": {
+          "heapUsed": 5483920,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794919
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F5",
+        "repeat": 1,
+        "arm": "C1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 100,
+        "retainedBytes": 297256,
+        "maxRssBytes": 60559360,
+        "elapsedMs": 29.1353,
+        "before": {
+          "heapUsed": 5188584,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499543
+        },
+        "after": {
+          "heapUsed": 5485800,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7796799
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F5",
+        "repeat": 1,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 99,
+        "retainedBytes": 297512,
+        "maxRssBytes": 60407808,
+        "elapsedMs": 28.9294,
+        "before": {
+          "heapUsed": 5187872,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498831
+        },
+        "after": {
+          "heapUsed": 5485344,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7796343
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F6",
+        "repeat": 1,
+        "arm": "C1",
+        "inputId": "F6",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 98,
+        "retainedBytes": 297072,
+        "maxRssBytes": 59957248,
+        "elapsedMs": 26.344199999999994,
+        "before": {
+          "heapUsed": 5188744,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499703
+        },
+        "after": {
+          "heapUsed": 5485776,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7796775
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F6",
+        "repeat": 1,
+        "arm": "B1",
+        "inputId": "F6L",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 99,
+        "retainedBytes": 295856,
+        "maxRssBytes": 59846656,
+        "elapsedMs": 26.919000000000004,
+        "before": {
+          "heapUsed": 5188032,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498991
+        },
+        "after": {
+          "heapUsed": 5483848,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794847
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O2/F2",
+        "repeat": 1,
+        "arm": "C1",
+        "inputId": "F2",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 107,
+        "retainedBytes": 2700264,
+        "maxRssBytes": 67289088,
+        "elapsedMs": 34.592000000000006,
+        "before": {
+          "heapUsed": 5254568,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7565527
+        },
+        "after": {
+          "heapUsed": 7954792,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 10265791
+        },
+        "lineCount": 32768,
+        "outputDigest": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+        "view": {
+          "summary": "",
+          "startLine": null,
+          "endLine": null,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 0
+        }
+      },
+      {
+        "key": "O2/F2",
+        "repeat": 1,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 107,
+        "retainedBytes": 2702080,
+        "maxRssBytes": 67530752,
+        "elapsedMs": 33.932300000000005,
+        "before": {
+          "heapUsed": 5253672,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7564631
+        },
+        "after": {
+          "heapUsed": 7955712,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 10266711
+        },
+        "lineCount": 32768,
+        "outputDigest": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+        "view": {
+          "summary": "",
+          "startLine": null,
+          "endLine": null,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 0
+        }
+      },
+      {
+        "key": "O2/F7",
+        "repeat": 1,
+        "arm": "C1",
+        "inputId": "F7",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 108,
+        "retainedBytes": 491424,
+        "maxRssBytes": 59142144,
+        "elapsedMs": 36.19250000000001,
+        "before": {
+          "heapUsed": 5254384,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7565343
+        },
+        "after": {
+          "heapUsed": 5745768,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 8056767
+        },
+        "lineCount": 1069,
+        "outputDigest": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+        "view": {
+          "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+          "startLine": 1,
+          "endLine": 26,
+          "fallbackReason": null,
+          "warnings": [
+            "summary_truncated"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 398
+        }
+      },
+      {
+        "key": "O2/F7",
+        "repeat": 1,
+        "arm": "B1",
+        "inputId": "F7L",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 109,
+        "retainedBytes": 490344,
+        "maxRssBytes": 59314176,
+        "elapsedMs": 36.514,
+        "before": {
+          "heapUsed": 5253672,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7564631
+        },
+        "after": {
+          "heapUsed": 5743976,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 8054975
+        },
+        "lineCount": 1069,
+        "outputDigest": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+        "view": {
+          "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+          "startLine": 1,
+          "endLine": 26,
+          "fallbackReason": null,
+          "warnings": [
+            "summary_truncated"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 398
+        }
+      },
+      {
+        "key": "O1/F2",
+        "repeat": 2,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 100,
+        "retainedBytes": 296016,
+        "maxRssBytes": 60669952,
+        "elapsedMs": 28.649399999999993,
+        "before": {
+          "heapUsed": 5187872,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498831
+        },
+        "after": {
+          "heapUsed": 5483848,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7794847
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F2",
+        "repeat": 2,
+        "arm": "C1",
+        "inputId": "F2",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 98,
+        "retainedBytes": 294264,
+        "maxRssBytes": 60375040,
+        "elapsedMs": 28.237899999999996,
+        "before": {
+          "heapUsed": 5188584,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499543
+        },
+        "after": {
+          "heapUsed": 5482808,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7793807
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F5",
+        "repeat": 2,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 106,
+        "retainedBytes": 296280,
+        "maxRssBytes": 60542976,
+        "elapsedMs": 32.5932,
+        "before": {
+          "heapUsed": 5187872,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498831
+        },
+        "after": {
+          "heapUsed": 5484112,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7795111
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F5",
+        "repeat": 2,
+        "arm": "C1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 112,
+        "retainedBytes": 297256,
+        "maxRssBytes": 60530688,
+        "elapsedMs": 31.3397,
+        "before": {
+          "heapUsed": 5188584,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499543
+        },
+        "after": {
+          "heapUsed": 5485800,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7796799
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F6",
+        "repeat": 2,
+        "arm": "B1",
+        "inputId": "F6L",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 103,
+        "retainedBytes": 296040,
+        "maxRssBytes": 60071936,
+        "elapsedMs": 27.924300000000002,
+        "before": {
+          "heapUsed": 5188032,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7498991
+        },
+        "after": {
+          "heapUsed": 5484032,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7795031
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O1/F6",
+        "repeat": 2,
+        "arm": "C1",
+        "inputId": "F6",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 99,
+        "retainedBytes": 297352,
+        "maxRssBytes": 60022784,
+        "elapsedMs": 27.600700000000003,
+        "before": {
+          "heapUsed": 5188744,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7499703
+        },
+        "after": {
+          "heapUsed": 5486056,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 7797055
+        },
+        "outputDigest": "6ba41805ab71051878ce017e7c6406ec20778230024e6218b3d92512dc84603f",
+        "view": {
+          "mode": "unknown",
+          "reasons": [
+            "insufficient_semantic_signal"
+          ],
+          "warnings": [
+            "lossy_compression_not_allowed"
+          ]
+        }
+      },
+      {
+        "key": "O2/F2",
+        "repeat": 2,
+        "arm": "B1",
+        "inputId": "F5",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 109,
+        "retainedBytes": 2700320,
+        "maxRssBytes": 67624960,
+        "elapsedMs": 36.34010000000001,
+        "before": {
+          "heapUsed": 5253744,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7564703
+        },
+        "after": {
+          "heapUsed": 7954024,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 10265023
+        },
+        "lineCount": 32768,
+        "outputDigest": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+        "view": {
+          "summary": "",
+          "startLine": null,
+          "endLine": null,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 0
+        }
+      },
+      {
+        "key": "O2/F2",
+        "repeat": 2,
+        "arm": "C1",
+        "inputId": "F2",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 106,
+        "retainedBytes": 2698560,
+        "maxRssBytes": 67330048,
+        "elapsedMs": 34.1229,
+        "before": {
+          "heapUsed": 5254384,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7565343
+        },
+        "after": {
+          "heapUsed": 7952904,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 10263903
+        },
+        "lineCount": 32768,
+        "outputDigest": "1e36e55d13d76cab3993ed8a3154c4a36334f36b87e4275dc5a4708be463f164",
+        "view": {
+          "summary": "",
+          "startLine": null,
+          "endLine": null,
+          "fallbackReason": "unknown_content_requires_source",
+          "warnings": [
+            "lossy_summary_blocked",
+            "lossy_compression_not_allowed"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 0
+        }
+      },
+      {
+        "key": "O2/F7",
+        "repeat": 2,
+        "arm": "B1",
+        "inputId": "F7L",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 108,
+        "retainedBytes": 490280,
+        "maxRssBytes": 59031552,
+        "elapsedMs": 36.400299999999994,
+        "before": {
+          "heapUsed": 5253672,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7564631
+        },
+        "after": {
+          "heapUsed": 5743912,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 8054911
+        },
+        "lineCount": 1069,
+        "outputDigest": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+        "view": {
+          "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+          "startLine": 1,
+          "endLine": 26,
+          "fallbackReason": null,
+          "warnings": [
+            "summary_truncated"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 398
+        }
+      },
+      {
+        "key": "O2/F7",
+        "repeat": 2,
+        "arm": "C1",
+        "inputId": "F7",
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 112,
+        "retainedBytes": 491424,
+        "maxRssBytes": 59219968,
+        "elapsedMs": 37.485899999999994,
+        "before": {
+          "heapUsed": 5254384,
+          "external": 2310959,
+          "arrayBuffers": 143611,
+          "sum": 7565343
+        },
+        "after": {
+          "heapUsed": 5745768,
+          "external": 2310999,
+          "arrayBuffers": 143611,
+          "sum": 8056767
+        },
+        "lineCount": 1069,
+        "outputDigest": "51110bfd427a5f1715204c80e2966e562ac41acd523601e7d462b5b7357a59b6",
+        "view": {
+          "summary": "Please read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.\nThe rest of this note describes the weekly plan in plain words.\nPlease read this short note before the team meeting today.\nEveryone should bring their notes and arrive a little early.",
+          "startLine": 1,
+          "endLine": 26,
+          "fallbackReason": null,
+          "warnings": [
+            "summary_truncated"
+          ],
+          "confidence": "low",
+          "estimatedTokens": 398
+        }
+      }
+    ],
+    "memoryRows": [
+      {
+        "key": "O1/F2",
+        "op": "O1",
+        "gate": "G-C",
+        "cand": "F2",
+        "ref": "F5",
+        "refRuns": 3,
+        "candRuns": 3,
+        "reference": {
+          "R": 296016,
+          "P": 60518400
+        },
+        "candidate": {
+          "R": 294600,
+          "P": 60477440
+        },
+        "rLimit": 1344592,
+        "pLimit": 100124672,
+        "rOk": true,
+        "pOk": true,
+        "status": "pass",
+        "pass": true
+      },
+      {
+        "key": "O1/F5",
+        "op": "O1",
+        "gate": "G-R",
+        "cand": "F5",
+        "ref": "F5",
+        "refRuns": 3,
+        "candRuns": 3,
+        "reference": {
+          "R": 296280,
+          "P": 60542976
+        },
+        "candidate": {
+          "R": 297256,
+          "P": 60530688
+        },
+        "rLimit": 1344856,
+        "pLimit": 100151705.60000001,
+        "rOk": true,
+        "pOk": true,
+        "status": "pass",
+        "pass": true
+      },
+      {
+        "key": "O1/F6",
+        "op": "O1",
+        "gate": "G-C",
+        "cand": "F6",
+        "ref": "F6L",
+        "refRuns": 3,
+        "candRuns": 3,
+        "reference": {
+          "R": 295856,
+          "P": 60071936
+        },
+        "candidate": {
+          "R": 297088,
+          "P": 59998208
+        },
+        "rLimit": 1344432,
+        "pLimit": 99633561.60000001,
+        "rOk": true,
+        "pOk": true,
+        "status": "pass",
+        "pass": true
+      },
+      {
+        "key": "O2/F2",
+        "op": "O2",
+        "gate": "G-C",
+        "cand": "F2",
+        "ref": "F5",
+        "refRuns": 3,
+        "candRuns": 3,
+        "reference": {
+          "R": 2702080,
+          "P": 67530752
+        },
+        "candidate": {
+          "R": 2699160,
+          "P": 67330048
+        },
+        "rLimit": 3750656,
+        "pLimit": 107838259.2,
+        "rOk": true,
+        "pOk": true,
+        "status": "pass",
+        "pass": true
+      },
+      {
+        "key": "O2/F7",
+        "op": "O2",
+        "gate": "G-C",
+        "cand": "F7",
+        "ref": "F7L",
+        "refRuns": 3,
+        "candRuns": 3,
+        "reference": {
+          "R": 490280,
+          "P": 59314176
+        },
+        "candidate": {
+          "R": 491424,
+          "P": 59207680
+        },
+        "rLimit": 1538856,
+        "pLimit": 98800025.60000001,
+        "rOk": true,
+        "pOk": true,
+        "status": "pass",
+        "pass": true
+      }
+    ]
+  },
+  "finalEnvironment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpuModels": [
+      "12th Gen Intel(R) Core(TM) i9-12900F"
+    ],
+    "logicalCPUs": 24,
+    "totalMemBytes": 34163982336,
+    "powerScheme": "���� ����ǥ GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (���� ����)"
+  },
+  "preservation": {
+    "trackedFiles": 1118,
+    "changed": []
+  },
+  "tempCleanup": true,
+  "finishedAt": "2026-11-13T06:44:37.521Z",
+  "exitCode": 0
+}

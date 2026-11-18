@@ -1,0 +1,707 @@
+{
+  "schema": "n34-cr-policy-perf/v2",
+  "block": "info",
+  "status": "completed_informational",
+  "startedAt": "2026-11-14T15:07:50.076Z",
+  "preregistrationCommit": "870f4468da279feef8e3da5425c8ca55e8d3d421",
+  "measurementHead": "175158f783089a6e6c099e7653983346099da34d",
+  "base": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+  "protocol": {
+    "circuits": [
+      "ABCDBDCADACB",
+      "ADACDBDCBABC"
+    ],
+    "circuitMap": {
+      "A": "B1",
+      "B": "B2",
+      "C": "C2",
+      "D": "C1"
+    },
+    "warmupCircuits": 2,
+    "measureCircuits": 10,
+    "calibrationSamples": 5,
+    "samplesPerArm": 30,
+    "minSampleMs": 50,
+    "maxK": 1024,
+    "maxAttempts": 3,
+    "cooldownMs": 30000,
+    "timingChildTimeoutMs": 1800000,
+    "memoryChildTimeoutMs": 600000,
+    "memoryRepeats": 3,
+    "gateArms": {
+      "candidate": "C1",
+      "reference": "B1"
+    }
+  },
+  "inputs": {
+    "F1": {
+      "kind": "CR-dense",
+      "unitBytes": 1,
+      "count": 10485760,
+      "padBytes": 0,
+      "sha256": "d86de82e3333b6dc14821939e23e017ff761ccad224179380d8101aeb9826528"
+    },
+    "F2": {
+      "kind": "CR-dense",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "3ed5f01ed8341640fd69f7f647be42543eaff8f8cd1e533711e7e1919a2fbc67"
+    },
+    "F3": {
+      "kind": "CRLF regression",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "af03adf7f7fc77345c1076bc4c14ccf92fd1b3ac6b42550a2897a1608fe09f04"
+    },
+    "F4": {
+      "kind": "LF regression (LF of F1)",
+      "unitBytes": 1,
+      "count": 10485760,
+      "padBytes": 0,
+      "sha256": "ab02e108e006e57369eac278af619e4118904f60ea9417acae0ff1f7472eab28"
+    },
+    "F5": {
+      "kind": "LF regression (LF of F2)",
+      "unitBytes": 2,
+      "count": 5242880,
+      "padBytes": 0,
+      "sha256": "f8ddfb084704f6b84e4e0e7b7d2be92edbfecb5b8e49986373f1718a931a234e"
+    },
+    "F6": {
+      "kind": "mixed",
+      "unitBytes": 7,
+      "count": 1497965,
+      "padBytes": 5,
+      "sha256": "b2618a7c5d85826f35e7d68570219170cd0d46c9961de4c0d62d91e5b7005025"
+    },
+    "F6L": {
+      "kind": "F6 baseline (lone CR -> LF)",
+      "unitBytes": 7,
+      "count": 1497965,
+      "padBytes": 5,
+      "sha256": "43d079137ac93de14d352ca2f13b8bf6ef60b3dcac3d52e37dd8928e05b7fb49"
+    },
+    "F7": {
+      "kind": "prose CR",
+      "unitBytes": 184,
+      "count": 56987,
+      "padBytes": 152,
+      "sha256": "a003600dd89767739ab2b521565186779a9913ddf4014e9d0e4094d899895115"
+    },
+    "F7L": {
+      "kind": "prose LF (F7 baseline)",
+      "unitBytes": 184,
+      "count": 56987,
+      "padBytes": 152,
+      "sha256": "77a2dab5c9ae24e85c2577b2ae9c81901929215fc7ef37a84386d9af43bd829c"
+    }
+  },
+  "files": {
+    "research/src/n34-cr-policy-perf.mjs": {
+      "blobSha1": "d5ccf45356493ed4c1b6d2fa2b3f77e9d03cb42f",
+      "workingCopySha256": "61866e8def9604cb41eee908593420c86f0d413cc53cb9d8a0b27e9448e1eee9"
+    },
+    "research/src/n34-cr-policy-perf-inputs.mjs": {
+      "blobSha1": "e03a6197ddeca9cb78fbf4fb002c87b238d03095",
+      "workingCopySha256": "ebd7e8f14d3347f7ae74d774e835652c85fc4fd6128f7f1f6369df40595c1aa3"
+    },
+    "research/src/n34-cr-policy-perf-worker.mjs": {
+      "blobSha1": "c5ca276327c02134bb1a0ca111b22d43486b0bdb",
+      "workingCopySha256": "f132a05a1b7d474330a4e70b05cd698ea254c592d98dd298088c119c204d4fb3"
+    },
+    "research/src/n34-cr-policy-perf-mem-worker.mjs": {
+      "blobSha1": "f225aa8e62975657089110439374987b7f49e60b",
+      "workingCopySha256": "707568578620fbd6e4bf0b08c9ff19972edeeb47598b5156e6a4a15da899d04f"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg-run3.md": {
+      "blobSha1": "2338e888f0d76c7955ff86c6c4afcabbd67debed",
+      "workingCopySha256": "6db52938fe2c60f6669b087963b992b0a0c38502025e329f5c42642056019294"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg-run2.md": {
+      "blobSha1": "f3a1ba433748a5174141473de86ae33cef91a812",
+      "workingCopySha256": "cfc2b85d80cbbfce458a6bd7684ed2534fbd6dc63dc602e91b8dfd1467447eb8"
+    },
+    "docs/agent/handoffs/n34-cr-line-policy-prereg.md": {
+      "blobSha1": "55f3da93636bcd752677325e27ee70280a4fe979",
+      "workingCopySha256": "74d5a8dac3c4942f294e1b8ba91aea1108696a690775047bdd9f85cba4e38263"
+    },
+    "src/core/policy.ts": {
+      "blobSha1": "34457148efd50be29ff703043bf0407ff765ab84",
+      "workingCopySha256": "33003fb5d4e0e076db0cec62b7f9b4506a1ab92899f7c4da13e871ace1c607c7"
+    },
+    "package-lock.json": {
+      "blobSha1": "4c65f8860373f5b6331b3c870427a3f90897e7c6",
+      "workingCopySha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343"
+    }
+  },
+  "environment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpuModels": [
+      "12th Gen Intel(R) Core(TM) i9-12900F"
+    ],
+    "logicalCPUs": 24,
+    "totalMemBytes": 34163982336,
+    "powerScheme": "���� ����ǥ GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (���� ����)"
+  },
+  "schedule": {
+    "total": 144,
+    "warmupPerCopy": {
+      "B1": 6,
+      "B2": 6,
+      "C2": 6,
+      "C1": 6
+    },
+    "measuredPerCopy": {
+      "B1": 30,
+      "B2": 30,
+      "C2": 30,
+      "C1": 30
+    },
+    "warmupParity": {
+      "B1": [
+        3,
+        3
+      ],
+      "B2": [
+        3,
+        3
+      ],
+      "C2": [
+        3,
+        3
+      ],
+      "C1": [
+        3,
+        3
+      ]
+    },
+    "measuredParity": {
+      "B1": [
+        15,
+        15
+      ],
+      "B2": [
+        15,
+        15
+      ],
+      "C2": [
+        15,
+        15
+      ],
+      "C1": [
+        15,
+        15
+      ]
+    },
+    "pairs": {
+      "C2>B1": 10,
+      "B1>B2": 10,
+      "B2>C2": 10,
+      "C2>C1": 10,
+      "C1>B2": 10,
+      "B2>C1": 10,
+      "C1>C2": 10,
+      "B1>C1": 10,
+      "C1>B1": 10,
+      "B1>C2": 10,
+      "C2>B2": 10,
+      "B2>B1": 10
+    },
+    "innerPairs": {
+      "B1>B2": 10,
+      "B2>C2": 10,
+      "C2>C1": 10,
+      "C1>B2": 10,
+      "B2>C1": 10,
+      "C1>C2": 10,
+      "C2>B1": 9,
+      "B1>C1": 10,
+      "C1>B1": 10,
+      "B1>C2": 10,
+      "C2>B2": 10,
+      "B2>B1": 10
+    },
+    "self": 0
+  },
+  "snapshots": {
+    "base": {
+      "ref": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+      "policyBlobSha1": "d983503e697dde4939d216a6310110674917ca6b",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "distCoreSha256": {
+        "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+        "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+        "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+        "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+        "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+        "policy.js": "f9952d655f33d0432a6c58cc62d5de9a03de044141a7e86df69e3f4b006c810a",
+        "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+        "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    "candidate": {
+      "ref": "175158f783089a6e6c099e7653983346099da34d",
+      "policyBlobSha1": "34457148efd50be29ff703043bf0407ff765ab84",
+      "lockfileSha256": "f6eab8dc87236f852f45e5e23b33afc97f9972c5cf1c1abe449d063e767bb343",
+      "distCoreSha256": {
+        "artifacts.js": "102a9e22df15a172418b2b844ad0f5294a05e2c0534429c2bd26de45fc0be559",
+        "image-artifacts.js": "91f0b7aaa84d256b4a2d57f0d18a235f82a6bbd312b97e5dceaa066d74e7bcfa",
+        "image-crop.js": "29a1e451b99d05c1d93da26f583de656272f573ce9c6d3810ff95ce2e99fded6",
+        "image-overview.js": "d7f777065cf46a31b7c38bc0ca3887842444575d298ee117b7451fb978155eb7",
+        "jpeg-validation.js": "821676029057455791b095ef9665f48159739e00ab8c04f0c71f2e64d643d12f",
+        "policy.js": "5ada39538c6b68a5d300d78ca8c0c85cef5668e6c009f4a6cb36fc1a1781fe34",
+        "read-bounded-file.js": "8686ad7c4e5107c0c6a02f545e45cae84467469e4eb31f827feb196b2a9d4b81",
+        "token-estimator.js": "b952a4ad82c1ef6bae639f4712cd9830941e44551a8eee78b0ae2e9c03d698fc",
+        "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    }
+  },
+  "rows": [
+    {
+      "key": "O1/F1:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 539877
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 2802.4982999999775,
+          "p95": 2927.5332000000053
+        },
+        "B2": {
+          "n": 30,
+          "median": 2800.7722000000067,
+          "p95": 2910.3733999999968
+        },
+        "C1": {
+          "n": 30,
+          "median": 4602.661599999992,
+          "p95": 4827.049999999988
+        },
+        "C2": {
+          "n": 30,
+          "median": 4658.566099999996,
+          "p95": 4870.064400000032
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 0.9993840852642192,
+          "medianDelta": -1.7260999999707565,
+          "p95Delta": -17.159800000008545,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 1.0121461243207635,
+          "medianDelta": 55.90450000000419,
+          "p95Delta": 43.01440000004368,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 1.6423423343379118,
+      "informationalStatus": "failed_gate",
+      "reason": "valid timing gate failed; no retry"
+    },
+    {
+      "key": "O1/F2:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 783760
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 5683.436999999976,
+          "p95": 5859.387999999977
+        },
+        "B2": {
+          "n": 30,
+          "median": 5794.984599999967,
+          "p95": 5957.917399999977
+        },
+        "C1": {
+          "n": 30,
+          "median": 4908.660599999945,
+          "p95": 5095.654600000009
+        },
+        "C2": {
+          "n": 30,
+          "median": 4868.211400000029,
+          "p95": 4958.887000000017
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 1.019626785693233,
+          "medianDelta": 111.54759999999078,
+          "p95Delta": 98.52939999999944,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 0.9917596258335898,
+          "medianDelta": -40.449199999915436,
+          "p95Delta": -136.76759999999194,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 0.8636781933185791,
+      "informationalStatus": "pass"
+    },
+    {
+      "key": "O1/F6:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 666449
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 4694.8343999999925,
+          "p95": 4795.920299999998
+        },
+        "B2": {
+          "n": 30,
+          "median": 4678.602399999974,
+          "p95": 4834.054800000042
+        },
+        "C1": {
+          "n": 30,
+          "median": 4339.636799999978,
+          "p95": 4488.143399999943
+        },
+        "C2": {
+          "n": 30,
+          "median": 4333.583199999994,
+          "p95": 4501.633900000015
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 0.9965425830568128,
+          "medianDelta": -16.23200000001816,
+          "p95Delta": 38.13450000004377,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 0.9986050445511973,
+          "medianDelta": -6.053599999984726,
+          "p95Delta": 13.490500000072643,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 0.9243428905607374,
+      "informationalStatus": "pass"
+    },
+    {
+      "key": "O1/F7:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 964159
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 6709.718100000056,
+          "p95": 6851.98310000007
+        },
+        "B2": {
+          "n": 30,
+          "median": 6730.753900000011,
+          "p95": 6864.440600000089
+        },
+        "C1": {
+          "n": 30,
+          "median": 6297.411900000065,
+          "p95": 6460.336499999976
+        },
+        "C2": {
+          "n": 30,
+          "median": 6441.994900000049,
+          "p95": 6526.945500000002
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 1.0031351242610258,
+          "medianDelta": 21.03579999995418,
+          "p95Delta": 12.457500000018626,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 1.022959114362518,
+          "medianDelta": 144.58299999998417,
+          "p95Delta": 66.60900000002584,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 0.9385508908339997,
+      "informationalStatus": "pass"
+    },
+    {
+      "key": "O2/F1:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 531321
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 2902.5706999999966,
+          "p95": 3652.9698999999964
+        },
+        "B2": {
+          "n": 30,
+          "median": 2846.444599999988,
+          "p95": 3687.67220000003
+        },
+        "C1": {
+          "n": 30,
+          "median": 4036.9994999999763,
+          "p95": 4775.41810000001
+        },
+        "C2": {
+          "n": 30,
+          "median": 3985.00410000002,
+          "p95": 4805.578299999994
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 0.9806633133862998,
+          "medianDelta": -56.12610000000859,
+          "p95Delta": 34.702300000033574,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 0.9871202857468879,
+          "medianDelta": -51.995399999956135,
+          "p95Delta": 30.160199999983888,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 1.390835889027606,
+      "informationalStatus": "failed_gate",
+      "reason": "valid timing gate failed; no retry"
+    },
+    {
+      "key": "O2/F2:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 895389
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 6506.652000000002,
+          "p95": 6854.319100000022
+        },
+        "B2": {
+          "n": 30,
+          "median": 6422.555500000017,
+          "p95": 6826.362800000003
+        },
+        "C1": {
+          "n": 30,
+          "median": 5551.86540000001,
+          "p95": 5957.983800000045
+        },
+        "C2": {
+          "n": 30,
+          "median": 5619.528600000078,
+          "p95": 5970.556599999894
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 0.9870753038582691,
+          "medianDelta": -84.0964999999851,
+          "p95Delta": -27.956300000019837,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 1.0121874712596721,
+          "medianDelta": 67.66320000006817,
+          "p95Delta": 12.57279999984894,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 0.8532599253809806,
+      "informationalStatus": "pass"
+    },
+    {
+      "key": "O2/F6:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 781366
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 5441.338100000052,
+          "p95": 5879.501599999989
+        },
+        "B2": {
+          "n": 30,
+          "median": 5457.48880000005,
+          "p95": 5731.86540000001
+        },
+        "C1": {
+          "n": 30,
+          "median": 5086.156399999978,
+          "p95": 5434.209600000002
+        },
+        "C2": {
+          "n": 30,
+          "median": 5215.987100000028,
+          "p95": 5400.859499999991
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 1.0029681485883037,
+          "medianDelta": 16.150699999998324,
+          "p95Delta": -147.636199999979,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 1.0255262893606751,
+          "medianDelta": 129.83070000004955,
+          "p95Delta": -33.35010000001057,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 0.9347253022193069,
+      "informationalStatus": "pass"
+    },
+    {
+      "key": "O2/F7:same-input",
+      "k": 1,
+      "child": {
+        "status": "completed",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 960930
+      },
+      "stats": {
+        "B1": {
+          "n": 30,
+          "median": 6681.008700000006,
+          "p95": 6814.647899999982
+        },
+        "B2": {
+          "n": 30,
+          "median": 6690.543600000092,
+          "p95": 7011.72510000004
+        },
+        "C1": {
+          "n": 30,
+          "median": 6283.18280000001,
+          "p95": 6443.828699999955
+        },
+        "C2": {
+          "n": 30,
+          "median": 6316.32209999999,
+          "p95": 6464.815999999992
+        }
+      },
+      "aa": {
+        "base": {
+          "ratio": 1.001427164733386,
+          "medianDelta": 9.534900000086054,
+          "p95Delta": 197.07720000005793,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        },
+        "candidate": {
+          "ratio": 1.0052742855102004,
+          "medianDelta": 33.13929999998072,
+          "p95Delta": 20.987300000037067,
+          "medianOk": true,
+          "p95Ok": true,
+          "valid": true
+        }
+      },
+      "ratioC1toB1Median": 0.9404542161425421,
+      "informationalStatus": "pass"
+    }
+  ],
+  "runs": [],
+  "finalEnvironment": {
+    "node": "v24.18.0",
+    "v8": "13.6.233.17-node.50",
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpuModels": [
+      "12th Gen Intel(R) Core(TM) i9-12900F"
+    ],
+    "logicalCPUs": 24,
+    "totalMemBytes": 34163982336,
+    "powerScheme": "���� ����ǥ GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (���� ����)"
+  },
+  "preservation": {
+    "trackedFiles": 1124,
+    "changed": []
+  },
+  "tempCleanup": true,
+  "finishedAt": "2026-11-14T16:56:29.016Z",
+  "exitCode": 0
+}
