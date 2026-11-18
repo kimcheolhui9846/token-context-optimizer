@@ -38,5 +38,5 @@
 - Worker commit: `dd3656c716e73f668e954cf75e1b03aa7a261635` (`fix(packaging): include project license in installed bundle`); no push or remote action performed.
 - Tracked diff is limited to README, generated bundle, two build/notice scripts, two tests, and this handoff.
 - Worker selected model: exact runtime model ID is not exposed in this worker surface; no model identity is inferred. Independent plan provider was Claude Opus 5.5.
-- Coordinator owns commit publication, Draft PR, post-PR verification, final Astra review, and approval gate.
+- Coordinator owns remote publication, Draft PR, post-PR verification, final Astra review, and approval gate.
 - Post-commit `.artifacts/p04-installed-project-license/post-commit-verification.txt` confirms the committed LF Git blob, regenerated source, and isolated installed bundle all match; worktree is clean.
