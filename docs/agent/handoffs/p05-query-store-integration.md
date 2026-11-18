@@ -6,6 +6,7 @@
   `8b8dd84bda116f252d0bf179ca883cf638f070a6`, #120
   `b11619429e687258e39f48a2705c98f03599cc68`.
 - Local normal merge commits, in order: `34df87f`, `32ef0d0`, `85ea1c6`.
+- Local scoped delivery commit: `8110e4b` (`test(p05): add query/store LRU integration regression`).
 - Scope: S-10 store bound plus N-35/N-36 query contract integration; no additional
   research edits (approved #113 blobs preserved), hosted experiments, remote PR merge, push, Draft PR, Ready, live plugin
   install, schema/lock/API/experiment-result changes, or central WBS edits.
@@ -49,4 +50,5 @@
 
 - Commit the scoped test/handoff, then coordinator obtains independent Claude
   milestone review and primary Astra final review; push/Draft PR remain coordinator
-  responsibilities and P05 real disposition remains pending.
+  responsibilities and P05 real disposition remains pending. Worktree is clean
+  after `8110e4b`.
