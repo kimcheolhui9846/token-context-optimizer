@@ -1,36 +1,12 @@
 import { build } from "esbuild";
 import { readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { bundleBuildOptions, collectThirdPartyComponents, renderThirdPartyNotices } from "./third-party-notices.mjs";
 
-await build({
-  entryPoints: ["src/server/index.ts"],
-  outfile: "bin/token-context-optimizer.mjs",
-  bundle: true,
-  platform: "node",
-  format: "esm",
-  target: "node22",
-  external: ["node:*"],
-  logLevel: "info",
-});
+const result = await build({ ...bundleBuildOptions, metafile: true, logLevel: "info" });
 
-const outfile = "bin/token-context-optimizer.mjs";
+const outfile = bundleBuildOptions.outfile;
 const bundled = await readFile(outfile, "utf8");
 const shebang = "#!/usr/bin/env node\n";
 const body = bundled.startsWith(shebang) ? bundled.slice(shebang.length) : bundled;
-const imageDependencyNotices = await bundledDependencyNotices(["fast-png", "fflate", "iobuffer", "jpeg-js"]);
-await writeFile(outfile, `${shebang}${imageDependencyNotices}${body}`.replace(/[ \t]+$/gmu, ""), "utf8");
-
-async function bundledDependencyNotices(packageNames) {
-  const notices = [];
-  for (const packageName of packageNames) {
-    const license = await readFile(join("node_modules", packageName, "LICENSE"), "utf8");
-    notices.push(`Package: ${packageName}\n${license.trim()}`);
-    if (packageName === "jpeg-js") {
-      const decoderLicense = await readFile("docs/licenses/jpeg-js-decoder-Apache-2.0.txt", "utf8");
-      notices.push(`Component: jpeg-js/lib/decoder.js (Apache-2.0 attribution)\nCopyright 2011 notmasteryet\n${decoderLicense.trim()}`);
-      const encoderLicense = await readFile("docs/licenses/jpeg-js-encoder-BSD-3-Clause.txt", "utf8");
-      notices.push(`Component: jpeg-js/lib/encoder.js (BSD-3-Clause attribution)\n${encoderLicense.trim()}`);
-    }
-  }
-  return `/*\nBundled dependency license notices\n\n${notices.join("\n\n")}\n*/\n`;
-}
+const notices = renderThirdPartyNotices(await collectThirdPartyComponents({ metafile: result.metafile, rootDir: "." }));
+await writeFile(outfile, `${shebang}${notices}${body}`.replace(/[ \t]+$/gmu, ""), "utf8");
