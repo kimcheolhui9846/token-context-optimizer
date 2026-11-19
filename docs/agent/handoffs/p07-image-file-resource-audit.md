@@ -31,8 +31,10 @@
 - 표준 전체 단일 워커(build 선행 후): `npm.cmd test -- --maxWorkers=1` → 57 files, 4533 passed, 5 skipped, 1 failed. 유일한 실패는 `tests/image-source-race.test.ts`의 기존 N-41 오류 분류이며 별도 재실행·원인 실험은 하지 않았다. 원시 로그 `.artifacts/p07-evidence/06-full-1worker-postbuild.log`; build 이전 초기 진단은 `.artifacts/p07-evidence/04-full-1worker.log`에 별도 보존한다.
 - `npm.cmd run build` PASS(`05-build.log`, 생성 번들은 내용 hash가 HEAD와 같아 되돌림), `npm.cmd run typecheck` PASS(`07-typecheck.log`), `npm.cmd run smoke:mcp` PASS(`08-smoke-mcp.log`), `npm.cmd run validate:plugin` PASS(`09-validate-plugin.log`), `npm.cmd run benchmark` PASS(`10-benchmark.log`, Node v24.18.0/Windows, 기존 text benchmark이며 image 성능 주장이 아님).
 - PM의 별도 정상 bundle 확인(정상 이미지 5, full-frame 5, partial 4, overview JPEG decode 5)은 작업자 실행 수에 합산하지 않고 보조 확인으로만 기록한다. 직접 API와 built STDIO의 구분은 위 표의 정확한 테스트 파일/이름에 연결했다.
+- Draft PR 개설 후 최종 로컬 gate도 재실행했다: build/typecheck/smoke:mcp/validate:plugin/benchmark 모두 PASS (`13-final-build.log`–`18-final-benchmark-tty.log`). 전체 회귀는 build 선행 후 이미 1회 실행했으며 N-41 전용 재실행은 하지 않았다.
 
 ## 후속 및 상태
 - 변경 파일: 이 문서, 루트 `HANDOFF.md`, `.artifacts/p07-evidence/**`; `src/`, `research/`, 의존성, 중앙 WBS는 변경하지 않는다.
 - 첫 커밋 후 사용자 승인 범위의 branch push와 main 대상 Draft PR만 수행한다. Ready, merge, P08 착수는 금지한다.
-- 남은 검토: Claude Opus 5.5 마일스톤 독립 검증, 계획을 세운 Astra의 최종 diff/로그/PR 판정, 표준 gate의 실제 결과.
+- Git/PR: branch `claude/p07-image-file-resource-audit`, commit `22d6c32b69a4816c9222cdb2458ab4c917439e7e`, push PASS, Draft PR [#128](https://github.com/kimcheolhui9846/token-context-optimizer/pull/128) OPEN/Draft, base `main`; merge/Ready 미수행.
+- 남은 검토: Claude Opus 5.5 마일스톤 독립 검증과 계획을 세운 Astra의 최종 diff/로그/PR 판정. 사용자 승인 전에는 다음 Task/P08을 시작하지 않는다.
