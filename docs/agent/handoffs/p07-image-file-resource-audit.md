@@ -2,7 +2,7 @@
 
 ## 범위와 계획
 - Tier C 문서 계약 감사(필요한 정상 회귀만 허용), 기준 `b67e909e2f32197c1fafc5b541abeac488879963`, 브랜치 `claude/p07-image-file-resource-audit`.
-- 승인 범위: `research/`, `src/`, 의존성, 저장 정책, 벤치 기준, 중앙 WBS/보고서, 공격 입력·경쟁조건 맞추기·타이밍/부하 실험은 변경·실행하지 않는다. P06 N-41은 보관 기록만 인용한다.
+- 범위는 이미지 계약과 기존 검증 근거의 감사다. N-41은 P06 기록과 P07 검사에서 관찰한 결과를 구별해 P08에 인계한다.
 - 계획 검토: Claude Code `claude-opus-5-5` 1차(blocker 0/major 2/minor 6/note 1) 후 보완 PASS(blocker 0/major 0/minor 2/note 2). 반영: N-41 오류명·단독 4/4·P08 책임, direct API/MCP 기본 루트 차이, 공개 검사 출처·상한·산출물 링크.
 - 런타임 모델: Orca `worker-start`/`worker-show` 선택 필드에서 실제 dispatch 선택값 `gpt-5.6-luna`를 coordinator가 확인했다. 이 작업자 내부 모델 메타데이터는 표시되지 않았다.
 
@@ -26,15 +26,15 @@
 
 ## 검증 증거
 - OS/기준: Windows PowerShell, 기준 HEAD와 `origin/main` 모두 `b67e909e2f32197c1fafc5b541abeac488879963`; `npm ci --ignore-scripts --no-audit --no-fund` exit 0, 52 packages installed. 원시 로그 `.artifacts/p07-evidence/01-npm-ci.log`.
-- Targeted baseline: `npm.cmd test -- --run tests/image-artifacts.test.ts tests/jpeg-fixtures.test.ts tests/jpeg-validation.test.ts tests/jpeg-tolerant.test.ts tests/jpeg-resource.test.ts tests/image-crop.test.ts tests/image-crop-boundaries.test.ts tests/image-crop-mcp.test.ts tests/image-overview.test.ts tests/image-packaging.test.ts tests/read-bounded-file.test.ts tests/image-source-race.test.ts --maxWorkers=1` → 12 files, 393 passed, 3 skipped, 1 failed. 기존 N-41 테스트의 기대 `source_changed`/관찰 `read_failure` 불일치이며 수정하지 않았다. `.artifacts/p07-evidence/02-targeted-baseline.log`.
+- 대상 검사 12개 파일에서 393개 통과, 3개 건너뜀, 1개 실패를 기록했다. N-41 오류 분류는 기대 `source_changed`, 관찰 `read_failure`였다. 근거는 `02-targeted-baseline.log`다.
 - WBS/Findings read-only 대조 로그: `.artifacts/p07-evidence/03-wbs-read.log`. 중앙 WBS는 PM이 별도로 갱신하며 이 Task에서는 수정하지 않는다.
-- 표준 전체 단일 워커(build 선행 후): `npm.cmd test -- --maxWorkers=1` → 57 files, 4533 passed, 5 skipped, 1 failed. 유일한 실패는 `tests/image-source-race.test.ts`의 기존 N-41 오류 분류이며 별도 재실행·원인 실험은 하지 않았다. 원시 로그 `.artifacts/p07-evidence/06-full-1worker-postbuild.log`; build 이전 초기 진단은 `.artifacts/p07-evidence/04-full-1worker.log`에 별도 보존한다.
-- `npm.cmd run build` PASS(`05-build.log`, 생성 번들은 내용 hash가 HEAD와 같아 되돌림), `npm.cmd run typecheck` PASS(`07-typecheck.log`), `npm.cmd run smoke:mcp` PASS(`08-smoke-mcp.log`), `npm.cmd run validate:plugin` PASS(`09-validate-plugin.log`), `npm.cmd run benchmark` PASS(`10-benchmark.log`, Node v24.18.0/Windows, 기존 text benchmark이며 image 성능 주장이 아님).
+- Windows 전체 검사에서 빌드 전 최초 실행은 4,529개 통과·5개 실패·5개 건너뜀이었다. 로그에 dist 모듈 부재가 있었다. 빌드 후 최초 실행은 4,533개 통과·1개 실패·5개 건너뜀이었다. 실패는 N-41이며 원인 확인은 P08에 인계한다. 근거는 `04-full-1worker.log`와 `06-full-1worker-postbuild.log`다.
+- `05-build.log`는 빌드 성공을 기록했다. 기준 main `b67e909`와 검토 커밋 `3a51ab1`의 배포 번들 `bin/token-context-optimizer.mjs`는 동일한 Git 객체 `5709a184c3e99b5e6ddc642b2f5dc736924d3578`를 가리킨다. 두 커밋의 차이는 이 감사 문서 한 파일이다.
 - PM의 별도 정상 bundle 확인(정상 이미지 5, full-frame 5, partial 4, overview JPEG decode 5)은 작업자 실행 수에 합산하지 않고 보조 확인으로만 기록한다. 직접 API와 built STDIO의 구분은 위 표의 정확한 테스트 파일/이름에 연결했다.
-- Draft PR 개설 후 최종 로컬 gate도 재실행했다: build/typecheck/smoke:mcp/validate:plugin/benchmark 모두 PASS (`13-final-build.log`–`18-final-benchmark-tty.log`). 전체 회귀는 build 선행 후 이미 1회 실행했으며 N-41 전용 재실행은 하지 않았다.
+- 첫 Draft `22d6c32`에서 build·typecheck·smoke:mcp·validate:plugin·benchmark가 통과했다. 이후 감사 문서를 보완한 `3a51ab1`에서 주 검토자가 표준 전체 검사(단일 작업자)를 실행해 4,534개 통과·5개 건너뜀을 확인했다. 소요 시간은 213.34초였다. 서로 다른 실행 결과와 N-41의 미확정 원인은 함께 유지한다.
 
 ## 후속 및 상태
 - 변경 파일: 이 문서, 루트 `HANDOFF.md`, `.artifacts/p07-evidence/**`; `src/`, `research/`, 의존성, 중앙 WBS는 변경하지 않는다.
-- 첫 커밋 후 사용자 승인 범위의 branch push와 main 대상 Draft PR만 수행한다. Ready, merge, P08 착수는 금지한다.
-- Git/PR: branch `claude/p07-image-file-resource-audit`, commit `22d6c32b69a4816c9222cdb2458ab4c917439e7e`, push PASS, Draft PR [#128](https://github.com/kimcheolhui9846/token-context-optimizer/pull/128) OPEN/Draft, base `main`; merge/Ready 미수행.
-- 남은 검토: Claude Opus 5.5 마일스톤 독립 검증과 계획을 세운 Astra의 최종 diff/로그/PR 판정. 사용자 승인 전에는 다음 Task/P08을 시작하지 않는다.
+- 배포·Ready 전환·병합과 다음 Task 착수는 사용자 결정 대상이다.
+- [Draft PR #128](https://github.com/kimcheolhui9846/token-context-optimizer/pull/128)의 기준은 `main`, 브랜치는 `claude/p07-image-file-resource-audit`다. 첫 제출은 `22d6c32`, 독립 검토 대상은 `3a51ab1`이었다.
+- Claude Code Opus 5.5의 `3a51ab1` 감사 문서 판정은 PASS였다(차단 0·주요 0·경미 3·참고 4). 초기 실패 수, 번들 동일성 근거, 검증 커밋별 결과를 보완했다. P08에는 N-41과 이미지 저장 한도 정책 결정을 인계한다.
