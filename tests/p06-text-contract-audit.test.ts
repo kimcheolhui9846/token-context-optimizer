@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
-import { mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join, relative } from "node:path";
+import { isAbsolute, join, relative, sep } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import {
@@ -15,14 +15,25 @@ import { estimateContext } from "../src/core/token-estimator.js";
 import { CropMcpClient, type RpcResponse } from "./helpers/crop-mcp-client.js";
 
 let root = "";
+let relativeRoot = "";
 let sequence = 0;
 
 beforeAll(async () => {
   root = await mkdtemp(join(tmpdir(), "tco-p06-contract-"));
+  const relativeRootParent = join(process.cwd(), ".artifacts");
+  await mkdir(relativeRootParent, { recursive: true });
+  relativeRoot = await mkdtemp(join(relativeRootParent, "p06-rel-"));
 });
 
 afterAll(async () => {
   if (root) await rm(root, { recursive: true, force: true });
+  const relativeRootParent = join(process.cwd(), ".artifacts");
+  if (
+    relativeRoot &&
+    relativeRoot.startsWith(`${relativeRootParent}${sep}`)
+  ) {
+    await rm(relativeRoot, { recursive: true, force: true });
+  }
 });
 
 async function fixture(name: string, content: string | Buffer): Promise<string> {
@@ -57,21 +68,46 @@ function structuredResult(response: RpcResponse): any {
 describe("P06 T1 artifact identity and original-byte contracts", () => {
   it("T1-1 returns the independently computed identity for absolute and relative reindexing", async () => {
     const bytes = Buffer.from("same harmless notes\n", "utf8");
-    const path = await fixture("stable.txt", bytes);
+    const path = join(relativeRoot, "stable.txt");
+    await writeFile(path, bytes);
     const store = new MemoryArtifactStore();
     const canonicalPath = await realpath(path);
     const expected = expectedIdentity(canonicalPath, bytes);
 
-    const absolute = await indexArtifact({ path, store, allowedRoots: [root] });
+    const absolute = await indexArtifact({ path, store, allowedRoots: [relativeRoot] });
     const relativePath = relative(process.cwd(), path);
-    const relativeRecord = await indexArtifact({ path: relativePath, store, allowedRoots: [root] });
+    expect(isAbsolute(relativePath)).toBe(false);
+    expect(relativePath.startsWith("..")).toBe(false);
+    const relativeRecord = await indexArtifact({ path: relativePath, store, allowedRoots: [relativeRoot] });
 
+    const currentRootRecord = await indexArtifact({ path: relativePath, store });
+    expect(currentRootRecord.artifactId).toBe(expected.artifactId);
     expect(absolute.artifactId).toBe(expected.artifactId);
     expect(absolute.sha256).toBe(expected.sha256);
     expect(absolute.byteLength).toBe(bytes.byteLength);
     expect(relativeRecord.artifactId).toBe(expected.artifactId);
     expect(relativeRecord.sha256).toBe(expected.sha256);
     expect(relativeRecord.path).toBe(canonicalPath);
+  });
+
+  it.skipIf(process.platform !== "win32")("T1-3 observes Windows case-only path normalization", async (context) => {
+    const bytes = Buffer.from("same harmless case fixture", "utf8");
+    const originalPath = join(relativeRoot, "CaseOnly.txt");
+    const alternatePath = join(relativeRoot, "caseonly.txt");
+    await writeFile(originalPath, bytes);
+    try {
+      await realpath(alternatePath);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      return context.skip("This Windows directory distinguishes filename case");
+    }
+    const store = new MemoryArtifactStore();
+
+    const original = await indexArtifact({ path: originalPath, store, allowedRoots: [relativeRoot] });
+    const alternate = await indexArtifact({ path: alternatePath, store, allowedRoots: [relativeRoot] });
+
+    expect(alternate.sha256).toBe(original.sha256);
+    expect(alternate.artifactId).toBe(original.artifactId);
   });
 
   it("T1-2 gives a new identity when bytes change and keeps same-content paths distinct", async () => {
@@ -192,27 +228,93 @@ describe("P06 T2 source maps and summary line boundaries", () => {
 });
 
 describe("P06 T3 normalized Unicode query tracking", () => {
-  it("T3-1 returns original text and bytes when NFKC changes query length", async () => {
-    const content = "A Ｆｏｏ entry has cafe\u0301 detail.";
+  const lines = [
+    "Plain intro line.",
+    "A Ｆｏｏ entry here.",
+    "It has cafe\u0301 detail.",
+    "Unrelated closing words.",
+  ];
+
+  it("T3-1 matches an NFKC compatibility-only term and returns its original byte span", async () => {
+    const content = lines.join("\n");
     const path = await fixture("nfkc-query.txt", content);
     const store = new MemoryArtifactStore();
     const artifact = await indexArtifact({ path, store, allowedRoots: [root] });
     const source = await readFile(path);
     const result = queryArtifact({
       artifactId: artifact.artifactId,
-      query: "foo café",
-      maxTokens: 50,
+      query: "foo",
+      maxTokens: 20,
       contextLines: 0,
       store,
     });
     const excerpt = result.excerpts[0];
 
     expect(result.excerpts).toHaveLength(1);
-    expect(excerpt.text).toBe(content);
-    expect(excerpt.sourceMap.startLine).toBe(1);
-    expectOriginalBytes(source, excerpt.sourceMap.startByte, excerpt.sourceMap.endByte, content);
+    expect(excerpt.text).toBe(lines[1]);
+    expect(excerpt.sourceMap.startLine).toBe(2);
+    expect(excerpt.sourceMap.endLine).toBe(2);
+    const secondStart = Buffer.byteLength(`${lines[0]}\n`, "utf8");
+    expect(excerpt.sourceMap.startByte).toBe(secondStart);
+    expect(excerpt.sourceMap.endByte).toBe(secondStart + Buffer.byteLength(lines[1], "utf8"));
+    expectOriginalBytes(source, excerpt.sourceMap.startByte, excerpt.sourceMap.endByte, lines[1]);
     expect(result.fallbackReason).toBeNull();
     expect(result.warnings).toEqual([]);
+  });
+
+  it("T3-2 matches a combining-accent term and returns its original byte span", async () => {
+    const content = lines.join("\n");
+    const path = await fixture("accent-query.txt", content);
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path, store, allowedRoots: [root] });
+    const source = await readFile(path);
+    const result = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: "café",
+      maxTokens: 20,
+      contextLines: 0,
+      store,
+    });
+    const excerpt = result.excerpts[0];
+
+    expect(result.excerpts).toHaveLength(1);
+    expect(excerpt.text).toBe(lines[2]);
+    expect(excerpt.sourceMap.startLine).toBe(3);
+    expect(excerpt.sourceMap.endLine).toBe(3);
+    const thirdStart = Buffer.byteLength(`${lines[0]}\n${lines[1]}\n`, "utf8");
+    expect(excerpt.sourceMap.startByte).toBe(thirdStart);
+    expect(excerpt.sourceMap.endByte).toBe(thirdStart + Buffer.byteLength(lines[2], "utf8"));
+    expectOriginalBytes(source, excerpt.sourceMap.startByte, excerpt.sourceMap.endByte, lines[2]);
+    expect(result.fallbackReason).toBeNull();
+    expect(result.warnings).toEqual([]);
+  });
+
+  it("T3-3 distinguishes absent and empty queries at a nonzero budget", async () => {
+    const path = await fixture("query-controls.txt", lines.join("\n"));
+    const store = new MemoryArtifactStore();
+    const artifact = await indexArtifact({ path, store, allowedRoots: [root] });
+
+    const absent = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: "absent",
+      maxTokens: 20,
+      contextLines: 0,
+      store,
+    });
+    const empty = queryArtifact({
+      artifactId: artifact.artifactId,
+      query: "",
+      maxTokens: 20,
+      contextLines: 0,
+      store,
+    });
+
+    expect(absent.excerpts).toEqual([]);
+    expect(absent.fallbackReason).toBe("no_query_match");
+    expect(absent.warnings).toEqual(["query_terms_not_found"]);
+    expect(empty.excerpts).toEqual([]);
+    expect(empty.fallbackReason).toBe("no_query_terms");
+    expect(empty.warnings).toEqual(["query_has_no_searchable_terms"]);
   });
 });
 
@@ -252,6 +354,7 @@ describe("P06 T4 budget metadata and normal entry points", () => {
       }));
 
       expect(output.structuredContent).toMatchObject({
+        estimatedTokens: 3,
         warnings: [],
         fallbackReason: null,
         moreMatches: { count: 1, lines: [3] },
@@ -259,6 +362,35 @@ describe("P06 T4 budget metadata and normal entry points", () => {
       expect(output.structuredContent.excerpts).toHaveLength(1);
       expect(output.structuredContent.excerpts[0].text).toBe("needle first");
       expect(output.text).toStrictEqual(output.structuredContent);
+    } finally {
+      await client.close();
+    }
+  });
+
+  it("T4-3 compares both tool budget limits with the direct API on ordinary text", async () => {
+    const content = "The quiet garden group records ordinary plans for a calm morning meeting.";
+    const path = await fixture("budget-limits.txt", content);
+    const store = new MemoryArtifactStore();
+    const { artifactId } = await indexArtifact({ path, store, allowedRoots: [root] });
+    const direct = { artifactId, maxTokens: 2001, store };
+    expect(queryArtifact({ ...direct, query: "garden" }).excerpts[0].text).toBe(content);
+    expect(summarizeArtifact(direct).summary).toBe(content);
+
+    const client = await CropMcpClient.start(undefined, root);
+    try {
+      const indexed = structuredResult(await client.call("index_artifact", { path }));
+      for (const name of ["query_artifact", "summarize_artifact"]) {
+        const args = { artifactId: indexed.structuredContent.artifactId, ...(name === "query_artifact" ? { query: "garden" } : {}) };
+        for (const maxTokens of [1, 2000]) {
+          const output = structuredResult(await client.call(name, { ...args, maxTokens }));
+          expect(output.structuredContent.artifactId).toBe(args.artifactId);
+          expect(output.structuredContent.estimatedTokens).toBeLessThanOrEqual(maxTokens);
+        }
+        for (const maxTokens of [0, 2001]) {
+          const response = await client.call(name, { ...args, maxTokens });
+          expect(response.error ?? response.result?.isError).toBeTruthy();
+        }
+      }
     } finally {
       await client.close();
     }
@@ -329,6 +461,10 @@ describe("P06 T6 estimate and budget metadata", () => {
     const client = await CropMcpClient.start(undefined, root);
     try {
       const omitted = structuredResult(await client.call("estimate_context", { text: "가🙂" }));
+      const nullValue = await client.call("estimate_context", {
+        text: "a",
+        maxTokens: null,
+      });
       const rejected = await client.call("estimate_context", { text: "a", maxTokens: 0 });
 
       expect(omitted.structuredContent).toStrictEqual({
@@ -340,6 +476,7 @@ describe("P06 T6 estimate and budget metadata", () => {
         warnings: ["heuristic_estimate_not_billing_usage"],
       });
       expect(omitted.text).toStrictEqual(omitted.structuredContent);
+      expect(nullValue.error ?? nullValue.result?.isError).toBeTruthy();
       expect(rejected.error ?? rejected.result?.isError).toBeTruthy();
     } finally {
       await client.close();

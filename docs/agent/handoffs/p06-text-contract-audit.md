@@ -1,82 +1,57 @@
-# P06 텍스트·원문 추적·경계 입력 감사 — 1차 테스트 워커
+# P06 텍스트·원문 추적·경계 입력 감사 — 수정 반영 핸드오프
 
 ## 1. 범위와 상태
-
-- 기준: `747c2c0` (`claude/p06-text-contract-audit`), P06 요청서 `HANDOFF.md`의 T1–T6.
-- 목적: 공개 직접 API와 빌드된 STDIO MCP 경로에서 원문 바이트·sourceMap·예산·정책 반환 계약을 독립 대조한다.
-- 소유: `tests/`의 실제 미검증 계약 보강과 이 핸드오프 문서만 담당한다.
-- 제외: `src/`, `research/`, 데이터·외부 호출·보안 탐침·공격 입력·중앙 `HANDOFF.md`·WBS·커밋/푸시/PR.
-- 제약: 무해한 합성 문장과 기존 방어 fixture만 사용하고, 원문은 독립 바이트/리터럴 기대값으로 대조한다.
-- 현재 상태: 1차 테스트·매트릭스 완료. P06 targeted gate는 PASS이며, 전체 2-worker gate는 기존 `image-source-race` 병렬 실패로 보류 상태다.
+- 기준: `747c2c0`, 서명된 `HANDOFF.md`의 T1–T6 및 독립 검토 절.
+- 목적: 직접 API와 빌드된 STDIO MCP에서 원문 바이트·sourceMap·예산·정책 경계를 독립 대조한다.
+- 소유: `tests/p06-text-contract-audit.test.ts`와 이 문서만 수정한다. `src/`, 데이터, 중앙 문서, 커밋/푸시/PR은 제외한다.
+- 제약: 무해한 합성 문장, 기존 방어 fixture, 정적 보안 검토만 사용하며 우회·탐침·이미지 재현은 하지 않는다.
+- 현재 상태: 독립 검토 지적을 반영했고, #127에서 보완본의 전체 검증 결과를 추적한다.
 
 ## 2. 계획과 수용 기준
+- [x] T1 경로 표기·내용 변경·동일 내용 다른 경로와 원본 SHA-256/ID를 대조한다.
+- [x] T2 CRLF/CR, 다국어 sourceMap, LF summary, whitespace tail 경계를 원본 Buffer로 대조한다.
+- [x] T3 NFKC compatibility-only `foo`, combining-accent `café`, no-match/empty controls와 exact byte span을 분리한다.
+- [x] T4 부분 성공, omission metadata, direct/built-STDIO 결과 경계를 확인한다.
+- [x] T5 무해한 일반 문장과 기존 안전 양성 fixture의 정책/요약 경계를 연결한다.
+- [x] T6 빈 값·공백·짧은 Unicode·direct null/MCP omission-null-zero 예산을 리터럴 oracle로 확인한다.
+- 전체 gate는 Draft #127의 최신 검증 결과와 중앙 P06 검토 기록에서 확인할 수 있다.
 
-- [x] T1 같은 경로 재색인·내용 변경·동일 내용 다른 경로·상대/절대 표기에서 ID와 원본 바이트 SHA-256을 독립 계산한다.
-- [x] T2 CRLF/단독 CR/다국어 sourceMap과 summary의 LF 표현, 공백 tail 경고 경계를 원본 Buffer와 대조한다.
-- [x] T3 NFKC로 길이가 변하는 질의가 원문 문자열과 바이트 범위를 반환하는지 대조한다.
-- [x] T4 부분 성공·동점 누락·`warnings: []`·`fallbackReason: null` 및 직접 API/빌드 STDIO 경계를 확인한다.
-- [x] T5 무해한 일반 문장 음성 대조군과 기존 안전 양성 fixture의 분류/요약 정책을 확인한다.
-- [x] T6 빈 값·공백·짧은 Unicode·생략/null/0 예산을 손계산 리터럴과 대조하고 heuristic 추정치와 실제 공급자 사용량을 구분한다.
-- [ ] 대상 테스트 → `npm.cmd run build` → `npm.cmd test` → `npm.cmd run typecheck` → `npm.cmd run smoke:mcp` → `npm.cmd run validate:plugin` → `npm.cmd run benchmark`.
+## 3. 변경 사항과 독립 oracle
+- 테스트는 같은 볼륨인 worktree `.artifacts` 아래에 상대 fixture를 만들고 `!isAbsolute(relativePath)` 및 `!relativePath.startsWith("..")`를 단언한다. cleanup은 생성된 `p06-rel-*`가 정확한 parent 하위일 때만 수행한다.
+- Windows case-only 경로를 `skipIf`로 실행해 실제 OS 관찰을 남긴다. hardlink/다른 OS/공급자 token은 미검증이다.
+- T3는 여러 줄 source에서 `foo`와 `café`를 각각 찾고 `Buffer.subarray(startByte,endByte)` 및 독립 `Buffer.byteLength`로 원본 범위를 단언한다. absent/empty query도 `maxTokens: 20`에서 분리한다.
+- ID oracle은 원본 Buffer SHA-256과 `realpath + NUL + sha256` 후 16-hex 접두를 별도 계산한다. 후자는 구현 파생 oracle이며 공개 문서는 canonical path와 unchanged bytes의 관계만 문서화한다.
+- T4-2는 built STDIO `estimatedTokens: 3`와 JSON text/structuredContent 동일성을 단언한다. T6-2는 MCP null과 zero 거부 및 omission 수용을 모두 확인한다.
 
-## 3. 변경 사항
+## 4. 행별 위험·fixture·증거
+| ID | 위험 → 정확한 테스트 | 관찰/문서 경계 및 결과 |
+| --- | --- | --- |
+| T1 | 경로/파일 버전 혼동 → harmless notes/before/after → `T1-1 returns the independently computed identity for absolute and relative reindexing`, `T1-2 gives a new identity when bytes change and keeps same-content paths distinct`, Windows `T1-3 observes Windows case-only path normalization` | 3/3 PASS. 기존 `source-map.test.ts` `L1 empty`, `L8 BOM and multibyte`, `keeps the existing invalid UTF-8 rejection`, `keeps the existing too_large rejection one byte over the limit`; `core.test.ts` `rejects malformed UTF-8 without changing source hash semantics`, `preserves UTF-8 BOM bytes in source maps and hashes original bytes`와 연결. allowed roots 기존 `uses the exact setup message for explicitly empty allowed roots`, `rejects files outside the allowed root`, 링크 fixture `accepts a file through a linked allowed root`는 baseline에 연결하며 OS 권한 skip 가능성을 기록한다. |
+| T2 | CRLF/CR와 whitespace tail → ordinary multiline text → `T2-1`/`T2-2`/`T2-3` parameter cases, `T2-4 reports a complete Unicode query span against literal original Buffer offsets` | 7/7 PASS. summary LF는 관찰이며 문서에 명시되지 않아 N-43; sourceMap 1-based line, UTF-8 byte, end-exclusive도 관찰이며 N-44. `source-map.test.ts` N-33 `L1`–`L10`, `query-artifact-boundaries.test.ts` `keeps original delimiter bytes between adjacent excerpts`, `preserves Unicode, BOM, CRLF/CR delimiters and source immutability`, policy `"[control] G3 U+2028/U+2029/NEL are not policy or sourceMap line breaks"`는 lineCount만 연결한다. T2-2에서 첫 줄은 7, 다음 줄의 공백까지 합치면 8로 예산 7을 초과한다. 선택 경계와 `/\S/u` warning 경계를 구분한다. |
+| T3 | NFKC 길이/byte offset 혼동 → fullwidth and combining-accent lines → `T3-1 matches an NFKC compatibility-only term and returns its original byte span`, `T3-2 matches a combining-accent term and returns its original byte span`, `T3-3 distinguishes absent and empty queries at a nonzero budget` | 3/3 PASS. 기존 `query-artifact-boundaries.test.ts` `preserves strict legacy shapes for unique best, no terms, no match, and empty source`, `core.test.ts` `returns a fallback when query terms do not match any line`, `returns a fallback when query tokenization finds no searchable terms`와 연결. locale별 folding은 미검증 coverage gap이다. |
+| T4 | 예산 내 부분 성공/누락 metadata → two needle lines and filler → `T4-1 keeps warnings empty and fallbackReason null on direct partial success`, `T4-2 observes the same partial-success contract through built STDIO MCP` | T4-1·T4-2에서 direct/built 모두 3 tokens, omitted line `[3]`, warnings `[]`, fallback `null`. 기존 `query-artifact-boundaries.test.ts` `uses five excerpts by default and caps omitted metadata at twenty lines`, `T36-1 rejects non-integer, negative, non-finite, unsafe, non-number and null contextLines exactly`, `C36-1 keeps omitted, zero, negative zero and large safe-integer contextLines results`, `query-artifact-mcp.test.ts` `defaults to five tied excerpts and reports the omitted sixth anchor`, `C36-2 keeps rejecting contextLines %p at the MCP boundary`에 연결한다. |
+| T5 | harmless ordinary note의 과보호 → one-sentence note → `T5-1 treats a harmless ordinary note as semantic and keeps its summary source-backed`, `T5-2 exposes the same harmless semantic policy through built STDIO MCP` | 2/2 PASS. 기존 `core.test.ts` `fails open to source content when summarizing exact-sensitive artifacts`, `uses mode-specific fallback reasons for blocked lossy summaries`, `allows summaries for a long ordinary Note heading sentence`를 참고하며 실제 자격정보/공격 입력은 사용하지 않았다. |
+| T6 | heuristic과 provider usage 혼동 → empty/whitespace/`가🙂`/ordinary → `T6-1 matches literal heuristic-v1 expectations for empty, whitespace and short Unicode inputs`, `T6-2 keeps estimate omission/null semantics and rejects zero at built STDIO MCP schema` | 2/2 PASS. 빈/공백/Unicode는 리터럴 `0/1/2`, direct null/0, MCP omission/null/0 증거이며 `heuristic_estimate_not_billing_usage`만 관찰한다. 기존 `summarizer-selection.test.ts` `preserves policy and first-complete-line fallback contracts`, `core.test.ts` `returns fallback when a semantic summary cannot include one complete line`와 연결한다. |
 
-- 생성: `tests/p06-text-contract-audit.test.ts` (P06 전용, 16개 테스트, 직접 API와 빌드 bundle STDIO).
-- 갱신: 이 파일의 행별 증거 매트릭스·실행 결과·발견 처분.
-- 생산 코드 변경: 없음. 빌드가 재생성한 `bin/token-context-optimizer.mjs`는 HEAD와 동일한 blob으로 확인한 뒤 작업트리 변경을 제거했다.
-- 최초 계획과 달라진 점: T2를 CRLF/단독 CR 각각의 LF summary, whitespace-only tail, meaningful tail 경고까지 확장했다.
+## 5. Direct ↔ built STDIO 경계 (문서화 vs 관찰)
+| 필드 | direct literal evidence | built STDIO literal evidence | 경계 판정 |
+| --- | --- | --- | --- |
+| `contextLines` | 기본 2, 음이 아닌 안전한 정수. 기존 T36-1·C36-1 | 기본 2, 0–10. C36-2와 T4-2 | README 「Tool Behavior」에 두 범위가 명시돼 있다. |
+| query·summarize `maxTokens` | T4-3에서 2001에 짧은 원문 반환 | T4-3에서 양쪽 도구가 1·2000을 수용하고 0·2001을 거부 | MCP 입력 스키마와 직접 실행 관찰을 구분한다. 직접 API의 수치 범위 문서화는 N-42. |
+| estimate `maxTokens` | T6-1 omission/null/0: null 수용, 0은 fits false | T6-2 omission 수용, null/0 schema 거부 | output shape와 schema는 관찰; 공급자 사용량 아님 |
+| 응답과 스키마 | 직접 query/summarize는 결과 객체를 반환 | T4-2/T5-2의 JSON·structuredContent 대조. 기존 `query-artifact-mcp.test.ts`의 tools/list 스냅샷과 `src/server/index.ts`는 두 도구에 별도 outputSchema가 없음을 보여 준다. | SDK가 처리하는 오류 전달 방식과 제품의 정상 결과 형태를 구분한다. |
+| 기본 허용 디렉터리 | T1-1에서 allowedRoots를 생략하고 cwd 아래 무해한 파일을 색인해 같은 ID 확인 | README의 빈 TCO_ALLOWED_ROOTS 설정 안내 및 기존 `uses the exact setup message for explicitly empty allowed roots` | 직접 호출의 cwd 기본값과 MCP 설정 요구는 README에 명시돼 있다. |
 
-## 4. 독립 기대값과 문서 경계
+## 6. Findings 처분
+- **N-41 (확인필요, P07/P08)** 첫 제출의 2-worker 전체 검사 두 번과 변경 전 main 트리의 동일 전체 검사에서 이미지 테스트 한 건의 오류 분류 차이를 관측했다. 변경 전 결과는 4,513개 통과·1개 실패·5개 건너뜀이었다. 원인은 미확정이다.
+- **N-42 (minor, P09 defer):** direct `maxTokens` 공개 허용 범위가 MCP 1–2000 schema와 달리 문서화되지 않았다. 동작 변경은 거부하고 문서만 후속 제안한다.
+- **N-43 (minor, P09 defer):** summary LF join은 테스트와 현재 출력에서 관찰되지만 README/docs의 명시 계약이 아니다.
+- **N-44 (minor, P09 defer):** sourceMap line 1-based, UTF-8 byte offset, end-exclusive endpoint는 literal/original-byte 관찰이며 공개 문서가 없다.
+- **N-45 (note, separate):** deterministic 16-hex truncated ID의 충돌 caveat를 숨기지 않는다. 더 긴/별도 unique ID로 바꾸는 behavior change는 별도 작업으로 거부했다.
 
-- ID 기대값은 `realpath + NUL + 원본 Buffer SHA-256`을 별도 계산하고, SHA-256은 원본 bytes에 적용한다.
-- sourceMap/발췌 기대값은 원본 Buffer의 `[startByte,endByte)`와 리터럴 줄/구분자 배열에서 계산한다.
-- summary는 공개 문서의 표현용 LF 결합과 sourceMap의 원본 범위를 따로 판정한다.
-- 직접 API의 관찰은 MCP zod 계약으로 확장하지 않는다. MCP `contextLines`/`maxTokens` 상한은 schema와 실제 bundle 호출을 함께 기록한다.
-- token estimate는 `heuristic-v1`, low confidence, `heuristic_estimate_not_billing_usage` 경고로만 해석하며 공급자 실측을 주장하지 않는다.
-
-## 5. 발견과 처분
-
-- 중앙 Findings 번호는 주 작업자가 배정한다. 이 워커 문서에서는 `F-A` 같은 임시 참조만 사용한다.
-- 공개 계약과 관찰을 분리하고, 문서 공백은 결함으로 과장하지 않고 Minor 이하/보류로 기록한다.
-- 현재 실제 발견: P06 신규 Blocker/Major/Minor 없음. 기존 전체 suite의 병렬성 관찰과 두 문서 gap은 아래 행별 처분에 기록했다.
-
-## 6. 검증 기록
-
-- 기저 P06 대상: 6 suites, 1457 passed, 2 skipped; 원자료 `.artifacts/p06-evidence/baseline-targeted.log`.
-- `npm.cmd test -- --run tests/p06-text-contract-audit.test.ts --maxWorkers=2`: PASS, 16/16.
-- `npm.cmd test -- --dir tests tests/core.test.ts tests/source-map.test.ts tests/query-artifact-boundaries.test.ts tests/query-artifact-mcp.test.ts tests/policy-n34-line-terminators.test.ts tests/summarizer-selection.test.ts tests/p06-text-contract-audit.test.ts --maxWorkers=2`: PASS, 7 files, 1473 passed, 2 skipped.
-- `npm.cmd run build`: PASS. `npm.cmd run typecheck`: PASS. `npm.cmd run smoke:mcp`: PASS (`mcp smoke ok`). `npm.cmd run validate:plugin`: PASS (`plugin manifest ok`). `npm.cmd run benchmark`: PASS (`passed: true`, Node v24.18.0, commit `747c2c06ccaa1ad4379375bf33a9c4a22fd524f9`).
-- `npm.cmd test -- --maxWorkers=2`: FAIL twice, 56/57 files, 4529 passed, 5 skipped, 1 existing failure: `tests/image-source-race.test.ts > image source race checks > rejects same-file byte replacement even when the original mtime is restored` observed `read_failure`, expected `source_changed`. Isolated `npm.cmd test -- --run tests/image-source-race.test.ts --maxWorkers=2`: PASS, 4/4; P06 targeted gate remains PASS, full concurrent gate is not clean.
-- `npm.cmd ci --ignore-scripts`: NOT RUN — task scope excludes external calls and dependencies were already installed; no dependency changes.
-- 모델/교차 검토: 계획 검토는 Claude Code `claude-opus-5-5`, PASS, blocker 0 / major 0. 구현 마일스톤 검토는 이 워커 범위 밖에서 coordinator가 조정한다.
-
-## 7. 최종 독립 검토 입력
-
-- 검토자는 이 파일의 행별 테스트 이름, 원본-byte/literal oracle, 직접·STDIO 명령과 실제 결과를 확인해야 한다.
-- 구현 파생값만으로 합격시키지 않고, CRLF/단독 CR summary의 LF 표현 및 whitespace-only tail의 `summary_truncated` 경계를 독립 재실행한다.
-- 미검증 OS별 대소문자·별칭·하드링크·공급자 토큰 실측은 환경상 미검증으로 남긴다.
-
-## 8. 행별 증거 매트릭스
-
-| ID | 위험 → fixture → 정확한 테스트 | 계약/관찰 경계 | 독립 oracle·실제 결과 | 판정/발견 |
-| --- | --- | --- | --- | --- |
-| T1 | 경로 표기·파일 버전 혼동 → 무해한 `same harmless notes`/`before`/`after` 파일 → `T1-1 returns the independently computed identity for absolute and relative reindexing`; `T1-2 gives a new identity when bytes change and keeps same-content paths distinct` | 공개 README의 canonical path+unchanged bytes 관찰 | 원본 Buffer SHA-256과 `realpath + NUL + sha256` 16-hex 접두 ID를 별도 계산. 2/2 PASS | 신규 결함 없음. 16 hex는 충돌 불가 보장이 아님(문서 Note 보류). |
-| T2 | CRLF/단독 CR가 sourceMap과 summary 표현을 혼동시키고 공백 tail 경고를 오판 → 일반 다국어·무해한 문장 → `T2-1 preserves CRLF source bytes while summaries render selected lines with LF`; `T2-1 preserves lone CR source bytes while summaries render selected lines with LF`; `T2-2 excludes whitespace-only CRLF tail lines without summary_truncated`; `T2-2 excludes whitespace-only lone CR tail lines without summary_truncated`; `T2-3 marks a meaningful CRLF tail as summary_truncated after omitted whitespace`; `T2-3 marks a meaningful lone CR tail as summary_truncated after omitted whitespace`; `T2-4 reports a complete Unicode query span against literal original Buffer offsets` | README/docs의 complete line·summary LF 표현은 계약, byte span은 관찰을 원본과 검증 | 원본 Buffer `[startByte,endByte)`와 리터럴 delimiter 배열. 7/7 PASS; CRLF/CR summary는 LF, 공백만 생략 시 `warnings: []`, 의미 tail 생략 시 `summary_truncated` | 신규 결함 없음. U+2028/U+2029/NEL은 기존 `policy-n34-line-terminators.test.ts` 근거에 연결; T2 신규 테스트는 LF/CR만 다룸. |
-| T3 | NFKC로 질의 길이가 달라져 원문 범위가 어긋날 위험 → fullwidth/결합 악센트 일반 문장 → `T3-1 returns original text and bytes when NFKC changes query length` | README의 NFKC·combining-mark 검색은 계약, locale별 case folding은 보장하지 않음 | 리터럴 원문 문자열과 파일 Buffer 전체 범위 대조. 1/1 PASS | 신규 결함 없음. 다른 언어/locale folding은 미검증 coverage gap. |
-| T4 | 예산에 일부만 들어간 결과가 경고/대체 응답으로 오인될 위험 → 두 `needle` 줄과 filler → `T4-1 keeps warnings empty and fallbackReason null on direct partial success`; `T4-2 observes the same partial-success contract through built STDIO MCP` | README의 `moreMatches`, partial `warnings: []`/`fallbackReason: null`, MCP 상한은 계약. direct maxTokens 범위는 관찰 | 독립 3-token 계산, 누락 line `[3]`, 직접 결과와 built STDIO JSON/structuredContent 동일성. 2/2 PASS | 신규 결함 없음. direct `maxTokens` 허용/오류 범위는 README에 명시되지 않아 `D-A` 보류. |
-| T5 | 무해한 일반 문장이 exact/unknown으로 과보호되어 요약이 막힐 위험 → credential/path 없는 1문장 + 기존 방어 fixture 참조 → `T5-1 treats a harmless ordinary note as semantic and keeps its summary source-backed`; `T5-2 exposes the same harmless semantic policy through built STDIO MCP` | `classify_context` mode와 semantic-only summary가 계약, 기존 exact 양성은 `tests/core.test.ts`·`tests/policy-n34-line-terminators.test.ts` | 리터럴 `mode: semantic`, `reasons: [natural_language]`, 원문 summary/sourceMap 및 STDIO JSON 대조. 2/2 PASS | 신규 오분류 없음. 실제 자격정보·공격 입력은 사용하지 않음. |
-| T6 | heuristic 예산과 실제 공급자 토큰 사용량을 혼동하거나 direct/MCP null·0 경계를 혼동할 위험 → 빈 문자열·공백·`가🙂`·일반 문장 → `T6-1 matches literal heuristic-v1 expectations for empty, whitespace and short Unicode inputs`; `T6-2 keeps estimate omission/null semantics and rejects zero at built STDIO MCP schema` | docs의 low-confidence heuristic와 MCP positive maxTokens가 계약, 공급자 실측은 범위 밖 | 리터럴 기대 `0`, `1`, `2`, direct `maxTokens:0/null`, MCP omission/zero 오류. 2/2 PASS | 신규 결함 없음. 공급자 실측·OS 별칭/대소문자/하드링크는 미검증. |
-
-### 발견 및 처분
-
-- `F-A` (중앙 번호 미배정, 기존): 2-worker 전체 suite에서 `image-source-race.test.ts` 한 테스트가 두 번 `read_failure`로 실패했으나 단독 재실행 4/4 PASS. P06 diff와 무관한 기존 병렬/환경성 관찰로 수용하지 않고 중앙 owner가 후속 분류한다.
-- `D-A` (중앙 번호 미배정, 문서 gap): direct `queryArtifact`의 `maxTokens`는 MCP의 1–2000 schema와 달리 명시된 공개 범위가 없다. 이번 Task는 동작을 바꾸지 않고 관찰/보류한다.
-- `D-B` (중앙 번호 미배정, Note): 16-hex `artifactId`는 결정적 식별자이지 충돌 불가 보장이 아니다. 테스트는 이 한계를 숨기지 않고 exact formula만 검증한다.
-- P06 실제 신규 Blocker/Major/Minor: 없음. T1의 OS별 대소문자/별칭/하드링크와 T3의 locale folding, T6 공급자 실측은 환경·범위상 미검증으로 남긴다.
-
-## 9. 남은 작업
-
-- [x] 전용 테스트 작성 및 의미 있는 RED 여부 기록 — production 변경이 없는 coverage 감사라 product RED는 해당 없음; 첫 실행의 두 실패는 문장 fixture 예산 계산 오류로 수정했고 이후 16/16 PASS
-- [x] targeted/2-worker 및 표준 project gate 실행
-- [x] 위 표에 exact test names와 PASS/FAIL/NOT RUN, 발견 처분, coverage gaps 기록
-- [x] coordinator에 변경 파일·diff·정확한 모델·gate 결과를 worker_done으로 전달할 준비 완료
+## 7. 검증·교차 검토·남은 작업
+- 최종 보완 후 P06 전용 테스트 20/20 통과. T4-3은 직접 API의 2001 관찰과 MCP의 1·2000 수용, 0·2001 거부를 두 도구에서 대조했다.
+- 실행: `npm.cmd test -- --run tests/p06-text-contract-audit.test.ts --maxWorkers=2 --reporter=verbose 2>&1 | Tee-Object -FilePath .artifacts/p06-evidence/fixes-targeted.log` → **PASS, 1 file, 19/19**. raw stdout은 위 경로에 보존했다.
+- Primary가 `npm ci --ignore-scripts --no-audit --no-fund`를 실행했고 52 packages installed를 확인했다. 표준 gate/raw 전체 로그와 draft는 primary가 실행한다.
+- 계획 교차검토: Claude Code `claude-opus-5-5`, PASS; 초기 `0/5/5`, 수정 후 `0/0/2/2` (blocker/major/minor/note)로 기록한다. 실제 worker model identity는 이 터미널에서 제공되지 않았다.
+- 후속 처분과 현재 상태는 중앙 WBS의 실행계획 P06 및 Findings N-41~N-45에서 추적한다.
