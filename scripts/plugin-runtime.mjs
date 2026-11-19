@@ -16,6 +16,19 @@ export const MANAGED_RUNTIME_DIRECTORIES = Object.freeze([
   "skills",
 ]);
 
+// Tools the installed server must expose. Checks are inclusion-only: extra tools are allowed.
+export const REQUIRED_MCP_TOOL_NAMES = Object.freeze([
+  "estimate_context",
+  "classify_context",
+  "index_artifact",
+  "query_artifact",
+  "summarize_artifact",
+  "index_image_artifact",
+  "inspect_image_artifact",
+  "crop_image_artifact",
+  "overview_image_artifact",
+]);
+
 export const BUNDLED_SERVER_ENTRYPOINT = "./bin/token-context-optimizer.mjs";
 export const PLUGIN_SKILLS_PATH = "./skills/";
 export const PLUGIN_MCP_SERVERS_PATH = "./.mcp.json";
