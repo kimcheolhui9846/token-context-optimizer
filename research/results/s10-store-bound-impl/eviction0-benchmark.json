@@ -1,0 +1,50 @@
+{
+  "type": "s10-eviction0-and-benchmark-compare",
+  "note": "Instrumented copy = detached worktree at 8b7c49a with instrumented-patch.diff applied (temporary, never committed); the two new S-10 test files were removed so only pre-existing tests are counted. Logs only puts that raise the per-process max total or evict. Clean results are separate (gate1 at 8b7c49a). Instrumented runs are not timing evidence.",
+  "instrumentedTests": [
+    "Test Files  50 passed (50)",
+    "Tests  4354 passed | 5 skipped (4359)"
+  ],
+  "events": {
+    "instr-test-events": {
+      "lines": 38,
+      "evictionEvents": 0,
+      "evicted": 0,
+      "maxTotalDefaultBudget": 52232766,
+      "budgets": [
+        268435456
+      ]
+    },
+    "instr-bench-events": {
+      "lines": 6,
+      "evictionEvents": 0,
+      "evicted": 0,
+      "maxTotalDefaultBudget": 873370,
+      "budgets": [
+        268435456
+      ]
+    }
+  },
+  "benchmark": {
+    "baseCommit": "5d668f9af672ad70d29d7e4093a14fe4cd6b0eb3",
+    "cleanHeadCommit": "8b7c49a4416f83b899644b0109a075e1e7d1d15a",
+    "instrumentedCommit": "8b7c49a4416f83b899644b0109a075e1e7d1d15a",
+    "excludedTimeKeys": [
+      "latencyMs",
+      "suiteLatencyMs",
+      "medianLatencyMs",
+      "p95LatencyMs",
+      "generatedAt",
+      "commitSha",
+      "dirty"
+    ],
+    "baseEqualsCleanHeadNonTime": true,
+    "baseEqualsInstrumentedNonTime": true,
+    "passed": {
+      "base": true,
+      "cleanHead": true,
+      "instrumented": true
+    }
+  },
+  "firstAttemptNote": "First instrumented run failed 1 bundle-launch test (SyntaxError: duplicate appendFileSync import introduced by the instrumentation patch); patch aliased and the run repeated. That failure was in the temporary copy only."
+}
