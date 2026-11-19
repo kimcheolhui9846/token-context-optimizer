@@ -89,7 +89,10 @@ priority when evidence is incomplete.
    Example: "List the artifact IDs and source references needed to retrieve the
    evidence again." IDs are session-local, not persistent backups. A text ID can
    also disappear within a session because the text store evicts the least recently
-   used records when its estimated-memory bound is exceeded. If an ID is
+   used records when its estimated-memory bound is exceeded. A missing text ID reports
+   `Artifact not indexed: <id>`. For an image ID absent from the current session,
+   inspect returns `unknown_artifact_id` and crop or overview returns
+   `artifact_not_indexed`. If an ID is
    unavailable, re-index the authorized original and compare its hash with the
    recorded source; treat a changed hash as a new version. Do not assume a particular
    host preserves this list automatically.
@@ -117,7 +120,7 @@ priority when evidence is incomplete.
    requested field is not visible, or the question concerns the whole image
    (largest, count, layout), view an `overview_image_artifact` result, an
    existing overview or the authorized original; an overview may still be too
-   small to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/49c6cc685c022b9e508d406561878ea732824d62/docs/image-artifacts.md#mcp-crop-use) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
+   small to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/31de4ffad498bdcc7070b745cb0d75efb32577fa/docs/image-artifacts.md#mcp-crop-use) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
 6. **Query with the field and identifier.** Prefer context words such as "posted
    invoice INV-123 batch" to an identifier alone. By default, `query_artifact` returns
    up to five excerpts around positive highest-score ties in file order, within the

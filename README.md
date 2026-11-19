@@ -101,7 +101,7 @@ npm.cmd run benchmark
 Node.js requirements differ by role:
 
 - Runtime (the installed MCP server): `engines.node` is `>=22.0.0`.
-- Development and tests: the dev tools declare a narrower range. Vite 7.3.7 requires `^20.19.0 || >=22.12.0`, and Vitest 4.1.12 requires `^20.0.0 || ^22.0.0 || >=24.0.0`, so use Node 22.12 or later and avoid Node 23. The full gate has been run on Node 24 only; other versions are untested.
+- Development and tests: the dev tools declare a narrower range. Vite 7.3.7 requires `^20.19.0 || >=22.12.0`, and Vitest 4.1.12 requires `^20.0.0 || ^22.0.0 || >=24.0.0`, so use Node 22.12 or later and avoid Node 23. The installed bundle was verified on Windows x64 with Node 22.0.0 and 24.18.0. The full development gate was run on Node 24.18.0.
 
 ## License
 
@@ -174,6 +174,26 @@ The installed verifier requires each runtime entry to be a regular, non-hard-lin
 The installed verifier also checks the image tool surface as a functional smoke. A single `tools/list` response must be an array of tools with non-empty string names and no duplicates, and must include all nine current tools (`estimate_context`, `classify_context`, `index_artifact`, `query_artifact`, `summarize_artifact`, `index_image_artifact`, `inspect_image_artifact`, `crop_image_artifact`, `overview_image_artifact`). Extra well-formed tools are allowed; `nextCursor` pagination is not followed, so required tools on a later page count as missing. The verifier writes a 2x2 RGB PNG it generates itself and checks that a strict `index_image_artifact` returns the canonical path, SHA-256, byte length, 2x2 RGB dimensions, and `png-rgb8-static-v1` it computed in advance. `overview_image_artifact` with `maxSide` 64 must return a text and an `image/jpeg` item whose bytes start with SOI and end with EOI, match the reported byte length and SHA-256, report 2x2 output, and repeat the indexed source record. A 2x2 source is not downscaled, so this does not test resampling or pixel accuracy, and the marker and self-hash checks are not full JPEG validation. Finally, `index_image_artifact` on a PNG outside the allowed workspace and on the installed `plugin.json` must each return exactly one `path_denied` text item with `isError` and no structured content or path detail. Temporary workspace and outside roots are removed on success, failure, and timeout, and only when they are direct children of the temp directory with the verifier's prefix.
 
 A passing result is a functional smoke of the installed runtime. It does not prove installation authenticity, host cache activation, or exact release identity: a server that fakes every expected response, or a same-version bundle with different bytes, can still pass.
+
+### First session and recovery
+
+1. Set `TCO_ALLOWED_ROOTS` to your workspace before starting the host so the MCP server inherits it. For a staged copy, run `verify:installed` against that copy. To use the plugin in ChatGPT, complete the install or refresh step above and start a new chat.
+2. Save these three lines in a UTF-8 file named `guide.txt` in the workspace.
+
+   ```text
+   Intake complete.
+   Bluebird shipped.
+   End.
+   ```
+
+   Call `index_artifact` with the absolute path to the file and save the returned path and SHA-256. Pass its `artifactId` to `query_artifact`, substituting it in the arguments below. The first excerpt should contain `Bluebird shipped.` and report line 2 for both `sourceMap.startLine` and `sourceMap.endLine`.
+
+   ```json
+   {"artifactId":"<returned text ID>","query":"Bluebird","maxTokens":64,"contextLines":0}
+   ```
+
+3. For a supported RGB PNG, call `index_image_artifact` with its path and save its SHA-256 and validation profile. Pass the image ID to `inspect_image_artifact` to check the source and to `overview_image_artifact` for orientation. If you need a detail, choose a rectangle in original-image coordinates and pass it to `crop_image_artifact`. A supported partial crop returns a JPEG. A full-frame crop returns an original reference. Read the original to verify exact values.
+4. A server restart clears both indexes. A text record can also be evicted during a session. Re-index the authorized original at its canonical path, using the same profile for an image. Compare its SHA-256 with the one you saved, then use the returned ID. A different hash identifies a new version.
 
 ## Research Tooling
 
