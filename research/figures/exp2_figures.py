@@ -18,6 +18,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 from matplotlib.lines import Line2D  # noqa: E402
+from matplotlib.transforms import Bbox  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 CM = 1 / 2.54
@@ -71,9 +72,41 @@ OFFSET = {
 # label so labels never swap when the order changes between runs.
 PAIRS = [("A", "B"), ("D", "Dp")]
 
+# 2026-11-13 (paper review P2): a label keeps its offset above unless it would cover another marker, error bar, label or
+# the legend, or leave the canvas; then it takes the first free offset in this list. Only label positions change; the
+# plotted points and error bars are the same as before.
+CANDIDATES = [(4, 2), (4, -7), (-9, 2), (-9, -7), (4, 8), (4, -13), (-9, 8), (-9, -13), (9, 2), (9, -7), (4, 14), (4, -19)]
+
+
+def place_labels(fig, ax, labels, points):
+    """labels: (text, x, y, colour, preferred offset) in drawing order; points: (x, y, lower, upper) of every error bar."""
+    fig.canvas.draw()
+    r = fig.canvas.get_renderer()
+    pt = fig.dpi / 72
+    blocked = []
+    for x, y, lo, hi in points:
+        px, py = ax.transData.transform((x, y))
+        plo, phi = ax.transData.transform((x, lo))[1], ax.transData.transform((x, hi))[1]
+        blocked.append(Bbox([[px - 1.75 * pt, py - 1.75 * pt], [px + 1.75 * pt, py + 1.75 * pt]]))  # marker, 3.5 pt
+        blocked.append(Bbox([[px - 1.5 * pt, plo], [px + 1.5 * pt, phi]]))  # error bar with 1.5 pt caps
+    blocked.append(ax.get_legend().get_window_extent(r))
+    width, height = fig.get_size_inches() * fig.dpi
+    for text, x, y, colour, preferred in labels:
+        for off in [preferred] + [c for c in CANDIDATES if c != preferred]:
+            t = ax.annotate(text, (x, y), xytext=off, textcoords="offset points", fontsize=6, color=colour)
+            b = t.get_window_extent(r)
+            if b.x0 >= 0 and b.y0 >= 0 and b.x1 <= width and b.y1 <= height and not any(b.overlaps(o) for o in blocked):
+                break
+            t.remove()
+        else:  # no free position: keep the preferred one
+            t = ax.annotate(text, (x, y), xytext=preferred, textcoords="offset points", fontsize=6, color=colour)
+            b = t.get_window_extent(r)
+        blocked.append(b)
+
 
 def fig5_accuracy_tokens(data, out):
     fig, ax = plt.subplots(figsize=(HALF, 5.6 * CM))
+    labels, points = [], []
     for p, rows in data.items():
         means = {a: family_scores(rows, a).mean() for a in ARMS}
         offset = dict(OFFSET[p])
@@ -82,13 +115,14 @@ def fig5_accuracy_tokens(data, out):
             offset[top], offset[bottom] = (4, 2), (4, -7)
         for a in ARMS:
             m, lo, hi = boot_ci(family_scores(rows, a))
+            # promptTokens is per query: arm D adds the re-request call to the first call (summarize.mjs).
             x = np.mean([r["promptTokens"] for r in rows if r["arm"] == a and r.get("promptTokens") is not None])
             filled = a != "Dp"
             ax.errorbar(x, m * 100, yerr=[[(m - lo) * 100], [(hi - m) * 100]], fmt=MARKER[a], color=C[p], markersize=3.5,
                         elinewidth=0.6, capsize=1.5, mfc=C[p] if (p == "gpt4o" and filled) else "white")
-            dx, dy = offset[a]
-            ax.annotate(ARM_LABEL[a], (x, m * 100), xytext=(dx, dy), textcoords="offset points", fontsize=6, color=C[p])
-    ax.set_xlabel("Mean input tokens per call")
+            labels.append((ARM_LABEL[a], x, m * 100, C[p], offset[a]))
+            points.append((x, m * 100, lo * 100, hi * 100))
+    ax.set_xlabel("Mean total input tokens per query\n(including re-requests)")
     ax.set_ylabel("Accuracy (%, family mean)")
     ax.set_ylim(40, 100)
     ax.grid(linewidth=0.3, alpha=0.5)
@@ -96,6 +130,7 @@ def fig5_accuracy_tokens(data, out):
                        Line2D([], [], marker="o", color=C["haiku"], mfc="white", linestyle="", markersize=3.5, label=PROVIDER["haiku"])],
               frameon=False, loc="lower right")
     fig.tight_layout()
+    place_labels(fig, ax, labels, points)
     save(fig, out, "fig5_exp2_accuracy_vs_tokens")
 
 
