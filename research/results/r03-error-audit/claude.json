@@ -1,0 +1,357 @@
+{
+  "rater": "claude",
+  "protocol_commit": "7296f649e0626c8f7fad31e2bd0c150ddd78aa12",
+  "batches": [
+    {
+      "batch": 1,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "00698b1b771fdb81",
+            "00598c87442d66d4",
+            "76336e3d1cafb757",
+            "08bb3ea6a4cfac36",
+            "0b10798456f47911",
+            "113c5955e51b600c",
+            "0c5008e21584763d",
+            "0256af1b86eabcbd",
+            "63d84ef04e98b243",
+            "030292760692246f",
+            "077adf6196307d49",
+            "0acbfb48de8c1b16",
+            "0a8049776e1b619f",
+            "02d7e402bc5d57cf"
+          ],
+          "prompt_sha256": "111a1bdd120f37a0162979a4471d32741e3ceba45c1a3fa02f9becb4feff1778",
+          "response_sha256": "da40055b504d81031a32c65b18e8d044c67d3d03f781de87673310e9d45063f0",
+          "raw": "[{\"id\":\"00698b1b771fdb81\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer '63b0c6' exactly matches the gold request id.\"},{\"id\":\"00598c87442d66d4\",\"kind\":\"summary\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states room assigned in img-B notice is F-186, matching gold; summary ends normally.\"},{\"id\":\"76336e3d1cafb757\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states total invoice amount due $21,858.38, matching gold; ends normally.\"},{\"id\":\"08bb3ea6a4cfac36\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answered 27 definitively, but gold is 28.\"},{\"id\":\"0b10798456f47911\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"'Yes' matches gold.\"},{\"id\":\"113c5955e51b600c\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary says the dashed line represents Plant Delta, matching gold; ends normally.\"},{\"id\":\"0c5008e21584763d\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answered 12 definitively, gold is 25.\"},{\"id\":\"0256af1b86eabcbd\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Tag 'sync' matches gold.\"},{\"id\":\"63d84ef04e98b243\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states Active users card shows 81,303, matching gold; ends normally.\"},{\"id\":\"030292760692246f\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answer 'UNREADABLE' states inability to read; no commitment to Off.\"},{\"id\":\"077adf6196307d49\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Tag 'sync' matches gold.\"},{\"id\":\"0acbfb48de8c1b16\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answer 'UNREADABLE' declares inability to read the time; no value given.\"},{\"id\":\"0a8049776e1b619f\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answered 10 definitively, gold is 25.\"},{\"id\":\"02d7e402bc5d57cf\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"States Uptime card value is 99.37%, matching gold.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "00698b1b771fdb81",
+            "76336e3d1cafb757",
+            "08bb3ea6a4cfac36",
+            "0b10798456f47911",
+            "113c5955e51b600c",
+            "0c5008e21584763d",
+            "0256af1b86eabcbd",
+            "63d84ef04e98b243",
+            "030292760692246f",
+            "077adf6196307d49",
+            "0acbfb48de8c1b16",
+            "0a8049776e1b619f",
+            "02d7e402bc5d57cf"
+          ]
+        },
+        {
+          "number": 2,
+          "ids": [
+            "00598c87442d66d4"
+          ],
+          "prompt_sha256": "7bdc438549d36ce676401133f1d55c3a5f5950e4ab4e49f3ef26a312978358f5",
+          "response_sha256": "3b3d60273a32df845f3d52bcb2af0f64e3ebe782c3dee0e1cf10ac7b902ed609",
+          "raw": "[{\"id\":\"00598c87442d66d4\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary states 'Operations notice scan: Room assigned: F-186', matching gold F-186 for the notice's room. The summary ends normally; its invoice discrepancy is unrelated.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "00598c87442d66d4"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 2,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "0cb733e6d8ece86f",
+            "005191478979c00f",
+            "0794643bad503848",
+            "052740014fe19e0e",
+            "12e5abb8678d04ad",
+            "07820f2208f236be",
+            "09f6eedc6448d611",
+            "14d22cc1117889d4",
+            "059538d5dd1a8833",
+            "078668589f75cc34",
+            "0117936370787cc7",
+            "0565c93caf20cc10",
+            "36eb2848a2baa357",
+            "1e28b57b6d8da27c"
+          ],
+          "prompt_sha256": "6aef8f514cb1bb2fbc9ff402f450311361509e8672163cae8e6876ed567402c0",
+          "response_sha256": "1d90a9fe4f2bcf9000cba5cdabc95e3af0191f5ee92f6ef6620cf48714145ffc",
+          "raw": "[{\"id\":\"0cb733e6d8ece86f\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer 'No' matches the gold answer 'no' and is a complete, unambiguous commitment.\"},{\"id\":\"005191478979c00f\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary states that room G-278 was assigned in the operations bulletin, which matches the gold answer. It ends normally.\"},{\"id\":\"0794643bad503848\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary states the total amount on the invoice was $13,674.10, matching gold. It is a complete summary.\"},{\"id\":\"052740014fe19e0e\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer 'On' matches the gold answer exactly.\"},{\"id\":\"12e5abb8678d04ad\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary says the assigned room from img-B was G-169, which matches gold.\"},{\"id\":\"07820f2208f236be\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer QR-3514-N15 matches the gold reference code exactly.\"},{\"id\":\"09f6eedc6448d611\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies Plant East as the dashed red line series, matching gold.\"},{\"id\":\"14d22cc1117889d4\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer 'Off' matches the gold answer exactly.\"},{\"id\":\"059538d5dd1a8833\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The anchor answer 'November' is equivalent to the gold 'Nov', and the summary says the tallest bar corresponds to November.\"},{\"id\":\"078668589f75cc34\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer 2195 matches the gold build number exactly.\"},{\"id\":\"0117936370787cc7\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The anchor answer commits to April. The summary states April has the tallest bar (985), matching gold 'Apr'.\"},{\"id\":\"0565c93caf20cc10\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer QR-9548-N65 matches the gold reference code exactly.\"},{\"id\":\"36eb2848a2baa357\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary states the Active users card shows 5,111, matching gold.\"},{\"id\":\"1e28b57b6d8da27c\",\"label\":\"unassessable\",\"cut\":\"absent\",\"reason\":\"The recorded answer was 'UNREADABLE', so the anchor does not assert the accepted fact 79.1 GB and the summary cannot be assessed against it.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "0cb733e6d8ece86f",
+            "005191478979c00f",
+            "0794643bad503848",
+            "052740014fe19e0e",
+            "12e5abb8678d04ad",
+            "07820f2208f236be",
+            "09f6eedc6448d611",
+            "14d22cc1117889d4",
+            "059538d5dd1a8833",
+            "078668589f75cc34",
+            "0117936370787cc7",
+            "0565c93caf20cc10",
+            "36eb2848a2baa357",
+            "1e28b57b6d8da27c"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 3,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "3cdeff50d64eb1dc",
+            "0b7697f2189d0468",
+            "308892b703752ab0",
+            "050fd8dbb59a5a24",
+            "3d4e03388f2bcfef",
+            "01bd1c2c1ba064a5",
+            "405f8be4b2cd3cc3",
+            "05fefde85e6946be",
+            "205c35efc062a7d9",
+            "0350c52782d6a043",
+            "0a9c271f5b332165",
+            "03444fa1d71fd6a5",
+            "00c543d1bed9a5bd",
+            "091d86c400e0fb88"
+          ],
+          "prompt_sha256": "311586d09e0f4bdf910311f3730705dd590dd51d13ff4247408069aa64c51b74",
+          "response_sha256": "ba6dcbd67a48bf7b81a1aeabbfecb33a6e69ebf3f6ee87eb2a26ac350d709a77",
+          "raw": "[{\"id\":\"3cdeff50d64eb1dc\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states the invoice total as $17,371.56, matching gold; it ends with a complete sentence.\"},{\"id\":\"0b7697f2189d0468\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer commits to E-325, which matches gold.\"},{\"id\":\"308892b703752ab0\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary says the footer shows storage usage of 82.8 GB, matching gold, and ends normally.\"},{\"id\":\"050fd8dbb59a5a24\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 'Off' matches gold.\"},{\"id\":\"3d4e03388f2bcfef\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary says the dashed-line series is Plant West, matching gold; the text is complete.\"},{\"id\":\"01bd1c2c1ba064a5\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 70.1 GB matches gold with number and unit.\"},{\"id\":\"405f8be4b2cd3cc3\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary says the tallest bar is November (904), equivalent to gold 'Nov'; ends with a complete sentence.\"},{\"id\":\"05fefde85e6946be\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Final answer is 'Gasket 40mm', matching gold; the preamble is compatible.\"},{\"id\":\"205c35efc062a7d9\",\"label\":\"retained\",\"cut\":\"present\",\"reason\":\"Summary gives the invoice total as $13,674.10, matching gold, but ends with a dangling '**' after the key data points, which looks like an unfinished construction.\"},{\"id\":\"0350c52782d6a043\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Final stated build number is 2473, matching gold.\"},{\"id\":\"0a9c271f5b332165\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 2,252 matches gold.\"},{\"id\":\"03444fa1d71fd6a5\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer '21 August 2026' matches gold.\"},{\"id\":\"00c543d1bed9a5bd\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer B-8191 matches gold.\"},{\"id\":\"091d86c400e0fb88\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer $18,101.88 matches gold.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "3cdeff50d64eb1dc",
+            "0b7697f2189d0468",
+            "308892b703752ab0",
+            "050fd8dbb59a5a24",
+            "3d4e03388f2bcfef",
+            "01bd1c2c1ba064a5",
+            "405f8be4b2cd3cc3",
+            "05fefde85e6946be",
+            "205c35efc062a7d9",
+            "0350c52782d6a043",
+            "0a9c271f5b332165",
+            "03444fa1d71fd6a5",
+            "00c543d1bed9a5bd",
+            "091d86c400e0fb88"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 4,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "00a15cbf2abc1420",
+            "01444f21a146d386",
+            "00b88cc37b050f1a",
+            "15e4fa98d7e5c66d",
+            "0051d3908e56e53d",
+            "0d809e3e82e3086f",
+            "08597dfca661af9a",
+            "0519ee12368a5487",
+            "04c8c239afbf47bf",
+            "001cd8fc90229d2e",
+            "012c48008d02d077",
+            "01530a32b090b846",
+            "0089b989d2246d56",
+            "009ce2281e01194c"
+          ],
+          "prompt_sha256": "97c4c2ad4898c822d18c8e9be5fb13b38e58145fe9ecf48b24d45d951775419e",
+          "response_sha256": "2a137077a8d75ee6b7b0f0812cfe1e23db3bcc94b811ec7e7c3507c9f3871432",
+          "raw": "[{\"id\":\"00a15cbf2abc1420\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer E1753 matches the gold code exactly.\"},{\"id\":\"01444f21a146d386\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer INV-64670-E matches the gold invoice number.\"},{\"id\":\"00b88cc37b050f1a\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answer ZT-8800-F16 differs from gold ZT-6800-F16 and is committed without qualification.\"},{\"id\":\"15e4fa98d7e5c66d\",\"label\":\"retained\",\"cut\":\"present\",\"reason\":\"Anchor answer 85.4 GB matches gold; summary states storage shows 85.4 GB of 128 GB used. Summary ends abruptly at 'Service Dashboard Screenshot**:'.\"},{\"id\":\"0051d3908e56e53d\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answer 3 is a concrete number that differs from gold 20.\"},{\"id\":\"0d809e3e82e3086f\",\"label\":\"unassessable\",\"cut\":\"absent\",\"reason\":\"Anchor answer is UNREADABLE and does not assert the accepted fact (Mar), so the anchor is invalid; the summary ends normally.\"},{\"id\":\"08597dfca661af9a\",\"label\":\"explicit_uncertain\",\"cut\":\"present\",\"reason\":\"Answer says UNREADABLE and that it cannot determine the item; text ends mid-sentence at 'which line'.\"},{\"id\":\"0519ee12368a5487\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 7c2619 matches gold; bold formatting is irrelevant.\"},{\"id\":\"04c8c239afbf47bf\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer V-belt A48 matches gold item name.\"},{\"id\":\"001cd8fc90229d2e\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 9dc957 matches gold request id.\"},{\"id\":\"012c48008d02d077\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answer 27 is a concrete number that differs from gold 22.\"},{\"id\":\"01530a32b090b846\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answer UNREADABLE explicitly declines to give the total; the output itself is complete.\"},{\"id\":\"0089b989d2246d56\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer $18,089.33 matches gold total.\"},{\"id\":\"009ce2281e01194c\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answer UNREADABLE explicitly states inability to read the deadline; the output is complete.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "00a15cbf2abc1420",
+            "01444f21a146d386",
+            "00b88cc37b050f1a",
+            "15e4fa98d7e5c66d",
+            "0051d3908e56e53d",
+            "0d809e3e82e3086f",
+            "08597dfca661af9a",
+            "0519ee12368a5487",
+            "04c8c239afbf47bf",
+            "001cd8fc90229d2e",
+            "012c48008d02d077",
+            "01530a32b090b846",
+            "0089b989d2246d56",
+            "009ce2281e01194c"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 5,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "0de378acb07c4532",
+            "03b3baa004c90a1e",
+            "0743dfcc66512f87",
+            "0648e55e87420840",
+            "0b4412fc01d5b797",
+            "049b6fa7ae154b35",
+            "14b2ea7b15f262f6",
+            "053eb828ed3f17ed",
+            "088287b857a71259",
+            "01249775fda98f05",
+            "0165cdda7df8fda4",
+            "0346619ee4ef92ac",
+            "00219f046c72d254",
+            "09a67cc9058d1b8e"
+          ],
+          "prompt_sha256": "15175e4b6e2b1ef686f635d8dec14b926d3ea17e22286a46fd73e88371b7a56e",
+          "response_sha256": "bad2138781720b8256e0bfa4184282993e4ca461612a8e4b161999763fe4def3",
+          "raw": "[{\"id\":\"0de378acb07c4532\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer B-2710 matches the gold exactly.\"},{\"id\":\"03b3baa004c90a1e\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Final answer 'On' matches gold; the VPN explanation is compatible.\"},{\"id\":\"0743dfcc66512f87\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer B-117 matches the gold room.\"},{\"id\":\"0648e55e87420840\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answers UNREADABLE instead of yes or no, so it commits to nothing.\"},{\"id\":\"0b4412fc01d5b797\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Request id 1651aa matches the gold.\"},{\"id\":\"049b6fa7ae154b35\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Request id 7d9bfe matches the gold.\"},{\"id\":\"14b2ea7b15f262f6\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"'[sync]' is the sync tag, equivalent to gold.\"},{\"id\":\"053eb828ed3f17ed\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Request id 46fadb matches the gold.\"},{\"id\":\"088287b857a71259\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"15 August 2026 matches the gold.\"},{\"id\":\"01249775fda98f05\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"15 August 2026 matches the gold.\"},{\"id\":\"0165cdda7df8fda4\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Error code E9880 matches the gold.\"},{\"id\":\"0346619ee4ef92ac\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Request id aac7f3 matches the gold.\"},{\"id\":\"00219f046c72d254\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"'January' is the full form of gold 'Jan'.\"},{\"id\":\"09a67cc9058d1b8e\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answers UNREADABLE instead of giving a count, so it is unable to answer.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "0de378acb07c4532",
+            "03b3baa004c90a1e",
+            "0743dfcc66512f87",
+            "0648e55e87420840",
+            "0b4412fc01d5b797",
+            "049b6fa7ae154b35",
+            "14b2ea7b15f262f6",
+            "053eb828ed3f17ed",
+            "088287b857a71259",
+            "01249775fda98f05",
+            "0165cdda7df8fda4",
+            "0346619ee4ef92ac",
+            "00219f046c72d254",
+            "09a67cc9058d1b8e"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 6,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "141b3dea56d90839",
+            "08740ed03dfbeb72",
+            "442bc254893baa70",
+            "0728ff89b303ce60",
+            "036f11a8105a30bf",
+            "0401637de24f4c1d",
+            "07658417940e1403",
+            "0f44d337928762db",
+            "20054f0697f1228c",
+            "02d1894e9202c410",
+            "3189134f5278360b",
+            "003636ed5b6df39e",
+            "057a3d5077c838d1",
+            "0ee38af4e469bf17"
+          ],
+          "prompt_sha256": "9e369869c1fa5e5493ecb14cee12ba9e99b57093e393df3b50382f911effa5db",
+          "response_sha256": "ec5548bb787a4c35c40cb38e012e448e3ab63427d0bd03dce5e6e3cc8aa3a3fa",
+          "raw": "[{\"id\":\"141b3dea56d90839\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Anchor answer 59,120 is correct, and the summary states Active users card value 59,120 from img-B.\"},{\"id\":\"08740ed03dfbeb72\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer c497fe matches gold exactly.\"},{\"id\":\"442bc254893baa70\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states the dashed line in the chart represents Plant East, matching gold.\"},{\"id\":\"0728ff89b303ce60\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer INV-63512-K matches gold exactly.\"},{\"id\":\"036f11a8105a30bf\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 10:40 matches gold.\"},{\"id\":\"0401637de24f4c1d\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"Answer UNREADABLE states inability to read the value and gives no time.\"},{\"id\":\"07658417940e1403\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer April matches gold.\"},{\"id\":\"0f44d337928762db\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer April matches gold.\"},{\"id\":\"20054f0697f1228c\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states storage used in footer is 79.1 GB, matching gold.\"},{\"id\":\"02d1894e9202c410\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 20:02 matches gold.\"},{\"id\":\"3189134f5278360b\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary lists Active users: 5,111, matching gold, with the correct referent.\"},{\"id\":\"003636ed5b6df39e\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Answer 1 is a concrete number incompatible with gold 28.\"},{\"id\":\"057a3d5077c838d1\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Answer 81,303 matches gold.\"},{\"id\":\"0ee38af4e469bf17\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Summary states the assigned room in the notice is G-278, matching gold.\"}]",
+          "runtime": {
+            "provider": "Anthropic",
+            "models": [
+              "claude-sonnet-5-5"
+            ],
+            "evidence": "modelUsage",
+            "tool_events": 0,
+            "client": "2.1.328 (Claude Code)"
+          },
+          "failure": null,
+          "accepted": [
+            "141b3dea56d90839",
+            "08740ed03dfbeb72",
+            "442bc254893baa70",
+            "0728ff89b303ce60",
+            "036f11a8105a30bf",
+            "0401637de24f4c1d",
+            "07658417940e1403",
+            "0f44d337928762db",
+            "20054f0697f1228c",
+            "02d1894e9202c410",
+            "3189134f5278360b",
+            "003636ed5b6df39e",
+            "057a3d5077c838d1",
+            "0ee38af4e469bf17"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    }
+  ]
+}

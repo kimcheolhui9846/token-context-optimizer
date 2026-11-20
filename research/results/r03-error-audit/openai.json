@@ -1,0 +1,378 @@
+{
+  "rater": "openai",
+  "protocol_commit": "7296f649e0626c8f7fad31e2bd0c150ddd78aa12",
+  "batches": [
+    {
+      "batch": 1,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "01444f21a146d386",
+            "205c35efc062a7d9",
+            "07820f2208f236be",
+            "01249775fda98f05",
+            "141b3dea56d90839",
+            "088287b857a71259",
+            "09f6eedc6448d611",
+            "14b2ea7b15f262f6",
+            "0519ee12368a5487",
+            "1e28b57b6d8da27c",
+            "04c8c239afbf47bf",
+            "0ee38af4e469bf17",
+            "077adf6196307d49",
+            "049b6fa7ae154b35"
+          ],
+          "prompt_sha256": "ab03aa23a2d0bff4b72fa30cc52bb04ba8e62b15e5a75fa851747fadf9204b8a",
+          "response_sha256": "d3078128e21454e4e2a2e7d889caa2eec7e8708f9fb8442ba54b24a138850f60",
+          "raw": "[\n  {\"id\":\"01444f21a146d386\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted invoice number INV-64670-E.\"},\n  {\"id\":\"205c35efc062a7d9\",\"label\":\"retained\",\"cut\":\"present\",\"reason\":\"States $13,674.10 as the invoice total and ends with an unfinished Markdown marker.\"},\n  {\"id\":\"07820f2208f236be\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted bulletin reference code QR-3514-N15.\"},\n  {\"id\":\"01249775fda98f05\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted deadline, 15 August 2026, in the requested format.\"},\n  {\"id\":\"141b3dea56d90839\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Identifies 59,120 as the value on the Active users card.\"},\n  {\"id\":\"088287b857a71259\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted deadline, 15 August 2026, in the requested format.\"},\n  {\"id\":\"09f6eedc6448d611\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Identifies Plant East as the series drawn with a dashed line.\"},\n  {\"id\":\"14b2ea7b15f262f6\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The bracketed response unambiguously identifies sync as the subsystem tag.\"},\n  {\"id\":\"0519ee12368a5487\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted request ID 7c2619 in bold.\"},\n  {\"id\":\"1e28b57b6d8da27c\",\"label\":\"unassessable\",\"cut\":\"absent\",\"reason\":\"The recorded answer says UNREADABLE, so it does not establish the accepted storage value.\"},\n  {\"id\":\"04c8c239afbf47bf\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted item name V-belt A48.\"},\n  {\"id\":\"0ee38af4e469bf17\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"Identifies G-278 as the assigned room in the operations notice.\"},\n  {\"id\":\"077adf6196307d49\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted subsystem tag sync.\"},\n  {\"id\":\"049b6fa7ae154b35\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted request ID 7d9bfe.\"}\n]",
+          "runtime": {
+            "provider": "OpenAI",
+            "models": [
+              "gpt-6.2-sol"
+            ],
+            "evidence": "verified CLI selection + same exact model argument on completed turn",
+            "tool_events": 0,
+            "tool_types": [],
+            "event_types": [
+              "item.completed",
+              "thread.started",
+              "turn.completed",
+              "turn.started"
+            ],
+            "client": "codex-cli 0.170.0"
+          },
+          "failure": null,
+          "accepted": [
+            "01444f21a146d386",
+            "205c35efc062a7d9",
+            "07820f2208f236be",
+            "01249775fda98f05",
+            "141b3dea56d90839",
+            "088287b857a71259",
+            "09f6eedc6448d611",
+            "14b2ea7b15f262f6",
+            "0519ee12368a5487",
+            "1e28b57b6d8da27c",
+            "04c8c239afbf47bf",
+            "0ee38af4e469bf17",
+            "077adf6196307d49",
+            "049b6fa7ae154b35"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 2,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "02d1894e9202c410",
+            "00a15cbf2abc1420",
+            "012c48008d02d077",
+            "009ce2281e01194c",
+            "050fd8dbb59a5a24",
+            "08bb3ea6a4cfac36",
+            "00219f046c72d254",
+            "36eb2848a2baa357",
+            "03b3baa004c90a1e",
+            "091d86c400e0fb88",
+            "01bd1c2c1ba064a5",
+            "053eb828ed3f17ed",
+            "0350c52782d6a043",
+            "0b4412fc01d5b797"
+          ],
+          "prompt_sha256": "676f9dadf09d58065f9556703324f9f0c439d44df2b57b6dc71f923625cbbc0a",
+          "response_sha256": "2e01ecfc587e455e24ef25b60aac6ee17c4de33786c8be2298261a9b7c5a8ce6",
+          "raw": "[\n  {\"id\":\"02d1894e9202c410\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted update time, 20:02, in HH:MM format.\"},\n  {\"id\":\"00a15cbf2abc1420\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives E1753, the accepted error code.\"},\n  {\"id\":\"012c48008d02d077\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Commits to 27 when the accepted count is 22.\"},\n  {\"id\":\"009ce2281e01194c\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"UNREADABLE explicitly signals an inability to read the deadline.\"},\n  {\"id\":\"050fd8dbb59a5a24\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives Off, the accepted setting state.\"},\n  {\"id\":\"08bb3ea6a4cfac36\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"Commits to 27 when the accepted count is 28.\"},\n  {\"id\":\"00219f046c72d254\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"January is the full name of the accepted month label Jan.\"},\n  {\"id\":\"36eb2848a2baa357\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary explicitly assigns 5,111 to the Active users card, matching the recorded answer.\"},\n  {\"id\":\"03b3baa004c90a1e\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The final answer is On, matching the accepted state for the setting.\"},\n  {\"id\":\"091d86c400e0fb88\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted invoice total of $18,101.88.\"},\n  {\"id\":\"01bd1c2c1ba064a5\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives the accepted storage amount, 70.1 GB, including the unit.\"},\n  {\"id\":\"053eb828ed3f17ed\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives 46fadb, the accepted request ID for the E4762 line.\"},\n  {\"id\":\"0350c52782d6a043\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Explicitly identifies 2473 as the build number.\"},\n  {\"id\":\"0b4412fc01d5b797\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Gives 1651aa, the accepted request ID for the over_limit FLAG line.\"}\n]",
+          "runtime": {
+            "provider": "OpenAI",
+            "models": [
+              "gpt-6.2-sol"
+            ],
+            "evidence": "verified CLI selection + same exact model argument on completed turn",
+            "tool_events": 0,
+            "tool_types": [],
+            "event_types": [
+              "item.completed",
+              "thread.started",
+              "turn.completed",
+              "turn.started"
+            ],
+            "client": "codex-cli 0.170.0"
+          },
+          "failure": null,
+          "accepted": [
+            "02d1894e9202c410",
+            "00a15cbf2abc1420",
+            "012c48008d02d077",
+            "009ce2281e01194c",
+            "050fd8dbb59a5a24",
+            "08bb3ea6a4cfac36",
+            "00219f046c72d254",
+            "36eb2848a2baa357",
+            "03b3baa004c90a1e",
+            "091d86c400e0fb88",
+            "01bd1c2c1ba064a5",
+            "053eb828ed3f17ed",
+            "0350c52782d6a043",
+            "0b4412fc01d5b797"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 3,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "12e5abb8678d04ad",
+            "113c5955e51b600c",
+            "003636ed5b6df39e",
+            "76336e3d1cafb757",
+            "05fefde85e6946be",
+            "0cb733e6d8ece86f",
+            "0051d3908e56e53d",
+            "07658417940e1403",
+            "0c5008e21584763d",
+            "0648e55e87420840",
+            "308892b703752ab0",
+            "442bc254893baa70",
+            "3d4e03388f2bcfef",
+            "09a67cc9058d1b8e"
+          ],
+          "prompt_sha256": "754949210c821bf8a979af1024527bff8397b41d7cd97e123aaa455f95886a2c",
+          "response_sha256": "4392bd622a6fb03d01c98c1d12716f116c88ccdfa1ec88bb20e452e43583122d",
+          "raw": "[\n  {\"id\":\"12e5abb8678d04ad\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies G-169 as the room assigned in the notice.\"},\n  {\"id\":\"113c5955e51b600c\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies Plant Delta as the series represented by the dashed line.\"},\n  {\"id\":\"003636ed5b6df39e\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"The answer gives a definite count of 1 where the accepted count is 28.\"},\n  {\"id\":\"76336e3d1cafb757\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary gives $21,858.38 as the total invoice amount due.\"},\n  {\"id\":\"05fefde85e6946be\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer identifies Gasket 40mm as the line item with the flagged amount.\"},\n  {\"id\":\"0cb733e6d8ece86f\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The definite answer No matches the accepted answer for February.\"},\n  {\"id\":\"0051d3908e56e53d\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"The answer gives a definite count of 3 where the accepted count is 20.\"},\n  {\"id\":\"07658417940e1403\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"April is the accepted month to which the audit was postponed.\"},\n  {\"id\":\"0c5008e21584763d\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"The answer gives a definite count of 12 where the accepted count is 25.\"},\n  {\"id\":\"0648e55e87420840\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"UNREADABLE explicitly indicates inability to determine whether the December counts match.\"},\n  {\"id\":\"308892b703752ab0\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary attributes 82.8 GB of storage usage to the footer.\"},\n  {\"id\":\"442bc254893baa70\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies Plant East as the series represented by the dashed line.\"},\n  {\"id\":\"3d4e03388f2bcfef\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies Plant West as the series drawn with a dashed line.\"},\n  {\"id\":\"09a67cc9058d1b8e\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"UNREADABLE explicitly indicates inability to provide the requested count.\"}\n]",
+          "runtime": {
+            "provider": "OpenAI",
+            "models": [
+              "gpt-6.2-sol"
+            ],
+            "evidence": "verified CLI selection + same exact model argument on completed turn",
+            "tool_events": 0,
+            "tool_types": [],
+            "event_types": [
+              "item.completed",
+              "thread.started",
+              "turn.completed",
+              "turn.started"
+            ],
+            "client": "codex-cli 0.170.0"
+          },
+          "failure": null,
+          "accepted": [
+            "12e5abb8678d04ad",
+            "113c5955e51b600c",
+            "003636ed5b6df39e",
+            "76336e3d1cafb757",
+            "05fefde85e6946be",
+            "0cb733e6d8ece86f",
+            "0051d3908e56e53d",
+            "07658417940e1403",
+            "0c5008e21584763d",
+            "0648e55e87420840",
+            "308892b703752ab0",
+            "442bc254893baa70",
+            "3d4e03388f2bcfef",
+            "09a67cc9058d1b8e"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 4,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "0acbfb48de8c1b16",
+            "052740014fe19e0e",
+            "00598c87442d66d4",
+            "0a9c271f5b332165",
+            "0d809e3e82e3086f",
+            "63d84ef04e98b243",
+            "0743dfcc66512f87",
+            "0b10798456f47911",
+            "078668589f75cc34",
+            "057a3d5077c838d1",
+            "0f44d337928762db",
+            "0728ff89b303ce60",
+            "0346619ee4ef92ac",
+            "405f8be4b2cd3cc3"
+          ],
+          "prompt_sha256": "6a5cdc5006038193dd408690654acb8802f94df39c9803d47e7f5dedae8620fb",
+          "response_sha256": "4cd5606a128303f1100e2802212f58c90f17927673fcc33fb8ed8b97a2fe00cf",
+          "raw": "[\n  {\"id\":\"0acbfb48de8c1b16\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"The response explicitly reports that the time is unreadable.\"},\n  {\"id\":\"052740014fe19e0e\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response commits to On, the accepted setting state.\"},\n  {\"id\":\"00598c87442d66d4\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies F-186 as the room assigned in the notice.\"},\n  {\"id\":\"0a9c271f5b332165\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted inspection sample size of 2,252.\"},\n  {\"id\":\"0d809e3e82e3086f\",\"label\":\"unassessable\",\"cut\":\"absent\",\"reason\":\"The preceding answer reports unreadability and never identifies the tallest-bar month.\"},\n  {\"id\":\"63d84ef04e98b243\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary attributes 81,303 to the Active users card.\"},\n  {\"id\":\"0743dfcc66512f87\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives B-117, the accepted room assignment.\"},\n  {\"id\":\"0b10798456f47911\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"Yes matches the accepted answer about the May inspection count.\"},\n  {\"id\":\"078668589f75cc34\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives 2195, the accepted build number.\"},\n  {\"id\":\"057a3d5077c838d1\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives 81,303, the accepted Active users value.\"},\n  {\"id\":\"0f44d337928762db\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives April, the accepted month for the postponed audit.\"},\n  {\"id\":\"0728ff89b303ce60\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted invoice number INV-63512-K.\"},\n  {\"id\":\"0346619ee4ef92ac\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives aac7f3, the accepted request ID.\"},\n  {\"id\":\"405f8be4b2cd3cc3\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The preceding answer and summary both identify November, the month represented by Nov, as the tallest bar.\"}\n]",
+          "runtime": {
+            "provider": "OpenAI",
+            "models": [
+              "gpt-6.2-sol"
+            ],
+            "evidence": "verified CLI selection + same exact model argument on completed turn",
+            "tool_events": 0,
+            "tool_types": [],
+            "event_types": [
+              "item.completed",
+              "thread.started",
+              "turn.completed",
+              "turn.started"
+            ],
+            "client": "codex-cli 0.170.0"
+          },
+          "failure": null,
+          "accepted": [
+            "0acbfb48de8c1b16",
+            "052740014fe19e0e",
+            "00598c87442d66d4",
+            "0a9c271f5b332165",
+            "0d809e3e82e3086f",
+            "63d84ef04e98b243",
+            "0743dfcc66512f87",
+            "0b10798456f47911",
+            "078668589f75cc34",
+            "057a3d5077c838d1",
+            "0f44d337928762db",
+            "0728ff89b303ce60",
+            "0346619ee4ef92ac",
+            "405f8be4b2cd3cc3"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 5,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "3cdeff50d64eb1dc",
+            "001cd8fc90229d2e",
+            "08740ed03dfbeb72",
+            "0565c93caf20cc10",
+            "059538d5dd1a8833",
+            "0794643bad503848",
+            "20054f0697f1228c",
+            "0089b989d2246d56",
+            "0de378acb07c4532",
+            "0117936370787cc7",
+            "005191478979c00f",
+            "0165cdda7df8fda4",
+            "03444fa1d71fd6a5",
+            "030292760692246f"
+          ],
+          "prompt_sha256": "5ea96aabaee6a52f5fbc0fb0adca75a088bcc9a03b4aa7808a70b3c3985d8022",
+          "response_sha256": "d252faa0094f9ab6bd90673620861d9ae4c6bc60cdeb1bef3df0f408fb6ad0b6",
+          "raw": "[\n  {\"id\":\"3cdeff50d64eb1dc\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary states that the supplier invoice total is $17,371.56.\"},\n  {\"id\":\"001cd8fc90229d2e\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted request ID, 9dc957.\"},\n  {\"id\":\"08740ed03dfbeb72\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted request ID, c497fe.\"},\n  {\"id\":\"0565c93caf20cc10\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted bulletin reference code, QR-9548-N65.\"},\n  {\"id\":\"059538d5dd1a8833\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies November, the same month as Nov, as having the tallest bar.\"},\n  {\"id\":\"0794643bad503848\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary states that the invoice total is $13,674.10.\"},\n  {\"id\":\"20054f0697f1228c\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary explicitly gives 79.1 GB as the storage used in the footer.\"},\n  {\"id\":\"0089b989d2246d56\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted invoice total, $18,089.33.\"},\n  {\"id\":\"0de378acb07c4532\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted batch ID, B-2710.\"},\n  {\"id\":\"0117936370787cc7\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies April, the same month as Apr, as having the tallest bar.\"},\n  {\"id\":\"005191478979c00f\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The summary identifies G-278 as the assigned room in the operations notice.\"},\n  {\"id\":\"0165cdda7df8fda4\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted error code, E9880.\"},\n  {\"id\":\"03444fa1d71fd6a5\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives the accepted deadline, 21 August 2026, in the requested format.\"},\n  {\"id\":\"030292760692246f\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"The response explicitly reports that the setting is unreadable.\"}\n]",
+          "runtime": {
+            "provider": "OpenAI",
+            "models": [
+              "gpt-6.2-sol"
+            ],
+            "evidence": "verified CLI selection + same exact model argument on completed turn",
+            "tool_events": 0,
+            "tool_types": [],
+            "event_types": [
+              "item.completed",
+              "thread.started",
+              "turn.completed",
+              "turn.started"
+            ],
+            "client": "codex-cli 0.170.0"
+          },
+          "failure": null,
+          "accepted": [
+            "3cdeff50d64eb1dc",
+            "001cd8fc90229d2e",
+            "08740ed03dfbeb72",
+            "0565c93caf20cc10",
+            "059538d5dd1a8833",
+            "0794643bad503848",
+            "20054f0697f1228c",
+            "0089b989d2246d56",
+            "0de378acb07c4532",
+            "0117936370787cc7",
+            "005191478979c00f",
+            "0165cdda7df8fda4",
+            "03444fa1d71fd6a5",
+            "030292760692246f"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    },
+    {
+      "batch": 6,
+      "attempts": [
+        {
+          "number": 1,
+          "ids": [
+            "00698b1b771fdb81",
+            "00b88cc37b050f1a",
+            "036f11a8105a30bf",
+            "0a8049776e1b619f",
+            "14d22cc1117889d4",
+            "02d7e402bc5d57cf",
+            "3189134f5278360b",
+            "0b7697f2189d0468",
+            "01530a32b090b846",
+            "0256af1b86eabcbd",
+            "0401637de24f4c1d",
+            "08597dfca661af9a",
+            "15e4fa98d7e5c66d",
+            "00c543d1bed9a5bd"
+          ],
+          "prompt_sha256": "40ffd1857e40bded7edfc6927108372fee64bef425174453becf421ed4342d5d",
+          "response_sha256": "db146ee70ba48c5eb988f721e2c2cb5f5908cc72af9031d95c6c7ca5c85948c0",
+          "raw": "[\n  {\"id\":\"00698b1b771fdb81\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer gives the accepted request ID, 63b0c6.\"},\n  {\"id\":\"00b88cc37b050f1a\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"The answer commits to ZT-8800-F16, while the accepted code is ZT-6800-F16.\"},\n  {\"id\":\"036f11a8105a30bf\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer gives 10:40 in the requested HH:MM format.\"},\n  {\"id\":\"0a8049776e1b619f\",\"label\":\"silent_wrong\",\"cut\":\"absent\",\"reason\":\"The answer commits to 10 lines, while the accepted count is 25.\"},\n  {\"id\":\"14d22cc1117889d4\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer identifies the rejected setting as Off, matching gold.\"},\n  {\"id\":\"02d7e402bc5d57cf\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer explicitly gives 99.37% as the Uptime card value.\"},\n  {\"id\":\"3189134f5278360b\",\"label\":\"retained\",\"cut\":\"absent\",\"reason\":\"The dashboard summary gives 5,111 for Active users and ends with a complete metric entry.\"},\n  {\"id\":\"0b7697f2189d0468\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer identifies E-325 as the assigned room.\"},\n  {\"id\":\"01530a32b090b846\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"The standalone response UNREADABLE explicitly reports inability to read the invoice total.\"},\n  {\"id\":\"0256af1b86eabcbd\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The response gives only the accepted subsystem tag, sync.\"},\n  {\"id\":\"0401637de24f4c1d\",\"label\":\"explicit_uncertain\",\"cut\":\"absent\",\"reason\":\"The standalone response UNREADABLE explicitly reports inability to read the update time.\"},\n  {\"id\":\"08597dfca661af9a\",\"label\":\"explicit_uncertain\",\"cut\":\"present\",\"reason\":\"The response explicitly says it cannot determine the invoice item and ends mid-sentence at 'which line'.\"},\n  {\"id\":\"15e4fa98d7e5c66d\",\"label\":\"retained\",\"cut\":\"present\",\"reason\":\"The summary preserves 85.4 GB as used storage and stops at a third numbered item heading with no body.\"},\n  {\"id\":\"00c543d1bed9a5bd\",\"label\":\"correct\",\"cut\":\"absent\",\"reason\":\"The answer gives the accepted batch ID, B-8191.\"}\n]",
+          "runtime": {
+            "provider": "OpenAI",
+            "models": [
+              "gpt-6.2-sol"
+            ],
+            "evidence": "verified CLI selection + same exact model argument on completed turn",
+            "tool_events": 0,
+            "tool_types": [],
+            "event_types": [
+              "item.completed",
+              "thread.started",
+              "turn.completed",
+              "turn.started"
+            ],
+            "client": "codex-cli 0.170.0"
+          },
+          "failure": null,
+          "accepted": [
+            "00698b1b771fdb81",
+            "00b88cc37b050f1a",
+            "036f11a8105a30bf",
+            "0a8049776e1b619f",
+            "14d22cc1117889d4",
+            "02d7e402bc5d57cf",
+            "3189134f5278360b",
+            "0b7697f2189d0468",
+            "01530a32b090b846",
+            "0256af1b86eabcbd",
+            "0401637de24f4c1d",
+            "08597dfca661af9a",
+            "15e4fa98d7e5c66d",
+            "00c543d1bed9a5bd"
+          ]
+        }
+      ],
+      "valid": 14,
+      "missing": []
+    }
+  ]
+}
