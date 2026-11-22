@@ -43,3 +43,6 @@
 | R06 사례 재집계 | 두 `calls.jsonl`의 유효 시도만 집계했다(Haiku 1,589건, GPT-4o 1,453건). Haiku 초과 읽기 S1 24/24(409,666토큰), S3 5/24(168,859토큰), S0·S2·S4 0이다. 2턴 turn 호출이 자기 1턴 프롬프트보다 큰 캐시를 읽은 건수는 GPT-4o S1 14/24, Haiku S1 16/24, S0·S4 0이다. R06 §2.1과 일치한다. |
 | R08 요약 대조 | 위 표의 키 값이 R08 §2–§4와 일치한다. |
 | R03 | `verify.py --json` 종료 0. `audit.csv` 직접 집계: 응답 60(판정 일치 60), 요약 24(일치 24). |
+| R08 재실행 | [R08 §5](r08-research-product-parity.md) 0–6단계를 격리 worktree에서 실행했다. 모두 종료 0이고 `r08-evidence-check.mjs`가 통과했다. 번들 SHA-256 4개가 §1과 같다. Node v24.18.0, win32다. |
+| R02 재현 | [R02](r02-offline-reproduction.md)의 생성물 24개 중 23개가 SHA-256 일치했다. `slots-exp2-heldout.json`은 OCR 자료가 없어 `variants.mjs`를 실행하지 않았다(다운로드 금지). 입력은 현재 트리를 썼고, `research/src`와 `results/exp2-heldout`의 tree는 R02 기준 커밋과 다르다. 그래도 생성물은 같았다. |
+| 프로젝트 게이트 | npm ci·build·test·typecheck·smoke:mcp·validate:plugin·benchmark 모두 종료 0이다. 테스트는 58개 파일, 4,562개 통과, 5개 건너뜀이다. |
