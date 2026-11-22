@@ -215,7 +215,7 @@ node src/r08-evidence.mjs --scratch "$S" --out "$S/evidence" &&
 - **6단계 정정(2026-11-22, PM 지적):** 옛 `cmp` 루프에는 두 문제가 있었다. 실패를 전파하지 않았고, 다른 경로의 새 checkout에서는 정상 결과도 원시 캡처 해시 때문에 바이트가 달라졌다. 그래서 대조 도우미로 바꿨다. 검산은 모두 임시 복사본에서만 했고, 커밋된 근거와 수치는 바꾸지 않았다.
   - 위 재실행 scratch와 커밋본(`--rev HEAD`)의 대조: 통과, 종료 0.
   - 다른 경로 모의: scratch 사본의 캡처 8개에서 checkout 경로 문자열만 바꾸고 근거를 다시 만들었다. 요약 파일에서는 캡처 해시 8줄만 달라졌고, 대조는 통과했다(종료 0).
-  - 첫 파일 변조: `excerpt-keys.jsonl` 첫 행의 `goldLine` 하나를 107→108로 바꿨다. 대조가 실패했다(`$[0].goldLine`, 종료 1).
+  - 첫 파일 변조: `excerpt-keys.jsonl` 첫 행의 `goldLine` 하나를 107→108로 바꿨다. 대조가 실패했다(출력 경로 `$["0"]["goldLine"]`, 종료 1).
   - 중간 요약 변조: `excerpt-summary.json`의 `pairs["exp3→pre002"].identical`을 297→296으로 바꿨다. 대조가 실패했다(종료 1).
   - 문서에서 꺼낸 6단계 명령을 Git Bash로 scratch 사본 세 개에 실행했다.
     - 정상 사본: 종료 0.

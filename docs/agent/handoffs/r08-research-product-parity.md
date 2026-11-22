@@ -88,6 +88,12 @@
   - 첫 파일 goldLine 변조: 실패(1). 중간 요약 수치 변조: 실패(1).
   - 문서에서 꺼낸 6단계 명령 그대로: 정상 사본 0, 첫 키 goldLine 변조 사본 1, 보고서 수치 변조 사본 1.
 - R08 테스트 37개(비교기 29, 6단계 대조 8).
+- Argon(`gemini-4-argon`, 9798125): APPROVE. Nit 1건(문서의 차이 경로 표기가 실제 출력과 다름)은 마지막 커밋에서 고쳤다.
+- **게이트 결과 구분**
+  - PM 실행(193b329, `CI=1` 기본 `npm test`, 5초 제한): `policy-redos-group3` 2건 시간 초과(4,560 통과·5 건너뜀).
+  - 작성자 실행(9798125, 기본 제한시간 그대로, 시작 시 작업 트리 깨끗): npm ci 0, build 0, test 0(58파일, 4,562 통과·5 건너뜀·실패 0), typecheck 0, smoke:mcp 0, validate:plugin 0, benchmark 0(passed).
+  - 첫 benchmark는 build가 `bin/`을 CRLF로 다시 써서 `dirty: true`였다. 줄바꿈을 뺀 SHA-256이 추적 blob(`6265b9b4…`)과 같아 그 파일만 되돌렸고, 다시 실행한 benchmark는 0(`dirty: false`, passed)이었다.
+  - 연구 테스트 5파일 86/86 통과. 마지막 커밋은 문서만 바꿨다.
 
 ## 다음
 
