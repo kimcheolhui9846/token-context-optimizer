@@ -16,24 +16,25 @@ R06은 설계 단계다. 실험 호출 0건, 실험 지출 US$0. 아래 후속 �
 | 항목 | 확인한 사실 | 근거 |
 |---|---|---|
 | 실행 루프 | 세션이 바깥, 조건이 안쪽이다. `--conditions` 기본값은 S0,S1,S2,S3,S4 순서다. 조건 사이에 지연이나 캐시 초기화 코드는 없다. | [session-harness](../src/session-harness.mjs) 19행, 238–239행 |
-| 조건 정의 | S0 전체 유지, S1 compact 모사, S2 플러그인 도구, S3 플러그인+compact, S4 전체 유지+arm 변환 이미지. compact는 3턴·6턴 뒤(COMPACT_AFTER_TURNS [3,6])다. S0/S1/S4는 같은 SYSTEM을, S2/S3는 SYSTEM_PLUGIN과 도구 정의를 쓴다. | [session-harness](../src/session-harness.mjs) 1–3행 |
+| 조건 정의 | S0 전체 유지, S1 compact 모사, S2 플러그인 도구, S3 플러그인+compact, S4 전체 유지+arm 변환 이미지. compact는 3턴·6턴 뒤(COMPACT_AFTER_TURNS [3,6])다. S0/S1/S4는 같은 SYSTEM을, S2/S3는 SYSTEM_PLUGIN과 도구 정의를 쓴다. | [session-harness](../src/session-harness.mjs) 1–3행, 33행, 47–48행 |
 | 표본 | 제공자당 24세션, 세션당 8턴이다. late 문항은 6·7·8턴(세션당 3문항)이고 유형은 late 16·late-small 32·late-log 24로 합 72다. 주 결과 매핑은 S1=compact 모사 단독, S3=플러그인+compact다. 분석은 유형이 late로 시작하는 턴을 늦은 회상으로 센다. | [sessions-heldout.json](../results/s3-heldout/sessions-heldout.json), [session-analyze](../src/session-analyze.mjs) 39행, [S3 heldout 결과](../results/s3-heldout/README.md) |
 | 실제 실행 순서 | 두 제공자 모두 24세션 전부 S0→S1→S2→S3→S4였다. 세션 순서는 manifest 순서와 같았다. attemptId 앞부분은 Date.now() base36이며 조건 시도 시작 시각이다. | [session-harness](../src/session-harness.mjs) 245행, 두 제공자 폴더의 조건별 결과 파일(attemptId) |
 | 시도 시작 시각(UTC) | GPT-4o 2026-10-15T12:22:26–12:51:42, Haiku 2026-10-15T12:23:55–12:57:41. 두 제공자를 같은 시간대에 병행 실행했다. | 두 calls.jsonl |
 | 연속 조건 시작 간격(초) | 세션당 4개, 총 96개. GPT-4o 최소 9.2·중앙 14.4·최대 51.7. Haiku 최소 5.9·중앙 16.1·최대 40.1. | 두 calls.jsonl |
 | 호출 단위 시각 | 요청 시각 필드가 없다. 기록 필드는 session, condition, turn, kind, usage, costUsd, latencyMs, attempts, model, fingerprint, attemptId다(Haiku는 stopReason 추가). 호출 간 실제 간격과 TTL 경과는 미상이다. | 두 calls.jsonl |
 | 기록 누락 | GPT-4o 재개 기록 1건(resumes.jsonl, 2026-10-15T12:36:20Z). 결과 파일에 포함되지 않은 이전 시도 호출 7건이 있다(전체 1,460건 중 집계 1,453건). Haiku는 1,589건 전부 집계했다. | GPT-4o 결과 폴더 |
-| 캐시 설정 | OpenAI 경로는 명시 제어 없이 자동 prefix 캐시를 쓰고 usage.prompt_tokens_details.cached_tokens를 기록한다. Anthropic 경로는 모든 조건에 최상위 `cache_control: {type: "ephemeral"}`(자동 캐싱)을 쓰고 cache_read_input_tokens·cache_creation_input_tokens를 기록한다. 비용 배율 기록은 GPT 읽기 0.5, Haiku 쓰기 1.25·읽기 0.1이다. | [session-anthropic](../src/session-anthropic.mjs) 4–5행, 52–54행 |
+| 캐시 설정 | OpenAI 경로는 명시 제어 없이 자동 prefix 캐시를 쓰고 usage.prompt_tokens_details.cached_tokens를 기록한다. Anthropic 경로는 모든 조건에 최상위 `cache_control: {type: "ephemeral"}`(자동 캐싱)을 쓰고 cache_read_input_tokens·cache_creation_input_tokens를 기록한다. 비용 배율 기록은 GPT 읽기 0.5, Haiku 쓰기 1.25·읽기 0.1이다. | [session-harness](../src/session-harness.mjs) 67행, 228행, [session-anthropic](../src/session-anthropic.mjs) 4–5행, 16행, 52–54행, 두 config.json |
 | 조건별 캐시 읽기 비율 | 집계 호출 기준 cached/prompt 토큰이다. GPT-4o S0 78.5%, S1 67.6%, S2 47.3%, S3 41.5%, S4 76.6%. Haiku S0 80.0%, S1 75.1%, S2 17.9%, S3 21.4%, S4 80.0%. 1턴 turn 호출의 캐시 읽기는 모든 조건에서 0/24다. | 두 calls.jsonl |
-| 재시도 | OpenAI 경로는 429/5xx·네트워크 오류에 최대 6회까지 시도하며(session-harness 70–95행) 기록상 attempts>1은 0건이다. Anthropic 경로는 SDK 기본 재시도 설정을 바꾸지 않았고 attempts 필드는 1로 고정 기록한다. SDK 내부 재시도 여부는 미상이다. | [session-harness](../src/session-harness.mjs), [session-anthropic](../src/session-anthropic.mjs) |
-| 관측 비용 | 기록된 costUsd 합(모든 시도 포함, 당시 정가)은 GPT-4o US$8.0701, Haiku US$5.9187이다(24세션). 시도당 최대 호출 관측은 GPT S2 23·S3 21, Haiku S2 22·S3 25, S0/S4 8, S1 10이다. 최악 비용이 아니다. | 두 calls.jsonl |
+| 재시도 | OpenAI 경로는 429/5xx·네트워크 오류에 최대 6회까지 시도하며(session-harness 70–95행) 기록상 attempts>1은 0건이다. Anthropic 경로는 SDK 클라이언트에 maxRetries 4를 명시했다(session-anthropic 34행). attempts 필드는 1로 고정 기록되므로 SDK 내부 재시도 여부는 미상이다. | [session-harness](../src/session-harness.mjs), [session-anthropic](../src/session-anthropic.mjs) |
+| 관측 비용 | 기록된 costUsd 합(모든 시도 포함, 당시 정가, 캐시 할인·할증 미반영)은 GPT-4o US$8.0701, Haiku US$5.9187이다(24세션). 집계 시도당 최대 호출 관측은 GPT S2 17·S3 21, Haiku S2 22·S3 25, S0/S4 8, S1 10이다. 최악 비용이 아니다. | 두 calls.jsonl |
 | 원고 기록 | 원고 [138행](https://github.com/kimcheolhui9846/token-context-optimizer/blob/e1e53518626768d0b18380f7f59968a86f830e47/docs/research/image-first-paper-draft.ko.md#L138): 24세션 각각 S0→S1→S2→S3→S4, 캐시 초기화·순서 상쇄 없음. [182행](https://github.com/kimcheolhui9846/token-context-optimizer/blob/e1e53518626768d0b18380f7f59968a86f830e47/docs/research/image-first-paper-draft.ko.md#L182): 순서가 캐시 적중과 비용에 준 영향의 크기와 방향은 측정하지 않았다. | 원고 #112(e1e5351) |
 | 기존 결과 | GPT-4o late 회상 S1 13.9%, S3 81.9%, S0 93.1%. Haiku는 S3 개선 미지지다. 고정 순서의 기술적 관측이다. | 원고 164행, [R01 지도](../../docs/research/r01-claim-evidence-map.md) |
 
 ### 2.1 조건 간 캐시 이월(새 관측, 기술 통계)
 
-- Haiku: 같은 시도 안에서 앞서 쓴 캐시 토큰보다 많이 읽은 시도가 S1에서 24/24였다. 읽기 409,666토큰 전부가 자기 시도의 쓰기 1,128토큰을 넘었다. S3는 5/24(168,859토큰)였다. S0·S2·S4는 0이었다. 즉 S1은 직전 S0가 쓴 prefix를, S3 일부는 직전 S2가 쓴 prefix를 읽었다.
+- Haiku: 판정 기준은 호출의 캐시 읽기가 같은 시도에서 그 전까지 쓴 캐시 토큰 누계보다 많은지다. 넘는 양을 "초과 읽기"라 한다. 이 기준에 걸린 시도는 S1 24/24(초과 읽기 409,666토큰. S1의 캐시 읽기 합과 같고, S1 자체 쓰기는 1,128토큰), S3 5/24(초과 읽기 168,859토큰, 같은 5개 시도의 읽기 합 169,492토큰)다. S0·S2·S4는 0이었다. 기록과 prefix 구조로 보아 S1은 직전 S0가 쓴 prefix를, S3 일부는 직전 S2가 쓴 prefix를 읽은 것으로 판단된다.
 - GPT-4o: S1 2턴 호출의 14/24가 캐시를 읽었다. 14건 모두 읽은 캐시 토큰이 같은 시도의 1턴 프롬프트 전체보다 많다. 그러므로 읽은 prefix는 그 시도가 앞서 보낸 요청에서 만들어질 수 없다. 결과에 포함되지 않은 이전 시도 호출 7건은 모두 heldout-document-review-4의 S2 시도이고, S2는 다른 시스템 프롬프트와 도구 정의를 쓴다. 기록상 S1과 같은 앞부분을 먼저 보낸 요청은 같은 세션의 S0뿐이다. S0 2턴과 S4 2턴의 캐시 읽기는 각각 0/24였다. Haiku S1도 2턴에서 캐시를 읽은 16건 모두 같은 판정이다.
+- S2·S3에는 2턴 비교를 쓰지 않는다. 1턴 안의 도구 라운드에서 prefix가 이미 길어지기 때문이다.
 - 해석 제한: 이월은 비용과 캐시 비율에 영향을 준 관측 사실이다. 다른 순서였다면 얼마였을지는 반사실 자료가 없어 크기를 추정할 수 없다.
 
 ### 2.2 공식 문서 확인
@@ -61,7 +62,7 @@ Anthropic prompt caching 문서(2026-11-22 조회, https://platform.claude.com/d
 
 - 고정 순서 S0→S4에서 관측한 정확도, 비용, 캐시 읽기 비율의 기술 통계.
 - 직전 조건이 만든 prefix를 읽은 사례가 있었다는 사실(2.1절).
-- Anthropic 문서는 캐시가 출력 생성에 영향이 없다고 밝힌다. 그러나 이것이 순서·시간 효과가 정확도에 없다는 뜻은 아니다.
+- Haiku 경로에 한해, 2026-11-22 조회한 Anthropic 문서는 캐시가 출력 생성에 영향이 없다고 밝힌다. GPT-4o 경로는 OpenAI 문서를 확인하지 않아 확인 불가다. 어느 경우에도 순서·시간 효과가 정확도에 없다는 뜻은 아니다.
 
 ## 4. 후속 설계(R07 후보, 미실행)
 
@@ -135,11 +136,13 @@ Anthropic prompt caching 문서(2026-11-22 조회, https://platform.claude.com/d
 | .35 | 13.1%p |
 | .50 | 18.7%p |
 
+참고로 기존 고정 순서 자료에서 세션별 S3−S1 차이의 SD는 GPT-4o .250, Haiku .423이다(층화하지 않음, 순서가 고정된 자료라 새 설계의 분산 추정이 아님). σ=.423이면 같은 산식의 반폭은 약 15.8%p다.
+
 목표 반폭 10%p는 설계 평가 기준이다. 폭, 부호, 유의성에 맞춰 추가 수집하지 않는다. 원실험과의 차이(예: GPT S1 13.9%·S3 81.9%)는 비인과적 기술 비교다.
 
 ## 6. 2차 민감도와 기술 결과
 
-2차 민감도 모형은 세션 절편, 조건(4), 위치(4), 직전 조건으로 구성한다. 첫 위치는 직전 조건이 없으므로 따로 처리한다.
+2차 민감도 모형은 세션 절편, 조건(4), 위치(4), 직전 조건으로 구성한다. 첫 위치는 직전 조건이 없으므로 따로 처리한다. 직전 조건은 S0 기준 4대비(S1~S4 지시변수)로 두고, 첫 위치 행과 직전 조건이 S0인 행은 네 대비가 모두 0이다. 첫 위치의 차이는 위치 효과가 흡수한다.
 
 - 직전 조건 5수준을 모두 넣으면 위치와 alias가 생긴다(메인 확인: 200행·53열·rank 52).
 - 직전 조건을 S0 기준 4대비로 두면 52열이고 rank 52로 완전히 식별된다.
@@ -203,13 +206,13 @@ R06은 지출을 허가하지 않는다. 총상한 금액은 R07 사용자 결�
 
 원고는 이번 작업에서 바꾸지 않는다. 반영 여부는 D01에서 정한다.
 
-허용하는 관측 주장은 고정 순서 S0→S4에서 관측한 정확도와 비용이다. 캐시 반영 비용에는 직전 조건이 만든 prefix 캐시의 읽기가 포함된다(Haiku S1 캐시 읽기 전부, S3 일부, GPT S1 2턴 14/24).
+허용하는 관측 주장은 고정 순서 S0→S4에서 관측한 정확도와 비용이다. 캐시 반영 비용에는 기록과 prefix 구조로 보아 직전 조건이 만든 것으로 판단되는 캐시 읽기가 포함된다(Haiku S1 캐시 읽기 전부, S3 일부, GPT S1 2턴 14/24). 제공자는 읽은 캐시의 출처를 반환하지 않으므로 이 판단은 추론이다.
 
-인과 해석의 한계는 순서, 캐시 상태, 시간 효과를 조건 효과와 분리할 수 없다는 점이다. 캐시 반영 비용의 조건 간 차이는 순서에 의존한다. 정확도 비교에 대해서는 Anthropic 문서가 캐시가 출력에 영향이 없다고 밝히지만, 순서와 시간 효과는 여전히 분리되지 않는다.
+인과 해석의 한계는 순서, 캐시 상태, 시간 효과를 조건 효과와 분리할 수 없다는 점이다. 캐시 반영 비용의 조건 간 차이는 순서의 영향을 받았을 수 있으나 그 크기와 방향은 측정하지 않았다. 정확도 비교에서는 Haiku 경로에 한해 현재 Anthropic 문서가 캐시가 출력에 영향이 없다고 밝히지만, 순서와 시간 효과는 여전히 분리되지 않는다.
 
 제안 문장은 다음과 같다.
 
-> 조건은 모든 세션에서 S0, S1, S2, S3, S4 순서로 고정해 실행했다. 따라서 캐시 반영 비용에는 직전 조건이 만든 prefix 캐시의 읽기가 포함되며, 비용의 조건 간 차이는 순서에 의존한다.
+> 조건은 모든 세션에서 S0, S1, S2, S3, S4 순서로 고정해 실행했다. 기록과 프롬프트 접두부 구조로 보아 캐시 반영 비용에는 직전 조건이 만든 캐시의 읽기가 포함된다. 비용의 조건 간 차이는 순서의 영향을 받았을 수 있으나 그 크기와 방향은 측정하지 않았다.
 
 > 조건 순서, 캐시 상태, 시간 효과를 조건 효과와 분리할 수 없으므로 이 결과를 조건의 인과 효과로 해석하지 않는다.
 
