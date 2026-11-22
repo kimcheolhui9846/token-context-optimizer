@@ -1,15 +1,16 @@
 // R08: compare experiment 2 JPEG profile checks between the stored p612 probe and a re-run, and between the product entry
 // point (src/r08-jpeg-entry.mjs) and the validator rows of the same bytes (no model calls).
 // Usage: node src/r08-jpeg-parity.mjs --stored <p612 json> --current <p612 json> --entry <entry.jsonl> [--role latest]
-//   [--dist <checkout with dist>] --out <report.json>
-// Exit 1 on duplicate, missing or extra files on either side. The denominator is files whose bytes were reproduced
+//   --expect-bundle <role>=<sha256> [...] [--dist <checkout with dist>] --out <report.json>
+// Exit 1 on duplicate, missing or extra files on either side. Exit 2 when an attention item needs review: files not
+// reproduced in both probe runs, probe columns that differ, or entry calls that disagree with the validator. The denominator is files whose bytes were reproduced
 // (SHA-256 equal to the slot manifest) in both probe runs; RQ1 rows are reported apart and never enter these counts.
 // --dist also checks the fixture calls against validateJpeg/validateJpegTolerant on the same fixture bytes.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
-const FIELDS = { reproduced: 5, size: 6, app0First: 7, strict: 8, strictWithInsertedApp0: 9, tolerant: 10 };
+const FIELDS = { file: 0, kind: 1, arms: 2, slotCount: 3, reproduced: 5, size: 6, app0First: 7, strict: 8, strictWithInsertedApp0: 9, tolerant: 10 };
 const SHA = 4;
 
 function index(rows, label, keyFn, failures) {
@@ -65,13 +66,40 @@ export function compareEntry(entryRecords, probeRows, role) {
     if (!c) continue;
     const want = { default: r[FIELDS.strict], tolerant: tolerantCell(r[FIELDS.tolerant]), app0Default: r[FIELDS.strictWithInsertedApp0] };
     const got = { default: label(c.default), tolerant: label(c.tolerant), app0Default: label(c.app0Default) };
-    const o = `default=${got.default} tolerant=${got.tolerant}${c.tolerant?.validationProfile ? `(${c.tolerant.validationProfile})` : ""} app0Default=${got.app0Default}`;
+    const prof = (x) => (x?.validationProfile ? `(${x.validationProfile})` : "");
+    const o = `default=${got.default}${prof(c.default)} tolerant=${got.tolerant}${prof(c.tolerant)} app0Default=${got.app0Default}${prof(c.app0Default)}`;
     outcomes[o] = (outcomes[o] ?? 0) + 1;
     const bad = Object.keys(agree).filter((f) => want[f] !== got[f]);
     for (const f of Object.keys(agree)) if (!bad.includes(f)) agree[f]++;
     if (bad.length) disagreements.push({ sha256: k, fields: bad, want, got });
   }
   return { failures, role, denominator: rows.size, calls: calls.size, agree, outcomes, disagreements };
+}
+
+// Structural checks on the entry capture: it ran the expected bundles, on the same slot ledger as the probe, and called
+// every checked-in fixture exactly once per role.
+export function checkEntryMeta({ entry, expectedBundles, slotsSha256, fixtureFiles, role }) {
+  const f = [];
+  const meta = entry.find((r) => r.kind === "meta");
+  if (!meta) return ["entry: no meta record"];
+  for (const [r, want] of Object.entries(expectedBundles)) {
+    const got = meta.bundles?.find((b) => b.role === r)?.sha256;
+    if (got !== want) f.push(`entry: bundle ${r} sha256 ${got} is not ${want}`);
+  }
+  if (meta.slotsSha256 !== slotsSha256) f.push(`entry: slots sha256 ${meta.slotsSha256} is not ${slotsSha256}`);
+  const called = entry.filter((r) => r.kind === "call" && r.role === role && r.set.startsWith("fixture:")).map((r) => `${r.set.slice(8)}/${r.id}`).sort();
+  const want = [...fixtureFiles].sort();
+  if (JSON.stringify(called) !== JSON.stringify(want)) f.push(`entry: ${role} fixture calls ${called.length} do not match the ${want.length} fixture files`);
+  return f;
+}
+
+export function attentionItems({ probe, entry, fixtures }) {
+  const a = [];
+  if (probe.compared > probe.reproducedBoth) a.push(`${probe.compared - probe.reproducedBoth} files not reproduced in both probe runs`);
+  if (Object.keys(probe.fieldDiffs).length) a.push(`probe columns differ: ${JSON.stringify(probe.fieldDiffs)}`);
+  if (entry.disagreements.length) a.push(`${entry.role} entry disagrees with the validator on ${entry.disagreements.length} files`);
+  if (fixtures?.disagreements?.length) a.push(`${fixtures.disagreements.length} fixture calls disagree with the validator`);
+  return a;
 }
 
 export async function compareFixtures(entryRecords, role, dist) {
@@ -103,9 +131,15 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const entry = readFileSync(resolve(opt("--entry")), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
   const role = opt("--role", "latest");
   const probe = compareProbeRows(stored.exp2Files, current.exp2Files);
+  const expectedBundles = Object.fromEntries(args.flatMap((a, i) => (a === "--expect-bundle" ? [args[i + 1].split("=")] : [])));
+  if (!Object.keys(expectedBundles).length) throw new Error("missing --expect-bundle");
+  const dist = opt("--dist") ? resolve(opt("--dist")) : null;
+  const fixtureFiles = dist ? ["jpeg", "jpeg-tolerant"].flatMap((d) => readdirSync(resolve(dist, "tests/fixtures", d)).filter((n) => n.endsWith(".jpg")).map((n) => `${d}/${n}`)) : [];
+  const metaFailures = checkEntryMeta({ entry, expectedBundles, slotsSha256: current.exp2.slotsSha256, fixtureFiles: dist ? fixtureFiles : entry.filter((r) => r.kind === "call" && r.role === role && r.set.startsWith("fixture:")).map((r) => `${r.set.slice(8)}/${r.id}`), role });
+  if (stored.exp2.slotsSha256 !== current.exp2.slotsSha256) metaFailures.push("probe: slots sha256 differs between stored and current");
   const entryCmp = compareEntry(entry, current.exp2Files, role);
   const report = {
-    failures: [...probe.failures, ...entryCmp.failures],
+    failures: [...probe.failures, ...entryCmp.failures, ...metaFailures], expectedBundles, fixtureFileCount: fixtureFiles.length,
     probe: { ...probe, storedValidatorSha256: stored.productJpegValidationSha256, currentValidatorSha256: current.productJpegValidationSha256,
       runtime: { stored: [stored.node, stored.sharp, stored.vips], current: [current.node, current.sharp, current.vips] },
       slotsSha256: [stored.exp2.slotsSha256, current.exp2.slotsSha256], jpegSlots: [stored.exp2.jpegSlots, current.exp2.jpegSlots],
@@ -120,10 +154,11 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     meta: entry.find((r) => r.kind === "meta"),
   };
   if (opt("--dist")) report.fixtures = await compareFixtures(entry, role, resolve(opt("--dist")));
+  report.attention = attentionItems({ probe, entry: entryCmp, fixtures: report.fixtures });
   writeFileSync(out, JSON.stringify(report, null, 2) + "\n", { flag: "wx" });
-  console.log(JSON.stringify({ failures: report.failures, probe: { compared: probe.compared, reproducedBoth: probe.reproducedBoth, identical: probe.identical, fieldDiffs: probe.fieldDiffs },
+  console.log(JSON.stringify({ failures: report.failures, attention: report.attention, probe: { compared: probe.compared, reproducedBoth: probe.reproducedBoth, identical: probe.identical, fieldDiffs: probe.fieldDiffs },
     entry: { denominator: entryCmp.denominator, agree: entryCmp.agree, disagreements: entryCmp.disagreements.length, outcomes: entryCmp.outcomes },
     otherRoles: report.otherRoles.map((o) => ({ role: o.role, agree: o.agree, outcomes: o.outcomes })), rq1RowsIdentical: report.rq1SettingsOnly.rowsIdentical,
     fixtures: report.fixtures && { fixtures: report.fixtures.fixtures, agreeDefault: report.fixtures.agreeDefault, agreeTolerant: report.fixtures.agreeTolerant } }, null, 2));
-  process.exitCode = report.failures.length ? 1 : 0;
+  process.exitCode = report.failures.length ? 1 : report.attention.length ? 2 : 0;
 }

@@ -1,6 +1,12 @@
 {
-  "schema": "r08-jpeg-parity/v1",
+  "schema": "r08-jpeg-parity/v2",
   "failures": [],
+  "attention": [],
+  "expectedBundles": {
+    "latest": "6265b9b4bb650c947a9ec6cd6f83b9215d0e75fd63a5e4b8a0093e6891c76fa8",
+    "exp3": "30b76db869c8e53a11cbd87200091e07fe986de89f4c5954b7796894b5376ae4"
+  },
+  "fixtureFileCount": 63,
   "probe": {
     "failures": [],
     "stored": 458,
@@ -71,7 +77,7 @@
       "app0Default": 458
     },
     "outcomes": {
-      "default=unsupported_jpeg_profile tolerant=pass(jpeg-ycbcr8-tolerant-v1) app0Default=pass": 458
+      "default=unsupported_jpeg_profile tolerant=pass(jpeg-ycbcr8-tolerant-v1) app0Default=pass(jpeg-ycbcr8-baseline-444-v1)": 458
     },
     "disagreements": []
   },
@@ -87,7 +93,7 @@
         "app0Default": 458
       },
       "outcomes": {
-        "default=unsupported_jpeg_profile tolerant=unsupported_jpeg_profile app0Default=pass": 458
+        "default=unsupported_jpeg_profile tolerant=unsupported_jpeg_profile app0Default=pass(jpeg-ycbcr8-baseline-444-v1)": 458
       },
       "disagreementCount": 458
     }

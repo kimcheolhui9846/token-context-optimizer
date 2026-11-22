@@ -117,3 +117,33 @@ test("normalization drops path and artifactId, maps a legacy single excerpt to p
   assert.deepEqual(normalizeResponse({ response: response([[1, 2]], { moreMatches: { count: 1, lines: [9] } }) }).moreMatches, { count: 1, lines: [9] });
   assert.deepEqual(normalizeResponse({ error: "boom" }), { error: "boom" });
 });
+
+test("held keys and stored-row differences are attention items, not silent success", () => {
+  const runs = base();
+  runs[3].capture[3].response = response([[5, 6]]);
+  runs[3].bench[2].excerptRanges = [[5, 6]];
+  const rows = run("old", 1).bench.map((r) => ({ ...r }));
+  rows[0].extraField = 1;
+  rows[1].query = "changed";
+  const rep = analyze({ manifests, expectedBundles, runs, stored: [{ name: "s", role: "old", rows }] });
+  assert.deepEqual(rep.failures, []);
+  const a = rep.attention.join("\n");
+  assert.match(a, /latest: 1 keys held/);
+  assert.match(a, /stored s: 2 rows differ/);
+});
+
+test("a field present only in the rerun row is listed, not hidden", () => {
+  const rows = run("old", 1).bench.map((r) => ({ ...r }));
+  const runs = base();
+  runs[0].bench[0].newField = true;
+  runs[4 - 3].bench[0].newField = true;
+  const rep = analyze({ manifests, expectedBundles, runs, stored: [{ name: "s", role: "old", rows }] });
+  assert.equal(rep.storedComparisons.s.differing.length, 0);
+  assert.deepEqual(rep.storedComparisons.s.rerunOnlyFields, { newField: 1 });
+});
+
+test("the same capture used for both repetitions fails", () => {
+  const runs = base();
+  runs[1] = { ...runs[1], capture: runs[0].capture };
+  assert.match(analyze({ manifests, expectedBundles, runs }).failures.join("\n"), /meta rep/);
+});

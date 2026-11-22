@@ -20,8 +20,8 @@
 | 파일 | 내용 |
 |---|---|
 | `excerpt-keys.jsonl` | 297줄. 줄마다 키 하나(`split/session/turn/variant`) |
-| `excerpt-summary.json` | 텍스트 발췌 비교 요약. schema `r08-excerpt-parity/v1` |
-| `jpeg-summary.json` | JPEG 비교 요약. schema `r08-jpeg-parity/v1` |
+| `excerpt-summary.json` | 텍스트 발췌 비교 요약. schema `r08-excerpt-parity/v2` |
+| `jpeg-summary.json` | JPEG 비교 요약. schema `r08-jpeg-parity/v2` |
 
 ### excerpt-keys.jsonl
 
@@ -40,7 +40,7 @@
 
 ### 텍스트 발췌 (excerpt-summary.json)
 
-- `failures`: 0건(빈 배열), `expectedKeys`: 297
+- `failures`: 0건(빈 배열), `attention`: 0건, `expectedKeys`: 297
 - `unstableKeys`: exp3 0, pre002 0, post002 0, latest 0
 
 | pairs | compared | identical | firstExcerptIdentical |

@@ -6,6 +6,9 @@
 // Exit 1 when any structural check fails: duplicate, missing or extra keys, fewer than two runs per role, a bundle hash
 // that is not the expected one, a log whose bytes differ from its manifest hash, or a capture that differs from its own
 // excerpt-bench row (query string or excerpt ranges). Repetitions that disagree hold their key out of the version comparison.
+// Exit 2 when the structure is sound but an attention item needs review: held keys, excerpt-bench repetitions that differ,
+// or stored rows that are missing, duplicated or differ from the rerun. Differences between versions are results, not
+// attention items.
 //
 // Field rules (fixed before the runs): compared per excerpt in returned order are startLine, endLine, startByte, endByte,
 // completeSpan and the SHA-256 of text; per response the excerpt count, moreMatches (or "absent"), fallbackReason,
@@ -98,6 +101,8 @@ export function analyze({ manifests, expectedBundles, runs, stored = [] }) {
     const meta = run.capture.find((r) => r.kind === "meta");
     if (!(run.role in expectedBundles)) failures.push(`${label}: unknown role`);
     if (!meta || meta.bundleSha256 !== expectedBundles[run.role]) failures.push(`${label}: bundle sha256 ${meta?.bundleSha256} is not ${expectedBundles[run.role]}`);
+    // A capture records its own role and repetition; reusing one file for both repetitions would fake stability.
+    if (meta && (meta.role !== run.role || meta.rep !== run.rep)) failures.push(`${label}: capture meta role/rep is ${meta.role}#${meta.rep} (meta rep mismatch)`);
     const cap = indexRecords(run.capture.filter((r) => r.kind === "query"), expected, `${label} capture`, failures);
     const bench = indexRecords(run.bench, expected, `${label} bench`, failures);
     for (const [k, c] of cap) {
@@ -173,17 +178,28 @@ export function analyze({ manifests, expectedBundles, runs, stored = [] }) {
     const f = [];
     const map = indexRecords(s.rows, expected, `stored ${s.name}`, f);
     const mine = benchByRole[s.role]?.rows ? new Map(benchByRole[s.role].rows.map((r) => [keyOf(r), r])) : new Map();
+    // Every stored field must equal the rerun. Fields only the rerun has (added to excerpt-bench after the stored run) are
+    // listed with counts instead of being counted as differences, so a new field is visible without hiding old rows.
     const differing = [];
+    const rerunOnlyFields = {};
     for (const [k, r] of map) {
       const m = mine.get(k);
       if (!m) continue;
       const fields = Object.keys(r).filter((x) => x !== "layout" && canon(r[x]) !== canon(m[x]));
       if (fields.length) differing.push({ key: k, fields });
+      for (const x of Object.keys(m)) if (x !== "layout" && !(x in r)) rerunOnlyFields[x] = (rerunOnlyFields[x] ?? 0) + 1;
     }
-    storedComparisons[s.name] = { role: s.role, storedRows: s.rows.length, structural: f, comparedFields: "all stored fields except layout", differing,
+    storedComparisons[s.name] = { role: s.role, storedRows: s.rows.length, structural: f, comparedFields: "all stored fields except layout", differing, rerunOnlyFields,
       storedTotals: benchTotals(s.rows), rerunTotals: benchByRole[s.role] ? benchTotals(benchByRole[s.role].rows) : null };
   }
-  return { failures, expectedKeys: expected.length, roles, runtime, unstable, pairs, roleSummaries, storedComparisons };
+  const attention = [];
+  for (const [role, keys] of Object.entries(unstable)) if (keys.length) attention.push(`${role}: ${keys.length} keys held (repetitions disagree)`);
+  for (const [role, b] of Object.entries(benchByRole)) if (!b.repsAgree) attention.push(`${role}: excerpt-bench repetitions differ`);
+  for (const [name, c] of Object.entries(storedComparisons)) {
+    if (c.structural.length) attention.push(`stored ${name}: ${c.structural.join("; ")}`);
+    if (c.differing.length) attention.push(`stored ${name}: ${c.differing.length} rows differ`);
+  }
+  return { failures, attention, expectedKeys: expected.length, roles, runtime, unstable, pairs, roleSummaries, storedComparisons };
 }
 
 // Committed manifests vs regenerated ones: all fields equal except those listed, and every log file matches its hash.
@@ -227,8 +243,8 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   }
   report.manifestCheck = manifestCheck;
   writeFileSync(out, JSON.stringify(report, null, 2) + "\n", { flag: "wx" });
-  const brief = { failures: report.failures, expectedKeys: report.expectedKeys, unstable: Object.fromEntries(Object.entries(report.unstable).map(([k, v]) => [k, v.length])),
+  const brief = { failures: report.failures, attention: report.attention, expectedKeys: report.expectedKeys, unstable: Object.fromEntries(Object.entries(report.unstable).map(([k, v]) => [k, v.length])),
     pairs: Object.fromEntries(Object.entries(report.pairs).map(([k, p]) => [k, { compared: p.compared, held: p.held, identical: p.identical, firstExcerptIdentical: p.firstExcerptIdentical }])) };
   console.log(JSON.stringify(brief, null, 2));
-  process.exitCode = report.failures.length ? 1 : 0;
+  process.exitCode = report.failures.length ? 1 : report.attention.length ? 2 : 0;
 }
