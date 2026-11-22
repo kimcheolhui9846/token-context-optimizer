@@ -1,7 +1,7 @@
 // R08: build the compact committed evidence (results/r08-parity/*.json*) from a scratch folder (no model calls).
 // Usage (from research/): node src/r08-evidence.mjs --scratch <S> --out <new empty dir>
 // Reads the fixed layout of docs/research/r08-research-product-parity.md §5: <S>/runs/*, <S>/parity-report.json,
-// <S>/jpeg/{p612-latest.json,entry.jsonl,jpeg-report.json}. Compare the output with results/r08-parity/ byte for byte.
+// <S>/jpeg/{p612-latest.json,entry.jsonl,jpeg-report.json}. Check the output against results/r08-parity/ with r08-evidence-check.mjs.
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";

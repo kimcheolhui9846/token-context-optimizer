@@ -174,12 +174,17 @@ node src/r08-jpeg-parity.mjs --stored "$S/committed/p612.json" --current "$S/jpe
   --expect-bundle latest=6265b9b4bb650c947a9ec6cd6f83b9215d0e75fd63a5e4b8a0093e6891c76fa8 \
   --expect-bundle exp3=30b76db869c8e53a11cbd87200091e07fe986de89f4c5954b7796894b5376ae4 --dist .. --out "$S/jpeg/jpeg-report.json"
 
-# 6. 커밋된 근거를 다시 만들어 바이트 대조
-node src/r08-evidence.mjs --scratch "$S" --out "$S/evidence"
-for f in excerpt-keys.jsonl excerpt-summary.json jpeg-summary.json; do
-  git show HEAD:research/results/r08-parity/$f | cmp - "$S/evidence/$f" && echo "$f 같음"
-done
+# 6. 커밋된 근거를 다시 만들어 필드 대조. 필수 대조가 하나라도 실패하면 이 명령이 0이 아닌 값으로 끝난다
+node src/r08-evidence.mjs --scratch "$S" --out "$S/evidence" &&
+  node src/r08-evidence-check.mjs --scratch "$S" --fresh "$S/evidence" --rev HEAD
 ```
+
+- 6단계 대조 도우미 `r08-evidence-check.mjs`
+  - 커밋본은 `git show <rev>:`로 읽는다. 파일을 JSON으로 파싱해 비교하므로 작업 사본의 CRLF와 무관하다. `--committed <dir>`로 폴더를 줄 수도 있다.
+  - `excerpt-keys.jsonl`, `excerpt-summary.json`, `jpeg-summary.json`은 필드 전체가 같아야 한다.
+  - 예외는 원시 캡처 해시 8개(`rawSha256["capture-<역할>-<반복>.jsonl"]`)다. 캡처에는 checkout의 절대 경로가 들어 있어 다른 경로에서는 정상 결과도 해시가 다르다. 그래서 이 8개는 커밋값 대신 이번 실행의 `$S/runs/` 실제 파일 해시와 대조한다. 벤치 행 8개와 JPEG 원시 파일 2개의 해시에는 경로가 없어, 다른 필드와 같이 커밋값과 대조한다.
+  - 차이가 있으면 파일별 첫 차이 경로를 출력하고 종료 1로 끝난다. 모두 통과하면 0이다.
+  - 이 대조는 §2·§3의 실행 환경(Node v24.18.0, win32-x64, ko-KR, sharp 0.35.4)을 전제로 한다. 환경이 다르면 실행 메타 필드에서 실패한다.
 
 - `r08-parity-config.mjs`가 쓰는 설정의 내용은 다음과 같다.
   - `sessions`: `out/sessions`
@@ -200,17 +205,27 @@ done
   - 0: 둘 다 없음.
   - 버전 간 차이는 결과이므로 종료 코드에 반영하지 않는다.
 - **새 checkout 재실행(2026-11-22):** 위 코드 블록을 문서에서 그대로 추출해, 커밋 `5942b25cd4174c3bd6307e01029050e894629e91`의 새 detached worktree와 존재하지 않던 scratch에서 실행했다. 명령은 바꾸지 않았고, 0이 아닌 종료를 기록하는 ERR 트랩만 앞에 붙였다.
-  - 0이 아닌 종료는 없었다. 번들 SHA-256 4개는 §1과 같다.
+  - ERR 트랩에 잡힌 0이 아닌 종료는 없었다. 이 기록은 상위 명령의 종료 코드만 뜻한다. 당시 6단계는 `cmp … && echo` 루프였는데, 이 루프는 앞 파일의 `cmp` 실패를 전파하지 않는다. 그래서 위 기록을 각 `cmp`가 성공했다는 뜻으로 읽으면 안 된다. 6단계의 실제 비교 결과는 아래 항목과 같다. 지금의 6단계는 이 문제를 고친 대조 도우미다(아래 "6단계 정정").
+  - 번들 SHA-256 4개는 §1과 같다.
   - 텍스트 비교기와 JPEG 비교기 모두 `failures`·`attention`이 0건이다.
   - 6단계 바이트 대조에서 `excerpt-keys.jsonl`은 직전 커밋본과 같았다. 두 요약 JSON은 다음 차이만 있었다.
     - schema 판올림(v2→v3), 새 필드 `joinedRows` 297 ×4, 진입점 파일 이름(`entry2.jsonl`→`entry.jsonl`, 해시 동일)
     - 원시 캡처 8개의 해시. 캡처에는 checkout의 절대 경로가 들어 있어서다. 벤치 행 8개의 원시 해시는 같았다.
   - 현재 `research/results/r08-parity/`는 이 재실행의 6단계 출력이다.
+- **6단계 정정(2026-11-22, PM 지적):** 옛 `cmp` 루프에는 두 문제가 있었다. 실패를 전파하지 않았고, 다른 경로의 새 checkout에서는 정상 결과도 원시 캡처 해시 때문에 바이트가 달라졌다. 그래서 대조 도우미로 바꿨다. 검산은 모두 임시 복사본에서만 했고, 커밋된 근거와 수치는 바꾸지 않았다.
+  - 위 재실행 scratch와 커밋본(`--rev HEAD`)의 대조: 통과, 종료 0.
+  - 다른 경로 모의: scratch 사본의 캡처 8개에서 checkout 경로 문자열만 바꾸고 근거를 다시 만들었다. 요약 파일에서는 캡처 해시 8줄만 달라졌고, 대조는 통과했다(종료 0).
+  - 첫 파일 변조: `excerpt-keys.jsonl` 첫 행의 `goldLine` 하나를 107→108로 바꿨다. 대조가 실패했다(`$[0].goldLine`, 종료 1).
+  - 중간 요약 변조: `excerpt-summary.json`의 `pairs["exp3→pre002"].identical`을 297→296으로 바꿨다. 대조가 실패했다(종료 1).
+  - 문서에서 꺼낸 6단계 명령을 Git Bash로 scratch 사본 세 개에 실행했다.
+    - 정상 사본: 종료 0.
+    - 캡처 사본에서 첫 키의 `goldLine`을 바꾼 사본: 첫 근거 파일과 그 해시가 달라져 종료 1.
+    - 비교 보고서 사본에서 `exp3→latest` 동일 키 수를 286→285로 바꾼 사본: 요약 대조가 실패해 종료 1.
 - 최초 실행 경위
   - 진입점 수집의 첫 실행에는 거부 코드를 도구 이름(`index_image_artifact`)으로 잘못 뽑는 추출 버그가 있었다. 코드를 고친 뒤 새 출력 경로로 다시 실행했다.
   - 두 실행의 수락·거부·프로필 판정 1,042건은 같았다.
   - 비교기는 교차 검토 지적을 반영해 여러 차례 고쳤다. 현재 커밋된 근거는 새 checkout 재실행에서 다시 만든 것이다.
-- 비교기 오프라인 테스트: `node --test test/r08-excerpt-parity.test.mjs test/r08-jpeg-parity.test.mjs`(research/에서, 29개).
+- 비교기 오프라인 테스트: `node --test test/r08-excerpt-parity.test.mjs test/r08-jpeg-parity.test.mjs test/r08-evidence-check.test.mjs`(research/에서, 37개: 비교기 29, 6단계 대조 8).
 
 ## 6. 한계
 
