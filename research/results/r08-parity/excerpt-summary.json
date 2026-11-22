@@ -1,0 +1,4055 @@
+{
+  "schema": "r08-excerpt-parity/v3",
+  "failures": [],
+  "attention": [],
+  "expectedKeys": 297,
+  "roles": [
+    "exp3",
+    "pre002",
+    "post002",
+    "latest"
+  ],
+  "runtime": {
+    "exp3": [
+      {
+        "rep": 1,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "rep": 2,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      }
+    ],
+    "pre002": [
+      {
+        "rep": 1,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact",
+          "crop_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "rep": 2,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact",
+          "crop_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      }
+    ],
+    "post002": [
+      {
+        "rep": 1,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact",
+          "crop_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "rep": 2,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact",
+          "crop_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      }
+    ],
+    "latest": [
+      {
+        "rep": 1,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact",
+          "crop_image_artifact",
+          "overview_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "rep": 2,
+        "node": "v24.18.0",
+        "platform": "win32-x64",
+        "locale": "ko-KR",
+        "tools": [
+          "estimate_context",
+          "classify_context",
+          "index_artifact",
+          "query_artifact",
+          "summarize_artifact",
+          "index_image_artifact",
+          "inspect_image_artifact",
+          "crop_image_artifact",
+          "overview_image_artifact"
+        ],
+        "serverInfo": {
+          "name": "token-context-optimizer",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "unstableKeys": {
+    "exp3": 0,
+    "pre002": 0,
+    "post002": 0,
+    "latest": 0
+  },
+  "manifestCheck": {
+    "heldout": {
+      "generatedSha256": "b88f64e3df671fff20a8562f7fbe1ba929b94f56d842e452b72d0cfb979d5da2",
+      "fieldDiffs": [],
+      "logsMatch": 24,
+      "logs": 24
+    },
+    "calibration": {
+      "generatedSha256": "fdef71b74de6df0a364ece2adfbda8a34eab4b043c08082acc7334d1a76f183c",
+      "fieldDiffs": [
+        {
+          "id": "calibration-ui-debugging-1",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "calibration-ui-debugging-2",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "calibration-document-review-1",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "calibration-document-review-2",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "calibration-report-check-1",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "calibration-report-check-2",
+          "fields": [
+            "layout"
+          ]
+        }
+      ],
+      "logsMatch": 6,
+      "logs": 6
+    },
+    "dev": {
+      "generatedSha256": "b3230dc686d7cd20711bdb71afd09f3cb5d13437b2bbc56296e554a28dfe0d95",
+      "fieldDiffs": [
+        {
+          "id": "dev-ui-debugging-1",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "dev-document-review-1",
+          "fields": [
+            "layout"
+          ]
+        },
+        {
+          "id": "dev-report-check-1",
+          "fields": [
+            "layout"
+          ]
+        }
+      ],
+      "logsMatch": 3,
+      "logs": 3
+    }
+  },
+  "pairs": {
+    "exp3→pre002": {
+      "compared": 297,
+      "held": 0,
+      "identical": 297,
+      "firstExcerptIdentical": 297,
+      "differences": []
+    },
+    "pre002→post002": {
+      "compared": 297,
+      "held": 0,
+      "identical": 286,
+      "firstExcerptIdentical": 297,
+      "differences": [
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                106,
+                108
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                106,
+                108
+              ],
+              [
+                129,
+                131
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                60,
+                62
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                60,
+                62
+              ],
+              [
+                124,
+                126
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                48,
+                50
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                48,
+                50
+              ],
+              [
+                124,
+                126
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                33,
+                35
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                33,
+                35
+              ],
+              [
+                135,
+                137
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                72,
+                74
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                72,
+                74
+              ],
+              [
+                125,
+                127
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                47,
+                49
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                47,
+                49
+              ],
+              [
+                100,
+                102
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                40,
+                42
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                40,
+                42
+              ],
+              [
+                121,
+                123
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                27,
+                29
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                27,
+                29
+              ],
+              [
+                34,
+                36
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                34,
+                36
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                34,
+                36
+              ],
+              [
+                126,
+                128
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                30,
+                32
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                30,
+                32
+              ],
+              [
+                114,
+                116
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                56,
+                58
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                56,
+                58
+              ],
+              [
+                129,
+                131
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        }
+      ]
+    },
+    "post002→latest": {
+      "compared": 297,
+      "held": 0,
+      "identical": 297,
+      "firstExcerptIdentical": 297,
+      "differences": []
+    },
+    "exp3→latest": {
+      "compared": 297,
+      "held": 0,
+      "identical": 286,
+      "firstExcerptIdentical": 297,
+      "differences": [
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                106,
+                108
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                106,
+                108
+              ],
+              [
+                129,
+                131
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                60,
+                62
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                60,
+                62
+              ],
+              [
+                124,
+                126
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                48,
+                50
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                48,
+                50
+              ],
+              [
+                124,
+                126
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                33,
+                35
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                33,
+                35
+              ],
+              [
+                135,
+                137
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                72,
+                74
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                72,
+                74
+              ],
+              [
+                125,
+                127
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                47,
+                49
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                47,
+                49
+              ],
+              [
+                100,
+                102
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                40,
+                42
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                40,
+                42
+              ],
+              [
+                121,
+                123
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                27,
+                29
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                27,
+                29
+              ],
+              [
+                34,
+                36
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                34,
+                36
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                34,
+                36
+              ],
+              [
+                126,
+                128
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                30,
+                32
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                30,
+                32
+              ],
+              [
+                114,
+                116
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                56,
+                58
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                56,
+                58
+              ],
+              [
+                129,
+                131
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        }
+      ]
+    },
+    "pre002→latest": {
+      "compared": 297,
+      "held": 0,
+      "identical": 286,
+      "firstExcerptIdentical": 297,
+      "differences": [
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                106,
+                108
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                106,
+                108
+              ],
+              [
+                129,
+                131
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                60,
+                62
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                60,
+                62
+              ],
+              [
+                124,
+                126
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                48,
+                50
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                48,
+                50
+              ],
+              [
+                124,
+                126
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                33,
+                35
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                33,
+                35
+              ],
+              [
+                135,
+                137
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                72,
+                74
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                72,
+                74
+              ],
+              [
+                125,
+                127
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                47,
+                49
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                47,
+                49
+              ],
+              [
+                100,
+                102
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                40,
+                42
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                40,
+                42
+              ],
+              [
+                121,
+                123
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                27,
+                29
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                27,
+                29
+              ],
+              [
+                34,
+                36
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                34,
+                36
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                34,
+                36
+              ],
+              [
+                126,
+                128
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                30,
+                32
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                30,
+                32
+              ],
+              [
+                114,
+                116
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "fields": [
+            "count",
+            "excerpts",
+            "estimatedTokens"
+          ],
+          "from": {
+            "count": 1,
+            "ranges": [
+              [
+                56,
+                58
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          },
+          "to": {
+            "count": 2,
+            "ranges": [
+              [
+                56,
+                58
+              ],
+              [
+                129,
+                131
+              ]
+            ],
+            "moreMatches": "absent",
+            "fields": [
+              "artifactId",
+              "confidence",
+              "estimatedTokens",
+              "excerpts",
+              "fallbackReason",
+              "sha256",
+              "warnings"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "roleSummaries": {
+    "exp3": {
+      "benchRepsAgree": true,
+      "rows": 297,
+      "applicable": 231,
+      "errors": 0,
+      "multiExcerptResponses": 0,
+      "maxExcerpts": 1,
+      "moreMatchesPresent": 0,
+      "moreMatchesAbsentField": 231,
+      "fallbacks": 0,
+      "replicaDisagreements": 0,
+      "ties": [
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        }
+      ],
+      "goldNotTop": [],
+      "totals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 5,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 20,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "totalsByType": {
+        "calibration/entity/immediate-log": {
+          "n": 4,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/entity/late-log": {
+          "n": 2,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity/immediate-log": {
+          "n": 2,
+          "hit": 1,
+          "hitAny": 1,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/entity/late-log": {
+          "n": 1,
+          "hit": 1,
+          "hitAny": 1,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity/immediate-log": {
+          "n": 16,
+          "hit": 12,
+          "hitAny": 12,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/entity/late-log": {
+          "n": 8,
+          "hit": 8,
+          "hitAny": 8,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    },
+    "pre002": {
+      "benchRepsAgree": true,
+      "rows": 297,
+      "applicable": 231,
+      "errors": 0,
+      "multiExcerptResponses": 0,
+      "maxExcerpts": 1,
+      "moreMatchesPresent": 0,
+      "moreMatchesAbsentField": 231,
+      "fallbacks": 0,
+      "replicaDisagreements": 0,
+      "ties": [
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": false
+        }
+      ],
+      "goldNotTop": [],
+      "totals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 5,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 20,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "totalsByType": {
+        "calibration/entity/immediate-log": {
+          "n": 4,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/entity/late-log": {
+          "n": 2,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity/immediate-log": {
+          "n": 2,
+          "hit": 1,
+          "hitAny": 1,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/entity/late-log": {
+          "n": 1,
+          "hit": 1,
+          "hitAny": 1,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity/immediate-log": {
+          "n": 16,
+          "hit": 12,
+          "hitAny": 12,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/entity/late-log": {
+          "n": 8,
+          "hit": 8,
+          "hitAny": 8,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    },
+    "post002": {
+      "benchRepsAgree": true,
+      "rows": 297,
+      "applicable": 231,
+      "errors": 0,
+      "multiExcerptResponses": 11,
+      "maxExcerpts": 2,
+      "moreMatchesPresent": 0,
+      "moreMatchesAbsentField": 231,
+      "fallbacks": 0,
+      "replicaDisagreements": 0,
+      "ties": [
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        }
+      ],
+      "goldNotTop": [],
+      "totals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 6,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 3,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 24,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "totalsByType": {
+        "calibration/entity/immediate-log": {
+          "n": 4,
+          "hit": 3,
+          "hitAny": 4,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/entity/late-log": {
+          "n": 2,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity/immediate-log": {
+          "n": 2,
+          "hit": 1,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/entity/late-log": {
+          "n": 1,
+          "hit": 1,
+          "hitAny": 1,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity/immediate-log": {
+          "n": 16,
+          "hit": 12,
+          "hitAny": 16,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/entity/late-log": {
+          "n": 8,
+          "hit": 8,
+          "hitAny": 8,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    },
+    "latest": {
+      "benchRepsAgree": true,
+      "rows": 297,
+      "applicable": 231,
+      "errors": 0,
+      "multiExcerptResponses": 11,
+      "maxExcerpts": 2,
+      "moreMatchesPresent": 0,
+      "moreMatchesAbsentField": 231,
+      "fallbacks": 0,
+      "replicaDisagreements": 0,
+      "ties": [
+        {
+          "key": "heldout/heldout-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-3/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-4/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-5-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-6-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-7-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "heldout/heldout-document-review-8-v2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "calibration/calibration-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": true,
+          "anyCovers": true
+        },
+        {
+          "key": "calibration/calibration-document-review-2/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        },
+        {
+          "key": "dev/dev-document-review-1/2/entity",
+          "tieCount": 2,
+          "goldAmongTies": true,
+          "firstCovers": false,
+          "anyCovers": true
+        }
+      ],
+      "goldNotTop": [],
+      "totals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 6,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 3,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 24,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "totalsByType": {
+        "calibration/entity/immediate-log": {
+          "n": 4,
+          "hit": 3,
+          "hitAny": 4,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/entity/late-log": {
+          "n": 2,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/full/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/cross": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/immediate-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords/late-log": {
+          "n": 6,
+          "hit": 6,
+          "hitAny": 6,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity/immediate-log": {
+          "n": 2,
+          "hit": 1,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/entity/late-log": {
+          "n": 1,
+          "hit": 1,
+          "hitAny": 1,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/full/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/cross": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/immediate-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords/late-log": {
+          "n": 3,
+          "hit": 3,
+          "hitAny": 3,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity/immediate-log": {
+          "n": 16,
+          "hit": 12,
+          "hitAny": 16,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/entity/late-log": {
+          "n": 8,
+          "hit": 8,
+          "hitAny": 8,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/full/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/cross": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/immediate-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords/late-log": {
+          "n": 24,
+          "hit": 24,
+          "hitAny": 24,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    }
+  },
+  "storedComparisons": {
+    "excerpt-bench-001 vs exp3": {
+      "role": "exp3",
+      "storedRows": 297,
+      "joinedRows": 297,
+      "structural": [],
+      "comparedFields": "all stored fields except layout",
+      "differingRows": 0,
+      "rerunOnlyFields": {
+        "excerptRanges": 231,
+        "moreMatches": 231,
+        "anyCovered": 231,
+        "anyAnswer": 231
+      },
+      "storedTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 5,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 20,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "rerunTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 5,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 20,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    },
+    "excerpt-bench-001 vs pre002": {
+      "role": "pre002",
+      "storedRows": 297,
+      "joinedRows": 297,
+      "structural": [],
+      "comparedFields": "all stored fields except layout",
+      "differingRows": 0,
+      "rerunOnlyFields": {
+        "excerptRanges": 231,
+        "moreMatches": 231,
+        "anyCovered": 231,
+        "anyAnswer": 231
+      },
+      "storedTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 5,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 20,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "rerunTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 5,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 2,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 20,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    },
+    "excerpt-bench-002 vs post002": {
+      "role": "post002",
+      "storedRows": 297,
+      "joinedRows": 297,
+      "structural": [],
+      "comparedFields": "all stored fields except layout",
+      "differingRows": 0,
+      "rerunOnlyFields": {},
+      "storedTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 6,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 3,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 24,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "rerunTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 6,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 3,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 24,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    },
+    "excerpt-bench-002 vs latest": {
+      "role": "latest",
+      "storedRows": 297,
+      "joinedRows": 297,
+      "structural": [],
+      "comparedFields": "all stored fields except layout",
+      "differingRows": 0,
+      "rerunOnlyFields": {},
+      "storedTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 6,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 3,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 24,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      },
+      "rerunTotals": {
+        "calibration/entity": {
+          "n": 6,
+          "hit": 5,
+          "hitAny": 6,
+          "tie": 2,
+          "lost": 1,
+          "notTop": 0
+        },
+        "calibration/full": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "calibration/keywords": {
+          "n": 18,
+          "hit": 18,
+          "hitAny": 18,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/entity": {
+          "n": 3,
+          "hit": 2,
+          "hitAny": 3,
+          "tie": 1,
+          "lost": 1,
+          "notTop": 0
+        },
+        "dev/full": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "dev/keywords": {
+          "n": 9,
+          "hit": 9,
+          "hitAny": 9,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/entity": {
+          "n": 24,
+          "hit": 20,
+          "hitAny": 24,
+          "tie": 8,
+          "lost": 4,
+          "notTop": 0
+        },
+        "heldout/full": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        },
+        "heldout/keywords": {
+          "n": 72,
+          "hit": 72,
+          "hitAny": 72,
+          "tie": 0,
+          "lost": 0,
+          "notTop": 0
+        }
+      }
+    }
+  },
+  "rawSha256": {
+    "capture-exp3-1.jsonl": "094f154351a8f79634936fe5ee4f66ff5326d6aca3a68b840edf31a7e15dd585",
+    "bench-exp3-1/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
+    "capture-exp3-2.jsonl": "56c10b0ca2e0b39901d8e31402db4fbdd85699ac4b3a4932f0faa5d1d74e5f29",
+    "bench-exp3-2/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
+    "capture-pre002-1.jsonl": "96f7f27c17b017347f17feda7ca87ce5a5d8c438498b915a8cf3d1d91fd16231",
+    "bench-pre002-1/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
+    "capture-pre002-2.jsonl": "d05c2185a4ad9df603b76f3a0cc48aed5ca4cd5aa07b9050b50af2118594c070",
+    "bench-pre002-2/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
+    "capture-post002-1.jsonl": "e5b74dc175864f452e3518d7d185c17106169078c04529c1b6881ef6696347e3",
+    "bench-post002-1/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852",
+    "capture-post002-2.jsonl": "37c0b6cba2bc4fce811d3c6174c406e9f36641a9538a7ab8a9463a84470910e6",
+    "bench-post002-2/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852",
+    "capture-latest-1.jsonl": "7f36ab6ab7bd331387b80047ee19b82969387bf60774cf87d04a981f701f1dd7",
+    "bench-latest-1/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852",
+    "capture-latest-2.jsonl": "68a809241325ba424c76a85eed9f51a31cfdf127cf8d17c4d03bc832e3dcebfd",
+    "bench-latest-2/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852"
+  },
+  "excerptKeysSha256": "fec0727b51acc4fe6cbc6e3d446dd3999dc1b9ea85a23e123e1ac1a96df9a712"
+}

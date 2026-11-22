@@ -1,0 +1,972 @@
+{
+  "schema": "r08-jpeg-parity/v3",
+  "failures": [],
+  "attention": [],
+  "expectedBundles": {
+    "latest": "6265b9b4bb650c947a9ec6cd6f83b9215d0e75fd63a5e4b8a0093e6891c76fa8",
+    "exp3": "30b76db869c8e53a11cbd87200091e07fe986de89f4c5954b7796894b5376ae4"
+  },
+  "fixtureFileCount": 63,
+  "probe": {
+    "failures": [],
+    "stored": 458,
+    "current": 458,
+    "compared": 458,
+    "reproducedBoth": 458,
+    "identical": 458,
+    "fieldDiffs": {},
+    "storedValidatorSha256": "78e5b1a9f1c6312c545e11e738249514f03674acc5356b15f1c219b86d1d8d9e",
+    "currentValidatorSha256": "6f3cd2f08fce123b5a60535e756beb67561887183b751d294015377060ad80b4",
+    "runtime": {
+      "stored": [
+        "v24.18.0",
+        "0.35.4",
+        "8.18.6"
+      ],
+      "current": [
+        "v24.18.0",
+        "0.35.4",
+        "8.18.6"
+      ]
+    },
+    "slotsSha256": [
+      "a4d643d80b867c519aab86461fc5368768dd70282cd53d7e0f6ef3b4180167ad",
+      "a4d643d80b867c519aab86461fc5368768dd70282cd53d7e0f6ef3b4180167ad"
+    ],
+    "jpegSlots": [
+      648,
+      648
+    ],
+    "uniqueJpegFiles": [
+      458,
+      458
+    ],
+    "strict": [
+      {
+        "reject:unsupported_jpeg_profile": 458
+      },
+      {
+        "reject:unsupported_jpeg_profile": 458
+      }
+    ],
+    "tolerant": [
+      {
+        "pass:baseline:1x1,1x1,1x1:ignored=none": 458
+      },
+      {
+        "pass:baseline:1x1,1x1,1x1:ignored=none": 458
+      }
+    ],
+    "strictWithInsertedApp0": [
+      {
+        "pass": 458
+      },
+      {
+        "pass": 458
+      }
+    ]
+  },
+  "entry": {
+    "failures": [],
+    "role": "latest",
+    "denominator": 458,
+    "calls": 458,
+    "agree": {
+      "default": 458,
+      "tolerant": 458,
+      "app0Default": 458
+    },
+    "outcomes": {
+      "default=unsupported_jpeg_profile tolerant=pass(jpeg-ycbcr8-tolerant-v1) app0Default=pass(jpeg-ycbcr8-baseline-444-v1)": 458
+    },
+    "disagreements": []
+  },
+  "otherRoles": [
+    {
+      "failures": [],
+      "role": "exp3",
+      "denominator": 458,
+      "calls": 458,
+      "agree": {
+        "default": 458,
+        "tolerant": 0,
+        "app0Default": 458
+      },
+      "outcomes": {
+        "default=unsupported_jpeg_profile tolerant=unsupported_jpeg_profile app0Default=pass(jpeg-ycbcr8-baseline-444-v1)": 458
+      },
+      "disagreementCount": 458
+    }
+  ],
+  "rq1SettingsOnly": {
+    "note": "RQ1 originals were not kept; settings re-created, excluded from every experiment 2 denominator",
+    "stored": {
+      "strict": {
+        "reject:unsupported_jpeg_profile": 7
+      },
+      "tolerant": {
+        "pass:baseline:2x2,1x1,1x1:ignored=none": 7
+      },
+      "strictWithInsertedApp0": {
+        "unsupported_jpeg_profile": 7
+      }
+    },
+    "current": {
+      "strict": {
+        "reject:unsupported_jpeg_profile": 7
+      },
+      "tolerant": {
+        "pass:baseline:2x2,1x1,1x1:ignored=none": 7
+      },
+      "strictWithInsertedApp0": {
+        "unsupported_jpeg_profile": 7
+      }
+    },
+    "rowsIdentical": true
+  },
+  "fixtures": {
+    "role": "latest",
+    "fixtures": 63,
+    "agreeDefault": 63,
+    "agreeTolerant": 63,
+    "disagreements": [],
+    "outcomes": {
+      "jpeg: default=pass tolerant=pass": 3,
+      "jpeg-tolerant: default=unsupported_jpeg_profile tolerant=unsupported_jpeg_profile": 12,
+      "jpeg-tolerant: default=unsupported_jpeg_profile tolerant=pass": 29,
+      "jpeg-tolerant: default=unsupported_jpeg_profile tolerant=malformed_jpeg": 10,
+      "jpeg-tolerant: default=pass tolerant=pass": 3,
+      "jpeg-tolerant: default=malformed_jpeg tolerant=malformed_jpeg": 2,
+      "jpeg-tolerant: default=malformed_jpeg tolerant=pass": 2,
+      "jpeg-tolerant: default=unsupported_jpeg_profile tolerant=jpeg_resource_limit": 1,
+      "jpeg-tolerant: default=malformed_jpeg tolerant=unsupported_jpeg_profile": 1
+    }
+  },
+  "meta": {
+    "kind": "meta",
+    "node": "v24.18.0",
+    "platform": "win32-x64",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "slotsSha256": "a4d643d80b867c519aab86461fc5368768dd70282cd53d7e0f6ef3b4180167ad",
+    "jpegSlots": 648,
+    "uniqueJpeg": 458,
+    "matched": 458,
+    "requery": {
+      "gpt4o": {
+        "requeried": 11,
+        "withFile": 11,
+        "jpegEvents": 5,
+        "jpegInMatchedSet": 5
+      },
+      "haiku": {
+        "requeried": 16,
+        "withFile": 16,
+        "jpegEvents": 8,
+        "jpegInMatchedSet": 8
+      }
+    },
+    "bundles": [
+      {
+        "role": "latest",
+        "sha256": "6265b9b4bb650c947a9ec6cd6f83b9215d0e75fd63a5e4b8a0093e6891c76fa8"
+      },
+      {
+        "role": "exp3",
+        "sha256": "30b76db869c8e53a11cbd87200091e07fe986de89f4c5954b7796894b5376ae4"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "kind": "tools",
+      "role": "latest",
+      "tools": [
+        "estimate_context",
+        "classify_context",
+        "index_artifact",
+        "query_artifact",
+        "summarize_artifact",
+        "index_image_artifact",
+        "inspect_image_artifact",
+        "crop_image_artifact",
+        "overview_image_artifact"
+      ]
+    },
+    {
+      "kind": "tools",
+      "role": "exp3",
+      "tools": [
+        "estimate_context",
+        "classify_context",
+        "index_artifact",
+        "query_artifact",
+        "summarize_artifact",
+        "index_image_artifact",
+        "inspect_image_artifact"
+      ]
+    }
+  ],
+  "rawSha256": {
+    "p612-latest.json": "8caf37e9685d7897f76efe255e404748020fbc9f495e67db71cc4d34654dac3a",
+    "entry.jsonl": "1a3b91b38b0ea306c3f6aa427cf2a6771ff0f26c709b1ba5221862413f485683"
+  },
+  "fixtureCalls": [
+    [
+      "latest",
+      "jpeg/checkedin-1x1.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg/checkedin-multimcu-17x17.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg/checkedin-odd-17x9.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/adobe-short.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/adobe-transform0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/adobe-transform1.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/adobe-transform2.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/app0-invalid.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/dri-bad-length.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-bad-byteorder.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-bad-magic.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-count2.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-first-valid-wins.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-ifd-count-overflow.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-ifd-outside-app1.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-ii-orient6.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-mm-orient6.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-truncated-entry.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-type-long.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-value0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/exif-value9.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/fill-before-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-420-17x9-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-420-32x16-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-420-32x16-noapp0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-422h-32x16-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-422v-16x32-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-444-16x8-app0.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-444-17x9-app0.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-dht-between-scans-444-16x16.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-dht-undefined-ref.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-dqt-postsof-referenced.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-dqt-postsof-unused.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-dqt-presof-redefine.jpg",
+      "reject:malformed_jpeg",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-restart-420-80x32-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-restart-multiscan-444-40x16-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-sof1-32x16.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/hc-tables-id23-16x8-app0.jpg",
+      "reject:malformed_jpeg",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/metadata-mixed.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/missing-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/repeats-no-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/repeats-with-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/rst-dri-zero.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/rst-outside-scan.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/rst-scan-continued.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/rst-without-dri.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/rst-wrong-order.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/scan-bit-flip.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/sharp-baseline-420-50x34.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/sharp-progressive-420-50x34-sos64.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/sharp-progressive-420-50x34-sos65.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:jpeg_resource_limit"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/sharp-progressive-420-50x34.jpg",
+      "reject:unsupported_jpeg_profile",
+      "pass:jpeg-ycbcr8-tolerant-v1"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/trailing-after-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/trunc-scan-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-chroma-21-32x16.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-cmyk-adobe0-16x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-dqt16-16x8.jpg",
+      "reject:malformed_jpeg",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-grayscale-16x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-ids-012-16x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-precision12.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-sof3-lossless.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-sof9-arithmetic.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "latest",
+      "jpeg-tolerant/unsup-y41-32x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg/checkedin-1x1.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-baseline-444-v1"
+    ],
+    [
+      "exp3",
+      "jpeg/checkedin-multimcu-17x17.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-baseline-444-v1"
+    ],
+    [
+      "exp3",
+      "jpeg/checkedin-odd-17x9.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-baseline-444-v1"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/adobe-short.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/adobe-transform0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/adobe-transform1.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/adobe-transform2.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/app0-invalid.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/dri-bad-length.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-bad-byteorder.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-bad-magic.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-count2.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-first-valid-wins.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-ifd-count-overflow.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-ifd-outside-app1.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-ii-orient6.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-mm-orient6.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-truncated-entry.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-type-long.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-value0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/exif-value9.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/fill-before-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-420-17x9-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-420-32x16-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-420-32x16-noapp0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-422h-32x16-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-422v-16x32-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-444-16x8-app0.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-baseline-444-v1"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-444-17x9-app0.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-baseline-444-v1"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-dht-between-scans-444-16x16.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-dht-undefined-ref.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-dqt-postsof-referenced.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-dqt-postsof-unused.jpg",
+      "pass:jpeg-ycbcr8-baseline-444-v1",
+      "pass:jpeg-ycbcr8-baseline-444-v1"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-dqt-presof-redefine.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-restart-420-80x32-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-restart-multiscan-444-40x16-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-sof1-32x16.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/hc-tables-id23-16x8-app0.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/metadata-mixed.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/missing-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/repeats-no-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/repeats-with-app0.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/rst-dri-zero.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/rst-outside-scan.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/rst-scan-continued.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/rst-without-dri.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/rst-wrong-order.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/scan-bit-flip.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/sharp-baseline-420-50x34.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/sharp-progressive-420-50x34-sos64.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/sharp-progressive-420-50x34-sos65.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/sharp-progressive-420-50x34.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/trailing-after-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/trunc-scan-eoi.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-chroma-21-32x16.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-cmyk-adobe0-16x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-dqt16-16x8.jpg",
+      "reject:malformed_jpeg",
+      "reject:malformed_jpeg"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-grayscale-16x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-ids-012-16x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-precision12.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-sof3-lossless.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-sof9-arithmetic.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ],
+    [
+      "exp3",
+      "jpeg-tolerant/unsup-y41-32x8.jpg",
+      "reject:unsupported_jpeg_profile",
+      "reject:unsupported_jpeg_profile"
+    ]
+  ]
+}
