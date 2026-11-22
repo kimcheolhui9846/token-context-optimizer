@@ -1,9 +1,12 @@
 // R08: offline comparison of query_artifact across plugin bundles on the experiment 3 log questions (no model calls).
 // Inputs are the raw captures of src/r08-excerpt-capture.mjs and the rows.jsonl of src/excerpt-bench.mjs for the same run.
 // Usage: node src/r08-excerpt-parity.mjs --config <config.json> --out <report.json>
-//   config: { sessions: <dir>, committedManifests: { split: path }, expectedBundles: { role: sha256 } (in version order),
+//   config (written by src/r08-parity-config.mjs): { sessions: <dir>, committedManifests: { split: path },
+//             expectedBundles: { role: sha256 } (in version order), reps: [1, 2],
 //             runs: [{ role, rep, capture: <jsonl>, bench: <rows.jsonl> }], stored: [{ name, rows: <jsonl>, role }] }
-// Exit 1 when any structural check fails: duplicate, missing or extra keys, fewer than two runs per role, a bundle hash
+// Exit 1 when any structural check fails: duplicate, missing or extra keys, repetition IDs per role that are not exactly
+// the planned ones (config reps, default [1, 2]), a capture whose meta role/rep differs from its run, a stored comparison
+// whose role has no rerun or whose rows do not all join (joinedRows is the denominator), a bundle hash
 // that is not the expected one, a log whose bytes differ from its manifest hash, or a capture that differs from its own
 // excerpt-bench row (query string or excerpt ranges). Repetitions that disagree hold their key out of the version comparison.
 // Exit 2 when the structure is sound but an attention item needs review: held keys, excerpt-bench repetitions that differ,
@@ -89,7 +92,8 @@ export function benchTotals(rows) {
   return Object.fromEntries(Object.entries(t).sort(([a], [b]) => a.localeCompare(b)));
 }
 
-export function analyze({ manifests, expectedBundles, runs, stored = [] }) {
+// reps: the planned repetition IDs per role (the R08 plan runs every bundle twice, IDs 1 and 2).
+export function analyze({ manifests, expectedBundles, runs, stored = [], reps = [1, 2] }) {
   const failures = [];
   const expected = expectedKeySet(manifests);
   const manifestLog = new Map();
@@ -123,7 +127,9 @@ export function analyze({ manifests, expectedBundles, runs, stored = [] }) {
   const runtime = {};
   for (const role of roles) {
     const rs = perRun.filter((p) => p.run.role === role).sort((a, b) => a.run.rep - b.run.rep);
-    if (rs.length < 2) { failures.push(`${role}: ${rs.length} runs, need 2 runs`); continue; }
+    // Repetition IDs must be exactly the planned ones; the same capture offered twice under one ID would fake stability.
+    const ids = rs.map((p) => p.run.rep);
+    if (canon(ids) !== canon([...reps].sort((a, b) => a - b))) { failures.push(`${role}: repetition IDs ${canon(ids)} are not the planned ${canon(reps)} (${rs.length} runs, need ${reps.length} runs)`); continue; }
     runtime[role] = rs.map((p) => ({ rep: p.run.rep, node: p.meta?.node, platform: p.meta?.platform, locale: p.meta?.locale, tools: p.meta?.tools, serverInfo: p.meta?.serverInfo }));
     norm[role] = new Map();
     unstable[role] = [];
@@ -177,6 +183,7 @@ export function analyze({ manifests, expectedBundles, runs, stored = [] }) {
   for (const s of stored) {
     const f = [];
     const map = indexRecords(s.rows, expected, `stored ${s.name}`, f);
+    if (!(s.role in expectedBundles) || !benchByRole[s.role]) failures.push(`stored ${s.name}: role ${s.role} has no rerun rows to compare`);
     const mine = benchByRole[s.role]?.rows ? new Map(benchByRole[s.role].rows.map((r) => [keyOf(r), r])) : new Map();
     // Every stored field must equal the rerun. Fields only the rerun has (added to excerpt-bench after the stored run) are
     // listed with counts instead of being counted as differences, so a new field is visible without hiding old rows.
@@ -189,7 +196,10 @@ export function analyze({ manifests, expectedBundles, runs, stored = [] }) {
       if (fields.length) differing.push({ key: k, fields });
       for (const x of Object.keys(m)) if (x !== "layout" && !(x in r)) rerunOnlyFields[x] = (rerunOnlyFields[x] ?? 0) + 1;
     }
-    storedComparisons[s.name] = { role: s.role, storedRows: s.rows.length, structural: f, comparedFields: "all stored fields except layout", differing, rerunOnlyFields,
+    // The denominator is the rows actually joined; every stored row must find its rerun row.
+    const joinedRows = [...map.keys()].filter((k) => mine.has(k)).length;
+    if (joinedRows !== s.rows.length) failures.push(`stored ${s.name}: joined ${joinedRows} of ${s.rows.length} stored rows`);
+    storedComparisons[s.name] = { role: s.role, storedRows: s.rows.length, joinedRows, structural: f, comparedFields: "all stored fields except layout", differing, rerunOnlyFields,
       storedTotals: benchTotals(s.rows), rerunTotals: benchByRole[s.role] ? benchTotals(benchByRole[s.role].rows) : null };
   }
   const attention = [];
@@ -236,7 +246,7 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   }
   const runs = config.runs.map((r) => ({ role: r.role, rep: r.rep, capture: readJsonl(resolve(r.capture)), bench: readJsonl(resolve(r.bench)) }));
   const stored = (config.stored ?? []).map((s) => ({ name: s.name, role: s.role, rows: readJsonl(resolve(s.rows)) }));
-  const report = analyze({ manifests, expectedBundles: config.expectedBundles, runs, stored });
+  const report = analyze({ manifests, expectedBundles: config.expectedBundles, runs, stored, reps: config.reps ?? [1, 2] });
   for (const [split, m] of Object.entries(manifestCheck)) {
     if (m.logsMatch !== m.logs) report.failures.push(`${split}: ${m.logs - m.logsMatch} log files do not match the manifest`);
     for (const d of m.fieldDiffs) if (d.missing || d.countGenerated !== undefined || (d.fields ?? []).some((f) => f !== "layout")) report.failures.push(`${split}: manifest differs beyond layout ${JSON.stringify(d)}`);

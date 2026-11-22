@@ -9,10 +9,10 @@
 
 | 관측(연구 시점) | 최신 제품에서의 결과 | 판정 |
 |---|---|---|
-| 실험 3 실행 번들의 `query_artifact`가 고정 규칙 질의 231개에 돌려준 첫 발췌 | 231개 모두 첫 발췌의 구간·바이트·본문 해시가 같다(질의 없는 66키 포함 297/297) | **일치** |
+| 실험 3 실행 번들의 `query_artifact`가 고정 규칙 질의 231개에 돌려준 첫 발췌 | **231/231** 첫 발췌의 구간·바이트·본문 해시가 같다(질의를 보내지 않은 비해당 66키를 포함하면 297/297) | **일치** |
 | 동점이 없는 질의의 응답 전체(220개 + 해당 없음 66개) | 286키 응답이 정규화 해시까지 같다 | **일치** |
 | entity 질의의 최고점 동점 11건: 실험 3 번들은 첫 동점 줄 발췌 1개만 반환 | 같은 첫 발췌 + 두 번째 동점 발췌 1개(발췌 2개) | **차이**(의도된 Task 39 변경) |
-| excerpt-bench-002 저장 행 297개 | 최신 번들 재실행과 저장된 모든 필드가 같다 | **일치** |
+| excerpt-bench-002 저장 행 297개 | 최신 번들 재실행과 `layout`을 뺀 저장 필드가 모두 같다(297/297 조인) | **일치** |
 | 실험 2 연구 경로가 보낸 JPEG 고유 458개(슬롯 648) | 기본 strict 458/458 거부 `unsupported_jpeg_profile`, tolerant opt-in 458/458 통과 | **차이**(기본 경로에서는 그대로 받지 않음) |
 | 같은 458개에 JFIF APP0만 삽입한 대조 | 기본 strict 458/458 통과 | 거부 원인이 APP0 부재로 한정됨 |
 | RQ1 JPEG 7개 설정(원본 미보존) | 재생성 설정 기준 strict 7/7 거부, tolerant 7/7 통과(4:2:0), APP0 삽입도 거부 | 설정 대조만. **보낸 바이트는 미측정** |
@@ -59,13 +59,15 @@
 
 비교기 `node src/r08-excerpt-parity.mjs`의 종료 코드는 0이다. 구조 실패 0(중복·누락·초과 키 0, 번들 해시 불일치 0, 로그 해시 불일치 0, 수집–벤치 불일치 0), 검토 필요 항목 0(보류 키 0, 벤치 반복 차이 0, 저장 행 불일치 0)이다. 두 반복의 키별 정규화 해시는 네 역할 모두 297/297 같았다(보류 키 0). 이 일치는 위 환경과 이 두 번의 실행에 한정한다.
 
-| 비교 | 비교 키 | 응답 전체 동일 | 첫 발췌 동일 |
-|---|---:|---:|---:|
-| exp3 → pre002 | 297 | 297 | 297 |
-| pre002 → post002 | 297 | 286 | 297 |
-| post002 → latest | 297 | 297 | 297 |
-| exp3 → latest | 297 | 286 | 297 |
-| pre002 → latest | 297 | 286 | 297 |
+| 비교 | 실제 질의 키 | 응답 전체 동일 | 첫 발췌 동일 | 비해당 키 포함(297) 전체 / 첫 발췌 |
+|---|---:|---:|---:|---:|
+| exp3 → pre002 | 231 | 231 | 231 | 297 / 297 |
+| pre002 → post002 | 231 | 220 | 231 | 286 / 297 |
+| post002 → latest | 231 | 231 | 231 | 297 / 297 |
+| exp3 → latest | 231 | 220 | 231 | 286 / 297 |
+| pre002 → latest | 231 | 220 | 231 | 286 / 297 |
+
+비해당 66키는 entity 규칙에 숫자 단어가 없어 질의를 보내지 않은 키이며, 모든 역할에서 `applicable: false`로 같다.
 
 - 다른 11키는 모두 `document-review` 세션 turn 2의 entity 질의다(held-out 8, calibration 2, dev 1). 바뀐 필드는 발췌 수, 발췌 목록, estimatedTokens 세 가지다. 첫 발췌는 같고 두 번째 동점 발췌가 추가된다. 예: `heldout/heldout-document-review-1/2/entity`는 [33–35]에서 [33–35], [135–137]로 바뀐다. moreMatches는 네 버전 모두 0건이다. exp3·pre002는 이 필드를 지원하지 않고, post002·latest는 생략된 동점이 없어 내지 않았다.
 
@@ -79,8 +81,8 @@
 
 - calibration·dev의 full·keywords는 네 역할 모두 18/18, 9/9다. 근거 줄이 최고점이 아닌 질의는 0건이다.
 - **20/24와 24/24는 다른 지표다.** `hit`은 첫 발췌만, `hitAny`는 반환된 발췌 중 어느 것이든 근거 줄(비교차 문항은 정답 문자열도)을 덮는지 본다. exp3·pre002는 발췌가 1개라 두 값이 같다(20/24). 최신 제품의 첫 발췌 기준은 여전히 20/24다.
-- **저장 기준 재현:** 저장된 `excerpt-bench-001/rows.jsonl` 297행은 exp3·pre002 재실행과, `excerpt-bench-002/rows.jsonl` 297행은 post002·latest 재실행과 저장된 모든 필드(`layout` 제외)가 같았다. 다른 행, 누락, 중복은 0이다. 재실행에만 있는 필드는 001과 비교할 때 `excerptRanges`·`moreMatches`·`anyCovered`·`anyAnswer`가 적용 행 231개에 있다. 이 필드들은 001 이후 excerpt-bench에 추가된 것이다. 002와 비교할 때는 재실행에만 있는 필드가 없어 양방향으로 같다. `layout`을 뺀 이유는 001 당시 calibration·dev 매니페스트에 그 필드가 없었기 때문이다. 따라서 001·002 README의 수치는 최신 제품에서도 같은 행 단위로 다시 나온다.
-- exp3과 pre002가 297키 모두 같은 것은 두 커밋 사이 `src/core/artifacts.ts`가 같다는 사실과 맞는다. 번들 차이는 다른 도구(crop 등)에서 온다.
+- **저장 기준 재현:** 저장된 `excerpt-bench-001/rows.jsonl` 297행은 exp3·pre002 재실행과, `excerpt-bench-002/rows.jsonl` 297행은 post002·latest 재실행과 비교했다. 비교 기준은 `layout`을 뺀 저장 필드 전부이며, 그 필드가 모두 같았다. 실제 조인한 행은 네 대조 모두 297/297이고, 다른 행·누락·중복은 0이다. 재실행에만 있는 필드는 001과 비교할 때 `excerptRanges`·`moreMatches`·`anyCovered`·`anyAnswer`가 적용 행 231개에 있다. 이 필드들은 001 이후 excerpt-bench에 추가된 것이다. 002와 비교할 때는 재실행에만 있는 필드가 없어 양방향으로 같다. `layout`을 뺀 이유는 001 당시 calibration·dev 매니페스트에 그 필드가 없었기 때문이다. 따라서 001·002 README의 수치는 최신 제품에서도 같은 행 단위로 다시 나온다.
+- exp3과 pre002가 실제 질의 231키(비해당 포함 297키) 모두 같은 것은 두 커밋 사이 `src/core/artifacts.ts`가 같다는 사실과 맞는다. 번들 차이는 다른 도구(crop 등)에서 온다.
 
 ## 3. 이미지: 실험 2 JPEG 경로
 
@@ -114,11 +116,11 @@
 
 | 실험 관측 | 연구 시점 | 최신 진입점·기본값 | 입력 동일성 | 비교한 출력 | 결과 | 분모·근거 |
 |---|---|---|---|---|---|---|
-| E3 고정 규칙 질의의 첫 발췌 | exp3 `30b76db8…`, maxTokens 400, contextLines 1 | `query_artifact`, contextLines 기본 2·maxExcerpts 기본 5(이번에는 1 지정·생략) | 로그 33/33 해시 일치, held-out 매니페스트 blob 동일 | 첫 발췌 구간·바이트·본문 해시 | 일치 | 297키(채점 231), `excerpt-keys.jsonl` |
-| E3 응답 전체(동점 없음) | 같음 | 같음 | 같음 | 응답 정규화 해시 | 일치 | 286키 |
+| E3 고정 규칙 질의의 첫 발췌 | exp3 `30b76db8…`, maxTokens 400, contextLines 1 | `query_artifact`, contextLines 기본 2·maxExcerpts 기본 5(이번에는 1 지정·생략) | 로그 33/33 해시 일치, held-out 매니페스트 blob 동일 | 첫 발췌 구간·바이트·본문 해시 | 일치 231/231 | 실제 질의 231(비해당 포함 297키), `excerpt-keys.jsonl` |
+| E3 응답 전체(동점 없음) | 같음 | 같음 | 같음 | 응답 정규화 해시 | 일치 220/220 | 동점 없는 실제 질의 220(비해당 포함 286키) |
 | E3 entity 동점 응답 | 발췌 1개 | 발췌 최대 5개, 동점 추가 | 같음 | 발췌 수·구간 | 차이: 11키 모두 발췌 2개 | 11키, `excerpt-summary.json` pairs |
-| excerpt-bench-001 hit | exp3 `30b76db8…`(추론: 001을 추가한 f6aace6의 bin blob이 `c4a290ae…`이고, 당시 하네스는 checkout의 `bin/`을 실행했다. 001 README에는 번들 기록이 없다) | 위와 같음 | 같음 | 저장 행 전체 | 일치(exp3·pre002 재실행) | 297행 |
-| excerpt-bench-002 hit/hitAny | post002 `98c707da…` | 위와 같음 | 같음 | 저장 행 전체 | 일치(latest 재실행 포함) | 297행; held-out entity hit 20/24, hitAny 24/24 |
+| excerpt-bench-001 hit | exp3 `30b76db8…`(추론: 001을 추가한 f6aace6의 bin blob이 `c4a290ae…`이고, 당시 하네스는 checkout의 `bin/`을 실행했다. 001 README에는 번들 기록이 없다) | 위와 같음 | 같음 | `layout`을 뺀 저장 필드 | 일치(exp3·pre002 재실행) | 조인 297/297행 |
+| excerpt-bench-002 hit/hitAny | post002 `98c707da…` | 위와 같음 | 같음 | `layout`을 뺀 저장 필드 | 일치(latest 재실행 포함) | 조인 297/297행; held-out entity hit 20/24, hitAny 24/24 |
 | E2 연구 JPEG 직접 전송 | 제품 미경유, sharp 0.35.4 | `index_image_artifact`, 기본 strict | 458/458 해시 일치, 648슬롯 | 수락·거부, 코드, 프로필 | 차이: 기본 거부 458 | 458, `jpeg-summary.json` |
 | E2 JPEG의 tolerant opt-in | 해당 경로 없음(exp3은 `profile` 무시) | `profile: "tolerant"` | 같음 | 수락·프로필 | 최신 통과 458 | 458 |
 | E2 D 원본 재요청 | A 슬롯 그대로 재전송 | 별도 재요청 경로 없음. 같은 바이트가 위 두 행에 포함 | JPEG 재요청 13건 → A 해시 13/13 일치 | — | 위 두 행과 같음 | GPT-4o 5, Haiku 8 |
@@ -127,44 +129,82 @@
 
 ## 5. 재실행 절차
 
-경로는 worktree 기준이다. `<S>`는 비어 있는 별도 scratch 폴더다. 각 명령은 기존 출력 파일이 있으면 덮어쓰지 않고 실패한다.
+새 checkout(또는 `git worktree add --detach <dir> <커밋>`)의 저장소 루트에서 Git Bash로 순서대로 실행한다. `S`는 **존재하지 않는** 새 scratch 경로다.
+
+출력 위치와 덮어쓰기 규칙은 다음과 같다.
+- 세션 생성기 `sessions.mjs`는 `research/out/sessions`(gitignore)에 쓴다. 덮어쓰기를 막지 않으므로 새 checkout에서 그 폴더가 없는지 먼저 확인한다.
+- 기존 `excerpt-bench.mjs`는 `--out` 폴더에 덮어쓴다. 그래서 실행마다 `$S/runs/` 아래의 새 폴더를 준다.
+- R08 스크립트(`r08-*.mjs`)는 기존 출력 파일이나 비어 있지 않은 폴더가 있으면 실패하고 덮어쓰지 않는다.
+- 기존 결과 폴더(`research/results/`)에는 아무것도 쓰지 않는다.
 
 ```sh
-# 0. 격리 worktree, 기존 잠금 파일 설치
-npm ci --ignore-scripts && npm run build          # 루트(제품 dist, p612 probe가 읽음)
-(cd research && npm ci --ignore-scripts)          # research/package-lock.json, sharp 0.35.4
+S=/path/to/new-scratch          # 존재하지 않는 새 경로
+test ! -e "$S" && test ! -e research/out/sessions || { echo "출력 경로가 이미 있다"; exit 1; }
+mkdir -p "$S/bundles" "$S/runs" "$S/jpeg"
+
+# 0. 기존 잠금 파일로 설치(루트: 제품 dist는 p612 probe와 fixture 대조가 읽는다)
+npm ci --ignore-scripts && npm run build
+git checkout -- bin/token-context-optimizer.mjs    # 빌드가 CRLF 작업 사본만 바꾼다. 원시 SHA-256은 추적 blob과 같다(§1)
+(cd research && npm ci --ignore-scripts)           # research/package-lock.json, sharp 0.35.4
 
 # 1. 번들 4종: 원시 blob 추출(개행 변환 없음)
 for pair in exp3:7914a44 pre002:c2237ca post002:68fe59d latest:c201b69; do
-  git cat-file blob "${pair#*:}:bin/token-context-optimizer.mjs" > <S>/bundles/${pair%%:*}.mjs
+  git cat-file blob "${pair#*:}:bin/token-context-optimizer.mjs" > "$S/bundles/${pair%%:*}.mjs"
 done
-sha256sum <S>/bundles/*.mjs                         # §1 표와 대조
+sha256sum "$S"/bundles/*.mjs                         # §1 표와 대조
 
-# 2. 세션 재생성(research/)
+cd research
+# 2. 세션 재생성 → research/out/sessions
 for s in dev calibration heldout; do node src/sessions.mjs --split $s; done
 
-# 3. 번들마다 2회, 새 프로세스(research/)
+# 3. 번들마다 2회, 새 프로세스
 for rep in 1 2; do for role in exp3 pre002 post002 latest; do
-  node src/excerpt-bench.mjs --bundle <S>/bundles/$role.mjs --sessions out/sessions --out <S>/runs/bench-$role-$rep
-  node src/r08-excerpt-capture.mjs --bundle <S>/bundles/$role.mjs --role $role --rep $rep --sessions out/sessions --out <S>/runs/capture-$role-$rep.jsonl
+  node src/excerpt-bench.mjs --bundle "$S/bundles/$role.mjs" --sessions out/sessions --out "$S/runs/bench-$role-$rep"
+  node src/r08-excerpt-capture.mjs --bundle "$S/bundles/$role.mjs" --role $role --rep $rep --sessions out/sessions --out "$S/runs/capture-$role-$rep.jsonl"
 done; done
 
-# 4. 비교(설정 파일: sessions, committedManifests{heldout,calibration,dev}, expectedBundles{역할: SHA-256}, runs, stored)
-node src/r08-excerpt-parity.mjs --config <S>/parity-config.json --out <S>/parity-report.json
+# 4. 설정과 커밋 기준 파일(git show로 LF 원본) → $S/parity-config.json, $S/committed/
+node src/r08-parity-config.mjs --scratch "$S"
+node src/r08-excerpt-parity.mjs --config "$S/parity-config.json" --out "$S/parity-report.json"
 
-# 5. JPEG(루트에서 probe, research/에서 진입점·비교)
-node research/src/p612-encoder-profile-probe.mjs . --out <S>/jpeg/p612-latest.json
-node src/r08-jpeg-entry.mjs --bundle latest=<S>/bundles/latest.mjs --bundle exp3=<S>/bundles/exp3.mjs --files <S>/jpeg/files --out <S>/jpeg/entry.jsonl
-node src/r08-jpeg-parity.mjs --stored results/p612/2026-11-02.json --current <S>/jpeg/p612-latest.json --entry <S>/jpeg/entry.jsonl --role latest --expect-bundle latest=6265b9b4bb650c947a9ec6cd6f83b9215d0e75fd63a5e4b8a0093e6891c76fa8 --expect-bundle exp3=30b76db869c8e53a11cbd87200091e07fe986de89f4c5954b7796894b5376ae4 --dist .. --out <S>/jpeg/jpeg-report.json
+# 5. JPEG: 기존 p612 probe(루트 기준 실행), 제품 진입점, 비교
+(cd .. && node research/src/p612-encoder-profile-probe.mjs . --out "$S/jpeg/p612-latest.json")
+node src/r08-jpeg-entry.mjs --bundle latest="$S/bundles/latest.mjs" --bundle exp3="$S/bundles/exp3.mjs" --files "$S/jpeg/files" --out "$S/jpeg/entry.jsonl"
+node src/r08-jpeg-parity.mjs --stored "$S/committed/p612.json" --current "$S/jpeg/p612-latest.json" --entry "$S/jpeg/entry.jsonl" --role latest \
+  --expect-bundle latest=6265b9b4bb650c947a9ec6cd6f83b9215d0e75fd63a5e4b8a0093e6891c76fa8 \
+  --expect-bundle exp3=30b76db869c8e53a11cbd87200091e07fe986de89f4c5954b7796894b5376ae4 --dist .. --out "$S/jpeg/jpeg-report.json"
+
+# 6. 커밋된 근거를 다시 만들어 바이트 대조
+node src/r08-evidence.mjs --scratch "$S" --out "$S/evidence"
+for f in excerpt-keys.jsonl excerpt-summary.json jpeg-summary.json; do
+  git show HEAD:research/results/r08-parity/$f | cmp - "$S/evidence/$f" && echo "$f 같음"
+done
 ```
 
-- `stored`에는 `excerpt-bench-001/rows.jsonl`을 exp3·pre002와, `excerpt-bench-002/rows.jsonl`을 post002·latest와 짝지었다. 커밋된 매니페스트는 `git show HEAD:<경로>`로 꺼낸 LF 원본을 썼다.
+- `r08-parity-config.mjs`가 쓰는 설정의 내용은 다음과 같다.
+  - `sessions`: `out/sessions`
+  - 커밋된 매니페스트 3개: held-out `results/s3-heldout`, calibration `results/s3-cal-001`, dev `results/s3-dev-002`
+  - 역할별 번들 SHA-256(§1), `reps: [1, 2]`, 실행 8개의 파일 경로
+  - 저장 행 대조 4쌍: 001은 exp3·pre002와, 002는 post002·latest와 짝짓는다.
 - 두 비교기의 종료 코드는 다음과 같다.
-  - 1: 구조 실패. 중복·누락·초과 키, 번들·로그·슬롯 원장 해시 불일치, 수집–벤치 불일치, 같은 캡처의 반복 재사용, 진입점 수집의 번들·fixture 목록 불일치(`--dist` 필수)
-  - 2: 구조는 정상이지만 검토가 필요한 항목이 있음. 보류 키, 저장 행 불일치, JPEG 미재현, probe 열 차이, 진입점–validator 불일치
-  - 0: 둘 다 없음
+  - 1: 구조 실패.
+    - 중복·누락·초과 키
+    - 번들·로그·슬롯 원장 해시 불일치
+    - 수집–벤치 불일치
+    - 역할별 반복 ID가 계획(1, 2)과 다름, 캡처 meta의 역할·반복이 실행과 다름
+    - 저장 행 대조 역할에 재실행이 없거나 저장 행이 모두 조인되지 않음(`joinedRows`가 분모)
+    - 진입점 수집의 번들·fixture 목록 불일치(`--dist` 필수)
+  - 2: 구조는 정상이지만 검토가 필요한 항목이 있음.
+    - 보류 키, 저장 행 값 불일치
+    - JPEG 미재현, probe 열 차이, 진입점–validator 불일치
+  - 0: 둘 다 없음.
   - 버전 간 차이는 결과이므로 종료 코드에 반영하지 않는다.
-- 이번 실행의 종료 코드는 모두 0이다(세션 생성 3, 벤치·수집 16, probe 1, 진입점 1, 최종 비교 2). 진입점 수집의 첫 실행은 거부 코드를 도구 이름(`index_image_artifact`)으로 잘못 뽑는 추출 버그가 있었다. 그래서 코드를 고친 뒤 새 출력 경로로 다시 실행했고, 문서의 수치는 모두 두 번째 실행에서 나왔다. 버그는 거부 코드 문자열에만 영향을 주었다. 수락·거부 판정 자체는 두 실행이 같았다. 비교기도 교차 검토 지적(검토 필요 항목의 종료 코드, 열 전체 비교, 진입점 메타 대조, 반복 재사용 감지)을 반영해 다시 돌렸다. 구조 실패와 검토 필요 항목은 0건이다. JPEG 비교에는 `--expect-bundle latest=<SHA-256> --expect-bundle exp3=<SHA-256>`을 넘긴다. 비교기 오프라인 테스트는 `node --test test/r08-excerpt-parity.test.mjs test/r08-jpeg-parity.test.mjs`(24개)다.
+- 위 절차를 후보 커밋의 새 detached worktree와 빈 scratch에서 그대로 실행했다. 결과는 아래 "새 checkout 재실행" 항목에 적는다.
+- 최초 실행 경위
+  - 진입점 수집의 첫 실행에는 거부 코드를 도구 이름(`index_image_artifact`)으로 잘못 뽑는 추출 버그가 있었다. 코드를 고친 뒤 새 출력 경로로 다시 실행했다.
+  - 두 실행의 수락·거부·프로필 판정 1,042건은 같았다.
+  - 비교기는 교차 검토 지적을 반영해 여러 차례 고쳤다. 현재 커밋된 근거는 새 checkout 재실행에서 다시 만든 것이다.
+- 비교기 오프라인 테스트: `node --test test/r08-excerpt-parity.test.mjs test/r08-jpeg-parity.test.mjs`(research/에서, 27개).
 
 ## 6. 한계
 

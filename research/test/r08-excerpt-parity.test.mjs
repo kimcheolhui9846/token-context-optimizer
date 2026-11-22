@@ -147,3 +147,27 @@ test("the same capture used for both repetitions fails", () => {
   runs[1] = { ...runs[1], capture: runs[0].capture };
   assert.match(analyze({ manifests, expectedBundles, runs }).failures.join("\n"), /meta rep/);
 });
+
+test("one capture and its config given twice as repetition 1 fails (repetition IDs must be 1 and 2)", () => {
+  const one = run("latest", 1);
+  const runs = [run("old", 1), run("old", 2), one, { ...one }];
+  const rep = analyze({ manifests, expectedBundles, runs });
+  assert.match(rep.failures.join("\n"), /latest: repetition IDs \[1,1\]/);
+});
+
+test("a stored comparison against a role that does not exist fails instead of comparing nothing", () => {
+  const rows = run("old", 1).bench.map((r) => ({ ...r }));
+  const rep = analyze({ manifests, expectedBundles, runs: base(), stored: [{ name: "s", role: "nope", rows }] });
+  assert.match(rep.failures.join("\n"), /stored s: role nope/);
+});
+
+test("a stored comparison reports the rows actually joined and fails when fewer rows join than are stored", () => {
+  const rows = run("old", 1).bench.map((r) => ({ ...r }));
+  const ok = analyze({ manifests, expectedBundles, runs: base(), stored: [{ name: "s", role: "old", rows }] });
+  assert.equal(ok.storedComparisons.s.joinedRows, 3);
+  assert.deepEqual(ok.failures, []);
+  const runs = base();
+  runs[0].bench.pop();
+  const bad = analyze({ manifests, expectedBundles, runs, stored: [{ name: "s", role: "old", rows }] });
+  assert.match(bad.failures.join("\n"), /stored s: joined 2 of 3/);
+});
