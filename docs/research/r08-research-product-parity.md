@@ -191,7 +191,7 @@ done
     - 중복·누락·초과 키
     - 번들·로그·슬롯 원장 해시 불일치
     - 수집–벤치 불일치
-    - 역할별 반복 ID가 계획(1, 2)과 다름, 캡처 meta의 역할·반복이 실행과 다름
+    - 역할별 반복 ID가 계획(1, 2로 고정)과 다름, 설정의 `reps`가 [1, 2]가 아님, 캡처 meta의 역할·반복이 실행과 다름
     - 저장 행 대조 역할에 재실행이 없거나 저장 행이 모두 조인되지 않음(`joinedRows`가 분모)
     - 진입점 수집의 번들·fixture 목록 불일치(`--dist` 필수)
   - 2: 구조는 정상이지만 검토가 필요한 항목이 있음.
@@ -210,7 +210,7 @@ done
   - 진입점 수집의 첫 실행에는 거부 코드를 도구 이름(`index_image_artifact`)으로 잘못 뽑는 추출 버그가 있었다. 코드를 고친 뒤 새 출력 경로로 다시 실행했다.
   - 두 실행의 수락·거부·프로필 판정 1,042건은 같았다.
   - 비교기는 교차 검토 지적을 반영해 여러 차례 고쳤다. 현재 커밋된 근거는 새 checkout 재실행에서 다시 만든 것이다.
-- 비교기 오프라인 테스트: `node --test test/r08-excerpt-parity.test.mjs test/r08-jpeg-parity.test.mjs`(research/에서, 27개).
+- 비교기 오프라인 테스트: `node --test test/r08-excerpt-parity.test.mjs test/r08-jpeg-parity.test.mjs`(research/에서, 29개).
 
 ## 6. 한계
 

@@ -171,3 +171,19 @@ test("a stored comparison reports the rows actually joined and fails when fewer 
   const bad = analyze({ manifests, expectedBundles, runs, stored: [{ name: "s", role: "old", rows }] });
   assert.match(bad.failures.join("\n"), /stored s: joined 2 of 3/);
 });
+
+test("planned repetitions must be at least two distinct IDs", () => {
+  const one = run("latest", 1);
+  const f1 = analyze({ manifests, expectedBundles, runs: [run("old", 1), one], reps: [1] }).failures.join("\n");
+  assert.match(f1, /planned repetitions \[1\]/);
+  const f2 = analyze({ manifests, expectedBundles, runs: [run("old", 1), run("old", 1), one, { ...one }], reps: [1, 1] }).failures.join("\n");
+  assert.match(f2, /planned repetitions \[1,1\]/);
+});
+
+test("the CLI plan is fixed: a config whose reps differ from [1, 2] is rejected", async () => {
+  const { checkConfigReps } = await import("../src/r08-excerpt-parity.mjs");
+  assert.deepEqual(checkConfigReps(undefined), []);
+  assert.deepEqual(checkConfigReps([1, 2]), []);
+  assert.match(checkConfigReps([1]).join(""), /config reps/);
+  assert.match(checkConfigReps([1, 1]).join(""), /config reps/);
+});

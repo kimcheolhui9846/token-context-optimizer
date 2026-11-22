@@ -5,7 +5,7 @@
 //             expectedBundles: { role: sha256 } (in version order), reps: [1, 2],
 //             runs: [{ role, rep, capture: <jsonl>, bench: <rows.jsonl> }], stored: [{ name, rows: <jsonl>, role }] }
 // Exit 1 when any structural check fails: duplicate, missing or extra keys, repetition IDs per role that are not exactly
-// the planned ones (config reps, default [1, 2]), a capture whose meta role/rep differs from its run, a stored comparison
+// the planned ones (fixed [1, 2]; a config reps other than [1, 2] fails), a capture whose meta role/rep differs from its run, a stored comparison
 // whose role has no rerun or whose rows do not all join (joinedRows is the denominator), a bundle hash
 // that is not the expected one, a log whose bytes differ from its manifest hash, or a capture that differs from its own
 // excerpt-bench row (query string or excerpt ranges). Repetitions that disagree hold their key out of the version comparison.
@@ -92,9 +92,14 @@ export function benchTotals(rows) {
   return Object.fromEntries(Object.entries(t).sort(([a], [b]) => a.localeCompare(b)));
 }
 
-// reps: the planned repetition IDs per role (the R08 plan runs every bundle twice, IDs 1 and 2).
-export function analyze({ manifests, expectedBundles, runs, stored = [], reps = [1, 2] }) {
+// The R08 plan runs every bundle twice, repetition IDs 1 and 2. The CLI always uses this plan; a config may only restate it.
+export const PLANNED_REPS = [1, 2];
+export const checkConfigReps = (reps) => (reps === undefined || canon(reps) === canon(PLANNED_REPS) ? [] : [`config reps ${canon(reps)} differ from the planned ${canon(PLANNED_REPS)}`]);
+
+// reps: the planned repetition IDs per role; at least two distinct IDs.
+export function analyze({ manifests, expectedBundles, runs, stored = [], reps = PLANNED_REPS }) {
   const failures = [];
+  if (!Array.isArray(reps) || reps.length < 2 || new Set(reps).size !== reps.length) failures.push(`planned repetitions ${canon(reps)} must be at least two distinct IDs`);
   const expected = expectedKeySet(manifests);
   const manifestLog = new Map();
   for (const [split, m] of Object.entries(manifests)) for (const s of m.sessions) manifestLog.set(`${split}/${s.id}`, s.log.sha256);
@@ -246,7 +251,8 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   }
   const runs = config.runs.map((r) => ({ role: r.role, rep: r.rep, capture: readJsonl(resolve(r.capture)), bench: readJsonl(resolve(r.bench)) }));
   const stored = (config.stored ?? []).map((s) => ({ name: s.name, role: s.role, rows: readJsonl(resolve(s.rows)) }));
-  const report = analyze({ manifests, expectedBundles: config.expectedBundles, runs, stored, reps: config.reps ?? [1, 2] });
+  const report = analyze({ manifests, expectedBundles: config.expectedBundles, runs, stored, reps: PLANNED_REPS });
+  report.failures.push(...checkConfigReps(config.reps));
   for (const [split, m] of Object.entries(manifestCheck)) {
     if (m.logsMatch !== m.logs) report.failures.push(`${split}: ${m.logs - m.logsMatch} log files do not match the manifest`);
     for (const d of m.fieldDiffs) if (d.missing || d.countGenerated !== undefined || (d.fields ?? []).some((f) => f !== "layout")) report.failures.push(`${split}: manifest differs beyond layout ${JSON.stringify(d)}`);
