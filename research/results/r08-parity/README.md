@@ -2,7 +2,8 @@
 
 - 실행: 2026-11-22, Claude Code. 모델 호출 0, 비용 0
 - 상세 해석은 [r08-research-product-parity.md](../../../docs/research/r08-research-product-parity.md)에 있다. 이 폴더는 근거 수치만 둔다.
-- 코드: `research/src/r08-excerpt-capture.mjs`, `r08-excerpt-parity.mjs`, `r08-jpeg-entry.mjs`, `r08-jpeg-parity.mjs`
+- 코드: `research/src/r08-excerpt-capture.mjs`, `r08-excerpt-parity.mjs`, `r08-jpeg-entry.mjs`, `r08-jpeg-parity.mjs`, `r08-parity-config.mjs`(설정), `r08-evidence.mjs`(이 폴더의 파일 생성)
+- 이 폴더의 파일은 문서 §5 절차를 후보 커밋 5942b25의 새 detached worktree와 빈 scratch에서 그대로 실행해 다시 만든 것이다.
 
 ## 역할과 번들
 
@@ -20,8 +21,8 @@
 | 파일 | 내용 |
 |---|---|
 | `excerpt-keys.jsonl` | 297줄. 줄마다 키 하나(`split/session/turn/variant`) |
-| `excerpt-summary.json` | 텍스트 발췌 비교 요약. schema `r08-excerpt-parity/v2` |
-| `jpeg-summary.json` | JPEG 비교 요약. schema `r08-jpeg-parity/v2` |
+| `excerpt-summary.json` | 텍스트 발췌 비교 요약. schema `r08-excerpt-parity/v3` |
+| `jpeg-summary.json` | JPEG 비교 요약. schema `r08-jpeg-parity/v3` |
 
 ### excerpt-keys.jsonl
 
@@ -51,12 +52,15 @@
 | exp3 → latest | 297 | 286 | 297 |
 | pre002 → latest | 297 | 286 | 297 |
 
-| storedComparisons | storedRows | differingRows |
-|---|---|---|
-| excerpt-bench-001 vs exp3 | 297 | 0 |
-| excerpt-bench-001 vs pre002 | 297 | 0 |
-| excerpt-bench-002 vs post002 | 297 | 0 |
-| excerpt-bench-002 vs latest | 297 | 0 |
+| storedComparisons | storedRows | joinedRows | differingRows |
+|---|---|---|---|
+| excerpt-bench-001 vs exp3 | 297 | 297 | 0 |
+| excerpt-bench-001 vs pre002 | 297 | 297 | 0 |
+| excerpt-bench-002 vs post002 | 297 | 297 | 0 |
+| excerpt-bench-002 vs latest | 297 | 297 | 0 |
+
+- pairs 표의 297은 질의를 보내지 않은 비해당 66키를 포함한다. 실제 질의 231키 기준으로는 응답 전체 동일이 231 또는 220, 첫 발췌 동일이 231/231이다.
+- 저장 행 비교 기준은 `layout`을 뺀 저장 필드 전부다.
 
 ### JPEG (jpeg-summary.json)
 
@@ -71,4 +75,4 @@
 ## 원시 자료
 
 - 원시 응답, 번들, 이미지는 커밋하지 않았다. 로컬 scratch에만 있다.
-- 그 SHA-256은 각 JSON의 `rawSha256`에 있다. `excerpt-keys.jsonl`의 SHA-256은 `excerpt-summary.json`의 `excerptKeysSha256`에 있다. 이 해시와 `rawSha256`은 LF 원본 기준이다. autocrlf 작업 사본(CRLF)에서는 값이 다르므로 `git show HEAD:<경로>`로 꺼내 확인한다.
+- 그 SHA-256은 각 JSON의 `rawSha256`에 있다. `excerpt-keys.jsonl`의 SHA-256은 `excerpt-summary.json`의 `excerptKeysSha256`에 있다. 이 해시와 `rawSha256`은 LF 원본 기준이다. 원시 캡처(`capture-*.jsonl`)에는 실행한 checkout의 절대 경로(`sourceMap.path`, `artifactId`)가 들어 있어, 다른 경로에서 재실행하면 그 해시는 달라진다. 정규화한 키별 근거(`excerpt-keys.jsonl`), 벤치 행, 진입점 결과, p612 결과의 해시는 경로와 무관하다. autocrlf 작업 사본(CRLF)에서는 값이 다르므로 `git show HEAD:<경로>`로 꺼내 확인한다.

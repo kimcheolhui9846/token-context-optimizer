@@ -1,5 +1,5 @@
 {
-  "schema": "r08-excerpt-parity/v2",
+  "schema": "r08-excerpt-parity/v3",
   "failures": [],
   "attention": [],
   "expectedKeys": 297,
@@ -3397,6 +3397,7 @@
     "excerpt-bench-001 vs exp3": {
       "role": "exp3",
       "storedRows": 297,
+      "joinedRows": 297,
       "structural": [],
       "comparedFields": "all stored fields except layout",
       "differingRows": 0,
@@ -3558,6 +3559,7 @@
     "excerpt-bench-001 vs pre002": {
       "role": "pre002",
       "storedRows": 297,
+      "joinedRows": 297,
       "structural": [],
       "comparedFields": "all stored fields except layout",
       "differingRows": 0,
@@ -3719,6 +3721,7 @@
     "excerpt-bench-002 vs post002": {
       "role": "post002",
       "storedRows": 297,
+      "joinedRows": 297,
       "structural": [],
       "comparedFields": "all stored fields except layout",
       "differingRows": 0,
@@ -3875,6 +3878,7 @@
     "excerpt-bench-002 vs latest": {
       "role": "latest",
       "storedRows": 297,
+      "joinedRows": 297,
       "structural": [],
       "comparedFields": "all stored fields except layout",
       "differingRows": 0,
@@ -4030,21 +4034,21 @@
     }
   },
   "rawSha256": {
-    "capture-exp3-1.jsonl": "8969fd6326b5b0e0e62b38dc19897108f15fa08ab81a4ded2fdb509218be8814",
+    "capture-exp3-1.jsonl": "094f154351a8f79634936fe5ee4f66ff5326d6aca3a68b840edf31a7e15dd585",
     "bench-exp3-1/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
-    "capture-exp3-2.jsonl": "f84c12dc1c037776a27923ffc0f09a0ceb82cc9e2636827e0a8851813581a679",
+    "capture-exp3-2.jsonl": "56c10b0ca2e0b39901d8e31402db4fbdd85699ac4b3a4932f0faa5d1d74e5f29",
     "bench-exp3-2/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
-    "capture-pre002-1.jsonl": "57247eb766d4d35eea4c275bfb014fc91f9489f0a77395033977156349779d85",
+    "capture-pre002-1.jsonl": "96f7f27c17b017347f17feda7ca87ce5a5d8c438498b915a8cf3d1d91fd16231",
     "bench-pre002-1/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
-    "capture-pre002-2.jsonl": "6d4c3618eb81eb38bea4d371708668508006a17a569099761ce3e294f18f6991",
+    "capture-pre002-2.jsonl": "d05c2185a4ad9df603b76f3a0cc48aed5ca4cd5aa07b9050b50af2118594c070",
     "bench-pre002-2/rows.jsonl": "7580b27de5507eeed4887173c1879495e341b96179e6a4e7da3be907b10b2ca4",
-    "capture-post002-1.jsonl": "a974a311380dc799cd72d93faef56df98283a1d7a9bba9b7e95edc715a65a31a",
+    "capture-post002-1.jsonl": "e5b74dc175864f452e3518d7d185c17106169078c04529c1b6881ef6696347e3",
     "bench-post002-1/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852",
-    "capture-post002-2.jsonl": "e05c400136548cba67f808d807019e495b6f8078d963283a2494b71e44b0eca6",
+    "capture-post002-2.jsonl": "37c0b6cba2bc4fce811d3c6174c406e9f36641a9538a7ab8a9463a84470910e6",
     "bench-post002-2/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852",
-    "capture-latest-1.jsonl": "5ef67b16546d128fffcad93459505bc25e1c9e76420d587dbb66fa807194b169",
+    "capture-latest-1.jsonl": "7f36ab6ab7bd331387b80047ee19b82969387bf60774cf87d04a981f701f1dd7",
     "bench-latest-1/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852",
-    "capture-latest-2.jsonl": "180a89e5147f44125cce04905419a5c99d545566a4fb5923cabdfc7665a952a9",
+    "capture-latest-2.jsonl": "68a809241325ba424c76a85eed9f51a31cfdf127cf8d17c4d03bc832e3dcebfd",
     "bench-latest-2/rows.jsonl": "37086c8ac4f5809ea4962c060778de7923de0d233b3578d090e0c4dca07c9852"
   },
   "excerptKeysSha256": "fec0727b51acc4fe6cbc6e3d446dd3999dc1b9ea85a23e123e1ac1a96df9a712"
