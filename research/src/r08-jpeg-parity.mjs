@@ -1,8 +1,10 @@
 // R08: compare experiment 2 JPEG profile checks between the stored p612 probe and a re-run, and between the product entry
 // point (src/r08-jpeg-entry.mjs) and the validator rows of the same bytes (no model calls).
 // Usage: node src/r08-jpeg-parity.mjs --stored <p612 json> --current <p612 json> --entry <entry.jsonl> [--role latest]
-//   --expect-bundle <role>=<sha256> [...] [--dist <checkout with dist>] --out <report.json>
-// Exit 1 on duplicate, missing or extra files on either side. Exit 2 when an attention item needs review: files not
+//   --expect-bundle <role>=<sha256> [...] --dist <checkout with dist and tests/fixtures> --out <report.json>
+// Exit 1 on duplicate, missing or extra files on either side, an entry capture that did not run the expected bundles,
+// a slot ledger hash that differs between the probes or from the entry capture, or fixture calls that do not match the
+// checked-in fixture files of --dist. Exit 2 when an attention item needs review: files not
 // reproduced in both probe runs, probe columns that differ, or entry calls that disagree with the validator. The denominator is files whose bytes were reproduced
 // (SHA-256 equal to the slot manifest) in both probe runs; RQ1 rows are reported apart and never enter these counts.
 // --dist also checks the fixture calls against validateJpeg/validateJpegTolerant on the same fixture bytes.
@@ -133,7 +135,8 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const probe = compareProbeRows(stored.exp2Files, current.exp2Files);
   const expectedBundles = Object.fromEntries(args.flatMap((a, i) => (a === "--expect-bundle" ? [args[i + 1].split("=")] : [])));
   if (!Object.keys(expectedBundles).length) throw new Error("missing --expect-bundle");
-  const dist = opt("--dist") ? resolve(opt("--dist")) : null;
+  if (!opt("--dist")) throw new Error("missing --dist (needed for the fixture list and validator check)");
+  const dist = resolve(opt("--dist"));
   const fixtureFiles = dist ? ["jpeg", "jpeg-tolerant"].flatMap((d) => readdirSync(resolve(dist, "tests/fixtures", d)).filter((n) => n.endsWith(".jpg")).map((n) => `${d}/${n}`)) : [];
   const metaFailures = checkEntryMeta({ entry, expectedBundles, slotsSha256: current.exp2.slotsSha256, fixtureFiles: dist ? fixtureFiles : entry.filter((r) => r.kind === "call" && r.role === role && r.set.startsWith("fixture:")).map((r) => `${r.set.slice(8)}/${r.id}`), role });
   if (stored.exp2.slotsSha256 !== current.exp2.slotsSha256) metaFailures.push("probe: slots sha256 differs between stored and current");
