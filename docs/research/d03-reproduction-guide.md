@@ -81,6 +81,8 @@ python -m venv <venv폴더>
   - 사전 음성 대조(`guard-check`): 일부러 네트워크를 호출해 차단되는지 본다. 기록은 `logs/network-guard-check.jsonl`이다.
   - 재생성 자체의 오프라인 조건: 재생성 단계마다 그 프로세스(pid)가 차단 장치를 시작한 기록이 있어야 하고, 차단된 호출은 0건이어야 한다. 기록은 `logs/network.jsonl`이다.
 - 재생성 조건이 깨지면 7항목 판정과 별도로 미통과다. 종료 코드는 4이고, 보고서에 가드 없는 단계와 차단 기록 수를 적는다.
+- 가드 기록은 실행기가 띄운 프로세스의 pid로 대조한다. `node`나 `python`이 `.cmd` shim이나 volta·pyenv 같은 래퍼를 거쳐 실행되면 pid가 달라져, 실제로는 오프라인이어도 종료 코드 4가 날 수 있다. 이때는 래퍼가 아닌 실행 파일이 PATH에서 먼저 잡히게 한다. 검증한 환경은 Windows의 `node.exe`와 `python.exe`다.
+- `logs/*.log`의 첫 줄에는 실행한 명령이 로컬 절대 경로로 남는다. 출력 폴더를 다른 사람과 나눌 때는 `report.json`·`runs.json`·`outputs-manifest.json`을 쓴다. 이 세 파일은 경로를 `<out>`·`<package>`로 적는다.
 - 판정 근거는 `all`이 만든 `report.json`이다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 한다. 없으면 종료 코드 2로, 그 재생성이 오프라인 조건을 깨뜨렸으면 종료 코드 4로 거부한다.
 - 빈 출력 폴더에 기준 이미지나 집계표를 복사해 성공으로 처리하지 않는다. 기준 파일은 `expected/`에만 있고 생성기 작업 폴더에 들어가지 않는다.
 
