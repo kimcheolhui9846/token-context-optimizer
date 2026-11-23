@@ -1,0 +1,60 @@
+{
+ "base": "41fc769dd5879aa10acb59153d98865b6a026200",
+ "blobs": {
+  "design": "dc3307818cba423b3fc2eade8ed7f2116593f788",
+  "questions": "605ff760cc1c12de0a0d21076ac0b8eecb79032a",
+  "freezeManifest": "0f92a92fc16bce112ad86f220c8fae498b0b7e32",
+  "r09Record": "876cdbb90aab9f0bf8ac3f3e9a520ed72e7b3318"
+ },
+ "r09SelectorCode": {
+  "src/r09-run.mjs": "b3266f3680248a430d30124b58023bc1bdb27c35",
+  "src/selector.mjs": "b3b4965b2d330907c0143fe178013aace1be8372",
+  "matchesFreezeManifest": true,
+  "inputsRead": "questions.json (id, file, question) and original pixels, per r09-run.mjs header and the R09 preregistration"
+ },
+ "images": 48,
+ "pairs": 24,
+ "keys": 576,
+ "byLang": {
+  "en": 24,
+  "ko": 24
+ },
+ "byAnchor": {
+  "code": 24,
+  "nl": 24
+ },
+ "byLangAnchor": {
+  "en|code": 12,
+  "ko|code": 12,
+  "en|nl": 12,
+  "ko|nl": 12
+ },
+ "byDoctype": {
+  "schedule": 16,
+  "invoice": 16,
+  "status": 16
+ },
+ "byLayout": {
+  "table": 24,
+  "cards": 24
+ },
+ "originalIhdr": {
+  "1280x960 bd8 ct0 il0": 48
+ },
+ "originalShaMatchesFreezeManifest": 48,
+ "projection": {
+  "fields": [
+   "id",
+   "matched",
+   "band"
+  ],
+  "matched": 36,
+  "unmatched": 12,
+  "matchedByLangAnchor": {
+   "en|code": 12,
+   "ko|code": 12,
+   "en|nl": 12,
+   "unmatched": 12
+  }
+ }
+}

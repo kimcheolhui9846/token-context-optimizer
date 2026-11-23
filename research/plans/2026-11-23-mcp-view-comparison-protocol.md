@@ -233,4 +233,11 @@ outcome: ok|failed, failStage, failCode
 
 ## 11. 변경 기록
 
-- (측정 전) 없음
+- 측정 전 고정(하네스 커밋)
+  - `results/mcp-view-comparison/rgb-manifest.json`: 파생본 48개의 기대 SHA. 같은 환경에서 두 번 파생한 결과가 바이트 단위로 같았다
+  - `results/mcp-view-comparison/prepare-report.json`: 준비기 검산
+    - 48 ID, 24쌍, 576키
+    - 원본 IHDR `1280x960 bd8 ct0 il0` 48장, 원본 SHA 동결 일치 48
+    - R09 선택 코드 blob 일치. 투영 matched 36, unmatched 12
+  - `results/mcp-view-comparison/.gitattributes`: 이 폴더의 텍스트를 LF로 꺼낸다. 저장소 전역 설정은 바꾸지 않는다
+  - 파생기는 Pillow의 zlib 빌드(`features.version("zlib")`)를 기록한다
