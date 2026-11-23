@@ -1,6 +1,6 @@
 // Tests for the product MCP view comparison (research/plans/2026-11-23-mcp-view-comparison-protocol.md).
 // Positive, negative and boundary cases for every rule the harness and scorer depend on.
-import { test } from "node:test";
+import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -459,9 +459,13 @@ test("PM Major 1: a selector band covering the whole page still takes the verifi
 // Major 2: the caller assignment and questions are checked against hashes fixed from the trusted base commit.
 const PREPARE = resolve(here, "..", "src", "mcp-view-comparison-prepare.mjs");
 let prepared;
+const tempDirs = [];
+after(() => { for (const d of tempDirs) rmSync(d, { recursive: true, force: true }); });
 function preparedInput() {
   if (prepared) return prepared;
-  const dir = join(mkdtempSync(join(tmpdir(), "mvc-prep-")), "p");
+  const parent = mkdtempSync(join(tmpdir(), "mvc-prep-"));
+  tempDirs.push(parent);
+  const dir = join(parent, "p");
   const r = spawnSync(process.execPath, [PREPARE, "--stage", "originals", "--out", dir], { encoding: "utf8", windowsHide: true, cwd: resolve(here, "..") });
   assert.equal(r.status, 0, r.stderr);
   prepared = {
@@ -500,7 +504,9 @@ test("PM Major 2: a valid but changed caller entry, question or original hash st
 
 test("PM Major 2: the runner refuses a changed caller assignment before starting any server", () => {
   const p = preparedInput();
-  const input = join(mkdtempSync(join(tmpdir(), "mvc-tamper-")), "input");
+  const tamperRoot = mkdtempSync(join(tmpdir(), "mvc-tamper-"));
+  tempDirs.push(tamperRoot);
+  const input = join(tamperRoot, "input");
   mkdirSync(join(input, "images", "original"), { recursive: true });
   mkdirSync(join(input, "images", "rgb"));
   const changed = clone(p.assignment);
