@@ -1,6 +1,7 @@
 """Independent recount of the product MCP view comparison (protocol section 10).
 
 Usage: python tools/mcp-view-comparison-recount.py --raw <raw.jsonl> --score <score.json> --out <recount.json>
+(the folder of raw.jsonl must also hold input-check.json, the frozen list of the 48 ids)
 
 Recomputes, without the Node scorer code, every row's geometry from raw.jsonl and the base-commit gold blob, then every
 cell aggregate, and compares both with score.json. Writes the mismatch list (expected empty). Standard library only.
@@ -53,7 +54,10 @@ def main():
     score = json.load(open(a.score, encoding="utf-8"))
     mism = []
 
-    ids = list(dict.fromkeys(r["id"] for r in rows))
+    input_check = json.load(open(os.path.join(os.path.dirname(a.raw), "input-check.json"), encoding="utf-8"))
+    ids = list(input_check["images"])
+    if len(ids) != 48 or len(set(ids)) != 48:
+        mism.append({"what": "ids", "count": len(ids)})
     want = {f"{rep}|{pr}|{v}|{i}" for rep in REPS for pr in PROFILES for v in VIEWS for i in ids}
     keys = [r["key"] for r in rows]
     if len(keys) != len(set(keys)) or set(keys) != want:
@@ -63,6 +67,9 @@ def main():
     for r in rows:
         g = gold[r["id"]]
         geo[r["key"]] = geometry(r, g["parts"], g["page"])
+    score_keys = [p["key"] for p in score["perRow"]]
+    if len(score_keys) != len(set(score_keys)) or set(score_keys) != set(keys):
+        mism.append({"what": "perRow keys", "score": len(score_keys), "distinct": len(set(score_keys)), "raw": len(set(keys))})
     for p in score["perRow"]:
         if geo.get(p["key"]) != p["geometry"]:
             mism.append({"what": "row geometry", "key": p["key"], "recount": geo.get(p["key"]), "score": p["geometry"]})

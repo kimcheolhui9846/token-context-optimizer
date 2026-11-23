@@ -20,8 +20,9 @@ async function decodeJpeg(image) {
   }
 }
 
-export async function runRow({ client, view, profile, image, allowedRoot, caller }) {
-  const row = {
+/** A row with every step not_called; filled in by runRow or kept as is for an initialize failure. */
+function emptyRow(view, caller) {
+  return {
     caller: view === "region" ? { matched: caller.matched, band: caller.band } : null,
     steps: [],
     index: { status: "not_called", code: null, validationProfile: null, ignoredChunks: null, width: null, height: null, sourceSha: null },
@@ -32,6 +33,15 @@ export async function runRow({ client, view, profile, image, allowedRoot, caller
     counts: { toolCalls: 0, toolErrors: 0, fileReads: 0, plannedOriginalRequests: 0, fallbackOriginalRequests: 0, originalRefsRead: 0 },
     outcome: "ok", failStage: null, failCode: null,
   };
+}
+
+/** Row for a cell whose server failed to initialize: no tool call was sent, so no step and zero counts. */
+export function initFailedRow({ view, caller }) {
+  return { ...emptyRow(view, caller), outcome: "failed", failStage: "initialize", failCode: "initialize_failed" };
+}
+
+export async function runRow({ client, view, profile, image, allowedRoot, caller }) {
+  const row = emptyRow(view, caller);
   const fail = (stage, code) => { row.outcome = "failed"; row.failStage = stage; row.failCode = code; return row; };
   const call = async (tool, args) => {
     const r = await client.callTool(tool, args);

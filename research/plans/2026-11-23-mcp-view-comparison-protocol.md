@@ -241,3 +241,12 @@ outcome: ok|failed, failStage, failCode
     - R09 선택 코드 blob 일치. 투영 matched 36, unmatched 12
   - `results/mcp-view-comparison/.gitattributes`: 이 폴더의 텍스트를 LF로 꺼낸다. 저장소 전역 설정은 바꾸지 않는다
   - 파생기는 Pillow의 zlib 빌드(`features.version("zlib")`)를 기록한다
+- 측정 뒤 수정(독립 Opus 마일스톤 검토 반영, `fix(review)` 커밋)
+  - 성격: 검사를 더 엄격하게만 바꿨다. 호출자 조건, 호출 흐름, 판정 규칙, 표 스키마는 바꾸지 않았다
+  - 수정 항목
+    - 실행기는 오프라인 가드가 없으면 번들을 띄우기 전에 멈춘다(측정 아닌 점검용 `--allow-no-guard`만 예외)
+    - initialize 실패 셀의 행은 보내지 않은 도구 호출을 세지 않는다. 모든 단계는 `not_called`, `failStage: initialize`, 호출 수 0이다. 이번 측정에서는 일어나지 않았다
+    - 채점자는 동결 목록이 정확히 세 파일(`raw.jsonl`, `cells.jsonl`, `input-check.json`)일 때만 gold를 읽는다
+    - 채점자와 Python 검산기는 ID 집합을 원시 행이 아닌 동결된 `input-check.json`에서 가져온다. 48개 ID와 576개 키를 고정하고, 검산기는 score의 행 키 집합도 대조한다
+    - 원본 읽기의 루트 밖 판정을 `..` 경로 성분 기준으로 바꿨다(이름이 `..`로 시작하는 루트 안 파일을 밖으로 잘못 판정하지 않음)
+  - 수정 코드로 실행 A·B와 검산을 새 폴더에서 처음부터 다시 했다. 결정적 출력 11개(`raw.jsonl`, `cells.jsonl`, `input-check.json`, `score.json`, `summary.md` 각 A·B, `recount.json`)와 `evidence.json`이 커밋된 결과와 바이트 단위로 같았다. 측정값은 바뀌지 않았다

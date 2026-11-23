@@ -1,6 +1,6 @@
 // Stub stdio MCP server for research/test/mcp-view-comparison.test.mjs. It mimics the response shapes of the product
 // image tools and keeps its own count of the requests and notifications it received, written to STUB_COUNT when stdin
-// closes. Modes (STUB_MODE): normal, reject_index, tampered_ref, bad_overview.
+// closes. Modes (STUB_MODE): normal, reject_index, tampered_ref, bad_overview, fail_init.
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -59,6 +59,7 @@ process.stdin.on("data", (d) => {
     if (msg.id === undefined) { notifications++; continue; }
     requests++;
     chain = chain.then(async () => {
+      if (msg.method === "initialize" && mode === "fail_init") return send({ jsonrpc: "2.0", id: msg.id, error: { code: -32603, message: "init failed" } });
       if (msg.method === "initialize") return send({ jsonrpc: "2.0", id: msg.id, result: { protocolVersion: "2025-06-18", capabilities: { tools: {} }, serverInfo: { name: "stub", version: "0" } } });
       if (msg.method === "tools/list") return send({ jsonrpc: "2.0", id: msg.id, result: { tools: ["index_image_artifact", "overview_image_artifact", "crop_image_artifact"].map((name) => ({ name, inputSchema: { type: "object" } })) } });
       if (msg.method === "tools/call") return call(msg.id, msg.params.name, msg.params.arguments);

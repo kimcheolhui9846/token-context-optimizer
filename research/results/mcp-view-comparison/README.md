@@ -61,6 +61,7 @@ python tools/mcp-view-comparison-recount.py --raw $O/run-b/raw.jsonl --score $O/
 ```
 
 - 실행기는 셀마다 새 번들 프로세스와 빈 임시 허용 루트를 쓴다. 자식 프로세스에는 최소 환경 변수와 가드만 넘긴다
+- 실행기는 `NODE_OPTIONS`에 오프라인 가드가 없으면 시작하지 않는다
 - 실행기는 입력 폴더에 허용 목록 밖의 파일이 있거나, 이름이 채점 입력처럼 보이거나, 입력 SHA·형식·픽셀 검사가 하나라도 실패하면 번들을 띄우기 전에 멈춘다
 
 ### 4. 검산
@@ -86,5 +87,5 @@ git -c core.autocrlf=false worktree add --detach <새 경로> HEAD
 ## 테스트
 
 ```sh
-node --test test/mcp-view-comparison.test.mjs    # 19개
+node --test test/mcp-view-comparison.test.mjs    # 25개
 ```

@@ -2,7 +2,7 @@
 // Protocol: research/plans/2026-11-23-mcp-view-comparison-protocol.md. No file names of scoring inputs live here.
 import { createHash } from "node:crypto";
 import { lstat, readFile, realpath } from "node:fs/promises";
-import { isAbsolute, relative } from "node:path";
+import { isAbsolute, relative, sep } from "node:path";
 import { inflateSync } from "node:zlib";
 
 export const BASE_COMMIT = "41fc769dd5879aa10acb59153d98865b6a026200";
@@ -13,6 +13,8 @@ export const PROFILES = ["strict", "tolerant"];
 export const VIEWS = ["original", "overview", "region"];
 export const OVERVIEW_MAX_SIDE = 512;
 export const GEOMETRY = ["complete", "partial", "not_evaluable"];
+export const EVIDENCE_FILES = ["raw.jsonl", "cells.jsonl", "input-check.json"];
+export const IMAGE_COUNT = 48;
 export const RETURNED_KINDS = ["original_verified", "original_unverified", "overview_jpeg", "crop_jpeg", "none"];
 
 export const sha256 = (b) => createHash("sha256").update(b).digest("hex");
@@ -182,6 +184,12 @@ export function checkKeys(keys, ids) {
   return seen.size;
 }
 
+/** Fixed denominator: exactly IMAGE_COUNT ids and every one of their keys, once. */
+export function checkDenominator(keys, ids) {
+  if (ids.length !== IMAGE_COUNT || new Set(ids).size !== IMAGE_COUNT) throw new Error(`expected ${IMAGE_COUNT} ids, got ${ids.length}`);
+  return checkKeys(keys, ids);
+}
+
 const FORBIDDEN = /(gold|answer|score|render|design)/i;
 export function assertInputPath(p) {
   if (FORBIDDEN.test(String(p))) throw new Error(`forbidden input path: ${p}`);
@@ -189,6 +197,8 @@ export function assertInputPath(p) {
 }
 
 // ---------------------------------------------------------------- original reference reader
+const outside = (rel) => rel === ".." || rel.startsWith(`..${sep}`) || isAbsolute(rel);
+
 /**
  * Opens the source path an MCP response returned and checks it against a separately given expected SHA-256.
  * Inputs are only the response, the expected hash and the allowed root; no manifest path. Reads fresh bytes every call.
@@ -209,10 +219,10 @@ export async function verifyOriginalRef({ response, expectedSha, allowedRoot }) 
     real = await realpath(src.path);
   } catch {
     const rel = relative(rootReal, src.path);
-    return fail(rel.startsWith("..") || isAbsolute(rel) ? "ref_outside_root" : "ref_unreadable");
+    return fail(outside(rel) ? "ref_outside_root" : "ref_unreadable");
   }
   const rel = relative(rootReal, real);
-  if (!rel || rel.startsWith("..") || isAbsolute(rel)) return fail("ref_outside_root");
+  if (!rel || outside(rel)) return fail("ref_outside_root");
   try {
     if (!(await lstat(real)).isFile()) return fail("ref_unreadable");
   } catch {

@@ -12,13 +12,14 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import { BUNDLE_BLOB, CELLS, REPS, assertInputPath, buildKeys, cellOf, checkKeys, checkPairs, compareGrayRgb, keyOf, pngChunks, pngIhdr, sha256 } from "./mcp-view-comparison-lib.mjs";
 import { minimalEnv, startServer } from "./mcp-view-comparison-client.mjs";
-import { runRow } from "./mcp-view-comparison-paths.mjs";
+import { initFailedRow, runRow } from "./mcp-view-comparison-paths.mjs";
 
 const arg = (k) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : undefined);
 const input = arg("--input");
 const out = arg("--out");
 const bundle = resolve(arg("--bundle") ?? join(dirname(fileURLToPath(import.meta.url)), "..", "..", "bin", "token-context-optimizer.mjs"));
 const tmpBase = arg("--tmp") ?? tmpdir();
+if (!/node-netguard\.cjs/.test(process.env.NODE_OPTIONS ?? "") && !process.argv.includes("--allow-no-guard")) throw new Error("offline guard missing: set NODE_OPTIONS=--require=<tools/d03/guard/node-netguard.cjs> (or pass --allow-no-guard for a non-measurement check)");
 if (!input || !out) throw new Error("--input and --out are required");
 if (existsSync(out)) throw new Error(`--out must not exist yet: ${out}`);
 
@@ -89,7 +90,7 @@ for (const { rep, profile, view } of CELLS) {
     for (const im of images) {
       const base = { key: keyOf(rep, profile, view, im.id), rep, profile, view, id: im.id, pairId: im.pairId, lang: im.lang, anchor: im.anchor, doctype: im.doctype, layout: im.layout };
       if (!client.initOk) {
-        rows.push({ ...base, ...(await runRow({ client: { callTool: async () => ({ ok: false, code: "initialize_failed" }) }, view, profile, image: { ...im, file: "", expectedSha: "" }, allowedRoot: root, caller: assignment.caller[im.id] })) });
+        rows.push({ ...base, ...initFailedRow({ view, caller: assignment.caller[im.id] }) });
         continue;
       }
       const row = await runRow({ client, view, profile, image: { id: im.id, file: join(root, `${im.id}.png`), page: im.page, expectedSha: expected[rep][im.id] }, allowedRoot: root, caller: assignment.caller[im.id] });

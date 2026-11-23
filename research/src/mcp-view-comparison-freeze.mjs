@@ -3,9 +3,8 @@
 // The scorer refuses to read scoring inputs unless these hashes still match.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { sha256 } from "./mcp-view-comparison-lib.mjs";
+import { EVIDENCE_FILES, sha256 } from "./mcp-view-comparison-lib.mjs";
 
-export const EVIDENCE_FILES = ["raw.jsonl", "cells.jsonl", "input-check.json"];
 const arg = (k) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : undefined);
 const run = arg("--run");
 const out = arg("--out");

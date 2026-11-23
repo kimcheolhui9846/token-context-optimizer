@@ -11,11 +11,11 @@ import { deflateSync } from "node:zlib";
 import { spawnSync } from "node:child_process";
 import sharp from "sharp";
 import {
-  REPS, PROFILES, VIEWS, aggregate, assertInputPath, buildKeys, checkKeys, checkPairs, compareGrayRgb, containsRect,
+  REPS, PROFILES, VIEWS, aggregate, assertInputPath, buildKeys, checkDenominator, checkKeys, checkPairs, compareGrayRgb, containsRect,
   decodePng8, judgeGeometry, overviewSize, pngChunks, pngIhdr, projectR09Raw, regionRect, validateProjection, verifyOriginalRef,
 } from "../src/mcp-view-comparison-lib.mjs";
 import { minimalEnv, startServer } from "../src/mcp-view-comparison-client.mjs";
-import { runRow } from "../src/mcp-view-comparison-paths.mjs";
+import { initFailedRow, runRow } from "../src/mcp-view-comparison-paths.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const STUB = join(here, "mcp-view-comparison-stub-server.mjs");
@@ -314,7 +314,8 @@ test("runner refuses an input folder holding anything outside the allow-list", (
     mkdirSync(join(dir, "images"));
     for (const f of ["assignment.json", "questions.json", "expected-sha.json"]) writeFileSync(join(dir, f), "{}");
     writeFileSync(join(dir, "gold.json"), "{}");
-    const r = spawnSync(process.execPath, [RUNNER, "--input", dir, "--out", join(dir, "o")], { encoding: "utf8", windowsHide: true });
+    const guard = resolve(here, "..", "tools", "d03", "guard", "node-netguard.cjs");
+    const r = spawnSync(process.execPath, [RUNNER, "--input", dir, "--out", join(dir, "o")], { encoding: "utf8", windowsHide: true, env: { ...minimalEnv(), NODE_OPTIONS: `--require=${guard}` } });
     assert.notEqual(r.status, 0);
     assert.match(r.stderr, /forbidden|not allowed/);
   } finally {
@@ -327,4 +328,69 @@ test("runner source reads no gold, score, render or design module", () => {
     const src = readFileSync(resolve(here, "..", "src", f), "utf8");
     assert.doesNotMatch(src, /gold\.json|r09-score|render\.json|design\.json|mcp-view-comparison-score/);
   }
+});
+
+// ---------------------------------------------------------------- milestone review fixes (Opus 5.5, 2026-11-23)
+test("review Nit 1: a file whose name starts with two dots inside the root is not outside it", async () => {
+  const root = mkdtempSync(join(tmpdir(), "mvc-dots-"));
+  try {
+    const bytes = png(2, 2, 3, () => [1, 1, 1]);
+    writeFileSync(join(root, "..a.png"), bytes);
+    const r = await verifyOriginalRef({ response: { status: "original", fullFrame: true, source: { path: join(root, "..a.png"), format: "png", mimeType: "image/png" } }, expectedSha: sha(bytes), allowedRoot: root });
+    assert.equal(r.status, "ok");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("review Minor 1: an initialize failure records no tool call and no step", () => {
+  for (const view of VIEWS) {
+    const row = initFailedRow({ view, caller: { matched: true, band: { left: 0, top: 0, width: 1, height: 1 } } });
+    assert.deepEqual(row.steps, []);
+    assert.equal(row.outcome, "failed");
+    assert.equal(row.failStage, "initialize");
+    assert.equal(row.failCode, "initialize_failed");
+    assert.equal(row.index.status, "not_called");
+    assert.deepEqual(row.counts, { toolCalls: 0, toolErrors: 0, fileReads: 0, plannedOriginalRequests: 0, fallbackOriginalRequests: 0, originalRefsRead: 0 });
+    assert.deepEqual(row.returned, { kind: "none", region: null });
+  }
+});
+
+test("review Minor 1: client reports initOk false when initialize fails", async () => {
+  const root = mkdtempSync(join(tmpdir(), "mvc-init-"));
+  const client = await startServer({ command: process.execPath, args: [STUB], env: { ...minimalEnv(), STUB_MODE: "fail_init", STUB_ROOT: root } });
+  assert.equal(client.initOk, false);
+  assert.equal(client.counts().notifications, 0);
+  await client.close();
+  rmSync(root, { recursive: true, force: true });
+});
+
+const SCORER = resolve(here, "..", "src", "mcp-view-comparison-score.mjs");
+test("review Minor 2: scorer stops before scoring inputs when the evidence list is empty or partial", () => {
+  const dir = mkdtempSync(join(tmpdir(), "mvc-ev-"));
+  try {
+    for (const files of [{}, { "raw.jsonl": "0" }]) {
+      writeFileSync(join(dir, "evidence.json"), JSON.stringify({ files }));
+      const r = spawnSync(process.execPath, [SCORER, "--run", dir, "--evidence", join(dir, "evidence.json"), "--out", join(dir, "o")], { encoding: "utf8", windowsHide: true });
+      assert.notEqual(r.status, 0);
+      assert.match(r.stderr, /evidence must list exactly/);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("review Minor 3: runner stops without the offline guard", () => {
+  const env = { ...minimalEnv() };
+  const r = spawnSync(process.execPath, [RUNNER, "--input", join(tmpdir(), "mvc-no-such-input"), "--out", join(tmpdir(), "mvc-no-such-out")], { encoding: "utf8", windowsHide: true, env });
+  assert.notEqual(r.status, 0);
+  assert.match(r.stderr, /offline guard/);
+});
+
+test("review Minor 4: denominator check fixes 48 ids and every key", () => {
+  const ids48 = Array.from({ length: 48 }, (_, i) => `p${Math.floor(i / 2)}-${i % 2 ? "ko" : "en"}`);
+  const keys = buildKeys(ids48);
+  assert.equal(checkDenominator(keys, ids48), 576);
+  assert.throws(() => checkDenominator(keys.filter((k) => !k.endsWith("|p0-en")), ids48), /missing/);
+  assert.throws(() => checkDenominator(buildKeys(ids48.slice(2)), ids48.slice(2)), /48 ids/);
 });

@@ -23,16 +23,27 @@
 | 검토 | 주체 | 상태 |
 |---|---|---|
 | 계획 검토 | Claude Opus 5.5(`harness-opus-review`) | 1차 CHANGES REQUIRED, 재심 PASS WITH NOTES(Task 요청서 기준) |
-| 마일스톤 검토 | Claude Opus 5.5, 독립 | 예정 |
-| 프로젝트 교차 확인 | Argon(gemini-4-argon) | 예정 |
-| 최종 판정 | PM Astra | 예정 |
+| 마일스톤 검토 | Claude Opus 5.5, 독립 | 1차 CHANGES REQUIRED(Blocker 0, Major 1: 게이트 미기록, Minor 4, Nit 1, Note 4). 수치 재계산·처음부터 재실행은 모두 일치했다. 반영 후 재확인은 아래 |
+| 프로젝트 교차 확인 | Argon(gemini-4-argon) | 결과 커밋 기준 APPROVE(결함 0). 기록 `codex_review/argon/2026-11-23_mcp-view-comparison-*` |
+| 최종 판정 | PM Astra | 대기 |
 
 ## 진행
 
 - [x] 인계 기록과 프로토콜(표 스키마·호출 흐름) 커밋. 실행 전 `a267b48`. Draft PR [#141](https://github.com/kimcheolhui9846/token-context-optimizer/pull/141)
 - [x] 테스트 RED `9050b9f`(하네스 모듈 부재로 실패) → 하네스 GREEN 19/19 `85c9c2d`. RGB 파생 manifest와 준비 검산을 측정 전에 같은 커밋에 고정
 - [x] 실행 A·B, LF 사본 실행 C, Python 독립 검산
-- [ ] 전체 게이트, 마일스톤 검토, Argon
+- [x] 전체 게이트(`cd1b908`)
+  - 빌드 전 `git status --short`는 비어 있었다
+  - npm 7종(`ci --ignore-scripts`, `build`, `test`, `typecheck`, `smoke:mcp`, `validate:plugin`, `benchmark`) 모두 종료 0. test는 58파일, 4,562 통과, 5 건너뜀이다
+  - 빌드 뒤 `bin/token-context-optimizer.mjs`가 수정됨으로 보였다. 줄바꿈만 다르고 blob이 `5709a18`로 같아, 이번 빌드로만 바뀐 그 파일만 되돌렸다
+  - 연구 테스트 전체 119/119 통과, `git diff --check` 0, 변경 경로는 모두 소유 경로다
+- [x] Argon APPROVE
+- [x] Opus 마일스톤 검토 반영(`fix(review)`)
+  - Major 1(게이트): 위 기록으로 해소
+  - Minor 1–4, Nit 1: 검사를 더 엄격하게만 고쳤다. 새 테스트 6개 RED(새 export 부재) 뒤 GREEN 25/25
+  - Note 1–4: RESULTS.md 한계에 적었다
+  - 수정 코드로 처음부터 다시 실행했다. A·B 결정적 출력과 검산이 커밋된 결과와 바이트 단위로 같았고, 측정값은 바뀌지 않았다. 변경 내역은 프로토콜 §11에 있다
+- [ ] PM 최종 판정
 
 ## 결과 요약
 

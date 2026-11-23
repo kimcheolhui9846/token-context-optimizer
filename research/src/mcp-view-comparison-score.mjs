@@ -5,7 +5,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { BASE_COMMIT, CELLS, GEOMETRY, RETURNED_KINDS, aggregate, cellOf, checkKeys, judgeGeometry, sha256 } from "./mcp-view-comparison-lib.mjs";
+import { BASE_COMMIT, CELLS, EVIDENCE_FILES, GEOMETRY, RETURNED_KINDS, aggregate, cellOf, checkDenominator, judgeGeometry, sha256 } from "./mcp-view-comparison-lib.mjs";
 
 const arg = (k) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : undefined);
 const run = arg("--run");
@@ -15,6 +15,7 @@ if (!run || !evidenceFile || !out) throw new Error("--run, --evidence and --out 
 if (existsSync(out)) throw new Error(`--out must not exist yet: ${out}`);
 
 const evidence = JSON.parse(readFileSync(evidenceFile, "utf8"));
+if (Object.keys(evidence.files ?? {}).sort().join() !== EVIDENCE_FILES.slice().sort().join()) throw new Error(`evidence must list exactly ${EVIDENCE_FILES.join(", ")}`);
 for (const [f, h] of Object.entries(evidence.files)) if (sha256(readFileSync(join(run, f))) !== h) throw new Error(`evidence ${f} changed after freezing`);
 
 const H = "research/results/r09-bilingual/heldout";
@@ -26,8 +27,9 @@ if (sha256(goldBytes) !== freeze.inputs["gold.json"]) throw new Error("gold diff
 const gold = JSON.parse(goldBytes.toString("utf8")).gold;
 
 const rows = readFileSync(join(run, "raw.jsonl"), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
-const ids = [...new Set(rows.map((r) => r.id))];
-checkKeys(rows.map((r) => r.key), ids);
+// The id set comes from the frozen input check, not from the rows, so an id missing in every cell is caught.
+const ids = Object.keys(JSON.parse(readFileSync(join(run, "input-check.json"), "utf8")).images);
+checkDenominator(rows.map((r) => r.key), ids);
 const cells = readFileSync(join(run, "cells.jsonl"), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
 
 const perRow = rows.map((r) => {
