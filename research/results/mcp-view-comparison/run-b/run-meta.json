@@ -7,44 +7,44 @@
  "bundleWorkingCopySha256": "9fa0bf7ac041e376040be2f8225db5cb9c5f6fc201a5bf822109bf6f3bd5198a",
  "bundleWorkingCopyBytes": 1125645,
  "offlineGuard": true,
- "startedAt": "2026-11-23T13:46:53.939Z",
- "totalMs": 31287,
+ "startedAt": "2026-11-23T14:14:19.313Z",
+ "totalMs": 31731,
  "timing": [
   {
    "cell": "original|strict|original",
-   "ms": 239
-  },
-  {
-   "cell": "original|strict|overview",
-   "ms": 234
-  },
-  {
-   "cell": "original|strict|region",
-   "ms": 237
-  },
-  {
-   "cell": "original|tolerant|original",
    "ms": 244
   },
   {
+   "cell": "original|strict|overview",
+   "ms": 242
+  },
+  {
+   "cell": "original|strict|region",
+   "ms": 241
+  },
+  {
+   "cell": "original|tolerant|original",
+   "ms": 240
+  },
+  {
    "cell": "original|tolerant|overview",
-   "ms": 235
+   "ms": 266
   },
   {
    "cell": "original|tolerant|region",
-   "ms": 235
+   "ms": 249
   },
   {
    "cell": "rgb|strict|original",
-   "ms": 1883
+   "ms": 1869
   },
   {
    "cell": "rgb|strict|overview",
-   "ms": 4867
+   "ms": 4887
   },
   {
    "cell": "rgb|strict|region",
-   "ms": 8230
+   "ms": 8198
   },
   {
    "cell": "rgb|tolerant|original",
@@ -52,11 +52,11 @@
   },
   {
    "cell": "rgb|tolerant|overview",
-   "ms": 4810
+   "ms": 4865
   },
   {
    "cell": "rgb|tolerant|region",
-   "ms": 8170
+   "ms": 8323
   }
  ]
 }

@@ -1,0 +1,58 @@
+{
+ "purpose": "PM review (review_2026-11-23_pr141-mcp-view-pm.md) fix: canonical rerun with the fixed code compared with the results committed at 3d660e4",
+ "previousCodeHead": "3d660e4",
+ "fixCommit": "a0f22fc",
+ "files": [
+  {
+   "file": "run-a/raw.jsonl",
+   "previous": "ef3e300ba6bdf058a05b10b9cc3f5955f5ee9fcad97dd469a131784b32939f49",
+   "current": "ef3e300ba6bdf058a05b10b9cc3f5955f5ee9fcad97dd469a131784b32939f49",
+   "same": true
+  },
+  {
+   "file": "run-a/cells.jsonl",
+   "previous": "dc482d5d87db00771fb2b74b4e5cb7148c763b1df7084b16c139d20fbbe08f72",
+   "current": "dc482d5d87db00771fb2b74b4e5cb7148c763b1df7084b16c139d20fbbe08f72",
+   "same": true
+  },
+  {
+   "file": "run-a/input-check.json",
+   "previous": "62799bdb036bb15e5f185babb1edb796e931222eb5acb7cfb083a6f3f4a1c91e",
+   "current": "bbb7423b815d7a0fe56f9e148c5fb9f294c667a083a32fa3f4cd53e760b2190c",
+   "same": false
+  },
+  {
+   "file": "score-a/score.json",
+   "previous": "f4dcc5c0239ad2f66e53ca8a879f6f5e3cd0eddb17909a6c3cbdace50965e251",
+   "current": "1bcadf6a17f595758bd27c960870c8e063e5030000429e06bb7db13ea611978f",
+   "same": false
+  },
+  {
+   "file": "score-a/summary.md",
+   "previous": "4cc2d63718767b65a76547a7989b8e0e41e7c8fa07ad23df90a5c35ff476edfc",
+   "current": "4cc2d63718767b65a76547a7989b8e0e41e7c8fa07ad23df90a5c35ff476edfc",
+   "same": true
+  },
+  {
+   "file": "recount/recount.json",
+   "previous": "5d785bbf4b85c196cbc76ef0c56e07de8336220716b259c0aa11658d2fe9922e",
+   "current": "5d785bbf4b85c196cbc76ef0c56e07de8336220716b259c0aa11658d2fe9922e",
+   "same": true
+  }
+ ],
+ "changes": {
+  "run-a/input-check.json": "new field frozenInputs (assignment, caller, images, questions, originalSha all match); every previous field is byte-identical once frozenInputs is removed",
+  "score-a/score.json": "only evidence[\"input-check.json\"] changes (follows input-check.json); perRow, aggregate, cellCalls and keys are identical",
+  "run-*/evidence.json": "input-check.json hash changes; raw.jsonl and cells.jsonl hashes unchanged"
+ },
+ "previousComparable": {
+  "evidenceInputCheckSha256": "62799bdb036bb15e5f185babb1edb796e931222eb5acb7cfb083a6f3f4a1c91e",
+  "note": "old input-check.json = new input-check.json without frozenInputs"
+ },
+ "canonicalMetricsChanged": false,
+ "runs": {
+  "a": "CRLF working copy",
+  "b": "CRLF working copy, A=B byte-identical",
+  "c": "core.autocrlf=false LF checkout at a0f22fc, C=A byte-identical"
+ }
+}

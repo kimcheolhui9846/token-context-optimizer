@@ -17,6 +17,7 @@
 | `score-a/` | 채점 `score.json`(행별 기하 판정과 셀 집계), `summary.md` | |
 | `recount/recount.json` | Python 독립 검산(run-b 원시값과 score-a 대조) | |
 | `guard-summary.json` | 오프라인 가드 이벤트 수(실행마다 13, 차단 0) | |
+| `pm-fix-comparison.json` | PM 검토 수정 뒤 재실행과 이전 커밋본의 파일별 해시 대조, 바뀐 필드와 이유 | |
 
 run-b와 run-c의 결정적 출력은 run-a와 바이트 단위로 같아 `evidence.json`만 남겼다. 원본·파생 PNG, 가드 원본 로그, 임시 허용 루트는 저장소에 넣지 않는다.
 
@@ -62,6 +63,8 @@ python tools/mcp-view-comparison-recount.py --raw $O/run-b/raw.jsonl --score $O/
 
 - 실행기는 셀마다 새 번들 프로세스와 빈 임시 허용 루트를 쓴다. 자식 프로세스에는 최소 환경 변수와 가드만 넘긴다
 - 실행기는 `NODE_OPTIONS`에 오프라인 가드가 없으면 시작하지 않는다
+- 실행기는 서버를 띄우기 전에 다음 해시를 기준 커밋에서 고정한 값(`FROZEN_INPUTS`)과 대조한다. 하나라도 다르면 `frozen input mismatch`로 멈춘다
+  - 호출자 배정, manifest 투영, 질문, 원본 기대 SHA
 - 실행기는 입력 폴더에 허용 목록 밖의 파일이 있거나, 이름이 채점 입력처럼 보이거나, 입력 SHA·형식·픽셀 검사가 하나라도 실패하면 번들을 띄우기 전에 멈춘다
 
 ### 4. 검산
@@ -87,5 +90,5 @@ git -c core.autocrlf=false worktree add --detach <새 경로> HEAD
 ## 테스트
 
 ```sh
-node --test test/mcp-view-comparison.test.mjs    # 25개
+node --test test/mcp-view-comparison.test.mjs    # 33개
 ```

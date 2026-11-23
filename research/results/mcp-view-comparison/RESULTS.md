@@ -67,6 +67,11 @@
   - 같은 파일: 위 출력 전부와 준비 산출물(`assignment.json`, `expected-sha.json`, `prepare-report.json`)
   - 번들 작업 사본의 원바이트 SHA는 CRLF `9fa0bf7a…`, LF `6265b9b4…`로 다르다. Git blob은 둘 다 `5709a184…`다. 입력은 기준 커밋 blob에서 읽으므로 줄바꿈과 무관하다
 - 세 실행의 `evidence.json`이 같다
+- PM 검토 반영(`a0f22fc`) 뒤 A·B·C를 다시 실행했다. 정규 측정값은 바뀌지 않았다
+  - `raw.jsonl`, `cells.jsonl`, `summary.md`, `recount.json`이 이전과 바이트 단위로 같다
+  - `input-check.json`에는 입력 동결 대조 필드 `frozenInputs`(모두 `match`)가 더해졌다. 그 필드를 빼면 이전과 같다
+  - `evidence.json`과 `score.json`은 그 해시만 바뀌었다(`pm-fix-comparison.json`)
+  - 이번 정상 응답 자료는 수정 전후 판정이 같다. 수정 전 하네스가 성공으로 잘못 기록할 수 있었던 응답 형태(전체 요청에 JPEG만 옴, 참조와 이미지 본문이 함께 옴, 부분 요청에 원본 참조가 옴)는 실제 제품 응답에 없었다
 - Python 독립 검산(`tools/mcp-view-comparison-recount.py`, run-b 원시값과 score-a 대조): 행 576, 셀 12, 불일치 0
 - 오프라인 가드: 실행마다 가드 이벤트 13개(실행기 1 + 셀 12), 차단 0. API 키를 넘기지 않았다
 - RGB 파생: 같은 환경에서 두 번 파생한 manifest가 바이트 단위로 같았다. 실행 전 검산은 두 가지로 했다: 파생기의 Pillow 비교와 실행기의 자체 PNG 디코더 비교. 48장 모두 각 채널이 원본 밝기면과 같았다

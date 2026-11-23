@@ -250,3 +250,18 @@ outcome: ok|failed, failStage, failCode
     - 채점자와 Python 검산기는 ID 집합을 원시 행이 아닌 동결된 `input-check.json`에서 가져온다. 48개 ID와 576개 키를 고정하고, 검산기는 score의 행 키 집합도 대조한다
     - 원본 읽기의 루트 밖 판정을 `..` 경로 성분 기준으로 바꿨다(이름이 `..`로 시작하는 루트 안 파일을 밖으로 잘못 판정하지 않음)
   - 수정 코드로 실행 A·B와 검산을 새 폴더에서 처음부터 다시 했다. 결정적 출력 11개(`raw.jsonl`, `cells.jsonl`, `input-check.json`, `score.json`, `summary.md` 각 A·B, `recount.json`)와 `evidence.json`이 커밋된 결과와 바이트 단위로 같았다. 측정값은 바뀌지 않았다
+- PM 검토 반영(`codex_review/review_2026-11-23_pr141-mcp-view-pm.md`, CHANGES REQUIRED, Major 2건)
+  - 반영 커밋: RED `a22aed9` → 수정 `a0f22fc`
+  - Major 1. §6.2·§6.3의 "원본 참조"를 응답 종류 조건으로 명시했다. 둘 다 아니면 `kind_invalid`로 실패하고 파일을 읽지 않는다
+    - 전체 크기 요청(예정 원본, 미매치 폴백, 페이지 전체를 덮는 선택 좌표): `status: original`, `fullFrame: true`이고 이미지 본문이 없는 응답만 받는다. 그 뒤 실제로 열어 해시를 확인해야 성공이다
+    - 부분 요청: `status: cropped`, `fullFrame: false`인 JPEG만 받는다
+  - Major 2. 실행기는 서버를 띄우기 전에 네 가지 입력의 해시를 `FROZEN_INPUTS`와 대조한다
+    - 대상: 호출자 배정(`caller`), manifest 투영(`images`), 질문 원바이트, 원본 기대 SHA 표
+    - `FROZEN_INPUTS`는 기준 커밋 blob에서 고정한 값이다. 질문 값은 R09 `freeze-manifest.json`의 값과 같다
+    - 결과는 `input-check.json`의 새 필드 `frozenInputs`에 남긴다. 값이 하나라도 다르면 `frozen input mismatch: <부분>`으로 멈춘다
+  - 호출자 조건, 판정 규칙, 원시 행 스키마는 바꾸지 않았다
+  - 정규 재실행 결과
+    - A·B(CRLF)와 C(LF 사본, `a0f22fc`)가 서로 바이트 단위로 같았다
+    - `raw.jsonl`, `cells.jsonl`, `summary.md`, `recount.json`은 이전 커밋본과 같았다
+    - 바뀐 것은 `input-check.json`(필드 `frozenInputs` 추가. 빼면 이전 파일과 같다)과 이에 따른 `evidence.json`·`score.json`의 `evidence` 해시뿐이다
+    - 대조 기록: `results/mcp-view-comparison/pm-fix-comparison.json`
