@@ -106,6 +106,14 @@ class Tables(unittest.TestCase):
         self.assertEqual(c.verdict_flags_agree([("H2", {"hi": -0.1}, True), ("H2", {"hi": 0}, None)]), [])
         self.assertEqual(len(c.verdict_flags_agree([("H2", {"hi": 0.1}, True)])), 1)
 
+    def test_point_style_bound_to_point(self):
+        ax = {"errorbars": [{"data": [[1.0, 2.0]], "color": "#0072b2", "marker": "o"},
+                            {"data": [[3.0, 4.0]], "color": "#0072b2", "marker": "v"}]}
+        want = [(1.0, 2.0, "#0072b2", "o"), (3.0, 4.0, "#0072b2", "v")]
+        self.assertEqual(c.point_style_misses(want, ax), [])
+        ax["errorbars"][0]["marker"], ax["errorbars"][1]["marker"] = "v", "o"
+        self.assertEqual(len(c.point_style_misses(want, ax)), 2)
+
     def test_match_points(self):
         self.assertEqual(c.match_points([(1, 2)], [(1 + 1e-12, 2)]), [])
         self.assertTrue(c.match_points([(1, 2)], [(1.1, 2)]))

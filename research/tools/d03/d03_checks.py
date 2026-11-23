@@ -351,6 +351,12 @@ F2_MARKER = {"A": "o", "B": "v", "C": "s", "D": "D", "E": "^", "Dp": "P"}
 F3_MARKER = {"S0": "o", "S1": "v", "S2": "s", "S3": "D", "S4": "^"}
 
 
+def point_style_misses(want: list, ax: dict) -> list:
+    """want: (x, y, colour, marker) per expected point. Each must sit on a series of that colour and marker."""
+    have = [(x, y, eb["color"], eb["marker"]) for eb in ax["errorbars"] if eb["data"] is not None for x, y in eb["data"]]
+    return [w for w in want if not any(close(w[0], h[0]) and close(w[1], h[1]) and (w[2], w[3]) == (h[2], h[3]) for h in have)]
+
+
 def errorbar_styles(ax: dict) -> list:
     return sorted((eb["color"], eb["marker"]) for eb in ax["errorbars"] if eb["data"] is not None)
 
@@ -397,6 +403,7 @@ def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
 
     problems = []
     expected = []
+    styled = []
     labels = []
     for m, colour in [("gpt4o", GPT), ("haiku", HAIKU)]:
         rows = [json.loads(x) for x in graded[m].read_text(encoding="utf-8").splitlines() if x]
@@ -407,6 +414,7 @@ def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
             mean, lo, hi = boot_ci(scores, 20261016)
             x = float(np.mean([r["promptTokens"] for r in rows if r["arm"] == a and r.get("promptTokens") is not None]))
             expected.append((x, mean * 100, lo * 100, hi * 100))
+            styled.append((x, mean * 100, colour, F2_MARKER[a]))
             labels.append(("D′" if a == "Dp" else a, colour))
     ax = probe["axes"][0]
     missing = match_points(expected, errorbars(ax))
@@ -422,6 +430,8 @@ def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
         problems.append("legend")
     if errorbar_styles(ax) != sorted((col, F2_MARKER[a]) for col in (GPT, HAIKU) for a in F2_MARKER):
         problems.append("series colour/marker")
+    if point_style_misses(styled, ax):
+        problems.append("point colour/marker")
     if not linear_axes(probe):
         problems.append("scale")
     return {"values": len(expected) * 4, "problems": problems}
@@ -433,7 +443,7 @@ def session_rows(path: Path) -> list[dict]:
 
 def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
     rows = session_rows(sessions)
-    problems, expected, labels = [], [], []
+    problems, expected, labels, styled = [], [], [], []
     for m, colour in [("gpt4o", GPT), ("haiku", HAIKU)]:
         for c in ["S0", "S1", "S2", "S3", "S4"]:
             rs = [r for r in rows if r["provider"] == m and r["condition"] == c]
@@ -446,6 +456,7 @@ def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
             if not close(sum(r["promptTokens"] for r in rs) / len(rs), a["promptTokens"][c]):
                 problems.append(f"session tokens differ from analysis {m} {c}")
             expected.append((a["promptTokens"][c] / 1000, a["accuracy"][c] * 100, lo * 100, hi * 100))
+            styled.append((a["promptTokens"][c] / 1000, a["accuracy"][c] * 100, colour, F3_MARKER[c]))
             labels.append((c, colour))
     ax = probe["axes"][0]
     missing = match_points(expected, errorbars(ax))
@@ -461,6 +472,8 @@ def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
         problems.append("legend")
     if errorbar_styles(ax) != sorted((col, F3_MARKER[c]) for col in (GPT, HAIKU) for c in F3_MARKER):
         problems.append("series colour/marker")
+    if point_style_misses(styled, ax):
+        problems.append("point colour/marker")
     if not linear_axes(probe):
         problems.append("scale")
     return {"values": len(expected) * 4, "problems": problems}
