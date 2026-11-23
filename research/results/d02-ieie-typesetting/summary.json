@@ -190,11 +190,37 @@
   "selectWindow pseudocode, no-match rule and window coefficients must go into the D03 package",
   "judge model names (removed by E1) must be recorded in the D03 package",
   "manuscript vs typeset copy differ by the 13 listed edit items",
-  "HWP summary keeps the local last-saver account name (clear before D04)",
-  "reference URLs carry 49 zero-width spaces for line breaking (decide before submission)"
+  "reference URLs carry 49 zero-width spaces for line breaking (decide before submission)",
+  "re-saving the HWP in Hwp writes the local account name again: clear and recheck after every save"
  ],
  "reviews": {
   "opus_milestone": "PASS WITH NOTES (Blocker 0, Major 0; Minor 7, Nit 2, Note 2) on r19; fixes in r23",
   "argon": "APPROVE (Nit 1: edit count wording)"
+ },
+ "hwp_summary_clean": {
+  "tool": "research/tools/d02/clear_hwp_summary.py",
+  "properties_cleared": [
+   4,
+   8
+  ],
+  "visible_chars_after": {
+   "title": 0,
+   "subject": 0,
+   "author": 0,
+   "keywords": 0,
+   "comments": 0,
+   "last_saver": 0
+  },
+  "ole_streams": 13,
+  "ole_streams_changed": 1,
+  "preview_body_pictures_docinfo_identical": true,
+  "pdf_reexport": {
+   "from": "cleaned HWP reopened in a separate hidden Hwp instance, not saved",
+   "pages": 8,
+   "text_equal_pages": 8,
+   "pixel_equal_pages_110dpi": 8,
+   "normalized_hash_equal": true,
+   "verifier_rerun_same": true
+  }
  }
 }

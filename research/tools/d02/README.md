@@ -6,12 +6,14 @@
 |---|---|
 | `md_to_blocks.py` | 원고 → 블록 JSON과 변환 로그. 출처 메모 제거, 저장소 링크를 보충 자료 인용으로, 참고문헌 첫 인용 순서 재번호, 장·절 번호 변환, 영문 캡션 결합. 선택 인자 `edits.json`은 조판본 전용 문장 편집을 적용하고 전후를 로그에 남긴다 |
 | `build_hwpx.py` | 양식 HWPX 폴더 + 블록 JSON → HWPX. 양식 안내문·예시·저자 칸·약력 쪽 제거, 짝수 쪽 머리말 유지, 문서 요약 정보 비움, 표·그림·참고문헌 생성. 선택 인자 `layout.json`은 배치(그림 1 고정 위치, 그림을 앞 문단 앞에 두기, 캡션 묶음, 참고문헌 URL 줄바꿈 허용)를 정한다 |
+| `clear_hwp_summary.py` | HWP 사본의 요약 정보 문자열 속성(기본 4 작성자, 8 마지막 저장자)을 크기 그대로 비운다. 값은 출력하지 않고, 다른 OLE 스트림이 바이트 동일한지 확인한다. olefile 필요 |
 | `verify_pdf.py` | PDF → 쪽 렌더, `pages.csv`, `citations.csv`, `claims.csv`, `numbers.csv`, `summary.json`. 내부 경로 누출, 그림·글 겹침, 캡션 분리도 센다 |
 
 ```text
 python md_to_blocks.py <manuscript.md> <captions_en.json> <blocks.json> <convert_log.json> [edits.json]
 python build_hwpx.py <template_hwpx_dir> <blocks.json> <repo_root> <out.hwpx> <build_log.json> - [layout.json]
 python verify_pdf.py <paper.pdf> <blocks.json> <claims.json> <out_dir>      # PyMuPDF 필요
+python clear_hwp_summary.py <in.hwp> <out.hwp> <report.json> [4,8]
 ```
 
 - 양식 HWPX 폴더는 학회 양식 HWP를 한글에서 HWPX로 저장해 푼 것이다. HWPX → HWP → PDF 변환은 한글(HWPFrame.HwpObject COM)로 한다. 양식 파일, 영문 캡션, 문장 편집 목록, 심사본과 한글 자동화 스크립트는 저장소에 넣지 않는다.
