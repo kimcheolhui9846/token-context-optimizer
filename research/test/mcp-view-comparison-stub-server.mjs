@@ -1,6 +1,7 @@
 // Stub stdio MCP server for research/test/mcp-view-comparison.test.mjs. It mimics the response shapes of the product
 // image tools and keeps its own count of the requests and notifications it received, written to STUB_COUNT when stdin
-// closes. Modes (STUB_MODE): normal, reject_index, tampered_ref, bad_overview, fail_init.
+// closes. Modes (STUB_MODE): normal, reject_index, tampered_ref, bad_overview, fail_init, jpeg_for_full,
+// original_with_image, original_for_partial.
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -32,7 +33,10 @@ async function call(id, name, args) {
   }
   if (name === "crop_image_artifact") {
     const r = args.region;
-    if (r.x === 0 && r.y === 0 && r.width === 100 && r.height === 80) {
+    const fullReq = r.x === 0 && r.y === 0 && r.width === 100 && r.height === 80;
+    if (mode === "original_for_partial" && !fullReq) return ok(id, { status: "original", fullFrame: true, source, region: r });
+    if (fullReq && mode === "original_with_image") return ok(id, { status: "original", fullFrame: true, source, region: r }, await jpeg(100, 80));
+    if (fullReq && mode !== "jpeg_for_full") {
       let path = source.path;
       if (mode === "tampered_ref") {
         path = join(root, "b.png");

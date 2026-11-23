@@ -12,7 +12,7 @@ import { spawnSync } from "node:child_process";
 import sharp from "sharp";
 import {
   REPS, PROFILES, VIEWS, aggregate, assertInputPath, buildKeys, checkDenominator, checkKeys, checkPairs, compareGrayRgb, containsRect,
-  decodePng8, judgeGeometry, overviewSize, pngChunks, pngIhdr, projectR09Raw, regionRect, validateProjection, verifyOriginalRef,
+  decodePng8, judgeGeometry, overviewSize, pngChunks, pngIhdr, projectR09Raw, regionRect, validateProjection, verifyFrozenInputs, verifyOriginalRef,
 } from "../src/mcp-view-comparison-lib.mjs";
 import { minimalEnv, startServer } from "../src/mcp-view-comparison-client.mjs";
 import { initFailedRow, runRow } from "../src/mcp-view-comparison-paths.mjs";
@@ -393,4 +393,123 @@ test("review Minor 4: denominator check fixes 48 ids and every key", () => {
   assert.equal(checkDenominator(keys, ids48), 576);
   assert.throws(() => checkDenominator(keys.filter((k) => !k.endsWith("|p0-en")), ids48), /missing/);
   assert.throws(() => checkDenominator(buildKeys(ids48.slice(2)), ids48.slice(2)), /48 ids/);
+});
+
+
+// ---------------------------------------------------------------- PM review fixes (Astra, 2026-11-23, review_2026-11-23_pr141-mcp-view-pm.md)
+// Major 1: an original request succeeds only through an opened, verified original reference.
+const viewRow = (client, root, img, view, caller) => runRow({ client, view, profile: "strict", image: imageOf(root, img), allowedRoot: root, caller });
+
+test("PM Major 1: planned original that comes back as a full-size JPEG is a failure, not a crop", async () => {
+  await withStub("jpeg_for_full", async ({ client, root, img }) => {
+    const row = await viewRow(client, root, img, "original", null);
+    assert.equal(row.outcome, "failed");
+    assert.equal(row.failStage, "crop");
+    assert.equal(row.failCode, "kind_invalid");
+    assert.deepEqual(row.returned, { kind: "none", region: null });
+    assert.equal(row.originalRead.status, "not_called");
+    assert.equal(row.counts.fileReads, 0);
+    assert.equal(row.counts.plannedOriginalRequests, 1);
+  });
+});
+
+test("PM Major 1: fallback original that comes back as a full-size JPEG is a failure", async () => {
+  await withStub("jpeg_for_full", async ({ client, root, img }) => {
+    const row = await viewRow(client, root, img, "region", { matched: false, band: null });
+    assert.equal(row.outcome, "failed");
+    assert.equal(row.failCode, "kind_invalid");
+    assert.equal(row.returned.kind, "none");
+    assert.equal(row.counts.fallbackOriginalRequests, 1);
+    assert.equal(row.counts.fileReads, 0);
+  });
+});
+
+test("PM Major 1: an original reference that also carries an image body is contradictory and fails before any read", async () => {
+  await withStub("original_with_image", async ({ client, root, img }) => {
+    for (const [view, caller] of [["original", null], ["region", { matched: false, band: null }]]) {
+      const row = await viewRow(client, root, img, view, caller);
+      assert.equal(row.outcome, "failed");
+      assert.equal(row.failCode, "kind_invalid");
+      assert.equal(row.returned.kind, "none");
+      assert.equal(row.counts.fileReads, 0);
+    }
+  });
+});
+
+test("PM Major 1: a partial request answered with the original reference fails", async () => {
+  await withStub("original_for_partial", async ({ client, root, img }) => {
+    const row = await viewRow(client, root, img, "region", { matched: true, band: { left: 10, top: 20, width: 30, height: 15 } });
+    assert.equal(row.outcome, "failed");
+    assert.equal(row.failCode, "kind_invalid");
+    assert.equal(row.returned.kind, "none");
+    assert.equal(row.counts.fileReads, 0);
+  });
+});
+
+test("PM Major 1: a selector band covering the whole page still takes the verified original path", async () => {
+  await withStub("normal", async ({ client, root, img }) => {
+    const row = await viewRow(client, root, img, "region", { matched: true, band: { left: 0, top: 0, width: 100, height: 80 } });
+    assert.equal(row.outcome, "ok");
+    assert.equal(row.crop.purpose, "selector_region");
+    assert.deepEqual(row.returned, { kind: "original_verified", region: [0, 0, 100, 80] });
+    assert.equal(row.counts.originalRefsRead, 1);
+  });
+});
+
+// Major 2: the caller assignment and questions are checked against hashes fixed from the trusted base commit.
+const PREPARE = resolve(here, "..", "src", "mcp-view-comparison-prepare.mjs");
+let prepared;
+function preparedInput() {
+  if (prepared) return prepared;
+  const dir = join(mkdtempSync(join(tmpdir(), "mvc-prep-")), "p");
+  const r = spawnSync(process.execPath, [PREPARE, "--stage", "originals", "--out", dir], { encoding: "utf8", windowsHide: true, cwd: resolve(here, "..") });
+  assert.equal(r.status, 0, r.stderr);
+  prepared = {
+    dir,
+    assignment: JSON.parse(readFileSync(join(dir, "input", "assignment.json"), "utf8")),
+    questionsBytes: readFileSync(join(dir, "input", "questions.json")),
+    original: JSON.parse(readFileSync(join(dir, "original-sha.json"), "utf8")),
+  };
+  return prepared;
+}
+const clone = (o) => JSON.parse(JSON.stringify(o));
+
+test("PM Major 2: the untouched prepared input matches the frozen hashes", () => {
+  const p = preparedInput();
+  assert.deepEqual(verifyFrozenInputs({ assignment: p.assignment, questionsBytes: p.questionsBytes, expectedOriginal: p.original }), { assignment: "match", caller: "match", images: "match", questions: "match", originalSha: "match" });
+});
+
+test("PM Major 2: a valid but changed caller entry, question or original hash stops the run", () => {
+  const p = preparedInput();
+  const id = "schedule-table-code-s1-en";
+  const toUnmatched = clone(p.assignment);
+  toUnmatched.caller[id] = { matched: false, band: null };
+  assert.throws(() => verifyFrozenInputs({ assignment: toUnmatched, questionsBytes: p.questionsBytes, expectedOriginal: p.original }), /frozen input mismatch: caller/);
+  const moved = clone(p.assignment);
+  moved.caller[id] = { matched: true, band: { ...moved.caller[id].band, top: moved.caller[id].band.top + 1 } };
+  assert.throws(() => verifyFrozenInputs({ assignment: moved, questionsBytes: p.questionsBytes, expectedOriginal: p.original }), /frozen input mismatch: caller/);
+  const q = JSON.parse(p.questionsBytes.toString("utf8"));
+  q.questions[0].question = `${q.questions[0].question} `;
+  assert.throws(() => verifyFrozenInputs({ assignment: p.assignment, questionsBytes: Buffer.from(JSON.stringify(q, null, 1)), expectedOriginal: p.original }), /frozen input mismatch: questions/);
+  const lang = clone(p.assignment);
+  lang.images[0].anchor = lang.images[0].anchor === "code" ? "nl" : "code";
+  assert.throws(() => verifyFrozenInputs({ assignment: lang, questionsBytes: p.questionsBytes, expectedOriginal: p.original }), /frozen input mismatch: images/);
+  const orig = { ...p.original, [id]: "0".repeat(64) };
+  assert.throws(() => verifyFrozenInputs({ assignment: p.assignment, questionsBytes: p.questionsBytes, expectedOriginal: orig }), /frozen input mismatch: originalSha/);
+});
+
+test("PM Major 2: the runner refuses a changed caller assignment before starting any server", () => {
+  const p = preparedInput();
+  const input = join(mkdtempSync(join(tmpdir(), "mvc-tamper-")), "input");
+  mkdirSync(join(input, "images", "original"), { recursive: true });
+  mkdirSync(join(input, "images", "rgb"));
+  const changed = clone(p.assignment);
+  changed.caller["schedule-table-code-s1-en"] = { matched: false, band: null };
+  writeFileSync(join(input, "assignment.json"), JSON.stringify(changed, null, 1));
+  writeFileSync(join(input, "questions.json"), p.questionsBytes);
+  writeFileSync(join(input, "expected-sha.json"), JSON.stringify({ original: p.original, rgb: {} }));
+  const guard = resolve(here, "..", "tools", "d03", "guard", "node-netguard.cjs");
+  const r = spawnSync(process.execPath, [RUNNER, "--input", input, "--out", join(dirname(input), "o")], { encoding: "utf8", windowsHide: true, env: { ...minimalEnv(), NODE_OPTIONS: `--require=${guard}` } });
+  assert.notEqual(r.status, 0);
+  assert.match(r.stderr, /frozen input mismatch: caller/);
 });
