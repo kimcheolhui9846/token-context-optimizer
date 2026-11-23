@@ -1,0 +1,461 @@
+"""D03 comparison logic for the seven paper items (T1-T3, F1-F4).
+
+The rules are fixed in RULES.ko.md (docs/research/d03-reproduction-rules.md) before any reproduction run.
+Only the standard library is needed for T1-T3. The figure checks need numpy and matplotlib (image decoding).
+"""
+from __future__ import annotations
+
+import json
+import re
+import unicodedata
+from decimal import ROUND_HALF_UP, Decimal
+from pathlib import Path
+
+MINUS = "−"
+TOL = 1e-9
+RENDER_MAX_FRACTION = 0.005
+RENDER_MAX_MEAN = 2 / 255
+VERDICTS = ("MATCH", "MATCH-WITHIN-TOLERANCE", "MISMATCH", "NOT-REPRODUCIBLE")
+
+
+# ---------------------------------------------------------------- formatting (JavaScript semantics)
+
+def normalize_t1(text: str) -> str:
+    """T1 normalisation: NFC and line endings only. Cell trimming happens in parse_table."""
+    return unicodedata.normalize("NFC", text).replace("\r\n", "\n").replace("\r", "\n")
+
+
+def js_to_fixed(x: float, digits: int) -> str:
+    """Number.prototype.toFixed for finite x: exact binary value, ties away from zero, '-' kept for negatives."""
+    if x == 0:
+        x = 0.0  # (-0).toFixed() has no sign; tiny negatives keep it ("-0.0"), as in JavaScript
+    q = Decimal(x).quantize(Decimal(1).scaleb(-digits), rounding=ROUND_HALF_UP)
+    return format(q, "f")
+
+
+def js_math_round(x: float) -> int:
+    """Math.round: nearest integer, ties toward +infinity."""
+    d = Decimal(x)
+    floor = int(d.to_integral_value(rounding="ROUND_FLOOR"))
+    return floor + 1 if d - floor >= Decimal("0.5") else floor
+
+
+def en_us(n: int) -> str:
+    return f"{n:,}"
+
+
+def tok(x: float) -> str:
+    return en_us(js_math_round(x))
+
+
+def typographic(s: str) -> str:
+    return s.replace("-", MINUS)
+
+
+def pct1(x: float) -> str:
+    return typographic(js_to_fixed(x * 100, 1))
+
+
+def signed_pct1(x: float) -> str:
+    return ("+" if x >= 0 else "") + pct1(x)
+
+
+def cmp_sign(a: float, b: float) -> str:
+    return "<" if a < b else (">" if a > b else "=")
+
+
+# ---------------------------------------------------------------- manuscript tables
+
+def parse_row(line: str) -> list[str]:
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
+def table_after(lines: list[str], caption_prefix: str, which: int = 0) -> dict:
+    """Return the which-th Markdown table after the caption line starting with caption_prefix."""
+    start = next(i for i, line in enumerate(lines) if line.startswith(caption_prefix))
+    tables, cur = [], []
+    for line in lines[start + 1:]:
+        if line.startswith("|"):
+            cur.append(line)
+        elif cur:
+            tables.append(cur)
+            cur = []
+            if len(tables) > which:
+                break
+        elif line.startswith("#") or line.startswith("!["):
+            break
+    if cur:
+        tables.append(cur)
+    t = tables[which]
+    return {"header": parse_row(t[0]), "sep": t[1], "rows": [parse_row(x) for x in t[2:]], "caption": lines[start]}
+
+
+def manuscript_lines(path: Path) -> list[str]:
+    return normalize_t1(path.read_text(encoding="utf-8")).split("\n")
+
+
+def references(lines: list[str]) -> dict[int, str]:
+    out = {}
+    for line in lines:
+        m = re.match(r"^\[(\d+)\] (.+)$", line)
+        if m:
+            out[int(m.group(1))] = m.group(2)
+    return out
+
+
+def cell_diff(expected: list[list[str]], actual: list[list[str]]) -> list[dict]:
+    diffs = []
+    if len(expected) != len(actual):
+        diffs.append({"where": "row-count", "expected": len(expected), "actual": len(actual)})
+    for r, (er, ar) in enumerate(zip(expected, actual)):
+        if len(er) != len(ar):
+            diffs.append({"where": f"row{r}-cols", "expected": len(er), "actual": len(ar)})
+        for c, (e, a) in enumerate(zip(er, ar)):
+            if e != a:
+                diffs.append({"where": f"r{r}c{c}", "expected": e, "actual": a})
+    return diffs
+
+
+# ---------------------------------------------------------------- T1
+
+def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, reference_log: Path) -> dict:
+    lines = manuscript_lines(manuscript)
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    t = table_after(lines, "표 1.")
+    checks = {}
+    checks["caption"] = t["caption"] == spec["source"]["caption"]
+    expected = [spec["header"]] + [r["cells"] for r in spec["rows"]]
+    actual = [t["header"]] + t["rows"]
+    diffs = cell_diff(expected, actual)
+    checks["cells"] = not diffs
+    checks["columns5"] = all(len(r) == 5 for r in actual)
+    refs = references(lines)
+    cite_problems = []
+    for row in spec["rows"]:
+        found = [int(x) for x in re.findall(r"\[(\d+)\]", row["cells"][0])]
+        if found != row["citations"]:
+            cite_problems.append({"row": row["cells"][0], "problem": "citation list"})
+        for n in row["citations"]:
+            key = spec["titleKeys"][str(n)]
+            if n not in refs or key.lower() not in refs[n].lower():
+                cite_problems.append({"ref": n, "problem": "reference entry missing title key"})
+    checks["citations"] = not cite_problems
+    log_lines = normalize_t1(reference_log.read_text(encoding="utf-8")).split("\n")
+    log_refs: dict[int, str] = {}
+    for line in log_lines:  # the last listing in the log is the final list
+        m = re.match(r"^\[(\d+)\] (.+)$", line)
+        if m:
+            log_refs[int(m.group(1))] = m.group(2)
+    ref_mismatch = [n for row in spec["rows"] for n in row["citations"] if log_refs.get(n) != refs.get(n)]
+    checks["referenceLog"] = not ref_mismatch
+    prov = [parse_row(x) for x in normalize_t1(provenance_table.read_text(encoding="utf-8")).split("\n") if x.startswith("|")]
+    prov = [prov[0]] + prov[2:]
+    checks["provenance"] = prov == expected
+    ok = all(checks.values())
+    return {"item": "T1", "verdict": "MATCH" if ok else "MISMATCH", "checks": checks, "cellDiffs": diffs,
+            "citationProblems": cite_problems, "referenceLogMismatch": ref_mismatch,
+            "cells": len(expected) * 5, "citationsChecked": sum(len(r["citations"]) for r in spec["rows"])}
+
+
+# ---------------------------------------------------------------- T2 / T3
+
+T2_LABELS = ["H1: D−A, 하한 > −5%p이고 D 토큰 < A", "H2: D−C", "H3: C−B"]
+T3_LABELS = ["H1: S2−S0 정확도 하한 > −5%p, 토큰 S2 < S0", "H2: S1−S0 늦은 회상 상한 < 0",
+             "H3: S3−S1 늦은 회상 하한 > 0", "H4: S2 캐시 절감률 < 정가 절감률(기술 통계)"]
+COST_LABELS = {"S0": "S0 전체 유지", "S1": "S1 compact 모사 (기술 통계)", "S2": "S2 원본 보존 발췌", "S3": "S3 발췌+compact (기술 통계)"}
+MODELS = [("gpt4o", "GPT-4o"), ("haiku", "Haiku 4.5")]
+
+
+def exp2_cell(h: dict, tokens: bool) -> str:
+    s = f"{signed_pct1(h['diff'])}%p [{pct1(h['lo'])}, {pct1(h['hi'])}]"
+    if tokens:
+        s += f", {tok(h['tokensD'])} {cmp_sign(h['tokensD'], h['tokensA'])} {tok(h['tokensA'])}"
+    return s
+
+
+def verdict_text(passes: list, holds_word: str = "지지", fails_word: str = "지지 안 됨") -> str:
+    if all(p is None for p in passes):
+        return "기술 통계"
+    if all(p is True for p in passes):
+        return holds_word
+    if all(p is False for p in passes):
+        return fails_word
+    return ", ".join(f"{name.split()[0] if name != 'GPT-4o' else name} {holds_word if p else fails_word}"
+                     for (_, name), p in zip(MODELS, passes))
+
+
+def build_t2(analysis: dict[str, dict]) -> list[list[str]]:
+    rows = [["가설", "GPT-4o", "Haiku 4.5", "판정"]]
+    for label, key in zip(T2_LABELS, ["H1", "H2", "H3"]):
+        hs = [analysis[m]["verdicts"][key] for m, _ in MODELS]
+        rows.append([label] + [exp2_cell(h, key == "H1") for h in hs] + [verdict_text([h["pass"] for h in hs])])
+    return rows
+
+
+def s3_cell(h: dict, tokens: bool) -> str:
+    s = f"{signed_pct1(h['diff'])}%p [{signed_pct1(h['lo'])}, {signed_pct1(h['hi'])}]"
+    if tokens:
+        s += f", {tok(h['tokensS2'])} {cmp_sign(h['tokensS2'], h['tokensS0'])} {tok(h['tokensS0'])}"
+    return s
+
+
+def build_t3(analysis: dict[str, dict], summary: dict[str, dict]) -> tuple[list[list[str]], list[list[str]]]:
+    rows = [["가설", "GPT-4o", "Haiku 4.5", "판정"]]
+    for label, key in zip(T3_LABELS[:3], ["H1", "H2", "H3"]):
+        hs = [analysis[m]["all"][key] for m, _ in MODELS]
+        rows.append([label] + [s3_cell(h, key == "H1") for h in hs] + [verdict_text([h["pass"] for h in hs])])
+    h4 = [analysis[m]["H4"] for m, _ in MODELS]
+    holds = [h["holds"] for h in h4]
+    rows.append([T3_LABELS[3]] + [f"{pct1(h['listSaving'])}% → {pct1(h['cacheSaving'])}%" for h in h4]
+                + ["두 공급자 모두 성립" if all(holds) else verdict_text(holds, "성립", "성립 안 함")])
+    cost = [["조건", "GPT-4o 정가 / 캐시", "GPT-4o 캐시 S0 대비 절감", "Haiku 정가 / 캐시", "Haiku 캐시 S0 대비 절감"]]
+    for c, label in COST_LABELS.items():
+        row = [label]
+        for m, _ in MODELS:
+            t = summary[m]["table"]
+            row.append(f"${js_to_fixed(t[c]['meanListCostUsd'], 4)} / ${js_to_fixed(t[c]['meanCacheViewCostUsd'], 4)}")
+            if c == "S0":
+                row.append("기준")
+            else:
+                row.append(f"{pct1(1 - t[c]['meanCacheViewCostUsd'] / t['S0']['meanCacheViewCostUsd'])}%")
+        cost.append(row)
+    return rows, cost
+
+
+def check_t2(manuscript: Path, gen: Path) -> dict:
+    lines = manuscript_lines(manuscript)
+    t = table_after(lines, "표 2.")
+    analysis = {m: json.loads((gen / f"exp2-heldout/{m}/exp2-analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    built = build_t2(analysis)
+    diffs = cell_diff(built, [t["header"]] + t["rows"])
+    denominators = {m: {"families": analysis[m]["all"]["families"], "requery": analysis[m]["all"]["requery"],
+                        "seed": analysis[m]["bootstrap"]["seed"], "B": analysis[m]["bootstrap"]["B"]} for m, _ in MODELS}
+    ok = not diffs and all(d["seed"] == 20261016 and d["B"] == 10000 and d["families"] == 36 for d in denominators.values())
+    return {"item": "T2", "verdict": "MATCH" if ok else "MISMATCH", "cells": sum(len(r) for r in built), "cellDiffs": diffs,
+            "denominators": denominators}
+
+
+def check_t3(manuscript: Path, gen: Path) -> dict:
+    lines = manuscript_lines(manuscript)
+    t_h = table_after(lines, "표 3.", 0)
+    t_c = table_after(lines, "표 3.", 1)
+    analysis = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    summary = {m: json.loads((gen / f"s3-heldout/{m}/summary.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    built_h, built_c = build_t3(analysis, summary)
+    diffs = cell_diff(built_h, [t_h["header"]] + t_h["rows"]) + [dict(d, table="cost") for d in cell_diff(built_c, [t_c["header"]] + t_c["rows"])]
+    units = {m: {"sessions": analysis[m]["all"]["sessions"], "seed": analysis[m]["bootstrap"]["seed"],
+                 "B": analysis[m]["bootstrap"]["B"], "price": summary[m]["config"].get("price"),
+                 "cache": summary[m]["config"].get("cache")} for m, _ in MODELS}
+    ok = not diffs and all(u["seed"] == 20261015 and u["B"] == 10000 and u["sessions"] == 24 for u in units.values())
+    return {"item": "T3", "verdict": "MATCH" if ok else "MISMATCH", "cells": sum(len(r) for r in built_h + built_c),
+            "cellDiffs": diffs, "units": units}
+
+
+# ---------------------------------------------------------------- figures
+
+GPT, HAIKU = "#0072b2", "#d55e00"
+
+
+def boot_ci(values, seed: int, n: int = 10_000):
+    import numpy as np
+
+    v = np.asarray(values, dtype=float)
+    rng = np.random.default_rng(seed)
+    means = v[rng.integers(0, len(v), size=(n, len(v)))].mean(axis=1)
+    return float(v.mean()), float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))
+
+
+def close(a, b) -> bool:
+    return abs(float(a) - float(b)) <= TOL
+
+
+def match_points(expected: list[tuple], actual: list[tuple]) -> list:
+    """Every expected tuple must be matched (within TOL) by a distinct actual tuple; counts must agree."""
+    left = list(actual)
+    missing = []
+    for e in expected:
+        hit = next((a for a in left if len(a) == len(e) and all(close(x, y) for x, y in zip(e, a))), None)
+        if hit is None:
+            missing.append(e)
+        else:
+            left.remove(hit)
+    return missing + ([{"extra": len(left)}] if left else [])
+
+
+def errorbars(ax: dict) -> list[tuple]:
+    """(x, y, lo, hi) for marker error bars."""
+    out = []
+    for eb in ax["errorbars"]:
+        if eb["data"] is None:
+            continue
+        for (x, y), seg in zip(eb["data"], eb["segments"]):
+            out.append((x, y, seg[0][1], seg[1][1]))
+    return out
+
+
+def expected_f1(rows_path: Path) -> dict:
+    rows = [json.loads(x) for x in rows_path.read_text(encoding="utf-8").splitlines() if x]
+    rows = [r for r in rows if r["format"] == "png" and r["group"].startswith("grid")]
+    longs = [256, 512, 768, 1024, 1536, 2048, 3072]
+    series = {}
+    for key in ["openaiHigh", "anthropic"]:
+        for ratio in ["1:1", "4:3", "16:9", "3:1"]:
+            pts = {max(r["width"], r["height"]): r[key]["measured"] for r in rows if r["group"] == f"grid {ratio}"}
+            series[(key, ratio)] = [pts[L] for L in longs]
+    return {"longs": longs, "series": series}
+
+
+def check_f1(probe: dict, rows_path: Path) -> dict:
+    exp = expected_f1(rows_path)
+    axes = probe["axes"]
+    problems = []
+    if len(axes) != 2:
+        problems.append("axes count")
+    data = []
+    for ax, key, title in zip(axes, ["openaiHigh", "anthropic"], ["GPT-4o (detail high)", "Claude Haiku 4.5"]):
+        if ax["title"] != title or ax["xlabel"] != "Long side (px)":
+            problems.append(f"labels {key}")
+        if ax["xticklabels"] != [str(x) for x in exp["longs"]]:
+            problems.append(f"xticks {key}")
+        lines = {ln["label"]: ln for ln in ax["lines"] if not ln["label"].startswith("_")}
+        if sorted(lines) != sorted(["1:1", "4:3", "16:9", "3:1"]):
+            problems.append(f"series {key}")
+        for ratio in ["1:1", "4:3", "16:9", "3:1"]:
+            ln = lines.get(ratio)
+            want = exp["series"][(key, ratio)]
+            ok = ln is not None and len(ln["y"]) == 7 and all(close(a, b) for a, b in zip(ln["y"], want)) \
+                and all(close(a, b) for a, b in zip(ln["x"], range(7)))
+            data.append({"provider": key, "ratio": ratio, "ok": ok})
+            if not ok:
+                problems.append(f"values {key} {ratio}")
+    if axes and axes[0]["ylabel"] != "Billed image tokens":
+        problems.append("ylabel")
+    caps = [ln for ln in axes[1]["lines"] if ln["label"].startswith("_") and ln["y"] == [1568, 1568]] if len(axes) > 1 else []
+    if not caps:
+        problems.append("patch cap line")
+    if axes and (axes[0]["legend"] or {}).get("title") != "Aspect ratio":
+        problems.append("legend title")
+    return {"values": len(data) * 7, "problems": problems}
+
+
+def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
+    import numpy as np
+
+    problems = []
+    expected = []
+    labels = []
+    for m, colour in [("gpt4o", GPT), ("haiku", HAIKU)]:
+        rows = [json.loads(x) for x in graded[m].read_text(encoding="utf-8").splitlines() if x]
+        rows = [r for r in rows if r["outcome"] != "not_started"]
+        fams = sorted({r["family"] for r in rows})
+        for a in ["A", "B", "C", "D", "E", "Dp"]:
+            scores = [float(np.mean([1.0 if r["contentCorrect"] else 0.0 for r in rows if r["family"] == f and r["arm"] == a])) for f in fams]
+            mean, lo, hi = boot_ci(scores, 20261016)
+            x = float(np.mean([r["promptTokens"] for r in rows if r["arm"] == a and r.get("promptTokens") is not None]))
+            expected.append((x, mean * 100, lo * 100, hi * 100))
+            labels.append(("D′" if a == "Dp" else a, colour))
+    ax = probe["axes"][0]
+    missing = match_points(expected, errorbars(ax))
+    if missing:
+        problems.append({"errorbars": missing[:4]})
+    if ax["xlabel"] != "Mean total input tokens per query\n(including re-requests)" or ax["ylabel"] != "Accuracy (%, family mean)":
+        problems.append("axis labels")
+    if ax["ylim"] != [40.0, 100.0]:
+        problems.append("ylim")
+    if sorted((t["text"], t["color"]) for t in ax["texts"]) != sorted(labels):
+        problems.append("point labels")
+    if (ax["legend"] or {}).get("texts") != ["GPT-4o", "Claude Haiku 4.5"]:
+        problems.append("legend")
+    return {"values": len(expected) * 4, "problems": problems}
+
+
+def session_rows(path: Path) -> list[dict]:
+    return json.loads(path.read_text(encoding="utf-8"))["rows"]
+
+
+def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
+    rows = session_rows(sessions)
+    problems, expected, labels = [], [], []
+    for m, colour in [("gpt4o", GPT), ("haiku", HAIKU)]:
+        for c in ["S0", "S1", "S2", "S3", "S4"]:
+            rs = [r for r in rows if r["provider"] == m and r["condition"] == c]
+            mean, lo, hi = boot_ci([r["accuracy"] for r in rs], 20261015)
+            a = analysis[m]["all"]
+            if not close(mean, a["accuracy"][c]):
+                problems.append(f"session mean differs from analysis {m} {c}")
+            expected.append((a["promptTokens"][c] / 1000, a["accuracy"][c] * 100, lo * 100, hi * 100))
+            labels.append((c, colour))
+    ax = probe["axes"][0]
+    missing = match_points(expected, errorbars(ax))
+    if missing:
+        problems.append({"errorbars": missing[:4]})
+    if ax["xlabel"] != "Mean input tokens per session (×1,000)" or ax["ylabel"] != "Session accuracy (%)":
+        problems.append("axis labels")
+    if ax["ylim"] != [30.0, 100.0]:
+        problems.append("ylim")
+    if sorted((t["text"], t["color"]) for t in ax["texts"]) != sorted(labels):
+        problems.append("point labels")
+    if (ax["legend"] or {}).get("texts") != ["GPT-4o", "Claude Haiku 4.5"]:
+        problems.append("legend")
+    return {"values": len(expected) * 4, "problems": problems}
+
+
+def check_f4(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
+    rows = session_rows(sessions)
+    problems = []
+    ax = probe["axes"][0]
+    bars = ax["bars"]
+    if len(bars) != 2:
+        problems.append("bar groups")
+    n = 0
+    for i, (m, colour) in enumerate([("gpt4o", GPT), ("haiku", HAIKU)]):
+        if i >= len(bars):
+            break
+        grp = bars[i]
+        if grp["label"] != ("GPT-4o" if m == "gpt4o" else "Claude Haiku 4.5") or grp["edgecolor"] != colour:
+            problems.append(f"bar style {m}")
+        for j, c in enumerate(["S0", "S1", "S2", "S3", "S4"]):
+            mean, lo, hi = boot_ci([r["lateRecall"] for r in rows if r["provider"] == m and r["condition"] == c], 20261015)
+            want_h = analysis[m]["all"]["lateRecall"][c] * 100
+            p = grp["patches"][j]
+            seg = grp["segments"][j]
+            n += 4
+            if not (close(p["height"], want_h) and close(mean * 100, want_h) and close(seg[0][1], lo * 100) and close(seg[1][1], hi * 100)):
+                problems.append(f"values {m} {c}")
+            if not close(p["x"] + p["width"] / 2, j + (i - 0.5) * 0.38):
+                problems.append(f"bar position {m} {c}")
+    if ax["ylabel"] != "Late-recall accuracy (%)" or ax["ylim"] != [0.0, 105.0]:
+        problems.append("axis")
+    if ax["xticklabels"] != ["S0", "S1", "S2", "S3", "S4"]:
+        problems.append("xticks")
+    if [lg.get("texts") for lg in probe["figlegends"]] != [["GPT-4o", "Claude Haiku 4.5"]]:
+        problems.append("legend")
+    return {"values": n, "problems": problems}
+
+
+def render_compare(generated: Path, baseline: Path) -> dict:
+    import numpy as np
+    from matplotlib import image
+
+    gb, bb = generated.read_bytes(), baseline.read_bytes()
+    if gb == bb:
+        return {"bytesEqual": True, "pixelsEqual": True, "shapeEqual": True, "fraction": 0.0, "meanAbs": 0.0, "within": True}
+    g, b = image.imread(str(generated)), image.imread(str(baseline))
+    if g.shape != b.shape:
+        return {"bytesEqual": False, "pixelsEqual": False, "shapeEqual": False, "within": False,
+                "shape": [list(g.shape), list(b.shape)]}
+    d = np.abs(g.astype(float) - b.astype(float))
+    differing = float((d.max(axis=-1) > 0).mean())
+    mean = float(d.mean())
+    return {"bytesEqual": False, "pixelsEqual": differing == 0.0, "shapeEqual": True, "fraction": differing,
+            "meanAbs": mean, "within": differing <= RENDER_MAX_FRACTION and mean <= RENDER_MAX_MEAN}
+
+
+def figure_verdict(item: str, data: dict, render: dict) -> dict:
+    if data["problems"] or not render.get("within"):
+        v = "MISMATCH"
+    elif render["bytesEqual"] or render["pixelsEqual"]:
+        v = "MATCH"
+    else:
+        v = "MATCH-WITHIN-TOLERANCE"
+    return {"item": item, "verdict": v, "data": data, "render": render, "visual": "pending-reviewer"}
