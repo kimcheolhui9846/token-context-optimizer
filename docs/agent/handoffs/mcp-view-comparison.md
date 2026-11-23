@@ -23,8 +23,8 @@
 | 검토 | 주체 | 상태 |
 |---|---|---|
 | 계획 검토 | Claude Opus 5.5(`harness-opus-review`) | 1차 CHANGES REQUIRED, 재심 PASS WITH NOTES(Task 요청서 기준) |
-| 마일스톤 검토 | Claude Opus 5.5, 독립 | 1차 CHANGES REQUIRED(Blocker 0, Major 1: 게이트 미기록, Minor 4, Nit 1, Note 4). 수치 재계산·처음부터 재실행은 모두 일치했다. 반영 후 재확인은 아래 |
-| 프로젝트 교차 확인 | Argon(gemini-4-argon) | 결과 커밋 기준 APPROVE(결함 0). 기록 `codex_review/argon/2026-11-23_mcp-view-comparison-*` |
+| 마일스톤 검토 | Claude Opus 5.5, 독립 | 1차 CHANGES REQUIRED(Blocker 0, Major 1: 게이트 미기록, Minor 4, Nit 1, Note 4). 수치 재계산·처음부터 재실행은 모두 일치했다. `e3bfa94` 반영 뒤 2차 **PASS WITH NOTES**(Note A 게이트 근거 위치·대상 커밋, Nit A 검산기 KeyError로 멈춤 → 안전한 쪽이라 남김). 기록 `codex_review/review_2026-11-23_pr141-mcp-view-opus.md` |
+| 프로젝트 교차 확인 | Argon(gemini-4-argon) | APPROVE 2회(결과 커밋, fix 커밋), 결함 0. 기록 `codex_review/argon/2026-11-23_mcp-view-comparison-*`, `-fix-*` |
 | 최종 판정 | PM Astra | 대기 |
 
 ## 진행
@@ -37,6 +37,8 @@
   - npm 7종(`ci --ignore-scripts`, `build`, `test`, `typecheck`, `smoke:mcp`, `validate:plugin`, `benchmark`) 모두 종료 0. test는 58파일, 4,562 통과, 5 건너뜀이다
   - 빌드 뒤 `bin/token-context-optimizer.mjs`가 수정됨으로 보였다. 줄바꿈만 다르고 blob이 `5709a18`로 같아, 이번 빌드로만 바뀐 그 파일만 되돌렸다
   - 연구 테스트 전체 119/119 통과, `git diff --check` 0, 변경 경로는 모두 소유 경로다
+  - 로그와 종료 코드: `codex_review/gates/2026-11-23_pr141-mcp-view-comparison/`(비추적)
+  - 게이트 대상은 `cd1b908`이다. `e3bfa94`는 연구 파일만 바꿨고, 그 뒤 연구 테스트 125/125다
 - [x] Argon APPROVE
 - [x] Opus 마일스톤 검토 반영(`fix(review)`)
   - Major 1(게이트): 위 기록으로 해소
