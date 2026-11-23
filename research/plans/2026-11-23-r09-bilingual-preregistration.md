@@ -138,6 +138,18 @@
   2. 작성자 시각 비교에서 일정표 열 머리 순서가 값 배치와 뒤바뀐 것을 발견했다(`Time`, `Venue` 머리 아래에 각각 장소와 시간이 들어감). 열 머리를 `Code, Session, Venue, Time`으로 바로잡았다.
 - dev 결과(참고, 본시험 아님): 4장 중 `window_partial` 3, `no_match_full` 1. dev 목록 레이아웃에서는 답 값이 창 오른쪽 밖에 있었다.
 
+## 6a. 수정 1: 물리 변환 재생 검증 (측정 전, PM 요청)
+
+- 등록 커밋 `a7066e4b8c30da813314d341f1fa7d18ef4bd25d` 이후에 추가했다. 본시험 측정 **전**이다. PM의 사전등록 입력 대조 뒤 요청을 받아 넣었다.
+- 주 지표는 창 좌표로 판정한다. 그와 별도로, 저장된 선택 결과 48건 전부를 기존 물리 변환 경로에 실제로 통과시킨다.
+  - 일치: `transforms.mjs`의 `cropTransform(원본, 창)`
+  - 불일치: `armTransform(원본)`, 즉 전체 프레임
+  - 기술 실패: 재생하지 않고 그 수를 센다
+- 유효 기준: 출력이 JPEG로 디코드되고, 크기가 영역(창 또는 페이지)을 긴 변 1536 이내로 확대 없이 맞춘 크기와 같으며, 바이트가 0보다 크다. 출력마다 SHA-256을 기록한다.
+- 이 검증은 입력, 유효 창 정의, 범주, 분모를 바꾸지 않는다. 결과는 `replay/`에 주 지표와 분리해 기록한다. 두 실행(run-a, run-b)의 재생 출력 해시도 서로 대조한다.
+- 코드: `src/r09-replay.mjs` blob `f2c47de2d43dac71a8bdc8e18d42b882e972d8ce`, `src/transforms.mjs` blob `d7fdef2d20eff53db5913f1e3b7ba9550213a712`(기존, 변경 없음), 테스트 `test/r09-replay.test.mjs` blob `c2468f652aebcc9c32f3a9bfc86439b12be866d9`
+- dev fixture 적용 결과: 4건 중 cropTransform 3, armTransform 1, 유효 4.
+
 ## 7. 한계
 
 - 템플릿을 공유하고 seed가 2개뿐이다. 24쌍은 같은 세 문서형과 두 레이아웃의 변형이므로 독립 표본이 아니다.
