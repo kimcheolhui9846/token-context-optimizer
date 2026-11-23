@@ -1,0 +1,49 @@
+{
+ "images": 48,
+ "categories": {
+  "window_complete": 35,
+  "window_partial": 1,
+  "matched_full": 0,
+  "no_match_full": 12,
+  "tech_error": 0
+ },
+ "sets": {
+  "code": {
+   "n": 12,
+   "table": {
+    "both": 11,
+    "enOnly": 1,
+    "koOnly": 0,
+    "neither": 0
+   },
+   "diff": -0.08333333333333333,
+   "en": 12,
+   "ko": 11
+  },
+  "nl": {
+   "n": 12,
+   "table": {
+    "both": 0,
+    "enOnly": 12,
+    "koOnly": 0,
+    "neither": 0
+   },
+   "diff": -1.0,
+   "en": 12,
+   "ko": 0
+  },
+  "all": {
+   "n": 24,
+   "table": {
+    "both": 11,
+    "enOnly": 13,
+    "koOnly": 0,
+    "neither": 0
+   },
+   "diff": -0.5416666666666666,
+   "en": 24,
+   "ko": 11
+  }
+ },
+ "problems": []
+}

@@ -1,0 +1,181 @@
+{
+ "design": "r09-design-1",
+ "set": "dev",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "dev-loan-list-code-en": {
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "answer": "11-13",
+   "parts": [
+    {
+     "item": "r1c",
+     "role": "code",
+     "rect": [
+      74,
+      257,
+      161,
+      275
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r1v",
+     "role": "value",
+     "rect": [
+      614,
+      302,
+      671,
+      320
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "dev-loan-list-code-ko": {
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "answer": "11-13",
+   "parts": [
+    {
+     "item": "r1c",
+     "role": "code",
+     "rect": [
+      74,
+      257,
+      161,
+      275
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r1v",
+     "role": "value",
+     "rect": [
+      614,
+      302,
+      671,
+      320
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "dev-loan-list-nl-en": {
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "answer": "11-22",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      253,
+      555,
+      343,
+      581
+     ],
+     "size": [
+      90,
+      26
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      614,
+      602,
+      671,
+      620
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "dev-loan-list-nl-ko": {
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "answer": "11-22",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      253,
+      555,
+      315,
+      577
+     ],
+     "size": [
+      62,
+      22
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      614,
+      602,
+      671,
+      620
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  }
+ }
+}

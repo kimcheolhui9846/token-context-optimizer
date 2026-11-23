@@ -1,0 +1,537 @@
+{
+ "design": "r09-design-1",
+ "set": "dev",
+ "rule": "success = matched, window area in (0, page area), every gold part inside the half-open window, 0 px tolerance",
+ "sets": {
+  "code": {
+   "pairs": 1,
+   "n": 1,
+   "en": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "ko": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "table": {
+    "both": 0,
+    "enOnly": 0,
+    "koOnly": 0,
+    "neither": 1
+   },
+   "diff": 0,
+   "missing": {
+    "enOnly": 0,
+    "koOnly": 0,
+    "both": 0
+   },
+   "complete": {
+    "n": 1,
+    "table": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 1
+    },
+    "diff": 0
+   },
+   "bounds": {
+    "min": 0,
+    "max": 0
+   },
+   "byLang": {
+    "en": {
+     "n": 1,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 1,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 0,
+     "observed": 1,
+     "meanAreaRatio": 0.1676,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 1,
+      "label": 0,
+      "other": 0
+     }
+    },
+    "ko": {
+     "n": 1,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 1,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 0,
+     "observed": 1,
+     "meanAreaRatio": 0.1291,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 1,
+      "label": 0,
+      "other": 0
+     }
+    }
+   },
+   "discordant": []
+  },
+  "nl": {
+   "pairs": 1,
+   "n": 1,
+   "en": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "ko": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "table": {
+    "both": 0,
+    "enOnly": 0,
+    "koOnly": 0,
+    "neither": 1
+   },
+   "diff": 0,
+   "missing": {
+    "enOnly": 0,
+    "koOnly": 0,
+    "both": 0
+   },
+   "complete": {
+    "n": 1,
+    "table": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 1
+    },
+    "diff": 0
+   },
+   "bounds": {
+    "min": 0,
+    "max": 0
+   },
+   "byLang": {
+    "en": {
+     "n": 1,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 1,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 0,
+     "observed": 1,
+     "meanAreaRatio": 0.164,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 0,
+      "label": 1,
+      "other": 0
+     }
+    },
+    "ko": {
+     "n": 1,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 0,
+      "matched_full": 0,
+      "no_match_full": 1,
+      "tech_error": 0
+     },
+     "evidencePreserved": 1,
+     "observed": 1,
+     "meanAreaRatio": 1,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 0,
+      "label": 0,
+      "other": 0
+     }
+    }
+   },
+   "discordant": []
+  },
+  "all": {
+   "pairs": 2,
+   "n": 2,
+   "en": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "ko": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "table": {
+    "both": 0,
+    "enOnly": 0,
+    "koOnly": 0,
+    "neither": 2
+   },
+   "diff": 0,
+   "missing": {
+    "enOnly": 0,
+    "koOnly": 0,
+    "both": 0
+   },
+   "complete": {
+    "n": 2,
+    "table": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 2
+    },
+    "diff": 0
+   },
+   "bounds": {
+    "min": 0,
+    "max": 0
+   },
+   "byLang": {
+    "en": {
+     "n": 2,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 2,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 0,
+     "observed": 2,
+     "meanAreaRatio": 0.1658,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 1,
+      "label": 1,
+      "other": 0
+     }
+    },
+    "ko": {
+     "n": 2,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 1,
+      "matched_full": 0,
+      "no_match_full": 1,
+      "tech_error": 0
+     },
+     "evidencePreserved": 1,
+     "observed": 2,
+     "meanAreaRatio": 0.5645,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 1,
+      "label": 0,
+      "other": 0
+     }
+    }
+   },
+   "discordant": []
+  }
+ },
+ "strata": [
+  {
+   "doctype": "loan",
+   "anchor": "code",
+   "lang": "en",
+   "n": 1,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 1,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "loan",
+   "anchor": "code",
+   "lang": "ko",
+   "n": 1,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 1,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "loan",
+   "anchor": "nl",
+   "lang": "en",
+   "n": 1,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 1,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "loan",
+   "anchor": "nl",
+   "lang": "ko",
+   "n": 1,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 1,
+   "tech_error": 0
+  }
+ ],
+ "images": [
+  {
+   "id": "dev-loan-list-code-en",
+   "pairId": "dev-loan-list-code",
+   "lang": "en",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "code",
+   "seed": 0,
+   "category": "window_partial",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": false,
+   "areaRatio": 0.16762,
+   "missingParts": [
+    "r1v"
+   ],
+   "keys": [
+    "ln-3715"
+   ],
+   "lineText": "LN-3715 Projector",
+   "confidence": 93,
+   "band": {
+    "left": 0,
+    "top": 176,
+    "width": 563,
+    "height": 262
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "LN-3715",
+     "box": [
+      74.12,
+      257.01,
+      87.01,
+      18.26
+     ],
+     "item": "r1c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r1c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r1v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dev-loan-list-code-ko",
+   "pairId": "dev-loan-list-code",
+   "lang": "ko",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "code",
+   "seed": 0,
+   "category": "window_partial",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": false,
+   "areaRatio": 0.129084,
+   "missingParts": [
+    "r1v"
+   ],
+   "keys": [
+    "ln-3715"
+   ],
+   "lineText": "LN-3715 I 2 N/E",
+   "confidence": 71,
+   "band": {
+    "left": 0,
+    "top": 189,
+    "width": 514,
+    "height": 221
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "LN-3715",
+     "box": [
+      74.12,
+      257.01,
+      87.01,
+      18.26
+     ],
+     "item": "r1c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r1c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r1v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dev-loan-list-nl-en",
+   "pairId": "dev-loan-list-nl",
+   "lang": "en",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "nl",
+   "seed": 0,
+   "category": "window_partial",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": false,
+   "areaRatio": 0.164048,
+   "missingParts": [
+    "r4v"
+   ],
+   "keys": [
+    "speaker",
+    "due"
+   ],
+   "lineText": "LN-6778 Speaker",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 476,
+    "width": 551,
+    "height": 262
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Speaker",
+     "box": [
+      253.52,
+      555.1,
+      88.62,
+      26.05
+     ],
+     "item": "r4l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "size": [
+      90,
+      26
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dev-loan-list-nl-ko",
+   "pairId": "dev-loan-list-nl",
+   "lang": "ko",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "nl",
+   "seed": 0,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "size": [
+      62,
+      22
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  }
+ ]
+}

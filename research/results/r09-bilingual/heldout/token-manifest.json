@@ -1,0 +1,451 @@
+{
+ "version": "r09-design-1",
+ "set": "heldout",
+ "rule": "selector.mjs keywords() minus off/yes, as in selectWindow",
+ "tokens": [
+  {
+   "id": "schedule-table-code-s1-en",
+   "question": "When is SX-5134?",
+   "keys": [
+    "sx-5134"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "schedule-table-code-s1-ko",
+   "question": "SX-5134 일정은 언제인가요?",
+   "keys": [
+    "sx-5134"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "schedule-table-code-s2-en",
+   "question": "When is SX-8805?",
+   "keys": [
+    "sx-8805"
+   ],
+   "expectedMarker": [
+    "r5c"
+   ]
+  },
+  {
+   "id": "schedule-table-code-s2-ko",
+   "question": "SX-8805 일정은 언제인가요?",
+   "keys": [
+    "sx-8805"
+   ],
+   "expectedMarker": [
+    "r5c"
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s1-en",
+   "question": "When is the budget review?",
+   "keys": [
+    "budget",
+    "review"
+   ],
+   "expectedMarker": [
+    "r5l"
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s1-ko",
+   "question": "예산 검토 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "schedule-table-nl-s2-en",
+   "question": "When is the hiring panel?",
+   "keys": [
+    "hiring",
+    "panel"
+   ],
+   "expectedMarker": [
+    "r2l"
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s2-ko",
+   "question": "채용 면접 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "schedule-cards-code-s1-en",
+   "question": "When is SX-2176?",
+   "keys": [
+    "sx-2176"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s1-ko",
+   "question": "SX-2176 일정은 언제인가요?",
+   "keys": [
+    "sx-2176"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s2-en",
+   "question": "When is SX-2384?",
+   "keys": [
+    "sx-2384"
+   ],
+   "expectedMarker": [
+    "r6c"
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s2-ko",
+   "question": "SX-2384 일정은 언제인가요?",
+   "keys": [
+    "sx-2384"
+   ],
+   "expectedMarker": [
+    "r6c"
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s1-en",
+   "question": "When is the design critique?",
+   "keys": [
+    "design",
+    "critique"
+   ],
+   "expectedMarker": [
+    "r6l"
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s1-ko",
+   "question": "디자인 평가 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "schedule-cards-nl-s2-en",
+   "question": "When is the safety drill?",
+   "keys": [
+    "safety",
+    "drill"
+   ],
+   "expectedMarker": [
+    "r3l"
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s2-ko",
+   "question": "안전 훈련 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-table-code-s1-en",
+   "question": "How much is KT-9600?",
+   "keys": [
+    "kt-9600"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "invoice-table-code-s1-ko",
+   "question": "KT-9600의 금액은 얼마인가요?",
+   "keys": [
+    "kt-9600"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "invoice-table-code-s2-en",
+   "question": "How much is KT-2159?",
+   "keys": [
+    "kt-2159"
+   ],
+   "expectedMarker": [
+    "r5c"
+   ]
+  },
+  {
+   "id": "invoice-table-code-s2-ko",
+   "question": "KT-2159의 금액은 얼마인가요?",
+   "keys": [
+    "kt-2159"
+   ],
+   "expectedMarker": [
+    "r5c"
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s1-en",
+   "question": "How much is the paper towels?",
+   "keys": [
+    "paper",
+    "towels"
+   ],
+   "expectedMarker": [
+    "r5l"
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s1-ko",
+   "question": "종이 타월의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-table-nl-s2-en",
+   "question": "How much is the water filter?",
+   "keys": [
+    "water",
+    "filter"
+   ],
+   "expectedMarker": [
+    "r2l"
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s2-ko",
+   "question": "정수 필터의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-cards-code-s1-en",
+   "question": "How much is KT-6012?",
+   "keys": [
+    "kt-6012"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s1-ko",
+   "question": "KT-6012의 금액은 얼마인가요?",
+   "keys": [
+    "kt-6012"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s2-en",
+   "question": "How much is KT-7414?",
+   "keys": [
+    "kt-7414"
+   ],
+   "expectedMarker": [
+    "r6c"
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s2-ko",
+   "question": "KT-7414의 금액은 얼마인가요?",
+   "keys": [
+    "kt-7414"
+   ],
+   "expectedMarker": [
+    "r6c"
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s1-en",
+   "question": "How much is the office chair?",
+   "keys": [
+    "office",
+    "chair"
+   ],
+   "expectedMarker": [
+    "r6l"
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s1-ko",
+   "question": "사무용 의자의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-cards-nl-s2-en",
+   "question": "How much is the paper towels?",
+   "keys": [
+    "paper",
+    "towels"
+   ],
+   "expectedMarker": [
+    "r3l"
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s2-ko",
+   "question": "종이 타월의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-table-code-s1-en",
+   "question": "What number is shown for PX-2149?",
+   "keys": [
+    "px-2149"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "status-table-code-s1-ko",
+   "question": "PX-2149에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "px-2149"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "status-table-code-s2-en",
+   "question": "What number is shown for PX-7880?",
+   "keys": [
+    "px-7880"
+   ],
+   "expectedMarker": [
+    "r5c"
+   ]
+  },
+  {
+   "id": "status-table-code-s2-ko",
+   "question": "PX-7880에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "px-7880"
+   ],
+   "expectedMarker": [
+    "r5c"
+   ]
+  },
+  {
+   "id": "status-table-nl-s1-en",
+   "question": "What number is shown for the login service?",
+   "keys": [
+    "login",
+    "service"
+   ],
+   "expectedMarker": [
+    "r5l"
+   ]
+  },
+  {
+   "id": "status-table-nl-s1-ko",
+   "question": "로그인 서비스에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-table-nl-s2-en",
+   "question": "What number is shown for the audit logger?",
+   "keys": [
+    "audit",
+    "logger"
+   ],
+   "expectedMarker": [
+    "r2l"
+   ]
+  },
+  {
+   "id": "status-table-nl-s2-ko",
+   "question": "감사 기록기에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-cards-code-s1-en",
+   "question": "What number is shown for PX-5336?",
+   "keys": [
+    "px-5336"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "status-cards-code-s1-ko",
+   "question": "PX-5336에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "px-5336"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "status-cards-code-s2-en",
+   "question": "What number is shown for PX-3474?",
+   "keys": [
+    "px-3474"
+   ],
+   "expectedMarker": [
+    "r6c"
+   ]
+  },
+  {
+   "id": "status-cards-code-s2-ko",
+   "question": "PX-3474에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "px-3474"
+   ],
+   "expectedMarker": [
+    "r6c"
+   ]
+  },
+  {
+   "id": "status-cards-nl-s1-en",
+   "question": "What number is shown for the backup storage?",
+   "keys": [
+    "backup",
+    "storage"
+   ],
+   "expectedMarker": [
+    "r6l"
+   ]
+  },
+  {
+   "id": "status-cards-nl-s1-ko",
+   "question": "백업 저장소에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-cards-nl-s2-en",
+   "question": "What number is shown for the login service?",
+   "keys": [
+    "login",
+    "service"
+   ],
+   "expectedMarker": [
+    "r3l"
+   ]
+  },
+  {
+   "id": "status-cards-nl-s2-ko",
+   "question": "로그인 서비스에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  }
+ ]
+}

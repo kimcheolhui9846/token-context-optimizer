@@ -1,0 +1,82 @@
+{
+ "design": "r09-design-1",
+ "set": "heldout",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "failedImages": 0,
+ "problems": {
+  "schedule-table-code-s1-en": [],
+  "schedule-table-code-s1-ko": [],
+  "schedule-table-code-s2-en": [],
+  "schedule-table-code-s2-ko": [],
+  "schedule-table-nl-s1-en": [],
+  "schedule-table-nl-s1-ko": [],
+  "schedule-table-nl-s2-en": [],
+  "schedule-table-nl-s2-ko": [],
+  "schedule-cards-code-s1-en": [],
+  "schedule-cards-code-s1-ko": [],
+  "schedule-cards-code-s2-en": [],
+  "schedule-cards-code-s2-ko": [],
+  "schedule-cards-nl-s1-en": [],
+  "schedule-cards-nl-s1-ko": [],
+  "schedule-cards-nl-s2-en": [],
+  "schedule-cards-nl-s2-ko": [],
+  "invoice-table-code-s1-en": [],
+  "invoice-table-code-s1-ko": [],
+  "invoice-table-code-s2-en": [],
+  "invoice-table-code-s2-ko": [],
+  "invoice-table-nl-s1-en": [],
+  "invoice-table-nl-s1-ko": [],
+  "invoice-table-nl-s2-en": [],
+  "invoice-table-nl-s2-ko": [],
+  "invoice-cards-code-s1-en": [],
+  "invoice-cards-code-s1-ko": [],
+  "invoice-cards-code-s2-en": [],
+  "invoice-cards-code-s2-ko": [],
+  "invoice-cards-nl-s1-en": [],
+  "invoice-cards-nl-s1-ko": [],
+  "invoice-cards-nl-s2-en": [],
+  "invoice-cards-nl-s2-ko": [],
+  "status-table-code-s1-en": [],
+  "status-table-code-s1-ko": [],
+  "status-table-code-s2-en": [],
+  "status-table-code-s2-ko": [],
+  "status-table-nl-s1-en": [],
+  "status-table-nl-s1-ko": [],
+  "status-table-nl-s2-en": [],
+  "status-table-nl-s2-ko": [],
+  "status-cards-code-s1-en": [],
+  "status-cards-code-s1-ko": [],
+  "status-cards-code-s2-en": [],
+  "status-cards-code-s2-ko": [],
+  "status-cards-nl-s1-en": [],
+  "status-cards-nl-s1-ko": [],
+  "status-cards-nl-s2-en": [],
+  "status-cards-nl-s2-ko": []
+ }
+}
