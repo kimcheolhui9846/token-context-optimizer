@@ -257,13 +257,15 @@ def regenerate(pkg: Path, out: Path) -> dict:
 def offline_evidence(out: Path, runs: list) -> dict:
     """Offline condition of the regeneration itself (separate from the deliberate guard-check negative control,
     which logs to network-guard-check.jsonl): for every step, an interpreter of the step's own kind (Node or Python)
-    started the guard under that step's name (D03_STEP), and nothing was blocked. Matching by step name rather than
-    process id keeps launchers (a Windows venv python.exe starts the real interpreter as a child) from failing a run
-    that stayed offline."""
+    started the guard under that step's name (D03_STEP), and that interpreter is either the process the runner started
+    or its direct child, and nothing was blocked. The direct-child case admits launchers (a Windows venv python.exe
+    starts the real interpreter as a child) without accepting a guard from some deeper process."""
     netlog = out / "logs" / "network.jsonl"
     events = [json.loads(x) for x in netlog.read_text(encoding="utf-8").splitlines() if x] if netlog.is_file() else []
-    started = {(e.get("step"), e.get("lang")) for e in events if e["event"] == "guard"}
-    unguarded = [r["step"] for r in runs if (r["step"], step_lang(r)) not in started]
+    guards = [e for e in events if e["event"] == "guard"]
+    unguarded = [r["step"] for r in runs
+                 if not any(e.get("step") == r["step"] and e.get("lang") == step_lang(r) and r["pid"] in (e.get("pid"), e.get("ppid"))
+                            for e in guards)]
     blocked = [e for e in events if e["event"] == "blocked"]
     return {"ok": bool(runs) and not unguarded and not blocked, "steps": len(runs),
             "guardStarts": sum(1 for e in events if e["event"] == "guard"), "stepsWithoutGuard": unguarded,

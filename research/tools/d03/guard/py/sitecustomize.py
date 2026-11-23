@@ -16,7 +16,7 @@ def _note(event, kind=""):
         return
     try:
         with open(_LOG, "a", encoding="utf-8") as fh:
-            fh.write(json.dumps({"event": event, "kind": kind, "pid": os.getpid(), "lang": "python", "step": os.environ.get("D03_STEP", "")}) + "\n")
+            fh.write(json.dumps({"event": event, "kind": kind, "pid": os.getpid(), "ppid": os.getppid(), "lang": "python", "step": os.environ.get("D03_STEP", "")}) + "\n")
     except OSError:
         pass
 

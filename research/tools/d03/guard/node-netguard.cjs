@@ -7,7 +7,7 @@ const log = process.env.D03_NET_LOG || "";
 function record(kind, detail) {
   if (log) {
     try {
-      fs.appendFileSync(log, `${JSON.stringify({ event: "blocked", kind, detail: String(detail).slice(0, 80), pid: process.pid, lang: "node", step: process.env.D03_STEP || "" })}\n`);
+      fs.appendFileSync(log, `${JSON.stringify({ event: "blocked", kind, detail: String(detail).slice(0, 80), pid: process.pid, ppid: process.ppid, lang: "node", step: process.env.D03_STEP || "" })}\n`);
     } catch {
       // logging must not hide the block
     }
@@ -18,7 +18,7 @@ function record(kind, detail) {
 }
 if (log) {
   try {
-    fs.appendFileSync(log, `${JSON.stringify({ event: "guard", pid: process.pid, lang: "node", step: process.env.D03_STEP || "" })}\n`);
+    fs.appendFileSync(log, `${JSON.stringify({ event: "guard", pid: process.pid, ppid: process.ppid, lang: "node", step: process.env.D03_STEP || "" })}\n`);
   } catch {
     // ignore
   }

@@ -193,7 +193,12 @@ class Offline(unittest.TestCase):
     def test_launcher_child_pid_still_counts(self):
         # a Windows venv python.exe launcher: the guard runs in a child with another pid
         self.assertTrue(self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1},
-                                       {"event": "guard", "step": "b", "lang": "python", "pid": 99}])["ok"])
+                                       {"event": "guard", "step": "b", "lang": "python", "pid": 99, "ppid": 2}])["ok"])
+
+    def test_guard_from_unrelated_process_does_not_count(self):
+        e = self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1},
+                           {"event": "guard", "step": "b", "lang": "python", "pid": 99, "ppid": 98}])
+        self.assertEqual(e["stepsWithoutGuard"], ["b"])
 
     def test_step_without_guard_fails(self):
         e = self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1}])
