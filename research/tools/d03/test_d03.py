@@ -95,6 +95,17 @@ class Tables(unittest.TestCase):
     def test_verdict_mixed(self):
         self.assertEqual(c.verdict_text([True, False]), "GPT-4o 지지, Haiku 지지 안 됨")
 
+    def test_verdict_rederived_from_numbers(self):
+        h1 = {"lo": -0.04, "tokensS2": 10, "tokensS0": 20}
+        self.assertTrue(c.derived_pass("H1", h1))
+        self.assertFalse(c.derived_pass("H1", dict(h1, lo=-0.06)))
+        self.assertFalse(c.derived_pass("H1", dict(h1, tokensS2=30)))
+        self.assertTrue(c.derived_pass("H2", {"hi": -0.1}))
+        self.assertFalse(c.derived_pass("H3", {"lo": 0.0}))
+        self.assertTrue(c.derived_pass("H4", {"cacheSaving": 0.1, "listSaving": 0.3}))
+        self.assertEqual(c.verdict_flags_agree([("H2", {"hi": -0.1}, True), ("H2", {"hi": 0}, None)]), [])
+        self.assertEqual(len(c.verdict_flags_agree([("H2", {"hi": 0.1}, True)])), 1)
+
     def test_match_points(self):
         self.assertEqual(c.match_points([(1, 2)], [(1 + 1e-12, 2)]), [])
         self.assertTrue(c.match_points([(1, 2)], [(1.1, 2)]))
@@ -123,6 +134,20 @@ class Manifest(unittest.TestCase):
         m = r.verify_manifest(self.d)
         self.assertFalse(m["ok"])
         self.assertEqual((m["corrupt"], m["missing"], m["extra"]), (["a.txt"], ["sub/b.txt"], ["c.txt"]))
+
+
+class CompareRefusal(unittest.TestCase):
+    def test_compare_needs_successful_regenerate(self):
+        d = Path(tempfile.mkdtemp())
+        try:
+            (d / "pkg").mkdir()
+            (d / "out").mkdir()
+            p = subprocess.run([sys.executable, "-B", str(HERE / "d03_repro.py"), "compare", "--package", str(d / "pkg"), "--out", str(d / "out")],
+                               capture_output=True, text=True)
+            self.assertEqual(p.returncode, 2)
+            self.assertFalse((d / "out/compare.json").exists())
+        finally:
+            shutil.rmtree(d)
 
 
 class Guard(unittest.TestCase):

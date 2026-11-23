@@ -56,7 +56,7 @@ selectWindow(OCR 줄 목록, 질문, W, H)
 ### 1.4 미발견 시 처리
 
 - 실험 2 C·D: 선택 결과가 `matched:false`이면 B와 같은 전체 1536/q75 변환 이미지를 쓴다. 코드의 분기는 `out = sel.matched ? cropTransform(...) : { bytes: armB.bytes, ops: ["select: no match -> full frame", ...armB.ops] }`이고 `file`은 `fileB`다. (`research/src/variants.mjs:85-94`)
-- 실험 3: 도구 질의에서 `sel.matched`가 거짓이면 `cropTransform` 대신 `armTransform`으로 전체 이미지를 변환해 돌려준다. 결과 문구는 "No matching region found ... whole image downscaled"다. (`research/src/session-harness.mjs:166-167`) 원고 90행은 이를 "썸네일 없이 전체 arm 변환 이미지"로 적는다. 썸네일의 유무는 위 코드 발췌만으로 확인하지 못했다. 원고 문구를 그대로 인용한다.
+- 실험 3: 도구 질의에서 `sel.matched`가 거짓이면 `cropTransform` 대신 `armTransform`으로 전체 이미지를 변환해 돌려준다. 결과 문구는 "No matching region found ... whole image downscaled"다. (`research/src/session-harness.mjs:166-169`) 원고 90행은 이를 "썸네일 없이 전체 arm 변환 이미지"로 적는다. 썸네일의 유무는 위 코드 발췌만으로 확인하지 못했다. 원고 문구를 그대로 인용한다.
 - 원고 90행은 이 의사코드가 실험 경로의 규칙 기술이며 일반 crop 알고리즘으로서의 우월성을 뜻하지 않는다고 못 박는다.
 
 ### 1.5 OCR과 동결

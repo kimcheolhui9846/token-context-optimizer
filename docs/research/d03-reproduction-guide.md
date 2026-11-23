@@ -30,7 +30,7 @@
 | 항목 | 요구 | 작성자 재현 환경 |
 |---|---|---|
 | 운영체제 | Windows, macOS, Linux | 작성자 기록은 Windows 한 가지이며 다른 OS 검증은 확인 불가 |
-| Node.js | 22 이상 | v24.18.0 |
+| Node.js | 22 이상(`research/package.json`의 `engines`), `node`가 PATH에 있어야 한다 | v24.18.0. 다른 버전은 검증하지 않았다 |
 | Python | 3.12 | 3.12.10 |
 | Python 패키지 | 패키지의 `requirements.txt`(matplotlib 3.11.1, numpy 2.5.1과 의존 패키지 고정 버전) | 같음 |
 | 그림 글꼴 | matplotlib에 포함된 DejaVu Sans | 같음 |
@@ -76,6 +76,8 @@ python -m venv <venv폴더>
 - Node 하위 프로세스에는 fetch·TCP·UDP·DNS 차단 preload(`tools/guard/node-netguard.cjs`)를 `NODE_OPTIONS`로 적용한다.
 - Python 하위 프로세스에는 `tools/guard/py/sitecustomize.py`를 `PYTHONPATH`로 적용한다.
 - 차단 범위는 해당 프로세스와 하위 프로세스다. 시스템 방화벽은 바꾸지 않는다. 단계 A의 pip는 차단 밖이다.
+- 한계: Python을 `-I`·`-E`·`-S`로 띄우거나 Node·Python이 아닌 실행 파일을 부르면 차단이 걸리지 않는다. 이번 생성기는 그런 호출을 하지 않으며, 재생성 중 차단 기록은 0건이어야 정상이다.
+- 판정 근거는 `all`이 만든 `report.json`이다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 하며, 없으면 거부한다.
 - 빈 출력 폴더에 기준 이미지나 집계표를 복사해 성공으로 처리하지 않는다. 기준 파일은 `expected/`에만 있고 생성기 작업 폴더에 들어가지 않는다.
 
 ## 6. 결과 읽기
@@ -139,7 +141,7 @@ python -m venv <venv폴더>
 |---|---|---|
 | 연구 코드(`research/src` 일부, `research/figures/*.py`, `tools/`) | 공개 가능 | 저장소 `LICENSE`(MIT License)로 이미 공개 저장소에 있다. (`LICENSE:1`) 라이선스 파일은 저작권자 이름이 있어 익명 심사용 사본에서 뺐다. 외부 배포 때 저작권 표기와 익명성의 처리는 별도 결정 대상이다 |
 | 원자료(`rows.jsonl`, `responses.jsonl`, `calls.jsonl`, 세션 결과, `config.json`, 매니페스트) | 미확정 | 공개 저장소에 이미 커밋돼 있으나 공급자 모델 출력이 포함돼 있다. 외부 재배포는 공급자 이용약관 재확인 전까지 미확정이다 |
-| 고정 원고(`expected/manuscript`)와 원고에서 가져온 표 1 사양·첫 판 발췌(`expected/table1-spec.json`, `expected/provenance/table1-abdaade.md`) | 제한 | 익명 심사 대상 원고다. 외부 배포를 보류한다 |
+| 고정 원고(`expected/manuscript`)와 원고에서 가져온 표 1 사양·첫 판 발췌(`expected/table1-spec.json`, `expected/provenance/table1-abdaade.md`) | 제한(패키지 사본 기준) | 원고와 표 1 사양의 원본 파일은 이미 공개 저장소에 있다. 패키지로 묶어 외부에 배포하는 것만 익명 심사 때문에 보류한다 |
 | 기준 그림·집계(`expected/`) | 공개 가능 | 공개 저장소에 있다. 단 원고와 묶은 배포는 심사 익명성 때문에 보류한다 |
 | 조판본 HWP/PDF와 심사본 | 패키지에 넣지 않음 | D02 산출물은 공개 저장소에도 넣지 않았다. (`research/plans/2026-11-23-d02-ieie-typesetting.md:5`) |
 

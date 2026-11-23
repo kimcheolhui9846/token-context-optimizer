@@ -297,13 +297,14 @@ def environment() -> dict:
         font_rel = "matplotlib/" + font.relative_to(mpl_root).as_posix()
     except ValueError:
         font_rel = "outside-matplotlib:" + font.name
-    return {"node": node, "python": platform.python_version(), "implementation": platform.python_implementation(),
+    return {"node": node, "python": platform.python_version(), "pythonExecutable": Path(sys.executable).name,
+            "virtualEnv": sys.prefix != sys.base_prefix, "implementation": platform.python_implementation(),
             "os": f"{platform.system()} {platform.release()}", "machine": platform.machine(), "packages": pkgs,
             "font": {"family": "DejaVu Sans", "file": font_rel, "sha256": sha256(font)}}
 
 
 def report_md(rep: dict) -> str:
-    lines = ["# D03 재현 결과", "", f"합격: {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']})", "",
+    lines = ["# D03 재현 결과", "", f"자동 판정 합격(규칙 1–3단계): {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']})", "",
              "| 항목 | 판정 | 비고 |", "|---|---|---|"]
     for it in rep["compare"]["items"]:
         note = ""
@@ -341,6 +342,10 @@ def main() -> int:
         print("refuse: --out must be outside the package")
         return 2
     if a.cmd == "compare":
+        runs = out / "runs.json"
+        if not runs.is_file() or not json.loads(runs.read_text(encoding="utf-8")).get("ok"):
+            print("refuse: compare needs an --out made by a successful regenerate (runs.json); the report of `all` is the evidence")
+            return 2
         rep = compare(pkg, out)
         (out / "compare.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
         print(json.dumps({"passed": rep["passed"], "total": rep["total"]}))
@@ -374,6 +379,7 @@ def main() -> int:
         (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
         return 3
     rep["regenerate"] = regenerate(pkg, out)
+    (out / "runs.json").write_text(json.dumps(rep["regenerate"], indent=1), encoding="utf-8")
     rep["compare"] = compare(pkg, out) if rep["regenerate"]["ok"] else {"items": [], "passed": 0, "total": 7, "secondaryBlobEqual": [], "secondaryEqualCount": 0}
     rep["packageUnchanged"] = snapshot(pkg) == before
     netlog = out / "logs" / "network.jsonl"
@@ -383,6 +389,7 @@ def main() -> int:
     rep["environment"] = environment()
     rep["seconds"] = round(time.perf_counter() - t0, 1)
     rep["pass"] = rep["compare"]["passed"] == 7 and rep["packageUnchanged"] and rep["guard"]["ok"]
+    rep["passScope"] = "automated rules steps 1-3; the visual check (step 4) is recorded separately by the reviewer"
     (out / "env.json").write_text(json.dumps(rep["environment"], ensure_ascii=False, indent=1), encoding="utf-8")
     (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     (out / "report.md").write_text(report_md(rep), encoding="utf-8")

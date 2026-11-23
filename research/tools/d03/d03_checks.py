@@ -129,6 +129,7 @@ def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, referenc
     diffs = cell_diff(expected, actual)
     checks["cells"] = not diffs
     checks["columns5"] = all(len(r) == 5 for r in actual)
+    checks["separator"] = t["sep"].strip() == "|---|---|---|---|---|"
     refs = references(lines)
     cite_problems = []
     for row in spec["rows"]:
@@ -137,7 +138,7 @@ def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, referenc
             cite_problems.append({"row": row["cells"][0], "problem": "citation list"})
         for n in row["citations"]:
             key = spec["titleKeys"][str(n)]
-            if n not in refs or key.lower() not in refs[n].lower():
+            if n not in refs or key not in refs[n]:
                 cite_problems.append({"ref": n, "problem": "reference entry missing title key"})
     checks["citations"] = not cite_problems
     log_lines = normalize_t1(reference_log.read_text(encoding="utf-8")).split("\n")
@@ -149,8 +150,9 @@ def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, referenc
     ref_mismatch = [n for row in spec["rows"] for n in row["citations"] if log_refs.get(n) != refs.get(n)]
     checks["referenceLog"] = not ref_mismatch
     prov = [parse_row(x) for x in normalize_t1(provenance_table.read_text(encoding="utf-8")).split("\n") if x.startswith("|")]
+    prov_sep = [x for x in normalize_t1(provenance_table.read_text(encoding="utf-8")).split("\n") if x.startswith("|")][1]
     prov = [prov[0]] + prov[2:]
-    checks["provenance"] = prov == expected
+    checks["provenance"] = prov == expected and prov_sep.strip() == t["sep"].strip()
     ok = all(checks.values())
     return {"item": "T1", "verdict": "MATCH" if ok else "MISMATCH", "checks": checks, "cellDiffs": diffs,
             "citationProblems": cite_problems, "referenceLogMismatch": ref_mismatch,
@@ -182,6 +184,35 @@ def verdict_text(passes: list, holds_word: str = "지지", fails_word: str = "�
         return fails_word
     return ", ".join(f"{name.split()[0] if name != 'GPT-4o' else name} {holds_word if p else fails_word}"
                      for (_, name), p in zip(MODELS, passes))
+
+
+MARGIN = -0.05
+
+
+def derived_pass(key: str, h: dict):
+    """Re-derive each verdict from the numbers (rules section 3), independently of the stored flag."""
+    if key == "H1" and "tokensD" in h:
+        return h["lo"] > MARGIN and h["tokensD"] < h["tokensA"]
+    if key == "H1":
+        return h["lo"] > MARGIN and h["tokensS2"] < h["tokensS0"]
+    if key == "H2":
+        return h["hi"] < 0
+    if key == "H3":
+        return h["lo"] > 0
+    if key == "H4":
+        return h["cacheSaving"] < h["listSaving"]
+    return None
+
+
+def verdict_flags_agree(rows: list) -> list[dict]:
+    """rows: (hypothesis, numbers, stored flag). A stored None means descriptive (no verdict)."""
+    bad = []
+    for key, h, stored in rows:
+        if stored is None:
+            continue
+        if derived_pass(key, h) != stored:
+            bad.append({"hypothesis": key, "stored": stored, "derived": derived_pass(key, h)})
+    return bad
 
 
 def build_t2(analysis: dict[str, dict]) -> list[list[str]]:
@@ -229,10 +260,13 @@ def check_t2(manuscript: Path, gen: Path) -> dict:
     built = build_t2(analysis)
     diffs = cell_diff(built, [t["header"]] + t["rows"])
     denominators = {m: {"families": analysis[m]["all"]["families"], "requery": analysis[m]["all"]["requery"],
-                        "seed": analysis[m]["bootstrap"]["seed"], "B": analysis[m]["bootstrap"]["B"]} for m, _ in MODELS}
-    ok = not diffs and all(d["seed"] == 20261016 and d["B"] == 10000 and d["families"] == 36 for d in denominators.values())
+                        "seed": analysis[m]["bootstrap"]["seed"], "B": analysis[m]["bootstrap"]["B"],
+                        "margin": analysis[m]["margin"]} for m, _ in MODELS}
+    flags = verdict_flags_agree([(k, analysis[m]["verdicts"][k], analysis[m]["verdicts"][k]["pass"]) for m, _ in MODELS for k in ["H1", "H2", "H3"]])
+    ok = not diffs and not flags and all(d["seed"] == 20261016 and d["B"] == 10000 and d["families"] == 36
+                                         and d["requery"]["assigned"] == 144 and d["margin"] == MARGIN for d in denominators.values())
     return {"item": "T2", "verdict": "MATCH" if ok else "MISMATCH", "cells": sum(len(r) for r in built), "cellDiffs": diffs,
-            "denominators": denominators}
+            "verdictFlagDisagreements": flags, "denominators": denominators}
 
 
 def check_t3(manuscript: Path, gen: Path) -> dict:
@@ -246,9 +280,12 @@ def check_t3(manuscript: Path, gen: Path) -> dict:
     units = {m: {"sessions": analysis[m]["all"]["sessions"], "seed": analysis[m]["bootstrap"]["seed"],
                  "B": analysis[m]["bootstrap"]["B"], "price": summary[m]["config"].get("price"),
                  "cache": summary[m]["config"].get("cache")} for m, _ in MODELS}
-    ok = not diffs and all(u["seed"] == 20261015 and u["B"] == 10000 and u["sessions"] == 24 for u in units.values())
+    flags = verdict_flags_agree([(k, analysis[m]["all"][k], analysis[m]["all"][k]["pass"]) for m, _ in MODELS for k in ["H1", "H2", "H3"]]
+                                + [("H4", analysis[m]["H4"], analysis[m]["H4"]["holds"]) for m, _ in MODELS])
+    ok = (not diffs and not flags and all(u["seed"] == 20261015 and u["B"] == 10000 and u["sessions"] == 24 for u in units.values())
+          and all(analysis[m]["margin"] == MARGIN for m, _ in MODELS))
     return {"item": "T3", "verdict": "MATCH" if ok else "MISMATCH", "cells": sum(len(r) for r in built_h + built_c),
-            "cellDiffs": diffs, "units": units}
+            "cellDiffs": diffs, "verdictFlagDisagreements": flags, "units": units}
 
 
 # ---------------------------------------------------------------- figures
@@ -305,6 +342,19 @@ def expected_f1(rows_path: Path) -> dict:
     return {"longs": longs, "series": series}
 
 
+def linear_axes(probe: dict) -> bool:
+    return all(ax["xscale"] == "linear" and ax["yscale"] == "linear" for ax in probe["axes"])
+
+
+F1_STYLE = {"1:1": ("#000000", "o"), "4:3": ("#0072b2", "s"), "16:9": ("#009e73", "^"), "3:1": ("#d55e00", "D")}
+F2_MARKER = {"A": "o", "B": "v", "C": "s", "D": "D", "E": "^", "Dp": "P"}
+F3_MARKER = {"S0": "o", "S1": "v", "S2": "s", "S3": "D", "S4": "^"}
+
+
+def errorbar_styles(ax: dict) -> list:
+    return sorted((eb["color"], eb["marker"]) for eb in ax["errorbars"] if eb["data"] is not None)
+
+
 def check_f1(probe: dict, rows_path: Path) -> dict:
     exp = expected_f1(rows_path)
     axes = probe["axes"]
@@ -325,6 +375,8 @@ def check_f1(probe: dict, rows_path: Path) -> dict:
             want = exp["series"][(key, ratio)]
             ok = ln is not None and len(ln["y"]) == 7 and all(close(a, b) for a, b in zip(ln["y"], want)) \
                 and all(close(a, b) for a, b in zip(ln["x"], range(7)))
+            if ln is not None and (ln["color"], ln["marker"]) != F1_STYLE[ratio]:
+                problems.append(f"style {key} {ratio}")
             data.append({"provider": key, "ratio": ratio, "ok": ok})
             if not ok:
                 problems.append(f"values {key} {ratio}")
@@ -335,6 +387,8 @@ def check_f1(probe: dict, rows_path: Path) -> dict:
         problems.append("patch cap line")
     if axes and (axes[0]["legend"] or {}).get("title") != "Aspect ratio":
         problems.append("legend title")
+    if not linear_axes(probe):
+        problems.append("scale")
     return {"values": len(data) * 7, "problems": problems}
 
 
@@ -366,6 +420,10 @@ def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
         problems.append("point labels")
     if (ax["legend"] or {}).get("texts") != ["GPT-4o", "Claude Haiku 4.5"]:
         problems.append("legend")
+    if errorbar_styles(ax) != sorted((col, F2_MARKER[a]) for col in (GPT, HAIKU) for a in F2_MARKER):
+        problems.append("series colour/marker")
+    if not linear_axes(probe):
+        problems.append("scale")
     return {"values": len(expected) * 4, "problems": problems}
 
 
@@ -381,8 +439,12 @@ def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
             rs = [r for r in rows if r["provider"] == m and r["condition"] == c]
             mean, lo, hi = boot_ci([r["accuracy"] for r in rs], 20261015)
             a = analysis[m]["all"]
+            if len(rs) != 24:
+                problems.append(f"session count {m} {c}")
             if not close(mean, a["accuracy"][c]):
                 problems.append(f"session mean differs from analysis {m} {c}")
+            if not close(sum(r["promptTokens"] for r in rs) / len(rs), a["promptTokens"][c]):
+                problems.append(f"session tokens differ from analysis {m} {c}")
             expected.append((a["promptTokens"][c] / 1000, a["accuracy"][c] * 100, lo * 100, hi * 100))
             labels.append((c, colour))
     ax = probe["axes"][0]
@@ -397,6 +459,10 @@ def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
         problems.append("point labels")
     if (ax["legend"] or {}).get("texts") != ["GPT-4o", "Claude Haiku 4.5"]:
         problems.append("legend")
+    if errorbar_styles(ax) != sorted((col, F3_MARKER[c]) for col in (GPT, HAIKU) for c in F3_MARKER):
+        problems.append("series colour/marker")
+    if not linear_axes(probe):
+        problems.append("scale")
     return {"values": len(expected) * 4, "problems": problems}
 
 
@@ -414,8 +480,14 @@ def check_f4(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
         grp = bars[i]
         if grp["label"] != ("GPT-4o" if m == "gpt4o" else "Claude Haiku 4.5") or grp["edgecolor"] != colour:
             problems.append(f"bar style {m}")
+        fills = {(p["face"], p["hatch"]) for p in grp["patches"]}
+        if fills != ({(GPT, None)} if m == "gpt4o" else {("#ffffff", "////")}):
+            problems.append(f"bar fill {m}")
         for j, c in enumerate(["S0", "S1", "S2", "S3", "S4"]):
-            mean, lo, hi = boot_ci([r["lateRecall"] for r in rows if r["provider"] == m and r["condition"] == c], 20261015)
+            rs = [r for r in rows if r["provider"] == m and r["condition"] == c]
+            if len(rs) != 24:
+                problems.append(f"session count {m} {c}")
+            mean, lo, hi = boot_ci([r["lateRecall"] for r in rs], 20261015)
             want_h = analysis[m]["all"]["lateRecall"][c] * 100
             p = grp["patches"][j]
             seg = grp["segments"][j]
@@ -428,6 +500,8 @@ def check_f4(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
         problems.append("axis")
     if ax["xticklabels"] != ["S0", "S1", "S2", "S3", "S4"]:
         problems.append("xticks")
+    if not linear_axes(probe):
+        problems.append("scale")
     if [lg.get("texts") for lg in probe["figlegends"]] != [["GPT-4o", "Claude Haiku 4.5"]]:
         problems.append("legend")
     return {"values": n, "problems": problems}
