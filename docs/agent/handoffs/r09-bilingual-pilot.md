@@ -31,3 +31,8 @@
   - 빌드가 줄끝만 바꾼 `bin/` 파일은 되돌렸다.
 - Argon APPROVE
 - WBS는 수정하지 않았다. 지시대로 기존 24건의 분모와 상태를 유지했다. 이 연구를 WBS에 반영할지와 그 방식은 PM이 정한다.
+
+## PM 검토 반영 (2026-11-23, `codex_review/review_2026-11-23_pr140-r09-bilingual-pm.md`)
+
+- Major(Windows 새 작업 사본): `core.autocrlf=true`의 `git checkout-index`에서 입력 JSON 6개가 CRLF로 꺼내져 동결 대조가 실패함을 재현했다(`diffs` 6, 종료 1). `research/results/r09-bilingual/.gitattributes`(`* text=auto eol=lf`)를 더했다. 같은 설정의 새 checkout에서 65/65(입력 54 + 코드 11) 일치. 기존 blob·동결 SHA·측정값·코드·사전등록·결과는 바꾸지 않았다.
+- Minor(공개 재현 안내): README가 공개 패키지 `@tesseract.js-data/eng@1.0.0`에서 OCR 자료를 준비하고 전체 SHA-256을 `sha256sum -c`로 검사한다. 출력은 새 폴더에 쓰고, 가드 기록 폴더를 먼저 만들며, 증거 폴더의 해시 전후 대조와 11개 산출물 `cmp`로 검산한다.
