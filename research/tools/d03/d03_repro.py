@@ -6,8 +6,11 @@
   python tools/d03_repro.py compare         --package <pkg> --out <dir from regenerate>
   python tools/d03_repro.py all             --package <pkg> --out <new dir>
 
-Exit codes: 0 all seven items MATCH or MATCH-WITHIN-TOLERANCE, 1 a verdict failed or a command failed,
-2 manifest or input error, 3 the offline guard negative control failed.
+Exit codes: 0 all seven items MATCH or MATCH-WITHIN-TOLERANCE and the run stayed offline,
+1 a verdict failed or a command failed, 2 manifest or input error (checked before any regeneration),
+3 the offline guard negative control failed (before regeneration),
+4 the regeneration itself broke the offline condition (a step without guard evidence, or a blocked network call),
+reported separately from the scientific verdicts.
 The package is only read. Outputs go to --out, which must not exist before regenerate/all.
 """
 from __future__ import annotations
@@ -79,14 +82,28 @@ def guarded_env(out: Path, log: str = "network.jsonl") -> dict:
     return env
 
 
+def rel_arg(x: str, out: Path) -> str:
+    """Record arguments relative to the output or package so the run record carries no local paths."""
+    if not Path(x).is_absolute():
+        return x
+    for base, tag in [(out, "<out>"), (HERE.parent, "<package>")]:
+        try:
+            return tag + "/" + Path(x).resolve().relative_to(base.resolve()).as_posix()
+        except (ValueError, OSError):
+            pass
+    return x
+
+
 def run(name: str, cmd: list[str], cwd: Path, env: dict, out: Path, runs: list) -> int:
     t0 = time.perf_counter()
-    p = subprocess.run(cmd, cwd=cwd, env=env, capture_output=True)
+    proc = subprocess.Popen(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
+    p = subprocess.CompletedProcess(cmd, proc.returncode, stdout, stderr)
     dt = time.perf_counter() - t0
     log = out / "logs" / f"{len(runs) + 1:02d}-{name}.log"
     log.write_bytes(b"$ " + " ".join(cmd[1:]).encode() + b"\n--- stdout\n" + p.stdout + b"\n--- stderr\n" + p.stderr)
-    runs.append({"step": name, "command": [Path(cmd[0]).name] + cmd[1:], "exit": p.returncode, "seconds": round(dt, 3),
-                 "log": log.relative_to(out).as_posix()})
+    runs.append({"step": name, "command": [Path(cmd[0]).name] + [rel_arg(x, out) for x in cmd[1:]], "exit": p.returncode,
+                 "seconds": round(dt, 3), "pid": proc.pid, "log": log.relative_to(out).as_posix()})
     return p.returncode
 
 
@@ -230,9 +247,24 @@ def regenerate(pkg: Path, out: Path) -> dict:
         if run(name, cmd, research, env, out, runs) != 0:
             failed = name
             break
+    tables = {}
     if failed is None:
         collect(work, out / "generated")
-    return {"ok": failed is None, "failed": failed, "runs": runs}
+        tables = {k: v.relative_to(out).as_posix() for k, v in checks.write_tables(pkg / "expected/table1-spec.json", out / "generated").items()}
+    return {"ok": failed is None, "failed": failed, "runs": runs, "tables": tables, "offline": offline_evidence(out, runs)}
+
+
+def offline_evidence(out: Path, runs: list) -> dict:
+    """Offline condition of the regeneration itself (separate from the deliberate guard-check negative control,
+    which logs to network-guard-check.jsonl): every step process started the guard, and nothing was blocked."""
+    netlog = out / "logs" / "network.jsonl"
+    events = [json.loads(x) for x in netlog.read_text(encoding="utf-8").splitlines() if x] if netlog.is_file() else []
+    guard_pids = {e["pid"] for e in events if e["event"] == "guard"}
+    unguarded = [r["step"] for r in runs if r["pid"] not in guard_pids]
+    blocked = [e for e in events if e["event"] == "blocked"]
+    return {"ok": bool(runs) and not unguarded and not blocked, "steps": len(runs), "guardStarts": len(guard_pids),
+            "stepsWithoutGuard": unguarded, "blockedEvents": len(blocked),
+            "blockedKinds": sorted({e.get("kind", "") for e in blocked})}
 
 
 # ---------------------------------------------------------------- compare
@@ -249,7 +281,7 @@ def compare(pkg: Path, out: Path) -> dict:
         except (FileNotFoundError, KeyError) as e:
             items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "error": f"{type(e).__name__}: {e}"})
 
-    guarded("T1", lambda: checks.check_t1(ms, exp / "table1-spec.json", exp / "provenance/table1-abdaade.md", exp / "provenance/ieee-references.md"))
+    guarded("T1", lambda: checks.check_t1(ms, exp / "table1-spec.json", exp / "provenance/table1-abdaade.md", exp / "provenance/ieee-references.md", gen))
     guarded("T2", lambda: checks.check_t2(ms, gen))
     guarded("T3", lambda: checks.check_t3(ms, gen))
     probe_mf = json.loads((out / "probe-make_figures.json").read_text(encoding="utf-8")) if (out / "probe-make_figures.json").is_file() else {}
@@ -273,6 +305,47 @@ def compare(pkg: Path, out: Path) -> dict:
     passed = sum(1 for i in items if i["verdict"] in ("MATCH", "MATCH-WITHIN-TOLERANCE"))
     return {"items": items, "passed": passed, "total": len(items), "secondaryBlobEqual": secondary,
             "secondaryEqualCount": sum(s["bytesEqual"] for s in secondary)}
+
+
+ITEM_OUTPUTS = {
+    "T1": (["tables/table1.md"], ["render-tables"]),
+    "T2": (["tables/table2.md"] + [f"exp2-heldout/{m}/exp2-analysis.json" for m in MODELS],
+           [s for m in MODELS for s in (f"summarize-{m}", f"exp2-analyze-{m}")] + ["render-tables"]),
+    "T3": (["tables/table3.md"] + [f"s3-heldout/{m}/{f}" for m in MODELS for f in ("analysis.json", "summary.json")],
+           [s for m in MODELS for s in (f"session-summarize-{m}", f"session-analyze-{m}")] + ["render-tables"]),
+    "F1": (["figures/fig1_rq1_billed_tokens.png", "figures/fig1_rq1_billed_tokens.pdf", "rq1-sweep-001/summary.json"],
+           ["rq1-summarize", "make-figures"]),
+    "F2": (["figures/exp2/heldout/fig5_exp2_accuracy_vs_tokens.png", "figures/exp2/heldout/fig5_exp2_accuracy_vs_tokens.pdf"]
+           + [f"exp2-heldout/{m}/graded.jsonl" for m in MODELS],
+           [s for m in MODELS for s in (f"summarize-{m}", f"exp2-analyze-{m}")] + ["exp2-figures"]),
+    "F3": (["figures/fig2_heldout_accuracy_vs_tokens.png", "figures/fig2_heldout_accuracy_vs_tokens.pdf", "figures/data/heldout-sessions.json"],
+           [s for m in MODELS for s in (f"session-summarize-{m}", f"session-analyze-{m}")] + ["figure-data", "make-figures"]),
+    "F4": (["figures/fig3_heldout_late_recall.png", "figures/fig3_heldout_late_recall.pdf", "figures/data/heldout-sessions.json"],
+           [s for m in MODELS for s in (f"session-summarize-{m}", f"session-analyze-{m}")] + ["figure-data", "make-figures"]),
+}
+PROBES = {"F1": "probe-make_figures.json", "F2": "probe-exp2_figures.json", "F3": "probe-make_figures.json", "F4": "probe-make_figures.json"}
+
+
+def output_manifest(pkg: Path, out: Path, regen: dict, comp: dict) -> dict:
+    """Local output record: links the input MANIFEST to each of the seven targets, its generated files
+    (relative path, bytes, SHA-256), the regeneration steps and commands that made them, and the verdict."""
+    gen = out / "generated"
+    steps = {r["step"]: r for r in regen["runs"]}
+    verdicts = {i["item"]: i["verdict"] for i in comp["items"]}
+    def rec(rel_to_out: str) -> dict:
+        p = out / rel_to_out
+        return {"path": rel_to_out, "bytes": p.stat().st_size if p.is_file() else None, "sha256": sha256(p) if p.is_file() else None}
+    items = []
+    for item, (files, step_names) in ITEM_OUTPUTS.items():
+        fs = [rec("generated/" + f) for f in files] + ([rec(PROBES[item])] if item in PROBES else [])
+        items.append({"item": item, "verdict": verdicts.get(item), "files": fs,
+                      "regenerate": [{"step": n, "command": steps[n]["command"], "exit": steps[n]["exit"]} if n in steps
+                                     else {"step": n, "command": ["d03_repro.py", "regenerate (in-process write_tables)"]} for n in step_names],
+                      "compare": ["d03_repro.py", "compare", "--package", "<package>", "--out", "<out>"]})
+    all_files = [rec(p.relative_to(out).as_posix()) for p in sorted(gen.rglob("*")) if p.is_file()]
+    return {"inputManifest": {"path": "MANIFEST.json", "sha256": sha256(pkg / "MANIFEST.json")},
+            "package": {k: json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8")).get(k) for k in ["baseCommit", "manuscriptBlob"]},
+            "items": items, "generatedFiles": all_files, "generatedFileCount": len(all_files)}
 
 
 # ---------------------------------------------------------------- environment
@@ -304,7 +377,8 @@ def environment() -> dict:
 
 
 def report_md(rep: dict) -> str:
-    lines = ["# D03 재현 결과", "", f"자동 판정 합격(규칙 1–3단계): {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']})", "",
+    lines = ["# D03 재현 결과", "", f"자동 판정 합격(규칙 1–3단계): {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']}, "
+             f"오프라인 조건 {rep['offline']['ok']})", "",
              "| 항목 | 판정 | 비고 |", "|---|---|---|"]
     for it in rep["compare"]["items"]:
         note = ""
@@ -319,7 +393,11 @@ def report_md(rep: dict) -> str:
     c = rep["compare"]
     lines += ["", f"보조: 기준 산출물 바이트 일치 {c['secondaryEqualCount']}/{len(c['secondaryBlobEqual'])}",
               f"매니페스트: {rep['manifest']['files']}개, 누락 {len(rep['manifest']['missing'])}, 손상 {len(rep['manifest']['corrupt'])}, 추가 {len(rep['manifest']['extra'])}",
-              f"오프라인 차단 대조: {rep['guard']['ok']}, 차단 기록 {rep.get('networkBlocked', 0)}건",
+              f"오프라인 차단 사전 대조(의도적 차단): {rep['guard']['ok']}",
+              f"재생성 오프라인 조건: {rep['offline']['ok']} (단계 {rep['offline']['steps']}개, 가드 시작 {rep['offline']['guardStarts']}건, "
+              f"가드 없는 단계 {len(rep['offline']['stepsWithoutGuard'])}개, 차단 기록 {rep['offline']['blockedEvents']}건)",
+              f"재생성 표: {', '.join(rep['regenerate'].get('tables', {}).values())}",
+              f"출력 기록: outputs-manifest.json (생성 파일 {rep.get('outputsManifest', {}).get('generatedFileCount')}개)",
               f"실행 전후 패키지 불변: {rep.get('packageUnchanged')}", "육안 대조(규칙 4단계)는 독립 검토자가 따로 기록한다."]
     return "\n".join(lines) + "\n"
 
@@ -343,16 +421,26 @@ def main() -> int:
         return 2
     if a.cmd == "compare":
         runs = out / "runs.json"
-        if not runs.is_file() or not json.loads(runs.read_text(encoding="utf-8")).get("ok"):
+        r = json.loads(runs.read_text(encoding="utf-8")) if runs.is_file() else {}
+        if not r.get("ok"):
             print("refuse: compare needs an --out made by a successful regenerate (runs.json); the report of `all` is the evidence")
             return 2
+        if not r.get("offline", {}).get("ok"):
+            print(json.dumps({"refuse": "the regeneration in --out did not stay offline", "offline": r.get("offline")}))
+            return 4
         rep = compare(pkg, out)
         (out / "compare.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
+        (out / "outputs-manifest.json").write_text(json.dumps(output_manifest(pkg, out, r, rep), ensure_ascii=False, indent=1), encoding="utf-8")
         print(json.dumps({"passed": rep["passed"], "total": rep["total"]}))
         return 0 if rep["passed"] == 7 else 1
     if out.exists():
         print("refuse: --out already exists; use a new path")
         return 2
+    if a.cmd == "regenerate":
+        m = verify_manifest(pkg)
+        if not m["ok"]:
+            print(json.dumps({"refuse": "damaged or incomplete package; nothing regenerated", **m}, ensure_ascii=False))
+            return 2
     out.mkdir(parents=True)
     (out / "logs").mkdir()
     if a.cmd == "guard-check":
@@ -362,7 +450,8 @@ def main() -> int:
     if a.cmd == "regenerate":
         r = regenerate(pkg, out)
         (out / "runs.json").write_text(json.dumps(r, indent=1), encoding="utf-8")
-        return 0 if r["ok"] else 1
+        print(json.dumps({"ok": r["ok"], "offline": r["offline"]["ok"]}))
+        return 1 if not r["ok"] else (0 if r["offline"]["ok"] else 4)
     t0 = time.perf_counter()
     rep: dict = {"package": {}}
     m = verify_manifest(pkg)
@@ -382,19 +471,26 @@ def main() -> int:
     (out / "runs.json").write_text(json.dumps(rep["regenerate"], indent=1), encoding="utf-8")
     rep["compare"] = compare(pkg, out) if rep["regenerate"]["ok"] else {"items": [], "passed": 0, "total": 7, "secondaryBlobEqual": [], "secondaryEqualCount": 0}
     rep["packageUnchanged"] = snapshot(pkg) == before
-    netlog = out / "logs" / "network.jsonl"
-    events = [json.loads(x) for x in netlog.read_text(encoding="utf-8").splitlines() if x] if netlog.is_file() else []
-    rep["networkGuardStarts"] = sum(1 for e in events if e["event"] == "guard")
-    rep["networkBlocked"] = sum(1 for e in events if e["event"] == "blocked")
+    rep["offline"] = rep["regenerate"]["offline"]
+    rep["networkGuardStarts"] = rep["offline"]["guardStarts"]
+    rep["networkBlocked"] = rep["offline"]["blockedEvents"]
+    if rep["regenerate"]["ok"]:
+        rep["outputsManifest"] = output_manifest(pkg, out, rep["regenerate"], rep["compare"])
+        (out / "outputs-manifest.json").write_text(json.dumps(rep["outputsManifest"], ensure_ascii=False, indent=1), encoding="utf-8")
     rep["environment"] = environment()
     rep["seconds"] = round(time.perf_counter() - t0, 1)
-    rep["pass"] = rep["compare"]["passed"] == 7 and rep["packageUnchanged"] and rep["guard"]["ok"]
+    rep["scientificPass"] = rep["compare"]["passed"] == 7
+    rep["pass"] = rep["scientificPass"] and rep["packageUnchanged"] and rep["guard"]["ok"] and rep["offline"]["ok"]
     rep["passScope"] = "automated rules steps 1-3; the visual check (step 4) is recorded separately by the reviewer"
     (out / "env.json").write_text(json.dumps(rep["environment"], ensure_ascii=False, indent=1), encoding="utf-8")
     (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     (out / "report.md").write_text(report_md(rep), encoding="utf-8")
-    print(json.dumps({"pass": rep["pass"], "passed": rep["compare"]["passed"], "seconds": rep["seconds"]}))
-    return 0 if rep["pass"] else 1
+    print(json.dumps({"pass": rep["pass"], "passed": rep["compare"]["passed"], "offline": rep["offline"]["ok"], "seconds": rep["seconds"]}))
+    if rep["pass"]:
+        return 0
+    if rep["regenerate"]["ok"] and not rep["offline"]["ok"]:
+        return 4
+    return 1
 
 
 if __name__ == "__main__":

@@ -158,6 +158,49 @@ class CompareRefusal(unittest.TestCase):
             shutil.rmtree(d)
 
 
+class TableFiles(unittest.TestCase):
+    def test_md_table_round_trip(self):
+        d = Path(tempfile.mkdtemp())
+        try:
+            rows_a = [["가설", "x"], ["H1", f"{M}6.9%p [{M}15.0, 0.7]"]]
+            rows_b = [["조건", "y"], ["S0", "$0.0850 / $0.0518"]]
+            f = d / "t.md"
+            nl = chr(10)
+            f.write_text(nl.join(["# t", ""] + c.md_table(rows_a) + ["", "## b", ""] + c.md_table(rows_b)) + nl, encoding="utf-8")
+            t = c.file_tables(f)
+            self.assertEqual([[x["header"]] + x["rows"] for x in t], [rows_a, rows_b])
+            self.assertEqual(t[0]["sep"], "|---|---|")
+        finally:
+            shutil.rmtree(d)
+
+
+class Offline(unittest.TestCase):
+    def evidence(self, events, pids):
+        out = Path(tempfile.mkdtemp())
+        try:
+            (out / "logs").mkdir()
+            (out / "logs/network.jsonl").write_text("".join(json.dumps(e) + chr(10) for e in events), encoding="utf-8")
+            return r.offline_evidence(out, [{"step": f"s{p}", "pid": p} for p in pids])
+        finally:
+            shutil.rmtree(out)
+
+    def test_all_steps_guarded_nothing_blocked(self):
+        self.assertTrue(self.evidence([{"event": "guard", "pid": 1}, {"event": "guard", "pid": 2}], [1, 2])["ok"])
+
+    def test_step_without_guard_fails(self):
+        e = self.evidence([{"event": "guard", "pid": 1}], [1, 2])
+        self.assertFalse(e["ok"])
+        self.assertEqual(e["stepsWithoutGuard"], ["s2"])
+
+    def test_blocked_call_fails(self):
+        e = self.evidence([{"event": "guard", "pid": 1}, {"event": "blocked", "kind": "fetch", "pid": 1}], [1])
+        self.assertFalse(e["ok"])
+        self.assertEqual(e["blockedEvents"], 1)
+
+    def test_no_log_fails(self):
+        self.assertFalse(self.evidence([], [1])["ok"])
+
+
 class Guard(unittest.TestCase):
     def test_guard_blocks_node_and_python(self):
         if not shutil.which("node"):

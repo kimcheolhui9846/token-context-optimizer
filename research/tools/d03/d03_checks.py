@@ -90,6 +90,49 @@ def table_after(lines: list[str], caption_prefix: str, which: int = 0) -> dict:
     return {"header": parse_row(t[0]), "sep": t[1], "rows": [parse_row(x) for x in t[2:]], "caption": lines[start]}
 
 
+def md_table(rows: list[list[str]]) -> list[str]:
+    return ["| " + " | ".join(rows[0]) + " |", "|" + "---|" * len(rows[0])] + ["| " + " | ".join(r) + " |" for r in rows[1:]]
+
+
+def file_tables(path: Path) -> list[dict]:
+    """Every Markdown table in a generated table file, in order."""
+    lines = normalize_t1(path.read_text(encoding="utf-8")).split("\n")
+    tables, cur = [], []
+    for line in lines + [""]:
+        if line.startswith("|"):
+            cur.append(line)
+        elif cur:
+            tables.append({"header": parse_row(cur[0]), "sep": cur[1], "rows": [parse_row(x) for x in cur[2:]]})
+            cur = []
+    return tables
+
+
+TABLE_FILES = {"T1": "tables/table1.md", "T2": "tables/table2.md", "T3": "tables/table3.md"}
+
+
+def write_tables(spec_path: Path, gen: Path) -> dict[str, Path]:
+    """Write the regenerated Tables 1-3 (Table 3 with both panels) as readable Markdown under gen/tables."""
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    (gen / "tables").mkdir(parents=True, exist_ok=True)
+    t1 = [spec["header"]] + [r["cells"] for r in spec["rows"]]
+    a2 = {m: json.loads((gen / f"exp2-heldout/{m}/exp2-analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    a3 = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    s3 = {m: json.loads((gen / f"s3-heldout/{m}/summary.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    h3, c3 = build_t3(a3, s3)
+    docs = {
+        "T1": ["# 표 1 (재생성: expected/table1-spec.json)", "", spec["source"]["caption"], ""] + md_table(t1),
+        "T2": ["# 표 2 (재생성: generated/exp2-heldout/*/exp2-analysis.json)", ""] + md_table(build_t2(a2)),
+        "T3": ["# 표 3 (재생성: generated/s3-heldout/*/analysis.json, summary.json)", "", "## 가설 판정", ""] + md_table(h3)
+              + ["", "## 비용 패널", ""] + md_table(c3),
+    }
+    out = {}
+    for item, lines in docs.items():
+        f = gen / TABLE_FILES[item]
+        f.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        out[item] = f
+    return out
+
+
 def manuscript_lines(path: Path) -> list[str]:
     return normalize_t1(path.read_text(encoding="utf-8")).split("\n")
 
@@ -118,17 +161,20 @@ def cell_diff(expected: list[list[str]], actual: list[list[str]]) -> list[dict]:
 
 # ---------------------------------------------------------------- T1
 
-def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, reference_log: Path) -> dict:
+def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, reference_log: Path, gen: Path) -> dict:
     lines = manuscript_lines(manuscript)
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
     t = table_after(lines, "표 1.")
+    gfile = gen / TABLE_FILES["T1"]
+    gt = file_tables(gfile)
     checks = {}
-    checks["caption"] = t["caption"] == spec["source"]["caption"]
+    checks["caption"] = t["caption"] == spec["source"]["caption"] and spec["source"]["caption"] in normalize_t1(gfile.read_text(encoding="utf-8"))
     expected = [spec["header"]] + [r["cells"] for r in spec["rows"]]
-    actual = [t["header"]] + t["rows"]
-    diffs = cell_diff(expected, actual)
+    generated = [gt[0]["header"]] + gt[0]["rows"] if len(gt) == 1 else []
+    checks["fileFromSpec"] = generated == expected
+    diffs = cell_diff(generated, [t["header"]] + t["rows"])
     checks["cells"] = not diffs
-    checks["columns5"] = all(len(r) == 5 for r in actual)
+    checks["columns5"] = bool(generated) and all(len(r) == 5 for r in generated)
     checks["separator"] = t["sep"].strip() == "|---|---|---|---|---|"
     refs = references(lines)
     cite_problems = []
@@ -154,7 +200,7 @@ def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, referenc
     prov = [prov[0]] + prov[2:]
     checks["provenance"] = prov == expected and prov_sep.strip() == t["sep"].strip()
     ok = all(checks.values())
-    return {"item": "T1", "verdict": "MATCH" if ok else "MISMATCH", "checks": checks, "cellDiffs": diffs,
+    return {"item": "T1", "verdict": "MATCH" if ok else "MISMATCH", "file": TABLE_FILES["T1"], "checks": checks, "cellDiffs": diffs,
             "citationProblems": cite_problems, "referenceLogMismatch": ref_mismatch,
             "cells": len(expected) * 5, "citationsChecked": sum(len(r["citations"]) for r in spec["rows"])}
 
@@ -258,14 +304,18 @@ def check_t2(manuscript: Path, gen: Path) -> dict:
     t = table_after(lines, "표 2.")
     analysis = {m: json.loads((gen / f"exp2-heldout/{m}/exp2-analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
     built = build_t2(analysis)
-    diffs = cell_diff(built, [t["header"]] + t["rows"])
+    gt = file_tables(gen / TABLE_FILES["T2"])
+    generated = [gt[0]["header"]] + gt[0]["rows"] if len(gt) == 1 else []
+    file_ok = generated == built
+    diffs = cell_diff(generated, [t["header"]] + t["rows"])
     denominators = {m: {"families": analysis[m]["all"]["families"], "requery": analysis[m]["all"]["requery"],
                         "seed": analysis[m]["bootstrap"]["seed"], "B": analysis[m]["bootstrap"]["B"],
                         "margin": analysis[m]["margin"]} for m, _ in MODELS}
     flags = verdict_flags_agree([(k, analysis[m]["verdicts"][k], analysis[m]["verdicts"][k]["pass"]) for m, _ in MODELS for k in ["H1", "H2", "H3"]])
-    ok = not diffs and not flags and all(d["seed"] == 20261016 and d["B"] == 10000 and d["families"] == 36
+    ok = file_ok and not diffs and not flags and all(d["seed"] == 20261016 and d["B"] == 10000 and d["families"] == 36
                                          and d["requery"]["assigned"] == 144 and d["margin"] == MARGIN for d in denominators.values())
-    return {"item": "T2", "verdict": "MATCH" if ok else "MISMATCH", "cells": sum(len(r) for r in built), "cellDiffs": diffs,
+    return {"item": "T2", "verdict": "MATCH" if ok else "MISMATCH", "file": TABLE_FILES["T2"], "fileMatchesAnalysis": file_ok,
+            "cells": sum(len(r) for r in generated), "cellDiffs": diffs,
             "verdictFlagDisagreements": flags, "denominators": denominators}
 
 
@@ -276,15 +326,20 @@ def check_t3(manuscript: Path, gen: Path) -> dict:
     analysis = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
     summary = {m: json.loads((gen / f"s3-heldout/{m}/summary.json").read_text(encoding="utf-8")) for m, _ in MODELS}
     built_h, built_c = build_t3(analysis, summary)
-    diffs = cell_diff(built_h, [t_h["header"]] + t_h["rows"]) + [dict(d, table="cost") for d in cell_diff(built_c, [t_c["header"]] + t_c["rows"])]
+    gt = file_tables(gen / TABLE_FILES["T3"])
+    gen_h = [gt[0]["header"]] + gt[0]["rows"] if len(gt) == 2 else []
+    gen_c = [gt[1]["header"]] + gt[1]["rows"] if len(gt) == 2 else []
+    file_ok = gen_h == built_h and gen_c == built_c
+    diffs = cell_diff(gen_h, [t_h["header"]] + t_h["rows"]) + [dict(d, table="cost") for d in cell_diff(gen_c, [t_c["header"]] + t_c["rows"])]
     units = {m: {"sessions": analysis[m]["all"]["sessions"], "seed": analysis[m]["bootstrap"]["seed"],
                  "B": analysis[m]["bootstrap"]["B"], "price": summary[m]["config"].get("price"),
                  "cache": summary[m]["config"].get("cache")} for m, _ in MODELS}
     flags = verdict_flags_agree([(k, analysis[m]["all"][k], analysis[m]["all"][k]["pass"]) for m, _ in MODELS for k in ["H1", "H2", "H3"]]
                                 + [("H4", analysis[m]["H4"], analysis[m]["H4"]["holds"]) for m, _ in MODELS])
-    ok = (not diffs and not flags and all(u["seed"] == 20261015 and u["B"] == 10000 and u["sessions"] == 24 for u in units.values())
+    ok = (file_ok and not diffs and not flags and all(u["seed"] == 20261015 and u["B"] == 10000 and u["sessions"] == 24 for u in units.values())
           and all(analysis[m]["margin"] == MARGIN for m, _ in MODELS))
-    return {"item": "T3", "verdict": "MATCH" if ok else "MISMATCH", "cells": sum(len(r) for r in built_h + built_c),
+    return {"item": "T3", "verdict": "MATCH" if ok else "MISMATCH", "file": TABLE_FILES["T3"], "fileMatchesAnalysis": file_ok,
+            "cells": sum(len(r) for r in gen_h + gen_c),
             "cellDiffs": diffs, "verdictFlagDisagreements": flags, "units": units}
 
 
