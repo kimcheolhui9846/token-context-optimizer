@@ -13,9 +13,10 @@
   "overflow": "page 9 left column, references [21]-[27], 31 lines"
  },
  "final_render": {
-  "round": "r19",
+  "round": "r23",
   "pages": 8,
-  "reopened_hwp_export_pages": 8
+  "reopened_hwp_export_pages": 8,
+  "milestone_candidate": "r19"
  },
  "counts": {
   "pages": 8,
@@ -27,8 +28,8 @@
   "entry_text_mismatch": 0,
   "claims": 34,
   "claims_unmatched": 0,
-  "claims_split_pages": 0,
-  "numeric_tokens": 550,
+  "claims_split_pages": 1,
+  "numeric_tokens": 552,
   "numeric_mismatch": 0,
   "internal_leaks": 0,
   "overlaps": 0,
@@ -38,7 +39,7 @@
   "type3_fonts_with_charprocs": 6,
   "edits_by_step": {
    "1": 1,
-   "2": 7,
+   "2": 9,
    "3": 3
   },
   "source_memos_removed": 29,
@@ -98,42 +99,6 @@
    ]
   },
   {
-   "id": "E8",
-   "step": 2,
-   "line": 124,
-   "chars": [
-    35,
-    0
-   ]
-  },
-  {
-   "id": "E9",
-   "step": 2,
-   "line": 174,
-   "chars": [
-    36,
-    16
-   ]
-  },
-  {
-   "id": "C-F2",
-   "step": 2,
-   "line": "english caption F2",
-   "chars": [
-    591,
-    508
-   ]
-  },
-  {
-   "id": "C-F4",
-   "step": 2,
-   "line": "english caption F4",
-   "chars": [
-    117,
-    82
-   ]
-  },
-  {
    "id": "E5a",
    "step": 3,
    "line": 73,
@@ -157,7 +122,61 @@
    "line": 90,
    "chars": [
     26,
-    20
+    24
+   ]
+  },
+  {
+   "id": "E8",
+   "step": 2,
+   "line": 124,
+   "chars": [
+    35,
+    0
+   ]
+  },
+  {
+   "id": "E9",
+   "step": 2,
+   "line": 174,
+   "chars": [
+    36,
+    16
+   ]
+  },
+  {
+   "id": "E10",
+   "step": 2,
+   "line": 148,
+   "chars": [
+    10,
+    12
+   ]
+  },
+  {
+   "id": "C-F2",
+   "step": 2,
+   "line": "english caption F2",
+   "chars": [
+    591,
+    508
+   ]
+  },
+  {
+   "id": "C-T3",
+   "step": 2,
+   "line": "english caption T3",
+   "chars": [
+    509,
+    510
+   ]
+  },
+  {
+   "id": "C-F4",
+   "step": 2,
+   "line": "english caption F4",
+   "chars": [
+    117,
+    82
    ]
   }
  ],
@@ -168,8 +187,14 @@
  "open_items": [
   "online supplementary acceptance not stated in the guideline (D03/D04)",
   "supplement [7] anonymous URL not assigned",
-  "selectWindow pseudocode must go into the D03 package",
-  "manuscript vs typeset copy differ by the listed edits",
-  "HWP summary keeps the local last-saver account name"
- ]
+  "selectWindow pseudocode, no-match rule and window coefficients must go into the D03 package",
+  "judge model names (removed by E1) must be recorded in the D03 package",
+  "manuscript vs typeset copy differ by the 13 listed edit items",
+  "HWP summary keeps the local last-saver account name (clear before D04)",
+  "reference URLs carry 49 zero-width spaces for line breaking (decide before submission)"
+ ],
+ "reviews": {
+  "opus_milestone": "PASS WITH NOTES (Blocker 0, Major 0; Minor 7, Nit 2, Note 2) on r19; fixes in r23",
+  "argon": "APPROVE (Nit 1: edit count wording)"
+ }
 }

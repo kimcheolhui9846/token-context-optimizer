@@ -227,12 +227,6 @@ def main():
             m = re.match(r"그림 (\d+)\. (.*)", cap)
             fid = "F" + m.group(1)
             ko = caption_ko(cap)
-            if fid == "F2":
-                gloss = " (Mean total input tokens per query (including re-requests))"
-                if gloss in ko:
-                    ko = ko.replace(gloss, "")
-                    log["caption_edits"].append({"id": fid, "before": gloss.strip(),
-                                                 "after": "(removed; the English caption line carries it)"})
             blocks["body"].append({"type": "figure", "id": fid, "src": src, "caption_ko": ko,
                                    "caption_en": caps_en[fid], "src_line": i + 1})
             i = j

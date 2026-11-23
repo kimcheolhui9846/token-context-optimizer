@@ -48,6 +48,7 @@ def main():
     rows = []
     page_text = []
     col_text = []
+    col_text_nofull = []
     overlaps = []
     col_parts = []
     fonts_all = {}
@@ -78,6 +79,17 @@ def main():
         def _col(l):
             return 1 if l[0][2] <= mid0 + 2 else (2 if l[0][0] >= mid0 - 2 else 0)
         col_text.append(chr(10).join(l[1] for l in sorted(keep, key=lambda l: (_col(l), l[0][1]))))
+        # the same without full-width lines (a page-top table can sit between a sentence and its continuation)
+        # table areas: vertical extent of ruling lines wider than 60% of the page
+        rules = [d["rect"] for d in page.get_drawings() if d["rect"].width > 0.6 * w]
+        tbl = (min(r.y0 for r in rules) - 2, max(r.y1 for r in rules) + 2) if rules else None
+        if tbl and tbl[0] < 0.4 * h:  # page-top float: its caption sits above the rules, drop from the page top
+            tbl = (0, tbl[1])
+
+        def _in_table(l):
+            return tbl is not None and l[0][1] >= tbl[0] and l[0][3] <= tbl[1]
+        col_text_nofull.append(chr(10).join(l[1] for l in sorted(keep, key=lambda l: (_col(l), l[0][1]))
+                                            if _col(l) and not _in_table(l)))
         for cno in (0, 1, 2):
             col_parts.append((pno + 1, cno, norm("".join(l[1] for l in sorted(keep, key=lambda l: l[0][1]) if _col(l) == cno))))
         # full-width captions may end in a short line that falls inside the left half
@@ -185,7 +197,7 @@ def main():
     }
 
     # internal memo / repository path leaks (anonymous review copy must not carry them)
-    leak_pat = re.compile(r"출처:|Sources:|research/|docs/research|codex_review|\.mjs|\.jsonl|README\.md|github\.com")
+    leak_pat = re.compile(r"출처:|Sources:|research/|docs/research|plans/|codex_review|\.mjs|\.jsonl?\b|README\.md|github\.com|[A-Z]:\\|/Users/")
     leaks = [{"page": pno + 1, "text": m.group(0)} for pno, tx in enumerate(page_text) for m in leak_pat.finditer(tx)]
     summary["internal_leaks"] = leaks
     summary["overlaps"] = overlaps
@@ -207,7 +219,7 @@ def main():
     cl_rows = []
     for c in claims:
         pages = [pno + 1 for pno, tx in enumerate(page_text) if all(norm(x) in norm(tx) for x in c["all_of"])]
-        anywhere = all(norm(x) in norm(chr(10).join(col_text)) for x in c["all_of"])
+        anywhere = any(all(norm(x) in norm(chr(10).join(ct)) for x in c["all_of"]) for ct in (col_text, col_text_nofull))
         cl_rows.append({"id": c["id"], "manuscript": c["where"], "value": " | ".join(c["all_of"]),
                         "condition": c.get("condition", ""), "pdf_pages": ";".join(map(str, pages)),
                         "found_same_page": bool(pages), "found_anywhere": anywhere,
