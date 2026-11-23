@@ -1,0 +1,44 @@
+{
+ "version": "r09-design-1",
+ "set": "dev",
+ "rule": "selector.mjs keywords() minus off/yes, as in selectWindow",
+ "tokens": [
+  {
+   "id": "dev-loan-list-code-en",
+   "question": "When is LN-3715?",
+   "keys": [
+    "ln-3715"
+   ],
+   "expectedMarker": [
+    "r1c"
+   ]
+  },
+  {
+   "id": "dev-loan-list-code-ko",
+   "question": "LN-3715 반납일은 언제인가요?",
+   "keys": [
+    "ln-3715"
+   ],
+   "expectedMarker": [
+    "r1c"
+   ]
+  },
+  {
+   "id": "dev-loan-list-nl-en",
+   "question": "When is the speaker due?",
+   "keys": [
+    "speaker",
+    "due"
+   ],
+   "expectedMarker": [
+    "r4l"
+   ]
+  },
+  {
+   "id": "dev-loan-list-nl-ko",
+   "question": "스피커 반납일은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  }
+ ]
+}

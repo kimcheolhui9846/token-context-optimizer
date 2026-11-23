@@ -1,0 +1,1123 @@
+{
+ "version": "r09-design-1",
+ "set": "dev",
+ "page": {
+  "width": 1100,
+  "height": 800
+ },
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "weight": 400,
+  "bodySize": 24,
+  "titleSize": 32
+ },
+ "images": [
+  {
+   "id": "dev-loan-list-code-en",
+   "pairId": "dev-loan-list-code",
+   "lang": "en",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "code",
+   "seed": 0,
+   "file": "dev-loan-list-code-en.png",
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "question": "When is LN-3715?",
+   "answer": "11-13",
+   "code": "LN-3715",
+   "goldItems": [
+    "r1c",
+    "r1v"
+   ],
+   "anchorItem": "r1c",
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "Equipment Loans",
+     "cell": [
+      60,
+      30,
+      1040,
+      100
+     ],
+     "size": "title"
+    },
+    {
+     "id": "r0c",
+     "role": "code",
+     "row": 0,
+     "text": "LN-2596",
+     "cell": [
+      60,
+      140,
+      240,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0l",
+     "role": "label",
+     "row": 0,
+     "text": "Tripod",
+     "cell": [
+      240,
+      140,
+      600,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0v",
+     "role": "value",
+     "row": 0,
+     "text": "11-10",
+     "cell": [
+      600,
+      185,
+      800,
+      235
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1c",
+     "role": "code",
+     "row": 1,
+     "text": "LN-3715",
+     "cell": [
+      60,
+      240,
+      240,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1l",
+     "role": "label",
+     "row": 1,
+     "text": "Projector",
+     "cell": [
+      240,
+      240,
+      600,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1v",
+     "role": "value",
+     "row": 1,
+     "text": "11-13",
+     "cell": [
+      600,
+      285,
+      800,
+      335
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2c",
+     "role": "code",
+     "row": 2,
+     "text": "LN-4854",
+     "cell": [
+      60,
+      340,
+      240,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2l",
+     "role": "label",
+     "row": 2,
+     "text": "Microphone",
+     "cell": [
+      240,
+      340,
+      600,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2v",
+     "role": "value",
+     "row": 2,
+     "text": "11-16",
+     "cell": [
+      600,
+      385,
+      800,
+      435
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3c",
+     "role": "code",
+     "row": 3,
+     "text": "LN-5658",
+     "cell": [
+      60,
+      440,
+      240,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3l",
+     "role": "label",
+     "row": 3,
+     "text": "Camera",
+     "cell": [
+      240,
+      440,
+      600,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3v",
+     "role": "value",
+     "row": 3,
+     "text": "11-19",
+     "cell": [
+      600,
+      485,
+      800,
+      535
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4c",
+     "role": "code",
+     "row": 4,
+     "text": "LN-6778",
+     "cell": [
+      60,
+      540,
+      240,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4l",
+     "role": "label",
+     "row": 4,
+     "text": "Speaker",
+     "cell": [
+      240,
+      540,
+      600,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4v",
+     "role": "value",
+     "row": 4,
+     "text": "11-22",
+     "cell": [
+      600,
+      585,
+      800,
+      635
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5c",
+     "role": "code",
+     "row": 5,
+     "text": "LN-7638",
+     "cell": [
+      60,
+      640,
+      240,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5l",
+     "role": "label",
+     "row": 5,
+     "text": "Whiteboard",
+     "cell": [
+      240,
+      640,
+      600,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5v",
+     "role": "value",
+     "row": 5,
+     "text": "11-25",
+     "cell": [
+      600,
+      685,
+      800,
+      735
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": []
+  },
+  {
+   "id": "dev-loan-list-code-ko",
+   "pairId": "dev-loan-list-code",
+   "lang": "ko",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "code",
+   "seed": 0,
+   "file": "dev-loan-list-code-ko.png",
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "question": "LN-3715 반납일은 언제인가요?",
+   "answer": "11-13",
+   "code": "LN-3715",
+   "goldItems": [
+    "r1c",
+    "r1v"
+   ],
+   "anchorItem": "r1c",
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "장비 대여 목록",
+     "cell": [
+      60,
+      30,
+      1040,
+      100
+     ],
+     "size": "title"
+    },
+    {
+     "id": "r0c",
+     "role": "code",
+     "row": 0,
+     "text": "LN-2596",
+     "cell": [
+      60,
+      140,
+      240,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0l",
+     "role": "label",
+     "row": 0,
+     "text": "삼각대",
+     "cell": [
+      240,
+      140,
+      600,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0v",
+     "role": "value",
+     "row": 0,
+     "text": "11-10",
+     "cell": [
+      600,
+      185,
+      800,
+      235
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1c",
+     "role": "code",
+     "row": 1,
+     "text": "LN-3715",
+     "cell": [
+      60,
+      240,
+      240,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1l",
+     "role": "label",
+     "row": 1,
+     "text": "프로젝터",
+     "cell": [
+      240,
+      240,
+      600,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1v",
+     "role": "value",
+     "row": 1,
+     "text": "11-13",
+     "cell": [
+      600,
+      285,
+      800,
+      335
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2c",
+     "role": "code",
+     "row": 2,
+     "text": "LN-4854",
+     "cell": [
+      60,
+      340,
+      240,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2l",
+     "role": "label",
+     "row": 2,
+     "text": "마이크",
+     "cell": [
+      240,
+      340,
+      600,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2v",
+     "role": "value",
+     "row": 2,
+     "text": "11-16",
+     "cell": [
+      600,
+      385,
+      800,
+      435
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3c",
+     "role": "code",
+     "row": 3,
+     "text": "LN-5658",
+     "cell": [
+      60,
+      440,
+      240,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3l",
+     "role": "label",
+     "row": 3,
+     "text": "카메라",
+     "cell": [
+      240,
+      440,
+      600,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3v",
+     "role": "value",
+     "row": 3,
+     "text": "11-19",
+     "cell": [
+      600,
+      485,
+      800,
+      535
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4c",
+     "role": "code",
+     "row": 4,
+     "text": "LN-6778",
+     "cell": [
+      60,
+      540,
+      240,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4l",
+     "role": "label",
+     "row": 4,
+     "text": "스피커",
+     "cell": [
+      240,
+      540,
+      600,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4v",
+     "role": "value",
+     "row": 4,
+     "text": "11-22",
+     "cell": [
+      600,
+      585,
+      800,
+      635
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5c",
+     "role": "code",
+     "row": 5,
+     "text": "LN-7638",
+     "cell": [
+      60,
+      640,
+      240,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5l",
+     "role": "label",
+     "row": 5,
+     "text": "화이트보드",
+     "cell": [
+      240,
+      640,
+      600,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5v",
+     "role": "value",
+     "row": 5,
+     "text": "11-25",
+     "cell": [
+      600,
+      685,
+      800,
+      735
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": []
+  },
+  {
+   "id": "dev-loan-list-nl-en",
+   "pairId": "dev-loan-list-nl",
+   "lang": "en",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "nl",
+   "seed": 0,
+   "file": "dev-loan-list-nl-en.png",
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "question": "When is the speaker due?",
+   "answer": "11-22",
+   "code": "LN-6778",
+   "goldItems": [
+    "r4l",
+    "r4v"
+   ],
+   "anchorItem": "r4l",
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "Equipment Loans",
+     "cell": [
+      60,
+      30,
+      1040,
+      100
+     ],
+     "size": "title"
+    },
+    {
+     "id": "r0c",
+     "role": "code",
+     "row": 0,
+     "text": "LN-2596",
+     "cell": [
+      60,
+      140,
+      240,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0l",
+     "role": "label",
+     "row": 0,
+     "text": "Tripod",
+     "cell": [
+      240,
+      140,
+      600,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0v",
+     "role": "value",
+     "row": 0,
+     "text": "11-10",
+     "cell": [
+      600,
+      185,
+      800,
+      235
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1c",
+     "role": "code",
+     "row": 1,
+     "text": "LN-3715",
+     "cell": [
+      60,
+      240,
+      240,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1l",
+     "role": "label",
+     "row": 1,
+     "text": "Projector",
+     "cell": [
+      240,
+      240,
+      600,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1v",
+     "role": "value",
+     "row": 1,
+     "text": "11-13",
+     "cell": [
+      600,
+      285,
+      800,
+      335
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2c",
+     "role": "code",
+     "row": 2,
+     "text": "LN-4854",
+     "cell": [
+      60,
+      340,
+      240,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2l",
+     "role": "label",
+     "row": 2,
+     "text": "Microphone",
+     "cell": [
+      240,
+      340,
+      600,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2v",
+     "role": "value",
+     "row": 2,
+     "text": "11-16",
+     "cell": [
+      600,
+      385,
+      800,
+      435
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3c",
+     "role": "code",
+     "row": 3,
+     "text": "LN-5658",
+     "cell": [
+      60,
+      440,
+      240,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3l",
+     "role": "label",
+     "row": 3,
+     "text": "Camera",
+     "cell": [
+      240,
+      440,
+      600,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3v",
+     "role": "value",
+     "row": 3,
+     "text": "11-19",
+     "cell": [
+      600,
+      485,
+      800,
+      535
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4c",
+     "role": "code",
+     "row": 4,
+     "text": "LN-6778",
+     "cell": [
+      60,
+      540,
+      240,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4l",
+     "role": "label",
+     "row": 4,
+     "text": "Speaker",
+     "cell": [
+      240,
+      540,
+      600,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4v",
+     "role": "value",
+     "row": 4,
+     "text": "11-22",
+     "cell": [
+      600,
+      585,
+      800,
+      635
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5c",
+     "role": "code",
+     "row": 5,
+     "text": "LN-7638",
+     "cell": [
+      60,
+      640,
+      240,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5l",
+     "role": "label",
+     "row": 5,
+     "text": "Whiteboard",
+     "cell": [
+      240,
+      640,
+      600,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5v",
+     "role": "value",
+     "row": 5,
+     "text": "11-25",
+     "cell": [
+      600,
+      685,
+      800,
+      735
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": []
+  },
+  {
+   "id": "dev-loan-list-nl-ko",
+   "pairId": "dev-loan-list-nl",
+   "lang": "ko",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "nl",
+   "seed": 0,
+   "file": "dev-loan-list-nl-ko.png",
+   "page": {
+    "width": 1100,
+    "height": 800
+   },
+   "question": "스피커 반납일은 언제인가요?",
+   "answer": "11-22",
+   "code": "LN-6778",
+   "goldItems": [
+    "r4l",
+    "r4v"
+   ],
+   "anchorItem": "r4l",
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "장비 대여 목록",
+     "cell": [
+      60,
+      30,
+      1040,
+      100
+     ],
+     "size": "title"
+    },
+    {
+     "id": "r0c",
+     "role": "code",
+     "row": 0,
+     "text": "LN-2596",
+     "cell": [
+      60,
+      140,
+      240,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0l",
+     "role": "label",
+     "row": 0,
+     "text": "삼각대",
+     "cell": [
+      240,
+      140,
+      600,
+      190
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0v",
+     "role": "value",
+     "row": 0,
+     "text": "11-10",
+     "cell": [
+      600,
+      185,
+      800,
+      235
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1c",
+     "role": "code",
+     "row": 1,
+     "text": "LN-3715",
+     "cell": [
+      60,
+      240,
+      240,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1l",
+     "role": "label",
+     "row": 1,
+     "text": "프로젝터",
+     "cell": [
+      240,
+      240,
+      600,
+      290
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1v",
+     "role": "value",
+     "row": 1,
+     "text": "11-13",
+     "cell": [
+      600,
+      285,
+      800,
+      335
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2c",
+     "role": "code",
+     "row": 2,
+     "text": "LN-4854",
+     "cell": [
+      60,
+      340,
+      240,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2l",
+     "role": "label",
+     "row": 2,
+     "text": "마이크",
+     "cell": [
+      240,
+      340,
+      600,
+      390
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2v",
+     "role": "value",
+     "row": 2,
+     "text": "11-16",
+     "cell": [
+      600,
+      385,
+      800,
+      435
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3c",
+     "role": "code",
+     "row": 3,
+     "text": "LN-5658",
+     "cell": [
+      60,
+      440,
+      240,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3l",
+     "role": "label",
+     "row": 3,
+     "text": "카메라",
+     "cell": [
+      240,
+      440,
+      600,
+      490
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r3v",
+     "role": "value",
+     "row": 3,
+     "text": "11-19",
+     "cell": [
+      600,
+      485,
+      800,
+      535
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4c",
+     "role": "code",
+     "row": 4,
+     "text": "LN-6778",
+     "cell": [
+      60,
+      540,
+      240,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4l",
+     "role": "label",
+     "row": 4,
+     "text": "스피커",
+     "cell": [
+      240,
+      540,
+      600,
+      590
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r4v",
+     "role": "value",
+     "row": 4,
+     "text": "11-22",
+     "cell": [
+      600,
+      585,
+      800,
+      635
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5c",
+     "role": "code",
+     "row": 5,
+     "text": "LN-7638",
+     "cell": [
+      60,
+      640,
+      240,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5l",
+     "role": "label",
+     "row": 5,
+     "text": "화이트보드",
+     "cell": [
+      240,
+      640,
+      600,
+      690
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r5v",
+     "role": "value",
+     "row": 5,
+     "text": "11-25",
+     "cell": [
+      600,
+      685,
+      800,
+      735
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": []
+  }
+ ],
+ "pairs": [
+  {
+   "pairId": "dev-loan-list-code",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "code",
+   "seed": 0,
+   "target": 1,
+   "answer": "11-13",
+   "code": "LN-3715"
+  },
+  {
+   "pairId": "dev-loan-list-nl",
+   "doctype": "loan",
+   "layout": "list",
+   "anchor": "nl",
+   "seed": 0,
+   "target": 4,
+   "answer": "11-22",
+   "code": "LN-6778"
+  }
+ ]
+}
