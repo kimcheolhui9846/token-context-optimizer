@@ -1,0 +1,175 @@
+{
+ "task": "D02",
+ "date": "2026-11-23",
+ "base_main": "c165cb5",
+ "manuscript_blob": "c22a37b89b083c445f7ba483868aabe7041ddc02",
+ "inputs_sha256": {
+  "ieie_full_paper_template_upfile_221007125508400.hwp": "41fa8f0da36f61ef01fb79e7b0875adda85607a70997242509f1dca39f0f86be",
+  "ieie_paper_submission_guideline.pdf": "ea4ac5cbffcab99029ad0394af70cc95754a472e4170ae4f3790a859b821c1a1"
+ },
+ "first_valid_render": {
+  "round": "r2",
+  "pages": 9,
+  "overflow": "page 9 left column, references [21]-[27], 31 lines"
+ },
+ "final_render": {
+  "round": "r19",
+  "pages": 8,
+  "reopened_hwp_export_pages": 8
+ },
+ "counts": {
+  "pages": 8,
+  "a4_all": true,
+  "references": 27,
+  "citation_order_sequential": true,
+  "orphans": 0,
+  "uncited": 0,
+  "entry_text_mismatch": 0,
+  "claims": 34,
+  "claims_unmatched": 0,
+  "claims_split_pages": 0,
+  "numeric_tokens": 550,
+  "numeric_mismatch": 0,
+  "internal_leaks": 0,
+  "overlaps": 0,
+  "captions_split": 0,
+  "tables": 3,
+  "figures": 4,
+  "type3_fonts_with_charprocs": 6,
+  "edits_by_step": {
+   "1": 1,
+   "2": 7,
+   "3": 3
+  },
+  "source_memos_removed": 29,
+  "repo_links_to_supplement": 8,
+  "audit_status": {
+   "경미 불일치": 4,
+   "일치": 22,
+   "해당 없음(보충 자료)": 1
+  },
+  "doi_status": {
+   "DOI 못 찾음(Crossref 미색인, CVF OA에 DOI 없음, IEEE Xplore판 미확인)": 3,
+   "DOI 표기, doi.org 해석 동일 저작 확인": 6,
+   "arXiv 프리프린트: 원고는 arXiv 번호 표기, arXiv DOI 해석 미확인": 2,
+   "공식 DOI 없음(ICLR 프로시딩 페이지)": 1,
+   "보충 자료: URL 미배정(D03/D04에서 확정)": 1,
+   "학회판 DOI 없음(NeurIPS 워크숍), arXiv DOI 해석 미확인": 1,
+   "해당 없음(웹 문서, 공식 URL 확인)": 13
+  },
+  "metadata_fields_cleared": 7,
+  "even_header_kept": true
+ },
+ "edits": [
+  {
+   "id": "E1",
+   "step": 1,
+   "line": 180,
+   "chars": [
+    41,
+    9
+   ]
+  },
+  {
+   "id": "E2",
+   "step": 2,
+   "line": 184,
+   "chars": [
+    38,
+    0
+   ]
+  },
+  {
+   "id": "E3",
+   "step": 2,
+   "line": 180,
+   "chars": [
+    64,
+    18
+   ]
+  },
+  {
+   "id": "E4",
+   "step": 2,
+   "line": 37,
+   "chars": [
+    60,
+    0
+   ]
+  },
+  {
+   "id": "E8",
+   "step": 2,
+   "line": 124,
+   "chars": [
+    35,
+    0
+   ]
+  },
+  {
+   "id": "E9",
+   "step": 2,
+   "line": 174,
+   "chars": [
+    36,
+    16
+   ]
+  },
+  {
+   "id": "C-F2",
+   "step": 2,
+   "line": "english caption F2",
+   "chars": [
+    591,
+    508
+   ]
+  },
+  {
+   "id": "C-F4",
+   "step": 2,
+   "line": "english caption F4",
+   "chars": [
+    117,
+    82
+   ]
+  },
+  {
+   "id": "E5a",
+   "step": 3,
+   "line": 73,
+   "chars": [
+    82,
+    271
+   ]
+  },
+  {
+   "id": "E5b",
+   "step": 3,
+   "line": "75-88",
+   "chars": [
+    532,
+    0
+   ]
+  },
+  {
+   "id": "E5c",
+   "step": 3,
+   "line": 90,
+   "chars": [
+    26,
+    20
+   ]
+  }
+ ],
+ "repository_checks": {
+  "pr112_verify": "18/18 PASS",
+  "gates": "7/7 exit 0 (tests 4562 passed, 5 skipped)"
+ },
+ "open_items": [
+  "online supplementary acceptance not stated in the guideline (D03/D04)",
+  "supplement [7] anonymous URL not assigned",
+  "selectWindow pseudocode must go into the D03 package",
+  "manuscript vs typeset copy differ by the listed edits",
+  "HWP summary keeps the local last-saver account name"
+ ]
+}
