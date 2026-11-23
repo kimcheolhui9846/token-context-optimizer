@@ -1,0 +1,208 @@
+{
+ "design": "r09-design-1",
+ "set": "heldout",
+ "selector": {
+  "ocr": "tesseract.js 5.1.1 eng, image upscaled so the long side is 4096 px (at most 4x)",
+  "keywords": "question tokens of length >= 3 minus stop words and on/off/yes",
+  "window": "axis row (>= 8 words of mean length <= 4, matched words < 25% of row width): column of width max(3 x matched width, 6 x line height), from 75% of image height above to 6 line heights below; otherwise row window from 4 line heights left of the row to 8 line heights right of it, 3 line heights above to 6 below; minimum 256 x 128"
+ },
+ "timeoutMs": 180000,
+ "node": "v24.18.0",
+ "platform": "win32-x64",
+ "startedAt": "2026-11-23T10:15:05.565Z",
+ "totalMs": 68176,
+ "timing": [
+  {
+   "id": "schedule-table-code-s1-en",
+   "ms": 1065
+  },
+  {
+   "id": "schedule-table-code-s1-ko",
+   "ms": 879
+  },
+  {
+   "id": "schedule-table-code-s2-en",
+   "ms": 969
+  },
+  {
+   "id": "schedule-table-code-s2-ko",
+   "ms": 1407
+  },
+  {
+   "id": "schedule-table-nl-s1-en",
+   "ms": 1350
+  },
+  {
+   "id": "schedule-table-nl-s1-ko",
+   "ms": 1416
+  },
+  {
+   "id": "schedule-table-nl-s2-en",
+   "ms": 1352
+  },
+  {
+   "id": "schedule-table-nl-s2-ko",
+   "ms": 1391
+  },
+  {
+   "id": "schedule-cards-code-s1-en",
+   "ms": 1519
+  },
+  {
+   "id": "schedule-cards-code-s1-ko",
+   "ms": 1514
+  },
+  {
+   "id": "schedule-cards-code-s2-en",
+   "ms": 1500
+  },
+  {
+   "id": "schedule-cards-code-s2-ko",
+   "ms": 1528
+  },
+  {
+   "id": "schedule-cards-nl-s1-en",
+   "ms": 1539
+  },
+  {
+   "id": "schedule-cards-nl-s1-ko",
+   "ms": 1522
+  },
+  {
+   "id": "schedule-cards-nl-s2-en",
+   "ms": 1512
+  },
+  {
+   "id": "schedule-cards-nl-s2-ko",
+   "ms": 1481
+  },
+  {
+   "id": "invoice-table-code-s1-en",
+   "ms": 1396
+  },
+  {
+   "id": "invoice-table-code-s1-ko",
+   "ms": 1331
+  },
+  {
+   "id": "invoice-table-code-s2-en",
+   "ms": 1359
+  },
+  {
+   "id": "invoice-table-code-s2-ko",
+   "ms": 1385
+  },
+  {
+   "id": "invoice-table-nl-s1-en",
+   "ms": 1389
+  },
+  {
+   "id": "invoice-table-nl-s1-ko",
+   "ms": 1410
+  },
+  {
+   "id": "invoice-table-nl-s2-en",
+   "ms": 1373
+  },
+  {
+   "id": "invoice-table-nl-s2-ko",
+   "ms": 1390
+  },
+  {
+   "id": "invoice-cards-code-s1-en",
+   "ms": 1675
+  },
+  {
+   "id": "invoice-cards-code-s1-ko",
+   "ms": 1656
+  },
+  {
+   "id": "invoice-cards-code-s2-en",
+   "ms": 1675
+  },
+  {
+   "id": "invoice-cards-code-s2-ko",
+   "ms": 1532
+  },
+  {
+   "id": "invoice-cards-nl-s1-en",
+   "ms": 1659
+  },
+  {
+   "id": "invoice-cards-nl-s1-ko",
+   "ms": 1585
+  },
+  {
+   "id": "invoice-cards-nl-s2-en",
+   "ms": 1631
+  },
+  {
+   "id": "invoice-cards-nl-s2-ko",
+   "ms": 1615
+  },
+  {
+   "id": "status-table-code-s1-en",
+   "ms": 1255
+  },
+  {
+   "id": "status-table-code-s1-ko",
+   "ms": 1163
+  },
+  {
+   "id": "status-table-code-s2-en",
+   "ms": 1232
+  },
+  {
+   "id": "status-table-code-s2-ko",
+   "ms": 1199
+  },
+  {
+   "id": "status-table-nl-s1-en",
+   "ms": 1248
+  },
+  {
+   "id": "status-table-nl-s1-ko",
+   "ms": 1196
+  },
+  {
+   "id": "status-table-nl-s2-en",
+   "ms": 1257
+  },
+  {
+   "id": "status-table-nl-s2-ko",
+   "ms": 1187
+  },
+  {
+   "id": "status-cards-code-s1-en",
+   "ms": 1498
+  },
+  {
+   "id": "status-cards-code-s1-ko",
+   "ms": 1574
+  },
+  {
+   "id": "status-cards-code-s2-en",
+   "ms": 1527
+  },
+  {
+   "id": "status-cards-code-s2-ko",
+   "ms": 1618
+  },
+  {
+   "id": "status-cards-nl-s1-en",
+   "ms": 1465
+  },
+  {
+   "id": "status-cards-nl-s1-ko",
+   "ms": 1539
+  },
+  {
+   "id": "status-cards-nl-s2-en",
+   "ms": 1507
+  },
+  {
+   "id": "status-cards-nl-s2-ko",
+   "ms": 1689
+  }
+ ]
+}

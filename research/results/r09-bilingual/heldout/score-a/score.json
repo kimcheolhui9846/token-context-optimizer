@@ -1,0 +1,3425 @@
+{
+ "design": "r09-design-1",
+ "set": "heldout",
+ "rule": "success = matched, window area in (0, page area), every gold part inside the half-open window, 0 px tolerance",
+ "sets": {
+  "code": {
+   "pairs": 12,
+   "n": 12,
+   "en": {
+    "success": 12,
+    "tech": 0,
+    "rate": 1
+   },
+   "ko": {
+    "success": 11,
+    "tech": 0,
+    "rate": 0.9166666666666666
+   },
+   "table": {
+    "both": 11,
+    "enOnly": 1,
+    "koOnly": 0,
+    "neither": 0
+   },
+   "diff": -0.08333333333333333,
+   "missing": {
+    "enOnly": 0,
+    "koOnly": 0,
+    "both": 0
+   },
+   "complete": {
+    "n": 12,
+    "table": {
+     "both": 11,
+     "enOnly": 1,
+     "koOnly": 0,
+     "neither": 0
+    },
+    "diff": -0.08333333333333333
+   },
+   "bounds": {
+    "min": -0.08333333333333333,
+    "max": -0.08333333333333333
+   },
+   "byLang": {
+    "en": {
+     "n": 12,
+     "categories": {
+      "window_complete": 12,
+      "window_partial": 0,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 12,
+     "observed": 12,
+     "meanAreaRatio": 0.2593,
+     "meanAreaRatioSuccess": 0.2593,
+     "sources": {
+      "code": 12,
+      "label": 0,
+      "other": 0
+     }
+    },
+    "ko": {
+     "n": 12,
+     "categories": {
+      "window_complete": 11,
+      "window_partial": 1,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 11,
+     "observed": 12,
+     "meanAreaRatio": 0.2147,
+     "meanAreaRatioSuccess": 0.2242,
+     "sources": {
+      "code": 12,
+      "label": 0,
+      "other": 0
+     }
+    }
+   },
+   "discordant": [
+    {
+     "pairId": "status-cards-code-s1",
+     "en": "window_complete",
+     "ko": "window_partial"
+    }
+   ]
+  },
+  "nl": {
+   "pairs": 12,
+   "n": 12,
+   "en": {
+    "success": 12,
+    "tech": 0,
+    "rate": 1
+   },
+   "ko": {
+    "success": 0,
+    "tech": 0,
+    "rate": 0
+   },
+   "table": {
+    "both": 0,
+    "enOnly": 12,
+    "koOnly": 0,
+    "neither": 0
+   },
+   "diff": -1,
+   "missing": {
+    "enOnly": 0,
+    "koOnly": 0,
+    "both": 0
+   },
+   "complete": {
+    "n": 12,
+    "table": {
+     "both": 0,
+     "enOnly": 12,
+     "koOnly": 0,
+     "neither": 0
+    },
+    "diff": -1
+   },
+   "bounds": {
+    "min": -1,
+    "max": -1
+   },
+   "byLang": {
+    "en": {
+     "n": 12,
+     "categories": {
+      "window_complete": 12,
+      "window_partial": 0,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 12,
+     "observed": 12,
+     "meanAreaRatio": 0.2584,
+     "meanAreaRatioSuccess": 0.2584,
+     "sources": {
+      "code": 0,
+      "label": 12,
+      "other": 0
+     }
+    },
+    "ko": {
+     "n": 12,
+     "categories": {
+      "window_complete": 0,
+      "window_partial": 0,
+      "matched_full": 0,
+      "no_match_full": 12,
+      "tech_error": 0
+     },
+     "evidencePreserved": 12,
+     "observed": 12,
+     "meanAreaRatio": 1,
+     "meanAreaRatioSuccess": null,
+     "sources": {
+      "code": 0,
+      "label": 0,
+      "other": 0
+     }
+    }
+   },
+   "discordant": [
+    {
+     "pairId": "schedule-table-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "schedule-table-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "schedule-cards-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "schedule-cards-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-table-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-table-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-cards-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-cards-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-table-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-table-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-cards-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-cards-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    }
+   ]
+  },
+  "all": {
+   "pairs": 24,
+   "n": 24,
+   "en": {
+    "success": 24,
+    "tech": 0,
+    "rate": 1
+   },
+   "ko": {
+    "success": 11,
+    "tech": 0,
+    "rate": 0.4583333333333333
+   },
+   "table": {
+    "both": 11,
+    "enOnly": 13,
+    "koOnly": 0,
+    "neither": 0
+   },
+   "diff": -0.5416666666666666,
+   "missing": {
+    "enOnly": 0,
+    "koOnly": 0,
+    "both": 0
+   },
+   "complete": {
+    "n": 24,
+    "table": {
+     "both": 11,
+     "enOnly": 13,
+     "koOnly": 0,
+     "neither": 0
+    },
+    "diff": -0.5416666666666666
+   },
+   "bounds": {
+    "min": -0.5416666666666666,
+    "max": -0.5416666666666666
+   },
+   "byLang": {
+    "en": {
+     "n": 24,
+     "categories": {
+      "window_complete": 24,
+      "window_partial": 0,
+      "matched_full": 0,
+      "no_match_full": 0,
+      "tech_error": 0
+     },
+     "evidencePreserved": 24,
+     "observed": 24,
+     "meanAreaRatio": 0.2588,
+     "meanAreaRatioSuccess": 0.2588,
+     "sources": {
+      "code": 12,
+      "label": 12,
+      "other": 0
+     }
+    },
+    "ko": {
+     "n": 24,
+     "categories": {
+      "window_complete": 11,
+      "window_partial": 1,
+      "matched_full": 0,
+      "no_match_full": 12,
+      "tech_error": 0
+     },
+     "evidencePreserved": 23,
+     "observed": 24,
+     "meanAreaRatio": 0.6073,
+     "meanAreaRatioSuccess": 0.2242,
+     "sources": {
+      "code": 12,
+      "label": 0,
+      "other": 0
+     }
+    }
+   },
+   "discordant": [
+    {
+     "pairId": "schedule-table-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "schedule-table-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "schedule-cards-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "schedule-cards-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-table-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-table-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-cards-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "invoice-cards-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-table-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-table-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-cards-code-s1",
+     "en": "window_complete",
+     "ko": "window_partial"
+    },
+    {
+     "pairId": "status-cards-nl-s1",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    },
+    {
+     "pairId": "status-cards-nl-s2",
+     "en": "window_complete",
+     "ko": "no_match_full"
+    }
+   ]
+  }
+ },
+ "strata": [
+  {
+   "doctype": "schedule",
+   "anchor": "code",
+   "lang": "en",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "schedule",
+   "anchor": "code",
+   "lang": "ko",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "schedule",
+   "anchor": "nl",
+   "lang": "en",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "schedule",
+   "anchor": "nl",
+   "lang": "ko",
+   "n": 4,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 4,
+   "tech_error": 0
+  },
+  {
+   "doctype": "invoice",
+   "anchor": "code",
+   "lang": "en",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "invoice",
+   "anchor": "code",
+   "lang": "ko",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "invoice",
+   "anchor": "nl",
+   "lang": "en",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "invoice",
+   "anchor": "nl",
+   "lang": "ko",
+   "n": 4,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 4,
+   "tech_error": 0
+  },
+  {
+   "doctype": "status",
+   "anchor": "code",
+   "lang": "en",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "status",
+   "anchor": "code",
+   "lang": "ko",
+   "n": 4,
+   "success": 3,
+   "window_complete": 3,
+   "window_partial": 1,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "status",
+   "anchor": "nl",
+   "lang": "en",
+   "n": 4,
+   "success": 4,
+   "window_complete": 4,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 0,
+   "tech_error": 0
+  },
+  {
+   "doctype": "status",
+   "anchor": "nl",
+   "lang": "ko",
+   "n": 4,
+   "success": 0,
+   "window_complete": 0,
+   "window_partial": 0,
+   "matched_full": 0,
+   "no_match_full": 4,
+   "tech_error": 0
+  }
+ ],
+ "images": [
+  {
+   "id": "schedule-table-code-s1-en",
+   "pairId": "schedule-table-code-s1",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.259831,
+   "missingParts": [],
+   "keys": [
+    "sx-5134"
+   ],
+   "lineText": "SX-5134 Hiring panel Birch Studio 08:00",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 334,
+    "width": 1228,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-5134",
+     "box": [
+      83.44,
+      414.06,
+      86.56,
+      18.13
+     ],
+     "item": "r2c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-code-s1-ko",
+   "pairId": "schedule-table-code-s1",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.220887,
+   "missingParts": [],
+   "keys": [
+    "sx-5134"
+   ],
+   "lineText": "SX-5134 AE HE HA] AFRC|L 08:00",
+   "confidence": 67,
+   "band": {
+    "left": 0,
+    "top": 344,
+    "width": 1201,
+    "height": 226
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-5134",
+     "box": [
+      83.44,
+      414.06,
+      86.25,
+      18.13
+     ],
+     "item": "r2c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-code-s2-en",
+   "pairId": "schedule-table-code-s2",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.263471,
+   "missingParts": [],
+   "keys": [
+    "sx-8805"
+   ],
+   "lineText": "SX-8805 Design critique Birch Studio 14:30",
+   "confidence": 96,
+   "band": {
+    "left": 0,
+    "top": 549,
+    "width": 1231,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-8805",
+     "box": [
+      83.44,
+      630,
+      85,
+      18.13
+     ],
+     "item": "r5c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5c",
+     "role": "code",
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-code-s2-ko",
+   "pairId": "schedule-table-code-s2",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.21741,
+   "missingParts": [],
+   "keys": [
+    "sx-8805"
+   ],
+   "lineText": "SX-8805 CX! Tot HX] ARC|L 14:30",
+   "confidence": 43,
+   "band": {
+    "left": 0,
+    "top": 561,
+    "width": 1198,
+    "height": 223
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-8805",
+     "box": [
+      83.44,
+      630,
+      85.63,
+      18.13
+     ],
+     "item": "r5c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5c",
+     "role": "code",
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s1-en",
+   "pairId": "schedule-table-nl-s1",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.259831,
+   "missingParts": [],
+   "keys": [
+    "budget",
+    "review"
+   ],
+   "lineText": "SX-6993 Budget review Pine Hall 12:10",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 550,
+    "width": 1228,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Budget",
+     "box": [
+      264.06,
+      628.13,
+      77.19,
+      25.94
+     ],
+     "item": "r5l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "review",
+     "box": [
+      349.06,
+      628.13,
+      71.88,
+      20
+     ],
+     "item": "r5l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "size": [
+      157,
+      26
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s1-ko",
+   "pairId": "schedule-table-nl-s1",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "size": [
+      91,
+      22
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s2-en",
+   "pairId": "schedule-table-nl-s2",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.259831,
+   "missingParts": [],
+   "keys": [
+    "hiring",
+    "panel"
+   ],
+   "lineText": "SX-2509 Hiring panel Elm Room 10:00",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 334,
+    "width": 1228,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Hiring",
+     "box": [
+      264.06,
+      412.19,
+      65,
+      25.94
+     ],
+     "item": "r2l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "panel",
+     "box": [
+      337.19,
+      412.19,
+      58.44,
+      25.94
+     ],
+     "item": "r2l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2l",
+     "role": "label",
+     "size": [
+      132,
+      26
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-table-nl-s2-ko",
+   "pairId": "schedule-table-nl-s2",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r2l",
+     "role": "label",
+     "size": [
+      89,
+      23
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s1-en",
+   "pairId": "schedule-cards-code-s1",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.263685,
+   "missingParts": [],
+   "keys": [
+    "sx-2176"
+   ],
+   "lineText": "SX-1150 Hiring panel SX-2176 Customer forum",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 290,
+    "width": 1232,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-2176",
+     "box": [
+      693.44,
+      370.94,
+      85.63,
+      18.44
+     ],
+     "item": "r3c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s1-ko",
+   "pairId": "schedule-cards-code-s1",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.208748,
+   "missingParts": [],
+   "keys": [
+    "sx-2176"
+   ],
+   "lineText": "SX-1150 Meg HA SX-2176 1728 ZED)",
+   "confidence": 53,
+   "band": {
+    "left": 0,
+    "top": 301,
+    "width": 1135,
+    "height": 226
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-2176",
+     "box": [
+      693.44,
+      370.94,
+      85.63,
+      18.44
+     ],
+     "item": "r3c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s2-en",
+   "pairId": "schedule-cards-code-s2",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.257926,
+   "missingParts": [],
+   "keys": [
+    "sx-2384"
+   ],
+   "lineText": "SX-2384 Customer forum SX-6461 Vendor briefing",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 679,
+    "width": 1219,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-2384",
+     "box": [
+      73.44,
+      759.06,
+      86.56,
+      18.13
+     ],
+     "item": "r6c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-code-s2-ko",
+   "pairId": "schedule-cards-code-s2",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.212795,
+   "missingParts": [],
+   "keys": [
+    "sx-2384"
+   ],
+   "lineText": "SX-2384 17H ZHEtS| SX-6461 HHA HES",
+   "confidence": 42,
+   "band": {
+    "left": 0,
+    "top": 689,
+    "width": 1157,
+    "height": 226
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "SX-2384",
+     "box": [
+      73.44,
+      759.06,
+      86.56,
+      18.13
+     ],
+     "item": "r6c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s1-en",
+   "pairId": "schedule-cards-nl-s1",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.251579,
+   "missingParts": [],
+   "keys": [
+    "design",
+    "critique"
+   ],
+   "lineText": "SX-9874 Design critique SX-5991 Payroll audit",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 679,
+    "width": 1189,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Design",
+     "box": [
+      224.06,
+      757.19,
+      71.25,
+      25.94
+     ],
+     "item": "r6l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "critique",
+     "box": [
+      303.13,
+      757.19,
+      84.38,
+      25.94
+     ],
+     "item": "r6l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "size": [
+      164,
+      26
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s1-ko",
+   "pairId": "schedule-cards-nl-s1",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "size": [
+      112,
+      22
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s2-en",
+   "pairId": "schedule-cards-nl-s2",
+   "lang": "en",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.250843,
+   "missingParts": [],
+   "keys": [
+    "safety",
+    "drill"
+   ],
+   "lineText": "SX-8417 Budget review SX-6298 Safety drill",
+   "confidence": 93,
+   "band": {
+    "left": 0,
+    "top": 290,
+    "width": 1172,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Safety",
+     "box": [
+      843.44,
+      369.06,
+      69.69,
+      26.25
+     ],
+     "item": "r3l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "drill",
+     "box": [
+      920,
+      369.06,
+      41.88,
+      20.31
+     ],
+     "item": "r3l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "size": [
+      119,
+      26
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-s2-ko",
+   "pairId": "schedule-cards-nl-s2",
+   "lang": "ko",
+   "doctype": "schedule",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "size": [
+      89,
+      23
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-code-s1-en",
+   "pairId": "invoice-table-code-s1",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.250256,
+   "missingParts": [],
+   "keys": [
+    "kt-9600"
+   ],
+   "lineText": "KT-9600 Wall clock Nara Metal 516,400",
+   "confidence": 96,
+   "band": {
+    "left": 0,
+    "top": 338,
+    "width": 1245,
+    "height": 247
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-9600",
+     "box": [
+      84.06,
+      414.06,
+      87.19,
+      18.13
+     ],
+     "item": "r2c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-code-s1-ko",
+   "pairId": "invoice-table-code-s1",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.250256,
+   "missingParts": [],
+   "keys": [
+    "kt-9600"
+   ],
+   "lineText": "KT-9600 HAA Ligt=% 516,400",
+   "confidence": 70,
+   "band": {
+    "left": 0,
+    "top": 338,
+    "width": 1245,
+    "height": 247
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-9600",
+     "box": [
+      84.06,
+      414.06,
+      86.88,
+      18.13
+     ],
+     "item": "r2c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-code-s2-en",
+   "pairId": "invoice-table-code-s2",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.26925,
+   "missingParts": [],
+   "keys": [
+    "kt-2159"
+   ],
+   "lineText": "KT-2159 Steel bracket Daon Supply 673,200",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 549,
+    "width": 1258,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-2159",
+     "box": [
+      84.06,
+      630,
+      87.19,
+      18.13
+     ],
+     "item": "r5c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-code-s2-ko",
+   "pairId": "invoice-table-code-s2",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.326042,
+   "missingParts": [],
+   "keys": [
+    "kt-2159"
+   ],
+   "lineText": "KT-2159 dE Egj3l Ct==4t 673,200",
+   "confidence": 48,
+   "band": {
+    "left": 0,
+    "top": 533,
+    "width": 1280,
+    "height": 313
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-2159",
+     "box": [
+      84.06,
+      630,
+      87.19,
+      18.13
+     ],
+     "item": "r5c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s1-en",
+   "pairId": "invoice-table-nl-s1",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.26925,
+   "missingParts": [],
+   "keys": [
+    "paper",
+    "towels"
+   ],
+   "lineText": "KT-7268 Paper towels Nara Metal 755,600",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 549,
+    "width": 1258,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Paper",
+     "box": [
+      264.06,
+      630,
+      62.19,
+      24.38
+     ],
+     "item": "r5l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "towels",
+     "box": [
+      332.19,
+      628.13,
+      71.88,
+      20
+     ],
+     "item": "r5l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "size": [
+      140,
+      26
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s1-ko",
+   "pairId": "invoice-table-nl-s1",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s2-en",
+   "pairId": "invoice-table-nl-s2",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.262793,
+   "missingParts": [],
+   "keys": [
+    "water",
+    "filter"
+   ],
+   "lineText": "KT-6482 Water filter Hanbit Trading 27,300",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 334,
+    "width": 1242,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Water",
+     "box": [
+      262.81,
+      414.06,
+      65.63,
+      18.13
+     ],
+     "item": "r2l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "filter",
+     "box": [
+      334.06,
+      412.19,
+      54.38,
+      20
+     ],
+     "item": "r2l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2l",
+     "role": "label",
+     "size": [
+      127,
+      20
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      72,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-table-nl-s2-ko",
+   "pairId": "invoice-table-nl-s2",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r2l",
+     "role": "label",
+     "size": [
+      89,
+      22
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      72,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s1-en",
+   "pairId": "invoice-cards-code-s1",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.248917,
+   "missingParts": [],
+   "keys": [
+    "kt-6012"
+   ],
+   "lineText": "KT-4954 Glass panel KT-6012 Wall clock",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 290,
+    "width": 1163,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-6012",
+     "box": [
+      694.06,
+      370.94,
+      87.19,
+      18.44
+     ],
+     "item": "r3c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s1-ko",
+   "pairId": "invoice-cards-code-s1",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.196541,
+   "missingParts": [],
+   "keys": [
+    "kt-6012"
+   ],
+   "lineText": "KT-4954 S2| od KT-6012 HAA",
+   "confidence": 62,
+   "band": {
+    "left": 0,
+    "top": 302,
+    "width": 1083,
+    "height": 223
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-6012",
+     "box": [
+      694.06,
+      370.94,
+      87.19,
+      18.44
+     ],
+     "item": "r3c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s2-en",
+   "pairId": "invoice-cards-code-s2",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.252637,
+   "missingParts": [],
+   "keys": [
+    "kt-7414"
+   ],
+   "lineText": "KT-7414 Toner cartridge KT-3647 Copper cable",
+   "confidence": 90,
+   "band": {
+    "left": 0,
+    "top": 679,
+    "width": 1194,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-7414",
+     "box": [
+      74.06,
+      759.06,
+      87.81,
+      18.13
+     ],
+     "item": "r6c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6c",
+     "role": "code",
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-code-s2-ko",
+   "pairId": "invoice-cards-code-s2",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.205796,
+   "missingParts": [],
+   "keys": [
+    "kt-7414"
+   ],
+   "lineText": "KT-7414 HE PII=EIPN KT-3647 +2 A|0|&",
+   "confidence": 33,
+   "band": {
+    "left": 0,
+    "top": 690,
+    "width": 1134,
+    "height": 223
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "KT-7414",
+     "box": [
+      74.06,
+      759.06,
+      87.19,
+      18.13
+     ],
+     "item": "r6c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6c",
+     "role": "code",
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s1-en",
+   "pairId": "invoice-cards-nl-s1",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.253695,
+   "missingParts": [],
+   "keys": [
+    "office",
+    "chair"
+   ],
+   "lineText": "KT-6321 Office chair KT-3202 Filing cabinet",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 679,
+    "width": 1199,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Office",
+     "box": [
+      223.13,
+      757.19,
+      65.31,
+      20
+     ],
+     "item": "r6l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "chair",
+     "box": [
+      295,
+      757.19,
+      54.38,
+      20
+     ],
+     "item": "r6l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "size": [
+      127,
+      20
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      71,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s1-ko",
+   "pairId": "invoice-cards-nl-s1",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "size": [
+      114,
+      22
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      71,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s2-en",
+   "pairId": "invoice-cards-nl-s2",
+   "lang": "en",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.255766,
+   "missingParts": [],
+   "keys": [
+    "paper",
+    "towels"
+   ],
+   "lineText": "KT-5410 Filing cabinet KT-4847 Paper towels",
+   "confidence": 93,
+   "band": {
+    "left": 0,
+    "top": 290,
+    "width": 1195,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Paper",
+     "box": [
+      844.06,
+      370.94,
+      62.19,
+      24.38
+     ],
+     "item": "r3l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "towels",
+     "box": [
+      912.19,
+      369.06,
+      71.88,
+      20.31
+     ],
+     "item": "r3l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "size": [
+      140,
+      26
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-s2-ko",
+   "pairId": "invoice-cards-nl-s2",
+   "lang": "ko",
+   "doctype": "invoice",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-code-s1-en",
+   "pairId": "status-table-code-s1",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.252848,
+   "missingParts": [],
+   "keys": [
+    "px-2149"
+   ],
+   "lineText": "PX-2149 Cache cluster Delayed 10",
+   "confidence": 93,
+   "band": {
+    "left": 0,
+    "top": 334,
+    "width": 1195,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-2149",
+     "box": [
+      84.06,
+      414.06,
+      85,
+      18.13
+     ],
+     "item": "r2c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "size": [
+      85,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      23,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-code-s1-ko",
+   "pairId": "status-table-code-s1",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.214818,
+   "missingParts": [],
+   "keys": [
+    "px-2149"
+   ],
+   "lineText": "PX-2149 Al 22{ AH X| 10",
+   "confidence": 52,
+   "band": {
+    "left": 0,
+    "top": 344,
+    "width": 1168,
+    "height": 226
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-2149",
+     "box": [
+      84.06,
+      414.06,
+      85.31,
+      18.13
+     ],
+     "item": "r2c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "size": [
+      85,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      23,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-code-s2-en",
+   "pairId": "status-table-code-s2",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.281799,
+   "missingParts": [],
+   "keys": [
+    "px-7880"
+   ],
+   "lineText": "PX-7880 Login service Normal 73",
+   "confidence": 96,
+   "band": {
+    "left": 0,
+    "top": 541,
+    "width": 1215,
+    "height": 285
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-7880",
+     "box": [
+      84.06,
+      630,
+      85.31,
+      18.13
+     ],
+     "item": "r5c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5c",
+     "role": "code",
+     "size": [
+      85,
+      18
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-code-s2-ko",
+   "pairId": "status-table-code-s2",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.211422,
+   "missingParts": [],
+   "keys": [
+    "px-7880"
+   ],
+   "lineText": "PX-7880 2701 MH|A RA 73",
+   "confidence": 63,
+   "band": {
+    "left": 0,
+    "top": 561,
+    "width": 1165,
+    "height": 223
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-7880",
+     "box": [
+      84.06,
+      630,
+      85.31,
+      18.13
+     ],
+     "item": "r5c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5c",
+     "role": "code",
+     "size": [
+      85,
+      18
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-nl-s1-en",
+   "pairId": "status-table-nl-s1",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.252848,
+   "missingParts": [],
+   "keys": [
+    "login",
+    "service"
+   ],
+   "lineText": "PX-7225 Login service Paused 13",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 550,
+    "width": 1195,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Login",
+     "box": [
+      264.06,
+      628.13,
+      58.44,
+      25.94
+     ],
+     "item": "r5l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "service",
+     "box": [
+      329.69,
+      628.13,
+      76.56,
+      20
+     ],
+     "item": "r5l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "size": [
+      143,
+      26
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      23,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-nl-s1-ko",
+   "pairId": "status-table-nl-s1",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "size": [
+      135,
+      22
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "size": [
+      23,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-nl-s2-en",
+   "pairId": "status-table-nl-s2",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.281799,
+   "missingParts": [],
+   "keys": [
+    "audit",
+    "logger"
+   ],
+   "lineText": "PX-1597 Audit logger Normal 86",
+   "confidence": 96,
+   "band": {
+    "left": 0,
+    "top": 325,
+    "width": 1215,
+    "height": 285
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Audit",
+     "box": [
+      262.19,
+      412.19,
+      58.13,
+      20
+     ],
+     "item": "r2l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "logger",
+     "box": [
+      328.13,
+      412.19,
+      69.06,
+      25.94
+     ],
+     "item": "r2l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r2l",
+     "role": "label",
+     "size": [
+      137,
+      26
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-table-nl-s2-ko",
+   "pairId": "status-table-nl-s2",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "table",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r2l",
+     "role": "label",
+     "size": [
+      112,
+      23
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-code-s1-en",
+   "pairId": "status-cards-code-s1",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.261759,
+   "missingParts": [],
+   "keys": [
+    "px-5336"
+   ],
+   "lineText": "PX-1886 Backup storage PX-5336 Billing gateway",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 290,
+    "width": 1223,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-5336",
+     "box": [
+      694.06,
+      370.94,
+      85,
+      18.44
+     ],
+     "item": "r3c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "size": [
+      85,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-code-s1-ko",
+   "pairId": "status-cards-code-s1",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 1,
+   "category": "window_partial",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": false,
+   "areaRatio": 0.109802,
+   "missingParts": [
+    "r3v"
+   ],
+   "keys": [
+    "px-5336"
+   ],
+   "lineText": "PX-1886 HHO Xf REA PX-5336 Z| H0| ESO]",
+   "confidence": 42,
+   "band": {
+    "left": 608,
+    "top": 0,
+    "width": 257,
+    "height": 525
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-5336",
+     "box": [
+      694.06,
+      370.94,
+      85,
+      18.44
+     ],
+     "item": "r3c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "size": [
+      85,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-code-s2-en",
+   "pairId": "status-cards-code-s2",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.24904,
+   "missingParts": [],
+   "keys": [
+    "px-3474"
+   ],
+   "lineText": "PX-3474 Login service PX-8258 Sensor feed",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 679,
+    "width": 1177,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-3474",
+     "box": [
+      74.06,
+      759.06,
+      85.94,
+      18.13
+     ],
+     "item": "r6c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6c",
+     "role": "code",
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-code-s2-ko",
+   "pairId": "status-cards-code-s2",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "code",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.201622,
+   "missingParts": [],
+   "keys": [
+    "px-3474"
+   ],
+   "lineText": "PX-3474 270] MH|A PX-8258 MA 4",
+   "confidence": 52,
+   "band": {
+    "left": 0,
+    "top": 690,
+    "width": 1111,
+    "height": 223
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "code",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "PX-3474",
+     "box": [
+      74.06,
+      759.06,
+      85.94,
+      18.13
+     ],
+     "item": "r6c",
+     "role": "code",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6c",
+     "role": "code",
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-nl-s1-en",
+   "pairId": "status-cards-nl-s1",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.246501,
+   "missingParts": [],
+   "keys": [
+    "backup",
+    "storage"
+   ],
+   "lineText": "PX-5387 Backup storage PX-6163 Clock sync",
+   "confidence": 95,
+   "band": {
+    "left": 0,
+    "top": 679,
+    "width": 1165,
+    "height": 260
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Backup",
+     "box": [
+      224.06,
+      757.19,
+      78.44,
+      25.94
+     ],
+     "item": "r6l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "storage",
+     "box": [
+      309.69,
+      759.06,
+      82.81,
+      24.06
+     ],
+     "item": "r6l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "size": [
+      169,
+      26
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-nl-s1-ko",
+   "pairId": "status-cards-nl-s1",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 1,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "size": [
+      112,
+      23
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-nl-s2-en",
+   "pairId": "status-cards-nl-s2",
+   "lang": "en",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "window_complete",
+   "reason": null,
+   "success": true,
+   "evidencePreserved": true,
+   "areaRatio": 0.256194,
+   "missingParts": [],
+   "keys": [
+    "login",
+    "service"
+   ],
+   "lineText": "PX-6591 Clock sync PX-6481 Login service",
+   "confidence": 94,
+   "band": {
+    "left": 0,
+    "top": 290,
+    "width": 1197,
+    "height": 263
+   },
+   "tiedWithPick": 0,
+   "candidates": 1,
+   "source": "label",
+   "onTargetAnchor": true,
+   "hits": [
+    {
+     "text": "Login",
+     "box": [
+      844.06,
+      369.06,
+      58.44,
+      26.25
+     ],
+     "item": "r3l",
+     "role": "label",
+     "target": true
+    },
+    {
+     "text": "service",
+     "box": [
+      909.69,
+      369.06,
+      76.56,
+      20.31
+     ],
+     "item": "r3l",
+     "role": "label",
+     "target": true
+    }
+   ],
+   "goldSizes": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "size": [
+      143,
+      26
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      23,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "status-cards-nl-s2-ko",
+   "pairId": "status-cards-nl-s2",
+   "lang": "ko",
+   "doctype": "status",
+   "layout": "cards",
+   "anchor": "nl",
+   "seed": 2,
+   "category": "no_match_full",
+   "reason": null,
+   "success": false,
+   "evidencePreserved": true,
+   "areaRatio": 1,
+   "missingParts": [],
+   "keys": [],
+   "lineText": null,
+   "confidence": null,
+   "band": null,
+   "tiedWithPick": 0,
+   "candidates": 0,
+   "source": null,
+   "onTargetAnchor": null,
+   "hits": [],
+   "goldSizes": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "size": [
+      135,
+      22
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "size": [
+      23,
+      18
+     ]
+    }
+   ]
+  }
+ ]
+}

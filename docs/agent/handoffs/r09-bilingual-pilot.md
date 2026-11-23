@@ -13,4 +13,21 @@
   - RED: 새 테스트가 `r09-lib.mjs` 부재로 실패
   - GREEN: 17/17 통과(기하 경계, 1px 절단, full-frame/no-match 분리, 기술 실패 보존, EN/KO 쌍·분모, 설계 불변식)
 - 계획 검토는 Claude Opus 5.5(3차 PASS WITH NOTES)다. 계획·판정 PM은 Astra다.
-- 측정 결과, 재현 검산, 독립 검토는 등록 커밋 이후 이 파일과 PR에 추가한다.
+- 등록 커밋 `a7066e4`. 측정 전 수정 1(물리 변환 재생 검증, PM 요청) `002a4f4`. Draft PR [#140](https://github.com/kimcheolhui9846/token-context-optimizer/pull/140)
+- 측정(`002a4f4`에서 동결 대조 차이 0 뒤 실행)
+  - 결과: [RESULTS.md](../../../research/results/r09-bilingual/RESULTS.md)
+  - 주 비교(code 12쌍): EN 12/12, KO 11/12, KO−EN −1/12
+  - 대조(nl 12쌍): EN 12/12, KO 0/12. 모두 불일치로 전체 프레임 반환했고, 이는 설계상 예상된 동작이다.
+  - 전체 24쌍: KO−EN −13/24. 기술 결측 0
+  - 유일한 KO code 실패: 한글 오독 조각이 축 행 규칙을 발동시켜, 답 값이 창 경계에서 2px 잘렸다.
+- 재현
+  - run-a와 run-b의 원시값, 집계, 재생 출력이 바이트 일치했다.
+  - 오프라인 차단 0
+  - Python 독립 검산 불일치 0
+  - 재생 검증 48/48 유효(crop 36, 전체 12)
+- 게이트
+  - npm 7종 종료 0(4,562 통과, 5 건너뜀)
+  - 연구 테스트 100/100
+  - 빌드가 줄끝만 바꾼 `bin/` 파일은 되돌렸다.
+- Argon APPROVE
+- WBS는 수정하지 않았다. 지시대로 기존 24건의 분모와 상태를 유지했다. 이 연구를 WBS에 반영할지와 그 방식은 PM이 정한다.
