@@ -25,6 +25,7 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.dont_write_bytecode = True  # the package is read-only: no __pycache__ inside it
 sys.path.insert(0, str(HERE))
 import d03_checks as checks  # noqa: E402
 
