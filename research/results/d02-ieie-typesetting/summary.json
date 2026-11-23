@@ -191,11 +191,17 @@
   "judge model names (removed by E1) must be recorded in the D03 package",
   "manuscript vs typeset copy differ by the 13 listed edit items",
   "reference URLs carry 49 zero-width spaces for line breaking (decide before submission)",
-  "re-saving the HWP in Hwp writes the local account name again: clear and recheck after every save"
+  "re-saving the HWP in Hwp writes the local account name again: clear and recheck after every save",
+  "clear_hwp_summary.py hardening before reuse: zero-length strings and section bounds, failed run leaves an uncleaned copy at the output path, VT_LPSTR code page, asserts disabled by python -O"
  ],
  "reviews": {
   "opus_milestone": "PASS WITH NOTES (Blocker 0, Major 0; Minor 7, Nit 2, Note 2) on r19; fixes in r23",
-  "argon": "APPROVE (Nit 1: edit count wording)"
+  "argon": "APPROVE (Nit 1: edit count wording)",
+  "anonymity_fix_c168118": {
+   "opus": "PASS WITH NOTES (Blocker 0, Major 0, Minor 3, Nit 3; reproduced the cleaned HWP byte-identically)",
+   "argon": "APPROVE (0 findings, public code and aggregates only)",
+   "pm": "PASS WITH NOTES"
+  }
  },
  "hwp_summary_clean": {
   "tool": "research/tools/d02/clear_hwp_summary.py",
@@ -221,6 +227,24 @@
    "pixel_equal_pages_110dpi": 8,
    "normalized_hash_equal": true,
    "verifier_rerun_same": true
+  }
+ },
+ "gates_c168118": {
+  "clean_checkout": {
+   "pr112_verify": "18/18",
+   "npm_gates_exit0": "7/7",
+   "tests": {
+    "passed": 4562,
+    "skipped": 5
+   },
+   "diff_check": 0
+  },
+  "typesetting_worktree_npm_test": {
+   "runs": 4,
+   "failed_runs": 4,
+   "failures": "1-3 timeout or file-race tests, different each run; pass alone",
+   "main_control_runs_passed": "2/2",
+   "root_cause": "not identified"
   }
  }
 }
