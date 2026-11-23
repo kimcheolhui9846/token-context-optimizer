@@ -96,7 +96,7 @@ def rel_arg(x: str, out: Path) -> str:
 
 def run(name: str, cmd: list[str], cwd: Path, env: dict, out: Path, runs: list) -> int:
     t0 = time.perf_counter()
-    proc = subprocess.Popen(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(cmd, cwd=cwd, env={**env, "D03_STEP": name}, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = proc.communicate()
     p = subprocess.CompletedProcess(cmd, proc.returncode, stdout, stderr)
     dt = time.perf_counter() - t0
@@ -256,15 +256,23 @@ def regenerate(pkg: Path, out: Path) -> dict:
 
 def offline_evidence(out: Path, runs: list) -> dict:
     """Offline condition of the regeneration itself (separate from the deliberate guard-check negative control,
-    which logs to network-guard-check.jsonl): every step process started the guard, and nothing was blocked."""
+    which logs to network-guard-check.jsonl): for every step, an interpreter of the step's own kind (Node or Python)
+    started the guard under that step's name (D03_STEP), and nothing was blocked. Matching by step name rather than
+    process id keeps launchers (a Windows venv python.exe starts the real interpreter as a child) from failing a run
+    that stayed offline."""
     netlog = out / "logs" / "network.jsonl"
     events = [json.loads(x) for x in netlog.read_text(encoding="utf-8").splitlines() if x] if netlog.is_file() else []
-    guard_pids = {e["pid"] for e in events if e["event"] == "guard"}
-    unguarded = [r["step"] for r in runs if r["pid"] not in guard_pids]
+    started = {(e.get("step"), e.get("lang")) for e in events if e["event"] == "guard"}
+    unguarded = [r["step"] for r in runs if (r["step"], step_lang(r)) not in started]
     blocked = [e for e in events if e["event"] == "blocked"]
-    return {"ok": bool(runs) and not unguarded and not blocked, "steps": len(runs), "guardStarts": len(guard_pids),
-            "stepsWithoutGuard": unguarded, "blockedEvents": len(blocked),
-            "blockedKinds": sorted({e.get("kind", "") for e in blocked})}
+    return {"ok": bool(runs) and not unguarded and not blocked, "steps": len(runs),
+            "guardStarts": sum(1 for e in events if e["event"] == "guard"), "stepsWithoutGuard": unguarded,
+            "blockedEvents": len(blocked), "blockedKinds": sorted({e.get("kind", "") for e in blocked}),
+            "blockedSteps": sorted({e.get("step", "") for e in blocked})}
+
+
+def step_lang(run_record: dict) -> str:
+    return "node" if Path(run_record["command"][0]).name.lower().startswith("node") else "python"
 
 
 # ---------------------------------------------------------------- compare

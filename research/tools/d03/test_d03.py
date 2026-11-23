@@ -175,30 +175,45 @@ class TableFiles(unittest.TestCase):
 
 
 class Offline(unittest.TestCase):
-    def evidence(self, events, pids):
+    RUNS = [{"step": "a", "command": ["node.exe", "src/x.mjs"], "pid": 1}, {"step": "b", "command": ["python.exe", "f.py"], "pid": 2}]
+
+    def evidence(self, events):
         out = Path(tempfile.mkdtemp())
         try:
             (out / "logs").mkdir()
             (out / "logs/network.jsonl").write_text("".join(json.dumps(e) + chr(10) for e in events), encoding="utf-8")
-            return r.offline_evidence(out, [{"step": f"s{p}", "pid": p} for p in pids])
+            return r.offline_evidence(out, self.RUNS)
         finally:
             shutil.rmtree(out)
 
     def test_all_steps_guarded_nothing_blocked(self):
-        self.assertTrue(self.evidence([{"event": "guard", "pid": 1}, {"event": "guard", "pid": 2}], [1, 2])["ok"])
+        self.assertTrue(self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1},
+                                       {"event": "guard", "step": "b", "lang": "python", "pid": 2}])["ok"])
+
+    def test_launcher_child_pid_still_counts(self):
+        # a Windows venv python.exe launcher: the guard runs in a child with another pid
+        self.assertTrue(self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1},
+                                       {"event": "guard", "step": "b", "lang": "python", "pid": 99}])["ok"])
 
     def test_step_without_guard_fails(self):
-        e = self.evidence([{"event": "guard", "pid": 1}], [1, 2])
+        e = self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1}])
         self.assertFalse(e["ok"])
-        self.assertEqual(e["stepsWithoutGuard"], ["s2"])
+        self.assertEqual(e["stepsWithoutGuard"], ["b"])
+
+    def test_guard_of_other_kind_does_not_count(self):
+        e = self.evidence([{"event": "guard", "step": "a", "lang": "python", "pid": 1},
+                           {"event": "guard", "step": "b", "lang": "python", "pid": 2}])
+        self.assertEqual(e["stepsWithoutGuard"], ["a"])
 
     def test_blocked_call_fails(self):
-        e = self.evidence([{"event": "guard", "pid": 1}, {"event": "blocked", "kind": "fetch", "pid": 1}], [1])
+        e = self.evidence([{"event": "guard", "step": "a", "lang": "node", "pid": 1},
+                           {"event": "guard", "step": "b", "lang": "python", "pid": 2},
+                           {"event": "blocked", "kind": "fetch", "step": "a", "lang": "node", "pid": 1}])
         self.assertFalse(e["ok"])
-        self.assertEqual(e["blockedEvents"], 1)
+        self.assertEqual((e["blockedEvents"], e["blockedSteps"]), (1, ["a"]))
 
     def test_no_log_fails(self):
-        self.assertFalse(self.evidence([], [1])["ok"])
+        self.assertFalse(self.evidence([])["ok"])
 
 
 class Guard(unittest.TestCase):
