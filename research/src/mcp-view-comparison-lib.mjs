@@ -300,4 +300,3 @@ export function aggregate(rows) {
   const order = CELLS.map(({ rep, profile, view }) => cellOf(rep, profile, view)).filter((k) => cells[k]);
   return { cells: Object.fromEntries(order.map((k) => [k, cells[k]])) };
 }
-
