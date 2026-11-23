@@ -1,0 +1,113 @@
+{
+ "source": {
+  "firstCommit": "abdaade",
+  "file": "docs/research/image-first-paper-draft.ko.md",
+  "caption": "표 1. 관련 연구와 본 연구의 개입 위치 비교."
+ },
+ "header": [
+  "연구",
+  "매체",
+  "개입 위치",
+  "평가 단위",
+  "경계"
+ ],
+ "rows": [
+  {
+   "cells": [
+    "[7], [8] 시각 토큰 축소",
+    "이미지·텍스트",
+    "모델 내부",
+    "시각 질의",
+    "외부 변환·과금과 별개"
+   ],
+   "citations": [
+    7,
+    8
+   ]
+  },
+  {
+   "cells": [
+    "[9], [10] 텍스트 압축",
+    "텍스트",
+    "API 앞단",
+    "프롬프트·검색",
+    "문장 선택"
+   ],
+   "citations": [
+    9,
+    10
+   ]
+  },
+  {
+   "cells": [
+    "[1], [2] DTOC·ACM",
+    "텍스트",
+    "외부 저장·관리",
+    "에이전트 세션",
+    "원본 재조회 선행 연구"
+   ],
+   "citations": [
+    1,
+    2
+   ]
+  },
+  {
+   "cells": [
+    "[11] 관측 마스킹",
+    "텍스트",
+    "컨텍스트 관리",
+    "에이전트 세션",
+    "요약 대비 관측 마스킹"
+   ],
+   "citations": [
+    11
+   ]
+  },
+  {
+   "cells": [
+    "[12] GUI–MCP 에이전트",
+    "이미지·텍스트",
+    "관측 규칙·RL",
+    "GUI–MCP 과제",
+    "제거 이미지 재조회와 구분"
+   ],
+   "citations": [
+    12
+   ]
+  },
+  {
+   "cells": [
+    "[13] HiconAgent",
+    "이미지·텍스트",
+    "내부 토큰 제거·정책",
+    "GUI 과제",
+    "제거 이미지 재조회와 구분"
+   ],
+   "citations": [
+    13
+   ]
+  },
+  {
+   "cells": [
+    "본 연구: 원본 보존 발췌",
+    "텍스트·이미지",
+    "공급자 API 앞단",
+    "단일 질의·세션",
+    "crop·썸네일·재요청·청구 비용"
+   ],
+   "citations": []
+  }
+ ],
+ "titleKeys": {
+  "1": "DTOC",
+  "2": "ACM",
+  "7": "QuietPrune",
+  "8": "Rethinking token reduction",
+  "9": "LLMLingua",
+  "10": "RECOMP",
+  "11": "The complexity trap",
+  "12": "Screenshots or tools?",
+  "13": "HiconAgent"
+ },
+ "referenceLog": "research/plans/2026-10-18-ieee-references.md"
+}
