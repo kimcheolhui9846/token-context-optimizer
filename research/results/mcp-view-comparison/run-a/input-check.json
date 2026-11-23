@@ -1,0 +1,973 @@
+{
+ "ids": 48,
+ "frozenInputs": {
+  "assignment": "match",
+  "caller": "match",
+  "images": "match",
+  "questions": "match",
+  "originalSha": "match"
+ },
+ "images": {
+  "schedule-table-code-s1-en": {
+   "originalSha256": "13707dd89497ad569708ebdd0b1bf8e098a7c3a5396bc2a340fb8d507adee942",
+   "rgbSha256": "528f91e5ce3820eb6cb0eaf1bbb1a68f6283a74f0ae2f07dac732bb1567e757f",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-code-s1-ko": {
+   "originalSha256": "ab47f42be0534822c792911c45a546538f327067cbaab7b84d4ba5c8bebe2b3e",
+   "rgbSha256": "8b3ea39e46033c517b386149482434e7cb28b20d65a10ae1e796725f66c761c4",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-code-s2-en": {
+   "originalSha256": "d034b6418e97ad9d46ec1f66d757e10e816bd9996f6f25a63ede386871d0ae37",
+   "rgbSha256": "7c313b93e1ab34674ecf04341b0dfdd3901b7913abc190364971838f90d99ec9",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-code-s2-ko": {
+   "originalSha256": "3626fc0cd4d2e503c64dc84025b2af233aa5587fe7e5e9792df8e46b4048e7f3",
+   "rgbSha256": "56678f4b6073604b66c9537debb9bb32777e2e3d80e3a5483049d0e6def9abf3",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-nl-s1-en": {
+   "originalSha256": "f5a69257a812f27c80d4d9a7fb25a148f5a3e0c0a26109d62dc07853d4bea6b9",
+   "rgbSha256": "23d56aad73e3a7624417d7985a0643003ea37142c7ee576a1f3212002ed67ace",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-nl-s1-ko": {
+   "originalSha256": "8217c01152e3504a1b7e4252f1653120ff22f03eaba90ad6529db2b55113ab37",
+   "rgbSha256": "db240e905c32ec162bafb3e616b5888cd04f46ab6fd024fc3c47edca6f25cf04",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-nl-s2-en": {
+   "originalSha256": "3c32f87e3f38a78d6a427c42106ccf9dfecc30233ebf894f6122038a88fcb706",
+   "rgbSha256": "15dde75fc83fd824dafbdcea931d9786c93bd892b12373a66d65341c37774de1",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-table-nl-s2-ko": {
+   "originalSha256": "f41ab2235057bc5dbdadf4bc983f99c3ecf0e181fcdf927800822ce5211d2dd4",
+   "rgbSha256": "59eb3f8ebd9550cbbd4e9bfdb07b74602161578bddb609b62f946847229d7d24",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-code-s1-en": {
+   "originalSha256": "49c8e3067b6b6a2bbcae88899b312d86e195c19ec7d8ac2366d83e9f1565866c",
+   "rgbSha256": "0fb7adf417dd53aab1ee6fc5be2791b7cb255c6afd761e0e06f4768cbe4b5ee1",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-code-s1-ko": {
+   "originalSha256": "4d0b4498325ea21e4b73567f84b353573d68d37cf96c939b127896870350d3d9",
+   "rgbSha256": "c63e918fb6264feecc904d5183aee670203c6eac55f698f7b86e851b41e27506",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-code-s2-en": {
+   "originalSha256": "8586e251bee318510b7bf54a3ac5de7d0ea05c6c4bca48f11436445c2d767126",
+   "rgbSha256": "bf51a67d696c9ec69867fa8a1d2cd1c0b200f08ecf706bc9bc4a53b4577ef5d9",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-code-s2-ko": {
+   "originalSha256": "51970e9da9df33d45bebe313f69160deae5989d97f02e26d73f85dbf34e77ace",
+   "rgbSha256": "399fb0b945e4d1e43e82d15e0ced0d616212063470b1822e2a2a999aa99fe2cd",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-nl-s1-en": {
+   "originalSha256": "f0699342986c379a96d6df5b2e72b1e0b681be4f03512b5bec865fb0c3686af7",
+   "rgbSha256": "1b0ab9171598cd3878b77a7adbe4980cbf2d4eebb2ac45553fa3a118a23eb4ac",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-nl-s1-ko": {
+   "originalSha256": "dc663c7808ffeb060379ba45f6464a423b6ab75948510986faab2f1008fbff7f",
+   "rgbSha256": "970dd3fde1689ccef9c3282406ae5aafd1eb8f1da05f6b78fd85be6933958113",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-nl-s2-en": {
+   "originalSha256": "c19a498139bb38e456575ff3d5c8e50044e561610dce24f695dd5a5cd4bcceb7",
+   "rgbSha256": "22101fb960f48a386b7008184ef19cd2cc20522998b80dc82c15757c85b4ced1",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "schedule-cards-nl-s2-ko": {
+   "originalSha256": "4ac8a3f8fddf043fa2b0f52be0808a925d163d5cf48f0a60fb89a8fd49dac6d7",
+   "rgbSha256": "4ece13622f5dc65277b8ad8fdd85dc6aacd4e8f3aff4b3ccaa13022b31626233",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-code-s1-en": {
+   "originalSha256": "275ed5b550d204b3b7749b4adfb1b4fa0ef7a453c7b9eea746ada9fb2dbb016d",
+   "rgbSha256": "9b62346206786cc464c62a6f2cef7de724d65ba4778f859b1b75d48aa4842d4c",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-code-s1-ko": {
+   "originalSha256": "bda9c130995700fb271dce536f0483d8c4f5e2efa3078c1c1da4bc8b5163332b",
+   "rgbSha256": "d4cc8ed039d97cb119b6d14f1c5941affe6a1cd06d55fa47378f3bc179551dfa",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-code-s2-en": {
+   "originalSha256": "92ff080fd8b60484c83e9cd8b7b267b98bfbe78281021317f9b18c240b2d1668",
+   "rgbSha256": "7fdb2337f2b777c144e3639cc44b7c7cc38cb127655306b92c909220ca39f586",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-code-s2-ko": {
+   "originalSha256": "2b8e4784c423bf41f6bd8ff4cf7baa7150eadb9319f14107462c64d8696486cc",
+   "rgbSha256": "cdfac4714a1bf9cba2ef6fc5402e474de565ca414145908d8af65cadab1c42d5",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-nl-s1-en": {
+   "originalSha256": "a5ddcb0a582b53ff2e1f8e319f2185c8b3c7ef2c2138bda1d5e8f62fe9ed6af2",
+   "rgbSha256": "458cfb24c807862ae548a0b7f47dbaf478d942e0bc94a2eeb17efeeaef5ee265",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-nl-s1-ko": {
+   "originalSha256": "3a314fea4d7803024afa302b73a643d53c62c17829d00e442faac8231082c004",
+   "rgbSha256": "f316e1582957d52b57fcd4f7fa2f2e39141855ae3ef481e1dde985d9a391eb3e",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-nl-s2-en": {
+   "originalSha256": "e10a36aa1447d0c191560b96c21dbb99969211f7aa5ce350c9a3b85e51a90415",
+   "rgbSha256": "cea052750806d4686f0b2a2811f9b17eacc99059a53b243bfb91edc20be6b50c",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-table-nl-s2-ko": {
+   "originalSha256": "3378fdd1a9334b18b6a2c7fc11b513eeeb30e9602e46ba9b7e50bee86d7f27d2",
+   "rgbSha256": "8bf7d7ff9d1a06ae2d81104b9d91d295db334ec25f45b5641a7afe0119c6631e",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-code-s1-en": {
+   "originalSha256": "6adaf93a2d414bddb3c83f93dff691a5c34bf87c940f8b27ea2898f4f6124059",
+   "rgbSha256": "55163166fbffa4e5ea0d7e92353b9782ecc5eedbd0e646a5b9bc4b7c9f0d275a",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-code-s1-ko": {
+   "originalSha256": "aa734213afb1e5c363e043d5e87b3b811b4ee1772fe44465ef994b9487056789",
+   "rgbSha256": "17f7a3c902ce778abde8e3af46839acf6ca7b1ab09ab3c39fd0f55a709ac310f",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-code-s2-en": {
+   "originalSha256": "8972110fdb317335c43811412d465b5c239e1b2dbfc280819d4bf1e0481da2f1",
+   "rgbSha256": "03ba560f62049af0a1565fe38e183f1e6d221548001fe988b5441e850fbdf9b0",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-code-s2-ko": {
+   "originalSha256": "bc3eac078b6f28b32d25e2d652eac9c5cad4887fd298965f873099cf54663b3f",
+   "rgbSha256": "036252bffc1b5f72d2040530db96757d3a3cd8ad73d59cdf6ce8086bf1645bfd",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-nl-s1-en": {
+   "originalSha256": "82116ac05c8a36ff16e48e20d837568f5938c901fc68d2a274d745b2248cd7f1",
+   "rgbSha256": "1f86c2907c2b3cf511205de53d93b0dd83084c0dbb299940f8bc1fc7c1949b91",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-nl-s1-ko": {
+   "originalSha256": "72469b26507d53906e6c7d3dbe91ce2143fe65082a5698e8bab0c766f7f52391",
+   "rgbSha256": "284bf86840383f72443fc3f7c431421bcec59b24ce39da4046ba180d8b63c491",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-nl-s2-en": {
+   "originalSha256": "6d5c874a52f87dc2de7b94a5a86712a4781fba1891ef6b05e2794879f10c063b",
+   "rgbSha256": "7526b543aca00c1af5b1deccb78128216060efe00ca50d58b9c486a36252c0de",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "invoice-cards-nl-s2-ko": {
+   "originalSha256": "fe1448d1ee69e6cfd76f5b1250d6b7d0ac239607a5c0a4f03c16b2ec836e9032",
+   "rgbSha256": "4a3ac11f9e3a771bbfe5da3df8d9469df9758afc1619d7dc1858afe3a6c93373",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-code-s1-en": {
+   "originalSha256": "b2f146613eae58c73930d1d0806f17b1fe65c4b72b6dd8c53110398577d594bb",
+   "rgbSha256": "8502f1091626de80719bbe1fa3da912680bb59e44c696b6ddc0fefb4ca0152d0",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-code-s1-ko": {
+   "originalSha256": "d7e3b2f63db3efe2e233211da2e46bda64a679fc72b52ebc89fa1d70a3116b7f",
+   "rgbSha256": "b5f50c19d0181f3353ee579304f39993543c32802258ef560964a07dbc492ba6",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-code-s2-en": {
+   "originalSha256": "acb71b8917de43116241a5d59c445b9d4ea88e63a5d330bc649f4d757de106fe",
+   "rgbSha256": "981acd7d6dc1f57f9f0e9760e338cdb6adb8c7d1afd53b4fe214ff7350418a3b",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-code-s2-ko": {
+   "originalSha256": "f0f7016310a177df131c7a19b2dea34d0252001af9b2ddea510b8842b6f9eaf0",
+   "rgbSha256": "d5d680b6035993b0803bb36d3f0bc780f4b11b8f1b258746891825b465ac1b5e",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-nl-s1-en": {
+   "originalSha256": "5c2b0a040e13a46145a05ba3e1d176fdbd9734f737a2f182acf3e6310d0e1a01",
+   "rgbSha256": "504e3e4c8041df14a42973de31f9ee1317cbe53af30689cf4d1b4a90fb33b99f",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-nl-s1-ko": {
+   "originalSha256": "b73f9ff0eabbe2150b55a58370d364453641d610aab73c73d20491f094ed5e84",
+   "rgbSha256": "43e0cd848e7844a743e65758c5caf485396a12debce2c2d9774de2ab33f3df10",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-nl-s2-en": {
+   "originalSha256": "b807ad56778fc81ace7a0da3a719f05002f061557d253420fa4d304cc0a48fac",
+   "rgbSha256": "59de3ba00da5a8905057130237012ef949d6a0a5b6e0de5c6da165c36891f502",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-table-nl-s2-ko": {
+   "originalSha256": "d26491312e8aaf8544809ba93e45358e505f0c832b60de73f41255f620b6c542",
+   "rgbSha256": "1d05831719e7e2eb3db7a410217be3b4bd36558335836d3d87b47fe304ddf032",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-code-s1-en": {
+   "originalSha256": "f7a9fdf0e16213122d4cd6a5f685d77384198f41aa27483c476d0fdb854d4d41",
+   "rgbSha256": "46c6a1f210a16eb5d32ba5d6835926e94559ffa0107c64d6646677ee8050bb45",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-code-s1-ko": {
+   "originalSha256": "5191d8c31291eeddeed4168d0d1dc93903d364ff6739553bdb37376cb6d02f0f",
+   "rgbSha256": "c156d948811102bcf4aaf3d6177a42855a76b7bf431e433b22d303bf36992272",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-code-s2-en": {
+   "originalSha256": "a47bf0206ef597f2b01d894ce0a49de1bdc0d4d61c0ab11a25cf18d71a969b76",
+   "rgbSha256": "db3317555f07a27a550f471f06ef9c6c2a023cc59cc5c21c592c86fa7db0f4c5",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-code-s2-ko": {
+   "originalSha256": "d2e4134edb0ddf01a56a86fb669ab0ad762b91fc5c746e138f6eeab901d6732c",
+   "rgbSha256": "71cd1e95befc027661cf9574e518d8577cb01b7f4378032f849ce2feb1efbea7",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-nl-s1-en": {
+   "originalSha256": "5c88aeb26092274486e140a6a7ca7c3c0e3d44ff6628fa4b5c6fb1586e8e3c82",
+   "rgbSha256": "d066482d159ed5152a80489630d2c0019acd0488f0528435bb22cd9c5004b2b4",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-nl-s1-ko": {
+   "originalSha256": "bc8f16f3b6f3ce6bc531cbd1505d5fd37b4617b80078621aad9e14e2173bb769",
+   "rgbSha256": "c67b3e0f3475b418d51b9be9d65feb678d55cc35f24b0f21ae69a3236e1741bd",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-nl-s2-en": {
+   "originalSha256": "70f898405bec918fda4825ae5fbc74c117a48c76f82c0552b5f54e48439c696a",
+   "rgbSha256": "56090a9f9a8f74bb6ce8b71e1a81406666460c1144211f2af922c448533e675a",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  },
+  "status-cards-nl-s2-ko": {
+   "originalSha256": "2e2b50f894e033d05aa4016a85bfb326a87721cedb1ba410c817e238435dbbd2",
+   "rgbSha256": "3054e7c777fcb75cd370474039e7409ec31342753d4e6c44f3822dcdc5c71925",
+   "width": 1280,
+   "height": 960,
+   "originalIhdr": {
+    "bitDepth": 8,
+    "colorType": 0
+   },
+   "rgbIhdr": {
+    "bitDepth": 8,
+    "colorType": 2
+   },
+   "rgbChunks": [
+    "IHDR",
+    "IDAT",
+    "IEND"
+   ],
+   "pixelCheck": "equal"
+  }
+ },
+ "bundleBlob": "5709a184c3e99b5e6ddc642b2f5dc736924d3578"
+}

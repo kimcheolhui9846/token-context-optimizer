@@ -1,0 +1,5014 @@
+{
+ "base": "41fc769dd5879aa10acb59153d98865b6a026200",
+ "evidence": {
+  "raw.jsonl": "ef3e300ba6bdf058a05b10b9cc3f5955f5ee9fcad97dd469a131784b32939f49",
+  "cells.jsonl": "dc482d5d87db00771fb2b74b4e5cb7148c763b1df7084b16c139d20fbbe08f72",
+  "input-check.json": "bbb7423b815d7a0fe56f9e148c5fb9f294c667a083a32fa3f4cd53e760b2190c"
+ },
+ "keys": 576,
+ "measured": "geometric containment in original source pixels; readability and model accuracy not measured",
+ "perRow": [
+  {
+   "key": "original|strict|original|schedule-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|schedule-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|invoice-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|original|status-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|schedule-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|invoice-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|overview|status-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|schedule-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|invoice-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|strict|region|status-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|schedule-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|invoice-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|original|status-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|schedule-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|invoice-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|overview|status-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|schedule-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|invoice-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-table-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-code-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-code-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-code-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-code-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-nl-s1-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-nl-s1-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-nl-s2-en",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "original|tolerant|region|status-cards-nl-s2-ko",
+   "geometry": "not_evaluable",
+   "missing": null,
+   "missingItems": [],
+   "areaRatio": null
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|schedule-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|invoice-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|original|status-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|schedule-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|invoice-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|overview|status-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.259831
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.220887
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.263471
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.21741
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.259831
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.259831
+  },
+  {
+   "key": "rgb|strict|region|schedule-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.263685
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.208748
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.257926
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.212795
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.251579
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.250843
+  },
+  {
+   "key": "rgb|strict|region|schedule-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.250256
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.250256
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.26925
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.326042
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.26925
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.262793
+  },
+  {
+   "key": "rgb|strict|region|invoice-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.248917
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.196541
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.252637
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.205796
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.253695
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.255766
+  },
+  {
+   "key": "rgb|strict|region|invoice-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|status-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.252848
+  },
+  {
+   "key": "rgb|strict|region|status-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.214818
+  },
+  {
+   "key": "rgb|strict|region|status-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.281799
+  },
+  {
+   "key": "rgb|strict|region|status-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.211422
+  },
+  {
+   "key": "rgb|strict|region|status-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.252848
+  },
+  {
+   "key": "rgb|strict|region|status-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|status-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.281799
+  },
+  {
+   "key": "rgb|strict|region|status-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|status-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.261759
+  },
+  {
+   "key": "rgb|strict|region|status-cards-code-s1-ko",
+   "geometry": "partial",
+   "missing": 1,
+   "missingItems": [
+    "r3v"
+   ],
+   "areaRatio": 0.109802
+  },
+  {
+   "key": "rgb|strict|region|status-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.24904
+  },
+  {
+   "key": "rgb|strict|region|status-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.201622
+  },
+  {
+   "key": "rgb|strict|region|status-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.246501
+  },
+  {
+   "key": "rgb|strict|region|status-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|strict|region|status-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.256194
+  },
+  {
+   "key": "rgb|strict|region|status-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|schedule-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|invoice-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|original|status-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|schedule-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|invoice-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|overview|status-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.259831
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.220887
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.263471
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.21741
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.259831
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.259831
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.263685
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.208748
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.257926
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.212795
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.251579
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.250843
+  },
+  {
+   "key": "rgb|tolerant|region|schedule-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.250256
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.250256
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.26925
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.326042
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.26925
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.262793
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.248917
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.196541
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.252637
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.205796
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.253695
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.255766
+  },
+  {
+   "key": "rgb|tolerant|region|invoice-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.252848
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-code-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.214818
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.281799
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.211422
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.252848
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.281799
+  },
+  {
+   "key": "rgb|tolerant|region|status-table-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-code-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.261759
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-code-s1-ko",
+   "geometry": "partial",
+   "missing": 1,
+   "missingItems": [
+    "r3v"
+   ],
+   "areaRatio": 0.109802
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-code-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.24904
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-code-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.201622
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-nl-s1-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.246501
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-nl-s1-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-nl-s2-en",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 0.256194
+  },
+  {
+   "key": "rgb|tolerant|region|status-cards-nl-s2-ko",
+   "geometry": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "areaRatio": 1
+  }
+ ],
+ "aggregate": {
+  "cells": {
+   "original|strict|original": {
+    "n": 48,
+    "ok": 0,
+    "failed": 48,
+    "indexAccepted": 0,
+    "failCodes": {
+     "unsupported_png_profile": 48
+    },
+    "failStages": {
+     "index": 48
+    },
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 48
+    },
+    "geometry": {
+     "complete": 0,
+     "partial": 0,
+     "not_evaluable": 48
+    },
+    "counts": {
+     "toolCalls": 48,
+     "toolErrors": 48,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     }
+    },
+    "pairs": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 24
+    }
+   },
+   "original|strict|overview": {
+    "n": 48,
+    "ok": 0,
+    "failed": 48,
+    "indexAccepted": 0,
+    "failCodes": {
+     "unsupported_png_profile": 48
+    },
+    "failStages": {
+     "index": 48
+    },
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 48
+    },
+    "geometry": {
+     "complete": 0,
+     "partial": 0,
+     "not_evaluable": 48
+    },
+    "counts": {
+     "toolCalls": 48,
+     "toolErrors": 48,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     }
+    },
+    "pairs": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 24
+    }
+   },
+   "original|strict|region": {
+    "n": 48,
+    "ok": 0,
+    "failed": 48,
+    "indexAccepted": 0,
+    "failCodes": {
+     "unsupported_png_profile": 48
+    },
+    "failStages": {
+     "index": 48
+    },
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 48
+    },
+    "geometry": {
+     "complete": 0,
+     "partial": 0,
+     "not_evaluable": 48
+    },
+    "counts": {
+     "toolCalls": 48,
+     "toolErrors": 48,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     }
+    },
+    "pairs": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 24
+    }
+   },
+   "original|tolerant|original": {
+    "n": 48,
+    "ok": 0,
+    "failed": 48,
+    "indexAccepted": 0,
+    "failCodes": {
+     "unsupported_png_profile": 48
+    },
+    "failStages": {
+     "index": 48
+    },
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 48
+    },
+    "geometry": {
+     "complete": 0,
+     "partial": 0,
+     "not_evaluable": 48
+    },
+    "counts": {
+     "toolCalls": 48,
+     "toolErrors": 48,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     }
+    },
+    "pairs": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 24
+    }
+   },
+   "original|tolerant|overview": {
+    "n": 48,
+    "ok": 0,
+    "failed": 48,
+    "indexAccepted": 0,
+    "failCodes": {
+     "unsupported_png_profile": 48
+    },
+    "failStages": {
+     "index": 48
+    },
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 48
+    },
+    "geometry": {
+     "complete": 0,
+     "partial": 0,
+     "not_evaluable": 48
+    },
+    "counts": {
+     "toolCalls": 48,
+     "toolErrors": 48,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     }
+    },
+    "pairs": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 24
+    }
+   },
+   "original|tolerant|region": {
+    "n": 48,
+    "ok": 0,
+    "failed": 48,
+    "indexAccepted": 0,
+    "failCodes": {
+     "unsupported_png_profile": 48
+    },
+    "failStages": {
+     "index": 48
+    },
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 48
+    },
+    "geometry": {
+     "complete": 0,
+     "partial": 0,
+     "not_evaluable": 48
+    },
+    "counts": {
+     "toolCalls": 48,
+     "toolErrors": 48,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 12,
+      "complete": 0,
+      "partial": 0,
+      "not_evaluable": 12
+     }
+    },
+    "pairs": {
+     "both": 0,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 24
+    }
+   },
+   "rgb|strict|original": {
+    "n": 48,
+    "ok": 48,
+    "failed": 0,
+    "indexAccepted": 48,
+    "failCodes": {},
+    "failStages": {},
+    "returned": {
+     "original_verified": 48,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 0
+    },
+    "geometry": {
+     "complete": 48,
+     "partial": 0,
+     "not_evaluable": 0
+    },
+    "counts": {
+     "toolCalls": 96,
+     "toolErrors": 0,
+     "fileReads": 48,
+     "plannedOriginalRequests": 48,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 48
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "rgb|strict|overview": {
+    "n": 48,
+    "ok": 48,
+    "failed": 0,
+    "indexAccepted": 48,
+    "failCodes": {},
+    "failStages": {},
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 48,
+     "crop_jpeg": 0,
+     "none": 0
+    },
+    "geometry": {
+     "complete": 48,
+     "partial": 0,
+     "not_evaluable": 0
+    },
+    "counts": {
+     "toolCalls": 96,
+     "toolErrors": 0,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "rgb|strict|region": {
+    "n": 48,
+    "ok": 48,
+    "failed": 0,
+    "indexAccepted": 48,
+    "failCodes": {},
+    "failStages": {},
+    "returned": {
+     "original_verified": 12,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 36,
+     "none": 0
+    },
+    "geometry": {
+     "complete": 47,
+     "partial": 1,
+     "not_evaluable": 0
+    },
+    "counts": {
+     "toolCalls": 144,
+     "toolErrors": 0,
+     "fileReads": 12,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 12,
+     "originalRefsRead": 12
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 11,
+      "partial": 1,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 23,
+     "enOnly": 1,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "rgb|tolerant|original": {
+    "n": 48,
+    "ok": 48,
+    "failed": 0,
+    "indexAccepted": 48,
+    "failCodes": {},
+    "failStages": {},
+    "returned": {
+     "original_verified": 48,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 0,
+     "none": 0
+    },
+    "geometry": {
+     "complete": 48,
+     "partial": 0,
+     "not_evaluable": 0
+    },
+    "counts": {
+     "toolCalls": 96,
+     "toolErrors": 0,
+     "fileReads": 48,
+     "plannedOriginalRequests": 48,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 48
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "rgb|tolerant|overview": {
+    "n": 48,
+    "ok": 48,
+    "failed": 0,
+    "indexAccepted": 48,
+    "failCodes": {},
+    "failStages": {},
+    "returned": {
+     "original_verified": 0,
+     "original_unverified": 0,
+     "overview_jpeg": 48,
+     "crop_jpeg": 0,
+     "none": 0
+    },
+    "geometry": {
+     "complete": 48,
+     "partial": 0,
+     "not_evaluable": 0
+    },
+    "counts": {
+     "toolCalls": 96,
+     "toolErrors": 0,
+     "fileReads": 0,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 0,
+     "originalRefsRead": 0
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "rgb|tolerant|region": {
+    "n": 48,
+    "ok": 48,
+    "failed": 0,
+    "indexAccepted": 48,
+    "failCodes": {},
+    "failStages": {},
+    "returned": {
+     "original_verified": 12,
+     "original_unverified": 0,
+     "overview_jpeg": 0,
+     "crop_jpeg": 36,
+     "none": 0
+    },
+    "geometry": {
+     "complete": 47,
+     "partial": 1,
+     "not_evaluable": 0
+    },
+    "counts": {
+     "toolCalls": 144,
+     "toolErrors": 0,
+     "fileReads": 12,
+     "plannedOriginalRequests": 0,
+     "fallbackOriginalRequests": 12,
+     "originalRefsRead": 12
+    },
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "failed": 0,
+      "complete": 11,
+      "partial": 1,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "failed": 0,
+      "complete": 12,
+      "partial": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 23,
+     "enOnly": 1,
+     "koOnly": 0,
+     "neither": 0
+    }
+   }
+  }
+ },
+ "cellCalls": {
+  "original|strict|original": {
+   "initialize": "ok",
+   "mcpRequests": 50,
+   "mcpResponses": 50,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 48,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "original|strict|overview": {
+   "initialize": "ok",
+   "mcpRequests": 50,
+   "mcpResponses": 50,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 48,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "original|strict|region": {
+   "initialize": "ok",
+   "mcpRequests": 50,
+   "mcpResponses": 50,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 48,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "original|tolerant|original": {
+   "initialize": "ok",
+   "mcpRequests": 50,
+   "mcpResponses": 50,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 48,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "original|tolerant|overview": {
+   "initialize": "ok",
+   "mcpRequests": 50,
+   "mcpResponses": 50,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 48,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "original|tolerant|region": {
+   "initialize": "ok",
+   "mcpRequests": 50,
+   "mcpResponses": 50,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 48,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "rgb|strict|original": {
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "rgb|strict|overview": {
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "rgb|strict|region": {
+   "initialize": "ok",
+   "mcpRequests": 146,
+   "mcpResponses": 146,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 144,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "rgb|tolerant|original": {
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "rgb|tolerant|overview": {
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  "rgb|tolerant|region": {
+   "initialize": "ok",
+   "mcpRequests": 146,
+   "mcpResponses": 146,
+   "notifications": 1,
+   "initializeRequests": 1,
+   "toolsListRequests": 1,
+   "toolCalls": 144,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  }
+ }
+}
