@@ -1,0 +1,59 @@
+{
+ "run-a": {
+  "guard": 13,
+  "blocked": 0,
+  "steps": [
+   "mvc-run-a",
+   "mvc-run-a:original|strict|original",
+   "mvc-run-a:original|strict|overview",
+   "mvc-run-a:original|strict|region",
+   "mvc-run-a:original|tolerant|original",
+   "mvc-run-a:original|tolerant|overview",
+   "mvc-run-a:original|tolerant|region",
+   "mvc-run-a:rgb|strict|original",
+   "mvc-run-a:rgb|strict|overview",
+   "mvc-run-a:rgb|strict|region",
+   "mvc-run-a:rgb|tolerant|original",
+   "mvc-run-a:rgb|tolerant|overview",
+   "mvc-run-a:rgb|tolerant|region"
+  ]
+ },
+ "run-b": {
+  "guard": 13,
+  "blocked": 0,
+  "steps": [
+   "mvc-run-b",
+   "mvc-run-b:original|strict|original",
+   "mvc-run-b:original|strict|overview",
+   "mvc-run-b:original|strict|region",
+   "mvc-run-b:original|tolerant|original",
+   "mvc-run-b:original|tolerant|overview",
+   "mvc-run-b:original|tolerant|region",
+   "mvc-run-b:rgb|strict|original",
+   "mvc-run-b:rgb|strict|overview",
+   "mvc-run-b:rgb|strict|region",
+   "mvc-run-b:rgb|tolerant|original",
+   "mvc-run-b:rgb|tolerant|overview",
+   "mvc-run-b:rgb|tolerant|region"
+  ]
+ },
+ "run-c": {
+  "guard": 13,
+  "blocked": 0,
+  "steps": [
+   "mvc-run-c",
+   "mvc-run-c:original|strict|original",
+   "mvc-run-c:original|strict|overview",
+   "mvc-run-c:original|strict|region",
+   "mvc-run-c:original|tolerant|original",
+   "mvc-run-c:original|tolerant|overview",
+   "mvc-run-c:original|tolerant|region",
+   "mvc-run-c:rgb|strict|original",
+   "mvc-run-c:rgb|strict|overview",
+   "mvc-run-c:rgb|strict|region",
+   "mvc-run-c:rgb|tolerant|original",
+   "mvc-run-c:rgb|tolerant|overview",
+   "mvc-run-c:rgb|tolerant|region"
+  ]
+ }
+}

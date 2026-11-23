@@ -29,7 +29,26 @@
 
 ## 진행
 
-- [x] 인계 기록과 프로토콜(표 스키마·호출 흐름) 커밋. 실행 전
-- [ ] 테스트 RED → 하네스·측정 코드 GREEN
-- [ ] 실행 A·B, LF 사본 실행 C, Python 독립 검산
-- [ ] 결과 보고, 전체 게이트, 마일스톤 검토, Argon
+- [x] 인계 기록과 프로토콜(표 스키마·호출 흐름) 커밋. 실행 전 `a267b48`. Draft PR [#141](https://github.com/kimcheolhui9846/token-context-optimizer/pull/141)
+- [x] 테스트 RED `9050b9f`(하네스 모듈 부재로 실패) → 하네스 GREEN 19/19 `85c9c2d`. RGB 파생 manifest와 준비 검산을 측정 전에 같은 커밋에 고정
+- [x] 실행 A·B, LF 사본 실행 C, Python 독립 검산
+- [ ] 전체 게이트, 마일스톤 검토, Argon
+
+## 결과 요약
+
+[RESULTS.md](../../../research/results/mcp-view-comparison/RESULTS.md)
+
+- 회색조 원본은 strict·tolerant 모두 색인에서 거부되었다(`unsupported_png_profile`)
+  - 6셀 × 48 = 288행이고, 후속 도구는 호출하지 않았다
+  - 이 행들은 분모에 남고, 근거 포함은 평가 불가다
+- 무메타데이터 RGB 파생본은 두 프로필 모두 48/48 수락되었다
+  - 원본 보기: 원본 참조를 실제로 열어 해시가 일치했다(96/96)
+  - 개요: 512×384로 디코드했다(192/192)
+- 영역(R09 좌표 재생): 부분 JPEG 36, 원본 폴백 12(KO·nl 전부). 포함 47/48
+  - partial 1건(`status-cards-code-s1-ko`)은 답 값이 2px 잘렸다
+  - 응답과 호출자 모두 잘림을 알지 못했다. 재조회 0
+- 재현
+  - A·B 바이트 일치, LF 사본 C도 A와 바이트 일치
+  - Python 검산 불일치 0
+  - 가드 13/실행, 차단 0
+- 추가 개선 후보 5건은 RESULTS.md §5에 있다. 모두 이번 범위 밖이다
