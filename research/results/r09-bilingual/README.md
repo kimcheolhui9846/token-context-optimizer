@@ -42,7 +42,7 @@ OCR 영어 자료는 [R02 재현 절차](../../../docs/research/r02-offline-repr
 
 ```sh
 T=out/r09-ocr-pkg                                    # 새 빈 폴더
-mkdir "$T" && mkdir -p .cache                      # 폴더가 이미 있으면 mkdir가 실패한다. 그때는 멈추고 새 이름을 쓴다
+mkdir -p out .cache && mkdir "$T"                    # 폴더가 이미 있으면 mkdir가 실패한다. 그때는 멈추고 새 이름을 쓴다
 (cd "$T" && npm pack @tesseract.js-data/eng@1.0.0 && tar -xzf tesseract.js-data-eng-1.0.0.tgz)
 echo "285a3f1fb419e8e67bdee93ce288b02bb9097f0a  $T/tesseract.js-data-eng-1.0.0.tgz" | sha1sum -c -     # npm 레지스트리 dist.shasum
 gzip -dc "$T/package/4.0.0_best_int/eng.traineddata.gz" > .cache/eng.traineddata
@@ -65,7 +65,7 @@ echo "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0  $F" | sh
 
 ```sh
 G=out/r09-regen
-mkdir "$G"                                          # 이미 있으면 실패한다. 멈추고 새 이름을 쓴다
+mkdir -p out && mkdir "$G"                                # 이미 있으면 실패한다. 멈추고 새 이름을 쓴다
 node src/r09-build.mjs --set heldout --out $G
 python tools/r09/render.py --design $G/design.json --font "$F" --out $G
 node src/r09-freeze.mjs --dir $G --check results/r09-bilingual/heldout/freeze-manifest.json   # {"checked":65,"diffs":[]}
@@ -73,12 +73,12 @@ node src/r09-freeze.mjs --dir $G --check results/r09-bilingual/heldout/freeze-ma
 
 ### 3. 측정 재현 (오프라인 가드, 키 제거)
 
-저장된 입력과 증거(`results/r09-bilingual/`)는 읽기만 한다. 모든 출력은 새 빈 폴더 `$O`에 쓴다. 가드는 기록 파일을 쓰지 못해도 알리지 않으므로, 가드 기록 폴더를 측정 전에 만든다. 이 블록에는 `set -e`가 없으므로, 첫 `mkdir`가 실패하면(같은 이름의 폴더가 이미 있으면) 이어서 실행하지 말고 새 이름으로 다시 시작한다. 기존 폴더에 이어 쓰면 가드 기록이 누적된다.
+저장된 입력과 증거(`results/r09-bilingual/`)는 읽기만 한다. 모든 출력은 새 빈 폴더 `$O`에 쓴다. 가드는 기록 파일을 쓰지 못해도 알리지 않으므로, 가드 기록 폴더를 측정 전에 만든다. 이 블록에는 `set -e`가 없으므로, `mkdir "$O"`가 실패하면(같은 이름의 폴더가 이미 있으면) 이어서 실행하지 말고 새 이름으로 다시 시작한다. 기존 폴더에 이어 쓰면 가드 기록이 누적된다.
 
 ```sh
 H=results/r09-bilingual/heldout
 O=out/r09-rerun                                      # 새 빈 폴더. results/ 아래에 쓰지 않는다
-mkdir "$O" && mkdir $O/guard $O/recount           # 이미 있으면 실패한다. 멈추고 새 이름을 쓴다
+mkdir -p out && mkdir "$O" && mkdir $O/guard $O/recount           # 이미 있으면 실패한다. 멈추고 새 이름을 쓴다
 find results/r09-bilingual -type f -exec sha256sum {} + | sort -k2 > $O/evidence-before.sha256
 node src/r09-freeze.mjs --dir $H --check $H/freeze-manifest.json                              # {"checked":65,"diffs":[]}
 for R in a b; do
