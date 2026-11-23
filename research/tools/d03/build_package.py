@@ -25,8 +25,8 @@ MODELS = ["gpt4o", "haiku"]
 ZIP_TIME = (2026, 11, 23, 0, 0, 0)
 
 RIGHTS = {
-    "code": ("MIT (repository LICENSE)", "public"),
-    "doc": ("MIT (repository LICENSE)", "public"),
+    "code": ("MIT (repository LICENSE; the file is left out of this anonymous review copy because it names the author)", "public"),
+    "doc": ("MIT (repository LICENSE; the file is left out of this anonymous review copy because it names the author)", "public"),
     "raw-input": ("committed in the public repository; contains provider model outputs", "undecided"),
     "expected-result": ("committed in the public repository", "public; bundling with the manuscript deferred"),
     "expected-figure": ("committed in the public repository", "public; bundling with the manuscript deferred"),
@@ -78,7 +78,6 @@ def plan(repo: Path, commit: str) -> list[tuple[str, str, str]]:
     files = [("README.ko.md", "docs/research/d03-reproduction-guide.md", "doc"),
              ("METHODS.ko.md", "docs/research/d03-methods-supplement.md", "doc"),
              ("RULES.ko.md", "docs/research/d03-reproduction-rules.md", "doc"),
-             ("LICENSE", "LICENSE", "doc"),
              ("requirements.txt", "research/tools/d03/requirements.txt", "code"),
              ("requirements-win-cp312.lock", "research/tools/d03/requirements-win-cp312.lock", "code")]
     for f in ["d03_repro.py", "d03_checks.py", "d03_figprobe.py", "guard/node-netguard.cjs", "guard/py/sitecustomize.py"]:

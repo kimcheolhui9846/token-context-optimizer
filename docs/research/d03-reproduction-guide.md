@@ -127,7 +127,6 @@ python -m venv <venv폴더>
 | `MANIFEST.json` | 파일별 SHA-256, 바이트, 역할, 원 저장소 경로와 Git blob, 권리, 배포 등급 |
 | `requirements.txt` | Python 패키지 고정 버전(해시 없음, 모든 플랫폼) |
 | `requirements-win-cp312.lock` | 같은 버전의 Windows x64·CPython 3.12 wheel SHA-256 잠금 |
-| `LICENSE` | 저장소 라이선스(MIT) |
 | `tools/` | 실행기 `d03_repro.py`, 대조 `d03_checks.py`, 그림 기록 `d03_figprobe.py`, 차단 장치 `guard/` |
 | `research/` | 생성기 코드와 원자료 |
 | `expected/` | 고정 원고, 기준 산출물, 표 1 사양. 생성기 작업 폴더에는 들어가지 않는다 |
@@ -138,7 +137,7 @@ python -m venv <venv폴더>
 
 | 자료 | 등급 | 근거와 조건 |
 |---|---|---|
-| 연구 코드(`research/src` 일부, `research/figures/*.py`, `tools/`) | 공개 가능 | 저장소 `LICENSE`(MIT License)로 이미 공개 저장소에 있다. (`LICENSE:1`) |
+| 연구 코드(`research/src` 일부, `research/figures/*.py`, `tools/`) | 공개 가능 | 저장소 `LICENSE`(MIT License)로 이미 공개 저장소에 있다. (`LICENSE:1`) 라이선스 파일은 저작권자 이름이 있어 익명 심사용 사본에서 뺐다. 외부 배포 때 저작권 표기와 익명성의 처리는 별도 결정 대상이다 |
 | 원자료(`rows.jsonl`, `responses.jsonl`, `calls.jsonl`, 세션 결과, `config.json`, 매니페스트) | 미확정 | 공개 저장소에 이미 커밋돼 있으나 공급자 모델 출력이 포함돼 있다. 외부 재배포는 공급자 이용약관 재확인 전까지 미확정이다 |
 | 고정 원고(`expected/manuscript`)와 원고에서 가져온 표 1 사양·첫 판 발췌(`expected/table1-spec.json`, `expected/provenance/table1-abdaade.md`) | 제한 | 익명 심사 대상 원고다. 외부 배포를 보류한다 |
 | 기준 그림·집계(`expected/`) | 공개 가능 | 공개 저장소에 있다. 단 원고와 묶은 배포는 심사 익명성 때문에 보류한다 |
