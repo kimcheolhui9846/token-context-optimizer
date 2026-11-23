@@ -12,6 +12,15 @@ export const REPS = ["original", "rgb"];
 export const PROFILES = ["strict", "tolerant"];
 export const VIEWS = ["original", "overview", "region"];
 export const OVERVIEW_MAX_SIDE = 512;
+// Frozen input hashes (PM review Major 2). Fixed from the trusted base commit, not from the mutable input folder:
+// SHA-256 of JSON.stringify of the preparer's projection of base-commit blobs. QUESTIONS is the raw-byte SHA-256 that
+// R09's own freeze-manifest.json fixed for questions.json; the test re-derives every value from the base commit.
+export const FROZEN_INPUTS = {
+  caller: "7b29a93ac6be858e4d078003c8f5a3039119a433781f0121582f2a6d7f291bb4",
+  images: "a733a2f0b113dc0ce88cc2ec0a93d2d036127c2fe4bdfcca4f9352d1bdb26f0f",
+  questions: "d55439f05c834052cb616d4ff023c16081c297efdb4f9adba5874e77458911ef",
+  originalSha: "8caae29be1383d71abcea5cd66f08b700a5996f6df334a324a03981bd68e4514",
+};
 export const GEOMETRY = ["complete", "partial", "not_evaluable"];
 export const EVIDENCE_FILES = ["raw.jsonl", "cells.jsonl", "input-check.json"];
 export const IMAGE_COUNT = 48;
@@ -190,6 +199,22 @@ export function checkDenominator(keys, ids) {
   return checkKeys(keys, ids);
 }
 
+/**
+ * Checks the caller assignment, image manifest projection, questions and original hashes of an input folder against
+ * FROZEN_INPUTS before any server starts. Throws "frozen input mismatch: <part>" on the first difference.
+ */
+export function verifyFrozenInputs({ assignment, questionsBytes, expectedOriginal }) {
+  const got = {
+    assignment: assignment?.base === BASE_COMMIT ? "match" : "mismatch",
+    caller: sha256(JSON.stringify(assignment?.caller ?? null)) === FROZEN_INPUTS.caller ? "match" : "mismatch",
+    images: sha256(JSON.stringify(assignment?.images ?? null)) === FROZEN_INPUTS.images ? "match" : "mismatch",
+    questions: sha256(questionsBytes) === FROZEN_INPUTS.questions ? "match" : "mismatch",
+    originalSha: sha256(JSON.stringify(expectedOriginal ?? null)) === FROZEN_INPUTS.originalSha ? "match" : "mismatch",
+  };
+  for (const [part, v] of Object.entries(got)) if (v !== "match") throw new Error(`frozen input mismatch: ${part}`);
+  return got;
+}
+
 const FORBIDDEN = /(gold|answer|score|render|design)/i;
 export function assertInputPath(p) {
   if (FORBIDDEN.test(String(p))) throw new Error(`forbidden input path: ${p}`);
@@ -275,3 +300,4 @@ export function aggregate(rows) {
   const order = CELLS.map(({ rep, profile, view }) => cellOf(rep, profile, view)).filter((k) => cells[k]);
   return { cells: Object.fromEntries(order.map((k) => [k, cells[k]])) };
 }
+

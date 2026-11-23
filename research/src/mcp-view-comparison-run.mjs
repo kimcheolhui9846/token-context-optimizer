@@ -10,7 +10,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
-import { BUNDLE_BLOB, CELLS, REPS, assertInputPath, buildKeys, cellOf, checkKeys, checkPairs, compareGrayRgb, keyOf, pngChunks, pngIhdr, sha256 } from "./mcp-view-comparison-lib.mjs";
+import { BUNDLE_BLOB, CELLS, REPS, assertInputPath, buildKeys, cellOf, checkKeys, checkPairs, compareGrayRgb, keyOf, pngChunks, pngIhdr, sha256, verifyFrozenInputs } from "./mcp-view-comparison-lib.mjs";
 import { minimalEnv, startServer } from "./mcp-view-comparison-client.mjs";
 import { initFailedRow, runRow } from "./mcp-view-comparison-paths.mjs";
 
@@ -31,7 +31,11 @@ if (top.join() !== TOP.join()) throw new Error(`input entries not allowed: ${top
 const readInput = (...parts) => readFileSync(join(input, ...parts.map(assertInputPath)));
 const assignment = JSON.parse(readInput("assignment.json").toString("utf8"));
 const expected = JSON.parse(readInput("expected-sha.json").toString("utf8"));
-const questions = JSON.parse(readInput("questions.json").toString("utf8")).questions;
+const questionsBytes = readInput("questions.json");
+// PM review Major 2: caller assignment, manifest projection, questions and original hashes must equal the frozen values
+// fixed from the base commit (lib FROZEN_INPUTS), checked before anything else and before any server starts.
+const frozenInputs = verifyFrozenInputs({ assignment, questionsBytes, expectedOriginal: expected.original });
+const questions = JSON.parse(questionsBytes.toString("utf8")).questions;
 const images = assignment.images;
 const ids = images.map((im) => im.id);
 
@@ -41,7 +45,7 @@ checkKeys(buildKeys(ids), ids);
 if (questions.map((q) => q.id).join() !== ids.join()) throw new Error("questions and assignment ids differ");
 const imgDirs = readdirSync(join(input, "images")).sort();
 if (imgDirs.join() !== REPS.slice().sort().join()) throw new Error(`images/ entries not allowed: ${imgDirs.join(",")}`);
-const inputCheck = { ids: ids.length, images: {} };
+const inputCheck = { ids: ids.length, frozenInputs, images: {} };
 for (const rep of REPS) {
   const names = readdirSync(join(input, "images", rep)).sort();
   const want = ids.map((id) => `${id}.png`).sort();

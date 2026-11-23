@@ -102,7 +102,15 @@ export async function runRow({ client, view, profile, image, allowedRoot, caller
   if (row.crop.sourceSha !== "match") return fail("crop", "source_sha_mismatch");
   if (!rect || rect.join() !== regionRect(requested).join()) return fail("crop", "crop_region_mismatch");
 
-  if (c.status === "original") {
+  // PM review Major 1: the response kind must fit the request. A full-page request (planned original, fallback
+  // original, or a selector band covering the page) must come back as an original reference with no image body;
+  // a partial request must come back as a cropped JPEG. Anything else fails here, before any file is read.
+  const fullRequest = rect.join() === [0, 0, page.width, page.height].join();
+  const isOriginal = c.status === "original" && c.fullFrame === true && !cr.image;
+  const isCropped = c.status === "cropped" && c.fullFrame === false;
+  if (fullRequest ? !isOriginal : !isCropped) return fail("crop", "kind_invalid");
+
+  if (isOriginal) {
     row.returned = { kind: "original_unverified", region: rect };
     const v = await verifyOriginalRef({ response: c, expectedSha: image.expectedSha, allowedRoot });
     row.counts.fileReads += v.fileReads;
@@ -112,7 +120,6 @@ export async function runRow({ client, view, profile, image, allowedRoot, caller
     row.returned = { kind: "original_verified", region: rect };
     return row;
   }
-  if (c.status !== "cropped" || c.fullFrame !== false) return fail("crop", "kind_invalid");
   const d = await decodeJpeg(cr.image);
   row.crop = { ...row.crop, decode: d.decode, decodedWidth: d.width ?? null, decodedHeight: d.height ?? null, imageSha: d.bytes && sha(d.bytes) === c.output?.sha256 ? "match" : "mismatch" };
   if (row.crop.imageSha !== "match") return fail("crop", "crop_image_sha_mismatch");
