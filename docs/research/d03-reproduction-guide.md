@@ -65,8 +65,8 @@ python -m venv <venv폴더>
 |---|---|---|
 | `verify-manifest` | 패키지 파일 해시 확인 | `--package`만 |
 | `guard-check` | 네트워크 차단 음성 대조(차단이 실제로 거부하는지) | `--package`, `--out` |
-| `regenerate` | 생성기 실행 | `--package`, `--out` |
-| `compare` | 7항목 판정 | `--package`, `--out` |
+| `regenerate` | 매니페스트를 먼저 확인한 뒤 생성기 실행과 표 1–3 파일 작성. 손상·누락·추가 파일이 있으면 아무것도 실행하지 않고 종료 코드 2 | `--package`, `--out` |
+| `compare` | 7항목 판정과 출력 기록 작성 | `--package`, `--out` |
 
 동작과 제한은 다음과 같다. (`docs/research/d03-reproduction-rules.md:80-85`)
 
@@ -76,8 +76,12 @@ python -m venv <venv폴더>
 - Node 하위 프로세스에는 fetch·TCP·UDP·DNS 차단 preload(`tools/guard/node-netguard.cjs`)를 `NODE_OPTIONS`로 적용한다.
 - Python 하위 프로세스에는 `tools/guard/py/sitecustomize.py`를 `PYTHONPATH`로 적용한다.
 - 차단 범위는 해당 프로세스와 하위 프로세스다. 시스템 방화벽은 바꾸지 않는다. 단계 A의 pip는 차단 밖이다.
-- 한계: Python을 `-I`·`-E`·`-S`로 띄우거나 Node·Python이 아닌 실행 파일을 부르면 차단이 걸리지 않는다. 이번 생성기는 그런 호출을 하지 않으며, 재생성 중 차단 기록은 0건이어야 정상이다.
-- 판정 근거는 `all`이 만든 `report.json`이다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 하며, 없으면 거부한다.
+- 한계: Python을 `-I`·`-E`·`-S`로 띄우거나 Node·Python이 아닌 실행 파일을 부르면 차단이 걸리지 않는다. 이번 생성기는 그런 호출을 하지 않는다.
+- 오프라인 조건은 두 가지를 따로 확인한다.
+  - 사전 음성 대조(`guard-check`): 일부러 네트워크를 호출해 차단되는지 본다. 기록은 `logs/network-guard-check.jsonl`이다.
+  - 재생성 자체의 오프라인 조건: 재생성 단계마다 그 프로세스(pid)가 차단 장치를 시작한 기록이 있어야 하고, 차단된 호출은 0건이어야 한다. 기록은 `logs/network.jsonl`이다.
+- 재생성 조건이 깨지면 7항목 판정과 별도로 미통과다. 종료 코드는 4이고, 보고서에 가드 없는 단계와 차단 기록 수를 적는다.
+- 판정 근거는 `all`이 만든 `report.json`이다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 한다. 없으면 종료 코드 2로, 그 재생성이 오프라인 조건을 깨뜨렸으면 종료 코드 4로 거부한다.
 - 빈 출력 폴더에 기준 이미지나 집계표를 복사해 성공으로 처리하지 않는다. 기준 파일은 `expected/`에만 있고 생성기 작업 폴더에 들어가지 않는다.
 
 ## 6. 결과 읽기
@@ -88,16 +92,21 @@ python -m venv <venv폴더>
 | `<out>/report.json` | 항목별 판정(MATCH / MATCH-WITHIN-TOLERANCE / MISMATCH / NOT-REPRODUCIBLE)과 세부 검사 |
 | `<out>/env.json` | 실제 사용한 Node·Python·패키지 버전, 폰트 파일 |
 | `<out>/logs/` | 명령별 표준출력, 종료 코드, 소요 시간 |
-| `<out>/generated/` | 재생성 산출물 |
+| `<out>/generated/tables/table1.md`, `table2.md`, `table3.md` | 재생성한 논문 표 1–3. 표 3에는 가설 판정 패널과 비용 패널이 모두 있다. T1–T3 판정은 이 파일에서 읽은 셀을 원고 표와 대조한 결과다 |
+| `<out>/generated/` | 그 밖의 재생성 산출물(집계 JSON, 그림 PNG·PDF, 세션 자료). 표 파일을 포함해 36개다 |
+| `<out>/outputs-manifest.json` | 출력 기록. 입력 `MANIFEST.json`의 SHA-256, 7개 대상별 파일 상대경로·크기·SHA-256, 그 파일을 만든 재생성 단계와 명령, 대조 명령, 판정, 생성 파일 전체 목록 |
+| `<out>/runs.json` | 재생성 단계별 명령(경로는 `<out>`·`<package>`로 표기), 종료 코드, 소요 시간, pid, 오프라인 조건 |
+| `<out>/probe-*.json` | 그림 객체 기록(축, 계열, 오차 막대, 라벨, 범례) |
 
 종료 코드는 다음과 같다.
 
 | 코드 | 뜻 |
 |---|---|
-| 0 | 7/7 합격 |
+| 0 | 7/7 합격이고 재생성이 오프라인 조건을 지켰다 |
 | 1 | 판정 실패 또는 불일치 |
-| 2 | 매니페스트·입력 오류 |
-| 3 | 네트워크 차단 대조 실패 |
+| 2 | 매니페스트·입력 오류. 재생성 전에 멈춘다 |
+| 3 | 사전 네트워크 차단 음성 대조 실패. 재생성 전에 멈춘다 |
+| 4 | 재생성이 오프라인 조건을 깨뜨림(가드 기록이 없는 단계, 또는 차단된 호출). 7항목 판정과 별도로 보고한다 |
 
 ## 7. 판정 규칙 요약
 
