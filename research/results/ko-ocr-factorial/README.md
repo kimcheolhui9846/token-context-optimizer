@@ -45,7 +45,7 @@ mkdir "$T" && mkdir -p "$C"                                           # $T가 �
 echo "285a3f1fb419e8e67bdee93ce288b02bb9097f0a  $T/tesseract.js-data-eng-1.0.0.tgz" | sha1sum -c -
 echo "af4c18b31384e8979ba583496c0445132392fb96  $T/tesseract.js-data-kor-1.0.0.tgz" | sha1sum -c -
 mkdir "$T/eng" "$T/kor"
-tar -xzf "$T/tesseract.js-data-eng-1.0.0.tgz" -C "$T/eng" && tar -xzf "$T/tesseract.js-data-kor-1.0.0.tgz" -C "$T/kor"
+(cd "$T/eng" && tar -xzf ../tesseract.js-data-eng-1.0.0.tgz) && (cd "$T/kor" && tar -xzf ../tesseract.js-data-kor-1.0.0.tgz)   # 상대 경로: Git Bash의 GNU tar는 C: 경로를 원격 호스트로 읽는다
 gzip -dc "$T/eng/package/4.0.0_best_int/eng.traineddata.gz" > "$C/eng.traineddata"
 gzip -dc "$T/kor/package/4.0.0_best_int/kor.traineddata.gz" > "$C/kor.traineddata"
 echo "5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747  $C/eng.traineddata" | sha256sum -c -
