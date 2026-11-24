@@ -36,5 +36,5 @@
 - [x] 실행 A·B `8ead3e9`: 매치 36, 주 지표 p0 35/36 → p4 35/36(효과 없음), 매치 면적 +0.89%p. B는 A와 결정적 필드 모두 동일. 가드 차단 0
 - [x] Python 독립 검산(하위 에이전트, 명세만) 2,042건 불일치 0, 변조 2건 검출
 - [x] 게이트 7종 종료 0, 연구 테스트 160/160, Argon APPROVE
-- [ ] 독립 Opus 마일스톤 검토
+- [x] 독립 Opus 마일스톤 검토 PASS WITH NOTES(Blocker·Major 0). Minor 2·Nit 1·Note 반영(`fix(review)`)
 - [ ] PM 판정
