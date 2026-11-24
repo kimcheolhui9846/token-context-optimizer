@@ -115,7 +115,7 @@ export function readEarlierSets() {
     pinned(s.commit, s.questions.path, s.questions.blob);
     pinned(s.commit, s.images.path, s.images.tree);
     const qs = JSON.parse(git(["cat-file", "blob", s.questions.blob], "utf8")).questions;
-    const blobs = new Map(git(["ls-tree", s.images.tree], "utf8").trim().split("\n").map((l) => { const [meta, name] = l.split("\t"); return [name, meta.split(" ")[2]]; }));
+    const blobs = new Map(git(["ls-tree", "--full-tree", s.images.tree], "utf8").trim().split("\n").map((l) => { const [meta, name] = l.split("\t"); return [name, meta.split(" ")[2]]; }));
     for (const q of qs) {
       const b = blobs.get(q.file);
       if (!b) throw new Error(`${s.source}: image ${q.file} missing`);
