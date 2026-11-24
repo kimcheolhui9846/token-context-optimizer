@@ -25,7 +25,10 @@
 | 예측 동결 | `22af341` 23:43:20 push | `predictions.jsonl` SHA-256 `319913c8…2ed0` |
 | 채점 | 23:43:27 시작 | `score-meta.json`: 예측 = HEAD blob(`predictionsCommittedAtHead: true`) |
 
-- 채점 측(`scoring/` gold·design·render)은 예측을 커밋·push한 뒤에 처음 열었다.
+- 채점 측 파일(`scoring/` design·gold·render·render-check)의 사용 범위:
+  - **OCR 전 자료 단계에서는 사용했다.** 생성기(`design.py`)와 고정 렌더러가 이 파일을 만들었다. `src/ko-row-gate-data.mjs`의 `runChecks`(자료 정합성 검사, `check` 명령)가 design·gold·render·render-check를 읽어 배정·문법·잉크 배치·짝·기준 띠·이전 세트 겹침을 확인했다. 그 결과 `checks.json`은 동결 자료(`3f27fb9`)에 들어 있다. 이 검사는 OCR·K1·예측을 쓰지 않는다.
+  - **OCR·K1·W1/W2/W3 예측 단계에서는 접근하지 않았다.** 근거는 두 입력 기록이다. OCR 실행기(`ocr/guard-summary.json`의 `approvedInputs` 49개)와 재생(`replay-a/inputs.json`의 `data` 49개)이 연 자료는 모두 `selector/questions.json`과 `selector/images/*.png`다. 재생이 연 OCR 파일은 `ocr/` 폴더의 3개다. 두 단계는 선택기 측 허용 목록 리더를 거치며, 다른 경로를 열면 예외가 난다(시험 15).
+  - **동결 예측을 gold와 결합한 최초 채점**은 예측 커밋 `22af341`을 push한(23:43:20) 뒤에 시작했다(23:43:27). `src/ko-row-gate-score.mjs`는 예측 48행을 검증한 다음에야 `readScoringInputs`로 채점 측을 연다. `score-a/score-meta.json`에는 `head 22af341`, `predictionsCommittedAtHead: true`가 기록돼 있다.
 - 출력 해시(원바이트 SHA-256): `score-a/score.jsonl` `dc38cb79…1a03`, `score-a/summary.json` `a9b754fc…a355`. B는 A와 바이트가 같다.
 
 ## 3. 단계별 쪽수
@@ -279,8 +282,22 @@
 - **배치가 결과를 정한다.** 원본 12개 중 10개가 배치마다 같은 모양을 보였다. `same-same`은 보류, `same-other`는 적용해 답 유지, `below-same`은 적용해 답 손실, `below-other`는 후보 0이라 보류해 W2 손실을 예방했다. 질문 유형·양식·문서 종류별 차이는 이 배치 효과를 다시 나눈 것이다(4절 표).
 - **예외 원본 2개**
   - `lecture-table-c0`의 `same-other`·`below-same`: 고정 W1이 넓어지지 않아(`not_wider`) W2를 자르지 않았다. W3는 `not_applicable`이다. 이 두 쪽에서는 W2·W3 모두 W1과 같다.
-  - `meeting-table-c0`의 `same-other`·`below-same`: OCR이 `22명`을 `22%`로 읽었다. 그래서 같은 행에 문법에 맞는 후보가 없었다(`no_candidate`). W3는 W1을 유지했다. `same-other`에서는 다른 값 제거 기회를 놓쳤고, `below-same`에서는 W2 손실을 막았다(예방 13건 중 1건). 이 1건의 예방은 W3 설계 때문이 아니라 OCR 오인식 때문이다.
-- **W2 손실 예방 13건의 내역**: `below-other` 12건(후보 0)과 위의 OCR 오인식 1건이다. `below-same`에서 OCR이 방해 값을 바르게 읽은 10쪽은 모두 잃었다.
+  - `meeting-table-c0`의 두 쪽은 흐름이 서로 다르다. 원시 `ocr.jsonl`의 K1 표지 줄(줄 6, 히트 단어 0–2, y ≈ 346–368)과 렌더 잉크 좌표로 대조했다.
+    - **`same-other`**
+      1. 관찰한 토큰: 표지 줄에서 목표 값 `22명`(잉크 [452, 345, 498, 368]) 자리의 OCR 토큰은 `22%`([453.1, 345.9, 43.4, 22.2])다. 방해 값 `37명`은 아래 줄(잉크 y 385–408)에 `37`, `명`으로 읽혔고, 표지와 같은 행이 아니다.
+      2. 후보 없음: `22%`는 count 문법에 맞지 않는다. 같은 행에 문법에 맞는 단위가 없다(`no_candidate`, `scan.count = 0`).
+      3. W1 유지: W3 = W1이다.
+      4. 결과: 답은 W1·W2·W3 모두에서 보인다(t12·t13 `keptSuccess`). W2는 다른 값 2개를 가렸고(W2 사건), W3는 W1을 유지했으므로 W3 사건이 아니다. 다른 원본의 `same-other` 11쪽 중 `lecture-table-c0`(W3 해당 없음)를 뺀 10쪽에서는 목표 값이 문법에 맞는 유일 후보로 읽혀 W2가 적용됐다.
+    - **`below-same`**
+      1. 관찰한 토큰: 표지 줄에서 방해 값 `37명`(잉크 [692, 345, 738, 368]) 자리의 OCR 토큰은 `37H`([692.8, 345.9, 44.4, 22.2])다. 목표 값 `22명`은 아래 줄(잉크 [452, 385, 498, 408])에 `22`, `명`으로 읽혔고, 표지와 같은 행이 아니다.
+      2. 후보 없음: `37H`는 count 문법에 맞지 않는다. 아래 줄의 `22명`은 같은 행 조건을 만족하지 않는다(`no_candidate`, `scan.count = 0`).
+      3. W1 유지: W3 = W1이다.
+      4. 보존: W2([324, 390) 세로 띠)는 아래 줄의 답을 잘라 잃었다(t12 `lost`, 잃은 골드 `value`). W3는 W1을 유지해 답을 보존했다(t13 `keptSuccess`, `prevented`). 이것이 예방 13건 중 1건이다.
+      - 다른 원본의 `below-same` 11쪽 중 `lecture-table-c0`는 W2가 자르지 않아 W3 해당 없음이다. 나머지 10쪽에서는 OCR이 방해 값을 문법에 맞게 읽었고, 그 쪽들은 유일 후보(`intended_decoy`) 때문에 W2를 적용해 답을 잃었다. 이 1건의 예방은 방해 값 토큰이 문법에 맞지 않게 읽혀 후보가 없어진 데서 나왔다. W3가 방해 값을 가려낸 결과가 아니다.
+- **W2 손실 예방 13건의 내역**
+  - `below-other` 12건: 표지 줄에 값·방해 값이 없는 배치라 후보가 0이었고, W3가 W1을 유지했다(등록 기하 예측과 같음).
+  - `meeting-table-c0-below-same` 1건: 위 흐름이다.
+  - `below-same`에서 OCR이 방해 값을 문법에 맞게 읽은 10쪽은 모두 잃었다.
 - **면적**: W3 적용 20쪽의 평균 절감은 28.04%p로, W2 적용과 같은 크기다. 전체 48쪽 평균은 11.68%p다(W2는 27.56%p). W3는 W2의 절감을 보류한 쪽에서 포기한다.
 - **나빠진 지표**: W2보다 나은 W3 손실(10 vs 23)도 W1(손실 0)보다는 나쁘다. W3는 답을 잃는 쪽(10)과 다른 값을 가리는 쪽(10)을 같은 기준(같은 행 유일 후보)으로 고르므로 둘을 구분하지 못한다. 그 원인은 `below-same` 설계처럼 같은 행에 답 형태의 방해 값이 있는 것이다.
 

@@ -28,7 +28,13 @@
 | 검산기 수정 | `9760e26` |
 | 결과 | `7fd2f93` |
 
-채점 측(gold·design·render)은 예측을 push한 뒤에 처음 열었다. `score-meta.json`의 `predictionsCommittedAtHead`는 `true`다.
+채점 측 파일(`scoring/` design·gold·render·render-check)의 사용 범위:
+- OCR 전 자료 단계에서는 사용했다. 생성·렌더가 이 파일을 만들었고, `ko-row-gate-data.mjs`의 `runChecks`(`check`, `checks.json`은 `3f27fb9`에 동결)가 정합성 검사에 읽었다.
+- OCR·K1·예측 단계에서는 접근하지 않았다. 근거는 다음과 같다.
+  - OCR `guard-summary.json`의 `approvedInputs` 49개와 재생 `inputs.json`의 `data` 49개가 모두 `selector/` 질문·PNG다.
+  - 재생이 연 OCR 파일은 `ocr/` 3개다.
+  - 두 단계 모두 허용 목록 리더를 거친다.
+- 동결 예측을 gold와 결합한 최초 채점은 `22af341` push(23:43:20) 뒤 23:43:27에 시작했다. `score-meta.json`에 `head 22af341`, `predictionsCommittedAtHead: true`가 기록돼 있다.
 
 ## 결과 (48쪽, `RESULTS.md`)
 
@@ -45,7 +51,10 @@
   - `below-other`: 후보가 0이라 보류했다. W2 손실 12쪽을 모두 막았다.
 - 예외 원본 두 개:
   - `lecture-table-c0`: W1이 `not_wider`여서 W3는 해당 없음이다.
-  - `meeting-table-c0`: OCR이 `22명`을 `22%`로 읽어 후보가 0이 됐다. 예방 1건은 OCR 오인식 덕분이다.
+  - `meeting-table-c0`의 두 쪽은 흐름이 다르다. 원시 OCR 표지 줄(줄 6)과 렌더 잉크로 대조했다.
+    - `same-other`: 목표 값 `22명` 자리의 토큰이 `22%`다. 아래 줄 `37` `명`은 같은 행이 아니다. 그래서 후보가 없고 W1을 유지했다. 답은 유지됐다(t13 `keptSuccess`). W3 사건 기회는 놓쳤다(W2 사건은 있음).
+    - `below-same`: 표지 줄의 방해 값 `37명` 자리의 토큰이 `37H`다. 목표 값 `22명`은 아래 줄이다. 그래서 후보가 없고 W1을 유지했다. W2가 자른 답을 W3가 보존했다(t12 `lost` → t13 `keptSuccess`). 이것이 예방 13건 중 1건이다.
+    - 나머지 예방 12건은 `below-other`(후보 0, 설계대로)다. `below-same`에서 방해 값이 문법에 맞게 읽힌 10쪽은 모두 잃었다.
 - 면적: 전체 평균 절감은 W2 27.56%p, W3 11.68%p다. W3 적용 쪽만 보면 평균 28.04%p다.
 
 ## 검증
