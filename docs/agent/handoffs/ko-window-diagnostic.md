@@ -2,7 +2,7 @@
 
 - 날짜: 2026-11-24 · 작업자: Claude Code(Opus 5.5, 구현) · 계획·최종 확인: Codex(Astra) · 마일스톤·최종 독립 검토: Opus(PM 지정)
 - 브랜치 `claude/ko-window-diagnostic`, Draft PR #149 → main. 기준 main `0fb30531`. #148(`2ab9ed1`)은 병합하지 않고 Git 객체로만 읽었다.
-- 상태: 구현·결과·자기 검증 완료, PM 검토 대기. Ready·병합은 하지 않았다.
+- 상태: 구현·결과·자기 검증 완료. 독립 Opus 마일스톤 검토(claude-opus-5-5) PASS WITH NOTES(blocker 0, major 0, minor 2, note 3). minor 1(RESULTS 6절의 두 문제 중첩 서술)은 `fix(review)` 커밋으로 고쳤고 검증 표에 Python/JS의 band 검산 범위를 적었다. minor 2(intake 3쪽 트리거 role)는 PM이 원본·페이지별 자료에서 모두 header이고 선택 줄에 header·value 두 종류가 있음을 확인해 해소했다. PM은 제출 head `b46eb62`에서 9개 파일 원바이트 동일, 제품 4639 통과/5 건너뜀, Opus의 JS 18·Python 13 자체 실행을 확인했다. Astra 최종 확인 대기. Ready·병합은 하지 않았다.
 
 ## 커밋
 
@@ -36,5 +36,5 @@
 
 ## 다음 작업
 
-- PM: 새 checkout에서 README 재현 명령으로 독립 Opus 마일스톤·최종 검토, Astra 최종 확인. 지적은 `fix(review): …` 커밋으로 반영한다.
+- PM: Astra 최종 확인(독립 Opus 마일스톤 검토는 완료, 위 상태 참조).
 - 사용자: Ready·병합 승인, 후속 연구 후보 선택.
