@@ -17,28 +17,42 @@
 
 ## 재현 (클린 클론)
 
+진단 코드는 기준 main `0fb3053`에는 없다. 진단 버전(병합 전에는 PR #146 head, 병합 뒤에는 그 병합 커밋)을 체크아웃하고, FCP 원본이 든 PR #145 head 객체도 함께 받아야 한다. 아래 블록은 Git Bash(Windows)와 POSIX 셸에서 그대로 실행된다.
+
 ```sh
 git clone https://github.com/kimcheolhui9846/token-context-optimizer.git && cd token-context-optimizer
-git fetch origin pull/145/head            # FCP 원본 커밋 708d994… 객체를 얻는다
-git cat-file -t 708d9946ae091180a1b716baadfdd73fcfe5a19b                                            # commit
-git rev-parse 708d9946ae091180a1b716baadfdd73fcfe5a19b:research/results/fresh-crop-padding/run-a/caller.jsonl   # d657d59d…
-git rev-parse 0fb30531aabaa9f55b8c9fdc34ee9d03042936c1:research/results/r09-bilingual/heldout/run-a/raw.jsonl    # 876cdbb9…
-cd research && npm ci --ignore-scripts    # 선택기 모듈의 import 의존성(sharp, tesseract.js). OCR은 실행하지 않는다
+# FCP 원본(708d994…)과 진단 버전을 이름 있는 ref로 받는다. #145는 체크아웃하지 않는다.
+git fetch origin pull/145/head:refs/remotes/origin/pr-145 pull/146/head:refs/remotes/origin/pr-146
+git checkout --detach origin/pr-146           # 진단 버전. 병합 뒤에는 그 병합 커밋을 체크아웃해도 된다
+test -f research/src/ko-anchor-diagnostic.mjs && echo "diagnostic code present"
+git cat-file -t 708d9946ae091180a1b716baadfdd73fcfe5a19b                                                        # commit
+git rev-parse 708d9946ae091180a1b716baadfdd73fcfe5a19b:research/results/fresh-crop-padding/run-a/caller.jsonl   # d657d59d7124f68743a1e54a7eb7c62f521dbc21
+git rev-parse 0fb30531aabaa9f55b8c9fdc34ee9d03042936c1:research/results/r09-bilingual/heldout/run-a/raw.jsonl   # 876cdbb90aab9f0bf8ac3f3e9a520ed72e7b3318
+cd research && npm ci --ignore-scripts        # 선택기 모듈의 import 의존성(sharp, tesseract.js). OCR은 실행하지 않는다
 ```
 
-측정(오프라인 가드 필수, 출력 폴더는 새 경로여야 한다):
+측정(오프라인 가드 필수). `--out`은 아직 없는 경로여야 하므로 새 임시 폴더 아래의 하위 경로를 쓴다. `pwd -W`는 Git Bash에서 드라이브 경로(`D:/...`)를 주고, 다른 셸에서는 `pwd`로 대신한다.
 
 ```sh
-NODE_OPTIONS="--require=$(pwd)/tools/d03/guard/node-netguard.cjs" node src/ko-anchor-diagnostic.mjs --out <새 폴더>
-NODE_OPTIONS="--require=$(pwd)/tools/d03/guard/node-netguard.cjs" node src/ko-anchor-diagnostic.mjs --verify results/ko-anchor-diagnostic
+GUARD="$(cd tools/d03/guard && (pwd -W 2>/dev/null || pwd))/node-netguard.cjs"
+OUT="$(mktemp -d)/run"
+NODE_OPTIONS="--require=$GUARD" node src/ko-anchor-diagnostic.mjs --out "$OUT"
+NODE_OPTIONS="--require=$GUARD" node src/ko-anchor-diagnostic.mjs --verify results/ko-anchor-diagnostic
+for f in sources.json replay.jsonl collect.jsonl pinned.json score.jsonl summary.json; do cmp "$OUT/$f" "results/ko-anchor-diagnostic/$f" && echo "same $f"; done
 ```
 
-Windows Git Bash에서는 가드 경로를 `$(cd tools/d03/guard && pwd -W)/node-netguard.cjs`처럼 드라이브 경로로 준다. `--verify`는 모든 출력 파일을 다시 계산해 바이트 단위로 비교하고, 다르면 종료 코드 1이다. 중단 규칙에 걸리면 `stop.json`만 쓰고 종료 코드 2다.
+종료 동작:
 
-독립 검산과 시험:
+- `--out` 정상 완료: 종료 코드 0, 6개 파일(`sources.json`, `replay.jsonl`, `collect.jsonl`, `pinned.json`, `score.jsonl`, `summary.json`).
+- `--out`에서 원본 검증(§4.1)이나 기준 재생(§4.2)의 중단 규칙에 걸림: `sources.json`과 `stop.json` 두 파일만 쓰고 종료 코드 2. 채점하지 않는다.
+- 실행 전제 오류(가드 없음, 출력 경로가 이미 있음, 선택기 blob 불일치, 필요한 Git 객체 없음 등): 결과 파일을 쓰기 전에 예외로 끝난다(0이 아닌 종료 코드). 예: #145 객체가 없으면 `git fetch origin pull/145/head` 안내가 나온다.
+- `--verify <폴더>`: 모든 출력 파일을 메모리에서 다시 계산해 바이트 단위로 비교한다. 같으면 0, 다르면 1.
+
+독립 검산과 시험(`research/`에서):
 
 ```sh
 python tools/ko-anchor-diagnostic/recount.py --results results/ko-anchor-diagnostic --repo ..
+python tools/ko-anchor-diagnostic/recount.py --results "$OUT" --repo ..
 python -m unittest discover -s tools/ko-anchor-diagnostic -p "test_recount.py"
 node --test test/ko-anchor-diagnostic.test.mjs
 ```
