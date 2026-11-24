@@ -1,0 +1,187 @@
+{
+ "run": "a",
+ "ok": true,
+ "sourceCommit": "2ab9ed149896cc06cec387826ab99fa5bac77cda",
+ "inputsChecked": "15 pinned blobs read from Git (blob id, SHA-256, size); freeze.json and manifest.json cross-checked",
+ "denominators": {
+  "pages": 96,
+  "predictions": 192,
+  "ocr": 192,
+  "score": 384,
+  "cohort": 24,
+  "primary": 20,
+  "control": 4
+ },
+ "pagesCompared": {
+  "js": 24,
+  "recount": 24
+ },
+ "fieldsComparedPerPage": [
+  "anchorContained",
+  "anchorDeficit",
+  "anchorInk",
+  "anchorItem",
+  "band",
+  "bandXyxy",
+  "containment",
+  "cueLines",
+  "doctype",
+  "evidence",
+  "hitAmbiguous",
+  "hitAnchorBoundary",
+  "hitAnchorCue",
+  "hitBlank",
+  "hitItems",
+  "hitOtherItem",
+  "hitTextInAnchorText",
+  "hitUnassigned",
+  "hitWords",
+  "id",
+  "k1Score",
+  "layout",
+  "lineAmbiguousWords",
+  "lineAnchorBoundaryWords",
+  "lineBlankWords",
+  "lineClass",
+  "lineIndex",
+  "lineItems",
+  "lineMixed",
+  "lineText",
+  "lineUnassignedWords",
+  "lineWordCount",
+  "otherLineCue",
+  "requiredExpansion",
+  "role",
+  "strict",
+  "triggerSource",
+  "valueContained",
+  "valueDeficit",
+  "valueInk",
+  "valueItem",
+  "words"
+ ],
+ "pageProblems": [],
+ "summaryKeysCompared": [
+  "anchorDeficitSides",
+  "byDoctype",
+  "byDoctypeLayout",
+  "byLayout",
+  "containment",
+  "containmentByLineClass",
+  "containmentByTrigger",
+  "deficitSides",
+  "denominators",
+  "hitTextInAnchorTextByTrigger",
+  "inputs",
+  "lineClassByMixed",
+  "lineClassByTrigger",
+  "otherLineCue",
+  "protocol",
+  "registeredSplit",
+  "sourceDenominators",
+  "valueDeficitSides"
+ ],
+ "summaryProblems": [],
+ "recount": {
+  "registeredSplit": {
+   "both": 4,
+   "anchorOnly": 15,
+   "valueOnly": 3,
+   "neither": 2
+  },
+  "containmentByLineClass": {
+   "primary": {
+    "both": {
+     "anchorCue": 0,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "anchorOnly": {
+     "anchorCue": 15,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "valueOnly": {
+     "anchorCue": 0,
+     "otherItemOnly": 3,
+     "undetermined": 0
+    },
+    "neither": {
+     "anchorCue": 0,
+     "otherItemOnly": 2,
+     "undetermined": 0
+    }
+   },
+   "control": {
+    "both": {
+     "anchorCue": 4,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "anchorOnly": {
+     "anchorCue": 0,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "valueOnly": {
+     "anchorCue": 0,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "neither": {
+     "anchorCue": 0,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    }
+   },
+   "all": {
+    "both": {
+     "anchorCue": 4,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "anchorOnly": {
+     "anchorCue": 15,
+     "otherItemOnly": 0,
+     "undetermined": 0
+    },
+    "valueOnly": {
+     "anchorCue": 0,
+     "otherItemOnly": 3,
+     "undetermined": 0
+    },
+    "neither": {
+     "anchorCue": 0,
+     "otherItemOnly": 2,
+     "undetermined": 0
+    }
+   }
+  },
+  "otherLineCue": {
+   "primary": {
+    "selectedWithoutCue": 5,
+    "cueOnOtherLine": 5,
+    "noCueAnywhere": 0,
+    "otherCueScoreLower": 5,
+    "otherCueScoreEqual": 0,
+    "otherCueScoreHigher": 0
+   },
+   "control": {
+    "selectedWithoutCue": 0,
+    "cueOnOtherLine": 0,
+    "noCueAnywhere": 0,
+    "otherCueScoreLower": 0,
+    "otherCueScoreEqual": 0,
+    "otherCueScoreHigher": 0
+   },
+   "all": {
+    "selectedWithoutCue": 5,
+    "cueOnOtherLine": 5,
+    "noCueAnywhere": 0,
+    "otherCueScoreLower": 5,
+    "otherCueScoreEqual": 0,
+    "otherCueScoreHigher": 0
+   }
+  }
+ }
+}

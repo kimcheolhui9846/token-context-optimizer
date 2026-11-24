@@ -1,0 +1,104 @@
+{
+ "run": "b",
+ "allPassed": true,
+ "results": [
+  {
+   "mutation": "none",
+   "ok": true,
+   "expectOk": true,
+   "passed": true
+  },
+  {
+   "mutation": "lineClass swapped between two pages (lineClass marginals unchanged)",
+   "pages": [
+    "repair-intake-nl-s101-ko",
+    "repair-slip-nl-s307-ko"
+   ],
+   "ok": false,
+   "flaggedPages": [
+    "repair-intake-nl-s101-ko",
+    "repair-slip-nl-s307-ko"
+   ],
+   "flaggedFields": [
+    "lineClass"
+   ],
+   "summaryProblems": 0,
+   "expectOk": false,
+   "passed": true
+  },
+  {
+   "mutation": "containment, anchorContained, valueContained swapped (containment marginals unchanged)",
+   "pages": [
+    "repair-intake-nl-s101-ko",
+    "repair-slip-nl-s101-ko"
+   ],
+   "ok": false,
+   "flaggedPages": [
+    "repair-intake-nl-s101-ko",
+    "repair-slip-nl-s101-ko"
+   ],
+   "flaggedFields": [
+    "containment",
+    "valueContained"
+   ],
+   "summaryProblems": 0,
+   "expectOk": false,
+   "passed": true
+  },
+  {
+   "mutation": "k1Score swapped between two anchor-cue pages (every summary value unchanged)",
+   "pages": [
+    "rental-slip-nl-s101-ko",
+    "rental-slip-nl-s211-ko"
+   ],
+   "ok": false,
+   "flaggedPages": [
+    "rental-slip-nl-s101-ko",
+    "rental-slip-nl-s211-ko"
+   ],
+   "flaggedFields": [
+    "k1Score"
+   ],
+   "summaryProblems": 0,
+   "expectOk": false,
+   "passed": true
+  },
+  {
+   "mutation": "valueDeficit and requiredExpansion swapped between two slip pages (every summary value unchanged)",
+   "pages": [
+    "rental-slip-nl-s101-ko",
+    "rental-slip-nl-s211-ko"
+   ],
+   "ok": false,
+   "flaggedPages": [
+    "rental-slip-nl-s101-ko",
+    "rental-slip-nl-s211-ko"
+   ],
+   "flaggedFields": [
+    "requiredExpansion",
+    "valueDeficit"
+   ],
+   "summaryProblems": 0,
+   "expectOk": false,
+   "passed": true
+  },
+  {
+   "mutation": "lineIndex swapped between two anchor-cue pages (every summary value unchanged)",
+   "pages": [
+    "rental-slip-nl-s101-ko",
+    "rental-slip-nl-s211-ko"
+   ],
+   "ok": false,
+   "flaggedPages": [
+    "rental-slip-nl-s101-ko",
+    "rental-slip-nl-s211-ko"
+   ],
+   "flaggedFields": [
+    "lineIndex"
+   ],
+   "summaryProblems": 0,
+   "expectOk": false,
+   "passed": true
+  }
+ ]
+}
