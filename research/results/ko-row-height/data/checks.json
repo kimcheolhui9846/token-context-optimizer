@@ -1,0 +1,2740 @@
+{
+ "version": "ko-row-height-checks-1",
+ "ok": true,
+ "problems": [],
+ "pages": 48,
+ "sources": 12,
+ "grid": {
+  "doctype": {
+   "venue": 16,
+   "proof": 16,
+   "workshop": 16
+  },
+  "form": {
+   "table": 24,
+   "cards": 24
+  },
+  "content": {
+   "0": 24,
+   "1": 24
+  },
+  "vert": {
+   "same": 24,
+   "below": 24
+  },
+  "space": {
+   "narrow": 24,
+   "wide": 24
+  },
+  "slot": {
+   "0": 16,
+   "1": 16,
+   "2": 16
+  }
+ },
+ "renderFailedImages": 0,
+ "inkGap": {
+  "narrowMin": 21,
+  "narrowMax": 22,
+  "wideMin": 101,
+  "wideMax": 102
+ },
+ "pairing": [
+  {
+   "source": "venue-table-c0",
+   "pages": [
+    "venue-table-c0-same-narrow",
+    "venue-table-c0-same-wide",
+    "venue-table-c0-below-narrow",
+    "venue-table-c0-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "venue-table-c1",
+   "pages": [
+    "venue-table-c1-same-narrow",
+    "venue-table-c1-same-wide",
+    "venue-table-c1-below-narrow",
+    "venue-table-c1-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "venue-cards-c0",
+   "pages": [
+    "venue-cards-c0-same-narrow",
+    "venue-cards-c0-same-wide",
+    "venue-cards-c0-below-narrow",
+    "venue-cards-c0-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "venue-cards-c1",
+   "pages": [
+    "venue-cards-c1-same-narrow",
+    "venue-cards-c1-same-wide",
+    "venue-cards-c1-below-narrow",
+    "venue-cards-c1-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "proof-table-c0",
+   "pages": [
+    "proof-table-c0-same-narrow",
+    "proof-table-c0-same-wide",
+    "proof-table-c0-below-narrow",
+    "proof-table-c0-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "proof-table-c1",
+   "pages": [
+    "proof-table-c1-same-narrow",
+    "proof-table-c1-same-wide",
+    "proof-table-c1-below-narrow",
+    "proof-table-c1-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "proof-cards-c0",
+   "pages": [
+    "proof-cards-c0-same-narrow",
+    "proof-cards-c0-same-wide",
+    "proof-cards-c0-below-narrow",
+    "proof-cards-c0-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "proof-cards-c1",
+   "pages": [
+    "proof-cards-c1-same-narrow",
+    "proof-cards-c1-same-wide",
+    "proof-cards-c1-below-narrow",
+    "proof-cards-c1-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "workshop-table-c0",
+   "pages": [
+    "workshop-table-c0-same-narrow",
+    "workshop-table-c0-same-wide",
+    "workshop-table-c0-below-narrow",
+    "workshop-table-c0-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "workshop-table-c1",
+   "pages": [
+    "workshop-table-c1-same-narrow",
+    "workshop-table-c1-same-wide",
+    "workshop-table-c1-below-narrow",
+    "workshop-table-c1-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "workshop-cards-c0",
+   "pages": [
+    "workshop-cards-c0-same-narrow",
+    "workshop-cards-c0-same-wide",
+    "workshop-cards-c0-below-narrow",
+    "workshop-cards-c0-below-wide"
+   ],
+   "ok": true
+  },
+  {
+   "source": "workshop-cards-c1",
+   "pages": [
+    "workshop-cards-c1-same-narrow",
+    "workshop-cards-c1-same-wide",
+    "workshop-cards-c1-below-narrow",
+    "workshop-cards-c1-below-wide"
+   ],
+   "ok": true
+  }
+ ],
+ "earlier": {
+  "counts": {
+   "r09-heldout": 48,
+   "r09-dev": 4,
+   "fcp": 48,
+   "ko-ocr-holdout-148": 96,
+   "ko-row-window-150": 48
+  },
+  "comparedPages": 244,
+  "imageOverlap": [],
+  "questionOverlap": [],
+  "cohort149": {
+   "pages": 24,
+   "imageOverlap": 0,
+   "questionOverlap": 0
+  }
+ },
+ "uniqueness": {
+  "pngSha256": 48,
+  "normalizedQuestions": 12,
+  "pagesPerQuestion": [
+   4
+  ]
+ },
+ "hashes": {
+  "selector/questions.json": "c00c66aaee3c39f5ed3b245b8c854457efff43d13cad6c987103df5db4cb7203",
+  "scoring/gold.json": "125f59ad6900da453a4f0ed51d499b233c381f1ac81c3b8d0a937339722fb16c",
+  "scoring/design.json": "77aa30813e40ef73d33df030c7f2c06d4d12dc39adfd90442377358a9f499c00",
+  "answers": "65b4761072222c746efdc8621763c0e1c955e2ca8e8121c8f86d78f557fb68f3"
+ },
+ "inkRows": [
+  {
+   "id": "venue-table-c0-same-narrow",
+   "source": "venue-table-c0",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    52,
+    170,
+    237,
+    192
+   ],
+   "valueInk": [
+    734,
+    170,
+    832,
+    192
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     213,
+     236
+    ],
+    [
+     257,
+     280
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     214,
+     832,
+     236
+    ],
+    [
+     734,
+     258,
+     832,
+     280
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c0-same-wide",
+   "source": "venue-table-c0",
+   "vert": "same",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    52,
+    170,
+    237,
+    192
+   ],
+   "valueInk": [
+    734,
+    170,
+    832,
+    192
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     293,
+     316
+    ],
+    [
+     417,
+     440
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     294,
+     832,
+     316
+    ],
+    [
+     734,
+     418,
+     832,
+     440
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c0-below-narrow",
+   "source": "venue-table-c0",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    52,
+    170,
+    237,
+    192
+   ],
+   "valueInk": [
+    734,
+    210,
+    832,
+    232
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     253,
+     316
+    ],
+    [
+     337,
+     400
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     294,
+     832,
+     316
+    ],
+    [
+     734,
+     378,
+     832,
+     400
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c0-below-wide",
+   "source": "venue-table-c0",
+   "vert": "below",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    52,
+    170,
+    237,
+    192
+   ],
+   "valueInk": [
+    734,
+    210,
+    832,
+    232
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     333,
+     396
+    ],
+    [
+     497,
+     560
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     374,
+     832,
+     396
+    ],
+    [
+     734,
+     538,
+     832,
+     560
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c1-same-narrow",
+   "source": "venue-table-c1",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    214,
+    237,
+    236
+   ],
+   "valueInk": [
+    732,
+    214,
+    832,
+    236
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     213,
+     236
+    ],
+    [
+     257,
+     280
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     170,
+     832,
+     192
+    ],
+    [
+     734,
+     258,
+     832,
+     280
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c1-same-wide",
+   "source": "venue-table-c1",
+   "vert": "same",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    294,
+    237,
+    316
+   ],
+   "valueInk": [
+    732,
+    294,
+    832,
+    316
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     293,
+     316
+    ],
+    [
+     417,
+     440
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     170,
+     832,
+     192
+    ],
+    [
+     734,
+     418,
+     832,
+     440
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c1-below-narrow",
+   "source": "venue-table-c1",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    254,
+    237,
+    276
+   ],
+   "valueInk": [
+    732,
+    294,
+    832,
+    316
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     253,
+     316
+    ],
+    [
+     337,
+     400
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     210,
+     832,
+     232
+    ],
+    [
+     734,
+     378,
+     832,
+     400
+    ]
+   ]
+  },
+  {
+   "id": "venue-table-c1-below-wide",
+   "source": "venue-table-c1",
+   "vert": "below",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    334,
+    237,
+    356
+   ],
+   "valueInk": [
+    732,
+    374,
+    832,
+    396
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     333,
+     396
+    ],
+    [
+     497,
+     560
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     210,
+     832,
+     232
+    ],
+    [
+     734,
+     538,
+     832,
+     560
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c0-same-narrow",
+   "source": "venue-cards-c0",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    165,
+    235,
+    188
+   ],
+   "valueInk": [
+    732,
+    166,
+    832,
+    188
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     165,
+     188
+    ],
+    [
+     209,
+     232
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     122,
+     832,
+     144
+    ],
+    [
+     732,
+     210,
+     832,
+     232
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c0-same-wide",
+   "source": "venue-cards-c0",
+   "vert": "same",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    245,
+    235,
+    268
+   ],
+   "valueInk": [
+    732,
+    246,
+    832,
+    268
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     245,
+     268
+    ],
+    [
+     369,
+     392
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     122,
+     832,
+     144
+    ],
+    [
+     732,
+     370,
+     832,
+     392
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c0-below-narrow",
+   "source": "venue-cards-c0",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    205,
+    235,
+    228
+   ],
+   "valueInk": [
+    732,
+    246,
+    832,
+    268
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     205,
+     268
+    ],
+    [
+     289,
+     352
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     162,
+     832,
+     184
+    ],
+    [
+     732,
+     330,
+     832,
+     352
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c0-below-wide",
+   "source": "venue-cards-c0",
+   "vert": "below",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    285,
+    235,
+    308
+   ],
+   "valueInk": [
+    732,
+    326,
+    832,
+    348
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     285,
+     348
+    ],
+    [
+     449,
+     512
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     162,
+     832,
+     184
+    ],
+    [
+     732,
+     490,
+     832,
+     512
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c1-same-narrow",
+   "source": "venue-cards-c1",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    210,
+    235,
+    232
+   ],
+   "valueInk": [
+    734,
+    210,
+    832,
+    232
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     166,
+     188
+    ],
+    [
+     209,
+     232
+    ]
+   ],
+   "neighbourInkGaps": [
+    22,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     122,
+     832,
+     144
+    ],
+    [
+     734,
+     166,
+     832,
+     188
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c1-same-wide",
+   "source": "venue-cards-c1",
+   "vert": "same",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    370,
+    235,
+    392
+   ],
+   "valueInk": [
+    734,
+    370,
+    832,
+    392
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     246,
+     268
+    ],
+    [
+     369,
+     392
+    ]
+   ],
+   "neighbourInkGaps": [
+    102,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     122,
+     832,
+     144
+    ],
+    [
+     734,
+     246,
+     832,
+     268
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c1-below-narrow",
+   "source": "venue-cards-c1",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    290,
+    235,
+    312
+   ],
+   "valueInk": [
+    734,
+    330,
+    832,
+    352
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     206,
+     268
+    ],
+    [
+     289,
+     352
+    ]
+   ],
+   "neighbourInkGaps": [
+    22,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     162,
+     832,
+     184
+    ],
+    [
+     734,
+     246,
+     832,
+     268
+    ]
+   ]
+  },
+  {
+   "id": "venue-cards-c1-below-wide",
+   "source": "venue-cards-c1",
+   "vert": "below",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    450,
+    235,
+    472
+   ],
+   "valueInk": [
+    734,
+    490,
+    832,
+    512
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -18,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     286,
+     348
+    ],
+    [
+     449,
+     512
+    ]
+   ],
+   "neighbourInkGaps": [
+    102,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     162,
+     832,
+     184
+    ],
+    [
+     734,
+     326,
+     832,
+     348
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c0-same-narrow",
+   "source": "proof-table-c0",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    214,
+    240,
+    236
+   ],
+   "valueInk": [
+    732,
+    215,
+    792,
+    236
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     213,
+     236
+    ],
+    [
+     257,
+     280
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     171,
+     792,
+     192
+    ],
+    [
+     732,
+     259,
+     792,
+     280
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c0-same-wide",
+   "source": "proof-table-c0",
+   "vert": "same",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    294,
+    240,
+    316
+   ],
+   "valueInk": [
+    732,
+    295,
+    792,
+    316
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     293,
+     316
+    ],
+    [
+     417,
+     440
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     171,
+     792,
+     192
+    ],
+    [
+     732,
+     419,
+     792,
+     440
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c0-below-narrow",
+   "source": "proof-table-c0",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    254,
+    240,
+    276
+   ],
+   "valueInk": [
+    732,
+    295,
+    792,
+    316
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     253,
+     316
+    ],
+    [
+     337,
+     400
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     211,
+     792,
+     232
+    ],
+    [
+     732,
+     379,
+     792,
+     400
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c0-below-wide",
+   "source": "proof-table-c0",
+   "vert": "below",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    334,
+    240,
+    356
+   ],
+   "valueInk": [
+    732,
+    375,
+    792,
+    396
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     333,
+     396
+    ],
+    [
+     497,
+     560
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     211,
+     792,
+     232
+    ],
+    [
+     732,
+     539,
+     792,
+     560
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c1-same-narrow",
+   "source": "proof-table-c1",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    257,
+    213,
+    280
+   ],
+   "valueInk": [
+    732,
+    259,
+    792,
+    280
+   ],
+   "valueTopMinusLabelTop": 2,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     213,
+     236
+    ],
+    [
+     257,
+     280
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     171,
+     792,
+     192
+    ],
+    [
+     732,
+     215,
+     792,
+     236
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c1-same-wide",
+   "source": "proof-table-c1",
+   "vert": "same",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    417,
+    213,
+    440
+   ],
+   "valueInk": [
+    732,
+    419,
+    792,
+    440
+   ],
+   "valueTopMinusLabelTop": 2,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     293,
+     316
+    ],
+    [
+     417,
+     440
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     171,
+     792,
+     192
+    ],
+    [
+     732,
+     295,
+     792,
+     316
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c1-below-narrow",
+   "source": "proof-table-c1",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    337,
+    213,
+    360
+   ],
+   "valueInk": [
+    732,
+    379,
+    792,
+    400
+   ],
+   "valueTopMinusLabelTop": 42,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     253,
+     316
+    ],
+    [
+     337,
+     400
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     734,
+     211,
+     792,
+     232
+    ],
+    [
+     732,
+     295,
+     792,
+     316
+    ]
+   ]
+  },
+  {
+   "id": "proof-table-c1-below-wide",
+   "source": "proof-table-c1",
+   "vert": "below",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    497,
+    213,
+    520
+   ],
+   "valueInk": [
+    732,
+    539,
+    792,
+    560
+   ],
+   "valueTopMinusLabelTop": 42,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     333,
+     396
+    ],
+    [
+     497,
+     560
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     734,
+     211,
+     792,
+     232
+    ],
+    [
+     732,
+     375,
+     792,
+     396
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c0-same-narrow",
+   "source": "proof-cards-c0",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    210,
+    213,
+    232
+   ],
+   "valueInk": [
+    732,
+    211,
+    792,
+    232
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     165,
+     188
+    ],
+    [
+     209,
+     232
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     123,
+     792,
+     144
+    ],
+    [
+     732,
+     167,
+     792,
+     188
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c0-same-wide",
+   "source": "proof-cards-c0",
+   "vert": "same",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    370,
+    213,
+    392
+   ],
+   "valueInk": [
+    732,
+    371,
+    792,
+    392
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     245,
+     268
+    ],
+    [
+     369,
+     392
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     123,
+     792,
+     144
+    ],
+    [
+     732,
+     247,
+     792,
+     268
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c0-below-narrow",
+   "source": "proof-cards-c0",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    290,
+    213,
+    312
+   ],
+   "valueInk": [
+    732,
+    331,
+    792,
+    352
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     205,
+     268
+    ],
+    [
+     289,
+     352
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     163,
+     792,
+     184
+    ],
+    [
+     732,
+     247,
+     792,
+     268
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c0-below-wide",
+   "source": "proof-cards-c0",
+   "vert": "below",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    450,
+    213,
+    472
+   ],
+   "valueInk": [
+    732,
+    491,
+    792,
+    512
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     285,
+     348
+    ],
+    [
+     449,
+     512
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     163,
+     792,
+     184
+    ],
+    [
+     732,
+     327,
+     792,
+     348
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c1-same-narrow",
+   "source": "proof-cards-c1",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    54,
+    122,
+    241,
+    144
+   ],
+   "valueInk": [
+    732,
+    123,
+    792,
+    144
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     165,
+     188
+    ],
+    [
+     209,
+     232
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     167,
+     792,
+     188
+    ],
+    [
+     732,
+     211,
+     792,
+     232
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c1-same-wide",
+   "source": "proof-cards-c1",
+   "vert": "same",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    54,
+    122,
+    241,
+    144
+   ],
+   "valueInk": [
+    732,
+    123,
+    792,
+    144
+   ],
+   "valueTopMinusLabelTop": 1,
+   "labelValueRowOverlap": 21,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     245,
+     268
+    ],
+    [
+     369,
+     392
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     247,
+     792,
+     268
+    ],
+    [
+     732,
+     371,
+     792,
+     392
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c1-below-narrow",
+   "source": "proof-cards-c1",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    54,
+    122,
+    241,
+    144
+   ],
+   "valueInk": [
+    732,
+    163,
+    792,
+    184
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     205,
+     268
+    ],
+    [
+     289,
+     352
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     247,
+     792,
+     268
+    ],
+    [
+     732,
+     331,
+     792,
+     352
+    ]
+   ]
+  },
+  {
+   "id": "proof-cards-c1-below-wide",
+   "source": "proof-cards-c1",
+   "vert": "below",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    54,
+    122,
+    241,
+    144
+   ],
+   "valueInk": [
+    732,
+    163,
+    792,
+    184
+   ],
+   "valueTopMinusLabelTop": 41,
+   "labelValueRowOverlap": -19,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     285,
+     348
+    ],
+    [
+     449,
+     512
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     327,
+     792,
+     348
+    ],
+    [
+     732,
+     491,
+     792,
+     512
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c0-same-narrow",
+   "source": "workshop-table-c0",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    258,
+    215,
+    280
+   ],
+   "valueInk": [
+    732,
+    257,
+    778,
+    280
+   ],
+   "valueTopMinusLabelTop": -1,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     213,
+     236
+    ],
+    [
+     257,
+     280
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     733,
+     169,
+     765,
+     192
+    ],
+    [
+     733,
+     213,
+     765,
+     236
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c0-same-wide",
+   "source": "workshop-table-c0",
+   "vert": "same",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    418,
+    215,
+    440
+   ],
+   "valueInk": [
+    732,
+    417,
+    778,
+    440
+   ],
+   "valueTopMinusLabelTop": -1,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     293,
+     316
+    ],
+    [
+     417,
+     440
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     733,
+     169,
+     765,
+     192
+    ],
+    [
+     733,
+     293,
+     765,
+     316
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c0-below-narrow",
+   "source": "workshop-table-c0",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 2,
+   "labelInk": [
+    53,
+    338,
+    215,
+    360
+   ],
+   "valueInk": [
+    732,
+    377,
+    778,
+    400
+   ],
+   "valueTopMinusLabelTop": 39,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     254,
+     316
+    ],
+    [
+     338,
+     400
+    ]
+   ],
+   "neighbourInkGaps": [
+    22,
+    22
+   ],
+   "otherValueInks": [
+    [
+     733,
+     209,
+     765,
+     232
+    ],
+    [
+     733,
+     293,
+     765,
+     316
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c0-below-wide",
+   "source": "workshop-table-c0",
+   "vert": "below",
+   "space": "wide",
+   "slot": 2,
+   "labelInk": [
+    53,
+    498,
+    215,
+    520
+   ],
+   "valueInk": [
+    732,
+    537,
+    778,
+    560
+   ],
+   "valueTopMinusLabelTop": 39,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     334,
+     396
+    ],
+    [
+     498,
+     560
+    ]
+   ],
+   "neighbourInkGaps": [
+    102,
+    102
+   ],
+   "otherValueInks": [
+    [
+     733,
+     209,
+     765,
+     232
+    ],
+    [
+     733,
+     373,
+     765,
+     396
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c1-same-narrow",
+   "source": "workshop-table-c1",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    53,
+    170,
+    213,
+    192
+   ],
+   "valueInk": [
+    733,
+    169,
+    765,
+    192
+   ],
+   "valueTopMinusLabelTop": -1,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     213,
+     236
+    ],
+    [
+     257,
+     280
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     733,
+     213,
+     765,
+     236
+    ],
+    [
+     734,
+     257,
+     778,
+     280
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c1-same-wide",
+   "source": "workshop-table-c1",
+   "vert": "same",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    53,
+    170,
+    213,
+    192
+   ],
+   "valueInk": [
+    733,
+    169,
+    765,
+    192
+   ],
+   "valueTopMinusLabelTop": -1,
+   "labelValueRowOverlap": 22,
+   "recordOuter": [
+    [
+     169,
+     192
+    ],
+    [
+     293,
+     316
+    ],
+    [
+     417,
+     440
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     733,
+     293,
+     765,
+     316
+    ],
+    [
+     734,
+     417,
+     778,
+     440
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c1-below-narrow",
+   "source": "workshop-table-c1",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    53,
+    170,
+    213,
+    192
+   ],
+   "valueInk": [
+    733,
+    209,
+    765,
+    232
+   ],
+   "valueTopMinusLabelTop": 39,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     254,
+     316
+    ],
+    [
+     338,
+     400
+    ]
+   ],
+   "neighbourInkGaps": [
+    22,
+    22
+   ],
+   "otherValueInks": [
+    [
+     733,
+     293,
+     765,
+     316
+    ],
+    [
+     734,
+     377,
+     778,
+     400
+    ]
+   ]
+  },
+  {
+   "id": "workshop-table-c1-below-wide",
+   "source": "workshop-table-c1",
+   "vert": "below",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    53,
+    170,
+    213,
+    192
+   ],
+   "valueInk": [
+    733,
+    209,
+    765,
+    232
+   ],
+   "valueTopMinusLabelTop": 39,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     334,
+     396
+    ],
+    [
+     498,
+     560
+    ]
+   ],
+   "neighbourInkGaps": [
+    102,
+    102
+   ],
+   "otherValueInks": [
+    [
+     733,
+     373,
+     765,
+     396
+    ],
+    [
+     734,
+     537,
+     778,
+     560
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c0-same-narrow",
+   "source": "workshop-cards-c0",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    53,
+    121,
+    240,
+    144
+   ],
+   "valueInk": [
+    734,
+    121,
+    778,
+    144
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 23,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     165,
+     188
+    ],
+    [
+     209,
+     232
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     732,
+     165,
+     778,
+     188
+    ],
+    [
+     734,
+     209,
+     778,
+     232
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c0-same-wide",
+   "source": "workshop-cards-c0",
+   "vert": "same",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    53,
+    121,
+    240,
+    144
+   ],
+   "valueInk": [
+    734,
+    121,
+    778,
+    144
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 23,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     245,
+     268
+    ],
+    [
+     369,
+     392
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     732,
+     245,
+     778,
+     268
+    ],
+    [
+     734,
+     369,
+     778,
+     392
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c0-below-narrow",
+   "source": "workshop-cards-c0",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 0,
+   "labelInk": [
+    53,
+    121,
+    240,
+    144
+   ],
+   "valueInk": [
+    734,
+    161,
+    778,
+    184
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     206,
+     268
+    ],
+    [
+     290,
+     352
+    ]
+   ],
+   "neighbourInkGaps": [
+    22,
+    22
+   ],
+   "otherValueInks": [
+    [
+     732,
+     245,
+     778,
+     268
+    ],
+    [
+     734,
+     329,
+     778,
+     352
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c0-below-wide",
+   "source": "workshop-cards-c0",
+   "vert": "below",
+   "space": "wide",
+   "slot": 0,
+   "labelInk": [
+    53,
+    121,
+    240,
+    144
+   ],
+   "valueInk": [
+    734,
+    161,
+    778,
+    184
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     286,
+     348
+    ],
+    [
+     450,
+     512
+    ]
+   ],
+   "neighbourInkGaps": [
+    102,
+    102
+   ],
+   "otherValueInks": [
+    [
+     732,
+     325,
+     778,
+     348
+    ],
+    [
+     734,
+     489,
+     778,
+     512
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c1-same-narrow",
+   "source": "workshop-cards-c1",
+   "vert": "same",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    165,
+    243,
+    188
+   ],
+   "valueInk": [
+    734,
+    165,
+    778,
+    188
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 23,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     165,
+     188
+    ],
+    [
+     209,
+     232
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    21
+   ],
+   "otherValueInks": [
+    [
+     733,
+     121,
+     765,
+     144
+    ],
+    [
+     734,
+     209,
+     778,
+     232
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c1-same-wide",
+   "source": "workshop-cards-c1",
+   "vert": "same",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    245,
+    243,
+    268
+   ],
+   "valueInk": [
+    734,
+    245,
+    778,
+    268
+   ],
+   "valueTopMinusLabelTop": 0,
+   "labelValueRowOverlap": 23,
+   "recordOuter": [
+    [
+     121,
+     144
+    ],
+    [
+     245,
+     268
+    ],
+    [
+     369,
+     392
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    101
+   ],
+   "otherValueInks": [
+    [
+     733,
+     121,
+     765,
+     144
+    ],
+    [
+     734,
+     369,
+     778,
+     392
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c1-below-narrow",
+   "source": "workshop-cards-c1",
+   "vert": "below",
+   "space": "narrow",
+   "slot": 1,
+   "labelInk": [
+    53,
+    205,
+    243,
+    228
+   ],
+   "valueInk": [
+    734,
+    245,
+    778,
+    268
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     122,
+     184
+    ],
+    [
+     205,
+     268
+    ],
+    [
+     290,
+     352
+    ]
+   ],
+   "neighbourInkGaps": [
+    21,
+    22
+   ],
+   "otherValueInks": [
+    [
+     733,
+     161,
+     765,
+     184
+    ],
+    [
+     734,
+     329,
+     778,
+     352
+    ]
+   ]
+  },
+  {
+   "id": "workshop-cards-c1-below-wide",
+   "source": "workshop-cards-c1",
+   "vert": "below",
+   "space": "wide",
+   "slot": 1,
+   "labelInk": [
+    53,
+    285,
+    243,
+    308
+   ],
+   "valueInk": [
+    734,
+    325,
+    778,
+    348
+   ],
+   "valueTopMinusLabelTop": 40,
+   "labelValueRowOverlap": -17,
+   "recordOuter": [
+    [
+     122,
+     184
+    ],
+    [
+     285,
+     348
+    ],
+    [
+     450,
+     512
+    ]
+   ],
+   "neighbourInkGaps": [
+    101,
+    102
+   ],
+   "otherValueInks": [
+    [
+     733,
+     161,
+     765,
+     184
+    ],
+    [
+     734,
+     489,
+     778,
+     512
+    ]
+   ]
+  }
+ ]
+}

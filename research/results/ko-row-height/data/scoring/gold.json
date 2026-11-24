@@ -1,0 +1,1809 @@
+{
+ "design": "ko-row-height-design-1",
+ "set": "ko-row-height",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "venue-table-c0-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11시 00분",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      170,
+      237,
+      192
+     ],
+     "size": [
+      185,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      170,
+      832,
+      192
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c0-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11시 00분",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      170,
+      237,
+      192
+     ],
+     "size": [
+      185,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      170,
+      832,
+      192
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c0-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11시 00분",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      170,
+      237,
+      192
+     ],
+     "size": [
+      185,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      210,
+      832,
+      232
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c0-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11시 00분",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      170,
+      237,
+      192
+     ],
+     "size": [
+      185,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      210,
+      832,
+      232
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c1-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "21시 50분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      214,
+      237,
+      236
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      214,
+      832,
+      236
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c1-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "21시 50분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      294,
+      237,
+      316
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      294,
+      832,
+      316
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c1-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "21시 50분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      254,
+      237,
+      276
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      294,
+      832,
+      316
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-table-c1-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "21시 50분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      334,
+      237,
+      356
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      374,
+      832,
+      396
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c0-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20시 30분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      165,
+      235,
+      188
+     ],
+     "size": [
+      182,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      166,
+      832,
+      188
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c0-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20시 30분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      245,
+      235,
+      268
+     ],
+     "size": [
+      182,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      246,
+      832,
+      268
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c0-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20시 30분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      205,
+      235,
+      228
+     ],
+     "size": [
+      182,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      246,
+      832,
+      268
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c0-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20시 30분",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      285,
+      235,
+      308
+     ],
+     "size": [
+      182,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      326,
+      832,
+      348
+     ],
+     "size": [
+      100,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c1-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "17시 20분",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      210,
+      235,
+      232
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      734,
+      210,
+      832,
+      232
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c1-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "17시 20분",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      370,
+      235,
+      392
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      734,
+      370,
+      832,
+      392
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c1-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "17시 20분",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      290,
+      235,
+      312
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      734,
+      330,
+      832,
+      352
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "venue-cards-c1-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "17시 20분",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      450,
+      235,
+      472
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      734,
+      490,
+      832,
+      512
+     ],
+     "size": [
+      98,
+      22
+     ]
+    }
+   ]
+  },
+  "proof-table-c0-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "391쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      214,
+      240,
+      236
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      215,
+      792,
+      236
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c0-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "391쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      294,
+      240,
+      316
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      295,
+      792,
+      316
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c0-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "391쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      254,
+      240,
+      276
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      295,
+      792,
+      316
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c0-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "391쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      334,
+      240,
+      356
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      375,
+      792,
+      396
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c1-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "368쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      257,
+      213,
+      280
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      259,
+      792,
+      280
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c1-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "368쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      417,
+      213,
+      440
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      419,
+      792,
+      440
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c1-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "368쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      337,
+      213,
+      360
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      379,
+      792,
+      400
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-table-c1-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "368쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      497,
+      213,
+      520
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      539,
+      792,
+      560
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c0-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "435쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      210,
+      213,
+      232
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      211,
+      792,
+      232
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c0-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "435쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      370,
+      213,
+      392
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      371,
+      792,
+      392
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c0-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "435쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      290,
+      213,
+      312
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      331,
+      792,
+      352
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c0-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "435쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      450,
+      213,
+      472
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      491,
+      792,
+      512
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c1-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "401쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      241,
+      144
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      123,
+      792,
+      144
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c1-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "401쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      241,
+      144
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      123,
+      792,
+      144
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c1-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "401쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      241,
+      144
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      163,
+      792,
+      184
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "proof-cards-c1-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "401쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      241,
+      144
+     ],
+     "size": [
+      187,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      163,
+      792,
+      184
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "workshop-table-c0-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      258,
+      215,
+      280
+     ],
+     "size": [
+      162,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      257,
+      778,
+      280
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c0-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      418,
+      215,
+      440
+     ],
+     "size": [
+      162,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      417,
+      778,
+      440
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c0-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      338,
+      215,
+      360
+     ],
+     "size": [
+      162,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      377,
+      778,
+      400
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c0-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      498,
+      215,
+      520
+     ],
+     "size": [
+      162,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      732,
+      537,
+      778,
+      560
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c1-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      733,
+      169,
+      765,
+      192
+     ],
+     "size": [
+      32,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c1-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      733,
+      169,
+      765,
+      192
+     ],
+     "size": [
+      32,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c1-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      733,
+      209,
+      765,
+      232
+     ],
+     "size": [
+      32,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-table-c1-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      733,
+      209,
+      765,
+      232
+     ],
+     "size": [
+      32,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c0-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "13명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      121,
+      240,
+      144
+     ],
+     "size": [
+      187,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      121,
+      778,
+      144
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c0-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "13명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      121,
+      240,
+      144
+     ],
+     "size": [
+      187,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      121,
+      778,
+      144
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c0-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "13명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      121,
+      240,
+      144
+     ],
+     "size": [
+      187,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      161,
+      778,
+      184
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c0-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "13명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      121,
+      240,
+      144
+     ],
+     "size": [
+      187,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      161,
+      778,
+      184
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c1-same-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      165,
+      243,
+      188
+     ],
+     "size": [
+      190,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      165,
+      778,
+      188
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c1-same-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      245,
+      243,
+      268
+     ],
+     "size": [
+      190,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      245,
+      778,
+      268
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c1-below-narrow": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      205,
+      243,
+      228
+     ],
+     "size": [
+      190,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      245,
+      778,
+      268
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "workshop-cards-c1-below-wide": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      285,
+      243,
+      308
+     ],
+     "size": [
+      190,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      325,
+      778,
+      348
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  }
+ }
+}

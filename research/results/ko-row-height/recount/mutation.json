@@ -1,0 +1,194 @@
+{
+ "version": "ko-row-height-mutation-1",
+ "allRejected": true,
+ "tampers": {
+  "swapT12": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "venue-table-c0-same-narrow",
+      "mine": [
+       "t12"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "venue-table-c1-below-narrow",
+      "mine": [
+       "t12"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "t12 of venue-table-c0-same-narrow and venue-table-c1-below-narrow swapped (totals kept)"
+  },
+  "swapCutPixels": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "venue-table-c0-same-narrow",
+      "mine": [
+       "cutPixels"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "venue-table-c0-below-narrow",
+      "mine": [
+       "cutPixels"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "cutPixels of venue-table-c0-same-narrow and venue-table-c0-below-narrow swapped (sum kept)"
+  },
+  "exposurePartialNoneSwap": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "venue-table-c0-same-narrow",
+      "mine": [
+       "others"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "venue-table-c0-same-wide",
+      "mine": [
+       "others"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "partial -> none on venue-table-c0-same-narrow, none -> partial on venue-table-c0-same-wide (sums kept)"
+  },
+  "exposureClassChanged": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "venue-table-c0-same-narrow",
+      "mine": [
+       "others"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "venue-table-c0-same-narrow item 0: partial changed"
+  },
+  "predictionW2TopPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-predictions": [
+     {
+      "key": "venue-table-c0-same-narrow pred.w2",
+      "mine": {
+       "left": 0,
+       "top": 147,
+       "width": 1152,
+       "height": 68
+      },
+      "recorded": {
+       "left": 0,
+       "top": 148,
+       "width": 1152,
+       "height": 68
+      }
+     }
+    ]
+   },
+   "note": "boundary moved by 1 px on venue-table-c0-same-narrow"
+  },
+  "duplicateId": {
+   "rejected": true,
+   "how": "ValidationError: duplicate id 'venue-table-c0-same-narrow'"
+  },
+  "missingId": {
+   "rejected": true,
+   "how": "ValidationError: missing ids"
+  },
+  "goldValueBottomPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "1-hashes-ids-data": [
+     {
+      "key": "venue-table-c0-same-narrow gold vs render r0-value",
+      "mine": null,
+      "recorded": null
+     },
+     {
+      "key": "venue-table-c0-same-narrow edge ink r0-value",
+      "mine": null,
+      "recorded": null
+     }
+    ]
+   },
+   "note": "answer box of venue-table-c0-same-narrow moved by 1 px"
+  },
+  "k1HitWordsChanged": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-predictions": [
+     {
+      "key": "venue-table-c0-same-narrow k1.hitWords",
+      "mine": [
+       0,
+       1,
+       2
+      ],
+      "recorded": [
+       0,
+       1
+      ]
+     },
+     {
+      "key": "venue-table-c0-same-narrow pred.hitWords",
+      "mine": [
+       0,
+       1
+      ],
+      "recorded": [
+       0,
+       1,
+       2
+      ]
+     },
+     {
+      "key": "venue-table-c0-same-narrow pred.pad",
+      "mine": 22.03125,
+      "recorded": 22.1875
+     }
+    ]
+   },
+   "note": "selection record of venue-table-c0-same-narrow"
+  },
+  "publicTableCell": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "6-public-tables": [
+     {
+      "key": "groups r2 c1",
+      "mine": "48",
+      "recorded": "47"
+     }
+    ]
+   },
+   "note": "groups table: total n 48 -> 47"
+  }
+ }
+}

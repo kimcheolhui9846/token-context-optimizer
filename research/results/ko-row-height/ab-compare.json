@@ -1,0 +1,60 @@
+{
+ "version": "ko-row-height-ab-1",
+ "basis": "both replays read the same frozen OCR; determinism check, not an independent OCR repetition",
+ "reproduced": true,
+ "files": {
+  "replay/predictions.jsonl": {
+   "a": "3495db468e29bdfbc3a3785ad37dc34314e0de7a9ff6c78b4cf2718d3b9661a8",
+   "b": "3495db468e29bdfbc3a3785ad37dc34314e0de7a9ff6c78b4cf2718d3b9661a8",
+   "sameBytes": true
+  },
+  "replay/inputs.json": {
+   "a": "329365034328c09037b8da63c992ceae1db985287f695c4abd4c67349cf94d64",
+   "b": "329365034328c09037b8da63c992ceae1db985287f695c4abd4c67349cf94d64",
+   "sameBytes": true
+  },
+  "replay/freeze.json": {
+   "a": "83f0749344d5e24376b95bba4477d9624ccb681688fee063036e40e1717d58f4",
+   "b": "83f0749344d5e24376b95bba4477d9624ccb681688fee063036e40e1717d58f4",
+   "sameBytes": true
+  },
+  "score/score.jsonl": {
+   "a": "f922a4e98ae709f021973895b82109b9d658f0ba5945b9b64a68e3360404e907",
+   "b": "f922a4e98ae709f021973895b82109b9d658f0ba5945b9b64a68e3360404e907",
+   "sameBytes": true
+  },
+  "score/summary.json": {
+   "a": "dc12c2f56cd96a1611d8576566083d6c8196dcb293ad40a833107bbc076069ff",
+   "b": "dc12c2f56cd96a1611d8576566083d6c8196dcb293ad40a833107bbc076069ff",
+   "sameBytes": true
+  }
+ },
+ "rows": {
+  "replay/predictions.jsonl": {
+   "denominator": 48,
+   "rowsA": 48,
+   "rowsB": 48,
+   "sameRows": 48,
+   "identical": true,
+   "sameOrder": true,
+   "onlyInA": [],
+   "onlyInB": [],
+   "duplicatesInA": [],
+   "duplicatesInB": [],
+   "diffs": []
+  },
+  "score/score.jsonl": {
+   "denominator": 48,
+   "rowsA": 48,
+   "rowsB": 48,
+   "sameRows": 48,
+   "identical": true,
+   "sameOrder": true,
+   "onlyInA": [],
+   "onlyInB": [],
+   "duplicatesInA": [],
+   "duplicatesInB": [],
+   "diffs": []
+  }
+ }
+}

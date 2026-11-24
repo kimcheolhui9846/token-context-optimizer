@@ -1,0 +1,5337 @@
+{
+ "design": "ko-row-height-design-1",
+ "set": "ko-row-height",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "images": {
+  "venue-table-c0-same-narrow": {
+   "file": "venue-table-c0-same-narrow.png",
+   "sha256": "2204cecb6b9251a4f468728b782bad50657d9d7846632586bcbf576cde419ec6",
+   "bytes": 15439,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      237,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      832,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      213,
+      237,
+      236
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      214,
+      832,
+      236
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      213,
+      1174,
+      236
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      257,
+      215,
+      280
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      258,
+      832,
+      280
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      258,
+      1153,
+      280
+     ]
+    }
+   }
+  },
+  "venue-table-c0-same-wide": {
+   "file": "venue-table-c0-same-wide.png",
+   "sha256": "0a4a32601371224f73d460cc1c61379f0c1ff573682812a97934cd08e4471f04",
+   "bytes": 15445,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      237,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      832,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      293,
+      237,
+      316
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      294,
+      832,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      293,
+      1174,
+      316
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      417,
+      215,
+      440
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      418,
+      832,
+      440
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      418,
+      1153,
+      440
+     ]
+    }
+   }
+  },
+  "venue-table-c0-below-narrow": {
+   "file": "venue-table-c0-below-narrow.png",
+   "sha256": "fd56076a2ab8dac0ab913ec613bbb2288fd10780fa396435f6e6537aae37763d",
+   "bytes": 15478,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      237,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      832,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      253,
+      237,
+      276
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      294,
+      832,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      253,
+      1174,
+      276
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      215,
+      360
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      378,
+      832,
+      400
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      338,
+      1153,
+      360
+     ]
+    }
+   }
+  },
+  "venue-table-c0-below-wide": {
+   "file": "venue-table-c0-below-wide.png",
+   "sha256": "6bc0f12449a1d8c8da6b04fcf31cadd13f6fc7209e762861a1581fb3462c0ffb",
+   "bytes": 15491,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      237,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      832,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      333,
+      237,
+      356
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      374,
+      832,
+      396
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      333,
+      1174,
+      356
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      497,
+      215,
+      520
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      538,
+      832,
+      560
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      498,
+      1153,
+      520
+     ]
+    }
+   }
+  },
+  "venue-table-c1-same-narrow": {
+   "file": "venue-table-c1-same-narrow.png",
+   "sha256": "c965f4d5e31de14b39399e809a1c4ac854be71897746e7f7b429359afb85d35a",
+   "bytes": 16957,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      235,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      832,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      214,
+      237,
+      236
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      214,
+      832,
+      236
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      213,
+      1154,
+      236
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      257,
+      264,
+      280
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      258,
+      832,
+      280
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      257,
+      1152,
+      280
+     ]
+    }
+   }
+  },
+  "venue-table-c1-same-wide": {
+   "file": "venue-table-c1-same-wide.png",
+   "sha256": "a886dd793d878fd91b0807ced407b14e07b6091feb56c2d87ae74f2eab5a4dc3",
+   "bytes": 16963,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      235,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      832,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      294,
+      237,
+      316
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      294,
+      832,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      293,
+      1154,
+      316
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      417,
+      264,
+      440
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      418,
+      832,
+      440
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      417,
+      1152,
+      440
+     ]
+    }
+   }
+  },
+  "venue-table-c1-below-narrow": {
+   "file": "venue-table-c1-below-narrow.png",
+   "sha256": "e1347f8125638273a15e6b80c568744d256051f264aec78869a14be3107063b7",
+   "bytes": 16831,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      235,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      832,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      254,
+      237,
+      276
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      294,
+      832,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      253,
+      1154,
+      276
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      337,
+      264,
+      360
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      378,
+      832,
+      400
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1152,
+      360
+     ]
+    }
+   }
+  },
+  "venue-table-c1-below-wide": {
+   "file": "venue-table-c1-below-wide.png",
+   "sha256": "5b366a87c11214cc074b6fe00da63db7bc9cb9e9db1f74f9d8230a5d16cdde31",
+   "bytes": 16844,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      734,
+      113,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      235,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      832,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      334,
+      237,
+      356
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      374,
+      832,
+      396
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      333,
+      1154,
+      356
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      497,
+      264,
+      520
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      538,
+      832,
+      560
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      497,
+      1152,
+      520
+     ]
+    }
+   }
+  },
+  "venue-cards-c0-same-narrow": {
+   "file": "venue-cards-c0-same-narrow.png",
+   "sha256": "cf76eb5de8f8ce7d315b1e833c6ee4ccadfc4256979d306e99f8bb713f7cd58c",
+   "bytes": 15888,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      265,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      122,
+      832,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      121,
+      1144,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      165,
+      235,
+      188
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      166,
+      832,
+      188
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      165,
+      1152,
+      188
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      209,
+      264,
+      232
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      210,
+      832,
+      232
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      209,
+      1174,
+      232
+     ]
+    }
+   }
+  },
+  "venue-cards-c0-same-wide": {
+   "file": "venue-cards-c0-same-wide.png",
+   "sha256": "acc82823989a67f3d5462acfc6aa10f0bcac17953334ff29ba798e2200872aae",
+   "bytes": 15906,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      265,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      122,
+      832,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      121,
+      1144,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      245,
+      235,
+      268
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      246,
+      832,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      245,
+      1152,
+      268
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      369,
+      264,
+      392
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      370,
+      832,
+      392
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      369,
+      1174,
+      392
+     ]
+    }
+   }
+  },
+  "venue-cards-c0-below-narrow": {
+   "file": "venue-cards-c0-below-narrow.png",
+   "sha256": "26ab874ba1c433038bb99d98279da1377ec0e03f9ee8e5924e2aff08d9d1d938",
+   "bytes": 16240,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      265,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      162,
+      832,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      121,
+      1144,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      205,
+      235,
+      228
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      246,
+      832,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      205,
+      1152,
+      228
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      289,
+      264,
+      312
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      330,
+      832,
+      352
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      289,
+      1174,
+      312
+     ]
+    }
+   }
+  },
+  "venue-cards-c0-below-wide": {
+   "file": "venue-cards-c0-below-wide.png",
+   "sha256": "211f1f91138c5a58e84420aacaec834a020e1a8c46b48776a0df19735a87bf6b",
+   "bytes": 16265,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      265,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      162,
+      832,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      121,
+      1144,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      285,
+      235,
+      308
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      326,
+      832,
+      348
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      285,
+      1152,
+      308
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      449,
+      264,
+      472
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      490,
+      832,
+      512
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      449,
+      1174,
+      472
+     ]
+    }
+   }
+  },
+  "venue-cards-c1-same-narrow": {
+   "file": "venue-cards-c1-same-narrow.png",
+   "sha256": "7d4b89165cb8627199ca462fc5736e74ccfc567aa6a944fb7966fd1a42766594",
+   "bytes": 14934,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      121,
+      264,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      122,
+      832,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1158,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      166,
+      265,
+      188
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      166,
+      832,
+      188
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      166,
+      1153,
+      188
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      210,
+      235,
+      232
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      832,
+      232
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      209,
+      1152,
+      232
+     ]
+    }
+   }
+  },
+  "venue-cards-c1-same-wide": {
+   "file": "venue-cards-c1-same-wide.png",
+   "sha256": "6c99617a522cc80923a078ae4fae542e3d7b283b48fd58beefad50eefa526517",
+   "bytes": 14952,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      121,
+      264,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      122,
+      832,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1158,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      246,
+      265,
+      268
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      246,
+      832,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      246,
+      1153,
+      268
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      370,
+      235,
+      392
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      370,
+      832,
+      392
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      369,
+      1152,
+      392
+     ]
+    }
+   }
+  },
+  "venue-cards-c1-below-narrow": {
+   "file": "venue-cards-c1-below-narrow.png",
+   "sha256": "b797f8b2c83d51bf18fd38edcf4bce02065f3b4b9c6cb239058975a8728aeb90",
+   "bytes": 15067,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      121,
+      264,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      162,
+      832,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1158,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      206,
+      265,
+      228
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      246,
+      832,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      206,
+      1153,
+      228
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      290,
+      235,
+      312
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      330,
+      832,
+      352
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      289,
+      1152,
+      312
+     ]
+    }
+   }
+  },
+  "venue-cards-c1-below-wide": {
+   "file": "venue-cards-c1-below-wide.png",
+   "sha256": "973573a7041c88956e5b9bf5cabe75f2a605a2ae543e6ef1cc5866327c7af1ea",
+   "bytes": 15093,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      297,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      121,
+      264,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      162,
+      832,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1158,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      286,
+      265,
+      308
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      326,
+      832,
+      348
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      286,
+      1153,
+      308
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      450,
+      235,
+      472
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      490,
+      832,
+      512
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      449,
+      1152,
+      472
+     ]
+    }
+   }
+  },
+  "proof-table-c0-same-narrow": {
+   "file": "proof-table-c0-same-narrow.png",
+   "sha256": "9f1d2418cc9a85729dea296563a0a45ffda0c1d3f8a572739e09050c24ff83cf",
+   "bytes": 14448,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      171,
+      792,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      214,
+      240,
+      236
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      215,
+      792,
+      236
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      213,
+      1151,
+      236
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      257,
+      215,
+      280
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      259,
+      792,
+      280
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      257,
+      1174,
+      280
+     ]
+    }
+   }
+  },
+  "proof-table-c0-same-wide": {
+   "file": "proof-table-c0-same-wide.png",
+   "sha256": "f18575173d152129e6bdd6fe069907d0b6368b28b6ecfe37eba9261d27b4020b",
+   "bytes": 14462,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      171,
+      792,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      294,
+      240,
+      316
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      295,
+      792,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      293,
+      1151,
+      316
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      417,
+      215,
+      440
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      419,
+      792,
+      440
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      417,
+      1174,
+      440
+     ]
+    }
+   }
+  },
+  "proof-table-c0-below-narrow": {
+   "file": "proof-table-c0-below-narrow.png",
+   "sha256": "e2a0cc0150f6b87a2452fdc4a648b186b571f060be3f5a31e3a25f3aa2d9a88e",
+   "bytes": 14588,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      211,
+      792,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      254,
+      240,
+      276
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      295,
+      792,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      253,
+      1151,
+      276
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      215,
+      360
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      379,
+      792,
+      400
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1174,
+      360
+     ]
+    }
+   }
+  },
+  "proof-table-c0-below-wide": {
+   "file": "proof-table-c0-below-wide.png",
+   "sha256": "fff0f37cfaefd0ffee59f4ef8fb0b2f4dc3312ca3d546bed1ed238a811641ca0",
+   "bytes": 14610,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      211,
+      792,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      334,
+      240,
+      356
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      375,
+      792,
+      396
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      333,
+      1151,
+      356
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      497,
+      215,
+      520
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      539,
+      792,
+      560
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      497,
+      1174,
+      520
+     ]
+    }
+   }
+  },
+  "proof-table-c1-same-narrow": {
+   "file": "proof-table-c1-same-narrow.png",
+   "sha256": "480141c88807a834e5da1c833ac46a7cdac9eb79e2fbbbeda65f17a939cfd929",
+   "bytes": 14814,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      171,
+      792,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1174,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      213,
+      215,
+      236
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      215,
+      792,
+      236
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      213,
+      1152,
+      236
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      257,
+      213,
+      280
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      259,
+      792,
+      280
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      257,
+      1151,
+      280
+     ]
+    }
+   }
+  },
+  "proof-table-c1-same-wide": {
+   "file": "proof-table-c1-same-wide.png",
+   "sha256": "b523446516e805403876d1e5986465da0bd5144777d44360ec9282cb6e14a042",
+   "bytes": 14821,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      171,
+      792,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1174,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      293,
+      215,
+      316
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      295,
+      792,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      293,
+      1152,
+      316
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      417,
+      213,
+      440
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      419,
+      792,
+      440
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      417,
+      1151,
+      440
+     ]
+    }
+   }
+  },
+  "proof-table-c1-below-narrow": {
+   "file": "proof-table-c1-below-narrow.png",
+   "sha256": "d989e825670083edd6ce0554645d1a5779916aa5743e368467c60d41528c9693",
+   "bytes": 15049,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      211,
+      792,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1174,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      253,
+      215,
+      276
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      295,
+      792,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      253,
+      1152,
+      276
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      213,
+      360
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      379,
+      792,
+      400
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      337,
+      1151,
+      360
+     ]
+    }
+   }
+  },
+  "proof-table-c1-below-wide": {
+   "file": "proof-table-c1-below-wide.png",
+   "sha256": "98c67fed83f10655c2f14f89fe3966542a05dfe7023c8d319e4dd30a29126141",
+   "bytes": 15061,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      825,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      211,
+      792,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1174,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      333,
+      215,
+      356
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      375,
+      792,
+      396
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      333,
+      1152,
+      356
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      497,
+      213,
+      520
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      539,
+      792,
+      560
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      497,
+      1151,
+      520
+     ]
+    }
+   }
+  },
+  "proof-cards-c0-same-narrow": {
+   "file": "proof-cards-c0-same-narrow.png",
+   "sha256": "ec20dafac40a8dca5c48b7dd5e2ffb446b9db1066a6e096c6147bd509fcae3d9",
+   "bytes": 13553,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      123,
+      792,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      165,
+      213,
+      188
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      167,
+      792,
+      188
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      166,
+      1166,
+      188
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      210,
+      213,
+      232
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      211,
+      792,
+      232
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      209,
+      1174,
+      232
+     ]
+    }
+   }
+  },
+  "proof-cards-c0-same-wide": {
+   "file": "proof-cards-c0-same-wide.png",
+   "sha256": "7d50a49187631dc6a33396d647ece8f4b318e291281d6a92152db93856b3e5c3",
+   "bytes": 13572,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      123,
+      792,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      245,
+      213,
+      268
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      247,
+      792,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      246,
+      1166,
+      268
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      370,
+      213,
+      392
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      371,
+      792,
+      392
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      369,
+      1174,
+      392
+     ]
+    }
+   }
+  },
+  "proof-cards-c0-below-narrow": {
+   "file": "proof-cards-c0-below-narrow.png",
+   "sha256": "30905d101e1c2179d852630e2e501081d0d4a0bf79e6f01460221b42677df4f9",
+   "bytes": 13591,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      163,
+      792,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      205,
+      213,
+      228
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      247,
+      792,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      206,
+      1166,
+      228
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      290,
+      213,
+      312
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      331,
+      792,
+      352
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      289,
+      1174,
+      312
+     ]
+    }
+   }
+  },
+  "proof-cards-c0-below-wide": {
+   "file": "proof-cards-c0-below-wide.png",
+   "sha256": "2b232355b75041be17e81924b9512dd8d6c14ec6aba382b0e424e204ee4b29bd",
+   "bytes": 13616,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      163,
+      792,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      285,
+      213,
+      308
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      327,
+      792,
+      348
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      286,
+      1166,
+      308
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      450,
+      213,
+      472
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      491,
+      792,
+      512
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      449,
+      1174,
+      472
+     ]
+    }
+   }
+  },
+  "proof-cards-c1-same-narrow": {
+   "file": "proof-cards-c1-same-narrow.png",
+   "sha256": "021c099fc6fae0ff42f9410b865ac3b34e82b02adb92956d0874fab3ab6583b7",
+   "bytes": 13033,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      122,
+      241,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      123,
+      792,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      165,
+      213,
+      188
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      167,
+      792,
+      188
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      166,
+      1166,
+      188
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      209,
+      215,
+      232
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      211,
+      792,
+      232
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      209,
+      1152,
+      232
+     ]
+    }
+   }
+  },
+  "proof-cards-c1-same-wide": {
+   "file": "proof-cards-c1-same-wide.png",
+   "sha256": "85ef870daf951b4748f6f5eae37535e294c7db09b7750c3574b1d492b9d45744",
+   "bytes": 13052,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      122,
+      241,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      123,
+      792,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      245,
+      213,
+      268
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      247,
+      792,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      246,
+      1166,
+      268
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      369,
+      215,
+      392
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      371,
+      792,
+      392
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      369,
+      1152,
+      392
+     ]
+    }
+   }
+  },
+  "proof-cards-c1-below-narrow": {
+   "file": "proof-cards-c1-below-narrow.png",
+   "sha256": "917cd1d71dfa6ef7e879bb8577db4a5b6dd7bf35a3eae14e7eeb59c112d75fcd",
+   "bytes": 13051,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      122,
+      241,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      163,
+      792,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      205,
+      213,
+      228
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      247,
+      792,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      206,
+      1166,
+      228
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      289,
+      215,
+      312
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      331,
+      792,
+      352
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      289,
+      1152,
+      312
+     ]
+    }
+   }
+  },
+  "proof-cards-c1-below-wide": {
+   "file": "proof-cards-c1-below-wide.png",
+   "sha256": "45dc6405c6690840da4f1f54642140c64f36e316182a36e72e6eeb99b9ace93e",
+   "bytes": 13075,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      122,
+      241,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      163,
+      792,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      121,
+      1152,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      285,
+      213,
+      308
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      327,
+      792,
+      348
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      286,
+      1166,
+      308
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      449,
+      215,
+      472
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      491,
+      792,
+      512
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      449,
+      1152,
+      472
+     ]
+    }
+   }
+  },
+  "workshop-table-c0-same-narrow": {
+   "file": "workshop-table-c0-same-narrow.png",
+   "sha256": "b70212427a209206d1b87e0deee2d307213f395c1b1a3ef917a707c3493abb15",
+   "bytes": 13707,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      214,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      169,
+      765,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      170,
+      1127,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      214,
+      215,
+      236
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      213,
+      765,
+      236
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      214,
+      1153,
+      236
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      215,
+      280
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      257,
+      778,
+      280
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      258,
+      1167,
+      280
+     ]
+    }
+   }
+  },
+  "workshop-table-c0-same-wide": {
+   "file": "workshop-table-c0-same-wide.png",
+   "sha256": "95b28270b095f5653fc7f36555e069730544e469bb0b84b2ffc69c55b503da69",
+   "bytes": 13715,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      214,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      169,
+      765,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      170,
+      1127,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      294,
+      215,
+      316
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      293,
+      765,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      294,
+      1153,
+      316
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      418,
+      215,
+      440
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      417,
+      778,
+      440
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      418,
+      1167,
+      440
+     ]
+    }
+   }
+  },
+  "workshop-table-c0-below-narrow": {
+   "file": "workshop-table-c0-below-narrow.png",
+   "sha256": "6681ad5c2c5264badbbf5584443fae07b370a6067e24328783ef8cf00d82938f",
+   "bytes": 13883,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      214,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      209,
+      765,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      170,
+      1127,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      254,
+      215,
+      276
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      293,
+      765,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      254,
+      1153,
+      276
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      338,
+      215,
+      360
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      377,
+      778,
+      400
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      338,
+      1167,
+      360
+     ]
+    }
+   }
+  },
+  "workshop-table-c0-below-wide": {
+   "file": "workshop-table-c0-below-wide.png",
+   "sha256": "cc7bc04589fcff12ef48507c1b79216b53143bcc07a0679c650e89b7d1539601",
+   "bytes": 13899,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      214,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      209,
+      765,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      170,
+      1127,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      334,
+      215,
+      356
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      373,
+      765,
+      396
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      334,
+      1153,
+      356
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      498,
+      215,
+      520
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      537,
+      778,
+      560
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      498,
+      1167,
+      520
+     ]
+    }
+   }
+  },
+  "workshop-table-c1-same-narrow": {
+   "file": "workshop-table-c1-same-narrow.png",
+   "sha256": "5392bba63111920c7fa146ca5f8147ce6d5eb37fd32bc470d37f6cbb40f200d2",
+   "bytes": 13531,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      169,
+      765,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1126,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      214,
+      213,
+      236
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      213,
+      765,
+      236
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      214,
+      1151,
+      236
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      258,
+      262,
+      280
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      257,
+      778,
+      280
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      258,
+      1124,
+      280
+     ]
+    }
+   }
+  },
+  "workshop-table-c1-same-wide": {
+   "file": "workshop-table-c1-same-wide.png",
+   "sha256": "6f70343b56127d7c5864ba160cd93d9373b058e0fc1f35d5f1d2d65d2f472425",
+   "bytes": 13552,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      169,
+      765,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1126,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      294,
+      213,
+      316
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      293,
+      765,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      294,
+      1151,
+      316
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      418,
+      262,
+      440
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      417,
+      778,
+      440
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      418,
+      1124,
+      440
+     ]
+    }
+   }
+  },
+  "workshop-table-c1-below-narrow": {
+   "file": "workshop-table-c1-below-narrow.png",
+   "sha256": "55b92b21ee539d65b50138efe41e6bd56f0691637c8cd6200ca59e1071689bef",
+   "bytes": 13537,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      209,
+      765,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1126,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      254,
+      213,
+      276
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      293,
+      765,
+      316
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      254,
+      1151,
+      276
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      338,
+      262,
+      360
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      377,
+      778,
+      400
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      338,
+      1124,
+      360
+     ]
+    }
+   }
+  },
+  "workshop-table-c1-below-wide": {
+   "file": "workshop-table-c1-below-wide.png",
+   "sha256": "2a6dc895edc4f54b8b56d9f6315fd0b9eff9106da5cd373fb39f0ec299eccde6",
+   "bytes": 13558,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      823,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      209,
+      765,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1126,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      334,
+      213,
+      356
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      373,
+      765,
+      396
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      334,
+      1151,
+      356
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      498,
+      262,
+      520
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      537,
+      778,
+      560
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      498,
+      1124,
+      520
+     ]
+    }
+   }
+  },
+  "workshop-cards-c0-same-narrow": {
+   "file": "workshop-cards-c0-same-narrow.png",
+   "sha256": "0dd241a0e69695ae663c31081a69df7798b6fb935fb1be106e483351384c80ec",
+   "bytes": 12145,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      121,
+      240,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      121,
+      778,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      122,
+      1126,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      166,
+      213,
+      188
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      165,
+      778,
+      188
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      166,
+      1153,
+      188
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      210,
+      213,
+      232
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      209,
+      778,
+      232
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      210,
+      1151,
+      232
+     ]
+    }
+   }
+  },
+  "workshop-cards-c0-same-wide": {
+   "file": "workshop-cards-c0-same-wide.png",
+   "sha256": "bfd6551de91032bb6c48b54d9a8c6680eab81845d34a6ac0391b017cab6824fb",
+   "bytes": 12175,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      121,
+      240,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      121,
+      778,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      122,
+      1126,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      246,
+      213,
+      268
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      245,
+      778,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      246,
+      1153,
+      268
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      370,
+      213,
+      392
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      369,
+      778,
+      392
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      370,
+      1151,
+      392
+     ]
+    }
+   }
+  },
+  "workshop-cards-c0-below-narrow": {
+   "file": "workshop-cards-c0-below-narrow.png",
+   "sha256": "174b8501dfc17503ed4266a87271e378988d2438fdfb40d7db72a6ece429c989",
+   "bytes": 12199,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      121,
+      240,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      161,
+      778,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      122,
+      1126,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      206,
+      213,
+      228
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      245,
+      778,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      206,
+      1153,
+      228
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      290,
+      213,
+      312
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      329,
+      778,
+      352
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      290,
+      1151,
+      312
+     ]
+    }
+   }
+  },
+  "workshop-cards-c0-below-wide": {
+   "file": "workshop-cards-c0-below-wide.png",
+   "sha256": "dfd76ed8f08541b31e8cd9426a480f19be713f7d3d8e62af837af41eadee4813",
+   "bytes": 12229,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      121,
+      240,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      161,
+      778,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      122,
+      1126,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      286,
+      213,
+      308
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      325,
+      778,
+      348
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      286,
+      1153,
+      308
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      450,
+      213,
+      472
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      489,
+      778,
+      512
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      450,
+      1151,
+      472
+     ]
+    }
+   }
+  },
+  "workshop-cards-c1-same-narrow": {
+   "file": "workshop-cards-c1-same-narrow.png",
+   "sha256": "86d49e88e7005904c61ecad534c5929ac9cddabece917b839c51057e70ccd16c",
+   "bytes": 12208,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      121,
+      765,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      122,
+      1167,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      165,
+      243,
+      188
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      165,
+      778,
+      188
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      166,
+      1126,
+      188
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      210,
+      262,
+      232
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      209,
+      778,
+      232
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      210,
+      1127,
+      232
+     ]
+    }
+   }
+  },
+  "workshop-cards-c1-same-wide": {
+   "file": "workshop-cards-c1-same-wide.png",
+   "sha256": "fd858e7a66cb87793158c23844a458626d8e21fc545decea3fc0b75f441ce8cc",
+   "bytes": 12240,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      121,
+      765,
+      144
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      122,
+      1167,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      245,
+      243,
+      268
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      245,
+      778,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      246,
+      1126,
+      268
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      370,
+      262,
+      392
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      369,
+      778,
+      392
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      370,
+      1127,
+      392
+     ]
+    }
+   }
+  },
+  "workshop-cards-c1-below-narrow": {
+   "file": "workshop-cards-c1-below-narrow.png",
+   "sha256": "ac8991c7ba19364c26437a7675f935b340ff9909e0fd803a9e03dd85d3a7c6ea",
+   "bytes": 12352,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      161,
+      765,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      122,
+      1167,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      205,
+      243,
+      228
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      245,
+      778,
+      268
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      206,
+      1126,
+      228
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      290,
+      262,
+      312
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      329,
+      778,
+      352
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      290,
+      1127,
+      312
+     ]
+    }
+   }
+  },
+  "workshop-cards-c1-below-wide": {
+   "file": "workshop-cards-c1-below-wide.png",
+   "sha256": "77f49b95e79f74ca481664af87e1e5dc431dcc9f55b31312dad490e31cc73cf0",
+   "bytes": 12395,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      122,
+      213,
+      144
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      161,
+      765,
+      184
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      122,
+      1167,
+      144
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      285,
+      243,
+      308
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      325,
+      778,
+      348
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      286,
+      1126,
+      308
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      450,
+      262,
+      472
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      489,
+      778,
+      512
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      450,
+      1127,
+      472
+     ]
+    }
+   }
+  }
+ }
+}

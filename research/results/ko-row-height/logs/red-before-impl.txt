@@ -1,0 +1,12 @@
+# RED before implementation — HEAD de31b83d3f3da4c0a5716da6d430b0e9e70c5fcb, 2026-11-24T12:45:06Z
+## node --test test/ko-row-height.test.mjs
+    throw new ERR_MODULE_NOT_FOUND(
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<worktree>\research\src\ko-row-height-fixed.mjs' imported from <worktree>\research\test\ko-row-height.test.mjs
+  code: 'ERR_MODULE_NOT_FOUND',
+exit=1
+## python -m unittest tools/ko-row-height/test_recount.py
+ImportError: Failed to import test module: test_recount
+ModuleNotFoundError: No module named 'recount'
+Ran 1 test in 0.000s
+FAILED (errors=1)
+exit=1

@@ -1,0 +1,413 @@
+{
+ "version": "ko-row-height-example-1",
+ "note": "Hand-computed artificial example (protocol 6, RECOUNT_SPEC.md 9). Not from the 48 pages. Boxes are OCR [x, y, w, h] in original page pixels; bands are {left, top, width, height}; ink rects are half-open [l, t, r, b).",
+ "w2": [
+  {
+   "name": "one_hit_cut_both_sides",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 100.5, 40, 19], "words": [{"text": "가나", "box": [10, 100.5, 40, 19]}]},
+    {"text": "12", "confidence": 80, "box": [200, 101, 20, 18], "words": [{"text": "12", "box": [200, 101, 20, 18]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 10, "width": 150, "height": 250}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 10, "width": 150, "height": 250}, "w1": {"left": 0, "top": 10, "width": 220, "height": 250},
+    "w2Reason": "cut", "hitTop": 100.5, "hitBottom": 119.5, "pad": 19, "w2": {"left": 0, "top": 81, "width": 220, "height": 58}, "cutPixels": 42240},
+   "why": "W1: '12' left 200 >= hit right 50, overlap min(119.5,119)-max(100.5,101) = 18 >= 9 -> right 220 > 150, widened. W2: a 100.5, b 119.5, h 19. floor(81.5) = 81 > W1 top 10; ceil(138.5) = 139 < W1 bottom 260. height 58. cut (250-58)*220 = 42240."
+  },
+  {
+   "name": "two_hits_even_median_is_mean",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나 다라", "confidence": 90, "box": [10, 45, 70, 30], "words": [{"text": "가나", "box": [10, 50, 30, 20]}, {"text": "다라", "box": [50, 45, 30, 30]}]},
+    {"text": "x", "confidence": 80, "box": [100, 50, 10, 20], "words": [{"text": "x", "box": [100, 50, 10, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나 다라", "hitWords": [0, 1], "band": {"left": 0, "top": 0, "width": 90, "height": 300}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 0, "width": 90, "height": 300}, "w1": {"left": 0, "top": 0, "width": 110, "height": 300},
+    "w2Reason": "cut", "hitTop": 45, "hitBottom": 75, "pad": 25, "w2": {"left": 0, "top": 20, "width": 110, "height": 80}, "cutPixels": 24200},
+   "why": "heights 20 and 30 -> median (20+30)/2 = 25. a = min(50,45) = 45, b = max(70,75) = 75. top 45-25 = 20, bottom 75+25 = 100. 'x' is right of both hits, same row as hit 0 (overlap 20 >= 10). cut (300-80)*110 = 24200."
+  },
+  {
+   "name": "three_hits_odd_median_top_held_by_w1",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나 다라 마바", "confidence": 90, "box": [10, 15, 80, 45], "words": [{"text": "가나", "box": [10, 15, 20, 10]}, {"text": "다라", "box": [40, 20, 20, 20]}, {"text": "마바", "box": [70, 20, 20, 40]}]},
+    {"text": "y", "confidence": 80, "box": [150, 30, 30, 20], "words": [{"text": "y", "box": [150, 30, 30, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나 다라 마바", "hitWords": [0, 1, 2], "band": {"left": 0, "top": 10, "width": 120, "height": 190}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 10, "width": 120, "height": 190}, "w1": {"left": 0, "top": 10, "width": 180, "height": 190},
+    "w2Reason": "cut", "hitTop": 15, "hitBottom": 60, "pad": 20, "w2": {"left": 0, "top": 10, "width": 180, "height": 70}, "cutPixels": 21600},
+   "why": "heights 10, 20, 40 -> median 20 (not the mean 23.33). a 15, b 60. floor(15-20) = -5 < W1 top 10 -> top stays 10 (held by W1); bottom ceil(80) = 80 < 200. Only the bottom moved: cut. (190-70)*180 = 21600."
+  },
+  {
+   "name": "hit_bottom_equals_w1_bottom_is_inside",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 80, 30, 20], "words": [{"text": "가나", "box": [10, 80, 30, 20]}]},
+    {"text": "z", "confidence": 80, "box": [150, 80, 20, 20], "words": [{"text": "z", "box": [150, 80, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 100, "height": 100}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 0, "width": 100, "height": 100}, "w1": {"left": 0, "top": 0, "width": 170, "height": 100},
+    "w2Reason": "cut", "hitTop": 80, "hitBottom": 100, "pad": 20, "w2": {"left": 0, "top": 60, "width": 170, "height": 40}, "cutPixels": 10200},
+   "why": "hit bottom 100 = W1 bottom 100: equal counts as inside. top 80-20 = 60; bottom min(100, 120) = 100 (held by W1). (100-40)*170 = 10200."
+  },
+  {
+   "name": "hit_above_w1_keeps_w1",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 55, 30, 20], "words": [{"text": "가나", "box": [10, 55, 30, 20]}]},
+    {"text": "q", "confidence": 80, "box": [150, 55, 20, 20], "words": [{"text": "q", "box": [150, 55, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 60, "width": 100, "height": 100}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 60, "width": 100, "height": 100}, "w1": {"left": 0, "top": 60, "width": 170, "height": 100},
+    "w2Reason": "hit_outside_w1", "hitTop": 55, "hitBottom": 75, "pad": 20, "w2": {"left": 0, "top": 60, "width": 170, "height": 100}, "cutPixels": 0},
+   "why": "hit top 55 < W1 top 60: the hit leaves W1 vertically, so W2 = W1 and the reason is recorded."
+  },
+  {
+   "name": "pad_reaches_both_edges_no_cut",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 60, 30, 20], "words": [{"text": "가나", "box": [10, 60, 30, 20]}]},
+    {"text": "r", "confidence": 80, "box": [150, 60, 20, 20], "words": [{"text": "r", "box": [150, 60, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 40, "width": 100, "height": 60}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 40, "width": 100, "height": 60}, "w1": {"left": 0, "top": 40, "width": 170, "height": 60},
+    "w2Reason": "no_cut", "hitTop": 60, "hitBottom": 80, "pad": 20, "w2": {"left": 0, "top": 40, "width": 170, "height": 60}, "cutPixels": 0},
+   "why": "60-20 = 40 = W1 top, 80+20 = 100 = W1 bottom: nothing is cut."
+  },
+  {
+   "name": "fractional_floor_and_ceil_only_at_the_end",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50.25, 30, 20.5], "words": [{"text": "가나", "box": [10, 50.25, 30, 20.5]}]},
+    {"text": "s", "confidence": 80, "box": [150, 52, 20, 20], "words": [{"text": "s", "box": [150, 52, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 120, "height": 200}},
+   "expect": {"reason": "widened", "w0": {"left": 0, "top": 0, "width": 120, "height": 200}, "w1": {"left": 0, "top": 0, "width": 170, "height": 200},
+    "w2Reason": "cut", "hitTop": 50.25, "hitBottom": 70.75, "pad": 20.5, "w2": {"left": 0, "top": 29, "width": 170, "height": 63}, "cutPixels": 23290},
+   "why": "a 50.25, b 70.75, h 20.5. 50.25-20.5 = 29.75 -> floor 29; 70.75+20.5 = 91.25 -> ceil 92; height 63. (rounding h first would give 50-21 = 29, 71+21 = 92 here too, but the rule rounds only the ends). (200-63)*170 = 23290."
+  },
+  {
+   "name": "not_wider_inherits_w1",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}]},
+    {"text": "t", "confidence": 80, "box": [150, 50, 20, 20], "words": [{"text": "t", "box": [150, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 200, "height": 200}},
+   "expect": {"reason": "not_wider", "w0": {"left": 0, "top": 0, "width": 200, "height": 200}, "w1": {"left": 0, "top": 0, "width": 200, "height": 200},
+    "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null, "w2": {"left": 0, "top": 0, "width": 200, "height": 200}, "cutPixels": 0},
+   "why": "candidate right 170 <= W0 right 200: W1 not wider, so W2 is not applied."
+  },
+  {
+   "name": "no_candidate_inherits_w1",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 200, "height": 200}},
+   "expect": {"reason": "no_candidate", "w0": {"left": 0, "top": 0, "width": 200, "height": 200}, "w1": {"left": 0, "top": 0, "width": 200, "height": 200},
+    "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null, "w2": {"left": 0, "top": 0, "width": 200, "height": 200}, "cutPixels": 0},
+   "why": "no word right of the hit: W1 = W0, W2 = W1."
+  },
+  {
+   "name": "k0_branch_inherits_w1",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "price 12", "confidence": 90, "box": [10, 50, 80, 20], "words": [{"text": "price", "box": [10, 50, 50, 20]}, {"text": "12", "box": [70, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "k0", "matched": true, "lineIndex": 0, "lineText": "price 12", "hitWords": null, "band": {"left": 0, "top": 0, "width": 200, "height": 200}},
+   "expect": {"reason": "k0_branch", "w0": {"left": 0, "top": 0, "width": 200, "height": 200}, "w1": {"left": 0, "top": 0, "width": 200, "height": 200},
+    "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null, "w2": {"left": 0, "top": 0, "width": 200, "height": 200}, "cutPixels": 0},
+   "why": "K0 branch: W1 = W0 by the fixed rule, W2 = W1."
+  },
+  {
+   "name": "unmatched_inherits_null",
+   "width": 400, "height": 300,
+   "lines": [],
+   "k1": {"status": "ok", "error": null, "branch": "none", "matched": false, "lineIndex": null, "lineText": null, "hitWords": null, "band": null},
+   "expect": {"reason": "unmatched", "w0": null, "w1": null, "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null, "w2": null, "cutPixels": null},
+   "why": "no window in any condition."
+  },
+  {
+   "name": "error_inherits_null",
+   "width": 400, "height": 300,
+   "lines": null,
+   "k1": {"status": "error", "error": "timeout: timeout 180000 ms", "branch": "k0"},
+   "expect": {"reason": "error", "w0": null, "w1": null, "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null, "w2": null, "cutPixels": null},
+   "why": "technical error stays an error in every condition."
+  },
+  {
+   "name": "zero_height_hit_without_widening_inherits",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 0], "words": [{"text": "가나", "box": [10, 50, 30, 0]}]},
+    {"text": "w", "confidence": 80, "box": [150, 50, 20, 20], "words": [{"text": "w", "box": [150, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "expect": {"reason": "no_candidate", "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 100, "height": 200},
+    "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null, "w2": {"left": 0, "top": 0, "width": 100, "height": 200}, "cutPixels": 0},
+   "why": "a zero-height hit has no positive row overlap, so W1 finds no candidate and does not widen; the W2 validation applies only to widened pages."
+  }
+ ],
+ "w2Invalid": [
+  {
+   "name": "zero_height_hit_on_widened_page",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나 다라", "confidence": 90, "box": [10, 50, 45, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}, {"text": "다라", "box": [45, 50, 10, 0]}]},
+    {"text": "u", "confidence": 80, "box": [150, 50, 20, 20], "words": [{"text": "u", "box": [150, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나 다라", "hitWords": [0, 1], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "why": "hit 0 widens W1 to 170; hit 1 has height 0 -> input validation failure."
+  },
+  {
+   "name": "zero_width_hit_on_widened_page",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나 다라", "confidence": 90, "box": [10, 50, 45, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}, {"text": "다라", "box": [45, 50, 0, 20]}]},
+    {"text": "u", "confidence": 80, "box": [150, 50, 20, 20], "words": [{"text": "u", "box": [150, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나 다라", "hitWords": [0, 1], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "why": "hit 1 has width 0 on a widened page."
+  },
+  {
+   "name": "duplicate_hit",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}]},
+    {"text": "u", "confidence": 80, "box": [150, 50, 20, 20], "words": [{"text": "u", "box": [150, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0, 0], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "why": "the same hit index twice."
+  },
+  {
+   "name": "hit_index_out_of_range",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [5], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "why": "word 5 does not exist."
+  },
+  {
+   "name": "non_finite_hit_box",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 20], "words": [{"text": "가나", "box": [10, null, 30, 20]}]},
+    {"text": "u", "confidence": 80, "box": [150, 50, 20, 20], "words": [{"text": "u", "box": [150, 50, 20, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "가나", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "why": "a box coordinate is not a finite number."
+  },
+  {
+   "name": "line_text_mismatch",
+   "width": 400, "height": 300,
+   "lines": [
+    {"text": "가나", "confidence": 90, "box": [10, 50, 30, 20], "words": [{"text": "가나", "box": [10, 50, 30, 20]}]}
+   ],
+   "k1": {"status": "ok", "error": null, "branch": "hangul", "matched": true, "lineIndex": 0, "lineText": "다라", "hitWords": [0], "band": {"left": 0, "top": 0, "width": 100, "height": 200}},
+   "why": "the stored line text is not the OCR line."
+  }
+ ],
+ "exposure": [
+  {"name": "touch_bottom_edge", "ink": [200, 120, 260, 140], "band": {"left": 0, "top": 80, "width": 300, "height": 40}, "expect": "none", "why": "ink top 120 = window bottom (exclusive): zero area"},
+  {"name": "one_pixel_row_inside", "ink": [200, 119, 260, 139], "band": {"left": 0, "top": 80, "width": 300, "height": 40}, "expect": "partial", "why": "rows 119..120 overlap: area 60 > 0, not inside"},
+  {"name": "inside", "ink": [200, 80, 260, 120], "band": {"left": 0, "top": 80, "width": 300, "height": 40}, "expect": "full", "why": "edges equal count as inside"},
+  {"name": "touch_right_edge", "ink": [300, 90, 320, 100], "band": {"left": 0, "top": 80, "width": 300, "height": 40}, "expect": "none", "why": "ink left 300 = window right (exclusive)"},
+  {"name": "touch_top_edge", "ink": [0, 60, 10, 80], "band": {"left": 0, "top": 80, "width": 300, "height": 40}, "expect": "none", "why": "ink bottom 80 = window top"},
+  {"name": "null_window", "ink": [0, 60, 10, 80], "band": null, "expect": null, "why": "no window"}
+ ],
+ "predictionInvalid": [
+  {"name": "w2_zero_height", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 80, "width": 300, "height": 0}, "cutPixels": 60000}},
+  {"name": "w2_above_w1", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 20, "hitBottom": 30, "pad": 10,
+    "w0": {"left": 0, "top": 10, "width": 100, "height": 190}, "w1": {"left": 0, "top": 10, "width": 300, "height": 190}, "w2": {"left": 0, "top": 5, "width": 300, "height": 40}, "cutPixels": 45000}},
+  {"name": "w2_left_shifted", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 1, "top": 80, "width": 300, "height": 40}, "cutPixels": 48000}},
+  {"name": "w2_width_changed", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 80, "width": 299, "height": 40}, "cutPixels": 48000}},
+  {"name": "cut_reason_but_equal_window", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 0, "width": 300, "height": 200}, "cutPixels": 0}},
+  {"name": "cut_pixels_wrong", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 80, "width": 300, "height": 40}, "cutPixels": 48001}},
+  {"name": "unmatched_with_window", "pred": {"id": "X", "width": 400, "height": 300, "state": "unmatched", "branch": "none", "reason": "unmatched", "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": null, "w2": null, "cutPixels": null}},
+  {"name": "inherit_on_widened_page", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 0, "width": 300, "height": 200}, "cutPixels": 0}},
+  {"name": "hit_outside_w2", "pred": {"id": "X", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 70, "hitBottom": 110, "pad": 20,
+    "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 80, "width": 300, "height": 40}, "cutPixels": 48000}}
+ ],
+ "scoring": {
+  "pageArea": 120000,
+  "pages": [
+   {
+    "pred": {"id": "S1", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+     "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 80, "width": 300, "height": 40}, "cutPixels": 48000},
+    "page": {"id": "S1", "source": "a", "doctype": "venue", "form": "table", "content": 0, "vert": "same", "space": "wide", "slot": 0, "width": 400, "height": 300,
+     "anchorItem": "L", "valueItem": "V", "parts": [[10, 90, 60, 110], [200, 90, 260, 110]], "otherValueItems": ["OA", "OB"],
+     "inks": {"L": {"role": "label", "ink": [10, 90, 60, 110]}, "V": {"role": "value", "ink": [200, 90, 260, 110]}, "OA": {"role": "value", "ink": [200, 20, 260, 40]}, "OB": {"role": "value", "ink": [200, 110, 260, 130]}}},
+    "expect": {"stage": "hangul", "reason": "widened", "w2Reason": "cut",
+     "w0": {"state": "matched_not_strict", "strict": false, "evidence": "partial", "fullPage": false, "area": 20000},
+     "w1": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 60000},
+     "w2": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 12000},
+     "t01": "recovered", "t12": "keptSuccess", "fullPageToPartial": false, "lostParts": null, "cutPixels": 48000,
+     "others": {"n": 2, "w1": {"full": 2, "partial": 0, "none": 0}, "w2": {"full": 0, "partial": 1, "none": 1}, "fromW1Full": {"full": 0, "partial": 1, "none": 1},
+      "items": [{"item": "OA", "w0": "none", "w1": "full", "w2": "none"}, {"item": "OB", "w0": "none", "w1": "full", "w2": "partial"}]},
+     "jOpportunity": true, "jEvent": true, "error": false},
+    "why": "W0 right 100 misses the value. W1 holds both. W2 rows [80,120): OA rows [20,40) none; OB rows [110,130) overlap 10 -> partial. Both strict: J event (one other value fully removed, one cut to partial)."
+   },
+   {
+    "pred": {"id": "S2", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+     "w0": {"left": 0, "top": 0, "width": 100, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 80, "width": 300, "height": 40}, "cutPixels": 48000},
+    "page": {"id": "S2", "source": "a", "doctype": "venue", "form": "table", "content": 0, "vert": "below", "space": "wide", "slot": 0, "width": 400, "height": 300,
+     "anchorItem": "L", "valueItem": "V", "parts": [[10, 90, 60, 110], [200, 115, 260, 135]], "otherValueItems": ["OA"],
+     "inks": {"L": {"role": "label", "ink": [10, 90, 60, 110]}, "V": {"role": "value", "ink": [200, 115, 260, 135]}, "OA": {"role": "value", "ink": [200, 150, 260, 170]}}},
+    "expect": {"stage": "hangul", "reason": "widened", "w2Reason": "cut",
+     "w0": {"state": "matched_not_strict", "strict": false, "evidence": "partial", "fullPage": false, "area": 20000},
+     "w1": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 60000},
+     "w2": {"state": "matched_not_strict", "strict": false, "evidence": "partial", "fullPage": false, "area": 12000},
+     "t01": "recovered", "t12": "lost", "fullPageToPartial": false, "lostParts": ["value"], "cutPixels": 48000,
+     "others": {"n": 1, "w1": {"full": 1, "partial": 0, "none": 0}, "w2": {"full": 0, "partial": 0, "none": 1}, "fromW1Full": {"full": 0, "partial": 0, "none": 1},
+      "items": [{"item": "OA", "w0": "none", "w1": "full", "w2": "none"}]},
+     "jOpportunity": true, "jEvent": false, "error": false},
+    "why": "value one line below: rows [115,135) end past W2 bottom 120 -> lost (value). The other record's value is removed at the same time, but W2 is not strict, so this is an opportunity without a J event."
+   },
+   {
+    "pred": {"id": "S3", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "widened", "w2Reason": "cut", "hitTop": 90, "hitBottom": 110, "pad": 20,
+     "w0": {"left": 0, "top": 0, "width": 300, "height": 300}, "w1": {"left": 0, "top": 0, "width": 400, "height": 300}, "w2": {"left": 0, "top": 80, "width": 400, "height": 40}, "cutPixels": 104000},
+    "page": {"id": "S3", "source": "b", "doctype": "proof", "form": "cards", "content": 1, "vert": "same", "space": "narrow", "slot": 1, "width": 400, "height": 300,
+     "anchorItem": "L", "valueItem": "V", "parts": [[10, 90, 60, 110], [200, 90, 260, 110]], "otherValueItems": [],
+     "inks": {"L": {"role": "label", "ink": [10, 90, 60, 110]}, "V": {"role": "value", "ink": [200, 90, 260, 110]}}},
+    "expect": {"stage": "hangul", "reason": "widened", "w2Reason": "cut",
+     "w0": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 90000},
+     "w1": {"state": "matched_not_strict", "strict": false, "evidence": "all", "fullPage": true, "area": 120000},
+     "w2": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 16000},
+     "t01": "lost", "t12": "recovered", "fullPageToPartial": true, "lostParts": null, "cutPixels": 104000,
+     "others": {"n": 0, "w1": {"full": 0, "partial": 0, "none": 0}, "w2": {"full": 0, "partial": 0, "none": 0}, "fromW1Full": {"full": 0, "partial": 0, "none": 0}, "items": []},
+     "jOpportunity": false, "jEvent": false, "error": false},
+    "why": "W1 is the full page: both inks inside, still not strict (full-page exception). W2 is a partial window holding both: recovered from full page."
+   },
+   {
+    "pred": {"id": "S4", "width": 400, "height": 300, "state": "matched", "branch": "hangul", "reason": "not_wider", "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null,
+     "w0": {"left": 0, "top": 0, "width": 300, "height": 200}, "w1": {"left": 0, "top": 0, "width": 300, "height": 200}, "w2": {"left": 0, "top": 0, "width": 300, "height": 200}, "cutPixels": 0},
+    "page": {"id": "S4", "source": "b", "doctype": "proof", "form": "cards", "content": 1, "vert": "below", "space": "narrow", "slot": 1, "width": 400, "height": 300,
+     "anchorItem": "L", "valueItem": "V", "parts": [[10, 90, 60, 110], [200, 90, 260, 110]], "otherValueItems": ["OA"],
+     "inks": {"L": {"role": "label", "ink": [10, 90, 60, 110]}, "V": {"role": "value", "ink": [200, 90, 260, 110]}, "OA": {"role": "value", "ink": [200, 20, 260, 40]}}},
+    "expect": {"stage": "hangul", "reason": "not_wider", "w2Reason": "inherit",
+     "w0": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 60000},
+     "w1": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 60000},
+     "w2": {"state": "matched_strict", "strict": true, "evidence": "all", "fullPage": false, "area": 60000},
+     "t01": "keptSuccess", "t12": "keptSuccess", "fullPageToPartial": false, "lostParts": null, "cutPixels": 0,
+     "others": {"n": 1, "w1": {"full": 1, "partial": 0, "none": 0}, "w2": {"full": 1, "partial": 0, "none": 0}, "fromW1Full": {"full": 1, "partial": 0, "none": 0},
+      "items": [{"item": "OA", "w0": "full", "w1": "full", "w2": "full"}]},
+     "jOpportunity": false, "jEvent": false, "error": false},
+    "why": "not widened: W2 inherits W1; the other value stays fully visible (not a J opportunity: nothing was cut)."
+   },
+   {
+    "pred": {"id": "S5", "width": 400, "height": 300, "state": "unmatched", "branch": "none", "reason": "unmatched", "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null,
+     "w0": null, "w1": null, "w2": null, "cutPixels": null},
+    "page": {"id": "S5", "source": "a", "doctype": "venue", "form": "table", "content": 0, "vert": "same", "space": "narrow", "slot": 0, "width": 400, "height": 300,
+     "anchorItem": "L", "valueItem": "V", "parts": [[10, 90, 60, 110], [200, 90, 260, 110]], "otherValueItems": ["OA"],
+     "inks": {"L": {"role": "label", "ink": [10, 90, 60, 110]}, "V": {"role": "value", "ink": [200, 90, 260, 110]}, "OA": {"role": "value", "ink": [200, 20, 260, 40]}}},
+    "expect": {"stage": "unmatched", "reason": "unmatched", "w2Reason": "inherit",
+     "w0": {"state": "unmatched", "strict": false, "evidence": null, "fullPage": null, "area": null},
+     "w1": {"state": "unmatched", "strict": false, "evidence": null, "fullPage": null, "area": null},
+     "w2": {"state": "unmatched", "strict": false, "evidence": null, "fullPage": null, "area": null},
+     "t01": "bothFail", "t12": "bothFail", "fullPageToPartial": null, "lostParts": null, "cutPixels": null, "others": null,
+     "jOpportunity": false, "jEvent": false, "error": false},
+    "why": "unmatched stays in the 48-page denominator and fails in every condition."
+   },
+   {
+    "pred": {"id": "S6", "width": 400, "height": 300, "state": "error", "branch": "k0", "reason": "error", "w2Reason": "inherit", "hitTop": null, "hitBottom": null, "pad": null,
+     "w0": null, "w1": null, "w2": null, "cutPixels": null},
+    "page": {"id": "S6", "source": "a", "doctype": "venue", "form": "table", "content": 0, "vert": "below", "space": "narrow", "slot": 0, "width": 400, "height": 300,
+     "anchorItem": "L", "valueItem": "V", "parts": [[10, 90, 60, 110], [200, 130, 260, 150]], "otherValueItems": ["OA"],
+     "inks": {"L": {"role": "label", "ink": [10, 90, 60, 110]}, "V": {"role": "value", "ink": [200, 130, 260, 150]}, "OA": {"role": "value", "ink": [200, 20, 260, 40]}}},
+    "expect": {"stage": "error", "reason": "error", "w2Reason": "inherit",
+     "w0": {"state": "technical_error", "strict": false, "evidence": null, "fullPage": null, "area": null},
+     "w1": {"state": "technical_error", "strict": false, "evidence": null, "fullPage": null, "area": null},
+     "w2": {"state": "technical_error", "strict": false, "evidence": null, "fullPage": null, "area": null},
+     "t01": "bothFail", "t12": "bothFail", "fullPageToPartial": null, "lostParts": null, "cutPixels": null, "others": null,
+     "jOpportunity": false, "jEvent": false, "error": true},
+    "why": "technical error stays in the 48-page denominator."
+   }
+  ],
+  "expectStages": {"pages": 6, "error": 1, "normal": 5, "unmatched": 1, "k0Matched": 0, "hangulMatched": 4,
+   "w1Reason": {"widened": 3, "notWider": 1, "noCandidate": 0, "k0Branch": 0, "unmatched": 1, "error": 1},
+   "w2Reason": {"inherit": 3, "cut": 3, "noCut": 0, "hitOutside": 0}},
+  "expectTotal": {
+   "n": 6, "error": 1, "unmatched": 1, "matched": 4,
+   "strict": {"w0": 2, "w1": 3, "w2": 3}, "fullPage": {"w0": 0, "w1": 1, "w2": 0},
+   "t01": {"recovered": 2, "lost": 1, "keptSuccess": 1, "bothFail": 2},
+   "t12": {"recovered": 1, "lost": 1, "keptSuccess": 2, "bothFail": 2},
+   "L": {"count": 1, "denom": 3, "pct": 33.33, "sources": 1},
+   "J": {"count": 1, "opportunity": 2, "pct": 50, "sources": 1, "opportunitySources": 1},
+   "fullPageToPartial": {"count": 1, "recovered": 1},
+   "lostParts": {"label": 0, "value": 1, "both": 0},
+   "widened": 3, "cut": 3, "noCut": 0, "hitOutside": 0,
+   "others": {"pagesW1Full": 3, "itemsW1Full": 4, "pagesW2Full": 1, "itemsW2Full": 1, "itemsW1Partial": 0, "itemsW2Partial": 1,
+    "fromW1Full": {"full": 1, "partial": 1, "none": 2}, "pagesReduced": 2, "pagesReducedBothStrict": 1,
+    "pagesFullToPartialOnly": 0, "pagesFullToNone": 2, "pagesFullToPartialAndNone": 1, "newlyFullW2": 0, "newEvidenceW2": 0},
+   "area": {"validPairs": 4, "cutPixelsSum": 200000, "meanPp": 41.6667, "medianPp": 40, "maxPp": 86.6667,
+    "cutPages": 3, "cutPixelsSumCut": 200000, "cutMeanPp": 55.5556, "cutMedianPp": 40, "cutMaxPp": 86.6667},
+   "sources": 2,
+   "verdict": {"loss": "loss", "removal": "observed_single_source"}
+  },
+  "expectLayoutGroup": {"key": ["layout", "below-wide"], "value": {
+   "n": 1, "error": 0, "unmatched": 0, "matched": 1,
+   "strict": {"w0": 0, "w1": 1, "w2": 0}, "fullPage": {"w0": 0, "w1": 0, "w2": 0},
+   "t01": {"recovered": 1, "lost": 0, "keptSuccess": 0, "bothFail": 0},
+   "t12": {"recovered": 0, "lost": 1, "keptSuccess": 0, "bothFail": 0},
+   "L": {"count": 1, "denom": 1, "pct": 100, "sources": 1},
+   "J": {"count": 0, "opportunity": 1, "pct": 0, "sources": 0, "opportunitySources": 1},
+   "fullPageToPartial": {"count": 0, "recovered": 0},
+   "lostParts": {"label": 0, "value": 1, "both": 0},
+   "widened": 1, "cut": 1, "noCut": 0, "hitOutside": 0,
+   "others": {"pagesW1Full": 1, "itemsW1Full": 1, "pagesW2Full": 0, "itemsW2Full": 0, "itemsW1Partial": 0, "itemsW2Partial": 0,
+    "fromW1Full": {"full": 0, "partial": 0, "none": 1}, "pagesReduced": 1, "pagesReducedBothStrict": 0,
+    "pagesFullToPartialOnly": 0, "pagesFullToNone": 1, "pagesFullToPartialAndNone": 0, "newlyFullW2": 0, "newEvidenceW2": 0},
+   "area": {"validPairs": 1, "cutPixelsSum": 48000, "meanPp": 40, "medianPp": 40, "maxPp": 40,
+    "cutPages": 1, "cutPixelsSumCut": 48000, "cutMeanPp": 40, "cutMedianPp": 40, "cutMaxPp": 40},
+   "sources": 1,
+   "verdict": {"loss": "loss", "removal": "not_observed"}
+  }},
+  "expectEmptyGroup": {"key": ["doctype", "workshop"], "value": {
+   "n": 0, "error": 0, "unmatched": 0, "matched": 0,
+   "strict": {"w0": 0, "w1": 0, "w2": 0}, "fullPage": {"w0": 0, "w1": 0, "w2": 0},
+   "t01": {"recovered": 0, "lost": 0, "keptSuccess": 0, "bothFail": 0},
+   "t12": {"recovered": 0, "lost": 0, "keptSuccess": 0, "bothFail": 0},
+   "L": {"count": 0, "denom": 0, "pct": null, "sources": 0},
+   "J": {"count": 0, "opportunity": 0, "pct": null, "sources": 0, "opportunitySources": 0},
+   "fullPageToPartial": {"count": 0, "recovered": 0},
+   "lostParts": {"label": 0, "value": 0, "both": 0},
+   "widened": 0, "cut": 0, "noCut": 0, "hitOutside": 0,
+   "others": {"pagesW1Full": 0, "itemsW1Full": 0, "pagesW2Full": 0, "itemsW2Full": 0, "itemsW1Partial": 0, "itemsW2Partial": 0,
+    "fromW1Full": {"full": 0, "partial": 0, "none": 0}, "pagesReduced": 0, "pagesReducedBothStrict": 0,
+    "pagesFullToPartialOnly": 0, "pagesFullToNone": 0, "pagesFullToPartialAndNone": 0, "newlyFullW2": 0, "newEvidenceW2": 0},
+   "area": {"validPairs": 0, "cutPixelsSum": 0, "meanPp": null, "medianPp": null, "maxPp": null,
+    "cutPages": 0, "cutPixelsSumCut": 0, "cutMeanPp": null, "cutMedianPp": null, "cutMaxPp": null},
+   "sources": 0,
+   "verdict": {"loss": "no_loss", "removal": "no_opportunity_widened"}
+  }},
+  "expectLists": {"t12Lost": ["S2"], "t12Recovered": ["S3"], "jEvent": ["S1"], "jOpportunity": ["S1", "S2"], "fullPageToPartial": ["S3"],
+   "cut": ["S1", "S2", "S3"], "widened": ["S1", "S2", "S3"], "t01Recovered": ["S1", "S2"], "t01Lost": ["S3"], "errors": ["S6"], "unmatched": ["S5"]},
+  "expectSourceTable": [
+   {"source": "a", "doctype": "venue", "form": "table", "content": 0, "slot": 0, "cells": {
+    "same-narrow": {"id": "S5", "stage": "unmatched", "w1Reason": "unmatched", "w2Reason": "inherit", "w1Strict": false, "w2Strict": false, "t12": "bothFail", "w1Full": null, "w2Full": null, "fromW1FullPartial": null, "fromW1FullNone": null, "cutPp": null},
+    "same-wide": {"id": "S1", "stage": "hangul", "w1Reason": "widened", "w2Reason": "cut", "w1Strict": true, "w2Strict": true, "t12": "keptSuccess", "w1Full": 2, "w2Full": 0, "fromW1FullPartial": 1, "fromW1FullNone": 1, "cutPp": 40},
+    "below-narrow": {"id": "S6", "stage": "error", "w1Reason": "error", "w2Reason": "inherit", "w1Strict": false, "w2Strict": false, "t12": "bothFail", "w1Full": null, "w2Full": null, "fromW1FullPartial": null, "fromW1FullNone": null, "cutPp": null},
+    "below-wide": {"id": "S2", "stage": "hangul", "w1Reason": "widened", "w2Reason": "cut", "w1Strict": true, "w2Strict": false, "t12": "lost", "w1Full": 1, "w2Full": 0, "fromW1FullPartial": 0, "fromW1FullNone": 1, "cutPp": 40}}},
+   {"source": "b", "doctype": "proof", "form": "cards", "content": 1, "slot": 1, "cells": {
+    "same-narrow": {"id": "S3", "stage": "hangul", "w1Reason": "widened", "w2Reason": "cut", "w1Strict": false, "w2Strict": true, "t12": "recovered", "w1Full": 0, "w2Full": 0, "fromW1FullPartial": 0, "fromW1FullNone": 0, "cutPp": 86.6667},
+    "same-wide": null,
+    "below-narrow": {"id": "S4", "stage": "hangul", "w1Reason": "not_wider", "w2Reason": "inherit", "w1Strict": true, "w2Strict": true, "t12": "keptSuccess", "w1Full": 1, "w2Full": 1, "fromW1FullPartial": 0, "fromW1FullNone": 0, "cutPp": 0},
+    "below-wide": null}}
+  ],
+  "expectSourcesTable": [
+   "| 원본 | 양식 | 목표 슬롯 | same-narrow | same-wide | below-narrow | below-wide |",
+   "|---|---|---|---|---|---|---|",
+   "| a | table | 0 | unmatched | S→S cut 2→0 none1 part1 | error | S→F cut 1→0 none1 |",
+   "| b | cards | 1 | F→S cut 0→0 | — | S→S inherit:not_wider 1→1 | — |"
+  ]
+ }
+}

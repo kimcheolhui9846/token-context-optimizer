@@ -1,0 +1,311 @@
+{
+ "version": "ko-row-height-recount-1",
+ "ok": true,
+ "checks": {
+  "1-hashes-ids-data": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "1b-pairing": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "2-k1-w1-w2-predictions": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "2b-replay-inputs": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "3-rows": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "4-summary": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "6-public-tables": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  }
+ },
+ "stages": {
+  "pages": 48,
+  "error": 0,
+  "normal": 48,
+  "unmatched": 0,
+  "k0Matched": 0,
+  "hangulMatched": 48,
+  "w1Reason": {
+   "widened": 28,
+   "notWider": 20,
+   "noCandidate": 0,
+   "k0Branch": 0,
+   "unmatched": 0,
+   "error": 0
+  },
+  "w2Reason": {
+   "inherit": 20,
+   "cut": 28,
+   "noCut": 0,
+   "hitOutside": 0
+  }
+ },
+ "total": {
+  "n": 48,
+  "error": 0,
+  "unmatched": 0,
+  "matched": 48,
+  "strict": {
+   "w0": 20,
+   "w1": 48,
+   "w2": 42
+  },
+  "fullPage": {
+   "w0": 0,
+   "w1": 0,
+   "w2": 0
+  },
+  "t01": {
+   "recovered": 28,
+   "lost": 0,
+   "keptSuccess": 20,
+   "bothFail": 0
+  },
+  "t12": {
+   "recovered": 0,
+   "lost": 6,
+   "keptSuccess": 42,
+   "bothFail": 0
+  },
+  "L": {
+   "count": 6,
+   "denom": 48,
+   "pct": 12.5,
+   "sources": 3
+  },
+  "J": {
+   "count": 21,
+   "opportunity": 27,
+   "pct": 77.78,
+   "sources": 11,
+   "opportunitySources": 11
+  },
+  "fullPageToPartial": {
+   "count": 0,
+   "recovered": 0
+  },
+  "lostParts": {
+   "label": 0,
+   "value": 6,
+   "both": 0
+  },
+  "widened": 28,
+  "cut": 28,
+  "noCut": 0,
+  "hitOutside": 0,
+  "others": {
+   "pagesW1Full": 38,
+   "itemsW1Full": 64,
+   "pagesW2Full": 11,
+   "itemsW2Full": 15,
+   "itemsW1Partial": 0,
+   "itemsW2Partial": 9,
+   "fromW1Full": {
+    "full": 15,
+    "partial": 9,
+    "none": 40
+   },
+   "pagesReduced": 27,
+   "pagesReducedBothStrict": 22,
+   "pagesFullToPartialOnly": 1,
+   "pagesFullToNone": 26,
+   "pagesFullToPartialAndNone": 7,
+   "newlyFullW2": 0,
+   "newEvidenceW2": 0
+  },
+  "area": {
+   "validPairs": 48,
+   "cutPixelsSum": 10799386,
+   "meanPp": 18.3095,
+   "medianPp": 19.7984,
+   "maxPp": 55.6528,
+   "cutPages": 28,
+   "cutPixelsSumCut": 10799386,
+   "cutMeanPp": 31.3877,
+   "cutMedianPp": 29.7051,
+   "cutMaxPp": 55.6528
+  },
+  "sources": 12,
+  "verdict": {
+   "loss": "loss",
+   "removal": "observed_repeated_sources"
+  }
+ },
+ "lists": {
+  "t12Lost": [
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide"
+  ],
+  "t12Recovered": [],
+  "jEvent": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "jOpportunity": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "fullPageToPartial": [],
+  "cut": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "widened": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "t01Recovered": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "t01Lost": [],
+  "errors": [],
+  "unmatched": []
+ }
+}

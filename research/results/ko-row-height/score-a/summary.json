@@ -1,0 +1,4452 @@
+{
+ "version": "ko-row-height-summary-1",
+ "dataCommit": "13a26d887c2f00e5d022a7d950eceac38135c31b",
+ "manifestSha256": "6e3e4bd2738adde945aea346171d2daa9e8b922aba261798c5db6e91694b0b07",
+ "predictionsSha256": "3495db468e29bdfbc3a3785ad37dc34314e0de7a9ff6c78b4cf2718d3b9661a8",
+ "pageArea": 1228800,
+ "invariants": {
+  "checked": 48,
+  "w2InsideW1": 48,
+  "sameLeftWidth": 48,
+  "hitsInsideW2": 28,
+  "newlyFullW2": 0,
+  "newEvidenceW2": 0
+ },
+ "stages": {
+  "pages": 48,
+  "error": 0,
+  "normal": 48,
+  "unmatched": 0,
+  "k0Matched": 0,
+  "hangulMatched": 48,
+  "w1Reason": {
+   "widened": 28,
+   "notWider": 20,
+   "noCandidate": 0,
+   "k0Branch": 0,
+   "unmatched": 0,
+   "error": 0
+  },
+  "w2Reason": {
+   "inherit": 20,
+   "cut": 28,
+   "noCut": 0,
+   "hitOutside": 0
+  }
+ },
+ "groups": {
+  "total": {
+   "n": 48,
+   "error": 0,
+   "unmatched": 0,
+   "matched": 48,
+   "strict": {
+    "w0": 20,
+    "w1": 48,
+    "w2": 42
+   },
+   "fullPage": {
+    "w0": 0,
+    "w1": 0,
+    "w2": 0
+   },
+   "t01": {
+    "recovered": 28,
+    "lost": 0,
+    "keptSuccess": 20,
+    "bothFail": 0
+   },
+   "t12": {
+    "recovered": 0,
+    "lost": 6,
+    "keptSuccess": 42,
+    "bothFail": 0
+   },
+   "L": {
+    "count": 6,
+    "denom": 48,
+    "pct": 12.5,
+    "sources": 3
+   },
+   "J": {
+    "count": 21,
+    "opportunity": 27,
+    "pct": 77.78,
+    "sources": 11,
+    "opportunitySources": 11
+   },
+   "fullPageToPartial": {
+    "count": 0,
+    "recovered": 0
+   },
+   "lostParts": {
+    "label": 0,
+    "value": 6,
+    "both": 0
+   },
+   "widened": 28,
+   "cut": 28,
+   "noCut": 0,
+   "hitOutside": 0,
+   "others": {
+    "pagesW1Full": 38,
+    "itemsW1Full": 64,
+    "pagesW2Full": 11,
+    "itemsW2Full": 15,
+    "itemsW1Partial": 0,
+    "itemsW2Partial": 9,
+    "fromW1Full": {
+     "full": 15,
+     "partial": 9,
+     "none": 40
+    },
+    "pagesReduced": 27,
+    "pagesReducedBothStrict": 22,
+    "pagesFullToPartialOnly": 1,
+    "pagesFullToNone": 26,
+    "pagesFullToPartialAndNone": 7,
+    "newlyFullW2": 0,
+    "newEvidenceW2": 0
+   },
+   "area": {
+    "validPairs": 48,
+    "cutPixelsSum": 10799386,
+    "meanPp": 18.3095,
+    "medianPp": 19.7984,
+    "maxPp": 55.6528,
+    "cutPages": 28,
+    "cutPixelsSumCut": 10799386,
+    "cutMeanPp": 31.3877,
+    "cutMedianPp": 29.7051,
+    "cutMaxPp": 55.6528
+   },
+   "sources": 12,
+   "verdict": {
+    "loss": "loss",
+    "removal": "observed_repeated_sources"
+   }
+  },
+  "w1Widened": {
+   "n": 28,
+   "error": 0,
+   "unmatched": 0,
+   "matched": 28,
+   "strict": {
+    "w0": 0,
+    "w1": 28,
+    "w2": 22
+   },
+   "fullPage": {
+    "w0": 0,
+    "w1": 0,
+    "w2": 0
+   },
+   "t01": {
+    "recovered": 28,
+    "lost": 0,
+    "keptSuccess": 0,
+    "bothFail": 0
+   },
+   "t12": {
+    "recovered": 0,
+    "lost": 6,
+    "keptSuccess": 22,
+    "bothFail": 0
+   },
+   "L": {
+    "count": 6,
+    "denom": 28,
+    "pct": 21.43,
+    "sources": 3
+   },
+   "J": {
+    "count": 21,
+    "opportunity": 27,
+    "pct": 77.78,
+    "sources": 11,
+    "opportunitySources": 11
+   },
+   "fullPageToPartial": {
+    "count": 0,
+    "recovered": 0
+   },
+   "lostParts": {
+    "label": 0,
+    "value": 6,
+    "both": 0
+   },
+   "widened": 28,
+   "cut": 28,
+   "noCut": 0,
+   "hitOutside": 0,
+   "others": {
+    "pagesW1Full": 27,
+    "itemsW1Full": 49,
+    "pagesW2Full": 0,
+    "itemsW2Full": 0,
+    "itemsW1Partial": 0,
+    "itemsW2Partial": 9,
+    "fromW1Full": {
+     "full": 0,
+     "partial": 9,
+     "none": 40
+    },
+    "pagesReduced": 27,
+    "pagesReducedBothStrict": 22,
+    "pagesFullToPartialOnly": 1,
+    "pagesFullToNone": 26,
+    "pagesFullToPartialAndNone": 7,
+    "newlyFullW2": 0,
+    "newEvidenceW2": 0
+   },
+   "area": {
+    "validPairs": 28,
+    "cutPixelsSum": 10799386,
+    "meanPp": 31.3877,
+    "medianPp": 29.7051,
+    "maxPp": 55.6528,
+    "cutPages": 28,
+    "cutPixelsSumCut": 10799386,
+    "cutMeanPp": 31.3877,
+    "cutMedianPp": 29.7051,
+    "cutMaxPp": 55.6528
+   },
+   "sources": 11,
+   "verdict": {
+    "loss": "loss",
+    "removal": "observed_repeated_sources"
+   }
+  },
+  "cut": {
+   "n": 28,
+   "error": 0,
+   "unmatched": 0,
+   "matched": 28,
+   "strict": {
+    "w0": 0,
+    "w1": 28,
+    "w2": 22
+   },
+   "fullPage": {
+    "w0": 0,
+    "w1": 0,
+    "w2": 0
+   },
+   "t01": {
+    "recovered": 28,
+    "lost": 0,
+    "keptSuccess": 0,
+    "bothFail": 0
+   },
+   "t12": {
+    "recovered": 0,
+    "lost": 6,
+    "keptSuccess": 22,
+    "bothFail": 0
+   },
+   "L": {
+    "count": 6,
+    "denom": 28,
+    "pct": 21.43,
+    "sources": 3
+   },
+   "J": {
+    "count": 21,
+    "opportunity": 27,
+    "pct": 77.78,
+    "sources": 11,
+    "opportunitySources": 11
+   },
+   "fullPageToPartial": {
+    "count": 0,
+    "recovered": 0
+   },
+   "lostParts": {
+    "label": 0,
+    "value": 6,
+    "both": 0
+   },
+   "widened": 28,
+   "cut": 28,
+   "noCut": 0,
+   "hitOutside": 0,
+   "others": {
+    "pagesW1Full": 27,
+    "itemsW1Full": 49,
+    "pagesW2Full": 0,
+    "itemsW2Full": 0,
+    "itemsW1Partial": 0,
+    "itemsW2Partial": 9,
+    "fromW1Full": {
+     "full": 0,
+     "partial": 9,
+     "none": 40
+    },
+    "pagesReduced": 27,
+    "pagesReducedBothStrict": 22,
+    "pagesFullToPartialOnly": 1,
+    "pagesFullToNone": 26,
+    "pagesFullToPartialAndNone": 7,
+    "newlyFullW2": 0,
+    "newEvidenceW2": 0
+   },
+   "area": {
+    "validPairs": 28,
+    "cutPixelsSum": 10799386,
+    "meanPp": 31.3877,
+    "medianPp": 29.7051,
+    "maxPp": 55.6528,
+    "cutPages": 28,
+    "cutPixelsSumCut": 10799386,
+    "cutMeanPp": 31.3877,
+    "cutMedianPp": 29.7051,
+    "cutMaxPp": 55.6528
+   },
+   "sources": 11,
+   "verdict": {
+    "loss": "loss",
+    "removal": "observed_repeated_sources"
+   }
+  },
+  "layout": {
+   "same-narrow": {
+    "n": 12,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 12,
+    "strict": {
+     "w0": 1,
+     "w1": 12,
+     "w2": 12
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 11,
+     "lost": 0,
+     "keptSuccess": 1,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 12,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 12,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 10,
+     "opportunity": 11,
+     "pct": 90.91,
+     "sources": 10,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 11,
+    "cut": 11,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 12,
+     "itemsW1Full": 24,
+     "pagesW2Full": 1,
+     "itemsW2Full": 2,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 8,
+     "fromW1Full": {
+      "full": 2,
+      "partial": 8,
+      "none": 14
+     },
+     "pagesReduced": 11,
+     "pagesReducedBothStrict": 11,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 10,
+     "pagesFullToPartialAndNone": 6,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 12,
+     "cutPixelsSum": 3571903,
+     "meanPp": 24.2235,
+     "medianPp": 26.2969,
+     "maxPp": 33.0498,
+     "cutPages": 11,
+     "cutPixelsSumCut": 3571903,
+     "cutMeanPp": 26.4257,
+     "cutMedianPp": 28.2188,
+     "cutMaxPp": 33.0498
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "same-wide": {
+    "n": 12,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 12,
+    "strict": {
+     "w0": 1,
+     "w1": 12,
+     "w2": 12
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 11,
+     "lost": 0,
+     "keptSuccess": 1,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 12,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 12,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 11,
+     "opportunity": 11,
+     "pct": 100,
+     "sources": 11,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 11,
+    "cut": 11,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 12,
+     "itemsW1Full": 20,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 0,
+      "none": 19
+     },
+     "pagesReduced": 11,
+     "pagesReducedBothStrict": 11,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 11,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 12,
+     "cutPixelsSum": 4681343,
+     "meanPp": 31.7474,
+     "medianPp": 33.6852,
+     "maxPp": 48.2451,
+     "cutPages": 11,
+     "cutPixelsSumCut": 4681343,
+     "cutMeanPp": 34.6335,
+     "cutMedianPp": 35.8431,
+     "cutMaxPp": 48.2451
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "below-narrow": {
+    "n": 12,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 12,
+    "strict": {
+     "w0": 9,
+     "w1": 12,
+     "w2": 9
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 3,
+     "lost": 0,
+     "keptSuccess": 9,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 3,
+     "keptSuccess": 9,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 3,
+     "denom": 12,
+     "pct": 25,
+     "sources": 3
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 3,
+     "pct": 0,
+     "sources": 0,
+     "opportunitySources": 3
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 3,
+     "both": 0
+    },
+    "widened": 3,
+    "cut": 3,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 12,
+     "itemsW1Full": 17,
+     "pagesW2Full": 9,
+     "itemsW2Full": 12,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 12,
+      "partial": 1,
+      "none": 4
+     },
+     "pagesReduced": 3,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 3,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 12,
+     "cutPixelsSum": 1134070,
+     "meanPp": 7.6909,
+     "medianPp": 0,
+     "maxPp": 40.4575,
+     "cutPages": 3,
+     "cutPixelsSumCut": 1134070,
+     "cutMeanPp": 30.7636,
+     "cutMedianPp": 32.0349,
+     "cutMaxPp": 40.4575
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "loss",
+     "removal": "not_observed"
+    }
+   },
+   "below-wide": {
+    "n": 12,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 12,
+    "strict": {
+     "w0": 9,
+     "w1": 12,
+     "w2": 9
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 3,
+     "lost": 0,
+     "keptSuccess": 9,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 3,
+     "keptSuccess": 9,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 3,
+     "denom": 12,
+     "pct": 25,
+     "sources": 3
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 2,
+     "pct": 0,
+     "sources": 0,
+     "opportunitySources": 2
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 3,
+     "both": 0
+    },
+    "widened": 3,
+    "cut": 3,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 2,
+     "itemsW1Full": 3,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 3
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 12,
+     "cutPixelsSum": 1412070,
+     "meanPp": 9.5762,
+     "medianPp": 0,
+     "maxPp": 55.6528,
+     "cutPages": 3,
+     "cutPixelsSumCut": 1412070,
+     "cutMeanPp": 38.3049,
+     "cutMedianPp": 39.4633,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "loss",
+     "removal": "not_observed"
+    }
+   }
+  },
+  "vert": {
+   "same": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "strict": {
+     "w0": 2,
+     "w1": 24,
+     "w2": 24
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 22,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 24,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 21,
+     "opportunity": 22,
+     "pct": 95.45,
+     "sources": 11,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 22,
+    "cut": 22,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 24,
+     "itemsW1Full": 44,
+     "pagesW2Full": 2,
+     "itemsW2Full": 3,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 8,
+     "fromW1Full": {
+      "full": 3,
+      "partial": 8,
+      "none": 33
+     },
+     "pagesReduced": 22,
+     "pagesReducedBothStrict": 22,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 21,
+     "pagesFullToPartialAndNone": 6,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 24,
+     "cutPixelsSum": 8253246,
+     "meanPp": 27.9855,
+     "medianPp": 28.493,
+     "maxPp": 48.2451,
+     "cutPages": 22,
+     "cutPixelsSumCut": 8253246,
+     "cutMeanPp": 30.5296,
+     "cutMedianPp": 28.5923,
+     "cutMaxPp": 48.2451
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "below": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "strict": {
+     "w0": 18,
+     "w1": 24,
+     "w2": 18
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 6,
+     "lost": 0,
+     "keptSuccess": 18,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 6,
+     "keptSuccess": 18,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 6,
+     "denom": 24,
+     "pct": 25,
+     "sources": 3
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 5,
+     "pct": 0,
+     "sources": 0,
+     "opportunitySources": 3
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 6,
+     "both": 0
+    },
+    "widened": 6,
+    "cut": 6,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 14,
+     "itemsW1Full": 20,
+     "pagesW2Full": 9,
+     "itemsW2Full": 12,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 12,
+      "partial": 1,
+      "none": 7
+     },
+     "pagesReduced": 5,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 5,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 24,
+     "cutPixelsSum": 2546140,
+     "meanPp": 8.6336,
+     "medianPp": 0,
+     "maxPp": 55.6528,
+     "cutPages": 6,
+     "cutPixelsSumCut": 2546140,
+     "cutMeanPp": 34.5342,
+     "cutMedianPp": 35.7491,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "loss",
+     "removal": "not_observed"
+    }
+   }
+  },
+  "space": {
+   "narrow": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "strict": {
+     "w0": 10,
+     "w1": 24,
+     "w2": 21
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 14,
+     "lost": 0,
+     "keptSuccess": 10,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 3,
+     "keptSuccess": 21,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 3,
+     "denom": 24,
+     "pct": 12.5,
+     "sources": 3
+    },
+    "J": {
+     "count": 10,
+     "opportunity": 14,
+     "pct": 71.43,
+     "sources": 10,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 3,
+     "both": 0
+    },
+    "widened": 14,
+    "cut": 14,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 24,
+     "itemsW1Full": 41,
+     "pagesW2Full": 10,
+     "itemsW2Full": 14,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 9,
+     "fromW1Full": {
+      "full": 14,
+      "partial": 9,
+      "none": 18
+     },
+     "pagesReduced": 14,
+     "pagesReducedBothStrict": 11,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 13,
+     "pagesFullToPartialAndNone": 7,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 24,
+     "cutPixelsSum": 4705973,
+     "meanPp": 15.9572,
+     "medianPp": 19.7984,
+     "maxPp": 40.4575,
+     "cutPages": 14,
+     "cutPixelsSumCut": 4705973,
+     "cutMeanPp": 27.3552,
+     "cutMedianPp": 28.307,
+     "cutMaxPp": 40.4575
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "wide": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "strict": {
+     "w0": 10,
+     "w1": 24,
+     "w2": 21
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 14,
+     "lost": 0,
+     "keptSuccess": 10,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 3,
+     "keptSuccess": 21,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 3,
+     "denom": 24,
+     "pct": 12.5,
+     "sources": 3
+    },
+    "J": {
+     "count": 11,
+     "opportunity": 13,
+     "pct": 84.62,
+     "sources": 11,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 3,
+     "both": 0
+    },
+    "widened": 14,
+    "cut": 14,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 14,
+     "itemsW1Full": 23,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 0,
+      "none": 22
+     },
+     "pagesReduced": 13,
+     "pagesReducedBothStrict": 11,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 13,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 24,
+     "cutPixelsSum": 6093413,
+     "meanPp": 20.6618,
+     "medianPp": 19.7984,
+     "maxPp": 55.6528,
+     "cutPages": 14,
+     "cutPixelsSumCut": 6093413,
+     "cutMeanPp": 35.4202,
+     "cutMedianPp": 35.9684,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 12,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   }
+  },
+  "form": {
+   "table": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "strict": {
+     "w0": 10,
+     "w1": 24,
+     "w2": 20
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 14,
+     "lost": 0,
+     "keptSuccess": 10,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 4,
+     "keptSuccess": 20,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 4,
+     "denom": 24,
+     "pct": 16.67,
+     "sources": 2
+    },
+    "J": {
+     "count": 10,
+     "opportunity": 14,
+     "pct": 71.43,
+     "sources": 5,
+     "opportunitySources": 5
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 4,
+     "both": 0
+    },
+    "widened": 14,
+    "cut": 14,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 20,
+     "itemsW1Full": 34,
+     "pagesW2Full": 6,
+     "itemsW2Full": 8,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 5,
+     "fromW1Full": {
+      "full": 8,
+      "partial": 5,
+      "none": 21
+     },
+     "pagesReduced": 14,
+     "pagesReducedBothStrict": 10,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 14,
+     "pagesFullToPartialAndNone": 5,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 24,
+     "cutPixelsSum": 6227918,
+     "meanPp": 21.1179,
+     "medianPp": 26.3851,
+     "maxPp": 55.6528,
+     "cutPages": 14,
+     "cutPixelsSumCut": 6227918,
+     "cutMeanPp": 36.2021,
+     "cutMedianPp": 34.4465,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 6,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "cards": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "strict": {
+     "w0": 10,
+     "w1": 24,
+     "w2": 22
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 14,
+     "lost": 0,
+     "keptSuccess": 10,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 22,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 24,
+     "pct": 8.33,
+     "sources": 1
+    },
+    "J": {
+     "count": 11,
+     "opportunity": 13,
+     "pct": 84.62,
+     "sources": 6,
+     "opportunitySources": 6
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 14,
+    "cut": 14,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 18,
+     "itemsW1Full": 30,
+     "pagesW2Full": 5,
+     "itemsW2Full": 7,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 4,
+     "fromW1Full": {
+      "full": 7,
+      "partial": 4,
+      "none": 19
+     },
+     "pagesReduced": 13,
+     "pagesReducedBothStrict": 12,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 12,
+     "pagesFullToPartialAndNone": 2,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 24,
+     "cutPixelsSum": 4571468,
+     "meanPp": 15.5011,
+     "medianPp": 19.6669,
+     "maxPp": 43.8904,
+     "cutPages": 14,
+     "cutPixelsSumCut": 4571468,
+     "cutMeanPp": 26.5734,
+     "cutMedianPp": 23.75,
+     "cutMaxPp": 43.8904
+    },
+    "sources": 6,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   }
+  },
+  "doctype": {
+   "venue": {
+    "n": 16,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 16,
+    "strict": {
+     "w0": 6,
+     "w1": 16,
+     "w2": 14
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 10,
+     "lost": 0,
+     "keptSuccess": 6,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 14,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 16,
+     "pct": 12.5,
+     "sources": 1
+    },
+    "J": {
+     "count": 7,
+     "opportunity": 10,
+     "pct": 70,
+     "sources": 4,
+     "opportunitySources": 4
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 10,
+    "cut": 10,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 13,
+     "itemsW1Full": 22,
+     "pagesW2Full": 3,
+     "itemsW2Full": 4,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 4,
+     "fromW1Full": {
+      "full": 4,
+      "partial": 4,
+      "none": 14
+     },
+     "pagesReduced": 10,
+     "pagesReducedBothStrict": 8,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 9,
+     "pagesFullToPartialAndNone": 2,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 16,
+     "cutPixelsSum": 3827370,
+     "meanPp": 19.467,
+     "medianPp": 24.375,
+     "maxPp": 43.2188,
+     "cutPages": 10,
+     "cutPixelsSumCut": 3827370,
+     "cutMeanPp": 31.1472,
+     "cutMedianPp": 29.9613,
+     "cutMaxPp": 43.2188
+    },
+    "sources": 4,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "proof": {
+    "n": 16,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 16,
+    "strict": {
+     "w0": 6,
+     "w1": 16,
+     "w2": 14
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 10,
+     "lost": 0,
+     "keptSuccess": 6,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 14,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 16,
+     "pct": 12.5,
+     "sources": 1
+    },
+    "J": {
+     "count": 8,
+     "opportunity": 9,
+     "pct": 88.89,
+     "sources": 4,
+     "opportunitySources": 4
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 10,
+    "cut": 10,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 12,
+     "itemsW1Full": 20,
+     "pagesW2Full": 3,
+     "itemsW2Full": 4,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 4,
+      "partial": 1,
+      "none": 15
+     },
+     "pagesReduced": 9,
+     "pagesReducedBothStrict": 8,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 9,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 16,
+     "cutPixelsSum": 3644774,
+     "meanPp": 18.5383,
+     "medianPp": 19.7984,
+     "maxPp": 47.625,
+     "cutPages": 10,
+     "cutPixelsSumCut": 3644774,
+     "cutMeanPp": 29.6612,
+     "cutMedianPp": 28.5923,
+     "cutMaxPp": 47.625
+    },
+    "sources": 4,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "workshop": {
+    "n": 16,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 16,
+    "strict": {
+     "w0": 8,
+     "w1": 16,
+     "w2": 14
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 8,
+     "lost": 0,
+     "keptSuccess": 8,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 14,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 16,
+     "pct": 12.5,
+     "sources": 1
+    },
+    "J": {
+     "count": 6,
+     "opportunity": 8,
+     "pct": 75,
+     "sources": 3,
+     "opportunitySources": 3
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 8,
+    "cut": 8,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 13,
+     "itemsW1Full": 22,
+     "pagesW2Full": 5,
+     "itemsW2Full": 7,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 4,
+     "fromW1Full": {
+      "full": 7,
+      "partial": 4,
+      "none": 11
+     },
+     "pagesReduced": 8,
+     "pagesReducedBothStrict": 6,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 8,
+     "pagesFullToPartialAndNone": 4,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 16,
+     "cutPixelsSum": 3327242,
+     "meanPp": 16.9232,
+     "medianPp": 9.7677,
+     "maxPp": 55.6528,
+     "cutPages": 8,
+     "cutPixelsSumCut": 3327242,
+     "cutMeanPp": 33.8465,
+     "cutMedianPp": 31.9331,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 4,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   }
+  },
+  "w2Reason": {
+   "inherit": {
+    "n": 20,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 20,
+    "strict": {
+     "w0": 20,
+     "w1": 20,
+     "w2": 20
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 20,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 20,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 20,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 11,
+     "itemsW1Full": 15,
+     "pagesW2Full": 11,
+     "itemsW2Full": 15,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 15,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 20,
+     "cutPixelsSum": 0,
+     "meanPp": 0,
+     "medianPp": 0,
+     "maxPp": 0,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 9,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "cut": {
+    "n": 28,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 28,
+    "strict": {
+     "w0": 0,
+     "w1": 28,
+     "w2": 22
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 28,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 6,
+     "keptSuccess": 22,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 6,
+     "denom": 28,
+     "pct": 21.43,
+     "sources": 3
+    },
+    "J": {
+     "count": 21,
+     "opportunity": 27,
+     "pct": 77.78,
+     "sources": 11,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 6,
+     "both": 0
+    },
+    "widened": 28,
+    "cut": 28,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 27,
+     "itemsW1Full": 49,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 9,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 9,
+      "none": 40
+     },
+     "pagesReduced": 27,
+     "pagesReducedBothStrict": 22,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 26,
+     "pagesFullToPartialAndNone": 7,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 28,
+     "cutPixelsSum": 10799386,
+     "meanPp": 31.3877,
+     "medianPp": 29.7051,
+     "maxPp": 55.6528,
+     "cutPages": 28,
+     "cutPixelsSumCut": 10799386,
+     "cutMeanPp": 31.3877,
+     "cutMedianPp": 29.7051,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 11,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "no_cut": {
+    "n": 0,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 0,
+    "strict": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 0,
+     "pct": null,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 0,
+     "itemsW1Full": 0,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 0,
+     "cutPixelsSum": 0,
+     "meanPp": null,
+     "medianPp": null,
+     "maxPp": null,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 0,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "hit_outside_w1": {
+    "n": 0,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 0,
+    "strict": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 0,
+     "pct": null,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 0,
+     "itemsW1Full": 0,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 0,
+     "cutPixelsSum": 0,
+     "meanPp": null,
+     "medianPp": null,
+     "maxPp": null,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 0,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   }
+  },
+  "w1Reason": {
+   "widened": {
+    "n": 28,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 28,
+    "strict": {
+     "w0": 0,
+     "w1": 28,
+     "w2": 22
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 28,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 6,
+     "keptSuccess": 22,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 6,
+     "denom": 28,
+     "pct": 21.43,
+     "sources": 3
+    },
+    "J": {
+     "count": 21,
+     "opportunity": 27,
+     "pct": 77.78,
+     "sources": 11,
+     "opportunitySources": 11
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 6,
+     "both": 0
+    },
+    "widened": 28,
+    "cut": 28,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 27,
+     "itemsW1Full": 49,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 9,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 9,
+      "none": 40
+     },
+     "pagesReduced": 27,
+     "pagesReducedBothStrict": 22,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 26,
+     "pagesFullToPartialAndNone": 7,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 28,
+     "cutPixelsSum": 10799386,
+     "meanPp": 31.3877,
+     "medianPp": 29.7051,
+     "maxPp": 55.6528,
+     "cutPages": 28,
+     "cutPixelsSumCut": 10799386,
+     "cutMeanPp": 31.3877,
+     "cutMedianPp": 29.7051,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 11,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_repeated_sources"
+    }
+   },
+   "not_wider": {
+    "n": 20,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 20,
+    "strict": {
+     "w0": 20,
+     "w1": 20,
+     "w2": 20
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 20,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 20,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 20,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 11,
+     "itemsW1Full": 15,
+     "pagesW2Full": 11,
+     "itemsW2Full": 15,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 15,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 20,
+     "cutPixelsSum": 0,
+     "meanPp": 0,
+     "medianPp": 0,
+     "maxPp": 0,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 9,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "no_candidate": {
+    "n": 0,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 0,
+    "strict": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 0,
+     "pct": null,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 0,
+     "itemsW1Full": 0,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 0,
+     "cutPixelsSum": 0,
+     "meanPp": null,
+     "medianPp": null,
+     "maxPp": null,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 0,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "k0_branch": {
+    "n": 0,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 0,
+    "strict": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 0,
+     "pct": null,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 0,
+     "itemsW1Full": 0,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 0,
+     "cutPixelsSum": 0,
+     "meanPp": null,
+     "medianPp": null,
+     "maxPp": null,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 0,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "unmatched": {
+    "n": 0,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 0,
+    "strict": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 0,
+     "pct": null,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 0,
+     "itemsW1Full": 0,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 0,
+     "cutPixelsSum": 0,
+     "meanPp": null,
+     "medianPp": null,
+     "maxPp": null,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 0,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "error": {
+    "n": 0,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 0,
+    "strict": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 0,
+     "pct": null,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 0,
+     "itemsW1Full": 0,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 0,
+     "cutPixelsSum": 0,
+     "meanPp": null,
+     "medianPp": null,
+     "maxPp": null,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 0,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   }
+  },
+  "source": {
+   "venue-table-c0": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 4,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 1,
+      "none": 2
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 599040,
+     "meanPp": 12.1875,
+     "medianPp": 12.1875,
+     "maxPp": 24.375,
+     "cutPages": 2,
+     "cutPixelsSumCut": 599040,
+     "cutMeanPp": 24.375,
+     "cutMedianPp": 24.375,
+     "cutMaxPp": 24.375
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "venue-table-c1": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 0,
+     "w1": 4,
+     "w2": 2
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 4,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 4,
+     "pct": 50,
+     "sources": 1
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 4,
+     "pct": 50,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 4,
+    "cut": 4,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 4,
+     "itemsW1Full": 7,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 1,
+      "none": 6
+     },
+     "pagesReduced": 4,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 4,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 1667930,
+     "meanPp": 33.9341,
+     "medianPp": 33.939,
+     "maxPp": 39.4633,
+     "cutPages": 4,
+     "cutPixelsSumCut": 1667930,
+     "cutMeanPp": 33.9341,
+     "cutMedianPp": 33.939,
+     "cutMaxPp": 39.4633
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "venue-cards-c0": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 1,
+     "opportunity": 2,
+     "pct": 50,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 6,
+     "pagesW2Full": 1,
+     "itemsW2Full": 2,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 2,
+     "fromW1Full": {
+      "full": 2,
+      "partial": 2,
+      "none": 2
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 1,
+     "pagesFullToNone": 1,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 682576,
+     "meanPp": 13.887,
+     "medianPp": 12.0104,
+     "maxPp": 31.5273,
+     "cutPages": 2,
+     "cutPixelsSumCut": 682576,
+     "cutMeanPp": 27.7741,
+     "cutMedianPp": 27.7741,
+     "cutMaxPp": 31.5273
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "venue-cards-c1": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 5,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 0,
+      "none": 4
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 877824,
+     "meanPp": 17.8594,
+     "medianPp": 14.1094,
+     "maxPp": 43.2188,
+     "cutPages": 2,
+     "cutPixelsSumCut": 877824,
+     "cutMeanPp": 35.7188,
+     "cutMedianPp": 35.7188,
+     "cutMaxPp": 43.2188
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "proof-table-c0": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 6,
+     "pagesW2Full": 1,
+     "itemsW2Full": 2,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 2,
+      "partial": 0,
+      "none": 4
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 794880,
+     "meanPp": 16.1719,
+     "medianPp": 14.2969,
+     "maxPp": 36.0938,
+     "cutPages": 2,
+     "cutPixelsSumCut": 794880,
+     "cutMeanPp": 32.3438,
+     "cutMedianPp": 32.3438,
+     "cutMaxPp": 36.0938
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "proof-table-c1": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 5,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 1,
+      "none": 3
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 986112,
+     "meanPp": 20.0625,
+     "medianPp": 16.3125,
+     "maxPp": 47.625,
+     "cutPages": 2,
+     "cutPixelsSumCut": 986112,
+     "cutMeanPp": 40.125,
+     "cutMedianPp": 40.125,
+     "cutMaxPp": 47.625
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "proof-cards-c0": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 5,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 0,
+      "none": 4
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 890650,
+     "meanPp": 18.1203,
+     "medianPp": 14.2955,
+     "maxPp": 43.8904,
+     "cutPages": 2,
+     "cutPixelsSumCut": 890650,
+     "cutMeanPp": 36.2406,
+     "cutMedianPp": 36.2406,
+     "cutMaxPp": 43.8904
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "proof-cards-c1": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 0,
+     "w1": 4,
+     "w2": 2
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 4,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 4,
+     "pct": 50,
+     "sources": 1
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 3,
+     "pct": 66.67,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 4,
+    "cut": 4,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 4,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 0,
+      "none": 4
+     },
+     "pagesReduced": 3,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 3,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 973132,
+     "meanPp": 19.7984,
+     "medianPp": 19.7984,
+     "maxPp": 19.7984,
+     "cutPages": 4,
+     "cutPixelsSumCut": 973132,
+     "cutMeanPp": 19.7984,
+     "cutMedianPp": 19.7984,
+     "cutMaxPp": 19.7984
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "workshop-table-c0": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 0,
+     "w1": 4,
+     "w2": 2
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 4,
+     "lost": 0,
+     "keptSuccess": 0,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 2,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 2,
+     "denom": 4,
+     "pct": 50,
+     "sources": 1
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 4,
+     "pct": 50,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 2,
+     "both": 0
+    },
+    "widened": 4,
+    "cut": 4,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 4,
+     "itemsW1Full": 8,
+     "pagesW2Full": 0,
+     "itemsW2Full": 0,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 2,
+     "fromW1Full": {
+      "full": 0,
+      "partial": 2,
+      "none": 6
+     },
+     "pagesReduced": 4,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 4,
+     "pagesFullToPartialAndNone": 2,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 2179956,
+     "meanPp": 44.3513,
+     "medianPp": 44.3513,
+     "maxPp": 55.6528,
+     "cutPages": 4,
+     "cutPixelsSumCut": 2179956,
+     "cutMeanPp": 44.3513,
+     "cutMedianPp": 44.3513,
+     "cutMaxPp": 55.6528
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "workshop-table-c1": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 4,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 0,
+     "opportunity": 0,
+     "pct": null,
+     "sources": 0,
+     "opportunitySources": 0
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 0,
+    "cut": 0,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 4,
+     "pagesW2Full": 3,
+     "itemsW2Full": 4,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 0,
+     "fromW1Full": {
+      "full": 4,
+      "partial": 0,
+      "none": 0
+     },
+     "pagesReduced": 0,
+     "pagesReducedBothStrict": 0,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 0,
+     "pagesFullToPartialAndNone": 0,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 0,
+     "meanPp": 0,
+     "medianPp": 0,
+     "maxPp": 0,
+     "cutPages": 0,
+     "cutPixelsSumCut": 0,
+     "cutMeanPp": null,
+     "cutMedianPp": null,
+     "cutMaxPp": null
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "no_opportunity_widened"
+    }
+   },
+   "workshop-cards-c0": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 4,
+     "pagesW2Full": 1,
+     "itemsW2Full": 1,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 1,
+      "partial": 1,
+      "none": 2
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 480102,
+     "meanPp": 9.7677,
+     "medianPp": 9.7677,
+     "maxPp": 19.5354,
+     "cutPages": 2,
+     "cutPixelsSumCut": 480102,
+     "cutMeanPp": 19.5354,
+     "cutMedianPp": 19.5354,
+     "cutMaxPp": 19.5354
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   },
+   "workshop-cards-c1": {
+    "n": 4,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 4,
+    "strict": {
+     "w0": 2,
+     "w1": 4,
+     "w2": 4
+    },
+    "fullPage": {
+     "w0": 0,
+     "w1": 0,
+     "w2": 0
+    },
+    "t01": {
+     "recovered": 2,
+     "lost": 0,
+     "keptSuccess": 2,
+     "bothFail": 0
+    },
+    "t12": {
+     "recovered": 0,
+     "lost": 0,
+     "keptSuccess": 4,
+     "bothFail": 0
+    },
+    "L": {
+     "count": 0,
+     "denom": 4,
+     "pct": 0,
+     "sources": 0
+    },
+    "J": {
+     "count": 2,
+     "opportunity": 2,
+     "pct": 100,
+     "sources": 1,
+     "opportunitySources": 1
+    },
+    "fullPageToPartial": {
+     "count": 0,
+     "recovered": 0
+    },
+    "lostParts": {
+     "label": 0,
+     "value": 0,
+     "both": 0
+    },
+    "widened": 2,
+    "cut": 2,
+    "noCut": 0,
+    "hitOutside": 0,
+    "others": {
+     "pagesW1Full": 3,
+     "itemsW1Full": 6,
+     "pagesW2Full": 1,
+     "itemsW2Full": 2,
+     "itemsW1Partial": 0,
+     "itemsW2Partial": 1,
+     "fromW1Full": {
+      "full": 2,
+      "partial": 1,
+      "none": 3
+     },
+     "pagesReduced": 2,
+     "pagesReducedBothStrict": 2,
+     "pagesFullToPartialOnly": 0,
+     "pagesFullToNone": 2,
+     "pagesFullToPartialAndNone": 1,
+     "newlyFullW2": 0,
+     "newEvidenceW2": 0
+    },
+    "area": {
+     "validPairs": 4,
+     "cutPixelsSum": 667184,
+     "meanPp": 13.5739,
+     "medianPp": 11.7396,
+     "maxPp": 30.8164,
+     "cutPages": 2,
+     "cutPixelsSumCut": 667184,
+     "cutMeanPp": 27.1478,
+     "cutMedianPp": 27.1478,
+     "cutMaxPp": 30.8164
+    },
+    "sources": 1,
+    "verdict": {
+     "loss": "no_loss",
+     "removal": "observed_single_source"
+    }
+   }
+  }
+ },
+ "lists": {
+  "t12Lost": [
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide"
+  ],
+  "t12Recovered": [],
+  "jEvent": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "jOpportunity": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "fullPageToPartial": [],
+  "cut": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "widened": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "t01Recovered": [
+   "venue-table-c0-same-narrow",
+   "venue-table-c0-same-wide",
+   "venue-table-c1-same-narrow",
+   "venue-table-c1-same-wide",
+   "venue-table-c1-below-narrow",
+   "venue-table-c1-below-wide",
+   "venue-cards-c0-same-narrow",
+   "venue-cards-c0-same-wide",
+   "venue-cards-c1-same-narrow",
+   "venue-cards-c1-same-wide",
+   "proof-table-c0-same-narrow",
+   "proof-table-c0-same-wide",
+   "proof-table-c1-same-narrow",
+   "proof-table-c1-same-wide",
+   "proof-cards-c0-same-narrow",
+   "proof-cards-c0-same-wide",
+   "proof-cards-c1-same-narrow",
+   "proof-cards-c1-same-wide",
+   "proof-cards-c1-below-narrow",
+   "proof-cards-c1-below-wide",
+   "workshop-table-c0-same-narrow",
+   "workshop-table-c0-same-wide",
+   "workshop-table-c0-below-narrow",
+   "workshop-table-c0-below-wide",
+   "workshop-cards-c0-same-narrow",
+   "workshop-cards-c0-same-wide",
+   "workshop-cards-c1-same-narrow",
+   "workshop-cards-c1-same-wide"
+  ],
+  "t01Lost": [],
+  "errors": [],
+  "unmatched": []
+ },
+ "sourceTable": [
+  {
+   "source": "venue-table-c0",
+   "doctype": "venue",
+   "form": "table",
+   "content": 0,
+   "slot": 0,
+   "cells": {
+    "same-narrow": {
+     "id": "venue-table-c0-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 24.375
+    },
+    "same-wide": {
+     "id": "venue-table-c0-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 1,
+     "cutPp": 24.375
+    },
+    "below-narrow": {
+     "id": "venue-table-c0-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "venue-table-c0-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "venue-table-c1",
+   "doctype": "venue",
+   "form": "table",
+   "content": 1,
+   "slot": 1,
+   "cells": {
+    "same-narrow": {
+     "id": "venue-table-c1-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 28.3952
+    },
+    "same-wide": {
+     "id": "venue-table-c1-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 35.8431
+    },
+    "below-narrow": {
+     "id": "venue-table-c1-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": false,
+     "t12": "lost",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 32.0349
+    },
+    "below-wide": {
+     "id": "venue-table-c1-below-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": false,
+     "t12": "lost",
+     "w1Full": 1,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 1,
+     "cutPp": 39.4633
+    }
+   }
+  },
+  {
+   "source": "venue-cards-c0",
+   "doctype": "venue",
+   "form": "cards",
+   "content": 0,
+   "slot": 1,
+   "cells": {
+    "same-narrow": {
+     "id": "venue-cards-c0-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 2,
+     "fromW1FullNone": 0,
+     "cutPp": 24.0208
+    },
+    "same-wide": {
+     "id": "venue-cards-c0-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 31.5273
+    },
+    "below-narrow": {
+     "id": "venue-cards-c0-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 2,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "venue-cards-c0-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "venue-cards-c1",
+   "doctype": "venue",
+   "form": "cards",
+   "content": 1,
+   "slot": 2,
+   "cells": {
+    "same-narrow": {
+     "id": "venue-cards-c1-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 28.2188
+    },
+    "same-wide": {
+     "id": "venue-cards-c1-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 43.2188
+    },
+    "below-narrow": {
+     "id": "venue-cards-c1-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "venue-cards-c1-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "proof-table-c0",
+   "doctype": "proof",
+   "form": "table",
+   "content": 0,
+   "slot": 1,
+   "cells": {
+    "same-narrow": {
+     "id": "proof-table-c0-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 28.5938
+    },
+    "same-wide": {
+     "id": "proof-table-c0-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 36.0938
+    },
+    "below-narrow": {
+     "id": "proof-table-c0-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 2,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "proof-table-c0-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "proof-table-c1",
+   "doctype": "proof",
+   "form": "table",
+   "content": 1,
+   "slot": 2,
+   "cells": {
+    "same-narrow": {
+     "id": "proof-table-c1-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 32.625
+    },
+    "same-wide": {
+     "id": "proof-table-c1-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 47.625
+    },
+    "below-narrow": {
+     "id": "proof-table-c1-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "proof-table-c1-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "proof-cards-c0",
+   "doctype": "proof",
+   "form": "cards",
+   "content": 0,
+   "slot": 2,
+   "cells": {
+    "same-narrow": {
+     "id": "proof-cards-c0-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 28.5909
+    },
+    "same-wide": {
+     "id": "proof-cards-c0-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 43.8904
+    },
+    "below-narrow": {
+     "id": "proof-cards-c0-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "proof-cards-c0-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "proof-cards-c1",
+   "doctype": "proof",
+   "form": "cards",
+   "content": 1,
+   "slot": 0,
+   "cells": {
+    "same-narrow": {
+     "id": "proof-cards-c1-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 19.7984
+    },
+    "same-wide": {
+     "id": "proof-cards-c1-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 1,
+     "cutPp": 19.7984
+    },
+    "below-narrow": {
+     "id": "proof-cards-c1-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": false,
+     "t12": "lost",
+     "w1Full": 1,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 1,
+     "cutPp": 19.7984
+    },
+    "below-wide": {
+     "id": "proof-cards-c1-below-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": false,
+     "t12": "lost",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 19.7984
+    }
+   }
+  },
+  {
+   "source": "workshop-table-c0",
+   "doctype": "workshop",
+   "form": "table",
+   "content": 0,
+   "slot": 2,
+   "cells": {
+    "same-narrow": {
+     "id": "workshop-table-c0-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 33.0498
+    },
+    "same-wide": {
+     "id": "workshop-table-c0-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 48.2451
+    },
+    "below-narrow": {
+     "id": "workshop-table-c0-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": false,
+     "t12": "lost",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 40.4575
+    },
+    "below-wide": {
+     "id": "workshop-table-c0-below-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": false,
+     "t12": "lost",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 55.6528
+    }
+   }
+  },
+  {
+   "source": "workshop-table-c1",
+   "doctype": "workshop",
+   "form": "table",
+   "content": 1,
+   "slot": 0,
+   "cells": {
+    "same-narrow": {
+     "id": "workshop-table-c1-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 2,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "same-wide": {
+     "id": "workshop-table-c1-same-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-narrow": {
+     "id": "workshop-table-c1-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "workshop-table-c1-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "workshop-cards-c0",
+   "doctype": "workshop",
+   "form": "cards",
+   "content": 0,
+   "slot": 0,
+   "cells": {
+    "same-narrow": {
+     "id": "workshop-cards-c0-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 19.5354
+    },
+    "same-wide": {
+     "id": "workshop-cards-c0-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 1,
+     "cutPp": 19.5354
+    },
+    "below-narrow": {
+     "id": "workshop-cards-c0-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 1,
+     "w2Full": 1,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "workshop-cards-c0-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  },
+  {
+   "source": "workshop-cards-c1",
+   "doctype": "workshop",
+   "form": "cards",
+   "content": 1,
+   "slot": 1,
+   "cells": {
+    "same-narrow": {
+     "id": "workshop-cards-c1-same-narrow",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 1,
+     "fromW1FullNone": 1,
+     "cutPp": 23.4792
+    },
+    "same-wide": {
+     "id": "workshop-cards-c1-same-wide",
+     "stage": "hangul",
+     "w1Reason": "widened",
+     "w2Reason": "cut",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 2,
+     "cutPp": 30.8164
+    },
+    "below-narrow": {
+     "id": "workshop-cards-c1-below-narrow",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 2,
+     "w2Full": 2,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    },
+    "below-wide": {
+     "id": "workshop-cards-c1-below-wide",
+     "stage": "hangul",
+     "w1Reason": "not_wider",
+     "w2Reason": "inherit",
+     "w1Strict": true,
+     "w2Strict": true,
+     "t12": "keptSuccess",
+     "w1Full": 0,
+     "w2Full": 0,
+     "fromW1FullPartial": 0,
+     "fromW1FullNone": 0,
+     "cutPp": 0
+    }
+   }
+  }
+ ]
+}
