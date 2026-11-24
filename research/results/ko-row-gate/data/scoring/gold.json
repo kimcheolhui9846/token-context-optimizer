@@ -1,0 +1,1809 @@
+{
+ "design": "ko-row-gate-design-1",
+ "set": "ko-row-gate",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "lecture-table-c0-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:50",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      216,
+      192
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      172,
+      510,
+      190
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "lecture-table-c0-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:50",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      216,
+      192
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      172,
+      510,
+      190
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "lecture-table-c0-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:50",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      216,
+      192
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      212,
+      510,
+      230
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "lecture-table-c0-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:50",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      216,
+      192
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      212,
+      510,
+      230
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "lecture-table-c1-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "19명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      258,
+      258,
+      280
+     ],
+     "size": [
+      206,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      454,
+      257,
+      498,
+      280
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-table-c1-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "19명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      258,
+      258,
+      280
+     ],
+     "size": [
+      206,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      454,
+      257,
+      498,
+      280
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-table-c1-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "19명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      258,
+      258,
+      280
+     ],
+     "size": [
+      206,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      454,
+      297,
+      498,
+      320
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-table-c1-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "19명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      258,
+      258,
+      280
+     ],
+     "size": [
+      206,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      454,
+      297,
+      498,
+      320
+     ],
+     "size": [
+      44,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c0-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      209,
+      242,
+      232
+     ],
+     "size": [
+      189,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      209,
+      498,
+      232
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c0-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      209,
+      242,
+      232
+     ],
+     "size": [
+      189,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      209,
+      498,
+      232
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c0-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      209,
+      242,
+      232
+     ],
+     "size": [
+      189,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      249,
+      498,
+      272
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c0-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      209,
+      242,
+      232
+     ],
+     "size": [
+      189,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      249,
+      498,
+      272
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c1-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "89쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      298,
+      216,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      453,
+      299,
+      499,
+      320
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c1-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "89쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      298,
+      216,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      453,
+      299,
+      499,
+      320
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c1-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "89쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      298,
+      216,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      453,
+      339,
+      499,
+      360
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "lecture-cards-c1-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "89쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      298,
+      216,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      453,
+      339,
+      499,
+      360
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c0-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "240쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      258,
+      214,
+      280
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      259,
+      512,
+      280
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c0-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "240쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      258,
+      214,
+      280
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      259,
+      512,
+      280
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c0-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "240쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      258,
+      214,
+      280
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      299,
+      512,
+      320
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c0-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "240쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      258,
+      214,
+      280
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      452,
+      299,
+      512,
+      320
+     ],
+     "size": [
+      60,
+      21
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c1-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20:50",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      237,
+      368
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      348,
+      510,
+      366
+     ],
+     "size": [
+      58,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c1-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20:50",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      237,
+      368
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      348,
+      510,
+      366
+     ],
+     "size": [
+      58,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c1-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20:50",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      237,
+      368
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      388,
+      510,
+      406
+     ],
+     "size": [
+      58,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-c1-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "20:50",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      237,
+      368
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      388,
+      510,
+      406
+     ],
+     "size": [
+      58,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c0-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11:30",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      298,
+      215,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      454,
+      300,
+      510,
+      318
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c0-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11:30",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      298,
+      215,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      454,
+      300,
+      510,
+      318
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c0-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11:30",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      298,
+      215,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      454,
+      340,
+      510,
+      358
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c0-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11:30",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      298,
+      215,
+      320
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      454,
+      340,
+      510,
+      358
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c1-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "38명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      213,
+      144
+     ],
+     "size": [
+      159,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      452,
+      121,
+      498,
+      144
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c1-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "38명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      213,
+      144
+     ],
+     "size": [
+      159,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      452,
+      121,
+      498,
+      144
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c1-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "38명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      213,
+      144
+     ],
+     "size": [
+      159,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      452,
+      161,
+      498,
+      184
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-c1-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "38명",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      122,
+      213,
+      144
+     ],
+     "size": [
+      159,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      452,
+      161,
+      498,
+      184
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "meeting-table-c0-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "22명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      235,
+      368
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      345,
+      498,
+      368
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "meeting-table-c0-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "22명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      235,
+      368
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      345,
+      498,
+      368
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "meeting-table-c0-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "22명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      235,
+      368
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      385,
+      498,
+      408
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "meeting-table-c0-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "22명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      346,
+      235,
+      368
+     ],
+     "size": [
+      182,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      452,
+      385,
+      498,
+      408
+     ],
+     "size": [
+      46,
+      23
+     ]
+    }
+   ]
+  },
+  "meeting-table-c1-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "191쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      169,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      171,
+      512,
+      192
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-table-c1-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "191쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      169,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      171,
+      512,
+      192
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-table-c1-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "191쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      169,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      211,
+      512,
+      232
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-table-c1-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "191쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      169,
+      213,
+      192
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      454,
+      211,
+      512,
+      232
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c0-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "95쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      121,
+      213,
+      144
+     ],
+     "size": [
+      161,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      453,
+      123,
+      499,
+      144
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c0-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "95쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      121,
+      213,
+      144
+     ],
+     "size": [
+      161,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      453,
+      123,
+      499,
+      144
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c0-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "95쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      121,
+      213,
+      144
+     ],
+     "size": [
+      161,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      453,
+      163,
+      499,
+      184
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c0-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "95쪽",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      121,
+      213,
+      144
+     ],
+     "size": [
+      161,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      453,
+      163,
+      499,
+      184
+     ],
+     "size": [
+      46,
+      21
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c1-same-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9:10",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      210,
+      240,
+      232
+     ],
+     "size": [
+      186,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      453,
+      212,
+      497,
+      230
+     ],
+     "size": [
+      44,
+      18
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c1-same-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9:10",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      210,
+      240,
+      232
+     ],
+     "size": [
+      186,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      453,
+      212,
+      497,
+      230
+     ],
+     "size": [
+      44,
+      18
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c1-below-same": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9:10",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      210,
+      240,
+      232
+     ],
+     "size": [
+      186,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      453,
+      252,
+      497,
+      270
+     ],
+     "size": [
+      44,
+      18
+     ]
+    }
+   ]
+  },
+  "meeting-cards-c1-below-other": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9:10",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      210,
+      240,
+      232
+     ],
+     "size": [
+      186,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      453,
+      252,
+      497,
+      270
+     ],
+     "size": [
+      44,
+      18
+     ]
+    }
+   ]
+  }
+ }
+}

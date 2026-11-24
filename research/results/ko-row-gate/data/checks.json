@@ -1,0 +1,3394 @@
+{
+ "version": "ko-row-gate-checks-1",
+ "ok": true,
+ "problems": [],
+ "pages": 48,
+ "sources": 12,
+ "grid": {
+  "doctype": {
+   "lecture": 16,
+   "exhibit": 16,
+   "meeting": 16
+  },
+  "form": {
+   "table": 24,
+   "cards": 24
+  },
+  "content": {
+   "0": 24,
+   "1": 24
+  },
+  "ans": {
+   "same": 24,
+   "below": 24
+  },
+  "dec": {
+   "same": 24,
+   "other": 24
+  },
+  "layout": {
+   "same-same": 12,
+   "same-other": 12,
+   "below-same": 12,
+   "below-other": 12
+  },
+  "slot": {
+   "0": 16,
+   "1": 16,
+   "2": 16
+  },
+  "qtype": {
+   "time": 16,
+   "count": 16,
+   "pages": 16
+  }
+ },
+ "renderFailedImages": 0,
+ "measured": {
+  "sameTopDiff": [
+   -1,
+   3
+  ],
+  "otherTopDiff": [
+   39,
+   43
+  ],
+  "recordGap": [
+   24,
+   28
+  ]
+ },
+ "referenceBand": {
+  "same-same": {
+   "pages": 12,
+   "valueInBand": 12,
+   "decoyInBand": 12
+  },
+  "same-other": {
+   "pages": 12,
+   "valueInBand": 12,
+   "decoyInBand": 0
+  },
+  "below-same": {
+   "pages": 12,
+   "valueInBand": 0,
+   "decoyInBand": 12
+  },
+  "below-other": {
+   "pages": 12,
+   "valueInBand": 0,
+   "decoyInBand": 0
+  }
+ },
+ "pairing": [
+  {
+   "source": "lecture-table-c0",
+   "pages": [
+    "lecture-table-c0-same-same",
+    "lecture-table-c0-same-other",
+    "lecture-table-c0-below-same",
+    "lecture-table-c0-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "lecture-table-c1",
+   "pages": [
+    "lecture-table-c1-same-same",
+    "lecture-table-c1-same-other",
+    "lecture-table-c1-below-same",
+    "lecture-table-c1-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "lecture-cards-c0",
+   "pages": [
+    "lecture-cards-c0-same-same",
+    "lecture-cards-c0-same-other",
+    "lecture-cards-c0-below-same",
+    "lecture-cards-c0-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "lecture-cards-c1",
+   "pages": [
+    "lecture-cards-c1-same-same",
+    "lecture-cards-c1-same-other",
+    "lecture-cards-c1-below-same",
+    "lecture-cards-c1-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "exhibit-table-c0",
+   "pages": [
+    "exhibit-table-c0-same-same",
+    "exhibit-table-c0-same-other",
+    "exhibit-table-c0-below-same",
+    "exhibit-table-c0-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "exhibit-table-c1",
+   "pages": [
+    "exhibit-table-c1-same-same",
+    "exhibit-table-c1-same-other",
+    "exhibit-table-c1-below-same",
+    "exhibit-table-c1-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "exhibit-cards-c0",
+   "pages": [
+    "exhibit-cards-c0-same-same",
+    "exhibit-cards-c0-same-other",
+    "exhibit-cards-c0-below-same",
+    "exhibit-cards-c0-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "exhibit-cards-c1",
+   "pages": [
+    "exhibit-cards-c1-same-same",
+    "exhibit-cards-c1-same-other",
+    "exhibit-cards-c1-below-same",
+    "exhibit-cards-c1-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "meeting-table-c0",
+   "pages": [
+    "meeting-table-c0-same-same",
+    "meeting-table-c0-same-other",
+    "meeting-table-c0-below-same",
+    "meeting-table-c0-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "meeting-table-c1",
+   "pages": [
+    "meeting-table-c1-same-same",
+    "meeting-table-c1-same-other",
+    "meeting-table-c1-below-same",
+    "meeting-table-c1-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "meeting-cards-c0",
+   "pages": [
+    "meeting-cards-c0-same-same",
+    "meeting-cards-c0-same-other",
+    "meeting-cards-c0-below-same",
+    "meeting-cards-c0-below-other"
+   ],
+   "ok": true
+  },
+  {
+   "source": "meeting-cards-c1",
+   "pages": [
+    "meeting-cards-c1-same-same",
+    "meeting-cards-c1-same-other",
+    "meeting-cards-c1-below-same",
+    "meeting-cards-c1-below-other"
+   ],
+   "ok": true
+  }
+ ],
+ "earlier": {
+  "counts": {
+   "r09-heldout": 48,
+   "r09-dev": 4,
+   "fcp": 48,
+   "ko-ocr-holdout-148": 96,
+   "ko-row-window-150": 48,
+   "ko-row-height-151": 48
+  },
+  "comparedPages": 292,
+  "imageOverlap": [],
+  "questionOverlap": [],
+  "cohort149": {
+   "pages": 24,
+   "imageOverlap": 0,
+   "questionOverlap": 0
+  }
+ },
+ "uniqueness": {
+  "pngSha256": 48,
+  "normalizedQuestions": 12,
+  "pagesPerQuestion": [
+   4
+  ]
+ },
+ "hashes": {
+  "selector/questions.json": "c9ca2542efa88c384bd6f27627550f499c4ede3a44db45229c05ee883e16d410",
+  "scoring/gold.json": "f3cf0fed54a369928c2c36b3b56d621222bfefee583b4722a9413d956d74c323",
+  "scoring/design.json": "cd8bf12af1da282896732ddddf051dbb8cd6537d9dcb32f777dedb1306e5d86c",
+  "answers": "3b793eb1ccc5d6ae02386a9e0a24f0c9533efe3aa57ab84fcaafaa3c8c861909"
+ },
+ "inkRows": [
+  {
+   "id": "lecture-table-c0-same-same",
+   "source": "lecture-table-c0",
+   "layout": "same-same",
+   "slot": 0,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    170,
+    216,
+    192
+   ],
+   "valueInk": [
+    454,
+    172,
+    510,
+    190
+   ],
+   "decoyInk": [
+    694,
+    172,
+    750,
+    190
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    148,
+    214
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     346,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    26
+   ],
+   "otherValueInks": [
+    [
+     454,
+     260,
+     510,
+     278
+    ],
+    [
+     454,
+     348,
+     510,
+     366
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c0-same-other",
+   "source": "lecture-table-c0",
+   "layout": "same-other",
+   "slot": 0,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    170,
+    216,
+    192
+   ],
+   "valueInk": [
+    454,
+    172,
+    510,
+    190
+   ],
+   "decoyInk": [
+    694,
+    212,
+    750,
+    230
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    148,
+    214
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     260,
+     510,
+     278
+    ],
+    [
+     454,
+     348,
+     510,
+     366
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c0-below-same",
+   "source": "lecture-table-c0",
+   "layout": "below-same",
+   "slot": 0,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    170,
+    216,
+    192
+   ],
+   "valueInk": [
+    454,
+    212,
+    510,
+    230
+   ],
+   "decoyInk": [
+    694,
+    172,
+    750,
+    190
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    148,
+    214
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     300,
+     510,
+     318
+    ],
+    [
+     454,
+     388,
+     510,
+     406
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c0-below-other",
+   "source": "lecture-table-c0",
+   "layout": "below-other",
+   "slot": 0,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    170,
+    216,
+    192
+   ],
+   "valueInk": [
+    454,
+    212,
+    510,
+    230
+   ],
+   "decoyInk": [
+    694,
+    212,
+    750,
+    230
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    148,
+    214
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     170,
+     230
+    ],
+    [
+     257,
+     318
+    ],
+    [
+     345,
+     406
+    ]
+   ],
+   "recordInkGaps": [
+    27,
+    27
+   ],
+   "otherValueInks": [
+    [
+     454,
+     300,
+     510,
+     318
+    ],
+    [
+     454,
+     388,
+     510,
+     406
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c1-same-same",
+   "source": "lecture-table-c1",
+   "layout": "same-same",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    52,
+    258,
+    258,
+    280
+   ],
+   "valueInk": [
+    454,
+    257,
+    498,
+    280
+   ],
+   "decoyInk": [
+    693,
+    257,
+    738,
+    280
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     233
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    24,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     169,
+     498,
+     192
+    ],
+    [
+     452,
+     345,
+     498,
+     368
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c1-same-other",
+   "source": "lecture-table-c1",
+   "layout": "same-other",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    52,
+    258,
+    258,
+    280
+   ],
+   "valueInk": [
+    454,
+    257,
+    498,
+    280
+   ],
+   "decoyInk": [
+    693,
+    297,
+    738,
+    320
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     169,
+     498,
+     192
+    ],
+    [
+     452,
+     345,
+     498,
+     368
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c1-below-same",
+   "source": "lecture-table-c1",
+   "layout": "below-same",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    52,
+    258,
+    258,
+    280
+   ],
+   "valueInk": [
+    454,
+    297,
+    498,
+    320
+   ],
+   "decoyInk": [
+    693,
+    257,
+    738,
+    280
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     233
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    24,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     209,
+     498,
+     232
+    ],
+    [
+     452,
+     385,
+     498,
+     408
+    ]
+   ]
+  },
+  {
+   "id": "lecture-table-c1-below-other",
+   "source": "lecture-table-c1",
+   "layout": "below-other",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    52,
+    258,
+    258,
+    280
+   ],
+   "valueInk": [
+    454,
+    297,
+    498,
+    320
+   ],
+   "decoyInk": [
+    693,
+    297,
+    738,
+    320
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     209,
+     498,
+     232
+    ],
+    [
+     452,
+     385,
+     498,
+     408
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c0-same-same",
+   "source": "lecture-cards-c0",
+   "layout": "same-same",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    209,
+    242,
+    232
+   ],
+   "valueInk": [
+    452,
+    209,
+    498,
+    232
+   ],
+   "decoyInk": [
+    692,
+    209,
+    738,
+    232
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    186,
+    255
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     361
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     453,
+     121,
+     498,
+     144
+    ],
+    [
+     454,
+     297,
+     498,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c0-same-other",
+   "source": "lecture-cards-c0",
+   "layout": "same-other",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    209,
+    242,
+    232
+   ],
+   "valueInk": [
+    452,
+    209,
+    498,
+    232
+   ],
+   "decoyInk": [
+    692,
+    249,
+    738,
+    272
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    186,
+    255
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     453,
+     121,
+     498,
+     144
+    ],
+    [
+     454,
+     297,
+     498,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c0-below-same",
+   "source": "lecture-cards-c0",
+   "layout": "below-same",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    209,
+    242,
+    232
+   ],
+   "valueInk": [
+    452,
+    249,
+    498,
+    272
+   ],
+   "decoyInk": [
+    692,
+    209,
+    738,
+    232
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    186,
+    255
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     361
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     453,
+     161,
+     498,
+     184
+    ],
+    [
+     454,
+     337,
+     498,
+     360
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c0-below-other",
+   "source": "lecture-cards-c0",
+   "layout": "below-other",
+   "slot": 1,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    209,
+    242,
+    232
+   ],
+   "valueInk": [
+    452,
+    249,
+    498,
+    272
+   ],
+   "decoyInk": [
+    692,
+    249,
+    738,
+    272
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    186,
+    255
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     298,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    26
+   ],
+   "otherValueInks": [
+    [
+     453,
+     161,
+     498,
+     184
+    ],
+    [
+     454,
+     337,
+     498,
+     360
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c1-same-same",
+   "source": "lecture-cards-c1",
+   "layout": "same-same",
+   "slot": 2,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    298,
+    216,
+    320
+   ],
+   "valueInk": [
+    453,
+    299,
+    499,
+    320
+   ],
+   "decoyInk": [
+    694,
+    299,
+    752,
+    320
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     122,
+     184
+    ],
+    [
+     209,
+     273
+    ],
+    [
+     298,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     123,
+     512,
+     144
+    ],
+    [
+     454,
+     211,
+     512,
+     232
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c1-same-other",
+   "source": "lecture-cards-c1",
+   "layout": "same-other",
+   "slot": 2,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    298,
+    216,
+    320
+   ],
+   "valueInk": [
+    453,
+    299,
+    499,
+    320
+   ],
+   "decoyInk": [
+    694,
+    339,
+    752,
+    360
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     123,
+     512,
+     144
+    ],
+    [
+     454,
+     211,
+     512,
+     232
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c1-below-same",
+   "source": "lecture-cards-c1",
+   "layout": "below-same",
+   "slot": 2,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    298,
+    216,
+    320
+   ],
+   "valueInk": [
+    453,
+    339,
+    499,
+    360
+   ],
+   "decoyInk": [
+    694,
+    299,
+    752,
+    320
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     122,
+     184
+    ],
+    [
+     209,
+     273
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     452,
+     163,
+     512,
+     184
+    ],
+    [
+     454,
+     251,
+     512,
+     272
+    ]
+   ]
+  },
+  {
+   "id": "lecture-cards-c1-below-other",
+   "source": "lecture-cards-c1",
+   "layout": "below-other",
+   "slot": 2,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    298,
+    216,
+    320
+   ],
+   "valueInk": [
+    453,
+    339,
+    499,
+    360
+   ],
+   "decoyInk": [
+    694,
+    339,
+    752,
+    360
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     163,
+     512,
+     184
+    ],
+    [
+     454,
+     251,
+     512,
+     272
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c0-same-same",
+   "source": "exhibit-table-c0",
+   "layout": "same-same",
+   "slot": 1,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    258,
+    214,
+    280
+   ],
+   "valueInk": [
+    452,
+    259,
+    512,
+    280
+   ],
+   "decoyInk": [
+    692,
+    259,
+    752,
+    280
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     170,
+     233
+    ],
+    [
+     258,
+     321
+    ],
+    [
+     346,
+     409
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     171,
+     512,
+     192
+    ],
+    [
+     453,
+     347,
+     499,
+     368
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c0-same-other",
+   "source": "exhibit-table-c0",
+   "layout": "same-other",
+   "slot": 1,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    258,
+    214,
+    280
+   ],
+   "valueInk": [
+    452,
+    259,
+    512,
+    280
+   ],
+   "decoyInk": [
+    692,
+    299,
+    752,
+    320
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     258,
+     320
+    ],
+    [
+     346,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    26,
+    26
+   ],
+   "otherValueInks": [
+    [
+     454,
+     171,
+     512,
+     192
+    ],
+    [
+     453,
+     347,
+     499,
+     368
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c0-below-same",
+   "source": "exhibit-table-c0",
+   "layout": "below-same",
+   "slot": 1,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    258,
+    214,
+    280
+   ],
+   "valueInk": [
+    452,
+    299,
+    512,
+    320
+   ],
+   "decoyInk": [
+    692,
+    259,
+    752,
+    280
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     233
+    ],
+    [
+     257,
+     321
+    ],
+    [
+     346,
+     409
+    ]
+   ],
+   "recordInkGaps": [
+    24,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     211,
+     512,
+     232
+    ],
+    [
+     453,
+     387,
+     499,
+     408
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c0-below-other",
+   "source": "exhibit-table-c0",
+   "layout": "below-other",
+   "slot": 1,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    258,
+    214,
+    280
+   ],
+   "valueInk": [
+    452,
+    299,
+    512,
+    320
+   ],
+   "decoyInk": [
+    692,
+    299,
+    752,
+    320
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    236,
+    302
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     346,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    26
+   ],
+   "otherValueInks": [
+    [
+     454,
+     211,
+     512,
+     232
+    ],
+    [
+     453,
+     387,
+     499,
+     408
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c1-same-same",
+   "source": "exhibit-table-c1",
+   "layout": "same-same",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    346,
+    237,
+    368
+   ],
+   "valueInk": [
+    452,
+    348,
+    510,
+    366
+   ],
+   "decoyInk": [
+    694,
+    348,
+    750,
+    366
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     170,
+     233
+    ],
+    [
+     258,
+     320
+    ],
+    [
+     345,
+     409
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     172,
+     510,
+     190
+    ],
+    [
+     454,
+     260,
+     510,
+     278
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c1-same-other",
+   "source": "exhibit-table-c1",
+   "layout": "same-other",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    346,
+    237,
+    368
+   ],
+   "valueInk": [
+    452,
+    348,
+    510,
+    366
+   ],
+   "decoyInk": [
+    694,
+    388,
+    750,
+    406
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     170,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     172,
+     510,
+     190
+    ],
+    [
+     454,
+     260,
+     510,
+     278
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c1-below-same",
+   "source": "exhibit-table-c1",
+   "layout": "below-same",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    346,
+    237,
+    368
+   ],
+   "valueInk": [
+    452,
+    388,
+    510,
+    406
+   ],
+   "decoyInk": [
+    694,
+    348,
+    750,
+    366
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     170,
+     233
+    ],
+    [
+     258,
+     320
+    ],
+    [
+     345,
+     409
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     212,
+     510,
+     230
+    ],
+    [
+     454,
+     300,
+     510,
+     318
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-table-c1-below-other",
+   "source": "exhibit-table-c1",
+   "layout": "below-other",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    53,
+    346,
+    237,
+    368
+   ],
+   "valueInk": [
+    452,
+    388,
+    510,
+    406
+   ],
+   "decoyInk": [
+    694,
+    388,
+    750,
+    406
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     170,
+     230
+    ],
+    [
+     257,
+     318
+    ],
+    [
+     345,
+     406
+    ]
+   ],
+   "recordInkGaps": [
+    27,
+    27
+   ],
+   "otherValueInks": [
+    [
+     454,
+     212,
+     510,
+     230
+    ],
+    [
+     454,
+     300,
+     510,
+     318
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c0-same-same",
+   "source": "exhibit-cards-c0",
+   "layout": "same-same",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    52,
+    298,
+    215,
+    320
+   ],
+   "valueInk": [
+    454,
+    300,
+    510,
+    318
+   ],
+   "decoyInk": [
+    694,
+    300,
+    750,
+    318
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     122,
+     185
+    ],
+    [
+     210,
+     273
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     452,
+     124,
+     510,
+     142
+    ],
+    [
+     453,
+     212,
+     497,
+     230
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c0-same-other",
+   "source": "exhibit-cards-c0",
+   "layout": "same-other",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    52,
+    298,
+    215,
+    320
+   ],
+   "valueInk": [
+    454,
+    300,
+    510,
+    318
+   ],
+   "decoyInk": [
+    694,
+    340,
+    750,
+    358
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     122,
+     184
+    ],
+    [
+     210,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    26,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     124,
+     510,
+     142
+    ],
+    [
+     453,
+     212,
+     497,
+     230
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c0-below-same",
+   "source": "exhibit-cards-c0",
+   "layout": "below-same",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    52,
+    298,
+    215,
+    320
+   ],
+   "valueInk": [
+    454,
+    340,
+    510,
+    358
+   ],
+   "decoyInk": [
+    694,
+    300,
+    750,
+    318
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     122,
+     185
+    ],
+    [
+     210,
+     273
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     452,
+     164,
+     510,
+     182
+    ],
+    [
+     453,
+     252,
+     497,
+     270
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c0-below-other",
+   "source": "exhibit-cards-c0",
+   "layout": "below-other",
+   "slot": 2,
+   "qtype": "time",
+   "labelInk": [
+    52,
+    298,
+    215,
+    320
+   ],
+   "valueInk": [
+    454,
+    340,
+    510,
+    358
+   ],
+   "decoyInk": [
+    694,
+    340,
+    750,
+    358
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    276,
+    342
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     122,
+     182
+    ],
+    [
+     210,
+     270
+    ],
+    [
+     297,
+     358
+    ]
+   ],
+   "recordInkGaps": [
+    28,
+    27
+   ],
+   "otherValueInks": [
+    [
+     452,
+     164,
+     510,
+     182
+    ],
+    [
+     453,
+     252,
+     497,
+     270
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c1-same-same",
+   "source": "exhibit-cards-c1",
+   "layout": "same-same",
+   "slot": 0,
+   "qtype": "count",
+   "labelInk": [
+    54,
+    122,
+    213,
+    144
+   ],
+   "valueInk": [
+    452,
+    121,
+    498,
+    144
+   ],
+   "decoyInk": [
+    693,
+    121,
+    738,
+    144
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    100,
+    166
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     361
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     209,
+     498,
+     232
+    ],
+    [
+     453,
+     297,
+     498,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c1-same-other",
+   "source": "exhibit-cards-c1",
+   "layout": "same-other",
+   "slot": 0,
+   "qtype": "count",
+   "labelInk": [
+    54,
+    122,
+    213,
+    144
+   ],
+   "valueInk": [
+    452,
+    121,
+    498,
+    144
+   ],
+   "decoyInk": [
+    693,
+    161,
+    738,
+    184
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    100,
+    166
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     209,
+     498,
+     232
+    ],
+    [
+     453,
+     297,
+     498,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c1-below-same",
+   "source": "exhibit-cards-c1",
+   "layout": "below-same",
+   "slot": 0,
+   "qtype": "count",
+   "labelInk": [
+    54,
+    122,
+    213,
+    144
+   ],
+   "valueInk": [
+    452,
+    161,
+    498,
+    184
+   ],
+   "decoyInk": [
+    693,
+    121,
+    738,
+    144
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    100,
+    166
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     361
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     249,
+     498,
+     272
+    ],
+    [
+     453,
+     337,
+     498,
+     360
+    ]
+   ]
+  },
+  {
+   "id": "exhibit-cards-c1-below-other",
+   "source": "exhibit-cards-c1",
+   "layout": "below-other",
+   "slot": 0,
+   "qtype": "count",
+   "labelInk": [
+    54,
+    122,
+    213,
+    144
+   ],
+   "valueInk": [
+    452,
+    161,
+    498,
+    184
+   ],
+   "decoyInk": [
+    693,
+    161,
+    738,
+    184
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    100,
+    166
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     298,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    26
+   ],
+   "otherValueInks": [
+    [
+     454,
+     249,
+     498,
+     272
+    ],
+    [
+     453,
+     337,
+     498,
+     360
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c0-same-same",
+   "source": "meeting-table-c0",
+   "layout": "same-same",
+   "slot": 2,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    346,
+    235,
+    368
+   ],
+   "valueInk": [
+    452,
+    345,
+    498,
+    368
+   ],
+   "decoyInk": [
+    692,
+    345,
+    738,
+    368
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     321
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     452,
+     169,
+     498,
+     192
+    ],
+    [
+     452,
+     257,
+     498,
+     280
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c0-same-other",
+   "source": "meeting-table-c0",
+   "layout": "same-other",
+   "slot": 2,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    346,
+    235,
+    368
+   ],
+   "valueInk": [
+    452,
+    345,
+    498,
+    368
+   ],
+   "decoyInk": [
+    692,
+    385,
+    738,
+    408
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     169,
+     498,
+     192
+    ],
+    [
+     452,
+     257,
+     498,
+     280
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c0-below-same",
+   "source": "meeting-table-c0",
+   "layout": "below-same",
+   "slot": 2,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    346,
+    235,
+    368
+   ],
+   "valueInk": [
+    452,
+    385,
+    498,
+    408
+   ],
+   "decoyInk": [
+    692,
+    345,
+    738,
+    368
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     321
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     452,
+     209,
+     498,
+     232
+    ],
+    [
+     452,
+     297,
+     498,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c0-below-other",
+   "source": "meeting-table-c0",
+   "layout": "below-other",
+   "slot": 2,
+   "qtype": "count",
+   "labelInk": [
+    53,
+    346,
+    235,
+    368
+   ],
+   "valueInk": [
+    452,
+    385,
+    498,
+    408
+   ],
+   "decoyInk": [
+    692,
+    385,
+    738,
+    408
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    324,
+    390
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     346,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    26
+   ],
+   "otherValueInks": [
+    [
+     452,
+     209,
+     498,
+     232
+    ],
+    [
+     452,
+     297,
+     498,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c1-same-same",
+   "source": "meeting-table-c1",
+   "layout": "same-same",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    169,
+    213,
+    192
+   ],
+   "valueInk": [
+    454,
+    171,
+    512,
+    192
+   ],
+   "decoyInk": [
+    692,
+    171,
+    752,
+    192
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    146,
+    215
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     321
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     454,
+     259,
+     512,
+     280
+    ],
+    [
+     453,
+     347,
+     499,
+     368
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c1-same-other",
+   "source": "meeting-table-c1",
+   "layout": "same-other",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    169,
+    213,
+    192
+   ],
+   "valueInk": [
+    454,
+    171,
+    512,
+    192
+   ],
+   "decoyInk": [
+    692,
+    211,
+    752,
+    232
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    146,
+    215
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     259,
+     512,
+     280
+    ],
+    [
+     453,
+     347,
+     499,
+     368
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c1-below-same",
+   "source": "meeting-table-c1",
+   "layout": "below-same",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    169,
+    213,
+    192
+   ],
+   "valueInk": [
+    454,
+    211,
+    512,
+    232
+   ],
+   "decoyInk": [
+    692,
+    171,
+    752,
+    192
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    146,
+    215
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     321
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    24
+   ],
+   "otherValueInks": [
+    [
+     454,
+     299,
+     512,
+     320
+    ],
+    [
+     453,
+     387,
+     499,
+     408
+    ]
+   ]
+  },
+  {
+   "id": "meeting-table-c1-below-other",
+   "source": "meeting-table-c1",
+   "layout": "below-other",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    53,
+    169,
+    213,
+    192
+   ],
+   "valueInk": [
+    454,
+    211,
+    512,
+    232
+   ],
+   "decoyInk": [
+    692,
+    211,
+    752,
+    232
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    146,
+    215
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     169,
+     232
+    ],
+    [
+     257,
+     320
+    ],
+    [
+     345,
+     408
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     299,
+     512,
+     320
+    ],
+    [
+     453,
+     387,
+     499,
+     408
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c0-same-same",
+   "source": "meeting-cards-c0",
+   "layout": "same-same",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    52,
+    121,
+    213,
+    144
+   ],
+   "valueInk": [
+    453,
+    123,
+    499,
+    144
+   ],
+   "decoyInk": [
+    692,
+    123,
+    752,
+    144
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    98,
+    167
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     211,
+     499,
+     232
+    ],
+    [
+     454,
+     299,
+     512,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c0-same-other",
+   "source": "meeting-cards-c0",
+   "layout": "same-other",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    52,
+    121,
+    213,
+    144
+   ],
+   "valueInk": [
+    453,
+    123,
+    499,
+    144
+   ],
+   "decoyInk": [
+    692,
+    163,
+    752,
+    184
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    98,
+    167
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     211,
+     499,
+     232
+    ],
+    [
+     454,
+     299,
+     512,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c0-below-same",
+   "source": "meeting-cards-c0",
+   "layout": "below-same",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    52,
+    121,
+    213,
+    144
+   ],
+   "valueInk": [
+    453,
+    163,
+    499,
+    184
+   ],
+   "decoyInk": [
+    692,
+    123,
+    752,
+    144
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    98,
+    167
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     251,
+     499,
+     272
+    ],
+    [
+     454,
+     339,
+     512,
+     360
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c0-below-other",
+   "source": "meeting-cards-c0",
+   "layout": "below-other",
+   "slot": 0,
+   "qtype": "pages",
+   "labelInk": [
+    52,
+    121,
+    213,
+    144
+   ],
+   "valueInk": [
+    453,
+    163,
+    499,
+    184
+   ],
+   "decoyInk": [
+    692,
+    163,
+    752,
+    184
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    98,
+    167
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     452,
+     251,
+     499,
+     272
+    ],
+    [
+     454,
+     339,
+     512,
+     360
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c1-same-same",
+   "source": "meeting-cards-c1",
+   "layout": "same-same",
+   "slot": 1,
+   "qtype": "time",
+   "labelInk": [
+    54,
+    210,
+    240,
+    232
+   ],
+   "valueInk": [
+    453,
+    212,
+    497,
+    230
+   ],
+   "decoyInk": [
+    692,
+    212,
+    750,
+    230
+   ],
+   "idealSameRow": [
+    "value",
+    "decoy"
+   ],
+   "referenceBand": [
+    188,
+    254
+   ],
+   "valueInBand": true,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     185
+    ],
+    [
+     210,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     124,
+     510,
+     142
+    ],
+    [
+     454,
+     300,
+     510,
+     318
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c1-same-other",
+   "source": "meeting-cards-c1",
+   "layout": "same-other",
+   "slot": 1,
+   "qtype": "time",
+   "labelInk": [
+    54,
+    210,
+    240,
+    232
+   ],
+   "valueInk": [
+    453,
+    212,
+    497,
+    230
+   ],
+   "decoyInk": [
+    692,
+    252,
+    750,
+    270
+   ],
+   "idealSameRow": [
+    "value"
+   ],
+   "referenceBand": [
+    188,
+    254
+   ],
+   "valueInBand": true,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     184
+    ],
+    [
+     209,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     124,
+     510,
+     142
+    ],
+    [
+     454,
+     300,
+     510,
+     318
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c1-below-same",
+   "source": "meeting-cards-c1",
+   "layout": "below-same",
+   "slot": 1,
+   "qtype": "time",
+   "labelInk": [
+    54,
+    210,
+    240,
+    232
+   ],
+   "valueInk": [
+    453,
+    252,
+    497,
+    270
+   ],
+   "decoyInk": [
+    692,
+    212,
+    750,
+    230
+   ],
+   "idealSameRow": [
+    "decoy"
+   ],
+   "referenceBand": [
+    188,
+    254
+   ],
+   "valueInBand": false,
+   "decoyInBand": true,
+   "recordOuter": [
+    [
+     121,
+     185
+    ],
+    [
+     210,
+     272
+    ],
+    [
+     297,
+     360
+    ]
+   ],
+   "recordInkGaps": [
+    25,
+    25
+   ],
+   "otherValueInks": [
+    [
+     454,
+     164,
+     510,
+     182
+    ],
+    [
+     454,
+     340,
+     510,
+     358
+    ]
+   ]
+  },
+  {
+   "id": "meeting-cards-c1-below-other",
+   "source": "meeting-cards-c1",
+   "layout": "below-other",
+   "slot": 1,
+   "qtype": "time",
+   "labelInk": [
+    54,
+    210,
+    240,
+    232
+   ],
+   "valueInk": [
+    453,
+    252,
+    497,
+    270
+   ],
+   "decoyInk": [
+    692,
+    252,
+    750,
+    270
+   ],
+   "idealSameRow": [],
+   "referenceBand": [
+    188,
+    254
+   ],
+   "valueInBand": false,
+   "decoyInBand": false,
+   "recordOuter": [
+    [
+     121,
+     182
+    ],
+    [
+     209,
+     270
+    ],
+    [
+     297,
+     358
+    ]
+   ],
+   "recordInkGaps": [
+    27,
+    27
+   ],
+   "otherValueInks": [
+    [
+     454,
+     164,
+     510,
+     182
+    ],
+    [
+     454,
+     340,
+     510,
+     358
+    ]
+   ]
+  }
+ ]
+}
