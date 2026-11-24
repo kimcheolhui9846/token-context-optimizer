@@ -4,7 +4,7 @@ import { after, describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
@@ -320,6 +320,19 @@ describe("run code state (PM Major 1)", () => {
     const u = runCodeState(src2, ["run.mjs", "new.mjs"]);
     assert.equal(u.clean, false);
     assert.equal(u.files["new.mjs"].head, null);
+  });
+  test("RUN_CODE_FILES equals the runner's relative import graph", () => {
+    const srcDir = join(import.meta.dirname, "..", "src");
+    const seen = new Set();
+    const walk = (f) => {
+      if (seen.has(f)) return;
+      seen.add(f);
+      const text = readFileSync(join(srcDir, f), "utf8");
+      for (const m of text.matchAll(/(?:import|export)\s[^;]*?from\s+["']\.\/([^"']+)["']/g)) walk(m[1]);
+      assert.doesNotMatch(text, /\bimport\s*\(|\brequire\s*\(/, `${f} must not load modules dynamically`);
+    };
+    walk("crop-padding-replay-run.mjs");
+    assert.deepEqual([...seen].sort(), RUN_CODE_FILES.slice().sort());
   });
   test("the runner's own file list covers every module it loads", () => {
     assert.deepEqual(RUN_CODE_FILES.slice().sort(), ["crop-padding-replay-client.mjs", "crop-padding-replay-lib.mjs", "crop-padding-replay-run.mjs", "mcp-view-comparison-client.mjs", "mcp-view-comparison-lib.mjs"]);

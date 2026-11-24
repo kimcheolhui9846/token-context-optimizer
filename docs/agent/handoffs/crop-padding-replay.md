@@ -61,7 +61,14 @@
 - [x] RED `d1a4cb8`: 실제 임시 Git 저장소에서 옛 검사가 추적 파일 변경을 놓침을 재현. 새 export 부재로 실패
 - [x] 수정 `960b451`: 측정 전에 불러오는 모듈 5개의 HEAD·작업 blob·상태를 기록하고 다르면 측정 거부. 색인 프로필 검사. 테스트 36/36, 연구 전체 169/169. 수정 전 바뀐 작업 사본에서 실행기가 실제로 거부함을 확인
 - [x] 수정 코드 재실행 A·B(`rerun-pmfix/`, `clean: true`): 준비 리포트·결정적 출력·증거·채점·검산 모두 원래와 바이트 동일, 가드 5/차단 0. 원래 기록·사전등록·실측 날짜는 보존. 원래 `runnerTreeClean`의 한계는 RESULTS §6·README·프로토콜 §15에 적었다
-- [ ] 게이트, Argon, 독립 Opus 표적 재검토
+- [x] 게이트 7종(`4c9fcc2`, 빌드 전 `git status --short` 비어 있음) 모두 종료 0. test 60파일, 4,639 통과, 5 건너뜀. 빌드가 줄바꿈만 바꾼 `bin/`(blob `85b8049` 동일)은 그 파일만 되돌렸다. 로그 `codex_review/gates/2026-11-24_crop-padding-replay-pmfix/`(비추적)
+- [x] Argon APPROVE. Minor 1(RESULTS 테스트 수 28 낡음) 반영. `codex_review/argon/2026-11-24_crop-padding-replay-pmfix-{bundle,argon}.md`
+- [x] 독립 Opus 5.5 표적 재검토(`harness-opus-review`): **PASS WITH NOTES**, Blocker·Major 0. 검토자가 README 재현을 HEAD `4c9fcc2` 코드로 처음부터 돌려 모든 결정적·채점·증거·검산 파일이 원래와 바이트 동일, clean:true, 가드 5/차단 0. RED `d1a4cb8`가 export 부재로 실제 실패함과 미추적 실행 코드 복사본이 거부됨을 직접 재현
+  - Minor 1(테스트 수·줄 위치): RESULTS §5로 옮기고 37개로 정정
+  - Minor 2(모듈 목록 테스트가 리터럴 비교): 실행기 상대 import 그래프를 따라가 목록과 대조하고 동적 import·require 부재를 확인하는 테스트 추가. 37/37, 연구 전체 170/170
+  - Nit 3(증거 바이트 동일 주장이 비교 파일에 없음): `rerun-pmfix/comparison.json`에 evidence 2개 추가(14개 모두 동일)
+  - Note(줄바꿈만 다시 쓴 파일은 dirty로 거부, 가드·node_modules는 범위 밖, 불러온 직후 검사): RESULTS §6에 적었다
+  - 테스트·문서·비교 기록만 바뀌어 실행 코드·측정값·규칙은 그대로다. 재검토는 다시 받지 않았다
 - [ ] PM 재판정
 
 ## 결과 요약
