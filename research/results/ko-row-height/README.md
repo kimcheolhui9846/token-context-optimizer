@@ -134,7 +134,8 @@ mkdir "$W/pkgs" .cache/ko-ocr-factorial            # 이미 있으면 실패한�
 (cd "$W/pkgs" && npm pack @tesseract.js-data/eng@1.0.0 @tesseract.js-data/kor@1.0.0)
 echo "285a3f1fb419e8e67bdee93ce288b02bb9097f0a  $W/pkgs/tesseract.js-data-eng-1.0.0.tgz" | sha1sum -c -   # npm dist.shasum
 echo "af4c18b31384e8979ba583496c0445132392fb96  $W/pkgs/tesseract.js-data-kor-1.0.0.tgz" | sha1sum -c -
-for l in eng kor; do mkdir "$W/pkgs/$l" && tar -xzf "$W/pkgs/tesseract.js-data-$l-1.0.0.tgz" -C "$W/pkgs/$l" \
+# tar에는 상대 경로만 준다(Git Bash의 GNU tar는 C:/... 를 원격 호스트로 읽는다).
+for l in eng kor; do mkdir "$W/pkgs/$l" && (cd "$W/pkgs/$l" && tar -xzf ../tesseract.js-data-$l-1.0.0.tgz) \
   && gzip -dc "$W/pkgs/$l/package/4.0.0_best_int/$l.traineddata.gz" > .cache/ko-ocr-factorial/$l.traineddata; done
 sha256sum .cache/ko-ocr-factorial/eng.traineddata .cache/ko-ocr-factorial/kor.traineddata
 # eng 5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747 (5199098 bytes)
