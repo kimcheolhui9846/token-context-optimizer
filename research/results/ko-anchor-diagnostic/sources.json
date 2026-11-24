@@ -1,0 +1,54 @@
+{
+ "selector": {
+  "path": "research/src/selector.mjs",
+  "blob": "b3b4965b2d330907c0143fe178013aace1be8372"
+ },
+ "datasets": {
+  "r09": {
+   "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1",
+   "files": {
+    "questions": {
+     "path": "research/results/r09-bilingual/heldout/questions.json",
+     "blob": "605ff760cc1c12de0a0d21076ac0b8eecb79032a",
+     "sha256": "d55439f05c834052cb616d4ff023c16081c297efdb4f9adba5874e77458911ef",
+     "bytes": 6817
+    },
+    "ocr": {
+     "path": "research/results/r09-bilingual/heldout/run-a/raw.jsonl",
+     "blob": "876cdbb90aab9f0bf8ac3f3e9a520ed72e7b3318",
+     "sha256": "dd59d683e0d4831d2f90568f3ebead5ee072316df9623dbb1dc65ea5d0904757",
+     "bytes": 253198
+    },
+    "design": {
+     "path": "research/results/r09-bilingual/heldout/design.json",
+     "blob": "dc3307818cba423b3fc2eade8ed7f2116593f788",
+     "sha256": "3f945b00a8b6009467993765a3a9f8078bdc397182e16f92f9b847ed293e6716",
+     "bytes": 429687
+    }
+   }
+  },
+  "fcp": {
+   "commit": "708d9946ae091180a1b716baadfdd73fcfe5a19b",
+   "files": {
+    "questions": {
+     "path": "research/results/fresh-crop-padding/frozen/selector-input/questions.json",
+     "blob": "ae578b7267ff124ecf4a0a5157f7067925b177ca",
+     "sha256": "cf5ed3e1d287f03c13cc06d9de9fb7f9bff2976d04e180d24a3ee2384323d8eb",
+     "bytes": 6815
+    },
+    "ocr": {
+     "path": "research/results/fresh-crop-padding/run-a/caller.jsonl",
+     "blob": "d657d59d7124f68743a1e54a7eb7c62f521dbc21",
+     "sha256": "a904e0ccf2c745e376f0baf2b60c250ccf4607b6cb15b9c66246e353abd7beef",
+     "bytes": 229411
+    },
+    "design": {
+     "path": "research/results/fresh-crop-padding/frozen/oracle/design.json",
+     "blob": "3149501a51bebbc79d77b7021a61241d32950ba5",
+     "sha256": "aec86d05d61b4896588420b69c3b42084d8da0f7071a00dcf8aee02b86d77ce5",
+     "bytes": 431385
+    }
+   }
+  }
+ }
+}

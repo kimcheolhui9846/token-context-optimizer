@@ -1,0 +1,218 @@
+{
+ "r09": {
+  "replay": {
+   "denominator": 48,
+   "agree": 48,
+   "disagree": 0,
+   "matched": 36,
+   "unmatched": 12,
+   "technicalError": 0,
+   "replayError": 0,
+   "byLangAnchor": {
+    "en/code": {
+     "total": 12,
+     "matched": 12,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "en/nl": {
+     "total": 12,
+     "matched": 12,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "ko/code": {
+     "total": 12,
+     "matched": 12,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "ko/nl": {
+     "total": 12,
+     "matched": 0,
+     "unmatched": 12,
+     "technicalError": 0,
+     "replayError": 0
+    }
+   }
+  },
+  "collection": {
+   "rows": 48,
+   "okRows": 48,
+   "ocrWords": 2783,
+   "wordsWithHangulSyllable": 0,
+   "wordsWithAnyHangul": 0,
+   "wordsWithBigram": 0,
+   "koNlRows": 12,
+   "koNlRowsWithNonEmptyQ": 12
+  },
+  "diagnostic": {
+   "denominator": 12,
+   "applicable": 12,
+   "categories": {
+    "inside": 0,
+    "outside_only": 0,
+    "absent": 12,
+    "no_question_signal": 0,
+    "not_applicable": 0,
+    "technical_error": 0
+   },
+   "insideAlsoOutside": 0,
+   "rowsWithGenericOverlap": 0,
+   "baselineKeysEmpty": 12,
+   "baselineMatched": 0,
+   "control": {
+    "inside": 12,
+    "rowsWithOtherCellTargetSignal": 0,
+    "rowsWithOtherCellGeneric": 8
+   }
+  }
+ },
+ "fcp": {
+  "replay": {
+   "denominator": 48,
+   "agree": 48,
+   "disagree": 0,
+   "matched": 36,
+   "unmatched": 12,
+   "technicalError": 0,
+   "replayError": 0,
+   "byLangAnchor": {
+    "en/code": {
+     "total": 12,
+     "matched": 12,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "en/nl": {
+     "total": 12,
+     "matched": 12,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "ko/code": {
+     "total": 12,
+     "matched": 12,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "ko/nl": {
+     "total": 12,
+     "matched": 0,
+     "unmatched": 12,
+     "technicalError": 0,
+     "replayError": 0
+    }
+   }
+  },
+  "collection": {
+   "rows": 48,
+   "okRows": 48,
+   "ocrWords": 2765,
+   "wordsWithHangulSyllable": 0,
+   "wordsWithAnyHangul": 0,
+   "wordsWithBigram": 0,
+   "koNlRows": 12,
+   "koNlRowsWithNonEmptyQ": 12
+  },
+  "diagnostic": {
+   "denominator": 12,
+   "applicable": 12,
+   "categories": {
+    "inside": 0,
+    "outside_only": 0,
+    "absent": 12,
+    "no_question_signal": 0,
+    "not_applicable": 0,
+    "technical_error": 0
+   },
+   "insideAlsoOutside": 0,
+   "rowsWithGenericOverlap": 0,
+   "baselineKeysEmpty": 12,
+   "baselineMatched": 0,
+   "control": {
+    "inside": 12,
+    "rowsWithOtherCellTargetSignal": 0,
+    "rowsWithOtherCellGeneric": 8
+   }
+  }
+ },
+ "total": {
+  "replay": {
+   "denominator": 96,
+   "agree": 96,
+   "disagree": 0,
+   "matched": 72,
+   "unmatched": 24,
+   "technicalError": 0,
+   "replayError": 0,
+   "byLangAnchor": {
+    "en/code": {
+     "total": 24,
+     "matched": 24,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "en/nl": {
+     "total": 24,
+     "matched": 24,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "ko/code": {
+     "total": 24,
+     "matched": 24,
+     "unmatched": 0,
+     "technicalError": 0,
+     "replayError": 0
+    },
+    "ko/nl": {
+     "total": 24,
+     "matched": 0,
+     "unmatched": 24,
+     "technicalError": 0,
+     "replayError": 0
+    }
+   }
+  },
+  "collection": {
+   "rows": 96,
+   "okRows": 96,
+   "ocrWords": 5548,
+   "wordsWithHangulSyllable": 0,
+   "wordsWithAnyHangul": 0,
+   "wordsWithBigram": 0,
+   "koNlRows": 24,
+   "koNlRowsWithNonEmptyQ": 24
+  },
+  "diagnostic": {
+   "denominator": 24,
+   "applicable": 24,
+   "categories": {
+    "inside": 0,
+    "outside_only": 0,
+    "absent": 24,
+    "no_question_signal": 0,
+    "not_applicable": 0,
+    "technical_error": 0
+   },
+   "insideAlsoOutside": 0,
+   "rowsWithGenericOverlap": 0,
+   "baselineKeysEmpty": 24,
+   "baselineMatched": 0,
+   "control": {
+    "inside": 24,
+    "rowsWithOtherCellTargetSignal": 0,
+    "rowsWithOtherCellGeneric": 16
+   }
+  }
+ }
+}
