@@ -1,0 +1,220 @@
+{
+ "codeCommit": "78f594399e6a16883a2ae77480cc03cb848ed42a",
+ "codeClean": true,
+ "nonMeasurement": false,
+ "limit": null,
+ "frozen": {
+  "ocr.jsonl": "d3f9735f7606c0137b9d563df910f71bdb27e2108d86c9ff62119d5b69b36b0e",
+  "k1.jsonl": "205ed4ddb0f49c8abc11d3d7307b03712f8fa8a9074c83757826aa7e3013aa7f"
+ },
+ "incomplete": null,
+ "node": "v24.18.0",
+ "platform": "win32-x64",
+ "pid": 7568,
+ "guardEventsForStep": 2,
+ "startedAt": "2026-11-24T14:42:11.123Z",
+ "totalMs": 48154,
+ "events": [
+  {
+   "event": "worker_created",
+   "before": "lecture-table-c0-same-same"
+  },
+  {
+   "event": "worker_terminated"
+  }
+ ],
+ "timing": [
+  {
+   "id": "lecture-table-c0-same-same",
+   "ms": 1384
+  },
+  {
+   "id": "lecture-table-c0-same-other",
+   "ms": 1149
+  },
+  {
+   "id": "lecture-table-c0-below-same",
+   "ms": 1118
+  },
+  {
+   "id": "lecture-table-c0-below-other",
+   "ms": 1252
+  },
+  {
+   "id": "lecture-table-c1-same-same",
+   "ms": 1144
+  },
+  {
+   "id": "lecture-table-c1-same-other",
+   "ms": 882
+  },
+  {
+   "id": "lecture-table-c1-below-same",
+   "ms": 1070
+  },
+  {
+   "id": "lecture-table-c1-below-other",
+   "ms": 1106
+  },
+  {
+   "id": "lecture-cards-c0-same-same",
+   "ms": 812
+  },
+  {
+   "id": "lecture-cards-c0-same-other",
+   "ms": 948
+  },
+  {
+   "id": "lecture-cards-c0-below-same",
+   "ms": 1065
+  },
+  {
+   "id": "lecture-cards-c0-below-other",
+   "ms": 969
+  },
+  {
+   "id": "lecture-cards-c1-same-same",
+   "ms": 1082
+  },
+  {
+   "id": "lecture-cards-c1-same-other",
+   "ms": 942
+  },
+  {
+   "id": "lecture-cards-c1-below-same",
+   "ms": 937
+  },
+  {
+   "id": "lecture-cards-c1-below-other",
+   "ms": 928
+  },
+  {
+   "id": "exhibit-table-c0-same-same",
+   "ms": 982
+  },
+  {
+   "id": "exhibit-table-c0-same-other",
+   "ms": 1005
+  },
+  {
+   "id": "exhibit-table-c0-below-same",
+   "ms": 1231
+  },
+  {
+   "id": "exhibit-table-c0-below-other",
+   "ms": 1160
+  },
+  {
+   "id": "exhibit-table-c1-same-same",
+   "ms": 1070
+  },
+  {
+   "id": "exhibit-table-c1-same-other",
+   "ms": 957
+  },
+  {
+   "id": "exhibit-table-c1-below-same",
+   "ms": 1062
+  },
+  {
+   "id": "exhibit-table-c1-below-other",
+   "ms": 1065
+  },
+  {
+   "id": "exhibit-cards-c0-same-same",
+   "ms": 995
+  },
+  {
+   "id": "exhibit-cards-c0-same-other",
+   "ms": 898
+  },
+  {
+   "id": "exhibit-cards-c0-below-same",
+   "ms": 963
+  },
+  {
+   "id": "exhibit-cards-c0-below-other",
+   "ms": 1031
+  },
+  {
+   "id": "exhibit-cards-c1-same-same",
+   "ms": 954
+  },
+  {
+   "id": "exhibit-cards-c1-same-other",
+   "ms": 928
+  },
+  {
+   "id": "exhibit-cards-c1-below-same",
+   "ms": 903
+  },
+  {
+   "id": "exhibit-cards-c1-below-other",
+   "ms": 950
+  },
+  {
+   "id": "meeting-table-c0-same-same",
+   "ms": 946
+  },
+  {
+   "id": "meeting-table-c0-same-other",
+   "ms": 1009
+  },
+  {
+   "id": "meeting-table-c0-below-same",
+   "ms": 1001
+  },
+  {
+   "id": "meeting-table-c0-below-other",
+   "ms": 928
+  },
+  {
+   "id": "meeting-table-c1-same-same",
+   "ms": 947
+  },
+  {
+   "id": "meeting-table-c1-same-other",
+   "ms": 913
+  },
+  {
+   "id": "meeting-table-c1-below-same",
+   "ms": 914
+  },
+  {
+   "id": "meeting-table-c1-below-other",
+   "ms": 977
+  },
+  {
+   "id": "meeting-cards-c0-same-same",
+   "ms": 786
+  },
+  {
+   "id": "meeting-cards-c0-same-other",
+   "ms": 855
+  },
+  {
+   "id": "meeting-cards-c0-below-same",
+   "ms": 960
+  },
+  {
+   "id": "meeting-cards-c0-below-other",
+   "ms": 872
+  },
+  {
+   "id": "meeting-cards-c1-same-same",
+   "ms": 989
+  },
+  {
+   "id": "meeting-cards-c1-same-other",
+   "ms": 991
+  },
+  {
+   "id": "meeting-cards-c1-below-same",
+   "ms": 959
+  },
+  {
+   "id": "meeting-cards-c1-below-other",
+   "ms": 902
+  }
+ ]
+}
