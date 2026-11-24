@@ -1,0 +1,89 @@
+{
+ "rule": "byte identity of the deterministic files; rows are compared by key in both directions (keys only in A or B, duplicates, one-sided fields, differing values) in the original denominators (primary analysis stays run A)",
+ "reproduced": true,
+ "bytes": {
+  "predictions.jsonl": {
+   "a": "e5f87a9d47c83f499521c1f0ffb8dd2ab06a7ebf94530c96ec223757af30d7b8",
+   "b": "e5f87a9d47c83f499521c1f0ffb8dd2ab06a7ebf94530c96ec223757af30d7b8",
+   "identical": true
+  },
+  "ocr.jsonl": {
+   "a": "215b17bdb1050ecce3cc4f8b6270fb7008779873c2f9ba2f5f7e480bfdb339eb",
+   "b": "215b17bdb1050ecce3cc4f8b6270fb7008779873c2f9ba2f5f7e480bfdb339eb",
+   "identical": true
+  },
+  "guard-summary.json": {
+   "a": "1344d470bbae731c87a4021cc9811daa852bb4cc58e882c9894f0b74d7a2b9f8",
+   "b": "1344d470bbae731c87a4021cc9811daa852bb4cc58e882c9894f0b74d7a2b9f8",
+   "identical": true
+  },
+  "score.jsonl": {
+   "a": "03a014f5e2573303058c3cde94a84fbb293c01f1c7fe23804d5e889e7eb9c761",
+   "b": "03a014f5e2573303058c3cde94a84fbb293c01f1c7fe23804d5e889e7eb9c761",
+   "identical": true
+  },
+  "history.jsonl": {
+   "a": "046a29d800edb93910cd5143a90e02d59da13a950d7c952143446a0cb5dc4c18",
+   "b": "046a29d800edb93910cd5143a90e02d59da13a950d7c952143446a0cb5dc4c18",
+   "identical": true
+  },
+  "summary.json": {
+   "a": "f4d04c0e6d21dad308797791cf0166ff47460c53066ba31fe4632cdc909ff58a",
+   "b": "f4d04c0e6d21dad308797791cf0166ff47460c53066ba31fe4632cdc909ff58a",
+   "identical": true
+  }
+ },
+ "summaryValueSame": true,
+ "predictions": {
+  "denominator": 192,
+  "rowsA": 192,
+  "rowsB": 192,
+  "sameRows": 192,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ },
+ "ocr": {
+  "denominator": 192,
+  "rowsA": 192,
+  "rowsB": 192,
+  "sameRows": 192,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ },
+ "score": {
+  "denominator": 384,
+  "rowsA": 384,
+  "rowsB": 384,
+  "sameRows": 384,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ },
+ "history": {
+  "denominator": 96,
+  "rowsA": 96,
+  "rowsB": 96,
+  "sameRows": 96,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ }
+}

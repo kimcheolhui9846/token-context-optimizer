@@ -1,0 +1,1434 @@
+{
+ "inputs": {
+  "predictionsSha256": "e5f87a9d47c83f499521c1f0ffb8dd2ab06a7ebf94530c96ec223757af30d7b8",
+  "ocrSha256": "215b17bdb1050ecce3cc4f8b6270fb7008779873c2f9ba2f5f7e480bfdb339eb",
+  "cohortSha256": "86ccac534bacaeb6b4ca463fe7f5de41a5b33f68cc534f2002c417e35e6b2eb3",
+  "replayBlob": "3f0564c2a1988d70de7ed308c2cab80a2dc7e686"
+ },
+ "denominators": {
+  "pages": 96,
+  "primary": 24,
+  "control": 72,
+  "baselineStrictControl": 70
+ },
+ "baseline": {
+  "r09": {
+   "n": 48,
+   "matched": 36,
+   "strictAmongMatched": 35,
+   "strictAmongUnmatched": 0,
+   "strict": 35
+  },
+  "fcp": {
+   "n": 48,
+   "matched": 36,
+   "strictAmongMatched": 35,
+   "strictAmongUnmatched": 0,
+   "strict": 35
+  },
+  "total": {
+   "n": 96,
+   "matched": 72,
+   "strictAmongMatched": 70,
+   "strictAmongUnmatched": 0,
+   "strict": 70
+  },
+  "registeredExpectation": {
+   "strictAmongMatched": 70,
+   "r09": 35,
+   "fcp": 35
+  }
+ },
+ "history": {
+  "r09": {
+   "n": 48,
+   "selectionSame": 48,
+   "ocrIdentical": 48,
+   "strictSame": 48
+  },
+  "fcp": {
+   "n": 48,
+   "selectionSame": 48,
+   "ocrIdentical": 48,
+   "strictSame": 48
+  },
+  "total": {
+   "n": 96,
+   "selectionSame": 96,
+   "ocrIdentical": 96,
+   "strictSame": 96
+  }
+ },
+ "ocrLineTextDiff": {
+  "compared": 96,
+  "differ": 48
+ },
+ "k1Branches": {
+  "O0": {
+   "r09": {
+    "k0": 36,
+    "hangul": 0,
+    "none": 12,
+    "error": 0
+   },
+   "fcp": {
+    "k0": 36,
+    "hangul": 0,
+    "none": 12,
+    "error": 0
+   },
+   "total": {
+    "k0": 72,
+    "hangul": 0,
+    "none": 24,
+    "error": 0
+   }
+  },
+  "O1": {
+   "r09": {
+    "k0": 36,
+    "hangul": 12,
+    "none": 0,
+    "error": 0
+   },
+   "fcp": {
+    "k0": 36,
+    "hangul": 12,
+    "none": 0,
+    "error": 0
+   },
+   "total": {
+    "k0": 72,
+    "hangul": 24,
+    "none": 0,
+    "error": 0
+   }
+  }
+ },
+ "conditions": {
+  "O0K0": {
+   "r09": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 36,
+    "unmatched": 12,
+    "strict": 35,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 12,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 0,
+     "strict": 35,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 11
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 12,
+      "strict": 0
+     }
+    }
+   },
+   "fcp": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 36,
+    "unmatched": 12,
+    "strict": 35,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 12,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 0,
+     "strict": 35,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 11
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 12,
+      "strict": 0
+     }
+    }
+   },
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 72,
+    "unmatched": 24,
+    "strict": 70,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 24,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 72,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 72,
+     "baselineStrict": 70,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 2,
+     "newStrict": 0,
+     "strict": 70,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "en/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "ko/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 22
+     },
+     "ko/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 24,
+      "strict": 0
+     }
+    }
+   }
+  },
+  "O0K1": {
+   "r09": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 36,
+    "unmatched": 12,
+    "strict": 35,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 12,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 0,
+     "strict": 35,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 11
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 12,
+      "strict": 0
+     }
+    }
+   },
+   "fcp": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 36,
+    "unmatched": 12,
+    "strict": 35,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 12,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 0,
+     "strict": 35,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 11
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 12,
+      "strict": 0
+     }
+    }
+   },
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 72,
+    "unmatched": 24,
+    "strict": 70,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 24,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 72,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 72,
+     "baselineStrict": 70,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 2,
+     "newStrict": 0,
+     "strict": 70,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "en/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "ko/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 22
+     },
+     "ko/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 24,
+      "strict": 0
+     }
+    }
+   }
+  },
+  "O1K0": {
+   "r09": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 36,
+    "unmatched": 12,
+    "strict": 36,
+    "strictPct": 75,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 12,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 1,
+     "strict": 36,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 12,
+      "strict": 0
+     }
+    }
+   },
+   "fcp": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 36,
+    "unmatched": 12,
+    "strict": 35,
+    "strictPct": 72.92,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 12,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 1,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 1,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 1,
+     "strict": 35,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 2.86
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 11
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 12,
+      "strict": 0
+     }
+    }
+   },
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 72,
+    "unmatched": 24,
+    "strict": 71,
+    "strictPct": 73.96,
+    "primary": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 0,
+     "strict": 0,
+     "matchedOnly": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "unmatched": 24,
+     "matchedPct": 0,
+     "strictPct": 0
+    },
+    "control": {
+     "n": 72,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 72,
+     "baselineStrict": 70,
+     "strictToFail": 1,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 1,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 2,
+     "newStrict": 2,
+     "strict": 71,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 1.43
+    },
+    "byCell": {
+     "en/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "en/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "ko/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 23
+     },
+     "ko/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 0,
+      "unmatched": 24,
+      "strict": 0
+     }
+    }
+   }
+  },
+  "O1K1": {
+   "r09": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 48,
+    "unmatched": 0,
+    "strict": 45,
+    "strictPct": 93.75,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 12,
+     "strict": 9,
+     "matchedOnly": 3,
+     "evidencePartial": 0,
+     "evidenceNone": 3,
+     "unmatched": 0,
+     "matchedPct": 100,
+     "strictPct": 75
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 0,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 0,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 1,
+     "strict": 36,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 0
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 9
+     }
+    }
+   },
+   "fcp": {
+    "n": 48,
+    "technicalError": 0,
+    "matched": 48,
+    "unmatched": 0,
+    "strict": 44,
+    "strictPct": 91.67,
+    "primary": {
+     "n": 12,
+     "technicalError": 0,
+     "matched": 12,
+     "strict": 9,
+     "matchedOnly": 3,
+     "evidencePartial": 1,
+     "evidenceNone": 2,
+     "unmatched": 0,
+     "matchedPct": 100,
+     "strictPct": 75
+    },
+    "control": {
+     "n": 36,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 36,
+     "baselineStrict": 35,
+     "strictToFail": 1,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 1,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 1,
+     "newStrict": 1,
+     "strict": 35,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 2.86
+    },
+    "byCell": {
+     "en/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "en/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 12
+     },
+     "ko/code": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 11
+     },
+     "ko/nl": {
+      "n": 12,
+      "technicalError": 0,
+      "matched": 12,
+      "unmatched": 0,
+      "strict": 9
+     }
+    }
+   },
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 96,
+    "unmatched": 0,
+    "strict": 89,
+    "strictPct": 92.71,
+    "primary": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "strict": 18,
+     "matchedOnly": 6,
+     "evidencePartial": 1,
+     "evidenceNone": 5,
+     "unmatched": 0,
+     "matchedPct": 100,
+     "strictPct": 75
+    },
+    "control": {
+     "n": 72,
+     "technicalError": 0,
+     "matchedToUnmatched": 0,
+     "stillMatched": 72,
+     "baselineStrict": 70,
+     "strictToFail": 1,
+     "strictToFailUnmatched": 0,
+     "matchedKeptLostEvidence": 1,
+     "strictTechnicalError": 0,
+     "baselineNotStrict": 2,
+     "newStrict": 2,
+     "strict": 71,
+     "matchedToUnmatchedPct": 0,
+     "strictToFailPct": 1.43
+    },
+    "byCell": {
+     "en/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "en/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 24
+     },
+     "ko/code": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 23
+     },
+     "ko/nl": {
+      "n": 24,
+      "technicalError": 0,
+      "matched": 24,
+      "unmatched": 0,
+      "strict": 18
+     }
+    }
+   }
+  }
+ },
+ "pairs": {
+  "O0K0->O0K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   },
+   "control": {
+    "strict": {
+     "n": 72,
+     "both": 70,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 2,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 72,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 70,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 26,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   }
+  },
+  "O1K0->O1K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 18,
+     "neither": 6,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "control": {
+    "strict": {
+     "n": 72,
+     "both": 71,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 1,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 72,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 71,
+     "fromOnly": 0,
+     "toOnly": 18,
+     "neither": 7,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   }
+  },
+  "O0K0->O1K0": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   },
+   "control": {
+    "strict": {
+     "n": 72,
+     "both": 69,
+     "fromOnly": 1,
+     "toOnly": 2,
+     "neither": 0,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 72,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 69,
+     "fromOnly": 1,
+     "toOnly": 2,
+     "neither": 24,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   }
+  },
+  "O0K1->O1K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 18,
+     "neither": 6,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "control": {
+    "strict": {
+     "n": 72,
+     "both": 69,
+     "fromOnly": 1,
+     "toOnly": 2,
+     "neither": 0,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 72,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 69,
+     "fromOnly": 1,
+     "toOnly": 20,
+     "neither": 6,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   }
+  },
+  "O0K0->O1K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 18,
+     "neither": 6,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "control": {
+    "strict": {
+     "n": 72,
+     "both": 69,
+     "fromOnly": 1,
+     "toOnly": 2,
+     "neither": 0,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 72,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 69,
+     "fromOnly": 1,
+     "toOnly": 20,
+     "neither": 6,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   }
+  }
+ },
+ "interaction": {
+  "matchRecovery": {
+   "direction": "count is a success; positive effect = improvement",
+   "raw": {
+    "O0K0": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0
+    },
+    "O0K1": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0
+    },
+    "O1K0": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0
+    },
+    "O1K1": {
+     "count": 24,
+     "denom": 24,
+     "pct": 100
+    }
+   },
+   "denom": 24,
+   "kAtO0": {
+    "count": 0,
+    "pp": 0
+   },
+   "kAtO1": {
+    "count": 24,
+    "pp": 100
+   },
+   "oAtK0": {
+    "count": 0,
+    "pp": 0
+   },
+   "oAtK1": {
+    "count": 24,
+    "pp": 100
+   },
+   "interaction": {
+    "count": 24,
+    "pp": 100
+   },
+   "technicalErrors": 0,
+   "qualified": false
+  },
+  "strictRecovery": {
+   "direction": "count is a success; positive effect = improvement",
+   "raw": {
+    "O0K0": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0
+    },
+    "O0K1": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0
+    },
+    "O1K0": {
+     "count": 0,
+     "denom": 24,
+     "pct": 0
+    },
+    "O1K1": {
+     "count": 18,
+     "denom": 24,
+     "pct": 75
+    }
+   },
+   "denom": 24,
+   "kAtO0": {
+    "count": 0,
+    "pp": 0
+   },
+   "kAtO1": {
+    "count": 18,
+    "pp": 75
+   },
+   "oAtK0": {
+    "count": 0,
+    "pp": 0
+   },
+   "oAtK1": {
+    "count": 18,
+    "pp": 75
+   },
+   "interaction": {
+    "count": 18,
+    "pp": 75
+   },
+   "technicalErrors": 0,
+   "qualified": false
+  },
+  "matchedToUnmatched": {
+   "direction": "count is a loss; effects use the negated count, positive = improvement",
+   "raw": {
+    "O0K0": {
+     "count": 0,
+     "denom": 72,
+     "pct": 0
+    },
+    "O0K1": {
+     "count": 0,
+     "denom": 72,
+     "pct": 0
+    },
+    "O1K0": {
+     "count": 0,
+     "denom": 72,
+     "pct": 0
+    },
+    "O1K1": {
+     "count": 0,
+     "denom": 72,
+     "pct": 0
+    }
+   },
+   "denom": 72,
+   "kAtO0": {
+    "count": 0,
+    "pp": 0
+   },
+   "kAtO1": {
+    "count": 0,
+    "pp": 0
+   },
+   "oAtK0": {
+    "count": 0,
+    "pp": 0
+   },
+   "oAtK1": {
+    "count": 0,
+    "pp": 0
+   },
+   "interaction": {
+    "count": 0,
+    "pp": 0
+   },
+   "technicalErrors": 0,
+   "qualified": false
+  },
+  "strictToFail": {
+   "direction": "count is a loss; effects use the negated count, positive = improvement",
+   "raw": {
+    "O0K0": {
+     "count": 0,
+     "denom": 70,
+     "pct": 0
+    },
+    "O0K1": {
+     "count": 0,
+     "denom": 70,
+     "pct": 0
+    },
+    "O1K0": {
+     "count": 1,
+     "denom": 70,
+     "pct": 1.43
+    },
+    "O1K1": {
+     "count": 1,
+     "denom": 70,
+     "pct": 1.43
+    }
+   },
+   "denom": 70,
+   "kAtO0": {
+    "count": 0,
+    "pp": 0
+   },
+   "kAtO1": {
+    "count": 0,
+    "pp": 0
+   },
+   "oAtK0": {
+    "count": -1,
+    "pp": -1.43
+   },
+   "oAtK1": {
+    "count": -1,
+    "pp": -1.43
+   },
+   "interaction": {
+    "count": 0,
+    "pp": 0
+   },
+   "technicalErrors": 0,
+   "qualified": false
+  },
+  "totalStrict": {
+   "direction": "count is a success; positive effect = improvement",
+   "raw": {
+    "O0K0": {
+     "count": 70,
+     "denom": 96,
+     "pct": 72.92
+    },
+    "O0K1": {
+     "count": 70,
+     "denom": 96,
+     "pct": 72.92
+    },
+    "O1K0": {
+     "count": 71,
+     "denom": 96,
+     "pct": 73.96
+    },
+    "O1K1": {
+     "count": 89,
+     "denom": 96,
+     "pct": 92.71
+    }
+   },
+   "denom": 96,
+   "kAtO0": {
+    "count": 0,
+    "pp": 0
+   },
+   "kAtO1": {
+    "count": 18,
+    "pp": 18.75
+   },
+   "oAtK0": {
+    "count": 1,
+    "pp": 1.04
+   },
+   "oAtK1": {
+    "count": 19,
+    "pp": 19.79
+   },
+   "interaction": {
+    "count": 18,
+    "pp": 18.75
+   },
+   "technicalErrors": 0,
+   "qualified": false
+  }
+ }
+}
