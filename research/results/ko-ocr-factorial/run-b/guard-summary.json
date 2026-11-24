@@ -1,0 +1,36 @@
+{
+ "step": "kof-a",
+ "offlineGuard": true,
+ "blocked": 0,
+ "langFiles": [
+  {
+   "lang": "eng",
+   "file": "eng.traineddata",
+   "bytes": 5199098,
+   "sha256": "5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747"
+  },
+  {
+   "lang": "kor",
+   "file": "kor.traineddata",
+   "bytes": 2208378,
+   "sha256": "ec1749377d49ac38fb3d3cd05dd5e2a53359d329f359762bc638a81132109992"
+  }
+ ],
+ "engine": {
+  "tesseract.js": "5.1.1",
+  "tesseract.js-core": "5.1.1",
+  "sharp": "0.35.4"
+ },
+ "selectorBlob": "b3b4965b2d330907c0143fe178013aace1be8372",
+ "ocrOptions": {
+  "oem": 1,
+  "langPath": "research/.cache/ko-ocr-factorial",
+  "cachePath": "research/.cache/ko-ocr-factorial",
+  "gzip": false,
+  "cacheMethod": "readOnly"
+ },
+ "conditions": {
+  "O0": "eng",
+  "O1": "eng+kor"
+ }
+}

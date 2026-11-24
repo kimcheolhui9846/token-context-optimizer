@@ -1,0 +1,74 @@
+{
+ "ok": true,
+ "exitCode": 0,
+ "checks": {
+  "freeze": {
+   "ok": true,
+   "compared": 3,
+   "failures": 0,
+   "mismatches": []
+  },
+  "git_objects": {
+   "ok": true,
+   "compared": 0,
+   "failures": 0,
+   "mismatches": []
+  },
+  "cohort": {
+   "ok": true,
+   "compared": 99,
+   "failures": 0,
+   "mismatches": []
+  },
+  "file_format": {
+   "ok": true,
+   "compared": 0,
+   "failures": 0,
+   "mismatches": []
+  },
+  "predictions": {
+   "ok": true,
+   "compared": 11700,
+   "failures": 0,
+   "mismatches": []
+  },
+  "ocr_consistency": {
+   "ok": true,
+   "compared": 192,
+   "failures": 0,
+   "mismatches": []
+  },
+  "score": {
+   "ok": true,
+   "compared": 6528,
+   "failures": 0,
+   "mismatches": []
+  },
+  "history": {
+   "ok": true,
+   "compared": 864,
+   "failures": 0,
+   "mismatches": []
+  },
+  "summary": {
+   "ok": true,
+   "compared": 1203,
+   "failures": 0,
+   "mismatches": []
+  },
+  "guard_summary": {
+   "ok": true,
+   "compared": 1,
+   "failures": 0,
+   "mismatches": []
+  }
+ },
+ "info": {
+  "rowKinds": {
+   "ok": 192
+  },
+  "baselineStrict": 70,
+  "baselineStrictRegistered": 70,
+  "baselineVsPastMatched": 0
+ }
+}
