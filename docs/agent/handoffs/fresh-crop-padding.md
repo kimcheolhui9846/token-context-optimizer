@@ -30,9 +30,9 @@
 
 ## 진행
 
-- [ ] 프로토콜·핸드오프 커밋, Draft PR
-- [ ] 시험 RED → 하네스 GREEN
-- [ ] 두 번 생성 일치, 입력 동결 커밋
+- [x] 프로토콜·핸드오프 커밋 `a9f2320`, Draft PR [#145](https://github.com/kimcheolhui9846/token-context-optimizer/pull/145)
+- [x] 시험 RED `3d4e706`(`ERR_MODULE_NOT_FOUND`) → 하네스 `86f67aa`(27/27). 더미 페이지 스모크로 배선 확인
+- [x] 두 번 생성 일치(55개 파일), 렌더 실패 0, 중복 0(R09 52장 대조), 입력 동결 커밋
 - [ ] 실행 A·B, 채점, 비교, 검산
 - [ ] 게이트 7종, Opus 마일스톤 검토, Argon
 - [ ] PM 판정

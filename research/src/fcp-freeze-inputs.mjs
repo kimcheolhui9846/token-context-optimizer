@@ -17,6 +17,7 @@ export const FREEZE_CODE = [
   "src/fcp-design.mjs", "src/fcp-build.mjs", "src/fcp-freeze-inputs.mjs", "src/fcp-lib.mjs", "src/r09-design.mjs", "src/selector.mjs",
   "tools/r09/render.py", "package-lock.json", "tools/d03/guard/node-netguard.cjs",
 ];
+export const R09_PAGE_COUNT = 52; // R09 dev 4 + held-out 48
 const R09_IMAGE_DIRS = ["research/results/r09-bilingual/dev/images", "research/results/r09-bilingual/heldout/images"];
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -65,11 +66,13 @@ if (dedup.designProblems.length || dedup.violations.length) throw new Error("tex
 // ---------------------------------------------------------------- page SHA duplicates against R09 (Git blobs)
 const olderShas = {};
 for (const dir of R09_IMAGE_DIRS) {
-  for (const line of git(["ls-tree", `${PRODUCT_COMMIT}:${dir}`]).split("\n").filter(Boolean)) {
+  for (const line of git(["ls-tree", "--full-tree", `${PRODUCT_COMMIT}:${dir}`]).split("\n").filter(Boolean)) {
     const [, , blob, name] = line.split(/\s+/);
     olderShas[`${dir}/${name}`] = sha256(git(["cat-file", "blob", blob], "buffer"));
   }
 }
+// ls-tree lists relative to the working directory unless --full-tree; an empty comparison set must never pass.
+if (Object.keys(olderShas).length !== R09_PAGE_COUNT) throw new Error(`expected ${R09_PAGE_COUNT} R09 pages to compare, got ${Object.keys(olderShas).length}`);
 const pageCheck = pageShaCheck(shaById, olderShas);
 if (pageCheck.violations.length) throw new Error(`page SHA duplicates: ${pageCheck.violations.join("; ")}`);
 
