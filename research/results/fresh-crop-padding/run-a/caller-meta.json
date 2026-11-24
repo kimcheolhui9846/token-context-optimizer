@@ -1,0 +1,251 @@
+{
+ "selector": {
+  "ocr": "tesseract.js 5.1.1 eng, image upscaled so the long side is 4096 px (at most 4x)",
+  "keywords": "question tokens of length >= 3 minus stop words and on/off/yes",
+  "window": "axis row (>= 8 words of mean length <= 4, matched words < 25% of row width): column of width max(3 x matched width, 6 x line height), from 75% of image height above to 6 line heights below; otherwise row window from 4 line heights left of the row to 8 line heights right of it, 3 line heights above to 6 below; minimum 256 x 128"
+ },
+ "selectorBlob": "b3b4965b2d330907c0143fe178013aace1be8372",
+ "timeoutMs": 180000,
+ "ocrDataSha256": "5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747",
+ "node": "v24.18.0",
+ "platform": "win32-x64",
+ "codeCommit": "e2953e813ded4676d141334cb87cc0cc0ed9a99c",
+ "codeCheckedBeforeMeasurement": {
+  "clean": true,
+  "files": {
+   "env.mjs": {
+    "head": "b563291be968ebfbc02362f220bfd7dfc07886d8",
+    "work": "b563291be968ebfbc02362f220bfd7dfc07886d8",
+    "status": ""
+   },
+   "fcp-collect.mjs": {
+    "head": "d1bb8ef3bffd6a4aeef2f9962d176e03668161df",
+    "work": "d1bb8ef3bffd6a4aeef2f9962d176e03668161df",
+    "status": ""
+   },
+   "fcp-inputs.mjs": {
+    "head": "61654db1cc9818bd435976fe5fcc7f075eab48a1",
+    "work": "61654db1cc9818bd435976fe5fcc7f075eab48a1",
+    "status": ""
+   },
+   "fcp-lib.mjs": {
+    "head": "be497164b729a8e6167e8e86d3c646f6fb10f3f1",
+    "work": "be497164b729a8e6167e8e86d3c646f6fb10f3f1",
+    "status": ""
+   },
+   "mcp-view-comparison-lib.mjs": {
+    "head": "b52b38a1adcc1db1f36706291ab94e34f28a38a5",
+    "work": "b52b38a1adcc1db1f36706291ab94e34f28a38a5",
+    "status": ""
+   },
+   "selector.mjs": {
+    "head": "b3b4965b2d330907c0143fe178013aace1be8372",
+    "work": "b3b4965b2d330907c0143fe178013aace1be8372",
+    "status": ""
+   }
+  }
+ },
+ "freezeManifest": {
+  "sha256": "abb082f1edef8bc402c43ddfe0b135016456e9ea14e98e48c1a51bd5f68402c7",
+  "blob": "02a23f08d8a19a0b7e2c40b60e3d150063008527",
+  "committed": true
+ },
+ "offlineGuard": true,
+ "nonMeasurement": false,
+ "startedAt": "2026-11-24T01:46:32.301Z",
+ "totalMs": 41443,
+ "timing": [
+  {
+   "id": "schedule-table-code-v1-en",
+   "ms": 1017
+  },
+  {
+   "id": "schedule-table-code-v1-ko",
+   "ms": 821
+  },
+  {
+   "id": "schedule-table-code-v2-en",
+   "ms": 852
+  },
+  {
+   "id": "schedule-table-code-v2-ko",
+   "ms": 839
+  },
+  {
+   "id": "schedule-table-nl-v1-en",
+   "ms": 842
+  },
+  {
+   "id": "schedule-table-nl-v1-ko",
+   "ms": 810
+  },
+  {
+   "id": "schedule-table-nl-v2-en",
+   "ms": 819
+  },
+  {
+   "id": "schedule-table-nl-v2-ko",
+   "ms": 825
+  },
+  {
+   "id": "schedule-cards-code-v1-en",
+   "ms": 911
+  },
+  {
+   "id": "schedule-cards-code-v1-ko",
+   "ms": 948
+  },
+  {
+   "id": "schedule-cards-code-v2-en",
+   "ms": 901
+  },
+  {
+   "id": "schedule-cards-code-v2-ko",
+   "ms": 934
+  },
+  {
+   "id": "schedule-cards-nl-v1-en",
+   "ms": 899
+  },
+  {
+   "id": "schedule-cards-nl-v1-ko",
+   "ms": 876
+  },
+  {
+   "id": "schedule-cards-nl-v2-en",
+   "ms": 909
+  },
+  {
+   "id": "schedule-cards-nl-v2-ko",
+   "ms": 913
+  },
+  {
+   "id": "invoice-table-code-v1-en",
+   "ms": 823
+  },
+  {
+   "id": "invoice-table-code-v1-ko",
+   "ms": 766
+  },
+  {
+   "id": "invoice-table-code-v2-en",
+   "ms": 815
+  },
+  {
+   "id": "invoice-table-code-v2-ko",
+   "ms": 763
+  },
+  {
+   "id": "invoice-table-nl-v1-en",
+   "ms": 819
+  },
+  {
+   "id": "invoice-table-nl-v1-ko",
+   "ms": 764
+  },
+  {
+   "id": "invoice-table-nl-v2-en",
+   "ms": 816
+  },
+  {
+   "id": "invoice-table-nl-v2-ko",
+   "ms": 775
+  },
+  {
+   "id": "invoice-cards-code-v1-en",
+   "ms": 969
+  },
+  {
+   "id": "invoice-cards-code-v1-ko",
+   "ms": 893
+  },
+  {
+   "id": "invoice-cards-code-v2-en",
+   "ms": 959
+  },
+  {
+   "id": "invoice-cards-code-v2-ko",
+   "ms": 879
+  },
+  {
+   "id": "invoice-cards-nl-v1-en",
+   "ms": 977
+  },
+  {
+   "id": "invoice-cards-nl-v1-ko",
+   "ms": 884
+  },
+  {
+   "id": "invoice-cards-nl-v2-en",
+   "ms": 971
+  },
+  {
+   "id": "invoice-cards-nl-v2-ko",
+   "ms": 857
+  },
+  {
+   "id": "status-table-code-v1-en",
+   "ms": 744
+  },
+  {
+   "id": "status-table-code-v1-ko",
+   "ms": 774
+  },
+  {
+   "id": "status-table-code-v2-en",
+   "ms": 715
+  },
+  {
+   "id": "status-table-code-v2-ko",
+   "ms": 744
+  },
+  {
+   "id": "status-table-nl-v1-en",
+   "ms": 721
+  },
+  {
+   "id": "status-table-nl-v1-ko",
+   "ms": 789
+  },
+  {
+   "id": "status-table-nl-v2-en",
+   "ms": 726
+  },
+  {
+   "id": "status-table-nl-v2-ko",
+   "ms": 769
+  },
+  {
+   "id": "status-cards-code-v1-en",
+   "ms": 874
+  },
+  {
+   "id": "status-cards-code-v1-ko",
+   "ms": 1017
+  },
+  {
+   "id": "status-cards-code-v2-en",
+   "ms": 864
+  },
+  {
+   "id": "status-cards-code-v2-ko",
+   "ms": 1002
+  },
+  {
+   "id": "status-cards-nl-v1-en",
+   "ms": 870
+  },
+  {
+   "id": "status-cards-nl-v1-ko",
+   "ms": 1010
+  },
+  {
+   "id": "status-cards-nl-v2-en",
+   "ms": 877
+  },
+  {
+   "id": "status-cards-nl-v2-ko",
+   "ms": 962
+  }
+ ]
+}

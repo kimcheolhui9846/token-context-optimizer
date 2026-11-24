@@ -15,6 +15,13 @@ const bytes = {};
 for (const f of RUN_EVIDENCE_FILES) bytes[f] = sha256(readFileSync(join(a, f))) === sha256(readFileSync(join(b, f)));
 for (const f of ["score.json", "summary.md"]) bytes[`score/${f}`] = sha256(readFileSync(join(sa, f))) === sha256(readFileSync(join(sb, f)));
 
+// guard-summary.json names its steps after the run (fcp-a-*, fcp-b-*), so its bytes always differ between runs.
+// Post-measurement addition (protocol section 13): compare it with the run label removed; the byte result stays reported.
+const guardNorm = (d) => JSON.stringify(JSON.parse(readFileSync(join(d, "guard-summary.json"), "utf8")), (k, v) => (v && typeof v === "object" && !Array.isArray(v) ? Object.fromEntries(Object.entries(v).map(([kk, vv]) => [kk.replace(/^fcp-[a-z]+-/, "fcp-*-"), vv])) : Array.isArray(v) ? v.map((s) => (typeof s === "string" ? s.replace(/^fcp-[a-z]+-/, "fcp-*-") : s)) : v));
+const guardSameWithoutRunLabel = guardNorm(a) === guardNorm(b);
+// score.json embeds the evidence hashes, so it carries the guard-summary hash: compare it without that one entry.
+const scoreWithoutGuardHash = (d) => { const s = JSON.parse(readFileSync(join(d, "score.json"), "utf8")); delete s.evidence["guard-summary.json"]; return JSON.stringify(s); };
+const scoreSameWithoutGuardHash = scoreWithoutGuardHash(sa) === scoreWithoutGuardHash(sb);
 const field = {};
 const diff = (name, id, x, y) => { if (!same(x, y)) (field[name] ||= []).push(id); };
 const ca = new Map(jsonl(a, "caller.jsonl").map((r) => [r.id, r]));
@@ -47,7 +54,7 @@ const nondeterministic = Object.fromEntries([["a", a], ["b", b]].map(([n, d]) =>
   runStartedAt: meta(d, "run-meta.json")?.startedAt, runTotalMs: meta(d, "run-meta.json")?.totalMs,
 }]));
 const keysCompared = { callerIds: ca.size, rawKeys: ra.size, scoreRows: xa.perRow.length };
-const identical = Object.values(bytes).every(Boolean) && Object.keys(field).length === 0 && aggregateSame && cb.size === ca.size && rb.size === ra.size;
-const result = { primary: "A", identical, keysCompared, bytesEqual: bytes, fieldDifferences: field, aggregateSame, excluded: "times, paths and durations (listed under nondeterministic, never compared)", nondeterministic };
+const identical = Object.entries(bytes).every(([f, v]) => v || (f === "guard-summary.json" && guardSameWithoutRunLabel) || (f === "score/score.json" && scoreSameWithoutGuardHash)) && Object.keys(field).length === 0 && aggregateSame && cb.size === ca.size && rb.size === ra.size;
+const result = { primary: "A", identical, keysCompared, bytesEqual: bytes, guardSameWithoutRunLabel, scoreSameWithoutGuardHash, fieldDifferences: field, aggregateSame, excluded: "times, paths and durations (listed under nondeterministic, never compared)", nondeterministic };
 writeFileSync(out, `${JSON.stringify(result, null, 1)}\n`);
 console.log(JSON.stringify({ identical, differences: Object.fromEntries(Object.entries(field).map(([k, v]) => [k, v.length])), aggregateSame }));

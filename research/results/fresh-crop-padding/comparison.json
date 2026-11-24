@@ -1,0 +1,37 @@
+{
+ "primary": "A",
+ "identical": true,
+ "keysCompared": {
+  "callerIds": 48,
+  "rawKeys": 96,
+  "scoreRows": 96
+ },
+ "bytesEqual": {
+  "caller.jsonl": true,
+  "raw.jsonl": true,
+  "conditions.jsonl": true,
+  "input-check.json": true,
+  "guard-summary.json": false,
+  "score/score.json": false,
+  "score/summary.md": true
+ },
+ "guardSameWithoutRunLabel": true,
+ "scoreSameWithoutGuardHash": true,
+ "fieldDifferences": {},
+ "aggregateSame": true,
+ "excluded": "times, paths and durations (listed under nondeterministic, never compared)",
+ "nondeterministic": {
+  "a": {
+   "collectStartedAt": "2026-11-24T01:46:32.301Z",
+   "collectTotalMs": 41443,
+   "runStartedAt": "2026-11-24T01:47:19.153Z",
+   "runTotalMs": 4271
+  },
+  "b": {
+   "collectStartedAt": "2026-11-24T01:47:32.976Z",
+   "collectTotalMs": 41442,
+   "runStartedAt": "2026-11-24T01:48:15.240Z",
+   "runTotalMs": 4211
+  }
+ }
+}

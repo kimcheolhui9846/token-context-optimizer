@@ -1,0 +1,64 @@
+{
+ "node": "v24.18.0",
+ "platform": "win32-x64",
+ "sharp": "0.35.4",
+ "vips": "8.18.6",
+ "codeCommit": "e2953e813ded4676d141334cb87cc0cc0ed9a99c",
+ "codeCheckedBeforeMeasurement": {
+  "clean": true,
+  "files": {
+   "fcp-client.mjs": {
+    "head": "d94de148349e302c598508e6c6cc0053f391ae74",
+    "work": "d94de148349e302c598508e6c6cc0053f391ae74",
+    "status": ""
+   },
+   "fcp-inputs.mjs": {
+    "head": "61654db1cc9818bd435976fe5fcc7f075eab48a1",
+    "work": "61654db1cc9818bd435976fe5fcc7f075eab48a1",
+    "status": ""
+   },
+   "fcp-lib.mjs": {
+    "head": "be497164b729a8e6167e8e86d3c646f6fb10f3f1",
+    "work": "be497164b729a8e6167e8e86d3c646f6fb10f3f1",
+    "status": ""
+   },
+   "fcp-run.mjs": {
+    "head": "5a25c58a99b2f4b475e18ea7970e510645339801",
+    "work": "5a25c58a99b2f4b475e18ea7970e510645339801",
+    "status": ""
+   },
+   "mcp-view-comparison-client.mjs": {
+    "head": "10db2d5d247640fa697289494460bcebc6f044c0",
+    "work": "10db2d5d247640fa697289494460bcebc6f044c0",
+    "status": ""
+   },
+   "mcp-view-comparison-lib.mjs": {
+    "head": "b52b38a1adcc1db1f36706291ab94e34f28a38a5",
+    "work": "b52b38a1adcc1db1f36706291ab94e34f28a38a5",
+    "status": ""
+   }
+  }
+ },
+ "bundleBlob": "85b804990bc192d32d75560df0567bdf5a876d0b",
+ "bundleWorkingCopySha256": "cb514143a7d2b952f6f53ba07cce4bf91d1507050e32ba3ee0bdbf5f20d61021",
+ "bundleWorkingCopyBytes": 1127819,
+ "freezeManifest": {
+  "sha256": "abb082f1edef8bc402c43ddfe0b135016456e9ea14e98e48c1a51bd5f68402c7",
+  "blob": "02a23f08d8a19a0b7e2c40b60e3d150063008527",
+  "committed": true
+ },
+ "offlineGuard": true,
+ "nonMeasurement": false,
+ "startedAt": "2026-11-24T01:48:15.240Z",
+ "totalMs": 4211,
+ "timing": [
+  {
+   "p": 0,
+   "ms": 2121
+  },
+  {
+   "p": 4,
+   "ms": 2086
+  }
+ ]
+}
