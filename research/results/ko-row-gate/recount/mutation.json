@@ -1,0 +1,510 @@
+{
+ "version": "ko-row-gate-mutation-1",
+ "allRejected": true,
+ "tampers": {
+  "swapT13": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "lecture-table-c0-same-same",
+      "mine": [
+       "t13"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "lecture-table-c1-below-same",
+      "mine": [
+       "t13"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "t13 of lecture-table-c0-same-same and lecture-table-c1-below-same swapped (totals kept)"
+  },
+  "swapW3Reason": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-w3-predictions": [
+     {
+      "key": "lecture-table-c0-same-same pred.w3Reason",
+      "mine": "multiple_candidates",
+      "recorded": "not_applicable"
+     },
+     {
+      "key": "lecture-table-c0-same-same recorded prediction invalid",
+      "mine": "lecture-table-c0-same-same: w3Reason vs w2Reason",
+      "recorded": null
+     },
+     {
+      "key": "lecture-table-c0-same-other pred.w3Reason",
+      "mine": "not_applicable",
+      "recorded": "multiple_candidates"
+     }
+    ]
+   },
+   "note": "w3Reason of lecture-table-c0-same-same and lecture-table-c0-same-other swapped"
+  },
+  "candidateFirstPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-w3-predictions": [
+     {
+      "key": "lecture-table-c0-same-same pred.scan",
+      "mine": {
+       "count": 2,
+       "units": [
+        {
+         "line": 2,
+         "first": 5,
+         "last": 5,
+         "text": "10:50",
+         "boxes": [
+          [
+           "454.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "454.0625",
+          "172.1875",
+          "510.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        },
+        {
+         "line": 2,
+         "first": 6,
+         "last": 6,
+         "text": "11:10",
+         "boxes": [
+          [
+           "694.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "694.0625",
+          "172.1875",
+          "750.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        }
+       ]
+      },
+      "recorded": {
+       "count": 2,
+       "units": [
+        {
+         "line": 2,
+         "first": 6,
+         "last": 5,
+         "text": "10:50",
+         "boxes": [
+          [
+           "454.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "454.0625",
+          "172.1875",
+          "510.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        },
+        {
+         "line": 2,
+         "first": 6,
+         "last": 6,
+         "text": "11:10",
+         "boxes": [
+          [
+           "694.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "694.0625",
+          "172.1875",
+          "750.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "note": "scan.units[0].first + 1 on lecture-table-c0-same-same"
+  },
+  "candidateCountPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-w3-predictions": [
+     {
+      "key": "lecture-table-c0-same-same pred.scan",
+      "mine": {
+       "count": 2,
+       "units": [
+        {
+         "line": 2,
+         "first": 5,
+         "last": 5,
+         "text": "10:50",
+         "boxes": [
+          [
+           "454.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "454.0625",
+          "172.1875",
+          "510.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        },
+        {
+         "line": 2,
+         "first": 6,
+         "last": 6,
+         "text": "11:10",
+         "boxes": [
+          [
+           "694.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "694.0625",
+          "172.1875",
+          "750.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        }
+       ]
+      },
+      "recorded": {
+       "count": 3,
+       "units": [
+        {
+         "line": 2,
+         "first": 5,
+         "last": 5,
+         "text": "10:50",
+         "boxes": [
+          [
+           "454.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "454.0625",
+          "172.1875",
+          "510.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        },
+        {
+         "line": 2,
+         "first": 6,
+         "last": 6,
+         "text": "11:10",
+         "boxes": [
+          [
+           "694.0625",
+           "172.1875",
+           "56.25",
+           "18.125"
+          ]
+         ],
+         "union": [
+          "694.0625",
+          "172.1875",
+          "750.3125",
+          "190.3125"
+         ],
+         "support": [
+          0,
+          1
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "key": "lecture-table-c0-same-same recorded prediction invalid",
+      "mine": "lecture-table-c0-same-same: scan",
+      "recorded": null
+     }
+    ]
+   },
+   "note": "scan.count + 1 on lecture-table-c0-same-same"
+  },
+  "opportunityFlipped": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "lecture-table-c0-same-same",
+      "mine": [
+       "opportunity"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "opportunity of lecture-table-c0-same-same flipped"
+  },
+  "exposureW3Changed": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "lecture-table-c0-same-same",
+      "mine": [
+       "others"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "lecture-table-c0-same-same item 0: W3 full changed"
+  },
+  "predictionW3TopPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-w3-predictions": [
+     {
+      "key": "lecture-table-c0-same-same pred.w3",
+      "mine": {
+       "left": 0,
+       "top": 0,
+       "width": 1072,
+       "height": 326
+      },
+      "recorded": {
+       "left": 0,
+       "top": 1,
+       "width": 1072,
+       "height": 326
+      }
+     },
+     {
+      "key": "lecture-table-c0-same-same recorded prediction invalid",
+      "mine": "lecture-table-c0-same-same: held W3 must be W1",
+      "recorded": null
+     }
+    ]
+   },
+   "note": "W3 boundary moved by 1 px on lecture-table-c0-same-same"
+  },
+  "predictionW2TopPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-w3-predictions": [
+     {
+      "key": "lecture-table-c0-same-same pred.w2",
+      "mine": {
+       "left": 0,
+       "top": 148,
+       "width": 1072,
+       "height": 66
+      },
+      "recorded": {
+       "left": 0,
+       "top": 149,
+       "width": 1072,
+       "height": 66
+      }
+     }
+    ]
+   },
+   "note": "W2 boundary moved by 1 px on lecture-table-c0-same-same"
+  },
+  "duplicateId": {
+   "rejected": true,
+   "how": "ValidationError: duplicate id 'lecture-table-c0-same-same'"
+  },
+  "missingId": {
+   "rejected": true,
+   "how": "ValidationError: missing ids"
+  },
+  "goldValueBottomPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "1-hashes-ids-data": [
+     {
+      "key": "lecture-table-c0-same-same gold vs render r0-value",
+      "mine": null,
+      "recorded": null
+     }
+    ]
+   },
+   "note": "answer box of lecture-table-c0-same-same moved by 1 px"
+  },
+  "k1HitWordsChanged": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-w2-w3-predictions": [
+     {
+      "key": "lecture-table-c0-same-same k1.hitWords",
+      "mine": [
+       0,
+       1
+      ],
+      "recorded": [
+       0
+      ]
+     },
+     {
+      "key": "lecture-table-c0-same-same pred.hitWords",
+      "mine": [
+       0
+      ],
+      "recorded": [
+       0,
+       1
+      ]
+     },
+     {
+      "key": "lecture-table-c0-same-same pred.pad",
+      "mine": 22.1875,
+      "recorded": 21.71875
+     }
+    ],
+    "3-rows": [
+     {
+      "key": "lecture-table-c0-same-same",
+      "mine": [
+       "cutPixels2",
+       "w2"
+      ],
+      "recorded": null
+     }
+    ],
+    "4-summary": [
+     {
+      "key": "groups",
+      "mine": [
+       "total",
+       "cut",
+       "layout",
+       "ans",
+       "dec",
+       "form",
+       "doctype",
+       "qtype",
+       "w3Reason",
+       "source"
+      ],
+      "recorded": null
+     }
+    ],
+    "6-public-tables": [
+     {
+      "key": "area r2 c2",
+      "mine": "27.5517",
+      "recorded": "27.5553"
+     },
+     {
+      "key": "area r3 c2",
+      "mine": "28.7496",
+      "recorded": "28.7534"
+     },
+     {
+      "key": "area r5 c2",
+      "mine": "28.4603",
+      "recorded": "28.4748"
+     }
+    ]
+   },
+   "note": "selection record of lecture-table-c0-same-same"
+  },
+  "publicTableCell": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "6-public-tables": [
+     {
+      "key": "groups r2 c1",
+      "mine": "48",
+      "recorded": "47"
+     }
+    ]
+   },
+   "note": "groups table: total n 48 -> 47"
+  },
+  "uniqueClassChanged": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "lecture-table-c1-same-other",
+      "mine": [
+       "uniqueCandidate"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "uniqueCandidate.class of lecture-table-c1-same-other: target_value changed"
+  }
+ }
+}

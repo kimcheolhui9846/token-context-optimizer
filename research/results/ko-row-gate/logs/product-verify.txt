@@ -1,0 +1,52 @@
+=== npm ci --ignore-scripts
+added 52 packages, and audited 53 packages in 3s
+
+15 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+=== exit 0
+=== npm run build
+> tsc -p tsconfig.json && node scripts/build-bundle.mjs
+
+
+  bin\token-context-optimizer.mjs  1020.8kb
+
+Done in 40ms
+=== exit 0
+=== npm test
+
+ Test Files  60 passed (60)
+      Tests  4639 passed | 5 skipped (4644)
+   Start at  23:51:04
+   Duration  51.39s (transform 7.85s, setup 0ms, import 22.70s, tests 440.05s, environment 8ms)
+
+=== exit 0
+=== npm run typecheck
+
+> token-context-optimizer@0.1.0 typecheck
+> tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json
+
+=== exit 0
+=== npm run smoke:mcp
+
+> token-context-optimizer@0.1.0 smoke:mcp
+> node scripts/smoke-mcp.mjs
+
+mcp smoke ok
+=== exit 0
+=== npm run validate:plugin
+
+> token-context-optimizer@0.1.0 validate:plugin
+> node scripts/validate-plugin.mjs
+
+plugin manifest ok
+=== exit 0
+=== npm run benchmark
+    "arch": "x64",
+    "commitSha": "7fd2f939e3b11d66d0b2988238ae04f110eaec37",
+    "dirty": true
+  },
+  "passed": true
+}
+=== exit 0

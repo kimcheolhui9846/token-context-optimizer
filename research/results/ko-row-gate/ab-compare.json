@@ -1,0 +1,60 @@
+{
+ "version": "ko-row-gate-ab-1",
+ "basis": "both replays read the same frozen OCR; determinism check, not an independent OCR repetition",
+ "reproduced": true,
+ "files": {
+  "replay/predictions.jsonl": {
+   "a": "319913c8ab4f5d49074e7928b2cfebae610d9a575de2a7f595f7cbc6c8df2ed0",
+   "b": "319913c8ab4f5d49074e7928b2cfebae610d9a575de2a7f595f7cbc6c8df2ed0",
+   "sameBytes": true
+  },
+  "replay/inputs.json": {
+   "a": "712fa65ab48d62f33f6b5c9f9c5e546d6fc24dc97404e707cae8846a7d8300fe",
+   "b": "712fa65ab48d62f33f6b5c9f9c5e546d6fc24dc97404e707cae8846a7d8300fe",
+   "sameBytes": true
+  },
+  "replay/freeze.json": {
+   "a": "4a4b4f75e91b8c28fac8561f257da70dc538f3da2eb544257a5f1c86d18b8036",
+   "b": "4a4b4f75e91b8c28fac8561f257da70dc538f3da2eb544257a5f1c86d18b8036",
+   "sameBytes": true
+  },
+  "score/score.jsonl": {
+   "a": "dc38cb796449d5928a17056ef920bf0b5499ff7d2618d03d3311db4820091a03",
+   "b": "dc38cb796449d5928a17056ef920bf0b5499ff7d2618d03d3311db4820091a03",
+   "sameBytes": true
+  },
+  "score/summary.json": {
+   "a": "a9b754fc94271d81f9d9a3f316280098b2bd2a4ed7bceebf955685f08b12a355",
+   "b": "a9b754fc94271d81f9d9a3f316280098b2bd2a4ed7bceebf955685f08b12a355",
+   "sameBytes": true
+  }
+ },
+ "rows": {
+  "replay/predictions.jsonl": {
+   "denominator": 48,
+   "rowsA": 48,
+   "rowsB": 48,
+   "sameRows": 48,
+   "identical": true,
+   "sameOrder": true,
+   "onlyInA": [],
+   "onlyInB": [],
+   "duplicatesInA": [],
+   "duplicatesInB": [],
+   "diffs": []
+  },
+  "score/score.jsonl": {
+   "denominator": 48,
+   "rowsA": 48,
+   "rowsB": 48,
+   "sameRows": 48,
+   "identical": true,
+   "sameOrder": true,
+   "onlyInA": [],
+   "onlyInB": [],
+   "duplicatesInA": [],
+   "duplicatesInB": [],
+   "diffs": []
+  }
+ }
+}

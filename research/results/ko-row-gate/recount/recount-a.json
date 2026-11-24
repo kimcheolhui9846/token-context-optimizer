@@ -1,0 +1,433 @@
+{
+ "version": "ko-row-gate-recount-1",
+ "ok": true,
+ "checks": {
+  "1-hashes-ids-data": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "1b-pairing": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "1c-types-grammar": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "2-k1-w1-w2-w3-predictions": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "2b-replay-inputs": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "3-rows": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "4-summary": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "6-public-tables": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  }
+ },
+ "stages": {
+  "pages": 48,
+  "error": 0,
+  "normal": 48,
+  "unmatched": 0,
+  "k0Matched": 0,
+  "hangulMatched": 48,
+  "w1Reason": {
+   "widened": 46,
+   "notWider": 2,
+   "noCandidate": 0,
+   "k0Branch": 0,
+   "unmatched": 0,
+   "error": 0
+  },
+  "w2Reason": {
+   "inherit": 2,
+   "cut": 46,
+   "noCut": 0,
+   "hitOutside": 0
+  },
+  "w3Reason": {
+   "error": 0,
+   "unmatched": 0,
+   "notApplicable": 2,
+   "qtypeNone": 0,
+   "qtypeMultiple": 0,
+   "noValidHitWord": 0,
+   "noCandidate": 14,
+   "multipleCandidates": 12,
+   "candidateOutsideW2": 0,
+   "applied": 20
+  }
+ },
+ "total": {
+  "n": 48,
+  "error": 0,
+  "unmatched": 0,
+  "matched": 48,
+  "strict": {
+   "w1": 48,
+   "w2": 25,
+   "w3": 38
+  },
+  "fullPage": {
+   "w1": 0,
+   "w2": 0,
+   "w3": 0
+  },
+  "t12": {
+   "recovered": 0,
+   "lost": 23,
+   "keptSuccess": 25,
+   "bothFail": 0
+  },
+  "t13": {
+   "recovered": 0,
+   "lost": 10,
+   "keptSuccess": 38,
+   "bothFail": 0
+  },
+  "recoveredFullPage": {
+   "t12": 0,
+   "t13": 0
+  },
+  "L2": {
+   "count": 23,
+   "denom": 48,
+   "pct": 47.92,
+   "sources": 12
+  },
+  "L3": {
+   "count": 10,
+   "denom": 48,
+   "pct": 20.83,
+   "sources": 10
+  },
+  "prevented": {
+   "count": 13,
+   "of": 23,
+   "sources": 12
+  },
+  "opportunity": {
+   "count": 46,
+   "sources": 12
+  },
+  "event2": {
+   "count": 23,
+   "sources": 12
+  },
+  "event3": {
+   "count": 10,
+   "sources": 10
+  },
+  "keptEvents": {
+   "count": 10,
+   "of": 23
+  },
+  "cut": 46,
+  "applied": 20,
+  "w3Reason": {
+   "error": 0,
+   "unmatched": 0,
+   "not_applicable": 2,
+   "qtype_none": 0,
+   "qtype_multiple": 0,
+   "no_valid_hit_word": 0,
+   "no_candidate": 14,
+   "multiple_candidates": 12,
+   "candidate_outside_w2": 0,
+   "applied": 20
+  },
+  "uniqueClass": {
+   "target_value": 10,
+   "intended_decoy": 10,
+   "other_record_value": 0,
+   "other_or_ambiguous": 0
+  },
+  "uniqueClassApplied": {
+   "target_value": 10,
+   "intended_decoy": 10,
+   "other_record_value": 0,
+   "other_or_ambiguous": 0
+  },
+  "others": {
+   "itemsW1Full": 78,
+   "pagesW1Full": 46,
+   "fromW1Full2": {
+    "full": 0,
+    "partial": 0,
+    "none": 78
+   },
+   "fromW1Full3": {
+    "full": 44,
+    "partial": 0,
+    "none": 34
+   },
+   "pagesW1FullToNone2": 46,
+   "pagesW1FullToNone3": 20,
+   "pagesW1FullToPartial3": 0,
+   "newlyFullW3": 0
+  },
+  "area": {
+   "validPairs": 48,
+   "w2": {
+    "sum": 16252780,
+    "meanPp": 27.5553,
+    "medianPp": 28.1784,
+    "maxPp": 38.9945
+   },
+   "w3": {
+    "sum": 6890414,
+    "meanPp": 11.6822,
+    "medianPp": 0.0,
+    "maxPp": 38.888
+   },
+   "appliedPages": 20,
+   "w3Applied": {
+    "sum": 6890414,
+    "meanPp": 28.0372,
+    "medianPp": 28.1784,
+    "maxPp": 38.888
+   }
+  },
+  "sources": 12,
+  "verdict": {
+   "loss3": "loss",
+   "loss2": "loss",
+   "prevention": "prevented_some",
+   "removal": "observed_repeated_sources"
+  }
+ },
+ "lists": {
+  "t12Lost": [
+   "lecture-table-c0-below-other",
+   "lecture-table-c1-below-same",
+   "lecture-table-c1-below-other",
+   "lecture-cards-c0-below-same",
+   "lecture-cards-c0-below-other",
+   "lecture-cards-c1-below-same",
+   "lecture-cards-c1-below-other",
+   "exhibit-table-c0-below-same",
+   "exhibit-table-c0-below-other",
+   "exhibit-table-c1-below-same",
+   "exhibit-table-c1-below-other",
+   "exhibit-cards-c0-below-same",
+   "exhibit-cards-c0-below-other",
+   "exhibit-cards-c1-below-same",
+   "exhibit-cards-c1-below-other",
+   "meeting-table-c0-below-same",
+   "meeting-table-c0-below-other",
+   "meeting-table-c1-below-same",
+   "meeting-table-c1-below-other",
+   "meeting-cards-c0-below-same",
+   "meeting-cards-c0-below-other",
+   "meeting-cards-c1-below-same",
+   "meeting-cards-c1-below-other"
+  ],
+  "t13Lost": [
+   "lecture-table-c1-below-same",
+   "lecture-cards-c0-below-same",
+   "lecture-cards-c1-below-same",
+   "exhibit-table-c0-below-same",
+   "exhibit-table-c1-below-same",
+   "exhibit-cards-c0-below-same",
+   "exhibit-cards-c1-below-same",
+   "meeting-table-c1-below-same",
+   "meeting-cards-c0-below-same",
+   "meeting-cards-c1-below-same"
+  ],
+  "prevented": [
+   "lecture-table-c0-below-other",
+   "lecture-table-c1-below-other",
+   "lecture-cards-c0-below-other",
+   "lecture-cards-c1-below-other",
+   "exhibit-table-c0-below-other",
+   "exhibit-table-c1-below-other",
+   "exhibit-cards-c0-below-other",
+   "exhibit-cards-c1-below-other",
+   "meeting-table-c0-below-same",
+   "meeting-table-c0-below-other",
+   "meeting-table-c1-below-other",
+   "meeting-cards-c0-below-other",
+   "meeting-cards-c1-below-other"
+  ],
+  "t12Recovered": [],
+  "t13Recovered": [],
+  "applied": [
+   "lecture-table-c1-same-other",
+   "lecture-table-c1-below-same",
+   "lecture-cards-c0-same-other",
+   "lecture-cards-c0-below-same",
+   "lecture-cards-c1-same-other",
+   "lecture-cards-c1-below-same",
+   "exhibit-table-c0-same-other",
+   "exhibit-table-c0-below-same",
+   "exhibit-table-c1-same-other",
+   "exhibit-table-c1-below-same",
+   "exhibit-cards-c0-same-other",
+   "exhibit-cards-c0-below-same",
+   "exhibit-cards-c1-same-other",
+   "exhibit-cards-c1-below-same",
+   "meeting-table-c1-same-other",
+   "meeting-table-c1-below-same",
+   "meeting-cards-c0-same-other",
+   "meeting-cards-c0-below-same",
+   "meeting-cards-c1-same-other",
+   "meeting-cards-c1-below-same"
+  ],
+  "held": [
+   "lecture-table-c0-same-same",
+   "lecture-table-c0-below-other",
+   "lecture-table-c1-same-same",
+   "lecture-table-c1-below-other",
+   "lecture-cards-c0-same-same",
+   "lecture-cards-c0-below-other",
+   "lecture-cards-c1-same-same",
+   "lecture-cards-c1-below-other",
+   "exhibit-table-c0-same-same",
+   "exhibit-table-c0-below-other",
+   "exhibit-table-c1-same-same",
+   "exhibit-table-c1-below-other",
+   "exhibit-cards-c0-same-same",
+   "exhibit-cards-c0-below-other",
+   "exhibit-cards-c1-same-same",
+   "exhibit-cards-c1-below-other",
+   "meeting-table-c0-same-same",
+   "meeting-table-c0-same-other",
+   "meeting-table-c0-below-same",
+   "meeting-table-c0-below-other",
+   "meeting-table-c1-same-same",
+   "meeting-table-c1-below-other",
+   "meeting-cards-c0-same-same",
+   "meeting-cards-c0-below-other",
+   "meeting-cards-c1-same-same",
+   "meeting-cards-c1-below-other"
+  ],
+  "opportunity": [
+   "lecture-table-c0-same-same",
+   "lecture-table-c0-below-other",
+   "lecture-table-c1-same-same",
+   "lecture-table-c1-same-other",
+   "lecture-table-c1-below-same",
+   "lecture-table-c1-below-other",
+   "lecture-cards-c0-same-same",
+   "lecture-cards-c0-same-other",
+   "lecture-cards-c0-below-same",
+   "lecture-cards-c0-below-other",
+   "lecture-cards-c1-same-same",
+   "lecture-cards-c1-same-other",
+   "lecture-cards-c1-below-same",
+   "lecture-cards-c1-below-other",
+   "exhibit-table-c0-same-same",
+   "exhibit-table-c0-same-other",
+   "exhibit-table-c0-below-same",
+   "exhibit-table-c0-below-other",
+   "exhibit-table-c1-same-same",
+   "exhibit-table-c1-same-other",
+   "exhibit-table-c1-below-same",
+   "exhibit-table-c1-below-other",
+   "exhibit-cards-c0-same-same",
+   "exhibit-cards-c0-same-other",
+   "exhibit-cards-c0-below-same",
+   "exhibit-cards-c0-below-other",
+   "exhibit-cards-c1-same-same",
+   "exhibit-cards-c1-same-other",
+   "exhibit-cards-c1-below-same",
+   "exhibit-cards-c1-below-other",
+   "meeting-table-c0-same-same",
+   "meeting-table-c0-same-other",
+   "meeting-table-c0-below-same",
+   "meeting-table-c0-below-other",
+   "meeting-table-c1-same-same",
+   "meeting-table-c1-same-other",
+   "meeting-table-c1-below-same",
+   "meeting-table-c1-below-other",
+   "meeting-cards-c0-same-same",
+   "meeting-cards-c0-same-other",
+   "meeting-cards-c0-below-same",
+   "meeting-cards-c0-below-other",
+   "meeting-cards-c1-same-same",
+   "meeting-cards-c1-same-other",
+   "meeting-cards-c1-below-same",
+   "meeting-cards-c1-below-other"
+  ],
+  "event2": [
+   "lecture-table-c0-same-same",
+   "lecture-table-c1-same-same",
+   "lecture-table-c1-same-other",
+   "lecture-cards-c0-same-same",
+   "lecture-cards-c0-same-other",
+   "lecture-cards-c1-same-same",
+   "lecture-cards-c1-same-other",
+   "exhibit-table-c0-same-same",
+   "exhibit-table-c0-same-other",
+   "exhibit-table-c1-same-same",
+   "exhibit-table-c1-same-other",
+   "exhibit-cards-c0-same-same",
+   "exhibit-cards-c0-same-other",
+   "exhibit-cards-c1-same-same",
+   "exhibit-cards-c1-same-other",
+   "meeting-table-c0-same-same",
+   "meeting-table-c0-same-other",
+   "meeting-table-c1-same-same",
+   "meeting-table-c1-same-other",
+   "meeting-cards-c0-same-same",
+   "meeting-cards-c0-same-other",
+   "meeting-cards-c1-same-same",
+   "meeting-cards-c1-same-other"
+  ],
+  "event3": [
+   "lecture-table-c1-same-other",
+   "lecture-cards-c0-same-other",
+   "lecture-cards-c1-same-other",
+   "exhibit-table-c0-same-other",
+   "exhibit-table-c1-same-other",
+   "exhibit-cards-c0-same-other",
+   "exhibit-cards-c1-same-other",
+   "meeting-table-c1-same-other",
+   "meeting-cards-c0-same-other",
+   "meeting-cards-c1-same-other"
+  ],
+  "uniqueWrong": [
+   "lecture-table-c1-below-same",
+   "lecture-cards-c0-below-same",
+   "lecture-cards-c1-below-same",
+   "exhibit-table-c0-below-same",
+   "exhibit-table-c1-below-same",
+   "exhibit-cards-c0-below-same",
+   "exhibit-cards-c1-below-same",
+   "meeting-table-c1-below-same",
+   "meeting-cards-c0-below-same",
+   "meeting-cards-c1-below-same"
+  ],
+  "errors": [],
+  "unmatched": []
+ },
+ "invariants": {
+  "checked": 48,
+  "w3InW1W2": 48,
+  "nested": 48,
+  "lost3SubsetLost2": true,
+  "events3SubsetEvents2": true,
+  "newlyFullW3": 0,
+  "newEvidenceW3": 0,
+  "recoveredNotFullPage": 0
+ }
+}
