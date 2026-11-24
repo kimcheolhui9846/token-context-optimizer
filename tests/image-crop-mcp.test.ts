@@ -139,7 +139,7 @@ describe("crop_image_artifact MCP contract", () => {
           expect(actual).toEqual({
             ...expected,
             description:
-              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
+              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB and PNG color metadata is not applied. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
             outputSchema: withTolerantSchema(expected.outputSchema),
           });
         } else {
@@ -148,7 +148,7 @@ describe("crop_image_artifact MCP contract", () => {
       }
       const crop = tools.find((tool) => tool.name === "crop_image_artifact");
       expect(crop.description).toBe(
-        "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
+        "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB and PNG color metadata is not applied. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
       );
       expect(crop.description).toMatch(/caller.*region/i);
       expect(crop.description).toMatch(/overview/i);
@@ -159,7 +159,7 @@ describe("crop_image_artifact MCP contract", () => {
       expect(overview).toMatchObject({
         name: "overview_image_artifact",
         description:
-          "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+          "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG as a quality-75 JPEG. PNG color metadata is not applied. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
         inputSchema: {
           additionalProperties: false,
           required: ["artifactId"],

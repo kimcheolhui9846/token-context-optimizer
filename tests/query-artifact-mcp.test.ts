@@ -77,7 +77,7 @@ describe("query_artifact MCP contract", () => {
           expect(actual).toEqual({
             ...expected,
             description:
-              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
+              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB and PNG color metadata is not applied. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
             outputSchema: withTolerantSchema(expected.outputSchema),
           });
         } else {
