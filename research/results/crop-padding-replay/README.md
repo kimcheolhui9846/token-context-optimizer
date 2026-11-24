@@ -12,7 +12,8 @@
 | `run-a/conditions.jsonl` | p마다 호출 기록: 요청/응답/알림 수, 도구 목록, 종료 코드, stderr 해시 |
 | `run-a/input-check.json` | 실행 전 검산: 동결 입력 대조, ID별 원본 SHA·freeze manifest 일치·치수·의도 |
 | `run-{a,b}/evidence.json` | 위 세 파일의 SHA-256. A·B가 같다 |
-| `run-{a,b}/run-meta.json` | 시각·소요 시간·Node·sharp·실행 코드 커밋·번들 작업 사본 해시(비결정적) |
+| `run-{a,b}/run-meta.json` | 시각·소요 시간·Node·sharp·실행 코드 커밋·번들 작업 사본 해시(비결정적). 원래 실행의 `runnerTreeClean`은 잘못된 경로를 검사해 증거가 아니다(RESULTS §6) |
+| `rerun-pmfix/` | PM 검토 수정 코드(`960b451`) 재실행: A·B `run-meta.json`(실행 전 코드 상태 `runCodeCheckedBeforeMeasurement`), 원래 파일과의 해시 대조 `comparison.json`(모두 동일) |
 | `score-a/` | `score.json`(행별 판정·면적, p별 집계, #141 재생 대조), `summary.md` |
 | `recount/recount.json` | Python 독립 검산 |
 | `guard-summary.json` | 오프라인 가드 이벤트 수(실행마다 5, 차단 0) |
@@ -59,6 +60,7 @@ cmp -s $O/recount.json $H/recount/recount.json && echo "same recount"
 ```
 
 - 실행기는 다음 중 하나라도 실패하면 번들을 띄우기 전에 멈춘다
+  - 불러오는 연구 모듈 5개 중 하나라도 추적되지 않았거나 HEAD blob과 다름(측정이 아닌 점검만 `--allow-dirty-code`)
   - 오프라인 가드 없음, 번들·동결 라이브러리 blob 불일치
   - 입력 폴더 허용 목록(`assignment.json`, `questions.json`, `images/original/`) 밖의 항목, 채점 입력처럼 보이는 이름
   - `verifyFrozenInputs`(배정·투영·질문·원본 SHA 표), 원본 SHA의 R09 freeze manifest 개별 대조, 원바이트 SHA, IHDR, ID 48·쌍 24·언어×앵커 12씩·매치 36/미매치 12, 좌표 범위

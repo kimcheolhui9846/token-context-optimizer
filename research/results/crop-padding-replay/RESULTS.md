@@ -56,5 +56,13 @@
 - 조건마다 MCP 요청 98 = 응답 98(initialize 1, tools/list 1, tools/call 96), 알림 1, 종료 코드 0
 - 입력: #141 준비기로 새로 만든 입력이 로컬 #141 입력 폴더와 원본 48장·원본 SHA 표·배정·질문 모두 바이트 단위로 같았다. `prepare-report.json`은 #141의 것과 같은 준비기 출력이다
 - Python 독립 검산: [`recount/recount.json`](recount/recount.json). 192행, 검사 7,356건, 불일치 0. 요청 좌표는 R09 선택 기록 blob에서 다시 투영해 계산했다. 검산기는 채점기 코드를 보지 않은 별도 작성 주체(하위 에이전트, 자기 보고 `claude-sonnet-5-5`)가 명세만 받고 썼다. 그 뒤 채점기 작성자(메인)가 비교를 더 엄격하게 만드는 수정 2건을 했다(gold SHA 동등 비교, 평가 불가 행의 `missing` null 대조). 검산기는 채점기를 import하지 않는다
-- 검산기 범위: #141 RGB manifest 치수·파생 출처, gold 입력 오류, `validationProfile`은 채점기만 확인한다(프로토콜 §9 검산기 입력 밖)
+- 검산기 범위: #141 RGB manifest 치수·파생 출처와 gold 입력 오류는 채점기만 확인한다(프로토콜 §9 검산기 입력 밖)
+- 색인 검증 프로필: 원래 실행(`613e20c`)의 실행기는 `validationProfile`을 기록만 했고, 채점기도 판정 조건으로 쓰지 않았다. 원자료 192/192가 `png-gray8-tolerant-v1`이었다(PM·Opus 각각 직접 대조). PM 검토 뒤 실행기가 색인 응답의 프로필이 이 값이 아니면 그 행을 `validation_profile_mismatch`로 실패시킨다(`960b451`)
+
+## 6. 실행 코드 상태 증거 (PM 검토 Major 1)
+
+- 원래 A·B의 `run-meta.json`(`runnerCommit 613e20c`)에 있는 `runnerTreeClean: true`는 **실행 당시 코드 상태의 증거가 아니다.** 실행기가 `research/src`에서 `git status --porcelain -- src`를 실행해 존재하지 않는 `research/src/src`를 검사했다. 실제 임시 Git 저장소에서 추적 파일을 바꿔도 이 명령은 빈 문자열을 돌려줌을 테스트로 재현했다(`d1a4cb8`). 또 측정이 끝난 뒤 검사했다. 원래 기록은 그대로 보존한다
+- 수정(`960b451`): 실행기는 입력을 읽거나 서버를 띄우기 전에, 자신이 실제로 불러오는 모듈 5개(`research/src/{crop-padding-replay-run,crop-padding-replay-lib,crop-padding-replay-client,mcp-view-comparison-lib,mcp-view-comparison-client}.mjs`)마다 HEAD blob·작업 사본 blob(`git hash-object`)·`git status --porcelain`을 기록하고, 하나라도 추적되지 않았거나 다르면 측정을 시작하지 않는다. 검사 범위는 이 5개뿐이다(번들·동결 라이브러리 blob은 따로 확인한다). `run-meta.json`의 `runCodeCheckedBeforeMeasurement`에 있다. 수정 전 코드로 바뀐 작업 사본에서 실행하면 실제로 거부됨을 확인했다
+- 수정 코드 재실행(`rerun-pmfix/`, 코드 `960b451`, 두 실행 모두 `clean: true`): 새로 만든 준비 리포트, A·B의 결정적 출력 3개, 증거, 채점 2개, 검산 결과가 원래 커밋된 파일과 모두 바이트 동일했다(`rerun-pmfix/comparison.json`). 가드 5, 차단 0
+- 따라서 원래 측정값은 **수정된 코드로 같은 바이트가 재현된다**는 근거가 있다. 원래 실행 시점에 코드가 바뀌지 않았다는 직접 증거는 원래 플래그로는 없다. 원래 사전등록(`c636f69`)과 실측 날짜(2026-11-24, `5f40f1a`)는 바꾸지 않는다
 - 연구 테스트 `test/crop-padding-replay.test.mjs` 28개(손계산 사례, RED `6414031` → GREEN `613e20c`)

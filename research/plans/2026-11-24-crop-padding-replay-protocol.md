@@ -95,7 +95,7 @@
 | 전체 페이지 | `isError = false`, `status = original`, `fullFrame = true`, 이미지 항목 0, `region`이 요청과 같음, `source.sha256` 일치, 응답 `source.path`를 허용 루트 안에서 실제로 다시 열어 원본 SHA 일치(#141 `verifyOriginalRef`) | `original_verified` |
 | 부분 | `isError = false`, `status = cropped`, `fullFrame = false`, 이미지 항목 정확히 1, MIME `image/jpeg`, base64 바이트 길이 = `output.byteLength`, 바이트 SHA-256 = `output.sha256`, `sharp` 독립 디코드 치수 = `output` 치수 = 요청 치수, `region` = 요청, `source.sha256` 일치 | `crop_jpeg` |
 
-- 색인 응답은 `source.sha256`·치수가 원본과 같고 `validationProfile`을 기록한다
+- 색인 응답은 `source.sha256`·치수가 원본과 같고 `validationProfile`을 기록한다. PM 검토 뒤 추가(§15): `validationProfile`이 `png-gray8-tolerant-v1`이 아니면 `validation_profile_mismatch`로 실패다
 - 그 밖의 응답은 실패다. 실패 코드 예: `kind_invalid`, `image_count`, `crop_mime`, `crop_byte_length`, `crop_image_sha_mismatch`, `crop_decode_failed`, `crop_size_mismatch`, `crop_region_mismatch`, `source_sha_mismatch`, `source_dims_mismatch`, 원본 열기 코드(`ref_*`, `sha_mismatch`), 도구 오류 코드, `timeout`
 - 한도 오류: 응답이 `status = rejected`이고 제품 코드가 `resize_required`이면 `failCode = limit_exceeded`, `productCode = resize_required`로 남긴다. 제품은 전체 페이지 검사를 한도 검사보다 먼저 한다
 
@@ -212,4 +212,8 @@ outcome: ok|failed, failStage, failCode
 - 측정 뒤 기록(사후, 독립 Opus 마일스톤 검토 반영. 코드·측정값·판정 규칙 변경 없음)
   - §10.2의 "근거 상자가 페이지 경계에 맞닿는지" 행별 필드는 채점 출력에 구현되지 않았다. 대신 gold blob `5d6c277`의 근거 상자 96개 중 페이지 경계에 맞닿는 상자가 0개임을 직접 셌다(검토자도 독립으로 0개 확인). 따라서 이번 판정에서 페이지 경계 클리핑이 근거를 잘라낸 경우는 없다. 요청 클리핑은 `raw.jsonl`의 `clip`에 있다
   - 원본 참조 열기에 실패한 행은 최종 반환 종류가 `original_unverified`가 아니라 `none`으로 남는다(코드 `crop-padding-replay-lib.mjs`). 판정은 어느 쪽이든 평가 불가이고, 이번 실행에서 0건이다. 다음 연구에서 정리한다
+  - PM 검토(CHANGES REQUIRED, Major 1·Minor 1) 반영. 판정·집계 규칙과 원래 측정값은 바꾸지 않았다
+    - Major 1: 원래 `run-meta.json`의 `runnerTreeClean`은 `research/src/src`를 측정 뒤에 검사해 증거가 아니다. 실행기는 이제 측정 전에 자신이 불러오는 모듈 5개의 HEAD·작업 blob과 상태를 기록하고, 다르면 측정을 시작하지 않는다(RED `d1a4cb8` → `960b451`)
+    - Minor 1: §7.1 유효 응답에 색인 `validationProfile = png-gray8-tolerant-v1`을 추가했다. 다르면 `validation_profile_mismatch`로 실패다. 원래 192행은 모두 이 값이었다
+    - 수정 코드로 A·B를 다시 실행해 원래 결정적 출력·채점·검산과 바이트 동일함을 확인했다(`results/crop-padding-replay/rerun-pmfix/`)
   - 로컬 #141 입력 폴더와의 바이트 대조(원본 48장·SHA 표·배정·질문 동일)는 실행 시 `cmp`로 확인했고 로그는 커밋하지 않았다(로컬 절대경로). 재현 가능한 근거는 `prepare-report.json`이 #141과 바이트 동일하다는 점이다
