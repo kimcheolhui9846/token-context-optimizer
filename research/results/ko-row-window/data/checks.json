@@ -1,0 +1,924 @@
+{
+ "version": "ko-row-window-checks-1",
+ "ok": true,
+ "problems": [],
+ "pages": 48,
+ "grid": {
+  "doctype": {
+   "exhibit": 16,
+   "costume": 16,
+   "lostfound": 16
+  },
+  "form": {
+   "table": 24,
+   "cards": 24
+  },
+  "vert": {
+   "inline": 24,
+   "stacked": 24
+  },
+  "gap": {
+   "near": 24,
+   "far": 24
+  }
+ },
+ "renderFailedImages": 0,
+ "inkGap": {
+  "nearMin": 106,
+  "nearMax": 153,
+  "farMin": 517,
+  "farMax": 543
+ },
+ "earlier": {
+  "counts": {
+   "r09-heldout": 48,
+   "r09-dev": 4,
+   "fcp": 48,
+   "ko-ocr-holdout-148": 96
+  },
+  "comparedPages": 196,
+  "imageOverlap": [],
+  "questionOverlap": [],
+  "cohort149": {
+   "pages": 24,
+   "imageOverlap": 0,
+   "questionOverlap": 0
+  }
+ },
+ "uniqueness": {
+  "pngSha256": 48,
+  "normalizedQuestions": 48
+ },
+ "hashes": {
+  "questions.json": "01451255bc8e9b9b707cfdc89baf84b1573a19e93146b7dfdd618197197dd0d8",
+  "gold.json": "91f6c1a4de569b9faca17101c84345d58983c90b5cc38f5e43073a9797650715",
+  "design.json": "c28af7c8cc1bb31dd56e4310974e7668ab9bfe3db6253b90f39bca16641cbf8c",
+  "answers": "c814d19cb879073f5c5421a2ab97b42aa24b7d801dc4fa9c5dac254c3520e820"
+ },
+ "inkRows": [
+  {
+   "id": "exhibit-table-inline-near-c0",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 150,
+   "labelInk": [
+    53,
+    169,
+    194,
+    192
+   ],
+   "valueInk": [
+    344,
+    172,
+    418,
+    190
+   ]
+  },
+  {
+   "id": "exhibit-table-inline-near-c1",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 150,
+   "labelInk": [
+    52,
+    225,
+    194,
+    249
+   ],
+   "valueInk": [
+    344,
+    228,
+    418,
+    246
+   ]
+  },
+  {
+   "id": "exhibit-table-inline-far-c0",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 518,
+   "labelInk": [
+    53,
+    282,
+    216,
+    304
+   ],
+   "valueInk": [
+    734,
+    284,
+    808,
+    302
+   ]
+  },
+  {
+   "id": "exhibit-table-inline-far-c1",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 542,
+   "labelInk": [
+    53,
+    338,
+    192,
+    360
+   ],
+   "valueInk": [
+    734,
+    340,
+    808,
+    358
+   ]
+  },
+  {
+   "id": "exhibit-table-stacked-near-c0",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 148,
+   "labelInk": [
+    52,
+    170,
+    194,
+    192
+   ],
+   "valueInk": [
+    342,
+    212,
+    418,
+    230
+   ]
+  },
+  {
+   "id": "exhibit-table-stacked-near-c1",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 150,
+   "labelInk": [
+    53,
+    265,
+    194,
+    288
+   ],
+   "valueInk": [
+    344,
+    308,
+    418,
+    326
+   ]
+  },
+  {
+   "id": "exhibit-table-stacked-far-c0",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 541,
+   "labelInk": [
+    53,
+    362,
+    193,
+    384
+   ],
+   "valueInk": [
+    734,
+    404,
+    808,
+    422
+   ]
+  },
+  {
+   "id": "exhibit-table-stacked-far-c1",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 540,
+   "labelInk": [
+    54,
+    458,
+    194,
+    480
+   ],
+   "valueInk": [
+    734,
+    500,
+    808,
+    518
+   ]
+  },
+  {
+   "id": "exhibit-cards-inline-near-c0",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 148,
+   "labelInk": [
+    52,
+    172,
+    194,
+    194
+   ],
+   "valueInk": [
+    342,
+    174,
+    418,
+    192
+   ]
+  },
+  {
+   "id": "exhibit-cards-inline-near-c1",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 152,
+   "labelInk": [
+    53,
+    359,
+    192,
+    382
+   ],
+   "valueInk": [
+    344,
+    362,
+    418,
+    380
+   ]
+  },
+  {
+   "id": "exhibit-cards-inline-far-c0",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 517,
+   "labelInk": [
+    54,
+    172,
+    215,
+    194
+   ],
+   "valueInk": [
+    732,
+    174,
+    808,
+    192
+   ]
+  },
+  {
+   "id": "exhibit-cards-inline-far-c1",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 518,
+   "labelInk": [
+    53,
+    360,
+    214,
+    382
+   ],
+   "valueInk": [
+    732,
+    362,
+    808,
+    380
+   ]
+  },
+  {
+   "id": "exhibit-cards-stacked-near-c0",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 130,
+   "labelInk": [
+    54,
+    172,
+    214,
+    194
+   ],
+   "valueInk": [
+    344,
+    214,
+    418,
+    232
+   ]
+  },
+  {
+   "id": "exhibit-cards-stacked-near-c1",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 127,
+   "labelInk": [
+    53,
+    399,
+    215,
+    422
+   ],
+   "valueInk": [
+    342,
+    442,
+    418,
+    460
+   ]
+  },
+  {
+   "id": "exhibit-cards-stacked-far-c0",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 540,
+   "labelInk": [
+    53,
+    172,
+    194,
+    194
+   ],
+   "valueInk": [
+    734,
+    214,
+    808,
+    232
+   ]
+  },
+  {
+   "id": "exhibit-cards-stacked-far-c1",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 521,
+   "labelInk": [
+    53,
+    400,
+    213,
+    422
+   ],
+   "valueInk": [
+    734,
+    442,
+    808,
+    460
+   ]
+  },
+  {
+   "id": "costume-table-inline-near-c0",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 127,
+   "labelInk": [
+    52,
+    225,
+    215,
+    248
+   ],
+   "valueInk": [
+    342,
+    226,
+    428,
+    248
+   ]
+  },
+  {
+   "id": "costume-table-inline-near-c1",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 151,
+   "labelInk": [
+    53,
+    282,
+    193,
+    304
+   ],
+   "valueInk": [
+    344,
+    282,
+    428,
+    304
+   ]
+  },
+  {
+   "id": "costume-table-inline-far-c0",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 521,
+   "labelInk": [
+    53,
+    338,
+    213,
+    360
+   ],
+   "valueInk": [
+    734,
+    338,
+    831,
+    360
+   ]
+  },
+  {
+   "id": "costume-table-inline-far-c1",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 519,
+   "labelInk": [
+    54,
+    169,
+    215,
+    192
+   ],
+   "valueInk": [
+    734,
+    170,
+    831,
+    192
+   ]
+  },
+  {
+   "id": "costume-table-stacked-near-c0",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 152,
+   "labelInk": [
+    54,
+    266,
+    191,
+    289
+   ],
+   "valueInk": [
+    343,
+    306,
+    428,
+    328
+   ]
+  },
+  {
+   "id": "costume-table-stacked-near-c1",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 149,
+   "labelInk": [
+    52,
+    361,
+    194,
+    384
+   ],
+   "valueInk": [
+    343,
+    402,
+    428,
+    424
+   ]
+  },
+  {
+   "id": "costume-table-stacked-far-c0",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 540,
+   "labelInk": [
+    54,
+    458,
+    193,
+    480
+   ],
+   "valueInk": [
+    733,
+    498,
+    818,
+    520
+   ]
+  },
+  {
+   "id": "costume-table-stacked-far-c1",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 540,
+   "labelInk": [
+    53,
+    170,
+    193,
+    192
+   ],
+   "valueInk": [
+    733,
+    210,
+    818,
+    232
+   ]
+  },
+  {
+   "id": "costume-cards-inline-near-c0",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 151,
+   "labelInk": [
+    53,
+    359,
+    191,
+    382
+   ],
+   "valueInk": [
+    342,
+    360,
+    428,
+    382
+   ]
+  },
+  {
+   "id": "costume-cards-inline-near-c1",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 127,
+   "labelInk": [
+    52,
+    172,
+    216,
+    194
+   ],
+   "valueInk": [
+    343,
+    172,
+    428,
+    194
+   ]
+  },
+  {
+   "id": "costume-cards-inline-far-c0",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 538,
+   "labelInk": [
+    53,
+    360,
+    194,
+    382
+   ],
+   "valueInk": [
+    732,
+    360,
+    818,
+    382
+   ]
+  },
+  {
+   "id": "costume-cards-inline-far-c1",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 519,
+   "labelInk": [
+    53,
+    171,
+    213,
+    194
+   ],
+   "valueInk": [
+    732,
+    172,
+    818,
+    194
+   ]
+  },
+  {
+   "id": "costume-cards-stacked-near-c0",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 127,
+   "labelInk": [
+    52,
+    399,
+    215,
+    422
+   ],
+   "valueInk": [
+    342,
+    440,
+    415,
+    462
+   ]
+  },
+  {
+   "id": "costume-cards-stacked-near-c1",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 128,
+   "labelInk": [
+    53,
+    172,
+    215,
+    194
+   ],
+   "valueInk": [
+    343,
+    212,
+    428,
+    234
+   ]
+  },
+  {
+   "id": "costume-cards-stacked-far-c0",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 517,
+   "labelInk": [
+    53,
+    399,
+    216,
+    422
+   ],
+   "valueInk": [
+    733,
+    440,
+    818,
+    462
+   ]
+  },
+  {
+   "id": "costume-cards-stacked-far-c1",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 517,
+   "labelInk": [
+    53,
+    171,
+    215,
+    194
+   ],
+   "valueInk": [
+    732,
+    212,
+    818,
+    234
+   ]
+  },
+  {
+   "id": "lostfound-table-inline-near-c0",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 150,
+   "labelInk": [
+    53,
+    282,
+    194,
+    304
+   ],
+   "valueInk": [
+    344,
+    282,
+    428,
+    304
+   ]
+  },
+  {
+   "id": "lostfound-table-inline-near-c1",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 153,
+   "labelInk": [
+    53,
+    338,
+    191,
+    360
+   ],
+   "valueInk": [
+    344,
+    338,
+    431,
+    360
+   ]
+  },
+  {
+   "id": "lostfound-table-inline-far-c0",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 543,
+   "labelInk": [
+    53,
+    170,
+    191,
+    192
+   ],
+   "valueInk": [
+    734,
+    170,
+    818,
+    192
+   ]
+  },
+  {
+   "id": "lostfound-table-inline-far-c1",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 540,
+   "labelInk": [
+    53,
+    225,
+    194,
+    248
+   ],
+   "valueInk": [
+    734,
+    226,
+    807,
+    248
+   ]
+  },
+  {
+   "id": "lostfound-table-stacked-near-c0",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 151,
+   "labelInk": [
+    53,
+    361,
+    193,
+    384
+   ],
+   "valueInk": [
+    344,
+    402,
+    417,
+    424
+   ]
+  },
+  {
+   "id": "lostfound-table-stacked-near-c1",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 129,
+   "labelInk": [
+    52,
+    458,
+    215,
+    480
+   ],
+   "valueInk": [
+    344,
+    498,
+    429,
+    520
+   ]
+  },
+  {
+   "id": "lostfound-table-stacked-far-c0",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 542,
+   "labelInk": [
+    54,
+    170,
+    192,
+    192
+   ],
+   "valueInk": [
+    734,
+    210,
+    818,
+    232
+   ]
+  },
+  {
+   "id": "lostfound-table-stacked-far-c1",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 542,
+   "labelInk": [
+    53,
+    265,
+    191,
+    288
+   ],
+   "valueInk": [
+    733,
+    306,
+    807,
+    328
+   ]
+  },
+  {
+   "id": "lostfound-cards-inline-near-c0",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 153,
+   "labelInk": [
+    53,
+    171,
+    191,
+    194
+   ],
+   "valueInk": [
+    344,
+    172,
+    430,
+    194
+   ]
+  },
+  {
+   "id": "lostfound-cards-inline-near-c1",
+   "vert": "inline",
+   "gap": "near",
+   "inkGap": 149,
+   "labelInk": [
+    54,
+    359,
+    194,
+    382
+   ],
+   "valueInk": [
+    343,
+    360,
+    430,
+    382
+   ]
+  },
+  {
+   "id": "lostfound-cards-inline-far-c0",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 521,
+   "labelInk": [
+    53,
+    171,
+    213,
+    194
+   ],
+   "valueInk": [
+    734,
+    172,
+    818,
+    194
+   ]
+  },
+  {
+   "id": "lostfound-cards-inline-far-c1",
+   "vert": "inline",
+   "gap": "far",
+   "inkGap": 521,
+   "labelInk": [
+    53,
+    360,
+    213,
+    382
+   ],
+   "valueInk": [
+    734,
+    360,
+    819,
+    382
+   ]
+  },
+  {
+   "id": "lostfound-cards-stacked-near-c0",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 129,
+   "labelInk": [
+    53,
+    171,
+    215,
+    194
+   ],
+   "valueInk": [
+    344,
+    212,
+    415,
+    234
+   ]
+  },
+  {
+   "id": "lostfound-cards-stacked-near-c1",
+   "vert": "stacked",
+   "gap": "near",
+   "inkGap": 106,
+   "labelInk": [
+    53,
+    399,
+    237,
+    422
+   ],
+   "valueInk": [
+    343,
+    440,
+    430,
+    462
+   ]
+  },
+  {
+   "id": "lostfound-cards-stacked-far-c0",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 521,
+   "labelInk": [
+    54,
+    172,
+    213,
+    194
+   ],
+   "valueInk": [
+    734,
+    212,
+    819,
+    234
+   ]
+  },
+  {
+   "id": "lostfound-cards-stacked-far-c1",
+   "vert": "stacked",
+   "gap": "far",
+   "inkGap": 519,
+   "labelInk": [
+    52,
+    400,
+    215,
+    422
+   ],
+   "valueInk": [
+    734,
+    440,
+    818,
+    462
+   ]
+  }
+ ]
+}

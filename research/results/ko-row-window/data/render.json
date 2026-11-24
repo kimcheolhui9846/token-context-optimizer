@@ -1,0 +1,6633 @@
+{
+ "design": "ko-row-window-design-1",
+ "set": "ko-row-window",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "images": {
+  "exhibit-table-inline-near-c0": {
+   "file": "exhibit-table-inline-near-c0.png",
+   "sha256": "d6758b59e07987e32dab4964f210a72220edf08ea64a652d81e46fa7e042b7e5",
+   "bytes": 17184,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      194,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      172,
+      418,
+      190
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      225,
+      192,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      228,
+      418,
+      246
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1143,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      282,
+      214,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      342,
+      284,
+      418,
+      302
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      281,
+      1152,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      194,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      340,
+      418,
+      358
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1153,
+      360
+     ]
+    }
+   }
+  },
+  "exhibit-table-inline-near-c1": {
+   "file": "exhibit-table-inline-near-c1.png",
+   "sha256": "f3c9d795068712642cd0859fceef58c5e2be7c1f603535f9a3d6320421668bbb",
+   "bytes": 16806,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      170,
+      237,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      172,
+      418,
+      190
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      225,
+      194,
+      249
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      228,
+      418,
+      246
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1143,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      216,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      342,
+      284,
+      418,
+      302
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      281,
+      1153,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      193,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      340,
+      418,
+      358
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1145,
+      360
+     ]
+    }
+   }
+  },
+  "exhibit-table-inline-far-c0": {
+   "file": "exhibit-table-inline-far-c0.png",
+   "sha256": "fb757dbd291d634bda210d711342b647738c97056d52d2a17592d8d163b5c19a",
+   "bytes": 16439,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      193,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      172,
+      808,
+      190
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      226,
+      193,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      228,
+      808,
+      246
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1143,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      216,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      284,
+      808,
+      302
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      281,
+      1153,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      52,
+      338,
+      194,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      340,
+      808,
+      358
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1152,
+      360
+     ]
+    }
+   }
+  },
+  "exhibit-table-inline-far-c1": {
+   "file": "exhibit-table-inline-far-c1.png",
+   "sha256": "158d57ea6813b932007db3462fe4cae6515d21187a77c7c45f76629c8af8babe",
+   "bytes": 17256,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      192,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      172,
+      808,
+      190
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      226,
+      193,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      228,
+      808,
+      246
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1143,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      213,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      284,
+      808,
+      302
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      281,
+      1153,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      338,
+      192,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      340,
+      808,
+      358
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1145,
+      360
+     ]
+    }
+   }
+  },
+  "exhibit-table-stacked-near-c0": {
+   "file": "exhibit-table-stacked-near-c0.png",
+   "sha256": "59e07a1b9c089e6ea8a5212b9f6bde629b65e6718183b66a3c9bbafc9156e7be",
+   "bytes": 17056,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      194,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      342,
+      212,
+      418,
+      230
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      266,
+      192,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      308,
+      418,
+      326
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      266,
+      1143,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      361,
+      194,
+      385
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      342,
+      404,
+      418,
+      422
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      362,
+      1152,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      458,
+      237,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      500,
+      418,
+      518
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      457,
+      1152,
+      480
+     ]
+    }
+   }
+  },
+  "exhibit-table-stacked-near-c1": {
+   "file": "exhibit-table-stacked-near-c1.png",
+   "sha256": "b3df1e7ab086fe49f409c242f0bf4f6f9156614f2869d01365200736fceafc77",
+   "bytes": 17249,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      192,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      342,
+      212,
+      418,
+      230
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      170,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      194,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      308,
+      418,
+      326
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      266,
+      1153,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      361,
+      194,
+      385
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      344,
+      404,
+      418,
+      422
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      362,
+      1143,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      52,
+      458,
+      194,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      342,
+      500,
+      418,
+      518
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      457,
+      1153,
+      480
+     ]
+    }
+   }
+  },
+  "exhibit-table-stacked-far-c0": {
+   "file": "exhibit-table-stacked-far-c0.png",
+   "sha256": "1c395f28892e03b2d67d081d00ddb40500dae875afb97bb75597e4bf6c3c906c",
+   "bytes": 16710,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      216,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      212,
+      808,
+      230
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1145,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      194,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      308,
+      808,
+      326
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      265,
+      1152,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      362,
+      193,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      404,
+      808,
+      422
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      362,
+      1152,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      458,
+      213,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      500,
+      808,
+      518
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      457,
+      1152,
+      480
+     ]
+    }
+   }
+  },
+  "exhibit-table-stacked-far-c1": {
+   "file": "exhibit-table-stacked-far-c1.png",
+   "sha256": "b14aea4095802782b4f841f7eb9bcf64d604b32c111157a35bb7850051982126",
+   "bytes": 17311,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      212,
+      808,
+      230
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      216,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      308,
+      808,
+      326
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      266,
+      1152,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      192,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      404,
+      808,
+      422
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      362,
+      1143,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      458,
+      194,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      500,
+      808,
+      518
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      457,
+      1145,
+      480
+     ]
+    }
+   }
+  },
+  "exhibit-cards-inline-near-c0": {
+   "file": "exhibit-cards-inline-near-c0.png",
+   "sha256": "38fea8028a48172f0dcd4b1579a4f0106360b99cd59d388f04eb0b597ab49d78",
+   "bytes": 14651,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      172,
+      194,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      342,
+      174,
+      418,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1153,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      312,
+      432,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      213,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      362,
+      418,
+      380
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      359,
+      1153,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "exhibit-cards-inline-near-c1": {
+   "file": "exhibit-cards-inline-near-c1.png",
+   "sha256": "1e85a493eb5bf3d2f32bb682b3b9fe5134fb942cac7586b7f919898f067fb3f6",
+   "bytes": 14453,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      172,
+      215,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      174,
+      418,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1145,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      202,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      312,
+      432,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      359,
+      192,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      362,
+      418,
+      380
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      360,
+      1152,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "exhibit-cards-inline-far-c0": {
+   "file": "exhibit-cards-inline-far-c0.png",
+   "sha256": "3526385072b7b3fd1e177d22a6d9abcc8e25ae7365fd2bcfd838ab6f13aade5f",
+   "bytes": 14243,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      172,
+      215,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      174,
+      808,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      172,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      312,
+      822,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      193,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      362,
+      808,
+      380
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      359,
+      1152,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "exhibit-cards-inline-far-c1": {
+   "file": "exhibit-cards-inline-far-c1.png",
+   "sha256": "14ee689b6db42ea416e0f67cd12fc09c016f86925a031954fd1ef4d3814f8ca2",
+   "bytes": 14691,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      192,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      174,
+      808,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      172,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      312,
+      822,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      214,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      362,
+      808,
+      380
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      359,
+      1152,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "exhibit-cards-stacked-near-c0": {
+   "file": "exhibit-cards-stacked-near-c0.png",
+   "sha256": "c33706c8a581575a2942479fada3b4666f56f3f08527ab36995c6ab596b256e9",
+   "bytes": 14616,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      172,
+      214,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      214,
+      418,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      202,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      352,
+      432,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      400,
+      216,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      442,
+      418,
+      460
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      399,
+      1145,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "exhibit-cards-stacked-near-c1": {
+   "file": "exhibit-cards-stacked-near-c1.png",
+   "sha256": "bbab6dc70e431deaf5a82d0d7a1d5bb2ac9b5242a60e583e0bf791689a116e6a",
+   "bytes": 14468,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      172,
+      237,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      214,
+      418,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1153,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      352,
+      432,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      399,
+      215,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      342,
+      442,
+      418,
+      460
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      399,
+      1152,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      202,
+      510
+     ]
+    }
+   }
+  },
+  "exhibit-cards-stacked-far-c0": {
+   "file": "exhibit-cards-stacked-far-c0.png",
+   "sha256": "85cb4cd8283001f59eeb5fcf1d1d7d9ced5dba121cc6d101ce83bcfe6dc55b6c",
+   "bytes": 14382,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      194,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      214,
+      808,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      352,
+      822,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      400,
+      194,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      442,
+      808,
+      460
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      400,
+      1152,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "exhibit-cards-stacked-far-c1": {
+   "file": "exhibit-cards-stacked-far-c1.png",
+   "sha256": "fbe41213294c65d125a76a9aa3897b8efc0a2371871e52f93c6b54724200802a",
+   "bytes": 14318,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      193,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      214,
+      808,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1153,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      352,
+      822,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      400,
+      213,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      442,
+      808,
+      460
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      399,
+      1152,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "costume-table-inline-near-c0": {
+   "file": "costume-table-inline-near-c0.png",
+   "sha256": "171b0fa92a8213689b335b748bf257a74257e134be08c80ed9fb88fb632d2836",
+   "bytes": 17854,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      113,
+      455,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      193,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      343,
+      170,
+      415,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      225,
+      215,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      342,
+      226,
+      428,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      226,
+      1153,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      213,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      343,
+      282,
+      428,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      282,
+      1152,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      338,
+      214,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      342,
+      338,
+      428,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      338,
+      1166,
+      360
+     ]
+    }
+   }
+  },
+  "costume-table-inline-near-c1": {
+   "file": "costume-table-inline-near-c1.png",
+   "sha256": "1d8716eabfd28c60128e77b65399ac6ec14d519687bfebaa96f7acfccea42044",
+   "bytes": 17657,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      113,
+      455,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      170,
+      441,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      226,
+      215,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      342,
+      226,
+      428,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1153,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      193,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      344,
+      282,
+      428,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      282,
+      1152,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      338,
+      193,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      343,
+      338,
+      415,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      338,
+      1132,
+      360
+     ]
+    }
+   }
+  },
+  "costume-table-inline-far-c0": {
+   "file": "costume-table-inline-far-c0.png",
+   "sha256": "738691a9ea9141e36b1164c1919d42be0742c2abb4c3d0b2409542613d9a724a",
+   "bytes": 17989,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      113,
+      845,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      170,
+      193,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      170,
+      805,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      226,
+      194,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      226,
+      805,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1166,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      281,
+      213,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      732,
+      282,
+      805,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      282,
+      1153,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      338,
+      213,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      338,
+      831,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      338,
+      1152,
+      360
+     ]
+    }
+   }
+  },
+  "costume-table-inline-far-c1": {
+   "file": "costume-table-inline-far-c1.png",
+   "sha256": "598198d6d86315c759d4a1b2b4a172acc0c6dc815067da3dde34d0bcf6809f27",
+   "bytes": 17922,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      113,
+      845,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      169,
+      215,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      831,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      170,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      225,
+      194,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      226,
+      818,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      225,
+      1152,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      281,
+      191,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      282,
+      818,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      282,
+      1153,
+      305
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      338,
+      193,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      732,
+      338,
+      805,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      338,
+      1153,
+      360
+     ]
+    }
+   }
+  },
+  "costume-table-stacked-near-c0": {
+   "file": "costume-table-stacked-near-c0.png",
+   "sha256": "3a63f06599372bf2948ef1c3c4f2dcaf70f92b3a40dca1f00e93b57d9e3707bc",
+   "bytes": 18511,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      113,
+      455,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      193,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      210,
+      441,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      169,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      266,
+      191,
+      289
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      343,
+      306,
+      428,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      265,
+      1143,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      215,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      342,
+      402,
+      428,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      362,
+      1166,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      457,
+      216,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      498,
+      441,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      458,
+      1153,
+      481
+     ]
+    }
+   }
+  },
+  "costume-table-stacked-near-c1": {
+   "file": "costume-table-stacked-near-c1.png",
+   "sha256": "19cbd207553098e9cd5c5249d1c5ccf910217f04f7d9d0528920a0f6ff526efa",
+   "bytes": 18365,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      343,
+      113,
+      455,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      170,
+      193,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      210,
+      428,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      170,
+      1152,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      216,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      306,
+      428,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      266,
+      1153,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      361,
+      194,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      343,
+      402,
+      428,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      362,
+      1153,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      458,
+      193,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      498,
+      441,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      457,
+      1143,
+      480
+     ]
+    }
+   }
+  },
+  "costume-table-stacked-far-c0": {
+   "file": "costume-table-stacked-far-c0.png",
+   "sha256": "91e3dc5205bf7b83a93dff41a255153767007452b10e41eba4bb48a928c9d316",
+   "bytes": 17632,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      113,
+      845,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      169,
+      194,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      210,
+      818,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      216,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      306,
+      818,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      266,
+      1152,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      362,
+      214,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      402,
+      805,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      362,
+      1132,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      458,
+      193,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      733,
+      498,
+      818,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      457,
+      1143,
+      480
+     ]
+    }
+   }
+  },
+  "costume-table-stacked-far-c1": {
+   "file": "costume-table-stacked-far-c1.png",
+   "sha256": "1999258cd46f79778fce94cf4c79a1a3d5a14915dd1aad36c19435be517150f3",
+   "bytes": 17815,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      52,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      733,
+      113,
+      845,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      193,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      733,
+      210,
+      818,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      170,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      265,
+      194,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      306,
+      818,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      266,
+      1152,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      191,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      402,
+      818,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      362,
+      1153,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      458,
+      193,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      733,
+      498,
+      818,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      457,
+      1143,
+      480
+     ]
+    }
+   }
+  },
+  "costume-cards-inline-near-c0": {
+   "file": "costume-cards-inline-near-c0.png",
+   "sha256": "7d31c53d3e08f42d1bfc65f45afb19bf3e09a6a5a43e89f634e14162a430f1f6",
+   "bytes": 15274,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      123,
+      455,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      216,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      342,
+      172,
+      428,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      171,
+      1143,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      311,
+      455,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      359,
+      191,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      342,
+      360,
+      428,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      360,
+      1166,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "costume-cards-inline-near-c1": {
+   "file": "costume-cards-inline-near-c1.png",
+   "sha256": "0ba0991f4cbe4ea32fe23ded6852793934cb21ad7723688cfed7ac34781b32ab",
+   "bytes": 15153,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      123,
+      455,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      172,
+      216,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      343,
+      172,
+      428,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      171,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      311,
+      455,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      193,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      360,
+      441,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      360,
+      1153,
+      383
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "costume-cards-inline-far-c0": {
+   "file": "costume-cards-inline-far-c0.png",
+   "sha256": "7e8c651ed58a88dea4582aaef76b4c0b4fd83896a85dbdba3483801ed84937bb",
+   "bytes": 15155,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      123,
+      845,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      193,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      172,
+      818,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1153,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      311,
+      845,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      194,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      732,
+      360,
+      818,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      360,
+      1166,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      202,
+      430
+     ]
+    }
+   }
+  },
+  "costume-cards-inline-far-c1": {
+   "file": "costume-cards-inline-far-c1.png",
+   "sha256": "fb5d69dbb6719fc94092ef7cce813ebdac2fde5329ccee09ce9bcbc73a244e24",
+   "bytes": 15198,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      123,
+      845,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      213,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      172,
+      818,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      171,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      311,
+      845,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      359,
+      215,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      360,
+      831,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      360,
+      1153,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "costume-cards-stacked-near-c0": {
+   "file": "costume-cards-stacked-near-c0.png",
+   "sha256": "be5afc2b3f7c229e433b0e9027bda34d918936b62ea62bc0f7dc36e51fee0216",
+   "bytes": 15041,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      123,
+      455,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      194,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      212,
+      415,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1166,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      351,
+      455,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      399,
+      215,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      342,
+      440,
+      415,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      400,
+      1152,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      202,
+      510
+     ]
+    }
+   }
+  },
+  "costume-cards-stacked-near-c1": {
+   "file": "costume-cards-stacked-near-c1.png",
+   "sha256": "e8b3ea03a26b49bf34af1891dafc1297003714b4b6f61065af43002e95669cd9",
+   "bytes": 14412,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      343,
+      123,
+      455,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      215,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      343,
+      212,
+      428,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      171,
+      1152,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      343,
+      351,
+      455,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      400,
+      193,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      343,
+      440,
+      415,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      400,
+      1153,
+      423
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "costume-cards-stacked-far-c0": {
+   "file": "costume-cards-stacked-far-c0.png",
+   "sha256": "52d9ec066426c30cf213116cc6d307741e9a9d44f05bc99d8fd069959af3c3a0",
+   "bytes": 15113,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      123,
+      845,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      172,
+      214,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      212,
+      831,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      171,
+      1143,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      351,
+      845,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      399,
+      216,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      440,
+      818,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      400,
+      1132,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "costume-cards-stacked-far-c1": {
+   "file": "costume-cards-stacked-far-c1.png",
+   "sha256": "27f3615eeb58be3eccaf3a2e888e267a3b573f9755a7286acc79ea990a89c0a1",
+   "bytes": 14607,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      733,
+      123,
+      845,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      215,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      732,
+      212,
+      818,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1132,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      733,
+      351,
+      845,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      400,
+      193,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      440,
+      818,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      399,
+      1152,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      202,
+      510
+     ]
+    }
+   }
+  },
+  "lostfound-table-inline-near-c0": {
+   "file": "lostfound-table-inline-near-c0.png",
+   "sha256": "892e3ccb1ef523a90f308c746645365d70772914cd9a8898ca0c97f1c416a6b9",
+   "bytes": 16465,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      342,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      191,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      343,
+      170,
+      430,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1151,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      225,
+      237,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      226,
+      430,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      225,
+      1164,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      194,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      344,
+      282,
+      428,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      281,
+      1127,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      338,
+      192,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      338,
+      417,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      338,
+      1127,
+      360
+     ]
+    }
+   }
+  },
+  "lostfound-table-inline-near-c1": {
+   "file": "lostfound-table-inline-near-c1.png",
+   "sha256": "c8e6f9337941c38cb354f45650e4db68965e3ca7919fe44e5a97494b9e9b55db",
+   "bytes": 16736,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      342,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      215,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      343,
+      170,
+      430,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      225,
+      191,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      343,
+      226,
+      430,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      225,
+      1164,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      282,
+      215,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      344,
+      282,
+      431,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      282,
+      1127,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      338,
+      191,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      338,
+      431,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1151,
+      360
+     ]
+    }
+   }
+  },
+  "lostfound-table-inline-far-c0": {
+   "file": "lostfound-table-inline-far-c0.png",
+   "sha256": "321197869cece222d13c8e1191413912bf42018c78b37ea5064c7fe7afb272b2",
+   "bytes": 17160,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      732,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      191,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      818,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1153,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      225,
+      213,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      226,
+      807,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      226,
+      1153,
+      249
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      281,
+      194,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      282,
+      818,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      282,
+      1143,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      191,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      338,
+      820,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      337,
+      1126,
+      361
+     ]
+    }
+   }
+  },
+  "lostfound-table-inline-far-c1": {
+   "file": "lostfound-table-inline-far-c1.png",
+   "sha256": "05c610d1ce9d6cc2cf63d8c234568bd786343f7072ba8c9ec285fad76a5a3b4d",
+   "bytes": 16550,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      732,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      169,
+      194,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      170,
+      818,
+      192
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      170,
+      1143,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      225,
+      194,
+      248
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      226,
+      807,
+      248
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      225,
+      1153,
+      248
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      282,
+      191,
+      304
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      282,
+      821,
+      304
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      282,
+      1127,
+      304
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      337,
+      237,
+      360
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      338,
+      819,
+      360
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      338,
+      1153,
+      361
+     ]
+    }
+   }
+  },
+  "lostfound-table-stacked-near-c0": {
+   "file": "lostfound-table-stacked-near-c0.png",
+   "sha256": "7658787a06a0d723d82acd85375d758d93ecf2c5ea5f8751f88470bd084c50bc",
+   "bytes": 16509,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      342,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      191,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      210,
+      430,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1164,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      266,
+      191,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      343,
+      306,
+      430,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      265,
+      1126,
+      289
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      193,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      344,
+      402,
+      417,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      361,
+      1151,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      54,
+      458,
+      192,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      498,
+      418,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      457,
+      1127,
+      480
+     ]
+    }
+   }
+  },
+  "lostfound-table-stacked-near-c1": {
+   "file": "lostfound-table-stacked-near-c1.png",
+   "sha256": "de54ed5dfc50994417df2d76ea4b549e26a5d3524d1d9fe52c546232ad73117a",
+   "bytes": 16646,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      342,
+      114,
+      432,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      194,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      343,
+      210,
+      430,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      170,
+      1127,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      266,
+      194,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      306,
+      430,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      265,
+      1151,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      235,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      344,
+      402,
+      429,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      361,
+      1153,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      52,
+      458,
+      215,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      344,
+      498,
+      429,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      458,
+      1143,
+      480
+     ]
+    }
+   }
+  },
+  "lostfound-table-stacked-far-c0": {
+   "file": "lostfound-table-stacked-far-c0.png",
+   "sha256": "392ef42e70036fd8e332526b51077ae11e4bf2b9568c876f6e635ff81bd8a56b",
+   "bytes": 16929,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      732,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      170,
+      192,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      818,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1126,
+      193
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      213,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      306,
+      820,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      266,
+      1153,
+      289
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      237,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      733,
+      402,
+      820,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      362,
+      1143,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      52,
+      457,
+      213,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      734,
+      498,
+      808,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      458,
+      1127,
+      480
+     ]
+    }
+   }
+  },
+  "lostfound-table-stacked-far-c1": {
+   "file": "lostfound-table-stacked-far-c1.png",
+   "sha256": "018bf86d78846bc0d50affb9b1900b413172bd4a7a7b14d783025a9bedc8ea4d",
+   "bytes": 17223,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      116,
+      136
+     ]
+    },
+    "h-value": {
+     "role": "header",
+     "ink": [
+      732,
+      114,
+      822,
+      136
+     ]
+    },
+    "h-note": {
+     "role": "header",
+     "ink": [
+      1014,
+      114,
+      1055,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      194,
+      192
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      210,
+      818,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      169,
+      1126,
+      193
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      265,
+      191,
+      288
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      733,
+      306,
+      807,
+      328
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      265,
+      1164,
+      288
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      361,
+      191,
+      384
+     ]
+    },
+    "r2-value": {
+     "role": "value",
+     "ink": [
+      734,
+      402,
+      806,
+      424
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      362,
+      1143,
+      384
+     ]
+    },
+    "r3-label": {
+     "role": "label",
+     "ink": [
+      53,
+      458,
+      235,
+      480
+     ]
+    },
+    "r3-value": {
+     "role": "value",
+     "ink": [
+      731,
+      498,
+      819,
+      520
+     ]
+    },
+    "r3-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      457,
+      1153,
+      480
+     ]
+    }
+   }
+  },
+  "lostfound-cards-inline-near-c0": {
+   "file": "lostfound-cards-inline-near-c0.png",
+   "sha256": "4f4596aa1e94ffbb6e3b43fa6e14f3f41f5884b831059d09a5231b4645dd2dc3",
+   "bytes": 14448,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      342,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      191,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      172,
+      430,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1012,
+      172,
+      1153,
+      195
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      342,
+      312,
+      432,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      191,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      360,
+      415,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      359,
+      1164,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "lostfound-cards-inline-near-c1": {
+   "file": "lostfound-cards-inline-near-c1.png",
+   "sha256": "5b815b4c2fa6a1920f71b3eaf25244d4c4c915ac0979b17487887d3001d00855",
+   "bytes": 13469,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      342,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      172,
+      213,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      172,
+      430,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1127,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      202,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      342,
+      312,
+      432,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      359,
+      194,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      343,
+      360,
+      430,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      360,
+      1127,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "lostfound-cards-inline-far-c0": {
+   "file": "lostfound-cards-inline-far-c0.png",
+   "sha256": "bae6d2db657e8abfea938b1d1368106e3b11080fb29a1aeed5d3667ddb9e42b0",
+   "bytes": 14021,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      732,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      213,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      172,
+      818,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      172,
+      1127,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      732,
+      312,
+      822,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      359,
+      191,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      360,
+      821,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      359,
+      1151,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "lostfound-cards-inline-far-c1": {
+   "file": "lostfound-cards-inline-far-c1.png",
+   "sha256": "cb6e14caaeae92b99e17d19333b6216d6e3d11ea6442eb0262544e433e536872",
+   "bytes": 13812,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      732,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      194,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      731,
+      172,
+      819,
+      194
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1164,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      220,
+      201,
+      242
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      312,
+      113,
+      334
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      732,
+      312,
+      822,
+      334
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      360,
+      213,
+      382
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      360,
+      819,
+      382
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      360,
+      1127,
+      382
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      408,
+      201,
+      430
+     ]
+    }
+   }
+  },
+  "lostfound-cards-stacked-near-c0": {
+   "file": "lostfound-cards-stacked-near-c0.png",
+   "sha256": "8dd275db5f56503ea132c837220922eb18a9f030d6afa6a755bfd28cf2708b83",
+   "bytes": 14186,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      342,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      171,
+      215,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      212,
+      415,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1127,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      342,
+      352,
+      432,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      399,
+      213,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      344,
+      440,
+      418,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      400,
+      1143,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "lostfound-cards-stacked-near-c1": {
+   "file": "lostfound-cards-stacked-near-c1.png",
+   "sha256": "99b8f7240d98676ec4f18479ea6eb0984a34495912bdab18d60e0a7120c3d395",
+   "bytes": 14760,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      342,
+      124,
+      432,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      172,
+      215,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      344,
+      212,
+      429,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1014,
+      172,
+      1127,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      342,
+      352,
+      432,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      399,
+      237,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      343,
+      440,
+      430,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      399,
+      1164,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "lostfound-cards-stacked-far-c0": {
+   "file": "lostfound-cards-stacked-far-c0.png",
+   "sha256": "6edd1633251062487a26f5181689c703436caf93feed188cebfc749953fee889",
+   "bytes": 15218,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      732,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      172,
+      213,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      212,
+      819,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1164,
+      194
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      732,
+      352,
+      822,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      400,
+      215,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      440,
+      818,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      399,
+      1153,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      201,
+      510
+     ]
+    }
+   }
+  },
+  "lostfound-cards-stacked-far-c1": {
+   "file": "lostfound-cards-stacked-far-c1.png",
+   "sha256": "5df37a83851b0a726e4761148364d3bd48bc682fe0dba926f226bed4686d899f",
+   "bytes": 14127,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      269,
+      72
+     ]
+    },
+    "c0-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      124,
+      113,
+      146
+     ]
+    },
+    "c0-field": {
+     "role": "header",
+     "ink": [
+      732,
+      124,
+      822,
+      146
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      171,
+      213,
+      194
+     ]
+    },
+    "r0-value": {
+     "role": "value",
+     "ink": [
+      734,
+      212,
+      818,
+      234
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      171,
+      1126,
+      195
+     ]
+    },
+    "c0-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      260,
+      201,
+      282
+     ]
+    },
+    "c1-cap": {
+     "role": "other",
+     "ink": [
+      53,
+      352,
+      113,
+      374
+     ]
+    },
+    "c1-field": {
+     "role": "header",
+     "ink": [
+      732,
+      352,
+      822,
+      374
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      400,
+      215,
+      422
+     ]
+    },
+    "r1-value": {
+     "role": "value",
+     "ink": [
+      734,
+      440,
+      818,
+      462
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1013,
+      399,
+      1127,
+      422
+     ]
+    },
+    "c1-foot": {
+     "role": "other",
+     "ink": [
+      53,
+      488,
+      202,
+      510
+     ]
+    }
+   }
+  }
+ }
+}
