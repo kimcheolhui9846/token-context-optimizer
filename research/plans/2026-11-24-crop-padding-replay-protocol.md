@@ -205,3 +205,7 @@ outcome: ok|failed, failStage, failCode
 ## 15. 변경 기록
 
 - 측정 전 고정: 이 문서(첫 커밋)
+- 측정 전 보완(하네스 커밋과 함께, 실측 전)
+  - 입력 폴더: 실행기는 `assignment.json`, `questions.json`, `images/original/`만 있는 폴더와 별도 원본 SHA 표(`original-sha.json`)를 받는다. #141 준비기 `--stage originals`로 새로 만들고, 로컬 #141 입력 폴더의 원본 48장과 SHA를 전부 대조해 기록한다(그 폴더는 RGB 파생본을 함께 담고 있어 실행 입력으로 쓰지 않는다)
+  - 동결 라이브러리·번들은 작업 사본 blob과 제품 커밋 경로의 blob을 모두 확인한다
+  - #141 RGB manifest의 `originalSha256`이 새 입력의 원본 SHA와 같은지 확인한다(파생 출처 확인이며 표현 간 SHA 비교가 아니다)
