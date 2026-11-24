@@ -4,7 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   isBlank, xywhToXyxy, bandToXyxy, xyxyToBand, centerItems, positiveOverlap, deficitOf, containmentOf,
-  wordRecord, lineRecord, triggerRecord, diagnosePage, checkDenominators, checkRegistered, comparePages, summarize,
+  wordRecord, lineRecord, triggerRecord, diagnosePage, DiagnosticError, checkDenominators, checkRegistered, comparePages, summarize,
 } from "../src/ko-window-diagnostic-lib.mjs";
 
 // ------------------------------------------------------------------ fixture
@@ -92,8 +92,8 @@ test("containment: exact fit, one pixel short on each side, required expansion i
 });
 
 test("blank words: registered whitespace set only", () => {
-  for (const t of ["", " ", "\t\n", " 　", "﻿", " "]) assert.equal(isBlank(t), true, JSON.stringify(t));
-  for (const t of ["a", " 가 ", "​", "-"]) assert.equal(isBlank(t), false, JSON.stringify(t));
+  for (const t of ["", " ", "\t\n", "\u00a0\u3000", "\ufeff", "\u2028"]) assert.equal(isBlank(t), true, JSON.stringify(t));
+  for (const t of ["a", " 가 ", "\u200b", "-"]) assert.equal(isBlank(t), false, JSON.stringify(t));
 });
 
 // ------------------------------------------------------------------ words and lines
@@ -154,7 +154,7 @@ test("anchor and value on different lines: value-side line selected, cue found o
     line("과수원 지도첩", [12, 112, 140, 16], [word("과수원", [12, 112, 60, 16]), word("지도첩", [80, 112, 60, 16])]),
     line("2027-02-26 완료", [510, 112, 200, 16], [word("2027-02-26", [510, 112, 90, 16]), word("완료", [610, 112, 40, 16])]),
   ];
-  const p = page({ lines, k1: { lineIndex: 2, lineText: lines[2].text, lineBox: lines[2].box, hitWords: [1] } });
+  const p = page({ lines, k1: { lineIndex: 2, lineText: lines[2].text, lineBox: lines[2].box, hitWords: [1], score: 1 } });
   const r = run(p);
   assert.equal(r.lineClass, "otherItemOnly");
   assert.equal(r.triggerSource, "otherOnly");
@@ -178,7 +178,7 @@ test("page record: band check, containment and deficits against both gold rects"
 
 test("blank words are excluded from classes and counted; a blank hit word is counted", () => {
   const lines = [LINES[0], line("과수원  완료", [12, 112, 600, 16], [word("과수원", [12, 112, 60, 16]), word(" ", [80, 112, 5, 16]), word("2027", [510, 112, 40, 16])])];
-  const r = run(page({ lines, k1: { lineIndex: 1, lineText: lines[1].text, lineBox: lines[1].box, hitWords: [1] } }));
+  const r = run(page({ lines, k1: { lineIndex: 1, lineText: lines[1].text, lineBox: lines[1].box, hitWords: [1], score: 1 } }));
   assert.equal(r.lineBlankWords, 1);
   assert.equal(r.hitBlank, 1);
   assert.equal(r.triggerSource, "neither");
@@ -212,7 +212,7 @@ test("validation failures never drop a page", () => {
     page({ lines: [LINES[0], line(LINES[1].text, LINES[1].box, [word("과수원", [12, 112, NaN, 16])])] }),
     page({ items: [...ITEMS, { id: "lab", role: "label", text: "x", cell: [0, 0, 1, 1] }] }),
   ];
-  bad.forEach((p, i) => assert.throws(() => run(p), undefined, `case ${i}`));
+  bad.forEach((p, i) => assert.throws(() => run(p), (e) => e instanceof DiagnosticError && e.message.startsWith("p1: "), `case ${i}`));
 });
 
 test("stored K1 must equal the fixed K1 recomputation", () => {

@@ -52,9 +52,9 @@ class Geometry(unittest.TestCase):
                 rc.band_edges(bad, 10, 10)
 
     def test_blank(self):
-        for t in ("", " ", "　 ", "﻿"):
+        for t in ("", " ", "\u3000\u00a0", "\ufeff"):
             self.assertTrue(rc.is_blank(t))
-        for t in ("​", "가", "-"):
+        for t in ("\u200b", "가", "-"):
             self.assertFalse(rc.is_blank(t))
 
 
