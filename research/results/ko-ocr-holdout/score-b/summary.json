@@ -1,0 +1,1214 @@
+{
+ "inputs": {
+  "predictionsSha256": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876",
+  "ocrSha256": "f2807d8d22805146d7be306f49fda18ad643c4544b918c4b044b8614b73b03d0",
+  "baselinePredictionsSha256": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876",
+  "dataManifestSha256": "c8de050507bccad3f030a84c893f0be67cd874b98f78045d35d8e0c7cc350f5a"
+ },
+ "denominators": {
+  "pages": 96,
+  "primaryPages": 24
+ },
+ "baseline": {
+  "M": 24,
+  "C": 72,
+  "E": 0,
+  "S": 15,
+  "primary": {
+   "M": 24,
+   "C": 0,
+   "E": 0,
+   "S": 0
+  }
+ },
+ "conditions": {
+  "O0K0": {
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 72,
+    "unmatched": 24,
+    "strict": 15,
+    "strictPct": 15.63,
+    "evidenceAll": 15,
+    "evidencePartial": 42,
+    "evidenceNone": 15,
+    "fullPage": 0
+   },
+   "byDoctype": {
+    "repair": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 14,
+     "evidenceNone": 5,
+     "fullPage": 0
+    },
+    "greenhouse": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 15,
+     "evidenceNone": 4,
+     "fullPage": 0
+    },
+    "rental": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 13,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byLayout": {
+    "slip": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 36,
+     "unmatched": 12,
+     "strict": 3,
+     "strictPct": 6.25,
+     "evidenceAll": 3,
+     "evidencePartial": 24,
+     "evidenceNone": 9,
+     "fullPage": 0
+    },
+    "intake": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 36,
+     "unmatched": 12,
+     "strict": 12,
+     "strictPct": 25,
+     "evidenceAll": 12,
+     "evidencePartial": 18,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byDoctypeLayout": {
+    "repair/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "repair/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 6,
+     "evidenceNone": 2,
+     "fullPage": 0
+    },
+    "greenhouse/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "greenhouse/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 7,
+     "evidenceNone": 1,
+     "fullPage": 0
+    },
+    "rental/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "rental/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 5,
+     "evidenceNone": 3,
+     "fullPage": 0
+    }
+   },
+   "byCell": {
+    "en/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 3,
+     "strictPct": 12.5,
+     "evidenceAll": 3,
+     "evidencePartial": 6,
+     "evidenceNone": 15,
+     "fullPage": 0
+    },
+    "en/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 12,
+     "strictPct": 50,
+     "evidenceAll": 12,
+     "evidencePartial": 12,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 24,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 0,
+     "unmatched": 24,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "fullPage": 0
+    }
+   }
+  },
+  "O0K1": {
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 72,
+    "unmatched": 24,
+    "strict": 15,
+    "strictPct": 15.63,
+    "evidenceAll": 15,
+    "evidencePartial": 42,
+    "evidenceNone": 15,
+    "fullPage": 0
+   },
+   "byDoctype": {
+    "repair": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 14,
+     "evidenceNone": 5,
+     "fullPage": 0
+    },
+    "greenhouse": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 15,
+     "evidenceNone": 4,
+     "fullPage": 0
+    },
+    "rental": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 13,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byLayout": {
+    "slip": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 36,
+     "unmatched": 12,
+     "strict": 3,
+     "strictPct": 6.25,
+     "evidenceAll": 3,
+     "evidencePartial": 24,
+     "evidenceNone": 9,
+     "fullPage": 0
+    },
+    "intake": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 36,
+     "unmatched": 12,
+     "strict": 12,
+     "strictPct": 25,
+     "evidenceAll": 12,
+     "evidencePartial": 18,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byDoctypeLayout": {
+    "repair/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "repair/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 6,
+     "evidenceNone": 2,
+     "fullPage": 0
+    },
+    "greenhouse/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "greenhouse/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 7,
+     "evidenceNone": 1,
+     "fullPage": 0
+    },
+    "rental/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "rental/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 5,
+     "evidenceNone": 3,
+     "fullPage": 0
+    }
+   },
+   "byCell": {
+    "en/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 3,
+     "strictPct": 12.5,
+     "evidenceAll": 3,
+     "evidencePartial": 6,
+     "evidenceNone": 15,
+     "fullPage": 0
+    },
+    "en/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 12,
+     "strictPct": 50,
+     "evidenceAll": 12,
+     "evidencePartial": 12,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 24,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 0,
+     "unmatched": 24,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "fullPage": 0
+    }
+   }
+  },
+  "O1K0": {
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 72,
+    "unmatched": 24,
+    "strict": 15,
+    "strictPct": 15.63,
+    "evidenceAll": 15,
+    "evidencePartial": 42,
+    "evidenceNone": 15,
+    "fullPage": 0
+   },
+   "byDoctype": {
+    "repair": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 14,
+     "evidenceNone": 5,
+     "fullPage": 0
+    },
+    "greenhouse": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 15,
+     "evidenceNone": 4,
+     "fullPage": 0
+    },
+    "rental": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 8,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 13,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byLayout": {
+    "slip": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 36,
+     "unmatched": 12,
+     "strict": 3,
+     "strictPct": 6.25,
+     "evidenceAll": 3,
+     "evidencePartial": 24,
+     "evidenceNone": 9,
+     "fullPage": 0
+    },
+    "intake": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 36,
+     "unmatched": 12,
+     "strict": 12,
+     "strictPct": 25,
+     "evidenceAll": 12,
+     "evidencePartial": 18,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byDoctypeLayout": {
+    "repair/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "repair/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 6,
+     "evidenceNone": 2,
+     "fullPage": 0
+    },
+    "greenhouse/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "greenhouse/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 7,
+     "evidenceNone": 1,
+     "fullPage": 0
+    },
+    "rental/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 8,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "rental/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 12,
+     "unmatched": 4,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 5,
+     "evidenceNone": 3,
+     "fullPage": 0
+    }
+   },
+   "byCell": {
+    "en/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 3,
+     "strictPct": 12.5,
+     "evidenceAll": 3,
+     "evidencePartial": 6,
+     "evidenceNone": 15,
+     "fullPage": 0
+    },
+    "en/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 12,
+     "strictPct": 50,
+     "evidenceAll": 12,
+     "evidencePartial": 12,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 24,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 0,
+     "unmatched": 24,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 0,
+     "evidenceNone": 0,
+     "fullPage": 0
+    }
+   }
+  },
+  "O1K1": {
+   "total": {
+    "n": 96,
+    "technicalError": 0,
+    "matched": 96,
+    "unmatched": 0,
+    "strict": 19,
+    "strictPct": 19.79,
+    "evidenceAll": 19,
+    "evidencePartial": 60,
+    "evidenceNone": 17,
+    "fullPage": 0
+   },
+   "byDoctype": {
+    "repair": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 32,
+     "unmatched": 0,
+     "strict": 5,
+     "strictPct": 15.63,
+     "evidenceAll": 5,
+     "evidencePartial": 20,
+     "evidenceNone": 7,
+     "fullPage": 0
+    },
+    "greenhouse": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 32,
+     "unmatched": 0,
+     "strict": 7,
+     "strictPct": 21.88,
+     "evidenceAll": 7,
+     "evidencePartial": 21,
+     "evidenceNone": 4,
+     "fullPage": 0
+    },
+    "rental": {
+     "n": 32,
+     "technicalError": 0,
+     "matched": 32,
+     "unmatched": 0,
+     "strict": 7,
+     "strictPct": 21.88,
+     "evidenceAll": 7,
+     "evidencePartial": 19,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byLayout": {
+    "slip": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 48,
+     "unmatched": 0,
+     "strict": 3,
+     "strictPct": 6.25,
+     "evidenceAll": 3,
+     "evidencePartial": 34,
+     "evidenceNone": 11,
+     "fullPage": 0
+    },
+    "intake": {
+     "n": 48,
+     "technicalError": 0,
+     "matched": 48,
+     "unmatched": 0,
+     "strict": 16,
+     "strictPct": 33.33,
+     "evidenceAll": 16,
+     "evidencePartial": 26,
+     "evidenceNone": 6,
+     "fullPage": 0
+    }
+   },
+   "byDoctypeLayout": {
+    "repair/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 16,
+     "unmatched": 0,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 10,
+     "evidenceNone": 5,
+     "fullPage": 0
+    },
+    "repair/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 16,
+     "unmatched": 0,
+     "strict": 4,
+     "strictPct": 25,
+     "evidenceAll": 4,
+     "evidencePartial": 10,
+     "evidenceNone": 2,
+     "fullPage": 0
+    },
+    "greenhouse/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 16,
+     "unmatched": 0,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 12,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "greenhouse/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 16,
+     "unmatched": 0,
+     "strict": 6,
+     "strictPct": 37.5,
+     "evidenceAll": 6,
+     "evidencePartial": 9,
+     "evidenceNone": 1,
+     "fullPage": 0
+    },
+    "rental/slip": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 16,
+     "unmatched": 0,
+     "strict": 1,
+     "strictPct": 6.25,
+     "evidenceAll": 1,
+     "evidencePartial": 12,
+     "evidenceNone": 3,
+     "fullPage": 0
+    },
+    "rental/intake": {
+     "n": 16,
+     "technicalError": 0,
+     "matched": 16,
+     "unmatched": 0,
+     "strict": 6,
+     "strictPct": 37.5,
+     "evidenceAll": 6,
+     "evidencePartial": 7,
+     "evidenceNone": 3,
+     "fullPage": 0
+    }
+   },
+   "byCell": {
+    "en/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 3,
+     "strictPct": 12.5,
+     "evidenceAll": 3,
+     "evidencePartial": 6,
+     "evidenceNone": 15,
+     "fullPage": 0
+    },
+    "en/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 12,
+     "strictPct": 50,
+     "evidenceAll": 12,
+     "evidencePartial": 12,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/code": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 0,
+     "strictPct": 0,
+     "evidenceAll": 0,
+     "evidencePartial": 24,
+     "evidenceNone": 0,
+     "fullPage": 0
+    },
+    "ko/nl": {
+     "n": 24,
+     "technicalError": 0,
+     "matched": 24,
+     "unmatched": 0,
+     "strict": 4,
+     "strictPct": 16.67,
+     "evidenceAll": 4,
+     "evidencePartial": 18,
+     "evidenceNone": 2,
+     "fullPage": 0
+    }
+   }
+  }
+ },
+ "primary": {
+  "O0K0": {
+   "n": 24,
+   "M": 24,
+   "C": 0,
+   "E": 0,
+   "recoveredMatch": 0,
+   "recoveredStrict": 0,
+   "recoveredErrors": 0,
+   "strict": 0,
+   "matched": 0,
+   "unmatched": 24,
+   "technicalError": 0,
+   "recoveredMatchPct": 0,
+   "recoveredStrictPct": 0,
+   "strictPct": 0
+  },
+  "O0K1": {
+   "n": 24,
+   "M": 24,
+   "C": 0,
+   "E": 0,
+   "recoveredMatch": 0,
+   "recoveredStrict": 0,
+   "recoveredErrors": 0,
+   "strict": 0,
+   "matched": 0,
+   "unmatched": 24,
+   "technicalError": 0,
+   "recoveredMatchPct": 0,
+   "recoveredStrictPct": 0,
+   "strictPct": 0
+  },
+  "O1K0": {
+   "n": 24,
+   "M": 24,
+   "C": 0,
+   "E": 0,
+   "recoveredMatch": 0,
+   "recoveredStrict": 0,
+   "recoveredErrors": 0,
+   "strict": 0,
+   "matched": 0,
+   "unmatched": 24,
+   "technicalError": 0,
+   "recoveredMatchPct": 0,
+   "recoveredStrictPct": 0,
+   "strictPct": 0
+  },
+  "O1K1": {
+   "n": 24,
+   "M": 24,
+   "C": 0,
+   "E": 0,
+   "recoveredMatch": 24,
+   "recoveredStrict": 4,
+   "recoveredErrors": 0,
+   "strict": 4,
+   "matched": 24,
+   "unmatched": 0,
+   "technicalError": 0,
+   "recoveredMatchPct": 100,
+   "recoveredStrictPct": 16.67,
+   "strictPct": 16.67
+  }
+ },
+ "transitions": {
+  "O0K0": {
+   "M": 24,
+   "unmatchedToMatched": 0,
+   "unmatchedToStrict": 0,
+   "unmatchedErrors": 0,
+   "C": 72,
+   "matchedToUnmatched": 0,
+   "matchedErrors": 0,
+   "S": 15,
+   "strictToFail": 0,
+   "strictErrors": 0,
+   "notStrictC": 57,
+   "newStrict": 0,
+   "E": 0,
+   "baselineErrorNowStrict": 0,
+   "lostStrictIds": [],
+   "newStrictIds": [],
+   "recoveredStrictIds": [],
+   "unmatchedToMatchedPct": 0,
+   "unmatchedToStrictPct": 0,
+   "matchedToUnmatchedPct": 0,
+   "strictToFailPct": 0,
+   "newStrictPct": 0
+  },
+  "O0K1": {
+   "M": 24,
+   "unmatchedToMatched": 0,
+   "unmatchedToStrict": 0,
+   "unmatchedErrors": 0,
+   "C": 72,
+   "matchedToUnmatched": 0,
+   "matchedErrors": 0,
+   "S": 15,
+   "strictToFail": 0,
+   "strictErrors": 0,
+   "notStrictC": 57,
+   "newStrict": 0,
+   "E": 0,
+   "baselineErrorNowStrict": 0,
+   "lostStrictIds": [],
+   "newStrictIds": [],
+   "recoveredStrictIds": [],
+   "unmatchedToMatchedPct": 0,
+   "unmatchedToStrictPct": 0,
+   "matchedToUnmatchedPct": 0,
+   "strictToFailPct": 0,
+   "newStrictPct": 0
+  },
+  "O1K0": {
+   "M": 24,
+   "unmatchedToMatched": 0,
+   "unmatchedToStrict": 0,
+   "unmatchedErrors": 0,
+   "C": 72,
+   "matchedToUnmatched": 0,
+   "matchedErrors": 0,
+   "S": 15,
+   "strictToFail": 0,
+   "strictErrors": 0,
+   "notStrictC": 57,
+   "newStrict": 0,
+   "E": 0,
+   "baselineErrorNowStrict": 0,
+   "lostStrictIds": [],
+   "newStrictIds": [],
+   "recoveredStrictIds": [],
+   "unmatchedToMatchedPct": 0,
+   "unmatchedToStrictPct": 0,
+   "matchedToUnmatchedPct": 0,
+   "strictToFailPct": 0,
+   "newStrictPct": 0
+  },
+  "O1K1": {
+   "M": 24,
+   "unmatchedToMatched": 24,
+   "unmatchedToStrict": 4,
+   "unmatchedErrors": 0,
+   "C": 72,
+   "matchedToUnmatched": 0,
+   "matchedErrors": 0,
+   "S": 15,
+   "strictToFail": 0,
+   "strictErrors": 0,
+   "notStrictC": 57,
+   "newStrict": 0,
+   "E": 0,
+   "baselineErrorNowStrict": 0,
+   "lostStrictIds": [],
+   "newStrictIds": [],
+   "recoveredStrictIds": [
+    "greenhouse-intake-nl-s211-ko",
+    "greenhouse-intake-nl-s307-ko",
+    "rental-intake-nl-s101-ko",
+    "rental-intake-nl-s307-ko"
+   ],
+   "unmatchedToMatchedPct": 100,
+   "unmatchedToStrictPct": 16.67,
+   "matchedToUnmatchedPct": 0,
+   "strictToFailPct": 0,
+   "newStrictPct": 0
+  }
+ },
+ "pairs": {
+  "O0K0->O0K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 15,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 81,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   }
+  },
+  "O1K0->O1K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 4,
+     "neither": 20,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 15,
+     "fromOnly": 0,
+     "toOnly": 4,
+     "neither": 77,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   }
+  },
+  "O0K0->O1K0": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 15,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 81,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 0,
+     "neither": 24,
+     "technicalError": 0
+    }
+   }
+  },
+  "O0K1->O1K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 4,
+     "neither": 20,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 15,
+     "fromOnly": 0,
+     "toOnly": 4,
+     "neither": 77,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   }
+  },
+  "O0K0->O1K1": {
+   "primary": {
+    "strict": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 4,
+     "neither": 20,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 24,
+     "both": 0,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   },
+   "total": {
+    "strict": {
+     "n": 96,
+     "both": 15,
+     "fromOnly": 0,
+     "toOnly": 4,
+     "neither": 77,
+     "technicalError": 0
+    },
+    "matched": {
+     "n": 96,
+     "both": 72,
+     "fromOnly": 0,
+     "toOnly": 24,
+     "neither": 0,
+     "technicalError": 0
+    }
+   }
+  }
+ },
+ "ocrLineTextDiff": {
+  "compared": 96,
+  "differ": 51
+ },
+ "k1Branches": {
+  "O0": {
+   "k0": 72,
+   "hangul": 0,
+   "none": 24,
+   "error": 0
+  },
+  "O1": {
+   "k0": 72,
+   "hangul": 24,
+   "none": 0,
+   "error": 0
+  }
+ },
+ "pageErrors": {}
+}

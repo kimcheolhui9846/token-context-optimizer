@@ -1,0 +1,36 @@
+{
+ "protocol": "research/plans/2026-11-24-ko-ocr-holdout-protocol.md 3.4",
+ "rendererBlob": "b61cd9b37803d8eb4b6b126a75301570c14ab11d",
+ "seedMap": {},
+ "prior": {
+  "r09Heldout": {
+   "questions": 48,
+   "images": 48
+  },
+  "r09Dev": {
+   "questions": 4,
+   "images": 4
+  },
+  "fcp": {
+   "questions": 48,
+   "images": 48
+  }
+ },
+ "problems": [],
+ "pairProblems": {},
+ "counts": {
+  "pages": 96,
+  "questions": 96,
+  "uniquePng": 96,
+  "uniqueQuestions": 96,
+  "priorPages": 98,
+  "priorQuestions": 92
+ },
+ "overlap": {
+  "png": [],
+  "question": [],
+  "doctype": [],
+  "layout": []
+ },
+ "passed": true
+}

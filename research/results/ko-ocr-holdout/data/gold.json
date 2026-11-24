@@ -1,0 +1,3585 @@
+{
+ "design": "ko-ocr-holdout-design-1",
+ "set": "holdout",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "repair-slip-code-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-06",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      181,
+      141,
+      199
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      671,
+      245
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-06",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      181,
+      141,
+      199
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      671,
+      245
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-06",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      371,
+      140,
+      389
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      671,
+      435
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-06",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      371,
+      140,
+      389
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      671,
+      435
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-19",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      54,
+      561,
+      140,
+      579
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      671,
+      625
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-19",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      54,
+      561,
+      140,
+      579
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      671,
+      625
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-02-22",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      54,
+      751,
+      140,
+      769
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      797,
+      671,
+      815
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-code-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-02-22",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      54,
+      751,
+      140,
+      769
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      797,
+      671,
+      815
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-02-26",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      455,
+      285,
+      481
+     ],
+     "size": [
+      232,
+      26
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      671,
+      435
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-02-26",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      455,
+      257,
+      477
+     ],
+     "size": [
+      204,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      671,
+      435
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-21",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      645,
+      263,
+      665
+     ],
+     "size": [
+      209,
+      20
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      671,
+      625
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-21",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      645,
+      213,
+      667
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      671,
+      625
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-02-13",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      52,
+      835,
+      342,
+      861
+     ],
+     "size": [
+      290,
+      26
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      797,
+      671,
+      815
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-02-13",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      53,
+      834,
+      235,
+      857
+     ],
+     "size": [
+      182,
+      23
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      797,
+      671,
+      815
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-01",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      51,
+      265,
+      331,
+      291
+     ],
+     "size": [
+      280,
+      26
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      671,
+      245
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-slip-nl-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-01",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      265,
+      216,
+      287
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      671,
+      245
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-10",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      674,
+      152,
+      760,
+      170
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      942,
+      312,
+      1061,
+      330
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-10",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      674,
+      152,
+      760,
+      170
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      942,
+      312,
+      1061,
+      330
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-19",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      674,
+      542,
+      761,
+      560
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1061,
+      720
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-19",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      674,
+      542,
+      761,
+      560
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1061,
+      720
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-07",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      152,
+      140,
+      170
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      441,
+      330
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-12-07",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      152,
+      140,
+      170
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      441,
+      330
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-30",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      542,
+      140,
+      560
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      441,
+      720
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-code-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-30",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      542,
+      140,
+      560
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      441,
+      720
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-10",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      674,
+      620,
+      958,
+      646
+     ],
+     "size": [
+      284,
+      26
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1061,
+      720
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-10",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      673,
+      620,
+      834,
+      642
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1061,
+      720
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-01",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      51,
+      230,
+      312,
+      256
+     ],
+     "size": [
+      261,
+      26
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      441,
+      330
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-01",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      230,
+      258,
+      252
+     ],
+     "size": [
+      205,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      441,
+      330
+     ],
+     "size": [
+      119,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-04",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      620,
+      306,
+      646
+     ],
+     "size": [
+      253,
+      26
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      442,
+      720
+     ],
+     "size": [
+      120,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2026-11-04",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      620,
+      191,
+      642
+     ],
+     "size": [
+      138,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      442,
+      720
+     ],
+     "size": [
+      120,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-14",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      674,
+      230,
+      979,
+      250
+     ],
+     "size": [
+      305,
+      20
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      942,
+      312,
+      1062,
+      330
+     ],
+     "size": [
+      120,
+      18
+     ]
+    }
+   ]
+  },
+  "repair-intake-nl-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2027-01-14",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      673,
+      230,
+      833,
+      252
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      942,
+      312,
+      1062,
+      330
+     ],
+     "size": [
+      120,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "4.0 L",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      53,
+      181,
+      144,
+      199
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      602,
+      245
+     ],
+     "size": [
+      50,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "4.0리터",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      53,
+      181,
+      144,
+      199
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      225,
+      626,
+      247
+     ],
+     "size": [
+      74,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "42.5 L",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      53,
+      371,
+      145,
+      389
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      615,
+      435
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "42.5리터",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      53,
+      371,
+      145,
+      389
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      415,
+      639,
+      437
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "32.5 L",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      53,
+      561,
+      145,
+      579
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      615,
+      625
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "32.5리터",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      53,
+      561,
+      145,
+      579
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      605,
+      639,
+      627
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "33.5 L",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      53,
+      751,
+      144,
+      769
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      797,
+      615,
+      815
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-code-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "33.5리터",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      53,
+      751,
+      144,
+      769
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      795,
+      639,
+      817
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "47.0 L",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      455,
+      292,
+      481
+     ],
+     "size": [
+      239,
+      26
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      615,
+      435
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "47.0리터",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      455,
+      215,
+      477
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      415,
+      639,
+      437
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "36.5 L",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      645,
+      282,
+      671
+     ],
+     "size": [
+      228,
+      26
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      615,
+      625
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "36.5리터",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      644,
+      216,
+      667
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      605,
+      639,
+      627
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "4.0 L",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      54,
+      835,
+      269,
+      855
+     ],
+     "size": [
+      215,
+      20
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      797,
+      602,
+      815
+     ],
+     "size": [
+      50,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "4.0리터",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      53,
+      835,
+      192,
+      857
+     ],
+     "size": [
+      139,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      552,
+      795,
+      626,
+      817
+     ],
+     "size": [
+      74,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "43.0 L",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      265,
+      268,
+      291
+     ],
+     "size": [
+      214,
+      26
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      615,
+      245
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-slip-nl-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "43.0리터",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      265,
+      215,
+      287
+     ],
+     "size": [
+      162,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      225,
+      639,
+      247
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "49.5 L",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      673,
+      152,
+      765,
+      170
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      942,
+      312,
+      1005,
+      330
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "49.5리터",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      673,
+      152,
+      765,
+      170
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      942,
+      310,
+      1029,
+      332
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "36.5 L",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      673,
+      542,
+      764,
+      560
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1005,
+      720
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "36.5리터",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      673,
+      542,
+      764,
+      560
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      700,
+      1029,
+      722
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "7.5 L",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      53,
+      152,
+      144,
+      170
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      323,
+      312,
+      372,
+      330
+     ],
+     "size": [
+      49,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "7.5리터",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      53,
+      152,
+      144,
+      170
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      323,
+      310,
+      396,
+      332
+     ],
+     "size": [
+      73,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "29.0 L",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      53,
+      542,
+      145,
+      560
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      385,
+      720
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-code-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "29.0리터",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      53,
+      542,
+      145,
+      560
+     ],
+     "size": [
+      92,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      700,
+      409,
+      722
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "7.5 L",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      674,
+      620,
+      881,
+      646
+     ],
+     "size": [
+      207,
+      26
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      943,
+      702,
+      992,
+      720
+     ],
+     "size": [
+      49,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "7.5리터",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      674,
+      620,
+      858,
+      642
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      943,
+      700,
+      1016,
+      722
+     ],
+     "size": [
+      73,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "39.0 L",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      232,
+      253,
+      250
+     ],
+     "size": [
+      201,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      385,
+      330
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "39.0리터",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      230,
+      216,
+      252
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      310,
+      409,
+      332
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "41.5 L",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      622,
+      252,
+      646
+     ],
+     "size": [
+      200,
+      24
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      385,
+      720
+     ],
+     "size": [
+      63,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "41.5리터",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      620,
+      216,
+      642
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      700,
+      409,
+      722
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6.5 L",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      674,
+      230,
+      867,
+      256
+     ],
+     "size": [
+      193,
+      26
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      943,
+      312,
+      992,
+      330
+     ],
+     "size": [
+      49,
+      18
+     ]
+    }
+   ]
+  },
+  "greenhouse-intake-nl-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6.5리터",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      673,
+      230,
+      836,
+      252
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      943,
+      310,
+      1016,
+      332
+     ],
+     "size": [
+      73,
+      22
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "25,800 KRW",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      181,
+      142,
+      199
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      227,
+      681,
+      250
+     ],
+     "size": [
+      129,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "25,800원",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      181,
+      142,
+      199
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      552,
+      225,
+      645,
+      250
+     ],
+     "size": [
+      93,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "5,600 KRW",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      371,
+      141,
+      389
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      668,
+      440
+     ],
+     "size": [
+      116,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "5,600원",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      371,
+      141,
+      389
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      415,
+      632,
+      440
+     ],
+     "size": [
+      80,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "23,200 KRW",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      54,
+      561,
+      141,
+      579
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      681,
+      630
+     ],
+     "size": [
+      129,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "23,200원",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      54,
+      561,
+      141,
+      579
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      605,
+      645,
+      630
+     ],
+     "size": [
+      93,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "12,700 KRW",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      54,
+      751,
+      141,
+      769
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      554,
+      797,
+      681,
+      820
+     ],
+     "size": [
+      127,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-code-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "12,700원",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      54,
+      751,
+      141,
+      769
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      554,
+      795,
+      645,
+      820
+     ],
+     "size": [
+      91,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "5,700 KRW",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      455,
+      272,
+      481
+     ],
+     "size": [
+      218,
+      26
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      417,
+      668,
+      440
+     ],
+     "size": [
+      116,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "5,700원",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      454,
+      215,
+      477
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      552,
+      415,
+      632,
+      440
+     ],
+     "size": [
+      80,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "4,900 KRW",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      645,
+      277,
+      671
+     ],
+     "size": [
+      223,
+      26
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      607,
+      668,
+      630
+     ],
+     "size": [
+      116,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "4,900원",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      644,
+      235,
+      667
+     ],
+     "size": [
+      181,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      552,
+      605,
+      632,
+      630
+     ],
+     "size": [
+      80,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16,400 KRW",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      52,
+      835,
+      368,
+      861
+     ],
+     "size": [
+      316,
+      26
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      554,
+      797,
+      681,
+      820
+     ],
+     "size": [
+      127,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16,400원",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      54,
+      834,
+      257,
+      857
+     ],
+     "size": [
+      203,
+      23
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      554,
+      795,
+      645,
+      820
+     ],
+     "size": [
+      91,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "12,000 KRW",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      265,
+      273,
+      291
+     ],
+     "size": [
+      219,
+      26
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      554,
+      227,
+      681,
+      250
+     ],
+     "size": [
+      127,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-slip-nl-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "12,000원",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      264,
+      259,
+      287
+     ],
+     "size": [
+      206,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      554,
+      225,
+      645,
+      250
+     ],
+     "size": [
+      91,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "8,400 KRW",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      674,
+      152,
+      762,
+      170
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      943,
+      312,
+      1058,
+      335
+     ],
+     "size": [
+      115,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "8,400원",
+   "parts": [
+    {
+     "item": "r2-code",
+     "role": "code",
+     "rect": [
+      674,
+      152,
+      762,
+      170
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      943,
+      310,
+      1022,
+      335
+     ],
+     "size": [
+      79,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3,300 KRW",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      674,
+      542,
+      762,
+      560
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1058,
+      725
+     ],
+     "size": [
+      116,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3,300원",
+   "parts": [
+    {
+     "item": "r3-code",
+     "role": "code",
+     "rect": [
+      674,
+      542,
+      762,
+      560
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      700,
+      1022,
+      725
+     ],
+     "size": [
+      80,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24,400 KRW",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      152,
+      141,
+      170
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      451,
+      335
+     ],
+     "size": [
+      129,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24,400원",
+   "parts": [
+    {
+     "item": "r0-code",
+     "role": "code",
+     "rect": [
+      54,
+      152,
+      141,
+      170
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      310,
+      415,
+      335
+     ],
+     "size": [
+      93,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "21,400 KRW",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      542,
+      142,
+      560
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      702,
+      451,
+      725
+     ],
+     "size": [
+      129,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-code-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "21,400원",
+   "parts": [
+    {
+     "item": "r1-code",
+     "role": "code",
+     "rect": [
+      54,
+      542,
+      142,
+      560
+     ],
+     "size": [
+      88,
+      18
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      322,
+      700,
+      415,
+      725
+     ],
+     "size": [
+      93,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s101-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3,400 KRW",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      673,
+      620,
+      902,
+      640
+     ],
+     "size": [
+      229,
+      20
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      702,
+      1058,
+      725
+     ],
+     "size": [
+      116,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s101-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3,400원",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      673,
+      619,
+      857,
+      642
+     ],
+     "size": [
+      184,
+      23
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      942,
+      700,
+      1022,
+      725
+     ],
+     "size": [
+      80,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s211-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "28,900 KRW",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      51,
+      230,
+      306,
+      256
+     ],
+     "size": [
+      255,
+      26
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      312,
+      451,
+      335
+     ],
+     "size": [
+      129,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s211-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "28,900원",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      230,
+      237,
+      252
+     ],
+     "size": [
+      184,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      322,
+      310,
+      415,
+      335
+     ],
+     "size": [
+      93,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s307-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10,200 KRW",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      620,
+      328,
+      646
+     ],
+     "size": [
+      276,
+      26
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      324,
+      702,
+      451,
+      725
+     ],
+     "size": [
+      127,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s307-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10,200원",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      619,
+      237,
+      642
+     ],
+     "size": [
+      183,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      324,
+      700,
+      415,
+      725
+     ],
+     "size": [
+      91,
+      25
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s401-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16,000 KRW",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      673,
+      230,
+      905,
+      256
+     ],
+     "size": [
+      232,
+      26
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      944,
+      312,
+      1071,
+      335
+     ],
+     "size": [
+      127,
+      23
+     ]
+    }
+   ]
+  },
+  "rental-intake-nl-s401-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16,000원",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      673,
+      229,
+      835,
+      252
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      944,
+      310,
+      1035,
+      335
+     ],
+     "size": [
+      91,
+      25
+     ]
+    }
+   ]
+  }
+ }
+}

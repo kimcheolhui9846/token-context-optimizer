@@ -1,0 +1,71 @@
+{
+ "rule": "byte identity of the deterministic files; rows compared by key in both directions (keys only in A or B, duplicates, one-sided fields, differing values, order) in run A's denominators; primary analysis stays run A",
+ "reproduced": true,
+ "bytes": {
+  "predictions.jsonl": {
+   "a": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876",
+   "b": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876",
+   "identical": true
+  },
+  "ocr.jsonl": {
+   "a": "f2807d8d22805146d7be306f49fda18ad643c4544b918c4b044b8614b73b03d0",
+   "b": "f2807d8d22805146d7be306f49fda18ad643c4544b918c4b044b8614b73b03d0",
+   "identical": true
+  },
+  "guard-summary.json": {
+   "a": "dee7f77193329867fdf797ad4b2cea3eeea14ac851258358950a2586eef98ab9",
+   "b": "dee7f77193329867fdf797ad4b2cea3eeea14ac851258358950a2586eef98ab9",
+   "identical": true
+  },
+  "score.jsonl": {
+   "a": "1e4ba586bfdb45300703b3abad0d892759a42e97e5f3e95509c1ba0cfdafd223",
+   "b": "1e4ba586bfdb45300703b3abad0d892759a42e97e5f3e95509c1ba0cfdafd223",
+   "identical": true
+  },
+  "summary.json": {
+   "a": "b5079fa4e35def28f24bdfc11ac19826c22464d1f0b80da13a9e181f18db7af1",
+   "b": "b5079fa4e35def28f24bdfc11ac19826c22464d1f0b80da13a9e181f18db7af1",
+   "identical": true
+  }
+ },
+ "summaryValueSameIgnoringInputHashes": true,
+ "predictions": {
+  "denominator": 192,
+  "rowsA": 192,
+  "rowsB": 192,
+  "sameRows": 192,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ },
+ "ocr": {
+  "denominator": 192,
+  "rowsA": 192,
+  "rowsB": 192,
+  "sameRows": 192,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ },
+ "score": {
+  "denominator": 384,
+  "rowsA": 384,
+  "rowsB": 384,
+  "sameRows": 384,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
+  "diffs": []
+ }
+}

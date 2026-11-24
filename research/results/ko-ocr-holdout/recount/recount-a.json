@@ -1,0 +1,227 @@
+{
+ "inputs": {
+  "data": "results/ko-ocr-holdout/data",
+  "run": "results/ko-ocr-holdout/run-a",
+  "baselineRun": "results/ko-ocr-holdout/run-a",
+  "score": "results/ko-ocr-holdout/score-a"
+ },
+ "check1_hash": {
+  "ok": true,
+  "mismatchCount": 0,
+  "mismatches": [],
+  "unverifiable": [],
+  "notes": []
+ },
+ "check2_keys": {
+  "ok": true,
+  "mismatchCount": 0,
+  "mismatches": [],
+  "unverifiable": [],
+  "notes": []
+ },
+ "check3_rows": {
+  "ok": true,
+  "mismatchCount": 0,
+  "mismatches": [],
+  "unverifiable": [],
+  "notes": []
+ },
+ "check4_aggregates": {
+  "ok": true,
+  "mismatchCount": 0,
+  "mismatches": [],
+  "unverifiable": [],
+  "notes": []
+ },
+ "recount": {
+  "baseline": {
+   "M": 24,
+   "C": 72,
+   "E": 0,
+   "S": 15,
+   "primary": {
+    "M": 24,
+    "C": 0,
+    "E": 0,
+    "S": 0
+   }
+  },
+  "conditionsTotalStrict": {
+   "O0K0": 15,
+   "O0K1": 15,
+   "O1K0": 15,
+   "O1K1": 19
+  },
+  "primary": {
+   "O0K0": {
+    "n": 24,
+    "M": 24,
+    "C": 0,
+    "E": 0,
+    "recoveredMatch": 0,
+    "recoveredStrict": 0,
+    "recoveredErrors": 0,
+    "strict": 0,
+    "matched": 0,
+    "unmatched": 24,
+    "technicalError": 0,
+    "recoveredMatchPct": 0.0,
+    "recoveredStrictPct": 0.0,
+    "strictPct": 0.0
+   },
+   "O0K1": {
+    "n": 24,
+    "M": 24,
+    "C": 0,
+    "E": 0,
+    "recoveredMatch": 0,
+    "recoveredStrict": 0,
+    "recoveredErrors": 0,
+    "strict": 0,
+    "matched": 0,
+    "unmatched": 24,
+    "technicalError": 0,
+    "recoveredMatchPct": 0.0,
+    "recoveredStrictPct": 0.0,
+    "strictPct": 0.0
+   },
+   "O1K0": {
+    "n": 24,
+    "M": 24,
+    "C": 0,
+    "E": 0,
+    "recoveredMatch": 0,
+    "recoveredStrict": 0,
+    "recoveredErrors": 0,
+    "strict": 0,
+    "matched": 0,
+    "unmatched": 24,
+    "technicalError": 0,
+    "recoveredMatchPct": 0.0,
+    "recoveredStrictPct": 0.0,
+    "strictPct": 0.0
+   },
+   "O1K1": {
+    "n": 24,
+    "M": 24,
+    "C": 0,
+    "E": 0,
+    "recoveredMatch": 24,
+    "recoveredStrict": 4,
+    "recoveredErrors": 0,
+    "strict": 4,
+    "matched": 24,
+    "unmatched": 0,
+    "technicalError": 0,
+    "recoveredMatchPct": 100.0,
+    "recoveredStrictPct": 16.67,
+    "strictPct": 16.67
+   }
+  },
+  "transitions": {
+   "O0K0": {
+    "M": 24,
+    "unmatchedToMatched": 0,
+    "unmatchedToStrict": 0,
+    "unmatchedErrors": 0,
+    "C": 72,
+    "matchedToUnmatched": 0,
+    "matchedErrors": 0,
+    "S": 15,
+    "strictToFail": 0,
+    "strictErrors": 0,
+    "notStrictC": 57,
+    "newStrict": 0,
+    "E": 0,
+    "baselineErrorNowStrict": 0,
+    "unmatchedToMatchedPct": 0.0,
+    "unmatchedToStrictPct": 0.0,
+    "matchedToUnmatchedPct": 0.0,
+    "strictToFailPct": 0.0,
+    "newStrictPct": 0.0
+   },
+   "O0K1": {
+    "M": 24,
+    "unmatchedToMatched": 0,
+    "unmatchedToStrict": 0,
+    "unmatchedErrors": 0,
+    "C": 72,
+    "matchedToUnmatched": 0,
+    "matchedErrors": 0,
+    "S": 15,
+    "strictToFail": 0,
+    "strictErrors": 0,
+    "notStrictC": 57,
+    "newStrict": 0,
+    "E": 0,
+    "baselineErrorNowStrict": 0,
+    "unmatchedToMatchedPct": 0.0,
+    "unmatchedToStrictPct": 0.0,
+    "matchedToUnmatchedPct": 0.0,
+    "strictToFailPct": 0.0,
+    "newStrictPct": 0.0
+   },
+   "O1K0": {
+    "M": 24,
+    "unmatchedToMatched": 0,
+    "unmatchedToStrict": 0,
+    "unmatchedErrors": 0,
+    "C": 72,
+    "matchedToUnmatched": 0,
+    "matchedErrors": 0,
+    "S": 15,
+    "strictToFail": 0,
+    "strictErrors": 0,
+    "notStrictC": 57,
+    "newStrict": 0,
+    "E": 0,
+    "baselineErrorNowStrict": 0,
+    "unmatchedToMatchedPct": 0.0,
+    "unmatchedToStrictPct": 0.0,
+    "matchedToUnmatchedPct": 0.0,
+    "strictToFailPct": 0.0,
+    "newStrictPct": 0.0
+   },
+   "O1K1": {
+    "M": 24,
+    "unmatchedToMatched": 24,
+    "unmatchedToStrict": 4,
+    "unmatchedErrors": 0,
+    "C": 72,
+    "matchedToUnmatched": 0,
+    "matchedErrors": 0,
+    "S": 15,
+    "strictToFail": 0,
+    "strictErrors": 0,
+    "notStrictC": 57,
+    "newStrict": 0,
+    "E": 0,
+    "baselineErrorNowStrict": 0,
+    "unmatchedToMatchedPct": 100.0,
+    "unmatchedToStrictPct": 16.67,
+    "matchedToUnmatchedPct": 0.0,
+    "strictToFailPct": 0.0,
+    "newStrictPct": 0.0
+   }
+  },
+  "k1Branches": {
+   "O0": {
+    "k0": 72,
+    "hangul": 0,
+    "none": 24,
+    "error": 0
+   },
+   "O1": {
+    "k0": 72,
+    "hangul": 24,
+    "none": 0,
+    "error": 0
+   }
+  },
+  "ocrLineTextDiff": {
+   "compared": 96,
+   "differ": 51
+  }
+ },
+ "ok": true
+}
