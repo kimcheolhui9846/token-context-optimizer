@@ -12,7 +12,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import { BASE_COMMIT, assertInputPath, checkPairs, pngIhdr, sha256, verifyFrozenInputs } from "./mcp-view-comparison-lib.mjs";
-import { BUNDLE_BLOB, FROZEN_LIB_BLOB, FROZEN_LIB_PATH, PADDINGS, PRODUCT_COMMIT, initFailedRow, keyOf, padRequest, runCropRow } from "./crop-padding-replay-lib.mjs";
+import { BUNDLE_BLOB, FROZEN_LIB_BLOB, FROZEN_LIB_PATH, PADDINGS, PRODUCT_COMMIT, RUN_CODE_FILES, initFailedRow, keyOf, padRequest, runCodeState, runCropRow } from "./crop-padding-replay-lib.mjs";
 import { minimalEnv, startServer } from "./crop-padding-replay-client.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -30,6 +30,10 @@ assertInputPath(shaFile);
 const git = (args, enc = "utf8") => execFileSync("git", args, { cwd: here, encoding: enc, maxBuffer: 64 * 1024 * 1024 });
 
 // ---------------------------------------------------------------- code identity (before reading inputs)
+// PM review Major 1: state of exactly the modules this process loads, taken before any input is read or server started.
+// A measurement refuses to start unless every one is tracked and equals its HEAD blob (--allow-dirty-code: non-measurement).
+const runCode = runCodeState(here, RUN_CODE_FILES);
+if (!runCode.clean && !process.argv.includes("--allow-dirty-code")) throw new Error(`run code differs from HEAD ${runCode.commit}: ${Object.entries(runCode.files).filter(([, f]) => f.head === null || f.work !== f.head || f.status).map(([n]) => n).join(", ")}`);
 const libBlob = git(["hash-object", join(here, "mcp-view-comparison-lib.mjs")]).trim();
 if (libBlob !== FROZEN_LIB_BLOB) throw new Error(`frozen library blob ${libBlob} is not ${FROZEN_LIB_BLOB}`);
 if (git(["rev-parse", `${PRODUCT_COMMIT}:${FROZEN_LIB_PATH}`]).trim() !== FROZEN_LIB_BLOB) throw new Error("frozen library differs at the product commit");
@@ -126,7 +130,7 @@ writeFileSync(join(out, "conditions.jsonl"), `${condLines.map((c) => JSON.string
 writeFileSync(join(out, "input-check.json"), `${JSON.stringify(inputCheck, null, 1)}\n`);
 writeFileSync(join(out, "run-meta.json"), `${JSON.stringify({
   node: process.version, platform: `${process.platform}-${process.arch}`, sharp: sharp.versions.sharp, vips: sharp.versions.vips,
-  runnerCommit: git(["rev-parse", "HEAD"]).trim(), runnerTreeClean: git(["status", "--porcelain", "--", "src"]).trim() === "",
+  runnerCommit: runCode.commit, runCodeCheckedBeforeMeasurement: { scope: `${runCode.prefix}{${RUN_CODE_FILES.join(",")}}`, clean: runCode.clean, files: runCode.files },
   bundleBlob, bundleWorkingCopySha256: sha256(readFileSync(bundle)), bundleWorkingCopyBytes: statSync(bundle).size,
   offlineGuard: /node-netguard\.cjs/.test(guardOptions), startedAt: new Date(started).toISOString(), totalMs: Date.now() - started, timing,
 }, null, 1)}\n`);

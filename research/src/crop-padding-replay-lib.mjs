@@ -1,6 +1,8 @@
 // Crop padding replay: padding rule and one runner row (protocol research/plans/2026-11-24-crop-padding-replay-protocol.md).
 // Reads no scoring input. Reuses the frozen #141 library (blob checked by the runner) for the original reference reader.
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { join } from "node:path";
 import sharp from "sharp";
 import { verifyOriginalRef } from "./mcp-view-comparison-lib.mjs";
 
@@ -10,6 +12,32 @@ export const FROZEN_LIB_BLOB = "b52b38a1adcc1db1f36706291ab94e34f28a38a5";
 export const FROZEN_LIB_PATH = "research/src/mcp-view-comparison-lib.mjs";
 export const PADDINGS = [0, 4, 8, 16];
 export const PROFILE = "tolerant";
+// PM review Minor 1: the index response of a gray8 original under the tolerant profile must carry this profile.
+export const EXPECTED_PROFILE = "png-gray8-tolerant-v1";
+// PM review Major 1: every module the runner loads (research/src), checked before any measurement.
+export const RUN_CODE_FILES = ["crop-padding-replay-run.mjs", "crop-padding-replay-lib.mjs", "crop-padding-replay-client.mjs", "mcp-view-comparison-lib.mjs", "mcp-view-comparison-client.mjs"];
+
+/**
+ * State of the given files of directory `dir` against HEAD: commit, repo-relative prefix, and per file the HEAD blob,
+ * the working-copy blob (git hash-object, line-ending clean filter applied) and the porcelain status. Pathspecs are
+ * the files themselves relative to `dir`, so the check covers exactly the files the runner loads. clean is true only
+ * when every file is tracked, its working blob equals its HEAD blob and its status (staged or not) is empty.
+ */
+export function runCodeState(dir, files) {
+  const git = (...args) => execFileSync("git", args, { cwd: dir, encoding: "utf8" });
+  const commit = git("rev-parse", "HEAD").trim();
+  const prefix = git("rev-parse", "--show-prefix").trim();
+  const out = {};
+  for (const f of files.slice().sort()) {
+    let head = null;
+    try { head = git("rev-parse", "--verify", "--quiet", `HEAD:${prefix}${f}`).trim() || null; } catch { head = null; }
+    const work = git("hash-object", join(dir, f)).trim();
+    const status = git("status", "--porcelain", "--untracked-files=all", "--", f).replace(/\n$/, "");
+    out[f] = { head, work, status };
+  }
+  const clean = Object.values(out).every((x) => x.head !== null && x.work === x.head && x.status === "");
+  return { commit, prefix, clean, files: out };
+}
 export const EVIDENCE_FILES = ["raw.jsonl", "conditions.jsonl", "input-check.json"];
 export const RETURNED_KINDS = ["crop_jpeg", "original_verified", "original_unverified", "none"];
 
@@ -93,6 +121,7 @@ export async function runCropRow({ client, p, image, caller, allowedRoot }) {
   row.index = { status: "ok", code: null, validationProfile: s?.validationProfile ?? null, width: s?.width ?? null, height: s?.height ?? null, sourceSha: srcSha(s) };
   if (row.index.sourceSha !== "match") return fail("index", "source_sha_mismatch");
   if (s.width !== page.width || s.height !== page.height) return fail("index", "source_dims_mismatch");
+  if (s.validationProfile !== EXPECTED_PROFILE) return fail("index", "validation_profile_mismatch");
 
   const cr = await call("crop_image_artifact", { artifactId: s.artifactId, region: req.request });
   const c = cr.structured;
