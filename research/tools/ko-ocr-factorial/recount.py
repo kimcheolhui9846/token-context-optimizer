@@ -418,7 +418,8 @@ def ensure_commits():
         if p.returncode != 0:
             missing.append(c)
     if missing:
-        subprocess.run(["git", "fetch", "origin", "pull/145/head", "pull/146/head"], cwd=toplevel(), capture_output=True)
+        # Offline by design: never fetch here. Missing objects are an input error (exit 2).
+        raise InputError("fixed commits missing: %s; run first: git fetch origin pull/145/head pull/146/head" % ", ".join(missing))
 
 
 def git_blob_id(data):
@@ -428,6 +429,7 @@ def git_blob_id(data):
 def read_fixed(label, chk):
     commit, path, want, kind = FIXED[label]
     got = git("rev-parse", "%s:%s" % (commit, path)).decode().strip()
+    chk.compared += 1
     if got != want:
         chk.fail("%s: id %s != registered %s" % (label, got, want))
     if kind == "blob":
@@ -445,6 +447,8 @@ def read_fixed(label, chk):
 
 
 def parse_jsonl(data, what, chk=None):
+    if chk is not None:
+        chk.compared += 1
     if b"\r" in data or (data and not data.endswith(b"\n")):
         if chk is not None:
             chk.fail("%s: not LF-terminated UTF-8 lines" % what)
