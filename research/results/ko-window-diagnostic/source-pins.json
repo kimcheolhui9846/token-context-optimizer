@@ -1,0 +1,37 @@
+{
+ "pinVersion": "ko-window-diagnostic-pins-1",
+ "hashBasis": "blob = Git blob id of the committed bytes; sha256 = SHA-256 of the same raw bytes (git cat-file blob); bytes = length",
+ "fetch": "git fetch origin pull/148/head pull/147/head   (objects only; nothing is merged or checked out)",
+ "source": {
+  "pr": 148,
+  "ref": "refs/pull/148/head",
+  "commit": "2ab9ed149896cc06cec387826ab99fa5bac77cda",
+  "basePath": "research/results/ko-ocr-holdout",
+  "files": {
+   "data/design.json": { "blob": "a1c89d1748dc4a1c47b3d1b07ddae188dcaed87e", "sha256": "a09af1659931e037bb50275c5c3ea4a778a03773d5ae0839e4cf1f7cea13419b", "bytes": 581042 },
+   "data/render.json": { "blob": "49cab98e22ab0442d23313a312745492e0f37e9d", "sha256": "94bd775eca4c247a69bc5a714b0d0bda97938ec71389f44473b0a6162c46ae91", "bytes": 285734 },
+   "data/gold.json": { "blob": "d5253c9483f8eafb17bad8470ba3a64322894cce", "sha256": "0eb3cc6366e790dee333b59617881ce6802124aa2f8a3b1c99c898e4956ca554", "bytes": 45944 },
+   "data/manifest.json": { "blob": "ab2fbf6f6831a1c45b4e67ae3c4f84fe76ab880c", "sha256": "c8de050507bccad3f030a84c893f0be67cd874b98f78045d35d8e0c7cc350f5a", "bytes": 15060 },
+   "data/questions.json": { "blob": "6e9ef62159dd9a10b48dde7d71f710338b94ddd8", "sha256": "4be7b592a76efbd1c632af5d9e24ce1b8e861a6f7a49c222c4208aa1b39ca7b0", "bytes": 15411 },
+   "run-a/predictions.jsonl": { "blob": "320cce68fd4a8f7d10c35e02907f12bfce064508", "sha256": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876", "bytes": 187659 },
+   "run-a/ocr.jsonl": { "blob": "b5ff60184d173ed65bf67ac3530591b83280e67a", "sha256": "f2807d8d22805146d7be306f49fda18ad643c4544b918c4b044b8614b73b03d0", "bytes": 696279 },
+   "run-a/freeze.json": { "blob": "ba33a2d8adc0035ddd8fb4c649d219b955f8e626", "sha256": "5a32517fc14af7608a3eff7b641fa86c794680ea8d576c519e5222f0a674b81d", "bytes": 235 },
+   "score-a/score.jsonl": { "blob": "369de0355ce200b78c1a10c2b2969556f23834fc", "sha256": "1e4ba586bfdb45300703b3abad0d892759a42e97e5f3e95509c1ba0cfdafd223", "bytes": 114370 },
+   "score-a/summary.json": { "blob": "c042170f79aa9c44bd7486ac73695c06e18a44cb", "sha256": "b5079fa4e35def28f24bdfc11ac19826c22464d1f0b80da13a9e181f18db7af1", "bytes": 23250 },
+   "run-b/predictions.jsonl": { "blob": "320cce68fd4a8f7d10c35e02907f12bfce064508", "sha256": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876", "bytes": 187659 },
+   "run-b/ocr.jsonl": { "blob": "b5ff60184d173ed65bf67ac3530591b83280e67a", "sha256": "f2807d8d22805146d7be306f49fda18ad643c4544b918c4b044b8614b73b03d0", "bytes": 696279 },
+   "run-b/freeze.json": { "blob": "ba33a2d8adc0035ddd8fb4c649d219b955f8e626", "sha256": "5a32517fc14af7608a3eff7b641fa86c794680ea8d576c519e5222f0a674b81d", "bytes": 235 },
+   "score-b/score.jsonl": { "blob": "369de0355ce200b78c1a10c2b2969556f23834fc", "sha256": "1e4ba586bfdb45300703b3abad0d892759a42e97e5f3e95509c1ba0cfdafd223", "bytes": 114370 },
+   "score-b/summary.json": { "blob": "c042170f79aa9c44bd7486ac73695c06e18a44cb", "sha256": "b5079fa4e35def28f24bdfc11ac19826c22464d1f0b80da13a9e181f18db7af1", "bytes": 23250 }
+  }
+ },
+ "k1Definition": {
+  "pr": 147,
+  "ref": "refs/pull/147/head",
+  "commit": "c0c2f5dd4178df3e02595176525cf88b2eaf68c2",
+  "path": "research/src/ko-ocr-factorial-lib.mjs",
+  "blob": "d882b6640fcafabcc62e14ebfd571749d88f4bf6",
+  "sha256": "bb1d5eb608494e7f99113c11deb5085cade5bb1c67e5894122eb641af94882a0",
+  "bytes": 25627
+ }
+}
