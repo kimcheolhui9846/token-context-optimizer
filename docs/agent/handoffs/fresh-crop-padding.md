@@ -39,5 +39,5 @@
 - [x] 독립 Opus 마일스톤 검토 PASS WITH NOTES(Blocker·Major 0). Minor 2·Nit 1·Note 반영(`fix(review)`)
 - [x] PM 1차 판정 CHANGES REQUIRED(head `d9e90c5`): 검산기가 선택기 오류 행의 `requestFull`을 `false`로 계산(실행기·채점기는 `null`). 실측 수치에는 영향 없음
 - [x] RED `e5a0178`(모의 선택기 오류 1건, 고치기 전 검산기 실패) → 수정 `404550a`. 세 조합 불일치 0, 변조 검출, `null`→`false` 사본 검출. RESULTS에 원본 요청 구분(여백마다 미매치 12, 실패 뒤 추가 0)
-- [ ] 수정에 대한 독립 Opus 검토
+- [x] 수정에 대한 독립 Opus 5.5 표적 재검토 PASS WITH NOTES(Blocker·Major·Minor 0, Nit 1 반영). 대상 시험 28/28, 연구 전체 161/161
 - [ ] PM 재판정
