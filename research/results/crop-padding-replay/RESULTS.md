@@ -55,5 +55,6 @@
 - 오프라인 가드: 실행마다 가드 5(실행기 1 + 조건 4), 차단 0. `guard-summary.json`
 - 조건마다 MCP 요청 98 = 응답 98(initialize 1, tools/list 1, tools/call 96), 알림 1, 종료 코드 0
 - 입력: #141 준비기로 새로 만든 입력이 로컬 #141 입력 폴더와 원본 48장·원본 SHA 표·배정·질문 모두 바이트 단위로 같았다. `prepare-report.json`은 #141의 것과 같은 준비기 출력이다
-- Python 독립 검산: [`recount/recount.json`](recount/recount.json). 192행, 검사 7,356건, 불일치 0. 요청 좌표는 R09 선택 기록 blob에서 다시 투영해 계산했다. 검산기는 채점기 코드를 보지 않은 별도 작성 주체가 썼다
+- Python 독립 검산: [`recount/recount.json`](recount/recount.json). 192행, 검사 7,356건, 불일치 0. 요청 좌표는 R09 선택 기록 blob에서 다시 투영해 계산했다. 검산기는 채점기 코드를 보지 않은 별도 작성 주체(하위 에이전트, 자기 보고 `claude-sonnet-5-5`)가 명세만 받고 썼다. 그 뒤 채점기 작성자(메인)가 비교를 더 엄격하게 만드는 수정 2건을 했다(gold SHA 동등 비교, 평가 불가 행의 `missing` null 대조). 검산기는 채점기를 import하지 않는다
+- 검산기 범위: #141 RGB manifest 치수·파생 출처, gold 입력 오류, `validationProfile`은 채점기만 확인한다(프로토콜 §9 검산기 입력 밖)
 - 연구 테스트 `test/crop-padding-replay.test.mjs` 28개(손계산 사례, RED `6414031` → GREEN `613e20c`)

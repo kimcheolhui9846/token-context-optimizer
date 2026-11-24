@@ -33,7 +33,7 @@
 | 검토 | 주체 | 상태 |
 |---|---|---|
 | 계획 검토 | Claude Opus 5.5(`harness-opus-review`) | 1차 CHANGES REQUIRED(Major 3, Minor 2), 재심 PASS WITH NOTES. 참고 의견 2건은 프로토콜 §12에 반영 |
-| 마일스톤 검토 | Claude Opus 5.5, 독립 | 대기 |
+| 마일스톤 검토 | Claude Opus 5.5, 독립 | PASS WITH NOTES(Minor 2 문서 반영, Nit 1·Note 3 기록) |
 | 프로젝트 교차 확인 | Argon(gemini-4-argon) | APPROVE, 결함 0 |
 | 최종 판정 | PM Astra | 대기 |
 
@@ -49,7 +49,13 @@
   - 메인 검수 수정 2건(더 엄격하게): gold SHA 비교를 `endswith`에서 동등 비교로, 평가 불가 행의 `missing`을 프로토콜대로 null로 대조
 - [x] 게이트 7종(대상 작업 트리 `613e20c` + 미커밋 결과 파일, 제품 코드 무변경) 모두 종료 0. test 60파일, 4,639 통과, 5 건너뜀. 빌드가 줄바꿈만 바꾼 `bin/`(blob `85b8049` 동일)은 그 파일만 되돌렸다. 연구 테스트 전체 161/161. 로그 `codex_review/gates/2026-11-24_crop-padding-replay/`(비추적)
 - [x] Argon APPROVE(결함 0, 발췌 밖 47개 ID 원시값은 확인 불가로 명시). `codex_review/argon/2026-11-24_crop-padding-replay-{bundle,argon}.md`
-- [ ] Opus 마일스톤 검토
+- [x] Opus 마일스톤 검토(`harness-opus-review`, `claude-opus-5-5`, 독립): **PASS WITH NOTES**, Blocker·Major 0
+  - 검토자가 raw·gold에서 수치를 독립 재계산했고, README 재현 절차를 새 폴더에서 처음부터 돌려 준비 리포트·A·B 결정적 출력·채점·recount가 모두 커밋본과 바이트 동일, 가드 5/차단 0이었다. 테스트 28/28
+  - Minor 1(검산기 독립성 서술 과장): RESULTS.md §5에 메인의 엄격화 수정 2건과 검산 범위를 적었다
+  - Minor 2(§10.2 경계 맞닿음 필드 미구현): 근거 상자 96개 중 경계 맞닿음 0개를 직접 세어 프로토콜 §15에 사후 기록. 코드·score 바이트는 바꾸지 않았다
+  - Nit 3(원본 참조 실패 시 `none`), Note 4–6: §15·RESULTS에 한계로 적거나 그대로 둔다(발생 0건, 판정 동일)
+  - 문서만 바뀌어 측정값·비교 규칙 변경이 없으므로 재검토는 받지 않았다
+- [ ] PM 최종 판정
 
 ## 결과 요약
 
