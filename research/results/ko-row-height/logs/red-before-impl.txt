@@ -1,7 +1,7 @@
 # RED before implementation — HEAD de31b83d3f3da4c0a5716da6d430b0e9e70c5fcb, 2026-11-24T12:45:06Z
 ## node --test test/ko-row-height.test.mjs
     throw new ERR_MODULE_NOT_FOUND(
-Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'D:\orca\worktrees\codex_plugin_and_skill\ko-row-height-holdout\research\src\ko-row-height-fixed.mjs' imported from D:\orca\worktrees\codex_plugin_and_skill\ko-row-height-holdout\research\test\ko-row-height.test.mjs
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<worktree>\research\src\ko-row-height-fixed.mjs' imported from <worktree>\research\test\ko-row-height.test.mjs
   code: 'ERR_MODULE_NOT_FOUND',
 exit=1
 ## python -m unittest tools/ko-row-height/test_recount.py
