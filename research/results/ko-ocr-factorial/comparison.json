@@ -1,5 +1,6 @@
 {
- "rule": "byte identity of the deterministic files; row-level differences are listed in the original denominators (primary analysis stays run A)",
+ "rule": "byte identity of the deterministic files; rows are compared by key in both directions (keys only in A or B, duplicates, one-sided fields, differing values) in the original denominators (primary analysis stays run A)",
+ "reproduced": true,
  "bytes": {
   "predictions.jsonl": {
    "a": "e5f87a9d47c83f499521c1f0ffb8dd2ab06a7ebf94530c96ec223757af30d7b8",
@@ -32,24 +33,57 @@
    "identical": true
   }
  },
+ "summaryValueSame": true,
  "predictions": {
   "denominator": 192,
+  "rowsA": 192,
+  "rowsB": 192,
   "sameRows": 192,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
   "diffs": []
  },
  "ocr": {
   "denominator": 192,
+  "rowsA": 192,
+  "rowsB": 192,
   "sameRows": 192,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
   "diffs": []
  },
  "score": {
   "denominator": 384,
+  "rowsA": 384,
+  "rowsB": 384,
   "sameRows": 384,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
   "diffs": []
  },
  "history": {
   "denominator": 96,
+  "rowsA": 96,
+  "rowsB": 96,
   "sameRows": 96,
+  "identical": true,
+  "sameOrder": true,
+  "onlyInA": [],
+  "onlyInB": [],
+  "duplicatesInA": [],
+  "duplicatesInB": [],
   "diffs": []
  }
 }

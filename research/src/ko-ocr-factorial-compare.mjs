@@ -2,7 +2,7 @@
 // Usage (from research/): node src/ko-ocr-factorial-compare.mjs --a <run-a> --b <run-b> --score-a <score-a> --score-b <score-b> --out <comparison.json>
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { checkFreeze, parseJsonl, pretty, sha256 } from "./ko-ocr-factorial-lib.mjs";
+import { checkFreeze, compareRows, parseJsonl, pretty, sha256 } from "./ko-ocr-factorial-lib.mjs";
 
 const arg = (k) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : undefined);
 const [a, b, sa, sb, out] = ["--a", "--b", "--score-a", "--score-b", "--out"].map(arg);
@@ -17,27 +17,25 @@ for (const [x, y, f] of files) {
   const hx = sha256(readFileSync(join(x, f))), hy = sha256(readFileSync(join(y, f)));
   bytes[f] = { a: hx, b: hy, identical: hx === hy };
 }
-const rowsDiff = (fx, fy, keyOf) => {
-  const ra = parseJsonl(readFileSync(fx, "utf8")), rb = parseJsonl(readFileSync(fy, "utf8"));
-  const mb = new Map(rb.map((r) => [keyOf(r), r]));
-  const diffs = [];
-  for (const r of ra) {
-    const o = mb.get(keyOf(r));
-    if (!o) { diffs.push({ key: keyOf(r), fields: ["missing in B"] }); continue; }
-    const fields = Object.keys(r).filter((k) => JSON.stringify(r[k]) !== JSON.stringify(o[k]));
-    if (fields.length) diffs.push({ key: keyOf(r), fields, a: Object.fromEntries(fields.map((k) => [k, k === "ocrLines" ? "(ocr lines)" : r[k]])), b: Object.fromEntries(fields.map((k) => [k, k === "ocrLines" ? "(ocr lines)" : o[k]])) });
-  }
-  return { denominator: ra.length, sameRows: ra.length - diffs.length, diffs };
-};
+const load = (f) => parseJsonl(readFileSync(f, "utf8"));
+const rowsDiff = (fx, fy, keyOf) => compareRows(load(fx), load(fy), keyOf, { hideFields: ["ocrLines"] });
 const pk = (r) => `${r.ocr}|${r.dataset}|${r.id}`;
 const sk = (r) => `${r.cond}|${r.dataset}|${r.id}`;
 const hk = (r) => `${r.dataset}|${r.id}`;
-writeFileSync(out, pretty({
-  rule: "byte identity of the deterministic files; row-level differences are listed in the original denominators (primary analysis stays run A)",
-  bytes,
+const rows = {
   predictions: rowsDiff(join(a, "predictions.jsonl"), join(b, "predictions.jsonl"), pk),
   ocr: rowsDiff(join(a, "ocr.jsonl"), join(b, "ocr.jsonl"), pk),
   score: rowsDiff(join(sa, "score.jsonl"), join(sb, "score.jsonl"), sk),
   history: rowsDiff(join(sa, "history.jsonl"), join(sb, "history.jsonl"), hk),
+};
+const summaryValueSame = JSON.stringify(JSON.parse(readFileSync(join(sa, "summary.json"), "utf8"))) === JSON.stringify(JSON.parse(readFileSync(join(sb, "summary.json"), "utf8")));
+const reproduced = Object.values(bytes).every((v) => v.identical) && Object.values(rows).every((r) => r.identical) && summaryValueSame;
+writeFileSync(out, pretty({
+  rule: "byte identity of the deterministic files; rows are compared by key in both directions (keys only in A or B, duplicates, one-sided fields, differing values) in the original denominators (primary analysis stays run A)",
+  reproduced,
+  bytes,
+  summaryValueSame,
+  ...rows,
 }));
-console.log(JSON.stringify(Object.fromEntries(Object.entries(bytes).map(([k, v]) => [k, v.identical]))));
+console.log(JSON.stringify({ reproduced, ...Object.fromEntries(Object.entries(bytes).map(([k, v]) => [k, v.identical])) }));
+if (!reproduced) process.exitCode = 1;

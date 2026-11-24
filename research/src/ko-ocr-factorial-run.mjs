@@ -10,7 +10,7 @@ import { createWorker } from "tesseract.js";
 import { selectWindow } from "./selector.mjs";
 import {
   DATASETS, ENGINE_VERSION, LANG_DIR, OCR_CONDITIONS, PAGE_TIMEOUT_MS, SELECTOR_BLOB, checkLangFiles, jsonl, keyResults, pretty, readSelectorInputs,
-  repoRoot, researchDir, sha256, writeFreeze,
+  repoRoot, researchDir, runPreflight, sha256, writeFreeze, writeStop,
 } from "./ko-ocr-factorial-lib.mjs";
 
 const arg = (k) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : undefined);
@@ -18,36 +18,38 @@ const out = arg("--out");
 const nonMeasurement = process.argv.includes("--non-measurement");
 if (!out) throw new Error("--out is required");
 if (existsSync(out)) throw new Error(`--out must not exist yet: ${out}`);
-const repo = repoRoot();
+// --limit (wiring check only) keeps the first N pages per dataset; it is refused for measurement.
+const limit = arg("--limit") ? Number(arg("--limit")) : null;
+if (limit !== null && !nonMeasurement) throw new Error("--limit is only for --non-measurement wiring checks");
 
 // ---------------------------------------------------------------- pre-OCR guard (protocol 4.1, 7)
+// Every check runs as its own step; a failing step becomes a recorded problem. Any problem -> stop.json, exit 2, no OCR.
 const CODE_FILES = ["research/src/ko-ocr-factorial-run.mjs", "research/src/ko-ocr-factorial-lib.mjs", "research/src/selector.mjs"];
-function preflight() {
-  const problems = [];
-  const guardOn = /node-netguard\.cjs/.test(process.env.NODE_OPTIONS ?? "") && Boolean(process.env.D03_NET_LOG);
-  if (!guardOn && !nonMeasurement) problems.push("offline guard missing: set NODE_OPTIONS=--require=<tools/d03/guard/node-netguard.cjs> and D03_NET_LOG");
-  const g = (a) => execFileSync("git", a, { cwd: repo, encoding: "utf8", windowsHide: true }).trim();
-  const selectorBlob = g(["hash-object", join(researchDir, "src", "selector.mjs")]);
-  if (selectorBlob !== SELECTOR_BLOB) problems.push(`selector blob ${selectorBlob} != ${SELECTOR_BLOB}`);
-  const dirty = g(["status", "--porcelain", "--", ...CODE_FILES]);
-  const commit = g(["rev-parse", "HEAD"]);
-  if (dirty && !nonMeasurement) problems.push(`code differs from HEAD ${commit}: ${dirty.replace(/\s+/g, " ")}`);
-  const pkgVersion = (name) => JSON.parse(readFileSync(join(researchDir, "node_modules", name, "package.json"), "utf8")).version;
-  const versions = { "tesseract.js": pkgVersion("tesseract.js"), "tesseract.js-core": pkgVersion("tesseract.js-core"), sharp: pkgVersion("sharp") };
-  if (versions["tesseract.js"] !== ENGINE_VERSION || versions["tesseract.js-core"] !== ENGINE_VERSION) problems.push(`engine versions ${JSON.stringify(versions)}`);
-  let langFiles = null;
-  try {
-    langFiles = checkLangFiles(LANG_DIR, ["eng", "kor"]);
-  } catch (err) {
-    problems.push(String(err.message || err));
-  }
-  return { problems, guardOn, selectorBlob, commit, codeClean: !dirty, versions, langFiles };
-}
-const pre = preflight();
+const pre = { guardOn: /node-netguard\.cjs/.test(process.env.NODE_OPTIONS ?? "") && Boolean(process.env.D03_NET_LOG), repo: null, selectorBlob: null, commit: null, codeClean: null, versions: null, langFiles: null, inputs: null };
+const g = (a) => execFileSync("git", a, { cwd: pre.repo ?? researchDir, encoding: "utf8", windowsHide: true, stdio: ["ignore", "pipe", "pipe"] }).trim();
+const pkgVersion = (name) => JSON.parse(readFileSync(join(researchDir, "node_modules", name, "package.json"), "utf8")).version;
+const problems = runPreflight([
+  ["offline guard", () => { if (!pre.guardOn && !nonMeasurement) throw new Error("missing: set NODE_OPTIONS=--require=<tools/d03/guard/node-netguard.cjs> and D03_NET_LOG"); }],
+  ["repository", () => { pre.repo = repoRoot(); }],
+  ["selector blob", () => { pre.selectorBlob = g(["hash-object", join(researchDir, "src", "selector.mjs")]); if (pre.selectorBlob !== SELECTOR_BLOB) throw new Error(`${pre.selectorBlob} != ${SELECTOR_BLOB}`); }],
+  ["code state", () => {
+    const dirty = g(["status", "--porcelain", "--", ...CODE_FILES]);
+    pre.commit = g(["rev-parse", "HEAD"]);
+    pre.codeClean = !dirty;
+    if (dirty && !nonMeasurement) throw new Error(`code differs from HEAD ${pre.commit}: ${dirty.replace(/\s+/g, " ")}`);
+  }],
+  ["engine", () => {
+    pre.versions = { "tesseract.js": pkgVersion("tesseract.js"), "tesseract.js-core": pkgVersion("tesseract.js-core"), sharp: pkgVersion("sharp") };
+    if (pre.versions["tesseract.js"] !== ENGINE_VERSION || pre.versions["tesseract.js-core"] !== ENGINE_VERSION) throw new Error(`versions ${JSON.stringify(pre.versions)}`);
+  }],
+  ["language files", () => { pre.langFiles = checkLangFiles(LANG_DIR, ["eng", "kor"]); }],
+  // Selector-side inputs only (questions + PNG from fixed Git objects), read once, before any OCR.
+  ["fixed inputs", () => { pre.inputs = Object.fromEntries(DATASETS.map((ds) => [ds, readSelectorInputs(pre.repo ?? repoRoot(), ds).slice(0, limit ?? 48)])); }],
+]);
 mkdirSync(out, { recursive: true });
-if (pre.problems.length) {
-  writeFileSync(join(out, "stop.json"), pretty({ stopped: "before OCR", problems: pre.problems }));
-  console.error(`stopped before OCR: ${pre.problems.join("; ")}`);
+if (problems.length) {
+  writeStop(out, problems);
+  console.error(`stopped before OCR: ${problems.join("; ")}`);
   process.exit(2);
 }
 
@@ -74,11 +76,7 @@ const withTimeout = (p, ms) => {
   return Promise.race([p.finally(() => clearTimeout(timer)), new Promise((_, rej) => (timer = setTimeout(() => rej(new Error(`timeout ${ms} ms`)), ms)))]);
 };
 
-// Selector-side inputs only. Read once, before any OCR.
-// --limit (wiring check only) keeps the first N pages per dataset; it is refused for measurement.
-const limit = arg("--limit") ? Number(arg("--limit")) : null;
-if (limit !== null && !nonMeasurement) throw new Error("--limit is only for --non-measurement wiring checks");
-const inputs = Object.fromEntries(DATASETS.map((ds) => [ds, readSelectorInputs(repo, ds).slice(0, limit ?? 48)]));
+const inputs = pre.inputs;
 const preds = [];
 const ocrRows = [];
 const timing = [];

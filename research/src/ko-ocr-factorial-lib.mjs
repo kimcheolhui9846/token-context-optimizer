@@ -126,6 +126,66 @@ export function checkLangFiles(dir, langs) {
   });
 }
 
+/** Run named pre-OCR checks in order; a thrown error becomes "<name>: <message>". Returns the problem list. */
+export function runPreflight(steps) {
+  const problems = [];
+  for (const [name, fn] of steps) {
+    try {
+      fn();
+    } catch (err) {
+      problems.push(`${name}: ${String(err?.message || err).slice(0, 300)}`);
+    }
+  }
+  return problems;
+}
+/** The registered stop record (protocol 7): no OCR was started. */
+export function writeStop(dir, problems) {
+  writeFileSync(join(dir, "stop.json"), pretty({ stopped: "before OCR", problems }));
+}
+
+// ------------------------------------------------------------------ A/B row comparison (protocol 6.4)
+/**
+ * Symmetric row comparison by key. Keeps the original denominator (rows of A) and reports keys only in A or B,
+ * duplicate keys on either side, fields present on one side only, differing values and order differences.
+ * A key counts as a same row only if it occurs exactly once on each side with the same field set and values.
+ */
+export function compareRows(rowsA, rowsB, keyOf, { hideFields = [] } = {}) {
+  const group = (rows) => {
+    const m = new Map();
+    rows.forEach((r) => { const k = keyOf(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); });
+    return m;
+  };
+  const ga = group(rowsA), gb = group(rowsB);
+  const show = (r, fields) => Object.fromEntries(fields.map((f) => [f, hideFields.includes(f) ? "(hidden)" : r[f]]));
+  const diffs = [];
+  let sameRows = 0;
+  for (const [k, ra] of ga) {
+    const rb = gb.get(k) || [];
+    if (ra.length !== 1 || rb.length !== 1) continue;
+    const a = ra[0], b = rb[0];
+    const onlyA = Object.keys(a).filter((f) => !(f in b));
+    const onlyB = Object.keys(b).filter((f) => !(f in a));
+    const differ = Object.keys(a).filter((f) => f in b && JSON.stringify(a[f]) !== JSON.stringify(b[f]));
+    if (!onlyA.length && !onlyB.length && !differ.length) { sameRows++; continue; }
+    diffs.push({ key: k, fieldsOnlyInA: onlyA, fieldsOnlyInB: onlyB, fields: differ, a: show(a, differ), b: show(b, differ) });
+  }
+  const dup = (g) => [...g].filter(([, v]) => v.length > 1).map(([k, v]) => ({ key: k, count: v.length }));
+  const order = (rows) => rows.map(keyOf).join("\n");
+  return {
+    denominator: rowsA.length,
+    rowsA: rowsA.length,
+    rowsB: rowsB.length,
+    sameRows,
+    identical: sameRows === rowsA.length && rowsA.length === rowsB.length && order(rowsA) === order(rowsB),
+    sameOrder: order(rowsA) === order(rowsB),
+    onlyInA: [...ga.keys()].filter((k) => !gb.has(k)),
+    onlyInB: [...gb.keys()].filter((k) => !ga.has(k)),
+    duplicatesInA: dup(ga),
+    duplicatesInB: dup(gb),
+    diffs,
+  };
+}
+
 export const FROZEN_FILES = ["predictions.jsonl", "ocr.jsonl"];
 export function writeFreeze(dir) {
   const files = Object.fromEntries(FROZEN_FILES.map((f) => [f, sha256(readFileSync(join(dir, f)))]));

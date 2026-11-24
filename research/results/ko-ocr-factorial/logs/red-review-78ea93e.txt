@@ -1,0 +1,31 @@
+# RED for the PM review fixes, run against the reviewed commit 78ea93e (detached worktree).
+# Part 1: node --test test/ko-ocr-factorial-review.test.mjs (new tests) -> exit 1, missing exports.
+# Part 2: old compare CLI on copies of the published runs with one score row duplicated in B -> exit 0 and the row result below (duplicate hidden).
+<red-worktree-78ea93e>/research/test/ko-ocr-factorial-review.test.mjs:10
+import { compareRows, runPreflight, writeStop } from "../src/ko-ocr-factorial-lib.mjs";
+         ^^^^^^^^^^^
+SyntaxError: The requested module '../src/ko-ocr-factorial-lib.mjs' does not provide an export named 'compareRows'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:327:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:431:5)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.18.0
+✖ test\ko-ocr-factorial-review.test.mjs (48.7682ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 53.8554
+
+✖ failing tests:
+
+test at test\ko-ocr-factorial-review.test.mjs:1:1
+✖ test\ko-ocr-factorial-review.test.mjs (48.7682ms)
+  'test failed'
+exit=1
+{"denominator":384,"sameRows":384,"diffs":[]}
+old compare exit recorded
