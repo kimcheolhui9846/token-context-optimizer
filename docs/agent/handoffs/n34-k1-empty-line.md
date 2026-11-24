@@ -5,7 +5,11 @@
 - 구현: Claude Code (`claude-opus-5-5`). 계획·최종 판정: Codex PM
 - 시작 HEAD `7e732e0`(pre-K1), PR base `main` `5d668f9`. prereg `8754d90`(`n34-k1-prereg.md`, 고정)
 
-## 현재 상태: K1 **CHANGES REQUIRED**(timing INVALID, memory NOTRUN) / D1 사전검증 P01·D1 진단 P02 **PASS WITH NOTES·완료**
+## 마감 (2026-11-18)
+
+K1 유지 경로로 P10을 완료했다. 공식 1회 측정에서 시간과 메모리는 각각 18/18을 통과했고 F1 판정은 D-0이었다. 관찰 범위는 해당 입력·PC·Node에 한정된다. #119 및 #115의 병합 기록은 [P10 마감 기록](p10-k1-validation-impl.md)에 있다.
+
+## 2026-11-16 중간 판정 — K1 **CHANGES REQUIRED**(timing INVALID, memory NOTRUN) / D1 사전검증 P01·D1 진단 P02 **PASS WITH NOTES·완료**
 - K1 판정(`review_2026-11-15_n34-k1-phase2-final.md`): 1,728표본 재계산 불일치 0, 필수 timing·memory 미충족. 분석 보완 PASS WITH NOTES(`review_2026-11-16_n34-k1-analysis-revision-final.md`)
 - D1(2026-11-16 사용자 1회 조건부 승인)
   - 사전검증: preflight R1/R2/M1 수정(`aa328ef`→`07f88fa`→보완 1 `00404de`), P01 Major/Minor 수정(`7fb5526`→`d2101bb`→보완 2 prereg **`f28b6ac`**)
@@ -79,6 +83,6 @@
 - 기존 64 KiB 확인은 구 코드 `8f29f19`의 결과다. 수정 코드로는 저장 raw를 읽기 전용으로 재분석만 했다(결과 일치)
 - D1 결과는 K1 PASS나 F1 위험 해소로 쓰지 않는다
 
-## 이후 (사용자·PM 결정 필요)
+## 중간 판정 당시의 후속 절차
 - 새 공식 run, 프로토콜 변경, Ready, merge는 모두 승인 대상이다
 - run3 PASS를 K1 HEAD의 PASS로 쓰지 않는다. N-34 handoff에는 링크만 남긴다
