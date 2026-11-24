@@ -1,0 +1,16 @@
+# RED before implementation, HEAD 468561e37f942b936ecab5be91685c4c256a617a, 2026-11-24T09:40:51Z
+$ node --test test/ko-row-window.test.mjs
+    throw new ERR_MODULE_NOT_FOUND(
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<worktree>\research\src\ko-row-window-fixed.mjs' imported from <worktree>\research\test\ko-row-window.test.mjs
+  code: 'ERR_MODULE_NOT_FOUND',
+exit=1
+$ python -m unittest tools/ko-row-window/test_recount.py
+    ^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'recount'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+exit=1

@@ -1,0 +1,220 @@
+{
+ "codeCommit": "4cf71f4c33d3cf9297617c34881adddef5dec521",
+ "codeClean": true,
+ "nonMeasurement": false,
+ "limit": null,
+ "frozen": {
+  "ocr.jsonl": "80eb6c7d7b0e80fedb38f6d3e4f5479dc23c6732f758ddadb87ebece4239d140",
+  "k1.jsonl": "a3fd745b15917f1578565806014ae32f0699059b90e1b64c38dc4662b231b2de"
+ },
+ "incomplete": null,
+ "node": "v24.18.0",
+ "platform": "win32-x64",
+ "pid": 35668,
+ "guardEventsForStep": 2,
+ "startedAt": "2026-11-24T09:50:13.360Z",
+ "totalMs": 32149,
+ "events": [
+  {
+   "event": "worker_created",
+   "before": "exhibit-table-inline-near-c0"
+  },
+  {
+   "event": "worker_terminated"
+  }
+ ],
+ "timing": [
+  {
+   "id": "exhibit-table-inline-near-c0",
+   "ms": 885
+  },
+  {
+   "id": "exhibit-table-inline-near-c1",
+   "ms": 741
+  },
+  {
+   "id": "exhibit-table-inline-far-c0",
+   "ms": 764
+  },
+  {
+   "id": "exhibit-table-inline-far-c1",
+   "ms": 737
+  },
+  {
+   "id": "exhibit-table-stacked-near-c0",
+   "ms": 790
+  },
+  {
+   "id": "exhibit-table-stacked-near-c1",
+   "ms": 718
+  },
+  {
+   "id": "exhibit-table-stacked-far-c0",
+   "ms": 737
+  },
+  {
+   "id": "exhibit-table-stacked-far-c1",
+   "ms": 693
+  },
+  {
+   "id": "exhibit-cards-inline-near-c0",
+   "ms": 637
+  },
+  {
+   "id": "exhibit-cards-inline-near-c1",
+   "ms": 660
+  },
+  {
+   "id": "exhibit-cards-inline-far-c0",
+   "ms": 603
+  },
+  {
+   "id": "exhibit-cards-inline-far-c1",
+   "ms": 654
+  },
+  {
+   "id": "exhibit-cards-stacked-near-c0",
+   "ms": 707
+  },
+  {
+   "id": "exhibit-cards-stacked-near-c1",
+   "ms": 667
+  },
+  {
+   "id": "exhibit-cards-stacked-far-c0",
+   "ms": 618
+  },
+  {
+   "id": "exhibit-cards-stacked-far-c1",
+   "ms": 674
+  },
+  {
+   "id": "costume-table-inline-near-c0",
+   "ms": 752
+  },
+  {
+   "id": "costume-table-inline-near-c1",
+   "ms": 680
+  },
+  {
+   "id": "costume-table-inline-far-c0",
+   "ms": 668
+  },
+  {
+   "id": "costume-table-inline-far-c1",
+   "ms": 660
+  },
+  {
+   "id": "costume-table-stacked-near-c0",
+   "ms": 692
+  },
+  {
+   "id": "costume-table-stacked-near-c1",
+   "ms": 631
+  },
+  {
+   "id": "costume-table-stacked-far-c0",
+   "ms": 675
+  },
+  {
+   "id": "costume-table-stacked-far-c1",
+   "ms": 621
+  },
+  {
+   "id": "costume-cards-inline-near-c0",
+   "ms": 620
+  },
+  {
+   "id": "costume-cards-inline-near-c1",
+   "ms": 597
+  },
+  {
+   "id": "costume-cards-inline-far-c0",
+   "ms": 633
+  },
+  {
+   "id": "costume-cards-inline-far-c1",
+   "ms": 641
+  },
+  {
+   "id": "costume-cards-stacked-near-c0",
+   "ms": 604
+  },
+  {
+   "id": "costume-cards-stacked-near-c1",
+   "ms": 606
+  },
+  {
+   "id": "costume-cards-stacked-far-c0",
+   "ms": 616
+  },
+  {
+   "id": "costume-cards-stacked-far-c1",
+   "ms": 574
+  },
+  {
+   "id": "lostfound-table-inline-near-c0",
+   "ms": 735
+  },
+  {
+   "id": "lostfound-table-inline-near-c1",
+   "ms": 668
+  },
+  {
+   "id": "lostfound-table-inline-far-c0",
+   "ms": 692
+  },
+  {
+   "id": "lostfound-table-inline-far-c1",
+   "ms": 615
+  },
+  {
+   "id": "lostfound-table-stacked-near-c0",
+   "ms": 635
+  },
+  {
+   "id": "lostfound-table-stacked-near-c1",
+   "ms": 673
+  },
+  {
+   "id": "lostfound-table-stacked-far-c0",
+   "ms": 646
+  },
+  {
+   "id": "lostfound-table-stacked-far-c1",
+   "ms": 665
+  },
+  {
+   "id": "lostfound-cards-inline-near-c0",
+   "ms": 642
+  },
+  {
+   "id": "lostfound-cards-inline-near-c1",
+   "ms": 651
+  },
+  {
+   "id": "lostfound-cards-inline-far-c0",
+   "ms": 627
+  },
+  {
+   "id": "lostfound-cards-inline-far-c1",
+   "ms": 663
+  },
+  {
+   "id": "lostfound-cards-stacked-near-c0",
+   "ms": 610
+  },
+  {
+   "id": "lostfound-cards-stacked-near-c1",
+   "ms": 665
+  },
+  {
+   "id": "lostfound-cards-stacked-far-c0",
+   "ms": 621
+  },
+  {
+   "id": "lostfound-cards-stacked-far-c1",
+   "ms": 623
+  }
+ ]
+}

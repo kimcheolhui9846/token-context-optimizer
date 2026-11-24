@@ -1,0 +1,105 @@
+{
+ "version": "ko-row-window-mutation-1",
+ "allRejected": true,
+ "tampers": {
+  "swapTransition": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "exhibit-table-inline-near-c0",
+      "mine": [
+       "transition"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "costume-table-inline-near-c1",
+      "mine": [
+       "transition"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "transition of exhibit-table-inline-near-c0 and costume-table-inline-near-c1 swapped"
+  },
+  "swapAddedPixels": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "exhibit-table-inline-near-c0",
+      "mine": [
+       "addedPixels"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "exhibit-table-inline-near-c1",
+      "mine": [
+       "addedPixels"
+      ],
+      "recorded": null
+     }
+    ]
+   }
+  },
+  "moveOtherValue": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "3-rows": [
+     {
+      "key": "exhibit-table-inline-near-c0",
+      "mine": [
+       "newInk"
+      ],
+      "recorded": null
+     },
+     {
+      "key": "exhibit-table-inline-near-c1",
+      "mine": [
+       "newInk"
+      ],
+      "recorded": null
+     }
+    ]
+   },
+   "note": "one otherValues moved between two pages (total kept)"
+  },
+  "duplicateId": {
+   "rejected": true,
+   "how": "ValidationError: duplicate id 'exhibit-table-inline-near-c0'"
+  },
+  "missingId": {
+   "rejected": true,
+   "how": "ValidationError: missing ids"
+  },
+  "predictionW1WidthPlusOne": {
+   "rejected": true,
+   "how": "recount check failed",
+   "failed": {
+    "2-k1-w1-predictions": [
+     {
+      "key": "exhibit-table-inline-near-c0 pred.w1",
+      "mine": {
+       "left": 0,
+       "top": 47,
+       "width": 1233,
+       "height": 223
+      },
+      "recorded": {
+       "left": 0,
+       "top": 47,
+       "width": 1234,
+       "height": 223
+      }
+     }
+    ]
+   }
+  }
+ }
+}

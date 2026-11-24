@@ -1,0 +1,671 @@
+{
+ "version": "ko-row-window-summary-1",
+ "dataCommit": "8b1cc5bc7bacd5791b76f674a326dad0dc34ba0b",
+ "manifestSha256": "ae2a954a1ba475f144ffc70d6f8dbaeccd7b09cabfa7335eaafc160c50b00a9c",
+ "predictionsSha256": "1e7546b7c37fbe783ae5c426c54237fae3979c80c453e7a37f8f46f122d8f26e",
+ "pageArea": 1228800,
+ "invariants": {
+  "w1ContainsW0": 48,
+  "sameLeftTopHeight": 48,
+  "sameMatchState": 48,
+  "checked": 48
+ },
+ "stages": {
+  "pages": 48,
+  "error": 0,
+  "unmatched": 0,
+  "k0Matched": 0,
+  "hangulMatched": 48,
+  "hangul": {
+   "hitsVerified": 48,
+   "withCandidates": 48,
+   "widened": 23,
+   "notWider": 25,
+   "noCandidate": 0
+  }
+ },
+ "groups": {
+  "total": {
+   "n": 48,
+   "error": 0,
+   "unmatched": 0,
+   "matched": 48,
+   "w0": {
+    "strict": 22,
+    "fullPage": 0
+   },
+   "w1": {
+    "strict": 45,
+    "fullPage": 0
+   },
+   "transition": {
+    "recovered": 23,
+    "lost": 0,
+    "keptSuccess": 22,
+    "bothFail": 3,
+    "bothFailError": 0,
+    "bothFailUnmatched": 0
+   },
+   "recoveredOfW0Fail": {
+    "count": 23,
+    "denom": 26,
+    "pct": 88.46
+   },
+   "lostOfW0Success": {
+    "count": 0,
+    "denom": 22,
+    "pct": 0
+   },
+   "net": 23,
+   "widened": 23,
+   "area": {
+    "validPairs": 48,
+    "addedPixelsSum": 7530412,
+    "meanPp": 12.7672,
+    "medianPp": 0,
+    "maxPp": 34.5176,
+    "widenedPages": 23,
+    "widenedMeanPp": 26.6446,
+    "widenedMedianPp": 25.625,
+    "widenedMaxPp": 34.5176,
+    "perNewSuccess": 327409.2174,
+    "perNet": 327409.2174,
+    "perNetReason": null
+   },
+   "newInk": {
+    "targetLabel": 0,
+    "targetValue": 23,
+    "otherValues": 34,
+    "otherLabels": 0,
+    "notes": 43,
+    "headers": 39,
+    "others": 0,
+    "pagesWithOtherValue": 16
+   }
+  },
+  "vert": {
+   "inline": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "w0": {
+     "strict": 3,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 23,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 20,
+     "lost": 0,
+     "keptSuccess": 3,
+     "bothFail": 1,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 20,
+     "denom": 21,
+     "pct": 95.24
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 3,
+     "pct": 0
+    },
+    "net": 20,
+    "widened": 20,
+    "area": {
+     "validPairs": 24,
+     "addedPixelsSum": 6505158,
+     "meanPp": 22.058,
+     "medianPp": 23.1263,
+     "maxPp": 34.5176,
+     "widenedPages": 20,
+     "widenedMeanPp": 26.4696,
+     "widenedMedianPp": 25.3717,
+     "widenedMaxPp": 34.5176,
+     "perNewSuccess": 325257.9,
+     "perNet": 325257.9,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 20,
+     "otherValues": 32,
+     "otherLabels": 0,
+     "notes": 37,
+     "headers": 34,
+     "others": 0,
+     "pagesWithOtherValue": 14
+    }
+   },
+   "stacked": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "w0": {
+     "strict": 19,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 22,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 3,
+     "lost": 0,
+     "keptSuccess": 19,
+     "bothFail": 2,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 3,
+     "denom": 5,
+     "pct": 60
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 19,
+     "pct": 0
+    },
+    "net": 3,
+    "widened": 3,
+    "area": {
+     "validPairs": 24,
+     "addedPixelsSum": 1025254,
+     "meanPp": 3.4765,
+     "medianPp": 0,
+     "maxPp": 33.6188,
+     "widenedPages": 3,
+     "widenedMeanPp": 27.8118,
+     "widenedMedianPp": 28.6759,
+     "widenedMaxPp": 33.6188,
+     "perNewSuccess": 341751.3333,
+     "perNet": 341751.3333,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 3,
+     "otherValues": 2,
+     "otherLabels": 0,
+     "notes": 6,
+     "headers": 5,
+     "others": 0,
+     "pagesWithOtherValue": 2
+    }
+   }
+  },
+  "form": {
+   "table": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "w0": {
+     "strict": 10,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 21,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 11,
+     "lost": 0,
+     "keptSuccess": 10,
+     "bothFail": 3,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 11,
+     "denom": 14,
+     "pct": 78.57
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 10,
+     "pct": 0
+    },
+    "net": 11,
+    "widened": 11,
+    "area": {
+     "validPairs": 24,
+     "addedPixelsSum": 3678648,
+     "meanPp": 12.4737,
+     "medianPp": 0,
+     "maxPp": 33.1797,
+     "widenedPages": 11,
+     "widenedMeanPp": 27.2154,
+     "widenedMedianPp": 27.6602,
+     "widenedMaxPp": 33.1797,
+     "perNewSuccess": 334422.5455,
+     "perNet": 334422.5455,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 11,
+     "otherValues": 29,
+     "otherLabels": 0,
+     "notes": 27,
+     "headers": 22,
+     "others": 0,
+     "pagesWithOtherValue": 11
+    }
+   },
+   "cards": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "w0": {
+     "strict": 12,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 24,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 12,
+     "lost": 0,
+     "keptSuccess": 12,
+     "bothFail": 0,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 12,
+     "denom": 12,
+     "pct": 100
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 12,
+     "pct": 0
+    },
+    "net": 12,
+    "widened": 12,
+    "area": {
+     "validPairs": 24,
+     "addedPixelsSum": 3851764,
+     "meanPp": 13.0607,
+     "medianPp": 10.1111,
+     "maxPp": 34.5176,
+     "widenedPages": 12,
+     "widenedMeanPp": 26.1214,
+     "widenedMedianPp": 21.9818,
+     "widenedMaxPp": 34.5176,
+     "perNewSuccess": 320980.3333,
+     "perNet": 320980.3333,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 12,
+     "otherValues": 5,
+     "otherLabels": 0,
+     "notes": 16,
+     "headers": 17,
+     "others": 0,
+     "pagesWithOtherValue": 5
+    }
+   }
+  },
+  "gap": {
+   "near": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "w0": {
+     "strict": 12,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 22,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 10,
+     "lost": 0,
+     "keptSuccess": 12,
+     "bothFail": 2,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 10,
+     "denom": 12,
+     "pct": 83.33
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 12,
+     "pct": 0
+    },
+    "net": 10,
+    "widened": 10,
+    "area": {
+     "validPairs": 24,
+     "addedPixelsSum": 3403736,
+     "meanPp": 11.5415,
+     "medianPp": 0,
+     "maxPp": 34.5176,
+     "widenedPages": 10,
+     "widenedMeanPp": 27.6997,
+     "widenedMedianPp": 26.7747,
+     "widenedMaxPp": 34.5176,
+     "perNewSuccess": 340373.6,
+     "perNet": 340373.6,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 10,
+     "otherValues": 15,
+     "otherLabels": 0,
+     "notes": 17,
+     "headers": 17,
+     "others": 0,
+     "pagesWithOtherValue": 7
+    }
+   },
+   "far": {
+    "n": 24,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 24,
+    "w0": {
+     "strict": 10,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 23,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 13,
+     "lost": 0,
+     "keptSuccess": 10,
+     "bothFail": 1,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 13,
+     "denom": 14,
+     "pct": 92.86
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 10,
+     "pct": 0
+    },
+    "net": 13,
+    "widened": 13,
+    "area": {
+     "validPairs": 24,
+     "addedPixelsSum": 4126676,
+     "meanPp": 13.9929,
+     "medianPp": 20.3914,
+     "maxPp": 32.8568,
+     "widenedPages": 13,
+     "widenedMeanPp": 25.8331,
+     "widenedMedianPp": 25.625,
+     "widenedMaxPp": 32.8568,
+     "perNewSuccess": 317436.6154,
+     "perNet": 317436.6154,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 13,
+     "otherValues": 19,
+     "otherLabels": 0,
+     "notes": 26,
+     "headers": 22,
+     "others": 0,
+     "pagesWithOtherValue": 9
+    }
+   }
+  },
+  "doctype": {
+   "exhibit": {
+    "n": 16,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 16,
+    "w0": {
+     "strict": 9,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 16,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 7,
+     "lost": 0,
+     "keptSuccess": 9,
+     "bothFail": 0,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 7,
+     "denom": 7,
+     "pct": 100
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 9,
+     "pct": 0
+    },
+    "net": 7,
+    "widened": 7,
+    "area": {
+     "validPairs": 16,
+     "addedPixelsSum": 2401048,
+     "meanPp": 12.2124,
+     "medianPp": 0,
+     "maxPp": 34.5176,
+     "widenedPages": 7,
+     "widenedMeanPp": 27.914,
+     "widenedMedianPp": 27.6602,
+     "widenedMaxPp": 34.5176,
+     "perNewSuccess": 343006.8571,
+     "perNet": 343006.8571,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 7,
+     "otherValues": 11,
+     "otherLabels": 0,
+     "notes": 13,
+     "headers": 12,
+     "others": 0,
+     "pagesWithOtherValue": 5
+    }
+   },
+   "costume": {
+    "n": 16,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 16,
+    "w0": {
+     "strict": 8,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 13,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 5,
+     "lost": 0,
+     "keptSuccess": 8,
+     "bothFail": 3,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 5,
+     "denom": 8,
+     "pct": 62.5
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 8,
+     "pct": 0
+    },
+    "net": 5,
+    "widened": 5,
+    "area": {
+     "validPairs": 16,
+     "addedPixelsSum": 1445904,
+     "meanPp": 7.3542,
+     "medianPp": 0,
+     "maxPp": 31.277,
+     "widenedPages": 5,
+     "widenedMeanPp": 23.5336,
+     "widenedMedianPp": 20.9204,
+     "widenedMaxPp": 31.277,
+     "perNewSuccess": 289180.8,
+     "perNet": 289180.8,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 5,
+     "otherValues": 8,
+     "otherLabels": 0,
+     "notes": 8,
+     "headers": 8,
+     "others": 0,
+     "pagesWithOtherValue": 3
+    }
+   },
+   "lostfound": {
+    "n": 16,
+    "error": 0,
+    "unmatched": 0,
+    "matched": 16,
+    "w0": {
+     "strict": 5,
+     "fullPage": 0
+    },
+    "w1": {
+     "strict": 16,
+     "fullPage": 0
+    },
+    "transition": {
+     "recovered": 11,
+     "lost": 0,
+     "keptSuccess": 5,
+     "bothFail": 0,
+     "bothFailError": 0,
+     "bothFailUnmatched": 0
+    },
+    "recoveredOfW0Fail": {
+     "count": 11,
+     "denom": 11,
+     "pct": 100
+    },
+    "lostOfW0Success": {
+     "count": 0,
+     "denom": 5,
+     "pct": 0
+    },
+    "net": 11,
+    "widened": 11,
+    "area": {
+     "validPairs": 16,
+     "addedPixelsSum": 3683460,
+     "meanPp": 18.735,
+     "medianPp": 21.9948,
+     "maxPp": 33.6188,
+     "widenedPages": 11,
+     "widenedMeanPp": 27.251,
+     "widenedMedianPp": 28.431,
+     "widenedMaxPp": 33.6188,
+     "perNewSuccess": 334860,
+     "perNet": 334860,
+     "perNetReason": null
+    },
+    "newInk": {
+     "targetLabel": 0,
+     "targetValue": 11,
+     "otherValues": 15,
+     "otherLabels": 0,
+     "notes": 22,
+     "headers": 19,
+     "others": 0,
+     "pagesWithOtherValue": 8
+    }
+   }
+  }
+ },
+ "lists": {
+  "recovered": [
+   "exhibit-table-inline-near-c1",
+   "exhibit-table-inline-far-c0",
+   "exhibit-table-inline-far-c1",
+   "exhibit-cards-inline-near-c0",
+   "exhibit-cards-inline-near-c1",
+   "exhibit-cards-inline-far-c0",
+   "exhibit-cards-inline-far-c1",
+   "costume-table-inline-near-c0",
+   "costume-table-inline-far-c0",
+   "costume-table-inline-far-c1",
+   "costume-cards-inline-near-c1",
+   "costume-cards-inline-far-c1",
+   "lostfound-table-inline-near-c0",
+   "lostfound-table-inline-near-c1",
+   "lostfound-table-inline-far-c0",
+   "lostfound-table-inline-far-c1",
+   "lostfound-table-stacked-far-c1",
+   "lostfound-cards-inline-near-c0",
+   "lostfound-cards-inline-near-c1",
+   "lostfound-cards-inline-far-c0",
+   "lostfound-cards-inline-far-c1",
+   "lostfound-cards-stacked-near-c1",
+   "lostfound-cards-stacked-far-c0"
+  ],
+  "lost": [],
+  "lostFullPage": [],
+  "widened": [
+   "exhibit-table-inline-near-c1",
+   "exhibit-table-inline-far-c0",
+   "exhibit-table-inline-far-c1",
+   "exhibit-cards-inline-near-c0",
+   "exhibit-cards-inline-near-c1",
+   "exhibit-cards-inline-far-c0",
+   "exhibit-cards-inline-far-c1",
+   "costume-table-inline-near-c0",
+   "costume-table-inline-far-c0",
+   "costume-table-inline-far-c1",
+   "costume-cards-inline-near-c1",
+   "costume-cards-inline-far-c1",
+   "lostfound-table-inline-near-c0",
+   "lostfound-table-inline-near-c1",
+   "lostfound-table-inline-far-c0",
+   "lostfound-table-inline-far-c1",
+   "lostfound-table-stacked-far-c1",
+   "lostfound-cards-inline-near-c0",
+   "lostfound-cards-inline-near-c1",
+   "lostfound-cards-inline-far-c0",
+   "lostfound-cards-inline-far-c1",
+   "lostfound-cards-stacked-near-c1",
+   "lostfound-cards-stacked-far-c0"
+  ]
+ }
+}

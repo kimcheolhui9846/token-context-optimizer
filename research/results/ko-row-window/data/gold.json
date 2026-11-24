@@ -1,0 +1,1809 @@
+{
+ "design": "ko-row-window-design-1",
+ "set": "ko-row-window",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "exhibit-table-inline-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "115 cm",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      169,
+      194,
+      192
+     ],
+     "size": [
+      141,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      344,
+      172,
+      418,
+      190
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-inline-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "174 cm",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      225,
+      194,
+      249
+     ],
+     "size": [
+      142,
+      24
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      344,
+      228,
+      418,
+      246
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-inline-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "197 cm",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      282,
+      216,
+      304
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      734,
+      284,
+      808,
+      302
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-inline-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "198 cm",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      53,
+      338,
+      192,
+      360
+     ],
+     "size": [
+      139,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      734,
+      340,
+      808,
+      358
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-stacked-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "244 cm",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      170,
+      194,
+      192
+     ],
+     "size": [
+      142,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      342,
+      212,
+      418,
+      230
+     ],
+     "size": [
+      76,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-stacked-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "120 cm",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      265,
+      194,
+      288
+     ],
+     "size": [
+      141,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      344,
+      308,
+      418,
+      326
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-stacked-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "118 cm",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      362,
+      193,
+      384
+     ],
+     "size": [
+      140,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      734,
+      404,
+      808,
+      422
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-table-stacked-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "140 cm",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      54,
+      458,
+      194,
+      480
+     ],
+     "size": [
+      140,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      734,
+      500,
+      808,
+      518
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-inline-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "244 cm",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      172,
+      194,
+      194
+     ],
+     "size": [
+      142,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      342,
+      174,
+      418,
+      192
+     ],
+     "size": [
+      76,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-inline-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "166 cm",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      359,
+      192,
+      382
+     ],
+     "size": [
+      139,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      344,
+      362,
+      418,
+      380
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-inline-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "244 cm",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      172,
+      215,
+      194
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      174,
+      808,
+      192
+     ],
+     "size": [
+      76,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-inline-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "243 cm",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      360,
+      214,
+      382
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      362,
+      808,
+      380
+     ],
+     "size": [
+      76,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-stacked-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "192 cm",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      172,
+      214,
+      194
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      344,
+      214,
+      418,
+      232
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-stacked-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "211 cm",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      399,
+      215,
+      422
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      342,
+      442,
+      418,
+      460
+     ],
+     "size": [
+      76,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-stacked-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "139 cm",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      172,
+      194,
+      194
+     ],
+     "size": [
+      141,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      214,
+      808,
+      232
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "exhibit-cards-stacked-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "179 cm",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      400,
+      213,
+      422
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      442,
+      808,
+      460
+     ],
+     "size": [
+      74,
+      18
+     ]
+    }
+   ]
+  },
+  "costume-table-inline-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3월 18일",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      225,
+      215,
+      248
+     ],
+     "size": [
+      163,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      342,
+      226,
+      428,
+      248
+     ],
+     "size": [
+      86,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-inline-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10월 3일",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      282,
+      193,
+      304
+     ],
+     "size": [
+      140,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      344,
+      282,
+      428,
+      304
+     ],
+     "size": [
+      84,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-inline-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10월 11일",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      53,
+      338,
+      213,
+      360
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      734,
+      338,
+      831,
+      360
+     ],
+     "size": [
+      97,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-inline-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10월 23일",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      169,
+      215,
+      192
+     ],
+     "size": [
+      161,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      170,
+      831,
+      192
+     ],
+     "size": [
+      97,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-stacked-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9월 28일",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      266,
+      191,
+      289
+     ],
+     "size": [
+      137,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      343,
+      306,
+      428,
+      328
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-stacked-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9월 10일",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      361,
+      194,
+      384
+     ],
+     "size": [
+      142,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      343,
+      402,
+      428,
+      424
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-stacked-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "9월 21일",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      54,
+      458,
+      193,
+      480
+     ],
+     "size": [
+      139,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      733,
+      498,
+      818,
+      520
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-table-stacked-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "7월 20일",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      193,
+      192
+     ],
+     "size": [
+      140,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      733,
+      210,
+      818,
+      232
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-inline-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3월 23일",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      359,
+      191,
+      382
+     ],
+     "size": [
+      138,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      342,
+      360,
+      428,
+      382
+     ],
+     "size": [
+      86,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-inline-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "8월 22일",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      52,
+      172,
+      216,
+      194
+     ],
+     "size": [
+      164,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      343,
+      172,
+      428,
+      194
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-inline-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "5월 24일",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      360,
+      194,
+      382
+     ],
+     "size": [
+      141,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      732,
+      360,
+      818,
+      382
+     ],
+     "size": [
+      86,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-inline-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "2월 17일",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      171,
+      213,
+      194
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      172,
+      818,
+      194
+     ],
+     "size": [
+      86,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-stacked-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3월 7일",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      399,
+      215,
+      422
+     ],
+     "size": [
+      163,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      342,
+      440,
+      415,
+      462
+     ],
+     "size": [
+      73,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-stacked-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "7월 11일",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      172,
+      215,
+      194
+     ],
+     "size": [
+      162,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      343,
+      212,
+      428,
+      234
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-stacked-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "6월 15일",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      399,
+      216,
+      422
+     ],
+     "size": [
+      163,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      733,
+      440,
+      818,
+      462
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "costume-cards-stacked-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "3월 11일",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      171,
+      215,
+      194
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      732,
+      212,
+      818,
+      234
+     ],
+     "size": [
+      86,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-inline-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "F열 12번",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      282,
+      194,
+      304
+     ],
+     "size": [
+      141,
+      22
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      344,
+      282,
+      428,
+      304
+     ],
+     "size": [
+      84,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-inline-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "D열 21번",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      53,
+      338,
+      191,
+      360
+     ],
+     "size": [
+      138,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      344,
+      338,
+      431,
+      360
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-inline-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "F열 23번",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      170,
+      191,
+      192
+     ],
+     "size": [
+      138,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      170,
+      818,
+      192
+     ],
+     "size": [
+      84,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-inline-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "B열 8번",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      225,
+      194,
+      248
+     ],
+     "size": [
+      141,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      226,
+      807,
+      248
+     ],
+     "size": [
+      73,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-stacked-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "B열 8번",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      361,
+      193,
+      384
+     ],
+     "size": [
+      140,
+      23
+     ]
+    },
+    {
+     "item": "r2-value",
+     "role": "value",
+     "rect": [
+      344,
+      402,
+      417,
+      424
+     ],
+     "size": [
+      73,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-stacked-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "E열 16번",
+   "parts": [
+    {
+     "item": "r3-label",
+     "role": "label",
+     "rect": [
+      52,
+      458,
+      215,
+      480
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r3-value",
+     "role": "value",
+     "rect": [
+      344,
+      498,
+      429,
+      520
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-stacked-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "F열 36번",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      170,
+      192,
+      192
+     ],
+     "size": [
+      138,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      210,
+      818,
+      232
+     ],
+     "size": [
+      84,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-table-stacked-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "C열 9번",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      265,
+      191,
+      288
+     ],
+     "size": [
+      138,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      733,
+      306,
+      807,
+      328
+     ],
+     "size": [
+      74,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-inline-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "B열 38번",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      171,
+      191,
+      194
+     ],
+     "size": [
+      138,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      344,
+      172,
+      430,
+      194
+     ],
+     "size": [
+      86,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-inline-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "C열 39번",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      359,
+      194,
+      382
+     ],
+     "size": [
+      140,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      343,
+      360,
+      430,
+      382
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-inline-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "F열 12번",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      171,
+      213,
+      194
+     ],
+     "size": [
+      160,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      172,
+      818,
+      194
+     ],
+     "size": [
+      84,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-inline-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "E열 26번",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      360,
+      213,
+      382
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      360,
+      819,
+      382
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-stacked-near-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "F열 3번",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      53,
+      171,
+      215,
+      194
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      344,
+      212,
+      415,
+      234
+     ],
+     "size": [
+      71,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-stacked-near-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "C열 24번",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      399,
+      237,
+      422
+     ],
+     "size": [
+      184,
+      23
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      343,
+      440,
+      430,
+      462
+     ],
+     "size": [
+      87,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-stacked-far-c0": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "E열 32번",
+   "parts": [
+    {
+     "item": "r0-label",
+     "role": "label",
+     "rect": [
+      54,
+      172,
+      213,
+      194
+     ],
+     "size": [
+      159,
+      22
+     ]
+    },
+    {
+     "item": "r0-value",
+     "role": "value",
+     "rect": [
+      734,
+      212,
+      819,
+      234
+     ],
+     "size": [
+      85,
+      22
+     ]
+    }
+   ]
+  },
+  "lostfound-cards-stacked-far-c1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "F열 19번",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      400,
+      215,
+      422
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r1-value",
+     "role": "value",
+     "rect": [
+      734,
+      440,
+      818,
+      462
+     ],
+     "size": [
+      84,
+      22
+     ]
+    }
+   ]
+  }
+ }
+}

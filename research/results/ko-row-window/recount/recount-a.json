@@ -1,0 +1,152 @@
+{
+ "version": "ko-row-window-recount-1",
+ "ok": true,
+ "checks": {
+  "1-hashes-ids-data": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "2-k1-w1-predictions": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "3-rows": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  },
+  "4-summary": {
+   "ok": true,
+   "mismatches": [],
+   "count": 0
+  }
+ },
+ "stages": {
+  "pages": 48,
+  "error": 0,
+  "unmatched": 0,
+  "k0Matched": 0,
+  "hangulMatched": 48,
+  "hangul": {
+   "hitsVerified": 48,
+   "withCandidates": 48,
+   "widened": 23,
+   "notWider": 25,
+   "noCandidate": 0
+  }
+ },
+ "total": {
+  "n": 48,
+  "error": 0,
+  "unmatched": 0,
+  "matched": 48,
+  "w0": {
+   "strict": 22,
+   "fullPage": 0
+  },
+  "w1": {
+   "strict": 45,
+   "fullPage": 0
+  },
+  "transition": {
+   "recovered": 23,
+   "lost": 0,
+   "keptSuccess": 22,
+   "bothFail": 3,
+   "bothFailError": 0,
+   "bothFailUnmatched": 0
+  },
+  "recoveredOfW0Fail": {
+   "count": 23,
+   "denom": 26,
+   "pct": 88.46
+  },
+  "lostOfW0Success": {
+   "count": 0,
+   "denom": 22,
+   "pct": 0.0
+  },
+  "net": 23,
+  "widened": 23,
+  "area": {
+   "validPairs": 48,
+   "addedPixelsSum": 7530412,
+   "meanPp": 12.7672,
+   "medianPp": 0.0,
+   "maxPp": 34.5176,
+   "widenedPages": 23,
+   "widenedMeanPp": 26.6446,
+   "widenedMedianPp": 25.625,
+   "widenedMaxPp": 34.5176,
+   "perNewSuccess": 327409.2174,
+   "perNet": 327409.2174,
+   "perNetReason": null
+  },
+  "newInk": {
+   "targetLabel": 0,
+   "targetValue": 23,
+   "otherValues": 34,
+   "otherLabels": 0,
+   "notes": 43,
+   "headers": 39,
+   "others": 0,
+   "pagesWithOtherValue": 16
+  }
+ },
+ "lists": {
+  "recovered": [
+   "exhibit-table-inline-near-c1",
+   "exhibit-table-inline-far-c0",
+   "exhibit-table-inline-far-c1",
+   "exhibit-cards-inline-near-c0",
+   "exhibit-cards-inline-near-c1",
+   "exhibit-cards-inline-far-c0",
+   "exhibit-cards-inline-far-c1",
+   "costume-table-inline-near-c0",
+   "costume-table-inline-far-c0",
+   "costume-table-inline-far-c1",
+   "costume-cards-inline-near-c1",
+   "costume-cards-inline-far-c1",
+   "lostfound-table-inline-near-c0",
+   "lostfound-table-inline-near-c1",
+   "lostfound-table-inline-far-c0",
+   "lostfound-table-inline-far-c1",
+   "lostfound-table-stacked-far-c1",
+   "lostfound-cards-inline-near-c0",
+   "lostfound-cards-inline-near-c1",
+   "lostfound-cards-inline-far-c0",
+   "lostfound-cards-inline-far-c1",
+   "lostfound-cards-stacked-near-c1",
+   "lostfound-cards-stacked-far-c0"
+  ],
+  "lost": [],
+  "lostFullPage": [],
+  "widened": [
+   "exhibit-table-inline-near-c1",
+   "exhibit-table-inline-far-c0",
+   "exhibit-table-inline-far-c1",
+   "exhibit-cards-inline-near-c0",
+   "exhibit-cards-inline-near-c1",
+   "exhibit-cards-inline-far-c0",
+   "exhibit-cards-inline-far-c1",
+   "costume-table-inline-near-c0",
+   "costume-table-inline-far-c0",
+   "costume-table-inline-far-c1",
+   "costume-cards-inline-near-c1",
+   "costume-cards-inline-far-c1",
+   "lostfound-table-inline-near-c0",
+   "lostfound-table-inline-near-c1",
+   "lostfound-table-inline-far-c0",
+   "lostfound-table-inline-far-c1",
+   "lostfound-table-stacked-far-c1",
+   "lostfound-cards-inline-near-c0",
+   "lostfound-cards-inline-near-c1",
+   "lostfound-cards-inline-far-c0",
+   "lostfound-cards-inline-far-c1",
+   "lostfound-cards-stacked-near-c1",
+   "lostfound-cards-stacked-far-c0"
+  ]
+ }
+}
