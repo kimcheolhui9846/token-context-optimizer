@@ -193,7 +193,7 @@ test("caller technical error rows never call the product", async () => {
 });
 
 // ------------------------------------------------------------------ judgement
-const parts = [{ item: "a", rect: [20, 30, 30, 40] }, { item: "v", rect: [50, 30, 60, 41] }];
+const parts = [{ item: "a", rect: [20, 30, 30, 40] }, { item: "v", rect: [50, 32, 60, 41] }];
 const okRow = (kind, region) => ({ outcome: "ok", returned: { kind, region } });
 
 test("half-open containment: boundary equality passes, 1px over fails", () => {
@@ -374,4 +374,25 @@ test("design: selector index carries no answer, code, item text or geometry", ()
   const idx = selectorIndexOf(buildDesign(), null);
   const keys = new Set(idx.images.flatMap((i) => Object.keys(i)));
   for (const k of ["answer", "code", "items", "rules", "goldItems", "anchorItem", "question"]) assert.ok(!keys.has(k), k);
+});
+
+// ------------------------------------------------------------------ code lists checked before measurement
+test("collector and runner code lists equal their static relative import graphs", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { COLLECT_CODE_FILES, RUN_CODE_FILES } = await import("../src/fcp-lib.mjs");
+  const src = new URL("../src/", import.meta.url);
+  const graph = (entry) => {
+    const seen = new Set();
+    const walk = (f) => {
+      if (seen.has(f)) return;
+      seen.add(f);
+      const text = readFileSync(new URL(f, src), "utf8");
+      assert.ok(!/\bimport\s*\(/.test(text) && !/\brequire\s*\(/.test(text), `${f}: dynamic import or require`);
+      for (const m of text.matchAll(/^\s*(?:import|export)\s[^;]*?from\s+"\.\/([^"]+)"/gms)) walk(m[1]);
+    };
+    walk(entry);
+    return [...seen].sort();
+  };
+  assert.deepEqual(graph("fcp-collect.mjs"), COLLECT_CODE_FILES.slice().sort());
+  assert.deepEqual(graph("fcp-run.mjs"), RUN_CODE_FILES.slice().sort());
 });
