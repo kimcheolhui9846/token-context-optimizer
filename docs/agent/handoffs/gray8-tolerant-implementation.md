@@ -94,3 +94,10 @@
 - 성능: 새 성능 임계값은 범위 밖. 기존 `npm run benchmark`만 실행했고 이미지 경로는 그 벤치마크에 없다. `areaAverageRgba`의 RGB 경로에 분기 하나가 늘었다(같은 산술, 기존 overview 테스트 통과). 시간·메모리 실측 없음
 - MCP 경로로는 저장소 내부 변조(N7)를 만들 수 없어 코어 주입 테스트로만 검증
 - WBS·논문·연구 결과는 요청서에 따라 수정하지 않음. 설치·배포·버전 변경 없음. PR은 Draft
+
+## 7. PM 1차 판정 반영 (2026-11-24, 검토 head `aa3253d`)
+
+- PM 판정: 제품 검증 통과, 공개 문서 Minor 2건
+- Minor 1(공개 ID 형식): `docs/image-artifacts.md`의 ID 문장을 `artifactId` = `image_` + 식별 SHA-256의 첫 16개 소문자 16진 문자, 식별 해시 입력 = 정규 경로·NUL·원본 바이트 SHA-256 64자 16진 문자열·NUL·`png-gray8-tolerant-v1`로 고침(`src/core/image-artifacts.ts`의 `identityInput`·`artifactId` 식과 대조)
+- Minor 2(개요 작업 행): Float64Array + Uint32Array = 밴드당 (8 + 4) × 출력너비 → RGB/RGBA 36 × 출력너비, 회색조 12 × 출력너비로 나누고, 출력 RGBA 버퍼·디코드 임시 메모리와 구분해 적음(`src/core/image-overview.ts`의 `bands` 대조)
+- 제품 코드·번들 변경 없음. PR 본문에 완료한 검증·R7·독립 검토·미측정 항목을 기록

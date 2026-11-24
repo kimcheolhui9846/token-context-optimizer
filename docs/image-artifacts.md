@@ -37,8 +37,11 @@ profile (default, omitted or explicit) still rejects grayscale with
 tolerant PNG: ancillary chunks are CRC-checked but their payloads are not applied,
 case is preserved, names are listed in first-occurrence order, and a 33rd distinct
 type returns `unsupported_png_profile`. `sha256` and `byteLength` cover the whole
-original file and `path` is the canonical original path. The ID is
-`sha256(path \0 sha256 \0 png-gray8-tolerant-v1)`, like other non-strict profiles;
+original file and `path` is the canonical original path. The returned
+`artifactId` is `image_` followed by the first 16 lowercase hexadecimal
+characters of an identity SHA-256. That identity hash covers the canonical path,
+a NUL byte, the full 64-character hexadecimal `sha256` of the original bytes, a
+NUL byte, and `png-gray8-tolerant-v1`, as for other non-strict profiles;
 existing RGB/RGBA/JPEG IDs are unchanged. In tolerant mode, tRNS (gray color-key
 transparency), gray+alpha (color type 4), palette (color type 3), 1/2/4/16-bit
 depths, Adam7 interlace, APNG, PLTE, and unknown critical chunks are still
@@ -362,8 +365,11 @@ from downscaled overview text.
 Overview processing uses the same input ceilings as indexing: 10 MiB encoded,
 8192 pixels per axis, and 16,777,216 total pixels. The deterministic resampler
 uses an output RGBA buffer (`4 × width × height`, at most 9 MiB) plus two
-working rows totaling `36 × outputWidth` bytes. It does not allocate a source-sized
-RGBA copy or a source-by-output weight matrix. For a tolerant grayscale PNG the
+working rows (a Float64Array and a Uint32Array, 8 + 4 bytes per band per output
+column) totaling `36 × outputWidth` bytes for RGB/RGBA (three bands) and
+`12 × outputWidth` bytes for a tolerant grayscale PNG (one band). It does not
+allocate a source-sized RGBA copy or a source-by-output weight matrix. These
+resampler figures exclude decode temporaries: for a tolerant grayscale PNG the
 decode buffer is 1 byte per pixel (at most 16 MiB) and the inflated scanlines are
 (width + 1) × height bytes. Decoder,
 encoder, and captured-source temporaries add to that working set. These bounds
