@@ -1,0 +1,32 @@
+# ko-window-diagnostic official run
+code commit: 0943bf811d5b056f742c59282eb32c6323ff41ae   working tree clean before run: no (only untracked entry: this log file, created by the shell redirect before the check)
+node v24.18.0 | Python 3.12.10 | git version 2.54.0.windows.1
+location: research/   (<tmp> = a new empty folder outside the repository)
+
+$ node src/ko-window-diagnostic-run.mjs --run a --out results/ko-window-diagnostic/run-a
+{"run":"a","pages":24,"registeredSplit":{"both":4,"anchorOnly":15,"valueOnly":3,"neither":2},"containmentByLineClass":{"both":{"anchorCue":0,"otherItemOnly":0,"undetermined":0},"anchorOnly":{"anchorCue":15,"otherItemOnly":0,"undetermined":0},"valueOnly":{"anchorCue":0,"otherItemOnly":3,"undetermined":0},"neither":{"anchorCue":0,"otherItemOnly":2,"undetermined":0}}}
+exit=0
+
+$ node src/ko-window-diagnostic-run.mjs --run b --out results/ko-window-diagnostic/run-b
+{"run":"b","pages":24,"registeredSplit":{"both":4,"anchorOnly":15,"valueOnly":3,"neither":2},"containmentByLineClass":{"both":{"anchorCue":0,"otherItemOnly":0,"undetermined":0},"anchorOnly":{"anchorCue":15,"otherItemOnly":0,"undetermined":0},"valueOnly":{"anchorCue":0,"otherItemOnly":3,"undetermined":0},"neither":{"anchorCue":0,"otherItemOnly":2,"undetermined":0}}}
+exit=0
+
+$ node src/ko-window-diagnostic-compare.mjs --a results/ko-window-diagnostic/run-a --b results/ko-window-diagnostic/run-b --out results/ko-window-diagnostic/ab-compare.json
+{"reproduced":true,"rows":[24,24],"sameRows":24,"diffs":0}
+exit=0
+
+$ python tools/ko-window-diagnostic/recount.py --run a --pages results/ko-window-diagnostic/run-a/pages.jsonl --summary results/ko-window-diagnostic/run-a/summary.json --out results/ko-window-diagnostic/recount-a.json
+{"run": "a", "ok": true, "pageProblems": 0, "summaryProblems": 0, "error": null}
+exit=0
+
+$ python tools/ko-window-diagnostic/recount.py --run b --pages results/ko-window-diagnostic/run-b/pages.jsonl --summary results/ko-window-diagnostic/run-b/summary.json --out results/ko-window-diagnostic/recount-b.json
+{"run": "b", "ok": true, "pageProblems": 0, "summaryProblems": 0, "error": null}
+exit=0
+
+$ python tools/ko-window-diagnostic/mutation_check.py --run a --dir results/ko-window-diagnostic/run-a --work <tmp>/a --out results/ko-window-diagnostic/mutation-a.json
+{"run": "a", "allPassed": true, "checks": 6}
+exit=0
+
+$ python tools/ko-window-diagnostic/mutation_check.py --run b --dir results/ko-window-diagnostic/run-b --work <tmp>/b --out results/ko-window-diagnostic/mutation-b.json
+{"run": "b", "allPassed": true, "checks": 6}
+exit=0

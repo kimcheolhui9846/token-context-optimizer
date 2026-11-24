@@ -1,0 +1,249 @@
+{
+ "cohortVersion": "ko-window-diagnostic-cohort-1",
+ "source": "score-a/score.jsonl rows with cond O1K1 and cell ko/nl, in design.json order",
+ "n": 24,
+ "primary": 20,
+ "control": 4,
+ "pages": [
+  {
+   "id": "repair-slip-nl-s101-ko",
+   "doctype": "repair",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "none",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-slip-nl-s211-ko",
+   "doctype": "repair",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "none",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-slip-nl-s307-ko",
+   "doctype": "repair",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-slip-nl-s401-ko",
+   "doctype": "repair",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-intake-nl-s101-ko",
+   "doctype": "repair",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-intake-nl-s211-ko",
+   "doctype": "repair",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-intake-nl-s307-ko",
+   "doctype": "repair",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "repair-intake-nl-s401-ko",
+   "doctype": "repair",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "greenhouse-slip-nl-s101-ko",
+   "doctype": "greenhouse",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "greenhouse-slip-nl-s211-ko",
+   "doctype": "greenhouse",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "greenhouse-slip-nl-s307-ko",
+   "doctype": "greenhouse",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "greenhouse-slip-nl-s401-ko",
+   "doctype": "greenhouse",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "greenhouse-intake-nl-s101-ko",
+   "doctype": "greenhouse",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "greenhouse-intake-nl-s211-ko",
+   "doctype": "greenhouse",
+   "layout": "intake",
+   "role": "control",
+   "strict": true,
+   "evidence": "all",
+   "branch": "hangul",
+   "state": "matched_strict"
+  },
+  {
+   "id": "greenhouse-intake-nl-s307-ko",
+   "doctype": "greenhouse",
+   "layout": "intake",
+   "role": "control",
+   "strict": true,
+   "evidence": "all",
+   "branch": "hangul",
+   "state": "matched_strict"
+  },
+  {
+   "id": "greenhouse-intake-nl-s401-ko",
+   "doctype": "greenhouse",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "rental-slip-nl-s101-ko",
+   "doctype": "rental",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "rental-slip-nl-s211-ko",
+   "doctype": "rental",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "rental-slip-nl-s307-ko",
+   "doctype": "rental",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "rental-slip-nl-s401-ko",
+   "doctype": "rental",
+   "layout": "slip",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "rental-intake-nl-s101-ko",
+   "doctype": "rental",
+   "layout": "intake",
+   "role": "control",
+   "strict": true,
+   "evidence": "all",
+   "branch": "hangul",
+   "state": "matched_strict"
+  },
+  {
+   "id": "rental-intake-nl-s211-ko",
+   "doctype": "rental",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  },
+  {
+   "id": "rental-intake-nl-s307-ko",
+   "doctype": "rental",
+   "layout": "intake",
+   "role": "control",
+   "strict": true,
+   "evidence": "all",
+   "branch": "hangul",
+   "state": "matched_strict"
+  },
+  {
+   "id": "rental-intake-nl-s401-ko",
+   "doctype": "rental",
+   "layout": "intake",
+   "role": "primary",
+   "strict": false,
+   "evidence": "partial",
+   "branch": "hangul",
+   "state": "matched_not_strict"
+  }
+ ]
+}

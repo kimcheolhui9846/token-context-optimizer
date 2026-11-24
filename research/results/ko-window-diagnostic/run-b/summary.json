@@ -1,0 +1,700 @@
+{
+ "protocol": "research/plans/2026-11-24-ko-window-diagnostic-protocol.md",
+ "inputs": {
+  "sourceCommit": "2ab9ed149896cc06cec387826ab99fa5bac77cda",
+  "k1LibraryBlob": "d882b6640fcafabcc62e14ebfd571749d88f4bf6",
+  "cohortSha256": "39ed3fbdff5c6dc151299730f83f1418a6c164a1b5eb973533dc526b745f73ec",
+  "sha256": {
+   "design": "a09af1659931e037bb50275c5c3ea4a778a03773d5ae0839e4cf1f7cea13419b",
+   "render": "94bd775eca4c247a69bc5a714b0d0bda97938ec71389f44473b0a6162c46ae91",
+   "gold": "0eb3cc6366e790dee333b59617881ce6802124aa2f8a3b1c99c898e4956ca554",
+   "predictions": "3ae051b8f2ecac84d7af8931b3f5c569d38763962390b380a1dbe7c8d93aa876",
+   "ocr": "f2807d8d22805146d7be306f49fda18ad643c4544b918c4b044b8614b73b03d0",
+   "score": "1e4ba586bfdb45300703b3abad0d892759a42e97e5f3e95509c1ba0cfdafd223"
+  }
+ },
+ "sourceDenominators": {
+  "pages": 96,
+  "predictions": 192,
+  "ocr": 192,
+  "score": 384,
+  "cohort": 24,
+  "primary": 20,
+  "control": 4
+ },
+ "registeredSplit": {
+  "both": 4,
+  "anchorOnly": 15,
+  "valueOnly": 3,
+  "neither": 2
+ },
+ "denominators": {
+  "all": 24,
+  "primary": 20,
+  "control": 4
+ },
+ "containment": {
+  "primary": {
+   "both": 0,
+   "anchorOnly": 15,
+   "valueOnly": 3,
+   "neither": 2
+  },
+  "control": {
+   "both": 4,
+   "anchorOnly": 0,
+   "valueOnly": 0,
+   "neither": 0
+  },
+  "all": {
+   "both": 4,
+   "anchorOnly": 15,
+   "valueOnly": 3,
+   "neither": 2
+  }
+ },
+ "containmentByLineClass": {
+  "primary": {
+   "both": {
+    "anchorCue": 0,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "anchorOnly": {
+    "anchorCue": 15,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "valueOnly": {
+    "anchorCue": 0,
+    "otherItemOnly": 3,
+    "undetermined": 0
+   },
+   "neither": {
+    "anchorCue": 0,
+    "otherItemOnly": 2,
+    "undetermined": 0
+   }
+  },
+  "control": {
+   "both": {
+    "anchorCue": 4,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "anchorOnly": {
+    "anchorCue": 0,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "valueOnly": {
+    "anchorCue": 0,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "neither": {
+    "anchorCue": 0,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   }
+  },
+  "all": {
+   "both": {
+    "anchorCue": 4,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "anchorOnly": {
+    "anchorCue": 15,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "valueOnly": {
+    "anchorCue": 0,
+    "otherItemOnly": 3,
+    "undetermined": 0
+   },
+   "neither": {
+    "anchorCue": 0,
+    "otherItemOnly": 2,
+    "undetermined": 0
+   }
+  }
+ },
+ "containmentByTrigger": {
+  "primary": {
+   "both": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   },
+   "anchorOnly": {
+    "anchorOnly": 14,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   },
+   "valueOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 3,
+    "both": 0,
+    "neither": 0
+   },
+   "neither": {
+    "anchorOnly": 0,
+    "otherOnly": 2,
+    "both": 0,
+    "neither": 0
+   }
+  },
+  "control": {
+   "both": {
+    "anchorOnly": 2,
+    "otherOnly": 0,
+    "both": 2,
+    "neither": 0
+   },
+   "anchorOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   },
+   "valueOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   },
+   "neither": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   }
+  },
+  "all": {
+   "both": {
+    "anchorOnly": 2,
+    "otherOnly": 0,
+    "both": 2,
+    "neither": 0
+   },
+   "anchorOnly": {
+    "anchorOnly": 14,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   },
+   "valueOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 3,
+    "both": 0,
+    "neither": 0
+   },
+   "neither": {
+    "anchorOnly": 0,
+    "otherOnly": 2,
+    "both": 0,
+    "neither": 0
+   }
+  }
+ },
+ "lineClassByTrigger": {
+  "primary": {
+   "anchorCue": {
+    "anchorOnly": 14,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   },
+   "otherItemOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 5,
+    "both": 0,
+    "neither": 0
+   },
+   "undetermined": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   }
+  },
+  "control": {
+   "anchorCue": {
+    "anchorOnly": 2,
+    "otherOnly": 0,
+    "both": 2,
+    "neither": 0
+   },
+   "otherItemOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   },
+   "undetermined": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   }
+  },
+  "all": {
+   "anchorCue": {
+    "anchorOnly": 16,
+    "otherOnly": 0,
+    "both": 3,
+    "neither": 0
+   },
+   "otherItemOnly": {
+    "anchorOnly": 0,
+    "otherOnly": 5,
+    "both": 0,
+    "neither": 0
+   },
+   "undetermined": {
+    "anchorOnly": 0,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   }
+  }
+ },
+ "lineClassByMixed": {
+  "primary": {
+   "anchorCue": {
+    "mixed": 5,
+    "notMixed": 10
+   },
+   "otherItemOnly": {
+    "mixed": 5,
+    "notMixed": 0
+   },
+   "undetermined": {
+    "mixed": 0,
+    "notMixed": 0
+   }
+  },
+  "control": {
+   "anchorCue": {
+    "mixed": 4,
+    "notMixed": 0
+   },
+   "otherItemOnly": {
+    "mixed": 0,
+    "notMixed": 0
+   },
+   "undetermined": {
+    "mixed": 0,
+    "notMixed": 0
+   }
+  },
+  "all": {
+   "anchorCue": {
+    "mixed": 9,
+    "notMixed": 10
+   },
+   "otherItemOnly": {
+    "mixed": 5,
+    "notMixed": 0
+   },
+   "undetermined": {
+    "mixed": 0,
+    "notMixed": 0
+   }
+  }
+ },
+ "hitTextInAnchorTextByTrigger": {
+  "primary": {
+   "anchorOnly": {
+    "true": 14,
+    "false": 0
+   },
+   "otherOnly": {
+    "true": 0,
+    "false": 5
+   },
+   "both": {
+    "true": 1,
+    "false": 0
+   },
+   "neither": {
+    "true": 0,
+    "false": 0
+   }
+  },
+  "control": {
+   "anchorOnly": {
+    "true": 2,
+    "false": 0
+   },
+   "otherOnly": {
+    "true": 0,
+    "false": 0
+   },
+   "both": {
+    "true": 2,
+    "false": 0
+   },
+   "neither": {
+    "true": 0,
+    "false": 0
+   }
+  },
+  "all": {
+   "anchorOnly": {
+    "true": 16,
+    "false": 0
+   },
+   "otherOnly": {
+    "true": 0,
+    "false": 5
+   },
+   "both": {
+    "true": 3,
+    "false": 0
+   },
+   "neither": {
+    "true": 0,
+    "false": 0
+   }
+  }
+ },
+ "otherLineCue": {
+  "primary": {
+   "selectedWithoutCue": 5,
+   "cueOnOtherLine": 5,
+   "noCueAnywhere": 0,
+   "otherCueScoreLower": 5,
+   "otherCueScoreEqual": 0,
+   "otherCueScoreHigher": 0
+  },
+  "control": {
+   "selectedWithoutCue": 0,
+   "cueOnOtherLine": 0,
+   "noCueAnywhere": 0,
+   "otherCueScoreLower": 0,
+   "otherCueScoreEqual": 0,
+   "otherCueScoreHigher": 0
+  },
+  "all": {
+   "selectedWithoutCue": 5,
+   "cueOnOtherLine": 5,
+   "noCueAnywhere": 0,
+   "otherCueScoreLower": 5,
+   "otherCueScoreEqual": 0,
+   "otherCueScoreHigher": 0
+  }
+ },
+ "deficitSides": {
+  "primary": {
+   "left": 0,
+   "top": 3,
+   "right": 15,
+   "bottom": 2
+  },
+  "control": {
+   "left": 0,
+   "top": 0,
+   "right": 0,
+   "bottom": 0
+  },
+  "all": {
+   "left": 0,
+   "top": 3,
+   "right": 15,
+   "bottom": 2
+  }
+ },
+ "anchorDeficitSides": {
+  "primary": {
+   "left": 0,
+   "top": 3,
+   "right": 0,
+   "bottom": 2
+  },
+  "control": {
+   "left": 0,
+   "top": 0,
+   "right": 0,
+   "bottom": 0
+  },
+  "all": {
+   "left": 0,
+   "top": 3,
+   "right": 0,
+   "bottom": 2
+  }
+ },
+ "valueDeficitSides": {
+  "primary": {
+   "left": 0,
+   "top": 0,
+   "right": 15,
+   "bottom": 2
+  },
+  "control": {
+   "left": 0,
+   "top": 0,
+   "right": 0,
+   "bottom": 0
+  },
+  "all": {
+   "left": 0,
+   "top": 0,
+   "right": 15,
+   "bottom": 2
+  }
+ },
+ "byLayout": {
+  "intake": {
+   "n": 12,
+   "primary": 8,
+   "control": 4,
+   "containment": {
+    "both": 4,
+    "anchorOnly": 5,
+    "valueOnly": 3,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 9,
+    "otherItemOnly": 3,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 6,
+    "otherOnly": 3,
+    "both": 3,
+    "neither": 0
+   }
+  },
+  "slip": {
+   "n": 12,
+   "primary": 12,
+   "control": 0,
+   "containment": {
+    "both": 0,
+    "anchorOnly": 10,
+    "valueOnly": 0,
+    "neither": 2
+   },
+   "lineClass": {
+    "anchorCue": 10,
+    "otherItemOnly": 2,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 10,
+    "otherOnly": 2,
+    "both": 0,
+    "neither": 0
+   }
+  }
+ },
+ "byDoctype": {
+  "greenhouse": {
+   "n": 8,
+   "primary": 6,
+   "control": 2,
+   "containment": {
+    "both": 2,
+    "anchorOnly": 6,
+    "valueOnly": 0,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 8,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 7,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   }
+  },
+  "rental": {
+   "n": 8,
+   "primary": 6,
+   "control": 2,
+   "containment": {
+    "both": 2,
+    "anchorOnly": 6,
+    "valueOnly": 0,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 8,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 7,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   }
+  },
+  "repair": {
+   "n": 8,
+   "primary": 8,
+   "control": 0,
+   "containment": {
+    "both": 0,
+    "anchorOnly": 3,
+    "valueOnly": 3,
+    "neither": 2
+   },
+   "lineClass": {
+    "anchorCue": 3,
+    "otherItemOnly": 5,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 2,
+    "otherOnly": 5,
+    "both": 1,
+    "neither": 0
+   }
+  }
+ },
+ "byDoctypeLayout": {
+  "greenhouse/intake": {
+   "n": 4,
+   "primary": 2,
+   "control": 2,
+   "containment": {
+    "both": 2,
+    "anchorOnly": 2,
+    "valueOnly": 0,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 4,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 3,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   }
+  },
+  "greenhouse/slip": {
+   "n": 4,
+   "primary": 4,
+   "control": 0,
+   "containment": {
+    "both": 0,
+    "anchorOnly": 4,
+    "valueOnly": 0,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 4,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 4,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   }
+  },
+  "rental/intake": {
+   "n": 4,
+   "primary": 2,
+   "control": 2,
+   "containment": {
+    "both": 2,
+    "anchorOnly": 2,
+    "valueOnly": 0,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 4,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 3,
+    "otherOnly": 0,
+    "both": 1,
+    "neither": 0
+   }
+  },
+  "rental/slip": {
+   "n": 4,
+   "primary": 4,
+   "control": 0,
+   "containment": {
+    "both": 0,
+    "anchorOnly": 4,
+    "valueOnly": 0,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 4,
+    "otherItemOnly": 0,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 4,
+    "otherOnly": 0,
+    "both": 0,
+    "neither": 0
+   }
+  },
+  "repair/intake": {
+   "n": 4,
+   "primary": 4,
+   "control": 0,
+   "containment": {
+    "both": 0,
+    "anchorOnly": 1,
+    "valueOnly": 3,
+    "neither": 0
+   },
+   "lineClass": {
+    "anchorCue": 1,
+    "otherItemOnly": 3,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 0,
+    "otherOnly": 3,
+    "both": 1,
+    "neither": 0
+   }
+  },
+  "repair/slip": {
+   "n": 4,
+   "primary": 4,
+   "control": 0,
+   "containment": {
+    "both": 0,
+    "anchorOnly": 2,
+    "valueOnly": 0,
+    "neither": 2
+   },
+   "lineClass": {
+    "anchorCue": 2,
+    "otherItemOnly": 2,
+    "undetermined": 0
+   },
+   "triggerSource": {
+    "anchorOnly": 2,
+    "otherOnly": 2,
+    "both": 0,
+    "neither": 0
+   }
+  }
+ }
+}

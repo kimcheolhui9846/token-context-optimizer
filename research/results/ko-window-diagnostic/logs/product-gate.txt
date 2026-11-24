@@ -1,0 +1,26 @@
+# product verification (repository root, project instructions), Windows, node v24.18.0
+HEAD bab47f57ea9c118a63f9f5c69f62da2fa8ab11c7
+npm ci --ignore-scripts exit=0 secs=4
+npm run build exit=0 secs=3
+npm test exit=0 secs=38
+npm run typecheck exit=0 secs=3
+npm run smoke:mcp exit=0 secs=1
+npm run validate:plugin exit=0 secs=1
+npm run benchmark exit=0 secs=1
+git status before build: clean
+git status after benchmark: ' M bin/token-context-optimizer.mjs' -> same blob as HEAD (85b80499, line endings only, autocrlf); that file alone restored
+
+## npm test (tail)
+ Test Files  60 passed (60)
+      Tests  4639 passed | 5 skipped (4644)
+   Start at  17:55:28
+   Duration  37.29s (transform 6.33s, setup 0ms, import 18.19s, tests 328.20s, environment 9ms)
+
+
+## smoke:mcp / validate:plugin
+mcp smoke ok
+plugin manifest ok
+
+## benchmark (passed field)
+69:  "passed": true
+benchmark env.dirty=true: recorded while the build had rewritten bin/ line endings
