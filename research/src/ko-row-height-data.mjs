@@ -16,8 +16,8 @@ export const PAGE = { width: 1280, height: 960 };
 export const DATA_PATH = "research/results/ko-row-height/data";
 export const MANIFEST = "manifest.json";
 // Set by the data-freeze commit (protocol 3.4); the runner refuses to start while these are null.
-export const DATA_COMMIT = null;
-export const MANIFEST_SHA256 = null;
+export const DATA_COMMIT = "13a26d887c2f00e5d022a7d950eceac38135c31b";
+export const MANIFEST_SHA256 = "6e3e4bd2738adde945aea346171d2daa9e8b922aba261798c5db6e91694b0b07";
 
 const sha256 = (b) => createHash("sha256").update(b).digest("hex");
 const git = (args, enc) => execFileSync("git", args, { cwd: researchDir, encoding: enc, windowsHide: true, stdio: ["ignore", "pipe", "pipe"], maxBuffer: 256 * 1024 * 1024 });
