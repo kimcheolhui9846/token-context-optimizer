@@ -2,17 +2,51 @@
 
 - 날짜: 2026-11-24 · Task: Orca task_4960fef0ed60 · Tier E · #149 후속(사용자 승인)
 - 작업자: Claude Code(Opus 5.5, 연구 작성자) · 계획·마일스톤 교차검토·최종 판정: Codex Astra(PM)
-- 브랜치 `claude/ko-row-window-holdout`, 기준 main `0fb30531aabaa9f55b8c9fdc34ee9d03042936c1`. #147 `c0c2f5dd…`, #148 `2ab9ed14…`, #149 `fd7ba06e…`는 Git 객체로만 읽는다.
-- 프로토콜: `research/plans/2026-11-24-ko-row-window-protocol.md`. 검산 명세: `research/tools/ko-row-window/RECOUNT_SPEC.md`.
+- 브랜치 `claude/ko-row-window-holdout`, Draft PR #150, 기준 main `0fb30531aabaa9f55b8c9fdc34ee9d03042936c1`. #147 `c0c2f5dd…`, #148 `2ab9ed14…`, #149 `fd7ba06e…`는 Git 객체로만 읽었다.
+- 프로토콜: `research/plans/2026-11-24-ko-row-window-protocol.md`. 검산 명세: `research/tools/ko-row-window/RECOUNT_SPEC.md`. 결과: `research/results/ko-row-window/RESULTS.md`.
 
-## 상태
+## 커밋 순서
 
-| 단계 | 상태 | 근거 |
-|---|---|---|
-| 사전등록(규칙·생성기·예제·시험·스키마), Draft PR | 진행 중 | 이 커밋 |
+| 커밋 | 내용 |
+|---|---|
+| `468561e` | 사전등록(프로토콜, 생성기, 검산 명세, 손계산 예제·스키마, JS·Python 시험 RED). push 직후 Draft PR #150, GitHub `isDraft: true`·head `468561e` 확인 뒤 구현 시작 |
+| `fcb3ece` | RED 기록(두 모음 모두 모듈 없음, 종료 1) |
+| `432372a` | 구현. 등록 뒤 시험 변경 없음(JS 12/12, Python 7/7) |
+| `2808425` | 수정: 기존 이미지 트리를 저장소 루트 기준으로 나열(`ls-tree --full-tree`). 규칙 변경 없음 |
+| `8b1cc5b` | 자료 동결(OCR 0회). manifest `ae2a954a…`, questions `01451255…`, gold `91f6c1a4…` |
+| `4cf71f4` | 실행기에 자료 커밋·매니페스트 해시 고정 |
+| `801ae80` | OCR 1회·K1 동결. ocr `80eb6c7d…`, k1 `a3fd745b…` |
+| `85506fd` | 예측 48행 동결(정답 열기 전, push 확인 뒤 채점). predictions `1e7546b7c37fbe783ae5c426c54237fae3979c80c453e7a37f8f46f122d8f26e` |
+| `94fa6f3` | 채점, 재생 B, A/B, Python 검산, 변조 점검, RESULTS, 검증 기록 |
+| (이 커밋) | 새 클론 재현 기록, 이 인계서 |
 
-## 경계
+## 결과 요약
 
-- 쓰기 범위: `research/` 안 이 과제 전용 파일과 이 인계서. 제품, 원고, 다른 과제 폴더, WBS, 환경 설정·설치 상태는 바꾸지 않는다.
-- 로컬 CPU, 연구 API 비용 0원, GPU·유료 모델·호스팅 없음. Argon(BAZE)에 자료를 보내지 않는다("Argon 불가: 과제 지시로 외부 자료 전송 금지").
-- 하위 에이전트를 쓰지 않는다(Orca 작업 지시). 생성기와 Python 검산기도 연구 작성자가 썼다(독립성 한계는 프로토콜 1절).
+- 48쪽 모두 정상 한글 분기 매치(오류·미매치·K0 매치 0). 후보 있음 48, 실제 확대 23, 넓히지 않음 25.
+- 엄격 성공 W0 22/48 → W1 45/48. 회복 23(W0 실패 26 중 88.46%), 손실 0(W0 성공 22 중), 유지 22, 둘 다 실패 3. 전체 페이지 창 0.
+- 세로 배치: inline 3 → 23(회복 20/21), stacked 19 → 22(3/5). 양식: table 10 → 21, cards 12 → 24. 간격: near 12 → 22, far 10 → 23. 문서 종류: exhibit 9 → 16, costume 8 → 13, lostfound 5 → 16.
+- 면적: 넓힌 23쪽 평균 +26.64%p(중앙 25.63, 최대 34.52), 전체 48쪽 평균 +12.77%p(중앙 0). 추가 픽셀 합 7,530,412, 신규 성공·순증당 327,409.2px.
+- 새로 담은 잉크: 다른 레코드 값 34개(16쪽), 무관 비고 43개, 머리글·항목명 39개, 다른 레코드 표지 0.
+- 둘 다 실패 3쪽은 costume 표에서 K1이 머리글 줄을 고른 경우(등록대로 수정하지 않음).
+- 사후 관찰: inline 회복은 대부분 고정 선택기의 `axisRow` 세로 열 창(inline 24쪽 중 20쪽)을 W1이 보완한 것이고, stacked 18쪽은 OCR이 표지와 비고를 한 줄로 묶어 W0가 이미 성공했다. 원인 판정이 아니다.
+
+## 검증
+
+- 재생 K1 = 원시 OCR 재실행 고정 K1 48/48. W1 ⊇ W0·좌상하 불변 48/48. 재생 A/B 결정적 파일 바이트 동일.
+- Python 독립 검산(A·B) 종료 0, 변조 6종 모두 거부. 검산기는 JS 모듈을 import하지 않는다.
+- 제품 7단계(`npm ci --ignore-scripts`, build, test 4639 통과·5 건너뜀, typecheck, smoke:mcp, validate:plugin, benchmark) 모두 종료 0. 빌드가 `bin/token-context-optimizer.mjs`를 줄 끝만 바꿔(같은 blob) 그 파일만 되돌렸다.
+- 연구 회귀: `node --test test/*.test.mjs` 145/145, Python `test_d03.py`+`test_recount.py` 32/32. 이번에는 41fc769 별도 fetch가 필요하지 않았다(객체가 로컬에 있었다).
+- 새 클론(`94fa6f3`, 저장소 밖 임시 폴더, README 그대로): 자료 재생성 6개 JSON·PNG 48장 바이트 동일, 검사 통과, 재현용 OCR·재생·채점이 게시본과 바이트 동일, 가드 차단 0, A/B `reproduced: true`, 검산 A·B 종료 0, 변조 전부 거부, 대상 시험 통과. 이 재현용 OCR은 분석에 쓰지 않았다(분석은 동결 OCR 하나).
+
+## 경계와 한계
+
+- 쓰기 범위: 이 과제 전용 `research/` 파일과 이 인계서. 제품, 원고, 다른 과제 폴더, WBS, lockfile, 환경 설정·설치 상태는 바꾸지 않았다. 새 worktree의 `research/node_modules`(lockfile `npm ci`)와 Git 무시 캐시(`research/.cache/`, 언어 파일은 #148 작업 트리 캐시에서 복사·해시 확인)만 로컬에 생겼다.
+- 연구 API 비용 0원, GPU·유료 모델 없음. Argon 불가: 과제 지시로 외부 자료 전송 금지.
+- 하위 에이전트를 쓰지 않았다(Orca 작업 지시). 생성기·구현·Python 검산기를 같은 작성자가 썼다. 명세 해석 오류가 양쪽에 함께 들어갈 위험이 남는다(손계산 예제로 일부 보완).
+- 회고적 설계(#149를 보고 규칙·축 결정), 합성 48쪽의 기술 통계, 표지 배정 순서와 조건의 겹침, 답변 정확도·토큰 비용 미측정. OCR 엔진·언어·글꼴이 바뀌면 결과가 달라질 수 있다.
+- WBS 미갱신(과제 지시). Ready·merge 하지 않음.
+
+## 다음 작업
+
+- PM(Astra): 마일스톤 교차검토와 최종 판정.
+- 사용자: Ready·merge, W1 채택 여부(별도 결정).

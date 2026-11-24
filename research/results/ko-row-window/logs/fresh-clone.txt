@@ -1,0 +1,45 @@
+# fresh clone reproduction (README steps 1-5) at 94fa6f3, outside the repository, 2026-11-24T09:57:24Z
+W=<temp dir>
+HEAD 94fa6f339cdeae00f61bba30b68988447ac0924e
+commit
+commit
+commit
+commit
+npm ci exit=0
+.cache/ko-ocr-factorial/eng.traineddata: OK
+.cache/ko-ocr-factorial/kor.traineddata: OK
+/c/Windows/Fonts/NotoSansKR-VF.ttf: OK
+{"pages": 48, "problems": []}
+{"images": 48, "failedImages": 0, "font": "Version 2.04;241114210130;non-release"}
+{"ok":true,"problems":[],"inkGap":{"nearMin":106,"nearMax":153,"farMin":517,"farMax":543},"earlier":{"counts":{"r09-heldout":48,"r09-dev":4,"fcp":48,"ko-ocr-holdout-148":96},"image":0,"question":0,"cohort149":{"pages":24,"imageOverlap":0,"questionOverlap":0}}}
+
+same design.json
+same questions.json
+same gold.json
+same render.json
+same render-check.json
+same checks.json
+png compared 48
+done: 48 rows, blocked=0
+done: 48 predictions {"not_wider":25,"widened":23} sha256 1e7546b7c37fbe783ae5c426c54237fae3979c80c453e7a37f8f46f122d8f26e
+done: W0 strict 22/48, W1 strict 45/48, recovered 23, lost 0, widened 23
+done: 48 predictions {"not_wider":25,"widened":23} sha256 1e7546b7c37fbe783ae5c426c54237fae3979c80c453e7a37f8f46f122d8f26e
+done: W0 strict 22/48, W1 strict 45/48, recovered 23, lost 0, widened 23
+reproduced: true
+blocked 0
+same-as-published ocr/ocr.jsonl
+same-as-published ocr/k1.jsonl
+same-as-published ocr/freeze.json
+same-as-published ocr/guard-summary.json
+same-as-published replay-a/predictions.jsonl
+same-as-published score-a/score.jsonl
+same-as-published score-a/summary.json
+{"ok": true, "failed": []}
+recount-a exit=0
+{"ok": true, "failed": []}
+recount-b exit=0
+{"allRejected": true}
+mutate exit=0
+OK
+ℹ pass 12
+ℹ fail 0
