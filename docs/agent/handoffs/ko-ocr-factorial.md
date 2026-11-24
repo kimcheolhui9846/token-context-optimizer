@@ -18,7 +18,11 @@
 | 연구 회귀, npm 7단계 | 완료 | 연구 153/153, 7단계 통과(빌드가 줄바꿈만 바꾼 `bin/` 파일 되돌림) |
 | Argon 최소 발췌 대조 | 완료 | APPROVE, 지적 없음 (`codex_review/argon/2026-11-24_ko-ocr-factorial-*.md`) |
 | Opus 마일스톤 검토 | 완료 | PASS WITH NOTES(Blocker·Major 0). Minor 1–3, Nit 4 반영, Note 5–10 기록 |
-| Astra 최종 판정 | 대기 | |
+| Astra 최종 판정 1차 (`78ea93e`) | CHANGES REQUIRED | Major 2(README 셸 명령, A/B 행 비교 단방향), Minor 1(입력 객체 누락 시 `stop.json` 없음) |
+| PM 지적 수정 | 완료 | `03022b4`(세 건, RED는 `logs/red-review-78ea93e.txt`), `b80aeb6`(새 클론 실행에서 찾은 tar `C:` 경로 문제). 대상 시험 28/28, 연구 161/161, 검산기 50/50 |
+| 새 클론 README 재현 | 완료 | GitHub 새 클론 `b80aeb6`에서 README 1–3단계 + 게시본 대조: 192행, 차단 0, 검산 종료 0, 결정적 7개 파일 바이트 동일, 비교기 `reproduced: true` |
+| Opus 수정 범위 재검토 | 완료 | `78ea93e..03022b4` PASS WITH NOTES(Blocker·Major 0, Note 6). `b80aeb6`은 README tar 한 줄 변경으로 검토 범위 밖 |
+| Astra 최종 판정 2차 | 대기 | |
 
 ## 결과 요약 (run A = run B)
 
