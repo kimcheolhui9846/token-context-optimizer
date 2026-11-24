@@ -1,0 +1,8252 @@
+{
+ "product": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1",
+ "base": "41fc769dd5879aa10acb59153d98865b6a026200",
+ "goldBlob": "5d6c277d4c9cd55e4a101252fce8032294a21ae9",
+ "evidence": {
+  "raw.jsonl": "7f0479ff9bccb0047db5b96dee5610e29d1155ae334cbb048b7bc55e0a0f9a97",
+  "conditions.jsonl": "28e7c80bc5b0e5ce49dc9c64a707810fa878e01ece5b71594a384295884aca59",
+  "input-check.json": "f63b85bd84023eaa25660c1a31917c4bf044941b423af474abd997c592c6bef6"
+ },
+ "keys": 192,
+ "paddings": [
+  0,
+  4,
+  8,
+  16
+ ],
+ "measured": "geometric containment and delivered area in original source pixels; readability, accuracy, tokens and time not measured",
+ "replay141": {
+  "pass": true,
+  "rows": 48,
+  "mismatches": [],
+  "status": "replayed",
+  "sources": {
+   "raw141": "29729138f6344f8a869bfee1954c882fbfc6756b",
+   "score141": "18502c11ef8c40579074919c0c1c77cb936f82ae",
+   "rgbManifest": "80cdee3b54b297c5fece18ae6c562369a402c663",
+   "oldRows": 48,
+   "oldKinds": {
+    "crop_jpeg": 36,
+    "original_verified": 12
+   }
+  }
+ },
+ "perRow": [
+  {
+   "key": "p0|schedule-table-code-s1-en",
+   "p": 0,
+   "id": "schedule-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    334,
+    1228,
+    594
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    334,
+    1228,
+    594
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 319280,
+    "den": 1228800,
+    "ratio": 0.25983072916666666
+   },
+   "assumedArea": {
+    "num": 319280,
+    "den": 1228800,
+    "ratio": 0.25983072916666666
+   }
+  },
+  {
+   "key": "p0|schedule-table-code-s1-ko",
+   "p": 0,
+   "id": "schedule-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    344,
+    1201,
+    570
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    344,
+    1201,
+    570
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 271426,
+    "den": 1228800,
+    "ratio": 0.22088704427083333
+   },
+   "assumedArea": {
+    "num": 271426,
+    "den": 1228800,
+    "ratio": 0.22088704427083333
+   }
+  },
+  {
+   "key": "p0|schedule-table-code-s2-en",
+   "p": 0,
+   "id": "schedule-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    549,
+    1231,
+    812
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    549,
+    1231,
+    812
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 323753,
+    "den": 1228800,
+    "ratio": 0.2634708658854167
+   },
+   "assumedArea": {
+    "num": 323753,
+    "den": 1228800,
+    "ratio": 0.2634708658854167
+   }
+  },
+  {
+   "key": "p0|schedule-table-code-s2-ko",
+   "p": 0,
+   "id": "schedule-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    561,
+    1198,
+    784
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    561,
+    1198,
+    784
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 267154,
+    "den": 1228800,
+    "ratio": 0.21741048177083333
+   },
+   "assumedArea": {
+    "num": 267154,
+    "den": 1228800,
+    "ratio": 0.21741048177083333
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-s1-en",
+   "p": 0,
+   "id": "schedule-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    550,
+    1228,
+    810
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    550,
+    1228,
+    810
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 319280,
+    "den": 1228800,
+    "ratio": 0.25983072916666666
+   },
+   "assumedArea": {
+    "num": 319280,
+    "den": 1228800,
+    "ratio": 0.25983072916666666
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-s1-ko",
+   "p": 0,
+   "id": "schedule-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-s2-en",
+   "p": 0,
+   "id": "schedule-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    334,
+    1228,
+    594
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    334,
+    1228,
+    594
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 319280,
+    "den": 1228800,
+    "ratio": 0.25983072916666666
+   },
+   "assumedArea": {
+    "num": 319280,
+    "den": 1228800,
+    "ratio": 0.25983072916666666
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-s2-ko",
+   "p": 0,
+   "id": "schedule-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-s1-en",
+   "p": 0,
+   "id": "schedule-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    290,
+    1232,
+    553
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    290,
+    1232,
+    553
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 324016,
+    "den": 1228800,
+    "ratio": 0.2636848958333333
+   },
+   "assumedArea": {
+    "num": 324016,
+    "den": 1228800,
+    "ratio": 0.2636848958333333
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-s1-ko",
+   "p": 0,
+   "id": "schedule-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    301,
+    1135,
+    527
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    301,
+    1135,
+    527
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 256510,
+    "den": 1228800,
+    "ratio": 0.20874837239583333
+   },
+   "assumedArea": {
+    "num": 256510,
+    "den": 1228800,
+    "ratio": 0.20874837239583333
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-s2-en",
+   "p": 0,
+   "id": "schedule-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    679,
+    1219,
+    939
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    679,
+    1219,
+    939
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 316940,
+    "den": 1228800,
+    "ratio": 0.2579264322916667
+   },
+   "assumedArea": {
+    "num": 316940,
+    "den": 1228800,
+    "ratio": 0.2579264322916667
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-s2-ko",
+   "p": 0,
+   "id": "schedule-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    689,
+    1157,
+    915
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    689,
+    1157,
+    915
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 261482,
+    "den": 1228800,
+    "ratio": 0.21279459635416667
+   },
+   "assumedArea": {
+    "num": 261482,
+    "den": 1228800,
+    "ratio": 0.21279459635416667
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-s1-en",
+   "p": 0,
+   "id": "schedule-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    679,
+    1189,
+    939
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    679,
+    1189,
+    939
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 309140,
+    "den": 1228800,
+    "ratio": 0.2515787760416667
+   },
+   "assumedArea": {
+    "num": 309140,
+    "den": 1228800,
+    "ratio": 0.2515787760416667
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-s1-ko",
+   "p": 0,
+   "id": "schedule-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-s2-en",
+   "p": 0,
+   "id": "schedule-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    290,
+    1172,
+    553
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    290,
+    1172,
+    553
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 308236,
+    "den": 1228800,
+    "ratio": 0.25084309895833334
+   },
+   "assumedArea": {
+    "num": 308236,
+    "den": 1228800,
+    "ratio": 0.25084309895833334
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-s2-ko",
+   "p": 0,
+   "id": "schedule-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-s1-en",
+   "p": 0,
+   "id": "invoice-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    338,
+    1245,
+    585
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    338,
+    1245,
+    585
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 307515,
+    "den": 1228800,
+    "ratio": 0.25025634765625
+   },
+   "assumedArea": {
+    "num": 307515,
+    "den": 1228800,
+    "ratio": 0.25025634765625
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-s1-ko",
+   "p": 0,
+   "id": "invoice-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    338,
+    1245,
+    585
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    338,
+    1245,
+    585
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 307515,
+    "den": 1228800,
+    "ratio": 0.25025634765625
+   },
+   "assumedArea": {
+    "num": 307515,
+    "den": 1228800,
+    "ratio": 0.25025634765625
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-s2-en",
+   "p": 0,
+   "id": "invoice-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    549,
+    1258,
+    812
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    549,
+    1258,
+    812
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 330854,
+    "den": 1228800,
+    "ratio": 0.26924967447916665
+   },
+   "assumedArea": {
+    "num": 330854,
+    "den": 1228800,
+    "ratio": 0.26924967447916665
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-s2-ko",
+   "p": 0,
+   "id": "invoice-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    533,
+    1280,
+    846
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    533,
+    1280,
+    846
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 400640,
+    "den": 1228800,
+    "ratio": 0.3260416666666667
+   },
+   "assumedArea": {
+    "num": 400640,
+    "den": 1228800,
+    "ratio": 0.3260416666666667
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-s1-en",
+   "p": 0,
+   "id": "invoice-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    549,
+    1258,
+    812
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    549,
+    1258,
+    812
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 330854,
+    "den": 1228800,
+    "ratio": 0.26924967447916665
+   },
+   "assumedArea": {
+    "num": 330854,
+    "den": 1228800,
+    "ratio": 0.26924967447916665
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-s1-ko",
+   "p": 0,
+   "id": "invoice-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-s2-en",
+   "p": 0,
+   "id": "invoice-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    334,
+    1242,
+    594
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    334,
+    1242,
+    594
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 322920,
+    "den": 1228800,
+    "ratio": 0.26279296875
+   },
+   "assumedArea": {
+    "num": 322920,
+    "den": 1228800,
+    "ratio": 0.26279296875
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-s2-ko",
+   "p": 0,
+   "id": "invoice-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-s1-en",
+   "p": 0,
+   "id": "invoice-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    290,
+    1163,
+    553
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    290,
+    1163,
+    553
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 305869,
+    "den": 1228800,
+    "ratio": 0.24891682942708335
+   },
+   "assumedArea": {
+    "num": 305869,
+    "den": 1228800,
+    "ratio": 0.24891682942708335
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-s1-ko",
+   "p": 0,
+   "id": "invoice-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    302,
+    1083,
+    525
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    302,
+    1083,
+    525
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 241509,
+    "den": 1228800,
+    "ratio": 0.19654052734375
+   },
+   "assumedArea": {
+    "num": 241509,
+    "den": 1228800,
+    "ratio": 0.19654052734375
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-s2-en",
+   "p": 0,
+   "id": "invoice-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    679,
+    1194,
+    939
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    679,
+    1194,
+    939
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 310440,
+    "den": 1228800,
+    "ratio": 0.25263671875
+   },
+   "assumedArea": {
+    "num": 310440,
+    "den": 1228800,
+    "ratio": 0.25263671875
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-s2-ko",
+   "p": 0,
+   "id": "invoice-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    690,
+    1134,
+    913
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    690,
+    1134,
+    913
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 252882,
+    "den": 1228800,
+    "ratio": 0.2057958984375
+   },
+   "assumedArea": {
+    "num": 252882,
+    "den": 1228800,
+    "ratio": 0.2057958984375
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-s1-en",
+   "p": 0,
+   "id": "invoice-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    679,
+    1199,
+    939
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    679,
+    1199,
+    939
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 311740,
+    "den": 1228800,
+    "ratio": 0.25369466145833336
+   },
+   "assumedArea": {
+    "num": 311740,
+    "den": 1228800,
+    "ratio": 0.25369466145833336
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-s1-ko",
+   "p": 0,
+   "id": "invoice-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-s2-en",
+   "p": 0,
+   "id": "invoice-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    290,
+    1195,
+    553
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    290,
+    1195,
+    553
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 314285,
+    "den": 1228800,
+    "ratio": 0.25576578776041664
+   },
+   "assumedArea": {
+    "num": 314285,
+    "den": 1228800,
+    "ratio": 0.25576578776041664
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-s2-ko",
+   "p": 0,
+   "id": "invoice-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-table-code-s1-en",
+   "p": 0,
+   "id": "status-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    334,
+    1195,
+    594
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    334,
+    1195,
+    594
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 310700,
+    "den": 1228800,
+    "ratio": 0.2528483072916667
+   },
+   "assumedArea": {
+    "num": 310700,
+    "den": 1228800,
+    "ratio": 0.2528483072916667
+   }
+  },
+  {
+   "key": "p0|status-table-code-s1-ko",
+   "p": 0,
+   "id": "status-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    344,
+    1168,
+    570
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    344,
+    1168,
+    570
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 263968,
+    "den": 1228800,
+    "ratio": 0.21481770833333333
+   },
+   "assumedArea": {
+    "num": 263968,
+    "den": 1228800,
+    "ratio": 0.21481770833333333
+   }
+  },
+  {
+   "key": "p0|status-table-code-s2-en",
+   "p": 0,
+   "id": "status-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    541,
+    1215,
+    826
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    541,
+    1215,
+    826
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 346275,
+    "den": 1228800,
+    "ratio": 0.28179931640625
+   },
+   "assumedArea": {
+    "num": 346275,
+    "den": 1228800,
+    "ratio": 0.28179931640625
+   }
+  },
+  {
+   "key": "p0|status-table-code-s2-ko",
+   "p": 0,
+   "id": "status-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    561,
+    1165,
+    784
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    561,
+    1165,
+    784
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 259795,
+    "den": 1228800,
+    "ratio": 0.21142171223958334
+   },
+   "assumedArea": {
+    "num": 259795,
+    "den": 1228800,
+    "ratio": 0.21142171223958334
+   }
+  },
+  {
+   "key": "p0|status-table-nl-s1-en",
+   "p": 0,
+   "id": "status-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    550,
+    1195,
+    810
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    550,
+    1195,
+    810
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 310700,
+    "den": 1228800,
+    "ratio": 0.2528483072916667
+   },
+   "assumedArea": {
+    "num": 310700,
+    "den": 1228800,
+    "ratio": 0.2528483072916667
+   }
+  },
+  {
+   "key": "p0|status-table-nl-s1-ko",
+   "p": 0,
+   "id": "status-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-table-nl-s2-en",
+   "p": 0,
+   "id": "status-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    325,
+    1215,
+    610
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    325,
+    1215,
+    610
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 346275,
+    "den": 1228800,
+    "ratio": 0.28179931640625
+   },
+   "assumedArea": {
+    "num": 346275,
+    "den": 1228800,
+    "ratio": 0.28179931640625
+   }
+  },
+  {
+   "key": "p0|status-table-nl-s2-ko",
+   "p": 0,
+   "id": "status-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-cards-code-s1-en",
+   "p": 0,
+   "id": "status-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    290,
+    1223,
+    553
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    290,
+    1223,
+    553
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 321649,
+    "den": 1228800,
+    "ratio": 0.26175862630208335
+   },
+   "assumedArea": {
+    "num": 321649,
+    "den": 1228800,
+    "ratio": 0.26175862630208335
+   }
+  },
+  {
+   "key": "p0|status-cards-code-s1-ko",
+   "p": 0,
+   "id": "status-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    608,
+    0,
+    865,
+    525
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    608,
+    0,
+    865,
+    525
+   ],
+   "judgement": "incomplete",
+   "missing": 1,
+   "missingItems": [
+    "r3v"
+   ],
+   "area": {
+    "num": 134925,
+    "den": 1228800,
+    "ratio": 0.10980224609375
+   },
+   "assumedArea": {
+    "num": 134925,
+    "den": 1228800,
+    "ratio": 0.10980224609375
+   }
+  },
+  {
+   "key": "p0|status-cards-code-s2-en",
+   "p": 0,
+   "id": "status-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    679,
+    1177,
+    939
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    679,
+    1177,
+    939
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 306020,
+    "den": 1228800,
+    "ratio": 0.24903971354166668
+   },
+   "assumedArea": {
+    "num": 306020,
+    "den": 1228800,
+    "ratio": 0.24903971354166668
+   }
+  },
+  {
+   "key": "p0|status-cards-code-s2-ko",
+   "p": 0,
+   "id": "status-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    690,
+    1111,
+    913
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    690,
+    1111,
+    913
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 247753,
+    "den": 1228800,
+    "ratio": 0.20162190755208334
+   },
+   "assumedArea": {
+    "num": 247753,
+    "den": 1228800,
+    "ratio": 0.20162190755208334
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-s1-en",
+   "p": 0,
+   "id": "status-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    679,
+    1165,
+    939
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    679,
+    1165,
+    939
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 302900,
+    "den": 1228800,
+    "ratio": 0.24650065104166666
+   },
+   "assumedArea": {
+    "num": 302900,
+    "den": 1228800,
+    "ratio": 0.24650065104166666
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-s1-ko",
+   "p": 0,
+   "id": "status-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-s2-en",
+   "p": 0,
+   "id": "status-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    290,
+    1197,
+    553
+   ],
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    290,
+    1197,
+    553
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 314811,
+    "den": 1228800,
+    "ratio": 0.25619384765625
+   },
+   "assumedArea": {
+    "num": 314811,
+    "den": 1228800,
+    "ratio": 0.25619384765625
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-s2-ko",
+   "p": 0,
+   "id": "status-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-s1-en",
+   "p": 4,
+   "id": "schedule-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    330,
+    1232,
+    598
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    330,
+    1232,
+    598
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 330176,
+    "den": 1228800,
+    "ratio": 0.26869791666666665
+   },
+   "assumedArea": {
+    "num": 330176,
+    "den": 1228800,
+    "ratio": 0.26869791666666665
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-s1-ko",
+   "p": 4,
+   "id": "schedule-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    340,
+    1205,
+    574
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    340,
+    1205,
+    574
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 281970,
+    "den": 1228800,
+    "ratio": 0.2294677734375
+   },
+   "assumedArea": {
+    "num": 281970,
+    "den": 1228800,
+    "ratio": 0.2294677734375
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-s2-en",
+   "p": 4,
+   "id": "schedule-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    545,
+    1235,
+    816
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    545,
+    1235,
+    816
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 334685,
+    "den": 1228800,
+    "ratio": 0.27236735026041664
+   },
+   "assumedArea": {
+    "num": 334685,
+    "den": 1228800,
+    "ratio": 0.27236735026041664
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-s2-ko",
+   "p": 4,
+   "id": "schedule-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    557,
+    1202,
+    788
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    557,
+    1202,
+    788
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 277662,
+    "den": 1228800,
+    "ratio": 0.2259619140625
+   },
+   "assumedArea": {
+    "num": 277662,
+    "den": 1228800,
+    "ratio": 0.2259619140625
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-s1-en",
+   "p": 4,
+   "id": "schedule-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    546,
+    1232,
+    814
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    546,
+    1232,
+    814
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 330176,
+    "den": 1228800,
+    "ratio": 0.26869791666666665
+   },
+   "assumedArea": {
+    "num": 330176,
+    "den": 1228800,
+    "ratio": 0.26869791666666665
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-s1-ko",
+   "p": 4,
+   "id": "schedule-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-s2-en",
+   "p": 4,
+   "id": "schedule-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    330,
+    1232,
+    598
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    330,
+    1232,
+    598
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 330176,
+    "den": 1228800,
+    "ratio": 0.26869791666666665
+   },
+   "assumedArea": {
+    "num": 330176,
+    "den": 1228800,
+    "ratio": 0.26869791666666665
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-s2-ko",
+   "p": 4,
+   "id": "schedule-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-s1-en",
+   "p": 4,
+   "id": "schedule-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1236,
+    557
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1236,
+    557
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 334956,
+    "den": 1228800,
+    "ratio": 0.272587890625
+   },
+   "assumedArea": {
+    "num": 334956,
+    "den": 1228800,
+    "ratio": 0.272587890625
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-s1-ko",
+   "p": 4,
+   "id": "schedule-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    297,
+    1139,
+    531
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    297,
+    1139,
+    531
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 266526,
+    "den": 1228800,
+    "ratio": 0.2168994140625
+   },
+   "assumedArea": {
+    "num": 266526,
+    "den": 1228800,
+    "ratio": 0.2168994140625
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-s2-en",
+   "p": 4,
+   "id": "schedule-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    675,
+    1223,
+    943
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    675,
+    1223,
+    943
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 327764,
+    "den": 1228800,
+    "ratio": 0.26673502604166666
+   },
+   "assumedArea": {
+    "num": 327764,
+    "den": 1228800,
+    "ratio": 0.26673502604166666
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-s2-ko",
+   "p": 4,
+   "id": "schedule-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    685,
+    1161,
+    919
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    685,
+    1161,
+    919
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 271674,
+    "den": 1228800,
+    "ratio": 0.2210888671875
+   },
+   "assumedArea": {
+    "num": 271674,
+    "den": 1228800,
+    "ratio": 0.2210888671875
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-s1-en",
+   "p": 4,
+   "id": "schedule-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    675,
+    1193,
+    943
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    675,
+    1193,
+    943
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 319724,
+    "den": 1228800,
+    "ratio": 0.26019205729166667
+   },
+   "assumedArea": {
+    "num": 319724,
+    "den": 1228800,
+    "ratio": 0.26019205729166667
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-s1-ko",
+   "p": 4,
+   "id": "schedule-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-s2-en",
+   "p": 4,
+   "id": "schedule-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1176,
+    557
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1176,
+    557
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 318696,
+    "den": 1228800,
+    "ratio": 0.25935546875
+   },
+   "assumedArea": {
+    "num": 318696,
+    "den": 1228800,
+    "ratio": 0.25935546875
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-s2-ko",
+   "p": 4,
+   "id": "schedule-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-s1-en",
+   "p": 4,
+   "id": "invoice-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    334,
+    1249,
+    589
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    334,
+    1249,
+    589
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 318495,
+    "den": 1228800,
+    "ratio": 0.25919189453125
+   },
+   "assumedArea": {
+    "num": 318495,
+    "den": 1228800,
+    "ratio": 0.25919189453125
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-s1-ko",
+   "p": 4,
+   "id": "invoice-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    334,
+    1249,
+    589
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    334,
+    1249,
+    589
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 318495,
+    "den": 1228800,
+    "ratio": 0.25919189453125
+   },
+   "assumedArea": {
+    "num": 318495,
+    "den": 1228800,
+    "ratio": 0.25919189453125
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-s2-en",
+   "p": 4,
+   "id": "invoice-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    545,
+    1262,
+    816
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    545,
+    1262,
+    816
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 342002,
+    "den": 1228800,
+    "ratio": 0.27832194010416667
+   },
+   "assumedArea": {
+    "num": 342002,
+    "den": 1228800,
+    "ratio": 0.27832194010416667
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-s2-ko",
+   "p": 4,
+   "id": "invoice-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    529,
+    1280,
+    850
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 4,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    529,
+    1280,
+    850
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 410880,
+    "den": 1228800,
+    "ratio": 0.334375
+   },
+   "assumedArea": {
+    "num": 410880,
+    "den": 1228800,
+    "ratio": 0.334375
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-s1-en",
+   "p": 4,
+   "id": "invoice-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    545,
+    1262,
+    816
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    545,
+    1262,
+    816
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 342002,
+    "den": 1228800,
+    "ratio": 0.27832194010416667
+   },
+   "assumedArea": {
+    "num": 342002,
+    "den": 1228800,
+    "ratio": 0.27832194010416667
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-s1-ko",
+   "p": 4,
+   "id": "invoice-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-s2-en",
+   "p": 4,
+   "id": "invoice-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    330,
+    1246,
+    598
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    330,
+    1246,
+    598
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 333928,
+    "den": 1228800,
+    "ratio": 0.2717513020833333
+   },
+   "assumedArea": {
+    "num": 333928,
+    "den": 1228800,
+    "ratio": 0.2717513020833333
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-s2-ko",
+   "p": 4,
+   "id": "invoice-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-s1-en",
+   "p": 4,
+   "id": "invoice-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1167,
+    557
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1167,
+    557
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 316257,
+    "den": 1228800,
+    "ratio": 0.25737060546875
+   },
+   "assumedArea": {
+    "num": 316257,
+    "den": 1228800,
+    "ratio": 0.25737060546875
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-s1-ko",
+   "p": 4,
+   "id": "invoice-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    298,
+    1087,
+    529
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    298,
+    1087,
+    529
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 251097,
+    "den": 1228800,
+    "ratio": 0.20434326171875
+   },
+   "assumedArea": {
+    "num": 251097,
+    "den": 1228800,
+    "ratio": 0.20434326171875
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-s2-en",
+   "p": 4,
+   "id": "invoice-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    675,
+    1198,
+    943
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    675,
+    1198,
+    943
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 321064,
+    "den": 1228800,
+    "ratio": 0.26128255208333334
+   },
+   "assumedArea": {
+    "num": 321064,
+    "den": 1228800,
+    "ratio": 0.26128255208333334
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-s2-ko",
+   "p": 4,
+   "id": "invoice-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    686,
+    1138,
+    917
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    686,
+    1138,
+    917
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 262878,
+    "den": 1228800,
+    "ratio": 0.2139306640625
+   },
+   "assumedArea": {
+    "num": 262878,
+    "den": 1228800,
+    "ratio": 0.2139306640625
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-s1-en",
+   "p": 4,
+   "id": "invoice-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    675,
+    1203,
+    943
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    675,
+    1203,
+    943
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 322404,
+    "den": 1228800,
+    "ratio": 0.262373046875
+   },
+   "assumedArea": {
+    "num": 322404,
+    "den": 1228800,
+    "ratio": 0.262373046875
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-s1-ko",
+   "p": 4,
+   "id": "invoice-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-s2-en",
+   "p": 4,
+   "id": "invoice-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1199,
+    557
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1199,
+    557
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 324929,
+    "den": 1228800,
+    "ratio": 0.26442789713541665
+   },
+   "assumedArea": {
+    "num": 324929,
+    "den": 1228800,
+    "ratio": 0.26442789713541665
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-s2-ko",
+   "p": 4,
+   "id": "invoice-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-table-code-s1-en",
+   "p": 4,
+   "id": "status-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    330,
+    1199,
+    598
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    330,
+    1199,
+    598
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 321332,
+    "den": 1228800,
+    "ratio": 0.26150065104166664
+   },
+   "assumedArea": {
+    "num": 321332,
+    "den": 1228800,
+    "ratio": 0.26150065104166664
+   }
+  },
+  {
+   "key": "p4|status-table-code-s1-ko",
+   "p": 4,
+   "id": "status-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    340,
+    1172,
+    574
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    340,
+    1172,
+    574
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 274248,
+    "den": 1228800,
+    "ratio": 0.22318359375
+   },
+   "assumedArea": {
+    "num": 274248,
+    "den": 1228800,
+    "ratio": 0.22318359375
+   }
+  },
+  {
+   "key": "p4|status-table-code-s2-en",
+   "p": 4,
+   "id": "status-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    537,
+    1219,
+    830
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    537,
+    1219,
+    830
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 357167,
+    "den": 1228800,
+    "ratio": 0.29066324869791665
+   },
+   "assumedArea": {
+    "num": 357167,
+    "den": 1228800,
+    "ratio": 0.29066324869791665
+   }
+  },
+  {
+   "key": "p4|status-table-code-s2-ko",
+   "p": 4,
+   "id": "status-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    557,
+    1169,
+    788
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    557,
+    1169,
+    788
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 270039,
+    "den": 1228800,
+    "ratio": 0.21975830078125
+   },
+   "assumedArea": {
+    "num": 270039,
+    "den": 1228800,
+    "ratio": 0.21975830078125
+   }
+  },
+  {
+   "key": "p4|status-table-nl-s1-en",
+   "p": 4,
+   "id": "status-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    546,
+    1199,
+    814
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    546,
+    1199,
+    814
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 321332,
+    "den": 1228800,
+    "ratio": 0.26150065104166664
+   },
+   "assumedArea": {
+    "num": 321332,
+    "den": 1228800,
+    "ratio": 0.26150065104166664
+   }
+  },
+  {
+   "key": "p4|status-table-nl-s1-ko",
+   "p": 4,
+   "id": "status-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-table-nl-s2-en",
+   "p": 4,
+   "id": "status-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    321,
+    1219,
+    614
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    321,
+    1219,
+    614
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 357167,
+    "den": 1228800,
+    "ratio": 0.29066324869791665
+   },
+   "assumedArea": {
+    "num": 357167,
+    "den": 1228800,
+    "ratio": 0.29066324869791665
+   }
+  },
+  {
+   "key": "p4|status-table-nl-s2-ko",
+   "p": 4,
+   "id": "status-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-cards-code-s1-en",
+   "p": 4,
+   "id": "status-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1227,
+    557
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1227,
+    557
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 332517,
+    "den": 1228800,
+    "ratio": 0.27060302734375
+   },
+   "assumedArea": {
+    "num": 332517,
+    "den": 1228800,
+    "ratio": 0.27060302734375
+   }
+  },
+  {
+   "key": "p4|status-cards-code-s1-ko",
+   "p": 4,
+   "id": "status-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    604,
+    0,
+    869,
+    529
+   ],
+   "clip": {
+    "left": 0,
+    "top": 4,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    604,
+    0,
+    869,
+    529
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 140185,
+    "den": 1228800,
+    "ratio": 0.11408284505208334
+   },
+   "assumedArea": {
+    "num": 140185,
+    "den": 1228800,
+    "ratio": 0.11408284505208334
+   }
+  },
+  {
+   "key": "p4|status-cards-code-s2-en",
+   "p": 4,
+   "id": "status-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    675,
+    1181,
+    943
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    675,
+    1181,
+    943
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 316508,
+    "den": 1228800,
+    "ratio": 0.25757486979166666
+   },
+   "assumedArea": {
+    "num": 316508,
+    "den": 1228800,
+    "ratio": 0.25757486979166666
+   }
+  },
+  {
+   "key": "p4|status-cards-code-s2-ko",
+   "p": 4,
+   "id": "status-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    686,
+    1115,
+    917
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    686,
+    1115,
+    917
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 257565,
+    "den": 1228800,
+    "ratio": 0.20960693359375
+   },
+   "assumedArea": {
+    "num": 257565,
+    "den": 1228800,
+    "ratio": 0.20960693359375
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-s1-en",
+   "p": 4,
+   "id": "status-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    675,
+    1169,
+    943
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    675,
+    1169,
+    943
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 313292,
+    "den": 1228800,
+    "ratio": 0.25495768229166665
+   },
+   "assumedArea": {
+    "num": 313292,
+    "den": 1228800,
+    "ratio": 0.25495768229166665
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-s1-ko",
+   "p": 4,
+   "id": "status-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-s2-en",
+   "p": 4,
+   "id": "status-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1201,
+    557
+   ],
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1201,
+    557
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 325471,
+    "den": 1228800,
+    "ratio": 0.26486897786458335
+   },
+   "assumedArea": {
+    "num": 325471,
+    "den": 1228800,
+    "ratio": 0.26486897786458335
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-s2-ko",
+   "p": 4,
+   "id": "status-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|schedule-table-code-s1-en",
+   "p": 8,
+   "id": "schedule-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    326,
+    1236,
+    602
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    326,
+    1236,
+    602
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 341136,
+    "den": 1228800,
+    "ratio": 0.2776171875
+   },
+   "assumedArea": {
+    "num": 341136,
+    "den": 1228800,
+    "ratio": 0.2776171875
+   }
+  },
+  {
+   "key": "p8|schedule-table-code-s1-ko",
+   "p": 8,
+   "id": "schedule-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    336,
+    1209,
+    578
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    336,
+    1209,
+    578
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 292578,
+    "den": 1228800,
+    "ratio": 0.2381005859375
+   },
+   "assumedArea": {
+    "num": 292578,
+    "den": 1228800,
+    "ratio": 0.2381005859375
+   }
+  },
+  {
+   "key": "p8|schedule-table-code-s2-en",
+   "p": 8,
+   "id": "schedule-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    541,
+    1239,
+    820
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    541,
+    1239,
+    820
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 345681,
+    "den": 1228800,
+    "ratio": 0.28131591796875
+   },
+   "assumedArea": {
+    "num": 345681,
+    "den": 1228800,
+    "ratio": 0.28131591796875
+   }
+  },
+  {
+   "key": "p8|schedule-table-code-s2-ko",
+   "p": 8,
+   "id": "schedule-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    553,
+    1206,
+    792
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    553,
+    1206,
+    792
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 288234,
+    "den": 1228800,
+    "ratio": 0.2345654296875
+   },
+   "assumedArea": {
+    "num": 288234,
+    "den": 1228800,
+    "ratio": 0.2345654296875
+   }
+  },
+  {
+   "key": "p8|schedule-table-nl-s1-en",
+   "p": 8,
+   "id": "schedule-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    542,
+    1236,
+    818
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    542,
+    1236,
+    818
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 341136,
+    "den": 1228800,
+    "ratio": 0.2776171875
+   },
+   "assumedArea": {
+    "num": 341136,
+    "den": 1228800,
+    "ratio": 0.2776171875
+   }
+  },
+  {
+   "key": "p8|schedule-table-nl-s1-ko",
+   "p": 8,
+   "id": "schedule-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|schedule-table-nl-s2-en",
+   "p": 8,
+   "id": "schedule-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    326,
+    1236,
+    602
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    326,
+    1236,
+    602
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 341136,
+    "den": 1228800,
+    "ratio": 0.2776171875
+   },
+   "assumedArea": {
+    "num": 341136,
+    "den": 1228800,
+    "ratio": 0.2776171875
+   }
+  },
+  {
+   "key": "p8|schedule-table-nl-s2-ko",
+   "p": 8,
+   "id": "schedule-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|schedule-cards-code-s1-en",
+   "p": 8,
+   "id": "schedule-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    282,
+    1240,
+    561
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    282,
+    1240,
+    561
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 345960,
+    "den": 1228800,
+    "ratio": 0.28154296875
+   },
+   "assumedArea": {
+    "num": 345960,
+    "den": 1228800,
+    "ratio": 0.28154296875
+   }
+  },
+  {
+   "key": "p8|schedule-cards-code-s1-ko",
+   "p": 8,
+   "id": "schedule-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    293,
+    1143,
+    535
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    293,
+    1143,
+    535
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 276606,
+    "den": 1228800,
+    "ratio": 0.2251025390625
+   },
+   "assumedArea": {
+    "num": 276606,
+    "den": 1228800,
+    "ratio": 0.2251025390625
+   }
+  },
+  {
+   "key": "p8|schedule-cards-code-s2-en",
+   "p": 8,
+   "id": "schedule-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    671,
+    1227,
+    947
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    671,
+    1227,
+    947
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 338652,
+    "den": 1228800,
+    "ratio": 0.275595703125
+   },
+   "assumedArea": {
+    "num": 338652,
+    "den": 1228800,
+    "ratio": 0.275595703125
+   }
+  },
+  {
+   "key": "p8|schedule-cards-code-s2-ko",
+   "p": 8,
+   "id": "schedule-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    681,
+    1165,
+    923
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    681,
+    1165,
+    923
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 281930,
+    "den": 1228800,
+    "ratio": 0.22943522135416666
+   },
+   "assumedArea": {
+    "num": 281930,
+    "den": 1228800,
+    "ratio": 0.22943522135416666
+   }
+  },
+  {
+   "key": "p8|schedule-cards-nl-s1-en",
+   "p": 8,
+   "id": "schedule-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    671,
+    1197,
+    947
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    671,
+    1197,
+    947
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 330372,
+    "den": 1228800,
+    "ratio": 0.268857421875
+   },
+   "assumedArea": {
+    "num": 330372,
+    "den": 1228800,
+    "ratio": 0.268857421875
+   }
+  },
+  {
+   "key": "p8|schedule-cards-nl-s1-ko",
+   "p": 8,
+   "id": "schedule-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|schedule-cards-nl-s2-en",
+   "p": 8,
+   "id": "schedule-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    282,
+    1180,
+    561
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    282,
+    1180,
+    561
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 329220,
+    "den": 1228800,
+    "ratio": 0.267919921875
+   },
+   "assumedArea": {
+    "num": 329220,
+    "den": 1228800,
+    "ratio": 0.267919921875
+   }
+  },
+  {
+   "key": "p8|schedule-cards-nl-s2-ko",
+   "p": 8,
+   "id": "schedule-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|invoice-table-code-s1-en",
+   "p": 8,
+   "id": "invoice-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    330,
+    1253,
+    593
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    330,
+    1253,
+    593
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 329539,
+    "den": 1228800,
+    "ratio": 0.26817952473958334
+   },
+   "assumedArea": {
+    "num": 329539,
+    "den": 1228800,
+    "ratio": 0.26817952473958334
+   }
+  },
+  {
+   "key": "p8|invoice-table-code-s1-ko",
+   "p": 8,
+   "id": "invoice-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    330,
+    1253,
+    593
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    330,
+    1253,
+    593
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 329539,
+    "den": 1228800,
+    "ratio": 0.26817952473958334
+   },
+   "assumedArea": {
+    "num": 329539,
+    "den": 1228800,
+    "ratio": 0.26817952473958334
+   }
+  },
+  {
+   "key": "p8|invoice-table-code-s2-en",
+   "p": 8,
+   "id": "invoice-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    541,
+    1266,
+    820
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    541,
+    1266,
+    820
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 353214,
+    "den": 1228800,
+    "ratio": 0.2874462890625
+   },
+   "assumedArea": {
+    "num": 353214,
+    "den": 1228800,
+    "ratio": 0.2874462890625
+   }
+  },
+  {
+   "key": "p8|invoice-table-code-s2-ko",
+   "p": 8,
+   "id": "invoice-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    525,
+    1280,
+    854
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 8,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    525,
+    1280,
+    854
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 421120,
+    "den": 1228800,
+    "ratio": 0.34270833333333334
+   },
+   "assumedArea": {
+    "num": 421120,
+    "den": 1228800,
+    "ratio": 0.34270833333333334
+   }
+  },
+  {
+   "key": "p8|invoice-table-nl-s1-en",
+   "p": 8,
+   "id": "invoice-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    541,
+    1266,
+    820
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    541,
+    1266,
+    820
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 353214,
+    "den": 1228800,
+    "ratio": 0.2874462890625
+   },
+   "assumedArea": {
+    "num": 353214,
+    "den": 1228800,
+    "ratio": 0.2874462890625
+   }
+  },
+  {
+   "key": "p8|invoice-table-nl-s1-ko",
+   "p": 8,
+   "id": "invoice-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|invoice-table-nl-s2-en",
+   "p": 8,
+   "id": "invoice-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    326,
+    1250,
+    602
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    326,
+    1250,
+    602
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 345000,
+    "den": 1228800,
+    "ratio": 0.28076171875
+   },
+   "assumedArea": {
+    "num": 345000,
+    "den": 1228800,
+    "ratio": 0.28076171875
+   }
+  },
+  {
+   "key": "p8|invoice-table-nl-s2-ko",
+   "p": 8,
+   "id": "invoice-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|invoice-cards-code-s1-en",
+   "p": 8,
+   "id": "invoice-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    282,
+    1171,
+    561
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    282,
+    1171,
+    561
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 326709,
+    "den": 1228800,
+    "ratio": 0.26587646484375
+   },
+   "assumedArea": {
+    "num": 326709,
+    "den": 1228800,
+    "ratio": 0.26587646484375
+   }
+  },
+  {
+   "key": "p8|invoice-cards-code-s1-ko",
+   "p": 8,
+   "id": "invoice-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    294,
+    1091,
+    533
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    294,
+    1091,
+    533
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 260749,
+    "den": 1228800,
+    "ratio": 0.21219807942708332
+   },
+   "assumedArea": {
+    "num": 260749,
+    "den": 1228800,
+    "ratio": 0.21219807942708332
+   }
+  },
+  {
+   "key": "p8|invoice-cards-code-s2-en",
+   "p": 8,
+   "id": "invoice-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    671,
+    1202,
+    947
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    671,
+    1202,
+    947
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 331752,
+    "den": 1228800,
+    "ratio": 0.26998046875
+   },
+   "assumedArea": {
+    "num": 331752,
+    "den": 1228800,
+    "ratio": 0.26998046875
+   }
+  },
+  {
+   "key": "p8|invoice-cards-code-s2-ko",
+   "p": 8,
+   "id": "invoice-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    682,
+    1142,
+    921
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    682,
+    1142,
+    921
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 272938,
+    "den": 1228800,
+    "ratio": 0.22211751302083332
+   },
+   "assumedArea": {
+    "num": 272938,
+    "den": 1228800,
+    "ratio": 0.22211751302083332
+   }
+  },
+  {
+   "key": "p8|invoice-cards-nl-s1-en",
+   "p": 8,
+   "id": "invoice-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    671,
+    1207,
+    947
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    671,
+    1207,
+    947
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 333132,
+    "den": 1228800,
+    "ratio": 0.271103515625
+   },
+   "assumedArea": {
+    "num": 333132,
+    "den": 1228800,
+    "ratio": 0.271103515625
+   }
+  },
+  {
+   "key": "p8|invoice-cards-nl-s1-ko",
+   "p": 8,
+   "id": "invoice-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|invoice-cards-nl-s2-en",
+   "p": 8,
+   "id": "invoice-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    282,
+    1203,
+    561
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    282,
+    1203,
+    561
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 335637,
+    "den": 1228800,
+    "ratio": 0.27314208984375
+   },
+   "assumedArea": {
+    "num": 335637,
+    "den": 1228800,
+    "ratio": 0.27314208984375
+   }
+  },
+  {
+   "key": "p8|invoice-cards-nl-s2-ko",
+   "p": 8,
+   "id": "invoice-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|status-table-code-s1-en",
+   "p": 8,
+   "id": "status-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    326,
+    1203,
+    602
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    326,
+    1203,
+    602
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 332028,
+    "den": 1228800,
+    "ratio": 0.270205078125
+   },
+   "assumedArea": {
+    "num": 332028,
+    "den": 1228800,
+    "ratio": 0.270205078125
+   }
+  },
+  {
+   "key": "p8|status-table-code-s1-ko",
+   "p": 8,
+   "id": "status-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    336,
+    1176,
+    578
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    336,
+    1176,
+    578
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 284592,
+    "den": 1228800,
+    "ratio": 0.2316015625
+   },
+   "assumedArea": {
+    "num": 284592,
+    "den": 1228800,
+    "ratio": 0.2316015625
+   }
+  },
+  {
+   "key": "p8|status-table-code-s2-en",
+   "p": 8,
+   "id": "status-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    533,
+    1223,
+    834
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    533,
+    1223,
+    834
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 368123,
+    "den": 1228800,
+    "ratio": 0.29957926432291665
+   },
+   "assumedArea": {
+    "num": 368123,
+    "den": 1228800,
+    "ratio": 0.29957926432291665
+   }
+  },
+  {
+   "key": "p8|status-table-code-s2-ko",
+   "p": 8,
+   "id": "status-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    553,
+    1173,
+    792
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    553,
+    1173,
+    792
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 280347,
+    "den": 1228800,
+    "ratio": 0.22814697265625
+   },
+   "assumedArea": {
+    "num": 280347,
+    "den": 1228800,
+    "ratio": 0.22814697265625
+   }
+  },
+  {
+   "key": "p8|status-table-nl-s1-en",
+   "p": 8,
+   "id": "status-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    542,
+    1203,
+    818
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    542,
+    1203,
+    818
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 332028,
+    "den": 1228800,
+    "ratio": 0.270205078125
+   },
+   "assumedArea": {
+    "num": 332028,
+    "den": 1228800,
+    "ratio": 0.270205078125
+   }
+  },
+  {
+   "key": "p8|status-table-nl-s1-ko",
+   "p": 8,
+   "id": "status-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|status-table-nl-s2-en",
+   "p": 8,
+   "id": "status-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    317,
+    1223,
+    618
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    317,
+    1223,
+    618
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 368123,
+    "den": 1228800,
+    "ratio": 0.29957926432291665
+   },
+   "assumedArea": {
+    "num": 368123,
+    "den": 1228800,
+    "ratio": 0.29957926432291665
+   }
+  },
+  {
+   "key": "p8|status-table-nl-s2-ko",
+   "p": 8,
+   "id": "status-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|status-cards-code-s1-en",
+   "p": 8,
+   "id": "status-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    282,
+    1231,
+    561
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    282,
+    1231,
+    561
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 343449,
+    "den": 1228800,
+    "ratio": 0.27949951171875
+   },
+   "assumedArea": {
+    "num": 343449,
+    "den": 1228800,
+    "ratio": 0.27949951171875
+   }
+  },
+  {
+   "key": "p8|status-cards-code-s1-ko",
+   "p": 8,
+   "id": "status-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    600,
+    0,
+    873,
+    533
+   ],
+   "clip": {
+    "left": 0,
+    "top": 8,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    600,
+    0,
+    873,
+    533
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 145509,
+    "den": 1228800,
+    "ratio": 0.11841552734375
+   },
+   "assumedArea": {
+    "num": 145509,
+    "den": 1228800,
+    "ratio": 0.11841552734375
+   }
+  },
+  {
+   "key": "p8|status-cards-code-s2-en",
+   "p": 8,
+   "id": "status-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    671,
+    1185,
+    947
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    671,
+    1185,
+    947
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 327060,
+    "den": 1228800,
+    "ratio": 0.266162109375
+   },
+   "assumedArea": {
+    "num": 327060,
+    "den": 1228800,
+    "ratio": 0.266162109375
+   }
+  },
+  {
+   "key": "p8|status-cards-code-s2-ko",
+   "p": 8,
+   "id": "status-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    682,
+    1119,
+    921
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    682,
+    1119,
+    921
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 267441,
+    "den": 1228800,
+    "ratio": 0.21764404296875
+   },
+   "assumedArea": {
+    "num": 267441,
+    "den": 1228800,
+    "ratio": 0.21764404296875
+   }
+  },
+  {
+   "key": "p8|status-cards-nl-s1-en",
+   "p": 8,
+   "id": "status-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    671,
+    1173,
+    947
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    671,
+    1173,
+    947
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 323748,
+    "den": 1228800,
+    "ratio": 0.263466796875
+   },
+   "assumedArea": {
+    "num": 323748,
+    "den": 1228800,
+    "ratio": 0.263466796875
+   }
+  },
+  {
+   "key": "p8|status-cards-nl-s1-ko",
+   "p": 8,
+   "id": "status-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p8|status-cards-nl-s2-en",
+   "p": 8,
+   "id": "status-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    282,
+    1205,
+    561
+   ],
+   "clip": {
+    "left": 8,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    282,
+    1205,
+    561
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 336195,
+    "den": 1228800,
+    "ratio": 0.27359619140625
+   },
+   "assumedArea": {
+    "num": 336195,
+    "den": 1228800,
+    "ratio": 0.27359619140625
+   }
+  },
+  {
+   "key": "p8|status-cards-nl-s2-ko",
+   "p": 8,
+   "id": "status-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|schedule-table-code-s1-en",
+   "p": 16,
+   "id": "schedule-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    318,
+    1244,
+    610
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    318,
+    1244,
+    610
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 363248,
+    "den": 1228800,
+    "ratio": 0.29561197916666665
+   },
+   "assumedArea": {
+    "num": 363248,
+    "den": 1228800,
+    "ratio": 0.29561197916666665
+   }
+  },
+  {
+   "key": "p16|schedule-table-code-s1-ko",
+   "p": 16,
+   "id": "schedule-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    328,
+    1217,
+    586
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    328,
+    1217,
+    586
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 313986,
+    "den": 1228800,
+    "ratio": 0.2555224609375
+   },
+   "assumedArea": {
+    "num": 313986,
+    "den": 1228800,
+    "ratio": 0.2555224609375
+   }
+  },
+  {
+   "key": "p16|schedule-table-code-s2-en",
+   "p": 16,
+   "id": "schedule-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    533,
+    1247,
+    828
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    533,
+    1247,
+    828
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 367865,
+    "den": 1228800,
+    "ratio": 0.2993693033854167
+   },
+   "assumedArea": {
+    "num": 367865,
+    "den": 1228800,
+    "ratio": 0.2993693033854167
+   }
+  },
+  {
+   "key": "p16|schedule-table-code-s2-ko",
+   "p": 16,
+   "id": "schedule-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    545,
+    1214,
+    800
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    545,
+    1214,
+    800
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 309570,
+    "den": 1228800,
+    "ratio": 0.2519287109375
+   },
+   "assumedArea": {
+    "num": 309570,
+    "den": 1228800,
+    "ratio": 0.2519287109375
+   }
+  },
+  {
+   "key": "p16|schedule-table-nl-s1-en",
+   "p": 16,
+   "id": "schedule-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    534,
+    1244,
+    826
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    534,
+    1244,
+    826
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 363248,
+    "den": 1228800,
+    "ratio": 0.29561197916666665
+   },
+   "assumedArea": {
+    "num": 363248,
+    "den": 1228800,
+    "ratio": 0.29561197916666665
+   }
+  },
+  {
+   "key": "p16|schedule-table-nl-s1-ko",
+   "p": 16,
+   "id": "schedule-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|schedule-table-nl-s2-en",
+   "p": 16,
+   "id": "schedule-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    318,
+    1244,
+    610
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    318,
+    1244,
+    610
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 363248,
+    "den": 1228800,
+    "ratio": 0.29561197916666665
+   },
+   "assumedArea": {
+    "num": 363248,
+    "den": 1228800,
+    "ratio": 0.29561197916666665
+   }
+  },
+  {
+   "key": "p16|schedule-table-nl-s2-ko",
+   "p": 16,
+   "id": "schedule-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|schedule-cards-code-s1-en",
+   "p": 16,
+   "id": "schedule-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    274,
+    1248,
+    569
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    274,
+    1248,
+    569
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 368160,
+    "den": 1228800,
+    "ratio": 0.299609375
+   },
+   "assumedArea": {
+    "num": 368160,
+    "den": 1228800,
+    "ratio": 0.299609375
+   }
+  },
+  {
+   "key": "p16|schedule-cards-code-s1-ko",
+   "p": 16,
+   "id": "schedule-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    285,
+    1151,
+    543
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    285,
+    1151,
+    543
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 296958,
+    "den": 1228800,
+    "ratio": 0.2416650390625
+   },
+   "assumedArea": {
+    "num": 296958,
+    "den": 1228800,
+    "ratio": 0.2416650390625
+   }
+  },
+  {
+   "key": "p16|schedule-cards-code-s2-en",
+   "p": 16,
+   "id": "schedule-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    663,
+    1235,
+    955
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    663,
+    1235,
+    955
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 360620,
+    "den": 1228800,
+    "ratio": 0.29347330729166665
+   },
+   "assumedArea": {
+    "num": 360620,
+    "den": 1228800,
+    "ratio": 0.29347330729166665
+   }
+  },
+  {
+   "key": "p16|schedule-cards-code-s2-ko",
+   "p": 16,
+   "id": "schedule-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    673,
+    1173,
+    931
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    673,
+    1173,
+    931
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 302634,
+    "den": 1228800,
+    "ratio": 0.2462841796875
+   },
+   "assumedArea": {
+    "num": 302634,
+    "den": 1228800,
+    "ratio": 0.2462841796875
+   }
+  },
+  {
+   "key": "p16|schedule-cards-nl-s1-en",
+   "p": 16,
+   "id": "schedule-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    663,
+    1205,
+    955
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    663,
+    1205,
+    955
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 351860,
+    "den": 1228800,
+    "ratio": 0.28634440104166664
+   },
+   "assumedArea": {
+    "num": 351860,
+    "den": 1228800,
+    "ratio": 0.28634440104166664
+   }
+  },
+  {
+   "key": "p16|schedule-cards-nl-s1-ko",
+   "p": 16,
+   "id": "schedule-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|schedule-cards-nl-s2-en",
+   "p": 16,
+   "id": "schedule-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    274,
+    1188,
+    569
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    274,
+    1188,
+    569
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 350460,
+    "den": 1228800,
+    "ratio": 0.285205078125
+   },
+   "assumedArea": {
+    "num": 350460,
+    "den": 1228800,
+    "ratio": 0.285205078125
+   }
+  },
+  {
+   "key": "p16|schedule-cards-nl-s2-ko",
+   "p": 16,
+   "id": "schedule-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|invoice-table-code-s1-en",
+   "p": 16,
+   "id": "invoice-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    322,
+    1261,
+    601
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    322,
+    1261,
+    601
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 351819,
+    "den": 1228800,
+    "ratio": 0.28631103515625
+   },
+   "assumedArea": {
+    "num": 351819,
+    "den": 1228800,
+    "ratio": 0.28631103515625
+   }
+  },
+  {
+   "key": "p16|invoice-table-code-s1-ko",
+   "p": 16,
+   "id": "invoice-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    322,
+    1261,
+    601
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    322,
+    1261,
+    601
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 351819,
+    "den": 1228800,
+    "ratio": 0.28631103515625
+   },
+   "assumedArea": {
+    "num": 351819,
+    "den": 1228800,
+    "ratio": 0.28631103515625
+   }
+  },
+  {
+   "key": "p16|invoice-table-code-s2-en",
+   "p": 16,
+   "id": "invoice-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    533,
+    1274,
+    828
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    533,
+    1274,
+    828
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 375830,
+    "den": 1228800,
+    "ratio": 0.30585123697916666
+   },
+   "assumedArea": {
+    "num": 375830,
+    "den": 1228800,
+    "ratio": 0.30585123697916666
+   }
+  },
+  {
+   "key": "p16|invoice-table-code-s2-ko",
+   "p": 16,
+   "id": "invoice-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    517,
+    1280,
+    862
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 16,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    517,
+    1280,
+    862
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 441600,
+    "den": 1228800,
+    "ratio": 0.359375
+   },
+   "assumedArea": {
+    "num": 441600,
+    "den": 1228800,
+    "ratio": 0.359375
+   }
+  },
+  {
+   "key": "p16|invoice-table-nl-s1-en",
+   "p": 16,
+   "id": "invoice-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    533,
+    1274,
+    828
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    533,
+    1274,
+    828
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 375830,
+    "den": 1228800,
+    "ratio": 0.30585123697916666
+   },
+   "assumedArea": {
+    "num": 375830,
+    "den": 1228800,
+    "ratio": 0.30585123697916666
+   }
+  },
+  {
+   "key": "p16|invoice-table-nl-s1-ko",
+   "p": 16,
+   "id": "invoice-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|invoice-table-nl-s2-en",
+   "p": 16,
+   "id": "invoice-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    318,
+    1258,
+    610
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    318,
+    1258,
+    610
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 367336,
+    "den": 1228800,
+    "ratio": 0.29893880208333334
+   },
+   "assumedArea": {
+    "num": 367336,
+    "den": 1228800,
+    "ratio": 0.29893880208333334
+   }
+  },
+  {
+   "key": "p16|invoice-table-nl-s2-ko",
+   "p": 16,
+   "id": "invoice-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|invoice-cards-code-s1-en",
+   "p": 16,
+   "id": "invoice-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    274,
+    1179,
+    569
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    274,
+    1179,
+    569
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 347805,
+    "den": 1228800,
+    "ratio": 0.28304443359375
+   },
+   "assumedArea": {
+    "num": 347805,
+    "den": 1228800,
+    "ratio": 0.28304443359375
+   }
+  },
+  {
+   "key": "p16|invoice-cards-code-s1-ko",
+   "p": 16,
+   "id": "invoice-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    286,
+    1099,
+    541
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    286,
+    1099,
+    541
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 280245,
+    "den": 1228800,
+    "ratio": 0.22806396484375
+   },
+   "assumedArea": {
+    "num": 280245,
+    "den": 1228800,
+    "ratio": 0.22806396484375
+   }
+  },
+  {
+   "key": "p16|invoice-cards-code-s2-en",
+   "p": 16,
+   "id": "invoice-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    663,
+    1210,
+    955
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    663,
+    1210,
+    955
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 353320,
+    "den": 1228800,
+    "ratio": 0.28753255208333334
+   },
+   "assumedArea": {
+    "num": 353320,
+    "den": 1228800,
+    "ratio": 0.28753255208333334
+   }
+  },
+  {
+   "key": "p16|invoice-cards-code-s2-ko",
+   "p": 16,
+   "id": "invoice-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    674,
+    1150,
+    929
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    674,
+    1150,
+    929
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 293250,
+    "den": 1228800,
+    "ratio": 0.2386474609375
+   },
+   "assumedArea": {
+    "num": 293250,
+    "den": 1228800,
+    "ratio": 0.2386474609375
+   }
+  },
+  {
+   "key": "p16|invoice-cards-nl-s1-en",
+   "p": 16,
+   "id": "invoice-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    663,
+    1215,
+    955
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    663,
+    1215,
+    955
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 354780,
+    "den": 1228800,
+    "ratio": 0.288720703125
+   },
+   "assumedArea": {
+    "num": 354780,
+    "den": 1228800,
+    "ratio": 0.288720703125
+   }
+  },
+  {
+   "key": "p16|invoice-cards-nl-s1-ko",
+   "p": 16,
+   "id": "invoice-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|invoice-cards-nl-s2-en",
+   "p": 16,
+   "id": "invoice-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    274,
+    1211,
+    569
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    274,
+    1211,
+    569
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 357245,
+    "den": 1228800,
+    "ratio": 0.29072672526041665
+   },
+   "assumedArea": {
+    "num": 357245,
+    "den": 1228800,
+    "ratio": 0.29072672526041665
+   }
+  },
+  {
+   "key": "p16|invoice-cards-nl-s2-ko",
+   "p": 16,
+   "id": "invoice-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|status-table-code-s1-en",
+   "p": 16,
+   "id": "status-table-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    318,
+    1211,
+    610
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    318,
+    1211,
+    610
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 353612,
+    "den": 1228800,
+    "ratio": 0.2877701822916667
+   },
+   "assumedArea": {
+    "num": 353612,
+    "den": 1228800,
+    "ratio": 0.2877701822916667
+   }
+  },
+  {
+   "key": "p16|status-table-code-s1-ko",
+   "p": 16,
+   "id": "status-table-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    328,
+    1184,
+    586
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    328,
+    1184,
+    586
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 305472,
+    "den": 1228800,
+    "ratio": 0.24859375
+   },
+   "assumedArea": {
+    "num": 305472,
+    "den": 1228800,
+    "ratio": 0.24859375
+   }
+  },
+  {
+   "key": "p16|status-table-code-s2-en",
+   "p": 16,
+   "id": "status-table-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    525,
+    1231,
+    842
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    525,
+    1231,
+    842
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 390227,
+    "den": 1228800,
+    "ratio": 0.31756754557291667
+   },
+   "assumedArea": {
+    "num": 390227,
+    "den": 1228800,
+    "ratio": 0.31756754557291667
+   }
+  },
+  {
+   "key": "p16|status-table-code-s2-ko",
+   "p": 16,
+   "id": "status-table-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    545,
+    1181,
+    800
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    545,
+    1181,
+    800
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 301155,
+    "den": 1228800,
+    "ratio": 0.24508056640625
+   },
+   "assumedArea": {
+    "num": 301155,
+    "den": 1228800,
+    "ratio": 0.24508056640625
+   }
+  },
+  {
+   "key": "p16|status-table-nl-s1-en",
+   "p": 16,
+   "id": "status-table-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    534,
+    1211,
+    826
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    534,
+    1211,
+    826
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 353612,
+    "den": 1228800,
+    "ratio": 0.2877701822916667
+   },
+   "assumedArea": {
+    "num": 353612,
+    "den": 1228800,
+    "ratio": 0.2877701822916667
+   }
+  },
+  {
+   "key": "p16|status-table-nl-s1-ko",
+   "p": 16,
+   "id": "status-table-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|status-table-nl-s2-en",
+   "p": 16,
+   "id": "status-table-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    309,
+    1231,
+    626
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    309,
+    1231,
+    626
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 390227,
+    "den": 1228800,
+    "ratio": 0.31756754557291667
+   },
+   "assumedArea": {
+    "num": 390227,
+    "den": 1228800,
+    "ratio": 0.31756754557291667
+   }
+  },
+  {
+   "key": "p16|status-table-nl-s2-ko",
+   "p": 16,
+   "id": "status-table-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|status-cards-code-s1-en",
+   "p": 16,
+   "id": "status-cards-code-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    274,
+    1239,
+    569
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    274,
+    1239,
+    569
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 365505,
+    "den": 1228800,
+    "ratio": 0.29744873046875
+   },
+   "assumedArea": {
+    "num": 365505,
+    "den": 1228800,
+    "ratio": 0.29744873046875
+   }
+  },
+  {
+   "key": "p16|status-cards-code-s1-ko",
+   "p": 16,
+   "id": "status-cards-code-s1-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    592,
+    0,
+    881,
+    541
+   ],
+   "clip": {
+    "left": 0,
+    "top": 16,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    592,
+    0,
+    881,
+    541
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 156349,
+    "den": 1228800,
+    "ratio": 0.12723714192708332
+   },
+   "assumedArea": {
+    "num": 156349,
+    "den": 1228800,
+    "ratio": 0.12723714192708332
+   }
+  },
+  {
+   "key": "p16|status-cards-code-s2-en",
+   "p": 16,
+   "id": "status-cards-code-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    663,
+    1193,
+    955
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    663,
+    1193,
+    955
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 348356,
+    "den": 1228800,
+    "ratio": 0.2834928385416667
+   },
+   "assumedArea": {
+    "num": 348356,
+    "den": 1228800,
+    "ratio": 0.2834928385416667
+   }
+  },
+  {
+   "key": "p16|status-cards-code-s2-ko",
+   "p": 16,
+   "id": "status-cards-code-s2-ko",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    674,
+    1127,
+    929
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    674,
+    1127,
+    929
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 287385,
+    "den": 1228800,
+    "ratio": 0.23387451171875
+   },
+   "assumedArea": {
+    "num": 287385,
+    "den": 1228800,
+    "ratio": 0.23387451171875
+   }
+  },
+  {
+   "key": "p16|status-cards-nl-s1-en",
+   "p": 16,
+   "id": "status-cards-nl-s1-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    663,
+    1181,
+    955
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    663,
+    1181,
+    955
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 344852,
+    "den": 1228800,
+    "ratio": 0.28064127604166667
+   },
+   "assumedArea": {
+    "num": 344852,
+    "den": 1228800,
+    "ratio": 0.28064127604166667
+   }
+  },
+  {
+   "key": "p16|status-cards-nl-s1-ko",
+   "p": 16,
+   "id": "status-cards-nl-s1-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p16|status-cards-nl-s2-en",
+   "p": 16,
+   "id": "status-cards-nl-s2-en",
+   "intent": "matched",
+   "requestFull": false,
+   "requestRect": [
+    0,
+    274,
+    1213,
+    569
+   ],
+   "clip": {
+    "left": 16,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    274,
+    1213,
+    569
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 357835,
+    "den": 1228800,
+    "ratio": 0.2912068684895833
+   },
+   "assumedArea": {
+    "num": 357835,
+    "den": 1228800,
+    "ratio": 0.2912068684895833
+   }
+  },
+  {
+   "key": "p16|status-cards-nl-s2-ko",
+   "p": 16,
+   "id": "status-cards-nl-s2-ko",
+   "intent": "unmatched",
+   "requestFull": true,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "clip": null,
+   "outcome": "ok",
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "judgement": "complete",
+   "missing": 0,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   },
+   "assumedArea": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  }
+ ],
+ "aggregate": {
+  "byP": {
+   "0": {
+    "n": 48,
+    "outcomes": {
+     "ok": 48,
+     "failed": 0
+    },
+    "failCodes": {},
+    "limitExceeded": 0,
+    "judgement": {
+     "complete": 47,
+     "incomplete": 1,
+     "not_evaluable": 0
+    },
+    "returned": {
+     "crop_jpeg": 36,
+     "original_verified": 12,
+     "original_unverified": 0,
+     "none": 0
+    },
+    "matchedFullPage": 0,
+    "byIntent": {
+     "matched": {
+      "n": 36,
+      "judgement": {
+       "complete": 35,
+       "incomplete": 1,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 36,
+       "original_verified": 0,
+       "original_unverified": 0,
+       "none": 0
+      }
+     },
+     "unmatched": {
+      "n": 12,
+      "judgement": {
+       "complete": 12,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 0,
+       "original_verified": 12,
+       "original_unverified": 0,
+       "none": 0
+      }
+     }
+    },
+    "area": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 25544891,
+      "mean": 0.43309344821506074
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 10799291,
+      "mean": 0.244124597620081
+     }
+    },
+    "assumedArea": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 25544891,
+      "mean": 0.43309344821506074
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 10799291,
+      "mean": 0.244124597620081
+     }
+    },
+    "pairedVsP0": {
+     "all": {
+      "validPairs": 48,
+      "missingPairs": 0,
+      "meanPp": 0
+     },
+     "matched": {
+      "validPairs": 36,
+      "missingPairs": 0,
+      "meanPp": 0
+     }
+    },
+    "changeVsP0": {
+     "recovered": 0,
+     "worsened": 0,
+     "keptComplete": 47,
+     "keptIncomplete": 1,
+     "notEvaluablePairs": 0
+    },
+    "missingItemsTotal": 1,
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "complete": 11,
+      "incomplete": 1,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 23,
+     "enOnly": 1,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "4": {
+    "n": 48,
+    "outcomes": {
+     "ok": 48,
+     "failed": 0
+    },
+    "failCodes": {},
+    "limitExceeded": 0,
+    "judgement": {
+     "complete": 48,
+     "incomplete": 0,
+     "not_evaluable": 0
+    },
+    "returned": {
+     "crop_jpeg": 36,
+     "original_verified": 12,
+     "original_unverified": 0,
+     "none": 0
+    },
+    "matchedFullPage": 0,
+    "byIntent": {
+     "matched": {
+      "n": 36,
+      "judgement": {
+       "complete": 36,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 36,
+       "original_verified": 0,
+       "original_unverified": 0,
+       "none": 0
+      }
+     },
+     "unmatched": {
+      "n": 12,
+      "judgement": {
+       "complete": 12,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 0,
+       "original_verified": 12,
+       "original_unverified": 0,
+       "none": 0
+      }
+     }
+    },
+    "area": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 25921039,
+      "mean": 0.4394707404242622
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 11175439,
+      "mean": 0.2526276538990162
+     }
+    },
+    "assumedArea": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 25921039,
+      "mean": 0.4394707404242622
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 11175439,
+      "mean": 0.2526276538990162
+     }
+    },
+    "pairedVsP0": {
+     "all": {
+      "validPairs": 48,
+      "missingPairs": 0,
+      "meanPp": 0.6377292209201384
+     },
+     "matched": {
+      "validPairs": 36,
+      "missingPairs": 0,
+      "meanPp": 0.8503056278935179
+     }
+    },
+    "changeVsP0": {
+     "recovered": 1,
+     "worsened": 0,
+     "keptComplete": 47,
+     "keptIncomplete": 0,
+     "notEvaluablePairs": 0
+    },
+    "missingItemsTotal": 0,
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "8": {
+    "n": 48,
+    "outcomes": {
+     "ok": 48,
+     "failed": 0
+    },
+    "failCodes": {},
+    "limitExceeded": 0,
+    "judgement": {
+     "complete": 48,
+     "incomplete": 0,
+     "not_evaluable": 0
+    },
+    "returned": {
+     "crop_jpeg": 36,
+     "original_verified": 12,
+     "original_unverified": 0,
+     "none": 0
+    },
+    "matchedFullPage": 0,
+    "byIntent": {
+     "matched": {
+      "n": 36,
+      "judgement": {
+       "complete": 36,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 36,
+       "original_verified": 0,
+       "original_unverified": 0,
+       "none": 0
+      }
+     },
+     "unmatched": {
+      "n": 12,
+      "judgement": {
+       "complete": 12,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 0,
+       "original_verified": 12,
+       "original_unverified": 0,
+       "none": 0
+      }
+     }
+    },
+    "area": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 26299427,
+      "mean": 0.445886010064019
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 11553827,
+      "mean": 0.2611813467520255
+     }
+    },
+    "assumedArea": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 26299427,
+      "mean": 0.445886010064019
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 11553827,
+      "mean": 0.2611813467520255
+     }
+    },
+    "pairedVsP0": {
+     "all": {
+      "validPairs": 48,
+      "missingPairs": 0,
+      "meanPp": 1.279256184895833
+     },
+     "matched": {
+      "validPairs": 36,
+      "missingPairs": 0,
+      "meanPp": 1.7056749131944442
+     }
+    },
+    "changeVsP0": {
+     "recovered": 1,
+     "worsened": 0,
+     "keptComplete": 47,
+     "keptIncomplete": 0,
+     "notEvaluablePairs": 0
+    },
+    "missingItemsTotal": 0,
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   },
+   "16": {
+    "n": 48,
+    "outcomes": {
+     "ok": 48,
+     "failed": 0
+    },
+    "failCodes": {},
+    "limitExceeded": 0,
+    "judgement": {
+     "complete": 48,
+     "incomplete": 0,
+     "not_evaluable": 0
+    },
+    "returned": {
+     "crop_jpeg": 36,
+     "original_verified": 12,
+     "original_unverified": 0,
+     "none": 0
+    },
+    "matchedFullPage": 0,
+    "byIntent": {
+     "matched": {
+      "n": 36,
+      "judgement": {
+       "complete": 36,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 36,
+       "original_verified": 0,
+       "original_unverified": 0,
+       "none": 0
+      }
+     },
+     "unmatched": {
+      "n": 12,
+      "judgement": {
+       "complete": 12,
+       "incomplete": 0,
+       "not_evaluable": 0
+      },
+      "returned": {
+       "crop_jpeg": 0,
+       "original_verified": 12,
+       "original_unverified": 0,
+       "none": 0
+      }
+     }
+    },
+    "area": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 27062923,
+      "mean": 0.4588304816351996
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 12317323,
+      "mean": 0.2784406421802662
+     }
+    },
+    "assumedArea": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 27062923,
+      "mean": 0.4588304816351996
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 12317323,
+      "mean": 0.2784406421802662
+     }
+    },
+    "pairedVsP0": {
+     "all": {
+      "validPairs": 48,
+      "missingPairs": 0,
+      "meanPp": 2.573703342013889
+     },
+     "matched": {
+      "validPairs": 36,
+      "missingPairs": 0,
+      "meanPp": 3.4316044560185186
+     }
+    },
+    "changeVsP0": {
+     "recovered": 1,
+     "worsened": 0,
+     "keptComplete": 47,
+     "keptIncomplete": 0,
+     "notEvaluablePairs": 0
+    },
+    "missingItemsTotal": 0,
+    "byLangAnchor": {
+     "en|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "en|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|code": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     },
+     "ko|nl": {
+      "n": 12,
+      "complete": 12,
+      "incomplete": 0,
+      "not_evaluable": 0
+     }
+    },
+    "pairs": {
+     "both": 24,
+     "enOnly": 0,
+     "koOnly": 0,
+     "neither": 0
+    }
+   }
+  }
+ },
+ "conditions": [
+  {
+   "p": 0,
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  {
+   "p": 4,
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  {
+   "p": 8,
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  {
+   "p": 16,
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  }
+ ]
+}

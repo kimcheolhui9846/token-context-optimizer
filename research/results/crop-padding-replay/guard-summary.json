@@ -1,0 +1,24 @@
+{
+ "run-a": {
+  "guard": 5,
+  "blocked": 0,
+  "steps": [
+   "cpr-run-a",
+   "cpr-run-a:p0",
+   "cpr-run-a:p4",
+   "cpr-run-a:p8",
+   "cpr-run-a:p16"
+  ]
+ },
+ "run-b": {
+  "guard": 5,
+  "blocked": 0,
+  "steps": [
+   "cpr-run-b",
+   "cpr-run-b:p0",
+   "cpr-run-b:p4",
+   "cpr-run-b:p8",
+   "cpr-run-b:p16"
+  ]
+ }
+}

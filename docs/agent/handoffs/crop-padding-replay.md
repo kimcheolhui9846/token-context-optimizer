@@ -34,13 +34,29 @@
 |---|---|---|
 | 계획 검토 | Claude Opus 5.5(`harness-opus-review`) | 1차 CHANGES REQUIRED(Major 3, Minor 2), 재심 PASS WITH NOTES. 참고 의견 2건은 프로토콜 §12에 반영 |
 | 마일스톤 검토 | Claude Opus 5.5, 독립 | 대기 |
-| 프로젝트 교차 확인 | Argon(gemini-4-argon) | 대기 |
+| 프로젝트 교차 확인 | Argon(gemini-4-argon) | APPROVE, 결함 0 |
 | 최종 판정 | PM Astra | 대기 |
 
 ## 진행
 
-- [ ] 프로토콜·핸드오프 커밋, Draft PR
-- [ ] 테스트 RED → GREEN
-- [ ] 실행 A·B, 동결, 채점, 검산, #141 재생 대조
-- [ ] 결과표·재현 안내, 게이트
-- [ ] Opus 마일스톤 검토, Argon
+- [x] 프로토콜·핸드오프 커밋 `c636f69`, 실측 전. Draft PR [#144](https://github.com/kimcheolhui9846/token-context-optimizer/pull/144)
+- [x] 테스트 RED `6414031`(`ERR_MODULE_NOT_FOUND`: 하네스 모듈 부재) → 하네스 GREEN 28/28 `613e20c`(실측 전 커밋). 프로토콜 §15에 측정 전 보완 3건
+- [x] 입력: #141 준비기로 새로 만든 입력이 로컬 #141 입력 폴더와 원본 48장·SHA 표·배정·질문 모두 바이트 동일, `prepare-report.json`도 #141과 동일
+- [x] 실행 A·B(코드 `613e20c`, 깨끗한 트리), 동결, 채점. 결정적 출력·채점 출력 A·B 바이트 동일. 가드 5/실행, 차단 0
+- [x] #141 p0 재생 대조 48/48 통과
+- [x] Python 독립 검산 불일치 0(192행, 검사 7,356건). run-b×score-a와 run-a×score-b 결과 바이트 동일. 점수 사본을 일부러 바꾸면 해당 행·집계·재생 판정을 잡고 종료 1
+  - 작성: 하위 에이전트 `harness-sonnet-worker`, 실모델 `claude-sonnet-5-5`(자기 보고). 명세만 받고 채점기 코드는 열지 않았다
+  - 메인 검수 수정 2건(더 엄격하게): gold SHA 비교를 `endswith`에서 동등 비교로, 평가 불가 행의 `missing`을 프로토콜대로 null로 대조
+- [x] 게이트 7종(대상 작업 트리 `613e20c` + 미커밋 결과 파일, 제품 코드 무변경) 모두 종료 0. test 60파일, 4,639 통과, 5 건너뜀. 빌드가 줄바꿈만 바꾼 `bin/`(blob `85b8049` 동일)은 그 파일만 되돌렸다. 연구 테스트 전체 161/161. 로그 `codex_review/gates/2026-11-24_crop-padding-replay/`(비추적)
+- [x] Argon APPROVE(결함 0, 발췌 밖 47개 ID 원시값은 확인 불가로 명시). `codex_review/argon/2026-11-24_crop-padding-replay-{bundle,argon}.md`
+- [ ] Opus 마일스톤 검토
+
+## 결과 요약
+
+[RESULTS.md](../../../research/results/crop-padding-replay/RESULTS.md)
+
+- 192행 모두 유효 응답. 실패·한도 초과 0, 매치→전체 페이지 전환 0
+- p0: complete 47/48(매치 35/36). 놓친 1건은 #141과 같은 `status-cards-code-s1-ko`의 값 상자 2px
+- p4·p8·p16: 48/48(매치 36/36). 회복 1, 악화 0
+- 매치 평균 면적비 0.2441 → 0.2526(+0.85pp) → 0.2612(+1.71pp) → 0.2784(+3.43pp). 매치 36개 중 35개가 왼쪽 경계에서 잘려 증가 폭이 작다
+- 탐색적 재생이며 제품 기본 여백 결정 근거가 아니다
