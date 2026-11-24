@@ -1469,9 +1469,10 @@ def recount(args, x, rep):
         if question_types(im["question"]) != [im["qtype"]]:
             rep.bad(CT, im["id"] + " question types", question_types(im["question"]), [im["qtype"]])
         texts = {it["id"]: it["text"] for it in im["items"]}
-        vals = [im["valueItem"], im["decoyItem"]] + im["otherValueItems"]
-        if len({texts[k] for k in vals}) != len(vals):
-            rep.bad(CT, im["id"] + " value texts not distinct")
+        # protocol 3.3: the designated values and the decoys of all three records (6 texts) follow the grammar and differ
+        vals = [r[k] for r in im["records"] for k in ("valueItem", "decoyItem")]
+        if len({texts[k] for k in vals}) != 6:
+            rep.bad(CT, im["id"] + " value/decoy texts are not 6 distinct texts")
         for it in im["items"]:
             ok = grammar_match(im["qtype"], it["text"]) if it["id"] in vals else not any(grammar_match(t, it["text"]) for t in QTYPES)
             if not ok:
