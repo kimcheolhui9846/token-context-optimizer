@@ -135,7 +135,7 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
  */
 export function replayRow(selectWindow, dataset, q, rec) {
   const base = { dataset, id: q.id };
-  if (rec.status !== "ok") return { ...base, status: rec.status, kind: "technical_error", ok: true, mismatches: [], stored: { error: rec.error ?? null } };
+  if (rec.status !== "ok") return { ...base, status: rec.status, kind: "technical_error", ok: null, mismatches: [], stored: { error: rec.error ?? null } };
   let sel;
   try {
     sel = selectWindow(rec.ocrLines, q.question, rec.width, rec.height);
@@ -207,6 +207,24 @@ export function collect(input) {
   return { ...base, wordCount, syllableWords, anyHangulWords, signalWords };
 }
 
+/** collect() for one row; an exception becomes a technical-error row (protocol 6.2-1) instead of ending the run. */
+export function collectSafe(input) {
+  try {
+    return collect(input);
+  } catch (err) {
+    return { dataset: input.dataset, id: input.id, status: "error", error: `collect: ${String(err?.message || err).slice(0, 200)}`, Q: hangulBigrams(input.question), inputSha256: null, wordCount: null, syllableWords: null, anyHangulWords: null, signalWords: null };
+  }
+}
+
+/** sourceControl() for one row; an exception becomes a technical_error control. */
+export function sourceControlSafe(dataset, image) {
+  try {
+    return sourceControl(dataset, image);
+  } catch (err) {
+    return { category: "technical_error", reason: String(err?.message || err).slice(0, 200), otherCellsWithTargetSignal: null, otherCellsWithGeneric: null, textCells: null };
+  }
+}
+
 // ------------------------------------------------------------------ section 6.2 scoring
 /** Half-open [left, top, right, bottom). */
 export const inCell = ([cx, cy], [l, t, r, b]) => cx >= l && cx < r && cy >= t && cy < b;
@@ -222,7 +240,7 @@ export function scoreRow(col, image, baseline) {
     const Q = col.Q;
     const S = Q.filter((x) => T.includes(x));
     const generic = Q.filter((x) => !T.includes(x));
-    Object.assign(row, { targetItem: image.anchorItem, targetRole: target[0].role, cell, Q, T, S, baselineKeyCount: baseline ? baseline.keys.length : null, baselineMatched: baseline ? baseline.matched : null });
+    Object.assign(row, { targetItem: image.anchorItem, targetRole: target[0].role, cell, Q, T, S, baselineKeyCount: Array.isArray(baseline?.keys) ? baseline.keys.length : null, baselineMatched: typeof baseline?.matched === "boolean" ? baseline.matched : null });
     if (col.status !== "ok") return { ...row, category: "technical_error", reason: `ocr status ${col.status}`, insideWords: null, outsideWords: null, alsoOutside: null, genericOverlap: null };
     const pageO = new Set(col.signalWords.flatMap((w) => w.O));
     const genericOverlap = generic.filter((x) => pageO.has(x));
@@ -287,8 +305,8 @@ export function summarize(replayRows, collectRows, scoreRows, designs) {
     per[ds] = {
       replay: {
         denominator: rp.length,
-        agree: rp.filter((r) => r.ok).length,
-        disagree: rp.filter((r) => !r.ok).length,
+        agree: rp.filter((r) => r.ok === true).length,
+        disagree: rp.filter((r) => r.ok === false).length,
         matched: rp.filter((r) => r.kind === "matched").length,
         unmatched: rp.filter((r) => r.kind === "unmatched").length,
         technicalError: rp.filter((r) => r.kind === "technical_error").length,

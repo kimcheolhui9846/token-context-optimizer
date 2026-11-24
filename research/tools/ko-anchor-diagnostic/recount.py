@@ -300,37 +300,44 @@ def score_row(name, rid, im, question, status, crow, replay_row):
     row = {"dataset": name, "id": rid, "targetItem": target["id"], "targetRole": target["role"], "cell": cell, "Q": Q, "T": T, "S": S,
            "baselineKeyCount": len(replay_row["keys"]) if replay_row.get("keys") is not None else None,
            "baselineMatched": replay_row.get("matched")}
-    cat, ins, outs, also = classify(status, T, S, crow["signalWords"] or [], cell)
-    union = set()
-    for sw in (crow["signalWords"] or []):
-        union.update(sw["O"])
-    row.update({"category": cat, "insideWords": ins, "outsideWords": outs, "alsoOutside": also,
-                "genericOverlap": [g for g in generic if g in union]})
-    # 원문 대조
-    items = im["items"]
-    fl = fake_ocr_lines(items)
-    fcrow = collect_row(name, rid, question, 0, 0, "ok", fl)
-    ccat = classify("ok", T, S, fcrow["signalWords"], cell)[0] if status == "ok" else "technical_error"
-    gset = set(generic)
-    other_t = other_g = ncells = 0
-    for it in items:
-        tx = it.get("text")
-        if isinstance(tx, str) and tx != "":
-            ncells += 1
-            if it["id"] != target["id"]:
-                o = set(bigrams(tx))
-                if o & set(S):
-                    other_t += 1
-                if o & gset:
-                    other_g += 1
-    row["control"] = {"category": ccat, "otherCellsWithTargetSignal": other_t, "otherCellsWithGeneric": other_g, "textCells": ncells}
+    if crow["status"] != "ok" or status != "ok":
+        row.update({"category": "technical_error", "insideWords": None, "outsideWords": None, "alsoOutside": None, "genericOverlap": None})
+    else:
+        cat, ins, outs, also = classify(status, T, S, crow["signalWords"] or [], cell)
+        union = set()
+        for sw in (crow["signalWords"] or []):
+            union.update(sw["O"])
+        row.update({"category": cat, "insideWords": ins, "outsideWords": outs, "alsoOutside": also,
+                    "genericOverlap": [g for g in generic if g in union]})
+    # 원문 대조: OCR 상태와 무관하게 설계 원문으로 계산. 설계가 깨져 예외가 나면 technical_error.
+    try:
+        items = im["items"]
+        fl = fake_ocr_lines(items)
+        fcrow = collect_row(name, rid, question, 0, 0, "ok", fl)
+        ccat = classify("ok", T, S, fcrow["signalWords"], cell)[0]
+        gset = set(generic)
+        other_t = other_g = ncells = 0
+        for it in items:
+            tx = it.get("text")
+            if isinstance(tx, str) and tx != "":
+                ncells += 1
+                if it["id"] != target["id"]:
+                    o = set(bigrams(tx))
+                    if o & set(S):
+                        other_t += 1
+                    if o & gset:
+                        other_g += 1
+        row["control"] = {"category": ccat, "otherCellsWithTargetSignal": other_t, "otherCellsWithGeneric": other_g, "textCells": ncells}
+    except Exception as e:  # noqa: BLE001
+        row["control"] = {"category": "technical_error", "reason": str(e), "otherCellsWithTargetSignal": None,
+                          "otherCellsWithGeneric": None, "textCells": None}
     return row
 
 
 def expected_replay_row(name, ocr_row):
     rid, status = ocr_row["id"], ocr_row.get("status")
     if status != "ok":
-        return {"dataset": name, "id": rid, "status": status, "kind": "technical_error", "ok": None, "stored": {"error": ocr_row.get("error")}}
+        return {"dataset": name, "id": rid, "status": status, "kind": "technical_error", "ok": None, "mismatches": [], "stored": {"error": ocr_row.get("error")}}
     matched = ocr_row.get("matched")
     return {"dataset": name, "id": rid, "status": "ok", "kind": "matched" if matched else "unmatched", "ok": True, "mismatches": [],
             "keys": ocr_row.get("keys"), "matched": matched, "axisRow": ocr_row.get("axisRow"), "band": ocr_row.get("band")}

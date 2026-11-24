@@ -8,7 +8,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync, spawnSync } from "node:child_process";
 import {
-  SOURCES, checkSelectorFile, collect, gitBlobId, hangulBigrams, inCell, parseDataset, projectForCollector, readSources,
+  SOURCES, checkSelectorFile, collect, collectSafe, sourceControlSafe, summarize, gitBlobId, hangulBigrams, inCell, parseDataset, projectForCollector, readSources,
   replayRow, scoreRow, sourceControl, validateDataset,
 } from "../src/ko-anchor-diagnostic-lib.mjs";
 import { selectWindow } from "../src/selector.mjs";
@@ -102,7 +102,10 @@ test("one-syllable label is not_applicable; question without the label signal is
 
 test("technical errors: OCR status error and a malformed design are kept, not dropped", () => {
   const err = collect({ ...input([]), status: "error", ocrLines: null });
-  assert.equal(scoreRow(err, IMAGE, base).category, "technical_error");
+  const tech = scoreRow(err, IMAGE, { kind: "technical_error", ok: null, mismatches: [] });
+  assert.equal(tech.category, "technical_error");
+  assert.deepEqual([tech.baselineKeyCount, tech.baselineMatched, tech.insideWords, tech.outsideWords, tech.alsoOutside, tech.genericOverlap], [null, null, null, null, null, null]);
+  assert.deepEqual(tech.S, ["검토", "예산"]);
   const twoAnchors = { ...IMAGE, items: [...IMAGE.items, { ...IMAGE.items[2] }] };
   assert.equal(scoreRow(collect(input([])), twoAnchors, base).category, "technical_error");
 });
@@ -155,6 +158,25 @@ test("replay: selector exception is a replay error; stored technical error is no
   assert.equal(r.ok, false);
   const t = replayRow(boom, "fcp", { id: "a", question: "q" }, { id: "a", status: "error", error: "timeout" });
   assert.equal(t.kind, "technical_error");
+  assert.equal(t.ok, null);
+  // A preserved technical error is neither agreement nor disagreement.
+  const design = { fcp: new Map([["a", { lang: "ko", anchor: "nl" }], ["b", { lang: "ko", anchor: "nl" }]]), r09: new Map() };
+  const s = summarize([t, { ...r, id: "b" }], [], [], design).fcp.replay;
+  assert.deepEqual([s.denominator, s.agree, s.disagree, s.technicalError, s.replayError], [2, 0, 1, 1, 1]);
+});
+
+test("collector exception and control exception become technical_error rows, not a crashed run", () => {
+  const bad = collectSafe(input([], { keys: [] }));
+  assert.equal(bad.status, "error");
+  assert.match(bad.error, /field row\.keys/);
+  assert.equal(scoreRow(bad, IMAGE, base).category, "technical_error");
+  const ctl = sourceControlSafe("t", { ...IMAGE, items: null });
+  assert.equal(ctl.category, "technical_error");
+});
+
+test("bigrams never span two OCR words, even when adjacent in the target cell", () => {
+  const r = scoreRow(collect(input([word("예", 140, 125), word("산", 160, 125)])), IMAGE, base);
+  assert.equal(r.category, "absent");
 });
 
 // ------------------------------------------------------------------ source integrity

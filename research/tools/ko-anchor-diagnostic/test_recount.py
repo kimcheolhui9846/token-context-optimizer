@@ -302,5 +302,57 @@ class SourceValidation(unittest.TestCase):
         self.assertTrue(errs)
 
 
+class TechnicalError(unittest.TestCase):
+    """원본 KO/nl 한 행의 status를 error(ocrLines null)로 바꾼 메모리 자료."""
+
+    def setUp(self):
+        self.parsed = copy.deepcopy(real()["parsed"])
+        r, im = first_ko_nl("r09")
+        self.rid = r["id"]
+        row = next(x for x in self.parsed["r09"]["ocr"] if x["id"] == self.rid)
+        row["status"] = "error"
+        row["error"] = "boom"
+        row["ocrLines"] = None
+        for k in ("keys", "matched", "axisRow", "band"):
+            row.pop(k, None)
+        self.exp = rc.recompute(self.parsed)
+
+    def test_replay_row(self):
+        rep = next(r for r in self.exp["replay"] if r["dataset"] == "r09" and r["id"] == self.rid)
+        self.assertEqual(rep, {"dataset": "r09", "id": self.rid, "status": "error", "kind": "technical_error", "ok": None,
+                               "mismatches": [], "stored": {"error": "boom"}})
+
+    def test_summary_counts(self):
+        s = rc.summarize(self.parsed, self.exp["replay"], self.exp["collect"], self.exp["score"])["r09"]
+        self.assertEqual(s["replay"]["technicalError"], 1)
+        self.assertEqual(s["replay"]["agree"], 47)
+        self.assertEqual(s["replay"]["disagree"], 0)
+        self.assertEqual(s["replay"]["byLangAnchor"]["ko/nl"]["technicalError"], 1)
+        self.assertEqual(s["diagnostic"]["categories"]["technical_error"], 1)
+        self.assertEqual(s["diagnostic"]["applicable"], 11)
+        self.assertEqual(s["collection"]["okRows"], 47)
+
+    def test_score_row(self):
+        sc = next(r for r in self.exp["score"] if r["dataset"] == "r09" and r["id"] == self.rid)
+        self.assertEqual(sc["category"], "technical_error")
+        for k in ("insideWords", "outsideWords", "alsoOutside", "genericOverlap"):
+            self.assertIsNone(sc[k], k)
+        self.assertTrue(sc["Q"] and sc["T"] and sc["S"])
+
+    def test_control_normal(self):
+        sc = next(r for r in self.exp["score"] if r["dataset"] == "r09" and r["id"] == self.rid)
+        self.assertEqual(sc["control"]["category"], "inside")
+        self.assertGreater(sc["control"]["textCells"], 0)
+
+    def test_control_broken_design(self):
+        im = {"id": "x", "anchorItem": "t", "items": [{"id": "t", "role": "label", "text": "검토 예산", "cell": [1, 2, 3, 4]},
+                                                       {"id": "u", "role": "label", "text": "예산"}]}
+        c = rc.collect_row("r09", "x", "검토 질문", 10, 10, "ok", [])
+        row = rc.score_row("r09", "x", im, "검토 질문", "ok", c, {"keys": [], "matched": False})
+        self.assertEqual(row["control"], {"category": "technical_error", "reason": row["control"]["reason"],
+                                          "otherCellsWithTargetSignal": None, "otherCellsWithGeneric": None, "textCells": None})
+        self.assertTrue(row["control"]["reason"])
+
+
 if __name__ == "__main__":
     unittest.main()

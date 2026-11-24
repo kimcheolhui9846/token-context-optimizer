@@ -77,14 +77,14 @@
 
 | 항목 | 결과 |
 |---|---|
-| 대상 시험 `node --test test/ko-anchor-diagnostic.test.mjs` | 17/17 통과 |
-| 연구 전체 시험 `node --test test/*.test.mjs` | 150/150 통과 |
+| 대상 시험 `node --test test/ko-anchor-diagnostic.test.mjs` | 19/19 통과 |
+| 연구 전체 시험 `node --test test/*.test.mjs` | 152/152 통과 |
 | 결정성 (새 출력 폴더 2곳) | 6개 파일 바이트 동일 |
 | 오프라인 가드 | 가드 적재 2회, 차단 0회 |
-| 독립 Python 검산 `recount.py` | 종료 0, 96·96·24행 전부 일치. 검산기 시험 33/33 통과(변조·양성·음성·분모) |
+| 독립 Python 검산 `recount.py` | 종료 0, 96·96·24행 전부 일치. 검산기 시험 38/38 통과(변조·양성·음성·분모·기술 오류 행) |
 | 저장소 npm 7단계 | 모두 통과 (vitest 4,639 통과·5 건너뜀) |
 
-독립 Python 검산은 선택기를 재구현하지 않으므로 재생 일치 판정 자체는 JS 재생이 근거다. 검산기는 재생 행의 `keys`·`matched`·`axisRow`·`band`가 원본 기록과 같은지 확인한다. 저장 OCR 상태 오류 행이 없어서 `technical_error` 경로는 두 구현 모두 단위 시험으로만 확인했다.
+독립 Python 검산은 선택기를 재구현하지 않으므로 재생 일치 판정 자체는 JS 재생이 근거다. 검산기는 재생 행의 `keys`·`matched`·`axisRow`·`band`가 원본 기록과 같은지 확인한다. 저장 OCR 상태 오류 행이 없어서 `technical_error` 경로는 두 구현 모두 합성 오류 행 시험으로만 확인했다. 오류 행의 의미(재생 `ok: null`로 일치·불일치에서 제외, 채점 안/밖 열 null, 원문 대조는 설계로 계산)는 Opus 검토 뒤 두 구현에 같게 확정했고 이번 출력 바이트는 바뀌지 않았다.
 
 ## 7. 한계
 

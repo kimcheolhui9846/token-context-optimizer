@@ -9,8 +9,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { execFileSync } from "node:child_process";
 import {
-  DATASETS, FILE_KINDS, SELECTOR_BLOB, SOURCES, checkSelectorFile, collect, gitBlobId, jsonl, parseDataset, pretty,
-  projectForCollector, readSources, replayRow, scoreRow, sha256, sourceControl, summarize, validateDataset,
+  DATASETS, FILE_KINDS, SELECTOR_BLOB, SOURCES, checkSelectorFile, gitBlobId, jsonl, parseDataset, pretty,
+  collectSafe, projectForCollector, readSources, replayRow, scoreRow, sha256, sourceControlSafe, summarize, validateDataset,
 } from "./ko-anchor-diagnostic-lib.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -52,14 +52,14 @@ function run() {
     const byId = new Map(data[ds].ocr.map((r) => [r.id, r]));
     for (const q of data[ds].questions) replay.push(replayRow(selectWindow, ds, q, byId.get(q.id)));
   }
-  const bad = replay.filter((r) => !r.ok);
+  const bad = replay.filter((r) => r.ok === false);
   if (bad.length) return stop("baseline_replay", bad.map((r) => `${r.dataset}/${r.id}: ${r.mismatches.join(",")}`), { denominator: replay.length, disagree: bad.length, rows: bad });
 
   // ---------------------------------------------------------------- 6.1 blind collection (96), then pin hashes
   const collected = [];
   for (const ds of DATASETS) {
     const byId = new Map(data[ds].ocr.map((r) => [r.id, r]));
-    for (const q of data[ds].questions) collected.push(collect(projectForCollector(ds, q, byId.get(q.id))));
+    for (const q of data[ds].questions) collected.push(collectSafe(projectForCollector(ds, q, byId.get(q.id))));
   }
   files["replay.jsonl"] = jsonl(replay);
   files["collect.jsonl"] = jsonl(collected);
@@ -83,7 +83,7 @@ function score() {
     const im = designs[c.dataset].get(c.id);
     if (!(im.lang === "ko" && im.anchor === "nl")) continue;
     const s = scoreRow(c, im, repKey.get(`${c.dataset}\u0000${c.id}`));
-    rows.push({ ...s, control: sourceControl(c.dataset, im) });
+    rows.push({ ...s, control: sourceControlSafe(c.dataset, im) });
   }
   files["score.jsonl"] = jsonl(rows);
   files["summary.json"] = pretty(summarize(rep, col, rows, designs));
