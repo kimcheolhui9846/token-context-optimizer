@@ -219,7 +219,8 @@ describe("image artifact ingestion", () => {
     const missingIdat = Buffer.concat([signature, ihdr, iend]);
     const truncated = base.subarray(0, base.length - 1);
     const badIend = Buffer.concat([base.subarray(0, base.length - 12), chunk("IEND", Buffer.from([1]))]);
-    const unsupportedIhdr = Buffer.alloc(13); unsupportedIhdr.writeUInt32BE(1, 0); unsupportedIhdr.writeUInt32BE(1, 4); unsupportedIhdr[8] = 8; unsupportedIhdr[9] = 0;
+    // 8-bit grayscale became a tolerant profile (png-gray8-tolerant-v1, policy #142); 16-bit grayscale stays unsupported.
+    const unsupportedIhdr = Buffer.alloc(13); unsupportedIhdr.writeUInt32BE(1, 0); unsupportedIhdr.writeUInt32BE(1, 4); unsupportedIhdr[8] = 16; unsupportedIhdr[9] = 0;
     const unsupported = Buffer.concat([signature, chunk("IHDR", unsupportedIhdr), afterIhdr]);
     const badFilter = png(1, 1, 3, Buffer.from([5, 1, 2, 3]));
     const badInflate = Buffer.concat([signature, ihdr, chunk("IDAT", deflateSync(Buffer.from([0]))), iend]);

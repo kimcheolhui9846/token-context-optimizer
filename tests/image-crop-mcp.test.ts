@@ -6,14 +6,16 @@ import { afterEach, describe, expect, it } from "vitest";
 import { fromAdvertisedSchema } from "./helpers/advertised-schema.js";
 import { validateJpeg } from "../src/core/jpeg-validation.js";
 import { CropMcpClient, type RpcResponse } from "./helpers/crop-mcp-client.js";
+// Gray8 tolerant delta (policy #142 §5.3): a fifth variant appended after the four existing ones, which stay unchanged.
+import { graySchemaVariant } from "./helpers/gray8-png.js";
 import { deflateSync } from "node:zlib";
 
 const baseline = JSON.parse(await readFile("tests/fixtures/task39-base-tools.json", "utf8")) as { tools: any[] };
 const tolerantSchemaVariant = { type: "object", properties: { artifactId: { type: "string" }, path: { type: "string" }, sha256: { type: "string" }, byteLength: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, format: { type: "string", const: "png" }, mimeType: { type: "string", const: "image/png" }, width: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, height: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, channels: { anyOf: [{ type: "number", const: 3 }, { type: "number", const: 4 }] }, bitDepth: { type: "number", const: 8 }, validationProfile: { type: "string", const: "png-rgb8-tolerant-v1" }, ignoredChunks: { type: "array", items: { type: "string" } }, alpha: { type: "string", enum: ["none", "opaque", "present"] } }, required: ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "ignoredChunks", "alpha"], additionalProperties: false };
 // WBS 6.12c explicit delta: fourth JPEG tolerant variant (fields per src/core/types.ts), appended after the strict JPEG variant.
 const jpegTolerantSchemaVariant = { type: "object", properties: { artifactId: { type: "string" }, path: { type: "string" }, sha256: { type: "string" }, byteLength: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, format: { type: "string", const: "jpeg" }, mimeType: { type: "string", const: "image/jpeg" }, width: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, height: { type: "integer", minimum: -9007199254740991, maximum: 9007199254740991 }, channels: { type: "number", const: 3 }, bitDepth: { type: "number", const: 8 }, validationProfile: { type: "string", const: "jpeg-ycbcr8-tolerant-v1" }, coding: { type: "string", enum: ["baseline", "extended", "progressive"] }, sampling: { type: "string", enum: ["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"] }, ignoredSegments: { type: "array", items: { type: "string" } }, exifOrientation: { anyOf: [{ type: "integer", minimum: 1, maximum: 8 }, { type: "null" }] } }, required: ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile", "coding", "sampling", "ignoredSegments", "exifOrientation"], additionalProperties: false };
-const indexImageDescription = "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.";
-function withTolerantSchema(value: any): any { if (Array.isArray(value)) return value.map(withTolerantSchema); if (!value || typeof value !== "object") return value; const copy = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withTolerantSchema(item)])); if (Array.isArray(copy.anyOf) && copy.anyOf.some((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1")) { const index = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1"); copy.anyOf.splice(index + 1, 0, tolerantSchemaVariant); const jpegIndex = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "jpeg-ycbcr8-baseline-444-v1"); expect(jpegIndex).toBeGreaterThanOrEqual(0); copy.anyOf.splice(jpegIndex + 1, 0, jpegTolerantSchemaVariant); } return copy; }
+const indexImageDescription = "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks, static noninterlaced 8-bit grayscale PNGs without transparency, or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. PNG color metadata such as gAMA, sRGB, and iCCP is not applied, so brightness may differ from color-managed viewers. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.";
+function withTolerantSchema(value: any): any { if (Array.isArray(value)) return value.map(withTolerantSchema); if (!value || typeof value !== "object") return value; const copy = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withTolerantSchema(item)])); if (Array.isArray(copy.anyOf) && copy.anyOf.some((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1")) { const index = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "png-rgb8-static-v1"); copy.anyOf.splice(index + 1, 0, tolerantSchemaVariant); const jpegIndex = copy.anyOf.findIndex((item: any) => item?.properties?.validationProfile?.const === "jpeg-ycbcr8-baseline-444-v1"); expect(jpegIndex).toBeGreaterThanOrEqual(0); copy.anyOf.splice(jpegIndex + 1, 0, jpegTolerantSchemaVariant); copy.anyOf.push(graySchemaVariant); } return copy; }
 const jpegTolerantFixturePath = "tests/fixtures/jpeg-tolerant/metadata-mixed.jpg";
 const jpegTolerantFixtureSha256 = "ee73d0517bbe3186184a57253c1645dd63b998df9d066b8cb58636acaa12335c";
 const jpegTolerantMetadata = { format: "jpeg", mimeType: "image/jpeg", width: 32, height: 16, channels: 3, bitDepth: 8, validationProfile: "jpeg-ycbcr8-tolerant-v1", coding: "baseline", sampling: "2x2,1x1,1x1", ignoredSegments: ["APP1", "APP2", "APP13", "COM", "APP14"], exifOrientation: 6 };
@@ -137,7 +139,7 @@ describe("crop_image_artifact MCP contract", () => {
           expect(actual).toEqual({
             ...expected,
             description:
-              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+              "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
             outputSchema: withTolerantSchema(expected.outputSchema),
           });
         } else {
@@ -146,7 +148,7 @@ describe("crop_image_artifact MCP contract", () => {
       }
       const crop = tools.find((tool) => tool.name === "crop_image_artifact");
       expect(crop.description).toBe(
-        "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+        "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
       );
       expect(crop.description).toMatch(/caller.*region/i);
       expect(crop.description).toMatch(/overview/i);
@@ -157,7 +159,7 @@ describe("crop_image_artifact MCP contract", () => {
       expect(overview).toMatchObject({
         name: "overview_image_artifact",
         description:
-          "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+          "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
         inputSchema: {
           additionalProperties: false,
           required: ["artifactId"],
@@ -169,8 +171,9 @@ describe("crop_image_artifact MCP contract", () => {
       });
       expect(overview.outputSchema).toBeDefined();
       expect(overview.outputSchema.properties.output.properties.image).toBeUndefined();
-      expect(overview.outputSchema.properties.source.anyOf).toHaveLength(4);
+      expect(overview.outputSchema.properties.source.anyOf).toHaveLength(5);
       expect(overview.outputSchema.properties.source.anyOf[3]).toEqual(jpegTolerantSchemaVariant);
+      expect(overview.outputSchema.properties.source.anyOf[4]).toEqual(graySchemaVariant);
       expect(Object.keys(overview.outputSchema.properties.output.properties)).toEqual([
         "width", "height", "format", "mimeType", "byteLength", "sha256",
         "quality", "encoder", "resample", "validation",
@@ -186,6 +189,7 @@ describe("crop_image_artifact MCP contract", () => {
         "png:image/png:png-rgb8-tolerant-v1",
         "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1",
         "jpeg:image/jpeg:jpeg-ycbcr8-tolerant-v1",
+        "png:image/png:png-gray8-tolerant-v1",
       ]);
     });
   });

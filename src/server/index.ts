@@ -190,12 +190,18 @@ export function createServer(): McpServer {
     sampling: z.enum(["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]),
     ignoredSegments: z.array(z.string()),
     exifOrientation: z.number().int().min(1).max(8).nullable(),
+  }), z.object({
+    artifactId: z.string(), path: z.string(), sha256: z.string(), byteLength: z.number().int(),
+    format: z.literal("png"), mimeType: z.literal("image/png"), width: z.number().int(),
+    height: z.number().int(), channels: z.literal(1), bitDepth: z.literal(8),
+    validationProfile: z.literal("png-gray8-tolerant-v1"),
+    ignoredChunks: z.array(z.string()), alpha: z.literal("none"),
   })]);
 
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.",
+      description: "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks, static noninterlaced 8-bit grayscale PNGs without transparency, or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. PNG color metadata such as gAMA, sRGB, and iCCP is not applied, so brightness may differ from color-managed viewers. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.",
       inputSchema: z.object({ path: z.string().min(1), profile: z.enum(["strict", "tolerant"]).optional() }),
       outputSchema: imageOutputSchema,
     },
@@ -244,7 +250,7 @@ export function createServer(): McpServer {
   server.registerTool(
     "crop_image_artifact",
     {
-      description: "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      description: "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
       inputSchema: z.strictObject({ artifactId: z.string().min(1), region: regionSchema }),
       outputSchema: cropOutputSchema,
     },
@@ -287,7 +293,7 @@ export function createServer(): McpServer {
     "overview_image_artifact",
     {
       description:
-        "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+        "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
       inputSchema: z.strictObject({
         artifactId: z.string().min(1),
         maxSide: z.number().int().min(64).max(1536).optional(),

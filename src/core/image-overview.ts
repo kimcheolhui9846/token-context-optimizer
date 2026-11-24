@@ -16,10 +16,12 @@ export type OverviewOutput = {
 };
 export type OverviewResult = { source: ImageArtifactRecord; output: OverviewOutput };
 
-export function areaAverageRgba(pixels: Uint8Array, W: number, H: number, channels: 3 | 4, w: number, h: number): Buffer {
+export function areaAverageRgba(pixels: Uint8Array, W: number, H: number, channels: 1 | 3 | 4, w: number, h: number): Buffer {
+  // One band for gray sources (each output channel repeats it), three for RGB/RGBA; alpha is never averaged.
+  const bands = channels === 1 ? 1 : 3;
   const output = Buffer.alloc(w * h * 4);
-  const accumulated = new Float64Array(w * 3);
-  const horizontal = new Uint32Array(w * 3);
+  const accumulated = new Float64Array(w * bands);
+  const horizontal = new Uint32Array(w * bands);
   for (let r = 0; r < h; r += 1) {
     accumulated.fill(0);
     const sourceRowStart = Math.floor(r * H / h);
@@ -32,20 +34,22 @@ export function areaAverageRgba(pixels: Uint8Array, W: number, H: number, channe
         for (let i = sourceColumnStart; i <= sourceColumnEnd; i += 1) {
           const wx = Math.max(0, Math.min((i + 1) * w, (j + 1) * W) - Math.max(i * w, j * W));
           const sourceOffset = (s * W + i) * channels;
-          const target = j * 3;
+          const target = j * bands;
           horizontal[target] += pixels[sourceOffset] * wx;
-          horizontal[target + 1] += pixels[sourceOffset + 1] * wx;
-          horizontal[target + 2] += pixels[sourceOffset + 2] * wx;
+          if (bands === 3) {
+            horizontal[target + 1] += pixels[sourceOffset + 1] * wx;
+            horizontal[target + 2] += pixels[sourceOffset + 2] * wx;
+          }
         }
       }
       const wy = Math.max(0, Math.min((s + 1) * h, (r + 1) * H) - Math.max(s * h, r * H));
-      for (let target = 0; target < w * 3; target += 1) accumulated[target] += horizontal[target] * wy;
+      for (let target = 0; target < w * bands; target += 1) accumulated[target] += horizontal[target] * wy;
     }
     for (let j = 0; j < w; j += 1) {
       const outputOffset = (r * w + j) * 4;
-      const target = j * 3;
+      const target = j * bands;
       for (let channel = 0; channel < 3; channel += 1) {
-        output[outputOffset + channel] = Math.floor((2 * accumulated[target + channel] + W * H) / (2 * W * H));
+        output[outputOffset + channel] = Math.floor((2 * accumulated[target + (bands === 3 ? channel : 0)] + W * H) / (2 * W * H));
       }
       output[outputOffset + 3] = 255;
     }
