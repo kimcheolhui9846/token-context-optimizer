@@ -3,11 +3,12 @@
 import { after, describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
-import { PADDINGS, keyOf, padRequest, runCropRow } from "../src/crop-padding-replay-lib.mjs";
+import { EXPECTED_PROFILE, PADDINGS, RUN_CODE_FILES, keyOf, padRequest, runCodeState, runCropRow } from "../src/crop-padding-replay-lib.mjs";
 import { aggregate, areaOf, compare141, judgeRow, validateGold } from "../src/crop-padding-replay-score-lib.mjs";
 
 const PAGE = { width: 100, height: 80 };
@@ -247,6 +248,81 @@ describe("aggregate", () => {
     assert.equal(g.byP["4"].pairedVsP0.all.validPairs, 1);
     assert.equal(g.byP["4"].pairedVsP0.all.missingPairs, 1);
     assert.equal(g.byP["4"].changeVsP0.notEvaluablePairs, 1);
+  });
+});
+
+// ---------------------------------------------------------------- PM review fixes (2026-11-24)
+describe("index validation profile (PM Minor 1)", () => {
+  test("an index response with another validation profile fails before any crop", async () => {
+    const client = fakeClient(() => { throw new Error("crop must not be called"); }, { validationProfile: "png-rgb8-tolerant-v1" });
+    const row = await runCropRow({ client, p: 0, image: IMAGE, caller: MATCHED, allowedRoot: tmpdir() });
+    assert.equal(row.outcome, "failed");
+    assert.equal(row.failStage, "index");
+    assert.equal(row.failCode, "validation_profile_mismatch");
+    assert.equal(row.index.validationProfile, "png-rgb8-tolerant-v1");
+    assert.equal(client.calls.length, 1);
+  });
+  test("a missing validation profile also fails", async () => {
+    const row = await runCropRow({ client: fakeClient(() => { throw new Error("no crop"); }, { validationProfile: undefined }), p: 0, image: IMAGE, caller: MATCHED, allowedRoot: tmpdir() });
+    assert.equal(row.failCode, "validation_profile_mismatch");
+  });
+  test("the expected profile is the gray8 tolerant one", () => {
+    assert.equal(EXPECTED_PROFILE, "png-gray8-tolerant-v1");
+  });
+});
+
+describe("run code state (PM Major 1)", () => {
+  const gitIn = (cwd, ...args) => execFileSync("git", ["-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "core.autocrlf=false", ...args], { cwd, encoding: "utf8" });
+  const makeRepo = () => {
+    const repo = mkdtempSync(join(tmpdir(), "cpr-git-"));
+    tmpDirs.push(repo);
+    gitIn(repo, "init", "-q");
+    mkdirSync(join(repo, "research", "src"), { recursive: true });
+    writeFileSync(join(repo, "research", "src", "run.mjs"), "// run\n");
+    writeFileSync(join(repo, "research", "src", "lib.mjs"), "// lib\n");
+    writeFileSync(join(repo, "research", "src", "other.mjs"), "// other\n");
+    gitIn(repo, "add", "-A");
+    gitIn(repo, "commit", "-q", "-m", "init");
+    return { repo, src: join(repo, "research", "src") };
+  };
+  test("the old check (status -- src from research/src) misses a tracked change: the defect", () => {
+    const { src } = makeRepo();
+    writeFileSync(join(src, "lib.mjs"), "// lib changed\n");
+    assert.equal(gitIn(src, "status", "--porcelain", "--", "src").trim(), "");
+    assert.notEqual(gitIn(src, "status", "--porcelain", "--", ".").trim(), "");
+  });
+  test("a clean checkout is clean and every file matches its HEAD blob", () => {
+    const { src } = makeRepo();
+    const s = runCodeState(src, ["run.mjs", "lib.mjs"]);
+    assert.equal(s.clean, true);
+    assert.equal(s.commit.length, 40);
+    assert.equal(s.prefix, "research/src/");
+    assert.deepEqual(Object.keys(s.files), ["lib.mjs", "run.mjs"]);
+    for (const f of Object.values(s.files)) { assert.equal(f.status, ""); assert.equal(f.work, f.head); }
+  });
+  test("a modified tracked run file is dirty", () => {
+    const { src } = makeRepo();
+    writeFileSync(join(src, "lib.mjs"), "// lib changed\n");
+    const s = runCodeState(src, ["run.mjs", "lib.mjs"]);
+    assert.equal(s.clean, false);
+    assert.notEqual(s.files["lib.mjs"].work, s.files["lib.mjs"].head);
+    assert.match(s.files["lib.mjs"].status, /M/);
+  });
+  test("a staged change and an untracked run file are dirty; a change outside the run files is not counted", () => {
+    const { src } = makeRepo();
+    writeFileSync(join(src, "other.mjs"), "// other changed\n");
+    assert.equal(runCodeState(src, ["run.mjs", "lib.mjs"]).clean, true);
+    writeFileSync(join(src, "run.mjs"), "// run changed\n");
+    gitIn(src, "add", "run.mjs");
+    assert.equal(runCodeState(src, ["run.mjs", "lib.mjs"]).clean, false);
+    const { src: src2 } = makeRepo();
+    writeFileSync(join(src2, "new.mjs"), "// new\n");
+    const u = runCodeState(src2, ["run.mjs", "new.mjs"]);
+    assert.equal(u.clean, false);
+    assert.equal(u.files["new.mjs"].head, null);
+  });
+  test("the runner's own file list covers every module it loads", () => {
+    assert.deepEqual(RUN_CODE_FILES.slice().sort(), ["crop-padding-replay-client.mjs", "crop-padding-replay-lib.mjs", "crop-padding-replay-run.mjs", "mcp-view-comparison-client.mjs", "mcp-view-comparison-lib.mjs"]);
   });
 });
 
