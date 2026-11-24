@@ -16,8 +16,8 @@ export const PAGE = { width: 1280, height: 960 };
 export const DATA_PATH = "research/results/ko-row-gate/data";
 export const MANIFEST = "manifest.json";
 // Set by the data-freeze commit (protocol 3.5); the runner refuses to start while these are null.
-export const DATA_COMMIT = null;
-export const MANIFEST_SHA256 = null;
+export const DATA_COMMIT = "3f27fb96c215faee53af8530f6e6489363007f2f";
+export const MANIFEST_SHA256 = "53222cc618f3d8f6295da2414c129e85474505e4282b4f2930ceba4b10151e69";
 
 const sha256 = (b) => createHash("sha256").update(b).digest("hex");
 const git = (args, enc) => execFileSync("git", args, { cwd: researchDir, encoding: enc, windowsHide: true, stdio: ["ignore", "pipe", "pipe"], maxBuffer: 256 * 1024 * 1024 });
