@@ -1,0 +1,88 @@
+{
+ "purpose": "PM review rerun (Major 1 run-code state, Minor 1 index profile check). Original preregistration (c636f69) and measurement (5f40f1a, 2026-11-24) are kept unchanged",
+ "code": "960b45174a902189fbab32dd26b00d95c749f833",
+ "hashBasis": "SHA-256 of raw file bytes",
+ "allSame": true,
+ "files": {
+  "run-a/raw.jsonl": {
+   "rerun": "7f0479ff9bccb0047db5b96dee5610e29d1155ae334cbb048b7bc55e0a0f9a97",
+   "original": "7f0479ff9bccb0047db5b96dee5610e29d1155ae334cbb048b7bc55e0a0f9a97",
+   "same": true
+  },
+  "run-a/conditions.jsonl": {
+   "rerun": "28e7c80bc5b0e5ce49dc9c64a707810fa878e01ece5b71594a384295884aca59",
+   "original": "28e7c80bc5b0e5ce49dc9c64a707810fa878e01ece5b71594a384295884aca59",
+   "same": true
+  },
+  "run-a/input-check.json": {
+   "rerun": "f63b85bd84023eaa25660c1a31917c4bf044941b423af474abd997c592c6bef6",
+   "original": "f63b85bd84023eaa25660c1a31917c4bf044941b423af474abd997c592c6bef6",
+   "same": true
+  },
+  "score-a/score.json": {
+   "rerun": "7a8a5ca8805ae65b51ff928ac0e913945811f7d9c844b531eaf1a1cde9e56d25",
+   "original": "7a8a5ca8805ae65b51ff928ac0e913945811f7d9c844b531eaf1a1cde9e56d25",
+   "same": true
+  },
+  "score-a/summary.md": {
+   "rerun": "95fa4564aeb7b7befc1b1f0fd6ae24274d82023f828b7c91c1a857a7293cf9de",
+   "original": "95fa4564aeb7b7befc1b1f0fd6ae24274d82023f828b7c91c1a857a7293cf9de",
+   "same": true
+  },
+  "run-b/raw.jsonl": {
+   "rerun": "7f0479ff9bccb0047db5b96dee5610e29d1155ae334cbb048b7bc55e0a0f9a97",
+   "original": "7f0479ff9bccb0047db5b96dee5610e29d1155ae334cbb048b7bc55e0a0f9a97",
+   "same": true
+  },
+  "run-b/conditions.jsonl": {
+   "rerun": "28e7c80bc5b0e5ce49dc9c64a707810fa878e01ece5b71594a384295884aca59",
+   "original": "28e7c80bc5b0e5ce49dc9c64a707810fa878e01ece5b71594a384295884aca59",
+   "same": true
+  },
+  "run-b/input-check.json": {
+   "rerun": "f63b85bd84023eaa25660c1a31917c4bf044941b423af474abd997c592c6bef6",
+   "original": "f63b85bd84023eaa25660c1a31917c4bf044941b423af474abd997c592c6bef6",
+   "same": true
+  },
+  "score-b/score.json": {
+   "rerun": "7a8a5ca8805ae65b51ff928ac0e913945811f7d9c844b531eaf1a1cde9e56d25",
+   "original": "7a8a5ca8805ae65b51ff928ac0e913945811f7d9c844b531eaf1a1cde9e56d25",
+   "same": true
+  },
+  "score-b/summary.md": {
+   "rerun": "95fa4564aeb7b7befc1b1f0fd6ae24274d82023f828b7c91c1a857a7293cf9de",
+   "original": "95fa4564aeb7b7befc1b1f0fd6ae24274d82023f828b7c91c1a857a7293cf9de",
+   "same": true
+  },
+  "prepare-report.json": {
+   "rerun": "e3d7aab635ecf218d9d2f4ca78e1283d50cc68088b6f543eb816f4fac7dc0d6a",
+   "original": "e3d7aab635ecf218d9d2f4ca78e1283d50cc68088b6f543eb816f4fac7dc0d6a",
+   "same": true
+  },
+  "recount.json": {
+   "rerun": "82221372ca53acbff345613086588c09ac98a3dd1f5a34c788ae477c719cccc9",
+   "original": "82221372ca53acbff345613086588c09ac98a3dd1f5a34c788ae477c719cccc9",
+   "same": true
+  },
+  "run-a/evidence.json": {
+   "rerun": "8c91ac777b90fc18a550b90ddef736e6b24da6bcc6a21a7abd20cbdf64e10281",
+   "original": "8c91ac777b90fc18a550b90ddef736e6b24da6bcc6a21a7abd20cbdf64e10281",
+   "same": true
+  },
+  "run-b/evidence.json": {
+   "rerun": "8c91ac777b90fc18a550b90ddef736e6b24da6bcc6a21a7abd20cbdf64e10281",
+   "original": "8c91ac777b90fc18a550b90ddef736e6b24da6bcc6a21a7abd20cbdf64e10281",
+   "same": true
+  }
+ },
+ "guard": {
+  "run-a": {
+   "guard": 5,
+   "blocked": 0
+  },
+  "run-b": {
+   "guard": 5,
+   "blocked": 0
+  }
+ }
+}
