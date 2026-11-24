@@ -31,7 +31,7 @@ node src/ko-row-height-replay.mjs --ocr results/ko-row-height/ocr --out results/
 node src/ko-row-height-score.mjs --replay results/ko-row-height/replay-a --out results/ko-row-height/score-a
 node src/ko-row-height-replay.mjs --ocr results/ko-row-height/ocr --out results/ko-row-height/replay-b
 node src/ko-row-height-score.mjs --replay results/ko-row-height/replay-b --out results/ko-row-height/score-b
-node src/ko-row-height-compare.mjs --a results/ko-row-height --out results/ko-row-height/ab.json
+node src/ko-row-height-compare.mjs --a results/ko-row-height --out results/ko-row-height/ab-compare.json
 ```
 
 A/B는 같은 동결 OCR을 다시 읽는 결정성 확인이며 독립 OCR 반복이 아니다. 예측 파일은 채점 전에 커밋한다.
@@ -42,8 +42,8 @@ A/B는 같은 동결 OCR을 다시 읽는 결정성 확인이며 독립 OCR 반�
 node src/ko-row-height-report.mjs --score results/ko-row-height/score-a --results results/ko-row-height/RESULTS.md
 python tools/ko-row-height/recount.py --data results/ko-row-height/data --ocr results/ko-row-height/ocr \
   --replay results/ko-row-height/replay-a --score results/ko-row-height/score-a \
-  --results results/ko-row-height/RESULTS.md --out results/ko-row-height/recount-a.json
-python tools/ko-row-height/recount.py ... --mutate results/ko-row-height/mutation.json
+  --results results/ko-row-height/RESULTS.md --out results/ko-row-height/recount/recount-a.json
+python tools/ko-row-height/recount.py ... --mutate results/ko-row-height/recount/mutation.json
 ```
 
 `report.mjs`에 `--write`를 붙이면 `RESULTS.md`의 `<!-- krh:table NAME -->` 블록을 `summary.json`에서 다시 채운다. 붙이지 않으면 칸마다 비교만 한다.
