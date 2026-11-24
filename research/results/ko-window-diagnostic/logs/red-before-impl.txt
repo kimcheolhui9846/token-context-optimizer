@@ -1,0 +1,11 @@
+# RED at 401bb72c4558ea05e52807eb1bdb8dc82356d442 (before any implementation file exists)
+$ node --test test/ko-window-diagnostic.test.mjs
+    throw new ERR_MODULE_NOT_FOUND(
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<research>\src\ko-window-diagnostic-lib.mjs' imported from <research>\test\ko-window-diagnostic.test.mjs
+  code: 'ERR_MODULE_NOT_FOUND',
+exit=1
+$ python -m unittest tools/ko-window-diagnostic/test_recount.py
+ImportError: Failed to import test module: test_recount
+ModuleNotFoundError: No module named 'recount'
+Ran 1 test in 0.000s
+FAILED (errors=1)
