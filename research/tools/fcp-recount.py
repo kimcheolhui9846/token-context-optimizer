@@ -137,7 +137,9 @@ def main():
             cr = caller[id_]
             full = [0, 0, W, H]
             if cr["status"] != "ok":
-                intent, rr, rfull = "caller_error", None, False
+                # No request is made for a selector technical error: requestFull is null, not false
+                # (protocol 6.2; PR #145 PM review, fixed by the main author after the independent write).
+                intent, rr, rfull = "caller_error", None, None
             elif not cr["matched"]:
                 intent, rr, rfull = "unmatched", full, True
             else:
