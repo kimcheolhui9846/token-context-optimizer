@@ -1,0 +1,451 @@
+{
+ "version": "fcp-design-1",
+ "set": "fcp-main",
+ "rule": "selector.mjs keywords() minus off/yes, as in selectWindow",
+ "tokens": [
+  {
+   "id": "schedule-table-code-v1-en",
+   "question": "When is SV-6166?",
+   "keys": [
+    "sv-6166"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "schedule-table-code-v1-ko",
+   "question": "SV-6166 일정은 언제인가요?",
+   "keys": [
+    "sv-6166"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "schedule-table-code-v2-en",
+   "question": "When is SV-3127?",
+   "keys": [
+    "sv-3127"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "schedule-table-code-v2-ko",
+   "question": "SV-3127 일정은 언제인가요?",
+   "keys": [
+    "sv-3127"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "schedule-table-nl-v1-en",
+   "question": "When is the data cleanup?",
+   "keys": [
+    "data",
+    "cleanup"
+   ],
+   "expectedMarker": [
+    "r4l"
+   ]
+  },
+  {
+   "id": "schedule-table-nl-v1-ko",
+   "question": "데이터 정리 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "schedule-table-nl-v2-en",
+   "question": "When is the fire inspection?",
+   "keys": [
+    "fire",
+    "inspection"
+   ],
+   "expectedMarker": [
+    "r3l"
+   ]
+  },
+  {
+   "id": "schedule-table-nl-v2-ko",
+   "question": "화재 점검 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "schedule-cards-code-v1-en",
+   "question": "When is SV-3827?",
+   "keys": [
+    "sv-3827"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "schedule-cards-code-v1-ko",
+   "question": "SV-3827 일정은 언제인가요?",
+   "keys": [
+    "sv-3827"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "schedule-cards-code-v2-en",
+   "question": "When is SV-1094?",
+   "keys": [
+    "sv-1094"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "schedule-cards-code-v2-ko",
+   "question": "SV-1094 일정은 언제인가요?",
+   "keys": [
+    "sv-1094"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-v1-en",
+   "question": "When is the grant workshop?",
+   "keys": [
+    "grant",
+    "workshop"
+   ],
+   "expectedMarker": [
+    "r5l"
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-v1-ko",
+   "question": "보조금 워크숍 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "schedule-cards-nl-v2-en",
+   "question": "When is the grant workshop?",
+   "keys": [
+    "grant",
+    "workshop"
+   ],
+   "expectedMarker": [
+    "r6l"
+   ]
+  },
+  {
+   "id": "schedule-cards-nl-v2-ko",
+   "question": "보조금 워크숍 일정은 언제인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-table-code-v1-en",
+   "question": "How much is TQ-7719?",
+   "keys": [
+    "tq-7719"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "invoice-table-code-v1-ko",
+   "question": "TQ-7719의 금액은 얼마인가요?",
+   "keys": [
+    "tq-7719"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "invoice-table-code-v2-en",
+   "question": "How much is TQ-3469?",
+   "keys": [
+    "tq-3469"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "invoice-table-code-v2-ko",
+   "question": "TQ-3469의 금액은 얼마인가요?",
+   "keys": [
+    "tq-3469"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "invoice-table-nl-v1-en",
+   "question": "How much is the hand soap?",
+   "keys": [
+    "hand",
+    "soap"
+   ],
+   "expectedMarker": [
+    "r4l"
+   ]
+  },
+  {
+   "id": "invoice-table-nl-v1-ko",
+   "question": "물비누의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-table-nl-v2-en",
+   "question": "How much is the trash bags?",
+   "keys": [
+    "trash",
+    "bags"
+   ],
+   "expectedMarker": [
+    "r3l"
+   ]
+  },
+  {
+   "id": "invoice-table-nl-v2-ko",
+   "question": "쓰레기봉투의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-cards-code-v1-en",
+   "question": "How much is TQ-8329?",
+   "keys": [
+    "tq-8329"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "invoice-cards-code-v1-ko",
+   "question": "TQ-8329의 금액은 얼마인가요?",
+   "keys": [
+    "tq-8329"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "invoice-cards-code-v2-en",
+   "question": "How much is TQ-9674?",
+   "keys": [
+    "tq-9674"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "invoice-cards-code-v2-ko",
+   "question": "TQ-9674의 금액은 얼마인가요?",
+   "keys": [
+    "tq-9674"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-v1-en",
+   "question": "How much is the trash bags?",
+   "keys": [
+    "trash",
+    "bags"
+   ],
+   "expectedMarker": [
+    "r5l"
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-v1-ko",
+   "question": "쓰레기봉투의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "invoice-cards-nl-v2-en",
+   "question": "How much is the monitor arm?",
+   "keys": [
+    "monitor",
+    "arm"
+   ],
+   "expectedMarker": [
+    "r6l"
+   ]
+  },
+  {
+   "id": "invoice-cards-nl-v2-ko",
+   "question": "모니터 암의 금액은 얼마인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-table-code-v1-en",
+   "question": "What number is shown for MR-3403?",
+   "keys": [
+    "mr-3403"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "status-table-code-v1-ko",
+   "question": "MR-3403에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "mr-3403"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "status-table-code-v2-en",
+   "question": "What number is shown for MR-1772?",
+   "keys": [
+    "mr-1772"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "status-table-code-v2-ko",
+   "question": "MR-1772에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "mr-1772"
+   ],
+   "expectedMarker": [
+    "r0c"
+   ]
+  },
+  {
+   "id": "status-table-nl-v1-en",
+   "question": "What number is shown for the photo resizer?",
+   "keys": [
+    "photo",
+    "resizer"
+   ],
+   "expectedMarker": [
+    "r4l"
+   ]
+  },
+  {
+   "id": "status-table-nl-v1-ko",
+   "question": "사진 변환기에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-table-nl-v2-en",
+   "question": "What number is shown for the chat relay?",
+   "keys": [
+    "chat",
+    "relay"
+   ],
+   "expectedMarker": [
+    "r3l"
+   ]
+  },
+  {
+   "id": "status-table-nl-v2-ko",
+   "question": "채팅 중계에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-cards-code-v1-en",
+   "question": "What number is shown for MR-2622?",
+   "keys": [
+    "mr-2622"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "status-cards-code-v1-ko",
+   "question": "MR-2622에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "mr-2622"
+   ],
+   "expectedMarker": [
+    "r3c"
+   ]
+  },
+  {
+   "id": "status-cards-code-v2-en",
+   "question": "What number is shown for MR-6972?",
+   "keys": [
+    "mr-6972"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "status-cards-code-v2-ko",
+   "question": "MR-6972에 표시된 숫자는 무엇인가요?",
+   "keys": [
+    "mr-6972"
+   ],
+   "expectedMarker": [
+    "r2c"
+   ]
+  },
+  {
+   "id": "status-cards-nl-v1-en",
+   "question": "What number is shown for the license server?",
+   "keys": [
+    "license",
+    "server"
+   ],
+   "expectedMarker": [
+    "r5l"
+   ]
+  },
+  {
+   "id": "status-cards-nl-v1-ko",
+   "question": "라이선스 서버에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  },
+  {
+   "id": "status-cards-nl-v2-en",
+   "question": "What number is shown for the firewall rules?",
+   "keys": [
+    "firewall",
+    "rules"
+   ],
+   "expectedMarker": [
+    "r6l"
+   ]
+  },
+  {
+   "id": "status-cards-nl-v2-ko",
+   "question": "방화벽 규칙에 표시된 숫자는 무엇인가요?",
+   "keys": [],
+   "expectedMarker": []
+  }
+ ]
+}

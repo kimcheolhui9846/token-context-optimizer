@@ -1,0 +1,5508 @@
+{
+ "evidence": {
+  "caller.jsonl": "a904e0ccf2c745e376f0baf2b60c250ccf4607b6cb15b9c66246e353abd7beef",
+  "raw.jsonl": "aaedc3e5c4dffa66dd4526da351057e1da716dd83a994024d1b734296fa76f92",
+  "conditions.jsonl": "ac94a5e2f8db116630a1cde6140bdf23ca7f0ff23c0e33d27b7691b208d2420e",
+  "input-check.json": "5448608f519c78d9441d73cabd412090210b8f3cbfd4d0a880eb2914861c0469",
+  "guard-summary.json": "346a39e0e26da474b834df168203a31dd4dae37f6118fb02eefd839aafd4f6a2"
+ },
+ "freezeManifestSha256": "abb082f1edef8bc402c43ddfe0b135016456e9ea14e98e48c1a51bd5f68402c7",
+ "goldSha256": "bfc099c1e600f094321213ebf103abf9a6f0858ce8831cf38e4a82e800baf9f3",
+ "keys": 96,
+ "paddings": [
+  0,
+  4
+ ],
+ "measured": "geometric containment of the two evidence ink boxes and delivered area in original source pixels; accuracy, tokens, cost and time not measured",
+ "instrumentDefect": false,
+ "guard": {
+  "blocked": 0,
+  "stepsWithoutGuard": []
+ },
+ "perRow": [
+  {
+   "key": "p0|schedule-table-code-v1-en",
+   "p": 0,
+   "id": "schedule-table-code-v1-en",
+   "pairId": "schedule-table-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 200,
+    "width": 1241,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    200,
+    1241,
+    463
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    200,
+    1241,
+    463
+   ],
+   "jpegSha256": "09f7ca5e5da7a8714b9caf7abe83021174c792fde79114a63dbdce4ab8e922b8",
+   "jpegBytes": 34359,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 326383,
+    "den": 1228800,
+    "ratio": 0.26561116536458335
+   }
+  },
+  {
+   "key": "p0|schedule-table-code-v1-ko",
+   "p": 0,
+   "id": "schedule-table-code-v1-ko",
+   "pairId": "schedule-table-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 14,
+    "top": 212,
+    "width": 1194,
+    "height": 223
+   },
+   "requestRect": [
+    14,
+    212,
+    1208,
+    435
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    14,
+    212,
+    1208,
+    435
+   ],
+   "jpegSha256": "0e0c081586d3106c9c5e25bb687a8b3cdeb36a631f5009757f57a52c3fe7fa85",
+   "jpegBytes": 28112,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 266262,
+    "den": 1228800,
+    "ratio": 0.2166845703125
+   }
+  },
+  {
+   "key": "p0|schedule-table-code-v2-en",
+   "p": 0,
+   "id": "schedule-table-code-v2-en",
+   "pairId": "schedule-table-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 22,
+    "top": 218,
+    "width": 1171,
+    "height": 204
+   },
+   "requestRect": [
+    22,
+    218,
+    1193,
+    422
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    22,
+    218,
+    1193,
+    422
+   ],
+   "jpegSha256": "2a8d701da5509a9d29d7cf2522e9908d63f161aaba1d1358b19f57c327d0fa08",
+   "jpegBytes": 27943,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 238884,
+    "den": 1228800,
+    "ratio": 0.194404296875
+   }
+  },
+  {
+   "key": "p0|schedule-table-code-v2-ko",
+   "p": 0,
+   "id": "schedule-table-code-v2-ko",
+   "pairId": "schedule-table-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 14,
+    "top": 212,
+    "width": 1194,
+    "height": 223
+   },
+   "requestRect": [
+    14,
+    212,
+    1208,
+    435
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    14,
+    212,
+    1208,
+    435
+   ],
+   "jpegSha256": "e557e9c6ee0b8237f5ab651e06ffb933e4d170580d4983616fb31f901342fd97",
+   "jpegBytes": 28133,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 266262,
+    "den": 1228800,
+    "ratio": 0.2166845703125
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-v1-en",
+   "p": 0,
+   "id": "schedule-table-nl-v1-en",
+   "pairId": "schedule-table-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 464,
+    "width": 1241,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    464,
+    1241,
+    727
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    464,
+    1241,
+    727
+   ],
+   "jpegSha256": "06e781c770658c87c20dba27fb7dbc680222e3c9d643bd9bbd892fd8b45cd476",
+   "jpegBytes": 36454,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 326383,
+    "den": 1228800,
+    "ratio": 0.26561116536458335
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-v1-ko",
+   "p": 0,
+   "id": "schedule-table-nl-v1-ko",
+   "pairId": "schedule-table-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-v2-en",
+   "p": 0,
+   "id": "schedule-table-nl-v2-en",
+   "pairId": "schedule-table-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 399,
+    "width": 1238,
+    "height": 260
+   },
+   "requestRect": [
+    0,
+    399,
+    1238,
+    659
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    399,
+    1238,
+    659
+   ],
+   "jpegSha256": "b1ce10aeb5eb799a873d1910d2f61d64cb7c9733a2d7cce34e6c61234e073585",
+   "jpegBytes": 34600,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 321880,
+    "den": 1228800,
+    "ratio": 0.26194661458333335
+   }
+  },
+  {
+   "key": "p0|schedule-table-nl-v2-ko",
+   "p": 0,
+   "id": "schedule-table-nl-v2-ko",
+   "pairId": "schedule-table-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-v1-en",
+   "p": 0,
+   "id": "schedule-cards-code-v1-en",
+   "pairId": "schedule-cards-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1245,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    296,
+    1245,
+    559
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1245,
+    559
+   ],
+   "jpegSha256": "a56aa45249f91592b741e63575ad1f3182133f74dffcb6b20970ddd9eda0d083",
+   "jpegBytes": 29356,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 327435,
+    "den": 1228800,
+    "ratio": 0.26646728515625
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-v1-ko",
+   "p": 0,
+   "id": "schedule-cards-code-v1-ko",
+   "pairId": "schedule-cards-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 3,
+    "top": 307,
+    "width": 1140,
+    "height": 226
+   },
+   "requestRect": [
+    3,
+    307,
+    1143,
+    533
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    3,
+    307,
+    1143,
+    533
+   ],
+   "jpegSha256": "1cf8cf3f3fb83fe7ecece247554e8a116b0158ae77448a9988f0b6059595534d",
+   "jpegBytes": 21153,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 257640,
+    "den": 1228800,
+    "ratio": 0.20966796875
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-v2-en",
+   "p": 0,
+   "id": "schedule-cards-code-v2-en",
+   "pairId": "schedule-cards-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1226,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    296,
+    1226,
+    559
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1226,
+    559
+   ],
+   "jpegSha256": "bd405e9f330d7346b067651e356e81a6120e05e0b7bf3ac2935b8de72050e5cc",
+   "jpegBytes": 30520,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 322438,
+    "den": 1228800,
+    "ratio": 0.2624007161458333
+   }
+  },
+  {
+   "key": "p0|schedule-cards-code-v2-ko",
+   "p": 0,
+   "id": "schedule-cards-code-v2-ko",
+   "pairId": "schedule-cards-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 5,
+    "top": 309,
+    "width": 1155,
+    "height": 220
+   },
+   "requestRect": [
+    5,
+    309,
+    1160,
+    529
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    5,
+    309,
+    1160,
+    529
+   ],
+   "jpegSha256": "599be88907b259e6fdd4ca3d6816f9908d0d0e8ffd90b3766f996855409ab299",
+   "jpegBytes": 22246,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 254100,
+    "den": 1228800,
+    "ratio": 0.206787109375
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-v1-en",
+   "p": 0,
+   "id": "schedule-cards-nl-v1-en",
+   "pairId": "schedule-cards-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 486,
+    "width": 1257,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    486,
+    1257,
+    749
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    486,
+    1257,
+    749
+   ],
+   "jpegSha256": "4843aff6735317f21a60df891225c0d6400a48b883f130e9ed474d842a193017",
+   "jpegBytes": 30732,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 330591,
+    "den": 1228800,
+    "ratio": 0.26903564453125
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-v1-ko",
+   "p": 0,
+   "id": "schedule-cards-nl-v1-ko",
+   "pairId": "schedule-cards-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-v2-en",
+   "p": 0,
+   "id": "schedule-cards-nl-v2-en",
+   "pairId": "schedule-cards-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 676,
+    "width": 1245,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    676,
+    1245,
+    939
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    676,
+    1245,
+    939
+   ],
+   "jpegSha256": "1a82b960dc9581cbe41e94bf1782b9c078fe50072c38bb29ecc33b226b70a865",
+   "jpegBytes": 29709,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 327435,
+    "den": 1228800,
+    "ratio": 0.26646728515625
+   }
+  },
+  {
+   "key": "p0|schedule-cards-nl-v2-ko",
+   "p": 0,
+   "id": "schedule-cards-nl-v2-ko",
+   "pairId": "schedule-cards-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-v1-en",
+   "p": 0,
+   "id": "invoice-table-code-v1-en",
+   "pairId": "invoice-table-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 4,
+    "top": 205,
+    "width": 1251,
+    "height": 247
+   },
+   "requestRect": [
+    4,
+    205,
+    1255,
+    452
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    4,
+    205,
+    1255,
+    452
+   ],
+   "jpegSha256": "858f2de14dc21ff32667652471e4022c06d5477ad339b47709073bb093375562",
+   "jpegBytes": 30849,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 308997,
+    "den": 1228800,
+    "ratio": 0.25146240234375
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-v1-ko",
+   "p": 0,
+   "id": "invoice-table-code-v1-ko",
+   "pairId": "invoice-table-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 4,
+    "top": 205,
+    "width": 1251,
+    "height": 247
+   },
+   "requestRect": [
+    4,
+    205,
+    1255,
+    452
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    4,
+    205,
+    1255,
+    452
+   ],
+   "jpegSha256": "ed0712c88bb59e4f4a30c2b559a81e1b7395f8495978165a87f7f6ac9ec0207e",
+   "jpegBytes": 28286,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 308997,
+    "den": 1228800,
+    "ratio": 0.25146240234375
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-v2-en",
+   "p": 0,
+   "id": "invoice-table-code-v2-en",
+   "pairId": "invoice-table-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 200,
+    "width": 1268,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    200,
+    1268,
+    463
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    200,
+    1268,
+    463
+   ],
+   "jpegSha256": "aad13f944d2704494a480423b1c3431c60d9a4e2e219ac23f96533fd47a4278e",
+   "jpegBytes": 33432,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 333484,
+    "den": 1228800,
+    "ratio": 0.2713899739583333
+   }
+  },
+  {
+   "key": "p0|invoice-table-code-v2-ko",
+   "p": 0,
+   "id": "invoice-table-code-v2-ko",
+   "pairId": "invoice-table-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 3,
+    "top": 203,
+    "width": 1255,
+    "height": 251
+   },
+   "requestRect": [
+    3,
+    203,
+    1258,
+    454
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    3,
+    203,
+    1258,
+    454
+   ],
+   "jpegSha256": "250b3965cb3e5bb11ea58f97684c2810949c9404125633db2e278fcb4d0ad612",
+   "jpegBytes": 27748,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 315005,
+    "den": 1228800,
+    "ratio": 0.25635172526041666
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-v1-en",
+   "p": 0,
+   "id": "invoice-table-nl-v1-en",
+   "pairId": "invoice-table-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 464,
+    "width": 1268,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    464,
+    1268,
+    727
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    464,
+    1268,
+    727
+   ],
+   "jpegSha256": "87cd91f1bb2c362469a6b5b7761a733384cd5ef8f261573bb0c5e117d6d5cc63",
+   "jpegBytes": 36049,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 333484,
+    "den": 1228800,
+    "ratio": 0.2713899739583333
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-v1-ko",
+   "p": 0,
+   "id": "invoice-table-nl-v1-ko",
+   "pairId": "invoice-table-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-v2-en",
+   "p": 0,
+   "id": "invoice-table-nl-v2-en",
+   "pairId": "invoice-table-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 399,
+    "width": 1252,
+    "height": 260
+   },
+   "requestRect": [
+    0,
+    399,
+    1252,
+    659
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    399,
+    1252,
+    659
+   ],
+   "jpegSha256": "7282553fad7e27349b7bc847b05ced7891d3c41bfe1df0ab9618407a40111df0",
+   "jpegBytes": 35812,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 325520,
+    "den": 1228800,
+    "ratio": 0.26490885416666665
+   }
+  },
+  {
+   "key": "p0|invoice-table-nl-v2-ko",
+   "p": 0,
+   "id": "invoice-table-nl-v2-ko",
+   "pairId": "invoice-table-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-v1-en",
+   "p": 0,
+   "id": "invoice-cards-code-v1-en",
+   "pairId": "invoice-cards-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1210,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    296,
+    1210,
+    559
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1210,
+    559
+   ],
+   "jpegSha256": "36de69d42b7a4b19a7d60337b5001d401c523a3e89431bcc51343b643c8be821",
+   "jpegBytes": 31647,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 318230,
+    "den": 1228800,
+    "ratio": 0.25897623697916666
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-v1-ko",
+   "p": 0,
+   "id": "invoice-cards-code-v1-ko",
+   "pairId": "invoice-cards-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 623,
+    "top": 0,
+    "width": 271,
+    "height": 546
+   },
+   "requestRect": [
+    623,
+    0,
+    894,
+    546
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    623,
+    0,
+    894,
+    546
+   ],
+   "jpegSha256": "10bf6b88f4c3329c18e3c530ea6a72a53cd945a104de87f0316ad73c8016e564",
+   "jpegBytes": 12895,
+   "state": 0,
+   "small": true,
+   "preserved": false,
+   "missingItems": [
+    "r3v"
+   ],
+   "area": {
+    "num": 147966,
+    "den": 1228800,
+    "ratio": 0.1204150390625
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-v2-en",
+   "p": 0,
+   "id": "invoice-cards-code-v2-en",
+   "pairId": "invoice-cards-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1225,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    296,
+    1225,
+    559
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1225,
+    559
+   ],
+   "jpegSha256": "1de232852fe9dd2eb68513338309f2dfaaf39a841ba1a4b45b66aa3bc47f611f",
+   "jpegBytes": 33639,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 322175,
+    "den": 1228800,
+    "ratio": 0.2621866861979167
+   }
+  },
+  {
+   "key": "p0|invoice-cards-code-v2-ko",
+   "p": 0,
+   "id": "invoice-cards-code-v2-ko",
+   "pairId": "invoice-cards-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 300,
+    "width": 1184,
+    "height": 248
+   },
+   "requestRect": [
+    0,
+    300,
+    1184,
+    548
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    300,
+    1184,
+    548
+   ],
+   "jpegSha256": "a104dcb67a314079b54adc3cd43e2942522042f2d6bfe8be7069f7d1468558e9",
+   "jpegBytes": 26639,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 293632,
+    "den": 1228800,
+    "ratio": 0.23895833333333333
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-v1-en",
+   "p": 0,
+   "id": "invoice-cards-nl-v1-en",
+   "pairId": "invoice-cards-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 486,
+    "width": 1201,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    486,
+    1201,
+    749
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    486,
+    1201,
+    749
+   ],
+   "jpegSha256": "084d16180a443d62e7e68444e6fce747e5b0f2a12db494f9e7798d0f9b2a6cf1",
+   "jpegBytes": 33098,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 315863,
+    "den": 1228800,
+    "ratio": 0.2570499674479167
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-v1-ko",
+   "p": 0,
+   "id": "invoice-cards-nl-v1-ko",
+   "pairId": "invoice-cards-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-v2-en",
+   "p": 0,
+   "id": "invoice-cards-nl-v2-en",
+   "pairId": "invoice-cards-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 682,
+    "width": 1193,
+    "height": 242
+   },
+   "requestRect": [
+    0,
+    682,
+    1193,
+    924
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    682,
+    1193,
+    924
+   ],
+   "jpegSha256": "76c8d7ddbb68f3f6dd15e2480cd0aad5a857ee5d842c929481ef9c2aec225c8a",
+   "jpegBytes": 29255,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 288706,
+    "den": 1228800,
+    "ratio": 0.23494954427083334
+   }
+  },
+  {
+   "key": "p0|invoice-cards-nl-v2-ko",
+   "p": 0,
+   "id": "invoice-cards-nl-v2-ko",
+   "pairId": "invoice-cards-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-table-code-v1-en",
+   "p": 0,
+   "id": "status-table-code-v1-en",
+   "pairId": "status-table-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 190,
+    "width": 1231,
+    "height": 292
+   },
+   "requestRect": [
+    0,
+    190,
+    1231,
+    482
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    190,
+    1231,
+    482
+   ],
+   "jpegSha256": "bc923d719bd5d6728aeb25d3a0e2fdc3cbb4408455c6f3f946f49a77ffcd3ddd",
+   "jpegBytes": 33569,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 359452,
+    "den": 1228800,
+    "ratio": 0.29252278645833335
+   }
+  },
+  {
+   "key": "p0|status-table-code-v1-ko",
+   "p": 0,
+   "id": "status-table-code-v1-ko",
+   "pairId": "status-table-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 14,
+    "top": 211,
+    "width": 1164,
+    "height": 226
+   },
+   "requestRect": [
+    14,
+    211,
+    1178,
+    437
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    14,
+    211,
+    1178,
+    437
+   ],
+   "jpegSha256": "53f454843f10096c6c81f2328d53f836d9e6102078969691a7e902e3d331367c",
+   "jpegBytes": 25966,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 263064,
+    "den": 1228800,
+    "ratio": 0.21408203125
+   }
+  },
+  {
+   "key": "p0|status-table-code-v2-en",
+   "p": 0,
+   "id": "status-table-code-v2-en",
+   "pairId": "status-table-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 200,
+    "width": 1208,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    200,
+    1208,
+    463
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    200,
+    1208,
+    463
+   ],
+   "jpegSha256": "2ce1676df37f3e48fc9db7834d44f4938194ef7bd12df2f49be0a7f3efad9836",
+   "jpegBytes": 31520,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 317704,
+    "den": 1228800,
+    "ratio": 0.25854817708333333
+   }
+  },
+  {
+   "key": "p0|status-table-code-v2-ko",
+   "p": 0,
+   "id": "status-table-code-v2-ko",
+   "pairId": "status-table-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 15,
+    "top": 212,
+    "width": 1160,
+    "height": 223
+   },
+   "requestRect": [
+    15,
+    212,
+    1175,
+    435
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    15,
+    212,
+    1175,
+    435
+   ],
+   "jpegSha256": "ef75893f05833a20f05c7b2b86597b919b92f75fa4f3b0753198c7a20f07a974",
+   "jpegBytes": 26010,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 258680,
+    "den": 1228800,
+    "ratio": 0.21051432291666666
+   }
+  },
+  {
+   "key": "p0|status-table-nl-v1-en",
+   "p": 0,
+   "id": "status-table-nl-v1-en",
+   "pairId": "status-table-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 24,
+    "top": 483,
+    "width": 1134,
+    "height": 201
+   },
+   "requestRect": [
+    24,
+    483,
+    1158,
+    684
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    24,
+    483,
+    1158,
+    684
+   ],
+   "jpegSha256": "12b2b92cab12c9e038874909a95b4342459197a0be5b9554c139f7c42ca072a9",
+   "jpegBytes": 23575,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 227934,
+    "den": 1228800,
+    "ratio": 0.1854931640625
+   }
+  },
+  {
+   "key": "p0|status-table-nl-v1-ko",
+   "p": 0,
+   "id": "status-table-nl-v1-ko",
+   "pairId": "status-table-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-table-nl-v2-en",
+   "p": 0,
+   "id": "status-table-nl-v2-en",
+   "pairId": "status-table-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 399,
+    "width": 1206,
+    "height": 260
+   },
+   "requestRect": [
+    0,
+    399,
+    1206,
+    659
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    399,
+    1206,
+    659
+   ],
+   "jpegSha256": "c5e1bab4b47c013c3facbebc9c81fc4d1484f40aaf6f2c8d0b26b125f3729877",
+   "jpegBytes": 29165,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 313560,
+    "den": 1228800,
+    "ratio": 0.25517578125
+   }
+  },
+  {
+   "key": "p0|status-table-nl-v2-ko",
+   "p": 0,
+   "id": "status-table-nl-v2-ko",
+   "pairId": "status-table-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-cards-code-v1-en",
+   "p": 0,
+   "id": "status-cards-code-v1-en",
+   "pairId": "status-cards-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    296,
+    1239,
+    559
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1239,
+    559
+   ],
+   "jpegSha256": "af2ec1388a31a5410fa26ce72e5697701154c9af3023ed538ccc76e351388798",
+   "jpegBytes": 29630,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 325857,
+    "den": 1228800,
+    "ratio": 0.26518310546875
+   }
+  },
+  {
+   "key": "p0|status-cards-code-v1-ko",
+   "p": 0,
+   "id": "status-cards-code-v1-ko",
+   "pairId": "status-cards-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 5,
+    "top": 308,
+    "width": 1136,
+    "height": 223
+   },
+   "requestRect": [
+    5,
+    308,
+    1141,
+    531
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    5,
+    308,
+    1141,
+    531
+   ],
+   "jpegSha256": "6da09a4a969c22bc4389249e63fdc66fe9146ea70cafbdc9d1d6b89ec8a33b65",
+   "jpegBytes": 22445,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 253328,
+    "den": 1228800,
+    "ratio": 0.20615885416666666
+   }
+  },
+  {
+   "key": "p0|status-cards-code-v2-en",
+   "p": 0,
+   "id": "status-cards-code-v2-en",
+   "pairId": "status-cards-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    296,
+    1239,
+    559
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1239,
+    559
+   ],
+   "jpegSha256": "5c4e8cc6c70e4951c376b8f2bfef27008fba15fc5a0a79ee658ac704093fb0e2",
+   "jpegBytes": 29485,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 325857,
+    "den": 1228800,
+    "ratio": 0.26518310546875
+   }
+  },
+  {
+   "key": "p0|status-cards-code-v2-ko",
+   "p": 0,
+   "id": "status-cards-code-v2-ko",
+   "pairId": "status-cards-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 5,
+    "top": 308,
+    "width": 1179,
+    "height": 223
+   },
+   "requestRect": [
+    5,
+    308,
+    1184,
+    531
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    5,
+    308,
+    1184,
+    531
+   ],
+   "jpegSha256": "a04da09e1d1d70d8d0d6e7f9bd6960a6abcb26fde7785e673d12035d12e30c94",
+   "jpegBytes": 23272,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 262917,
+    "den": 1228800,
+    "ratio": 0.21396240234375
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-v1-en",
+   "p": 0,
+   "id": "status-cards-nl-v1-en",
+   "pairId": "status-cards-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 486,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    486,
+    1239,
+    749
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    486,
+    1239,
+    749
+   ],
+   "jpegSha256": "3fd750eed4b372f00a3855f2500e152bc4f474e7a3fe56fe2a5794d953410956",
+   "jpegBytes": 29447,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 325857,
+    "den": 1228800,
+    "ratio": 0.26518310546875
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-v1-ko",
+   "p": 0,
+   "id": "status-cards-nl-v1-ko",
+   "pairId": "status-cards-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-v2-en",
+   "p": 0,
+   "id": "status-cards-nl-v2-en",
+   "pairId": "status-cards-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 676,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    676,
+    1239,
+    939
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    676,
+    1239,
+    939
+   ],
+   "jpegSha256": "b524460b6a83f6d0e6b0b1adc900f3e44483eb1f8b9bfc3211024ff945c2da91",
+   "jpegBytes": 27617,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 325857,
+    "den": 1228800,
+    "ratio": 0.26518310546875
+   }
+  },
+  {
+   "key": "p0|status-cards-nl-v2-ko",
+   "p": 0,
+   "id": "status-cards-nl-v2-ko",
+   "pairId": "status-cards-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-v1-en",
+   "p": 4,
+   "id": "schedule-table-code-v1-en",
+   "pairId": "schedule-table-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 200,
+    "width": 1241,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    196,
+    1245,
+    467
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    196,
+    1245,
+    467
+   ],
+   "jpegSha256": "cda23fd9ff7597ef15a8456ef810f8ce5b1e250093798dd450f4352f71caef2e",
+   "jpegBytes": 35233,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 337395,
+    "den": 1228800,
+    "ratio": 0.27457275390625
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-v1-ko",
+   "p": 4,
+   "id": "schedule-table-code-v1-ko",
+   "pairId": "schedule-table-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 14,
+    "top": 212,
+    "width": 1194,
+    "height": 223
+   },
+   "requestRect": [
+    10,
+    208,
+    1212,
+    439
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    10,
+    208,
+    1212,
+    439
+   ],
+   "jpegSha256": "496e15239e2f38ad56e929d9a0e7c481d2da356f0c1e18040d3b8f0981da11b0",
+   "jpegBytes": 27894,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 277662,
+    "den": 1228800,
+    "ratio": 0.2259619140625
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-v2-en",
+   "p": 4,
+   "id": "schedule-table-code-v2-en",
+   "pairId": "schedule-table-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 22,
+    "top": 218,
+    "width": 1171,
+    "height": 204
+   },
+   "requestRect": [
+    18,
+    214,
+    1197,
+    426
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    18,
+    214,
+    1197,
+    426
+   ],
+   "jpegSha256": "10deb03a6c71f8adcef09e64baba655c1c2accef74e48ddf77a813ebd958d6d1",
+   "jpegBytes": 29340,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 249948,
+    "den": 1228800,
+    "ratio": 0.203408203125
+   }
+  },
+  {
+   "key": "p4|schedule-table-code-v2-ko",
+   "p": 4,
+   "id": "schedule-table-code-v2-ko",
+   "pairId": "schedule-table-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 14,
+    "top": 212,
+    "width": 1194,
+    "height": 223
+   },
+   "requestRect": [
+    10,
+    208,
+    1212,
+    439
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    10,
+    208,
+    1212,
+    439
+   ],
+   "jpegSha256": "d184f6f30b5490783d993d94e3d44adbe870bd6a1bfd147aa80b6d4d852d11c6",
+   "jpegBytes": 28107,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 277662,
+    "den": 1228800,
+    "ratio": 0.2259619140625
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-v1-en",
+   "p": 4,
+   "id": "schedule-table-nl-v1-en",
+   "pairId": "schedule-table-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 464,
+    "width": 1241,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    460,
+    1245,
+    731
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    460,
+    1245,
+    731
+   ],
+   "jpegSha256": "607f5c379c671ab2aff6cfce2741cceb11b25c9b22a39ffc17913364f3992224",
+   "jpegBytes": 36956,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 337395,
+    "den": 1228800,
+    "ratio": 0.27457275390625
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-v1-ko",
+   "p": 4,
+   "id": "schedule-table-nl-v1-ko",
+   "pairId": "schedule-table-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-v2-en",
+   "p": 4,
+   "id": "schedule-table-nl-v2-en",
+   "pairId": "schedule-table-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 399,
+    "width": 1238,
+    "height": 260
+   },
+   "requestRect": [
+    0,
+    395,
+    1242,
+    663
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    395,
+    1242,
+    663
+   ],
+   "jpegSha256": "8bd912ec7c3f996d7d6e68e1de8cccaa746a8100bb4db19a95d6d49f18d4da96",
+   "jpegBytes": 35105,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 332856,
+    "den": 1228800,
+    "ratio": 0.27087890625
+   }
+  },
+  {
+   "key": "p4|schedule-table-nl-v2-ko",
+   "p": 4,
+   "id": "schedule-table-nl-v2-ko",
+   "pairId": "schedule-table-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-v1-en",
+   "p": 4,
+   "id": "schedule-cards-code-v1-en",
+   "pairId": "schedule-cards-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1245,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    292,
+    1249,
+    563
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    292,
+    1249,
+    563
+   ],
+   "jpegSha256": "dfdb9c9f0a9f38fde52ddaa7ec57f1451a3edd1773e4a534af2579e95ac0a978",
+   "jpegBytes": 30180,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 338479,
+    "den": 1228800,
+    "ratio": 0.27545491536458333
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-v1-ko",
+   "p": 4,
+   "id": "schedule-cards-code-v1-ko",
+   "pairId": "schedule-cards-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 3,
+    "top": 307,
+    "width": 1140,
+    "height": 226
+   },
+   "requestRect": [
+    0,
+    303,
+    1147,
+    537
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 3,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 1,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    303,
+    1147,
+    537
+   ],
+   "jpegSha256": "a5c4c43a6f69f6914671352aa1c364910fecb972b50d6548148af5632087b608",
+   "jpegBytes": 23037,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 268398,
+    "den": 1228800,
+    "ratio": 0.2184228515625
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-v2-en",
+   "p": 4,
+   "id": "schedule-cards-code-v2-en",
+   "pairId": "schedule-cards-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1226,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    292,
+    1230,
+    563
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    292,
+    1230,
+    563
+   ],
+   "jpegSha256": "b15ca0780a88214b2e507ff470043089e4092f81dc73adea9327c1bf4a5b5725",
+   "jpegBytes": 31478,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 333330,
+    "den": 1228800,
+    "ratio": 0.2712646484375
+   }
+  },
+  {
+   "key": "p4|schedule-cards-code-v2-ko",
+   "p": 4,
+   "id": "schedule-cards-code-v2-ko",
+   "pairId": "schedule-cards-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 5,
+    "top": 309,
+    "width": 1155,
+    "height": 220
+   },
+   "requestRect": [
+    1,
+    305,
+    1164,
+    533
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    1,
+    305,
+    1164,
+    533
+   ],
+   "jpegSha256": "f96407b00aa24249902e079716c79deff7e3a4597fc4a72b6a51b793d41a5770",
+   "jpegBytes": 22796,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 265164,
+    "den": 1228800,
+    "ratio": 0.215791015625
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-v1-en",
+   "p": 4,
+   "id": "schedule-cards-nl-v1-en",
+   "pairId": "schedule-cards-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 486,
+    "width": 1257,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    482,
+    1261,
+    753
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    482,
+    1261,
+    753
+   ],
+   "jpegSha256": "3aa625057d72090520419d0d5140684e0a89dcf8a0823472e7d3bace8536d8a8",
+   "jpegBytes": 31389,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 341731,
+    "den": 1228800,
+    "ratio": 0.2781013997395833
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-v1-ko",
+   "p": 4,
+   "id": "schedule-cards-nl-v1-ko",
+   "pairId": "schedule-cards-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-v2-en",
+   "p": 4,
+   "id": "schedule-cards-nl-v2-en",
+   "pairId": "schedule-cards-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 676,
+    "width": 1245,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    672,
+    1249,
+    943
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    672,
+    1249,
+    943
+   ],
+   "jpegSha256": "d33db428069d60bc66626fa51a989440013b9d5f7bb183e71e04b0bef1e5b4c8",
+   "jpegBytes": 30610,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 338479,
+    "den": 1228800,
+    "ratio": 0.27545491536458333
+   }
+  },
+  {
+   "key": "p4|schedule-cards-nl-v2-ko",
+   "p": 4,
+   "id": "schedule-cards-nl-v2-ko",
+   "pairId": "schedule-cards-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "schedule",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-v1-en",
+   "p": 4,
+   "id": "invoice-table-code-v1-en",
+   "pairId": "invoice-table-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 4,
+    "top": 205,
+    "width": 1251,
+    "height": 247
+   },
+   "requestRect": [
+    0,
+    201,
+    1259,
+    456
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    201,
+    1259,
+    456
+   ],
+   "jpegSha256": "af4a6dabe49cacbfb2173ed7a0404fcfe237bb5aa567e150d38251569fb3d532",
+   "jpegBytes": 32801,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 321045,
+    "den": 1228800,
+    "ratio": 0.26126708984375
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-v1-ko",
+   "p": 4,
+   "id": "invoice-table-code-v1-ko",
+   "pairId": "invoice-table-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 4,
+    "top": 205,
+    "width": 1251,
+    "height": 247
+   },
+   "requestRect": [
+    0,
+    201,
+    1259,
+    456
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    201,
+    1259,
+    456
+   ],
+   "jpegSha256": "ce705b3bed4a2a44e5836c6706fc716164afe8a99174488b06cbd654c0efb704",
+   "jpegBytes": 30421,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 321045,
+    "den": 1228800,
+    "ratio": 0.26126708984375
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-v2-en",
+   "p": 4,
+   "id": "invoice-table-code-v2-en",
+   "pairId": "invoice-table-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 200,
+    "width": 1268,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    196,
+    1272,
+    467
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    196,
+    1272,
+    467
+   ],
+   "jpegSha256": "a9305f27801bdf11a9642befcca634d7fe5521c7c3b2d8bb874bbdfc82ed2c7e",
+   "jpegBytes": 34114,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 344712,
+    "den": 1228800,
+    "ratio": 0.28052734375
+   }
+  },
+  {
+   "key": "p4|invoice-table-code-v2-ko",
+   "p": 4,
+   "id": "invoice-table-code-v2-ko",
+   "pairId": "invoice-table-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 3,
+    "top": 203,
+    "width": 1255,
+    "height": 251
+   },
+   "requestRect": [
+    0,
+    199,
+    1262,
+    458
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 3,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 1,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    199,
+    1262,
+    458
+   ],
+   "jpegSha256": "948df6db236ed50609fe0ce5de6519f94496be8a9ec12e7b2260bbdb2aef4561",
+   "jpegBytes": 30129,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 326858,
+    "den": 1228800,
+    "ratio": 0.26599772135416666
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-v1-en",
+   "p": 4,
+   "id": "invoice-table-nl-v1-en",
+   "pairId": "invoice-table-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 464,
+    "width": 1268,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    460,
+    1272,
+    731
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    460,
+    1272,
+    731
+   ],
+   "jpegSha256": "050c023e0bd38febf7a7baec778dc0523ead918889403647e9f528984f6c43a5",
+   "jpegBytes": 36384,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 344712,
+    "den": 1228800,
+    "ratio": 0.28052734375
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-v1-ko",
+   "p": 4,
+   "id": "invoice-table-nl-v1-ko",
+   "pairId": "invoice-table-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-v2-en",
+   "p": 4,
+   "id": "invoice-table-nl-v2-en",
+   "pairId": "invoice-table-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 399,
+    "width": 1252,
+    "height": 260
+   },
+   "requestRect": [
+    0,
+    395,
+    1256,
+    663
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    395,
+    1256,
+    663
+   ],
+   "jpegSha256": "1e9148781cfd8cbe34774a363af982e92a5527a5542850b0f39c7279157a7ad9",
+   "jpegBytes": 36047,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 336608,
+    "den": 1228800,
+    "ratio": 0.27393229166666666
+   }
+  },
+  {
+   "key": "p4|invoice-table-nl-v2-ko",
+   "p": 4,
+   "id": "invoice-table-nl-v2-ko",
+   "pairId": "invoice-table-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-v1-en",
+   "p": 4,
+   "id": "invoice-cards-code-v1-en",
+   "pairId": "invoice-cards-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1210,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    292,
+    1214,
+    563
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    292,
+    1214,
+    563
+   ],
+   "jpegSha256": "1398cf99a6d539d50f9c548575571f6c5860ebefc104c4a7171bda1bfa357720",
+   "jpegBytes": 32872,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 328994,
+    "den": 1228800,
+    "ratio": 0.2677360026041667
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-v1-ko",
+   "p": 4,
+   "id": "invoice-cards-code-v1-ko",
+   "pairId": "invoice-cards-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 623,
+    "top": 0,
+    "width": 271,
+    "height": 546
+   },
+   "requestRect": [
+    619,
+    0,
+    898,
+    550
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 0,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 4,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    619,
+    0,
+    898,
+    550
+   ],
+   "jpegSha256": "29afe9be613fd05e402589cff739b3d6f080f033601704af31af7a8de95b4a6a",
+   "jpegBytes": 13116,
+   "state": 0,
+   "small": true,
+   "preserved": false,
+   "missingItems": [
+    "r3v"
+   ],
+   "area": {
+    "num": 153450,
+    "den": 1228800,
+    "ratio": 0.1248779296875
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-v2-en",
+   "p": 4,
+   "id": "invoice-cards-code-v2-en",
+   "pairId": "invoice-cards-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1225,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    292,
+    1229,
+    563
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    292,
+    1229,
+    563
+   ],
+   "jpegSha256": "f7ad7a4bdf799de626957bf53a55b89d0d7d531917b1874b4cb9516a2ec4b56d",
+   "jpegBytes": 35008,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 333059,
+    "den": 1228800,
+    "ratio": 0.2710441080729167
+   }
+  },
+  {
+   "key": "p4|invoice-cards-code-v2-ko",
+   "p": 4,
+   "id": "invoice-cards-code-v2-ko",
+   "pairId": "invoice-cards-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 300,
+    "width": 1184,
+    "height": 248
+   },
+   "requestRect": [
+    0,
+    296,
+    1188,
+    552
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    296,
+    1188,
+    552
+   ],
+   "jpegSha256": "45d181e2978175807bd74f96d2100aa86b65655cdb3c1d44d452f3b13b4e6c3d",
+   "jpegBytes": 28179,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 304128,
+    "den": 1228800,
+    "ratio": 0.2475
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-v1-en",
+   "p": 4,
+   "id": "invoice-cards-nl-v1-en",
+   "pairId": "invoice-cards-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 486,
+    "width": 1201,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    482,
+    1205,
+    753
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    482,
+    1205,
+    753
+   ],
+   "jpegSha256": "a11d34533b43133248d3c427ffda2219bf970796462c6b06d716332150256248",
+   "jpegBytes": 34445,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 326555,
+    "den": 1228800,
+    "ratio": 0.26575113932291666
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-v1-ko",
+   "p": 4,
+   "id": "invoice-cards-nl-v1-ko",
+   "pairId": "invoice-cards-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-v2-en",
+   "p": 4,
+   "id": "invoice-cards-nl-v2-en",
+   "pairId": "invoice-cards-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 682,
+    "width": 1193,
+    "height": 242
+   },
+   "requestRect": [
+    0,
+    678,
+    1197,
+    928
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    678,
+    1197,
+    928
+   ],
+   "jpegSha256": "e8c6c49c6a707eeaed36776186b02463c8cc5bd82a0b044130d787b2fc46050d",
+   "jpegBytes": 29933,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 299250,
+    "den": 1228800,
+    "ratio": 0.2435302734375
+   }
+  },
+  {
+   "key": "p4|invoice-cards-nl-v2-ko",
+   "p": 4,
+   "id": "invoice-cards-nl-v2-ko",
+   "pairId": "invoice-cards-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "invoice",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-table-code-v1-en",
+   "p": 4,
+   "id": "status-table-code-v1-en",
+   "pairId": "status-table-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 190,
+    "width": 1231,
+    "height": 292
+   },
+   "requestRect": [
+    0,
+    186,
+    1235,
+    486
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    186,
+    1235,
+    486
+   ],
+   "jpegSha256": "cc83a18ee907b4286fdde3cb320f1047a85d4a38a92e578299650053f012d1f8",
+   "jpegBytes": 34377,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 370500,
+    "den": 1228800,
+    "ratio": 0.301513671875
+   }
+  },
+  {
+   "key": "p4|status-table-code-v1-ko",
+   "p": 4,
+   "id": "status-table-code-v1-ko",
+   "pairId": "status-table-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 14,
+    "top": 211,
+    "width": 1164,
+    "height": 226
+   },
+   "requestRect": [
+    10,
+    207,
+    1182,
+    441
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    10,
+    207,
+    1182,
+    441
+   ],
+   "jpegSha256": "d5a38338c553df944d809805e5aa271e31cf0e0fe892ba0a779fad38867f6278",
+   "jpegBytes": 26744,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 274248,
+    "den": 1228800,
+    "ratio": 0.22318359375
+   }
+  },
+  {
+   "key": "p4|status-table-code-v2-en",
+   "p": 4,
+   "id": "status-table-code-v2-en",
+   "pairId": "status-table-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 200,
+    "width": 1208,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    196,
+    1212,
+    467
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    196,
+    1212,
+    467
+   ],
+   "jpegSha256": "3c65314716d41da9ff1e31da023561bff70aec631187abde8749ba156a2cf63e",
+   "jpegBytes": 32108,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 328452,
+    "den": 1228800,
+    "ratio": 0.267294921875
+   }
+  },
+  {
+   "key": "p4|status-table-code-v2-ko",
+   "p": 4,
+   "id": "status-table-code-v2-ko",
+   "pairId": "status-table-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 15,
+    "top": 212,
+    "width": 1160,
+    "height": 223
+   },
+   "requestRect": [
+    11,
+    208,
+    1179,
+    439
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    11,
+    208,
+    1179,
+    439
+   ],
+   "jpegSha256": "c16f29d022e9f9a70ea634eff326feac69e3b1b88ccb97faf9e144253e88ae80",
+   "jpegBytes": 25809,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 269808,
+    "den": 1228800,
+    "ratio": 0.2195703125
+   }
+  },
+  {
+   "key": "p4|status-table-nl-v1-en",
+   "p": 4,
+   "id": "status-table-nl-v1-en",
+   "pairId": "status-table-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 24,
+    "top": 483,
+    "width": 1134,
+    "height": 201
+   },
+   "requestRect": [
+    20,
+    479,
+    1162,
+    688
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    20,
+    479,
+    1162,
+    688
+   ],
+   "jpegSha256": "154238b0aa1d6ae77dc96735c13fae6917bfae5a56dd044129ac14d0cb2754c2",
+   "jpegBytes": 25690,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 238678,
+    "den": 1228800,
+    "ratio": 0.19423665364583334
+   }
+  },
+  {
+   "key": "p4|status-table-nl-v1-ko",
+   "p": 4,
+   "id": "status-table-nl-v1-ko",
+   "pairId": "status-table-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-table-nl-v2-en",
+   "p": 4,
+   "id": "status-table-nl-v2-en",
+   "pairId": "status-table-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 399,
+    "width": 1206,
+    "height": 260
+   },
+   "requestRect": [
+    0,
+    395,
+    1210,
+    663
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    395,
+    1210,
+    663
+   ],
+   "jpegSha256": "5d1c5a872fe2af6d021103e446dce5805cfa249b1edd216234ebeb59e00e4db7",
+   "jpegBytes": 29328,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 324280,
+    "den": 1228800,
+    "ratio": 0.26389973958333335
+   }
+  },
+  {
+   "key": "p4|status-table-nl-v2-ko",
+   "p": 4,
+   "id": "status-table-nl-v2-ko",
+   "pairId": "status-table-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "table",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-cards-code-v1-en",
+   "p": 4,
+   "id": "status-cards-code-v1-en",
+   "pairId": "status-cards-code-v1",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    292,
+    1243,
+    563
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    292,
+    1243,
+    563
+   ],
+   "jpegSha256": "fe5bd15a9557348a8095605aeb1f65785bab1e1912f7bec9d6a04ff87b3dc8d7",
+   "jpegBytes": 29632,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 336853,
+    "den": 1228800,
+    "ratio": 0.2741316731770833
+   }
+  },
+  {
+   "key": "p4|status-cards-code-v1-ko",
+   "p": 4,
+   "id": "status-cards-code-v1-ko",
+   "pairId": "status-cards-code-v1",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 5,
+    "top": 308,
+    "width": 1136,
+    "height": 223
+   },
+   "requestRect": [
+    1,
+    304,
+    1145,
+    535
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    1,
+    304,
+    1145,
+    535
+   ],
+   "jpegSha256": "f3c550d2fc979eb05ee81a4ac0c8df934760c97e8c88f900a1cd466ef8948c77",
+   "jpegBytes": 23133,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 264264,
+    "den": 1228800,
+    "ratio": 0.21505859375
+   }
+  },
+  {
+   "key": "p4|status-cards-code-v2-en",
+   "p": 4,
+   "id": "status-cards-code-v2-en",
+   "pairId": "status-cards-code-v2",
+   "lang": "en",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 296,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    292,
+    1243,
+    563
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    292,
+    1243,
+    563
+   ],
+   "jpegSha256": "8abf9e7a9a94a22de3456e1c68d13890d7ce5a9752a53576a32052ef393f9f83",
+   "jpegBytes": 29550,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 336853,
+    "den": 1228800,
+    "ratio": 0.2741316731770833
+   }
+  },
+  {
+   "key": "p4|status-cards-code-v2-ko",
+   "p": 4,
+   "id": "status-cards-code-v2-ko",
+   "pairId": "status-cards-code-v2",
+   "lang": "ko",
+   "anchor": "code",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 5,
+    "top": 308,
+    "width": 1179,
+    "height": 223
+   },
+   "requestRect": [
+    1,
+    304,
+    1188,
+    535
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 4,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 0,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    1,
+    304,
+    1188,
+    535
+   ],
+   "jpegSha256": "3f3cf0b7dfc406fd6a07e7da1821011f0d27dc0d814d397576675596c93d1247",
+   "jpegBytes": 23815,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 274197,
+    "den": 1228800,
+    "ratio": 0.22314208984375
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-v1-en",
+   "p": 4,
+   "id": "status-cards-nl-v1-en",
+   "pairId": "status-cards-nl-v1",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 486,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    482,
+    1243,
+    753
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    482,
+    1243,
+    753
+   ],
+   "jpegSha256": "5490a73f327a09a34ed7c8bb2d69576359c1168a9978bb0a028569ac462fc5a5",
+   "jpegBytes": 29726,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 336853,
+    "den": 1228800,
+    "ratio": 0.2741316731770833
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-v1-ko",
+   "p": 4,
+   "id": "status-cards-nl-v1-ko",
+   "pairId": "status-cards-nl-v1",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-v2-en",
+   "p": 4,
+   "id": "status-cards-nl-v2-en",
+   "pairId": "status-cards-nl-v2",
+   "lang": "en",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "matched",
+   "band": {
+    "left": 0,
+    "top": 676,
+    "width": 1239,
+    "height": 263
+   },
+   "requestRect": [
+    0,
+    672,
+    1243,
+    943
+   ],
+   "requestFull": false,
+   "pad": {
+    "left": 0,
+    "top": 4,
+    "right": 4,
+    "bottom": 4
+   },
+   "clip": {
+    "left": 4,
+    "top": 0,
+    "right": 0,
+    "bottom": 0
+   },
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "crop_jpeg",
+   "returnedRegion": [
+    0,
+    672,
+    1243,
+    943
+   ],
+   "jpegSha256": "367523224f7e52baca2e67a1ef1303af35ae3e8080d2f19f6061f4891b57d03c",
+   "jpegBytes": 27725,
+   "state": 1,
+   "small": true,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 336853,
+    "den": 1228800,
+    "ratio": 0.2741316731770833
+   }
+  },
+  {
+   "key": "p4|status-cards-nl-v2-ko",
+   "p": 4,
+   "id": "status-cards-nl-v2-ko",
+   "pairId": "status-cards-nl-v2",
+   "lang": "ko",
+   "anchor": "nl",
+   "doctype": "status",
+   "layout": "cards",
+   "intent": "unmatched",
+   "band": null,
+   "requestRect": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "requestFull": true,
+   "pad": null,
+   "clip": null,
+   "outcome": "ok",
+   "failStage": null,
+   "failCode": null,
+   "returnedKind": "original_verified",
+   "returnedRegion": [
+    0,
+    0,
+    1280,
+    960
+   ],
+   "jpegSha256": null,
+   "jpegBytes": null,
+   "state": 0,
+   "small": false,
+   "preserved": true,
+   "missingItems": [],
+   "area": {
+    "num": 1228800,
+    "den": 1228800,
+    "ratio": 1
+   }
+  }
+ ],
+ "aggregate": {
+  "byP": {
+   "0": {
+    "n": 48,
+    "matchedDenominator": 36,
+    "unmatched": 12,
+    "callerErrors": 0,
+    "primary": {
+     "success": 35,
+     "denominator": 36,
+     "rate": 0.9722222222222222,
+     "states": {
+      "0": 1,
+      "1": 35,
+      "NE": 0
+     }
+    },
+    "all": {
+     "success": 35,
+     "denominator": 48,
+     "rate": 0.7291666666666666,
+     "states": {
+      "0": 13,
+      "1": 35,
+      "NE": 0
+     }
+    },
+    "preserved": {
+     "all": {
+      "yes": 47,
+      "no": 1,
+      "NE": 0,
+      "denominator": 48,
+      "rate": 0.9791666666666666
+     },
+     "matched": {
+      "yes": 35,
+      "no": 1,
+      "NE": 0,
+      "denominator": 36,
+      "rate": 0.9722222222222222
+     }
+    },
+    "area": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 25483419,
+      "mean": 0.43205123901367193
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 10737819,
+      "mean": 0.24273498535156252
+     }
+    },
+    "returned": {
+     "crop_jpeg": 36,
+     "original_verified": 12,
+     "none": 0
+    },
+    "matchedFull": 0,
+    "unmatchedOriginal": 12,
+    "limitExceeded": 0,
+    "failures": {},
+    "strata": {
+     "langAnchor": {
+      "en|code": {
+       "n": 12,
+       "matched": 12,
+       "s1": 12,
+       "s0": 0,
+       "NE": 0,
+       "preserved": 12
+      },
+      "en|nl": {
+       "n": 12,
+       "matched": 12,
+       "s1": 12,
+       "s0": 0,
+       "NE": 0,
+       "preserved": 12
+      },
+      "ko|code": {
+       "n": 12,
+       "matched": 12,
+       "s1": 11,
+       "s0": 1,
+       "NE": 0,
+       "preserved": 11
+      },
+      "ko|nl": {
+       "n": 12,
+       "matched": 0,
+       "s1": 0,
+       "s0": 12,
+       "NE": 0,
+       "preserved": 12
+      }
+     },
+     "doctype": {
+      "invoice": {
+       "n": 16,
+       "matched": 12,
+       "s1": 11,
+       "s0": 5,
+       "NE": 0,
+       "preserved": 15
+      },
+      "schedule": {
+       "n": 16,
+       "matched": 12,
+       "s1": 12,
+       "s0": 4,
+       "NE": 0,
+       "preserved": 16
+      },
+      "status": {
+       "n": 16,
+       "matched": 12,
+       "s1": 12,
+       "s0": 4,
+       "NE": 0,
+       "preserved": 16
+      }
+     },
+     "layout": {
+      "cards": {
+       "n": 24,
+       "matched": 18,
+       "s1": 17,
+       "s0": 7,
+       "NE": 0,
+       "preserved": 23
+      },
+      "table": {
+       "n": 24,
+       "matched": 18,
+       "s1": 18,
+       "s0": 6,
+       "NE": 0,
+       "preserved": 24
+      }
+     }
+    },
+    "pairs": {
+     "both": 11,
+     "enOnly": 13,
+     "koOnly": 0,
+     "neither": 0,
+     "withNE": 0,
+     "n": 24
+    }
+   },
+   "4": {
+    "n": 48,
+    "matchedDenominator": 36,
+    "unmatched": 12,
+    "callerErrors": 0,
+    "primary": {
+     "success": 35,
+     "denominator": 36,
+     "rate": 0.9722222222222222,
+     "states": {
+      "0": 1,
+      "1": 35,
+      "NE": 0
+     }
+    },
+    "all": {
+     "success": 35,
+     "denominator": 48,
+     "rate": 0.7291666666666666,
+     "states": {
+      "0": 13,
+      "1": 35,
+      "NE": 0
+     }
+    },
+    "preserved": {
+     "all": {
+      "yes": 47,
+      "no": 1,
+      "NE": 0,
+      "denominator": 48,
+      "rate": 0.9791666666666666
+     },
+     "matched": {
+      "yes": 35,
+      "no": 1,
+      "NE": 0,
+      "denominator": 36,
+      "rate": 0.9722222222222222
+     }
+    },
+    "area": {
+     "all": {
+      "valid": 48,
+      "missing": 0,
+      "sumNum": 25876354,
+      "mean": 0.43871314154730917
+     },
+     "matched": {
+      "valid": 36,
+      "missing": 0,
+      "sumNum": 11130754,
+      "mean": 0.25161752206307864
+     }
+    },
+    "returned": {
+     "crop_jpeg": 36,
+     "original_verified": 12,
+     "none": 0
+    },
+    "matchedFull": 0,
+    "unmatchedOriginal": 12,
+    "limitExceeded": 0,
+    "failures": {},
+    "strata": {
+     "langAnchor": {
+      "en|code": {
+       "n": 12,
+       "matched": 12,
+       "s1": 12,
+       "s0": 0,
+       "NE": 0,
+       "preserved": 12
+      },
+      "en|nl": {
+       "n": 12,
+       "matched": 12,
+       "s1": 12,
+       "s0": 0,
+       "NE": 0,
+       "preserved": 12
+      },
+      "ko|code": {
+       "n": 12,
+       "matched": 12,
+       "s1": 11,
+       "s0": 1,
+       "NE": 0,
+       "preserved": 11
+      },
+      "ko|nl": {
+       "n": 12,
+       "matched": 0,
+       "s1": 0,
+       "s0": 12,
+       "NE": 0,
+       "preserved": 12
+      }
+     },
+     "doctype": {
+      "invoice": {
+       "n": 16,
+       "matched": 12,
+       "s1": 11,
+       "s0": 5,
+       "NE": 0,
+       "preserved": 15
+      },
+      "schedule": {
+       "n": 16,
+       "matched": 12,
+       "s1": 12,
+       "s0": 4,
+       "NE": 0,
+       "preserved": 16
+      },
+      "status": {
+       "n": 16,
+       "matched": 12,
+       "s1": 12,
+       "s0": 4,
+       "NE": 0,
+       "preserved": 16
+      }
+     },
+     "layout": {
+      "cards": {
+       "n": 24,
+       "matched": 18,
+       "s1": 17,
+       "s0": 7,
+       "NE": 0,
+       "preserved": 23
+      },
+      "table": {
+       "n": 24,
+       "matched": 18,
+       "s1": 18,
+       "s0": 6,
+       "NE": 0,
+       "preserved": 24
+      }
+     }
+    },
+    "pairs": {
+     "both": 11,
+     "enOnly": 13,
+     "koOnly": 0,
+     "neither": 0,
+     "withNE": 0,
+     "n": 24
+    }
+   }
+  },
+  "change": {
+   "from": 0,
+   "to": 4,
+   "matched": {
+    "improved": 0,
+    "worsened": 0,
+    "kept1": 35,
+    "kept0": 1,
+    "notEvaluable": 0,
+    "n": 36
+   },
+   "all": {
+    "improved": 0,
+    "worsened": 0,
+    "kept1": 35,
+    "kept0": 13,
+    "notEvaluable": 0,
+    "n": 48
+   },
+   "areaMatched": {
+    "validPairs": 36,
+    "missingPairs": 0,
+    "meanPp": 0.88825367115162
+   },
+   "areaAll": {
+    "validPairs": 48,
+    "missingPairs": 0,
+    "meanPp": 0.666190253363715
+   }
+  }
+ },
+ "conditions": [
+  {
+   "p": 0,
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  },
+  {
+   "p": 4,
+   "initialize": "ok",
+   "mcpRequests": 98,
+   "mcpResponses": 98,
+   "notifications": 1,
+   "toolCalls": 96,
+   "exit": {
+    "code": 0,
+    "signal": null
+   },
+   "stderrBytes": 0
+  }
+ ]
+}

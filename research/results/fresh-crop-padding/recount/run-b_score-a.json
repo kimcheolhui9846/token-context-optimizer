@@ -1,0 +1,81 @@
+{
+ "run": "results\\fresh-crop-padding\\run-b",
+ "score": "results\\fresh-crop-padding\\score-a",
+ "keys": 96,
+ "checks": 2042,
+ "mismatches": [],
+ "perP": {
+  "0": {
+   "primary": {
+    "success": 35,
+    "denominator": 36,
+    "rate": 0.9722222222222222,
+    "states": {
+     "1": 35,
+     "0": 1,
+     "NE": 0
+    }
+   },
+   "all": {
+    "success": 35,
+    "denominator": 48,
+    "rate": 0.7291666666666666,
+    "states": {
+     "1": 35,
+     "0": 13,
+     "NE": 0
+    }
+   }
+  },
+  "4": {
+   "primary": {
+    "success": 35,
+    "denominator": 36,
+    "rate": 0.9722222222222222,
+    "states": {
+     "1": 35,
+     "0": 1,
+     "NE": 0
+    }
+   },
+   "all": {
+    "success": 35,
+    "denominator": 48,
+    "rate": 0.7291666666666666,
+    "states": {
+     "1": 35,
+     "0": 13,
+     "NE": 0
+    }
+   }
+  }
+ },
+ "change": {
+  "matched": {
+   "improved": 0,
+   "worsened": 0,
+   "kept1": 35,
+   "kept0": 1,
+   "notEvaluable": 0,
+   "n": 36
+  },
+  "all": {
+   "improved": 0,
+   "worsened": 0,
+   "kept1": 35,
+   "kept0": 13,
+   "notEvaluable": 0,
+   "n": 48
+  },
+  "areaMatched": {
+   "validPairs": 36,
+   "missingPairs": 0,
+   "meanPp": 0.88825367115162
+  },
+  "areaAll": {
+   "validPairs": 48,
+   "missingPairs": 0,
+   "meanPp": 0.666190253363715
+  }
+ }
+}

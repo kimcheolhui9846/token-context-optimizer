@@ -1,0 +1,1809 @@
+{
+ "design": "fcp-design-1",
+ "set": "fcp-main",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "schedule-table-code-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16:50",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      189,
+      299
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      974,
+      281,
+      1030,
+      299
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-code-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16:50",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      189,
+      299
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      974,
+      281,
+      1030,
+      299
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-code-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:10",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      189,
+      299
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      974,
+      281,
+      1030,
+      299
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-code-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:10",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      189,
+      299
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      974,
+      281,
+      1030,
+      299
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-nl-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11:20",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      284,
+      543,
+      426,
+      569
+     ],
+     "size": [
+      142,
+      26
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      974,
+      545,
+      1030,
+      563
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-nl-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "11:20",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      284,
+      543,
+      394,
+      565
+     ],
+     "size": [
+      110,
+      22
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      974,
+      545,
+      1030,
+      563
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-nl-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "09:00",
+   "parts": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "rect": [
+      284,
+      477,
+      445,
+      503
+     ],
+     "size": [
+      161,
+      26
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      973,
+      479,
+      1030,
+      497
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-table-nl-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "09:00",
+   "parts": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "rect": [
+      283,
+      476,
+      373,
+      499
+     ],
+     "size": [
+      90,
+      23
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      973,
+      479,
+      1030,
+      497
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-code-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16:50",
+   "parts": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "rect": [
+      713,
+      377,
+      799,
+      395
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      874,
+      427,
+      930,
+      445
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-code-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "16:50",
+   "parts": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "rect": [
+      713,
+      377,
+      799,
+      395
+     ],
+     "size": [
+      86,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      874,
+      427,
+      930,
+      445
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-code-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "15:20",
+   "parts": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "rect": [
+      93,
+      377,
+      180,
+      395
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "rect": [
+      254,
+      427,
+      310,
+      445
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-code-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "15:20",
+   "parts": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "rect": [
+      93,
+      377,
+      180,
+      395
+     ],
+     "size": [
+      87,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "rect": [
+      254,
+      427,
+      310,
+      445
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-nl-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "14:30",
+   "parts": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "rect": [
+      873,
+      565,
+      1047,
+      591
+     ],
+     "size": [
+      174,
+      26
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "rect": [
+      874,
+      617,
+      930,
+      635
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-nl-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "14:30",
+   "parts": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "rect": [
+      872,
+      565,
+      1009,
+      587
+     ],
+     "size": [
+      137,
+      22
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "rect": [
+      874,
+      617,
+      930,
+      635
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-nl-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "08:30",
+   "parts": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "rect": [
+      253,
+      755,
+      427,
+      781
+     ],
+     "size": [
+      174,
+      26
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "rect": [
+      253,
+      807,
+      310,
+      825
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "schedule-cards-nl-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "08:30",
+   "parts": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "rect": [
+      252,
+      755,
+      389,
+      777
+     ],
+     "size": [
+      137,
+      22
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "rect": [
+      253,
+      807,
+      310,
+      825
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "invoice-table-code-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "405,400",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      193,
+      303
+     ],
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      1057,
+      304
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-code-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "405,400",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      193,
+      303
+     ],
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      1057,
+      304
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-code-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "487,000",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      193,
+      303
+     ],
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      1057,
+      304
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-code-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "487,000",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      103,
+      281,
+      193,
+      303
+     ],
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      1057,
+      304
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-nl-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "437,700",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      284,
+      543,
+      397,
+      569
+     ],
+     "size": [
+      113,
+      26
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      972,
+      545,
+      1057,
+      568
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-nl-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "437,700",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      283,
+      543,
+      347,
+      565
+     ],
+     "size": [
+      64,
+      22
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      972,
+      545,
+      1057,
+      568
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-nl-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10,700",
+   "parts": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "rect": [
+      283,
+      477,
+      400,
+      503
+     ],
+     "size": [
+      117,
+      26
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      974,
+      479,
+      1044,
+      502
+     ],
+     "size": [
+      70,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-table-nl-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10,700",
+   "parts": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "rect": [
+      283,
+      477,
+      391,
+      499
+     ],
+     "size": [
+      108,
+      22
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      974,
+      479,
+      1044,
+      502
+     ],
+     "size": [
+      70,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-code-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "54,700",
+   "parts": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "rect": [
+      713,
+      377,
+      803,
+      399
+     ],
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      872,
+      427,
+      944,
+      450
+     ],
+     "size": [
+      72,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-code-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "54,700",
+   "parts": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "rect": [
+      713,
+      377,
+      803,
+      399
+     ],
+     "size": [
+      90,
+      22
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      872,
+      427,
+      944,
+      450
+     ],
+     "size": [
+      72,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-code-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "768,700",
+   "parts": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "rect": [
+      93,
+      377,
+      184,
+      399
+     ],
+     "size": [
+      91,
+      22
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "rect": [
+      253,
+      427,
+      337,
+      450
+     ],
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-code-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "768,700",
+   "parts": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "rect": [
+      93,
+      377,
+      184,
+      399
+     ],
+     "size": [
+      91,
+      22
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "rect": [
+      253,
+      427,
+      337,
+      450
+     ],
+     "size": [
+      84,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-nl-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "591,000",
+   "parts": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "rect": [
+      873,
+      565,
+      990,
+      591
+     ],
+     "size": [
+      117,
+      26
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "rect": [
+      872,
+      617,
+      957,
+      640
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-nl-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "591,000",
+   "parts": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "rect": [
+      873,
+      565,
+      981,
+      587
+     ],
+     "size": [
+      108,
+      22
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "rect": [
+      872,
+      617,
+      957,
+      640
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-nl-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "511,300",
+   "parts": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "rect": [
+      254,
+      755,
+      386,
+      775
+     ],
+     "size": [
+      132,
+      20
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "rect": [
+      252,
+      807,
+      337,
+      830
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "invoice-cards-nl-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "511,300",
+   "parts": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "rect": [
+      253,
+      755,
+      345,
+      777
+     ],
+     "size": [
+      92,
+      22
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "rect": [
+      252,
+      807,
+      337,
+      830
+     ],
+     "size": [
+      85,
+      23
+     ]
+    }
+   ]
+  },
+  "status-table-code-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      104,
+      281,
+      195,
+      299
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      998,
+      299
+     ],
+     "size": [
+      26,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-code-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "24",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      104,
+      281,
+      195,
+      299
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      998,
+      299
+     ],
+     "size": [
+      26,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-code-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "52",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      104,
+      281,
+      195,
+      299
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      997,
+      299
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-code-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "52",
+   "parts": [
+    {
+     "item": "r0c",
+     "role": "code",
+     "rect": [
+      104,
+      281,
+      195,
+      299
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r0v",
+     "role": "value",
+     "rect": [
+      972,
+      281,
+      997,
+      299
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-nl-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "68",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      284,
+      543,
+      428,
+      563
+     ],
+     "size": [
+      144,
+      20
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      973,
+      545,
+      998,
+      563
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-nl-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "68",
+   "parts": [
+    {
+     "item": "r4l",
+     "role": "label",
+     "rect": [
+      283,
+      543,
+      394,
+      565
+     ],
+     "size": [
+      111,
+      22
+     ]
+    },
+    {
+     "item": "r4v",
+     "role": "value",
+     "rect": [
+      973,
+      545,
+      998,
+      563
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-nl-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "54",
+   "parts": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "rect": [
+      283,
+      477,
+      394,
+      503
+     ],
+     "size": [
+      111,
+      26
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      972,
+      479,
+      998,
+      497
+     ],
+     "size": [
+      26,
+      18
+     ]
+    }
+   ]
+  },
+  "status-table-nl-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "54",
+   "parts": [
+    {
+     "item": "r3l",
+     "role": "label",
+     "rect": [
+      283,
+      477,
+      372,
+      499
+     ],
+     "size": [
+      89,
+      22
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      972,
+      479,
+      998,
+      497
+     ],
+     "size": [
+      26,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-code-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "41",
+   "parts": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "rect": [
+      714,
+      377,
+      805,
+      395
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      872,
+      427,
+      897,
+      445
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-code-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "41",
+   "parts": [
+    {
+     "item": "r3c",
+     "role": "code",
+     "rect": [
+      714,
+      377,
+      805,
+      395
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r3v",
+     "role": "value",
+     "rect": [
+      872,
+      427,
+      897,
+      445
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-code-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "53",
+   "parts": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "rect": [
+      94,
+      377,
+      185,
+      395
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "rect": [
+      252,
+      427,
+      277,
+      445
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-code-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "53",
+   "parts": [
+    {
+     "item": "r2c",
+     "role": "code",
+     "rect": [
+      94,
+      377,
+      185,
+      395
+     ],
+     "size": [
+      91,
+      18
+     ]
+    },
+    {
+     "item": "r2v",
+     "role": "value",
+     "rect": [
+      252,
+      427,
+      277,
+      445
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-nl-v1-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "72",
+   "parts": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "rect": [
+      874,
+      565,
+      1029,
+      585
+     ],
+     "size": [
+      155,
+      20
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "rect": [
+      873,
+      617,
+      897,
+      635
+     ],
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-nl-v1-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "72",
+   "parts": [
+    {
+     "item": "r5l",
+     "role": "label",
+     "rect": [
+      873,
+      565,
+      1007,
+      587
+     ],
+     "size": [
+      134,
+      22
+     ]
+    },
+    {
+     "item": "r5v",
+     "role": "value",
+     "rect": [
+      873,
+      617,
+      897,
+      635
+     ],
+     "size": [
+      24,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-nl-v2-en": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "74",
+   "parts": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "rect": [
+      254,
+      755,
+      398,
+      775
+     ],
+     "size": [
+      144,
+      20
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "rect": [
+      253,
+      807,
+      278,
+      825
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  },
+  "status-cards-nl-v2-ko": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "74",
+   "parts": [
+    {
+     "item": "r6l",
+     "role": "label",
+     "rect": [
+      254,
+      754,
+      364,
+      777
+     ],
+     "size": [
+      110,
+      23
+     ]
+    },
+    {
+     "item": "r6v",
+     "role": "value",
+     "rect": [
+      253,
+      807,
+      278,
+      825
+     ],
+     "size": [
+      25,
+      18
+     ]
+    }
+   ]
+  }
+ }
+}

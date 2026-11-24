@@ -1,0 +1,32 @@
+{
+ "steps": {
+  "fcp-a-collect": {
+   "guardLoads": 2,
+   "distinctPids": 1,
+   "blocked": 0
+  },
+  "fcp-a-run": {
+   "guardLoads": 1,
+   "distinctPids": 1,
+   "blocked": 0
+  },
+  "fcp-a-run:p0": {
+   "guardLoads": 1,
+   "distinctPids": 1,
+   "blocked": 0
+  },
+  "fcp-a-run:p4": {
+   "guardLoads": 1,
+   "distinctPids": 1,
+   "blocked": 0
+  }
+ },
+ "otherSteps": {
+  "guardLoads": 0,
+  "blocked": 0
+ },
+ "blocked": 0,
+ "stepsWithoutGuard": [],
+ "instrumentDefect": false,
+ "note": "guardLoads counts guard preload events per step label; a worker thread that loads the guard logs its own event under its process id"
+}

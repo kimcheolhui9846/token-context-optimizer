@@ -1,0 +1,30 @@
+{
+ "version": "fcp-design-1",
+ "older": [
+  {
+   "path": "research/results/r09-bilingual/dev/design.json",
+   "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1",
+   "blob": "fcc9b05bbdf3f410c07987e5059ad7eb6433292f"
+  },
+  {
+   "path": "research/results/r09-bilingual/heldout/design.json",
+   "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1",
+   "blob": "dc3307818cba423b3fc2eade8ed7f2116593f788"
+  }
+ ],
+ "designProblems": [],
+ "violations": [],
+ "counts": {
+  "newImages": 48,
+  "newCodes": 192,
+  "newCodesDistinct": 191,
+  "olderImages": 52,
+  "layoutGroups": 2
+ },
+ "shared": [
+  "pair: EN and KO pages share codes, values, cells and target slot",
+  "doctype: title and column names shared by every page of one document type and language",
+  "layout: cell geometry shared by every page of one layout (table or cards)",
+  "target slot: shared by the three document types of one layout x anchor x variant"
+ ]
+}
