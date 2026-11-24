@@ -1,0 +1,31 @@
+# verification at HEAD 85506fd + uncommitted result files, 2026-11-24T09:54:27Z
+## product (repo root), status before build: clean apart from new research result files
+=== npm ci --ignore-scripts
+exit=0
+=== npm run build
+exit=0
+=== npm test
+ Test Files  60 passed (60)
+      Tests  4639 passed | 5 skipped (4644)
+exit=0
+=== npm run typecheck
+exit=0
+=== npm run smoke:mcp
+exit=0
+=== npm run validate:plugin
+exit=0
+=== npm run benchmark
+  "passed": true
+exit=0
+bin/token-context-optimizer.mjs changed by build only in line endings (same blob 85b80499), restored
+## research regression (research/)
+$ node --test test/*.test.mjs
+ℹ tests 145
+ℹ pass 145
+ℹ fail 0
+ℹ skipped 0
+$ python -m unittest tools/d03/test_d03.py tools/ko-row-window/test_recount.py
+Ran 32 tests, OK
+## ocr run
+done: 48 rows, blocked=0
+exit=0

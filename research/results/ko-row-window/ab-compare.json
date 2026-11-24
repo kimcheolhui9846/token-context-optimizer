@@ -1,0 +1,55 @@
+{
+ "version": "ko-row-window-ab-1",
+ "basis": "both replays read the same frozen OCR; determinism check, not an independent OCR repetition",
+ "reproduced": true,
+ "files": {
+  "replay/predictions.jsonl": {
+   "a": "1e7546b7c37fbe783ae5c426c54237fae3979c80c453e7a37f8f46f122d8f26e",
+   "b": "1e7546b7c37fbe783ae5c426c54237fae3979c80c453e7a37f8f46f122d8f26e",
+   "sameBytes": true
+  },
+  "replay/freeze.json": {
+   "a": "89a25064dd1855fae8d704ee9ba97ab917397fcb10941bd6594b4780e230098d",
+   "b": "89a25064dd1855fae8d704ee9ba97ab917397fcb10941bd6594b4780e230098d",
+   "sameBytes": true
+  },
+  "score/score.jsonl": {
+   "a": "8a1c087b13e4f216249b86d75672cc4b81597a6f740312c94cb9b3fa3685be8b",
+   "b": "8a1c087b13e4f216249b86d75672cc4b81597a6f740312c94cb9b3fa3685be8b",
+   "sameBytes": true
+  },
+  "score/summary.json": {
+   "a": "79040f88c4526a39aaa1e18617873a54d28d927e0819f2e90015ebcff61604cc",
+   "b": "79040f88c4526a39aaa1e18617873a54d28d927e0819f2e90015ebcff61604cc",
+   "sameBytes": true
+  }
+ },
+ "rows": {
+  "replay/predictions.jsonl": {
+   "denominator": 48,
+   "rowsA": 48,
+   "rowsB": 48,
+   "sameRows": 48,
+   "identical": true,
+   "sameOrder": true,
+   "onlyInA": [],
+   "onlyInB": [],
+   "duplicatesInA": [],
+   "duplicatesInB": [],
+   "diffs": []
+  },
+  "score/score.jsonl": {
+   "denominator": 48,
+   "rowsA": 48,
+   "rowsB": 48,
+   "sameRows": 48,
+   "identical": true,
+   "sameOrder": true,
+   "onlyInA": [],
+   "onlyInB": [],
+   "duplicatesInA": [],
+   "duplicatesInB": [],
+   "diffs": []
+  }
+ }
+}
