@@ -53,6 +53,13 @@ export type ImageArtifactRecord = {
   sampling: "1x1,1x1,1x1" | "2x1,1x1,1x1" | "1x2,1x1,1x1" | "2x2,1x1,1x1";
   ignoredSegments: string[];
   exifOrientation: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | null;
+} | {
+  format: "png";
+  mimeType: "image/png";
+  channels: 1;
+  validationProfile: "png-gray8-tolerant-v1";
+  ignoredChunks: string[];
+  alpha: "none";
 });
 
 export interface CommonResponseFields {

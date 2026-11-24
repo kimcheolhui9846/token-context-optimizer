@@ -26,6 +26,33 @@ RGB PNGs report `none`; RGBA PNGs report `opaque` only when every alpha byte is
 255, otherwise `present`. Repeated chunk types count once; a 33rd distinct type
 returns `unsupported_png_profile`.
 
+With an explicit `profile:"tolerant"` only, `index_image_artifact` also accepts a
+static, noninterlaced, 8-bit grayscale PNG (IHDR color type 0, bit depth 8,
+compression/filter/interlace methods 0) as `png-gray8-tolerant-v1`. The strict
+profile (default, omitted or explicit) still rejects grayscale with
+`unsupported_png_profile`. The gray record has `format:"png"`,
+`mimeType:"image/png"`, `channels:1` (source samples per pixel), `bitDepth:8`,
+`validationProfile:"png-gray8-tolerant-v1"`, `ignoredChunks`, and `alpha:"none"`
+(always). `ignoredChunks` follows the same rules and order as the RGB/RGBA
+tolerant PNG: ancillary chunks are CRC-checked but their payloads are not applied,
+case is preserved, names are listed in first-occurrence order, and a 33rd distinct
+type returns `unsupported_png_profile`. `sha256` and `byteLength` cover the whole
+original file and `path` is the canonical original path. The returned
+`artifactId` is `image_` followed by the first 16 lowercase hexadecimal
+characters of an identity SHA-256. That identity hash covers the canonical path,
+a NUL byte, the full 64-character hexadecimal `sha256` of the original bytes, a
+NUL byte, and `png-gray8-tolerant-v1`, as for other non-strict profiles;
+existing RGB/RGBA/JPEG IDs are unchanged. In tolerant mode, tRNS (gray color-key
+transparency), gray+alpha (color type 4), palette (color type 3), 1/2/4/16-bit
+depths, Adam7 interlace, APNG, PLTE, and unknown critical chunks are still
+`unsupported_png_profile`; structural faults stay `malformed_png`.
+
+Color management is not applied to grayscale either: `gAMA`, `sRGB`, `iCCP`,
+`cHRM`, and `sBIT` are listed in `ignoredChunks` and the stored sample values are
+used as-is. An original with gamma or a gray ICC profile may therefore look
+different in brightness from a color-managed viewer, and derived JPEGs carry no
+color information, so receivers usually interpret them as sRGB.
+
 The tolerant decoder receives only the original PNG signature, IHDR, contiguous
 IDAT chunks, and IEND, including their original CRC bytes. Ancillary payloads
 are excluded from decoder input after their bounds and CRC are checked.
@@ -34,7 +61,8 @@ In strict mode, all other chunks are rejected, including text, color profiles, t
 metadata and animation control. Many otherwise valid PNGs therefore do not
 qualify. The current runtime accepts `png-rgb8-static-v1`,
 `png-rgb8-tolerant-v1`, `jpeg-ycbcr8-baseline-444-v1`, and the opt-in
-`jpeg-ycbcr8-tolerant-v1`; palette/grayscale/16-bit/interlaced PNGs, APNG,
+`png-gray8-tolerant-v1` and `jpeg-ycbcr8-tolerant-v1`; grayscale PNG is accepted
+only as tolerant 8-bit. Palette, gray+alpha, 16-bit/low-bit, and interlaced PNGs, APNG,
 WEBP, and JPEGs outside the profiles below are not accepted. PLTE, tRNS, APNG control,
 and unknown critical chunks remain rejected in tolerant mode. Broader format support
 belongs to a later contract. The tools never
@@ -195,10 +223,18 @@ Both tools return the same record as JSON text and structured content:
 | `byteLength` | Original encoded bytes |
 | `format`, `mimeType` | `png`/`image/png` or `jpeg`/`image/jpeg` |
 | `width`, `height` | Validated pixel dimensions |
-| `channels`, `bitDepth` | PNG: 3 or 4 channels; JPEG: 3 channels; 8-bit depth |
-| `validationProfile` | `png-rgb8-static-v1`, `png-rgb8-tolerant-v1`, `jpeg-ycbcr8-baseline-444-v1`, or `jpeg-ycbcr8-tolerant-v1` |
+| `channels`, `bitDepth` | PNG: 3 or 4 channels, or 1 for tolerant grayscale; JPEG: 3 channels; 8-bit depth |
+| `validationProfile` | `png-rgb8-static-v1`, `png-rgb8-tolerant-v1`, `png-gray8-tolerant-v1`, `jpeg-ycbcr8-baseline-444-v1`, or `jpeg-ycbcr8-tolerant-v1` |
 
-Tolerant PNG records also contain `ignoredChunks` and `alpha`. Tolerant JPEG
+Tolerant PNG records also contain `ignoredChunks` and `alpha`. The MCP output
+schema (`imageOutputSchema`) gains a fifth union object for the grayscale record
+(`channels:1`, `validationProfile:"png-gray8-tolerant-v1"`, `alpha:"none"`,
+`ignoredChunks`), appended after the existing four, which are unchanged; the crop
+and overview `source` use the same schema. Consumers that pinned the old output
+schema, switch exhaustively on `validationProfile`, or assume `channels` is 3 or 4
+must handle this discriminant. The new shape appears only for inputs that
+previously failed with `unsupported_png_profile` under tolerant. The `profile`
+input enum is unchanged (`strict` | `tolerant`). Tolerant JPEG
 records also contain `coding`, `sampling`, `ignoredSegments`, and
 `exifOrientation` (integer 1–8 or `null`); strict JPEG records have none of
 these fields, and JPEG records never carry PNG fields. Profile selection is part
@@ -255,6 +291,14 @@ byteLength, quality 75, `jpeg-js` 0.4.4 encoder provenance, and output JPEG
 validation. The source is reread and its captured hash and file snapshot are
 checked before pixels are cropped; no source or artifact store files are written.
 
+For a tolerant grayscale PNG, a full-frame crop returns `status:"original"` with
+the original reference and no image body, as for other originals. A partial crop
+writes each gray sample g as neutral RGB (g, g, g) only in the region-sized
+working buffer, with no full-image RGB copy, then encodes the same quality-75
+baseline 4:4:4 JPEG with `jpeg-js` 0.4.4. The output bytes equal those for a
+metadata-free R=G=B RGB PNG with the same samples; lossless recovery of the gray
+samples from the JPEG is not promised.
+
 JPEG inputs are also decoded and re-encoded at q75; only full-frame requests skip
 encoding. Existing input limits and JPEG decoder accounting remain in force.
 The crop RGBA buffer is bounded by 1536 × 1536 × 4 = 9 MiB before allocation,
@@ -283,8 +327,11 @@ base64 JPEG in one `image/jpeg` content item and returns JSON metadata separatel
 not the image string. Output metadata includes dimensions, format/mime type,
 byteLength, SHA-256, quality, encoder, resample, and strict JPEG validation.
 
-Overviews accept indexed RGB PNGs, tolerant PNG records whose RGBA alpha is fully
-opaque, and supported JPEG inputs. A strict RGBA source or a tolerant PNG with
+Overviews accept indexed RGB PNGs, tolerant 8-bit grayscale PNGs, tolerant PNG
+records whose RGBA alpha is fully opaque, and supported JPEG inputs. A grayscale
+overview averages the single gray channel with the same area weights and rounding,
+writes (g, g, g) only into the overview-sized buffer, and produces the same bytes
+as a metadata-free R=G=B RGB PNG with the same samples. A strict RGBA source or a tolerant PNG with
 `alpha:"present"` returns `alpha_unsupported` when an overview is requested;
 there is no full-frame original-reference bypass for this operation. Tolerant
 opaque RGBA is the only RGBA overview exception.
@@ -318,8 +365,13 @@ from downscaled overview text.
 Overview processing uses the same input ceilings as indexing: 10 MiB encoded,
 8192 pixels per axis, and 16,777,216 total pixels. The deterministic resampler
 uses an output RGBA buffer (`4 × width × height`, at most 9 MiB) plus two
-working rows totaling `36 × outputWidth` bytes. It does not allocate a source-sized
-RGBA copy or a source-by-output weight matrix. Decoder,
+working rows (a Float64Array and a Uint32Array, 8 + 4 bytes per band per output
+column) totaling `36 × outputWidth` bytes for RGB/RGBA (three bands) and
+`12 × outputWidth` bytes for a tolerant grayscale PNG (one band). It does not
+allocate a source-sized RGBA copy or a source-by-output weight matrix. These
+resampler figures exclude decode temporaries: for a tolerant grayscale PNG the
+decode buffer is 1 byte per pixel (at most 16 MiB) and the inflated scanlines are
+(width + 1) × height bytes. Decoder,
 encoder, and captured-source temporaries add to that working set. These bounds
 are not a process RSS ceiling or a wall-clock deadline.
 
@@ -342,7 +394,7 @@ they are not successful artifact records.
 | `encoded_size_exceeded` | The indexed source exceeds the encoded limit |
 | `image_dimensions_exceeded` | Dimensions are zero or exceed the supported axis/pixel ceilings |
 | `unsupported_image_format` | The encoded bytes identify a recognized container with no supported image profile |
-| `unsupported_png_profile` | The PNG uses unsupported modes or chunks |
+| `unsupported_png_profile` | The PNG uses unsupported modes or chunks (including any grayscale PNG under strict, and under tolerant grayscale with tRNS, alpha, non-8-bit depth, or interlace) |
 | `malformed_png` | Signature, structure, CRC, compressed data or decoded shape is invalid |
 | `unsupported_jpeg_profile` | The JPEG uses an unsupported mode, sampling, or metadata profile |
 | `malformed_jpeg` | JPEG marker, table, entropy, or decoded shape is invalid |

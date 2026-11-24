@@ -55,6 +55,16 @@ tolerant PNG RGB partial crops remain allowed; RGBA partial crops are allowed
 only when every alpha byte is 255 (`opaque`). RGB records report `none`; RGBA
 records with any alpha byte below 255 report `present`.
 
+Tolerant mode also accepts a static, noninterlaced 8-bit grayscale PNG as
+`png-gray8-tolerant-v1` (`channels:1`, `alpha:"none"`, `ignoredChunks` as above);
+strict still rejects grayscale. tRNS, gray+alpha, palette, 16-bit/low-bit and
+interlaced PNGs remain `unsupported_png_profile`. Stored sample values are used
+without color management, so an original with gamma or a gray ICC profile may look
+different in brightness from a color-managed viewer. Partial crops and overviews
+expand gray samples to neutral RGB only in the output-sized buffer and encode the
+usual q75 JPEG; the MCP output schema gains a fifth `png-gray8-tolerant-v1` union
+member, which consumers pinning the old schema must handle.
+
 ## Research Status
 
 Three experiments have been run with GPT-4o and Claude Haiku 4.5; experiments 2
@@ -192,7 +202,7 @@ A passing result is a functional smoke of the installed runtime. It does not pro
    {"artifactId":"<returned text ID>","query":"Bluebird","maxTokens":64,"contextLines":0}
    ```
 
-3. For a supported RGB PNG, call `index_image_artifact` with its path and save its SHA-256 and validation profile. Pass the image ID to `inspect_image_artifact` to check the source and to `overview_image_artifact` for orientation. If you need a detail, choose a rectangle in original-image coordinates and pass it to `crop_image_artifact`. A supported partial crop returns a JPEG. A full-frame crop returns an original reference. Read the original to verify exact values.
+3. For a supported RGB PNG (or a tolerant 8-bit grayscale PNG), call `index_image_artifact` with its path and save its SHA-256 and validation profile. Pass the image ID to `inspect_image_artifact` to check the source and to `overview_image_artifact` for orientation. If you need a detail, choose a rectangle in original-image coordinates and pass it to `crop_image_artifact`. A supported partial crop returns a JPEG. A full-frame crop returns an original reference. Read the original to verify exact values.
 4. A server restart clears both indexes. A text record can also be evicted during a session. Re-index the authorized original at its canonical path, using the same profile for an image. Compare its SHA-256 with the one you saved, then use the returned ID. A different hash identifies a new version.
 
 ## Research Tooling

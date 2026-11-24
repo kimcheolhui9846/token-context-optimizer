@@ -28645,7 +28645,7 @@ async function indexImageArtifact(input) {
     channels: metadata.channels,
     bitDepth: 8,
     validationProfile: metadata.validationProfile,
-    ...metadata.validationProfile === "png-rgb8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {},
+    ...metadata.validationProfile === "png-rgb8-tolerant-v1" || metadata.validationProfile === "png-gray8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {},
     ...metadata.validationProfile === "jpeg-ycbcr8-tolerant-v1" ? { coding: metadata.coding, sampling: metadata.sampling, ignoredSegments: [...metadata.ignoredSegments], exifOrientation: metadata.exifOrientation } : {}
   };
   const output = cloneImageArtifactRecord(record2);
@@ -28696,7 +28696,7 @@ async function readBoundedSource(path, allowedRoots) {
 var TOLERANT_JPEG_FIELDS = ["coding", "sampling", "ignoredSegments", "exifOrientation"];
 var ALL_TOLERANT_FIELDS = [...PNG_TOLERANT_FIELDS, ...TOLERANT_JPEG_FIELDS];
 function isTolerantProfile(record2) {
-  return record2.validationProfile === "png-rgb8-tolerant-v1" || record2.validationProfile === "jpeg-ycbcr8-tolerant-v1";
+  return record2.validationProfile === "png-rgb8-tolerant-v1" || record2.validationProfile === "jpeg-ycbcr8-tolerant-v1" || record2.validationProfile === "png-gray8-tolerant-v1";
 }
 async function readValidatedImageArtifact(record2, allowedRoots) {
   let source;
@@ -28722,8 +28722,9 @@ async function readValidatedImageArtifact(record2, allowedRoots) {
   }
 }
 function validateForRecord(bytes, record2, withPixels = false) {
-  const foreignFields = record2.validationProfile === "png-rgb8-tolerant-v1" ? TOLERANT_JPEG_FIELDS : record2.validationProfile === "jpeg-ycbcr8-tolerant-v1" ? PNG_TOLERANT_FIELDS : ALL_TOLERANT_FIELDS;
+  const foreignFields = record2.validationProfile === "png-rgb8-tolerant-v1" || record2.validationProfile === "png-gray8-tolerant-v1" ? TOLERANT_JPEG_FIELDS : record2.validationProfile === "jpeg-ycbcr8-tolerant-v1" ? PNG_TOLERANT_FIELDS : ALL_TOLERANT_FIELDS;
   if (foreignFields.some((field) => field in record2)) throw new ImageValidationError("decode_failed");
+  if (record2.validationProfile === "png-gray8-tolerant-v1") return validatePngTolerant(bytes);
   if (record2.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
     return withPixels ? validateJpegTolerantWithPixels(bytes) : validateJpegTolerant(bytes);
   }
@@ -28739,6 +28740,12 @@ function recordMetadataMatches(record2, metadata) {
     const actual = metadata.ignoredSegments;
     const claimed = record2.ignoredSegments;
     return record2.coding === metadata.coding && record2.sampling === metadata.sampling && record2.exifOrientation === metadata.exifOrientation && claimed.length === actual.length && actual.every((value, index) => claimed[index] === value);
+  }
+  if (record2.validationProfile === "png-gray8-tolerant-v1") {
+    if (!("ignoredChunks" in record2) || !("alpha" in record2) || !("ignoredChunks" in metadata) || !("alpha" in metadata) || !Array.isArray(record2.ignoredChunks) || !Array.isArray(metadata.ignoredChunks)) return false;
+    const actual = metadata.ignoredChunks;
+    const claimed = record2.ignoredChunks;
+    return record2.alpha === "none" && metadata.alpha === "none" && claimed.length === actual.length && actual.every((value, index) => claimed[index] === value);
   }
   if (record2.validationProfile !== "png-rgb8-tolerant-v1") return true;
   if (!("ignoredChunks" in record2) || !("alpha" in record2) || !("ignoredChunks" in metadata) || !("alpha" in metadata) || !Array.isArray(record2.ignoredChunks) || !Array.isArray(metadata.ignoredChunks)) return false;
@@ -28854,8 +28861,8 @@ function validatePngTolerant(bytes) {
       width = data.readUInt32BE(0);
       height = data.readUInt32BE(4);
       if (!width || !height || width > MAX_AXIS2 || height > MAX_AXIS2 || width * height > MAX_PIXELS2) throw new ImageValidationError("image_dimensions_exceeded");
-      if (data[8] !== 8 || data[9] !== 2 && data[9] !== 6 || data[10] !== 0 || data[11] !== 0 || data[12] !== 0) throw new ImageValidationError("unsupported_png_profile");
-      channels = data[9] === 2 ? 3 : 4;
+      if (data[8] !== 8 || data[9] !== 0 && data[9] !== 2 && data[9] !== 6 || data[10] !== 0 || data[11] !== 0 || data[12] !== 0) throw new ImageValidationError("unsupported_png_profile");
+      channels = data[9] === 0 ? 1 : data[9] === 2 ? 3 : 4;
       sawHeader = true;
       core.push(bytes.subarray(offset, end));
     } else if (type === "IDAT") {
@@ -28903,6 +28910,7 @@ function validatePngTolerant(bytes) {
     throw new ImageValidationError("malformed_png");
   }
   const pixels = decoded.data;
+  if (channels === 1) return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-gray8-tolerant-v1", ignoredChunks, alpha: "none" };
   const alpha = channels === 3 ? "none" : (() => {
     for (let index = 3; index < pixels.length; index += 4) if (pixels[index] !== 255) return "present";
     return "opaque";
@@ -28952,6 +28960,14 @@ async function cropImageArtifact(input) {
   for (let y = 0; y < region.height; y++) for (let x2 = 0; x2 < region.width; x2++) {
     const from = ((region.y + y) * source.width + region.x + x2) * source.channels;
     const to = (y * region.width + x2) * 4;
+    if (source.channels === 1) {
+      const gray = validated.pixels[from];
+      pixels[to] = gray;
+      pixels[to + 1] = gray;
+      pixels[to + 2] = gray;
+      pixels[to + 3] = 255;
+      continue;
+    }
     pixels[to] = validated.pixels[from];
     pixels[to + 1] = validated.pixels[from + 1];
     pixels[to + 2] = validated.pixels[from + 2];
@@ -28997,9 +29013,10 @@ function isShape(artifactId, region) {
 var import_jpeg_js3 = __toESM(require_jpeg_js(), 1);
 import { createHash as createHash4 } from "node:crypto";
 function areaAverageRgba(pixels, W, H, channels, w, h) {
+  const bands = channels === 1 ? 1 : 3;
   const output = Buffer.alloc(w * h * 4);
-  const accumulated = new Float64Array(w * 3);
-  const horizontal = new Uint32Array(w * 3);
+  const accumulated = new Float64Array(w * bands);
+  const horizontal = new Uint32Array(w * bands);
   for (let r = 0; r < h; r += 1) {
     accumulated.fill(0);
     const sourceRowStart = Math.floor(r * H / h);
@@ -29012,20 +29029,22 @@ function areaAverageRgba(pixels, W, H, channels, w, h) {
         for (let i2 = sourceColumnStart; i2 <= sourceColumnEnd; i2 += 1) {
           const wx = Math.max(0, Math.min((i2 + 1) * w, (j + 1) * W) - Math.max(i2 * w, j * W));
           const sourceOffset = (s * W + i2) * channels;
-          const target = j * 3;
+          const target = j * bands;
           horizontal[target] += pixels[sourceOffset] * wx;
-          horizontal[target + 1] += pixels[sourceOffset + 1] * wx;
-          horizontal[target + 2] += pixels[sourceOffset + 2] * wx;
+          if (bands === 3) {
+            horizontal[target + 1] += pixels[sourceOffset + 1] * wx;
+            horizontal[target + 2] += pixels[sourceOffset + 2] * wx;
+          }
         }
       }
       const wy = Math.max(0, Math.min((s + 1) * h, (r + 1) * H) - Math.max(s * h, r * H));
-      for (let target = 0; target < w * 3; target += 1) accumulated[target] += horizontal[target] * wy;
+      for (let target = 0; target < w * bands; target += 1) accumulated[target] += horizontal[target] * wy;
     }
     for (let j = 0; j < w; j += 1) {
       const outputOffset = (r * w + j) * 4;
-      const target = j * 3;
+      const target = j * bands;
       for (let channel = 0; channel < 3; channel += 1) {
-        output[outputOffset + channel] = Math.floor((2 * accumulated[target + channel] + W * H) / (2 * W * H));
+        output[outputOffset + channel] = Math.floor((2 * accumulated[target + (bands === 3 ? channel : 0)] + W * H) / (2 * W * H));
       }
       output[outputOffset + 3] = 255;
     }
@@ -29268,11 +29287,25 @@ function createServer() {
     sampling: _enum(["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]),
     ignoredSegments: array(string2()),
     exifOrientation: number2().int().min(1).max(8).nullable()
+  }), object({
+    artifactId: string2(),
+    path: string2(),
+    sha256: string2(),
+    byteLength: number2().int(),
+    format: literal("png"),
+    mimeType: literal("image/png"),
+    width: number2().int(),
+    height: number2().int(),
+    channels: literal(1),
+    bitDepth: literal(8),
+    validationProfile: literal("png-gray8-tolerant-v1"),
+    ignoredChunks: array(string2()),
+    alpha: literal("none")
   })]);
   server.registerTool(
     "index_image_artifact",
     {
-      description: "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.",
+      description: "Validate and index a bounded PNG or JPEG without retaining pixels. Validation defaults to strict; use profile tolerant to accept PNG ancillary chunks, static noninterlaced 8-bit grayscale PNGs without transparency, or supported subsampled, extended sequential, progressive, and metadata-bearing YCbCr JPEGs. PNG color metadata such as gAMA, sRGB, and iCCP is not applied, so brightness may differ from color-managed viewers. EXIF orientation is reported but not applied; images may appear rotated when orientation is not 1. Validation is not corruption detection.",
       inputSchema: object({ path: string2().min(1), profile: _enum(["strict", "tolerant"]).optional() }),
       outputSchema: imageOutputSchema
     },
@@ -29330,7 +29363,7 @@ function createServer() {
   server.registerTool(
     "crop_image_artifact",
     {
-      description: "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA sources.",
+      description: "Crop a validated RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG image using a caller-chosen region and encode it as a quality-75 JPEG; grayscale samples are encoded as neutral RGB and PNG color metadata is not applied. Use overview_image_artifact to obtain an overview before choosing a region in original-image pixels. Full-frame regions return the original reference without encoding, including RGBA and grayscale sources.",
       inputSchema: strictObject({ artifactId: string2().min(1), region: regionSchema }),
       outputSchema: cropOutputSchema
     },
@@ -29371,7 +29404,7 @@ function createServer() {
   server.registerTool(
     "overview_image_artifact",
     {
-      description: "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, or supported JPEG as a quality-75 JPEG. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
+      description: "Return a whole-image overview of an indexed RGB PNG, tolerant fully opaque RGBA PNG, tolerant 8-bit grayscale PNG, or supported JPEG as a quality-75 JPEG. PNG color metadata is not applied. maxSide defaults to 512 (64-1536); images are never enlarged. Use the source and output dimensions to map a caller-chosen region back to original-image pixels for crop_image_artifact. The overview does not select evidence or guarantee readability of exact values.",
       inputSchema: strictObject({
         artifactId: string2().min(1),
         maxSide: number2().int().min(64).max(1536).optional()

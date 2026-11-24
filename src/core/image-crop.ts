@@ -33,6 +33,12 @@ export async function cropImageArtifact(input: { artifactId: string; region: Cro
   for (let y = 0; y < region.height; y++) for (let x = 0; x < region.width; x++) {
     const from = ((region.y + y) * source.width + region.x + x) * source.channels;
     const to = (y * region.width + x) * 4;
+    if (source.channels === 1) {
+      // Gray sample g becomes neutral (g, g, g) only in this region-sized working buffer.
+      const gray = validated.pixels[from];
+      pixels[to] = gray; pixels[to + 1] = gray; pixels[to + 2] = gray; pixels[to + 3] = 255;
+      continue;
+    }
     pixels[to] = validated.pixels[from]; pixels[to + 1] = validated.pixels[from + 1]; pixels[to + 2] = validated.pixels[from + 2]; pixels[to + 3] = 255;
   }
   let encoded: Buffer;

@@ -48,6 +48,7 @@ try {
   const workspaceFile = join(workspaceRoot, "artifact.txt");
   const imageFile = join(workspaceRoot, "image.png");
   const tolerantImageFile = join(workspaceRoot, "tolerant-image.png");
+  const grayImageFile = join(workspaceRoot, "gray-image.png");
   const jpegFile = join(workspaceRoot, "image.jpg");
   const tolerantJpegFile = join(workspaceRoot, "tolerant-image.jpg");
   const malformedImageFile = join(workspaceRoot, "malformed.png");
@@ -65,6 +66,8 @@ try {
   );
   await writeFile(imageFile, imageBytes);
   await writeFile(tolerantImageFile, addAncillaryPng(makeOpaqueRgbaPng()));
+  const grayImageBytes = makeGrayPng();
+  await writeFile(grayImageFile, grayImageBytes);
   const jpegBytes = Buffer.from("/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAJABEDAREAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQGCP/EACoQAAEDAwICCwEAAAAAAAAAAAIBBAUDBhEAEgchCBMXJDY3VnR1lLTT/8QAGAEAAwEBAAAAAAAAAAAAAAAABAUHAgb/xAAvEQACAQIDBAcJAAAAAAAAAAABAgMEEQAFEgYUMXMTISI2VJLSMjU3UnSys7TB/9oADAMBAAIRAxEAPwA7Vvc1qcOZR+EDAWjFvBKNov5AOtNotRBp7iqmQU1VeaCq08ZIUVF5quJqiirMw6XMah5nXe1sosGt0cUShUUt8ik6uALEjrOEt6HLtnBTxzSzTzlI7IFswOp3BWzMAYlcEqxYE3UrxVO8Jpq0tmlEy98y9wOXm9pXjbdo93dN8hkM00BufOsCqu7O0CFVyiApFJG9PLJmL0oADVSK0hu6szRxR+2TIFXqAAHZFiow4q6Seiyeiy6goVh3hw+uXSSBF2jfWWmQl9BTSvEE3AJJL2d8PfSFy/Rb/wB9VjVm3iI/M3oww3TPPExeZ/RiQ6UHmjLfKsvx0tT3Ku7qcyp/dhx0+T/DnKub/KjFdb3iqI9sP6C0DtD7mm+pm/PT4mO1veSl5CfdLjV2n2DMf//Z", "base64");
   await writeFile(jpegFile, jpegBytes);
   const tolerantJpegBytes = makeTolerantJpeg();
@@ -299,6 +302,35 @@ try {
   send({ jsonrpc: "2.0", id: 21, method: "tools/call", params: { name: "index_image_artifact", arguments: { path: tolerantJpegFile } } });
   await expectToolError(21, "unsupported_jpeg_profile", [tolerantJpegFile, workspaceRoot]);
 
+  const grayHash = createHash("sha256").update(grayImageBytes).digest("hex");
+  const grayExpected = {
+    path: await realpath(grayImageFile), sha256: grayHash, byteLength: grayImageBytes.length, format: "png", mimeType: "image/png",
+    width: 3, height: 2, channels: 1, bitDepth: 8, validationProfile: "png-gray8-tolerant-v1", ignoredChunks: ["gAMA"], alpha: "none",
+  };
+  send({ jsonrpc: "2.0", id: 22, method: "tools/call", params: { name: "index_image_artifact", arguments: { path: grayImageFile } } });
+  await expectToolError(22, "unsupported_png_profile", [grayImageFile, workspaceRoot]);
+  send({ jsonrpc: "2.0", id: 23, method: "tools/call", params: { name: "index_image_artifact", arguments: { path: grayImageFile, profile: "tolerant" } } });
+  const grayIndex = assertTextOnlyResult(await waitFor((message) => message.id === 23 && (message.error || message.result)), "Gray8 index");
+  const grayPayload = JSON.parse(grayIndex.content[0].text);
+  assertStructuredMatchesText(grayIndex, grayPayload);
+  const { artifactId: grayId, ...grayFields } = grayPayload;
+  if (!grayId?.startsWith("image_") || JSON.stringify(grayFields) !== JSON.stringify(grayExpected)) {
+    throw new Error(`Unexpected gray8 PNG record: ${JSON.stringify(grayPayload)}`);
+  }
+  send({ jsonrpc: "2.0", id: 24, method: "tools/call", params: { name: "inspect_image_artifact", arguments: { artifactId: grayId } } });
+  const grayInspect = assertTextOnlyResult(await waitFor((message) => message.id === 24 && (message.error || message.result)), "Gray8 inspect");
+  if (JSON.stringify(JSON.parse(grayInspect.content[0].text)) !== JSON.stringify(grayPayload)) throw new Error("Gray8 inspect mismatch");
+  send({ jsonrpc: "2.0", id: 25, method: "tools/call", params: { name: "crop_image_artifact", arguments: { artifactId: grayId, region: { x: 0, y: 0, width: 3, height: 2 } } } });
+  const grayFull = assertTextOnlyResult(await waitFor((message) => message.id === 25 && (message.error || message.result)), "Gray8 full-frame crop");
+  if (grayFull.structuredContent?.status !== "original" || JSON.stringify(grayFull.structuredContent.source) !== JSON.stringify(grayPayload) ||
+      createHash("sha256").update(await readFile(grayFull.structuredContent.source.path)).digest("hex") !== grayHash) {
+    throw new Error(`Gray8 full-frame crop failed: ${JSON.stringify(grayFull)}`);
+  }
+  send({ jsonrpc: "2.0", id: 26, method: "tools/call", params: { name: "crop_image_artifact", arguments: { artifactId: grayId, region: { x: 1, y: 0, width: 2, height: 2 } } } });
+  assertEncodedImageResult(await waitFor((message) => message.id === 26 && (message.error || message.result)), "Gray8 crop", grayPayload, 2, 2);
+  send({ jsonrpc: "2.0", id: 27, method: "tools/call", params: { name: "overview_image_artifact", arguments: { artifactId: grayId, maxSide: 64 } } });
+  assertEncodedImageResult(await waitFor((message) => message.id === 27 && (message.error || message.result)), "Gray8 overview", grayPayload, 3, 2);
+
   send({
     jsonrpc: "2.0",
     id: 6,
@@ -407,8 +439,8 @@ function assertCropSourceSchemas(tools) {
 
 function assertImageOutputSchema(output, name) {
   const schemas = output.anyOf ?? [output];
-  if (schemas.length !== 4) {
-    throw new Error(`Image output schema must expose four correlated strict PNG, tolerant PNG, strict JPEG, and tolerant JPEG variants for ${name}`);
+  if (schemas.length !== 5) {
+    throw new Error(`Image output schema must expose five correlated strict PNG, tolerant PNG, strict JPEG, tolerant JPEG, and tolerant gray8 PNG variants for ${name}`);
   }
   const signatures = schemas.map((schema) => `${schema.properties?.format?.const}:${schema.properties?.mimeType?.const}:${schema.properties?.validationProfile?.const}`);
   const expectedSignatures = [
@@ -416,11 +448,13 @@ function assertImageOutputSchema(output, name) {
     "png:image/png:png-rgb8-tolerant-v1",
     "jpeg:image/jpeg:jpeg-ycbcr8-baseline-444-v1",
     "jpeg:image/jpeg:jpeg-ycbcr8-tolerant-v1",
+    "png:image/png:png-gray8-tolerant-v1",
   ];
   if (JSON.stringify(signatures) !== JSON.stringify(expectedSignatures)) {
     throw new Error(`Image output schema correlated variants mismatch for ${name}: ${JSON.stringify(signatures)}`);
   }
   assertTolerantJpegSchema(schemas[3], name);
+  assertGrayPngSchema(schemas[4], name);
   const properties = Object.assign({}, ...schemas.map((schema) => schema.properties ?? {}));
   const required = new Set(schemas.flatMap((schema) => schema.required ?? []));
   for (const field of ["artifactId", "path", "sha256", "byteLength", "format", "mimeType", "width", "height", "channels", "bitDepth", "validationProfile"]) {
@@ -487,6 +521,29 @@ function assertTolerantImageRecord(record, expected) {
   if (!record.artifactId?.startsWith("image_") || record.path !== expected.path || record.sha256 !== expected.sha256 || record.format !== "png" || record.mimeType !== "image/png" || record.bitDepth !== 8 || record.validationProfile !== "png-rgb8-tolerant-v1" || !Number.isInteger(record.width) || !Number.isInteger(record.height) || ![3, 4].includes(record.channels) || !Array.isArray(record.ignoredChunks) || !["none", "opaque", "present"].includes(record.alpha)) {
     throw new Error(`Unexpected tolerant PNG record: ${JSON.stringify(record)}`);
   }
+}
+
+function assertGrayPngSchema(schema, name) {
+  const properties = schema.properties ?? {};
+  if (
+    JSON.stringify(properties.channels) !== JSON.stringify({ type: "number", const: 1 }) ||
+    JSON.stringify(properties.alpha) !== JSON.stringify({ type: "string", const: "none" }) ||
+    JSON.stringify(properties.ignoredChunks) !== JSON.stringify({ type: "array", items: { type: "string" } }) ||
+    !["channels", "alpha", "ignoredChunks", "validationProfile"].every((field) => schema.required?.includes(field)) ||
+    schema.additionalProperties !== false
+  ) {
+    throw new Error(`Unexpected gray8 PNG schema for ${name}: ${JSON.stringify(schema)}`);
+  }
+}
+
+function makeGrayPng() {
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(3, 0); header.writeUInt32BE(2, 4); header[8] = 8; header[9] = 0;
+  const scanlines = Buffer.from([0, 10, 128, 250, 1, 5, 7, 9]);
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), pngChunk("IHDR", header), pngChunk("gAMA", Buffer.from([0, 0, 0xb1, 0x8f])),
+    pngChunk("IDAT", deflateSync(scanlines)), pngChunk("IEND", Buffer.alloc(0)),
+  ]);
 }
 
 function assertTolerantJpegSchema(schema, name) {

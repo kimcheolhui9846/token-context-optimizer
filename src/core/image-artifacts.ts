@@ -78,7 +78,9 @@ export async function indexImageArtifact(input: {
     channels: metadata.channels,
     bitDepth: 8,
     validationProfile: metadata.validationProfile,
-    ...(metadata.validationProfile === "png-rgb8-tolerant-v1" ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha } : {}),
+    ...(metadata.validationProfile === "png-rgb8-tolerant-v1" || metadata.validationProfile === "png-gray8-tolerant-v1"
+      ? { ignoredChunks: [...metadata.ignoredChunks], alpha: metadata.alpha }
+      : {}),
     ...(metadata.validationProfile === "jpeg-ycbcr8-tolerant-v1"
       ? { coding: metadata.coding, sampling: metadata.sampling, ignoredSegments: [...metadata.ignoredSegments], exifOrientation: metadata.exifOrientation }
       : {}),
@@ -139,14 +141,17 @@ async function readBoundedSource(
 export type ValidatedImagePixels = {
   pixels: Uint8Array;
 };
-type ValidatedImage = { width: number; height: number; channels: 3 | 4; pixels: Uint8Array | Uint8ClampedArray; format: "png" | "jpeg"; mimeType: "image/png" | "image/jpeg"; validationProfile: string };
-type TolerantPngImage = ValidatedImage & { format: "png"; mimeType: "image/png"; validationProfile: "png-rgb8-tolerant-v1"; ignoredChunks: string[]; alpha: "none" | "opaque" | "present" };
+type ValidatedImage = { width: number; height: number; channels: 1 | 3 | 4; pixels: Uint8Array | Uint8ClampedArray; format: "png" | "jpeg"; mimeType: "image/png" | "image/jpeg"; validationProfile: string };
+type TolerantPngImage = ValidatedImage & { format: "png"; mimeType: "image/png" } & (
+  | { channels: 3 | 4; validationProfile: "png-rgb8-tolerant-v1"; ignoredChunks: string[]; alpha: "none" | "opaque" | "present" }
+  | { channels: 1; validationProfile: "png-gray8-tolerant-v1"; ignoredChunks: string[]; alpha: "none" });
 type TolerantJpegImage = ValidatedImage & TolerantJpegMetadata;
 const TOLERANT_JPEG_FIELDS = ["coding", "sampling", "ignoredSegments", "exifOrientation"] as const;
 const ALL_TOLERANT_FIELDS = [...PNG_TOLERANT_FIELDS, ...TOLERANT_JPEG_FIELDS] as const;
 
 function isTolerantProfile(record: ImageArtifactRecord): boolean {
-  return record.validationProfile === "png-rgb8-tolerant-v1" || record.validationProfile === "jpeg-ycbcr8-tolerant-v1";
+  return record.validationProfile === "png-rgb8-tolerant-v1" || record.validationProfile === "jpeg-ycbcr8-tolerant-v1" ||
+    record.validationProfile === "png-gray8-tolerant-v1";
 }
 
 export async function readValidatedImageArtifact(record: ImageArtifactRecord, allowedRoots: string[]): Promise<ValidatedImagePixels> {
@@ -182,7 +187,7 @@ function validateForRecord(
   record: ImageArtifactRecord,
   withPixels = false,
 ): ValidatedImage | TolerantPngImage | TolerantJpegImage {
-  const foreignFields = record.validationProfile === "png-rgb8-tolerant-v1"
+  const foreignFields = record.validationProfile === "png-rgb8-tolerant-v1" || record.validationProfile === "png-gray8-tolerant-v1"
     ? TOLERANT_JPEG_FIELDS
     : record.validationProfile === "jpeg-ycbcr8-tolerant-v1"
       ? PNG_TOLERANT_FIELDS
@@ -190,6 +195,8 @@ function validateForRecord(
   if (foreignFields.some((field) => field in record)) throw new ImageValidationError("decode_failed");
   // Profile metadata is recognized before format dispatch so foreign fields and
   // tampered format/profile combinations are reported as decode_failed.
+  // The gray profile always uses the tolerant PNG validator, whatever format the record claims.
+  if (record.validationProfile === "png-gray8-tolerant-v1") return validatePngTolerant(bytes);
   if (record.validationProfile === "jpeg-ycbcr8-tolerant-v1") {
     return (withPixels ? validateJpegTolerantWithPixels(bytes) : validateJpegTolerant(bytes)) as unknown as TolerantJpegImage;
   }
@@ -217,6 +224,16 @@ function recordMetadataMatches(
     // Iterate the dense parser-provided array: Array.every on the untrusted record skips holes.
     return record.coding === metadata.coding && record.sampling === metadata.sampling &&
       record.exifOrientation === metadata.exifOrientation &&
+      claimed.length === actual.length &&
+      actual.every((value, index) => claimed[index] === value);
+  }
+  if (record.validationProfile === "png-gray8-tolerant-v1") {
+    if (!("ignoredChunks" in record) || !("alpha" in record) || !("ignoredChunks" in metadata) || !("alpha" in metadata) ||
+        !Array.isArray(record.ignoredChunks) || !Array.isArray(metadata.ignoredChunks)) return false;
+    const actual = metadata.ignoredChunks;
+    const claimed = record.ignoredChunks;
+    // Iterate the dense validator-provided array: Array.every on the untrusted record skips holes.
+    return record.alpha === "none" && metadata.alpha === "none" &&
       claimed.length === actual.length &&
       actual.every((value, index) => claimed[index] === value);
   }
@@ -299,7 +316,7 @@ function validatePngTolerant(bytes: Buffer): TolerantPngImage {
     throw new ImageValidationError("malformed_png");
   }
   let offset = 8; let sawHeader = false; let sawData = false; let ended = false; let idatClosed = false;
-  let width = 0; let height = 0; let channels: 3 | 4 = 3;
+  let width = 0; let height = 0; let channels: 1 | 3 | 4 = 3;
   const ignoredChunks: string[] = []; const seen = new Set<string>(); const idats: Buffer[] = []; const core: Buffer[] = [PNG_SIGNATURE];
   while (offset < bytes.length) {
     if (bytes.length - offset < 12) throw new ImageValidationError("malformed_png");
@@ -313,8 +330,9 @@ function validatePngTolerant(bytes: Buffer): TolerantPngImage {
       if (type !== "IHDR" || length !== 13) throw new ImageValidationError("malformed_png");
       width = data.readUInt32BE(0); height = data.readUInt32BE(4);
       if (!width || !height || width > MAX_AXIS || height > MAX_AXIS || width * height > MAX_PIXELS) throw new ImageValidationError("image_dimensions_exceeded");
-      if (data[8] !== 8 || (data[9] !== 2 && data[9] !== 6) || data[10] !== 0 || data[11] !== 0 || data[12] !== 0) throw new ImageValidationError("unsupported_png_profile");
-      channels = data[9] === 2 ? 3 : 4; sawHeader = true; core.push(bytes.subarray(offset, end));
+      // Tolerant mode also accepts 8-bit grayscale (color type 0); every other IHDR rule is shared with RGB/RGBA.
+      if (data[8] !== 8 || (data[9] !== 0 && data[9] !== 2 && data[9] !== 6) || data[10] !== 0 || data[11] !== 0 || data[12] !== 0) throw new ImageValidationError("unsupported_png_profile");
+      channels = data[9] === 0 ? 1 : data[9] === 2 ? 3 : 4; sawHeader = true; core.push(bytes.subarray(offset, end));
     } else if (type === "IDAT") {
       if (ended || idatClosed) throw new ImageValidationError("malformed_png");
       sawData = true; idats.push(data); core.push(bytes.subarray(offset, end));
@@ -340,6 +358,7 @@ function validatePngTolerant(bytes: Buffer): TolerantPngImage {
   let decoded: ReturnType<typeof decode>;
   try { decoded = decode(Buffer.concat(core), { checkCrc: true }); if (decoded.width !== width || decoded.height !== height || decoded.depth !== 8 || decoded.channels !== channels) throw new Error(); } catch { throw new ImageValidationError("malformed_png"); }
   const pixels = decoded.data as unknown as Uint8Array;
+  if (channels === 1) return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-gray8-tolerant-v1", ignoredChunks, alpha: "none" };
   const alpha = channels === 3 ? "none" : (() => { for (let index = 3; index < pixels.length; index += 4) if (pixels[index] !== 255) return "present" as const; return "opaque" as const; })();
   return { width, height, channels, pixels, format: "png", mimeType: "image/png", validationProfile: "png-rgb8-tolerant-v1", ignoredChunks, alpha };
 }

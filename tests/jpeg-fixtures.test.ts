@@ -65,9 +65,14 @@ describe("checked-in JPEG fixtures", () => {
     const jpeg = { artifactId: "image_jpeg", path: "a.jpg", sha256: "b", byteLength: 1, format: "jpeg", mimeType: "image/jpeg", width: 17, height: 9, channels: 3, bitDepth: 8, validationProfile: "jpeg-ycbcr8-baseline-444-v1" };
     const jpegTolerant = { ...jpeg, artifactId: "image_jpeg_tolerant", validationProfile: "jpeg-ycbcr8-tolerant-v1", coding: "progressive", sampling: "2x2,1x1,1x1", ignoredSegments: ["APP1", "COM"], exifOrientation: 6 };
     for (const tool of imageTools) {
-      expect(tool.outputSchema.anyOf.map((variant: any) => variant.properties.validationProfile.const)).toEqual(["png-rgb8-static-v1", "png-rgb8-tolerant-v1", "jpeg-ycbcr8-baseline-444-v1", "jpeg-ycbcr8-tolerant-v1"]);
+      // Gray8 tolerant delta (policy #142 §5.3): a fifth variant is appended; the first four are unchanged.
+      expect(tool.outputSchema.anyOf.map((variant: any) => variant.properties.validationProfile.const)).toEqual(["png-rgb8-static-v1", "png-rgb8-tolerant-v1", "jpeg-ycbcr8-baseline-444-v1", "jpeg-ycbcr8-tolerant-v1", "png-gray8-tolerant-v1"]);
       const schema = fromAdvertisedSchema(tool.outputSchema);
-      for (const record of [png, pngTolerant, jpeg, jpegTolerant]) expect(schema.safeParse(record).success).toBe(true);
+      const gray = { ...png, artifactId: "image_gray", channels: 1, validationProfile: "png-gray8-tolerant-v1", ignoredChunks: ["gAMA"], alpha: "none" };
+      for (const record of [png, pngTolerant, jpeg, jpegTolerant, gray]) expect(schema.safeParse(record).success).toBe(true);
+      for (const tampered of [{ ...gray, channels: 3 }, { ...gray, alpha: "opaque" }, { ...pngTolerant, channels: 1 }, { ...jpegTolerant, channels: 1 }, { ...gray, format: "jpeg", mimeType: "image/jpeg" }]) {
+        expect(schema.safeParse(tampered).success).toBe(false);
+      }
       for (const coding of ["baseline", "extended", "progressive"]) expect(schema.safeParse({ ...jpegTolerant, coding }).success).toBe(true);
       for (const sampling of ["1x1,1x1,1x1", "2x1,1x1,1x1", "1x2,1x1,1x1", "2x2,1x1,1x1"]) expect(schema.safeParse({ ...jpegTolerant, sampling }).success).toBe(true);
       for (const exifOrientation of [null, 1, 2, 3, 4, 5, 6, 7, 8]) expect(schema.safeParse({ ...jpegTolerant, exifOrientation }).success).toBe(true);

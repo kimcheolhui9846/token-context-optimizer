@@ -39,14 +39,17 @@ allowed workspace roots; an empty allowlist denies image access.
 
 The default strict profiles are static, noninterlaced, 8-bit RGB/RGBA PNG
 containing only IHDR, IDAT and IEND chunks, and baseline 4:4:4 JFIF JPEG. Pass
-`profile:"tolerant"` only when needed: it accepts PNG ancillary chunks, or 8-bit
-YCbCr JPEG with supported subsampling, extended sequential (SOF1) or progressive
+`profile:"tolerant"` only when needed: it accepts PNG ancillary chunks, static
+8-bit grayscale PNG (`png-gray8-tolerant-v1`, `channels:1`, `alpha:"none"`;
+stored values used as-is, so brightness may differ from a color-managed viewer),
+or 8-bit YCbCr JPEG with supported subsampling, extended sequential (SOF1) or progressive
 coding, and APPn/COM metadata. A tolerant JPEG gets a distinct
 `jpeg-ycbcr8-tolerant-v1` record and ID; it reports `exifOrientation` but does
 not rotate or apply ICC color, so the image may appear rotated and crop
 coordinates use the stored pixels. Validation is not corruption detection; the
-recorded SHA-256 detects later source changes. Palette/grayscale/interlaced PNG,
-APNG, CMYK/grayscale JPEG, and WEBP remain unsupported. Limits are 10 MiB
+recorded SHA-256 detects later source changes. Strict grayscale PNG, palette,
+gray+alpha, 16-bit/low-bit and interlaced PNG, APNG, CMYK/grayscale JPEG, and
+WEBP remain unsupported. Limits are 10 MiB
 encoded, 8192 pixels per axis and 16,777,216 total pixels. Keep an unsupported
 original unchanged; these tools do not convert it automatically.
 A tolerant JPEG may contain at most 64 SOS scans in the whole file. A 65th scan
@@ -63,7 +66,8 @@ caller-chosen crop in original-image pixels. The overview uses integer
 `area-average-v1`, not the research harness's `sharp`/`lanczos3` resampler; it
 does not select evidence, estimate image tokens, or demonstrate cost savings, and
 does not guarantee readability of exact values. Supported
-overview inputs are RGB PNG, tolerant fully opaque RGBA PNG, and supported JPEG;
+overview inputs are RGB PNG, tolerant 8-bit grayscale PNG, tolerant fully opaque RGBA PNG,
+and supported JPEG;
 strict RGBA and non-opaque tolerant RGBA return `alpha_unsupported`. The crop
 tool does not select evidence, generate an overview, estimate image tokens or
 demonstrate cost savings. It retains its own 1536-pixel limit, full-frame exception, coordinate rules,
@@ -113,8 +117,8 @@ priority when evidence is incomplete.
    answer without an unreadable warning. Use `crop_image_artifact({artifactId,
    region: {x, y, width, height}})` only with a caller-chosen in-bounds rectangle
    in original-image pixels. It does not select evidence or generate an overview.
-   Partial crops support RGB PNG or supported JPEG, plus tolerant PNG whose alpha
-   is fully opaque; strict RGBA and non-opaque tolerant RGBA return
+   Partial crops support RGB PNG, tolerant 8-bit grayscale PNG, or supported
+   JPEG, plus tolerant PNG whose alpha is fully opaque; strict RGBA and non-opaque tolerant RGBA return
    `alpha_unsupported`. Partial crops must be at most 1536 pixels per side;
    full-frame requests return an original reference without image bytes. If the
    requested field is not visible, or the question concerns the whole image
