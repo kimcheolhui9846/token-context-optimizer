@@ -22,13 +22,14 @@
 | 구현 | `b061672` 23:40:13 | JS W3·채점, Python 검산 |
 | 자료 동결 | `3f27fb9` 23:41:18 (핀 `78f5943` 23:41:30) | 48쪽, manifest SHA-256 `53222cc6…1e69` |
 | OCR 1회 | 23:42:07–23:42:59 실행, 동결 `64d786e` 23:43:10 | 48/48 정상, 가드 차단 0, 입력은 질문 1개와 PNG 48개뿐 |
-| 예측 동결 | `22af341` 23:43:20 push | `predictions.jsonl` SHA-256 `319913c8…2ed0` |
-| 채점 | 23:43:27 시작 | `score-meta.json`: 예측 = HEAD blob(`predictionsCommittedAtHead: true`) |
+| 예측 동결 | 커밋 `22af341` 23:43:20, push로 원격 추적 ref 갱신 23:43:22(로컬 reflog `update by push`) | `predictions.jsonl` SHA-256 `319913c8…2ed0` |
+| 채점 | 23:43:27 시작(동결 예측과 gold의 최초 결합) | `score-meta.json`: 예측 = HEAD blob(`predictionsCommittedAtHead: true`) |
 
 - 채점 측 파일(`scoring/` design·gold·render·render-check)의 사용 범위:
   - **OCR 전 자료 단계에서는 사용했다.** 생성기(`design.py`)와 고정 렌더러가 이 파일을 만들었다. `src/ko-row-gate-data.mjs`의 `runChecks`(자료 정합성 검사, `check` 명령)가 design·gold·render·render-check를 읽어 배정·문법·잉크 배치·짝·기준 띠·이전 세트 겹침을 확인했다. 그 결과 `checks.json`은 동결 자료(`3f27fb9`)에 들어 있다. 이 검사는 OCR·K1·예측을 쓰지 않는다.
   - **OCR·K1·W1/W2/W3 예측 단계에서는 접근하지 않았다.** 근거는 두 입력 기록이다. OCR 실행기(`ocr/guard-summary.json`의 `approvedInputs` 49개)와 재생(`replay-a/inputs.json`의 `data` 49개)이 연 자료는 모두 `selector/questions.json`과 `selector/images/*.png`다. 재생이 연 OCR 파일은 `ocr/` 폴더의 3개다. 두 단계는 선택기 측 허용 목록 리더를 거치며, 다른 경로를 열면 예외가 난다(시험 15).
-  - **동결 예측을 gold와 결합한 최초 채점**은 예측 커밋 `22af341`을 push한(23:43:20) 뒤에 시작했다(23:43:27). `src/ko-row-gate-score.mjs`는 예측 48행을 검증한 다음에야 `readScoringInputs`로 채점 측을 연다. `score-a/score-meta.json`에는 `head 22af341`, `predictionsCommittedAtHead: true`가 기록돼 있다.
+  - **동결 예측을 gold와 결합한 최초 채점**은 23:43:27에 시작했다. 예측 커밋 `22af341`은 23:43:20에 만들었고, push로 원격 추적 ref `origin/claude/ko-row-gate-holdout`이 갱신된 시각은 23:43:22다(로컬 reflog). 채점은 그 뒤다. `src/ko-row-gate-score.mjs`는 예측 48행을 검증한 다음에야 `readScoringInputs`로 채점 측을 연다. `score-a/score-meta.json`에는 `head 22af341`, `predictionsCommittedAtHead: true`가 기록돼 있다.
+  - 이 맹검은 OCR·K1·예측 프로세스의 입력 경계(선택기 측 허용 목록)를 뜻할 뿐, 자료를 직접 생성·검사한 작성자(구현자와 같음)가 정답을 몰랐다는 뜻으로 해석할 수 없다.
 - 출력 해시(원바이트 SHA-256): `score-a/score.jsonl` `dc38cb79…1a03`, `score-a/summary.json` `a9b754fc…a355`. B는 A와 바이트가 같다.
 
 ## 3. 단계별 쪽수
