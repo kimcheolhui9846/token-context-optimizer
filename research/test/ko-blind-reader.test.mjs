@@ -118,7 +118,7 @@ test("state: skip and abort are two-step; cancel clears the request", () => {
   assert.equal(s.phase, "done");
   const f = L.finalResponse(s);
   assert.equal(f.status, "aborted");
-  assert.equal(f.items.filter((x) => !x.reached).length, 16);
+  assert.equal(f.items.filter((x) => !x.reached).length, 17); // pos 1 skipped; the current pos 2 and later are notReached (protocol 5.2 item 7)
   assert.throws(() => L.step(s, { type: "set", column: "L" }), (e) => e.code === "locked");
   assert.throws(() => L.step(s, { type: "finalizeConfirm" }), (e) => e.code === "locked");
 });
@@ -313,6 +313,15 @@ test("packet leak scan catches URLs, network/storage APIs, method names, canarie
     [`<img src="data:image/png;base64,${png(["IHDR", "tEXt", "IDAT", "IEND"]).toString("base64")}">`, "png_chunk"],
   ];
   for (const [frag, code] of cases) assert.ok(L.scanPacketHtml(clean.replace("<body>", `<body>${frag}`), { canaries: ["고서 영인본 열람"] }).includes(code), code);
+});
+
+test("packet images keep only critical chunks; object URLs are not external URLs (added after registration)", () => {
+  const withPhys = png(["IHDR", "pHYs", "IDAT", "IEND"]);
+  assert.deepEqual(L.pngChunkTypes(L.criticalChunksOnly(withPhys)), ["IHDR", "IDAT", "IEND"]);
+  const clean = `<!DOCTYPE html><html><body><script>var url = URL.createObjectURL(blob);</script></body></html>`;
+  assert.deepEqual(L.scanPacketHtml(clean), []);
+  assert.ok(L.scanPacketHtml('<style>p{background:url(x.png)}</style>').includes("external_url"));
+  assert.ok(L.scanPacketHtml(`<img src="data:image/png;base64,${withPhys.toString("base64")}">`).includes("png_chunk"));
 });
 
 test("safe output line refuses text, values and unknown keys (recursively)", () => {

@@ -1,0 +1,40 @@
+{
+ "version": "ko-blind-reader-mock-run-1",
+ "set": "mock",
+ "results": {
+  "correct": {
+   "first": "new",
+   "again": "same",
+   "ok": true,
+   "recountChecks": 128,
+   "recountFailed": 0
+  },
+  "mixed": {
+   "first": "new",
+   "again": "same",
+   "ok": true,
+   "recountChecks": 128,
+   "recountFailed": 0
+  },
+  "aborted": {
+   "first": "new",
+   "again": "same",
+   "ok": true,
+   "recountChecks": 128,
+   "recountFailed": 0
+  }
+ },
+ "scorerCli": {
+  "lock": "new",
+  "otherRefused": true
+ },
+ "stdout": {
+  "lines": 15,
+  "canaries": 263,
+  "leaks": 0,
+  "policy": 0
+ },
+ "packetSha256": "3ea3c7c46d2e64785c842cc4922787146300bb5c574294ea63c07b48074977fd",
+ "keySha256": "bec89b925398d534382a428eb875c21500778672fb840abb44879f7797d9818a",
+ "pass": true
+}

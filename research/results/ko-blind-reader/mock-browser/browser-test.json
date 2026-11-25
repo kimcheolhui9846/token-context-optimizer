@@ -1,0 +1,24 @@
+{
+ "version": "ko-blind-reader-browser-test-1",
+ "set": "mock",
+ "packetSha256": "3ea3c7c46d2e64785c842cc4922787146300bb5c574294ea63c07b48074977fd",
+ "browser": "Playwright MCP (Chromium), page served from the mock packet folder on 127.0.0.1 because the MCP refuses file: URLs",
+ "date": "2026-11-25",
+ "observed": {
+  "startDisabledUntilSelfReport": true,
+  "selfReportByKeyboard": "focus '아니오', Space; '시작하기' by Enter",
+  "guideAndPractice": "guide screen, practice image, '정답 확인' disabled until column and value, feedback '맞았습니다.' for 11시 40분, then '본 문항 시작'",
+  "progress": "문항 1 / 18, progressbar aria-valuenow 0",
+  "imageScale": "원본 크기 = natural width 1187 px with horizontal scroll; 2배 = 2374 px; 화면 맞춤 restored",
+  "formatHint": "'오후 4시' shows '형식이 안내와 다릅니다(그대로 제출할 수 있습니다).'; '16:10' clears it",
+  "unknownBoth": "판단 불가 + 값 판단 불가 disables the value box and allows '다음 문항'",
+  "skipTwoStep": "'이 문항 건너뛰기' shows a confirm; '취소' removes it; '건너뛰기 확정' moves to item 4",
+  "interimSave": "download kbr-interim-<packetId>-4.json",
+  "resume": "page reload, self report, '중간 저장 불러오기' with the interim file -> resumes at item 4 with items 1-3 kept",
+  "narrowWindow390px": "no page-level horizontal overflow on the start and practice screens; image fits",
+  "finalize": "review screen, '완료하기' -> '완료 확정' downloads kbr-response-<packetId>.json; page locked (no inputs), read-only text box",
+  "storage": "localStorage + sessionStorage length 0",
+  "network": "only the two document loads of start.html (navigation and reload); performance resource entries 0",
+  "scorer": "response validated, locked (new) and scored; recount 128 cells, 0 mismatches"
+ }
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: blob:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>표 읽기 과제</title>
+<style>
+  :root { --fg: #1b1b1b; --muted: #5a5a5a; --line: #c9c9c9; --accent: #1f4e8c; --warn: #8a4b00; --bg: #ffffff; --soft: #f3f5f8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; color: var(--fg); background: var(--bg); font-size: 17px; line-height: 1.6; }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px 16px 48px; }
+  h1 { font-size: 1.45rem; margin: 8px 0 12px; }
+  h2 { font-size: 1.2rem; margin: 4px 0 8px; }
+  p { margin: 6px 0; }
+  .muted { color: var(--muted); }
+  .bar { display: flex; align-items: center; gap: 12px; margin: 4px 0 12px; }
+  .progress { flex: 1; height: 8px; background: var(--soft); border-radius: 4px; overflow: hidden; }
+  .progress > div { height: 100%; background: var(--accent); }
+  .question { font-size: 1.15rem; font-weight: 600; padding: 10px 12px; background: var(--soft); border-left: 4px solid var(--accent); margin: 8px 0 10px; }
+  .imgbox { border: 1px solid var(--line); overflow-x: auto; overflow-y: hidden; background: #fff; margin: 6px 0 10px; }
+  .imgbox img { display: block; image-rendering: auto; }
+  .imgbox.fit img { width: 100%; height: auto; }
+  .neutral { border: 1px dashed var(--line); padding: 28px 16px; text-align: center; color: var(--muted); margin: 6px 0 10px; }
+  .scale { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 4px 0; }
+  fieldset { border: 1px solid var(--line); border-radius: 6px; margin: 10px 0; padding: 8px 12px 10px; }
+  legend { font-weight: 600; padding: 0 4px; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .choices label, .check label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; padding: 4px 2px; }
+  input[type=radio], input[type=checkbox] { width: 20px; height: 20px; }
+  input[type=text] { font-size: 1.1rem; padding: 6px 8px; width: 14em; max-width: 100%; border: 1px solid #8a8a8a; border-radius: 4px; }
+  .hint { color: var(--muted); font-size: 0.95rem; }
+  .fmt { color: var(--warn); font-size: 0.95rem; min-height: 1.4em; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 6px; }
+  button { font: inherit; padding: 8px 16px; border-radius: 6px; border: 1px solid #7a7a7a; background: #fff; cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  button:focus-visible, input:focus-visible { outline: 3px solid #f0a500; outline-offset: 2px; }
+  .confirm { border: 1px solid var(--warn); background: #fff7ec; padding: 10px 12px; border-radius: 6px; margin: 10px 0; }
+  .feedback { border: 1px solid var(--accent); background: #eef4fc; padding: 10px 12px; border-radius: 6px; margin: 10px 0; }
+  .error { border: 1px solid #a40000; background: #fdeeee; padding: 10px 12px; border-radius: 6px; margin: 10px 0; }
+  textarea { width: 100%; min-height: 160px; font-family: Consolas, monospace; font-size: 0.85rem; }
+  ul.steps li { margin: 3px 0; }
+  .guide-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin: 8px 0; }
+  .guide-cols div { background: var(--soft); padding: 8px 10px; border-radius: 6px; }
+  @media (max-width: 560px) { body { font-size: 16px; } main { padding: 10px 10px 40px; } input[type=text] { width: 100%; } }
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<script type="application/json" id="kbr-payload">__KBR_PAYLOAD__</script>
+<script>
+"use strict";
+/*KBR_LIB*/
+(function () {
+  var P = JSON.parse(document.getElementById("kbr-payload").textContent);
+  var app = document.getElementById("app");
+  var S = null;
+  var ui = { scale: "fit", message: null, practiceFeedback: false, downloaded: false };
+  var HINT = { time: "24시간 형식 시:분 (예: 7:05)", count: "숫자만 또는 숫자+명 (예: 7)", pages: "숫자만 또는 숫자+쪽 (예: 5)" };
+  var PRACTICE_ANSWER = { column: "L", value: "11:40" };
+  var COLUMN_CHOICES = [["L", "왼쪽 수치 열"], ["R", "오른쪽 수치 열"], ["unknown", "판단 불가"]];
+
+  function el(tag, attrs, kids) {
+    var e = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "text") e.textContent = attrs[k];
+      else if (k === "class") e.className = attrs[k];
+      else if (k.slice(0, 2) === "on") e.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] === true) e.setAttribute(k, "");
+      else if (attrs[k] !== false && attrs[k] !== null && attrs[k] !== undefined) e.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function dispatch(action, rerender) {
+    try { S = step(S, action); ui.message = null; }
+    catch (e) { ui.message = messageFor(e.code); }
+    if (rerender !== false) render(); else refreshControls();
+  }
+  function messageFor(code) {
+    var m = {
+      self_report: "시작 전에 관리자 자료 열람 여부를 골라 주세요.",
+      incomplete: "열을 고르고 값을 입력하거나 '값 판단 불가'를 선택해 주세요. 답하지 않고 넘기려면 '이 문항 건너뛰기'를 누르세요.",
+      fixed: "이 문항의 답은 바꿀 수 없습니다.",
+      interim_format: "중간 저장 파일 형식이 아닙니다.", interim_kind: "중간 저장 파일이 아닙니다(최종 응답 파일은 불러올 수 없습니다).",
+      interim_packet: "다른 판독지의 중간 저장 파일입니다.", interim_digest: "중간 저장 파일 내용이 바뀌었습니다.", interim_items: "중간 저장 파일 내용이 올바르지 않습니다."
+    };
+    return m[code] || "처리할 수 없는 동작입니다.";
+  }
+  function download(obj, name) {
+    var blob = new Blob([JSON.stringify(obj, null, 1) + "\n"], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = el("a", { href: url, download: name });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+  function imageBlock(src, label) {
+    var wrap = el("div");
+    var scale = el("div", { class: "scale", role: "group", "aria-label": "이미지 크기" }, [el("span", { class: "muted", text: "이미지 크기:" })]);
+    [["fit", "화면 맞춤"], ["original", "원본 크기"], ["double", "2배"]].forEach(function (o) {
+      scale.appendChild(el("button", { type: "button", "aria-pressed": ui.scale === o[0] ? "true" : "false", class: ui.scale === o[0] ? "primary" : "", text: o[1],
+        onclick: function () { ui.scale = o[0]; render(); } }));
+    });
+    var img = el("img", { src: src, alt: label, draggable: "false" });
+    var box = el("div", { class: "imgbox" + (ui.scale === "fit" ? " fit" : ""), tabindex: "0", "aria-label": "표 이미지 영역(가로 스크롤 가능)" }, [img]);
+    if (ui.scale !== "fit") img.addEventListener("load", function () { img.style.width = (img.naturalWidth * (ui.scale === "double" ? 2 : 1)) + "px"; });
+    if (ui.scale !== "fit" && img.complete && img.naturalWidth) img.style.width = (img.naturalWidth * (ui.scale === "double" ? 2 : 1)) + "px";
+    wrap.appendChild(scale); wrap.appendChild(box);
+    return wrap;
+  }
+  function answerControls(a, qtype, disabled, onSet) {
+    var frag = el("div");
+    var fs = el("fieldset", null, [el("legend", { text: "1. 질문한 값이 있는 열" })]);
+    var ch = el("div", { class: "choices" });
+    COLUMN_CHOICES.forEach(function (c) {
+      var id = "col-" + c[0];
+      var r = el("input", { type: "radio", name: "column", id: id, value: c[0], checked: a.column === c[0], disabled: disabled,
+        onchange: function () { onSet({ column: c[0] }); } });
+      ch.appendChild(el("label", { for: id }, [r, c[1]]));
+    });
+    fs.appendChild(ch);
+    fs.appendChild(el("p", { class: "hint", text: "기록 이름 열 바로 오른쪽 수치 열이 '왼쪽', 그다음 수치 열이 '오른쪽'입니다. 맨 오른쪽 비고 열은 수치 열이 아닙니다." }));
+    frag.appendChild(fs);
+    var fs2 = el("fieldset", null, [el("legend", { text: "2. 값" })]);
+    var input = el("input", { type: "text", id: "value", inputmode: "text", autocomplete: "off", spellcheck: "false", "aria-describedby": "value-hint value-fmt",
+      value: a.value || "", disabled: disabled || a.valueUnknown,
+      oninput: function () { onSet({ value: input.value }, true); } });
+    fs2.appendChild(el("label", { for: "value", class: "muted", text: "값 입력 " }));
+    fs2.appendChild(input);
+    fs2.appendChild(el("p", { class: "hint", id: "value-hint", text: "단위 안내: " + HINT[qtype] }));
+    fs2.appendChild(el("p", { class: "fmt", id: "value-fmt", text: "" }));
+    var cb = el("input", { type: "checkbox", id: "vunk", checked: a.valueUnknown, disabled: disabled,
+      onchange: function () { onSet({ valueUnknown: cb.checked }); } });
+    fs2.appendChild(el("div", { class: "check" }, [el("label", { for: "vunk" }, [cb, "값 판단 불가"])]));
+    frag.appendChild(fs2);
+    return frag;
+  }
+  function refreshControls() {
+    var a = S.phase === "practice" ? S.practice : (S.phase === "item" ? S.items[S.index] : null);
+    if (!a) return;
+    var fmt = document.getElementById("value-fmt");
+    var qtype = S.phase === "practice" ? P.practice.qtype : P.items[S.index].qtype;
+    if (fmt) fmt.textContent = (a.value && !a.valueUnknown && normalizeValue(qtype, a.value) === null) ? "형식이 안내와 다릅니다(그대로 제출할 수 있습니다)." : "";
+    var nx = document.getElementById("next");
+    if (nx) nx.disabled = !answerComplete(a);
+    var msg = document.getElementById("msg");
+    if (msg) { msg.textContent = ui.message || ""; msg.style.display = ui.message ? "" : "none"; }
+  }
+  function msgBox() { return el("div", { class: "error", id: "msg", role: "alert", text: ui.message || "", style: ui.message ? "" : "display:none" }); }
+  function focusFirst() { var h = app.querySelector("h1, h2"); if (h) { h.setAttribute("tabindex", "-1"); h.focus(); } }
+
+  function renderStart() {
+    app.appendChild(el("h1", { text: "표 읽기 과제" }));
+    app.appendChild(el("p", { text: "표 이미지를 보고, 질문한 기록의 두 수치 열 가운데 질문한 값이 있는 열(왼쪽/오른쪽)과 그 값을 고릅니다." }));
+    app.appendChild(el("ul", { class: "steps" }, [
+      el("li", { text: "본 문항은 " + S.n + "개입니다. 시간 제한은 없습니다." }),
+      el("li", { text: "앞으로만 이동합니다. 지난 문항으로 돌아갈 수 없고, 현재 문항의 답은 다음으로 넘어가기 전까지 고칠 수 있습니다." }),
+      el("li", { text: "열이나 값을 알 수 없으면 '판단 불가'를 고르세요. 답하지 않고 넘기려면 '이 문항 건너뛰기'를 누릅니다." }),
+      el("li", { text: "언제든 '중단하기'로 끝낼 수 있습니다. 끝나면 응답 파일이 저장됩니다." }),
+      el("li", { text: "응답은 이 컴퓨터에만 저장되며 어디로도 전송되지 않습니다. 이름이나 연락처는 묻지 않습니다." }),
+      el("li", { text: "창을 닫으면 답이 사라집니다. 필요하면 문항 화면의 '중간 저장 파일 받기'로 저장하고, 다시 열 때 아래 '중간 저장 불러오기'를 쓰세요." })
+    ]));
+    var fs = el("fieldset", null, [el("legend", { text: "이 판독지를 열기 전에 정답·배정·원본 표 등 관리자 자료를 본 적이 있습니까? (필수)" })]);
+    var ch = el("div", { class: "choices" });
+    [["no", "아니오"], ["yes", "예"]].forEach(function (o) {
+      var r = el("input", { type: "radio", name: "seen", id: "seen-" + o[0], value: o[0], checked: S.adminMaterialSeen === o[0],
+        onchange: function () { dispatch({ type: "selfReport", value: o[0] }); } });
+      ch.appendChild(el("label", { for: "seen-" + o[0] }, [r, o[1]]));
+    });
+    fs.appendChild(ch);
+    if (S.adminMaterialSeen === "yes") fs.appendChild(el("p", { class: "fmt", text: "'예'를 고르면 이 세션은 눈가림 분석에서 무효로 표시됩니다. 그래도 진행할 수 있습니다." }));
+    app.appendChild(fs);
+    app.appendChild(msgBox());
+    app.appendChild(el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "시작하기", disabled: !S.adminMaterialSeen,
+      onclick: function () { dispatch({ type: "begin" }); } })]));
+    var file = el("input", { type: "file", id: "resume", accept: ".json,application/json" });
+    file.addEventListener("change", function () {
+      var f = file.files && file.files[0];
+      if (!f) return;
+      var rd = new FileReader();
+      rd.onload = function () {
+        try { S = resumeState(P, JSON.parse(String(rd.result))); ui.message = null; }
+        catch (e) { ui.message = messageFor(e && e.code); }
+        render();
+      };
+      rd.readAsText(f);
+    });
+    app.appendChild(el("fieldset", null, [el("legend", { text: "중간 저장 불러오기 (선택)" }), el("label", { for: "resume", class: "muted", text: "중간 저장 파일: " }), file]));
+  }
+  function renderGuide() {
+    app.appendChild(el("h1", { text: "좌우 기준 안내 (채점하지 않음)" }));
+    app.appendChild(el("p", { text: "아래는 연습용 예시 표입니다. 본 문항의 표도 같은 모양의 일부를 잘라 보여 줍니다." }));
+    app.appendChild(imageBlock(P.practice.image, "연습용 예시 표 이미지"));
+    app.appendChild(el("div", { class: "guide-cols" }, [
+      el("div", { text: "첫 열: 기록 이름 열 (예: 연습 항목 하나)" }),
+      el("div", { text: "왼쪽 수치 열: 기록 이름 열 바로 오른쪽의 수치 열 (예시 표의 '시작 시각')" }),
+      el("div", { text: "오른쪽 수치 열: 그다음 수치 열 (예시 표의 '종료 시각')" }),
+      el("div", { text: "맨 오른쪽 비고 열과 수치 아래 줄의 짧은 문구는 답이 아닙니다." })
+    ]));
+    app.appendChild(el("p", { text: "이미지가 잘려 열 이름이 보이지 않을 수 있습니다. 그때 열을 알 수 없으면 '판단 불가'를 고르세요." }));
+    app.appendChild(el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "연습 문제로", onclick: function () { dispatch({ type: "toPractice" }); } })]));
+  }
+  function renderPractice() {
+    app.appendChild(el("h1", { text: "연습 문제 (채점하지 않음)" }));
+    app.appendChild(el("p", { class: "question", text: P.practice.question }));
+    app.appendChild(imageBlock(P.practice.image, "연습 문제 표 이미지"));
+    var checked = S.practice.checked;
+    app.appendChild(answerControls(S.practice, P.practice.qtype, checked, function (x, quiet) { dispatch(Object.assign({ type: "practiceSet" }, x), !quiet); }));
+    app.appendChild(msgBox());
+    if (!checked) {
+      app.appendChild(el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", id: "next", text: "정답 확인", disabled: !answerComplete(S.practice),
+        onclick: function () { dispatch({ type: "practiceCheck" }); } })]));
+    } else {
+      var ok = S.practice.column === PRACTICE_ANSWER.column && !S.practice.valueUnknown && normalizeValue("time", S.practice.value || "") === PRACTICE_ANSWER.value;
+      app.appendChild(el("div", { class: "feedback", role: "status" }, [
+        el("p", { text: ok ? "맞았습니다." : "연습 정답과 다릅니다." }),
+        el("p", { text: "연습 정답: 왼쪽 수치 열, 11:40. '연습 항목 하나' 줄에서 머리글이 '시작 시각'인 열이 기록 이름 열 바로 오른쪽(왼쪽 수치 열)에 있습니다." }),
+        el("p", { class: "muted", text: "본 문항에서는 정답을 알려 주지 않습니다." })
+      ]));
+      app.appendChild(el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "본 문항 시작", onclick: function () { dispatch({ type: "toItems" }); } })]));
+    }
+  }
+  function renderItem() {
+    var it = P.items[S.index], a = S.items[S.index];
+    app.appendChild(el("div", { class: "bar" }, [el("strong", { text: "문항 " + it.pos + " / " + S.n }),
+      el("div", { class: "progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(S.n), "aria-valuenow": String(S.index) }, [el("div", { style: "width:" + Math.round(100 * S.index / S.n) + "%" })])]));
+    app.appendChild(el("h2", { class: "question", text: it.question }));
+    if (it.image) app.appendChild(imageBlock(it.image, "표 이미지 (문항 " + it.pos + ")"));
+    else app.appendChild(el("div", { class: "neutral", role: "note", text: "이 문항은 표시할 이미지가 없습니다. 열과 값은 '판단 불가'로 기록됩니다." }));
+    app.appendChild(answerControls(a, it.qtype, !a.displayed, function (x, quiet) { dispatch(Object.assign({ type: "set" }, x), !quiet); }));
+    app.appendChild(msgBox());
+    if (S.pending === "skip") {
+      app.appendChild(el("div", { class: "confirm", role: "alertdialog", "aria-label": "건너뛰기 확인" }, [el("p", { text: "이 문항을 답하지 않고 건너뜁니다. 돌아올 수 없습니다." }),
+        el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "건너뛰기 확정", onclick: function () { dispatch({ type: "skipConfirm" }); } }),
+          el("button", { type: "button", text: "취소", onclick: function () { dispatch({ type: "cancel" }); } })])]));
+    } else if (S.pending === "abort") {
+      app.appendChild(abortConfirmBox());
+    }
+    app.appendChild(el("div", { class: "actions" }, [
+      el("button", { type: "button", class: "primary", id: "next", text: S.index + 1 === S.n ? "마지막 문항 확정" : "다음 문항", disabled: !answerComplete(a), onclick: function () { dispatch({ type: "next" }); } }),
+      el("button", { type: "button", text: "이 문항 건너뛰기", onclick: function () { dispatch({ type: "skipRequest" }); } }),
+      el("button", { type: "button", text: "중간 저장 파일 받기", onclick: function () { var im = interimResponse(S); download(im, "kbr-interim-" + S.packetId + "-" + im.position + ".json"); } }),
+      el("button", { type: "button", text: "중단하기", onclick: function () { dispatch({ type: "abortRequest" }); } })
+    ]));
+    refreshControls();
+  }
+  function abortConfirmBox() {
+    return el("div", { class: "confirm", role: "alertdialog", "aria-label": "중단 확인" }, [el("p", { text: "과제를 여기서 끝냅니다. 현재 문항과 남은 문항은 응답하지 않은 것으로 기록되고, 다시 이어 갈 수 없습니다." }),
+      el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "중단 확정", onclick: function () { dispatch({ type: "abortConfirm" }); } }),
+        el("button", { type: "button", text: "취소", onclick: function () { dispatch({ type: "cancel" }); } })])]);
+  }
+  function renderReview() {
+    var answered = 0, skipped = 0, nod = 0;
+    S.items.forEach(function (x) { if (!x.displayed) nod++; else if (x.skipped) skipped++; else answered++; });
+    app.appendChild(el("h1", { text: "모든 문항을 지났습니다" }));
+    app.appendChild(el("p", { text: "답한 문항 " + answered + "개, 건너뛴 문항 " + skipped + "개, 표시할 이미지가 없던 문항 " + nod + "개입니다." }));
+    app.appendChild(el("p", { text: "'완료 확정'을 누르면 응답이 고정되고 파일로 저장됩니다. 그 뒤에는 바꿀 수 없습니다." }));
+    if (S.pending === "finalize") {
+      app.appendChild(el("div", { class: "confirm", role: "alertdialog", "aria-label": "완료 확인" }, [el("p", { text: "응답을 확정할까요?" }),
+        el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "완료 확정", onclick: function () { dispatch({ type: "finalizeConfirm" }); } }),
+          el("button", { type: "button", text: "취소", onclick: function () { dispatch({ type: "cancel" }); } })])]));
+    } else if (S.pending === "abort") {
+      app.appendChild(abortConfirmBox());
+    } else {
+      app.appendChild(el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "완료하기", onclick: function () { dispatch({ type: "finalizeRequest" }); } }),
+        el("button", { type: "button", text: "중단하기", onclick: function () { dispatch({ type: "abortRequest" }); } })]));
+    }
+  }
+  function renderDone() {
+    var f = finalResponse(S);
+    var name = "kbr-response-" + S.packetId + ".json";
+    if (!ui.downloaded) { ui.downloaded = true; download(f, name); }
+    app.appendChild(el("h1", { text: S.status === "completed" ? "응답이 확정되었습니다" : "과제를 중단했습니다" }));
+    app.appendChild(el("p", { text: "응답 파일 '" + name + "'이 다운로드 폴더에 저장됩니다. 이 파일은 관리자 폴더의 채점기로 로컬에서만 채점합니다." }));
+    app.appendChild(el("p", { text: "다운로드되지 않았다면 아래 버튼을 누르거나, 아래 내용을 모두 복사해 같은 이름의 파일로 저장하세요. 이 화면은 더 이상 바꿀 수 없습니다." }));
+    app.appendChild(el("div", { class: "actions" }, [el("button", { type: "button", class: "primary", text: "응답 파일 다시 받기", onclick: function () { download(f, name); } })]));
+    var ta = el("textarea", { readonly: true, "aria-label": "응답 내용(복사용)" });
+    ta.value = JSON.stringify(f, null, 1) + "\n";
+    app.appendChild(ta);
+  }
+  function render() {
+    app.textContent = "";
+    if (S.phase === "start") renderStart();
+    else if (S.phase === "guide") renderGuide();
+    else if (S.phase === "practice") renderPractice();
+    else if (S.phase === "item") renderItem();
+    else if (S.phase === "review") renderReview();
+    else renderDone();
+    if (S.phase !== "start" || !ui.message) focusFirst();
+  }
+  if (packetHash(P) !== P.packetHash || P.format !== "kbr-packet-1") {
+    app.appendChild(el("div", { class: "error", role: "alert", text: "판독지 파일이 손상되었습니다. 관리자에게 새 파일을 받아 주세요." }));
+    return;
+  }
+  S = initState(P);
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+{
+ "status": "completed",
+ "blindInvalid": false,
+ "methods": {
+  "W1": {
+   "assigned": 6,
+   "answered": 6,
+   "both": 0,
+   "columnOnly": 4,
+   "valueOnly": 0,
+   "neither": 2,
+   "unknownAny": 0,
+   "unknownColumn": 0,
+   "unknownValue": 0,
+   "noDisplay": 0,
+   "skipped": 0,
+   "notReached": 0
+  },
+  "W4": {
+   "assigned": 6,
+   "answered": 6,
+   "both": 0,
+   "columnOnly": 3,
+   "valueOnly": 0,
+   "neither": 3,
+   "unknownAny": 1,
+   "unknownColumn": 1,
+   "unknownValue": 1,
+   "noDisplay": 0,
+   "skipped": 0,
+   "notReached": 0
+  },
+  "W5": {
+   "assigned": 6,
+   "answered": 5,
+   "both": 0,
+   "columnOnly": 2,
+   "valueOnly": 0,
+   "neither": 3,
+   "unknownAny": 0,
+   "unknownColumn": 0,
+   "unknownValue": 0,
+   "noDisplay": 0,
+   "skipped": 1,
+   "notReached": 0
+  }
+ },
+ "items": [
+  {
+   "pos": 1,
+   "method": "W4",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 2,
+   "method": "W4",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 3,
+   "method": "W5",
+   "category": "skipped",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 4,
+   "method": "W1",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 5,
+   "method": "W5",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 6,
+   "method": "W1",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 7,
+   "method": "W1",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 8,
+   "method": "W4",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 9,
+   "method": "W5",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 10,
+   "method": "W4",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 11,
+   "method": "W5",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 12,
+   "method": "W1",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 13,
+   "method": "W5",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 14,
+   "method": "W1",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 15,
+   "method": "W5",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 16,
+   "method": "W1",
+   "category": "neither",
+   "columnCorrect": false,
+   "valueCorrect": false
+  },
+  {
+   "pos": 17,
+   "method": "W4",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  },
+  {
+   "pos": 18,
+   "method": "W4",
+   "category": "columnOnly",
+   "columnCorrect": true,
+   "valueCorrect": false
+  }
+ ],
+ "responseSha256": "cae9881e79c03f8abafcac27af70cb832847940aceea574dfb751778f09dfbd8",
+ "comparedCells": 128,
+ "mismatches": 0
+}

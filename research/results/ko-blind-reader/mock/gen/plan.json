@@ -1,0 +1,1162 @@
+{
+ "version": "ko-blind-reader-plan-1",
+ "set": "mock",
+ "packetId": "kbr-60d370d8d2b22d5f",
+ "order": [
+  1,
+  17,
+  0,
+  16,
+  10,
+  7,
+  2,
+  4,
+  6,
+  13,
+  15,
+  9,
+  14,
+  3,
+  5,
+  12,
+  8,
+  11
+ ],
+ "orderTries": 665,
+ "sources": [
+  {
+   "index": 0,
+   "stratum": 0,
+   "qtype": "time",
+   "side": "L",
+   "method": "W5",
+   "larger": false,
+   "naturalFirst": false,
+   "slot": 2,
+   "kind": "k2",
+   "pair": [
+    "개막 시각",
+    "폐막 시각"
+   ],
+   "field": "폐막 시각",
+   "compField": "개막 시각",
+   "labels": [
+    "중고 의류 교환 장터",
+    "다문화 음식 축제",
+    "명절 송편 빚기 체험"
+   ],
+   "digits": null,
+   "targetValues": [
+    "17:10",
+    "19:00",
+    "11:40"
+   ],
+   "compValues": [
+    "12:30",
+    "20:10",
+    "12:50"
+   ],
+   "targetAux": [
+    "중복 불가",
+    "우선 배정",
+    "간편 신청"
+   ],
+   "compAux": [
+    "사전 연락",
+    "수시 모집",
+    "무료 대여"
+   ],
+   "notes": [
+    "실내 금연",
+    "수어 통역",
+    "휴게실 개방"
+   ],
+   "question": "명절 송편 빚기 체험의 폐막 시각은 몇 시인가요?",
+   "answer": "11:40",
+   "imageId": "q17503fa9",
+   "file": "q17503fa9.png",
+   "position": 3,
+   "attempts": 1,
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ]
+  },
+  {
+   "index": 1,
+   "stratum": 0,
+   "qtype": "time",
+   "side": "L",
+   "method": "W4",
+   "larger": false,
+   "naturalFirst": true,
+   "slot": 0,
+   "kind": "k2",
+   "pair": [
+    "점등 시각",
+    "소등 시각"
+   ],
+   "field": "점등 시각",
+   "compField": "소등 시각",
+   "labels": [
+    "김장 김치 담그기",
+    "유모차 바퀴 점검",
+    "경로당 손 마사지"
+   ],
+   "digits": null,
+   "targetValues": [
+    "11:50",
+    "11:40",
+    "14:30"
+   ],
+   "compValues": [
+    "16:10",
+    "10:40",
+    "11:30"
+   ],
+   "targetAux": [
+    "추첨 예정",
+    "중복 불가",
+    "기념품 증정"
+   ],
+   "compAux": [
+    "무료 대여",
+    "우선 배정",
+    "좌석 지정"
+   ],
+   "notes": [
+    "반려견 불가",
+    "유아 동반",
+    "우비 지참"
+   ],
+   "question": "김장 김치 담그기의 점등 시각은 몇 시인가요?",
+   "answer": "11:50",
+   "imageId": "qff9eae91",
+   "file": "qff9eae91.png",
+   "position": 1,
+   "attempts": 1,
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 2,
+   "stratum": 0,
+   "qtype": "time",
+   "side": "L",
+   "method": "W1",
+   "larger": false,
+   "naturalFirst": false,
+   "slot": 2,
+   "kind": "k6",
+   "pair": [
+    "출근 시각",
+    "퇴근 시각"
+   ],
+   "field": "퇴근 시각",
+   "compField": "출근 시각",
+   "labels": [
+    "노지 참외 넝쿨 유인",
+    "옥수수 수염 말리기",
+    "된장 메주 담그기"
+   ],
+   "digits": null,
+   "targetValues": [
+    "19:10",
+    "14:40",
+    "14:50"
+   ],
+   "compValues": [
+    "19:20",
+    "12:20",
+    "19:30"
+   ],
+   "targetAux": [
+    "추첨 예정",
+    "차량 운행",
+    "명찰 착용"
+   ],
+   "compAux": [
+    "인솔 동행",
+    "대기 명단",
+    "우선 배정"
+   ],
+   "notes": [
+    "방석 제공",
+    "정수기 비치",
+    "점자 안내"
+   ],
+   "question": "된장 메주 담그기의 퇴근 시각은 몇 시인가요?",
+   "answer": "14:50",
+   "imageId": "q2d3b713d",
+   "file": "q2d3b713d.png",
+   "position": 7,
+   "attempts": 1,
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ]
+  },
+  {
+   "index": 3,
+   "stratum": 1,
+   "qtype": "time",
+   "side": "R",
+   "method": "W1",
+   "larger": true,
+   "naturalFirst": false,
+   "slot": 1,
+   "kind": "k3",
+   "pair": [
+    "개문 시각",
+    "폐문 시각"
+   ],
+   "field": "폐문 시각",
+   "compField": "개문 시각",
+   "labels": [
+    "천체 망원경 관측",
+    "제철 요리 맛보기",
+    "청년 정책 제안 발표"
+   ],
+   "digits": null,
+   "targetValues": [
+    "17:20",
+    "19:10",
+    "14:40"
+   ],
+   "compValues": [
+    "15:40",
+    "14:30",
+    "20:40"
+   ],
+   "targetAux": [
+    "대기 명단",
+    "추첨 예정",
+    "좌석 지정"
+   ],
+   "compAux": [
+    "우선 배정",
+    "재료 지참",
+    "수시 모집"
+   ],
+   "notes": [
+    "수어 통역",
+    "방석 제공",
+    "반려견 불가"
+   ],
+   "question": "제철 요리 맛보기의 폐문 시각은 몇 시인가요?",
+   "answer": "19:10",
+   "imageId": "q4f283739",
+   "file": "q4f283739.png",
+   "position": 14,
+   "attempts": 1,
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 4,
+   "stratum": 1,
+   "qtype": "time",
+   "side": "R",
+   "method": "W4",
+   "larger": true,
+   "naturalFirst": false,
+   "slot": 1,
+   "kind": "k1",
+   "pair": [
+    "승차 시각",
+    "환승 시각"
+   ],
+   "field": "환승 시각",
+   "compField": "승차 시각",
+   "labels": [
+    "그림 동화 구연 지도",
+    "제과 제빵 기초 실습",
+    "컴퓨터 문서 편집"
+   ],
+   "digits": null,
+   "targetValues": [
+    "20:10",
+    "19:40",
+    "13:20"
+   ],
+   "compValues": [
+    "14:10",
+    "17:50",
+    "13:50"
+   ],
+   "targetAux": [
+    "재료 지참",
+    "차량 운행",
+    "명찰 착용"
+   ],
+   "compAux": [
+    "기념품 증정",
+    "인솔 동행",
+    "수시 모집"
+   ],
+   "notes": [
+    "방석 제공",
+    "음료 판매",
+    "수어 통역"
+   ],
+   "question": "제과 제빵 기초 실습의 환승 시각은 몇 시인가요?",
+   "answer": "19:40",
+   "imageId": "q3b3fc545",
+   "file": "q3b3fc545.png",
+   "position": 8,
+   "attempts": 1,
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 5,
+   "stratum": 1,
+   "qtype": "time",
+   "side": "R",
+   "method": "W5",
+   "larger": true,
+   "naturalFirst": true,
+   "slot": 0,
+   "kind": "k2",
+   "pair": [
+    "출항 시각",
+    "입항 시각"
+   ],
+   "field": "출항 시각",
+   "compField": "입항 시각",
+   "labels": [
+    "고장 우산 무료 수선",
+    "어르신 장수 사진 촬영",
+    "연탄 나르기 운동"
+   ],
+   "digits": null,
+   "targetValues": [
+    "16:10",
+    "12:10",
+    "11:10"
+   ],
+   "compValues": [
+    "10:40",
+    "19:50",
+    "17:00"
+   ],
+   "targetAux": [
+    "추첨 예정",
+    "재료 지참",
+    "차량 운행"
+   ],
+   "compAux": [
+    "수시 모집",
+    "중복 불가",
+    "명찰 착용"
+   ],
+   "notes": [
+    "냉방 가동",
+    "방석 제공",
+    "실내 금연"
+   ],
+   "question": "고장 우산 무료 수선의 출항 시각은 몇 시인가요?",
+   "answer": "16:10",
+   "imageId": "q363f67d4",
+   "file": "q363f67d4.png",
+   "position": 15,
+   "attempts": 1,
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 6,
+   "stratum": 2,
+   "qtype": "count",
+   "side": "L",
+   "method": "W5",
+   "larger": false,
+   "naturalFirst": false,
+   "slot": 2,
+   "kind": "k5",
+   "pair": [
+    "응시 인원",
+    "결시 인원"
+   ],
+   "field": "결시 인원",
+   "compField": "응시 인원",
+   "labels": [
+    "빗물 저금통 설치",
+    "태양광 가로등 교체",
+    "음식물 퇴비화 실험"
+   ],
+   "digits": null,
+   "targetValues": [
+    "26명",
+    "21명",
+    "51명"
+   ],
+   "compValues": [
+    "78명",
+    "62명",
+    "73명"
+   ],
+   "targetAux": [
+    "차량 운행",
+    "간편 신청",
+    "기념품 증정"
+   ],
+   "compAux": [
+    "추첨 예정",
+    "대기 명단",
+    "무료 대여"
+   ],
+   "notes": [
+    "수어 통역",
+    "우비 지참",
+    "유아 동반"
+   ],
+   "question": "음식물 퇴비화 실험의 결시 인원은 몇 명인가요?",
+   "answer": "51명",
+   "imageId": "qd2df355a",
+   "file": "qd2df355a.png",
+   "position": 9,
+   "attempts": 1,
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ]
+  },
+  {
+   "index": 7,
+   "stratum": 2,
+   "qtype": "count",
+   "side": "L",
+   "method": "W1",
+   "larger": true,
+   "naturalFirst": true,
+   "slot": 1,
+   "kind": "k6",
+   "pair": [
+    "운영 인원",
+    "협력 인원"
+   ],
+   "field": "운영 인원",
+   "compField": "협력 인원",
+   "labels": [
+    "허수아비 꾸미기",
+    "지렁이 퇴비 만들기",
+    "유정란 달걀 줍기"
+   ],
+   "digits": null,
+   "targetValues": [
+    "34명",
+    "38명",
+    "47명"
+   ],
+   "compValues": [
+    "18명",
+    "14명",
+    "10명"
+   ],
+   "targetAux": [
+    "보험 가입",
+    "사전 연락",
+    "복장 자유"
+   ],
+   "compAux": [
+    "무료 대여",
+    "명찰 착용",
+    "우선 배정"
+   ],
+   "notes": [
+    "수어 통역",
+    "음료 판매",
+    "우비 지참"
+   ],
+   "question": "지렁이 퇴비 만들기의 운영 인원은 몇 명인가요?",
+   "answer": "38명",
+   "imageId": "q94c95fc2",
+   "file": "q94c95fc2.png",
+   "position": 6,
+   "attempts": 1,
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 8,
+   "stratum": 2,
+   "qtype": "count",
+   "side": "L",
+   "method": "W4",
+   "larger": true,
+   "naturalFirst": true,
+   "slot": 1,
+   "kind": "k1",
+   "pair": [
+    "초대 인원",
+    "확정 인원"
+   ],
+   "field": "초대 인원",
+   "compField": "확정 인원",
+   "labels": [
+    "커피 바리스타 과정",
+    "알기 쉬운 법률 상식",
+    "통기타 합주 모임"
+   ],
+   "digits": null,
+   "targetValues": [
+    "19명",
+    "60명",
+    "23명"
+   ],
+   "compValues": [
+    "54명",
+    "18명",
+    "27명"
+   ],
+   "targetAux": [
+    "기념품 증정",
+    "사전 연락",
+    "대기 명단"
+   ],
+   "compAux": [
+    "재료 지참",
+    "자율 참여",
+    "복장 자유"
+   ],
+   "notes": [
+    "수어 통역",
+    "유아 동반",
+    "우비 지참"
+   ],
+   "question": "알기 쉬운 법률 상식의 초대 인원은 몇 명인가요?",
+   "answer": "60명",
+   "imageId": "q5a1bb47c",
+   "file": "q5a1bb47c.png",
+   "position": 17,
+   "attempts": 1,
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 9,
+   "stratum": 3,
+   "qtype": "count",
+   "side": "R",
+   "method": "W1",
+   "larger": false,
+   "naturalFirst": true,
+   "slot": 0,
+   "kind": "k3",
+   "pair": [
+    "강사 인원",
+    "수강 인원"
+   ],
+   "field": "강사 인원",
+   "compField": "수강 인원",
+   "labels": [
+    "국토 순례 도보 여행",
+    "학생 자치 토론회",
+    "로봇 코딩 경진 대회"
+   ],
+   "digits": null,
+   "targetValues": [
+    "23명",
+    "46명",
+    "38명"
+   ],
+   "compValues": [
+    "76명",
+    "41명",
+    "73명"
+   ],
+   "targetAux": [
+    "간편 신청",
+    "사전 연락",
+    "기념품 증정"
+   ],
+   "compAux": [
+    "대기 명단",
+    "중복 불가",
+    "좌석 지정"
+   ],
+   "notes": [
+    "방석 제공",
+    "냉방 가동",
+    "휴게실 개방"
+   ],
+   "question": "국토 순례 도보 여행의 강사 인원은 몇 명인가요?",
+   "answer": "23명",
+   "imageId": "q1d435f2a",
+   "file": "q1d435f2a.png",
+   "position": 12,
+   "attempts": 1,
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 10,
+   "stratum": 3,
+   "qtype": "count",
+   "side": "R",
+   "method": "W5",
+   "larger": true,
+   "naturalFirst": true,
+   "slot": 1,
+   "kind": "k4",
+   "pair": [
+    "주간 인원",
+    "야간 인원"
+   ],
+   "field": "주간 인원",
+   "compField": "야간 인원",
+   "labels": [
+    "깨진 토기 복원 체험",
+    "금속 활자 인쇄 원리",
+    "전시실 큐레이터 동행"
+   ],
+   "digits": null,
+   "targetValues": [
+    "70명",
+    "42명",
+    "60명"
+   ],
+   "compValues": [
+    "53명",
+    "40명",
+    "52명"
+   ],
+   "targetAux": [
+    "추첨 예정",
+    "보험 가입",
+    "대기 명단"
+   ],
+   "compAux": [
+    "수시 모집",
+    "재료 지참",
+    "기념품 증정"
+   ],
+   "notes": [
+    "우비 지참",
+    "보관함 이용",
+    "방석 제공"
+   ],
+   "question": "금속 활자 인쇄 원리의 주간 인원은 몇 명인가요?",
+   "answer": "42명",
+   "imageId": "q8027dc59",
+   "file": "q8027dc59.png",
+   "position": 5,
+   "attempts": 1,
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 11,
+   "stratum": 3,
+   "qtype": "count",
+   "side": "R",
+   "method": "W4",
+   "larger": false,
+   "naturalFirst": false,
+   "slot": 0,
+   "kind": "k6",
+   "pair": [
+    "심사 인원",
+    "진행 인원"
+   ],
+   "field": "진행 인원",
+   "compField": "심사 인원",
+   "labels": [
+    "밭고랑 잡초 뽑기",
+    "가족 텃밭 관찰 일기",
+    "토종 씨앗 나눔 장터"
+   ],
+   "digits": null,
+   "targetValues": [
+    "68명",
+    "58명",
+    "81명"
+   ],
+   "compValues": [
+    "75명",
+    "37명",
+    "24명"
+   ],
+   "targetAux": [
+    "장소 변경",
+    "추첨 예정",
+    "명찰 착용"
+   ],
+   "compAux": [
+    "기념품 증정",
+    "무료 대여",
+    "간편 신청"
+   ],
+   "notes": [
+    "수어 통역",
+    "보관함 이용",
+    "점자 안내"
+   ],
+   "question": "밭고랑 잡초 뽑기의 진행 인원은 몇 명인가요?",
+   "answer": "68명",
+   "imageId": "q7b15b37e",
+   "file": "q7b15b37e.png",
+   "position": 18,
+   "attempts": 1,
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 12,
+   "stratum": 4,
+   "qtype": "pages",
+   "side": "L",
+   "method": "W1",
+   "larger": true,
+   "naturalFirst": true,
+   "slot": 0,
+   "kind": "k1",
+   "pair": [
+    "도면 분량",
+    "설계 분량"
+   ],
+   "field": "도면 분량",
+   "compField": "설계 분량",
+   "labels": [
+    "수제 도장 새기기",
+    "뜨개질 목도리 완성",
+    "가계부 재테크 특강"
+   ],
+   "digits": 2,
+   "targetValues": [
+    "41쪽",
+    "76쪽",
+    "39쪽"
+   ],
+   "compValues": [
+    "13쪽",
+    "60쪽",
+    "94쪽"
+   ],
+   "targetAux": [
+    "기념품 증정",
+    "명찰 착용",
+    "중복 불가"
+   ],
+   "compAux": [
+    "사전 연락",
+    "추첨 예정",
+    "복장 자유"
+   ],
+   "notes": [
+    "점자 안내",
+    "보관함 이용",
+    "휴게실 개방"
+   ],
+   "question": "수제 도장 새기기의 도면 분량은 몇 쪽인가요?",
+   "answer": "41쪽",
+   "imageId": "q4c89fe96",
+   "file": "q4c89fe96.png",
+   "position": 16,
+   "attempts": 1,
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 13,
+   "stratum": 4,
+   "qtype": "pages",
+   "side": "L",
+   "method": "W4",
+   "larger": true,
+   "naturalFirst": false,
+   "slot": 2,
+   "kind": "k5",
+   "pair": [
+    "서문 분량",
+    "본문 분량"
+   ],
+   "field": "본문 분량",
+   "compField": "서문 분량",
+   "labels": [
+    "골목길 화분 정원",
+    "빈집 개조 협의체",
+    "낡은 계단 난간 보수"
+   ],
+   "digits": 2,
+   "targetValues": [
+    "41쪽",
+    "56쪽",
+    "71쪽"
+   ],
+   "compValues": [
+    "43쪽",
+    "16쪽",
+    "69쪽"
+   ],
+   "targetAux": [
+    "추첨 예정",
+    "사전 연락",
+    "간편 신청"
+   ],
+   "compAux": [
+    "자율 참여",
+    "명찰 착용",
+    "대기 명단"
+   ],
+   "notes": [
+    "정수기 비치",
+    "휴게실 개방",
+    "냉방 가동"
+   ],
+   "question": "낡은 계단 난간 보수의 본문 분량은 몇 쪽인가요?",
+   "answer": "71쪽",
+   "imageId": "q4cc8303c",
+   "file": "q4cc8303c.png",
+   "position": 10,
+   "attempts": 1,
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ]
+  },
+  {
+   "index": 14,
+   "stratum": 4,
+   "qtype": "pages",
+   "side": "L",
+   "method": "W5",
+   "larger": true,
+   "naturalFirst": true,
+   "slot": 1,
+   "kind": "k4",
+   "pair": [
+    "논술 분량",
+    "서평 분량"
+   ],
+   "field": "논술 분량",
+   "compField": "서평 분량",
+   "labels": [
+    "가족 유적 탐험대",
+    "고려 청동 거울 관찰",
+    "조각보 잇기 공예"
+   ],
+   "digits": 3,
+   "targetValues": [
+    "117쪽",
+    "191쪽",
+    "168쪽"
+   ],
+   "compValues": [
+    "190쪽",
+    "145쪽",
+    "178쪽"
+   ],
+   "targetAux": [
+    "장소 변경",
+    "무료 대여",
+    "대기 명단"
+   ],
+   "compAux": [
+    "기념품 증정",
+    "간편 신청",
+    "우선 배정"
+   ],
+   "notes": [
+    "점자 안내",
+    "음료 판매",
+    "반려견 불가"
+   ],
+   "question": "고려 청동 거울 관찰의 논술 분량은 몇 쪽인가요?",
+   "answer": "191쪽",
+   "imageId": "q86640919",
+   "file": "q86640919.png",
+   "position": 13,
+   "attempts": 1,
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 15,
+   "stratum": 5,
+   "qtype": "pages",
+   "side": "R",
+   "method": "W5",
+   "larger": false,
+   "naturalFirst": false,
+   "slot": 0,
+   "kind": "k3",
+   "pair": [
+    "주석 분량",
+    "각주 분량"
+   ],
+   "field": "각주 분량",
+   "compField": "주석 분량",
+   "labels": [
+    "숲속 야영 생존 캠프",
+    "영상 편집 동아리",
+    "보드게임 전략 대결"
+   ],
+   "digits": 3,
+   "targetValues": [
+    "153쪽",
+    "213쪽",
+    "236쪽"
+   ],
+   "compValues": [
+    "175쪽",
+    "163쪽",
+    "124쪽"
+   ],
+   "targetAux": [
+    "수시 모집",
+    "명찰 착용",
+    "보험 가입"
+   ],
+   "compAux": [
+    "대기 명단",
+    "우선 배정",
+    "인솔 동행"
+   ],
+   "notes": [
+    "정수기 비치",
+    "수어 통역",
+    "반려견 불가"
+   ],
+   "question": "숲속 야영 생존 캠프의 각주 분량은 몇 쪽인가요?",
+   "answer": "153쪽",
+   "imageId": "qba30945f",
+   "file": "qba30945f.png",
+   "position": 11,
+   "attempts": 1,
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ]
+  },
+  {
+   "index": 16,
+   "stratum": 5,
+   "qtype": "pages",
+   "side": "R",
+   "method": "W1",
+   "larger": false,
+   "naturalFirst": false,
+   "slot": 2,
+   "kind": "k5",
+   "pair": [
+    "시집 분량",
+    "수필 분량"
+   ],
+   "field": "수필 분량",
+   "compField": "시집 분량",
+   "labels": [
+    "함께 육아 나눔터",
+    "에너지 절약 캠페인",
+    "폐현수막 재활용"
+   ],
+   "digits": 3,
+   "targetValues": [
+    "196쪽",
+    "125쪽",
+    "133쪽"
+   ],
+   "compValues": [
+    "224쪽",
+    "181쪽",
+    "232쪽"
+   ],
+   "targetAux": [
+    "보험 가입",
+    "자율 참여",
+    "무료 대여"
+   ],
+   "compAux": [
+    "장소 변경",
+    "기념품 증정",
+    "우선 배정"
+   ],
+   "notes": [
+    "실내 금연",
+    "유아 동반",
+    "반려견 불가"
+   ],
+   "question": "폐현수막 재활용의 수필 분량은 몇 쪽인가요?",
+   "answer": "133쪽",
+   "imageId": "qa27b2bf8",
+   "file": "qa27b2bf8.png",
+   "position": 4,
+   "attempts": 1,
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ]
+  },
+  {
+   "index": 17,
+   "stratum": 5,
+   "qtype": "pages",
+   "side": "R",
+   "method": "W4",
+   "larger": false,
+   "naturalFirst": true,
+   "slot": 2,
+   "kind": "k4",
+   "pair": [
+    "번역 분량",
+    "원문 분량"
+   ],
+   "field": "번역 분량",
+   "compField": "원문 분량",
+   "labels": [
+    "청자 상감 문양 탐색",
+    "비석 탁본 뜨기 실습",
+    "고문서 해석 강좌"
+   ],
+   "digits": 2,
+   "targetValues": [
+    "77쪽",
+    "45쪽",
+    "32쪽"
+   ],
+   "compValues": [
+    "53쪽",
+    "93쪽",
+    "84쪽"
+   ],
+   "targetAux": [
+    "명찰 착용",
+    "보험 가입",
+    "기념품 증정"
+   ],
+   "compAux": [
+    "자율 참여",
+    "복장 자유",
+    "우선 배정"
+   ],
+   "notes": [
+    "휴게실 개방",
+    "점자 안내",
+    "실내 금연"
+   ],
+   "question": "고문서 해석 강좌의 번역 분량은 몇 쪽인가요?",
+   "answer": "32쪽",
+   "imageId": "q68c095c6",
+   "file": "q68c095c6.png",
+   "position": 2,
+   "attempts": 1,
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ]
+  }
+ ]
+}
