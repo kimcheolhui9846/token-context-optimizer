@@ -1,0 +1,50 @@
+{
+ "startedUtc": "2026-11-25T04:12:37.787Z",
+ "head": "27908240dd73c8d5bd354746a3d57c642d3a5fe5",
+ "buildMatchesHead": true,
+ "referenceMismatches": [],
+ "reads": [
+  {
+   "path": "research/results/ko-header-column/data/manifest.json",
+   "blob": "bf3b3fa58ef5ca4194c103d7fb416c543965ee49",
+   "sha256": "f227f18bdb4b47553d04cee7cdeb76ad5ff94d21e45e69213c420c8ed49a0962",
+   "bytes": 20490
+  },
+  {
+   "path": "research/results/ko-header-column/replay-a/predictions.jsonl",
+   "blob": "dcd95d3cab216152ca5b3f5ae33b28ff61363174",
+   "sha256": "ff8bc4f170bdac6c526dc3f6a5a5085721e61defc1b7f3ceb5fd8c2e15c4ebff",
+   "bytes": 563669
+  },
+  {
+   "path": "research/results/ko-header-column/score-a/summary.json",
+   "blob": "0826f54c192de004645c5f3bfe8fb045780543f0",
+   "sha256": "cbaab3b48eb2f09d1c40b9c6df63ada2bb5bb28c47e6c03dea7b1dc441509a9a",
+   "bytes": 411472
+  },
+  {
+   "path": "research/results/ko-header-column/data/scoring/design.json",
+   "blob": "75deaafba3aee04b3bbe8a6d3acc7288ffecb5c8",
+   "sha256": "61d8c113d942d5099b9656a90bafb152827b83ee27ef9345520b94eb5a1c5823",
+   "bytes": 980524
+  },
+  {
+   "path": "research/results/ko-header-column/data/scoring/gold.json",
+   "blob": "ae95099291b9efb538158ce8b4135d03eeba6025",
+   "sha256": "88ef1adc599e1579268c6d356b0809fae8464a18c89085737790adaaec9ce85e",
+   "bytes": 65923
+  },
+  {
+   "path": "research/results/ko-header-column/data/scoring/render.json",
+   "blob": "b21fc95b95314833eb5c9d62f5853c4c3de0e9d2",
+   "sha256": "12509d07dd8efc511bed630366328ac148659849ccaea0c3a690069523afc626",
+   "bytes": 369981
+  },
+  {
+   "path": "research/results/ko-header-column/score-a/score.jsonl",
+   "blob": "163fa4f75bfe038d773109c3e1c330a3edc7569c",
+   "sha256": "a2ac46cc96f6559debaf107882328d04300fbfdbc32a4e02ba0c11b21ff12683",
+   "bytes": 283744
+  }
+ ]
+}

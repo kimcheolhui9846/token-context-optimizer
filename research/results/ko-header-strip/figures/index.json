@@ -1,0 +1,117 @@
+[
+ {
+  "id": "p003",
+  "why": "normal header, W4 applied, side L (culture-c0, 철수/리허설 시각)",
+  "files": [
+   "p003-page.png",
+   "p003-w1.png",
+   "p003-w4.png",
+   "p003-w5.png",
+   "p003-compare.png"
+  ],
+  "compareSha256": "d710d9a60d7ca88c3b8854d0e51fe73d4528efe08be3a436d245c4d30b6eab02",
+  "compare": {
+   "width": 1187,
+   "height": 538,
+   "order": [
+    "W1",
+    "W4",
+    "W5"
+   ],
+   "barLuma": 160,
+   "barHeight": 16
+  }
+ },
+ {
+  "id": "p050",
+  "why": "left/right partner of p003 (same source, header, ans; side R)",
+  "files": [
+   "p050-page.png",
+   "p050-w1.png",
+   "p050-w4.png",
+   "p050-w5.png",
+   "p050-compare.png"
+  ],
+  "compareSha256": "b395f45e954b410fc4dbd64e874e8b7c09b6466a03071a61e4ae6c9001b2de24",
+  "compare": {
+   "width": 1187,
+   "height": 538,
+   "order": [
+    "W1",
+    "W4",
+    "W5"
+   ],
+   "barLuma": 160,
+   "barHeight": 16
+  }
+ },
+ {
+  "id": "p031",
+  "why": "blank header, W1 kept (W4 header_none)",
+  "files": [
+   "p031-page.png",
+   "p031-w1.png",
+   "p031-w4.png",
+   "p031-w5.png",
+   "p031-compare.png"
+  ],
+  "compareSha256": "ff40dcb62014e6d2d725c7939d94a0415b07e1b496f2983d3d421598cd2da2ff",
+  "compare": {
+   "width": 1163,
+   "height": 1544,
+   "order": [
+    "W1",
+    "W4",
+    "W5"
+   ],
+   "barLuma": 160,
+   "barHeight": 16
+  }
+ },
+ {
+  "id": "p067",
+  "why": "duplicate header, W1 kept (W4 header_duplicate)",
+  "files": [
+   "p067-page.png",
+   "p067-w1.png",
+   "p067-w4.png",
+   "p067-w5.png",
+   "p067-compare.png"
+  ],
+  "compareSha256": "3cd33a157e4e88382d38fe6aef4b5cdd132c9f0f3af8be8994797560d3090bdb",
+  "compare": {
+   "width": 1164,
+   "height": 1010,
+   "order": [
+    "W1",
+    "W4",
+    "W5"
+   ],
+   "barLuma": 160,
+   "barHeight": 16
+  }
+ },
+ {
+  "id": "p070",
+  "why": "fixed K1 failure (W1 not strict; W4 not_applicable)",
+  "files": [
+   "p070-page.png",
+   "p070-w1.png",
+   "p070-w4.png",
+   "p070-w5.png",
+   "p070-compare.png"
+  ],
+  "compareSha256": "fa4c8d98f5dcc17edc9ab1cf1a2637a84481a56723e293864e2c9158922a6cbe",
+  "compare": {
+   "width": 905,
+   "height": 710,
+   "order": [
+    "W1",
+    "W4",
+    "W5"
+   ],
+   "barLuma": 160,
+   "barHeight": 16
+  }
+ }
+]
