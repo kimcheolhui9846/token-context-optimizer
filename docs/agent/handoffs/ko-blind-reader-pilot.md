@@ -16,7 +16,11 @@
 | 관문 144/144 | 완료 | `results/ko-blind-reader/gate/gate.json` (예측 144, W1·W4·W5 144, coords 바이트 일치) |
 | 실제 시드·배정 약속값 | 완료 | `fe490e4` (OCR 전 push), 계획 검사 0건 |
 | 실제 생성·QA·판독지·키 약속값 | 완료 | `9371820`: OCR 18/18행·기술 오류 0·오프라인 가드 차단 0, QA 통과(방식 PNG 54장 형식·크기·독립 재조립 픽셀 일치, 누출 0), 판독지 템플릿 부분이 모의 판독지와 바이트 동일, 독자 폴더 파일 1개·SHA-256 일치, 약속값 4/4 로컬 재계산 일치 |
-| 새 클론 재현·연구·제품 검증 | 완료 | 원격 새 클론(`8f11e90`): JS 23/23, Python 14/14, gate.json 바이트 동일, 모의 증거 37/37 SHA-256 일치. 제품 `npm ci`·build·test(4639 통과, 5 건너뜀)·typecheck·smoke:mcp·validate:plugin·benchmark 모두 종료 코드 0. build가 줄 끝만 바꾼 `bin/token-context-optimizer.mjs`는 빌드 전 깨끗했으므로 그 파일만 되돌림 |
+| Opus 마일스톤 검토(130be80) | 판독지 사용 승인, 채점기 CHANGES REQUIRED(M1, m1–m3, n1–n4) | task_bb16d79d508a |
+| 채점기 수정 RED | 완료 | `5e91494` 시험, `1afaf43` 기록 `logs/red-scorer-milestone.txt` |
+| 채점기 수정 GREEN | 완료 | `78abc17`: research 전체 173/173, Python 15/15, 모의 실행 pass·누출 0, 파이프라인 산출물(판독지·키·QA·OCR·빌드) 바이트 동일 |
+| 실제 관리자 폴더 채점기 교체 | 완료 | `pipeline admin-upgrade`: 응답·점수 폴더 없음 확인, 설치된 채점기 3/3이 `130be80` blob과 같음, `backup/scorer-130be80/`에 5개 백업과 manifest, 답 없는 `packet-record.json`(출처 공개 커밋 `9371820`), 새 채점기 3/3이 `78abc17` blob과 같음, 판독지·독자 판독지·키 약속값 전후 일치, `--self-check` 통과, 독자 판독지 SHA-256 `ce391dbf…de499` 그대로 |
+| 새 클론 재현·연구·제품 검증(이전) | 완료 | 원격 새 클론(`8f11e90`): JS 23/23, Python 14/14, gate.json 바이트 동일, 모의 증거 37/37 SHA-256 일치. 제품 `npm ci`·build·test(4639 통과, 5 건너뜀)·typecheck·smoke:mcp·validate:plugin·benchmark 모두 종료 코드 0. build가 줄 끝만 바꾼 `bin/token-context-optimizer.mjs`는 빌드 전 깨끗했으므로 그 파일만 되돌림 |
 
 ## 구성
 
@@ -24,7 +28,8 @@
 - `research/src/ko-blind-reader-fixed.mjs`: #153·#154 고정 blob을 Git 객체에서 읽어 blob id·SHA-256 대조 뒤 캐시에서 import.
 - `research/src/ko-blind-reader-pipeline.mjs`: gate / render / ocr(#153 OCR 함수 3개 소스 동일성 검사, 오프라인 가드 필수) / predict / build / packet / qa / commit / install-admin / reader-verify.
 - `research/src/ko-blind-reader-run.mjs`: `mock`, `real-prepare`(시드·생성·배정 약속값, OCR 전), `real-finish`(OCR→판독지→QA→독자 폴더→채점기 설치→판독지·키 약속값).
-- `research/src/ko-blind-reader-score.mjs`: 관리자 폴더용 채점기(제출 고정). `research/tools/ko-blind-reader/recount.py`: 독립 재계산.
+- `research/src/ko-blind-reader-score.mjs`: 관리자 폴더용 채점기. 패킷 기록 → 응답 검증(키 없이) → no-clobber 고정 → 키 약속값 → 채점, `--check-only`(독자 자체 확인), `--self-check`. `research/tools/ko-blind-reader/recount.py`: 독립 재계산과 상태 일관성 검사.
+- `research/src/ko-blind-reader-repro.mjs`: LF/CRLF 체크아웃 간 모의 증거 비교.
 - `research/tools/ko-blind-reader/generate.py`(생성), `reader.html`(판독지 템플릿).
 
 ## 등록 뒤 바뀐 점 (의미 변화 없음, 기술 수정)
@@ -36,15 +41,20 @@
 5. **보조 지표 `unknownAny`(열 또는 값 판단 불가)** 를 JS 점수·점수표·재계산에 넣었다(프로토콜 6.2 보조 지표).
 6. **새 클론 재현에서 발견:** autocrlf 체크아웃의 `src/*.mjs` CRLF가 판독지에 삽입되는 함수 소스에 섞여 클론의 모의 판독지가 달랐다. 삽입 소스를 LF로 정규화하고 시험을 추가했다(`8f11e90`). 실제 판독지는 LF 원본으로 만들어졌고 템플릿 부분이 모의 판독지와 바이트 동일하다(재생성 없음).
 7. 실브라우저 시험은 Playwright MCP가 `file:` URL을 막아 모의 판독지 폴더만 127.0.0.1로 내보내 열었다. 페이지 자체의 네트워크 요청은 문서 로드 외 0건.
+8. **Opus 마일스톤 검토 반영(`78abc17`):** 채점기만 바꿨다. 판독지 템플릿·삽입 상태 기계·payload·표시 순서·키·약속값·seed·응답 형식·digest 규칙·등록 문서는 그대로다. 등록 시험 파일에서는 제출 고정 시험의 준비 부분만 새 관리자 폴더 구조(패킷 기록·약속값)로 바꿨고 단언은 같다. 응답 검증에 판독지 상태 기계가 만들 수 있는 상태만 받는 규칙을 더했다(시험은 상태 기계로 만든 응답과 실브라우저 응답이 통과함을 확인).
+9. **등록 문서 끝공백:** `git diff --check 0fb3053 ec43ea4`(기준 → 등록)는 프로토콜 73행 끝공백 1개를 보이고, `git diff --check ec43ea4 HEAD`(등록 이후)는 0건이다. 고정 문서라 고치지 않았다.
+10. **LF/CRLF:** PM의 `core.autocrlf=false` 새 클론에서 38개 중 `stdout.jsonl`(제외 대상)과 `ocr/guard-summary.json`의 `researchLockSha256`만 달랐다(LF `df4a66b3…` 대 CRLF `863462f3…`). 비교 규칙과 시험을 `ko-blind-reader-repro.mjs`에 두고 결과 README에 적었다.
 
 ## 비밀 처리
 
 - 실제 시드·배정·문항·정답·이미지·키·점수는 Git·채팅·PR에 없다. 공개 증거는 256비트 salt 약속값(`results/ko-blind-reader/real-commitments.json`)뿐이다.
 - 실제 단계 출력은 개수·통과 여부·SHA-256만이다. 하위 프로세스 출력은 관리자 폴더 로그에만 둔다.
+- 채점기 교체에서도 응답·점수 파일을 열지 않았다(없음 확인은 이름만). 키는 약속값 대조용 바이트 해시로만 읽었다.
 
 ## 제한점
 
 - 독자 1명, 방식마다 6문항. 건수만 보고하며 유의성·일반화·W5 채택 판정은 없다. 독자는 방법을 아는 운영자다.
 - 실제 판독지는 입력·노출 없이 구조만 확인했다(템플릿 부분 바이트 동일, 페이로드 18문항·해시, 누출 검사). 대화형 시험은 모의 판독지에서만 했다.
 - 실제 단계 출력 중 방식 출력 PNG 수(54)가 드러났다. 세 방식에 공통인 상위 결과(미표시 0)이며 방식별 적용 수·가시성은 아니다.
+- 응답 `digest`는 우발적 손상을 찾는 자체 일관성 검사다. 누구나 다시 계산할 수 있어 위·변조 증거가 아니다.
 - 연습 문항 값(11:40 등)은 생성 범위 안의 등록 상수라 실제 문항 값과 우연히 같을 수 있다(공개 고정 문자열, 정답 단서 아님).
