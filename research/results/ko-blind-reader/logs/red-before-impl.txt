@@ -1,0 +1,11 @@
+# RED before implementation, commit ec43ea46767f11cd81f9ed81172d41bc603df358, 2026-11-25T05:07:46Z
+## node --test test/ko-blind-reader.test.mjs
+    throw new ERR_MODULE_NOT_FOUND(
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<clean worktree of the registration commit>\research\src\ko-blind-reader-lib.mjs' imported from <clean worktree of the registration commit>\research\test\ko-blind-reader.test.mjs
+  code: 'ERR_MODULE_NOT_FOUND',
+exit: 1
+## python -m unittest discover -s tools/ko-blind-reader -p test_generate.py
+ImportError: Failed to import test module: test_generate
+ModuleNotFoundError: No module named 'generate'
+Ran 1 test in 0.000s
+FAILED (errors=1)
