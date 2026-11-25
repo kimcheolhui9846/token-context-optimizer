@@ -99,7 +99,7 @@ node src/ko-header-column-report.mjs --score "$W/out/score-a" --results results/
 ## 4. 독립 검산(Python 표준 라이브러리)과 변조 19종
 
 ```sh
-python -m unittest tools/ko-header-column/test_recount.py                                   # 8 tests OK
+python -m unittest discover -s tools/ko-header-column -p test_recount.py                                # 8 tests OK
 mkdir "$W/out/recount"
 for x in a b; do
   python tools/ko-header-column/recount.py --data results/ko-header-column/data --ocr results/ko-header-column/ocr \
@@ -181,7 +181,7 @@ git status --porcelain                             # 빈 출력(.cache는 Git �
 
 ```sh
 node --test test/ko-header-column.test.mjs                       # 14/14
-python -m unittest tools/ko-header-column/test_recount.py        # 8 tests OK
+python -m unittest discover -s tools/ko-header-column -p test_recount.py     # 8 tests OK
 node --test test/*.test.mjs                                      # 연구 전체
 ```
 
