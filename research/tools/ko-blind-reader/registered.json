@@ -1,0 +1,262 @@
+{
+  "version": "ko-blind-reader-registered-1",
+  "protocol": "research/plans/2026-11-25-ko-blind-reader-protocol.md",
+  "base": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1",
+  "branch": "claude/ko-blind-reader-pilot",
+  "fixed": {
+    "fetch": "git fetch origin pull/147/head pull/150/head pull/151/head pull/152/head pull/153/head pull/154/head",
+    "pr153": "4320271738c8be56556fb09bf56511368d49ba9e",
+    "pr154": "20148237d9c9ac91f06f149d73da05f41b94e314",
+    "code": {
+      "fixed153": { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/src/ko-header-column-fixed.mjs", "blob": "96404cb716ef7edfb5fcec049281232b0f280f0b", "sha256": "845bec33d1db51c23d11e8f4fbdc65256e434fa7c1df9dbf0d5e2bdeb2a88930", "use": "pinned K1 (#147 lib), W1 (#150), W2 (#151), W3 (#152) loaders, functionSource, fixedRunSource" },
+      "lib153": { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/src/ko-header-column-lib.mjs", "blob": "a0ccd2c656b484621723710b710f1cabd5bb5c5a", "sha256": "85b46baf6f48715d68e177a9de9165b4081f1bdc737ee55c9815404d0ef554d8", "use": "buildPrediction, w4Rule, parseExact, validatePrediction" },
+      "run153": { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/src/ko-header-column-run.mjs", "blob": "816867b752d6369634fbe05ef14819d83d4f59b4", "sha256": "f3d35665ccbf9d7f00d5e06ed168242e6e64ce32b2d14380038b8fd3fa1383b6", "use": "newWorker, ocrLines, withTimeout function bodies (byte equal to #147 run blob 3ddf60ab)" },
+      "plan154": { "commit": "20148237d9c9ac91f06f149d73da05f41b94e314", "path": "research/src/ko-header-strip-plan.mjs", "blob": "a744ec168411e3c55565ebe857fc15657817adcc", "sha256": "a7117a65f74e84cc2f2b49021c3d467ad698f398265068b2afb724ec0c76a2d0", "use": "project, plan, compose, crop" },
+      "png154": { "commit": "20148237d9c9ac91f06f149d73da05f41b94e314", "path": "research/src/ko-header-strip-png.mjs", "blob": "b1cdbfbd2a56ddb1dfb1fea4eb8b111809de57df", "sha256": "0e3fcac85773aa9cbe16bd42dd7f50300ae429eaabebd03251d8a33b9690d650", "use": "decodeGray, encodeGray, pixelSha256" },
+      "selector": { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/src/selector.mjs", "blob": "b3b4965b2d330907c0143fe178013aace1be8372", "sha256": "a489824ffdffe2df115c8211698d8bf5996bddde250f4e188550f82b87b77db9", "use": "K0 selectWindow (worktree file must be this blob)" },
+      "render": { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/tools/r09/render.py", "blob": "b61cd9b37803d8eb4b6b126a75301570c14ab11d", "sha256": "279a5abeb68c0b74742adc3f38503307a67e3a48cb548fc06e41a605ab663052", "use": "renderer, unchanged" },
+      "netguard": { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/tools/d03/guard/node-netguard.cjs", "blob": "0d976b692cf8a8dec7031bd027f4ce0917ef1a54", "sha256": "bd03b340185bac88dcb03086eeb1487773be1776b07f9ae6450bf8eec608f963", "use": "offline guard for the OCR run" },
+      "researchLock": { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/package-lock.json", "blob": "6b103b97c99527975958a7cb0fd023e0dc134cf0", "sha256": "df4a66b38c983e555beafc0910fef781b2ede8ffc9e3c95eca45ac6e5a86fe1e", "use": "npm ci --ignore-scripts (same blob at #153 and #154)" },
+      "pyRequirements": { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/tools/d03/requirements.txt", "blob": "59af2d2ef6f05d2b6c6155ca9fbc832182ba22ec", "sha256": "70c9a02692e0dc2365c9e0383eb560147344e8fd74680577da999096468934ed", "use": "pillow==12.3.0, fonttools==4.63.0" }
+    },
+    "pinsFrom153": {
+      "guardSummary": { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/results/ko-header-column/ocr/guard-summary.json", "blob": "247692c8377a6f36bb6201adc010915b392f949d", "sha256": "a05a6dbadd92b60957d7771c203e1c3ce61c68a11f58c9100271ec7e355aa069" },
+      "renderJson": { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/results/ko-header-column/data/scoring/render.json", "blob": "b21fc95b95314833eb5c9d62f5853c4c3de0e9d2", "sha256": "12509d07dd8efc511bed630366328ac148659849ccaea0c3a690069523afc626" }
+    },
+    "ocr": {
+      "engine": { "tesseract.js": "5.1.1", "tesseract.js-core": "5.1.1", "sharp": "0.35.4" },
+      "langs": "eng+kor",
+      "oem": 1,
+      "psm": "tesseract.js default (no option passed)",
+      "langPath": "research/.cache/ko-ocr-factorial",
+      "cachePath": "research/.cache/ko-ocr-factorial",
+      "gzip": false,
+      "cacheMethod": "readOnly",
+      "pageTimeoutMs": 180000,
+      "workers": 1,
+      "preprocess": "sharp metadata; scale = min(4, 4096 / max(width, height)); sharp resize to round(width * scale); png; recognize(img, {}, { blocks: true }); boxes divided by scale",
+      "langFiles": [
+        { "lang": "eng", "file": "eng.traineddata", "bytes": 5199098, "sha256": "5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747" },
+        { "lang": "kor", "file": "kor.traineddata", "bytes": 2208378, "sha256": "ec1749377d49ac38fb3d3cd05dd5e2a53359d329f359762bc638a81132109992" }
+      ],
+      "engineCoreFiles": {
+        "LICENSE": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+        "README.md": "763f24dda689f235b3d3963c058629ef080bb47ab011d193a8347ede09e24118",
+        "index.js": "cc5d319080bc2ef3c288128690ea598c8cbc1d1f2f13a6a750c0ba344ff5a162",
+        "package.json": "bb890458ac636043d6c6b1997618ad5b290a219bcec20547b5504bb280513202",
+        "tesseract-core-lstm.js": "fc54a973687325599214294ec90ea9665309cbdf6ca727c43a64651f24e923f7",
+        "tesseract-core-lstm.wasm": "5db58ea4d1bd4256be81e8ae3b4fa226c4625dfba1850b1b3308dbf3700e9929",
+        "tesseract-core-lstm.wasm.js": "8f04aa0cc81e7bde33f80e92fa01a7a665f0b4884d098acf5de9c7104a11dfaa",
+        "tesseract-core-simd-lstm.js": "4135a3f6f1cccf3bc92058c1273c49bb4cff6356e1ba15d1b8b4e76e9890526b",
+        "tesseract-core-simd-lstm.wasm": "66b601224a0c4a8977bc9d92dd39841189f9ca22cc4122fcd7208cdb0961eeef",
+        "tesseract-core-simd-lstm.wasm.js": "ce20eda9533cbed1e6c2b4276fbae1e0adc61b6754b5513084be601787b457cf",
+        "tesseract-core-simd.js": "74f0f7bacae500794c9e61a54956f23c3b271bf15a9847776d98f93164ba9400",
+        "tesseract-core-simd.wasm": "baa2f54ef5af43ada4605fd7ae999bde3c6ecc96bfe0d0410b0b4f4a5f9c8b91",
+        "tesseract-core-simd.wasm.js": "63f232c4f7a97b04e52eb940202700b2c6239783a75d0ff0553274fac530cd5c",
+        "tesseract-core.js": "c8ff737be3e8e12f6426773f13186965ea4455977ab12a759f051da7c6493100",
+        "tesseract-core.wasm": "b47a852b19181ae0999f9d970c368cd351135a320ea978b35bd38602d8bcc0bc",
+        "tesseract-core.wasm.js": "2b8c8c92b8788807061fb4bb16c5acdf000c149e100255f879f78d2c58ca9969"
+      }
+    },
+    "font": { "file": "NotoSansKR-VF.ttf", "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0", "family": "Noto Sans KR", "version": "Version 2.04;241114210130;non-release", "weight": 400, "bodySize": 24, "titleSize": 32, "renderer": { "pillow": "12.3.0", "freetype": "2.14.3", "raqm": false, "layout": "BASIC" } }
+  },
+  "gate": {
+    "what": "before any new item is generated: replay the #153 frozen OCR through the pinned #153 buildPrediction and compare every prediction row (W1/W4 windows included) with #153 replay-a/predictions.jsonl; build W1/W4/W5 PNGs from the #153 images with the pinned #154 project/plan/compose/crop/encodeGray and compare file and pixel SHA-256 with #154 build-a/manifest.json. 144/144 each, else stop.",
+    "pr153Predictions": { "path": "research/results/ko-header-column/replay-a/predictions.jsonl", "blob": "dcd95d3cab216152ca5b3f5ae33b28ff61363174", "sha256": "ff8bc4f170bdac6c526dc3f6a5a5085721e61defc1b7f3ceb5fd8c2e15c4ebff" },
+    "pr153Ocr": { "path": "research/results/ko-header-column/ocr/ocr.jsonl", "blob": "fc546c9d7d1ce1fccad7df7395e7b94404d45b63", "sha256": "973885453c8c6a0d18a0299c5913448579c3bb937eddbfe6342b7135cc8dd3c4" },
+    "pr153K1": { "path": "research/results/ko-header-column/ocr/k1.jsonl", "blob": "b30921b860a81da7f97039ff4405182053279ab8", "sha256": "6f3b9a618b96abd54b41e2e3c752a1ed10e9432232775af5d11fe39e0fa3faa9" },
+    "pr153Questions": { "path": "research/results/ko-header-column/data/selector/questions.json", "blob": "e77bdc6801197c53a1cd1d506c94a44a4bc02bf9", "sha256": "aff1e93ce3ec41ee172ae7371bc0c1f7b5110bb6d27961b1a610799890ca92ad" },
+    "pr153Images": { "path": "research/results/ko-header-column/data/selector/images", "tree": "0367d459e6faf4e4c9812185a7ccd93ef8caba12" },
+    "pr154Manifest": { "path": "research/results/ko-header-strip/build-a/manifest.json", "blob": "621877a6139e4878e828942f7bdb675e438fe3b9", "sha256": "e19c05a2d44ba920e09253bcfb7304e4bfd6c0c0299143f7c3a1002333ef2f1a" },
+    "pr154Coords": { "path": "research/results/ko-header-strip/build-a/coords.jsonl", "blob": "90a047647afcc563702de020b4568d666b530987", "sha256": "057df7e8653730f6bcb988042ff8bf4246e521753fe22e6a84432cac346ecbcc" },
+    "pages": 144
+  },
+  "design": {
+    "sources": 18,
+    "methods": ["W1", "W4", "W5"],
+    "qtypes": ["time", "count", "pages"],
+    "sides": ["L", "R"],
+    "strataOrder": [["time", "L"], ["time", "R"], ["count", "L"], ["count", "R"], ["pages", "L"], ["pages", "R"]],
+    "perStratum": 3,
+    "blocks": 3,
+    "blockSize": 6,
+    "maxSameMethodRun": 2,
+    "orderMaxTries": 200000,
+    "contentMaxAttempts": 1000,
+    "slotsPerMethod": [0, 0, 1, 1, 2, 2],
+    "layout": "#153 grammar, header normal and answer on line A only (#153 cell <side>-normal-same): page 1280 x 960, label column [40,320), value column L [360,580), R [620,840), note [1060,1250), title [40,28,1000,84), header y [104,144), record s line A y = 160 + 88 s, line B + 40, rules y 96, 150 and mid gaps, x [24,1256)",
+    "question": { "time": "{label}의 {field}은 몇 시인가요?", "count": "{label}의 {field}은 몇 명인가요?", "pages": "{label}의 {field}은 몇 쪽인가요?" },
+    "suffix": { "time": "시각", "count": "인원", "pages": "분량" },
+    "unit": { "time": "시", "count": "명", "pages": "쪽" },
+    "values": {
+      "time": "HH:MM, hour 10-20, minute in {00,10,20,30,40,50}",
+      "count": "N명, N in 10-95",
+      "pages": "per source one digit class drawn first: two digits (N쪽, 12-99) or three digits (N쪽, 100-240)"
+    },
+    "labelMaxWidthPx": 268,
+    "headerMaxWidthPx": 208,
+    "noteMaxWidthPx": 178,
+    "auxMaxWidthPx": 208
+  },
+  "drbg": {
+    "algorithm": "HMAC-SHA256 counter mode: block i of stream S = HMAC-SHA256(key = seed bytes, msg = UTF-8(S) || 0x00 || uint64be(i)), i = 0, 1, ...; bytes are consumed in order",
+    "randbelow": "draw 8 bytes as uint64be u; limit = 2^64 - (2^64 mod n); redraw while u >= limit; return u mod n",
+    "shuffle": "Fisher-Yates: for i = n-1 down to 1: j = randbelow(i+1); swap a[i], a[j]",
+    "streams": ["assign", "order", "kind", "content:<source>:<attempt>", "ids", "packet"],
+    "mockSeedHex": "8d2f6c51b7e09a34c1d5e8f2a6b3907c4e1f58a2d3b6c9e0f7a1b4d8c2e5f9a3",
+    "testVector": "seed = bytes 0..31, stream assign: the first 64 bytes equal HMAC-SHA256(seed, 'assign' 0x00 uint64be(0)) || HMAC-SHA256(seed, 'assign' 0x00 uint64be(1)) (Python test)",
+    "realSeed": "32 bytes from the OS CSPRNG (Python secrets.token_bytes(32)), generated once after the gate passes, stored only in the admin folder; never printed"
+  },
+  "commitments": {
+    "rule": "commit = SHA-256(salt || UTF-8(label) || 0x00 || bytes); salt = 32 bytes from the OS CSPRNG, one salt per commitment, salts stored only in the admin folder",
+    "labels": ["kbr-seed", "kbr-assignment", "kbr-packet", "kbr-key"],
+    "publicOnly": "real seed, assignment, packet (start.html) and answer key appear in Git only as these commitments; mock seed results are public and marked mock"
+  },
+  "pools": {
+    "kinds": [
+      { "id": "k1", "title": "평생학습관 강좌 운영표", "labelHeader": "강좌 이름", "labels": ["도자기 물레 체험", "수채화 풍경 그리기", "서예 붓글씨 연습", "생활 영어 회화반", "스마트폰 사진 보정", "향토 역사 유적 탐방", "가죽 공예 손지갑", "제과 제빵 기초 실습", "노래 교실 발성 훈련", "바둑 입문 친선 대국", "전통 한지 등불 만들기", "커피 바리스타 과정", "뜨개질 목도리 완성", "천연 비누 향초 제작", "꽃꽂이 장식 수업", "통기타 합주 모임", "알기 쉬운 법률 상식", "컴퓨터 문서 편집", "목공 젓가락 깎기", "그림 동화 구연 지도", "옻칠 나전 공예 소품", "한식 조리 자격반", "일본어 여행 표현", "전자 피아노 반주법", "시조 낭송 감상반", "가계부 재테크 특강", "수제 도장 새기기"] },
+      { "id": "k2", "title": "주민센터 나눔 행사표", "labelHeader": "행사 이름", "labels": ["김장 김치 담그기", "중고 의류 교환 장터", "어르신 장수 사진 촬영", "동네 벼룩시장 열기", "반찬 배달 봉사단", "연탄 나르기 운동", "고장 우산 무료 수선", "유모차 바퀴 점검", "칼갈이 재능 기부", "골목 방범 순찰대", "담장 벽화 칠하기", "이웃 소통 다과회", "재활용 분리 교실", "가훈 붓글씨 선물", "주택 임대 상담회", "명절 송편 빚기 체험", "다문화 음식 축제", "아기 돌봄 품앗이", "경로당 손 마사지", "사랑 헌혈 버스 유치"] },
+      { "id": "k3", "title": "청소년 수련관 활동표", "labelHeader": "활동 이름", "labels": ["천체 망원경 관측", "로봇 코딩 경진 대회", "숲속 야영 생존 캠프", "드론 비행 조종 체험", "미래 진로 직업 탐색", "힙합 댄스 경연 무대", "심폐 소생 응급 처치", "생활 과학 실험 탐구", "학생 자치 토론회", "국토 순례 도보 여행", "교내 밴드 합주 연습", "웹툰 그리기 교실", "영상 편집 동아리", "보드게임 전략 대결", "별자리 신화 이야기", "카누 수상 안전 훈련", "제철 요리 맛보기", "자원봉사 기초 교육", "골목 사진 출사 모임", "청년 정책 제안 발표", "마술 공연 따라잡기", "종이 글라이더 날리기", "우정 편지 쓰기 마당"] },
+      { "id": "k4", "title": "시립 박물관 교육 일정표", "labelHeader": "교육 과정", "labels": ["깨진 토기 복원 체험", "고분 발굴 현장 견학", "비석 탁본 뜨기 실습", "민화 따라 그리기", "금속 활자 인쇄 원리", "조선 갑옷 입어 보기", "공룡 화석 모형 탐구", "유물 보존 처리 과학", "옛길 지도 해설 강연", "청자 상감 문양 탐색", "전시실 큐레이터 동행", "가족 유적 탐험대", "한복 바느질 기초", "국궁 활쏘기 시범", "동전 역사 이야기", "기와 수막새 찍기", "전통 매듭 팔찌 엮기", "고문서 해석 강좌", "꼬마 고고학자 교실", "왕실 혼례 의식 재현", "선사 시대 움집 짓기", "고려 청동 거울 관찰", "하회 탈춤 가면 색칠", "조각보 잇기 공예"] },
+      { "id": "k5", "title": "마을 공동체 사업 현황표", "labelHeader": "사업 이름", "labels": ["빗물 저금통 설치", "옥상 텃밭 가꾸기", "공유 공구 대여소", "태양광 가로등 교체", "하천 쓰레기 줍기", "골목길 화분 정원", "작은 동네 책방 운영", "협동 조합 직거래 장터", "노인 일자리 연계", "청년 창업 공간 조성", "함께 육아 나눔터", "주민 소식지 발행", "에너지 절약 캠페인", "방범 카메라 확충", "버스 정류장 쉼터", "커뮤니티 부엌", "반려견 산책로 정비", "장애인 이동 지원", "폐현수막 재활용", "단오 축제 기획단", "자투리 공터 꽃길", "음식물 퇴비화 실험", "낡은 계단 난간 보수", "빈집 개조 협의체"] },
+      { "id": "k6", "title": "도시 농장 운영표", "labelHeader": "농장 활동 이름", "labels": ["토마토 모종 심기", "햇감자 수확 체험", "양봉장 벌꿀 채취", "지렁이 퇴비 만들기", "허브 화단 가꾸기", "토종 씨앗 나눔 장터", "유정란 달걀 줍기", "논두렁 모내기", "표고 버섯 배지 접종", "고구마 줄기 따기", "새싹 채소 키우기", "허수아비 꾸미기", "된장 메주 담그기", "과수원 가지치기", "밭고랑 잡초 뽑기", "김장 배추 절이기", "들국화 꽃차 덖기", "블루베리 열매 솎기", "옥수수 수염 말리기", "가족 텃밭 관찰 일기", "노지 참외 넝쿨 유인", "청상추 솎음 작업"] }
+    ],
+    "fieldPairs": {
+      "time": [["집합 시각", "해산 시각"], ["출발 시각", "도착 시각"], ["점등 시각", "소등 시각"], ["접수 시각", "마감 시각"], ["상차 시각", "하차 시각"], ["기상 시각", "취침 시각"], ["출항 시각", "입항 시각"], ["개문 시각", "폐문 시각"], ["등원 시각", "하원 시각"], ["개막 시각", "폐막 시각"], ["이륙 시각", "착륙 시각"], ["출근 시각", "퇴근 시각"], ["배송 시각", "회수 시각"], ["입고 시각", "출고 시각"], ["소집 시각", "귀가 시각"], ["개점 시각", "폐점 시각"], ["승차 시각", "환승 시각"]],
+      "count": [["초대 인원", "확정 인원"], ["신청 인원", "취소 인원"], ["모집 인원", "선발 인원"], ["성인 인원", "아동 인원"], ["운영 인원", "협력 인원"], ["숙박 인원", "당일 인원"], ["출석 인원", "결석 인원"], ["승선 인원", "하선 인원"], ["강사 인원", "수강 인원"], ["관람 인원", "입장 인원"], ["합격 인원", "예비 인원"], ["심사 인원", "진행 인원"], ["주간 인원", "야간 인원"], ["가입 인원", "탈퇴 인원"], ["응시 인원", "결시 인원"], ["선수 인원", "심판 인원"], ["단체 인원", "개인 인원"]],
+      "pages": [["원고 분량", "교정 분량"], ["요약 분량", "부록 분량"], ["번역 분량", "원문 분량"], ["신문 분량", "잡지 분량"], ["앨범 분량", "화보 분량"], ["연보 분량", "백서 분량"], ["수첩 분량", "명부 분량"], ["목차 분량", "색인 분량"], ["서문 분량", "본문 분량"], ["각본 분량", "콘티 분량"], ["초록 분량", "결론 분량"], ["약관 분량", "계약 분량"], ["주석 분량", "각주 분량"], ["시집 분량", "수필 분량"], ["자막 분량", "대사 분량"], ["도면 분량", "설계 분량"], ["논술 분량", "서평 분량"], ["편지 분량", "엽서 분량"]]
+    },
+    "aux": ["장소 변경", "우선 배정", "추첨 예정", "인솔 동행", "재료 지참", "보험 가입", "명찰 착용", "복장 자유", "무료 대여", "기념품 증정", "좌석 지정", "수시 모집", "사전 연락", "대기 명단", "차량 운행", "간편 신청", "중복 불가", "자율 참여"],
+    "notes": ["정수기 비치", "유아 동반", "반려견 불가", "실내 금연", "보관함 이용", "음료 판매", "방석 제공", "냉방 가동", "휴게실 개방", "수어 통역", "점자 안내", "우비 지참"]
+  },
+  "generation": {
+    "mockExclusion": "before drawing real content, the generator runs the public mock seed and removes every label and field pair the mock set used from the real pools",
+    "poolFilter": "every label failing the near-reuse rule against the prior corpus or having < 4 Hangul bigrams or wider than its cell, and every field pair with a name found in the prior corpus, wider than its cell, or whose first word is not exactly two Hangul syllables, is removed from the pools before any draw (deterministic, seed independent). Two-syllable field words keep the target header at exactly 2 shared bigrams with the question (rule <= 2).",
+    "perSource": "content stream content:<source>:<attempt>: field pair (uniform over unused pairs of the type), three labels (uniform over unused labels of the source's kind, in record order 0,1,2), the digit class (pages only), six distinct value texts (three target-column values, three competing values), six distinct aux phrases, three distinct notes; then if the target-row order of the two values does not match the source's larger flag, swap the target-row target value and competing value. Any page rule failure redraws the whole source content with attempt + 1 (max contentMaxAttempts, else generation failure).",
+    "pageRules": [
+      "question contains the target label exactly once and '의 ' exactly once and parses with the #153 parser into (target label, target field, type)",
+      "every label has >= 4 Hangul bigrams; no other item shares a Hangul bigram with the target label",
+      "items other than headers and title share no Hangul bigram with the question; headers and title share <= 2; the label header shares 0",
+      "only value items match a value grammar (time/count/pages); no ASCII letter or digit outside values",
+      "시각, 인원, 분량 appear only in the two field headers",
+      "the six value texts of a page are distinct and their canonical forms are distinct",
+      "rendered text widths fit the cells (label 268 px, header/aux 208 px, note 178 px at the pinned font)"
+    ]
+  },
+  "priorCorpus": {
+    "rule": "corpus = every JSON string containing Hangul in the pinned files below, plus every question in them",
+    "files": [
+      { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/results/r09-bilingual/heldout/questions.json", "blob": "605ff760cc1c12de0a0d21076ac0b8eecb79032a" },
+      { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/results/r09-bilingual/dev/questions.json", "blob": "291927f8eada02a96114630f2b989d850f2199d5" },
+      { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/results/r09-bilingual/heldout/design.json", "blob": "dc3307818cba423b3fc2eade8ed7f2116593f788" },
+      { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/results/r09-bilingual/dev/design.json", "blob": "fcc9b05bbdf3f410c07987e5059ad7eb6433292f" },
+      { "commit": "708d9946ae091180a1b716baadfdd73fcfe5a19b", "path": "research/results/fresh-crop-padding/frozen/selector-input/questions.json", "blob": "ae578b7267ff124ecf4a0a5157f7067925b177ca" },
+      { "commit": "708d9946ae091180a1b716baadfdd73fcfe5a19b", "path": "research/results/fresh-crop-padding/frozen/oracle/design.json", "blob": "3149501a51bebbc79d77b7021a61241d32950ba5" },
+      { "commit": "2ab9ed149896cc06cec387826ab99fa5bac77cda", "path": "research/results/ko-ocr-holdout/data/questions.json", "blob": "6e9ef62159dd9a10b48dde7d71f710338b94ddd8" },
+      { "commit": "2ab9ed149896cc06cec387826ab99fa5bac77cda", "path": "research/results/ko-ocr-holdout/data/design.json", "blob": "a1c89d1748dc4a1c47b3d1b07ddae188dcaed87e" },
+      { "commit": "b108e2f0983bf096b4ddfc5d204a4d99cd6d8535", "path": "research/results/ko-row-window/data/questions.json", "blob": "402169cc68fe34e4cbe7d76f1f1b9ff43750087c" },
+      { "commit": "b108e2f0983bf096b4ddfc5d204a4d99cd6d8535", "path": "research/results/ko-row-window/data/design.json", "blob": "5694e9fb857dd4b9269c94294f5be67e9040fd55" },
+      { "commit": "d75f54555101125a35dc8aeac8c06e5b29929593", "path": "research/results/ko-row-height/data/selector/questions.json", "blob": "ee9739587ea1af7fac19271aee2d0656ff281b9f" },
+      { "commit": "d75f54555101125a35dc8aeac8c06e5b29929593", "path": "research/results/ko-row-height/data/scoring/design.json", "blob": "1d8025a61aebbb2b0d5a51a1ccd7a93d24e32ae8" },
+      { "commit": "6865828f7f3d723243d03bea1cafad6c74af5682", "path": "research/results/ko-row-gate/data/selector/questions.json", "blob": "3468afb6b3485b1dd018f8a5dd02133f5d624309" },
+      { "commit": "6865828f7f3d723243d03bea1cafad6c74af5682", "path": "research/results/ko-row-gate/data/scoring/design.json", "blob": "9b9563d7d32745692a282777fcd1435c9d5b64c1" },
+      { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/results/ko-header-column/data/selector/questions.json", "blob": "e77bdc6801197c53a1cd1d506c94a44a4bc02bf9" },
+      { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/results/ko-header-column/data/scoring/design.json", "blob": "75deaafba3aee04b3bbe8a6d3acc7288ffecb5c8" }
+    ],
+    "imageTrees": [
+      { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/results/r09-bilingual/heldout/images", "tree": "66bf13c62c6ae10e380558b7add188747928352b" },
+      { "commit": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1", "path": "research/results/r09-bilingual/dev/images", "tree": "8e59ce8fe2102edd48758d0e1033f3d4ead0a6da" },
+      { "commit": "708d9946ae091180a1b716baadfdd73fcfe5a19b", "path": "research/results/fresh-crop-padding/frozen/selector-input/images", "tree": "84eb5dddb4bb37f0ff1bf62e82e523f77e7dbbca" },
+      { "commit": "2ab9ed149896cc06cec387826ab99fa5bac77cda", "path": "research/results/ko-ocr-holdout/data/images", "tree": "6566a1f901135f00a9c8fcf5c14b94516de5fdd4" },
+      { "commit": "b108e2f0983bf096b4ddfc5d204a4d99cd6d8535", "path": "research/results/ko-row-window/data/images", "tree": "7830bc5ff95c191ea83edbae15516eaa0fb04f04" },
+      { "commit": "d75f54555101125a35dc8aeac8c06e5b29929593", "path": "research/results/ko-row-height/data/selector/images", "tree": "88c66c60d9a57a00a636f252786d36f3cd597c3b" },
+      { "commit": "6865828f7f3d723243d03bea1cafad6c74af5682", "path": "research/results/ko-row-gate/data/selector/images", "tree": "733f45874e58b8580d26a88603d385b13b5b783b" },
+      { "commit": "4320271738c8be56556fb09bf56511368d49ba9e", "path": "research/results/ko-header-column/data/selector/images", "tree": "0367d459e6faf4e4c9812185a7ccd93ef8caba12" }
+    ],
+    "nearReuse": {
+      "bigrams": "set of adjacent syllable pairs inside each maximal run of Hangul syllables (U+AC00-U+D7A3) of the NFC text",
+      "label": "reject a label if squash(label) is a substring of squash(s) for any corpus string s, or if max over corpus strings s of |B(label) & B(s)| / |B(label)| >= 0.5",
+      "field": "reject a field name if squash(field) is a substring of squash(s) for any corpus string s",
+      "question": "reject a page if its normalized question (NFC, whitespace runs -> one space, trimmed) equals a normalized corpus question",
+      "image": "report PNG SHA-256 overlap with the pinned prior image trees (must be 0)",
+      "templateExcluded": "the fixed question template words (의, 은, 몇, 시/명/쪽, 인가요) are not compared on their own; only labels, field names and whole questions are"
+    }
+  },
+  "reader": {
+    "folder": "D:/orca/participant-packets/ko-blind-reader-pilot",
+    "file": "start.html",
+    "admin": "D:/orca/local-research-admin/ko-blind-reader-pilot",
+    "itemsShown": "18 main items in the frozen order, plus one practice item first (not scored)",
+    "columnChoices": [{ "value": "L", "label": "왼쪽 수치 열" }, { "value": "R", "label": "오른쪽 수치 열" }, { "value": "unknown", "label": "판단 불가" }],
+    "valueUnknownLabel": "값 판단 불가",
+    "unitHints": { "time": "24시간 형식 시:분 (예: 7:05)", "count": "숫자만 또는 숫자+명 (예: 7)", "pages": "숫자만 또는 숫자+쪽 (예: 5)" },
+    "unitHintNote": "hint examples lie outside every generated value range so they cannot equal an answer",
+    "imageScale": ["fit", "original", "double"],
+    "noDisplay": "neutral screen text '이 문항은 표시할 이미지가 없습니다.' with column and value both fixed to 판단 불가 (inputs disabled)",
+    "forwardOnly": true,
+    "skip": "two-step: '이 문항 건너뛰기' then '건너뛰기 확정'; recorded as skipped (intentional)",
+    "abort": "two-step: '중단하기' then '중단 확정'; final file with status aborted; the current item (its unconfirmed answer discarded) and every later item are notReached",
+    "editPolicy": "answers of the current item can be changed until the reader moves on; after moving on an item is fixed; after the final confirmation nothing can change",
+    "finalize": "two-step '완료 확정'; produces the final response JSON once, offers download and a read-only copyable text box; the page then locks",
+    "selfReport": "start screen, required: '이 판독지를 열기 전에 정답·배정·원본 표 등 관리자 자료를 본 적이 있습니까?' 예/아니오; 예 marks the session invalid for the blind analysis",
+    "storage": "no localStorage, sessionStorage, IndexedDB, cookies or network; state lives in page memory only",
+    "interim": {
+      "save": "button '중간 저장 파일 받기' downloads kbr-interim-<packetId>-<position>.json with kind interim, the answers so far and the next position",
+      "resume": "start screen '중간 저장 불러오기': the file must have the same packetId and packetHash and a valid digest; the reader continues at the saved next position; earlier items stay fixed",
+      "scope": "resume only into the same packet, only forward; an interim file is never a final response and the scorer rejects it"
+    },
+    "practice": {
+      "title": "연습 예시 표",
+      "labelHeader": "예시 항목",
+      "labels": ["연습 항목 하나", "연습 항목 둘", "연습 항목 셋"],
+      "fields": ["시작 시각", "종료 시각"],
+      "targetSide": "L",
+      "targetSlot": 0,
+      "values": { "target": ["11:40", "14:20", "16:50"], "comp": ["15:20", "12:30", "18:10"] },
+      "aux": ["예시 문구", "예시 메모", "예시 안내", "예시 설명", "예시 참고", "예시 기타"],
+      "notes": ["비고 하나", "비고 둘", "비고 셋"],
+      "question": "연습 항목 하나의 시작 시각은 몇 시인가요?",
+      "answer": { "column": "L", "value": "11:40" },
+      "crop": [0, 0, 1180, 430],
+      "explain": "the guidance screen shows this crop and says: the record-name column is the first column; of the two number columns right of it, the nearer one is '왼쪽 수치 열' and the farther one '오른쪽 수치 열'; the remark column at the far right is not a number column"
+    }
+  },
+  "response": {
+    "format": "kbr-response-1",
+    "kinds": ["final", "interim"],
+    "fields": ["format", "kind", "packetId", "packetHash", "status", "adminMaterialSeen", "position", "items", "digest"],
+    "item": ["pos", "displayed", "reached", "skipped", "column", "value", "valueUnknown"],
+    "status": ["completed", "aborted"],
+    "digest": "SHA-256 hex of the canonical JSON (keys sorted, no whitespace) of the response without the digest field",
+    "noIdentity": "no name, contact, timestamps, raw events or device data"
+  },
+  "normalization": {
+    "common": "NFKC, then remove every Unicode White_Space code point; empty after this -> no value",
+    "time": "accept ^(\\d{1,2}):(\\d{2})$, ^(\\d{1,2})시(\\d{1,2})분$ or ^(\\d{1,2})시$ (minute 00); hour 0-23, minute 0-59; canonical H:MM without a leading zero on the hour; anything else (오전/오후, 반, '.', other units) does not parse",
+    "count": "accept ^(\\d{1,4})명?$; canonical decimal without leading zeros, value >= 1; anything else does not parse",
+    "pages": "accept ^(\\d{1,4})쪽?$; canonical decimal without leading zeros, value >= 1; anything else does not parse",
+    "gold": "the gold value is the canonical form of the rendered target value",
+    "negativeTests": ["14:3", "14:300", "24:00", "14.30", "오후 2시", "2시 반", "30명명", "3O명", "-5명", "50쪽 (count)", "50명 (pages)", "명", "0", "00:60", "1,200쪽", "１４：３０ (accepted via NFKC)", "50 명 (accepted)"]
+  },
+  "scoring": {
+    "columnCorrect": "column == key side (L or R); 'unknown' or null is not correct",
+    "valueCorrect": "valueUnknown is false and normalize(qtype, value) == canonical gold",
+    "primary": "per method: items with both correct / 6 assigned",
+    "categories": ["both", "columnOnly", "valueOnly", "neither", "unknownAny", "noDisplay", "skipped", "notReached"],
+    "noDisplay": "a method output that does not exist (upstream OCR error or no K1 match) is shown as the neutral screen, scored 0 in the denominator 6 and counted separately",
+    "completion": "completed / aborted are reported separately; for aborted files the answered denominator and the unanswered count are given next to the assigned denominator 6",
+    "selfReportYes": "the session is reported as invalid for the blind analysis (counts still computed, labelled invalid)",
+    "lock": "the first valid final response is copied into the admin folder with its SHA-256; scoring the same bytes again is idempotent; any other final response is refused without overwriting",
+    "rejections": ["wrong format/version", "interim kind", "packetId differs", "packetHash differs", "digest mismatch", "items not exactly pos 1-18 once each", "duplicate pos", "invalid field values", "a different response after the lock"],
+    "report": "counts only; no significance test, generalization or W5 adoption verdict",
+    "outputPolicy": "scorer stdout: paths, counts of files, SHA-256, ok/fail codes only; the score table is written to a file in the admin folder"
+  },
+  "qa": {
+    "images": "all 54 method outputs (18 sources x W1/W4/W5): 8-bit one-channel PNG, no ancillary text/time/exif chunks, size equals the plan, pixels equal an independent recomposition from the source page and the coords pieces",
+    "visibility": "admin only: full/partial/none of the target label, target value, competing value, target header and competing header ink in each method output (source union of pieces); never used for selection",
+    "packet": "reader folder holds start.html only; no external URL, no network or storage API, no method name, side, source id, admin path, file name or answer text outside the image data; PNG data URIs have only IHDR/IDAT/IEND; the template part is byte equal to the mock packet's template part",
+    "order": "3 blocks x 6: 2 per method, 2 per type, 3 L and 3 R per block; no 3 same methods in a row; per method 2 per type, 3 L / 3 R, 3 larger / 3 smaller with L and R larger counts in {1,2}, slots 2/2/2",
+    "ids": "unique source ids, image ids, packet id; packet <-> key bound by packetId and packetHash"
+  },
+  "outputPolicy": "every real-data command prints only paths, counts, ranges, pass/fail and SHA-256; never text, values, assignment, order, sides, visibility or scores"
+}
