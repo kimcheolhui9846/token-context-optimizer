@@ -1,0 +1,7704 @@
+{
+ "version": "ko-header-column-example-1",
+ "note": "Hand-computed examples of RECOUNT_SPEC.md 4-7. Numbers in w4 cases are read as exact JSON number text.",
+ "w4": [
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "normal_same_applied",
+   "why": "anchorY = min(150,150) = 150. Line 0 eligible (all bottoms 120 <= 150), line 1 is the K1 line, line 2 bottom 210 > 150. Sorted x0 50,95,300,345,500,545; gaps 5, 165, 5, 115, 5 vs 2*20 = 40 -> groups [0,1] [2,3] [4,5]: 이용항목 / 방문시각 / 반납시각, qualified. squash(방문 시각) = 방문시각 = group 1 only -> target 1, comp 2. W3 units 13:00 (x0 300) and 15:10 (x0 500): dT 0 / dC 200 -> target; dT 200 / dC 0 -> comp. One target unit, union [300,150,360,170] inside W2 [0,130,1000,190] -> applied, W4 = W2, cut (300-60)*1000 = 240000.",
+   "expect": {
+    "w3Reason": "multiple_candidates",
+    "scan": {
+     "count": 2,
+     "units": [
+      {
+       "line": 1,
+       "first": 2,
+       "last": 2,
+       "text": "13:00",
+       "boxes": [
+        [
+         "300",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "300",
+        "150",
+        "360",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      },
+      {
+       "line": 1,
+       "first": 3,
+       "last": 3,
+       "text": "15:10",
+       "boxes": [
+        [
+         "500",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "500",
+        "150",
+        "560",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "w4CutPixels": 240000,
+    "anchorY": "150",
+    "qualified": [
+     0
+    ],
+    "lineWhy": [
+     "eligible",
+     "k1_line",
+     "below_anchor"
+    ],
+    "groups0": [
+     {
+      "words": [
+       0,
+       1
+      ],
+      "text": "이용항목",
+      "box": [
+       "50",
+       "100",
+       "135",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       2,
+       3
+      ],
+      "text": "방문시각",
+      "box": [
+       "300",
+       "100",
+       "385",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       4,
+       5
+      ],
+      "text": "반납시각",
+      "box": [
+       "500",
+       "100",
+       "585",
+       "120"
+      ]
+     }
+    ],
+    "header": {
+     "line": 0,
+     "match": [
+      true,
+      false
+     ],
+     "target": 1,
+     "comp": 2
+    },
+    "assign": [
+     {
+      "unit": 0,
+      "column": "target",
+      "why": "nearest",
+      "dTarget": "0",
+      "dComp": "200"
+     },
+     {
+      "unit": 1,
+      "column": "comp",
+      "why": "nearest",
+      "dTarget": "200",
+      "dComp": "0"
+     }
+    ],
+    "counts": {
+     "target": 1,
+     "comp": 1,
+     "unassigned": 0
+    },
+    "chosen": 0
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "13:00",
+     "words": [
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        190,
+        60,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "answer_below_comp_only",
+   "why": "Line 1 keeps only 15:10; 13:00 is on line 2 (y 190-210, overlap with hits 0 -> not same row). W3: one unit 15:10 inside W2 -> W3 applied (would lose the answer). W4: unit x0 500 -> comp (dC 0); target 0 -> no_target_candidate, W4 = W1.",
+   "expect": {
+    "w3Reason": "applied",
+    "scan": {
+     "count": 1,
+     "units": [
+      {
+       "line": 1,
+       "first": 2,
+       "last": 2,
+       "text": "15:10",
+       "boxes": [
+        [
+         "500",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "500",
+        "150",
+        "560",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "w4Reason": "no_target_candidate",
+    "w4From": "w1",
+    "w4CutPixels": 0,
+    "counts": {
+     "target": 0,
+     "comp": 1,
+     "unassigned": 0
+    },
+    "chosen": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "blank_header",
+   "why": "Header line has groups 이용항목 / 반납시각 = 2 -> failure group_count -> 0 qualified -> header_none.",
+   "expect": {
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "qualified": [],
+    "line0Failure": "group_count",
+    "header": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 방문 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "duplicate_header",
+   "why": "Both value groups are 방문시각 = squash(field) -> match [true, true] -> header_duplicate.",
+   "expect": {
+    "w4Reason": "header_duplicate",
+    "w4From": "w1",
+    "qualified": [
+     0
+    ],
+    "header": {
+     "line": 0,
+     "match": [
+      true,
+      true
+     ],
+     "target": null,
+     "comp": null
+    }
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 입실 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "입실",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "header_no_match",
+   "why": "Value groups 입실시각 / 반납시각, neither is 방문시각 -> header_no_match.",
+   "expect": {
+    "w4Reason": "header_no_match",
+    "w4From": "w1",
+    "header": {
+     "line": 0,
+     "match": [
+      false,
+      false
+     ],
+     "target": null,
+     "comp": null
+    }
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "다른 항목 접수 시각 마감 시각",
+     "words": [
+      {
+       "text": "다른",
+       "box": [
+        50,
+        60,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        60,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "접수",
+       "box": [
+        300,
+        60,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        60,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "마감",
+       "box": [
+        500,
+        60,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        60,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "two_qualified_lines",
+   "why": "Line 3 (y 60-80, bottom <= 150) also has 3 qualified groups -> qualified [0, 3] -> header_multiple (no nearest-line choice).",
+   "expect": {
+    "w4Reason": "header_multiple",
+    "w4From": "w1",
+    "qualified": [
+     0,
+     3
+    ],
+    "header": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        130,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "group_gap_exactly_2x",
+   "why": "이용 x1 = 90, 항목 x0 = 130: gap 40 = 2*20, not > -> same group 이용항목 box [50,100,170,120]; next gap 300-170 = 130 > 40. Rest as base -> applied.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "groups0": [
+     {
+      "words": [
+       0,
+       1
+      ],
+      "text": "이용항목",
+      "box": [
+       "50",
+       "100",
+       "170",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       2,
+       3
+      ],
+      "text": "방문시각",
+      "box": [
+       "300",
+       "100",
+       "385",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       4,
+       5
+      ],
+      "text": "반납시각",
+      "box": [
+       "500",
+       "100",
+       "585",
+       "120"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        130.5,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "group_gap_over_2x",
+   "why": "gap 130.5 - 90 = 40.5 > 40 -> 이용 | 항목 split -> 4 groups -> group_count -> header_none.",
+   "expect": {
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "qualified": [],
+    "line0Failure": "group_count"
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        80,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "negative_gap_no_split",
+   "why": "항목 x0 80 < 이용 x1 90: gap -10, never a split -> group 이용항목 [50,100,120,120]. Applied as base.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "groups0": [
+     {
+      "words": [
+       0,
+       1
+      ],
+      "text": "이용항목",
+      "box": [
+       "50",
+       "100",
+       "120",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       2,
+       3
+      ],
+      "text": "방문시각",
+      "box": [
+       "300",
+       "100",
+       "385",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       4,
+       5
+      ],
+      "text": "반납시각",
+      "box": [
+       "500",
+       "100",
+       "585",
+       "120"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        300,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        310,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "previous_word_gap_makes_overlap",
+   "why": "Sorted: 300 방문 (x1 600), 310 시각 (x1 350), 500 반납, 545 시각. Gap 시각->반납 uses the previous word 시각: 500-350 = 150 > 40 -> split (the group's running x1 600 is not used). Groups 이용항목 / 방문시각 [300,100,600,120] / 반납시각 [500,100,585,120]; groups 1 and 2 overlap 85 > 0 -> x_overlap -> header_none.",
+   "expect": {
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "qualified": [],
+    "line0Failure": "x_overlap"
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        320,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "distance_exactly_header_height",
+   "why": "13:00 at x0 320: dT = 20 = header height 20 (equal allowed) and dC 180 -> target. Union [320,150,380,170] inside W2 -> applied.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "counts": {
+     "target": 1,
+     "comp": 1,
+     "unassigned": 0
+    }
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        320.5,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "distance_over_header_height",
+   "why": "x0 320.5: dT 20.5 < dC 179.5 but 20.5 > 20 -> too_far, unassigned. 15:10 -> comp. target 0 -> no_target_candidate.",
+   "expect": {
+    "w4Reason": "no_target_candidate",
+    "w4From": "w1",
+    "counts": {
+     "target": 0,
+     "comp": 1,
+     "unassigned": 1
+    },
+    "assign": [
+     {
+      "unit": 0,
+      "column": null,
+      "why": "too_far",
+      "dTarget": "20.5",
+      "dComp": "179.5"
+     },
+     {
+      "unit": 1,
+      "column": "comp",
+      "why": "nearest",
+      "dTarget": "200",
+      "dComp": "0"
+     }
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        400,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "tie_unassigned",
+   "why": "x0 400: dT = dC = 100 -> tie, unassigned (gap to 15:10 is 500-460 = 40 so no 2-word unit: 2*40 > 20). target 0 -> no_target_candidate.",
+   "expect": {
+    "w4Reason": "no_target_candidate",
+    "w4From": "w1",
+    "counts": {
+     "target": 0,
+     "comp": 1,
+     "unassigned": 1
+    },
+    "assign": [
+     {
+      "unit": 0,
+      "column": null,
+      "why": "tie",
+      "dTarget": "100",
+      "dComp": "100"
+     },
+     {
+      "unit": 1,
+      "column": "comp",
+      "why": "nearest",
+      "dTarget": "200",
+      "dComp": "0"
+     }
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300.1,
+        100,
+        40,
+        20.2
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20.2
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        320.3,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "decimal_exact_boundary",
+   "why": "Target group 방문시각 box [300.1,100,385,120.2], height 20.2. 13:00 x0 320.3: dT = 320.3 - 300.1 = 20.2 exactly = height -> target (binary floating point gives 20.200000000000045 > 20.2 and would refuse). Group gaps: 300.1-135 = 165.1 > 40.4; 500-385 = 115 > 40.4. Applied.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "assign": [
+     {
+      "unit": 0,
+      "column": "target",
+      "why": "nearest",
+      "dTarget": "20.2",
+      "dComp": "179.7"
+     },
+     {
+      "unit": 1,
+      "column": "comp",
+      "why": "nearest",
+      "dTarget": "199.9",
+      "dComp": "0"
+     }
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "시각 반납 시각 방문 항목 이용",
+     "words": [
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "ocr_word_order_reversed",
+   "why": "Header words stored right to left (indices 0..5 = 시각545, 반납500, 시각345, 방문300, 항목95, 이용50). Sorting by x0 gives the same groups with words [5,4], [3,2], [1,0]. Applied.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "groups0": [
+     {
+      "words": [
+       5,
+       4
+      ],
+      "text": "이용항목",
+      "box": [
+       "50",
+       "100",
+       "135",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       3,
+       2
+      ],
+      "text": "방문시각",
+      "box": [
+       "300",
+       "100",
+       "385",
+       "120"
+      ]
+     },
+     {
+      "words": [
+       1,
+       0
+      ],
+      "text": "반납시각",
+      "box": [
+       "500",
+       "100",
+       "585",
+       "120"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "13:30",
+     "words": [
+      {
+       "text": "13:30",
+       "box": [
+        300,
+        155,
+        60,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "multiple_target_candidates",
+   "why": "Line 3 13:30 at [300,155,360,175]: overlap with hits [150,170] = 15, 2*15 >= 20, x0 300 >= 135 -> W3 unit (line 3). Units 13:00 target, 15:10 comp, 13:30 target (dT 0) -> 2 targets -> multiple_target_candidates.",
+   "expect": {
+    "w3Reason": "multiple_candidates",
+    "w4Reason": "multiple_target_candidates",
+    "w4From": "w1",
+    "counts": {
+     "target": 2,
+     "comp": 1,
+     "unassigned": 0
+    }
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        31
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 140,
+     "width": 1000,
+     "height": 40
+    },
+    "w2Reason": "cut"
+   },
+   "name": "target_outside_w2_1px",
+   "why": "W2 [140,180). 13:00 box y [150,181): same row (overlap 20, 2*20 >= min(31,20)); target; union y1 181 > 180 -> target_outside_w2, W4 = W1.",
+   "expect": {
+    "w4Reason": "target_outside_w2",
+    "w4From": "w1",
+    "w4CutPixels": 0
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        30
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 140,
+     "width": 1000,
+     "height": 40
+    },
+    "w2Reason": "cut"
+   },
+   "name": "target_on_w2_edge",
+   "why": "Same with height 30: union y1 180 = W2 bottom 180 (equal inside) -> applied; cut (300-40)*1000 = 260000.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "w4CutPixels": 260000
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "•",
+       "box": [
+        200,
+        100,
+        0,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "invalid_word_line",
+   "why": "Header line gets a zero-width word -> line why invalid_word (not eligible) -> 0 qualified -> header_none.",
+   "expect": {
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "qualified": [],
+    "lineWhy": [
+     "invalid_word",
+     "k1_line",
+     "below_anchor"
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": " ",
+       "box": [
+        200,
+        100,
+        10,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "empty_text_word_line",
+   "why": "A word whose squash text is empty -> invalid_word -> header_none.",
+   "expect": {
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "lineWhy": [
+     "invalid_word",
+     "k1_line",
+     "below_anchor"
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        60
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "word_below_anchor",
+   "why": "Header word 시각 bottom 160 > anchor 150 -> below_anchor -> header_none.",
+   "expect": {
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "lineWhy": [
+     "below_anchor",
+     "k1_line",
+     "below_anchor"
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "고서열람 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "고서열람",
+       "box": [
+        50,
+        100,
+        85,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 0,
+    "hitWords": [
+     0
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "k1_line_excluded",
+   "why": "K1 picks the header-shaped line 0 (hit 고서열람, anchor 100). Line 0 is excluded as the K1 line; lines 1, 2 lie below 100 -> header_none. W3: 13:00 / 15:10 rows y 150 do not overlap the hit row y 100-120 -> no_candidate.",
+   "expect": {
+    "w3Reason": "no_candidate",
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "anchorY": "100",
+    "lineWhy": [
+     "k1_line",
+     "below_anchor",
+     "below_anchor"
+    ]
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2Reason": "no_cut"
+   },
+   "name": "not_applicable_diagnostics_kept",
+   "why": "w2Reason no_cut -> not_applicable, W4 = W1; diagnostics still find the header and assign 13:00 to the target column.",
+   "expect": {
+    "w3Reason": "not_applicable",
+    "w4Reason": "not_applicable",
+    "w4From": "w1",
+    "w4CutPixels": 0,
+    "header": {
+     "line": 0,
+     "match": [
+      true,
+      false
+     ],
+     "target": 1,
+     "comp": 2
+    },
+    "counts": {
+     "target": 1,
+     "comp": 1,
+     "unassigned": 0
+    },
+    "chosen": 0
+   }
+  },
+  {
+   "question": "고서 열람의 방문 날짜는 언제인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "qtype_none",
+   "why": "No cue (시각/몇시/몇명/몇쪽) -> qtypes [] -> qtype_none; parse also fails.",
+   "expect": {
+    "w3Reason": "qtype_none",
+    "w4Reason": "qtype_none",
+    "w4From": "w1",
+    "question": null
+   }
+  },
+  {
+   "question": "시각 자료실의 방문 인원은 몇 명인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "qtype_multiple",
+   "why": "시각 (time) and 몇명 (count) -> qtype_multiple.",
+   "expect": {
+    "w3Reason": "qtype_multiple",
+    "w4Reason": "qtype_multiple",
+    "w4From": "w1"
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 언제인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "question_unparsed",
+   "why": "Types [time] but the sentence ends 언제인가요? -> question_unparsed. W3 still multiple_candidates.",
+   "expect": {
+    "w3Reason": "multiple_candidates",
+    "w4Reason": "question_unparsed",
+    "w4From": "w1",
+    "question": null
+   }
+  },
+  {
+   "question": "고서의 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "question_two_ui",
+   "why": "Two occurrences of '의 ' -> unparsed.",
+   "expect": {
+    "w4Reason": "question_unparsed",
+    "w4From": "w1",
+    "question": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "error",
+    "w1": null,
+    "w2": null,
+    "w2Reason": "inherit"
+   },
+   "name": "error_row",
+   "why": "r.reason error -> w4 null, reason error.",
+   "expect": {
+    "w3Reason": "error",
+    "w4Reason": "error",
+    "w4From": null,
+    "w4": null,
+    "w4CutPixels": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "unmatched",
+    "w1": null,
+    "w2": null,
+    "w2Reason": "inherit"
+   },
+   "name": "unmatched_row",
+   "why": "r.reason unmatched -> w4 null, reason unmatched.",
+   "expect": {
+    "w3Reason": "unmatched",
+    "w4Reason": "unmatched",
+    "w4From": null,
+    "w4": null,
+    "w4CutPixels": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 방문 시각 반납 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        0,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "no_valid_hit_word",
+   "why": "The only hit word has width 0 -> W3 validHits [] -> no_valid_hit_word (W3 and W4).",
+   "expect": {
+    "w3Reason": "no_valid_hit_word",
+    "w4Reason": "no_valid_hit_word",
+    "w4From": "w1",
+    "anchorY": null
+   }
+  },
+  {
+   "question": "고서 열람의 방문 시각은 몇 시인가요?",
+   "lines": [
+    {
+     "text": "이용 항목 반납 시각 방문 시각",
+     "words": [
+      {
+       "text": "이용",
+       "box": [
+        50,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "항목",
+       "box": [
+        95,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "반납",
+       "box": [
+        300,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        345,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "방문",
+       "box": [
+        500,
+        100,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "시각",
+       "box": [
+        545,
+        100,
+        40,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "고서 열람 13:00 15:10",
+     "words": [
+      {
+       "text": "고서",
+       "box": [
+        50,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "열람",
+       "box": [
+        95,
+        150,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "13:00",
+       "box": [
+        300,
+        150,
+        60,
+        20
+       ]
+      },
+      {
+       "text": "15:10",
+       "box": [
+        500,
+        150,
+        60,
+        20
+       ]
+      }
+     ]
+    },
+    {
+     "text": "현장 확인",
+     "words": [
+      {
+       "text": "현장",
+       "box": [
+        300,
+        190,
+        40,
+        20
+       ]
+      },
+      {
+       "text": "확인",
+       "box": [
+        345,
+        190,
+        40,
+        20
+       ]
+      }
+     ]
+    }
+   ],
+   "k1": {
+    "status": "ok",
+    "matched": true,
+    "branch": "hangul",
+    "lineIndex": 1,
+    "hitWords": [
+     0,
+     1
+    ]
+   },
+   "r": {
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut"
+   },
+   "name": "target_column_right",
+   "why": "Asked column on the right: groups 반납시각 (x0 300) / 방문시각 (x0 500) -> target 2, comp 1. 13:00 (x0 300) -> comp, 15:10 (x0 500) -> target -> applied with chosen unit 1.",
+   "expect": {
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "header": {
+     "line": 0,
+     "match": [
+      false,
+      true
+     ],
+     "target": 2,
+     "comp": 1
+    },
+    "counts": {
+     "target": 1,
+     "comp": 1,
+     "unassigned": 0
+    },
+    "chosen": 1
+   }
+  }
+ ],
+ "parser": [
+  {
+   "q": "고서 영인본 열람의 방문 시각은 몇 시인가요?",
+   "expect": {
+    "record": "고서 영인본 열람",
+    "field": "방문 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "지역 신문 원문 검색의 퇴실 시각은 몇 시인가요?",
+   "expect": {
+    "record": "지역 신문 원문 검색",
+    "field": "퇴실 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "희귀 지도 복제 의뢰의 동반 인원은 몇 명인가요?",
+   "expect": {
+    "record": "희귀 지도 복제 의뢰",
+    "field": "동반 인원",
+    "qtype": "count"
+   },
+   "qtypes": [
+    "count"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "어린이 그림책 낭독회의 출력 분량은 몇 쪽인가요?",
+   "expect": {
+    "record": "어린이 그림책 낭독회",
+    "field": "출력 분량",
+    "qtype": "pages"
+   },
+   "qtypes": [
+    "pages"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "새벽 수영 강습반의 개장 시각은 몇 시인가요?",
+   "expect": {
+    "record": "새벽 수영 강습반",
+    "field": "개장 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "주말 배드민턴 교실의 결원 인원은 몇 명인가요?",
+   "expect": {
+    "record": "주말 배드민턴 교실",
+    "field": "결원 인원",
+    "qtype": "count"
+   },
+   "qtypes": [
+    "count"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "어르신 걷기 동호회의 참가 인원은 몇 명인가요?",
+   "expect": {
+    "record": "어르신 걷기 동호회",
+    "field": "참가 인원",
+    "qtype": "count"
+   },
+   "qtypes": [
+    "count"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "청소년 농구 리그의 일지 분량은 몇 쪽인가요?",
+   "expect": {
+    "record": "청소년 농구 리그",
+    "field": "일지 분량",
+    "qtype": "pages"
+   },
+   "qtypes": [
+    "pages"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "강변 음악 축제 무대의 철수 시각은 몇 시인가요?",
+   "expect": {
+    "record": "강변 음악 축제 무대",
+    "field": "철수 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "전통 공예 체험 장터의 봉사 인원은 몇 명인가요?",
+   "expect": {
+    "record": "전통 공예 체험 장터",
+    "field": "봉사 인원",
+    "qtype": "count"
+   },
+   "qtypes": [
+    "count"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "청소년 연극 발표회의 악보 분량은 몇 쪽인가요?",
+   "expect": {
+    "record": "청소년 연극 발표회",
+    "field": "악보 분량",
+    "qtype": "pages"
+   },
+   "qtypes": [
+    "pages"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "시민 합창단 정기 공연의 전단 분량은 몇 쪽인가요?",
+   "expect": {
+    "record": "시민 합창단 정기 공연",
+    "field": "전단 분량",
+    "qtype": "pages"
+   },
+   "qtypes": [
+    "pages"
+   ],
+   "why": "registered question"
+  },
+  {
+   "q": "가을 수영 강습의 접수 시각은 몇 시인가요?",
+   "expect": {
+    "record": "가을 수영 강습",
+    "field": "접수 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "brief example"
+  },
+  {
+   "q": "고서 열람의 방문 시각는 몇 시인가요?",
+   "expect": {
+    "record": "고서 열람",
+    "field": "방문 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "는 is accepted"
+  },
+  {
+   "q": "고서 열람의 방문 시각은 몇 시인가요？",
+   "expect": {
+    "record": "고서 열람",
+    "field": "방문 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "full-width ? -> NFKC ?"
+  },
+  {
+   "q": " 고서  열람의\t방문　시각은 몇 시인가요? ",
+   "expect": {
+    "record": "고서 열람",
+    "field": "방문 시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "White_Space runs (two spaces, tab, U+3000) folded to one space, ends trimmed"
+  },
+  {
+   "q": "고서 열람의 방문시각은 몇 시인가요?",
+   "expect": {
+    "record": "고서 열람",
+    "field": "방문시각",
+    "qtype": "time"
+   },
+   "qtypes": [
+    "time"
+   ],
+   "why": "no space before the suffix"
+  },
+  {
+   "q": "고서 열람 방문 시각은 몇 시인가요?",
+   "expect": null,
+   "qtypes": [
+    "time"
+   ],
+   "why": "no '의 '"
+  },
+  {
+   "q": "고서의 열람의 방문 시각은 몇 시인가요?",
+   "expect": null,
+   "qtypes": [
+    "time"
+   ],
+   "why": "'의 ' twice"
+  },
+  {
+   "q": "고서 열람의 방문 시각은 몇 명인가요?",
+   "expect": null,
+   "qtypes": [
+    "count",
+    "time"
+   ],
+   "why": "suffix 시각 vs unit 명"
+  },
+  {
+   "q": "고서 열람의 방문 시각은 몇 시인가요",
+   "expect": null,
+   "qtypes": [
+    "time"
+   ],
+   "why": "no question mark"
+  },
+  {
+   "q": "고서 열람의 시각은 몇 시인가요?",
+   "expect": null,
+   "qtypes": [
+    "time"
+   ],
+   "why": "no qualifier before 시각"
+  },
+  {
+   "q": "의 방문 시각은 몇 시인가요?",
+   "expect": null,
+   "qtypes": [
+    "time"
+   ],
+   "why": "empty record name"
+  },
+  {
+   "q": "고서 열람의 참가 인원은 몇 명인가요?",
+   "expect": {
+    "record": "고서 열람",
+    "field": "참가 인원",
+    "qtype": "count"
+   },
+   "qtypes": [
+    "count"
+   ],
+   "why": "count"
+  },
+  {
+   "q": "고서 열람의 복사 분량은 몇 쪽인가요?",
+   "expect": {
+    "record": "고서 열람",
+    "field": "복사 분량",
+    "qtype": "pages"
+   },
+   "qtypes": [
+    "pages"
+   ],
+   "why": "pages"
+  }
+ ],
+ "exposure": [
+  {
+   "ink": [
+    10,
+    10,
+    20,
+    20
+   ],
+   "band": {
+    "left": 0,
+    "top": 0,
+    "width": 20,
+    "height": 20
+   },
+   "expect": "full",
+   "why": "edges equal, half-open"
+  },
+  {
+   "ink": [
+    10,
+    10,
+    20,
+    20
+   ],
+   "band": {
+    "left": 0,
+    "top": 0,
+    "width": 19,
+    "height": 20
+   },
+   "expect": "partial",
+   "why": "1 px column cut"
+  },
+  {
+   "ink": [
+    10,
+    10,
+    20,
+    20
+   ],
+   "band": {
+    "left": 20,
+    "top": 0,
+    "width": 10,
+    "height": 20
+   },
+   "expect": "none",
+   "why": "touching only"
+  },
+  {
+   "ink": [
+    10,
+    10,
+    20,
+    20
+   ],
+   "band": {
+    "left": 0,
+    "top": 20,
+    "width": 30,
+    "height": 5
+   },
+   "expect": "none",
+   "why": "touching from below"
+  },
+  {
+   "ink": [
+    10,
+    10,
+    20,
+    20
+   ],
+   "band": null,
+   "expect": null,
+   "why": "no window"
+  }
+ ],
+ "attributePage": {
+  "targetHeaderItem": "h-target",
+  "compHeaderItem": "h-comp",
+  "valueItem": "r0-tval",
+  "compValueItem": "r0-cval",
+  "otherValueItems": [
+   "r1-tval"
+  ],
+  "recordCompItems": [
+   "r0-cval",
+   "r1-cval"
+  ],
+  "items": {
+   "h-target": {
+    "cell": [
+     290,
+     90,
+     490,
+     130
+    ],
+    "ink": [
+     300,
+     100,
+     385,
+     120
+    ]
+   },
+   "h-comp": {
+    "cell": [
+     490,
+     90,
+     690,
+     130
+    ],
+    "ink": [
+     500,
+     100,
+     585,
+     120
+    ]
+   },
+   "r0-tval": {
+    "cell": [
+     290,
+     140,
+     490,
+     180
+    ],
+    "ink": [
+     300,
+     150,
+     360,
+     170
+    ]
+   },
+   "r0-cval": {
+    "cell": [
+     490,
+     140,
+     690,
+     180
+    ],
+    "ink": [
+     500,
+     150,
+     560,
+     170
+    ]
+   },
+   "r1-tval": {
+    "cell": [
+     290,
+     230,
+     490,
+     270
+    ],
+    "ink": [
+     300,
+     240,
+     360,
+     260
+    ]
+   },
+   "r1-cval": {
+    "cell": [
+     490,
+     230,
+     690,
+     270
+    ],
+    "ink": [
+     500,
+     240,
+     560,
+     260
+    ]
+   },
+   "r0-label": {
+    "cell": [
+     40,
+     140,
+     290,
+     180
+    ],
+    "ink": [
+     50,
+     150,
+     135,
+     170
+    ]
+   }
+  }
+ },
+ "attribute": [
+  {
+   "boxes": [
+    [
+     300,
+     100,
+     40,
+     20
+    ],
+    [
+     345,
+     100,
+     40,
+     20
+    ]
+   ],
+   "expect": "h-target",
+   "header": "target_header",
+   "why": "centres (320,110), (365,110) in h-target cell; union [300,100,385,120] meets its ink"
+  },
+  {
+   "boxes": [
+    [
+     500,
+     100,
+     40,
+     20
+    ],
+    [
+     545,
+     100,
+     40,
+     20
+    ]
+   ],
+   "expect": "h-comp",
+   "header": "comp_header",
+   "why": "both centres in h-comp cell"
+  },
+  {
+   "boxes": [
+    [
+     300,
+     100,
+     40,
+     20
+    ],
+    [
+     545,
+     100,
+     40,
+     20
+    ]
+   ],
+   "expect": null,
+   "header": "undetermined",
+   "why": "two different cells"
+  },
+  {
+   "boxes": [
+    [
+     480,
+     100,
+     40,
+     20
+    ]
+   ],
+   "expect": "h-comp",
+   "header": "comp_header",
+   "why": "centre x 500 = h-comp cell left edge (included, h-target right edge excluded); union [480,100,520,120] meets h-comp ink [500..585] by 20"
+  },
+  {
+   "boxes": [
+    [
+     440,
+     100,
+     20,
+     20
+    ]
+   ],
+   "expect": null,
+   "header": "undetermined",
+   "why": "centre (450,110) in h-target cell but union [440,460] does not meet ink [300,385]"
+  },
+  {
+   "boxes": [
+    [
+     300,
+     100,
+     40,
+     20
+    ]
+   ],
+   "expect": null,
+   "header": "undetermined",
+   "pageWithoutTargetHeader": true,
+   "why": "blank header: no h-target item, the centre lies in no rendered cell"
+  },
+  {
+   "boxes": [
+    [
+     300,
+     150,
+     60,
+     20
+    ]
+   ],
+   "expect": "r0-tval",
+   "candidate": "target_value",
+   "why": "target value"
+  },
+  {
+   "boxes": [
+    [
+     500,
+     150,
+     60,
+     20
+    ]
+   ],
+   "expect": "r0-cval",
+   "candidate": "comp_value",
+   "why": "same-record competing value"
+  },
+  {
+   "boxes": [
+    [
+     300,
+     240,
+     60,
+     20
+    ]
+   ],
+   "expect": "r1-tval",
+   "candidate": "other_record_value",
+   "why": "other record asked-field value"
+  },
+  {
+   "boxes": [
+    [
+     500,
+     240,
+     60,
+     20
+    ]
+   ],
+   "expect": "r1-cval",
+   "candidate": "other_record_comp",
+   "why": "other record competing value"
+  },
+  {
+   "boxes": [
+    [
+     50,
+     150,
+     85,
+     20
+    ]
+   ],
+   "expect": "r0-label",
+   "candidate": "other_item",
+   "why": "label item"
+  }
+ ],
+ "pp": [
+  {
+   "num": 40,
+   "den": 1,
+   "expect": "40.00"
+  },
+  {
+   "num": 40,
+   "den": 3,
+   "expect": "13.33"
+  },
+  {
+   "num": 1,
+   "den": 200,
+   "expect": "0.01",
+   "why": "0.005 rounds up"
+  },
+  {
+   "num": 1,
+   "den": 400,
+   "expect": "0.00",
+   "why": "0.0025 rounds down"
+  },
+  {
+   "num": -1,
+   "den": 200,
+   "expect": "-0.01",
+   "why": "symmetric"
+  },
+  {
+   "num": 2,
+   "den": 3,
+   "expect": "0.67"
+  }
+ ],
+ "scoring": {
+  "pageArea": 600000,
+  "pages": [
+   {
+    "id": "p000",
+    "key": "s1-L-normal-same",
+    "source": "s1",
+    "kind": "library",
+    "content": 0,
+    "side": "L",
+    "header": "normal",
+    "ans": "same",
+    "cell": "L-normal-same",
+    "qtype": "time",
+    "slot": 0,
+    "width": 1000,
+    "height": 600,
+    "anchorItem": "r0-label",
+    "valueItem": "r0-tval",
+    "compValueItem": "r0-cval",
+    "targetHeaderItem": "h-target",
+    "compHeaderItem": "h-comp",
+    "otherValueItems": [
+     "r1-tval"
+    ],
+    "recordCompItems": [
+     "r0-cval",
+     "r1-cval"
+    ],
+    "parts": [
+     [
+      50,
+      150,
+      135,
+      170
+     ],
+     [
+      300,
+      150,
+      360,
+      170
+     ]
+    ],
+    "items": {
+     "title": {
+      "role": "title",
+      "cell": [
+       40,
+       28,
+       1000,
+       84
+      ],
+      "ink": [
+       52,
+       40,
+       300,
+       72
+      ]
+     },
+     "h-label": {
+      "role": "header",
+      "cell": [
+       40,
+       90,
+       290,
+       130
+      ],
+      "ink": [
+       50,
+       100,
+       150,
+       120
+      ]
+     },
+     "h-target": {
+      "role": "header",
+      "cell": [
+       290,
+       90,
+       490,
+       130
+      ],
+      "ink": [
+       300,
+       100,
+       385,
+       120
+      ]
+     },
+     "h-comp": {
+      "role": "header",
+      "cell": [
+       490,
+       90,
+       690,
+       130
+      ],
+      "ink": [
+       500,
+       100,
+       585,
+       120
+      ]
+     },
+     "r0-label": {
+      "role": "label",
+      "cell": [
+       40,
+       140,
+       290,
+       180
+      ],
+      "ink": [
+       50,
+       150,
+       135,
+       170
+      ]
+     },
+     "r0-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       140,
+       490,
+       180
+      ],
+      "ink": [
+       300,
+       150,
+       360,
+       170
+      ]
+     },
+     "r0-taux": {
+      "role": "aux",
+      "cell": [
+       290,
+       180,
+       490,
+       220
+      ],
+      "ink": [
+       300,
+       190,
+       385,
+       210
+      ]
+     },
+     "r0-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       140,
+       690,
+       180
+      ],
+      "ink": [
+       500,
+       150,
+       560,
+       170
+      ]
+     },
+     "r1-label": {
+      "role": "label",
+      "cell": [
+       40,
+       230,
+       290,
+       270
+      ],
+      "ink": [
+       50,
+       240,
+       135,
+       260
+      ]
+     },
+     "r1-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       230,
+       490,
+       270
+      ],
+      "ink": [
+       300,
+       240,
+       360,
+       260
+      ]
+     },
+     "r1-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       230,
+       690,
+       270
+      ],
+      "ink": [
+       500,
+       240,
+       560,
+       260
+      ]
+     }
+    }
+   },
+   {
+    "id": "p001",
+    "key": "s1-L-normal-below",
+    "source": "s1",
+    "kind": "library",
+    "content": 0,
+    "side": "L",
+    "header": "normal",
+    "ans": "below",
+    "cell": "L-normal-below",
+    "qtype": "time",
+    "slot": 0,
+    "width": 1000,
+    "height": 600,
+    "anchorItem": "r0-label",
+    "valueItem": "r0-tval",
+    "compValueItem": "r0-cval",
+    "targetHeaderItem": "h-target",
+    "compHeaderItem": "h-comp",
+    "otherValueItems": [
+     "r1-tval"
+    ],
+    "recordCompItems": [
+     "r0-cval",
+     "r1-cval"
+    ],
+    "parts": [
+     [
+      50,
+      150,
+      135,
+      170
+     ],
+     [
+      300,
+      190,
+      360,
+      210
+     ]
+    ],
+    "items": {
+     "title": {
+      "role": "title",
+      "cell": [
+       40,
+       28,
+       1000,
+       84
+      ],
+      "ink": [
+       52,
+       40,
+       300,
+       72
+      ]
+     },
+     "h-label": {
+      "role": "header",
+      "cell": [
+       40,
+       90,
+       290,
+       130
+      ],
+      "ink": [
+       50,
+       100,
+       150,
+       120
+      ]
+     },
+     "h-target": {
+      "role": "header",
+      "cell": [
+       290,
+       90,
+       490,
+       130
+      ],
+      "ink": [
+       300,
+       100,
+       385,
+       120
+      ]
+     },
+     "h-comp": {
+      "role": "header",
+      "cell": [
+       490,
+       90,
+       690,
+       130
+      ],
+      "ink": [
+       500,
+       100,
+       585,
+       120
+      ]
+     },
+     "r0-label": {
+      "role": "label",
+      "cell": [
+       40,
+       140,
+       290,
+       180
+      ],
+      "ink": [
+       50,
+       150,
+       135,
+       170
+      ]
+     },
+     "r0-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       180,
+       490,
+       220
+      ],
+      "ink": [
+       300,
+       190,
+       360,
+       210
+      ]
+     },
+     "r0-taux": {
+      "role": "aux",
+      "cell": [
+       290,
+       140,
+       490,
+       180
+      ],
+      "ink": [
+       300,
+       150,
+       385,
+       170
+      ]
+     },
+     "r0-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       140,
+       690,
+       180
+      ],
+      "ink": [
+       500,
+       150,
+       560,
+       170
+      ]
+     },
+     "r1-label": {
+      "role": "label",
+      "cell": [
+       40,
+       230,
+       290,
+       270
+      ],
+      "ink": [
+       50,
+       240,
+       135,
+       260
+      ]
+     },
+     "r1-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       270,
+       490,
+       310
+      ],
+      "ink": [
+       300,
+       280,
+       360,
+       300
+      ]
+     },
+     "r1-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       230,
+       690,
+       270
+      ],
+      "ink": [
+       500,
+       240,
+       560,
+       260
+      ]
+     }
+    }
+   },
+   {
+    "id": "p002",
+    "key": "s2-R-blank-same",
+    "source": "s2",
+    "kind": "library",
+    "content": 0,
+    "side": "R",
+    "header": "blank",
+    "ans": "same",
+    "cell": "R-blank-same",
+    "qtype": "time",
+    "slot": 0,
+    "width": 1000,
+    "height": 600,
+    "anchorItem": "r0-label",
+    "valueItem": "r0-tval",
+    "compValueItem": "r0-cval",
+    "targetHeaderItem": null,
+    "compHeaderItem": "h-comp",
+    "otherValueItems": [
+     "r1-tval"
+    ],
+    "recordCompItems": [
+     "r0-cval",
+     "r1-cval"
+    ],
+    "parts": [
+     [
+      50,
+      150,
+      135,
+      170
+     ],
+     [
+      300,
+      150,
+      360,
+      170
+     ]
+    ],
+    "items": {
+     "title": {
+      "role": "title",
+      "cell": [
+       40,
+       28,
+       1000,
+       84
+      ],
+      "ink": [
+       52,
+       40,
+       300,
+       72
+      ]
+     },
+     "h-label": {
+      "role": "header",
+      "cell": [
+       40,
+       90,
+       290,
+       130
+      ],
+      "ink": [
+       50,
+       100,
+       150,
+       120
+      ]
+     },
+     "h-comp": {
+      "role": "header",
+      "cell": [
+       490,
+       90,
+       690,
+       130
+      ],
+      "ink": [
+       500,
+       100,
+       585,
+       120
+      ]
+     },
+     "r0-label": {
+      "role": "label",
+      "cell": [
+       40,
+       140,
+       290,
+       180
+      ],
+      "ink": [
+       50,
+       150,
+       135,
+       170
+      ]
+     },
+     "r0-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       140,
+       490,
+       180
+      ],
+      "ink": [
+       300,
+       150,
+       360,
+       170
+      ]
+     },
+     "r0-taux": {
+      "role": "aux",
+      "cell": [
+       290,
+       180,
+       490,
+       220
+      ],
+      "ink": [
+       300,
+       190,
+       385,
+       210
+      ]
+     },
+     "r0-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       140,
+       690,
+       180
+      ],
+      "ink": [
+       500,
+       150,
+       560,
+       170
+      ]
+     },
+     "r1-label": {
+      "role": "label",
+      "cell": [
+       40,
+       230,
+       290,
+       270
+      ],
+      "ink": [
+       50,
+       240,
+       135,
+       260
+      ]
+     },
+     "r1-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       230,
+       490,
+       270
+      ],
+      "ink": [
+       300,
+       240,
+       360,
+       260
+      ]
+     },
+     "r1-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       230,
+       690,
+       270
+      ],
+      "ink": [
+       500,
+       240,
+       560,
+       260
+      ]
+     }
+    }
+   },
+   {
+    "id": "p003",
+    "key": "s3-L-dup-same",
+    "source": "s3",
+    "kind": "library",
+    "content": 0,
+    "side": "L",
+    "header": "dup",
+    "ans": "same",
+    "cell": "L-dup-same",
+    "qtype": "time",
+    "slot": 0,
+    "width": 1000,
+    "height": 600,
+    "anchorItem": "r0-label",
+    "valueItem": "r0-tval",
+    "compValueItem": "r0-cval",
+    "targetHeaderItem": "h-target",
+    "compHeaderItem": "h-comp",
+    "otherValueItems": [
+     "r1-tval"
+    ],
+    "recordCompItems": [
+     "r0-cval",
+     "r1-cval"
+    ],
+    "parts": [
+     [
+      50,
+      150,
+      135,
+      170
+     ],
+     [
+      300,
+      150,
+      360,
+      170
+     ]
+    ],
+    "items": {
+     "title": {
+      "role": "title",
+      "cell": [
+       40,
+       28,
+       1000,
+       84
+      ],
+      "ink": [
+       52,
+       40,
+       300,
+       72
+      ]
+     },
+     "h-label": {
+      "role": "header",
+      "cell": [
+       40,
+       90,
+       290,
+       130
+      ],
+      "ink": [
+       50,
+       100,
+       150,
+       120
+      ]
+     },
+     "h-target": {
+      "role": "header",
+      "cell": [
+       290,
+       90,
+       490,
+       130
+      ],
+      "ink": [
+       300,
+       100,
+       385,
+       120
+      ]
+     },
+     "h-comp": {
+      "role": "header",
+      "cell": [
+       490,
+       90,
+       690,
+       130
+      ],
+      "ink": [
+       500,
+       100,
+       585,
+       120
+      ]
+     },
+     "r0-label": {
+      "role": "label",
+      "cell": [
+       40,
+       140,
+       290,
+       180
+      ],
+      "ink": [
+       50,
+       150,
+       135,
+       170
+      ]
+     },
+     "r0-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       140,
+       490,
+       180
+      ],
+      "ink": [
+       300,
+       150,
+       360,
+       170
+      ]
+     },
+     "r0-taux": {
+      "role": "aux",
+      "cell": [
+       290,
+       180,
+       490,
+       220
+      ],
+      "ink": [
+       300,
+       190,
+       385,
+       210
+      ]
+     },
+     "r0-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       140,
+       690,
+       180
+      ],
+      "ink": [
+       500,
+       150,
+       560,
+       170
+      ]
+     },
+     "r1-label": {
+      "role": "label",
+      "cell": [
+       40,
+       230,
+       290,
+       270
+      ],
+      "ink": [
+       50,
+       240,
+       135,
+       260
+      ]
+     },
+     "r1-tval": {
+      "role": "target_value",
+      "cell": [
+       290,
+       230,
+       490,
+       270
+      ],
+      "ink": [
+       300,
+       240,
+       360,
+       260
+      ]
+     },
+     "r1-cval": {
+      "role": "comp_value",
+      "cell": [
+       490,
+       230,
+       690,
+       270
+      ],
+      "ink": [
+       500,
+       240,
+       560,
+       260
+      ]
+     }
+    }
+   }
+  ],
+  "predictions": [
+   {
+    "id": "p000",
+    "state": "matched",
+    "width": 1000,
+    "height": 600,
+    "branch": "hangul",
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w3": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w4": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w2Reason": "cut",
+    "cutPixels": 240000,
+    "w3Reason": "multiple_candidates",
+    "w3From": "w1",
+    "w3CutPixels": 0,
+    "scan": {
+     "count": 2,
+     "units": [
+      {
+       "line": 1,
+       "first": 2,
+       "last": 2,
+       "text": "13:00",
+       "boxes": [
+        [
+         "300",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "300",
+        "150",
+        "360",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      },
+      {
+       "line": 1,
+       "first": 3,
+       "last": 3,
+       "text": "15:10",
+       "boxes": [
+        [
+         "500",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "500",
+        "150",
+        "560",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "w4CutPixels": 240000,
+    "w4Diag": {
+     "header": {
+      "line": 0,
+      "match": [
+       true,
+       false
+      ],
+      "target": 1,
+      "comp": 2
+     },
+     "lines": [
+      {
+       "line": 0,
+       "why": "eligible",
+       "groups": [
+        {
+         "words": [
+          0,
+          1
+         ],
+         "boxes": [
+          [
+           "50",
+           "100",
+           "40",
+           "20"
+          ],
+          [
+           "95",
+           "100",
+           "40",
+           "20"
+          ]
+         ],
+         "text": "이용항목",
+         "box": [
+          "50",
+          "100",
+          "135",
+          "120"
+         ]
+        },
+        {
+         "words": [
+          2,
+          3
+         ],
+         "boxes": [
+          [
+           "300",
+           "100",
+           "40",
+           "20"
+          ],
+          [
+           "345",
+           "100",
+           "40",
+           "20"
+          ]
+         ],
+         "text": "방문시각",
+         "box": [
+          "300",
+          "100",
+          "385",
+          "120"
+         ]
+        },
+        {
+         "words": [
+          4,
+          5
+         ],
+         "boxes": [
+          [
+           "500",
+           "100",
+           "40",
+           "20"
+          ],
+          [
+           "545",
+           "100",
+           "40",
+           "20"
+          ]
+         ],
+         "text": "반납시각",
+         "box": [
+          "500",
+          "100",
+          "585",
+          "120"
+         ]
+        }
+       ],
+       "failure": null
+      }
+     ],
+     "counts": {
+      "target": 1,
+      "comp": 1,
+      "unassigned": 0
+     },
+     "chosen": 0
+    }
+   },
+   {
+    "id": "p001",
+    "state": "matched",
+    "width": 1000,
+    "height": 600,
+    "branch": "hangul",
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w3": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w4": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2Reason": "cut",
+    "cutPixels": 240000,
+    "w3Reason": "applied",
+    "w3From": "w2",
+    "w3CutPixels": 240000,
+    "scan": {
+     "count": 1,
+     "units": [
+      {
+       "line": 1,
+       "first": 3,
+       "last": 3,
+       "text": "15:10",
+       "boxes": [
+        [
+         "500",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "500",
+        "150",
+        "560",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "w4Reason": "no_target_candidate",
+    "w4From": "w1",
+    "w4CutPixels": 0,
+    "w4Diag": {
+     "header": {
+      "line": 0,
+      "match": [
+       true,
+       false
+      ],
+      "target": 1,
+      "comp": 2
+     },
+     "lines": [
+      {
+       "line": 0,
+       "why": "eligible",
+       "groups": [
+        {
+         "words": [
+          0,
+          1
+         ],
+         "boxes": [
+          [
+           "50",
+           "100",
+           "40",
+           "20"
+          ],
+          [
+           "95",
+           "100",
+           "40",
+           "20"
+          ]
+         ],
+         "text": "이용항목",
+         "box": [
+          "50",
+          "100",
+          "135",
+          "120"
+         ]
+        },
+        {
+         "words": [
+          2,
+          3
+         ],
+         "boxes": [
+          [
+           "300",
+           "100",
+           "40",
+           "20"
+          ],
+          [
+           "345",
+           "100",
+           "40",
+           "20"
+          ]
+         ],
+         "text": "방문시각",
+         "box": [
+          "300",
+          "100",
+          "385",
+          "120"
+         ]
+        },
+        {
+         "words": [
+          4,
+          5
+         ],
+         "boxes": [
+          [
+           "500",
+           "100",
+           "40",
+           "20"
+          ],
+          [
+           "545",
+           "100",
+           "40",
+           "20"
+          ]
+         ],
+         "text": "반납시각",
+         "box": [
+          "500",
+          "100",
+          "585",
+          "120"
+         ]
+        }
+       ],
+       "failure": null
+      }
+     ],
+     "counts": {
+      "target": 0,
+      "comp": 1,
+      "unassigned": 0
+     },
+     "chosen": null
+    }
+   },
+   {
+    "id": "p002",
+    "state": "matched",
+    "width": 1000,
+    "height": 600,
+    "branch": "hangul",
+    "reason": "widened",
+    "w1": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2": {
+     "left": 0,
+     "top": 130,
+     "width": 1000,
+     "height": 60
+    },
+    "w3": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w4": {
+     "left": 0,
+     "top": 60,
+     "width": 1000,
+     "height": 300
+    },
+    "w2Reason": "cut",
+    "cutPixels": 240000,
+    "w3Reason": "multiple_candidates",
+    "w3From": "w1",
+    "w3CutPixels": 0,
+    "scan": {
+     "count": 2,
+     "units": [
+      {
+       "line": 1,
+       "first": 2,
+       "last": 2,
+       "text": "13:00",
+       "boxes": [
+        [
+         "300",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "300",
+        "150",
+        "360",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      },
+      {
+       "line": 1,
+       "first": 3,
+       "last": 3,
+       "text": "15:10",
+       "boxes": [
+        [
+         "500",
+         "150",
+         "60",
+         "20"
+        ]
+       ],
+       "union": [
+        "500",
+        "150",
+        "560",
+        "170"
+       ],
+       "support": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "w4Reason": "header_none",
+    "w4From": "w1",
+    "w4CutPixels": 0,
+    "w4Diag": {
+     "header": null,
+     "lines": null,
+     "counts": null,
+     "chosen": null
+    }
+   },
+   {
+    "id": "p003",
+    "state": "error",
+    "width": 1000,
+    "height": 600,
+    "branch": null,
+    "reason": "error",
+    "w1": null,
+    "w2": null,
+    "w3": null,
+    "w4": null,
+    "w2Reason": "inherit",
+    "cutPixels": null,
+    "w3Reason": "error",
+    "w3From": null,
+    "w3CutPixels": null,
+    "scan": null,
+    "w4Reason": "error",
+    "w4From": null,
+    "w4CutPixels": null,
+    "w4Diag": null
+   }
+  ],
+  "why": "W1 [0,60)-[1000,360) holds every ink; W2 [130,190) holds line A only (y 150-170). p000 normal-same: all four windows strict; W4 = W2 -> h-target none, r0-cval full -> new E1 for W2 and W4, header lost (W1 full) for W2/W4; r1-tval full in W1, none in W2/W4 -> J2, J4; W3 = W1 -> no J3. p001 normal-below: answer ink [300,190,360,210] touches W2 bottom 190 -> none -> W2/W3 lose (t12, t13 lost); W4 = W1 keeps (t14 keptSuccess, t34 recovered, prevented34). r1-tval at [300,280,360,300] full in W1, none in W2; J2 needs W2 strict -> no; J4 W4 = W1 -> no. E1 new for W2/W3 only. p002 blank-same: all strict except none lost; J2 yes (W2 strict, r1 none), W4 = W1 -> no J4; target header source_missing, reading null. p003 error.",
+  "expectRows": {
+   "p000": {
+    "strict": [
+     true,
+     true,
+     true,
+     true
+    ],
+    "t12": "keptSuccess",
+    "t13": "keptSuccess",
+    "t14": "keptSuccess",
+    "t34": "keptSuccess",
+    "opportunity": true,
+    "event2": true,
+    "event3": false,
+    "event4": true,
+    "exposureW4": {
+     "targetHeader": "none",
+     "compHeader": "none",
+     "compValue": "full",
+     "targetValue": "full"
+    },
+    "reading": {
+     "e1": {
+      "w1": false,
+      "w2": true,
+      "w3": false,
+      "w4": true
+     },
+     "e2": {
+      "w1": false,
+      "w2": true,
+      "w3": false,
+      "w4": true
+     },
+     "headerLost": {
+      "w2": true,
+      "w3": false,
+      "w4": true
+     }
+    },
+    "attribution": {
+     "header": {
+      "item": "h-target",
+      "class": "target_header"
+     },
+     "candidate": {
+      "item": "r0-tval",
+      "class": "target_value"
+     },
+     "outcome": "correct"
+    }
+   },
+   "p001": {
+    "strict": [
+     true,
+     false,
+     false,
+     true
+    ],
+    "t12": "lost",
+    "t13": "lost",
+    "t14": "keptSuccess",
+    "t34": "recovered",
+    "prevented34": true,
+    "opportunity": true,
+    "event2": false,
+    "event3": false,
+    "event4": false,
+    "lostParts3": [
+     "value"
+    ],
+    "reading": {
+     "e1": {
+      "w1": false,
+      "w2": true,
+      "w3": true,
+      "w4": false
+     },
+     "e2": {
+      "w1": false,
+      "w2": true,
+      "w3": true,
+      "w4": false
+     },
+     "headerLost": {
+      "w2": true,
+      "w3": true,
+      "w4": false
+     }
+    },
+    "attribution": null
+   },
+   "p002": {
+    "strict": [
+     true,
+     true,
+     true,
+     true
+    ],
+    "t14": "keptSuccess",
+    "opportunity": true,
+    "event2": true,
+    "event3": false,
+    "event4": false,
+    "exposureW1": {
+     "targetHeader": "source_missing",
+     "compHeader": "full",
+     "compValue": "full",
+     "targetValue": "full"
+    },
+    "reading": null,
+    "attribution": null
+   },
+   "p003": {
+    "strict": [
+     false,
+     false,
+     false,
+     false
+    ],
+    "t12": "bothFail",
+    "t13": "bothFail",
+    "t14": "bothFail",
+    "t34": "bothFail",
+    "stage": "error",
+    "opportunity": false
+   }
+  },
+  "expectTotal": {
+   "n": 4,
+   "error": 1,
+   "matched": 3,
+   "strict": {
+    "w1": 3,
+    "w2": 2,
+    "w3": 2,
+    "w4": 3
+   },
+   "L2": {
+    "count": 1,
+    "denom": 3,
+    "sources": 1
+   },
+   "L3": {
+    "count": 1,
+    "denom": 3,
+    "sources": 1
+   },
+   "L4": {
+    "count": 0,
+    "denom": 3,
+    "sources": 0
+   },
+   "prevented34": {
+    "count": 1,
+    "of": 1,
+    "sources": 1
+   },
+   "newLoss34": {
+    "count": 0,
+    "of": 2,
+    "sources": 0
+   },
+   "recovered34": {
+    "count": 1,
+    "of": 2,
+    "sources": 1
+   },
+   "cut": 3,
+   "applied": 1,
+   "opportunity": {
+    "count": 3,
+    "sources": 2
+   },
+   "event2": {
+    "count": 2,
+    "sources": 2
+   },
+   "event3": {
+    "count": 0,
+    "sources": 0
+   },
+   "event4": {
+    "count": 1,
+    "sources": 1
+   },
+   "attribution": {
+    "applied": 1,
+    "correct": 1,
+    "wrong": 0,
+    "undetermined": 0
+   },
+   "reading": {
+    "pages": 2,
+    "e1W4": {
+     "new": 1,
+     "newSources": 1,
+     "existing": 0,
+     "resolved": 0
+    },
+    "e1W2New": 2,
+    "e1W3New": 1,
+    "headerLostW4": {
+     "count": 1,
+     "sources": 1
+    }
+   },
+   "area": {
+    "w2": {
+     "num": "40",
+     "den": "1"
+    },
+    "w3": {
+     "num": "40",
+     "den": "3"
+    },
+    "w4": {
+     "num": "40",
+     "den": "3"
+    },
+    "appliedPages": 1,
+    "w4Applied": {
+     "num": "40",
+     "den": "1"
+    }
+   },
+   "areaText": {
+    "w2": "40.00",
+    "w3": "13.33",
+    "w4": "13.33",
+    "w4Applied": "40.00"
+   }
+  },
+  "expectVerdict": {
+   "G1": true,
+   "G2": true,
+   "G3": {
+    "L": 1,
+    "R": 0,
+    "pass": false
+   },
+   "G4": {
+    "denom": 1,
+    "correct": 1,
+    "status": "pass"
+   },
+   "geometry": "fail",
+   "reading": {
+    "comparable": 2,
+    "newE1": 1,
+    "status": "loss"
+   },
+   "final": "both_unfavorable"
+  }
+ }
+}
