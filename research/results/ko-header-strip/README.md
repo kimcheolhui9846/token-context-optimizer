@@ -29,7 +29,7 @@ git cat-file -t 4320271738c8be56556fb09bf56511368d49ba9e   # commit
 
 cd research
 npm ci --ignore-scripts                             # 연구 lockfile 그대로
-node -p "require('sharp/package.json').version"     # 0.35.4
+node -p "require('sharp').versions.sharp + ' ' + require('sharp').versions.vips"   # 0.35.4 8.18.6
 python -c "import PIL; print(PIL.__version__)"      # 12.3.0 (없으면: python -m pip install pillow==12.3.0 를 venv에서)
 git status --porcelain                              # 빈 출력
 ```
@@ -77,12 +77,13 @@ load = lambda p: json.load(open(p, encoding="utf-8"))
 pub = load("results/ko-header-strip/score-a/summary.json")
 for x in "ab":
     s = load(f"{W}/out/score-{x}/summary.json")
-    print(x, "summary equal except scoreStartedUtc:", {k: v for k, v in s.items() if k != "scoreStartedUtc"} == {k: v for k, v in pub.items() if k != "scoreStartedUtc"})
+    skip = ("scoreStartedUtc", "buildCommit")
+    print(x, "summary equal except start time and HEAD:", {k: v for k, v in s.items() if k not in skip} == {k: v for k, v in pub.items() if k not in skip})   # True
 EOF
 git status --porcelain                              # 빈 출력
 ```
 
-- `summary.json`은 채점 시작 시각(`scoreStartedUtc`)을 담으므로 다시 채점하면 그 한 필드만 다르다. `score-meta.json`의 `buildMatchesHead`는 채점한 조립 출력이 HEAD의 `build-a`와 같을 때 참이다(외부 `build-b`도 바이트가 같아 참).
+- `summary.json`은 채점 시작 시각(`scoreStartedUtc`)과 채점 때의 HEAD(`buildCommit`, 게시본은 조립 동결 커밋 `2790824`)를 담으므로 다시 채점하면 이 두 필드만 다르다. `score-meta.json`의 `buildMatchesHead`는 채점한 조립 출력이 HEAD의 `build-a`와 같을 때 참이다(외부 `build-b`도 바이트가 같아 참).
 
 ## 5. 공개 표와 독립 검산
 
