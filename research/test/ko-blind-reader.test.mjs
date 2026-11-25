@@ -324,6 +324,14 @@ test("packet images keep only critical chunks; object URLs are not external URLs
   assert.ok(L.scanPacketHtml(`<img src="data:image/png;base64,${withPhys.toString("base64")}">`).includes("png_chunk"));
 });
 
+test("reader page is LF only and its template part does not depend on the checkout line endings (added after registration)", async () => {
+  const { readerHtml } = await import("../src/ko-blind-reader-pipeline.mjs");
+  const html = readerHtml(mockPayload());
+  assert.equal(html.includes("\r"), false);
+  const mockPacket = readFileSync(join(here, "..", "results", "ko-blind-reader", "mock", "packet", "start.html"), "utf8");
+  assert.equal(L.templatePart(html), L.templatePart(mockPacket));
+});
+
 test("safe output line refuses text, values and unknown keys (recursively)", () => {
   assert.equal(L.safeLine({ ok: true, sources: 18, sha256: "a".repeat(64), out: "D:/orca/local-research-admin/ko-blind-reader-pilot/gen" }), JSON.stringify({ ok: true, sources: 18, sha256: "a".repeat(64), out: "D:/orca/local-research-admin/ko-blind-reader-pilot/gen" }));
   assert.throws(() => L.safeLine({ ok: true, answer: "12:30" }));

@@ -339,9 +339,10 @@ async function build() {
 
 // ---------------------------------------------------------------- packet and key (5, 6)
 const dataUri = (b) => `data:image/png;base64,${b.toString("base64")}`;
-function readerHtml(payload) {
+export function readerHtml(payload) {
   const tpl = readFileSync(join(researchDir, "tools", "ko-blind-reader", "reader.html"), "utf8").replace(/\r\n/g, "\n");
-  const lib = L.INLINED.map((n) => L[n].toString()).join("\n");
+  // Function sources come from the checked-out lib file; a CRLF checkout must give the same page (LF only).
+  const lib = L.INLINED.map((n) => L[n].toString()).join("\n").replace(/\r\n/g, "\n");
   const json = JSON.stringify(payload);
   if (json.includes("<") || json.includes("\u2028") || json.includes("\u2029")) stop("payload_chars");
   if (tpl.split("/*KBR_LIB*/").length !== 2 || tpl.split("__KBR_PAYLOAD__").length !== 2) stop("template");
