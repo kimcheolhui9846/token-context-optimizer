@@ -1,0 +1,61 @@
+# RED before implementation, HEAD a74d26667baa5637715eb81b6382b9eae0d4e726, 2026-11-25T03:59:39Z
+## node --test test/ko-header-strip.test.mjs
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<repo>\research\src\ko-header-strip-plan.mjs' imported from <repo>\research\test\ko-header-strip.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+    at #resolve (node:internal/modules/esm/loader:683:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+    at node:internal/modules/esm/loader:632:32
+    at TracingChannel.tracePromise (node:diagnostics_channel:362:14) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///<research>/src/ko-header-strip-plan.mjs'
+}
+
+Node.js v24.18.0
+✖ test\ko-header-strip.test.mjs (52.3107ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57.5286
+
+✖ failing tests:
+
+test at test\ko-header-strip.test.mjs:1:1
+✖ test\ko-header-strip.test.mjs (52.3107ms)
+  'test failed'
+exit 1
+## python -m unittest discover -s tools/ko-header-strip -p test_recount.py
+E
+======================================================================
+ERROR: test_recount (unittest.loader._FailedTest.test_recount)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_recount
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "<repo>\research\tools\ko-header-strip\test_recount.py", line 15, in <module>
+    import recount  # noqa: E402  (RED until recount.py exists)
+    ^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'recount'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+exit 1
