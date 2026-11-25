@@ -378,6 +378,10 @@ class Source:
 
 
 # ---------------------------------------------------------------- build checks
+# Chunk types the build encoder (sharp 0.35.4) writes: pHYs is density metadata only.
+BUILD_CHUNKS = ("IHDR", "pHYs", "IDAT", "IEND")
+
+
 def classify_file(png, entry):
     """Compare a PNG file with its manifest entry: None if equal, else a category."""
     if len(png) == entry["bytes"] and sha(png) == entry["sha256"]:
@@ -387,7 +391,7 @@ def classify_file(png, entry):
         return "dimension_mismatch"
     if sha(px) != entry["pixelSha256"]:
         return "pixel_mismatch"
-    extra = [c for c in png_chunks(png) if c not in ("IHDR", "IDAT", "IEND")]
+    extra = [c for c in png_chunks(png) if c not in BUILD_CHUNKS]
     return "metadata_only" if extra else "manifest_mismatch"
 
 
@@ -845,7 +849,11 @@ def recount(build_dir, score_dir, results=None, S=None, B=None, scoring=None, sc
         fails.append({"check": "build", "id": pid, "category": cat, "detail": detail})
     if B["manifest"].get("coordsSha256") != sha(B["coordsBytes"]):
         fails.append({"check": "build", "id": None, "category": "manifest_mismatch", "detail": "coordsSha256"})
-    rows, ref_ok, w1_mm = rescore(S, B["coords"], B["manifest"], scoring, fixed22, swap)
+    try:
+        rows, ref_ok, w1_mm = rescore(S, B["coords"], B["manifest"], scoring, fixed22, swap)
+    except (IntegrityError, ContractError) as e:
+        fails.append({"check": "score", "category": "input_damaged", "detail": str(e)})
+        return fails, {"rows": 0, "w5Files": len(B["w5"]), "buildIssues": len(issues), "checks": {}, "verdict": None}
     if not ref_ok:
         fails.append({"check": "reference", "category": "reference_mismatch", "detail": "#153 W1/W4 not reproduced"})
     if len(score_rows) != len(rows):
