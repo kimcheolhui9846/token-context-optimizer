@@ -9,6 +9,7 @@
 | `gate/gate.json` | 이전 기하·픽셀 관문: #153 예측 144/144, #154 W1·W4·W5 각 144/144, coords 바이트 일치 |
 | `mock/` | **공개 모의 시드(mock)** 전체 실행: 생성·렌더·OCR·예측·세 방식 빌드 기록, 모의 판독지 `packet/start.html`, 모의 키, QA, 모의 약속값(`commitments.json`, 등록된 공개 모의 시드에서 만든 공개 salt)과 답 없는 패킷 기록(`admin/packet-record.json`), 합성 응답 4종(정상·혼합·중단·관찰자료 열람 표시 yes)의 고정·채점·재계산, 표준 출력 누출 검사(`mock-run.json`, `stdout.jsonl`), `SHA256SUMS` |
 | `mock-browser/` | 모의 판독지 실브라우저 시험 기록과 그때 내려받은 중간 저장·최종 응답, 채점·재계산 |
+| `mock-browser-scorer/` | 새 원격 클론의 모의 판독지를 실브라우저로 끝까지 제출한 응답과, 새 관리자 채점기(`응답확인.cmd`, `채점.cmd`)의 확인·고정·채점·재계산·같은 파일 재시도·다른 응답 거부 기록(`browser-scorer-test.json`) |
 | `real-commitments.json` | 실제 시드·배정·판독지·키의 salt(256비트) 약속값만. 실제 자료는 로컬 관리자 폴더에만 있다 |
 
 모의 결과는 실제 판독지·정답·점수와 무관하다. 실제 응답은 이 저장소에 들어오지 않는다.

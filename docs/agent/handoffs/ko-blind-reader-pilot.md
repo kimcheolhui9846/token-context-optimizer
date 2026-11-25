@@ -20,6 +20,7 @@
 | 채점기 수정 RED | 완료 | `5e91494` 시험, `1afaf43` 기록 `logs/red-scorer-milestone.txt` |
 | 채점기 수정 GREEN | 완료 | `78abc17`: research 전체 173/173, Python 15/15, 모의 실행 pass·누출 0, 파이프라인 산출물(판독지·키·QA·OCR·빌드) 바이트 동일 |
 | 실제 관리자 폴더 채점기 교체 | 완료 | `pipeline admin-upgrade`: 응답·점수 폴더 없음 확인, 설치된 채점기 3/3이 `130be80` blob과 같음, `backup/scorer-130be80/`에 5개 백업과 manifest, 답 없는 `packet-record.json`(출처 공개 커밋 `9371820`), 새 채점기 3/3이 `78abc17` blob과 같음, 판독지·독자 판독지·키 약속값 전후 일치, `--self-check` 통과, 독자 판독지 SHA-256 `ce391dbf…de499` 그대로 |
+| 최종 원격 새 클론(`adbead6`) | 완료 | `core.autocrlf=false`·`true` 두 클론 모두 research 전체 173/173, Python 15/15, gate.json 바이트 동일(144/144), 모의 증거 54/54 일치(+`stdout.jsonl` 제외 1), 원시 출처 `lock_crlf_lf_checkout_lf`·`lock_crlf_crlf_checkout_crlf`. 제품(LF 클론) `npm ci`·build·test(4639 통과, 5 건너뜀)·typecheck·smoke:mcp·validate:plugin·benchmark 종료 코드 0, 빌드 뒤 트리 깨끗. 실브라우저 최종 제출을 새 채점기로 확인·채점(재계산 128/128 일치)·재시도 `same`·다른 응답 `lock_different`: `results/ko-blind-reader/mock-browser-scorer/` |
 | 새 클론 재현·연구·제품 검증(이전) | 완료 | 원격 새 클론(`8f11e90`): JS 23/23, Python 14/14, gate.json 바이트 동일, 모의 증거 37/37 SHA-256 일치. 제품 `npm ci`·build·test(4639 통과, 5 건너뜀)·typecheck·smoke:mcp·validate:plugin·benchmark 모두 종료 코드 0. build가 줄 끝만 바꾼 `bin/token-context-optimizer.mjs`는 빌드 전 깨끗했으므로 그 파일만 되돌림 |
 
 ## 구성
