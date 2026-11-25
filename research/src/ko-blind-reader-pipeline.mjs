@@ -7,14 +7,19 @@
 //   build         --set <gen dir> --pred <dir> --practice <practice gen dir> --out <new dir>
 //   packet        --set <gen dir> --build <dir> --html <new file> --key <new file>
 //   qa            --set <gen dir> --build <dir> --html <file> --key <file> --out <new file> [--template-of <mock html>]
-//   commit        --label <kbr-...> --file <file> --salts <new dir or existing salts dir> --public <json>
-//   install-admin --admin <dir>                         scorer, recount and 채점.cmd into the admin folder (files must not exist)
+//   commit        --label <kbr-...> --file <file> --salts <new dir or existing salts dir> --public <json> [--mock-salt]
+//   packet-record --admin <dir> (--commitments-commit <sha> | --commitments-file <json>)
+//                 answer-free packet record from <admin>/packet/start.html and the public commitments (no key read)
+//   install-admin --admin <dir>                         scorer, recount, 채점.cmd, 응답확인.cmd, README.txt (files must not exist)
+//   admin-upgrade --admin <dir> --reader <dir> --old-commit <sha> --commitments-commit <sha>
+//                 replace an installed scorer: old files checked and backed up, record written, key/packet commitments
+//                 checked before and after (no response may exist)
 //   reader-verify --dir <reader folder> --sha256 <hex>
 // stdout: one safeLine JSON (paths, counts, pass/fail, SHA-256). Never texts, values, assignment, sides, visibility or scores.
-import { createHash, randomBytes } from "node:crypto";
+import { createHash, createHmac, randomBytes } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from "node:fs";
+import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import { createWorker } from "tesseract.js";
@@ -521,9 +526,10 @@ function commit() {
   const saltFile = join(saltsDir, `${label}.salt.json`);
   if (existsSync(saltFile)) stop("exists");
   const bytes = readFileSync(file);
-  const salt = randomBytes(32);
+  // --mock-salt: public, reproducible salt for the mock set only (HMAC of the registered mock seed); real runs use the OS CSPRNG
+  const salt = argv.includes("--mock-salt") ? createHmac("sha256", Buffer.from(REG.drbg.mockSeedHex, "hex")).update(`kbr-mock-salt:${label}`).digest() : randomBytes(32);
   const c = L.commitment(salt, label, bytes);
-  newFile(saltFile, pretty({ label, saltHex: salt.toString("hex"), file: slash(file), fileSha256: sha256(bytes), commitment: c }));
+  newFile(saltFile, pretty({ label, saltHex: salt.toString("hex"), file: argv.includes("--mock-salt") ? basename(file) : slash(file), fileSha256: sha256(bytes), commitment: c }));
   const doc = existsSync(pub) ? readJson(pub) : { version: "ko-blind-reader-commitments-1", rule: REG.commitments.rule, items: [] };
   if (doc.items.some((x) => x.label === label)) stop("label_exists");
   doc.items.push({ label, commitment: c });
@@ -533,37 +539,110 @@ function commit() {
 }
 
 // ---------------------------------------------------------------- admin folder and reader folder
+const SCORER_FILES = [
+  [["src", "ko-blind-reader-score.mjs"], ["scorer", "ko-blind-reader-score.mjs"]],
+  [["src", "ko-blind-reader-lib.mjs"], ["scorer", "ko-blind-reader-lib.mjs"]],
+  [["tools", "ko-blind-reader", "recount.py"], ["scorer", "recount.py"]],
+];
+const REAL_COMMITMENTS_PATH = "research/results/ko-blind-reader/real-commitments.json";
+
+/** Public commitment values: from a committed file (Git object at a commit) or, for mock runs, from a local file. */
+function commitmentValues() {
+  const commit = opt("--commitments-commit"), file = opt("--commitments-file");
+  let doc, source;
+  if (commit) {
+    const blob = git(["rev-parse", `${commit}:${REAL_COMMITMENTS_PATH}`], "utf8").trim();
+    const bytes = git(["cat-file", "blob", blob]);
+    if (gitBlobId(bytes) !== blob) stop("commitments_blob");
+    doc = JSON.parse(bytes.toString("utf8"));
+    source = { kind: "public commit", commit: git(["rev-parse", commit], "utf8").trim(), path: REAL_COMMITMENTS_PATH, blob, sha256: sha256(bytes) };
+  } else if (file) {
+    const bytes = readFileSync(file);
+    doc = JSON.parse(bytes.toString("utf8"));
+    source = { kind: "local file (mock)", sha256: sha256(bytes) };
+  } else stop("usage_commitments");
+  const val = (label) => doc.items.find((x) => x.label === label)?.commitment ?? stop("commitment_missing");
+  return { commitments: { packet: val("kbr-packet"), key: val("kbr-key") }, source };
+}
+
+/** Answer-free packet record from the frozen admin packet; verifies the kbr-packet commitment. Never reads the key. */
+function packetRecord() {
+  const admin = need("--admin");
+  const target = join(admin, "packet-record.json");
+  if (existsSync(target)) stop("exists");
+  const html = readFileSync(join(admin, "packet", "start.html"));
+  const { commitments, source } = commitmentValues();
+  const salt = Buffer.from(readJson(join(admin, "salts", "kbr-packet.salt.json")).saltHex, "hex");
+  if (L.commitment(salt, "kbr-packet", html) !== commitments.packet) stop("packet_commitment");
+  const record = L.buildPacketRecord({ html, commitments, source });
+  const c = L.checkPacketRecord(record, html);
+  if (!c.ok) stop(c.code);
+  newFile(target, pretty(record));
+  return { ok: true, items: record.n, packetSha256: record.packetFile.sha256, sha256: sha256(readFileSync(target)) };
+}
+
 function installAdmin() {
   const admin = need("--admin");
-  const files = [
-    [join(researchDir, "src", "ko-blind-reader-score.mjs"), join(admin, "scorer", "ko-blind-reader-score.mjs")],
-    [join(researchDir, "src", "ko-blind-reader-lib.mjs"), join(admin, "scorer", "ko-blind-reader-lib.mjs")],
-    [join(researchDir, "tools", "ko-blind-reader", "recount.py"), join(admin, "scorer", "recount.py")],
-  ];
-  for (const [, to] of files) if (existsSync(to)) stop("exists");
-  if (existsSync(join(admin, "채점.cmd")) || existsSync(join(admin, "README.txt"))) stop("exists");
-  for (const [from, to] of files) { mkdirSync(dirname(to), { recursive: true }); copyFileSync(from, to, 1); }
-  const crlf = (lines) => `${lines.join("\r\n")}\r\n`;
-  newFile(join(admin, "채점.cmd"), crlf([
-    "@echo off",
-    "rem ko-blind-reader local scorer: drag the final response file (kbr-response-*.json) onto this file",
-    "if \"%~1\"==\"\" (echo usage: drag the final response file onto this file & exit /b 2)",
-    "node \"%~dp0scorer\\ko-blind-reader-score.mjs\" --admin \"%~dp0.\" --response \"%~1\"",
-    "if errorlevel 1 (echo FAILED) else (echo OK: see score\\score-table.md)",
-    "if exist \"%~dp0score\\score.json\" python \"%~dp0scorer\\recount.py\" --response \"%~dp0responses\\locked.json\" --key \"%~dp0key.json\" --score \"%~dp0score\\score.json\" --out \"%~dp0score\\recount.json\"",
-    "pause",
-  ]));
-  newFile(join(admin, "README.txt"), crlf([
-    "ko-blind-reader-pilot 관리자 폴더 (로컬 전용, 외부 전송 금지)",
-    "",
-    "- 독자 판독지: D:/orca/participant-packets/ko-blind-reader-pilot/start.html (그 폴더에는 이 파일만 둔다)",
-    "- 이 폴더: 시드, 생성 자료, OCR, 세 방식 출력, QA, 정답 키, 채점기. 독자가 응답을 닫기 전에는 열지 않는다.",
-    "- 채점: 독자가 받은 최종 응답 파일(kbr-response-<packetId>.json)을 '채점.cmd' 위로 끌어다 놓는다.",
-    "  처음 통과한 응답이 responses/locked.json으로 고정되고, 점수표는 score/score-table.md, 독립 재계산은 score/recount.json이다.",
-    "  다른 응답 파일은 거부된다. 중간 저장 파일(kbr-interim-*)은 채점하지 않는다.",
-    "- 점수는 사용자가 원할 때만 대화나 원고에 옮긴다.",
-  ]));
-  return { ok: true, files: files.length + 2, admin: slash(admin) };
+  if (!existsSync(join(admin, "packet-record.json"))) stop("packet_record");
+  const cmds = L.adminCommandFiles();
+  const targets = [...SCORER_FILES.map(([, to]) => join(admin, ...to)), ...Object.keys(cmds).map((n) => join(admin, n))];
+  for (const t of targets) if (existsSync(t)) stop("exists");
+  for (const [from, to] of SCORER_FILES) { mkdirSync(join(admin, "scorer"), { recursive: true }); copyFileSync(join(researchDir, ...from), join(admin, ...to), 1); }
+  for (const [n, text] of Object.entries(cmds)) newFile(join(admin, n), text);
+  return { ok: true, files: targets.length, admin: slash(admin) };
+}
+
+/**
+ * Real admin folder upgrade after the Opus milestone review (no response may exist yet). Checks the installed scorer files
+ * against the Git blobs of --old-commit, keeps a backup, writes the answer-free packet record from the public commitments
+ * commit, installs the current scorer and command files, and checks that key.json, the admin packet and the reader packet
+ * still match their commitments before and after. Prints counts and pass flags only.
+ */
+function adminUpgrade() {
+  const admin = need("--admin"), oldCommit = need("--old-commit"), reader = need("--reader");
+  for (const d of ["responses", "score", "packet-record.json"]) if (existsSync(join(admin, d))) stop("admin_state");
+  const backup = join(admin, "backup", `scorer-${oldCommit.slice(0, 7)}`);
+  if (existsSync(backup)) stop("exists");
+  const { commitments } = commitmentValues();
+  const saltOf = (label) => Buffer.from(readJson(join(admin, "salts", `${label}.salt.json`)).saltHex, "hex");
+  const integrity = () => {
+    const html = readFileSync(join(admin, "packet", "start.html"));
+    const readerHtmlBytes = readFileSync(join(reader, "start.html"));
+    const key = readFileSync(join(admin, "key.json"));
+    return {
+      packet: L.commitment(saltOf("kbr-packet"), "kbr-packet", html) === commitments.packet,
+      reader: L.commitment(saltOf("kbr-packet"), "kbr-packet", readerHtmlBytes) === commitments.packet && readdirSync(reader).length === 1,
+      key: L.commitment(saltOf("kbr-key"), "kbr-key", key) === commitments.key,
+      sha: { packet: sha256(html), key: sha256(key) },
+    };
+  };
+  const before = integrity();
+  if (!before.packet || !before.reader || !before.key) stop("integrity_before");
+  // installed scorer files must be the scorer of --old-commit (raw Git blob bytes)
+  let oldEqual = 0;
+  for (const [from, to] of SCORER_FILES) {
+    const rel = ["research", ...from].join("/");
+    const blob = git(["rev-parse", `${oldCommit}:${rel}`], "utf8").trim();
+    if (sha256(git(["cat-file", "blob", blob])) === sha256(readFileSync(join(admin, ...to)))) oldEqual++;
+  }
+  if (oldEqual !== SCORER_FILES.length) stop("old_scorer_differs");
+  const old = [...SCORER_FILES.map(([, to]) => to), ["채점.cmd"], ["README.txt"]].filter((p) => existsSync(join(admin, ...p)));
+  mkdirSync(backup, { recursive: true });
+  const manifest = old.map((p) => {
+    const src = join(admin, ...p), dst = join(backup, ...p);
+    mkdirSync(dirname(dst), { recursive: true });
+    copyFileSync(src, dst, 1);
+    if (sha256(readFileSync(dst)) !== sha256(readFileSync(src))) stop("backup");
+    return { path: p.join("/"), sha256: sha256(readFileSync(dst)) };
+  });
+  newFile(join(backup, "backup-manifest.json"), pretty({ version: "ko-blind-reader-scorer-backup-1", oldCommit, files: manifest }));
+  for (const p of old) unlinkSync(join(admin, ...p));
+  const rec = packetRecord();
+  const inst = installAdmin();
+  const after = integrity();
+  const unchanged = after.packet && after.reader && after.key && after.sha.packet === before.sha.packet && after.sha.key === before.sha.key;
+  newFile(join(admin, "backup", "upgrade-check.json"), pretty({ oldCommit, oldScorerEqual: oldEqual, backupFiles: manifest.length, before: { packet: before.packet, reader: before.reader, key: before.key }, after: { packet: after.packet, reader: after.reader, key: after.key }, unchanged }));
+  return { ok: unchanged, pass: unchanged, files: inst.files, outputs: manifest.length, equal: oldEqual, items: rec.items, packetSha256: rec.packetSha256 };
 }
 
 function readerVerify() {
@@ -575,12 +654,12 @@ function readerVerify() {
 }
 
 // ---------------------------------------------------------------- main
-const COMMANDS = { gate, render, ocr, predict, build, packet, qa, commit, "install-admin": installAdmin, "reader-verify": readerVerify };
+const COMMANDS = { gate, render, ocr, predict, build, packet, qa, commit, "packet-record": packetRecord, "install-admin": installAdmin, "admin-upgrade": adminUpgrade, "reader-verify": readerVerify };
 if (process.argv[1] && resolve(process.argv[1]) === SELF) {
   let line;
   try {
     if (!COMMANDS[cmd]) stop("usage");
-    line = { step: cmd.replace("-", "_"), ...(await COMMANDS[cmd]()) };
+    line = { step: cmd.replace(/-/g, "_"), ...(await COMMANDS[cmd]()) };
   } catch (e) {
     const code = e instanceof Stop ? e.code : e?.code && /^[a-z_]+$/.test(e.code) ? e.code : "error";
     line = { ok: false, step: String(cmd ?? "none").replace(/[^a-z]/g, "_").slice(0, 20) || "none", code };

@@ -71,9 +71,10 @@ function produce(log, { gen, practice, work, admin, packetHtml, keyPath, qaPath,
 
 // ---------------------------------------------------------------- mock
 const UNIT = { time: "", count: "명", pages: "쪽" };
+const KINDS = ["correct", "mixed", "aborted", "seen"];
 function synthetic(payload, key, kind) {
   const run = (s, ...acts) => acts.reduce((st, a) => L.step(st, a), s);
-  let s = run(L.initState(payload), { type: "selfReport", value: "no" }, { type: "begin" }, { type: "toPractice" },
+  let s = run(L.initState(payload), { type: "selfReport", value: kind === "seen" ? "yes" : "no" }, { type: "begin" }, { type: "toPractice" },
     { type: "practiceSet", column: "L", value: "11:40" }, { type: "practiceCheck" }, { type: "toItems" });
   for (let i = 0; i < key.items.length; i++) {
     const k = key.items[i];
@@ -118,13 +119,22 @@ function mock() {
   child(log, "gen_practice", GEN, ["--practice", "--out", practice]);
   const packetHtml = join(work, "packet", "start.html"), keyPath = join(admin, "key.json");
   produce(log, { gen, practice, work, admin, packetHtml, keyPath, qaPath: join(admin, "qa.json"), ocrStep: "kbr-mock-ocr" });
+  // admin side as in the real run: frozen packet copy, packet and key commitments (mock: reproducible public salts),
+  // answer-free packet record, scorer and command files
+  mkdirSync(join(admin, "packet"), { recursive: true });
+  copyFileSync(packetHtml, join(admin, "packet", "start.html"), 1);
+  const pubC = join(work, "commitments.json"), salts = join(admin, "salts");
+  child(log, "commit_packet", PIPE, ["commit", "--label", "kbr-packet", "--file", join(admin, "packet", "start.html"), "--salts", salts, "--public", pubC, "--mock-salt"]);
+  child(log, "commit_key", PIPE, ["commit", "--label", "kbr-key", "--file", keyPath, "--salts", salts, "--public", pubC, "--mock-salt"]);
+  child(log, "packet_record", PIPE, ["packet-record", "--admin", admin, "--commitments-file", pubC]);
   child(log, "install_admin", PIPE, ["install-admin", "--admin", admin]);
+  child(log, "scorer_self_check", join(admin, "scorer", "ko-blind-reader-score.mjs"), ["--admin", admin, "--self-check"]);
   const html = readFileSync(packetHtml, "utf8");
   const payload = payloadOf(html);
   const key = JSON.parse(readFileSync(keyPath, "utf8"));
   // synthetic final responses (mock only): each scored in its own copy of the admin folder, then recounted in Python
   const results = {};
-  for (const kind of ["correct", "mixed", "aborted"]) {
+  for (const kind of KINDS) {
     const resp = synthetic(payload, key, kind);
     const respPath = join(work, "responses", `${kind}.json`);
     mkdirSync(dirname(respPath), { recursive: true });
@@ -132,6 +142,9 @@ function mock() {
     const dir = join(work, "score", kind);
     mkdirSync(dir, { recursive: true });
     copyFileSync(keyPath, join(dir, "key.json"));
+    copyFileSync(join(admin, "packet-record.json"), join(dir, "packet-record.json"));
+    cpSync(join(admin, "packet"), join(dir, "packet"), { recursive: true });
+    cpSync(salts, join(dir, "salts"), { recursive: true });
     const r1 = lockAndScore({ adminDir: dir, responsePath: respPath });
     const r2 = lockAndScore({ adminDir: dir, responsePath: respPath });
     const rc = child(log, `recount_${kind}`, RECOUNT, ["--response", join(dir, "responses", "locked.json"), "--key", keyPath, "--score", join(dir, "score", "score.json"), "--out", join(dir, "score", "recount.json")]);
@@ -141,11 +154,13 @@ function mock() {
   const cli = child(log, "scorer_cli", join(admin, "scorer", "ko-blind-reader-score.mjs"), ["--admin", admin, "--response", join(work, "responses", "mixed.json")]);
   let refused = false;
   try { child(log, "scorer_cli_other", join(admin, "scorer", "ko-blind-reader-score.mjs"), ["--admin", admin, "--response", join(work, "responses", "correct.json")]); } catch { refused = log[log.length - 1].lines.some((l) => l.includes("lock_different")); }
+  // check-only (the reader's own check): valid, no new lock, reports that a different response is locked
+  const chk = child(log, "scorer_check_only", join(admin, "scorer", "ko-blind-reader-score.mjs"), ["--admin", admin, "--response", join(work, "responses", "correct.json"), "--check-only"]);
   const design = JSON.parse(readFileSync(join(gen, "design.json"), "utf8"));
   const plan = JSON.parse(readFileSync(join(gen, "plan.json"), "utf8"));
   const leak = stdoutLeaks(log, design, plan);
-  const summary = { version: "ko-blind-reader-mock-run-1", set: "mock", results, scorerCli: { lock: cli.lock, otherRefused: refused }, stdout: leak, packetSha256: sha256(Buffer.from(html)), keySha256: sha256(readFileSync(keyPath)) };
-  summary.pass = Object.values(results).every((r) => r.ok && r.first === "new" && r.again === "same" && r.recountFailed === 0) && refused && leak.leaks === 0 && leak.policy === 0;
+  const summary = { version: "ko-blind-reader-mock-run-2", set: "mock", results, scorerCli: { lock: cli.lock, otherRefused: refused, checkOnlyLock: chk.lock }, stdout: leak, packetSha256: sha256(Buffer.from(html)), keySha256: sha256(readFileSync(keyPath)), packetRecordSha256: sha256(readFileSync(join(admin, "packet-record.json"))) };
+  summary.pass = Object.values(results).every((r) => r.ok && r.first === "new" && r.again === "same" && r.recountFailed === 0) && refused && chk.lock === "other" && leak.leaks === 0 && leak.policy === 0;
   writeFileSync(join(work, "mock-run.json"), pretty(summary));
   writeFileSync(join(work, "stdout.jsonl"), log.map((c) => JSON.stringify(c)).join("\n") + "\n");
   const pub = opt("--publish");
@@ -159,10 +174,11 @@ function publishMock(work, pub) {
   for (const f of ["gen/design.json", "gen/plan.json", "gen/summary.json", "gen/selector/questions.json", "gen/render/render.json", "gen/render/gold.json", "gen/render/render-check.json",
     "practice/design.json", "practice/render/render.json", "practice/render/render-check.json",
     "ocr/ocr.jsonl", "ocr/k1.jsonl", "ocr/freeze.json", "ocr/guard-summary.json", "pred/predictions.jsonl", "pred/freeze.json",
-    "build/manifest.json", "build/coords.jsonl", "packet/start.html", "admin/key.json", "admin/qa.json", "mock-run.json", "stdout.jsonl"]) copy(f);
-  for (const kind of ["correct", "mixed", "aborted"]) {
+    "build/manifest.json", "build/coords.jsonl", "packet/start.html", "admin/key.json", "admin/qa.json", "mock-run.json", "stdout.jsonl",
+    "commitments.json", "admin/packet-record.json", "admin/salts/kbr-packet.salt.json", "admin/salts/kbr-key.salt.json"]) copy(f);
+  for (const kind of KINDS) {
     copy(`responses/${kind}.json`);
-    for (const f of ["responses/locked.json", "score/score.json", "score/score-table.md", "score/recount.json"]) copy(`score/${kind}/${f}`);
+    for (const f of ["responses/locked.json", "responses/locked.sha256", "score/score.json", "score/score-table.md", "score/recount.json", "score/last-run.json"]) copy(`score/${kind}/${f}`);
   }
   const files = [];
   const walk = (d) => readdirSync(d, { withFileTypes: true }).forEach((e) => (e.isDirectory() ? walk(join(d, e.name)) : files.push(join(d, e.name))));
@@ -214,10 +230,13 @@ function realFinish() {
   copyFileSync(packetHtml, join(reader, "start.html"), 1);
   const pktSha = sha256(readFileSync(packetHtml));
   const rv = child(log, "reader_verify", PIPE, ["reader-verify", "--dir", reader, "--sha256", pktSha]);
-  child(log, "install_admin", PIPE, ["install-admin", "--admin", admin]);
   const salts = join(admin, "salts");
   child(log, "commit_packet", PIPE, ["commit", "--label", "kbr-packet", "--file", join(reader, "start.html"), "--salts", salts, "--public", pub]);
   const c4 = child(log, "commit_key", PIPE, ["commit", "--label", "kbr-key", "--file", keyPath, "--salts", salts, "--public", pub]);
+  // (since the scorer milestone fixes) answer-free packet record, then the scorer; the 2026-11-25 real run installed the
+  // scorer before this change and was upgraded with `pipeline admin-upgrade`
+  child(log, "packet_record", PIPE, ["packet-record", "--admin", admin, "--commitments-file", pub]);
+  child(log, "install_admin", PIPE, ["install-admin", "--admin", admin]);
   writeFileSync(join(admin, "logs-finish.jsonl"), log.map((c) => JSON.stringify(c)).join("\n") + "\n");
   return { ok: qa.pass && rv.pass, pass: qa.pass && rv.pass, rows: ocrLine.rows, failed: ocrLine.failed, blocked: ocrLine.blocked, images: qa.images, checks: qa.checks, files: rv.files, commitments: c4.commitments, reader: slash(reader) };
 }

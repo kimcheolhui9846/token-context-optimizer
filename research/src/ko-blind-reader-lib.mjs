@@ -282,18 +282,24 @@ export const INLINED = ["normalizeValue", "canonicalJson", "sha256Hex", "packetH
 // ------------------------------------------------------------------ response validation and scoring (protocol 6.2, 6.3)
 const METHODS = ["W1", "W4", "W5"];
 
-export function validateResponse(resp, key) {
+/**
+ * Response check against the answer-free packet record (Opus milestone review M1, m1). Registered order: format, kind,
+ * packetId, packetHash, digest, items, duplicate pos, pos 1..n, top-level fields, item fields, then states the reader UI
+ * can produce. The record holds packetId, packetHash, n and per-position displayed only; the answer key is not needed.
+ * The digest is a self-consistency check (accidental damage); anyone can recompute it, so it is not tamper evidence.
+ */
+export function validateResponseRecord(resp, record) {
   const bad = (code) => ({ ok: false, code });
-  if (!key || key.format !== "kbr-key-1" || !Array.isArray(key.items)) return bad("key_format");
+  if (!record || record.format !== "kbr-packet-record-1" || !Array.isArray(record.items) || record.items.length !== record.n) return bad("packet_record");
   if (!resp || typeof resp !== "object" || Array.isArray(resp) || resp.format !== "kbr-response-1") return bad("format");
   if (resp.kind !== "final") return bad("kind");
-  if (resp.packetId !== key.packetId) return bad("packet_id");
-  if (resp.packetHash !== key.packetHash) return bad("packet_hash");
+  if (resp.packetId !== record.packetId) return bad("packet_id");
+  if (resp.packetHash !== record.packetHash) return bad("packet_hash");
   if (typeof resp.digest !== "string" || resp.digest !== responseDigest(resp)) return bad("digest");
   if (!Array.isArray(resp.items)) return bad("items");
   const pos = resp.items.map((x) => (x && typeof x === "object" ? x.pos : undefined));
   if (new Set(pos).size !== pos.length) return bad("duplicate_pos");
-  const n = key.items.length;
+  const n = record.n;
   if (pos.length !== n || pos.some((p, i) => p !== i + 1)) return bad("items");
   const allowedKeys = ["format", "kind", "packetId", "packetHash", "status", "adminMaterialSeen", "position", "items", "digest"].sort().join(",");
   if (Object.keys(resp).sort().join(",") !== allowedKeys) return bad("field");
@@ -305,8 +311,104 @@ export function validateResponse(resp, key) {
     if (typeof it.displayed !== "boolean" || typeof it.reached !== "boolean" || typeof it.skipped !== "boolean" || typeof it.valueUnknown !== "boolean") return bad("field");
     if (!["L", "R", "unknown", null].includes(it.column)) return bad("field");
     if (it.value !== null && (typeof it.value !== "string" || it.value.length > 100)) return bad("field");
-    if (it.displayed !== key.items[i].displayed) return bad("field");
+    if (it.displayed !== record.items[i].displayed) return bad("field");
   }
+  return responseStatesValid(resp, n) ? { ok: true } : bad("field");
+}
+
+/**
+ * States the reader state machine can write (m1): completed -> position n+1; aborted -> position 1..n+1; items before the
+ * position are reached, the rest not reached. Not reached and skipped items carry no answer. A reached no-display item is
+ * fixed to unknown / value unknown. A reached, shown, not skipped item has a column (L, R or unknown) and exactly one of a
+ * non-blank value or value unknown.
+ */
+export function responseStatesValid(resp, n) {
+  const p = resp.position;
+  if (resp.status === "completed" ? p !== n + 1 : p < 1 || p > n + 1) return false;
+  return resp.items.every((it) => {
+    const empty = it.column === null && it.value === null && it.valueUnknown === false;
+    if (it.reached !== it.pos < p) return false;
+    if (!it.reached) return it.skipped === false && empty;
+    if (it.skipped) return empty;
+    if (!it.displayed) return it.column === "unknown" && it.value === null && it.valueUnknown === true;
+    if (!["L", "R", "unknown"].includes(it.column)) return false;
+    const hasValue = typeof it.value === "string" && it.value.trim() !== "";
+    return (hasValue && !it.valueUnknown) || (it.value === null && it.valueUnknown);
+  });
+}
+
+/** The record view of an answer key (packetId, packetHash, n, displayed); used by tests and by validateResponse. */
+function recordOfKey(key) {
+  return { format: "kbr-packet-record-1", packetId: key.packetId, packetHash: key.packetHash, n: key.items.length, items: key.items.map((k) => ({ pos: k.pos, displayed: k.displayed })) };
+}
+
+export function validateResponse(resp, key) {
+  if (!key || key.format !== "kbr-key-1" || !Array.isArray(key.items)) return { ok: false, code: "key_format" };
+  return validateResponseRecord(resp, recordOfKey(key));
+}
+
+/** Answer key structure, checked only after the response is locked and the key bytes match their commitment (m2, m3). */
+export function validateKey(key, record) {
+  const bad = { ok: false, code: "key_format" };
+  if (!key || key.format !== "kbr-key-1" || key.packetId !== record.packetId || key.packetHash !== record.packetHash || !Array.isArray(key.items) || key.items.length !== record.n) return bad;
+  const per = { W1: 0, W4: 0, W5: 0 };
+  for (let i = 0; i < record.n; i++) {
+    const k = key.items[i];
+    if (!k || k.pos !== i + 1 || !(k.method in per) || !["L", "R"].includes(k.side) || !["time", "count", "pages"].includes(k.qtype)) return bad;
+    if (typeof k.answer !== "string" || normalizeValue(k.qtype, k.answer) !== k.answer || k.displayed !== record.items[i].displayed) return bad;
+    per[k.method]++;
+  }
+  return Object.values(per).every((c) => c * 3 === record.n) ? { ok: true } : bad;
+}
+
+// ------------------------------------------------------------------ answer-free packet record (Opus milestone review M1, m2)
+const PAYLOAD_RE = /<script type="application\/json" id="kbr-payload">([\s\S]*?)<\/script>/;
+export function payloadFromHtml(html) {
+  const m = PAYLOAD_RE.exec(Buffer.isBuffer(html) ? html.toString("utf8") : String(html));
+  return m ? JSON.parse(m[1]) : null;
+}
+export const RECORD_SCOPES = {
+  packetFile: "SHA-256 of the raw bytes of the frozen packet/start.html (the same bytes as the reader's start.html)",
+  payload: "packetHash: SHA-256 of the canonical JSON of {format, packetId, practice, items} of the payload inside start.html (public rule, lib packetHash)",
+  packetCommitment: "kbr-packet: SHA-256(salt || 'kbr-packet' || 0x00 || raw bytes of start.html)",
+  keyCommitment: "kbr-key: SHA-256(salt || 'kbr-key' || 0x00 || raw bytes of key.json)",
+  response: "SHA-256 of the raw bytes of the locked response file",
+  digest: "digest: SHA-256 of the canonical JSON of the response without digest; a self-consistency check against accidental damage, not tamper evidence (anyone can recompute it)",
+};
+
+/** Builds the answer-free record from the frozen packet bytes and the public commitment values. Does not read any key. */
+export function buildPacketRecord({ html, commitments, source }) {
+  const bytes = Buffer.from(html);
+  const p = payloadFromHtml(bytes);
+  if (!p || packetHash(p) !== p.packetHash) throw new Error("packet payload hash");
+  return {
+    format: "kbr-packet-record-1",
+    note: "answer-free admin record: no question, answer, side or method; used to check and lock a response before the key is opened",
+    packetId: p.packetId, packetHash: p.packetHash, payloadScope: RECORD_SCOPES.payload, n: p.items.length,
+    items: p.items.map((it) => ({ pos: it.pos, displayed: it.image !== null })),
+    packetFile: { path: "packet/start.html", scope: RECORD_SCOPES.packetFile, sha256: createHash("sha256").update(bytes).digest("hex") },
+    commitments: {
+      rule: "SHA-256(salt || UTF-8(label) || 0x00 || bytes), salt = 32 bytes in salts/<label>.salt.json",
+      packet: { label: "kbr-packet", value: commitments.packet, scope: RECORD_SCOPES.packetCommitment },
+      key: { label: "kbr-key", value: commitments.key, scope: RECORD_SCOPES.keyCommitment },
+    },
+    source,
+  };
+}
+
+/** Record structure, frozen file bytes and payload; codes packet_record or packet_file. Commitments are checked by the caller. */
+export function checkPacketRecord(record, html) {
+  const bad = (code) => ({ ok: false, code });
+  const hex = /^[0-9a-f]{64}$/;
+  if (!record || record.format !== "kbr-packet-record-1" || !Number.isInteger(record.n) || !Array.isArray(record.items) || record.items.length !== record.n
+    || record.items.some((x, i) => !x || x.pos !== i + 1 || typeof x.displayed !== "boolean")
+    || !record.packetFile || !hex.test(record.packetFile.sha256 ?? "") || !hex.test(record.commitments?.packet?.value ?? "") || !hex.test(record.commitments?.key?.value ?? "")) return bad("packet_record");
+  const bytes = Buffer.from(html);
+  if (createHash("sha256").update(bytes).digest("hex") !== record.packetFile.sha256) return bad("packet_file");
+  let p = null;
+  try { p = payloadFromHtml(bytes); } catch { /* below */ }
+  if (!p || packetHash(p) !== p.packetHash || p.packetHash !== record.packetHash || p.packetId !== record.packetId || p.items.length !== record.n
+    || p.items.some((it, i) => it.pos !== i + 1 || (it.image !== null) !== record.items[i].displayed)) return bad("packet_record");
   return { ok: true };
 }
 
@@ -460,7 +562,7 @@ const CODE = /^[a-z][a-z0-9_]{0,40}$/;
 const SAFE_KEYS = {
   ok: "bool", pass: "bool", step: "code", set: "code", code: "code", lock: "code", stage: "code",
   sources: "int", images: "int", pages: "int", rows: "int", files: "int", items: "int", checks: "int", failed: "int", problems: "int",
-  equal: "int", total: "int", lines: "int", leaks: "int", blocked: "int", commitments: "int", outputs: "int", predictionsEqual: "int", w1Equal: "int", w4Equal: "int", w5Equal: "int", coordsEqual: "int",
+  equal: "int", total: "int", differ: "int", excluded: "int", lines: "int", leaks: "int", blocked: "int", commitments: "int", outputs: "int", predictionsEqual: "int", w1Equal: "int", w4Equal: "int", w5Equal: "int", coordsEqual: "int",
   sha256: "hex", responseSha256: "hex", packetSha256: "hex", keySha256: "hex", manifestSha256: "hex", gateSha256: "hex", qaSha256: "hex",
   out: "path", admin: "path", reader: "path", file: "path", dir: "path",
 };
@@ -486,4 +588,60 @@ export function commitment(salt, label, bytes) {
   if (!Buffer.isBuffer(salt) || salt.length < 32) throw new Error("salt must be at least 32 bytes");
   if (!COMMIT_LABELS.includes(label)) throw new Error("unknown commitment label");
   return createHash("sha256").update(Buffer.concat([salt, Buffer.from(label, "utf8"), Buffer.from([0]), Buffer.from(bytes)])).digest("hex");
+}
+
+// ------------------------------------------------------------------ admin folder command files (Opus milestone review m3)
+/** 채점.cmd, 응답확인.cmd and README.txt for the admin folder (CRLF). Commands print English only (console code page). */
+export function adminCommandFiles() {
+  const crlf = (lines) => `${lines.join("\r\n")}\r\n`;
+  const node = 'node "%~dp0scorer\\ko-blind-reader-score.mjs" --admin "%~dp0."';
+  return {
+    "채점.cmd": crlf([
+      "@echo off",
+      "rem ko-blind-reader local scorer (admin only). Drag the final response file (kbr-response-*.json) onto this file.",
+      "if \"%~1\"==\"\" (echo usage: drag the final response file onto this file & pause & exit /b 2)",
+      `${node} --response "%~1"`,
+      "if errorlevel 1 goto failed",
+      'python "%~dp0scorer\\recount.py" --response "%~dp0responses\\locked.json" --key "%~dp0key.json" --score "%~dp0score\\score.json" --out "%~dp0score\\recount.json"',
+      "if errorlevel 1 goto recountfailed",
+      "echo OK: scored the locked response. Results: score\\score-table.md and score\\recount.json",
+      "pause",
+      "exit /b 0",
+      ":failed",
+      "echo FAILED: this run did not score. Files left in the score folder are not a result of this run (see score\\last-run.json).",
+      "pause",
+      "exit /b 1",
+      ":recountfailed",
+      "echo FAILED: the independent recount did not agree. Do not use this run (see score\\recount.json and score\\last-run.json).",
+      "pause",
+      "exit /b 1",
+    ]),
+    "응답확인.cmd": crlf([
+      "@echo off",
+      "rem ko-blind-reader response check: validates the final response file against the packet record. No lock, no key, no score.",
+      "if \"%~1\"==\"\" (echo usage: drag the final response file onto this file & pause & exit /b 2)",
+      `${node} --response "%~1" --check-only`,
+      "if errorlevel 1 (echo FAILED: not a valid final response for this packet) else (echo OK: valid final response. Keep the file unchanged; responseSha256 above identifies it.)",
+      "pause",
+    ]),
+    "README.txt": crlf([
+      "ko-blind-reader-pilot 관리자 폴더 (로컬 전용, 외부 전송 금지)",
+      "",
+      "- 독자 판독지: D:/orca/participant-packets/ko-blind-reader-pilot/start.html (그 폴더에는 이 파일만 둔다)",
+      "- 이 폴더: 시드, 생성 자료, OCR, 세 방식 출력, QA, 정답 키, 채점기. 독자가 응답을 닫기 전에는 열지 않는다.",
+      "",
+      "[독자] 최종 응답 파일 보관과 확인",
+      "- 판독을 마치면 kbr-response-<packetId>.json이 다운로드 폴더에 저장된다. 이 파일을 고치지 말고 그대로 보관한다.",
+      "- 확인: 파일을 '응답확인.cmd' 위로 끌어다 놓는다. 형식·패킷·digest만 확인하고 responseSha256을 보여 준다.",
+      "  이 단계는 응답을 고정하지 않고 정답 키를 열지 않으며 점수를 만들지 않는다. 보여 준 SHA-256을 따로 적어 둔다.",
+      "",
+      "[관리자] 채점 (응답을 닫은 뒤에만)",
+      "- 같은 파일을 '채점.cmd' 위로 끌어다 놓는다. 순서: 패킷 기록과 고정 판독지·약속값 확인 -> 응답 검증 -> 처음 통과한 응답 고정",
+      "  (responses/locked.json) -> 정답 키 약속값 확인 -> 채점 -> 독립 재계산. 점수표는 score/score-table.md, 재계산은 score/recount.json.",
+      "- 같은 파일을 다시 넣으면 같은 결과를 다시 만든다(중간에 실패했으면 이렇게 복구한다). 다른 응답 파일은 거부된다.",
+      "- 'FAILED'가 나오면 그 실행은 채점하지 않은 것이다. score 폴더에 남은 이전 파일을 그 실행의 결과로 보지 않는다(score/last-run.json).",
+      "- digest는 파일의 우발적 손상을 찾는 자체 일관성 검사다. 누구나 다시 계산할 수 있어 위·변조 증거는 아니다.",
+      "- 점수는 사용자가 원할 때만 대화나 원고에 옮긴다.",
+    ]),
+  };
 }

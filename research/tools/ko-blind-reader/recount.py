@@ -1,6 +1,7 @@
 """ko-blind-reader: independent recount of the score (protocol research/plans/2026-11-25-ko-blind-reader-protocol.md, 6.3).
 
-Written separately from the JS scorer; it reads the same final response and key and compares every cell of the
+Written separately from the JS scorer; it reads the same final response and key, checks that the response states are ones
+the reader UI can write (consistency), and compares every cell of the
 per-method table with the JS score.json. Python standard library only.
 
 Usage: python recount.py --response <locked.json> --key <key.json> --score <score.json> [--out <recount.json>]
@@ -42,6 +43,35 @@ def normalize_value(qtype, raw):
         n = int(m.group(1))
         return str(n) if n >= 1 else None
     return None
+
+
+def consistency(resp):
+    """States the reader UI can write (mirrors lib responseStatesValid; Opus milestone review m1). Returns problem codes."""
+    items = resp["items"]
+    n = len(items)
+    p = resp.get("position")
+    probs = []
+    if not isinstance(p, int) or (p != n + 1 if resp.get("status") == "completed" else not 1 <= p <= n + 1):
+        probs.append("position")
+        return probs
+    for it in items:
+        empty = it["column"] is None and it["value"] is None and it["valueUnknown"] is False
+        if it["reached"] != (it["pos"] < p):
+            probs.append("reached")
+        elif not it["reached"]:
+            if it["skipped"] or not empty:
+                probs.append("not_reached")
+        elif it["skipped"]:
+            if not empty:
+                probs.append("skipped")
+        elif not it["displayed"]:
+            if not (it["column"] == "unknown" and it["value"] is None and it["valueUnknown"] is True):
+                probs.append("no_display")
+        else:
+            has_value = isinstance(it["value"], str) and it["value"].strip() != ""
+            if it["column"] not in ("L", "R", "unknown") or not ((has_value and not it["valueUnknown"]) or (it["value"] is None and it["valueUnknown"])):
+                probs.append("answered")
+    return probs
 
 
 def score(resp, key):
@@ -101,9 +131,12 @@ def main(argv=None):
     raw = Path(a.response).read_bytes()
     mine = score(json.loads(raw.decode("utf-8")), json.loads(Path(a.key).read_text(encoding="utf-8")))
     js = json.loads(Path(a.score).read_text(encoding="utf-8"))
+    resp = json.loads(raw.decode("utf-8"))
+    problems = consistency(resp)
     cells, mism = compare(mine, js)
+    mism += len(problems)
     if a.out:
-        Path(a.out).write_text(json.dumps({**mine, "responseSha256": hashlib.sha256(raw).hexdigest(), "comparedCells": cells, "mismatches": mism}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+        Path(a.out).write_text(json.dumps({**mine, "responseSha256": hashlib.sha256(raw).hexdigest(), "comparedCells": cells, "stateProblems": problems, "mismatches": mism}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({"ok": mism == 0, "checks": cells, "failed": mism, "responseSha256": hashlib.sha256(raw).hexdigest()}))
     return 0 if mism == 0 else 1
 

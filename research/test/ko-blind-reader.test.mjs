@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createHash, randomBytes } from "node:crypto";
-import { mkdtempSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -229,11 +229,28 @@ test("scoring: self report yes marks the session invalid for the blind analysis"
   assert.equal(L.scoreResponse(f, mockKey(p)).blindInvalid, true);
 });
 
-test("submission lock: first response locked, same bytes idempotent, different response refused", () => {
+// Admin folder fixture (changed after the Opus milestone review: the scorer checks an answer-free packet record, the frozen
+// packet and the kbr-packet / kbr-key commitments; the key is opened only after the response is locked).
+async function adminFor(dir, p, key) {
+  const { readerHtml } = await import("../src/ko-blind-reader-pipeline.mjs");
+  const html = Buffer.from(readerHtml(p));
+  const keyBytes = Buffer.from(JSON.stringify(key));
+  mkdirSync(join(dir, "packet"), { recursive: true });
+  mkdirSync(join(dir, "salts"), { recursive: true });
+  writeFileSync(join(dir, "packet", "start.html"), html);
+  writeFileSync(join(dir, "key.json"), keyBytes);
+  const s1 = randomBytes(32), s2 = randomBytes(32);
+  writeFileSync(join(dir, "salts", "kbr-packet.salt.json"), JSON.stringify({ saltHex: s1.toString("hex") }));
+  writeFileSync(join(dir, "salts", "kbr-key.salt.json"), JSON.stringify({ saltHex: s2.toString("hex") }));
+  const record = L.buildPacketRecord({ html, commitments: { packet: L.commitment(s1, "kbr-packet", html), key: L.commitment(s2, "kbr-key", keyBytes) }, source: { kind: "mock-test" } });
+  writeFileSync(join(dir, "packet-record.json"), JSON.stringify(record));
+}
+
+test("submission lock: first response locked, same bytes idempotent, different response refused", async () => {
   const dir = mkdtempSync(join(tmpdir(), "kbr-lock-"));
   const p = mockPayload();
   const key = mockKey(p);
-  writeFileSync(join(dir, "key.json"), JSON.stringify(key));
+  await adminFor(dir, p, key);
   const a = join(dir, "a.json"), b = join(dir, "b.json");
   writeFileSync(a, JSON.stringify(completed(p, right)));
   writeFileSync(b, JSON.stringify(completed(p, () => ({ column: "L", value: "1" }))));
@@ -249,7 +266,7 @@ test("submission lock: first response locked, same bytes idempotent, different r
   assert.equal(r3.code, "lock_different");
   assert.equal(readFileSync(join(dir, "responses", "locked.json"), "utf8"), readFileSync(a, "utf8"));
   const dir2 = mkdtempSync(join(tmpdir(), "kbr-lock-"));
-  writeFileSync(join(dir2, "key.json"), JSON.stringify(key));
+  await adminFor(dir2, p, key);
   const bad = join(dir2, "bad.json");
   writeFileSync(bad, JSON.stringify({ ...completed(p, right), digest: "0".repeat(64) }));
   assert.equal(lockAndScore({ adminDir: dir2, responsePath: bad }).code, "digest");

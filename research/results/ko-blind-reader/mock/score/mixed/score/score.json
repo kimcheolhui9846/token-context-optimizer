@@ -175,5 +175,32 @@
    "notReached": 0
   }
  },
- "responseSha256": "ec72e14135aac6aa0c4ee33272f792ccf5daaa2bcfb239ff884eca877cf4b8d6"
+ "responseSha256": "ec72e14135aac6aa0c4ee33272f792ccf5daaa2bcfb239ff884eca877cf4b8d6",
+ "integrity": {
+  "packetFile": {
+   "scope": "SHA-256 of the raw bytes of the frozen packet/start.html (the same bytes as the reader's start.html)",
+   "sha256": "3ea3c7c46d2e64785c842cc4922787146300bb5c574294ea63c07b48074977fd",
+   "commitmentOk": true,
+   "commitmentScope": "kbr-packet: SHA-256(salt || 'kbr-packet' || 0x00 || raw bytes of start.html)"
+  },
+  "packetPayload": {
+   "scope": "packetHash: SHA-256 of the canonical JSON of {format, packetId, practice, items} of the payload inside start.html (public rule, lib packetHash)",
+   "packetHash": "ab29c62dda33a71e91639df12d3f6da41bea29b8222895f05ba0f9af02155b8e",
+   "equalToResponse": true
+  },
+  "key": {
+   "scope": "kbr-key: SHA-256(salt || 'kbr-key' || 0x00 || raw bytes of key.json)",
+   "commitmentOk": true
+  },
+  "response": {
+   "scope": "SHA-256 of the raw bytes of the locked response file",
+   "sha256": "ec72e14135aac6aa0c4ee33272f792ccf5daaa2bcfb239ff884eca877cf4b8d6",
+   "digestOk": true,
+   "digestScope": "digest: SHA-256 of the canonical JSON of the response without digest; a self-consistency check against accidental damage, not tamper evidence (anyone can recompute it)"
+  },
+  "recordSource": {
+   "kind": "local file (mock)",
+   "sha256": "c696a70b517364bf867b5d16bf0671229035ed2c984c5fee52b2f93403d8326f"
+  }
+ }
 }
