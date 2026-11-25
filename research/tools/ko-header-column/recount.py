@@ -1435,7 +1435,7 @@ def summarize_scores(rows, page_area, preds=None):
         "total": group(rows, A), "cut": group(by(lambda r: r["w2Reason"] == "cut"), A), "applied": group(by(lambda r: r["w4Reason"] == "applied"), A),
         "side": gby(SIDES, lambda r, k: r["side"] == k), "header": gby(HEADERS, lambda r, k: r["header"] == k), "ans": gby(ANS, lambda r, k: r["ans"] == k),
         "normalSide": gby(SIDES, lambda r, k: r["header"] == "normal" and r["side"] == k), "cell": gby(CELLS, lambda r, k: r["cell"] == k),
-        "kind": gby(KINDS, lambda r, k: r["kind"] == k), "qtype": gby(QTYPES, lambda r, k: r["qtype"] == k), "slot": gby(SLOTS, lambda r, k: r["slot"] == k),
+        "kind": gby(KINDS, lambda r, k: r["kind"] == k), "qtype": gby(QTYPES, lambda r, k: r["qtype"] == k), "slot": {str(k): v for k, v in gby(SLOTS, lambda r, k: r["slot"] == k).items()},
         "w4Reason": gby(W4_REASONS, lambda r, k: r["w4Reason"] == k), "source": gby(sources, lambda r, k: r["source"] == k),
     }
 
@@ -1533,7 +1533,7 @@ def group_rows(g):
     rows = [("전체", g["total"]), ("W2 cut", g["cut"]), ("W4 applied", g["applied"])]
     rows += [("side " + k, g["side"][k]) for k in SIDES] + [("header " + k, g["header"][k]) for k in HEADERS] + [("ans " + k, g["ans"][k]) for k in ANS]
     rows += [("normal " + k, g["normalSide"][k]) for k in SIDES] + [("cell " + k, g["cell"][k]) for k in CELLS]
-    rows += [("kind " + k, g["kind"][k]) for k in KINDS] + [("qtype " + k, g["qtype"][k]) for k in QTYPES] + [("slot %d" % k, g["slot"][k]) for k in SLOTS]
+    rows += [("kind " + k, g["kind"][k]) for k in KINDS] + [("qtype " + k, g["qtype"][k]) for k in QTYPES] + [("slot %d" % k, g["slot"][str(k)]) for k in SLOTS]
     return rows
 
 
@@ -2030,7 +2030,77 @@ def recount(args, x, rep):
     else:
         for mm in check_tables(x["results"], s):
             rep.bad(C6, "%s r%s c%s" % (mm["table"], mm["row"], mm["col"]), mm["want"], mm["got"])
+
+    # 7 cases described in RESULTS.md against the raw records (protocol 7; check added after the results, verification only)
+    C7 = "7-described-cases"
+    rep.check(C7)
+    if x["results"] is None:
+        rep.checks[C7]["unverifiable"] = "no --results given"
+    else:
+        try:
+            cases = read_cases(x["results"])
+        except ValueError as e:
+            rep.bad(C7, "cases block", str(e))
+            cases = []
+        rep.checks[C7]["cases"] = len(cases)
+        if not cases:
+            rep.bad(C7, "no khc:cases block")
+        sources = {"ocr": {o["id"]: o for o in x["ocr"]}, "pred": {p["id"]: p for p in x["preds"]}, "score": {r["id"]: r for r in x["score"]},
+                   "design": {im["id"]: im for im in images}, "mine": {r["id"]: r for r in my_rows}}
+        for n, c in enumerate(cases):
+            for key, mine, recorded in check_case(c, sources):
+                rep.bad(C7, "case %d %s %s" % (n, c.get("id"), key), mine, recorded)
     return my_rows, s
+
+
+CASES_BLOCK = re.compile(r"<!-- khc:cases\n([\s\S]*?)\n-->")
+
+
+def read_cases(markdown):
+    m = CASES_BLOCK.findall(markdown.replace("\r\n", "\n"))
+    if len(m) > 1:
+        raise ValueError("more than one khc:cases block")
+    return json.loads(m[0]) if m else []
+
+
+def get_path(obj, path):
+    for part in path.split("."):
+        if isinstance(obj, list):
+            obj = obj[int(part)]
+        else:
+            obj = obj[part]
+    return obj
+
+
+def check_case(c, src):
+    """One described case: kind ocr_words (word texts and boxes of one OCR line), ocr_line (all word texts of one line),
+    pred / score / design (a field path in the recorded prediction, score row or design page). Returns the mismatches."""
+    out = []
+    pid, kind = c.get("id"), c.get("kind")
+    try:
+        if kind in ("ocr_words", "ocr_line"):
+            words = src["ocr"][pid]["ocrLines"][c["line"]]["words"]
+            if kind == "ocr_line":
+                got = [w["text"] for w in words]
+                if got != c["texts"]:
+                    out.append(("line %d texts" % c["line"], c["texts"], got))
+            else:
+                for j, w in enumerate(c["words"]):
+                    if words[w]["text"] != c["texts"][j]:
+                        out.append(("word %d text" % w, c["texts"][j], words[w]["text"]))
+                    if "boxes" in c and not same(words[w]["box"], c["boxes"][j]):
+                        out.append(("word %d box" % w, c["boxes"][j], words[w]["box"]))
+        elif kind in ("pred", "score", "design"):
+            got = get_path(src[kind][pid], c["path"])
+            if not same(got, c["value"]):
+                out.append((kind + "." + c["path"], c["value"], got))
+            if kind == "score" and not same(get_path(src["mine"][pid], c["path"]), c["value"]):
+                out.append(("recomputed score." + c["path"], c["value"], get_path(src["mine"][pid], c["path"])))
+        else:
+            out.append(("kind", "ocr_words|ocr_line|pred|score|design", kind))
+    except (KeyError, IndexError, TypeError, ValueError) as e:
+        out.append(("lookup", None, repr(e)))
+    return out
 
 
 def mutate(args, x):
@@ -2189,6 +2259,19 @@ def mutate(args, x):
     fin = x["summary"]["verdict"]["final"]
     x2["summary"]["verdict"]["final"] = "followup_possible" if fin != "followup_possible" else "both_unfavorable"
     run("verdictFinalChanged", x2, "verdict.final %s changed" % fin)
+    # 19 (added after the results, not in RECOUNT_SPEC 9): one OCR word text in the case block of RESULTS.md
+    if x["results"] is not None and read_cases(x["results"]):
+        cases = read_cases(x["results"])
+        k = next((i for i, c in enumerate(cases) if c.get("kind") == "ocr_words"), None)
+        if k is not None:
+            cases[k]["texts"][0] = cases[k]["texts"][0] + "X"
+            x2 = copy.deepcopy(x)
+            x2["results"] = CASES_BLOCK.sub(lambda m: "<!-- khc:cases\n" + json.dumps(cases, ensure_ascii=False, indent=1) + "\n-->", x["results"], count=1)
+            run("caseTokenChanged", x2, "case %d (%s): first word text changed in the RESULTS.md case block" % (k, cases[k]["id"]))
+        else:
+            na("caseTokenChanged", "no ocr_words case")
+    else:
+        na("caseTokenChanged", "no --results or no case block")
     return out
 
 
