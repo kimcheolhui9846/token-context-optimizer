@@ -1,0 +1,331 @@
+{
+  "version": "ko-header-strip-example-1",
+  "note": "Hand-computed synthetic examples on a 40 x 30 page (not cohort pages). Each plan case = base prediction row + overrides (deep merge; arrays replace). Rects are half-open [x0, y0, x1, y1).",
+  "base": {
+    "id": "x000",
+    "pngSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "width": 40,
+    "height": 30,
+    "state": "matched",
+    "w4Reason": "applied",
+    "w4From": "w2",
+    "w1": { "left": 2, "top": 0, "width": 30, "height": 30 },
+    "w2": { "left": 2, "top": 14, "width": 30, "height": 6 },
+    "w4": { "left": 2, "top": 14, "width": 30, "height": 6 },
+    "w4Diag": {
+      "question": { "record": "가나다라", "field": "마바 시각", "qtype": "time" },
+      "anchorY": "15",
+      "lines": [
+        { "line": 0, "why": "eligible", "groups": [{ "words": [0], "boxes": [["3", "0.5", "20", "1"]], "text": "제목", "box": ["3", "0.5", "23", "1.5"] }], "failure": "group_count" },
+        { "line": 1, "why": "eligible", "groups": [
+          { "words": [0], "boxes": [["3.5", "4.25", "4.5", "3.5"]], "text": "기록명", "box": ["3.5", "4.25", "8", "7.75"] },
+          { "words": [1], "boxes": [["12", "4", "6.5", "4"]], "text": "마바시각", "box": ["12", "4", "18.5", "8"] },
+          { "words": [2], "boxes": [["22", "4.5", "9.75", "3"]], "text": "사아시각", "box": ["22", "4.5", "31.75", "7.5"] }
+        ], "failure": null },
+        { "line": 2, "why": "k1_line", "groups": null, "failure": null }
+      ],
+      "qualified": [1],
+      "header": { "line": 1, "match": [true, false], "target": 1, "comp": 2 },
+      "assign": null,
+      "counts": { "target": 1, "comp": 1, "unassigned": 0 },
+      "chosen": 0
+    }
+  },
+  "plans": [
+    {
+      "name": "two_bands_exact_right_edge",
+      "why": "t=4 b=8 -> p=ceil(4/4)=1; H=[floor 4 -1, ceil 8 +1)=[3,9); x: floor(3.5)=3>=2, ceil(31.75)=32<=32 (equal allowed); 9<14 -> two bands",
+      "groups": null,
+      "expect": {
+        "reason": "two_bands", "kind": "two_bands", "B": [2, 14, 32, 20], "H": [2, 3, 32, 9], "t": "4", "b": "8", "p": 1,
+        "pieces": [
+          { "kind": "source", "sourceRect": [2, 3, 32, 9], "displayRect": [0, 0, 30, 6] },
+          { "kind": "separator", "displayRect": [0, 6, 30, 14], "luma": [224, 224, 224, 128, 128, 224, 224, 224] },
+          { "kind": "source", "sourceRect": [2, 14, 32, 20], "displayRect": [0, 14, 30, 20] }
+        ],
+        "display": { "width": 30, "height": 20 }
+      }
+    },
+    {
+      "name": "touch_merges",
+      "why": "t=11 b=13 -> p=ceil(0.5)=1; H=[10,14); H.bottom 14 == B.top 14 -> merged [10,20)",
+      "groups": [["3", "11", "8", "13"], ["12", "11.5", "18", "12.5"], ["22", "11", "30", "13"]],
+      "expect": {
+        "reason": "merged", "kind": "merged", "B": [2, 14, 32, 20], "H": [2, 10, 32, 14], "t": "11", "b": "13", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 10, 32, 20], "displayRect": [0, 0, 30, 10] }],
+        "display": { "width": 30, "height": 10 }
+      }
+    },
+    {
+      "name": "one_pixel_gap_two_bands",
+      "why": "t=10 b=12 -> p=1; H=[9,13); row 13 missing before B.top 14 -> two bands",
+      "groups": [["3", "10", "8", "12"], ["12", "10.5", "18", "11.5"], ["22", "10", "30", "12"]],
+      "expect": {
+        "reason": "two_bands", "kind": "two_bands", "B": [2, 14, 32, 20], "H": [2, 9, 32, 13], "t": "10", "b": "12", "p": 1,
+        "pieces": [
+          { "kind": "source", "sourceRect": [2, 9, 32, 13], "displayRect": [0, 0, 30, 4] },
+          { "kind": "separator", "displayRect": [0, 4, 30, 12], "luma": [224, 224, 224, 128, 128, 224, 224, 224] },
+          { "kind": "source", "sourceRect": [2, 14, 32, 20], "displayRect": [0, 12, 30, 18] }
+        ],
+        "display": { "width": 30, "height": 18 }
+      }
+    },
+    {
+      "name": "partial_overlap_merges",
+      "why": "t=13 b=15 -> p=1; H=[12,16) overlaps B [14,20) -> union [12,20) once",
+      "groups": [["3", "13", "8", "15"], ["12", "13", "18", "15"], ["22", "13", "30", "15"]],
+      "expect": {
+        "reason": "merged", "kind": "merged", "B": [2, 14, 32, 20], "H": [2, 12, 32, 16], "t": "13", "b": "15", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 12, 32, 20], "displayRect": [0, 0, 30, 8] }],
+        "display": { "width": 30, "height": 8 }
+      }
+    },
+    {
+      "name": "contained_is_body",
+      "why": "t=15 b=17 -> p=1; H=[14,18) inside B [14,20) -> B unchanged",
+      "groups": [["3", "15", "8", "17"], ["12", "15", "18", "17"], ["22", "15", "30", "17"]],
+      "expect": {
+        "reason": "merged_contained", "kind": "body", "B": [2, 14, 32, 20], "H": [2, 14, 32, 18], "t": "15", "b": "17", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 14, 32, 20], "displayRect": [0, 0, 30, 6] }],
+        "display": { "width": 30, "height": 6 }
+      }
+    },
+    {
+      "name": "below_separated_keeps_w1",
+      "why": "t=24 b=26 -> p=1; H=[23,27); H.top 23 > B.bottom 20 -> header_below_body, W1",
+      "groups": [["3", "24", "8", "26"], ["12", "24", "18", "26"], ["22", "24", "30", "26"]],
+      "expect": {
+        "reason": "header_below_body", "kind": "w1", "B": [2, 14, 32, 20], "H": [2, 23, 32, 27], "t": "24", "b": "26", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 0, 32, 30], "displayRect": [0, 0, 30, 30] }],
+        "display": { "width": 30, "height": 30 }
+      }
+    },
+    {
+      "name": "below_touching_merges",
+      "why": "t=21 b=23 -> p=1; H=[20,24); H.top 20 == B.bottom 20 (touch) -> merged [14,24)",
+      "groups": [["3", "21", "8", "23"], ["12", "21", "18", "23"], ["22", "21", "30", "23"]],
+      "expect": {
+        "reason": "merged", "kind": "merged", "B": [2, 14, 32, 20], "H": [2, 20, 32, 24], "t": "21", "b": "23", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 14, 32, 24], "displayRect": [0, 0, 30, 10] }],
+        "display": { "width": 30, "height": 10 }
+      }
+    },
+    {
+      "name": "right_out_by_001_keeps_w1",
+      "why": "ceil(32.01)=33 > 32 -> header_outside_body_width, W1",
+      "groups": [["3.5", "4.25", "8", "7.75"], ["12", "4", "18.5", "8"], ["22", "4.5", "32.01", "7.5"]],
+      "expect": {
+        "reason": "header_outside_body_width", "kind": "w1", "B": [2, 14, 32, 20], "H": [2, 3, 32, 9], "t": "4", "b": "8", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 0, 32, 30], "displayRect": [0, 0, 30, 30] }],
+        "display": { "width": 30, "height": 30 }
+      }
+    },
+    {
+      "name": "left_out_by_001_keeps_w1",
+      "why": "floor(1.99)=1 < 2 -> header_outside_body_width, W1",
+      "groups": [["1.99", "4.25", "8", "7.75"], ["12", "4", "18.5", "8"], ["22", "4.5", "31.75", "7.5"]],
+      "expect": {
+        "reason": "header_outside_body_width", "kind": "w1", "B": [2, 14, 32, 20], "H": [2, 3, 32, 9], "t": "4", "b": "8", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 0, 32, 30], "displayRect": [0, 0, 30, 30] }],
+        "display": { "width": 30, "height": 30 }
+      }
+    },
+    {
+      "name": "left_edge_fraction_allowed",
+      "why": "floor(2.99)=2 >= 2 -> inside; same strip as the first case",
+      "groups": [["2.99", "4.25", "8", "7.75"], ["12", "4", "18.5", "8"], ["22", "4.5", "31.75", "7.5"]],
+      "expect": {
+        "reason": "two_bands", "kind": "two_bands", "B": [2, 14, 32, 20], "H": [2, 3, 32, 9], "t": "4", "b": "8", "p": 1,
+        "pieces": [
+          { "kind": "source", "sourceRect": [2, 3, 32, 9], "displayRect": [0, 0, 30, 6] },
+          { "kind": "separator", "displayRect": [0, 6, 30, 14], "luma": [224, 224, 224, 128, 128, 224, 224, 224] },
+          { "kind": "source", "sourceRect": [2, 14, 32, 20], "displayRect": [0, 14, 30, 20] }
+        ],
+        "display": { "width": 30, "height": 20 }
+      }
+    },
+    {
+      "name": "narrow_window_header_straddles",
+      "why": "W1/W2 x [10,22); group 0 floor(3)=3 < 10 -> header_outside_body_width, W1 [10,0,22,30)",
+      "groups": null,
+      "override": {
+        "w1": { "left": 10, "top": 0, "width": 12, "height": 30 },
+        "w2": { "left": 10, "top": 14, "width": 12, "height": 6 },
+        "w4": { "left": 10, "top": 14, "width": 12, "height": 6 }
+      },
+      "expect": {
+        "reason": "header_outside_body_width", "kind": "w1", "B": [10, 14, 22, 20], "H": [10, 3, 22, 9], "t": "4", "b": "8", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [10, 0, 22, 30], "displayRect": [0, 0, 12, 30] }],
+        "display": { "width": 12, "height": 30 }
+      }
+    },
+    {
+      "name": "clamp_top",
+      "why": "t=0.5 b=2 -> p=ceil(1.5/4)=1; H.top=max(0, 0-1)=0, H.bottom=2+1=3",
+      "groups": [["3", "0.5", "8", "2"], ["12", "1", "18", "2"], ["22", "0.5", "30", "2"]],
+      "expect": {
+        "reason": "two_bands", "kind": "two_bands", "B": [2, 14, 32, 20], "H": [2, 0, 32, 3], "t": "0.5", "b": "2", "p": 1,
+        "pieces": [
+          { "kind": "source", "sourceRect": [2, 0, 32, 3], "displayRect": [0, 0, 30, 3] },
+          { "kind": "separator", "displayRect": [0, 3, 30, 11], "luma": [224, 224, 224, 128, 128, 224, 224, 224] },
+          { "kind": "source", "sourceRect": [2, 14, 32, 20], "displayRect": [0, 11, 30, 17] }
+        ],
+        "display": { "width": 30, "height": 17 }
+      }
+    },
+    {
+      "name": "clamp_bottom_contained",
+      "why": "B [24,30); t=27.5 b=29.5 -> p=1; H.top=27-1=26, H.bottom=min(30, 30+1)=30; H inside B",
+      "groups": [["3", "27.5", "8", "29.5"], ["12", "28", "18", "29"], ["22", "27.5", "30", "29.5"]],
+      "override": {
+        "w2": { "left": 2, "top": 24, "width": 30, "height": 6 },
+        "w4": { "left": 2, "top": 24, "width": 30, "height": 6 }
+      },
+      "expect": {
+        "reason": "merged_contained", "kind": "body", "B": [2, 24, 32, 30], "H": [2, 26, 32, 30], "t": "27.5", "b": "29.5", "p": 1,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 24, 32, 30], "displayRect": [0, 0, 30, 6] }],
+        "display": { "width": 30, "height": 6 }
+      }
+    },
+    {
+      "name": "fraction_floor_ceil",
+      "why": "t=4.999 b=5.001 -> b-t=0.002 -> p=1; H=[floor 4.999 -1, ceil 5.001 +1)=[3,7)",
+      "groups": [["3", "4.999", "8", "5.001"], ["12", "5", "18", "5.001"], ["22", "4.999", "30", "5"]],
+      "expect": {
+        "reason": "two_bands", "kind": "two_bands", "B": [2, 14, 32, 20], "H": [2, 3, 32, 7], "t": "4.999", "b": "5.001", "p": 1,
+        "pieces": [
+          { "kind": "source", "sourceRect": [2, 3, 32, 7], "displayRect": [0, 0, 30, 4] },
+          { "kind": "separator", "displayRect": [0, 4, 30, 12], "luma": [224, 224, 224, 128, 128, 224, 224, 224] },
+          { "kind": "source", "sourceRect": [2, 14, 32, 20], "displayRect": [0, 12, 30, 18] }
+        ],
+        "display": { "width": 30, "height": 18 }
+      }
+    },
+    {
+      "name": "pad_exact_quarter_touch",
+      "why": "t=4 b=12 -> b-t=8 -> p=2 exactly; H=[2,14) touches B.top 14 -> merged [2,20)",
+      "groups": [["3", "4", "8", "12"], ["12", "5", "18", "11"], ["22", "6", "30", "10"]],
+      "expect": {
+        "reason": "merged", "kind": "merged", "B": [2, 14, 32, 20], "H": [2, 2, 32, 14], "t": "4", "b": "12", "p": 2,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 2, 32, 20], "displayRect": [0, 0, 30, 18] }],
+        "display": { "width": 30, "height": 18 }
+      }
+    },
+    {
+      "name": "pad_just_over_quarter",
+      "why": "t=4 b=12.04 -> b-t=8.04 -> p=ceil(2.01)=3; H=[4-3, 13+3)=[1,16) overlaps -> merged [1,20)",
+      "groups": [["3", "4", "8", "12.04"], ["12", "5", "18", "11"], ["22", "6", "30", "10"]],
+      "expect": {
+        "reason": "merged", "kind": "merged", "B": [2, 14, 32, 20], "H": [2, 1, 32, 16], "t": "4", "b": "12.04", "p": 3,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 1, 32, 20], "displayRect": [0, 0, 30, 19] }],
+        "display": { "width": 30, "height": 19 }
+      }
+    },
+    {
+      "name": "w4_not_applied_keeps_w1",
+      "why": "w4Reason header_none -> W1 with no strip fields",
+      "groups": null,
+      "override": {
+        "w4Reason": "header_none", "w4From": "w1",
+        "w4": { "left": 2, "top": 0, "width": 30, "height": 30 },
+        "w4Diag": { "qualified": [], "header": null, "chosen": null }
+      },
+      "expect": {
+        "reason": "w4_not_applied", "kind": "w1", "B": null, "H": null, "t": null, "b": null, "p": null,
+        "pieces": [{ "kind": "source", "sourceRect": [2, 0, 32, 30], "displayRect": [0, 0, 30, 30] }],
+        "display": { "width": 30, "height": 30 }
+      }
+    },
+    {
+      "name": "upstream_error",
+      "why": "state error -> no W5 output, not a display success",
+      "groups": null,
+      "override": { "state": "error", "w4Reason": "error", "w4From": null, "w1": null, "w2": null, "w4": null, "w4Diag": null },
+      "expect": { "reason": "upstream_error", "kind": null, "B": null, "H": null, "t": null, "b": null, "p": null, "pieces": [], "display": null }
+    },
+    {
+      "name": "upstream_unmatched",
+      "why": "state unmatched -> no W5 output",
+      "groups": null,
+      "override": { "state": "unmatched", "w4Reason": "unmatched", "w4From": null, "w1": null, "w2": null, "w4": null, "w4Diag": null },
+      "expect": { "reason": "upstream_unmatched", "kind": null, "B": null, "H": null, "t": null, "b": null, "p": null, "pieces": [], "display": null }
+    }
+  ],
+  "invariance": {
+    "why": "Same geometry as the first plan case; every OCR/question string changed. Plan must be identical.",
+    "override": {
+      "w4Diag": {
+        "question": { "record": "완전히 다른 기록", "field": "다른 인원", "qtype": "count" },
+        "lines": [
+          { "line": 0, "why": "eligible", "groups": [{ "words": [0], "boxes": [["3", "0.5", "20", "1"]], "text": "ZZZ", "box": ["3", "0.5", "23", "1.5"] }], "failure": "group_count" },
+          { "line": 1, "why": "eligible", "groups": [
+            { "words": [0], "boxes": [["3.5", "4.25", "4.5", "3.5"]], "text": "다른", "box": ["3.5", "4.25", "8", "7.75"] },
+            { "words": [1], "boxes": [["12", "4", "6.5", "4"]], "text": "글자", "box": ["12", "4", "18.5", "8"] },
+            { "words": [2], "boxes": [["22", "4.5", "9.75", "3"]], "text": "바꿈", "box": ["22", "4.5", "31.75", "7.5"] }
+          ], "failure": null },
+          { "line": 2, "why": "k1_line", "groups": null, "failure": null }
+        ]
+      }
+    },
+    "sameAs": "two_bands_exact_right_edge"
+  },
+  "contracts": [
+    { "name": "qualified_two_lines", "override": { "w4Diag": { "qualified": [0, 1] } }, "code": "contract_header_line" },
+    { "name": "qualified_other_line", "override": { "w4Diag": { "qualified": [0] } }, "code": "contract_header_line" },
+    { "name": "line_id_duplicate", "patch": "duplicate_line_1", "code": "contract_line_ids" },
+    { "name": "header_line_missing", "override": { "w4Diag": { "qualified": [5], "header": { "line": 5, "match": [true, false], "target": 1, "comp": 2 } } }, "code": "contract_line_ids" },
+    { "name": "two_groups", "patch": "drop_group_3", "code": "contract_group_count" },
+    { "name": "header_line_not_eligible", "patch": "header_why_below_anchor", "code": "contract_group_count" },
+    { "name": "group_failure_set", "patch": "header_failure_x_overlap", "code": "contract_group_failure" },
+    { "name": "target_equals_comp", "override": { "w4Diag": { "header": { "line": 1, "match": [true, false], "target": 1, "comp": 1 } } }, "code": "contract_index" },
+    { "name": "target_out_of_range", "override": { "w4Diag": { "header": { "line": 1, "match": [true, false], "target": 3, "comp": 2 } } }, "code": "contract_index" },
+    { "name": "match_disagrees", "override": { "w4Diag": { "header": { "line": 1, "match": [false, true], "target": 1, "comp": 2 } } }, "code": "contract_index" },
+    { "name": "box_not_finite", "patch": "box_nan", "code": "contract_box" },
+    { "name": "box_zero_width", "patch": "box_zero_width", "code": "contract_box" },
+    { "name": "box_outside_page", "patch": "box_x1_41", "code": "contract_box" },
+    { "name": "w2_not_in_w1", "override": { "w2": { "left": 1, "top": 14, "width": 30, "height": 6 }, "w4": { "left": 1, "top": 14, "width": 30, "height": 6 } }, "code": "contract_window" },
+    { "name": "w4_differs_from_w2", "override": { "w4": { "left": 2, "top": 15, "width": 30, "height": 5 } }, "code": "contract_w4_not_w2" }
+  ],
+  "patches": {
+    "duplicate_line_1": "append a copy of w4Diag.lines[1] to w4Diag.lines",
+    "drop_group_3": "remove w4Diag.lines[1].groups[2]",
+    "header_why_below_anchor": "set w4Diag.lines[1].why = 'below_anchor' and groups = null",
+    "header_failure_x_overlap": "set w4Diag.lines[1].failure = 'x_overlap'",
+    "box_nan": "set w4Diag.lines[1].groups[0].box[0] = 'NaN'",
+    "box_zero_width": "set w4Diag.lines[1].groups[0].box = ['3', '4.25', '3', '7.75']",
+    "box_x1_41": "set w4Diag.lines[1].groups[2].box[2] = '41'"
+  },
+  "exposures": [
+    { "plan": "two_bands_exact_right_edge", "ink": [5, 4, 10, 8], "expect": "full", "why": "inside H rows [3,9) and x [2,32)" },
+    { "plan": "two_bands_exact_right_edge", "ink": [5, 7, 10, 15], "expect": "partial", "why": "spans the missing rows 9..13: touches both bands but no single interval holds it" },
+    { "plan": "two_bands_exact_right_edge", "ink": [5, 10, 10, 13], "expect": "none", "why": "only in the gap rows, which are not shown" },
+    { "plan": "two_bands_exact_right_edge", "ink": [5, 9, 10, 14], "expect": "none", "why": "y0 = H.bottom and y1 = B.top: touching both, zero area" },
+    { "plan": "two_bands_exact_right_edge", "ink": [30, 15, 34, 18], "expect": "partial", "why": "x1 34 > R 32" },
+    { "plan": "two_bands_exact_right_edge", "ink": [0, 15, 2, 18], "expect": "none", "why": "x1 = L 2: touching" },
+    { "plan": "two_bands_exact_right_edge", "ink": [5, 14, 10, 20], "expect": "full", "why": "exactly B rows" },
+    { "plan": "two_bands_exact_right_edge", "ink": null, "expect": "source_missing", "why": "blank header item has no ink" },
+    { "plan": "touch_merges", "ink": [5, 12, 10, 16], "expect": "full", "why": "merged interval [10,20) is contiguous" },
+    { "plan": "below_separated_keeps_w1", "ink": [5, 24, 10, 26], "expect": "full", "why": "W1 [0,30)" }
+  ],
+  "areas": [
+    { "plan": "two_bands_exact_right_edge", "w1Area": 900, "w4Area": 180, "pageArea": 1200, "expect": { "source": 360, "separator": 240, "display": 600, "w5SourceVsW1": "45", "w5DisplayVsW1": "25", "w5SourceVsW4": "15" } },
+    { "plan": "one_pixel_gap_two_bands", "w1Area": 900, "w4Area": 180, "pageArea": 1200, "expect": { "source": 300, "separator": 240, "display": 540, "w5SourceVsW1": "50", "w5DisplayVsW1": "30", "w5SourceVsW4": "10" } },
+    { "plan": "touch_merges", "w1Area": 900, "w4Area": 180, "pageArea": 1200, "expect": { "source": 300, "separator": 0, "display": 300, "w5SourceVsW1": "50", "w5DisplayVsW1": "50", "w5SourceVsW4": "10" } }
+  ],
+  "pp": [
+    { "num": "40", "den": "3", "expect": "13.33" },
+    { "num": "-1", "den": "8", "expect": "-0.13" },
+    { "num": "1", "den": "200", "expect": "0.01" },
+    { "num": "0", "den": "1", "expect": "0.00" },
+    { "num": "70", "den": "3", "expect": "23.33" },
+    { "num": "-1", "den": "300", "expect": "-0.00" }
+  ],
+  "meanExample": { "values": ["45", "25", "0"], "expect": { "num": "70", "den": "3" } },
+  "pixels": {
+    "source": "v(x, y) = (7x + 13y) mod 256 on a 40 x 30 one-channel page",
+    "cases": [
+      { "plan": "two_bands_exact_right_edge", "rows": [["src", 3], ["src", 4], ["src", 5], ["src", 6], ["src", 7], ["src", 8], ["sep", 224], ["sep", 224], ["sep", 224], ["sep", 128], ["sep", 128], ["sep", 224], ["sep", 224], ["sep", 224], ["src", 14], ["src", 15], ["src", 16], ["src", 17], ["src", 18], ["src", 19]], "x": [2, 32] },
+      { "plan": "partial_overlap_merges", "rows": [["src", 12], ["src", 13], ["src", 14], ["src", 15], ["src", 16], ["src", 17], ["src", 18], ["src", 19]], "x": [2, 32] }
+    ]
+  }
+}

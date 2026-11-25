@@ -1,0 +1,65 @@
+{
+  "version": "ko-header-strip-registered-1",
+  "protocol": "research/plans/2026-11-25-ko-header-strip-protocol.md",
+  "base": "0fb30531aabaa9f55b8c9fdc34ee9d03042936c1",
+  "source": {
+    "pr": 153,
+    "commit": "4320271738c8be56556fb09bf56511368d49ba9e",
+    "fetch": "git fetch origin pull/153/head:khc-pr153",
+    "imageTree": {
+      "path": "research/results/ko-header-column/data/selector/images",
+      "tree": "0367d459e6faf4e4c9812185a7ccd93ef8caba12"
+    },
+    "files": {
+      "manifest": { "path": "research/results/ko-header-column/data/manifest.json", "blob": "bf3b3fa58ef5ca4194c103d7fb416c543965ee49", "sha256": "f227f18bdb4b47553d04cee7cdeb76ad5ff94d21e45e69213c420c8ed49a0962" },
+      "questions": { "path": "research/results/ko-header-column/data/selector/questions.json", "blob": "e77bdc6801197c53a1cd1d506c94a44a4bc02bf9", "sha256": "aff1e93ce3ec41ee172ae7371bc0c1f7b5110bb6d27961b1a610799890ca92ad" },
+      "ocr": { "path": "research/results/ko-header-column/ocr/ocr.jsonl", "blob": "fc546c9d7d1ce1fccad7df7395e7b94404d45b63", "sha256": "973885453c8c6a0d18a0299c5913448579c3bb937eddbfe6342b7135cc8dd3c4" },
+      "k1": { "path": "research/results/ko-header-column/ocr/k1.jsonl", "blob": "b30921b860a81da7f97039ff4405182053279ab8", "sha256": "6f3b9a618b96abd54b41e2e3c752a1ed10e9432232775af5d11fe39e0fa3faa9" },
+      "predictions": { "path": "research/results/ko-header-column/replay-a/predictions.jsonl", "blob": "dcd95d3cab216152ca5b3f5ae33b28ff61363174", "sha256": "ff8bc4f170bdac6c526dc3f6a5a5085721e61defc1b7f3ceb5fd8c2e15c4ebff" },
+      "inputs": { "path": "research/results/ko-header-column/replay-a/inputs.json", "blob": "fc6736b7afe11aa221508fd221f94197607f866a", "sha256": "42d89fb07c0557d8b6683872b66133dbab1d428d13c8f8b3fa71563dd1dbf067" },
+      "freeze": { "path": "research/results/ko-header-column/replay-a/freeze.json", "blob": "3d908c8489fb26de130d670ed212b7d196a3af88", "sha256": "82687960af358c0d2ebc41d6716fee13008fe488cb1df53fb5e9e1a66a5f774f" },
+      "summary": { "path": "research/results/ko-header-column/score-a/summary.json", "blob": "0826f54c192de004645c5f3bfe8fb045780543f0", "sha256": "cbaab3b48eb2f09d1c40b9c6df63ada2bb5bb28c47e6c03dea7b1dc441509a9a" }
+    },
+    "scoringFiles": {
+      "note": "Opened only by the scorer, after the W5 build is committed and pushed. Hashes are checked against the pinned manifest (design/gold/render) or the pinned commit path (score).",
+      "design": "research/results/ko-header-column/data/scoring/design.json",
+      "gold": "research/results/ko-header-column/data/scoring/gold.json",
+      "render": "research/results/ko-header-column/data/scoring/render.json",
+      "score": "research/results/ko-header-column/score-a/score.jsonl"
+    }
+  },
+  "buildAllowlist": [
+    "research/results/ko-header-column/data/manifest.json",
+    "research/results/ko-header-column/replay-a/predictions.jsonl",
+    "research/results/ko-header-column/replay-a/freeze.json",
+    "research/results/ko-header-column/data/selector/images/p###.png"
+  ],
+  "projectionKeys": {
+    "row": ["id", "pngSha256", "width", "height", "state", "w4Reason", "w1", "w2", "w4", "header"],
+    "header": ["groups", "target", "comp"],
+    "window": ["left", "top", "width", "height"],
+    "group": ["x0", "y0", "x1", "y1"]
+  },
+  "fixed22": ["p003", "p008", "p011", "p021", "p027", "p035", "p038", "p042", "p050", "p055", "p063", "p079", "p083", "p085", "p086", "p101", "p114", "p116", "p117", "p122", "p134", "p135"],
+  "fixed22Sets": ["w4Reason == applied (predictions)", "summary.lists.applied", "summary.lists.event4", "summary.lists.readingNewE1W4"],
+  "cases": [
+    { "id": "p003", "why": "normal header, W4 applied, side L (culture-c0, 철수/리허설 시각)" },
+    { "id": "p050", "why": "left/right partner of p003 (same source, header, ans; side R)" },
+    { "id": "p031", "why": "blank header, W1 kept (W4 header_none)" },
+    { "id": "p067", "why": "duplicate header, W1 kept (W4 header_duplicate)" },
+    { "id": "p070", "why": "fixed K1 failure (W1 not strict; W4 not_applicable)" }
+  ],
+  "strip": {
+    "padDivisor": 4,
+    "separatorLuma": [224, 224, 224, 128, 128, 224, 224, 224]
+  },
+  "w5Reasons": ["upstream_error", "upstream_unmatched", "w4_not_applied", "header_outside_body_width", "header_below_body", "merged_contained", "merged", "two_bands"],
+  "w5ShowsW1": ["w4_not_applied", "header_outside_body_width", "header_below_body"],
+  "contractCodes": ["integrity_pin", "integrity_png", "integrity_id", "integrity_output", "contract_header_line", "contract_line_ids", "contract_group_count", "contract_group_failure", "contract_index", "contract_box", "contract_window", "contract_w4_not_w2"],
+  "tampers": [
+    "w5_segment_shift_x1", "w5_flip_horizontal", "coords_y_off_by_one", "band_order_swap", "overlap_rows_duplicated",
+    "provenance_missing", "provenance_wrong", "separator_luma_changed", "separator_height_changed", "w1_kept_pixel_changed",
+    "pixel_value_plus_one", "png_metadata_only", "manifest_file_hash", "gold_join_swapped", "denominator_swapped",
+    "fixed22_id_removed", "verdict_changed"
+  ]
+}
