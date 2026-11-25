@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { ContractError, IntegrityError, compose, crop, plan, project } from "./ko-header-strip-plan.mjs";
 import { decodeGray, encodeGray, pixelSha256, sha256, sharpVersions } from "./ko-header-strip-png.mjs";
-import { REGISTERED, assertBuildAllowed, checkCommit, checkIds, git, imageEntries, makeReader, parseJsonl, readPinned, researchDir } from "./ko-header-strip-source.mjs";
+import { REGISTERED, assertBuildAllowed, checkCommit, checkIds, git, imageEntries, makeReader, parseJsonl, readPinned } from "./ko-header-strip-source.mjs";
 
 const SRC = REGISTERED.source;
 const CODE = ["ko-header-strip-build.mjs", "ko-header-strip-plan.mjs", "ko-header-strip-png.mjs", "ko-header-strip-source.mjs"];
@@ -72,11 +72,12 @@ export async function build(out) {
     coordsSha256: sha256(Buffer.from(coordsText)),
     outputs,
   }, null, 1) + "\n");
-  const code = Object.fromEntries(CODE.map((f) => [f, sha256(readFileSync(join(researchDir, "src", f)))]));
+  // Code identity as Git blob ids at HEAD (line-ending independent); a dirty working copy is refused.
+  const codePaths = CODE.map((f) => `research/src/${f}`);
+  if (git(["status", "--porcelain", "--", ...codePaths], "utf8").trim() !== "") throw new IntegrityError("integrity_output", "build code differs from HEAD");
   writeFileSync(join(out, "inputs.json"), JSON.stringify({
     version: "ko-header-strip-inputs-1",
-    head: git(["rev-parse", "HEAD"], "utf8").trim(),
-    code: Object.fromEntries(Object.entries(code).map(([f, h]) => [`research/src/${f}`, h])),
+    code: Object.fromEntries(codePaths.map((p) => [p, git(["rev-parse", `HEAD:${p}`], "utf8").trim()])),
     reads: reader.log,
   }, null, 1) + "\n");
   return { coords, outputs };
