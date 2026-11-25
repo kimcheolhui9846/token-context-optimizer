@@ -1,0 +1,60 @@
+# RED before implementation (registration commit 18500afd166633332cd5aeaf688aee1c7307d59c)
+$ node --test test/ko-header-column.test.mjs
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<worktree>\research\src\ko-header-column-lib.mjs' imported from <worktree>\research\test\ko-header-column.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+    at #resolve (node:internal/modules/esm/loader:683:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:253:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///<worktree>/research/src/ko-header-column-lib.mjs'
+}
+
+Node.js v24.18.0
+✖ test\ko-header-column.test.mjs (48.7759ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 54.0997
+
+✖ failing tests:
+
+test at test\ko-header-column.test.mjs:1:1
+✖ test\ko-header-column.test.mjs (48.7759ms)
+  'test failed'
+exit 1
+
+$ (cd tools/ko-header-column && python -m unittest test_recount -v)
+test_recount (unittest.loader._FailedTest.test_recount) ... ERROR
+
+======================================================================
+ERROR: test_recount (unittest.loader._FailedTest.test_recount)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_recount
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>\research\tools\ko-header-column\test_recount.py", line 10, in <module>
+    import recount as rc
+ModuleNotFoundError: No module named 'recount'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+exit 1
