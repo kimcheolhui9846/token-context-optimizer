@@ -1,0 +1,3088 @@
+{
+ "version": "ko-header-column-checks-1",
+ "ok": true,
+ "problems": [],
+ "pages": 144,
+ "sources": 12,
+ "grid": {
+  "kind": {
+   "library": 48,
+   "sports": 48,
+   "culture": 48
+  },
+  "side": {
+   "L": 72,
+   "R": 72
+  },
+  "header": {
+   "normal": 48,
+   "blank": 48,
+   "dup": 48
+  },
+  "ans": {
+   "same": 72,
+   "below": 72
+  },
+  "cellName": {
+   "L-normal-same": 12,
+   "L-normal-below": 12,
+   "L-blank-same": 12,
+   "L-blank-below": 12,
+   "L-dup-same": 12,
+   "L-dup-below": 12,
+   "R-normal-same": 12,
+   "R-normal-below": 12,
+   "R-blank-same": 12,
+   "R-blank-below": 12,
+   "R-dup-same": 12,
+   "R-dup-below": 12
+  },
+  "slot": {
+   "0": 48,
+   "1": 48,
+   "2": 48
+  },
+  "qtype": {
+   "time": 48,
+   "count": 48,
+   "pages": 48
+  }
+ },
+ "renderFailedImages": 0,
+ "measured": {
+  "sameTopDiff": [
+   -1,
+   3
+  ],
+  "otherTopDiff": [
+   39,
+   43
+  ],
+  "recordGap": [
+   25,
+   26
+  ],
+  "mainGapRatio": [
+   4.7826,
+   20.0455
+  ],
+  "noteGapPx": [
+   348,
+   395
+  ],
+  "headerCandidateDx": [
+   0,
+   2
+  ],
+  "headerHeight": [
+   22,
+   23
+  ]
+ },
+ "idealW4Reasons": {
+  "applied": 24,
+  "no_target_candidate": 24,
+  "header_none": 48,
+  "header_duplicate": 48
+ },
+ "pairing": [
+  {
+   "source": "library-c0",
+   "pages": [
+    "p038",
+    "p128",
+    "p104",
+    "p016",
+    "p067",
+    "p092",
+    "p055",
+    "p022",
+    "p076",
+    "p056",
+    "p081",
+    "p054"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "library-c1",
+   "pages": [
+    "p011",
+    "p123",
+    "p051",
+    "p052",
+    "p068",
+    "p124",
+    "p063",
+    "p065",
+    "p120",
+    "p006",
+    "p113",
+    "p099"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "library-c2",
+   "pages": [
+    "p079",
+    "p010",
+    "p045",
+    "p075",
+    "p105",
+    "p009",
+    "p085",
+    "p028",
+    "p129",
+    "p097",
+    "p066",
+    "p014"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "library-c3",
+   "pages": [
+    "p008",
+    "p041",
+    "p109",
+    "p126",
+    "p074",
+    "p110",
+    "p117",
+    "p005",
+    "p078",
+    "p141",
+    "p036",
+    "p004"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "sports-c0",
+   "pages": [
+    "p070",
+    "p082",
+    "p048",
+    "p015",
+    "p029",
+    "p026",
+    "p001",
+    "p093",
+    "p121",
+    "p032",
+    "p017",
+    "p119"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "sports-c1",
+   "pages": [
+    "p122",
+    "p077",
+    "p018",
+    "p106",
+    "p108",
+    "p002",
+    "p086",
+    "p091",
+    "p089",
+    "p062",
+    "p130",
+    "p040"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "sports-c2",
+   "pages": [
+    "p042",
+    "p000",
+    "p049",
+    "p142",
+    "p025",
+    "p143",
+    "p101",
+    "p013",
+    "p118",
+    "p133",
+    "p111",
+    "p072"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "sports-c3",
+   "pages": [
+    "p135",
+    "p064",
+    "p115",
+    "p087",
+    "p059",
+    "p047",
+    "p021",
+    "p080",
+    "p132",
+    "p039",
+    "p060",
+    "p137"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "culture-c0",
+   "pages": [
+    "p003",
+    "p023",
+    "p102",
+    "p037",
+    "p046",
+    "p088",
+    "p050",
+    "p096",
+    "p098",
+    "p073",
+    "p100",
+    "p057"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "culture-c1",
+   "pages": [
+    "p116",
+    "p112",
+    "p095",
+    "p107",
+    "p084",
+    "p139",
+    "p027",
+    "p033",
+    "p012",
+    "p136",
+    "p024",
+    "p058"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "culture-c2",
+   "pages": [
+    "p083",
+    "p131",
+    "p069",
+    "p007",
+    "p044",
+    "p094",
+    "p035",
+    "p061",
+    "p019",
+    "p020",
+    "p071",
+    "p140"
+   ],
+   "ok": true,
+   "problems": []
+  },
+  {
+   "source": "culture-c3",
+   "pages": [
+    "p134",
+    "p030",
+    "p053",
+    "p127",
+    "p043",
+    "p138",
+    "p114",
+    "p090",
+    "p125",
+    "p031",
+    "p103",
+    "p034"
+   ],
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "earlier": {
+  "counts": {
+   "r09-heldout": 48,
+   "r09-dev": 4,
+   "fcp": 48,
+   "ko-ocr-holdout-148": 96,
+   "ko-row-window-150": 48,
+   "ko-row-height-151": 48,
+   "ko-row-gate-152": 48
+  },
+  "comparedPages": 340,
+  "imageOverlap": [],
+  "questionOverlap": [],
+  "cohort149": {
+   "pages": 24,
+   "imageOverlap": 0,
+   "questionOverlap": 0
+  }
+ },
+ "uniqueness": {
+  "pngSha256": 144,
+  "normalizedQuestions": 12,
+  "pagesPerQuestion": [
+   12
+  ]
+ },
+ "hashes": {
+  "selector/questions.json": "aff1e93ce3ec41ee172ae7371bc0c1f7b5110bb6d27961b1a610799890ca92ad",
+  "scoring/gold.json": "88ef1adc599e1579268c6d356b0809fae8464a18c89085737790adaaec9ce85e",
+  "scoring/design.json": "61d8c113d942d5099b9656a90bafb152827b83ee27ef9345520b94eb5a1c5823",
+  "answers": "f6731c17f17fcd072e48ea1d2d9ac8b65dec6e3217b1ac114d231b9d9639ef8b"
+ },
+ "ideal": {
+  "p000": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p001": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p002": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p003": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p004": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p005": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p006": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p007": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p008": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p009": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p010": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p011": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p012": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p013": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p014": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p015": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p016": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p017": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p018": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p019": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p020": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p021": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p022": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p023": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p024": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p025": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p026": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p027": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p028": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p029": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p030": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p031": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p032": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p033": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p034": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p035": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p036": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p037": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p038": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p039": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p040": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p041": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p042": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p043": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p044": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p045": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p046": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p047": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p048": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p049": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p050": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p051": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p052": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p053": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p054": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p055": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p056": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p057": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p058": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p059": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p060": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p061": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p062": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p063": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p064": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p065": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p066": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p067": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p068": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p069": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p070": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p071": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p072": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p073": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p074": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p075": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p076": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p077": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p078": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p079": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p080": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p081": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p082": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p083": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p084": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p085": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p086": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p087": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p088": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p089": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p090": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p091": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p092": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p093": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p094": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p095": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p096": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p097": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p098": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p099": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p100": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p101": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p102": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p103": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p104": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p105": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p106": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p107": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p108": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p109": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p110": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p111": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p112": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p113": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p114": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p115": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p116": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p117": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p118": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p119": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p120": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p121": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p122": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p123": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p124": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p125": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p126": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p127": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p128": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p129": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    236,
+    1280,
+    302
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p130": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    324,
+    1280,
+    390
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p131": {
+   "w4Reason": "no_target_candidate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p132": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p133": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p134": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p135": {
+   "w4Reason": "applied",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "full",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p136": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p137": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p138": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p139": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p140": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    234,
+    1280,
+    303
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p141": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    322,
+    1280,
+    391
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p142": {
+   "w4Reason": "header_none",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "source_missing",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  },
+  "p143": {
+   "w4Reason": "header_duplicate",
+   "referenceBand": [
+    0,
+    148,
+    1280,
+    214
+   ],
+   "bandExposure": {
+    "targetValue": "partial",
+    "compValue": "full",
+    "targetHeader": "none",
+    "compHeader": "none",
+    "otherValues": [
+     "none",
+     "none"
+    ]
+   }
+  }
+ }
+}
