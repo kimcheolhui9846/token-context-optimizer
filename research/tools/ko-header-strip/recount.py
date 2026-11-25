@@ -347,7 +347,7 @@ class Source:
         if tree != SRC["imageTree"]["tree"]:
             raise IntegrityError("integrity_pin", "tree")
         self.tree = {}
-        for line in git("ls-tree", tree).decode().splitlines():
+        for line in git("ls-tree", "--full-tree", tree).decode().splitlines():
             m = re.match(r"^100644 blob ([0-9a-f]{40})\t(p[0-9]{3}\.png)$", line)
             if not m:
                 raise IntegrityError("integrity_pin", line)
