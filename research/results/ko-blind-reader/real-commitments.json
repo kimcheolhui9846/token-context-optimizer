@@ -1,0 +1,14 @@
+{
+ "version": "ko-blind-reader-commitments-1",
+ "rule": "commit = SHA-256(salt || UTF-8(label) || 0x00 || bytes); salt = 32 bytes from the OS CSPRNG, one salt per commitment, salts stored only in the admin folder",
+ "items": [
+  {
+   "label": "kbr-seed",
+   "commitment": "bab17c4406a35e899a0747794c5778f333f6c96f51c308023571d3381aec9ed6"
+  },
+  {
+   "label": "kbr-assignment",
+   "commitment": "dfe7234b67f66df7f0368e4a872b6dddede069ee3dcd75d56461d29af36e4c6d"
+  }
+ ]
+}
