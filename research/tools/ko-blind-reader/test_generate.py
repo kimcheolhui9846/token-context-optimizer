@@ -142,6 +142,27 @@ class Recount(unittest.TestCase):
         self.assertEqual(t["methods"]["W1"]["noDisplay"], 1)
         self.assertEqual(t["methods"]["W4"]["both"], 6)
 
+    def test_consistency_mirrors_the_reader_states(self):
+        # added after the Opus milestone review (m1): only states the reader UI can produce
+        def item(i, **kw):
+            base = {"pos": i + 1, "displayed": True, "reached": True, "skipped": False, "column": "L", "value": "50", "valueUnknown": False}
+            base.update(kw)
+            return base
+        resp = {"status": "completed", "position": 19, "items": [item(i) for i in range(18)]}
+        self.assertEqual(R.consistency(resp), [])
+        resp["items"][0] = item(0, column=None, value=None)
+        self.assertNotEqual(R.consistency(resp), [])
+        resp["items"][0] = item(0, value="1", valueUnknown=True)
+        self.assertNotEqual(R.consistency(resp), [])
+        resp["items"][0] = item(0, reached=False, skipped=True, column=None, value=None)
+        self.assertNotEqual(R.consistency(resp), [])
+        ab = {"status": "aborted", "position": 3, "items": [item(0), item(1, skipped=True, column=None, value=None)]
+              + [item(i, reached=False, column=None, value=None) for i in range(2, 18)]}
+        self.assertEqual(R.consistency(ab), [])
+        nd = {"status": "completed", "position": 19, "items": [item(i) for i in range(18)]}
+        nd["items"][3] = item(3, displayed=False, column="unknown", value=None, valueUnknown=True)
+        self.assertEqual(R.consistency(nd), [])
+
 
 if __name__ == "__main__":
     unittest.main()
