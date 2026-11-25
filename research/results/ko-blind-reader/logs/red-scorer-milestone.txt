@@ -1,0 +1,10 @@
+# RED before the scorer milestone fixes, commit 5e914945c3dba0db2e2678c1dfaf387e350b37f7, 2026-11-25T05:42:44Z
+## node --test test/ko-blind-reader-scorer.test.mjs
+    throw new ERR_MODULE_NOT_FOUND(
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<clean worktree>\research\src\ko-blind-reader-repro.mjs' imported from <clean worktree>\research\test\ko-blind-reader-scorer.test.mjs
+  code: 'ERR_MODULE_NOT_FOUND',
+ℹ tests 1
+## python -m unittest discover -s tools/ko-blind-reader -p test_generate.py -k consistency
+AttributeError: module 'recount' has no attribute 'consistency'
+Ran 1 test in 0.001s
+FAILED (errors=1)
