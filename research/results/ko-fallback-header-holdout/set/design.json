@@ -1,0 +1,6289 @@
+{
+ "version": "ko-fallback-layout-1",
+ "set": "public-holdout",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "weight": 400,
+  "bodySize": 24,
+  "titleSize": 32
+ },
+ "images": [
+  {
+   "id": "q083bb210",
+   "file": "q083bb210.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "야간 별 관측표",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "개시 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "마감 시각",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "토성 고리 관찰",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "08:27",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "08:34",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "달 분화구 촬영",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "08:41",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "08:48",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "유성우 개수 기록",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "08:55",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "09:02",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "08:55",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q115fd8ae",
+   "file": "q115fd8ae.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "식물 도감 원고",
+     "cell": [
+      40,
+      28,
+      500,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "초고 분량",
+     "cell": [
+      360,
+      104,
+      520,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "교정 분량",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "습지 이끼 편",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "116쪽",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "117쪽",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "고산 야생화 편",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "118쪽",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "119쪽",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "해안 사초 편",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "120쪽",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "121쪽",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "extra-label",
+     "role": "label",
+     "record": 3,
+     "text": "별관",
+     "size": "body",
+     "cell": [
+      530,
+      60,
+      615,
+      100
+     ]
+    },
+    {
+     "id": "extra-value",
+     "role": "other_record_value",
+     "record": 3,
+     "text": "122쪽",
+     "size": "body",
+     "cell": [
+      530,
+      104,
+      615,
+      144
+     ]
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "118쪽",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "q19ee729d",
+   "file": "q19ee729d.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "복원 보고서 목록",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "본문 분량",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "부록 분량",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "병풍 배접 보고",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "109쪽",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "110쪽",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "목판 균열 진단",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "111쪽",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "112쪽",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "단청 안료 분석",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "113쪽",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "114쪽",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "113쪽",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q22447562",
+   "file": "q22447562.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "마을 기록 작업반",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "신청 인원",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "참여 인원",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "옛 사진 분류",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "60명",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "61명",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "구술 녹음 풀기",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "62명",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "63명",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "마을 지도 대조",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "64명",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "65명",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "62명",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "q265884a1",
+   "file": "q265884a1.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "씨앗 도서관 일손",
+     "cell": [
+      40,
+      28,
+      500,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "교육 인원",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "투입 인원",
+     "cell": [
+      360,
+      104,
+      520,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "토종 콩 고르기",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "95명",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "96명",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "채종 봉투 포장",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "97명",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "98명",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "발아 상태 검사",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "99명",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "100명",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "extra-label",
+     "role": "label",
+     "record": 3,
+     "text": "별관",
+     "size": "body",
+     "cell": [
+      530,
+      60,
+      615,
+      100
+     ]
+    },
+    {
+     "id": "extra-value",
+     "role": "other_record_value",
+     "record": 3,
+     "text": "101명",
+     "size": "body",
+     "cell": [
+      530,
+      104,
+      615,
+      144
+     ]
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "99명",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q2acfaa75",
+   "file": "q2acfaa75.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "가마 소성 일정",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "점화 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "개방 시각",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "초벌 항아리 굽기",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "06:49",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "06:56",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "청자 접시 재벌",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "07:03",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "07:10",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "유약 시험편 소성",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "07:17",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "07:24",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "07:17",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q3ce80eb8",
+   "file": "q3ce80eb8.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "고문서 해제 목록",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "원문 분량",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "번역 분량",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "토지 매매 문서",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "102쪽",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "103쪽",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "서당 학습 장부",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "104쪽",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "105쪽",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "혼례 물목 단자",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "106쪽",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "107쪽",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "104쪽",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "q3ea11f91",
+   "file": "q3ea11f91.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "철새 탐조 모집",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "모집 인원",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "확정 인원",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "두루미 월동지",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "67명",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "68명",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "가창오리 군무",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "69명",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "70명",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "고니 호수 탐방",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "71명",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "72명",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "71명",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q4b202a75",
+   "file": "q4b202a75.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "전통 매듭 공방",
+     "cell": [
+      40,
+      28,
+      500,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "접수 인원",
+     "cell": [
+      360,
+      104,
+      520,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "수료 인원",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "도래 매듭 팔찌",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "74명",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "75명",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "국화 매듭 노리개",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "76명",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "77명",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "술 장식 엮기",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "78명",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "79명",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "extra-label",
+     "role": "label",
+     "record": 3,
+     "text": "별관",
+     "size": "body",
+     "cell": [
+      530,
+      60,
+      615,
+      100
+     ]
+    },
+    {
+     "id": "extra-value",
+     "role": "other_record_value",
+     "record": 3,
+     "text": "80명",
+     "size": "body",
+     "cell": [
+      530,
+      104,
+      615,
+      144
+     ]
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "76명",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "q4e547a01",
+   "file": "q4e547a01.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "악기 수리 접수표",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "접수 시각",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "완료 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "해금 줄 교체",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "06:00",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "06:07",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "장구 가죽 손질",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "06:14",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "06:21",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "대금 청 붙이기",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "06:28",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "06:35",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "06:14",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "q520dc99d",
+   "file": "q520dc99d.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "등대 일지 정리",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "검수 분량",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "입력 분량",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "안개 신호 기록",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "137쪽",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "138쪽",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "렌즈 청소 대장",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "139쪽",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "140쪽",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "기상 관측 철",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "141쪽",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "142쪽",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "141쪽",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q5ba241f9",
+   "file": "q5ba241f9.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "해변 정화 배치",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "배정 인원",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "출석 인원",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "방파제 폐그물 수거",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "81명",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "82명",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "모래톱 유리 줍기",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "83명",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "84명",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "부표 조각 선별",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "85명",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "86명",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "85명",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "q63db7c64",
+   "file": "q63db7c64.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "수리 설명서 편집",
+     "cell": [
+      40,
+      28,
+      500,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "현행 분량",
+     "cell": [
+      360,
+      104,
+      520,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "현행 분량",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "괘종시계 분해법",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "130쪽",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "131쪽",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "재봉틀 주유법",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "132쪽",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "133쪽",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "필름 사진기 손질",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "134쪽",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "135쪽",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "extra-label",
+     "role": "label",
+     "record": 3,
+     "text": "별관",
+     "size": "body",
+     "cell": [
+      530,
+      60,
+      615,
+      100
+     ]
+    },
+    {
+     "id": "extra-value",
+     "role": "other_record_value",
+     "record": 3,
+     "text": "136쪽",
+     "size": "body",
+     "cell": [
+      530,
+      104,
+      615,
+      144
+     ]
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "132쪽",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "q7da2dc11",
+   "file": "q7da2dc11.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "발효실 점검표",
+     "cell": [
+      40,
+      28,
+      500,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "확인 시각",
+     "cell": [
+      360,
+      104,
+      520,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "확인 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "누룩 상자 뒤집기",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "09:16",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "09:23",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "메주 건조대 환기",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "09:30",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "09:37",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "식초 항아리 젓기",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "09:44",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "09:51",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "extra-label",
+     "role": "label",
+     "record": 3,
+     "text": "별관",
+     "size": "body",
+     "cell": [
+      530,
+      60,
+      615,
+      100
+     ]
+    },
+    {
+     "id": "extra-value",
+     "role": "other_record_value",
+     "record": 3,
+     "text": "09:58",
+     "size": "body",
+     "cell": [
+      530,
+      104,
+      615,
+      144
+     ]
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "09:30",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "qa93c6bca",
+   "file": "qa93c6bca.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "갯벌 조사 일정",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "집결 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "귀환 시각",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "칠게 구멍 세기",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "10:05",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "10:12",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "염생식물 채집",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "10:19",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "10:26",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "퇴적물 시료 채취",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "10:33",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "10:40",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "10:33",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  },
+  {
+   "id": "qbf6987c5",
+   "file": "qbf6987c5.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "온실 관수 일정",
+     "cell": [
+      40,
+      28,
+      500,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "시작 시각",
+     "cell": [
+      360,
+      104,
+      520,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "종료 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "고사리 선반 물주기",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "07:38",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "07:45",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "다육 화분 점적",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "07:52",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "07:59",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "난초 안개 분무",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "08:06",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "08:13",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "extra-label",
+     "role": "label",
+     "record": 3,
+     "text": "별관",
+     "size": "body",
+     "cell": [
+      530,
+      60,
+      615,
+      100
+     ]
+    },
+    {
+     "id": "extra-value",
+     "role": "other_record_value",
+     "record": 3,
+     "text": "08:20",
+     "size": "body",
+     "cell": [
+      530,
+      104,
+      615,
+      144
+     ]
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "07:52",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "qc325c93b",
+   "file": "qc325c93b.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "소품 제작 분담",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "필요 인원",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "필요 인원",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "종이 탈 채색",
+     "cell": [
+      40,
+      272,
+      320,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "88명",
+     "cell": [
+      360,
+      272,
+      580,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      360,
+      312,
+      580,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "89명",
+     "cell": [
+      620,
+      272,
+      840,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      620,
+      312,
+      840,
+      352
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      272,
+      1250,
+      312
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "무대 등롱 조립",
+     "cell": [
+      40,
+      360,
+      320,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "90명",
+     "cell": [
+      360,
+      360,
+      580,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      360,
+      400,
+      580,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "91명",
+     "cell": [
+      620,
+      360,
+      840,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      620,
+      400,
+      840,
+      440
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      360,
+      1250,
+      400
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "나무 칼 다듬기",
+     "cell": [
+      40,
+      448,
+      320,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "92명",
+     "cell": [
+      360,
+      448,
+      580,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      360,
+      488,
+      580,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "93명",
+     "cell": [
+      620,
+      448,
+      840,
+      488
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      620,
+      488,
+      840,
+      528
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      448,
+      1250,
+      488
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     355,
+     1256,
+     357
+    ],
+    [
+     24,
+     443,
+     1256,
+     445
+    ]
+   ],
+   "answer": "90명",
+   "goldItems": [
+    "r1-label",
+    "r1-tval"
+   ],
+   "anchorItem": "r1-label",
+   "valueItem": "r1-tval",
+   "compValueItem": "r1-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  },
+  {
+   "id": "qf8b56273",
+   "file": "qf8b56273.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "방언 채록 자료집",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "작업 이름",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "전사 분량",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "주석 분량",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "어촌 뱃말 모음",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "123쪽",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "현장 확인",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "124쪽",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "사전 등록",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "현황 점검",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "산간 농사말",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "125쪽",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "접수 완료",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "126쪽",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "자료 동봉",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "담당 확인",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "장터 흥정 표현",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "127쪽",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "개별 안내",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "128쪽",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "방문 예약",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "기록 보관",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "127쪽",
+   "goldItems": [
+    "r2-label",
+    "r2-tval"
+   ],
+   "anchorItem": "r2-label",
+   "valueItem": "r2-tval",
+   "compValueItem": "r2-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r0-tval",
+    "r1-tval"
+   ],
+   "targetColumn": [
+    620,
+    840
+   ],
+   "compColumn": [
+    360,
+    580
+   ]
+  }
+ ]
+}

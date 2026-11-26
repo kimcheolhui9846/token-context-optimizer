@@ -1,0 +1,1244 @@
+{
+ "lockCommit": "0fc0cb55b94e10feb67a0f2d6e4d129275888e57",
+ "rows": [
+  {
+   "id": "q4e547a01",
+   "serial": 1,
+   "kind": "time",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "접수 시각",
+   "question": "장구 가죽 손질의 접수 시각은 몇 시인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": true,
+   "reason": "applied",
+   "candidateBand": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "headerRect": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 610,
+     "w5": 0,
+     "w6": 610
+    },
+    "otherHeader": {
+     "total": 657,
+     "w5": 0,
+     "w6": 657
+    },
+    "anchor": {
+     "total": 1018,
+     "w5": 1018,
+     "w6": 1018
+    },
+    "value": {
+     "total": 464,
+     "w5": 464,
+     "w6": 464
+    },
+    "otherValue": {
+     "total": 463,
+     "w5": 463,
+     "w6": 463
+    }
+   },
+   "opportunity": true,
+   "recovered": true,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 56320,
+   "w5PixelSha256": "50b6107837cdda41917761146f7ac4a1eb821af3352d3782616b28575ce995a5",
+   "w6PixelSha256": "3a670942cad460e45ccdce70e709f808b0610dd30a8e3ad98def53f137e35815",
+   "w6PngSha256": "560798ac49edb70ffa26bc6e22fc9e14903065b67e9a5ccc1fdc7ed9f8d326bd",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q2acfaa75",
+   "serial": 2,
+   "kind": "time",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "점화 시각",
+   "question": "유약 시험편 소성의 점화 시각은 몇 시인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": true,
+   "reason": "applied",
+   "candidateBand": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "headerRect": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 706,
+     "w5": 0,
+     "w6": 706
+    },
+    "otherHeader": {
+     "total": 662,
+     "w5": 0,
+     "w6": 662
+    },
+    "anchor": {
+     "total": 1275,
+     "w5": 1275,
+     "w6": 1275
+    },
+    "value": {
+     "total": 379,
+     "w5": 379,
+     "w6": 379
+    },
+    "otherValue": {
+     "total": 440,
+     "w5": 440,
+     "w6": 440
+    }
+   },
+   "opportunity": true,
+   "recovered": true,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 56320,
+   "w5PixelSha256": "3c888a4f2ba92f0904b896dd863b33761c5858c47e37936a9b466777ac5c1608",
+   "w6PixelSha256": "e5348dd027974fab209f0a47bdf798c3c7e120a748afeb79b8f3c3779d066b04",
+   "w6PngSha256": "1e8232f2e92d5b5f893edd612fd9412f8a1fea8abfaeeccdb815726b7df35064",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "qbf6987c5",
+   "serial": 3,
+   "kind": "time",
+   "condition": "unique",
+   "sidecar": true,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "시작 시각",
+   "question": "다육 화분 점적의 시작 시각은 몇 시인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "invalid_qualified_header",
+   "candidateBand": null,
+   "headerRect": null,
+   "ocrQualifiedLines": [],
+   "sideLabelDiagnosticLines": [
+    1
+   ],
+   "sidecarInk": [
+    543,
+    116,
+    600,
+    134
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 555,
+     "w5": 555,
+     "w6": 555
+    },
+    "otherHeader": {
+     "total": 663,
+     "w5": 663,
+     "w6": 663
+    },
+    "anchor": {
+     "total": 1122,
+     "w5": 0,
+     "w6": 0
+    },
+    "value": {
+     "total": 438,
+     "w5": 0,
+     "w6": 0
+    },
+    "otherValue": {
+     "total": 459,
+     "w5": 0,
+     "w6": 0
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "530e7b1b051f3426c2f2a0907a7471a17ecea28b58c9da30810d80b6fb25577a",
+   "w6PixelSha256": "530e7b1b051f3426c2f2a0907a7471a17ecea28b58c9da30810d80b6fb25577a",
+   "w6PngSha256": "8ca6202c27e8094ae0cccf0f4e3f8d651afe0f5242dc8dab84665783e7a06337",
+   "sidecarInW1X": 525,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q083bb210",
+   "serial": 4,
+   "kind": "time",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "개시 시각",
+   "question": "유성우 개수 기록의 개시 시각은 몇 시인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": true,
+   "reason": "applied",
+   "candidateBand": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "headerRect": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 593,
+     "w5": 0,
+     "w6": 593
+    },
+    "otherHeader": {
+     "total": 604,
+     "w5": 0,
+     "w6": 604
+    },
+    "anchor": {
+     "total": 1204,
+     "w5": 1204,
+     "w6": 1204
+    },
+    "value": {
+     "total": 507,
+     "w5": 507,
+     "w6": 507
+    },
+    "otherValue": {
+     "total": 506,
+     "w5": 506,
+     "w6": 506
+    }
+   },
+   "opportunity": true,
+   "recovered": true,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 56320,
+   "w5PixelSha256": "0fd5f10c67ce43efc917836079b3fa228c615d5410457cfb9f64949be995e4cc",
+   "w6PixelSha256": "37c0de74d83b1ac5f4a5c31e4622b26c5f9ddd781d32d59adae1ca9becff8f53",
+   "w6PngSha256": "fbd10236fefb1a57382e145e9b0ee316eb26c299831329825a8c62253d7b90d1",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q7da2dc11",
+   "serial": 5,
+   "kind": "time",
+   "condition": "duplicate",
+   "sidecar": true,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "확인 시각",
+   "question": "메주 건조대 환기의 확인 시각은 몇 시인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "invalid_qualified_header",
+   "candidateBand": null,
+   "headerRect": null,
+   "ocrQualifiedLines": [],
+   "sideLabelDiagnosticLines": [],
+   "sidecarInk": [
+    543,
+    116,
+    601,
+    134
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 630,
+     "w5": 0,
+     "w6": 0
+    },
+    "otherHeader": {
+     "total": 630,
+     "w5": 0,
+     "w6": 0
+    },
+    "anchor": {
+     "total": 1231,
+     "w5": 1231,
+     "w6": 1231
+    },
+    "value": {
+     "total": 515,
+     "w5": 515,
+     "w6": 515
+    },
+    "otherValue": {
+     "total": 469,
+     "w5": 469,
+     "w6": 469
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "03d6845f5e3fc320a120167b965014f8a6e9bc89da78f54fe5f654cf4f8ec07a",
+   "w6PixelSha256": "03d6845f5e3fc320a120167b965014f8a6e9bc89da78f54fe5f654cf4f8ec07a",
+   "w6PngSha256": "bfbf90180e4ce5ef8ff8e8231fe9049e54940336d80e1960af13fcc37873615e",
+   "sidecarInW1X": 529,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "qa93c6bca",
+   "serial": 6,
+   "kind": "time",
+   "condition": "missing",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "출발 시각",
+   "question": "퇴적물 시료 채취의 출발 시각은 몇 시인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "header_field_mismatch",
+   "candidateBand": [
+    0,
+    107,
+    1280,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 684,
+     "w5": 0,
+     "w6": 0
+    },
+    "otherHeader": {
+     "total": 641,
+     "w5": 0,
+     "w6": 0
+    },
+    "anchor": {
+     "total": 1301,
+     "w5": 1301,
+     "w6": 1301
+    },
+    "value": {
+     "total": 457,
+     "w5": 457,
+     "w6": 457
+    },
+    "otherValue": {
+     "total": 456,
+     "w5": 456,
+     "w6": 456
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "4d38e414ef2c6b4f7b153cf7335eeed10e0a38e7d3ddff9f7f62a153a01d9d06",
+   "w6PixelSha256": "4d38e414ef2c6b4f7b153cf7335eeed10e0a38e7d3ddff9f7f62a153a01d9d06",
+   "w6PngSha256": "1f11938a327dee7f9aa2ac391cb6f2357a94398086aa8beea870d9689e8f2774",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q22447562",
+   "serial": 7,
+   "kind": "count",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "신청 인원",
+   "question": "구술 녹음 풀기의 신청 인원은 몇 명인가요?",
+   "baselineReason": "two_bands",
+   "state": "matched",
+   "applied": false,
+   "reason": "baseline_not_w1_fallback",
+   "candidateBand": [
+    0,
+    108,
+    1164,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 775,
+     "w5": 775,
+     "w6": 775
+    },
+    "otherHeader": {
+     "total": 775,
+     "w5": 775,
+     "w6": 775
+    },
+    "anchor": {
+     "total": 1055,
+     "w5": 1055,
+     "w6": 1055
+    },
+    "value": {
+     "total": 477,
+     "w5": 477,
+     "w6": 477
+    },
+    "otherValue": {
+     "total": 486,
+     "w5": 486,
+     "w6": 486
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "aad863baf0adf33912f7183552922b1882557ce10d56f5682c4e013b2ae099fd",
+   "w6PixelSha256": "aad863baf0adf33912f7183552922b1882557ce10d56f5682c4e013b2ae099fd",
+   "w6PngSha256": "460ca2dbc6f0b5557319f259facda84dcd9b3812e4cb0b293f0529f5976850e3",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q3ea11f91",
+   "serial": 8,
+   "kind": "count",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "모집 인원",
+   "question": "고니 호수 탐방의 모집 인원은 몇 명인가요?",
+   "baselineReason": "two_bands",
+   "state": "matched",
+   "applied": false,
+   "reason": "baseline_not_w1_fallback",
+   "candidateBand": [
+    0,
+    108,
+    1165,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 747,
+     "w5": 747,
+     "w6": 747
+    },
+    "otherHeader": {
+     "total": 832,
+     "w5": 832,
+     "w6": 832
+    },
+    "anchor": {
+     "total": 950,
+     "w5": 950,
+     "w6": 950
+    },
+    "value": {
+     "total": 393,
+     "w5": 393,
+     "w6": 393
+    },
+    "otherValue": {
+     "total": 423,
+     "w5": 423,
+     "w6": 423
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "5ff78010ab65656a76980dd3dba91073dc5b9857a6a7c50652a7439696dc957e",
+   "w6PixelSha256": "5ff78010ab65656a76980dd3dba91073dc5b9857a6a7c50652a7439696dc957e",
+   "w6PngSha256": "0cfed82dc85351baae04c1f39a3296d0b32df9fd116c96685ad8487db0dab52f",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q4b202a75",
+   "serial": 9,
+   "kind": "count",
+   "condition": "unique",
+   "sidecar": true,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "접수 인원",
+   "question": "국화 매듭 노리개의 접수 인원은 몇 명인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "invalid_qualified_header",
+   "candidateBand": null,
+   "headerRect": null,
+   "ocrQualifiedLines": [],
+   "sideLabelDiagnosticLines": [
+    1
+   ],
+   "sidecarInk": [
+    543,
+    113,
+    588,
+    136
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 744,
+     "w5": 744,
+     "w6": 744
+    },
+    "otherHeader": {
+     "total": 716,
+     "w5": 716,
+     "w6": 716
+    },
+    "anchor": {
+     "total": 1255,
+     "w5": 1255,
+     "w6": 1255
+    },
+    "value": {
+     "total": 447,
+     "w5": 447,
+     "w6": 447
+    },
+    "otherValue": {
+     "total": 393,
+     "w5": 393,
+     "w6": 393
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "13f5be32447e1f15896b6dc6ee72460115a9d67a8102bcbb4cc2815c05d85b4e",
+   "w6PixelSha256": "13f5be32447e1f15896b6dc6ee72460115a9d67a8102bcbb4cc2815c05d85b4e",
+   "w6PngSha256": "abbe1c4413bcc64ae4866f5d3e65bbb584b26fe1acae28a24c68ed49627c8a11",
+   "sidecarInW1X": 509,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q5ba241f9",
+   "serial": 10,
+   "kind": "count",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "배정 인원",
+   "question": "부표 조각 선별의 배정 인원은 몇 명인가요?",
+   "baselineReason": "two_bands",
+   "state": "matched",
+   "applied": false,
+   "reason": "baseline_not_w1_fallback",
+   "candidateBand": [
+    0,
+    108,
+    1165,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 827,
+     "w5": 827,
+     "w6": 827
+    },
+    "otherHeader": {
+     "total": 809,
+     "w5": 809,
+     "w6": 809
+    },
+    "anchor": {
+     "total": 1081,
+     "w5": 1081,
+     "w6": 1081
+    },
+    "value": {
+     "total": 492,
+     "w5": 492,
+     "w6": 492
+    },
+    "otherValue": {
+     "total": 517,
+     "w5": 517,
+     "w6": 517
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "146ab8797663e322729f74ee05b0829d03c4a64ffd507f04f7a387bb90b6cd4e",
+   "w6PixelSha256": "146ab8797663e322729f74ee05b0829d03c4a64ffd507f04f7a387bb90b6cd4e",
+   "w6PngSha256": "02deb59c275e56a916c31af0ee969a5d887faac58ffd7b3973902a3937dc06b4",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "qc325c93b",
+   "serial": 11,
+   "kind": "count",
+   "condition": "duplicate",
+   "sidecar": false,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "필요 인원",
+   "question": "무대 등롱 조립의 필요 인원은 몇 명인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "header_field_mismatch",
+   "candidateBand": [
+    0,
+    108,
+    1164,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 811,
+     "w5": 811,
+     "w6": 811
+    },
+    "otherHeader": {
+     "total": 811,
+     "w5": 811,
+     "w6": 811
+    },
+    "anchor": {
+     "total": 1174,
+     "w5": 1174,
+     "w6": 1174
+    },
+    "value": {
+     "total": 490,
+     "w5": 490,
+     "w6": 490
+    },
+    "otherValue": {
+     "total": 444,
+     "w5": 444,
+     "w6": 444
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "4251fef8509274304e68dfe4edd3adad6b33bd76057ad2f5f6566233ded8334a",
+   "w6PixelSha256": "4251fef8509274304e68dfe4edd3adad6b33bd76057ad2f5f6566233ded8334a",
+   "w6PngSha256": "89d2565b9f3f60994ec7a228c9ced5669bbd92d3e5fb486a26758647ace2f8ed",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q265884a1",
+   "serial": 12,
+   "kind": "count",
+   "condition": "missing",
+   "sidecar": true,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "계획 인원",
+   "question": "발아 상태 검사의 계획 인원은 몇 명인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "invalid_qualified_header",
+   "candidateBand": null,
+   "headerRect": null,
+   "ocrQualifiedLines": [],
+   "sideLabelDiagnosticLines": [
+    1
+   ],
+   "sidecarInk": [
+    544,
+    113,
+    601,
+    136
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 723,
+     "w5": 723,
+     "w6": 723
+    },
+    "otherHeader": {
+     "total": 750,
+     "w5": 750,
+     "w6": 750
+    },
+    "anchor": {
+     "total": 1118,
+     "w5": 1118,
+     "w6": 1118
+    },
+    "value": {
+     "total": 495,
+     "w5": 495,
+     "w6": 495
+    },
+    "otherValue": {
+     "total": 563,
+     "w5": 563,
+     "w6": 563
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "12fffd6220e596e6b18d05e53ce8adf6110abaac1df9b43998ae813e5df70576",
+   "w6PixelSha256": "12fffd6220e596e6b18d05e53ce8adf6110abaac1df9b43998ae813e5df70576",
+   "w6PngSha256": "197d7b5f6960e7d0ab94a063b8cffa782f34dae1e2943aedd64e629b331ddb96",
+   "sidecarInW1X": 517,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q3ce80eb8",
+   "serial": 13,
+   "kind": "pages",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "원문 분량",
+   "question": "서당 학습 장부의 원문 분량은 몇 쪽인가요?",
+   "baselineReason": "two_bands",
+   "state": "matched",
+   "applied": false,
+   "reason": "baseline_not_w1_fallback",
+   "candidateBand": [
+    0,
+    108,
+    1164,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 817,
+     "w5": 817,
+     "w6": 817
+    },
+    "otherHeader": {
+     "total": 763,
+     "w5": 763,
+     "w6": 763
+    },
+    "anchor": {
+     "total": 1067,
+     "w5": 1067,
+     "w6": 1067
+    },
+    "value": {
+     "total": 521,
+     "w5": 521,
+     "w6": 521
+    },
+    "otherValue": {
+     "total": 519,
+     "w5": 519,
+     "w6": 519
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "1ec2fe3d74f9879b1f504196c94f4beccc5b5eb25895afc9f987ccaa707c9543",
+   "w6PixelSha256": "1ec2fe3d74f9879b1f504196c94f4beccc5b5eb25895afc9f987ccaa707c9543",
+   "w6PngSha256": "b5fde3006842f2d86e11e73714f145fdcf630d083302c686e9f9dade27c6a6aa",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q19ee729d",
+   "serial": 14,
+   "kind": "pages",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "본문 분량",
+   "question": "단청 안료 분석의 본문 분량은 몇 쪽인가요?",
+   "baselineReason": "two_bands",
+   "state": "matched",
+   "applied": false,
+   "reason": "baseline_not_w1_fallback",
+   "candidateBand": [
+    0,
+    108,
+    1165,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 745,
+     "w5": 745,
+     "w6": 745
+    },
+    "otherHeader": {
+     "total": 734,
+     "w5": 734,
+     "w6": 734
+    },
+    "anchor": {
+     "total": 1088,
+     "w5": 1088,
+     "w6": 1088
+    },
+    "value": {
+     "total": 483,
+     "w5": 483,
+     "w6": 483
+    },
+    "otherValue": {
+     "total": 475,
+     "w5": 475,
+     "w6": 475
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "3c16635274640587d61d7eda63528203877ee8486be8de6b1cbf003f0aa2caae",
+   "w6PixelSha256": "3c16635274640587d61d7eda63528203877ee8486be8de6b1cbf003f0aa2caae",
+   "w6PngSha256": "c8a4722d91c897da8a7d3b80cfb35221d31c2856cdba5023a6dd66be2e167582",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q115fd8ae",
+   "serial": 15,
+   "kind": "pages",
+   "condition": "unique",
+   "sidecar": true,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "초고 분량",
+   "question": "고산 야생화 편의 초고 분량은 몇 쪽인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "invalid_qualified_header",
+   "candidateBand": null,
+   "headerRect": null,
+   "ocrQualifiedLines": [],
+   "sideLabelDiagnosticLines": [
+    1
+   ],
+   "sidecarInk": [
+    544,
+    115,
+    602,
+    136
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 685,
+     "w5": 685,
+     "w6": 685
+    },
+    "otherHeader": {
+     "total": 769,
+     "w5": 769,
+     "w6": 769
+    },
+    "anchor": {
+     "total": 1138,
+     "w5": 1138,
+     "w6": 1138
+    },
+    "value": {
+     "total": 514,
+     "w5": 514,
+     "w6": 514
+    },
+    "otherValue": {
+     "total": 495,
+     "w5": 495,
+     "w6": 495
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "26f83e213da48f02597d3de520095e31a93492b2266395ccdab2478ec736cf8e",
+   "w6PixelSha256": "26f83e213da48f02597d3de520095e31a93492b2266395ccdab2478ec736cf8e",
+   "w6PngSha256": "2903e7491d5e4342341c973c198bb10d2f053944c3a1938f8bce2accb3cd410d",
+   "sidecarInW1X": 504,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "qf8b56273",
+   "serial": 16,
+   "kind": "pages",
+   "condition": "unique",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "전사 분량",
+   "question": "장터 흥정 표현의 전사 분량은 몇 쪽인가요?",
+   "baselineReason": "two_bands",
+   "state": "matched",
+   "applied": false,
+   "reason": "baseline_not_w1_fallback",
+   "candidateBand": [
+    0,
+    108,
+    1165,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 736,
+     "w5": 736,
+     "w6": 736
+    },
+    "otherHeader": {
+     "total": 699,
+     "w5": 699,
+     "w6": 699
+    },
+    "anchor": {
+     "total": 1280,
+     "w5": 1280,
+     "w6": 1280
+    },
+    "value": {
+     "total": 474,
+     "w5": 474,
+     "w6": 474
+    },
+    "otherValue": {
+     "total": 544,
+     "w5": 544,
+     "w6": 544
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "1eed2592319f1bac6a10051efa4c7f257e6e01dfc88e9bc5f3a911b02d08aa09",
+   "w6PixelSha256": "1eed2592319f1bac6a10051efa4c7f257e6e01dfc88e9bc5f3a911b02d08aa09",
+   "w6PngSha256": "6936d1a391faf038ef09f3e4e8c3980c31d9cdab62a2ee1dff1ed8f3ada93d36",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q63db7c64",
+   "serial": 17,
+   "kind": "pages",
+   "condition": "duplicate",
+   "sidecar": true,
+   "targetRow": 1,
+   "targetSide": "L",
+   "requestedField": "현행 분량",
+   "question": "재봉틀 주유법의 현행 분량은 몇 쪽인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "invalid_qualified_header",
+   "candidateBand": null,
+   "headerRect": null,
+   "ocrQualifiedLines": [],
+   "sideLabelDiagnosticLines": [
+    2
+   ],
+   "sidecarInk": [
+    544,
+    115,
+    602,
+    136
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 882,
+     "w5": 882,
+     "w6": 882
+    },
+    "otherHeader": {
+     "total": 882,
+     "w5": 882,
+     "w6": 882
+    },
+    "anchor": {
+     "total": 1231,
+     "w5": 1231,
+     "w6": 1231
+    },
+    "value": {
+     "total": 513,
+     "w5": 513,
+     "w6": 513
+    },
+    "otherValue": {
+     "total": 522,
+     "w5": 522,
+     "w6": 522
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "c83eac630b4fba9378f403c1640b86dc3809be9ea766e4fd633d8eea68f61343",
+   "w6PixelSha256": "c83eac630b4fba9378f403c1640b86dc3809be9ea766e4fd633d8eea68f61343",
+   "w6PngSha256": "ab4002f3a6e64daab4f709c200b485cb377f26fb0397986633ac833d6310f02e",
+   "sidecarInW1X": 537,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  },
+  {
+   "id": "q520dc99d",
+   "serial": 18,
+   "kind": "pages",
+   "condition": "missing",
+   "sidecar": false,
+   "targetRow": 2,
+   "targetSide": "R",
+   "requestedField": "원본 분량",
+   "question": "기상 관측 철의 원본 분량은 몇 쪽인가요?",
+   "baselineReason": "w4_not_applied",
+   "state": "matched",
+   "applied": false,
+   "reason": "header_field_mismatch",
+   "candidateBand": [
+    0,
+    108,
+    1165,
+    143
+   ],
+   "headerRect": null,
+   "ocrQualifiedLines": [
+    1
+   ],
+   "displayed": true,
+   "marks": {
+    "targetHeader": {
+     "total": 739,
+     "w5": 739,
+     "w6": 739
+    },
+    "otherHeader": {
+     "total": 776,
+     "w5": 776,
+     "w6": 776
+    },
+    "anchor": {
+     "total": 900,
+     "w5": 900,
+     "w6": 900
+    },
+    "value": {
+     "total": 475,
+     "w5": 475,
+     "w6": 475
+    },
+    "otherValue": {
+     "total": 505,
+     "w5": 505,
+     "w6": 505
+    }
+   },
+   "opportunity": false,
+   "recovered": false,
+   "unsafeApplication": false,
+   "lostFullCues": [],
+   "incrementalOther": [],
+   "newOtherPixels": 0,
+   "areaDeltaPixels": 0,
+   "w5PixelSha256": "fac243aadc64b11bfe3459e046255f246e6d034ebdc3ecd8785af01b861aa610",
+   "w6PixelSha256": "fac243aadc64b11bfe3459e046255f246e6d034ebdc3ecd8785af01b861aa610",
+   "w6PngSha256": "bfc5d511341b020e6c33e65202a35db5c78e5fd1cb73267520b912b06d45ddc7",
+   "sidecarInW1X": null,
+   "sidecarBandInk": null,
+   "stressIntersectsApplied": false
+  }
+ ],
+ "summary": {
+  "pages": 18,
+  "unique": 12,
+  "displayed": 18,
+  "applied": 3,
+  "eligibleOpportunities": 3,
+  "recovered": 3,
+  "negativeApplications": 0,
+  "unsafeApplications": 0,
+  "lostFullCues": 0,
+  "otherRecordsExposedPages": 0,
+  "otherValueItemsGainedInk": 0,
+  "otherValueItemsNewlyFull": 0,
+  "otherValueNewInkPixels": 0,
+  "sidecarPages": 6,
+  "stressRealized": 0,
+  "reasons": {
+   "applied": 3,
+   "invalid_qualified_header": 6,
+   "header_field_mismatch": 3,
+   "baseline_not_w1_fallback": 6
+  },
+  "meanAreaDeltaPp": 0.7638888888888888,
+  "appliedMeanAreaDeltaPp": 4.583333333333333,
+  "verdict": "inconclusive"
+ }
+}

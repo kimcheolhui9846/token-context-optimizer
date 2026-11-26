@@ -1,0 +1,699 @@
+{
+ "design": "ko-fallback-layout-1",
+ "set": "public-holdout",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "gold": {
+  "q083bb210": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "08:55",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      346,
+      215,
+      368
+     ],
+     "size": [
+      163,
+      22
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      633,
+      348,
+      690,
+      366
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "q115fd8ae": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "118쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      369,
+      192,
+      392
+     ],
+     "size": [
+      139,
+      23
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      374,
+      371,
+      432,
+      392
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "q19ee729d": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "113쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      457,
+      191,
+      480
+     ],
+     "size": [
+      137,
+      23
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      634,
+      459,
+      692,
+      480
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "q22447562": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "62명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      258,
+      191,
+      280
+     ],
+     "size": [
+      138,
+      22
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      373,
+      257,
+      418,
+      280
+     ],
+     "size": [
+      45,
+      23
+     ]
+    }
+   ]
+  },
+  "q265884a1": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "99명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      54,
+      458,
+      194,
+      480
+     ],
+     "size": [
+      140,
+      22
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      633,
+      457,
+      678,
+      480
+     ],
+     "size": [
+      45,
+      23
+     ]
+    }
+   ]
+  },
+  "q2acfaa75": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "07:17",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      52,
+      457,
+      214,
+      480
+     ],
+     "size": [
+      162,
+      23
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      633,
+      460,
+      690,
+      478
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "q3ce80eb8": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "104쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      257,
+      193,
+      280
+     ],
+     "size": [
+      140,
+      23
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      374,
+      259,
+      432,
+      280
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "q3ea11f91": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "71명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      457,
+      193,
+      480
+     ],
+     "size": [
+      140,
+      23
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      633,
+      457,
+      678,
+      480
+     ],
+     "size": [
+      45,
+      23
+     ]
+    }
+   ]
+  },
+  "q4b202a75": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "76명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      370,
+      214,
+      392
+     ],
+     "size": [
+      161,
+      22
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      373,
+      369,
+      418,
+      392
+     ],
+     "size": [
+      45,
+      23
+     ]
+    }
+   ]
+  },
+  "q4e547a01": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "06:14",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      257,
+      192,
+      280
+     ],
+     "size": [
+      139,
+      23
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      373,
+      260,
+      431,
+      278
+     ],
+     "size": [
+      58,
+      18
+     ]
+    }
+   ]
+  },
+  "q520dc99d": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "141쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      458,
+      170,
+      480
+     ],
+     "size": [
+      117,
+      22
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      634,
+      459,
+      692,
+      480
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "q5ba241f9": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "85명",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      345,
+      192,
+      368
+     ],
+     "size": [
+      139,
+      23
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      633,
+      345,
+      678,
+      368
+     ],
+     "size": [
+      45,
+      23
+     ]
+    }
+   ]
+  },
+  "q63db7c64": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "132쪽",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      52,
+      369,
+      186,
+      392
+     ],
+     "size": [
+      134,
+      23
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      374,
+      371,
+      432,
+      392
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  },
+  "q7da2dc11": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "09:30",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      370,
+      213,
+      392
+     ],
+     "size": [
+      159,
+      22
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      373,
+      372,
+      430,
+      390
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "qa93c6bca": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "10:33",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      458,
+      213,
+      480
+     ],
+     "size": [
+      160,
+      22
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      634,
+      460,
+      690,
+      478
+     ],
+     "size": [
+      56,
+      18
+     ]
+    }
+   ]
+  },
+  "qbf6987c5": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "07:52",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      54,
+      369,
+      191,
+      392
+     ],
+     "size": [
+      137,
+      23
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      373,
+      372,
+      430,
+      390
+     ],
+     "size": [
+      57,
+      18
+     ]
+    }
+   ]
+  },
+  "qc325c93b": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "90명",
+   "parts": [
+    {
+     "item": "r1-label",
+     "role": "label",
+     "rect": [
+      53,
+      370,
+      191,
+      392
+     ],
+     "size": [
+      138,
+      22
+     ]
+    },
+    {
+     "item": "r1-tval",
+     "role": "target_value",
+     "rect": [
+      373,
+      369,
+      418,
+      392
+     ],
+     "size": [
+      45,
+      23
+     ]
+    }
+   ]
+  },
+  "qf8b56273": {
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "answer": "127쪽",
+   "parts": [
+    {
+     "item": "r2-label",
+     "role": "label",
+     "rect": [
+      53,
+      345,
+      192,
+      368
+     ],
+     "size": [
+      139,
+      23
+     ]
+    },
+    {
+     "item": "r2-tval",
+     "role": "target_value",
+     "rect": [
+      634,
+      347,
+      692,
+      368
+     ],
+     "size": [
+      58,
+      21
+     ]
+    }
+   ]
+  }
+ }
+}
