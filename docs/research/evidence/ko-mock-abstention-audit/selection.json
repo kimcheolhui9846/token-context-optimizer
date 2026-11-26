@@ -1,0 +1,123 @@
+{
+  "sourceCommit": "2efecd8544cab261f56bc68b204bdb5cd44a5fb3",
+  "scope": "AI public mock only; retrospective, nonblind; no human outcome",
+  "packetId": "kbr-60d370d8d2b22d5f",
+  "packetHash": "ab29c62dda33a71e91639df12d3f6da41bea29b8222895f05ba0f9af02155b8e",
+  "responseSha256": "7192959a63e3bb08e196a763d025d9885def0b75528cdfa870f55c7bb42a891e",
+  "unknownPositions": [
+    1,
+    2,
+    7,
+    8,
+    10,
+    14,
+    17
+  ],
+  "positions": [
+    {
+      "pos": 1,
+      "id": "qff9eae91",
+      "method": "W4"
+    },
+    {
+      "pos": 2,
+      "id": "q68c095c6",
+      "method": "W4"
+    },
+    {
+      "pos": 3,
+      "id": "q17503fa9",
+      "method": "W5"
+    },
+    {
+      "pos": 4,
+      "id": "qa27b2bf8",
+      "method": "W1"
+    },
+    {
+      "pos": 5,
+      "id": "q8027dc59",
+      "method": "W5"
+    },
+    {
+      "pos": 6,
+      "id": "q94c95fc2",
+      "method": "W1"
+    },
+    {
+      "pos": 7,
+      "id": "q2d3b713d",
+      "method": "W1"
+    },
+    {
+      "pos": 8,
+      "id": "q3b3fc545",
+      "method": "W4"
+    },
+    {
+      "pos": 9,
+      "id": "qd2df355a",
+      "method": "W5"
+    },
+    {
+      "pos": 10,
+      "id": "q4cc8303c",
+      "method": "W4"
+    },
+    {
+      "pos": 11,
+      "id": "qba30945f",
+      "method": "W5"
+    },
+    {
+      "pos": 12,
+      "id": "q1d435f2a",
+      "method": "W1"
+    },
+    {
+      "pos": 13,
+      "id": "q86640919",
+      "method": "W5"
+    },
+    {
+      "pos": 14,
+      "id": "q4f283739",
+      "method": "W1"
+    },
+    {
+      "pos": 15,
+      "id": "q363f67d4",
+      "method": "W5"
+    },
+    {
+      "pos": 16,
+      "id": "q4c89fe96",
+      "method": "W1"
+    },
+    {
+      "pos": 17,
+      "id": "q5a1bb47c",
+      "method": "W4"
+    },
+    {
+      "pos": 18,
+      "id": "q7b15b37e",
+      "method": "W4"
+    }
+  ],
+  "fileSha256": {
+    "gen/plan.json": "a1b5b275b4d366a1e29c5a03c69489a60c4ff6ae9e8cb8c0ea83fe37ec7fe183",
+    "gen/design.json": "e58d70425477d559c2196367755840d31d1785c78c1b8b7eaa5f08848334c3ab",
+    "gen/render/render.json": "52b5a1d457c5997388f5decb419fc7d1619919eb818a9d7d95dc4ea1c9cb2c2b",
+    "gen/render/gold.json": "9f0c99fe7025a0e28a50f9f79bcb73560d9890c9c5a0ccb5a06c2b87881c2e50",
+    "admin/key.json": "bec89b925398d534382a428eb875c21500778672fb840abb44879f7797d9818a",
+    "admin/packet-record.json": "307525dddb7f760ffc3bbe744db240adb825b89ae057cfdb5acf4d95173b2fbd",
+    "packet/start.html": "3ea3c7c46d2e64785c842cc4922787146300bb5c574294ea63c07b48074977fd",
+    "build/coords.jsonl": "2858ef3abf0ac5e970ed65013cb50eaf86595dde4b7c5312f4b303b45e70d414",
+    "build/manifest.json": "6c9d292b68da81fab9bf4a064c096aa5ec27b2927500f9682d545fd8c13debef",
+    "pred/predictions.jsonl": "51e7a46788ab3dcbb7f0645a23c8dde84bebfff6d238edc41b22b55ce2484984"
+  },
+  "provenance": "Coordinator compared the submitted public mock packet ID and hash with #155 mock admin record on 2026-11-26. The prior AI self-reported seeing admin materials; exact history of earlier key and assignment exposure is unknown. File hashes identify possible exposure, not proof of having read individual answers.",
+  "measurement": "First compute five source-role visibility states on every page and alternative without response labels. Classify gray < 255 source support inside pinned ink boxes using union of half-open source pieces; separators excluded. none/some/all count zero/proper subset/all originally painted pixels; retain empty-original separately. All reference source and display files are opaque L; reject alpha/non-gray images explicitly. Pixel QA requires entire decoded display and separator equal. Geometry stages are alternatives, retrospective descriptive only.",
+  "runtime": "Python 3.12.10, Pillow 12.3.0. Never model reader performance from these cases."
+}
