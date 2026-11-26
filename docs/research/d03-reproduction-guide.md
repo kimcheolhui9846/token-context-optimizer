@@ -4,10 +4,21 @@
 
 ## 1. 목적과 범위
 
-- 논문 원고(Git blob `c22a37b89b083c445f7ba483868aabe7041ddc02`, `docs/research/image-first-paper-draft.ko.md`)의 표 1–3과 그림 1–4를 기록된 원자료에서 다시 만들고 원고와 대조한다. (`docs/research/d03-reproduction-rules.md:3,7-17`)
+- 아래 판본에 해당하는 논문 원고(`docs/research/image-first-paper-draft.ko.md`)의 표 1–3과 그림 1–4를 기록된 원자료에서 다시 만들고 원고와 대조한다. (`docs/research/d03-reproduction-rules.md:3,7-17`)
 - 새 모델 호출과 과금은 없다.
-- 범위 밖: R09 외적 타당도 확장 자료와 일반화 주장. R09는 조건대기이며 선택·비선택이 확정되지 않았다. (`docs/research/d01-claim-alignment.md:5`)
+- 범위 밖: R09 외적 타당도 확장 자료와 일반화 주장. 이 패키지는 D03의 기존 실험을 다룬다. (`docs/research/d01-claim-alignment.md:5`)
 - 이 대조는 원고 수치와 그림이 기록된 원자료에서 다시 나오는지만 본다. 정성 판단 자체의 타당성은 다시 평가하지 않는다. (`docs/research/d03-reproduction-rules.md:37`)
+
+### 판본별 안내
+
+| 판본 | 소스 커밋 | 패키지 생성 인자(유지관리자용) |
+|---|---|---|
+| 기존판 | `33d68436621b3db90fbed4b4cc6385e76b4961d3` | `--commit`만 쓴다. 같은 ZIP이 재현된다 |
+| 개정 논문판 | `5270a65a0eaa8263aaa1e041d5f3a1ec7b7fbe78` | `--commit <source> --tools-commit <도구 커밋 전체 해시> --out <새 폴더>` |
+
+- 유지관리자가 교정본의 `--tools-commit`을 생략하면 현재 저장소 HEAD를 사용한다. 배포용 사본을 다시 만들 때는 매니페스트에 기록된 전체 도구 커밋을 지정한다. 패키지를 받은 독자의 이 README에 따른 확인과 `all` 실행(5절)에는 여전히 Git이 필요 없다.
+- 개정판 메타데이터에는 `baseCommit`, `manuscriptBlob`, `toolsCommit`을 기록하고, 도구 커밋에서 가져온 독자용 실행기와 안내 파일에는 파일별 `sourceCommit`을 기록한다.
+- 개정판의 F2에는 그림 2 캡션 수치 대조가 추가된다(7절).
 
 ## 2. 대상 7항목
 
@@ -127,6 +138,11 @@ python -m venv <venv폴더>
   - 다르면 크기가 같고, 다른 픽셀 비율 0.5% 이하, 평균 절대 차이 2/255 이하이며 앞 두 단계가 모두 통과한 경우에만 허용 범위 안으로 본다.
   - 크기가 다르거나 범위를 넘으면 MISMATCH다.
   - PDF는 `/CreationDate` 등이 달라 해시 비교 대상이 아니며 해시는 기록만 한다.
+- 개정 논문판의 F2는 한국어 그림 2 캡션의 수치도 대조한다. (`RULES.ko.md` 8절)
+  - GPT-4o와 Haiku 4.5 각각에 대해 A, B, C, D, E, D′의 여섯 점을 확인한다. D′는 탐색 조건이다.
+  - 질의당 평균 총 입력 토큰은 정수로, family 평균 내용 정확도는 소수 첫째 자리로 반올림한다(half-up, 예: 81.25 → 81.3).
+  - 점의 누락, 중복, 잘못된 라벨, 틀린 수치가 있으면 F2는 실패다. 다른 6개 항목의 판정 방식은 그대로다.
+  - 결과는 `report.json`의 `compare.items` 중 F2 `data.caption`(`matchedValues`, `totalValues`, `points`)과 같은 F2의 `data.problems`에서 확인한다. `report.md`에는 개수가 표시된다.
 - 육안 대조(독립 마일스톤 검토자의 나란히 보기)는 원 규칙의 4단계다. 실행기의 자동 판정은 1–3단계만 계산하고 `report.json`의 그림 항목에 `visual: pending-reviewer`로 남긴다. 육안 대조 결과는 검토자가 따로 기록한다.
 - 확인하지 못한 값은 미상으로 적는다. (`docs/research/d03-reproduction-rules.md:93-95`)
 

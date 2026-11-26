@@ -1,6 +1,6 @@
 # D03 재현 판정 규칙 (실행 전 고정)
 
-2026-11-23 작성. 재현 실행 전에 이 문서와 T1 정규화 함수(`research/tools/d03/d03_checks.py`의 `normalize_t1`)의 SHA-256을 비공개 매니페스트에 기록한다. 실행 뒤 이 규칙을 완화하지 않는다. 기준 원고는 main `2f47676b`의 `docs/research/image-first-paper-draft.ko.md`(blob `c22a37b89b083c445f7ba483868aabe7041ddc02`)다.
+2026-11-23 작성. 재현 실행 전에 이 문서와 T1 정규화 함수(`research/tools/d03/d03_checks.py`의 `normalize_t1`)의 SHA-256을 비공개 매니페스트에 기록한다. 실행 뒤 이 규칙을 완화하지 않는다. 기존판의 기준 원고는 main `2f47676b`의 `docs/research/image-first-paper-draft.ko.md`(blob `c22a37b89b083c445f7ba483868aabe7041ddc02`)다.
 
 ## 1. 대상과 판정
 
@@ -93,3 +93,23 @@ PDF는 `/CreationDate` 등이 달라 해시 비교 대상이 아니다. 해시�
 ## 7. 미상 표시
 
 확인하지 못한 값은 미상으로 적는다. 원 실험 시점의 Node·Python 버전, 원래 그림을 만든 시점의 OS·폰트 렌더러는 기록이 없으면 미상이며 이번 재현 환경과 구분한다.
+
+## 8. 판본별 추가 규칙
+
+교정본의 원고 Git blob은 `08a8474b9105c0ef351dd7f638176bf59e5a158e`이다. 아래 규칙은 교정본에 추가한 그림 2 캡션에 적용한다.
+
+### 판본 구분
+
+- 기존판(소스 `33d68436621b3db90fbed4b4cc6385e76b4961d3`): 패키지 생성에 `--commit`만 쓰며 같은 ZIP이 재현된다.
+- 개정 논문판(소스 `5270a65a0eaa8263aaa1e041d5f3a1ec7b7fbe78`): 유지관리자는 `--commit <source> --tools-commit <도구 커밋 전체 해시> --out <새 폴더>`를 쓴다. README에 따른 확인과 `all` 실행에는 여전히 Git이 필요 없다.
+- 개정판 메타데이터에는 `baseCommit`, `manuscriptBlob`, `toolsCommit`을 기록하고, 도구 커밋에서 가져온 독자용 실행기와 안내 파일에는 파일별 `sourceCommit`을 기록한다.
+
+### 개정 논문판 F2 캡션 대조
+
+§4의 F2 검사에 더해, 논문의 한국어 그림 2 캡션 수치를 대조한다.
+
+- 대상: 라벨이 붙은 정확히 12개 점. GPT-4o와 Haiku 4.5 각각의 A, B, C, D, E, D′.
+- 값: 질의당 평균 총 입력 토큰(정수로 반올림), family 평균 내용 정확도(소수 첫째 자리로 반올림). 반올림은 half-up이다(예: 81.25 → 81.3).
+- 점의 누락, 중복, 잘못된 라벨, 틀린 수치가 있으면 F2는 실패다.
+- 기록: `report.json`의 `compare.items` 중 F2 `data.caption`(`matchedValues`, `totalValues`, `points`)과 같은 F2의 `data.problems`. `report.md`에는 개수를 표시한다.
+- 다른 6개 항목의 판정 규칙은 바꾸지 않는다.

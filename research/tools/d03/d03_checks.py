@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import re
 import unicodedata
+from collections import Counter
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
@@ -453,24 +454,140 @@ def check_f1(probe: dict, rows_path: Path) -> dict:
     return {"values": len(data) * 7, "problems": problems}
 
 
-def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
+F2_ARM_LABELS = {a: "D′" if a == "Dp" else a for a in F2_MARKER}
+F2_CAPTION_PAIR = r"\((0|[1-9][0-9]{0,2}(?:,[0-9]{3})*),\s+([0-9]{1,3}\.[0-9])%\)"
+
+
+def read_f2_caption(manuscript: Path, problems: list) -> dict:
+    try:
+        captions = [line for line in manuscript_lines(manuscript) if line.lstrip().startswith("그림 2.")]
+    except (OSError, UnicodeError) as exc:
+        problems.append(f"Figure 2 caption: could not read {manuscript}: {exc}")
+        return {}
+    if len(captions) != 1:
+        problems.append(f"Figure 2 caption: expected one '그림 2.' caption, found {len(captions)}")
+        return {}
+
+    # The published caption puts both coordinate lists between these prose phrases.
+    intro, start, rest = captions[0].partition("탐색 결과다.")
+    section, end, outro = rest.partition("오차 막대는")
+    if not (start and end):
+        problems.append("Figure 2 caption: could not locate the two coordinate lists")
+        return {}
+    if re.search(F2_CAPTION_PAIR, intro) or re.search(F2_CAPTION_PAIR, outro):
+        problems.append("Figure 2 caption: extra coordinate outside the model lists")
+
+    providers = {name: model for model, name in MODELS}
+    model_names = "|".join(map(re.escape, providers))
+    blocks = re.split(rf"(?<!\S)({model_names})(?=\s)", section.strip())
+    if blocks[0] or blocks[1::2] != list(providers):
+        problems.append(f"Figure 2 caption model order: expected {list(providers)}, found {blocks[1::2]}")
+
+    observed = {}
+    for name, block in zip(blocks[1::2], blocks[2::2]):
+        body = block.strip()
+        if not body.endswith("."):
+            problems.append(f"Figure 2 caption {name}: expected a period after the coordinates")
+        arms = []
+        for entry in re.split(r",\s+(?=[A-Z])", body.removesuffix(".")):
+            arm, _, pair = entry.strip().partition(" ")
+            arms.append(arm)
+            match = re.fullmatch(F2_CAPTION_PAIR, pair.strip())
+            if not match:
+                problems.append(f"Figure 2 caption {name} {arm}: malformed coordinate {entry!r}")
+                continue
+            key = (providers[name], arm)
+            if key in observed:
+                problems.append(f"Figure 2 caption {name} {arm}: duplicate coordinate")
+                continue
+            observed[key] = {"x": int(match[1].replace(",", "")), "y": float(match[2])}
+        if arms != list(F2_ARM_LABELS.values()):
+            problems.append(f"Figure 2 caption {name} arm order: expected {list(F2_ARM_LABELS.values())}, found {arms}")
+    return observed
+
+
+def compare_f2_caption(manuscript: Path, expected: dict, problems: list) -> dict:
+    observed = read_f2_caption(manuscript, problems)
+    points = []
+    matched = 0
+    for model, name in MODELS:
+        for arm in F2_ARM_LABELS.values():
+            key = (model, arm)
+            want, got = expected.get(key), observed.get(key)
+            points.append({"model": model, "arm": arm, "expected": want, "observed": got})
+            if got is None:
+                problems.append(f"Figure 2 caption {name} {arm}: missing coordinate")
+            elif want is not None:
+                for axis in ("x", "y"):
+                    if want[axis] == got[axis]:
+                        matched += 1
+                    else:
+                        problems.append(
+                            f"Figure 2 caption {name} {arm} {axis}: expected {want[axis]}, observed {got[axis]}"
+                        )
+    return {"matchedValues": matched, "totalValues": 2 * len(points), "points": points}
+
+
+def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = None) -> dict:
     import numpy as np
 
     problems = []
     expected = []
+    caption_expected = {}
     styled = []
     labels = []
     for m, colour in [("gpt4o", GPT), ("haiku", HAIKU)]:
-        rows = [json.loads(x) for x in graded[m].read_text(encoding="utf-8").splitlines() if x]
-        rows = [r for r in rows if r["outcome"] != "not_started"]
-        fams = sorted({r["family"] for r in rows})
-        for a in ["A", "B", "C", "D", "E", "Dp"]:
-            scores = [float(np.mean([1.0 if r["contentCorrect"] else 0.0 for r in rows if r["family"] == f and r["arm"] == a])) for f in fams]
+        try:
+            rows = [json.loads(x) for x in graded[m].read_text(encoding="utf-8").splitlines() if x]
+        except (KeyError, OSError, ValueError) as exc:
+            if manuscript is None:
+                raise
+            problems.append(f"Figure 2 graded data {m}: could not read rows: {exc}")
+            continue
+        families = set()
+        grouped = {a: {} for a in F2_ARM_LABELS}
+        for row in rows:
+            if row["outcome"] != "not_started":
+                family, arm = row["family"], row["arm"]
+                families.add(family)
+                if arm in grouped:
+                    grouped[arm].setdefault(family, []).append(row)
+        fams = sorted(families)
+        for a, label in F2_ARM_LABELS.items():
+            by_family = [grouped[a].get(f, []) for f in fams]
+            # promptTokens already includes D's re-request. Each graded row is one query.
+            tokens = [r["promptTokens"] for family in by_family for r in family if r.get("promptTokens") is not None]
+            if manuscript is not None:
+                row_count = sum(map(len, by_family))
+                if len(fams) != 36 or any(len(family) != 4 for family in by_family):
+                    problems.append(
+                        f"Figure 2 graded data {m} {label}: expected 36 families with 4 rows each (144 rows), "
+                        f"found {len(grouped[a])} families and {row_count} rows; "
+                        f"{sum(len(family) == 4 for family in by_family)} families have 4 rows"
+                    )
+                    continue
+                if len(tokens) != 144:
+                    problems.append(f"Figure 2 graded data {m} {label}: expected 144 query token totals, found {len(tokens)}")
+                    continue
+                slot_counts = Counter(r["key"] for family in by_family for r in family if "key" in r)
+                duplicates = [key for key, count in slot_counts.items() if count > 1]
+                if duplicates:
+                    problems.append(f"Figure 2 graded data {m} {label}: duplicate query keys {duplicates[:4]}")
+                    continue
+            scores = [float(np.mean([1.0 if r["contentCorrect"] else 0.0 for r in family])) for family in by_family]
             mean, lo, hi = boot_ci(scores, 20261016)
-            x = float(np.mean([r["promptTokens"] for r in rows if r["arm"] == a and r.get("promptTokens") is not None]))
+            x = float(np.mean(tokens))
+            if manuscript is not None:
+                # Each family score is an exact multiple of 1/4. Round the percentage
+                # from that exact sum so ties such as 81.25 round to 81.3.
+                percent = Decimal(sum(scores)) * 100 / len(scores)
+                caption_expected[m, label] = {
+                    "x": js_math_round(x),
+                    "y": float(percent.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)),
+                }
             expected.append((x, mean * 100, lo * 100, hi * 100))
             styled.append((x, mean * 100, colour, F2_MARKER[a]))
-            labels.append(("D′" if a == "Dp" else a, colour))
+            labels.append((label, colour))
     ax = probe["axes"][0]
     missing = match_points(expected, errorbars(ax))
     if missing:
@@ -489,7 +606,10 @@ def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
         problems.append("point colour/marker")
     if not linear_axes(probe):
         problems.append("scale")
-    return {"values": len(expected) * 4, "problems": problems}
+    data = {"values": len(expected) * 4, "problems": problems}
+    if manuscript is not None:
+        data["caption"] = compare_f2_caption(manuscript, caption_expected, problems)
+    return data
 
 
 def session_rows(path: Path) -> list[dict]:
