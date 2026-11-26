@@ -12,12 +12,18 @@ from assess import measure, summarize
 
 PROTOCOL = "research/plans/2026-11-26-ko-fallback-header-holdout.md"
 LOCK_DIR = HERE.relative_to(RESEARCH.parent).as_posix()
+SCIENCE_LOCK = "59b3c6b18459f220cb2ab479358eb0416ae12348"
 
 
 def verify_lock(commit):
     import re
-    if not re.fullmatch(r"[0-9a-f]{40}", commit) or git("rev-parse", commit + "^").decode().strip() != BASE:
-        raise ValueError("expected the full preregistration commit immediately after the registered base")
+    if not re.fullmatch(r"[0-9a-f]{40}", commit) or git("rev-parse", commit + "^").decode().strip() != SCIENCE_LOCK:
+        raise ValueError("expected the full launcher-fix commit immediately after the original study lock")
+    if git("rev-parse", SCIENCE_LOCK + "^").decode().strip() != BASE:
+        raise ValueError("original science lock is not rooted at the registered base")
+    changed = git("diff", "--name-only", SCIENCE_LOCK, commit).decode().splitlines()
+    if changed != [LOCK_DIR + "/run.py"]:
+        raise ValueError("only the Windows launcher may differ from the science lock")
     rel = [p for p in git("ls-tree", "-r", "--name-only", commit, "--", ":(top)" + LOCK_DIR,
                             ":(top)" + PROTOCOL).decode().splitlines()]
     if not rel:
@@ -82,7 +88,7 @@ def main():
     shutil.copytree(data / "selector", inputs / "selector")
     shutil.copytree(data / "render/images", inputs / "render/images")
     guard = RESEARCH / "tools/d03/guard/node-netguard.cjs"
-    offline = dict(env, NODE_OPTIONS=f'--require="{guard}"', D03_NET_LOG=str(out/"log/net.jsonl"), D03_STEP="fallback-ocr")
+    offline = dict(env, NODE_OPTIONS=f'--require="{guard.as_posix()}"', D03_NET_LOG=str(out/"log/net.jsonl"), D03_STEP="fallback-ocr")
     phase("ocr", [*pipe, "ocr", "--set", inputs, "--out", out/"ocr"], out, offline)
     phase("predict", [*pipe, "predict", "--set", inputs, "--ocr", out/"ocr", "--out", out/"pred"], out, env)
     phase("build", [*pipe, "build", "--set", inputs, "--pred", out/"pred", "--practice", practice,
