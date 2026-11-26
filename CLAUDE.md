@@ -32,7 +32,7 @@ Claude Code가 이 저장소(모든 worktree 포함)에서 자동으로 읽는 �
 2. Claude가 Task마다 새 worktree와 브랜치 `claude/<task>`를 만든다. 순서는 테스트 먼저(RED) → 구현 → 전체 검증이다. **Draft PR은 첫 커밋 직후에 열고** 이후 커밋을 그 PR에 쌓는다
    - Orca에서는 독립 Task를 `orca worktree create --name <task> --no-parent`로 기본 base(origin/main)에서 만든다. 쌓는 작업(stacked)은 사용자가 요청할 때만 한다
    - Task/Dispatch ID가 붙은 프롬프트로 Orca worker가 되었으면 `orchestration` 스킬의 worker 절차(ask, worker_done)를 따른다
-   - 끝난 worktree는 merge 뒤 사용자 확인을 받아 정리한다. 브랜치는 지우지 않는다
+   - 종료 시 아래 「작업 종료 시 worktree 정리」 절을 적용한다.
    - 사용자가 넘겨주거나 승인한 요청서에 "Draft PR까지"가 있으면 그것이 커밋·push·Draft PR 승인이다. 없으면 먼저 묻는다
    - research 실험·분석, 문서, 계획 작업도 같은 흐름을 따른다. 검토 전 결과는 논문 작업으로 넘기지 않는다
 3. Claude 자기 검증: 아래 검증 명령, Argon 교차 확인, WBS 갱신, 완료 보고(AI_COLLABORATION.md §13 형식)
@@ -58,6 +58,14 @@ Claude Code가 이 저장소(모든 worktree 포함)에서 자동으로 읽는 �
 - 하위 결과는 메인이 확인한 뒤에만 사실로 쓴다. 수치는 원자료로 다시 대조하고, 수정한 파일은 diff를 직접 읽는다
 - 커밋, push, PR, merge, WBS 저장, Argon 호출은 메인만 한다
 - 파일 한두 개, 명령 한두 개짜리 일은 위임하지 않고 메인이 바로 한다
+
+## 작업 종료 시 worktree 정리
+
+- 매 Task의 최종 검증 뒤, 완료 보고 전에 해당 로컬 체크아웃을 점검한다. 검증을 마친 Draft PR도 정리한다. 로컬 HEAD, 원격 작업 브랜치, 해당 PR의 head SHA가 일치하고 수정 요청이나 계속 실행할 작업이 없는지 확인한다. 병합된 PR은 PR head 또는 병합 이력으로 커밋 보존을 확인한다.
+- `git worktree list --porcelain`의 실제 경로와 잠금 상태, Orca의 실행 중인 에이전트·터미널·자식 작업을 확인한다. 메인, 현재 사용자가 작업 중인 곳, 소유권이 불명확한 곳은 유지한다. 빈 셸만 남은 완료 작업은 정리할 수 있다.
+- 추적 파일 변경, 미추적 파일, ignored 파일을 각각 확인한다. 커밋되지 않은 사용자 변경·진행 중인 실험이 있으면 유지한다. 핸드오프·로그·로컬 전용 자료는 저장소 밖 로컬 보관소에 옮겨 경로와 해시를 대조한다. 재생성 가능한 의존성과 빌드 출력은 구분한다. 비공개 자료는 원격에 올리지 않는다.
+- 다른 체크아웃에서 검증한 절대 경로를 지정해 Orca 관리 워크트리는 `orca worktree rm --worktree path:<절대경로>`, 일반 Git 워크트리는 `git worktree remove <절대경로>`로 제거한다. 거부되면 원인을 기록하고 유지한다. 강제 제거, `git clean`, 브랜치 삭제는 사용하지 않는다.
+- 종료 보고에는 제거한 작업과 보류 사유, 보관 위치를 적는다. 원격 브랜치와 PR로 같은 커밋을 다시 체크아웃할 수 있는지 확인한다.
 
 ## 절대 규칙
 
