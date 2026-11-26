@@ -1,0 +1,2308 @@
+{
+ "lock": "d3ab52e0d17a30147932748fe9c03c808a6e16c5",
+ "offline": {
+  "offlineStages": [
+   "header-rule-pairs-build",
+   "header-rule-pairs-ocr",
+   "header-rule-pairs-practice",
+   "header-rule-pairs-predict"
+  ],
+  "blockedAttempts": 0,
+  "guardSummarySha256": "d33e79eedf9c8c4251b70b9dfec183fe01a36dd131781aa7880a83876f7dd51e"
+ },
+ "rows": [
+  {
+   "id": "q9801420c",
+   "donor": "q4e547a01",
+   "parent": "qef3a1ec8",
+   "control": "qef3a1ec8",
+   "rule": "original",
+   "plant": "none",
+   "sha256": "af69fd05941f671d1a3cde4025332c195133272edf57c7aa361d6d46269f481d",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": []
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 610,
+      "w5": 0,
+      "full": 610,
+      "two": 610
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 657,
+      "w5": 0,
+      "full": 657,
+      "two": 657
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 525,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-label": {
+      "role": "anchor",
+      "total": 1018,
+      "w5": 1018,
+      "full": 1018,
+      "two": 1018
+     },
+     "r1-tval": {
+      "role": "value",
+      "total": 464,
+      "w5": 464,
+      "full": 464,
+      "two": 464
+     },
+     "r1-cval": {
+      "role": "otherValue",
+      "total": 463,
+      "w5": 463,
+      "full": 463,
+      "two": 463
+     },
+     "r2-tval": {
+      "role": "otherNumber",
+      "total": 533,
+      "w5": 533,
+      "full": 533,
+      "two": 533
+     },
+     "r2-cval": {
+      "role": "otherNumber",
+      "total": 501,
+      "w5": 501,
+      "full": 501,
+      "two": 501
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q4a8ae7a5",
+   "donor": "q4e547a01",
+   "parent": "qef3a1ec8",
+   "control": "qef3a1ec8",
+   "rule": "moved",
+   "plant": "none",
+   "sha256": "518d4b0f5603c3e76285fa7b1451c187454747299b18b7162d955bb661475bd1",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": []
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 610,
+      "w5": 0,
+      "full": 610,
+      "two": 610
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 657,
+      "w5": 0,
+      "full": 657,
+      "two": 657
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 525,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-label": {
+      "role": "anchor",
+      "total": 1018,
+      "w5": 1018,
+      "full": 1018,
+      "two": 1018
+     },
+     "r1-tval": {
+      "role": "value",
+      "total": 464,
+      "w5": 464,
+      "full": 464,
+      "two": 464
+     },
+     "r1-cval": {
+      "role": "otherValue",
+      "total": 463,
+      "w5": 463,
+      "full": 463,
+      "two": 463
+     },
+     "r2-tval": {
+      "role": "otherNumber",
+      "total": 533,
+      "w5": 533,
+      "full": 533,
+      "two": 533
+     },
+     "r2-cval": {
+      "role": "otherNumber",
+      "total": 501,
+      "w5": 501,
+      "full": 501,
+      "two": 501
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "qcb4359b2",
+   "donor": "q4e547a01",
+   "parent": "q23bd0df1",
+   "control": "qef3a1ec8",
+   "rule": "original",
+   "plant": "gap",
+   "sha256": "4e4ea1076d0651015397229a59b9426eda158e0fd7cb172cf076620952d8f77a",
+   "validPlacement": false,
+   "geometry": {
+    "valid": false,
+    "issues": [
+     "original_ink_under_new_glyph"
+    ],
+    "originalInkUnderGlyph": 26,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 120,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 610,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 657,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 525,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-label": {
+      "role": "anchor",
+      "total": 1018,
+      "w5": 1018,
+      "full": 1018,
+      "two": 1018
+     },
+     "r1-tval": {
+      "role": "value",
+      "total": 464,
+      "w5": 464,
+      "full": 464,
+      "two": 464
+     },
+     "r1-cval": {
+      "role": "otherValue",
+      "total": 463,
+      "w5": 463,
+      "full": 463,
+      "two": 463
+     },
+     "r2-tval": {
+      "role": "otherNumber",
+      "total": 533,
+      "w5": 533,
+      "full": 533,
+      "two": 533
+     },
+     "r2-cval": {
+      "role": "otherNumber",
+      "total": 501,
+      "w5": 501,
+      "full": 501,
+      "two": 501
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 226,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q6b76679d",
+   "donor": "q4e547a01",
+   "parent": "q23bd0df1",
+   "control": "qef3a1ec8",
+   "rule": "moved",
+   "plant": "gap",
+   "sha256": "a2d7bbaea656db558898d57c32cf2608cb8cff70807cf9fad3b2fdee025e16dd",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": [],
+    "originalInkUnderGlyph": 0,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 120,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 610,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 657,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 525,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-label": {
+      "role": "anchor",
+      "total": 1018,
+      "w5": 1018,
+      "full": 1018,
+      "two": 1018
+     },
+     "r1-tval": {
+      "role": "value",
+      "total": 464,
+      "w5": 464,
+      "full": 464,
+      "two": 464
+     },
+     "r1-cval": {
+      "role": "otherValue",
+      "total": 463,
+      "w5": 463,
+      "full": 463,
+      "two": 463
+     },
+     "r2-tval": {
+      "role": "otherNumber",
+      "total": 533,
+      "w5": 533,
+      "full": 533,
+      "two": 533
+     },
+     "r2-cval": {
+      "role": "otherNumber",
+      "total": 501,
+      "w5": 501,
+      "full": 501,
+      "two": 501
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 226,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q4b358832",
+   "donor": "q4e547a01",
+   "parent": "q6166821b",
+   "control": "qef3a1ec8",
+   "rule": "original",
+   "plant": "outer",
+   "sha256": "4b52836adffc96ecf279a0f0698b08b5773fd554595e55127e0ffce481bb3290",
+   "validPlacement": false,
+   "geometry": {
+    "valid": false,
+    "issues": [
+     "original_ink_under_new_glyph"
+    ],
+    "originalInkUnderGlyph": 26,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 120,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 610,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 657,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 525,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-label": {
+      "role": "anchor",
+      "total": 1018,
+      "w5": 1018,
+      "full": 1018,
+      "two": 1018
+     },
+     "r1-tval": {
+      "role": "value",
+      "total": 464,
+      "w5": 464,
+      "full": 464,
+      "two": 464
+     },
+     "r1-cval": {
+      "role": "otherValue",
+      "total": 463,
+      "w5": 463,
+      "full": 463,
+      "two": 463
+     },
+     "r2-tval": {
+      "role": "otherNumber",
+      "total": 533,
+      "w5": 533,
+      "full": 533,
+      "two": 533
+     },
+     "r2-cval": {
+      "role": "otherNumber",
+      "total": 501,
+      "w5": 501,
+      "full": 501,
+      "two": 501
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 226,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q806fe7cf",
+   "donor": "q4e547a01",
+   "parent": "q6166821b",
+   "control": "qef3a1ec8",
+   "rule": "moved",
+   "plant": "outer",
+   "sha256": "3d4ffaffc7ec533d2788a4dfc044b6158e8604ac530a814cfca893c2013deeb0",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": [],
+    "originalInkUnderGlyph": 0,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 120,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 610,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 657,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 525,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-label": {
+      "role": "anchor",
+      "total": 1018,
+      "w5": 1018,
+      "full": 1018,
+      "two": 1018
+     },
+     "r1-tval": {
+      "role": "value",
+      "total": 464,
+      "w5": 464,
+      "full": 464,
+      "two": 464
+     },
+     "r1-cval": {
+      "role": "otherValue",
+      "total": 463,
+      "w5": 463,
+      "full": 463,
+      "two": 463
+     },
+     "r2-tval": {
+      "role": "otherNumber",
+      "total": 533,
+      "w5": 533,
+      "full": 533,
+      "two": 533
+     },
+     "r2-cval": {
+      "role": "otherNumber",
+      "total": 501,
+      "w5": 501,
+      "full": 501,
+      "two": 501
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 226,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "qf2d79c5a",
+   "donor": "q2acfaa75",
+   "parent": "qc0069777",
+   "control": "qc0069777",
+   "rule": "original",
+   "plant": "none",
+   "sha256": "0db7d2455a6ba1d558017fae677ebbb92c803029f8f248f5c31f0eaeddd040d6",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": []
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 706,
+      "w5": 0,
+      "full": 706,
+      "two": 706
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 662,
+      "w5": 0,
+      "full": 662,
+      "two": 662
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 515,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 516,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 464,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 425,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1275,
+      "w5": 1275,
+      "full": 1275,
+      "two": 1275
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 379,
+      "w5": 379,
+      "full": 379,
+      "two": 379
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 440,
+      "w5": 440,
+      "full": 440,
+      "two": 440
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "qcfa167ed",
+   "donor": "q2acfaa75",
+   "parent": "qc0069777",
+   "control": "qc0069777",
+   "rule": "moved",
+   "plant": "none",
+   "sha256": "d17cb2886d74c93a7e4edc997e3a34f1c46f8cfd7157c81a2f978865e84fa219",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": []
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 706,
+      "w5": 0,
+      "full": 706,
+      "two": 706
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 662,
+      "w5": 0,
+      "full": 662,
+      "two": 662
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 515,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 516,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 464,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 425,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1275,
+      "w5": 1275,
+      "full": 1275,
+      "two": 1275
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 379,
+      "w5": 379,
+      "full": 379,
+      "two": 379
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 440,
+      "w5": 440,
+      "full": 440,
+      "two": 440
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q855e4aef",
+   "donor": "q2acfaa75",
+   "parent": "qed0f601d",
+   "control": "qc0069777",
+   "rule": "original",
+   "plant": "gap",
+   "sha256": "5e585eb0879985d89f934bf1af68cb9932241800b5cde3e9e1522419b3e7a585",
+   "validPlacement": false,
+   "geometry": {
+    "valid": false,
+    "issues": [
+     "original_ink_under_new_glyph"
+    ],
+    "originalInkUnderGlyph": 34,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 143,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 706,
+      "w5": 0,
+      "full": 706,
+      "two": 706
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 662,
+      "w5": 0,
+      "full": 662,
+      "two": 662
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 515,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 516,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 464,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 425,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1275,
+      "w5": 1275,
+      "full": 1275,
+      "two": 1275
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 379,
+      "w5": 379,
+      "full": 379,
+      "two": 379
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 440,
+      "w5": 440,
+      "full": 440,
+      "two": 440
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 277,
+      "w5": 0,
+      "full": 143,
+      "two": 0
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {
+      "side-value": 143
+     },
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q054cef2b",
+   "donor": "q2acfaa75",
+   "parent": "qed0f601d",
+   "control": "qc0069777",
+   "rule": "moved",
+   "plant": "gap",
+   "sha256": "a78ea5d21a1eade7147fc47e760e9fc1085630326683515e1e8b93549de51c6d",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": [],
+    "originalInkUnderGlyph": 0,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 143,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 706,
+      "w5": 0,
+      "full": 706,
+      "two": 706
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 662,
+      "w5": 0,
+      "full": 662,
+      "two": 662
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 515,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 516,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 464,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 425,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1275,
+      "w5": 1275,
+      "full": 1275,
+      "two": 1275
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 379,
+      "w5": 379,
+      "full": 379,
+      "two": 379
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 440,
+      "w5": 440,
+      "full": 440,
+      "two": 440
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 277,
+      "w5": 0,
+      "full": 143,
+      "two": 0
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {
+      "side-value": 143
+     },
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q08478034",
+   "donor": "q2acfaa75",
+   "parent": "q1ae097f9",
+   "control": "qc0069777",
+   "rule": "original",
+   "plant": "outer",
+   "sha256": "4447d3a9e78b981379747ab6b4734e776f5d9f48048db2b62ea24ac8dbe3be67",
+   "validPlacement": false,
+   "geometry": {
+    "valid": false,
+    "issues": [
+     "original_ink_under_new_glyph"
+    ],
+    "originalInkUnderGlyph": 34,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 143,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 706,
+      "w5": 0,
+      "full": 706,
+      "two": 706
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 662,
+      "w5": 0,
+      "full": 662,
+      "two": 662
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 515,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 516,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 464,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 425,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1275,
+      "w5": 1275,
+      "full": 1275,
+      "two": 1275
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 379,
+      "w5": 379,
+      "full": 379,
+      "two": 379
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 440,
+      "w5": 440,
+      "full": 440,
+      "two": 440
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 277,
+      "w5": 0,
+      "full": 143,
+      "two": 0
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {
+      "side-value": 143
+     },
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "qbeb222c6",
+   "donor": "q2acfaa75",
+   "parent": "q1ae097f9",
+   "control": "qc0069777",
+   "rule": "moved",
+   "plant": "outer",
+   "sha256": "5c80bfcf4224970054382c89c66da84a9251784fa92fb19bd7b11a834991410b",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": [],
+    "originalInkUnderGlyph": 0,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 143,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      369,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 706,
+      "w5": 0,
+      "full": 706,
+      "two": 706
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 662,
+      "w5": 0,
+      "full": 662,
+      "two": 662
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 515,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 516,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 464,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 425,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1275,
+      "w5": 1275,
+      "full": 1275,
+      "two": 1275
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 379,
+      "w5": 379,
+      "full": 379,
+      "two": 379
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 440,
+      "w5": 440,
+      "full": 440,
+      "two": 440
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 277,
+      "w5": 0,
+      "full": 143,
+      "two": 0
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {
+      "side-value": 143
+     },
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q6a6c89d8",
+   "donor": "q083bb210",
+   "parent": "qd626708e",
+   "control": "qd626708e",
+   "rule": "original",
+   "plant": "none",
+   "sha256": "77ae1d7bf9de72f9de6aa61518c45304f16b3d2387d6d047e97f154fb8411850",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": []
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      370,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 593,
+      "w5": 0,
+      "full": 593,
+      "two": 593
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 604,
+      "w5": 0,
+      "full": 604,
+      "two": 604
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 519,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 480,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 550,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1204,
+      "w5": 1204,
+      "full": 1204,
+      "two": 1204
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 507,
+      "w5": 507,
+      "full": 507,
+      "two": 507
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 506,
+      "w5": 506,
+      "full": 506,
+      "two": 506
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q4cf435f7",
+   "donor": "q083bb210",
+   "parent": "qd626708e",
+   "control": "qd626708e",
+   "rule": "moved",
+   "plant": "none",
+   "sha256": "7843a31962471a5258acbfdc82017546d459c9d5c83eada8f36c9b75b1c6a9fc",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": []
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "applied",
+    "displayed": true,
+    "applied": true,
+    "band": [
+     0,
+     107,
+     1280,
+     143
+    ],
+    "windows": [
+     [
+      370,
+      107,
+      469,
+      143
+     ],
+     [
+      629,
+      107,
+      729,
+      143
+     ]
+    ],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 593,
+      "w5": 0,
+      "full": 593,
+      "two": 593
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 604,
+      "w5": 0,
+      "full": 604,
+      "two": 604
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 519,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 480,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 550,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1204,
+      "w5": 1204,
+      "full": 1204,
+      "two": 1204
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 507,
+      "w5": 507,
+      "full": 507,
+      "two": 507
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 506,
+      "w5": 506,
+      "full": 506,
+      "two": 506
+     }
+    },
+    "bodyTop": 44,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": true,
+     "two": true
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q88619711",
+   "donor": "q083bb210",
+   "parent": "q3c68090a",
+   "control": "qd626708e",
+   "rule": "original",
+   "plant": "gap",
+   "sha256": "0f4437cd02c25e298b04636fc418b66500631d9670052f816b2a91d1cd9cd5af",
+   "validPlacement": false,
+   "geometry": {
+    "valid": false,
+    "issues": [
+     "original_ink_under_new_glyph"
+    ],
+    "originalInkUnderGlyph": 36,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 106,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 593,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 604,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 519,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 480,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 550,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1204,
+      "w5": 1204,
+      "full": 1204,
+      "two": 1204
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 507,
+      "w5": 507,
+      "full": 507,
+      "two": 507
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 506,
+      "w5": 506,
+      "full": 506,
+      "two": 506
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 207,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "q9c634f02",
+   "donor": "q083bb210",
+   "parent": "q3c68090a",
+   "control": "qd626708e",
+   "rule": "moved",
+   "plant": "gap",
+   "sha256": "125d63c47d106c0394b1aa7003e0061b32d4ec495090bb2c80e5e5c5610bab28",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": [],
+    "originalInkUnderGlyph": 0,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 106,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 593,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 604,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 519,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 480,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 550,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1204,
+      "w5": 1204,
+      "full": 1204,
+      "two": 1204
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 507,
+      "w5": 507,
+      "full": 507,
+      "two": 507
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 506,
+      "w5": 506,
+      "full": 506,
+      "two": 506
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 207,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "qf06b7da5",
+   "donor": "q083bb210",
+   "parent": "q7c86365c",
+   "control": "qd626708e",
+   "rule": "original",
+   "plant": "outer",
+   "sha256": "123ce38726d20818c8c01fecf95f9f3807253e8be94fc8cc2b8bd3f76e39c312",
+   "validPlacement": false,
+   "geometry": {
+    "valid": false,
+    "issues": [
+     "original_ink_under_new_glyph"
+    ],
+    "originalInkUnderGlyph": 36,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 106,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 593,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 604,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 519,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 480,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 550,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1204,
+      "w5": 1204,
+      "full": 1204,
+      "two": 1204
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 507,
+      "w5": 507,
+      "full": 507,
+      "two": 507
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 506,
+      "w5": 506,
+      "full": 506,
+      "two": 506
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 207,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  },
+  {
+   "id": "qa841f19a",
+   "donor": "q083bb210",
+   "parent": "q7c86365c",
+   "control": "qd626708e",
+   "rule": "moved",
+   "plant": "outer",
+   "sha256": "b57b444c919192aab8cb1067f3d8d0921589f59659093bfe5f80ab9cda3b5758",
+   "validPlacement": true,
+   "geometry": {
+    "valid": true,
+    "issues": [],
+    "originalInkUnderGlyph": 0,
+    "valueInRegisteredW5": 0,
+    "valueInRegisteredBand": 106,
+    "valueInRegisteredWindows": 0
+   },
+   "natural": {
+    "w5Reason": "w4_not_applied",
+    "decision": "invalid_qualified_header",
+    "displayed": true,
+    "applied": false,
+    "band": null,
+    "windows": [],
+    "items": {
+     "h-target": {
+      "role": "targetHeader",
+      "total": 593,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "h-comp": {
+      "role": "otherHeader",
+      "total": 604,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-tval": {
+      "role": "otherNumber",
+      "total": 479,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r0-cval": {
+      "role": "otherNumber",
+      "total": 519,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-tval": {
+      "role": "otherNumber",
+      "total": 480,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r1-cval": {
+      "role": "otherNumber",
+      "total": 550,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "r2-label": {
+      "role": "anchor",
+      "total": 1204,
+      "w5": 1204,
+      "full": 1204,
+      "two": 1204
+     },
+     "r2-tval": {
+      "role": "value",
+      "total": 507,
+      "w5": 507,
+      "full": 507,
+      "two": 507
+     },
+     "r2-cval": {
+      "role": "otherValue",
+      "total": 506,
+      "w5": 506,
+      "full": 506,
+      "two": 506
+     },
+     "side-name": {
+      "role": "sideName",
+      "total": 443,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     },
+     "side-value": {
+      "role": "otherNumber",
+      "total": 207,
+      "w5": 0,
+      "full": 0,
+      "two": 0
+     }
+    },
+    "bodyTop": 0,
+    "bothTitlesGoneAndBodyIntact": true,
+    "fiveComplete": {
+     "full": false,
+     "two": false
+    },
+    "lostCues": [],
+    "numberGains": {
+     "full": {},
+     "two": {}
+    }
+   }
+  }
+ ],
+ "summary": {
+  "verdict": "bounded_demonstration",
+  "opportunityIds": [
+   "q054cef2b",
+   "qbeb222c6"
+  ],
+  "protectedIds": [
+   "q054cef2b",
+   "qbeb222c6"
+  ],
+  "harmIds": [],
+  "historicalHarmIds": [],
+  "missingDisplayIds": [],
+  "invalidMovedPlacementIds": [],
+  "transitions": {
+   "apply_to_apply": 5,
+   "apply_to_decline": 0,
+   "decline_to_apply": 0,
+   "decline_to_decline": 4
+  },
+  "identities": {
+   "q9801420c": {
+    "donor": "q4e547a01",
+    "rule": "original",
+    "plant": "none"
+   },
+   "q4a8ae7a5": {
+    "donor": "q4e547a01",
+    "rule": "moved",
+    "plant": "none"
+   },
+   "qcb4359b2": {
+    "donor": "q4e547a01",
+    "rule": "original",
+    "plant": "gap"
+   },
+   "q6b76679d": {
+    "donor": "q4e547a01",
+    "rule": "moved",
+    "plant": "gap"
+   },
+   "q4b358832": {
+    "donor": "q4e547a01",
+    "rule": "original",
+    "plant": "outer"
+   },
+   "q806fe7cf": {
+    "donor": "q4e547a01",
+    "rule": "moved",
+    "plant": "outer"
+   },
+   "qf2d79c5a": {
+    "donor": "q2acfaa75",
+    "rule": "original",
+    "plant": "none"
+   },
+   "qcfa167ed": {
+    "donor": "q2acfaa75",
+    "rule": "moved",
+    "plant": "none"
+   },
+   "q855e4aef": {
+    "donor": "q2acfaa75",
+    "rule": "original",
+    "plant": "gap"
+   },
+   "q054cef2b": {
+    "donor": "q2acfaa75",
+    "rule": "moved",
+    "plant": "gap"
+   },
+   "q08478034": {
+    "donor": "q2acfaa75",
+    "rule": "original",
+    "plant": "outer"
+   },
+   "qbeb222c6": {
+    "donor": "q2acfaa75",
+    "rule": "moved",
+    "plant": "outer"
+   },
+   "q6a6c89d8": {
+    "donor": "q083bb210",
+    "rule": "original",
+    "plant": "none"
+   },
+   "q4cf435f7": {
+    "donor": "q083bb210",
+    "rule": "moved",
+    "plant": "none"
+   },
+   "q88619711": {
+    "donor": "q083bb210",
+    "rule": "original",
+    "plant": "gap"
+   },
+   "q9c634f02": {
+    "donor": "q083bb210",
+    "rule": "moved",
+    "plant": "gap"
+   },
+   "qf06b7da5": {
+    "donor": "q083bb210",
+    "rule": "original",
+    "plant": "outer"
+   },
+   "qa841f19a": {
+    "donor": "q083bb210",
+    "rule": "moved",
+    "plant": "outer"
+   }
+  }
+ }
+}
