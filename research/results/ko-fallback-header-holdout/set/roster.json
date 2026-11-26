@@ -1,0 +1,200 @@
+[
+ {
+  "id": "q4e547a01",
+  "serial": 1,
+  "kind": "time",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "접수 시각",
+  "question": "장구 가죽 손질의 접수 시각은 몇 시인가요?"
+ },
+ {
+  "id": "q2acfaa75",
+  "serial": 2,
+  "kind": "time",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "점화 시각",
+  "question": "유약 시험편 소성의 점화 시각은 몇 시인가요?"
+ },
+ {
+  "id": "qbf6987c5",
+  "serial": 3,
+  "kind": "time",
+  "condition": "unique",
+  "sidecar": true,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "시작 시각",
+  "question": "다육 화분 점적의 시작 시각은 몇 시인가요?"
+ },
+ {
+  "id": "q083bb210",
+  "serial": 4,
+  "kind": "time",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "개시 시각",
+  "question": "유성우 개수 기록의 개시 시각은 몇 시인가요?"
+ },
+ {
+  "id": "q7da2dc11",
+  "serial": 5,
+  "kind": "time",
+  "condition": "duplicate",
+  "sidecar": true,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "확인 시각",
+  "question": "메주 건조대 환기의 확인 시각은 몇 시인가요?"
+ },
+ {
+  "id": "qa93c6bca",
+  "serial": 6,
+  "kind": "time",
+  "condition": "missing",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "출발 시각",
+  "question": "퇴적물 시료 채취의 출발 시각은 몇 시인가요?"
+ },
+ {
+  "id": "q22447562",
+  "serial": 7,
+  "kind": "count",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "신청 인원",
+  "question": "구술 녹음 풀기의 신청 인원은 몇 명인가요?"
+ },
+ {
+  "id": "q3ea11f91",
+  "serial": 8,
+  "kind": "count",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "모집 인원",
+  "question": "고니 호수 탐방의 모집 인원은 몇 명인가요?"
+ },
+ {
+  "id": "q4b202a75",
+  "serial": 9,
+  "kind": "count",
+  "condition": "unique",
+  "sidecar": true,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "접수 인원",
+  "question": "국화 매듭 노리개의 접수 인원은 몇 명인가요?"
+ },
+ {
+  "id": "q5ba241f9",
+  "serial": 10,
+  "kind": "count",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "배정 인원",
+  "question": "부표 조각 선별의 배정 인원은 몇 명인가요?"
+ },
+ {
+  "id": "qc325c93b",
+  "serial": 11,
+  "kind": "count",
+  "condition": "duplicate",
+  "sidecar": false,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "필요 인원",
+  "question": "무대 등롱 조립의 필요 인원은 몇 명인가요?"
+ },
+ {
+  "id": "q265884a1",
+  "serial": 12,
+  "kind": "count",
+  "condition": "missing",
+  "sidecar": true,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "계획 인원",
+  "question": "발아 상태 검사의 계획 인원은 몇 명인가요?"
+ },
+ {
+  "id": "q3ce80eb8",
+  "serial": 13,
+  "kind": "pages",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "원문 분량",
+  "question": "서당 학습 장부의 원문 분량은 몇 쪽인가요?"
+ },
+ {
+  "id": "q19ee729d",
+  "serial": 14,
+  "kind": "pages",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "본문 분량",
+  "question": "단청 안료 분석의 본문 분량은 몇 쪽인가요?"
+ },
+ {
+  "id": "q115fd8ae",
+  "serial": 15,
+  "kind": "pages",
+  "condition": "unique",
+  "sidecar": true,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "초고 분량",
+  "question": "고산 야생화 편의 초고 분량은 몇 쪽인가요?"
+ },
+ {
+  "id": "qf8b56273",
+  "serial": 16,
+  "kind": "pages",
+  "condition": "unique",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "전사 분량",
+  "question": "장터 흥정 표현의 전사 분량은 몇 쪽인가요?"
+ },
+ {
+  "id": "q63db7c64",
+  "serial": 17,
+  "kind": "pages",
+  "condition": "duplicate",
+  "sidecar": true,
+  "targetRow": 1,
+  "targetSide": "L",
+  "requestedField": "현행 분량",
+  "question": "재봉틀 주유법의 현행 분량은 몇 쪽인가요?"
+ },
+ {
+  "id": "q520dc99d",
+  "serial": 18,
+  "kind": "pages",
+  "condition": "missing",
+  "sidecar": false,
+  "targetRow": 2,
+  "targetSide": "R",
+  "requestedField": "원본 분량",
+  "question": "기상 관측 철의 원본 분량은 몇 쪽인가요?"
+ }
+]
