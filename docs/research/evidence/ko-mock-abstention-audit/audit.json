@@ -1,0 +1,4224 @@
+{
+  "provenance": {
+    "scope": "AI public mock only; retrospective, nonblind; no human outcome",
+    "sourceCommit": "2efecd8544cab261f56bc68b204bdb5cd44a5fb3",
+    "selectionSha256": "2b23c73da1aa2b40bfc1747cc81159548930c24d4ebe84cab0a34f0d62b6241f",
+    "packetId": "kbr-60d370d8d2b22d5f",
+    "packetHash": "ab29c62dda33a71e91639df12d3f6da41bea29b8222895f05ba0f9af02155b8e",
+    "responseSha256": "7192959a63e3bb08e196a763d025d9885def0b75528cdfa870f55c7bb42a891e",
+    "fileSha256": {
+      "gen/plan.json": "a1b5b275b4d366a1e29c5a03c69489a60c4ff6ae9e8cb8c0ea83fe37ec7fe183",
+      "gen/design.json": "e58d70425477d559c2196367755840d31d1785c78c1b8b7eaa5f08848334c3ab",
+      "gen/render/render.json": "52b5a1d457c5997388f5decb419fc7d1619919eb818a9d7d95dc4ea1c9cb2c2b",
+      "gen/render/gold.json": "9f0c99fe7025a0e28a50f9f79bcb73560d9890c9c5a0ccb5a06c2b87881c2e50",
+      "admin/key.json": "bec89b925398d534382a428eb875c21500778672fb840abb44879f7797d9818a",
+      "admin/packet-record.json": "307525dddb7f760ffc3bbe744db240adb825b89ae057cfdb5acf4d95173b2fbd",
+      "packet/start.html": "3ea3c7c46d2e64785c842cc4922787146300bb5c574294ea63c07b48074977fd",
+      "build/coords.jsonl": "2858ef3abf0ac5e970ed65013cb50eaf86595dde4b7c5312f4b303b45e70d414",
+      "build/manifest.json": "6c9d292b68da81fab9bf4a064c096aa5ec27b2927500f9682d545fd8c13debef",
+      "pred/predictions.jsonl": "51e7a46788ab3dcbb7f0645a23c8dde84bebfff6d238edc41b22b55ce2484984"
+    },
+    "exposure": "Coordinator compared the submitted public mock packet ID and hash with #155 mock admin record on 2026-11-26. The prior AI self-reported seeing admin materials; exact history of earlier key and assignment exposure is unknown. File hashes identify possible exposure, not proof of having read individual answers.",
+    "measurement": "First compute five source-role visibility states on every page and alternative without response labels. Classify gray < 255 source support inside pinned ink boxes using union of half-open source pieces; separators excluded. none/some/all count zero/proper subset/all originally painted pixels; retain empty-original separately. All reference source and display files are opaque L; reject alpha/non-gray images explicitly. Pixel QA requires entire decoded display and separator equal. Geometry stages are alternatives, retrospective descriptive only.",
+    "packetImageEncoding": "Embedded PNG byte SHA-256 is bound to pinned packet HTML and its canonical payload. Build PNG byte SHA-256 is bound to the manifest. The build PNG includes a pHYs chunk omitted from the embedded PNG. Dimensions and decoded opaque L pixels agree exactly.",
+    "practice": {
+      "source": {
+        "sha256": "5c1c446a59a6061a124cc4ad9718ad0f73e45ecb335c806a77d778f6d5ac5b26",
+        "pixelSha256": "dd80063fccbff0f116c1a87fd80ed6c7730b2b8f1af561d4a0214518658e2306",
+        "width": 1280,
+        "height": 960
+      },
+      "build": {
+        "sha256": "2285e59df1bafa9c99b468910d39a6bccbff7c52121c5f902079d08e352eef63",
+        "pixelSha256": "6b11d94980d4c48c86e00b3955de50f79c508fe551e7c9d93c651d7e6331ddad",
+        "width": 1180,
+        "height": 430
+      },
+      "embeddedPngSha256": "98e9b08fd4aa1f7ff467edfacc7c558ef9dbf9328ccd514216b3da09aa0d62b7"
+    }
+  },
+  "cases": [
+    {
+      "pos": 1,
+      "id": "qff9eae91",
+      "assigned": "W4",
+      "question": "김장 김치 담그기의 점등 시각은 몇 시인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 682,
+            "source": 682
+          },
+          "compHeader": {
+            "visible": 617,
+            "source": 617
+          },
+          "value": {
+            "visible": 408,
+            "source": 408
+          },
+          "compValue": {
+            "visible": 433,
+            "source": 433
+          },
+          "anchor": {
+            "visible": 1134,
+            "source": 1134
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 682,
+            "source": 682
+          },
+          "compHeader": {
+            "visible": 617,
+            "source": 617
+          },
+          "value": {
+            "visible": 408,
+            "source": 408
+          },
+          "compValue": {
+            "visible": 433,
+            "source": 433
+          },
+          "anchor": {
+            "visible": 1134,
+            "source": 1134
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 682
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 617
+          },
+          "value": {
+            "visible": 408,
+            "source": 408
+          },
+          "compValue": {
+            "visible": 433,
+            "source": 433
+          },
+          "anchor": {
+            "visible": 1134,
+            "source": 1134
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 682,
+            "source": 682
+          },
+          "compHeader": {
+            "visible": 617,
+            "source": 617
+          },
+          "value": {
+            "visible": 408,
+            "source": 408
+          },
+          "compValue": {
+            "visible": 433,
+            "source": 433
+          },
+          "anchor": {
+            "visible": 1134,
+            "source": 1134
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          113,
+          465,
+          136
+        ],
+        "compHeader": [
+          633,
+          113,
+          725,
+          136
+        ],
+        "value": [
+          374,
+          172,
+          430,
+          190
+        ],
+        "compValue": [
+          634,
+          172,
+          690,
+          190
+        ],
+        "anchor": [
+          53,
+          169,
+          213,
+          192
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1187,
+            328
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            147,
+            1187,
+            215
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1187,
+            143
+          ],
+          [
+            0,
+            147,
+            1187,
+            215
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "4326b18e0c6689e785fd23808cde30e68a1d8ef6c4a63996500084648d0ffc2f",
+          "pixelSha256": "da7c82473448cf3e1207445050cc789a27c517376260372c3a93fcc9c702c0dc",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "442b7f99f2f74b0fe5e0d72438678cfff962275159a76b866664057f599244c7",
+          "pixelSha256": "f02fd6080893999df9d3d270d290cedb1fe7e8e610521d5a8efb92d65ddab19c",
+          "width": 1187,
+          "height": 328
+        },
+        "w4": {
+          "sha256": "f3879dbc34c7130ce3e5256295e0410e3e7d689d732087c31c5549b18c600d59",
+          "pixelSha256": "8a4dcb05396255949f2613c4fd7a5bc5332666ff103fd1d8c210109506603e99",
+          "width": 1187,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "524a37d6a4ccaa5041bfdf35227054827c688eb9c03f36c3fc2ad1c7a3d7f92d",
+          "pixelSha256": "57da968ed62757c38fa8d5da74fb5da12d7c214d05ace6f11061c0683a4af184",
+          "width": 1187,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "a7a23a5a80f4a77c1151289a35e7014ec79d6309df2dcb734902e92127b90674",
+      "unknown": true
+    },
+    {
+      "pos": 2,
+      "id": "q68c095c6",
+      "assigned": "W4",
+      "question": "고문서 해석 강좌의 번역 분량은 몇 쪽인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 763,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 817,
+            "source": 817
+          },
+          "value": {
+            "visible": 435,
+            "source": 435
+          },
+          "compValue": {
+            "visible": 467,
+            "source": 467
+          },
+          "anchor": {
+            "visible": 1186,
+            "source": 1186
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 763,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 817,
+            "source": 817
+          },
+          "value": {
+            "visible": 435,
+            "source": 435
+          },
+          "compValue": {
+            "visible": 467,
+            "source": 467
+          },
+          "anchor": {
+            "visible": 1186,
+            "source": 1186
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 817
+          },
+          "value": {
+            "visible": 435,
+            "source": 435
+          },
+          "compValue": {
+            "visible": 467,
+            "source": 467
+          },
+          "anchor": {
+            "visible": 1186,
+            "source": 1186
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 763,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 817,
+            "source": 817
+          },
+          "value": {
+            "visible": 435,
+            "source": 435
+          },
+          "compValue": {
+            "visible": 467,
+            "source": 467
+          },
+          "anchor": {
+            "visible": 1186,
+            "source": 1186
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          634,
+          114,
+          725,
+          136
+        ],
+        "compHeader": [
+          373,
+          114,
+          465,
+          136
+        ],
+        "value": [
+          632,
+          347,
+          679,
+          368
+        ],
+        "compValue": [
+          373,
+          347,
+          419,
+          368
+        ],
+        "anchor": [
+          53,
+          346,
+          216,
+          368
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1163,
+            502
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            324,
+            1163,
+            390
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            108,
+            1163,
+            143
+          ],
+          [
+            0,
+            324,
+            1163,
+            390
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "64328759a0ea7eea33f65f071a26525a108d9633e34dec09ba98c7b2b35bfb74",
+          "pixelSha256": "26a9b6e1c1664861b3430237b60f1acec1fd0acc002242b027e691f669aecdac",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "e0dc663c352faacf37da9422fa5b0a15471149e548a4948e9027367d8465d8d9",
+          "pixelSha256": "9433ad7de1025892b5b9ee40ca66e221a56fc8bff71f237898fa267a0a18fabc",
+          "width": 1163,
+          "height": 502
+        },
+        "w4": {
+          "sha256": "51e4144794c5ca294a26a83158e7e709091652fd37189c1ec50724abf5f31bc0",
+          "pixelSha256": "cdfc489174ba21838e09c8ba0721a5a8afb1ce48c73f93c7737334522d6c6a4e",
+          "width": 1163,
+          "height": 66
+        },
+        "w5": {
+          "sha256": "557e5f1e2a5fe32e1345e8680334b0f60a805bec10c0edcd142f1695b71c6b9e",
+          "pixelSha256": "853107b9c274bb38ea2d4b4c4b117037707714c8b032f124e537717209688a78",
+          "width": 1163,
+          "height": 109
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "e1f0f213d6758605a09a7e51562961235fd0c4bc5c40abeab0b05ade9e378cbc",
+      "unknown": true
+    },
+    {
+      "pos": 3,
+      "id": "q17503fa9",
+      "assigned": "W5",
+      "question": "명절 송편 빚기 체험의 폐막 시각은 몇 시인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 609,
+            "source": 609
+          },
+          "compHeader": {
+            "visible": 610,
+            "source": 610
+          },
+          "value": {
+            "visible": 410,
+            "source": 410
+          },
+          "compValue": {
+            "visible": 438,
+            "source": 438
+          },
+          "anchor": {
+            "visible": 1591,
+            "source": 1591
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 609,
+            "source": 609
+          },
+          "compHeader": {
+            "visible": 610,
+            "source": 610
+          },
+          "value": {
+            "visible": 410,
+            "source": 410
+          },
+          "compValue": {
+            "visible": 438,
+            "source": 438
+          },
+          "anchor": {
+            "visible": 1591,
+            "source": 1591
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 609
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 610
+          },
+          "value": {
+            "visible": 410,
+            "source": 410
+          },
+          "compValue": {
+            "visible": 438,
+            "source": 438
+          },
+          "anchor": {
+            "visible": 1591,
+            "source": 1591
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 609,
+            "source": 609
+          },
+          "compHeader": {
+            "visible": 610,
+            "source": 610
+          },
+          "value": {
+            "visible": 410,
+            "source": 410
+          },
+          "compValue": {
+            "visible": 438,
+            "source": 438
+          },
+          "anchor": {
+            "visible": 1591,
+            "source": 1591
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          372,
+          113,
+          465,
+          136
+        ],
+        "compHeader": [
+          632,
+          113,
+          725,
+          136
+        ],
+        "value": [
+          374,
+          348,
+          430,
+          366
+        ],
+        "compValue": [
+          634,
+          348,
+          690,
+          366
+        ],
+        "anchor": [
+          54,
+          345,
+          240,
+          368
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1187,
+            502
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            323,
+            1187,
+            391
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1187,
+            143
+          ],
+          [
+            0,
+            323,
+            1187,
+            391
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "98bef96742f85707be19fde7f55fec4795d0c53c7a30fae70d8f3b906b6cde60",
+          "pixelSha256": "69da0d6e8a32d19dbf943d51127debc9c2d1007acec6a4fd976de00e5b9e94e6",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "4ea319d3d35e15fec847908ee5adcd13f38696ebdd5e1aa694799039ddd40c87",
+          "pixelSha256": "6d55cde91ceb1a16f947a7fdde759ba6abae802d9a64f754e2b46b891abd27f1",
+          "width": 1187,
+          "height": 502
+        },
+        "w4": {
+          "sha256": "ecd50d0a7a76ee0c49a9cffdb39f77e8d5b476f73b7b94bbd654b24f4b7931d8",
+          "pixelSha256": "85e68c49064a0dc3a6e99c59d3c3f1846eb761a3e674cc41df63d0e534b7d387",
+          "width": 1187,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "7a62eaccda41351e770f62a04781f17b0d0c18ab9c8ddc08b53d417099426c21",
+          "pixelSha256": "87aa412d8f967983f79702b4ffe9746da76039f8a938a6a61c713cf340cc329d",
+          "width": 1187,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "6cba2c89114c0864c41031047347ba0333f0a0b20a101383240a1849680fe6e6",
+      "unknown": false
+    },
+    {
+      "pos": 4,
+      "id": "qa27b2bf8",
+      "assigned": "W1",
+      "question": "폐현수막 재활용의 수필 분량은 몇 쪽인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 767,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 722,
+            "source": 722
+          },
+          "value": {
+            "visible": 522,
+            "source": 522
+          },
+          "compValue": {
+            "visible": 543,
+            "source": 543
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 767,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 722,
+            "source": 722
+          },
+          "value": {
+            "visible": 522,
+            "source": 522
+          },
+          "compValue": {
+            "visible": 543,
+            "source": 543
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 722
+          },
+          "value": {
+            "visible": 522,
+            "source": 522
+          },
+          "compValue": {
+            "visible": 543,
+            "source": 543
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 767,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 722,
+            "source": 722
+          },
+          "value": {
+            "visible": 522,
+            "source": 522
+          },
+          "compValue": {
+            "visible": 543,
+            "source": 543
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          114,
+          725,
+          136
+        ],
+        "compHeader": [
+          372,
+          114,
+          465,
+          136
+        ],
+        "value": [
+          634,
+          347,
+          692,
+          368
+        ],
+        "compValue": [
+          372,
+          347,
+          432,
+          368
+        ],
+        "anchor": [
+          52,
+          346,
+          210,
+          368
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1187,
+            502
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            324,
+            1187,
+            390
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            108,
+            1187,
+            143
+          ],
+          [
+            0,
+            324,
+            1187,
+            390
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "e45596f96fe3f4523965381fcb55ead569a994897a4ad9a68377b5107d83caef",
+          "pixelSha256": "a58aa8717b9625ded1ea40657ac74223aa720f332aa70d12f3a4d640d6d8d810",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "0c19b4f51fd3844095e8cce5a5f90cc3a82b876f1b69a6af4181d2b0cf4ac145",
+          "pixelSha256": "f2ddaaff5a93d5518519cbd399466526c9965128cb8403b75ddb80666fe3d18a",
+          "width": 1187,
+          "height": 502
+        },
+        "w4": {
+          "sha256": "ae270477dcab9a7ba19b4dfec2fd35a8575f5f2fb288c5179157895957d75253",
+          "pixelSha256": "dd0ca50b1ca1bdef879e2787806b7c3a2046e5c7e0ad36cda11ae853e50f3f1a",
+          "width": 1187,
+          "height": 66
+        },
+        "w5": {
+          "sha256": "48b91538afe8c99e0914b9a91e1d1e48da83791b0aef08a9ba4d7ee8f03239ed",
+          "pixelSha256": "6ed90d2416fa8e15f00343185a793381e9a92cad8a77ab8247b7d2e74354873a",
+          "width": 1187,
+          "height": 109
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "251cd4df289b52d91bbc45ec448bd45fa4e62dd6ea3a1fe0da4b2921e431fe6e",
+      "unknown": false
+    },
+    {
+      "pos": 5,
+      "id": "q8027dc59",
+      "assigned": "W5",
+      "question": "금속 활자 인쇄 원리의 주간 인원은 몇 명인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 719,
+            "source": 719
+          },
+          "compHeader": {
+            "visible": 757,
+            "source": 757
+          },
+          "value": {
+            "visible": 454,
+            "source": 454
+          },
+          "compValue": {
+            "visible": 470,
+            "source": 470
+          },
+          "anchor": {
+            "visible": 1519,
+            "source": 1519
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 719,
+            "source": 719
+          },
+          "compHeader": {
+            "visible": 757,
+            "source": 757
+          },
+          "value": {
+            "visible": 454,
+            "source": 454
+          },
+          "compValue": {
+            "visible": 470,
+            "source": 470
+          },
+          "anchor": {
+            "visible": 1519,
+            "source": 1519
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 719
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 757
+          },
+          "value": {
+            "visible": 454,
+            "source": 454
+          },
+          "compValue": {
+            "visible": 470,
+            "source": 470
+          },
+          "anchor": {
+            "visible": 1519,
+            "source": 1519
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 719,
+            "source": 719
+          },
+          "compHeader": {
+            "visible": 757,
+            "source": 757
+          },
+          "value": {
+            "visible": 454,
+            "source": 454
+          },
+          "compValue": {
+            "visible": 470,
+            "source": 470
+          },
+          "anchor": {
+            "visible": 1519,
+            "source": 1519
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          114,
+          723,
+          136
+        ],
+        "compHeader": [
+          373,
+          113,
+          463,
+          136
+        ],
+        "value": [
+          632,
+          257,
+          678,
+          280
+        ],
+        "compValue": [
+          372,
+          257,
+          418,
+          280
+        ],
+        "anchor": [
+          53,
+          258,
+          240,
+          280
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1187,
+            416
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            235,
+            1187,
+            303
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1187,
+            143
+          ],
+          [
+            0,
+            235,
+            1187,
+            303
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "48d52526de3347298c79b302c8478eaf5907fd8bc23fb38475f2ee5fe5f409ea",
+          "pixelSha256": "4503b6127354b0fe4f892e15787bc48610a299394a98f52fac2e60257f8f2aaf",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "efd1d221b05ea56b3831fd8a971d5d27aa256d78d9ee47080818eafacc9bbd1e",
+          "pixelSha256": "95ac27cac663edc80c8e7712af6426b9db1631bdb329cbf0a1a01b2a17a8b62f",
+          "width": 1187,
+          "height": 416
+        },
+        "w4": {
+          "sha256": "1f494384706b581aecefdc7d02140e71dffa0db7188b5ce3bdaeee0dc5d5d149",
+          "pixelSha256": "9de2a40e1e2ebcda0bb0c35a99a36cb5b45b1a472f8d626b9b924f5143e07037",
+          "width": 1187,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "89b573c2ce675eaea9c9a91b242a7c1c891b2fc25e0fda8b5faf87da4e77ada0",
+          "pixelSha256": "bc43c5fc1c7fa095a86599473b9627a4773fe70ed7f13e4df62378d5d4074233",
+          "width": 1187,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "0bb5d76ff5e5038067e9e8b9f4d3ace53c268dabae93812a482cf4a8c9c2caaa",
+      "unknown": false
+    },
+    {
+      "pos": 6,
+      "id": "q94c95fc2",
+      "assigned": "W1",
+      "question": "지렁이 퇴비 만들기의 운영 인원은 몇 명인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 840,
+            "source": 840
+          },
+          "compHeader": {
+            "visible": 836,
+            "source": 836
+          },
+          "value": {
+            "visible": 502,
+            "source": 502
+          },
+          "compValue": {
+            "visible": 424,
+            "source": 424
+          },
+          "anchor": {
+            "visible": 1353,
+            "source": 1353
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 840,
+            "source": 840
+          },
+          "compHeader": {
+            "visible": 836,
+            "source": 836
+          },
+          "value": {
+            "visible": 502,
+            "source": 502
+          },
+          "compValue": {
+            "visible": 424,
+            "source": 424
+          },
+          "anchor": {
+            "visible": 1353,
+            "source": 1353
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 840
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 836
+          },
+          "value": {
+            "visible": 502,
+            "source": 502
+          },
+          "compValue": {
+            "visible": 424,
+            "source": 424
+          },
+          "anchor": {
+            "visible": 1353,
+            "source": 1353
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 840,
+            "source": 840
+          },
+          "compHeader": {
+            "visible": 836,
+            "source": 836
+          },
+          "value": {
+            "visible": 502,
+            "source": 502
+          },
+          "compValue": {
+            "visible": 424,
+            "source": 424
+          },
+          "anchor": {
+            "visible": 1353,
+            "source": 1353
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          372,
+          114,
+          463,
+          136
+        ],
+        "compHeader": [
+          633,
+          113,
+          723,
+          136
+        ],
+        "value": [
+          372,
+          257,
+          418,
+          280
+        ],
+        "compValue": [
+          634,
+          257,
+          678,
+          280
+        ],
+        "anchor": [
+          52,
+          258,
+          235,
+          280
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1164,
+            416
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            235,
+            1164,
+            303
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1164,
+            143
+          ],
+          [
+            0,
+            235,
+            1164,
+            303
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "fccf29f12a8caff20cae07b1d7c557ea6ca3c4b8047d1d534404fa5853b24fd5",
+          "pixelSha256": "5357b5d4e96ab7308d948533ea9aa0ff51b7e0554bd551af07f4b44882eb2716",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "3e2ac8ee800005f3c9a653cbd80890e2311882cb0015eff5e839d848f23ef35b",
+          "pixelSha256": "0a66f9695ab4229e433fc684e464f0bcc51c7b7af7f2a090f2aaab148bd3b577",
+          "width": 1164,
+          "height": 416
+        },
+        "w4": {
+          "sha256": "72a612dd45c400eb7f5a45f5a830f21019e5af65f5736bbf65455656c9ebd4f4",
+          "pixelSha256": "247d546c1d9d85355494052f1e2dc224a9885598003e5f8bbdc225213f07a590",
+          "width": 1164,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "75be814dc2e691489c9dc9a5d456a69785fc8c2094c6260bf8c7a763014539dd",
+          "pixelSha256": "e1f335709170e1f70b47e90b74ae83e783194472b4f8b85d2f4d8885ecf41e23",
+          "width": 1164,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "b5d5794ec2be4d8f6b283e19ef0a8a5b01018542c907d6c3ccd8fe0ec4717023",
+      "unknown": false
+    },
+    {
+      "pos": 7,
+      "id": "q2d3b713d",
+      "assigned": "W1",
+      "question": "된장 메주 담그기의 퇴근 시각은 몇 시인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 603,
+            "source": 603
+          },
+          "compHeader": {
+            "visible": 690,
+            "source": 690
+          },
+          "value": {
+            "visible": 439,
+            "source": 439
+          },
+          "compValue": {
+            "visible": 469,
+            "source": 469
+          },
+          "anchor": {
+            "visible": 1140,
+            "source": 1140
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 603
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 690
+          },
+          "value": {
+            "visible": 439,
+            "source": 439
+          },
+          "compValue": {
+            "visible": 469,
+            "source": 469
+          },
+          "anchor": {
+            "visible": 1140,
+            "source": 1140
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 603
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 690
+          },
+          "value": {
+            "visible": 439,
+            "source": 439
+          },
+          "compValue": {
+            "visible": 469,
+            "source": 469
+          },
+          "anchor": {
+            "visible": 1140,
+            "source": 1140
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 603
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 690
+          },
+          "value": {
+            "visible": 439,
+            "source": 439
+          },
+          "compValue": {
+            "visible": 469,
+            "source": 469
+          },
+          "anchor": {
+            "visible": 1140,
+            "source": 1140
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          113,
+          465,
+          136
+        ],
+        "compHeader": [
+          633,
+          113,
+          725,
+          136
+        ],
+        "value": [
+          374,
+          348,
+          430,
+          366
+        ],
+        "compValue": [
+          634,
+          348,
+          690,
+          366
+        ],
+        "anchor": [
+          53,
+          345,
+          213,
+          368
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            278,
+            1280,
+            504
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            278,
+            1280,
+            504
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            278,
+            1280,
+            504
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "f1cf32f5f2fc22dfa64caf9a1aa05cd531801be043469bc56dc4f9f5693dca53",
+          "pixelSha256": "5c474da81a550ed5398cbcd253b2190424482048d5b3620f1f78ab3f69d89b23",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "6b2a170b0acb9731d265c4a8a117832776638283bcd498de3bdbd836e2672c75",
+          "pixelSha256": "b6d54d8aee8a7ac007a62ed55ee7a11b779023e9ce7c296d6257275c7297e844",
+          "width": 1280,
+          "height": 226
+        },
+        "w4": {
+          "sha256": "6b2a170b0acb9731d265c4a8a117832776638283bcd498de3bdbd836e2672c75",
+          "pixelSha256": "b6d54d8aee8a7ac007a62ed55ee7a11b779023e9ce7c296d6257275c7297e844",
+          "width": 1280,
+          "height": 226
+        },
+        "w5": {
+          "sha256": "6b2a170b0acb9731d265c4a8a117832776638283bcd498de3bdbd836e2672c75",
+          "pixelSha256": "b6d54d8aee8a7ac007a62ed55ee7a11b779023e9ce7c296d6257275c7297e844",
+          "width": 1280,
+          "height": 226
+        }
+      },
+      "w4Reason": "not_applicable",
+      "w4From": "w1",
+      "w5Reason": "w4_not_applied",
+      "w5Kind": "w1",
+      "w5PixelIdentical": {
+        "w1": true,
+        "w4": true
+      },
+      "embeddedPngSha256": "a5f5f6f2ac5730873263729b8cef8675bfd03d503e823fe8033ff3091189660e",
+      "unknown": true
+    },
+    {
+      "pos": 8,
+      "id": "q3b3fc545",
+      "assigned": "W4",
+      "question": "제과 제빵 기초 실습의 환승 시각은 몇 시인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 693,
+            "source": 693
+          },
+          "compHeader": {
+            "visible": 648,
+            "source": 648
+          },
+          "value": {
+            "visible": 461,
+            "source": 461
+          },
+          "compValue": {
+            "visible": 408,
+            "source": 408
+          },
+          "anchor": {
+            "visible": 1488,
+            "source": 1488
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 693,
+            "source": 693
+          },
+          "compHeader": {
+            "visible": 648,
+            "source": 648
+          },
+          "value": {
+            "visible": 461,
+            "source": 461
+          },
+          "compValue": {
+            "visible": 408,
+            "source": 408
+          },
+          "anchor": {
+            "visible": 1488,
+            "source": 1488
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 693
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 648
+          },
+          "value": {
+            "visible": 461,
+            "source": 461
+          },
+          "compValue": {
+            "visible": 408,
+            "source": 408
+          },
+          "anchor": {
+            "visible": 1488,
+            "source": 1488
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 693,
+            "source": 693
+          },
+          "compHeader": {
+            "visible": 648,
+            "source": 648
+          },
+          "value": {
+            "visible": 461,
+            "source": 461
+          },
+          "compValue": {
+            "visible": 408,
+            "source": 408
+          },
+          "anchor": {
+            "visible": 1488,
+            "source": 1488
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          113,
+          725,
+          136
+        ],
+        "compHeader": [
+          373,
+          113,
+          465,
+          136
+        ],
+        "value": [
+          634,
+          260,
+          690,
+          278
+        ],
+        "compValue": [
+          374,
+          260,
+          430,
+          278
+        ],
+        "anchor": [
+          52,
+          258,
+          242,
+          280
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1164,
+            414
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            235,
+            1164,
+            303
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1164,
+            143
+          ],
+          [
+            0,
+            235,
+            1164,
+            303
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "f8ee3b90fab764b8c55d87785e79531835dc636d6bc7c60d69300605e46de501",
+          "pixelSha256": "650727bf872da349b7738c4ee8214a0901ba7baeba87824dd2df1a2f647f3e35",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "174db5fa7d1d3b1bc81db15ce4b72dae472e1b51a28a4c4e50c24e844749a768",
+          "pixelSha256": "27a528228163a26c7949772959ab24ac717012ee5f1841ae7b1b57073101e057",
+          "width": 1164,
+          "height": 414
+        },
+        "w4": {
+          "sha256": "59a9d21a92c8093c3c69546d88965c416d19cfde1ad25eacb56181bb3ab52595",
+          "pixelSha256": "6fd7eb9d3fdf7a0c66fccadafe842327e4a72884c3d6a8dd82b9f73f227f522b",
+          "width": 1164,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "053617472dc6d526782b3232f60898bddcf2042b2f259b27b42800ac5aa61291",
+          "pixelSha256": "ade0d9381b12a3ec4f52a0e07fa688eaa5480b8a4eccfd66a454c4d2d69b2171",
+          "width": 1164,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "1d2a6dce6294d01470fc433c6f2268728be6189a47efae5029351ad982b855db",
+      "unknown": true
+    },
+    {
+      "pos": 9,
+      "id": "qd2df355a",
+      "assigned": "W5",
+      "question": "음식물 퇴비화 실험의 결시 인원은 몇 명인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "value": {
+            "visible": 422,
+            "source": 422
+          },
+          "compValue": {
+            "visible": 432,
+            "source": 432
+          },
+          "anchor": {
+            "visible": 1511,
+            "source": 1511
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "value": {
+            "visible": 422,
+            "source": 422
+          },
+          "compValue": {
+            "visible": 432,
+            "source": 432
+          },
+          "anchor": {
+            "visible": 1511,
+            "source": 1511
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "value": {
+            "visible": 422,
+            "source": 422
+          },
+          "compValue": {
+            "visible": 432,
+            "source": 432
+          },
+          "anchor": {
+            "visible": 1511,
+            "source": 1511
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "value": {
+            "visible": 422,
+            "source": 422
+          },
+          "compValue": {
+            "visible": 432,
+            "source": 432
+          },
+          "anchor": {
+            "visible": 1511,
+            "source": 1511
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          114,
+          463,
+          136
+        ],
+        "compHeader": [
+          633,
+          114,
+          723,
+          136
+        ],
+        "value": [
+          372,
+          345,
+          418,
+          368
+        ],
+        "compValue": [
+          633,
+          345,
+          678,
+          368
+        ],
+        "anchor": [
+          53,
+          346,
+          235,
+          368
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1165,
+            502
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            0,
+            1165,
+            502
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            0,
+            1165,
+            502
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "cfc9a6a73f47173f7a98ba20bbafa3db29433284d2928f21bc2d3a0f4830e013",
+          "pixelSha256": "f0ba424988cd138f6e3d080899afc71e51d0a7cc54d4041de193570d57fdcd9e",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "8c8bdab460f206db9c4134c7383925fda5b99616effd3ebd4f27dddbdeeb3f0b",
+          "pixelSha256": "fab156dac66ffcdd3e0859fbb079cd764e9e3144ca8f8241c6831c07fbd5c315",
+          "width": 1165,
+          "height": 502
+        },
+        "w4": {
+          "sha256": "8c8bdab460f206db9c4134c7383925fda5b99616effd3ebd4f27dddbdeeb3f0b",
+          "pixelSha256": "fab156dac66ffcdd3e0859fbb079cd764e9e3144ca8f8241c6831c07fbd5c315",
+          "width": 1165,
+          "height": 502
+        },
+        "w5": {
+          "sha256": "8c8bdab460f206db9c4134c7383925fda5b99616effd3ebd4f27dddbdeeb3f0b",
+          "pixelSha256": "fab156dac66ffcdd3e0859fbb079cd764e9e3144ca8f8241c6831c07fbd5c315",
+          "width": 1165,
+          "height": 502
+        }
+      },
+      "w4Reason": "header_none",
+      "w4From": "w1",
+      "w5Reason": "w4_not_applied",
+      "w5Kind": "w1",
+      "w5PixelIdentical": {
+        "w1": true,
+        "w4": true
+      },
+      "embeddedPngSha256": "aa8818b111c41977a480ccd85507564c85cc1330571460d7d234e9355de73305",
+      "unknown": false
+    },
+    {
+      "pos": 10,
+      "id": "q4cc8303c",
+      "assigned": "W4",
+      "question": "낡은 계단 난간 보수의 본문 분량은 몇 쪽인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 366,
+            "source": 366
+          },
+          "compValue": {
+            "visible": 471,
+            "source": 471
+          },
+          "anchor": {
+            "visible": 1334,
+            "source": 1334
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 366,
+            "source": 366
+          },
+          "compValue": {
+            "visible": 471,
+            "source": 471
+          },
+          "anchor": {
+            "visible": 1334,
+            "source": 1334
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 745
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 716
+          },
+          "value": {
+            "visible": 366,
+            "source": 366
+          },
+          "compValue": {
+            "visible": 471,
+            "source": 471
+          },
+          "anchor": {
+            "visible": 1334,
+            "source": 1334
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 745,
+            "source": 745
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 366,
+            "source": 366
+          },
+          "compValue": {
+            "visible": 471,
+            "source": 471
+          },
+          "anchor": {
+            "visible": 1334,
+            "source": 1334
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          114,
+          465,
+          136
+        ],
+        "compHeader": [
+          633,
+          114,
+          725,
+          136
+        ],
+        "value": [
+          373,
+          347,
+          419,
+          368
+        ],
+        "compValue": [
+          633,
+          347,
+          679,
+          368
+        ],
+        "anchor": [
+          54,
+          345,
+          242,
+          369
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1165,
+            502
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            323,
+            1165,
+            391
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            108,
+            1165,
+            143
+          ],
+          [
+            0,
+            323,
+            1165,
+            391
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "9f72d86411e86ff421bc4aeeb22d8ae49450c9b53635f68c226795f969e54fda",
+          "pixelSha256": "d84493a3f74c9b8c19072bed575299add35edc6c0c58f681eef2fe699891e7c3",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "9f19eb46f9e57514030b5562eaf0c5fe243b3d9e1885845ed412b2e8cc8c843b",
+          "pixelSha256": "3879304d0e083d81b99ab1baedae729f6abdfbfac43ff678270938498b021c6f",
+          "width": 1165,
+          "height": 502
+        },
+        "w4": {
+          "sha256": "f0a1f6b37e3ed11dfcd1c6374b77c59fbcf6e308b9a5931b7feaca537d94d215",
+          "pixelSha256": "e46cdd8d327ed11bf1b290761881c5c8073e2bf1d09b8ef7787ab4c90cabbe92",
+          "width": 1165,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "d90a234925e83eeed20dbef81357a5bbcf7eff96680449ab85110a678c94c3dc",
+          "pixelSha256": "564f1adffa98c17174804246a3ea9d545c7d45acad611abc7732519ae66cf1e6",
+          "width": 1165,
+          "height": 111
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "1bdd90e7950a10632f306b57b7ba3df928cc1031a9a688f79f1a11d01e1324be",
+      "unknown": true
+    },
+    {
+      "pos": 11,
+      "id": "qba30945f",
+      "assigned": "W5",
+      "question": "숲속 야영 생존 캠프의 각주 분량은 몇 쪽인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 697,
+            "source": 697
+          },
+          "compHeader": {
+            "visible": 699,
+            "source": 699
+          },
+          "value": {
+            "visible": 512,
+            "source": 512
+          },
+          "compValue": {
+            "visible": 473,
+            "source": 473
+          },
+          "anchor": {
+            "visible": 1584,
+            "source": 1584
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 697,
+            "source": 697
+          },
+          "compHeader": {
+            "visible": 699,
+            "source": 699
+          },
+          "value": {
+            "visible": 512,
+            "source": 512
+          },
+          "compValue": {
+            "visible": 473,
+            "source": 473
+          },
+          "anchor": {
+            "visible": 1584,
+            "source": 1584
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 697
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 699
+          },
+          "value": {
+            "visible": 512,
+            "source": 512
+          },
+          "compValue": {
+            "visible": 473,
+            "source": 473
+          },
+          "anchor": {
+            "visible": 1584,
+            "source": 1584
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 697,
+            "source": 697
+          },
+          "compHeader": {
+            "visible": 699,
+            "source": 699
+          },
+          "value": {
+            "visible": 512,
+            "source": 512
+          },
+          "compValue": {
+            "visible": 473,
+            "source": 473
+          },
+          "anchor": {
+            "visible": 1584,
+            "source": 1584
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          113,
+          725,
+          136
+        ],
+        "compHeader": [
+          373,
+          114,
+          465,
+          136
+        ],
+        "value": [
+          634,
+          171,
+          692,
+          192
+        ],
+        "compValue": [
+          374,
+          171,
+          432,
+          192
+        ],
+        "anchor": [
+          53,
+          169,
+          242,
+          192
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1185,
+            326
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            147,
+            1185,
+            215
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1185,
+            143
+          ],
+          [
+            0,
+            147,
+            1185,
+            215
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "1377c910021870d623925bd3bee0eecaef0c652cbaf86f86b63b7c02e94b063f",
+          "pixelSha256": "b13245a70110b245779d55a13b5889c093b3cfcb43ea9cbd6036beb753977df4",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "68226b46824526de2bf32473d45c4f5f4f0bd1401930254b2983b2059bc33192",
+          "pixelSha256": "beef17546c3ef81c71da87aff291460ee72a8b8f42c7389fe4eca5b43e188554",
+          "width": 1185,
+          "height": 326
+        },
+        "w4": {
+          "sha256": "db12cf8d93a7fd76f6c13f7bff6ce5c55778a41563bc40b54ba1933605950e65",
+          "pixelSha256": "1079e3bdc49d8e16a32af4b13effd8f5b7b00fdcc3c168b8b36effc639b2bfd1",
+          "width": 1185,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "29f37a029c5023c43c5e9375d3cfff6511b2be61d92b1d9766f359af2af23127",
+          "pixelSha256": "7239aab88b1075ad409cde593ea2a399b5d651d06aac76c2c244f1c37a55b5c8",
+          "width": 1185,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "b2aa903db80deaf9afb9a391dd6d7a20a3cb1702321d049549ef271a3c444169",
+      "unknown": false
+    },
+    {
+      "pos": 12,
+      "id": "q1d435f2a",
+      "assigned": "W1",
+      "question": "국토 순례 도보 여행의 강사 인원은 몇 명인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 738,
+            "source": 738
+          },
+          "value": {
+            "visible": 462,
+            "source": 462
+          },
+          "compValue": {
+            "visible": 447,
+            "source": 447
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 738,
+            "source": 738
+          },
+          "value": {
+            "visible": 462,
+            "source": 462
+          },
+          "compValue": {
+            "visible": 447,
+            "source": 447
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 738
+          },
+          "value": {
+            "visible": 462,
+            "source": 462
+          },
+          "compValue": {
+            "visible": 447,
+            "source": 447
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 751,
+            "source": 751
+          },
+          "compHeader": {
+            "visible": 738,
+            "source": 738
+          },
+          "value": {
+            "visible": 462,
+            "source": 462
+          },
+          "compValue": {
+            "visible": 447,
+            "source": 447
+          },
+          "anchor": {
+            "visible": 1397,
+            "source": 1397
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          114,
+          723,
+          136
+        ],
+        "compHeader": [
+          373,
+          114,
+          463,
+          136
+        ],
+        "value": [
+          632,
+          169,
+          678,
+          192
+        ],
+        "compValue": [
+          373,
+          169,
+          418,
+          192
+        ],
+        "anchor": [
+          53,
+          170,
+          241,
+          192
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1164,
+            328
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            148,
+            1164,
+            214
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            108,
+            1164,
+            143
+          ],
+          [
+            0,
+            148,
+            1164,
+            214
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "21eff714d9fcc462d1cc8c219471ea15d43bd50e53eeaeb211543f177908e17f",
+          "pixelSha256": "691ff01f832b87a149e7b0f7008095d91f855c2c9c803b838735a972a259b96a",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "48e46d91846279514b8bffbc46a65bccfffa772916aa4bafe9c4b20b07baaf59",
+          "pixelSha256": "d60c86dfe6ebdf4c36f00e591a4429a79900c71d452f5c81c0c8a1cd18170023",
+          "width": 1164,
+          "height": 328
+        },
+        "w4": {
+          "sha256": "5b306661082135f28b2f828f4ccd5df4c8a0a92348852ce63515b3d59bd61335",
+          "pixelSha256": "11a9a9ba9b3303854ae7de810de54d7637b6dbae9937598b3a7272803006aed2",
+          "width": 1164,
+          "height": 66
+        },
+        "w5": {
+          "sha256": "3b02e75ed9a78575349abc1042574155b430e1b437df13d1f631fe2d4d00abcd",
+          "pixelSha256": "06f9200f46fa8e861d3abf26108a3d9a414b9123b7214498119d0efcf6c8cb2d",
+          "width": 1164,
+          "height": 109
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "26abb0cc80daf7af7b4acefe4294578cde1a056f73b58086cd36561e4819abbc",
+      "unknown": false
+    },
+    {
+      "pos": 13,
+      "id": "q86640919",
+      "assigned": "W5",
+      "question": "고려 청동 거울 관찰의 논술 분량은 몇 쪽인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 767,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 769,
+            "source": 769
+          },
+          "value": {
+            "visible": 495,
+            "source": 495
+          },
+          "compValue": {
+            "visible": 504,
+            "source": 504
+          },
+          "anchor": {
+            "visible": 1497,
+            "source": 1497
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 767,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 769,
+            "source": 769
+          },
+          "value": {
+            "visible": 495,
+            "source": 495
+          },
+          "compValue": {
+            "visible": 504,
+            "source": 504
+          },
+          "anchor": {
+            "visible": 1497,
+            "source": 1497
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 769
+          },
+          "value": {
+            "visible": 495,
+            "source": 495
+          },
+          "compValue": {
+            "visible": 504,
+            "source": 504
+          },
+          "anchor": {
+            "visible": 1497,
+            "source": 1497
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 767,
+            "source": 767
+          },
+          "compHeader": {
+            "visible": 769,
+            "source": 769
+          },
+          "value": {
+            "visible": 495,
+            "source": 495
+          },
+          "compValue": {
+            "visible": 504,
+            "source": 504
+          },
+          "anchor": {
+            "visible": 1497,
+            "source": 1497
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          114,
+          465,
+          136
+        ],
+        "compHeader": [
+          633,
+          114,
+          725,
+          136
+        ],
+        "value": [
+          374,
+          259,
+          432,
+          280
+        ],
+        "compValue": [
+          634,
+          259,
+          692,
+          280
+        ],
+        "anchor": [
+          53,
+          258,
+          242,
+          280
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1164,
+            414
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            235,
+            1164,
+            303
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            108,
+            1164,
+            143
+          ],
+          [
+            0,
+            235,
+            1164,
+            303
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "68cb512503305bd4b442540d968d763fa4e1e6fc48d261981482dc4933c44f94",
+          "pixelSha256": "7cf9e2f052e677ff4615730f1631fea11fd28778609394ce48314d7e401a87f1",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "7e3fbf7fe90f2ae78279f8e7a88c6fc5f4890a15b42721bb8587d7530010cbeb",
+          "pixelSha256": "efad3ba4b26d379efaa31e3a9898ea635e4eafadd845779655b0dd916b6036fa",
+          "width": 1164,
+          "height": 414
+        },
+        "w4": {
+          "sha256": "1ae5cf54f3872403b0f7ef534bef4706d376b6f0f5a7d08d817e86904b8d4c49",
+          "pixelSha256": "9f0b7a02de5034b074be6477a7096f6fd7067d4ad074446b28e7132c2c69063b",
+          "width": 1164,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "5ee1ffaa10fb0ec79bf5c0f34b79b91d00482d586f10ee65aa710a3f5f12f0df",
+          "pixelSha256": "c54680a610fe0967757c78b7344a56f138b86b88c5dd323ab1b75bdf8e778269",
+          "width": 1164,
+          "height": 111
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "11f83cd593aa23b322e332ff638f18a4406197437de6b964c131cb6a94e850ba",
+      "unknown": false
+    },
+    {
+      "pos": 14,
+      "id": "q4f283739",
+      "assigned": "W1",
+      "question": "제철 요리 맛보기의 폐문 시각은 몇 시인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 640,
+            "source": 640
+          },
+          "compHeader": {
+            "visible": 641,
+            "source": 641
+          },
+          "value": {
+            "visible": 430,
+            "source": 430
+          },
+          "compValue": {
+            "visible": 449,
+            "source": 449
+          },
+          "anchor": {
+            "visible": 1210,
+            "source": 1210
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 640
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 641
+          },
+          "value": {
+            "visible": 430,
+            "source": 430
+          },
+          "compValue": {
+            "visible": 449,
+            "source": 449
+          },
+          "anchor": {
+            "visible": 1210,
+            "source": 1210
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 640
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 641
+          },
+          "value": {
+            "visible": 430,
+            "source": 430
+          },
+          "compValue": {
+            "visible": 449,
+            "source": 449
+          },
+          "anchor": {
+            "visible": 1210,
+            "source": 1210
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 640
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 641
+          },
+          "value": {
+            "visible": 430,
+            "source": 430
+          },
+          "compValue": {
+            "visible": 449,
+            "source": 449
+          },
+          "anchor": {
+            "visible": 1210,
+            "source": 1210
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          632,
+          113,
+          725,
+          136
+        ],
+        "compHeader": [
+          372,
+          113,
+          465,
+          136
+        ],
+        "value": [
+          634,
+          260,
+          690,
+          278
+        ],
+        "compValue": [
+          374,
+          260,
+          430,
+          278
+        ],
+        "anchor": [
+          52,
+          258,
+          213,
+          280
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            190,
+            1280,
+            416
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            190,
+            1280,
+            416
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            190,
+            1280,
+            416
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "fef392984bc2187bfc6734fd4087691a2dbe464f19a32345cfaae446a9d288b4",
+          "pixelSha256": "758e920c2b198b5de082589ac0d345754fcd3551e0b9db36a19ef1c62e4fc8cb",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "097af1b4947cd9acb546517c18185bcd3007632a3b14f43dd23d7265cb008766",
+          "pixelSha256": "b9188ef2e4536c4c2fb7a90140a929ec36ee992b645a4894394be334f11c3e77",
+          "width": 1280,
+          "height": 226
+        },
+        "w4": {
+          "sha256": "097af1b4947cd9acb546517c18185bcd3007632a3b14f43dd23d7265cb008766",
+          "pixelSha256": "b9188ef2e4536c4c2fb7a90140a929ec36ee992b645a4894394be334f11c3e77",
+          "width": 1280,
+          "height": 226
+        },
+        "w5": {
+          "sha256": "097af1b4947cd9acb546517c18185bcd3007632a3b14f43dd23d7265cb008766",
+          "pixelSha256": "b9188ef2e4536c4c2fb7a90140a929ec36ee992b645a4894394be334f11c3e77",
+          "width": 1280,
+          "height": 226
+        }
+      },
+      "w4Reason": "not_applicable",
+      "w4From": "w1",
+      "w5Reason": "w4_not_applied",
+      "w5Kind": "w1",
+      "w5PixelIdentical": {
+        "w1": true,
+        "w4": true
+      },
+      "embeddedPngSha256": "54dc0ca07fde9618611ede70af2725b848e33777d7b9804acd336d557dee4f8e",
+      "unknown": true
+    },
+    {
+      "pos": 15,
+      "id": "q363f67d4",
+      "assigned": "W5",
+      "question": "고장 우산 무료 수선의 출항 시각은 몇 시인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 763,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 672,
+            "source": 672
+          },
+          "value": {
+            "visible": 433,
+            "source": 433
+          },
+          "compValue": {
+            "visible": 456,
+            "source": 456
+          },
+          "anchor": {
+            "visible": 1294,
+            "source": 1294
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 763,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 672,
+            "source": 672
+          },
+          "value": {
+            "visible": 433,
+            "source": 433
+          },
+          "compValue": {
+            "visible": 456,
+            "source": 456
+          },
+          "anchor": {
+            "visible": 1294,
+            "source": 1294
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 672
+          },
+          "value": {
+            "visible": 433,
+            "source": 433
+          },
+          "compValue": {
+            "visible": 456,
+            "source": 456
+          },
+          "anchor": {
+            "visible": 1294,
+            "source": 1294
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 763,
+            "source": 763
+          },
+          "compHeader": {
+            "visible": 672,
+            "source": 672
+          },
+          "value": {
+            "visible": 433,
+            "source": 433
+          },
+          "compValue": {
+            "visible": 456,
+            "source": 456
+          },
+          "anchor": {
+            "visible": 1294,
+            "source": 1294
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          113,
+          725,
+          136
+        ],
+        "compHeader": [
+          374,
+          113,
+          465,
+          136
+        ],
+        "value": [
+          634,
+          172,
+          690,
+          190
+        ],
+        "compValue": [
+          374,
+          172,
+          430,
+          190
+        ],
+        "anchor": [
+          53,
+          169,
+          241,
+          192
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1165,
+            328
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            147,
+            1165,
+            215
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            107,
+            1165,
+            143
+          ],
+          [
+            0,
+            147,
+            1165,
+            215
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "4d0d5c09c07636b99030aac567f073061688fb246a7a1cce177c42f1953da67a",
+          "pixelSha256": "106cac1a4390c182678698019d0294cc4ea7bffaa9ab721510191c892a188e77",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "65585563da8c790bb14648942e41b558e6ca4e88fbfe95a875f18fe821f39f93",
+          "pixelSha256": "ca6c29549874133e607aedd6188854d83857ebf42c7da310e7d5f82acb6b3b2d",
+          "width": 1165,
+          "height": 328
+        },
+        "w4": {
+          "sha256": "d7edfd953381f2d40cd6ad5d6a041623889c625d10ed2844727ca825ffaa35a5",
+          "pixelSha256": "54d86ed3307cae0fc7247e4636b2c2cc6d358487d02f321cf1c57deca6861892",
+          "width": 1165,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "1cfb36064a441bf9ca034b30b22ea6f22b1b7c91d684596edde90d14aad93dad",
+          "pixelSha256": "f05bd91ca9bc07285742a773703a1721628b9d64b2647bdc044804f1a7646741",
+          "width": 1165,
+          "height": 112
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "e8fd82e0e1a398aa13b7683142b737d2524f0e28ed77f7508918077c62839a60",
+      "unknown": false
+    },
+    {
+      "pos": 16,
+      "id": "q4c89fe96",
+      "assigned": "W1",
+      "question": "수제 도장 새기기의 도면 분량은 몇 쪽인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 734,
+            "source": 734
+          },
+          "compHeader": {
+            "visible": 760,
+            "source": 760
+          },
+          "value": {
+            "visible": 397,
+            "source": 397
+          },
+          "compValue": {
+            "visible": 405,
+            "source": 405
+          },
+          "anchor": {
+            "visible": 1143,
+            "source": 1143
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 734,
+            "source": 734
+          },
+          "compHeader": {
+            "visible": 760,
+            "source": 760
+          },
+          "value": {
+            "visible": 397,
+            "source": 397
+          },
+          "compValue": {
+            "visible": 405,
+            "source": 405
+          },
+          "anchor": {
+            "visible": 1143,
+            "source": 1143
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 734,
+            "source": 734
+          },
+          "compHeader": {
+            "visible": 760,
+            "source": 760
+          },
+          "value": {
+            "visible": 397,
+            "source": 397
+          },
+          "compValue": {
+            "visible": 405,
+            "source": 405
+          },
+          "anchor": {
+            "visible": 1143,
+            "source": 1143
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 734,
+            "source": 734
+          },
+          "compHeader": {
+            "visible": 760,
+            "source": 760
+          },
+          "value": {
+            "visible": 397,
+            "source": 397
+          },
+          "compValue": {
+            "visible": 405,
+            "source": 405
+          },
+          "anchor": {
+            "visible": 1143,
+            "source": 1143
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          114,
+          465,
+          136
+        ],
+        "compHeader": [
+          633,
+          114,
+          725,
+          136
+        ],
+        "value": [
+          372,
+          171,
+          419,
+          192
+        ],
+        "compValue": [
+          634,
+          171,
+          679,
+          192
+        ],
+        "anchor": [
+          53,
+          169,
+          213,
+          192
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            47,
+            902,
+            270
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            47,
+            902,
+            270
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            47,
+            902,
+            270
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "f3034301dbff8f04ff13bf7f0a030a6660ca799237aa1997dff8b2099ef66544",
+          "pixelSha256": "94e838643485352b147e4e5727b7956ee0957854a81c9011c1d5e0bc034b252a",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "13721630ecba3002577e09b3f18c88708f3b85e476bc8894656eda5bc4a0bcd6",
+          "pixelSha256": "c4fb0302a9a91a5628b8bd215e76bfc7a738d0c2bf9ff2f652c0a4cede44a674",
+          "width": 902,
+          "height": 223
+        },
+        "w4": {
+          "sha256": "13721630ecba3002577e09b3f18c88708f3b85e476bc8894656eda5bc4a0bcd6",
+          "pixelSha256": "c4fb0302a9a91a5628b8bd215e76bfc7a738d0c2bf9ff2f652c0a4cede44a674",
+          "width": 902,
+          "height": 223
+        },
+        "w5": {
+          "sha256": "13721630ecba3002577e09b3f18c88708f3b85e476bc8894656eda5bc4a0bcd6",
+          "pixelSha256": "c4fb0302a9a91a5628b8bd215e76bfc7a738d0c2bf9ff2f652c0a4cede44a674",
+          "width": 902,
+          "height": 223
+        }
+      },
+      "w4Reason": "not_applicable",
+      "w4From": "w1",
+      "w5Reason": "w4_not_applied",
+      "w5Kind": "w1",
+      "w5PixelIdentical": {
+        "w1": true,
+        "w4": true
+      },
+      "embeddedPngSha256": "f0a059aff8c2d26b9bd3bd88bf3df2a07e3ba61e0420cb01f95a9f017baed9c0",
+      "unknown": false
+    },
+    {
+      "pos": 17,
+      "id": "q5a1bb47c",
+      "assigned": "W4",
+      "question": "알기 쉬운 법률 상식의 초대 인원은 몇 명인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "absent",
+          "compHeader": "absent",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 758,
+            "source": 758
+          },
+          "compHeader": {
+            "visible": 832,
+            "source": 832
+          },
+          "value": {
+            "visible": 493,
+            "source": 493
+          },
+          "compValue": {
+            "visible": 463,
+            "source": 463
+          },
+          "anchor": {
+            "visible": 1494,
+            "source": 1494
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 758,
+            "source": 758
+          },
+          "compHeader": {
+            "visible": 832,
+            "source": 832
+          },
+          "value": {
+            "visible": 493,
+            "source": 493
+          },
+          "compValue": {
+            "visible": 463,
+            "source": 463
+          },
+          "anchor": {
+            "visible": 1494,
+            "source": 1494
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 0,
+            "source": 758
+          },
+          "compHeader": {
+            "visible": 0,
+            "source": 832
+          },
+          "value": {
+            "visible": 493,
+            "source": 493
+          },
+          "compValue": {
+            "visible": 463,
+            "source": 463
+          },
+          "anchor": {
+            "visible": 1494,
+            "source": 1494
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 758,
+            "source": 758
+          },
+          "compHeader": {
+            "visible": 832,
+            "source": 832
+          },
+          "value": {
+            "visible": 493,
+            "source": 493
+          },
+          "compValue": {
+            "visible": 463,
+            "source": 463
+          },
+          "anchor": {
+            "visible": 1494,
+            "source": 1494
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          373,
+          114,
+          463,
+          136
+        ],
+        "compHeader": [
+          633,
+          113,
+          723,
+          136
+        ],
+        "value": [
+          373,
+          257,
+          418,
+          280
+        ],
+        "compValue": [
+          634,
+          257,
+          678,
+          280
+        ],
+        "anchor": [
+          54,
+          257,
+          240,
+          280
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            0,
+            1165,
+            416
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            235,
+            1165,
+            303
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            108,
+            1165,
+            143
+          ],
+          [
+            0,
+            235,
+            1165,
+            303
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "5869833cf945189b37d41064e2f3eb7bd951094912ef0335a5ee550e22063471",
+          "pixelSha256": "ac6771761aee637579db085f26a8f84ce5607f377d3b17955b3f2b226913c18b",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "6cc3458927a6df4f5a7473491d858e7129712b3be842451e01368ab4b18fa404",
+          "pixelSha256": "7711c50078fdb54f5edccec8efa01d4f77024bd2721031e736fd87d64b37bd4e",
+          "width": 1165,
+          "height": 416
+        },
+        "w4": {
+          "sha256": "5607051c82b2ba855afd2846f3bbaa34a860815f03ffacfb5e9fcec57b0fb44e",
+          "pixelSha256": "d29157a33cebcedb4c326b9c4a4ce77c4395366d1ec7d7dd39b1a82a632c2799",
+          "width": 1165,
+          "height": 68
+        },
+        "w5": {
+          "sha256": "bf6f10aa3c784a29fb021e56712ed16b033c0afb4ff4bb6fc4bef1ac3c0d6d5f",
+          "pixelSha256": "4a2c5c62d82f6687dea99895aa2e13458c311e1d3b6fbc1785d299941991f241",
+          "width": 1165,
+          "height": 111
+        }
+      },
+      "w4Reason": "applied",
+      "w4From": "w2",
+      "w5Reason": "two_bands",
+      "w5Kind": "two_bands",
+      "w5PixelIdentical": {
+        "w1": false,
+        "w4": false
+      },
+      "embeddedPngSha256": "e7be433d826a3c9b8dbaca84aa3a47639c3854e3fcdfe951a0ba256ae51d5f4a",
+      "unknown": true
+    },
+    {
+      "pos": 18,
+      "id": "q7b15b37e",
+      "assigned": "W4",
+      "question": "밭고랑 잡초 뽑기의 진행 인원은 몇 명인가요?",
+      "views": {
+        "source": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w1": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w4": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        },
+        "w5": {
+          "targetHeader": "full",
+          "compHeader": "full",
+          "value": "full",
+          "compValue": "full",
+          "anchor": "full"
+        }
+      },
+      "inkCounts": {
+        "source": {
+          "targetHeader": {
+            "visible": 829,
+            "source": 829
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 517,
+            "source": 517
+          },
+          "compValue": {
+            "visible": 422,
+            "source": 422
+          },
+          "anchor": {
+            "visible": 1298,
+            "source": 1298
+          }
+        },
+        "w1": {
+          "targetHeader": {
+            "visible": 829,
+            "source": 829
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 517,
+            "source": 517
+          },
+          "compValue": {
+            "visible": 422,
+            "source": 422
+          },
+          "anchor": {
+            "visible": 1298,
+            "source": 1298
+          }
+        },
+        "w4": {
+          "targetHeader": {
+            "visible": 829,
+            "source": 829
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 517,
+            "source": 517
+          },
+          "compValue": {
+            "visible": 422,
+            "source": 422
+          },
+          "anchor": {
+            "visible": 1298,
+            "source": 1298
+          }
+        },
+        "w5": {
+          "targetHeader": {
+            "visible": 829,
+            "source": 829
+          },
+          "compHeader": {
+            "visible": 716,
+            "source": 716
+          },
+          "value": {
+            "visible": 517,
+            "source": 517
+          },
+          "compValue": {
+            "visible": 422,
+            "source": 422
+          },
+          "anchor": {
+            "visible": 1298,
+            "source": 1298
+          }
+        }
+      },
+      "inkBboxes": {
+        "targetHeader": [
+          633,
+          114,
+          723,
+          136
+        ],
+        "compHeader": [
+          373,
+          114,
+          463,
+          136
+        ],
+        "value": [
+          633,
+          169,
+          678,
+          192
+        ],
+        "compValue": [
+          373,
+          169,
+          418,
+          192
+        ],
+        "anchor": [
+          54,
+          170,
+          213,
+          192
+        ]
+      },
+      "sourceRects": {
+        "source": [
+          [
+            0,
+            0,
+            1280,
+            960
+          ]
+        ],
+        "w1": [
+          [
+            0,
+            46,
+            903,
+            272
+          ]
+        ],
+        "w4": [
+          [
+            0,
+            46,
+            903,
+            272
+          ]
+        ],
+        "w5": [
+          [
+            0,
+            46,
+            903,
+            272
+          ]
+        ]
+      },
+      "imageDigests": {
+        "source": {
+          "sha256": "9f39d4229c3ce57ba3930efd159cf81ee076220d8d63666265a18eeb3cd4b2a5",
+          "pixelSha256": "6cb316066942d7ed83c52a6514b21f46ba54a9ebc03a14d99381e5008fb676e5",
+          "width": 1280,
+          "height": 960
+        },
+        "w1": {
+          "sha256": "f3f5e574bb45d280cb01a8427bcae7fe6e16fd6d38efffb66450d9cdcc9cb206",
+          "pixelSha256": "abf1e60dccf7889b6216337803d8d57f7723cb3eb6bb6b873cd49c1528a78fd9",
+          "width": 903,
+          "height": 226
+        },
+        "w4": {
+          "sha256": "f3f5e574bb45d280cb01a8427bcae7fe6e16fd6d38efffb66450d9cdcc9cb206",
+          "pixelSha256": "abf1e60dccf7889b6216337803d8d57f7723cb3eb6bb6b873cd49c1528a78fd9",
+          "width": 903,
+          "height": 226
+        },
+        "w5": {
+          "sha256": "f3f5e574bb45d280cb01a8427bcae7fe6e16fd6d38efffb66450d9cdcc9cb206",
+          "pixelSha256": "abf1e60dccf7889b6216337803d8d57f7723cb3eb6bb6b873cd49c1528a78fd9",
+          "width": 903,
+          "height": 226
+        }
+      },
+      "w4Reason": "not_applicable",
+      "w4From": "w1",
+      "w5Reason": "w4_not_applied",
+      "w5Kind": "w1",
+      "w5PixelIdentical": {
+        "w1": true,
+        "w4": true
+      },
+      "embeddedPngSha256": "0feaa7d8eee231965bb88d6a6932d6f47985eb1a3bb64e2b1a84ed9d2c1b29ff",
+      "unknown": false
+    }
+  ]
+}
