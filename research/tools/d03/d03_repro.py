@@ -31,6 +31,7 @@ HERE = Path(__file__).resolve().parent
 sys.dont_write_bytecode = True  # the package is read-only: no __pycache__ inside it
 sys.path.insert(0, str(HERE))
 import d03_checks as checks  # noqa: E402
+from d03_editions import CAPTION_BLOBS, MANUSCRIPT_PATH, valid_identity  # noqa: E402
 
 SECRET_ENV = re.compile(r"(API_KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|_KEY$|^OPENAI|^ANTHROPIC|^BAZE|^GEMINI|^GOOGLE_API)", re.I)
 MODELS = ["gpt4o", "haiku"]
@@ -46,7 +47,7 @@ def snapshot(pkg: Path) -> dict[str, str]:
 
 # ---------------------------------------------------------------- manifest
 
-def verify_manifest(pkg: Path) -> dict:
+def verify_manifest(pkg: Path, *, require_edition: bool = False) -> dict:
     mpath = pkg / "MANIFEST.json"
     if not mpath.is_file():
         return {"ok": False, "missing": ["MANIFEST.json"], "corrupt": [], "extra": [], "files": 0}
@@ -59,6 +60,9 @@ def verify_manifest(pkg: Path) -> dict:
             missing.append(path)
         elif p.stat().st_size != f["bytes"] or sha256(p) != f["sha256"]:
             corrupt.append(path)
+    has_edition = "format" in manifest or "manuscriptBlob" in manifest or MANUSCRIPT_PATH in listed
+    if (require_edition or has_edition) and not valid_identity(pkg, manifest, listed):
+        corrupt.append("MANIFEST.json")
     present = {p.relative_to(pkg).as_posix() for p in pkg.rglob("*") if p.is_file()}
     extra = sorted(present - set(listed) - {"MANIFEST.json"})
     return {"ok": not (missing or corrupt or extra), "files": len(listed), "missing": missing, "corrupt": corrupt, "extra": extra}
@@ -282,7 +286,9 @@ def step_lang(run_record: dict) -> str:
 def compare(pkg: Path, out: Path) -> dict:
     exp = pkg / "expected"
     gen = out / "generated"
-    ms = exp / "manuscript" / "image-first-paper-draft.ko.md"
+    ms = pkg / MANUSCRIPT_PATH
+    meta = json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8"))
+    caption_source = ms if meta["manuscriptBlob"] in CAPTION_BLOBS else None
     items = []
 
     def guarded(item, fn):
@@ -301,11 +307,11 @@ def compare(pkg: Path, out: Path) -> dict:
         s3 = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m in MODELS}
     sessions = gen / "figures/data/heldout-sessions.json"
     figs = [("F1", "fig1_rq1_billed_tokens", probe_mf, lambda p: checks.check_f1(p, pkg / "research/results/rq1-sweep-001/rows.jsonl"), "figures"),
-            ("F2", "fig5_exp2_accuracy_vs_tokens", probe_e2, lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}), "figures/exp2/heldout"),
+            ("F2", "fig5_exp2_accuracy_vs_tokens", probe_e2, lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}, manuscript=caption_source, question_manifest=pkg / checks.F2_QUESTION_MANIFEST), "figures/exp2/heldout"),
             ("F3", "fig2_heldout_accuracy_vs_tokens", probe_mf, lambda p: checks.check_f3(p, sessions, s3), "figures"),
             ("F4", "fig3_heldout_late_recall", probe_mf, lambda p: checks.check_f4(p, sessions, s3), "figures")]
     for item, stem, probe, fn, sub in figs:
-        guarded(item, lambda: checks.figure_verdict(item, fn(probe[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png")))
+        guarded(item, lambda: checks.figure_verdict(item, fn(probe[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png", f2_tiles=item == "F2")))
     secondary = []
     for p in sorted((exp / "results").rglob("*")):
         if p.is_file():
@@ -353,8 +359,9 @@ def output_manifest(pkg: Path, out: Path, regen: dict, comp: dict) -> dict:
                                      else {"step": n, "command": ["d03_repro.py", "regenerate (in-process write_tables)"]} for n in step_names],
                       "compare": ["d03_repro.py", "compare", "--package", "<package>", "--out", "<out>"]})
     all_files = [rec(p.relative_to(out).as_posix()) for p in sorted(gen.rglob("*")) if p.is_file()]
+    meta = json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8"))
     return {"inputManifest": {"path": "MANIFEST.json", "sha256": sha256(pkg / "MANIFEST.json")},
-            "package": {k: json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8")).get(k) for k in ["baseCommit", "manuscriptBlob"]},
+            "package": {k: meta[k] for k in ("baseCommit", "manuscriptBlob", "toolsCommit") if k in meta},
             "items": items, "generatedFiles": all_files, "generatedFileCount": len(all_files)}
 
 
@@ -395,6 +402,8 @@ def report_md(rep: dict) -> str:
         if "render" in it:
             r = it["render"]
             note = f"bytes {'=' if r.get('bytesEqual') else '≠'}, pixels {'=' if r.get('pixelsEqual') else '≠'}, 수치 {it['data']['values']}개, 문제 {len(it['data']['problems'])}"
+            if caption := it["data"].get("caption"):
+                note += f", 교정본 캡션 수치 {caption['matchedValues']}/{caption['totalValues']} 일치"
         elif "cells" in it:
             note = f"셀 {it['cells']}개, 차이 {len(it.get('cellDiffs', []))}"
         if "error" in it:
@@ -420,7 +429,7 @@ def main() -> int:
     a = ap.parse_args()
     pkg = Path(a.package).resolve()
     if a.cmd == "verify-manifest":
-        m = verify_manifest(pkg)
+        m = verify_manifest(pkg, require_edition=True)
         print(json.dumps(m, ensure_ascii=False))
         return 0 if m["ok"] else 2
     if not a.out:
@@ -438,6 +447,10 @@ def main() -> int:
         if not r.get("offline", {}).get("ok"):
             print(json.dumps({"refuse": "the regeneration in --out did not stay offline", "offline": r.get("offline")}))
             return 4
+        m = verify_manifest(pkg, require_edition=True)
+        if not m["ok"]:
+            print(json.dumps(m, ensure_ascii=False))
+            return 2
         rep = compare(pkg, out)
         (out / "compare.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
         (out / "outputs-manifest.json").write_text(json.dumps(output_manifest(pkg, out, r, rep), ensure_ascii=False, indent=1), encoding="utf-8")
@@ -447,7 +460,7 @@ def main() -> int:
         print("refuse: --out already exists; use a new path")
         return 2
     if a.cmd == "regenerate":
-        m = verify_manifest(pkg)
+        m = verify_manifest(pkg, require_edition=True)
         if not m["ok"]:
             print(json.dumps({"refuse": "damaged or incomplete package; nothing regenerated", **m}, ensure_ascii=False))
             return 2
@@ -464,7 +477,7 @@ def main() -> int:
         return 1 if not r["ok"] else (0 if r["offline"]["ok"] else 4)
     t0 = time.perf_counter()
     rep: dict = {"package": {}}
-    m = verify_manifest(pkg)
+    m = verify_manifest(pkg, require_edition=True)
     rep["manifest"] = m
     if not m["ok"]:
         (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -472,7 +485,7 @@ def main() -> int:
         return 2
     before = snapshot(pkg)
     meta = json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8"))
-    rep["package"] = {k: meta.get(k) for k in ["baseCommit", "manuscriptBlob", "createdFor"]}
+    rep["package"] = {k: meta[k] for k in ("baseCommit", "manuscriptBlob", "toolsCommit", "createdFor") if k in meta}
     rep["guard"] = guard_check(out)
     if not rep["guard"]["ok"]:
         (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")

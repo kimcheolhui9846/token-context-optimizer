@@ -453,24 +453,183 @@ def check_f1(probe: dict, rows_path: Path) -> dict:
     return {"values": len(data) * 7, "problems": problems}
 
 
-def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
+F2_ARM_LABELS = {a: "D′" if a == "Dp" else a for a in F2_MARKER}
+F2_CAPTION_PAIR = r"\((0|[1-9][0-9]{0,2}(?:,[0-9]{3})*),\s+([0-9]{1,3}\.[0-9])%\)"
+
+
+def read_f2_caption(manuscript: Path, problems: list) -> dict:
+    try:
+        captions = [line for line in manuscript_lines(manuscript) if line.lstrip().startswith("그림 2.")]
+    except (OSError, UnicodeError) as exc:
+        problems.append(f"Figure 2 caption: could not read {manuscript}: {exc}")
+        return {}
+    if len(captions) != 1:
+        problems.append(f"Figure 2 caption: expected one '그림 2.' caption, found {len(captions)}")
+        return {}
+
+    # The published caption puts both coordinate lists between these prose phrases.
+    intro, start, rest = captions[0].partition("탐색 결과다.")
+    section, end, outro = rest.partition("오차 막대는")
+    if not (start and end):
+        problems.append("Figure 2 caption: could not locate the two coordinate lists")
+        return {}
+    if re.search(F2_CAPTION_PAIR, intro) or re.search(F2_CAPTION_PAIR, outro):
+        problems.append("Figure 2 caption: extra coordinate outside the model lists")
+
+    providers = {name: model for model, name in MODELS}
+    model_names = "|".join(map(re.escape, providers))
+    blocks = re.split(rf"(?<!\S)({model_names})(?=\s)", section.strip())
+    if blocks[0] or blocks[1::2] != list(providers):
+        problems.append(f"Figure 2 caption model order: expected {list(providers)}, found {blocks[1::2]}")
+
+    observed = {}
+    for name, block in zip(blocks[1::2], blocks[2::2]):
+        body = block.strip()
+        if not body.endswith("."):
+            problems.append(f"Figure 2 caption {name}: expected a period after the coordinates")
+        arms = []
+        for entry in re.split(r",\s+(?=[A-Z])", body.removesuffix(".")):
+            arm, _, pair = entry.strip().partition(" ")
+            arms.append(arm)
+            match = re.fullmatch(F2_CAPTION_PAIR, pair.strip())
+            if not match:
+                problems.append(f"Figure 2 caption {name} {arm}: malformed coordinate {entry!r}")
+                continue
+            key = (providers[name], arm)
+            if key in observed:
+                problems.append(f"Figure 2 caption {name} {arm}: duplicate coordinate")
+                continue
+            observed[key] = {"x": int(match[1].replace(",", "")), "y": float(match[2])}
+        if arms != list(F2_ARM_LABELS.values()):
+            problems.append(f"Figure 2 caption {name} arm order: expected {list(F2_ARM_LABELS.values())}, found {arms}")
+    return observed
+
+
+def compare_f2_caption(manuscript: Path, expected: dict, problems: list) -> dict:
+    observed = read_f2_caption(manuscript, problems)
+    points = []
+    matched = 0
+    for model, name in MODELS:
+        for arm in F2_ARM_LABELS.values():
+            key = (model, arm)
+            want, got = expected.get(key), observed.get(key)
+            points.append({"model": model, "arm": arm, "expected": want, "observed": got})
+            if got is None:
+                problems.append(f"Figure 2 caption {name} {arm}: missing coordinate")
+            elif want is not None:
+                for axis in ("x", "y"):
+                    if want[axis] == got[axis]:
+                        matched += 1
+                    else:
+                        problems.append(
+                            f"Figure 2 caption {name} {arm} {axis}: expected {want[axis]}, observed {got[axis]}"
+                        )
+    return {"matchedValues": matched, "totalValues": 2 * len(points), "points": points}
+
+
+F2_QUESTION_MANIFEST = "research/results/exp2-heldout/families-exp2-heldout.json"
+
+
+def f2_expected_slots(path: Path) -> set[tuple[str, str, str]]:
+    families = json.loads(path.read_text(encoding="utf-8"))["families"]
+    questions = {(family["id"], question["id"]) for family in families for question in family["questions"]}
+    if len(questions) != 36:
+        raise ValueError(f"expected 36 questions in the held-out manifest, found {len(questions)}")
+    conditions = ("clean", "combined", "downscale-only", "jpeg-only")
+    return {(family, question, condition) for family, question in questions for condition in conditions}
+
+
+def f2_valid_arm(rows: list[dict], expected_slots: set[tuple[str, str, str]], arm: str,
+                 context: str, problems: list) -> bool:
+    if len(rows) != len(expected_slots):
+        problems.append(f"{context}: expected {len(expected_slots)} started rows, found {len(rows)}")
+        return False
+
+    problem_count = len(problems)
+    seen = set()
+    for row in rows:
+        slot = (row.get("family"), row.get("question"), row.get("condition"))
+        if any(not isinstance(part, str) for part in slot):
+            problems.append(f"{context}: invalid family/question/condition {slot!r}")
+            continue
+        key = "/".join((*slot, arm))  # Use the raw arm ID (Dp for the display label D-prime).
+        if row.get("key") != key:
+            problems.append(f"{context}: expected query key {key!r}, found {row.get('key')!r}")
+        if slot in seen:
+            problems.append(f"{context}: duplicate question condition for query {key!r}")
+        if slot not in expected_slots:
+            problems.append(f"{context}: unknown family/question/condition for query {key!r}")
+        seen.add(slot)
+    return len(problems) == problem_count
+
+
+def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = None,
+             question_manifest: Path | None = None) -> dict:
     import numpy as np
 
     problems = []
+    try:
+        if question_manifest is None:
+            tools = Path(__file__).resolve().parent
+            root = tools.parent if tools.name == "tools" else tools.parents[2]
+            question_manifest = root / F2_QUESTION_MANIFEST
+        expected_slots = f2_expected_slots(question_manifest)
+    except (KeyError, OSError, TypeError, ValueError) as exc:
+        problems.append(f"Figure 2 held-out question manifest: {exc}")
+        data = {"values": 0, "problems": problems}
+        if manuscript is not None:
+            data["caption"] = compare_f2_caption(manuscript, {}, problems)
+        return data
+
     expected = []
+    caption_expected = {}
     styled = []
     labels = []
     for m, colour in [("gpt4o", GPT), ("haiku", HAIKU)]:
-        rows = [json.loads(x) for x in graded[m].read_text(encoding="utf-8").splitlines() if x]
-        rows = [r for r in rows if r["outcome"] != "not_started"]
-        fams = sorted({r["family"] for r in rows})
-        for a in ["A", "B", "C", "D", "E", "Dp"]:
-            scores = [float(np.mean([1.0 if r["contentCorrect"] else 0.0 for r in rows if r["family"] == f and r["arm"] == a])) for f in fams]
+        try:
+            rows = [json.loads(x) for x in graded[m].read_text(encoding="utf-8").splitlines() if x]
+        except (KeyError, OSError, ValueError) as exc:
+            if manuscript is None:
+                raise
+            problems.append(f"Figure 2 graded data {m}: could not read rows: {exc}")
+            continue
+        by_arm = {a: [] for a in F2_ARM_LABELS}
+        for row in rows:
+            arm = row.get("arm")
+            if not isinstance(arm, str) or arm not in by_arm:
+                problems.append(f"Figure 2 graded data {m}: unexpected arm {arm!r}")
+            elif row.get("outcome") == "not_started":
+                problems.append(f"Figure 2 graded data {m} {arm}: unstarted query {row.get('key')!r}")
+            else:
+                by_arm[arm].append(row)
+        for a, label in F2_ARM_LABELS.items():
+            arm_rows = by_arm[a]
+            context = f"Figure 2 graded data {m} {label}"
+            if not f2_valid_arm(arm_rows, expected_slots, a, context, problems):
+                continue
+            # promptTokens already includes D's re-request. Each graded row is one query.
+            tokens = [r["promptTokens"] for r in arm_rows if r.get("promptTokens") is not None]
+            if len(tokens) != len(expected_slots):
+                problems.append(f"{context}: expected {len(expected_slots)} query token totals, found {len(tokens)}")
+                continue
+            grouped = {}
+            for row in arm_rows:
+                grouped.setdefault(row["family"], []).append(row)
+            by_family = [grouped[family] for family in sorted(grouped)]
+            scores = [float(np.mean([1.0 if r["contentCorrect"] else 0.0 for r in family])) for family in by_family]
             mean, lo, hi = boot_ci(scores, 20261016)
-            x = float(np.mean([r["promptTokens"] for r in rows if r["arm"] == a and r.get("promptTokens") is not None]))
+            x = float(np.mean(tokens))
+            if manuscript is not None:
+                # Each family score is an exact multiple of 1/4. Round the percentage
+                # from that exact sum so ties such as 81.25 round to 81.3.
+                percent = Decimal(sum(scores)) * 100 / len(scores)
+                caption_expected[m, label] = {
+                    "x": js_math_round(x),
+                    "y": float(percent.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)),
+                }
             expected.append((x, mean * 100, lo * 100, hi * 100))
             styled.append((x, mean * 100, colour, F2_MARKER[a]))
-            labels.append(("D′" if a == "Dp" else a, colour))
+            labels.append((label, colour))
     ax = probe["axes"][0]
     missing = match_points(expected, errorbars(ax))
     if missing:
@@ -489,7 +648,10 @@ def check_f2(probe: dict, graded: dict[str, Path]) -> dict:
         problems.append("point colour/marker")
     if not linear_axes(probe):
         problems.append("scale")
-    return {"values": len(expected) * 4, "problems": problems}
+    data = {"values": len(expected) * 4, "problems": problems}
+    if manuscript is not None:
+        data["caption"] = compare_f2_caption(manuscript, caption_expected, problems)
+    return data
 
 
 def session_rows(path: Path) -> list[dict]:
@@ -575,22 +737,41 @@ def check_f4(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
     return {"values": n, "problems": problems}
 
 
-def render_compare(generated: Path, baseline: Path) -> dict:
+def render_compare(generated: Path, baseline: Path, *, f2_tiles: bool = False) -> dict:
     import numpy as np
     from matplotlib import image
 
-    gb, bb = generated.read_bytes(), baseline.read_bytes()
-    if gb == bb:
+    if generated.read_bytes() == baseline.read_bytes():
         return {"bytesEqual": True, "pixelsEqual": True, "shapeEqual": True, "fraction": 0.0, "meanAbs": 0.0, "within": True}
     g, b = image.imread(str(generated)), image.imread(str(baseline))
     if g.shape != b.shape:
         return {"bytesEqual": False, "pixelsEqual": False, "shapeEqual": False, "within": False,
                 "shape": [list(g.shape), list(b.shape)]}
-    d = np.abs(g.astype(float) - b.astype(float))
-    differing = float((d.max(axis=-1) > 0).mean())
-    mean = float(d.mean())
-    return {"bytesEqual": False, "pixelsEqual": differing == 0.0, "shapeEqual": True, "fraction": differing,
-            "meanAbs": mean, "within": differing <= RENDER_MAX_FRACTION and mean <= RENDER_MAX_MEAN}
+    delta = np.abs(g - b)
+    different = delta if delta.ndim == 2 else delta.max(axis=-1)
+    fraction, mean = float((different > 0).mean()), float(delta.mean(dtype=np.float64))
+    result = {"bytesEqual": False, "pixelsEqual": fraction == 0.0, "shapeEqual": True, "fraction": fraction,
+              "meanAbs": mean, "within": fraction <= RENDER_MAX_FRACTION and mean <= RENDER_MAX_MEAN}
+    if f2_tiles and fraction:
+        # imread normalizes PNG samples to [0, 1] and expands palettes/transparency.
+        # Count visible changes after compositing on the white manuscript background.
+        def visible_levels(pixels):
+            if pixels.ndim == 3 and pixels.shape[-1] == 4:
+                alpha = pixels[..., 3:4]
+                pixels = pixels[..., :3] * alpha + (1 - alpha)
+            return np.rint(pixels * 255).astype(np.int16)
+
+        visible_delta = np.abs(visible_levels(g) - visible_levels(b))
+        significant = (visible_delta if visible_delta.ndim == 2 else visible_delta.max(axis=-1)) >= 32
+        height, width = significant.shape
+        tile = 32
+        padded = np.pad(significant, ((0, -height % tile), (0, -width % tile)))
+        counts = padded.reshape(padded.shape[0] // tile, tile, padded.shape[1] // tile, tile).sum(axis=(1, 3))
+        row, col = np.unravel_index(counts.argmax(), counts.shape)
+        peak = int(counts[row, col])
+        result["worstTile"] = {"x": int(col) * tile, "y": int(row) * tile, "changedPixels": peak}
+        result["within"] = result["within"] and peak < 52
+    return result
 
 
 def figure_verdict(item: str, data: dict, render: dict) -> dict:

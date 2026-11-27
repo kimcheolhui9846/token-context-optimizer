@@ -1,6 +1,6 @@
 """Build the D03 local review package from committed Git objects (not from the working tree).
 
-  python research/tools/d03/build_package.py --commit <sha> --out <new dir> [--private-patterns <file>]
+  python research/tools/d03/build_package.py --commit <sha> --out <new dir> [--tools-commit <revised reader sha>] [--private-patterns <file>]
 
 Writes <out>/d03-repro/ (unpacked), <out>/d03-repro.zip (deterministic), <out>/build.json and <out>/scan.json.
 The sensitivity scan prints and stores counts only, never the matched text. Extra patterns (for example account
@@ -17,8 +17,10 @@ import sys
 import zipfile
 from pathlib import Path
 
+from d03_editions import (CAPABILITY_PATH, CAPABILITY_SOURCE, CAPTION_BLOBS, EDITION_MODULE,
+                          LEGACY_BLOB, READER_PATHS, REVISED_BLOB)
+
 MANUSCRIPT = "docs/research/image-first-paper-draft.ko.md"
-MANUSCRIPT_BLOB = "c22a37b89b083c445f7ba483868aabe7041ddc02"
 TABLE1_FIRST = "abdaade"
 ENTRY_SCRIPTS = ["rq1-summarize.mjs", "summarize.mjs", "exp2-analyze.mjs", "session-summarize.mjs", "session-analyze.mjs", "figure-data.mjs"]
 MODELS = ["gpt4o", "haiku"]
@@ -145,30 +147,63 @@ def scan(root: Path, extra: list[str]) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", default="HEAD")
+    ap.add_argument("--tools-commit", help="revised edition reader and guide revision (default: HEAD)")
     ap.add_argument("--repo", default=".")
     ap.add_argument("--out", required=True)
     ap.add_argument("--private-patterns")
     a = ap.parse_args()
     repo = Path(a.repo).resolve()
-    commit = git(repo, "rev-parse", a.commit).decode().strip()
     out = Path(a.out).resolve()
     if out.exists():
         print("refuse: --out exists")
         return 2
-    if blob_id(repo, commit, MANUSCRIPT) != MANUSCRIPT_BLOB:
-        print("refuse: manuscript blob differs from the fixed baseline")
+    try:
+        commit = git(repo, "rev-parse", "--verify", f"{a.commit}^{{commit}}").decode().strip()
+        manuscript = blob_id(repo, commit, MANUSCRIPT)
+        if manuscript != LEGACY_BLOB and manuscript not in CAPTION_BLOBS:
+            print("refuse: unsupported manuscript blob")
+            return 2
+        revised = manuscript in CAPTION_BLOBS
+        if not revised and a.tools_commit is not None:
+            print("refuse: the legacy edition takes all files from its source commit")
+            return 2
+        tools = git(repo, "rev-parse", "--verify", f"{a.tools_commit or 'HEAD'}^{{commit}}").decode().strip() if revised else commit
+        has_reader = bool(ls(repo, tools, EDITION_MODULE))
+        if revised and not has_reader:
+            print("refuse: tools commit predates the revised reader")
+            return 2
+        has_capability = revised and bool(ls(repo, tools, CAPABILITY_SOURCE))
+        if revised and manuscript != REVISED_BLOB:
+            supported = git(repo, "show", f"{tools}:{CAPABILITY_SOURCE}").strip() if has_capability else b""
+            if supported != manuscript.encode("ascii"):
+                print("refuse: reader does not support this manuscript edition")
+                return 2
+        files = plan(repo, commit)
+        if has_capability:
+            files.append((CAPABILITY_PATH, CAPABILITY_SOURCE, "code"))
+        if has_reader:
+            files.append(("tools/d03_editions.py", EDITION_MODULE, "code"))
+        # Resolve every source before creating the output directory.
+        sources = []
+        for path, repo_path, role in files:
+            revision = tools if revised and path in READER_PATHS else commit
+            sources.append((path, repo_path, role, blob_id(repo, revision, repo_path)))
+    except subprocess.CalledProcessError:
+        print("refuse: unavailable input commit or required file")
         return 2
     root = out / "d03-repro"
     entries = []
-    for pkg_path, repo_path, role in plan(repo, commit):
-        data = git(repo, "cat-file", "blob", f"{commit}:{repo_path}")
+    for pkg_path, repo_path, role, blob in sources:
+        data = git(repo, "cat-file", "blob", blob)
         dst = root / pkg_path
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_bytes(data)
         rights, dist = RIGHTS[role]
         entries.append({"path": pkg_path, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
-                        "source": repo_path, "gitBlob": blob_id(repo, commit, repo_path), "role": role,
+                        "source": repo_path, "gitBlob": blob, "role": role,
                         "rights": rights, "distribution": dist})
+        if revised and pkg_path in READER_PATHS:
+            entries[-1]["sourceCommit"] = tools
     prov = table1_first(repo)
     (root / "expected/provenance/table1-abdaade.md").write_bytes(prov)
     rights, dist = RIGHTS["manuscript-derived"]
@@ -176,9 +211,11 @@ def main() -> int:
                     "source": f"{MANUSCRIPT} table 1 at {TABLE1_FIRST}", "gitBlob": blob_id(repo, TABLE1_FIRST, MANUSCRIPT),
                     "role": "manuscript-derived", "rights": rights, "distribution": dist})
     entries.sort(key=lambda e: e["path"])
-    manifest = {"format": "d03-manifest-1", "baseCommit": commit, "manuscriptBlob": MANUSCRIPT_BLOB,
+    manifest = {"format": "d03-manifest-2" if revised else "d03-manifest-1", "baseCommit": commit, "manuscriptBlob": manuscript,
                 "createdFor": "local review only; external distribution needs separate approval",
                 "roles": {k: {"rights": v[0], "distribution": v[1]} for k, v in RIGHTS.items()}, "files": entries}
+    if revised:
+        manifest["toolsCommit"] = tools
     (root / "MANIFEST.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     zpath = out / "d03-repro.zip"
     with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
@@ -198,6 +235,8 @@ def main() -> int:
              "zipBytes": zpath.stat().st_size,
              "manifestSha256": hashlib.sha256((root / "MANIFEST.json").read_bytes()).hexdigest(),
              "byRole": {r: sum(1 for e in entries if e["role"] == r) for r in RIGHTS}}
+    if revised:
+        build.update(toolsCommit=tools, manuscriptBlob=manuscript)
     (out / "build.json").write_text(json.dumps(build, indent=1), encoding="utf-8")
     print(json.dumps({**build, "scanTotals": {k: v["matches"] for k, v in sc["content"].items()}, "fileNameHits": sc["fileNameHits"]}))
     return 0
