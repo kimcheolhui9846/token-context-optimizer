@@ -100,12 +100,17 @@ priority when evidence is incomplete.
    unavailable, re-index the authorized original and compare its hash with the
    recorded source; treat a changed hash as a new version. Do not assume a particular
    host preserves this list automatically.
-3. **Recheck exact values after compaction.** Retrieve the source evidence again
-   before answering numbers, codes, identifiers, times or table cells; a compacted
-   summary alone is not evidence. Use `query_artifact` for text or read the original
-   directly under the Stop Conditions. For images, revalidate with
-   `inspect_image_artifact` and view the authorized original or a caller-chosen crop.
-   If the source cannot be recovered, state that the value is unverified.
+3. **Recheck exact values after compaction.** Retrieve source evidence before
+   citing numbers, codes, identifiers, times or table cells. For text,
+   `query_artifact` and `summarize_artifact` use the indexed snapshot. Cite a query
+   excerpt with its hash and source range. A summary can be empty.
+   To cite the current file, read the authorized original directly under the Stop
+   Conditions, or call `index_artifact` again on the same canonical path. Compare
+   the full SHA-256 with the saved hash and query the returned ID for the excerpt.
+   If the original is unavailable, label saved text as historical and the current
+   value as unverified. For images, revalidate with `inspect_image_artifact` and
+   view the authorized original or a caller-chosen crop. If the source evidence
+   cannot be recovered, report the value as unverified.
 4. **Coordinate supported image-history pruning with compaction.** If the host
    workflow already supports removing prior tool-returned images and that removal is
    authorized, prefer batching it at a compaction point over pruning every turn.

@@ -130,6 +130,137 @@ describe("P06 T1 artifact identity and original-byte contracts", () => {
     expect(changed.artifactId).toBe(expectedIdentity(await realpath(firstPath), changedBytes).artifactId);
     expect(changed.artifactId).not.toBe(first.artifactId);
   });
+
+  it("T1-4 cites indexed text snapshots across same-path edits and clears them on STDIO restart", async () => {
+    const firstLine = "Intake complete.";
+    const oldQuote = "Bluebird shipped.";
+    const newQuote = "Bluebird pending.";
+    const path = await fixture("snapshot.txt", Buffer.from(`${firstLine}\n${oldQuote}\nEnd.\n`, "utf8"));
+    const canonicalPath = await realpath(path);
+    const originalBytes = await readFile(canonicalPath);
+    const originalSha = expectedIdentity(canonicalPath, originalBytes).sha256;
+    const queryArgs = { query: "Bluebird", maxTokens: 200, contextLines: 0 };
+
+    async function expectQuery(
+      client: CropMcpClient,
+      artifactId: string,
+      bytes: Buffer,
+      quote: string,
+      line = 2,
+      startByte = 17,
+    ) {
+      const { structuredContent: result } = structuredResult(await client.call("query_artifact", {
+        ...queryArgs,
+        artifactId,
+      }));
+      expect(result).toMatchObject({
+        artifactId,
+        sha256: expectedIdentity(canonicalPath, bytes).sha256,
+        fallbackReason: null,
+        warnings: [],
+      });
+      expect(result.excerpts).toHaveLength(1);
+      const [excerpt] = result.excerpts;
+      expect(excerpt).toMatchObject({
+        text: quote,
+        sourceMap: {
+          path: canonicalPath,
+          startLine: line,
+          endLine: line,
+          startByte,
+          endByte: startByte + Buffer.byteLength(quote, "utf8"),
+          completeSpan: true,
+        },
+      });
+      expectOriginalBytes(bytes, excerpt.sourceMap.startByte, excerpt.sourceMap.endByte, excerpt.text);
+    }
+
+    let oldId: string;
+    let newId: string;
+    let currentBytes: Buffer;
+    const client = await CropMcpClient.start(undefined, root);
+    try {
+      const { structuredContent: before } = structuredResult(await client.call("index_artifact", {
+        path: canonicalPath,
+      }));
+      expect(before).toMatchObject({ path: canonicalPath, sha256: originalSha });
+      oldId = before.artifactId;
+
+      await writeFile(canonicalPath, Buffer.from(`${firstLine}\n${newQuote}\nEnd.\n`, "utf8"));
+      currentBytes = await readFile(canonicalPath);
+      const currentSha = expectedIdentity(canonicalPath, currentBytes).sha256;
+      expect(currentSha).not.toBe(originalSha);
+
+      await expectQuery(client, oldId, originalBytes, oldQuote);
+      const { structuredContent: summary } = structuredResult(await client.call("summarize_artifact", {
+        artifactId: oldId,
+        maxTokens: 200,
+      }));
+      expect(summary).toMatchObject({
+        artifactId: oldId,
+        sha256: originalSha,
+        summary: "",
+        sourceMap: null,
+        fallbackReason: "unknown_content_requires_source",
+      });
+
+      const { structuredContent: after } = structuredResult(await client.call("index_artifact", {
+        path: canonicalPath,
+      }));
+      expect(after).toMatchObject({ path: canonicalPath, sha256: currentSha });
+      newId = after.artifactId;
+      expect(newId).not.toBe(oldId);
+      await expectQuery(client, newId, currentBytes, newQuote);
+    } finally {
+      await client.close();
+    }
+
+    const restarted = await CropMcpClient.start(undefined, root);
+    try {
+      for (const artifactId of [oldId, newId]) {
+        for (const [tool, args] of [
+          ["query_artifact", queryArgs],
+          ["summarize_artifact", { maxTokens: 200 }],
+        ] as const) {
+          const response = resultOf(await restarted.call(tool, { ...args, artifactId }));
+          expect(response.isError).toBe(true);
+          expect(response.content[0].text).toContain(`Artifact not indexed: ${artifactId}`);
+        }
+      }
+
+      const reopenedBytes = await readFile(canonicalPath);
+      expect(reopenedBytes).toEqual(currentBytes);
+      const { structuredContent: recovered } = structuredResult(await restarted.call("index_artifact", {
+        path: canonicalPath,
+      }));
+      expect(recovered).toMatchObject({
+        path: canonicalPath,
+        sha256: expectedIdentity(canonicalPath, reopenedBytes).sha256,
+      });
+      await expectQuery(restarted, recovered.artifactId, reopenedBytes, newQuote);
+
+      await writeFile(canonicalPath, Buffer.concat([Buffer.from("새 메모.\n", "utf8"), reopenedBytes]));
+      const prefixedBytes = await readFile(canonicalPath);
+      const prefixedSha = expectedIdentity(canonicalPath, prefixedBytes).sha256;
+      expect(prefixedSha).not.toBe(recovered.sha256);
+      const { structuredContent: prefixed } = structuredResult(await restarted.call("index_artifact", {
+        path: canonicalPath,
+      }));
+      expect(prefixed).toMatchObject({ path: canonicalPath, sha256: prefixedSha });
+      expect(prefixed.artifactId).not.toBe(recovered.artifactId);
+      await expectQuery(restarted, recovered.artifactId, reopenedBytes, newQuote, 2, 17);
+      await expectQuery(restarted, prefixed.artifactId, prefixedBytes, newQuote, 3, 29);
+
+      await rm(canonicalPath);
+      await expect(readFile(canonicalPath)).rejects.toMatchObject({ code: "ENOENT" });
+      const unreadable = resultOf(await restarted.call("index_artifact", { path: canonicalPath }));
+      expect(unreadable.isError).toBe(true);
+      expect(unreadable.content[0].text).toContain("File cannot be read");
+      await expectQuery(restarted, prefixed.artifactId, prefixedBytes, newQuote, 3, 29);
+    } finally {
+      await restarted.close();
+    }
+  });
 });
 
 describe("P06 T2 source maps and summary line boundaries", () => {
@@ -413,13 +544,18 @@ describe("P06 T5 policy classification and allowed summary", () => {
     expect(summary.fallbackReason).toBeNull();
   });
 
-  it("T5-2 exposes the same harmless semantic policy through built STDIO MCP", async () => {
+  it("T5-2 keeps an allowed semantic summary tied to indexed bytes after a same-path edit", async () => {
     const content = "The quiet garden group records ordinary plans for a calm morning meeting.";
-    const path = await fixture("ordinary-mcp.txt", content);
+    const path = await fixture("ordinary-mcp.txt", Buffer.from(content + "\n", "utf8"));
+    const canonicalPath = await realpath(path);
+    const originalSha = expectedIdentity(canonicalPath, await readFile(canonicalPath)).sha256;
     const client = await CropMcpClient.start(undefined, root);
     try {
       const classified = structuredResult(await client.call("classify_context", { text: content }));
-      const indexed = structuredResult(await client.call("index_artifact", { path }));
+      const indexed = structuredResult(await client.call("index_artifact", { path: canonicalPath }));
+      await writeFile(canonicalPath, Buffer.from(content.replace("morning", "afternoon") + "\n", "utf8"));
+      const editedSha = expectedIdentity(canonicalPath, await readFile(canonicalPath)).sha256;
+      expect(editedSha).not.toBe(originalSha);
       const summarized = structuredResult(await client.call("summarize_artifact", {
         artifactId: indexed.structuredContent.artifactId,
         maxTokens: 200,
@@ -430,9 +566,15 @@ describe("P06 T5 policy classification and allowed summary", () => {
         reasons: ["natural_language"],
         warnings: [],
       });
-      expect(summarized.structuredContent.summary).toBe(content);
-      expect(summarized.structuredContent.fallbackReason).toBeNull();
-      expect(summarized.structuredContent.warnings).toEqual([]);
+      expect(indexed.structuredContent.sha256).toBe(originalSha);
+      expect(summarized.structuredContent).toMatchObject({
+        artifactId: indexed.structuredContent.artifactId,
+        sha256: originalSha,
+        summary: content,
+        sourceMap: { path: canonicalPath, startLine: 1, endLine: 1 },
+        fallbackReason: null,
+        warnings: [],
+      });
       expect(summarized.text).toStrictEqual(summarized.structuredContent);
     } finally {
       await client.close();

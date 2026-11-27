@@ -202,8 +202,12 @@ A passing result is a functional smoke of the installed runtime. It does not pro
    {"artifactId":"<returned text ID>","query":"Bluebird","maxTokens":64,"contextLines":0}
    ```
 
+   Change line 2 in the same file to `Bluebird pending.` and repeat the query using the first ID. It still returns `Bluebird shipped.` with the original SHA-256. Both `query_artifact` and `summarize_artifact` use the indexed snapshot. For this short file, the summary is empty. Use the query excerpt for a quotation. Its line numbers and byte offsets refer to the version identified by the returned SHA-256.
+
+   To cite the current file, read the authorized original directly or call `index_artifact` again on the same canonical path. Compare the full SHA-256 from re-indexing with the one you saved. In this example the hashes differ. Repeat the query with the returned ID to cite `Bluebird pending.` on line 2 with its updated hash.
+
 3. For a supported RGB PNG (or a tolerant 8-bit grayscale PNG), call `index_image_artifact` with its path and save its SHA-256 and validation profile. Pass the image ID to `inspect_image_artifact` to check the source and to `overview_image_artifact` for orientation. If you need a detail, choose a rectangle in original-image coordinates and pass it to `crop_image_artifact`. A supported partial crop returns a JPEG. A full-frame crop returns an original reference. Read the original to verify exact values.
-4. A server restart clears both indexes. A text record can also be evicted during a session. Re-index the authorized original at its canonical path, using the same profile for an image. Compare its SHA-256 with the one you saved, then use the returned ID. A different hash identifies a new version.
+4. A server restart clears both indexes. A text record can also be evicted during a session. Re-index the authorized original at its canonical path, using the same profile for an image. Compare its SHA-256 with the one you saved, then use the returned ID. A different hash identifies a new version. If the original is unavailable, label any saved excerpt as historical and the current value as unverified.
 
 ## Research Tooling
 
