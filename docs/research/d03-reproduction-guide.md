@@ -1,5 +1,7 @@
 # D03 재현 패키지 실행 안내
 
+ZIP을 푼 뒤 [독자용 원고 열기](READER.ko.md)를 선택한다. 본문에서 그림 네 장과 분석 문서 두 곳을 오프라인으로 열 수 있다. 미수록 자료를 인용한 여덟 곳에는 원래 저장소 경로를 표시했다. 과학 판정에는 `expected/manuscript/`의 원본을 사용한다. 각 자료의 동봉·재배포 범위는 매니페스트의 권리 항목에서 확인한다.
+
 로컬 검토용 재현 패키지(압축 파일 `d03-repro.zip`, 풀면 `d03-repro/` 폴더)의 사용 설명이다. 독자는 이 저장소와 Git 이력 없이 패키지만 받은 사람이다. 이 문서는 패키지의 `README.ko.md`에 대응한다. 판정 규칙의 원문은 `docs/research/d03-reproduction-rules.md`이며 패키지에는 `RULES.ko.md`로 들어간다.
 
 ## 1. 목적과 범위
@@ -11,7 +13,7 @@
 
 ### 판본별 안내
 
-판본은 세 가지다.
+원고 판본은 세 가지다. 이 안내의 독자용 원고와 PDF 인도 검사는 11월 26일판·27일판에 새 도구를 조합한 패키지(`d03-manifest-3`, `deliveryVersion: 1`)에서 제공한다. 이전 도구로 만든 ZIP의 구성과 판정은 해당 ZIP에 들어 있는 안내를 따른다.
 
 | 판본 | 데이터(소스) 커밋 | 도구 커밋 | 패키지 생성 인자(유지관리자용) | ZIP SHA-256 |
 |---|---|---|---|---|
@@ -19,6 +21,7 @@
 | 개정 논문판(2026-11-26) | `5270a65a0eaa8263aaa1e041d5f3a1ec7b7fbe78` | `79db78e6c7c7b56658be0f10e45bd4c1f5752d3c` | `--commit <source> --tools-commit <도구 커밋 전체 해시> --out <새 폴더>` | `cdeba5e8814923822c6c9c7ed526be286a03e832a316f74f48b8d655090a144c` |
 | 2026-11-27판 | `a768783cd894f9ab2b715de7d28707b59da279bf` | 새 독자용 실행기 커밋(필수). 전체 해시는 인계 기록 또는 빌드 기록에서 확인해 지정한다 | `--commit <source> --tools-commit <도구 커밋 전체 해시> --out <새 폴더>` | 이 안내에는 적지 않는다 |
 
+- 보존한 11월 27일 ZIP의 도구 커밋은 `45473e113bfa27cbe49d0e07c32bac0ed2145c88`이고 SHA-256은 `d19c1d2ea4186a45cd6b3b63c84ef1322f5f3b9b9e3081c63d881cf60dc8270f`다. 새 도구 조합의 지문과 도구 커밋은 작업 인계에 기록한다.
 - 결정적으로 다시 만들려면 도구 커밋을 전체 해시로 명시해 고정해야 한다. 유지관리자가 개정 논문판이나 2026-11-27판의 `--tools-commit`을 생략하면 현재 저장소 HEAD를 사용한다. 배포용 사본을 다시 만들 때는 매니페스트에 기록된 전체 도구 커밋을 지정한다. 패키지를 받은 독자의 이 README에 따른 확인과 `all` 실행(5절)에는 여전히 Git이 필요 없다.
 - 2026-11-26 개정 논문판 ZIP은 위 도구 커밋으로 만든 그대로 보관한다. 같은 데이터는 새 독자용 실행기 커밋으로도 만들 수 있지만 ZIP 바이트가 달라지며, 보관한 ZIP과 같은 파일이 아니다.
 - 2026-11-27판은 새 독자용 실행기가 필요하다.
@@ -48,7 +51,7 @@
 | 운영체제 | Windows, macOS, Linux | 작성자 기록은 Windows 한 가지이며 다른 OS 검증은 확인 불가 |
 | Node.js | 22 이상(`research/package.json`의 `engines`), `node`가 PATH에 있어야 한다 | v24.18.0. 다른 버전은 검증하지 않았다 |
 | Python | 3.12 | 3.12.10 |
-| Python 패키지 | 패키지의 `requirements.txt`(matplotlib 3.11.1, numpy 2.5.1과 의존 패키지 고정 버전) | 같음 |
+| Python 패키지 | 패키지의 `requirements.txt`(matplotlib 3.11.1, numpy 2.5.1, PDF 렌더러 pypdfium2 5.15.1과 의존 패키지 고정 버전) | 같음 |
 | 그림 글꼴 | matplotlib에 포함된 DejaVu Sans | 같음 |
 
 - npm 설치는 필요 없다. 재생성 스크립트는 Node 내장 모듈만 쓴다.
@@ -63,7 +66,7 @@ python -m venv <venv폴더>
 <venv의 python> -m pip install --require-hashes -r d03-repro/requirements-win-cp312.lock
 ```
 
-- 해시 잠금 파일 `requirements-win-cp312.lock`은 Windows x64·CPython 3.12용 PyPI wheel의 SHA-256을 담는다(2026-11-23 확인). 이 조합에서 쓴다.
+- 해시 잠금 파일 `requirements-win-cp312.lock`은 Windows x64·CPython 3.12용 PyPI wheel의 SHA-256을 담는다. PDF 렌더러의 wheel 지문은 2026-11-27에 확인했다. 이 조합에서 쓴다.
 - 다른 OS·Python에서는 버전만 고정한 `requirements.txt`를 쓴다: `<venv의 python> -m pip install -r d03-repro/requirements.txt`. 이 경우 wheel 해시는 검증되지 않는다.
 - venv의 python은 Windows에서 `<venv>\Scripts\python.exe`, 그 외 `<venv>/bin/python`이다.
 
@@ -82,7 +85,7 @@ python -m venv <venv폴더>
 | `verify-manifest` | 패키지 파일 해시 확인 | `--package`만 |
 | `guard-check` | 네트워크 차단 음성 대조(차단이 실제로 거부하는지) | `--package`, `--out` |
 | `regenerate` | 매니페스트를 먼저 확인한 뒤 생성기 실행과 표 1–3 파일 작성. 손상·누락·추가 파일이 있으면 아무것도 실행하지 않고 종료 코드 2 | `--package`, `--out` |
-| `compare` | 7항목 판정과 출력 기록 작성 | `--package`, `--out` |
+| `compare` | 표·그림 7항목과 필수 PDF 4개 재대조 | `--package`, `--out` |
 
 동작과 제한은 다음과 같다. (`docs/research/d03-reproduction-rules.md:80-85`)
 
@@ -99,7 +102,7 @@ python -m venv <venv폴더>
 - 재생성 조건이 깨지면 7항목 판정과 별도로 미통과다. 종료 코드는 4이고, 보고서에 가드 없는 단계와 차단 기록 수를 적는다.
 - 가드 기록은 단계 이름(`D03_STEP`)과 인터프리터 종류(Node·Python)로 대조한다. 단계마다 그 단계를 실행한 인터프리터가 차단 장치를 시작한 기록이 있어야 하고, 그 인터프리터는 실행기가 띄운 프로세스 자신이거나 그 직접 자식이어야 한다(기록의 pid·ppid로 확인). 그래서 venv의 `python.exe`처럼 실제 인터프리터를 자식으로 띄우는 런처를 써도 되고, 더 먼 프로세스의 기록은 인정하지 않는다. 검증한 환경은 Windows의 `node.exe`, 해시 잠금 venv의 `python.exe`, 전역 `python.exe`다.
 - `logs/*.log`의 첫 줄에는 실행한 명령이 로컬 절대 경로로 남는다. 출력 폴더를 다른 사람과 나눌 때는 `report.json`·`runs.json`·`outputs-manifest.json`을 쓴다. 이 세 파일은 경로를 `<out>`·`<package>`로 적는다.
-- 판정 근거는 `all`이 만든 `report.json`이다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 한다. 없으면 종료 코드 2로, 그 재생성이 오프라인 조건을 깨뜨렸으면 종료 코드 4로 거부한다.
+- `all`의 결과는 `report.json`과 `report.md`에 보존한다. 출력 파일을 바꾼 뒤 `compare`를 실행하면 최신 결과가 `compare.json`과 `compare.md`에 기록된다. 두 명령 모두 `scientificPass`, `deliveryPass` 및 파일별 `requiredPDFs`를 보고한다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 한다. 없으면 종료 코드 2로, 그 재생성이 오프라인 조건을 깨뜨렸으면 종료 코드 4로 거부한다.
 - 빈 출력 폴더에 기준 이미지나 집계표를 복사해 성공으로 처리하지 않는다. 기준 파일은 `expected/`에만 있고 생성기 작업 폴더에 들어가지 않는다.
 
 ## 6. 결과 읽기
@@ -120,7 +123,7 @@ python -m venv <venv폴더>
 
 | 코드 | 뜻 |
 |---|---|
-| 0 | 7/7 합격이고 재생성이 오프라인 조건을 지켰다 |
+| 0 | 과학 판정 7/7, PDF 인도 판정 4/4, 재생성 오프라인 조건 통과 |
 | 1 | 판정 실패 또는 불일치 |
 | 2 | 매니페스트·입력 오류. 재생성 전에 멈춘다 |
 | 3 | 사전 네트워크 차단 음성 대조 실패. 재생성 전에 멈춘다 |
@@ -135,14 +138,14 @@ python -m venv <venv폴더>
   - MATCH-WITHIN-TOLERANCE: 수치·구조 검사는 모두 일치하고 렌더 허용 범위 안의 차이만 있다.
   - MISMATCH: 검사 하나라도 허용 범위를 넘는다. 입력·원고·판정 기준은 고치지 않고 차이를 보고한다.
   - NOT-REPRODUCIBLE: 필요한 입력·seed·생성기가 없어 실행할 수 없다.
-- 패키지 합격은 MATCH와 MATCH-WITHIN-TOLERANCE의 합이 7/7이고, 매니페스트 무결성, 빈 경로 재실행과 오프라인 검증, 공개 범위 점검이 모두 통과한 경우다. (`docs/research/d03-reproduction-rules.md:26`)
+- 패키지 합격은 MATCH와 MATCH-WITHIN-TOLERANCE의 합이 7/7이고 필수 그림 PDF 4개가 인도 검사를 통과하며, 매니페스트 무결성, 빈 경로 재실행과 오프라인 검증, 공개 범위 점검이 모두 통과한 경우다. (`docs/research/d03-reproduction-rules.md:26`)
 - T1: 사양과의 셀 단위 일치, 인용 번호와 참고문헌 대응, 참고문헌 작업 기록과의 문자열 일치, 표가 처음 들어간 판과의 일치. (`docs/research/d03-reproduction-rules.md:28-37`)
 - T2·T3: 고정한 사양(bootstrap 10,000회, 각 seed, percentile 95%, margin −5%p)으로 재생성 JSON에서 셀 문자열을 만들어 원고 셀과 비교한다. 재생성한 분석·요약 파일의 기준 커밋 파일과의 바이트 일치는 보조 증거다. (`docs/research/d03-reproduction-rules.md:39-60`)
 - F1–F4: 기초 수치(허용 오차 절댓값 1e-9), 축과 표식, 렌더 순으로 본다. (`docs/research/d03-reproduction-rules.md:62-76`)
   - 렌더가 바이트 동일이거나 해독한 RGBA 배열이 같으면 렌더 일치다.
   - 다르면 크기가 같고, 다른 픽셀 비율 0.5% 이하, 평균 절대 차이 2/255 이하이며 앞 두 단계가 모두 통과한 경우에만 허용 범위 안으로 본다.
   - 크기가 다르거나 범위를 넘으면 MISMATCH다.
-  - PDF는 `/CreationDate` 등이 달라 해시 비교 대상이 아니며 해시는 기록만 한다.
+  - PDF의 SHA-256은 파일 식별용으로 기록한다. 각 PDF의 한 페이지를 직접 렌더링해 매니페스트로 확인한 대응 PNG와 시각적으로 대조한다.
 - 개정 논문판과 2026-11-27판의 F2는 한국어 그림 2 캡션의 수치도 대조한다. (`RULES.ko.md` 8절)
   - GPT-4o와 Haiku 4.5 각각에 대해 A, B, C, D, E, D′의 여섯 점을 확인한다. D′는 탐색 조건이다.
   - 질의당 평균 총 입력 토큰은 정수로, family 평균 내용 정확도는 소수 첫째 자리로 반올림한다(half-up, 예: 81.25 → 81.3). 대조하는 수치는 모두 24개다.
@@ -161,6 +164,7 @@ python -m venv <venv폴더>
 | 경로 | 내용 |
 |---|---|
 | `README.ko.md` | 이 안내 |
+| `READER.ko.md` | 오프라인 근거를 연결한 독자용 파생 원고 |
 | `METHODS.ko.md` | 방법 보충(`selectWindow` 의사코드 전문, 판정자 모델, 보존할 범위, D02 편집 대응) |
 | `RULES.ko.md` | 판정 규칙 |
 | `MANIFEST.json` | 파일별 SHA-256, 바이트, 역할, 원 저장소 경로와 Git blob, 권리, 배포 등급 |

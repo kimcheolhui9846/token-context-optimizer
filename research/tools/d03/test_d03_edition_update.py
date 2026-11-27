@@ -19,6 +19,7 @@ ROOT = HERE.parents[2]
 NOV26 = "5270a65a0eaa8263aaa1e041d5f3a1ec7b7fbe78"
 NOV27 = "a768783cd894f9ab2b715de7d28707b59da279bf"
 OLD_READER = "79db78e6c7c7b56658be0f10e45bd4c1f5752d3c"
+NOV27_READER = "45473e113bfa27cbe49d0e07c32bac0ed2145c88"
 PAPER = "docs/research/image-first-paper-draft.ko.md"
 
 
@@ -32,9 +33,15 @@ class EditionUpdate(unittest.TestCase):
                 dst = pkg / editions.MANUSCRIPT_PATH
                 dst.parent.mkdir(parents=True)
                 dst.write_bytes(text)
-                reader_commit = "1" * 40  # Git-free manifest fixture for a modern reader
-                paths = set(editions.READER_PATHS)
-                entries = {path: {"sourceCommit": reader_commit} for path in paths}
+                reader_commit = OLD_READER if revision == NOV26 else NOV27_READER
+                reader_path = "tools/d03_repro.py"
+                reader = subprocess.check_output(
+                    ["git", "show", f"{reader_commit}:research/tools/d03/d03_repro.py"], cwd=ROOT
+                )
+                (pkg / reader_path).parent.mkdir()
+                (pkg / reader_path).write_bytes(reader)
+                entries = {path: {"sourceCommit": reader_commit} for path in editions.READER_PATHS}
+                entries[reader_path]["gitBlob"] = hashlib.sha1(b"blob %d\0" % len(reader) + reader).hexdigest()
                 entries[editions.MANUSCRIPT_PATH] = {"gitBlob": blob}
                 meta = {"format": "d03-manifest-2", "baseCommit": revision,
                         "manuscriptBlob": blob, "toolsCommit": reader_commit}

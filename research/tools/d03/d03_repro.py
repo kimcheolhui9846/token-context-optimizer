@@ -224,7 +224,11 @@ def collect(work: Path, gen: Path) -> None:
     for src, dst, names in pairs:
         dst.mkdir(parents=True, exist_ok=True)
         for n in names:
-            shutil.copy2(src / n, dst / n)
+            source = src / n
+            if (dst / n).relative_to(gen).as_posix() in REQUIRED_PDFS and not source.is_file():
+                # Let the delivery check identify the missing PDF alongside the scientific verdicts.
+                continue
+            shutil.copy2(source, dst / n)
 
 
 def regenerate(pkg: Path, out: Path) -> dict:
@@ -284,6 +288,8 @@ def step_lang(run_record: dict) -> str:
 # ---------------------------------------------------------------- compare
 
 def compare(pkg: Path, out: Path) -> dict:
+    from d03_delivery import check_figure_pdf
+
     exp = pkg / "expected"
     gen = out / "generated"
     ms = pkg / MANUSCRIPT_PATH
@@ -310,7 +316,11 @@ def compare(pkg: Path, out: Path) -> dict:
             ("F2", "fig5_exp2_accuracy_vs_tokens", probe_e2, lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}, manuscript=caption_source, question_manifest=pkg / checks.F2_QUESTION_MANIFEST), "figures/exp2/heldout"),
             ("F3", "fig2_heldout_accuracy_vs_tokens", probe_mf, lambda p: checks.check_f3(p, sessions, s3), "figures"),
             ("F4", "fig3_heldout_late_recall", probe_mf, lambda p: checks.check_f4(p, sessions, s3), "figures")]
+    pdfs = []
     for item, stem, probe, fn, sub in figs:
+        relative = Path(sub) / f"{stem}.pdf"
+        pdfs.append({"item": item, "path": "generated/" + relative.as_posix(),
+                     **check_figure_pdf(gen / relative, exp / relative.with_suffix(".png"))})
         guarded(item, lambda: checks.figure_verdict(item, fn(probe[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png", f2_tiles=item == "F2")))
     secondary = []
     for p in sorted((exp / "results").rglob("*")):
@@ -319,7 +329,10 @@ def compare(pkg: Path, out: Path) -> dict:
             g = gen / rel
             secondary.append({"path": rel, "bytesEqual": g.is_file() and g.read_bytes() == p.read_bytes()})
     passed = sum(1 for i in items if i["verdict"] in ("MATCH", "MATCH-WITHIN-TOLERANCE"))
-    return {"items": items, "passed": passed, "total": len(items), "secondaryBlobEqual": secondary,
+    delivered = {row["path"] for row in pdfs if row["pass"]}
+    required = {"generated/" + path for path in REQUIRED_PDFS}
+    return {"items": items, "passed": passed, "total": len(items), "scientificPass": passed == 7,
+            "deliveryPass": len(required) == 4 and delivered == required, "requiredPDFs": pdfs, "secondaryBlobEqual": secondary,
             "secondaryEqualCount": sum(s["bytesEqual"] for s in secondary)}
 
 
@@ -339,6 +352,8 @@ ITEM_OUTPUTS = {
     "F4": (["figures/fig3_heldout_late_recall.png", "figures/fig3_heldout_late_recall.pdf", "figures/data/heldout-sessions.json"],
            [s for m in MODELS for s in (f"session-summarize-{m}", f"session-analyze-{m}")] + ["figure-data", "make-figures"]),
 }
+REQUIRED_PDFS = {path for item, (paths, _) in ITEM_OUTPUTS.items() if item.startswith("F")
+                 for path in paths if path.endswith(".pdf")}
 PROBES = {"F1": "probe-make_figures.json", "F2": "probe-exp2_figures.json", "F3": "probe-make_figures.json", "F4": "probe-make_figures.json"}
 
 
@@ -362,6 +377,8 @@ def output_manifest(pkg: Path, out: Path, regen: dict, comp: dict) -> dict:
     meta = json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8"))
     return {"inputManifest": {"path": "MANIFEST.json", "sha256": sha256(pkg / "MANIFEST.json")},
             "package": {k: meta[k] for k in ("baseCommit", "manuscriptBlob", "toolsCommit") if k in meta},
+            "command": comp["command"], "scientificPass": comp["scientificPass"],
+            "deliveryPass": comp["deliveryPass"], "requiredPDFs": comp["requiredPDFs"],
             "items": items, "generatedFiles": all_files, "generatedFileCount": len(all_files)}
 
 
@@ -372,7 +389,7 @@ def environment() -> dict:
 
     node = subprocess.run(["node", "-v"], capture_output=True, text=True).stdout.strip()
     pkgs = {}
-    for name in ["matplotlib", "numpy", "pillow", "contourpy", "cycler", "fonttools", "kiwisolver", "packaging",
+    for name in ["matplotlib", "numpy", "pillow", "pypdfium2", "contourpy", "cycler", "fonttools", "kiwisolver", "packaging",
                  "pyparsing", "python-dateutil", "six"]:
         try:
             pkgs[name] = metadata.version(name)
@@ -393,6 +410,14 @@ def environment() -> dict:
             "font": {"family": "DejaVu Sans", "file": font_rel, "sha256": sha256(font)}}
 
 
+def delivery_lines(comp: dict) -> list[str]:
+    pdfs = comp["requiredPDFs"]
+    return ["## 필수 그림 PDF", "",
+            f"표·그림 과학 판정 {comp['passed']}/{comp['total']} · PDF 인도 판정 {sum(p['pass'] for p in pdfs)}/4",
+            "", "| 그림 | 파일 | PDF 판정 |", "|---|---|---|",
+            *[f"| {p['item']} | `{p['path']}` | {p['reason']} |" for p in pdfs]]
+
+
 def report_md(rep: dict) -> str:
     lines = ["# D03 재현 결과", "", f"자동 판정 합격(규칙 1–3단계): {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']}, "
              f"오프라인 조건 {rep['offline']['ok']})", "",
@@ -410,6 +435,7 @@ def report_md(rep: dict) -> str:
             note = it["error"]
         lines.append(f"| {it['item']} | {it['verdict']} | {note} |")
     c = rep["compare"]
+    lines.extend(["", *delivery_lines(c)])
     lines += ["", f"보조: 기준 산출물 바이트 일치 {c['secondaryEqualCount']}/{len(c['secondaryBlobEqual'])}",
               f"매니페스트: {rep['manifest']['files']}개, 누락 {len(rep['manifest']['missing'])}, 손상 {len(rep['manifest']['corrupt'])}, 추가 {len(rep['manifest']['extra'])}",
               f"오프라인 차단 사전 대조(의도적 차단): {rep['guard']['ok']}",
@@ -452,10 +478,13 @@ def main() -> int:
             print(json.dumps(m, ensure_ascii=False))
             return 2
         rep = compare(pkg, out)
+        rep["command"] = "compare"
+        rep["pass"] = rep["scientificPass"] and rep["deliveryPass"]
+        (out / "compare.md").write_text("\n".join(["# D03 재대조", "", *delivery_lines(rep), ""]), encoding="utf-8")
         (out / "compare.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
         (out / "outputs-manifest.json").write_text(json.dumps(output_manifest(pkg, out, r, rep), ensure_ascii=False, indent=1), encoding="utf-8")
-        print(json.dumps({"passed": rep["passed"], "total": rep["total"]}))
-        return 0 if rep["passed"] == 7 else 1
+        print(json.dumps({key: rep[key] for key in ("pass", "passed", "total", "scientificPass", "deliveryPass", "requiredPDFs")}))
+        return 0 if rep["pass"] else 1
     if out.exists():
         print("refuse: --out already exists; use a new path")
         return 2
@@ -476,7 +505,7 @@ def main() -> int:
         print(json.dumps({"ok": r["ok"], "offline": r["offline"]["ok"]}))
         return 1 if not r["ok"] else (0 if r["offline"]["ok"] else 4)
     t0 = time.perf_counter()
-    rep: dict = {"package": {}}
+    rep: dict = {"command": "all", "package": {}}
     m = verify_manifest(pkg, require_edition=True)
     rep["manifest"] = m
     if not m["ok"]:
@@ -493,6 +522,10 @@ def main() -> int:
     rep["regenerate"] = regenerate(pkg, out)
     (out / "runs.json").write_text(json.dumps(rep["regenerate"], indent=1), encoding="utf-8")
     rep["compare"] = compare(pkg, out) if rep["regenerate"]["ok"] else {"items": [], "passed": 0, "total": 7, "secondaryBlobEqual": [], "secondaryEqualCount": 0}
+    comp = rep["compare"]
+    if not rep["regenerate"]["ok"]:
+        comp.update(scientificPass=False, deliveryPass=False, requiredPDFs=[])
+    comp["command"] = "all"
     rep["packageUnchanged"] = snapshot(pkg) == before
     rep["offline"] = rep["regenerate"]["offline"]
     rep["networkGuardStarts"] = rep["offline"]["guardStarts"]
@@ -502,13 +535,16 @@ def main() -> int:
         (out / "outputs-manifest.json").write_text(json.dumps(rep["outputsManifest"], ensure_ascii=False, indent=1), encoding="utf-8")
     rep["environment"] = environment()
     rep["seconds"] = round(time.perf_counter() - t0, 1)
-    rep["scientificPass"] = rep["compare"]["passed"] == 7
-    rep["pass"] = rep["scientificPass"] and rep["packageUnchanged"] and rep["guard"]["ok"] and rep["offline"]["ok"]
-    rep["passScope"] = "automated rules steps 1-3; the visual check (step 4) is recorded separately by the reviewer"
+    rep["scientificPass"] = comp["scientificPass"]
+    rep["deliveryPass"] = comp["deliveryPass"]
+    rep["pass"] = rep["scientificPass"] and rep["deliveryPass"] and rep["packageUnchanged"] and rep["guard"]["ok"] and rep["offline"]["ok"]
+    rep["passScope"] = "automated scientific, offline and PDF delivery checks; reviewer records the human visual check separately"
     (out / "env.json").write_text(json.dumps(rep["environment"], ensure_ascii=False, indent=1), encoding="utf-8")
     (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     (out / "report.md").write_text(report_md(rep), encoding="utf-8")
-    print(json.dumps({"pass": rep["pass"], "passed": rep["compare"]["passed"], "offline": rep["offline"]["ok"], "seconds": rep["seconds"]}))
+    print(json.dumps({"pass": rep["pass"], "passed": rep["compare"]["passed"], "scientificPass": rep["scientificPass"],
+                      "deliveryPass": rep["deliveryPass"], "requiredPDFs": comp["requiredPDFs"],
+                      "offline": rep["offline"]["ok"], "seconds": rep["seconds"]}))
     if rep["pass"]:
         return 0
     if rep["regenerate"]["ok"] and not rep["offline"]["ok"]:

@@ -17,10 +17,10 @@ import sys
 import zipfile
 from pathlib import Path
 
-from d03_editions import (CAPABILITY_PATH, CAPABILITY_SOURCE, CAPTION_BLOBS, EDITION_MODULE,
-                          LEGACY_BLOB, READER_PATHS, REVISED_BLOB)
-
-MANUSCRIPT = "docs/research/image-first-paper-draft.ko.md"
+from d03_editions import (CAPABILITY_PATH, CAPABILITY_SOURCE, CAPTION_BLOBS, DELIVERY_FORMAT, DELIVERY_MODULE_PATH,
+                          DELIVERY_TOOL_PATHS, D03_DELIVERY_VERSION, EDITION_MODULE, FROZEN_NOV26_READER,
+                          FROZEN_READERS, LEGACY_BLOB, MANUSCRIPT_SOURCE as MANUSCRIPT, READER_PATHS, READER_VIEW_PATH, REVISED_BLOB,
+                          TRANSFORM_PATH, declares_delivery)
 TABLE1_FIRST = "abdaade"
 ENTRY_SCRIPTS = ["rq1-summarize.mjs", "summarize.mjs", "exp2-analyze.mjs", "session-summarize.mjs", "session-analyze.mjs", "figure-data.mjs"]
 MODELS = ["gpt4o", "haiku"]
@@ -60,6 +60,26 @@ def blob_id(repo: Path, commit: str, path: str) -> str:
 
 def ls(repo: Path, commit: str, prefix: str) -> list[str]:
     return git(repo, "ls-tree", "-r", "--name-only", commit, "--", prefix).decode().splitlines()
+
+
+def tree_files(repo: Path, revision: str) -> set[str]:
+    records = git(repo, "ls-tree", "-r", "-z", "--full-tree", revision).split(b"\0")
+    return {record.split(b"\t", 1)[1].decode("utf-8") for record in records
+            if record.startswith((b"100644 blob ", b"100755 blob "))}
+
+
+def delivery_view(repo: Path, commit: str, manuscript: str, sources) -> bytes:
+    """Run the local transform only after verifying it matches the pinned source."""
+    tool_blobs = {path: blob for path, _, _, blob in sources if path in DELIVERY_TOOL_PATHS}
+    transform = git(repo, "cat-file", "blob", tool_blobs[TRANSFORM_PATH])
+    local = Path(__file__).with_name("d03_reader_view.py").read_bytes()
+    if local.replace(b"\r\n", b"\n") != transform:
+        raise ValueError("reader transform differs from pinned tooling")
+    from d03_reader_view import make_reader_view
+
+    source_to_package = {repo_path: path for path, repo_path, _, _ in sources}
+    original = git(repo, "cat-file", "blob", manuscript)
+    return make_reader_view(original, source_to_package, tree_files(repo, commit))
 
 
 def src_closure(repo: Path, commit: str) -> list[str]:
@@ -172,24 +192,46 @@ def main() -> int:
         if revised and not has_reader:
             print("refuse: tools commit predates the revised reader")
             return 2
+        delivery = False
         has_capability = revised and bool(ls(repo, tools, CAPABILITY_SOURCE))
-        if revised and manuscript != REVISED_BLOB:
+        if revised:
+            reader_blob = blob_id(repo, tools, "research/tools/d03/d03_repro.py")
+            delivery = reader_blob not in FROZEN_READERS
+            if delivery and not declares_delivery(git(repo, "show", f"{tools}:{EDITION_MODULE}")):
+                raise ValueError("pinned reader does not declare the supported delivery contract")
             supported = git(repo, "show", f"{tools}:{CAPABILITY_SOURCE}").strip() if has_capability else b""
-            if supported != manuscript.encode("ascii"):
-                print("refuse: reader does not support this manuscript edition")
-                return 2
+            if delivery and (not has_capability or supported.decode("ascii") not in CAPTION_BLOBS - {REVISED_BLOB}):
+                raise ValueError("pinned reader lacks a recognized manuscript declaration")
+            if manuscript != REVISED_BLOB and (reader_blob == FROZEN_NOV26_READER
+                                               or supported != manuscript.encode("ascii")):
+                raise ValueError("reader does not support this manuscript edition")
+
         files = plan(repo, commit)
         if has_capability:
             files.append((CAPABILITY_PATH, CAPABILITY_SOURCE, "code"))
         if has_reader:
             files.append(("tools/d03_editions.py", EDITION_MODULE, "code"))
-        # Resolve every source before creating the output directory.
+        tool_paths = READER_PATHS
+        if delivery:
+            files.extend((path, "research/tools/d03/" + path.removeprefix("tools/"), "code")
+                         for path in (DELIVERY_MODULE_PATH, TRANSFORM_PATH))
+            tool_paths = DELIVERY_TOOL_PATHS
+            pinned = tree_files(repo, tools)
+            if any(source not in pinned for path, source, _ in files if path in tool_paths):
+                raise ValueError("pinned reader is missing a required delivery file")
+
+        # Resolve sources and generate the derivative before creating the output directory.
         sources = []
         for path, repo_path, role in files:
-            revision = tools if revised and path in READER_PATHS else commit
+            revision = tools if revised and path in tool_paths else commit
             sources.append((path, repo_path, role, blob_id(repo, revision, repo_path)))
-    except subprocess.CalledProcessError:
+        view = delivery_view(repo, commit, manuscript, sources) if delivery else None
+    except (subprocess.CalledProcessError, OSError):
         print("refuse: unavailable input commit or required file")
+        return 2
+    except ValueError as error:
+        print("refuse: " + ("invalid UTF-8 or ASCII in reader inputs"
+                            if isinstance(error, UnicodeError) else str(error)))
         return 2
     root = out / "d03-repro"
     entries = []
@@ -202,7 +244,7 @@ def main() -> int:
         entries.append({"path": pkg_path, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
                         "source": repo_path, "gitBlob": blob, "role": role,
                         "rights": rights, "distribution": dist})
-        if revised and pkg_path in READER_PATHS:
+        if revised and pkg_path in tool_paths:
             entries[-1]["sourceCommit"] = tools
     prov = table1_first(repo)
     (root / "expected/provenance/table1-abdaade.md").write_bytes(prov)
@@ -210,12 +252,22 @@ def main() -> int:
     entries.append({"path": "expected/provenance/table1-abdaade.md", "bytes": len(prov), "sha256": hashlib.sha256(prov).hexdigest(),
                     "source": f"{MANUSCRIPT} table 1 at {TABLE1_FIRST}", "gitBlob": blob_id(repo, TABLE1_FIRST, MANUSCRIPT),
                     "role": "manuscript-derived", "rights": rights, "distribution": dist})
+    if view is not None:
+        (root / READER_VIEW_PATH).write_bytes(view)
+        transform = next(entry for entry in entries if entry["path"] == TRANSFORM_PATH)
+        entries.append({"path": READER_VIEW_PATH, "bytes": len(view), "sha256": hashlib.sha256(view).hexdigest(),
+                        "source": MANUSCRIPT, "gitBlob": manuscript, "role": "manuscript-derived",
+                        "rights": rights, "distribution": dist, "transform": {
+                            "path": transform["path"], "sourceCommit": tools, "gitBlob": transform["gitBlob"]}})
     entries.sort(key=lambda e: e["path"])
-    manifest = {"format": "d03-manifest-2" if revised else "d03-manifest-1", "baseCommit": commit, "manuscriptBlob": manuscript,
+    manifest_format = DELIVERY_FORMAT if delivery else "d03-manifest-2" if revised else "d03-manifest-1"
+    manifest = {"format": manifest_format, "baseCommit": commit, "manuscriptBlob": manuscript,
                 "createdFor": "local review only; external distribution needs separate approval",
                 "roles": {k: {"rights": v[0], "distribution": v[1]} for k, v in RIGHTS.items()}, "files": entries}
     if revised:
         manifest["toolsCommit"] = tools
+    if delivery:
+        manifest["deliveryVersion"] = D03_DELIVERY_VERSION
     (root / "MANIFEST.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     zpath = out / "d03-repro.zip"
     with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
