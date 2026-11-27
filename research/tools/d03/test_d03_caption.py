@@ -131,6 +131,42 @@ class Figure2Caption(unittest.TestCase):
         self.assert_caption_failure(result, "gpt4o", "A", "duplicate", first["key"])
         self.assertLess(result["caption"]["matchedValues"], 24)
 
+    def check_graded_variant(self, mutate, models=("gpt4o",)):
+        graded = dict(self.graded)
+        for model in models:
+            rows = [json.loads(line) for line in graded[model].read_text(encoding="utf-8").splitlines()]
+            mutate(rows)
+            path = self.scratch / f"{model}.jsonl"
+            path.write_text("\n".join(map(json.dumps, rows)), encoding="utf-8")
+            graded[model] = path
+        result = self.check_variant(self.source, graded)
+        self.assertLess(result["caption"]["matchedValues"], 24)
+        return result
+
+    def test_missing_query_key_fails_with_full_row_count(self):
+        def mutate(rows):
+            del next(row for row in rows if row["arm"] == "A")["key"]
+
+        self.assert_caption_failure(self.check_graded_variant(mutate), "gpt4o", "A", "key")
+
+    def test_duplicate_question_condition_fails_with_distinct_keys(self):
+        def mutate(rows):
+            row = next(row for row in rows if row["arm"] == "A" and row["condition"] == "jpeg-only")
+            row["condition"] = "clean"
+
+        self.assert_caption_failure(self.check_graded_variant(mutate), "gpt4o", "A", "condition")
+
+    def test_unknown_question_fails_even_when_all_arms_and_models_agree(self):
+        def mutate(rows):
+            family = rows[0]["family"]
+            for row in rows:
+                if row["family"] == family:
+                    row["question"] = "unknown-question"
+                    row["key"] = "/".join(row[field] for field in ("family", "question", "condition", "arm"))
+
+        result = self.check_graded_variant(mutate, models=("gpt4o", "haiku"))
+        self.assert_caption_failure(result, "unknown-question", "gpt4o", "haiku")
+
     def test_original_call_omits_caption(self):
         self.assertEqual(check_f2(self.probe, self.graded), {"values": 48, "problems": []})
 

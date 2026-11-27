@@ -17,7 +17,8 @@ import sys
 import zipfile
 from pathlib import Path
 
-from d03_editions import EDITION_MODULE, LEGACY_BLOB, READER_PATHS, REVISED_BLOB
+from d03_editions import (CAPABILITY_PATH, CAPABILITY_SOURCE, CAPTION_BLOBS, EDITION_MODULE,
+                          LEGACY_BLOB, READER_PATHS, REVISED_BLOB)
 
 MANUSCRIPT = "docs/research/image-first-paper-draft.ko.md"
 TABLE1_FIRST = "abdaade"
@@ -159,10 +160,10 @@ def main() -> int:
     try:
         commit = git(repo, "rev-parse", "--verify", f"{a.commit}^{{commit}}").decode().strip()
         manuscript = blob_id(repo, commit, MANUSCRIPT)
-        if manuscript not in (LEGACY_BLOB, REVISED_BLOB):
+        if manuscript != LEGACY_BLOB and manuscript not in CAPTION_BLOBS:
             print("refuse: unsupported manuscript blob")
             return 2
-        revised = manuscript == REVISED_BLOB
+        revised = manuscript in CAPTION_BLOBS
         if not revised and a.tools_commit is not None:
             print("refuse: the legacy edition takes all files from its source commit")
             return 2
@@ -171,7 +172,15 @@ def main() -> int:
         if revised and not has_reader:
             print("refuse: tools commit predates the revised reader")
             return 2
+        has_capability = revised and bool(ls(repo, tools, CAPABILITY_SOURCE))
+        if revised and manuscript != REVISED_BLOB:
+            supported = git(repo, "show", f"{tools}:{CAPABILITY_SOURCE}").strip() if has_capability else b""
+            if supported != manuscript.encode("ascii"):
+                print("refuse: reader does not support this manuscript edition")
+                return 2
         files = plan(repo, commit)
+        if has_capability:
+            files.append((CAPABILITY_PATH, CAPABILITY_SOURCE, "code"))
         if has_reader:
             files.append(("tools/d03_editions.py", EDITION_MODULE, "code"))
         # Resolve every source before creating the output directory.

@@ -31,7 +31,7 @@ HERE = Path(__file__).resolve().parent
 sys.dont_write_bytecode = True  # the package is read-only: no __pycache__ inside it
 sys.path.insert(0, str(HERE))
 import d03_checks as checks  # noqa: E402
-from d03_editions import MANUSCRIPT_PATH, REVISED_BLOB, valid_identity  # noqa: E402
+from d03_editions import CAPTION_BLOBS, MANUSCRIPT_PATH, valid_identity  # noqa: E402
 
 SECRET_ENV = re.compile(r"(API_KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|_KEY$|^OPENAI|^ANTHROPIC|^BAZE|^GEMINI|^GOOGLE_API)", re.I)
 MODELS = ["gpt4o", "haiku"]
@@ -288,7 +288,7 @@ def compare(pkg: Path, out: Path) -> dict:
     gen = out / "generated"
     ms = pkg / MANUSCRIPT_PATH
     meta = json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8"))
-    caption_source = ms if meta["manuscriptBlob"] == REVISED_BLOB else None
+    caption_source = ms if meta["manuscriptBlob"] in CAPTION_BLOBS else None
     items = []
 
     def guarded(item, fn):
@@ -307,11 +307,11 @@ def compare(pkg: Path, out: Path) -> dict:
         s3 = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m in MODELS}
     sessions = gen / "figures/data/heldout-sessions.json"
     figs = [("F1", "fig1_rq1_billed_tokens", probe_mf, lambda p: checks.check_f1(p, pkg / "research/results/rq1-sweep-001/rows.jsonl"), "figures"),
-            ("F2", "fig5_exp2_accuracy_vs_tokens", probe_e2, lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}, manuscript=caption_source), "figures/exp2/heldout"),
+            ("F2", "fig5_exp2_accuracy_vs_tokens", probe_e2, lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}, manuscript=caption_source, question_manifest=pkg / checks.F2_QUESTION_MANIFEST), "figures/exp2/heldout"),
             ("F3", "fig2_heldout_accuracy_vs_tokens", probe_mf, lambda p: checks.check_f3(p, sessions, s3), "figures"),
             ("F4", "fig3_heldout_late_recall", probe_mf, lambda p: checks.check_f4(p, sessions, s3), "figures")]
     for item, stem, probe, fn, sub in figs:
-        guarded(item, lambda: checks.figure_verdict(item, fn(probe[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png")))
+        guarded(item, lambda: checks.figure_verdict(item, fn(probe[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png", f2_tiles=item == "F2")))
     secondary = []
     for p in sorted((exp / "results").rglob("*")):
         if p.is_file():

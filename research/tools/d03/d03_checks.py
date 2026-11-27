@@ -8,7 +8,6 @@ from __future__ import annotations
 import json
 import re
 import unicodedata
-from collections import Counter
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
@@ -528,10 +527,58 @@ def compare_f2_caption(manuscript: Path, expected: dict, problems: list) -> dict
     return {"matchedValues": matched, "totalValues": 2 * len(points), "points": points}
 
 
-def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = None) -> dict:
+F2_QUESTION_MANIFEST = "research/results/exp2-heldout/families-exp2-heldout.json"
+
+
+def f2_expected_slots(path: Path) -> set[tuple[str, str, str]]:
+    families = json.loads(path.read_text(encoding="utf-8"))["families"]
+    questions = {(family["id"], question["id"]) for family in families for question in family["questions"]}
+    if len(questions) != 36:
+        raise ValueError(f"expected 36 questions in the held-out manifest, found {len(questions)}")
+    conditions = ("clean", "combined", "downscale-only", "jpeg-only")
+    return {(family, question, condition) for family, question in questions for condition in conditions}
+
+
+def f2_valid_arm(rows: list[dict], expected_slots: set[tuple[str, str, str]], arm: str,
+                 context: str, problems: list) -> bool:
+    if len(rows) != len(expected_slots):
+        problems.append(f"{context}: expected 144 started rows, found {len(rows)}")
+        return False
+
+    problem_count = len(problems)
+    seen = set()
+    for row in rows:
+        slot = (row.get("family"), row.get("question"), row.get("condition"))
+        if any(not isinstance(part, str) for part in slot):
+            problems.append(f"{context}: invalid family/question/condition {slot!r}")
+            continue
+        key = "/".join((*slot, arm))  # Use the raw arm ID (Dp for the display label D-prime).
+        if row.get("key") != key:
+            problems.append(f"{context}: expected query key {key!r}, found {row.get('key')!r}")
+        if slot in seen:
+            problems.append(f"{context}: duplicate question condition for query {key!r}")
+        if slot not in expected_slots:
+            problems.append(f"{context}: unknown family/question/condition for query {key!r}")
+        seen.add(slot)
+    return len(problems) == problem_count
+
+
+def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = None,
+             question_manifest: Path | None = None) -> dict:
     import numpy as np
 
     problems = []
+    try:
+        if question_manifest is None:
+            question_manifest = Path(__file__).resolve().parents[3] / F2_QUESTION_MANIFEST
+        expected_slots = f2_expected_slots(question_manifest)
+    except (KeyError, OSError, TypeError, ValueError) as exc:
+        problems.append(f"Figure 2 held-out question manifest: {exc}")
+        data = {"values": 0, "problems": problems}
+        if manuscript is not None:
+            data["caption"] = compare_f2_caption(manuscript, {}, problems)
+        return data
+
     expected = []
     caption_expected = {}
     styled = []
@@ -544,36 +591,29 @@ def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = 
                 raise
             problems.append(f"Figure 2 graded data {m}: could not read rows: {exc}")
             continue
-        families = set()
-        grouped = {a: {} for a in F2_ARM_LABELS}
+        by_arm = {a: [] for a in F2_ARM_LABELS}
         for row in rows:
-            if row["outcome"] != "not_started":
-                family, arm = row["family"], row["arm"]
-                families.add(family)
-                if arm in grouped:
-                    grouped[arm].setdefault(family, []).append(row)
-        fams = sorted(families)
+            arm = row.get("arm")
+            if not isinstance(arm, str) or arm not in by_arm:
+                problems.append(f"Figure 2 graded data {m}: unexpected arm {arm!r}")
+            elif row.get("outcome") == "not_started":
+                problems.append(f"Figure 2 graded data {m} {arm}: unstarted query {row.get('key')!r}")
+            else:
+                by_arm[arm].append(row)
         for a, label in F2_ARM_LABELS.items():
-            by_family = [grouped[a].get(f, []) for f in fams]
+            arm_rows = by_arm[a]
+            context = f"Figure 2 graded data {m} {label}"
+            if not f2_valid_arm(arm_rows, expected_slots, a, context, problems):
+                continue
             # promptTokens already includes D's re-request. Each graded row is one query.
-            tokens = [r["promptTokens"] for family in by_family for r in family if r.get("promptTokens") is not None]
-            if manuscript is not None:
-                row_count = sum(map(len, by_family))
-                if len(fams) != 36 or any(len(family) != 4 for family in by_family):
-                    problems.append(
-                        f"Figure 2 graded data {m} {label}: expected 36 families with 4 rows each (144 rows), "
-                        f"found {len(grouped[a])} families and {row_count} rows; "
-                        f"{sum(len(family) == 4 for family in by_family)} families have 4 rows"
-                    )
-                    continue
-                if len(tokens) != 144:
-                    problems.append(f"Figure 2 graded data {m} {label}: expected 144 query token totals, found {len(tokens)}")
-                    continue
-                slot_counts = Counter(r["key"] for family in by_family for r in family if "key" in r)
-                duplicates = [key for key, count in slot_counts.items() if count > 1]
-                if duplicates:
-                    problems.append(f"Figure 2 graded data {m} {label}: duplicate query keys {duplicates[:4]}")
-                    continue
+            tokens = [r["promptTokens"] for r in arm_rows if r.get("promptTokens") is not None]
+            if len(tokens) != len(expected_slots):
+                problems.append(f"{context}: expected 144 query token totals, found {len(tokens)}")
+                continue
+            grouped = {}
+            for row in arm_rows:
+                grouped.setdefault(row["family"], []).append(row)
+            by_family = [grouped[family] for family in sorted(grouped)]
             scores = [float(np.mean([1.0 if r["contentCorrect"] else 0.0 for r in family])) for family in by_family]
             mean, lo, hi = boot_ci(scores, 20261016)
             x = float(np.mean(tokens))
@@ -695,22 +735,41 @@ def check_f4(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
     return {"values": n, "problems": problems}
 
 
-def render_compare(generated: Path, baseline: Path) -> dict:
+def render_compare(generated: Path, baseline: Path, *, f2_tiles: bool = False) -> dict:
     import numpy as np
     from matplotlib import image
 
-    gb, bb = generated.read_bytes(), baseline.read_bytes()
-    if gb == bb:
+    if generated.read_bytes() == baseline.read_bytes():
         return {"bytesEqual": True, "pixelsEqual": True, "shapeEqual": True, "fraction": 0.0, "meanAbs": 0.0, "within": True}
     g, b = image.imread(str(generated)), image.imread(str(baseline))
     if g.shape != b.shape:
         return {"bytesEqual": False, "pixelsEqual": False, "shapeEqual": False, "within": False,
                 "shape": [list(g.shape), list(b.shape)]}
-    d = np.abs(g.astype(float) - b.astype(float))
-    differing = float((d.max(axis=-1) > 0).mean())
-    mean = float(d.mean())
-    return {"bytesEqual": False, "pixelsEqual": differing == 0.0, "shapeEqual": True, "fraction": differing,
-            "meanAbs": mean, "within": differing <= RENDER_MAX_FRACTION and mean <= RENDER_MAX_MEAN}
+    delta = np.abs(g - b)
+    different = delta if delta.ndim == 2 else delta.max(axis=-1)
+    fraction, mean = float((different > 0).mean()), float(delta.mean(dtype=np.float64))
+    result = {"bytesEqual": False, "pixelsEqual": fraction == 0.0, "shapeEqual": True, "fraction": fraction,
+              "meanAbs": mean, "within": fraction <= RENDER_MAX_FRACTION and mean <= RENDER_MAX_MEAN}
+    if f2_tiles and fraction:
+        # imread normalizes PNG samples to [0, 1] and expands palettes/transparency.
+        # Count visible changes after compositing on the white manuscript background.
+        def visible_levels(pixels):
+            if pixels.ndim == 3 and pixels.shape[-1] == 4:
+                alpha = pixels[..., 3:4]
+                pixels = pixels[..., :3] * alpha + (1 - alpha)
+            return np.rint(pixels * 255).astype(np.int16)
+
+        visible_delta = np.abs(visible_levels(g) - visible_levels(b))
+        significant = (visible_delta if visible_delta.ndim == 2 else visible_delta.max(axis=-1)) >= 32
+        height, width = significant.shape
+        tile = 32
+        padded = np.pad(significant, ((0, -height % tile), (0, -width % tile)))
+        counts = padded.reshape(padded.shape[0] // tile, tile, padded.shape[1] // tile, tile).sum(axis=(1, 3))
+        row, col = np.unravel_index(counts.argmax(), counts.shape)
+        peak = int(counts[row, col])
+        result["worstTile"] = {"x": int(col) * tile, "y": int(row) * tile, "changedPixels": peak}
+        result["within"] = result["within"] and peak < 52
+    return result
 
 
 def figure_verdict(item: str, data: dict, render: dict) -> dict:
