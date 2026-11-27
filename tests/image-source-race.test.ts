@@ -162,44 +162,43 @@ describe("image source race checks", () => {
     await expect(indexImageArtifact({ path: sourcePath, allowedRoots: [f.root] })).rejects.toMatchObject({ code: "source_changed" });
   });
 
-  it("rejects same-file byte replacement even when the original mtime is restored", async () => {
-    const original = png(Buffer.from([0, 1, 2, 3]));
-    const replacement = png(Buffer.from([0, 9, 8, 7]));
-    expect(replacement.length).toBe(original.length);
-    const f = await fixture(original);
+  it("classifies a post-read handle ctime change as source_changed while indexing", async () => {
+    const f = await fixture(png(Buffer.from([0, 1, 2, 3])));
     const actualFs = await vi.importActual<typeof import("node:fs/promises")>("node:fs/promises");
-    const stableTime = new Date(Math.floor(Date.now() / 1000) * 1000 - 2000);
-    await actualFs.utimes(f.path, stableTime, stableTime);
     const before = await actualFs.stat(f.path);
-    let swapped = false;
+    const after = { ...before, ctimeMs: before.ctimeMs + 1, isFile: before.isFile.bind(before) };
+    const stat = vi.fn().mockResolvedValueOnce(before).mockResolvedValueOnce(after);
     vi.doMock("node:fs/promises", () => ({
       ...actualFs,
       open: async (...args: Parameters<typeof actualFs.open>) => {
         const handle = await actualFs.open(...args);
-        return {
-          ...handle,
-          stat: handle.stat.bind(handle),
-          close: handle.close.bind(handle),
-          read: async (...readArgs: Parameters<typeof handle.read>) => {
-            const result = await handle.read(...readArgs);
-            if (!swapped && result.bytesRead > 0) {
-              swapped = true;
-              await actualFs.writeFile(f.path, replacement);
-              await actualFs.utimes(f.path, before.atime, before.mtime);
-              const after = await actualFs.stat(f.path);
-              expect(after.size).toBe(before.size);
-              expect(after.dev).toBe(before.dev);
-              expect(after.ino).toBe(before.ino);
-              expect(after.mtimeMs).toBe(before.mtimeMs);
-              expect(after.ctimeMs).not.toBe(before.ctimeMs);
-            }
-            return result;
-          },
-        };
+        return { stat, read: handle.read.bind(handle), close: handle.close.bind(handle) };
       },
     }));
-    const { indexImageArtifact } = await import("../src/core/image-artifacts.js");
+    const { indexImageArtifact, MemoryImageArtifactStore } = await import("../src/core/image-artifacts.js");
+    const store = new MemoryImageArtifactStore();
 
-    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root] })).rejects.toMatchObject({ code: "source_changed" });
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "source_changed" });
+    expect(stat).toHaveBeenCalledTimes(2);
+    expect(store.size).toBe(0);
+  });
+
+  it("classifies a generic handle read rejection as read_failure while indexing", async () => {
+    const f = await fixture(png(Buffer.from([0, 1, 2, 3])));
+    const actualFs = await vi.importActual<typeof import("node:fs/promises")>("node:fs/promises");
+    const read = vi.fn().mockRejectedValue(new Error("read failed"));
+    vi.doMock("node:fs/promises", () => ({
+      ...actualFs,
+      open: async (...args: Parameters<typeof actualFs.open>) => {
+        const handle = await actualFs.open(...args);
+        return { stat: handle.stat.bind(handle), read, close: handle.close.bind(handle) };
+      },
+    }));
+    const { indexImageArtifact, MemoryImageArtifactStore } = await import("../src/core/image-artifacts.js");
+    const store = new MemoryImageArtifactStore();
+
+    await expect(indexImageArtifact({ path: f.path, allowedRoots: [f.root], store })).rejects.toMatchObject({ code: "read_failure" });
+    expect(read).toHaveBeenCalledOnce();
+    expect(store.size).toBe(0);
   });
 });

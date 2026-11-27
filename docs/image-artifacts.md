@@ -196,10 +196,11 @@ sibling-prefix paths and links that resolve outside authorized roots are denied.
 The source must be a regular file. These checks are application-level access
 controls, not a race-proof sandbox against hostile concurrent filesystem changes.
 
-The reader rejects the replacement cases covered here: same-size in-place
-overwrite, rename replacement after bytes are read, directory-junction
-retargeting after canonicalization, and a same-file byte replacement whose
-original mtime is restored. These are pathname and metadata checks across
+Integration tests cover same-size in-place overwrite, rename replacement after
+reading, and directory-junction retargeting after canonicalization.
+Tests with controlled inputs verify that `indexImageArtifact` reports
+`source_changed` when only the post-read change time differs and `read_failure`
+when the read itself throws. These are pathname and metadata checks across
 separate operations, not an atomic filesystem transaction. They do not
 establish containment against an adversarial intermediate-directory ABA swap;
 the tests cover persistent replacement, not every swap-and-restore schedule.
