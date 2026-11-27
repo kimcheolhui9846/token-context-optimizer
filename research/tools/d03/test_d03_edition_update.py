@@ -1,5 +1,7 @@
 """Reader capabilities, frozen combinations, and F2 render regressions."""
 import hashlib
+import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -41,6 +43,18 @@ class EditionUpdate(unittest.TestCase):
                 self.assertEqual(editions.valid_identity(pkg, meta, entries), revision == NOV26)
                 meta["manuscriptBlob"] = "f" * 40
                 self.assertFalse(editions.valid_identity(pkg, meta, entries))
+
+    def test_corrupt_reader_declaration_rejects_without_a_traceback(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pkg = Path(tmp)
+            for name in ("d03_editions.py", "d03_repro.py", "d03_checks.py"):
+                shutil.copyfile(HERE / name, pkg / name)
+            (pkg / editions.CAPABILITY_NAME).write_bytes(bytes([255]))
+            (pkg / "MANIFEST.json").write_text('{"files": []}', encoding="utf-8")
+            run = subprocess.run([sys.executable, "-B", str(pkg / "d03_repro.py"),
+                                  "verify-manifest", "--package", str(pkg)], capture_output=True, text=True)
+            self.assertEqual(run.returncode, 2, run.stderr)
+            self.assertIn("MANIFEST.json", json.loads(run.stdout)["corrupt"])
 
     def test_new_manuscript_with_frozen_reader_leaves_no_outputs(self):
         with tempfile.TemporaryDirectory() as tmp:

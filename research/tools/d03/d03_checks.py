@@ -542,7 +542,7 @@ def f2_expected_slots(path: Path) -> set[tuple[str, str, str]]:
 def f2_valid_arm(rows: list[dict], expected_slots: set[tuple[str, str, str]], arm: str,
                  context: str, problems: list) -> bool:
     if len(rows) != len(expected_slots):
-        problems.append(f"{context}: expected 144 started rows, found {len(rows)}")
+        problems.append(f"{context}: expected {len(expected_slots)} started rows, found {len(rows)}")
         return False
 
     problem_count = len(problems)
@@ -570,7 +570,9 @@ def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = 
     problems = []
     try:
         if question_manifest is None:
-            question_manifest = Path(__file__).resolve().parents[3] / F2_QUESTION_MANIFEST
+            tools = Path(__file__).resolve().parent
+            root = tools.parent if tools.name == "tools" else tools.parents[2]
+            question_manifest = root / F2_QUESTION_MANIFEST
         expected_slots = f2_expected_slots(question_manifest)
     except (KeyError, OSError, TypeError, ValueError) as exc:
         problems.append(f"Figure 2 held-out question manifest: {exc}")
@@ -608,7 +610,7 @@ def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = 
             # promptTokens already includes D's re-request. Each graded row is one query.
             tokens = [r["promptTokens"] for r in arm_rows if r.get("promptTokens") is not None]
             if len(tokens) != len(expected_slots):
-                problems.append(f"{context}: expected 144 query token totals, found {len(tokens)}")
+                problems.append(f"{context}: expected {len(expected_slots)} query token totals, found {len(tokens)}")
                 continue
             grouped = {}
             for row in arm_rows:

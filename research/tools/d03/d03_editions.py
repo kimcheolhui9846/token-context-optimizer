@@ -15,7 +15,9 @@ CAPABILITY_PATH = "tools/" + CAPABILITY_NAME
 CAPABILITY_FILE = Path(__file__).with_name(CAPABILITY_NAME)
 CAPTION_BLOBS = {REVISED_BLOB}
 if CAPABILITY_FILE.is_file():
-    CAPTION_BLOBS.add(CAPABILITY_FILE.read_text(encoding="ascii").strip())
+    declaration = CAPABILITY_FILE.read_bytes().strip()
+    if re.fullmatch(rb"[0-9a-f]{40}", declaration):
+        CAPTION_BLOBS.add(declaration.decode("ascii"))
 READER_PATHS = frozenset({CAPABILITY_PATH, "README.ko.md", "RULES.ko.md", "tools/d03_repro.py", "tools/d03_checks.py",
                           "tools/d03_editions.py"})
 
