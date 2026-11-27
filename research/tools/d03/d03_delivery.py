@@ -48,7 +48,7 @@ def check_figure_pdf(pdf: Path, reference: Path) -> dict:
                 actual = _comparison_pixels(bitmap.to_pil().convert("RGB"), size)
             finally:
                 bitmap.close()
-    except (OSError, ValueError, RuntimeError, pdfium.PdfiumError) as exc:
+    except (OSError, ValueError, RuntimeError, Image.DecompressionBombError, pdfium.PdfiumError) as exc:
         return {"pass": False, "reason": "unreadable-figure", "errorType": type(exc).__name__}
 
     ink_ref = expected.min(axis=2) < 223

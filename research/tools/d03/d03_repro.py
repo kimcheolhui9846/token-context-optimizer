@@ -329,8 +329,10 @@ def compare(pkg: Path, out: Path) -> dict:
             g = gen / rel
             secondary.append({"path": rel, "bytesEqual": g.is_file() and g.read_bytes() == p.read_bytes()})
     passed = sum(1 for i in items if i["verdict"] in ("MATCH", "MATCH-WITHIN-TOLERANCE"))
+    delivered = {row["path"] for row in pdfs if row["pass"]}
+    required = {"generated/" + path for path in REQUIRED_PDFS}
     return {"items": items, "passed": passed, "total": len(items), "scientificPass": passed == 7,
-            "deliveryPass": all(row["pass"] for row in pdfs), "requiredPDFs": pdfs, "secondaryBlobEqual": secondary,
+            "deliveryPass": len(required) == 4 and delivered == required, "requiredPDFs": pdfs, "secondaryBlobEqual": secondary,
             "secondaryEqualCount": sum(s["bytesEqual"] for s in secondary)}
 
 

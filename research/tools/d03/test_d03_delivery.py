@@ -54,6 +54,13 @@ class FigureDelivery(unittest.TestCase):
         shutil.copyfile(FIGURES / "fig3_heldout_late_recall.pdf", self.pdf)
         self.assertFalse(self.result()["pass"])
 
+    def test_different_figure_with_the_same_page_size(self):
+        figure_two = FIGURES / "exp2/heldout/fig5_exp2_accuracy_vs_tokens.png"
+        figure_three = FIGURES / "fig2_heldout_accuracy_vs_tokens.pdf"
+        result = check_figure_pdf(figure_three, figure_two)
+        self.assertFalse(result["pass"])
+        self.assertEqual(result["reason"], "content-mismatch")
+
     def test_oversize_is_rejected_before_rendering(self):
         for width, height in [(4097, 10), (3000, 3000)]:
             with self.subTest(width=width, height=height), pdfium.PdfDocument.new() as doc:
