@@ -1,12 +1,12 @@
 # 실험 2 held-out 결과: 단일 질의의 영역 선택과 원본 재요청
 
-이 부록은 단일 질의에서 질문에 맞춘 영역 선택과 보수적 원본 재요청이 정확도와 입력 토큰에 미치는 영향을 보고한다. 결과는 36개 family, 네 입력 조건, A–E 다섯 arm과 D′ 탐색 arm으로 구성된 held-out 실행에서 얻었다. 분석 단위는 source family이며, 각 family의 네 조건 평균을 이용한 짝 비교와 family 단위 bootstrap을 사용했다. 모든 수치는 결과 원문에서 그대로 옮겼으며, 이 부록에서 재계산하거나 새로 반올림하지 않았다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):7-17, [E2-1][E2-2][E2-4])
+이 부록은 단일 질의에서 질문에 맞춘 영역 선택과 보수적 원본 재요청이 정확도와 입력 토큰에 미치는 영향을 보고한다. 결과는 36개 family, 네 입력 조건, A–E 다섯 arm과 D′ 탐색 arm으로 구성된 held-out 실행에서 얻었다. 분석 단위는 source family이며, 각 family의 네 조건 평균을 이용한 짝 비교와 family 단위 bootstrap을 사용했다. 원래 결과표의 수치는 기록된 자릿수로 옮겼다. D의 질의당·API 호출당 비용 비교는 응답 기록의 정가 비용으로 별도 계산했다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):7-17, [E2-1][E2-2][E2-4])
 
 ## 실행과 고정 설계
 
 실행일은 2026-10-16이며, held-out 호출 전 하네스와 분석은 `dbf4f6b`에서 동결되었다. 36개 family는 영역당 12개이며, 각 family에는 한 질문과 네 조건(clean, JPEG q50, 1024 축소, 1024 축소+JPEG)이 있다. 계획된 slot은 720개였다. slots와 families의 SHA-256은 각각 축약 표기 `36ae3dec…efba12`, `71e2648f…f006c313`로 기록되어 있다. family 단위 bootstrap은 10,000회, seed 20261016, percentile 95%로 수행되었고 `not_started`와 실패는 0이었다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):3-11, [E2-1]–[E2-4])
 
-GPT-4o 호출은 731회(계획 720회와 재요청 11회), 정가 비용은 `$1.188`이었다. Haiku 호출은 736회(계획 720회와 재요청 16회), 정가 비용은 `$0.641`이었다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):16-17, [E2-5])
+GPT-4o 호출은 731회(계획 720회와 재요청 11회), 정가 비용은 `$1.188`이었다. Claude Haiku 4.5(이하 Haiku)의 호출은 736회(계획 720회와 재요청 16회), 정가 비용은 `$0.641`이었다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):16-17, [E2-5])
 
 arm A는 원본, B는 긴 변 1536과 JPEG q75, C는 질의 인식 선택, D는 C와 같은 입력의 별도 fresh 첫 호출 뒤 판독 불가 응답에 대해 원본을 1회 재요청, E는 정답 영역 crop 진단이다. D′는 개정 전 규칙을 적용한 탐색 arm이다. (출처: [`research/plans/2026-10-16-experiment2-preregistration-draft.md`](../../research/plans/2026-10-16-experiment2-preregistration-draft.md):86-102, [E2-12]–[E2-17])
 
@@ -26,9 +26,9 @@ GPT-4o와 Haiku 모두 D의 입력 토큰은 A보다 적었지만, H1 정확도 
 
 ## arm별 기술 통계
 
-다음 정확도는 네 조건에 대한 family 평균이며, 비용은 호출당 정가다. D의 평균 입력 토큰과 호출당 비용은 재요청이 발생한 배정 slot에서 실제 두 호출을 포함한 값이다. (출처: [`research/results/exp2-heldout/gpt4o/exp2-analysis.md`](../../research/results/exp2-heldout/gpt4o/exp2-analysis.md):15-20, [`research/results/exp2-heldout/haiku/exp2-analysis.md`](../../research/results/exp2-heldout/haiku/exp2-analysis.md):15-20, [E2-12]–[E2-17])
+정확도는 각 family의 네 조건 정확도를 평균한 값이다. 입력 토큰과 정가 비용은 arm별 배정 질의 144건(36개 family × 4개 조건)에 대한 평균이다. D에서는 첫 호출과 재요청의 입력 토큰 수와 정가 비용을 같은 질의에 합산했다. D′는 C·A의 기록에 개정 전 규칙을 적용한 탐색값이다. (출처: [`research/results/exp2-heldout/gpt4o/exp2-analysis.md`](../../research/results/exp2-heldout/gpt4o/exp2-analysis.md):15-20, [`research/results/exp2-heldout/haiku/exp2-analysis.md`](../../research/results/exp2-heldout/haiku/exp2-analysis.md):15-20, [E2-12]–[E2-17])
 
-| arm | 의미 | GPT-4o 정확도 | 입력 토큰 | 호출당 비용 | Haiku 정확도 | 입력 토큰 | 호출당 비용 |
+| arm | 의미 | GPT-4o 정확도 | 질의당 입력 토큰 | 질의당 정가 비용(USD) | Haiku 정확도 | 질의당 입력 토큰 | 질의당 정가 비용(USD) |
 |---|---|---:|---:|---:|---:|---:|---:|
 | A | 원본 | 85.4% | 824 | $0.00210 | 81.3% | 1,361 | $0.00140 |
 | B | 1536 + q75 | 84.0% | 824 | $0.00210 | 81.9% | 1,361 | $0.00140 |
@@ -38,6 +38,17 @@ GPT-4o와 Haiku 모두 D의 입력 토큰은 A보다 적었지만, H1 정확도 
 | D′ | 개정 전 규칙(탐색) | 79.2% | 629 | $0.00161 | 76.4% | 765 | $0.00082 |
 
 출처: [`research/results/exp2-heldout/gpt4o/exp2-analysis.md`](../../research/results/exp2-heldout/gpt4o/exp2-analysis.md):15-20, [`research/results/exp2-heldout/haiku/exp2-analysis.md`](../../research/results/exp2-heldout/haiku/exp2-analysis.md):15-20, 대조표 [E2-12]–[E2-17].
+
+### D의 질의당 비용과 API 호출당 비용
+
+배정 질의 한 건은 첫 호출로 시작한다. 원본을 재요청하면 같은 질의에서 API 호출이 한 번 더 발생한다. 아래의 두 평균은 모두 반올림 전의 D 총 정가 비용에서 계산해 소수점 여섯째 자리까지 반올림했다.
+
+| 모델 | 배정 질의(건) | 재요청(회) | API 호출(회) | 총 정가 비용(USD) | 질의당 비용(USD) | API 호출당 비용(USD) |
+|---|---:|---:|---:|---:|---:|---:|
+| GPT-4o | 144 | 11 | 155 | $0.233965 | $0.001625 | $0.001509 |
+| Haiku 4.5 | 144 | 16 | 160 | $0.117894 | $0.000819 | $0.000737 |
+
+응답 기록의 `costUsd`에는 재요청 비용이 이미 포함돼 있다. 총액은 D의 질의별 `costUsd`를 한 번씩 더한 값이다. [GPT-4o 응답 기록](../../research/results/exp2-heldout/gpt4o/responses.jsonl) · [Haiku 응답 기록](../../research/results/exp2-heldout/haiku/responses.jsonl)
 
 ## 조건별 기술 통계
 
@@ -72,7 +83,7 @@ D′는 D와 비슷했다. GPT-4o 정확도는 D′ 79.2%, D 78.5%였고, Haiku�
 
 사전 등록 이탈은 없었다. 실행 조건, 동결 커밋, 생성물 해시와 분석 절차를 사전 등록대로 유지했으며, `not_started`와 실패는 0이었다. 실행 래퍼의 마지막 `tail -1 파일1 파일2`가 이 환경에서 잘못된 옵션으로 종료 코드 1을 냈지만, 실제 실행은 두 공급자 모두 720/720 정상 종료했다. 이 래퍼 종료 코드는 결과 slot의 실패로 세지 않았다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):3-11, 87, [E2-4][E2-6])
 
-한계는 합성 이미지 세 영역, 36개 family, 두 모델이라는 점이다. 선택기는 연구용 OCR 창 selector이며 제품의 `crop_image_artifact`는 호출자가 영역을 제공하는 도구다. v2 레이아웃은 실험 3 held-out에서 모델에 노출되었고 selector는 그 뒤 바뀌지 않았다. 채점은 content-match이므로 정답 문자열이 설명문 안에 있어도 정답으로 센다. D의 arm별 입력 토큰과 호출당 비용은 재요청이 발생한 slot에서 실제 두 호출을 포함한 평균이다. 실험 3의 캐시 할인과 세션 비용은 이 단일 질의 결과에 적용하지 않는다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):7-17, 80-96, [`research/results/exp2-heldout/gpt4o/exp2-analysis.md`](../../research/results/exp2-heldout/gpt4o/exp2-analysis.md):15-20, [`research/results/exp2-heldout/haiku/exp2-analysis.md`](../../research/results/exp2-heldout/haiku/exp2-analysis.md):15-20, [E2-2][E2-5])
+한계는 합성 이미지 세 영역, 36개 family, 두 모델이라는 점이다. 선택기는 연구용 OCR 창 selector이며 제품의 `crop_image_artifact`는 호출자가 영역을 제공하는 도구다. v2 레이아웃은 실험 3 held-out에서 모델에 노출되었고 selector는 그 뒤 바뀌지 않았다. 채점은 content-match이므로 정답 문자열이 설명문 안에 있어도 정답으로 센다. 실험 3의 캐시 할인과 세션 비용은 이 단일 질의 결과에 적용하지 않는다. (출처: [`research/results/exp2-heldout/README.md`](../../research/results/exp2-heldout/README.md):7-17, 80-96, [`research/results/exp2-heldout/gpt4o/exp2-analysis.md`](../../research/results/exp2-heldout/gpt4o/exp2-analysis.md):15-20, [`research/results/exp2-heldout/haiku/exp2-analysis.md`](../../research/results/exp2-heldout/haiku/exp2-analysis.md):15-20, [E2-2][E2-5])
 
 ## 그림과 재현
 
