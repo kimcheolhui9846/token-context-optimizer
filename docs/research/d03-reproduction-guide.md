@@ -102,7 +102,10 @@ python -m venv <venv폴더>
 - 재생성 조건이 깨지면 7항목 판정과 별도로 미통과다. 종료 코드는 4이고, 보고서에 가드 없는 단계와 차단 기록 수를 적는다.
 - 가드 기록은 단계 이름(`D03_STEP`)과 인터프리터 종류(Node·Python)로 대조한다. 단계마다 그 단계를 실행한 인터프리터가 차단 장치를 시작한 기록이 있어야 하고, 그 인터프리터는 실행기가 띄운 프로세스 자신이거나 그 직접 자식이어야 한다(기록의 pid·ppid로 확인). 그래서 venv의 `python.exe`처럼 실제 인터프리터를 자식으로 띄우는 런처를 써도 되고, 더 먼 프로세스의 기록은 인정하지 않는다. 검증한 환경은 Windows의 `node.exe`, 해시 잠금 venv의 `python.exe`, 전역 `python.exe`다.
 - `logs/*.log`의 첫 줄에는 실행한 명령이 로컬 절대 경로로 남는다. 출력 폴더를 다른 사람과 나눌 때는 `report.json`·`runs.json`·`outputs-manifest.json`을 쓴다. 이 세 파일은 경로를 `<out>`·`<package>`로 적는다.
-- `all`의 결과는 `report.json`과 `report.md`에 보존한다. 출력 파일을 바꾼 뒤 `compare`를 실행하면 최신 결과가 `compare.json`과 `compare.md`에 기록된다. 두 명령 모두 `scientificPass`, `deliveryPass` 및 파일별 `requiredPDFs`를 보고한다. `compare`를 따로 쓸 때는 같은 출력 폴더에 성공한 `regenerate`의 `runs.json`이 있어야 한다. 없으면 종료 코드 2로, 그 재생성이 오프라인 조건을 깨뜨렸으면 종료 코드 4로 거부한다.
+- `report.json`과 `report.md`는 원래 `all` 실행의 기록이다. 이후 출력 파일을 바꿔 재대조했다면 **최근 시도는 `compare.json`**에서 확인한다. 완료된 시도는 `compare.md`, `outputs-manifest.json`, 명령 출력에도 같은 `runId`(실행 ID)를 기록한다. `startedAt`·`finishedAt`은 UTC 시각이다.
+- `status`가 `passed`이면 이번 재대조가 통과했고, `failed`이면 필수 검사를 통과하지 못했다. `refused`는 입력 전제조건이 충족되지 않았다는 뜻이며, 수행하지 않은 검사 수치는 `null`이다. `running`은 아직 종료 결과를 기록하지 않은 상태다. 중단 직후 Markdown에 같은 ID가 있어도 JSON의 상태를 우선한다. `lastSuccess`는 **이번 시도 직전의 성공 요약**이다. 이전 버전 기록에 실행 ID나 시각이 없으면 해당 값을 `null`로 둔다.
+- 보조 파일은 `secondaryEqualCount`/`secondaryTotal`로 읽고, 바이트가 다른 파일은 `secondaryWarnings`에서 확인한다. 과학 판정 7/7과 필수 PDF 4/4가 통과했다면 보조 차이는 경고로 남고 종료 코드는 0이다. 생성 분석 JSON을 해석할 수 없으면 이를 사용하는 각 항목에 `NOT-REPRODUCIBLE`과 파일 경로가 붙으며 종료 코드는 1이다. 독립적인 항목과 PDF는 계속 검사한다.
+- `compare`에는 성공한 재생성 기록 `runs.json`이 필요하다. 이를 읽을 수 없거나 패키지 매니페스트 검증에 실패하면 종료 코드 2, 재생성의 오프라인 조건을 확인할 수 없으면 4다. 기존 실행 기록이 있는 폴더에는 최근 거부 결과를 남긴다. 빈 폴더에는 비교 보고서를 만들지 않는다. 다른 프로세스가 작성 중이거나 출력 파일을 쓸 수 없다는 오류가 나면 새 실행 ID가 발급됐는지와 명령 종료 코드를 확인한다. 새 ID가 없으면 기존 파일을 이번 시도의 결과로 인용하지 않는다. 충돌이 해소된 뒤 다시 실행한다. 디스크에 남아 있는 `.compare.lock` 파일 자체는 실행 상태를 뜻하지 않는다.
 - 빈 출력 폴더에 기준 이미지나 집계표를 복사해 성공으로 처리하지 않는다. 기준 파일은 `expected/`에만 있고 생성기 작업 폴더에 들어가지 않는다.
 
 ## 6. 결과 읽기

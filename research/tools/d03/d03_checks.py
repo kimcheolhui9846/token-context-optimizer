@@ -18,6 +18,25 @@ RENDER_MAX_MEAN = 2 / 255
 VERDICTS = ("MATCH", "MATCH-WITHIN-TOLERANCE", "MISMATCH", "NOT-REPRODUCIBLE")
 
 
+class InvalidJSON(ValueError):
+    def __init__(self, path: Path, reason: str):
+        super().__init__(reason)
+        self.path = path
+
+
+def read_json(path: Path) -> dict:
+    """Retain the input filename when a JSON document cannot be decoded."""
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise InvalidJSON(path, f"invalid JSON at line {exc.lineno}, column {exc.colno}") from exc
+    except UnicodeDecodeError as exc:
+        raise InvalidJSON(path, f"invalid UTF-8 at byte {exc.start}") from exc
+    if not isinstance(value, dict):
+        raise InvalidJSON(path, "expected a JSON object")
+    return value
+
+
 # ---------------------------------------------------------------- formatting (JavaScript semantics)
 
 def normalize_t1(text: str) -> str:
@@ -112,12 +131,12 @@ TABLE_FILES = {"T1": "tables/table1.md", "T2": "tables/table2.md", "T3": "tables
 
 def write_tables(spec_path: Path, gen: Path) -> dict[str, Path]:
     """Write the regenerated Tables 1-3 (Table 3 with both panels) as readable Markdown under gen/tables."""
-    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    spec = read_json(spec_path)
     (gen / "tables").mkdir(parents=True, exist_ok=True)
     t1 = [spec["header"]] + [r["cells"] for r in spec["rows"]]
-    a2 = {m: json.loads((gen / f"exp2-heldout/{m}/exp2-analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
-    a3 = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
-    s3 = {m: json.loads((gen / f"s3-heldout/{m}/summary.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    a2 = {m: read_json(gen / f"exp2-heldout/{m}/exp2-analysis.json") for m, _ in MODELS}
+    a3 = {m: read_json(gen / f"s3-heldout/{m}/analysis.json") for m, _ in MODELS}
+    s3 = {m: read_json(gen / f"s3-heldout/{m}/summary.json") for m, _ in MODELS}
     h3, c3 = build_t3(a3, s3)
     docs = {
         "T1": ["# 표 1 (재생성: expected/table1-spec.json)", "", spec["source"]["caption"], ""] + md_table(t1),
@@ -163,7 +182,7 @@ def cell_diff(expected: list[list[str]], actual: list[list[str]]) -> list[dict]:
 
 def check_t1(manuscript: Path, spec_path: Path, provenance_table: Path, reference_log: Path, gen: Path) -> dict:
     lines = manuscript_lines(manuscript)
-    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    spec = read_json(spec_path)
     t = table_after(lines, "표 1.")
     gfile = gen / TABLE_FILES["T1"]
     gt = file_tables(gfile)
@@ -302,7 +321,7 @@ def build_t3(analysis: dict[str, dict], summary: dict[str, dict]) -> tuple[list[
 def check_t2(manuscript: Path, gen: Path) -> dict:
     lines = manuscript_lines(manuscript)
     t = table_after(lines, "표 2.")
-    analysis = {m: json.loads((gen / f"exp2-heldout/{m}/exp2-analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    analysis = {m: read_json(gen / f"exp2-heldout/{m}/exp2-analysis.json") for m, _ in MODELS}
     built = build_t2(analysis)
     gt = file_tables(gen / TABLE_FILES["T2"])
     generated = [gt[0]["header"]] + gt[0]["rows"] if len(gt) == 1 else []
@@ -323,8 +342,8 @@ def check_t3(manuscript: Path, gen: Path) -> dict:
     lines = manuscript_lines(manuscript)
     t_h = table_after(lines, "표 3.", 0)
     t_c = table_after(lines, "표 3.", 1)
-    analysis = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m, _ in MODELS}
-    summary = {m: json.loads((gen / f"s3-heldout/{m}/summary.json").read_text(encoding="utf-8")) for m, _ in MODELS}
+    analysis = {m: read_json(gen / f"s3-heldout/{m}/analysis.json") for m, _ in MODELS}
+    summary = {m: read_json(gen / f"s3-heldout/{m}/summary.json") for m, _ in MODELS}
     built_h, built_c = build_t3(analysis, summary)
     gt = file_tables(gen / TABLE_FILES["T3"])
     gen_h = [gt[0]["header"]] + gt[0]["rows"] if len(gt) == 2 else []
@@ -531,7 +550,7 @@ F2_QUESTION_MANIFEST = "research/results/exp2-heldout/families-exp2-heldout.json
 
 
 def f2_expected_slots(path: Path) -> set[tuple[str, str, str]]:
-    families = json.loads(path.read_text(encoding="utf-8"))["families"]
+    families = read_json(path)["families"]
     questions = {(family["id"], question["id"]) for family in families for question in family["questions"]}
     if len(questions) != 36:
         raise ValueError(f"expected 36 questions in the held-out manifest, found {len(questions)}")
@@ -655,7 +674,10 @@ def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = 
 
 
 def session_rows(path: Path) -> list[dict]:
-    return json.loads(path.read_text(encoding="utf-8"))["rows"]
+    rows = read_json(path).get("rows")
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise InvalidJSON(path, "expected rows to be an array of objects")
+    return rows
 
 
 def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
