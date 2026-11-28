@@ -16,6 +16,9 @@ The package is only read. Outputs go to --out, which must not exist before regen
 from __future__ import annotations
 
 import argparse
+import errno
+from contextlib import contextmanager
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -25,6 +28,8 @@ import shutil
 import subprocess
 import sys
 import time
+import tempfile
+from uuid import uuid4
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -51,8 +56,17 @@ def verify_manifest(pkg: Path, *, require_edition: bool = False) -> dict:
     mpath = pkg / "MANIFEST.json"
     if not mpath.is_file():
         return {"ok": False, "missing": ["MANIFEST.json"], "corrupt": [], "extra": [], "files": 0}
-    manifest = json.loads(mpath.read_text(encoding="utf-8"))
-    listed = {f["path"]: f for f in manifest["files"]}
+    try:
+        manifest = checks.read_json(mpath)
+        entries = manifest.get("files")
+    except checks.InvalidJSON:
+        return {"ok": False, "missing": [], "corrupt": ["MANIFEST.json"], "extra": [], "files": 0}
+    if not isinstance(entries, list) or any(
+        not isinstance(row, dict) or not isinstance(row.get("path"), str)
+        or not isinstance(row.get("bytes"), int) or not isinstance(row.get("sha256"), str) for row in entries
+    ):
+        return {"ok": False, "missing": [], "corrupt": ["MANIFEST.json"], "extra": [], "files": 0}
+    listed = {row["path"]: row for row in entries}
     missing, corrupt = [], []
     for path, f in listed.items():
         p = pkg / path
@@ -300,28 +314,33 @@ def compare(pkg: Path, out: Path) -> dict:
     def guarded(item, fn):
         try:
             items.append(fn())
-        except (FileNotFoundError, KeyError) as e:
+        except checks.InvalidJSON as exc:
+            path = exc.path.relative_to(out if exc.path.is_relative_to(out) else pkg).as_posix()
+            items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "path": path, "error": str(exc)})
+        except FileNotFoundError as exc:
+            path = Path(exc.filename)
+            rel = path.relative_to(out if path.is_relative_to(out) else pkg).as_posix()
+            items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "path": rel, "error": "missing file"})
+        except KeyError as e:
             items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "error": f"{type(e).__name__}: {e}"})
 
     guarded("T1", lambda: checks.check_t1(ms, exp / "table1-spec.json", exp / "provenance/table1-abdaade.md", exp / "provenance/ieee-references.md", gen))
     guarded("T2", lambda: checks.check_t2(ms, gen))
     guarded("T3", lambda: checks.check_t3(ms, gen))
-    probe_mf = json.loads((out / "probe-make_figures.json").read_text(encoding="utf-8")) if (out / "probe-make_figures.json").is_file() else {}
-    probe_e2 = json.loads((out / "probe-exp2_figures.json").read_text(encoding="utf-8")) if (out / "probe-exp2_figures.json").is_file() else {}
-    s3 = {}
-    if all((gen / f"s3-heldout/{m}/analysis.json").is_file() for m in MODELS):
-        s3 = {m: json.loads((gen / f"s3-heldout/{m}/analysis.json").read_text(encoding="utf-8")) for m in MODELS}
+    def s3_analysis():
+        return {m: checks.read_json(gen / f"s3-heldout/{m}/analysis.json") for m in MODELS}
+
     sessions = gen / "figures/data/heldout-sessions.json"
-    figs = [("F1", "fig1_rq1_billed_tokens", probe_mf, lambda p: checks.check_f1(p, pkg / "research/results/rq1-sweep-001/rows.jsonl"), "figures"),
-            ("F2", "fig5_exp2_accuracy_vs_tokens", probe_e2, lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}, manuscript=caption_source, question_manifest=pkg / checks.F2_QUESTION_MANIFEST), "figures/exp2/heldout"),
-            ("F3", "fig2_heldout_accuracy_vs_tokens", probe_mf, lambda p: checks.check_f3(p, sessions, s3), "figures"),
-            ("F4", "fig3_heldout_late_recall", probe_mf, lambda p: checks.check_f4(p, sessions, s3), "figures")]
+    figs = [("F1", "fig1_rq1_billed_tokens", "probe-make_figures.json", lambda p: checks.check_f1(p, pkg / "research/results/rq1-sweep-001/rows.jsonl"), "figures"),
+            ("F2", "fig5_exp2_accuracy_vs_tokens", "probe-exp2_figures.json", lambda p: checks.check_f2(p, {m: gen / f"exp2-heldout/{m}/graded.jsonl" for m in MODELS}, manuscript=caption_source, question_manifest=pkg / checks.F2_QUESTION_MANIFEST), "figures/exp2/heldout"),
+            ("F3", "fig2_heldout_accuracy_vs_tokens", "probe-make_figures.json", lambda p: checks.check_f3(p, sessions, s3_analysis()), "figures"),
+            ("F4", "fig3_heldout_late_recall", "probe-make_figures.json", lambda p: checks.check_f4(p, sessions, s3_analysis()), "figures")]
     pdfs = []
     for item, stem, probe, fn, sub in figs:
         relative = Path(sub) / f"{stem}.pdf"
         pdfs.append({"item": item, "path": "generated/" + relative.as_posix(),
                      **check_figure_pdf(gen / relative, exp / relative.with_suffix(".png"))})
-        guarded(item, lambda: checks.figure_verdict(item, fn(probe[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png", f2_tiles=item == "F2")))
+        guarded(item, lambda: checks.figure_verdict(item, fn(checks.read_json(out / probe)[stem]), checks.render_compare(gen / sub / f"{stem}.png", exp / sub / f"{stem}.png", f2_tiles=item == "F2")))
     secondary = []
     for p in sorted((exp / "results").rglob("*")):
         if p.is_file():
@@ -419,7 +438,7 @@ def delivery_lines(comp: dict) -> list[str]:
 
 
 def report_md(rep: dict) -> str:
-    lines = ["# D03 재현 결과", "", f"자동 판정 합격(규칙 1–3단계): {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']}, "
+    lines = ["# D03 원래 all 실행 결과", "", *attempt_lines(rep), "", f"자동 판정 합격(규칙 1–3단계): {rep.get('pass')}  (판정 통과 {rep['compare']['passed']}/{rep['compare']['total']}, "
              f"오프라인 조건 {rep['offline']['ok']})", "",
              "| 항목 | 판정 | 비고 |", "|---|---|---|"]
     for it in rep["compare"]["items"]:
@@ -432,11 +451,11 @@ def report_md(rep: dict) -> str:
         elif "cells" in it:
             note = f"셀 {it['cells']}개, 차이 {len(it.get('cellDiffs', []))}"
         if "error" in it:
-            note = it["error"]
+            note = " ".join(part for part in (it.get("path"), it["error"]) if part)
         lines.append(f"| {it['item']} | {it['verdict']} | {note} |")
     c = rep["compare"]
     lines.extend(["", *delivery_lines(c)])
-    lines += ["", f"보조: 기준 산출물 바이트 일치 {c['secondaryEqualCount']}/{len(c['secondaryBlobEqual'])}",
+    lines += ["", *secondary_lines(c),
               f"매니페스트: {rep['manifest']['files']}개, 누락 {len(rep['manifest']['missing'])}, 손상 {len(rep['manifest']['corrupt'])}, 추가 {len(rep['manifest']['extra'])}",
               f"오프라인 차단 사전 대조(의도적 차단): {rep['guard']['ok']}",
               f"재생성 오프라인 조건: {rep['offline']['ok']} (단계 {rep['offline']['steps']}개, 가드 시작 {rep['offline']['guardStarts']}건, "
@@ -445,6 +464,188 @@ def report_md(rep: dict) -> str:
               f"출력 기록: outputs-manifest.json (생성 파일 {rep.get('outputsManifest', {}).get('generatedFileCount')}개)",
               f"실행 전후 패키지 불변: {rep.get('packageUnchanged')}", "육안 대조(규칙 4단계)는 독립 검토자가 따로 기록한다."]
     return "\n".join(lines) + "\n"
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="microseconds")
+
+
+def new_attempt(command: str) -> dict:
+    return {"command": command, "runId": str(uuid4()), "startedAt": utc_now(),
+            "finishedAt": None, "status": "running"}
+
+
+def atomic_text(path: Path, text: str) -> None:
+    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp",
+                                     mode="w", encoding="utf-8", delete=False) as tmp:
+        temp = Path(tmp.name)
+        try:
+            tmp.write(text)
+        except BaseException:
+            tmp.close()
+            temp.unlink(missing_ok=True)
+            raise
+    try:
+        for attempt in range(3):
+            try:
+                temp.replace(path)
+                return
+            except PermissionError:
+                if attempt == 2:
+                    raise
+                time.sleep(0.05)
+    finally:
+        temp.unlink(missing_ok=True)
+
+
+def atomic_json(path: Path, record: dict) -> None:
+    atomic_text(path, json.dumps(record, ensure_ascii=False, indent=1) + "\n")
+
+
+@contextmanager
+def compare_lock(out: Path):
+    """The OS releases this lock on exit. Keep the file to avoid inode races."""
+    with (out / ".compare.lock").open("a+b") as lock:
+        if os.name == "nt":
+            import msvcrt
+            lock.seek(0)
+            try:
+                msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError as exc:
+                if exc.errno not in (errno.EACCES, errno.EAGAIN, errno.EDEADLK):
+                    raise
+                yield False
+                return
+        else:
+            import fcntl
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                yield False
+                return
+        yield True
+
+
+def previous_success(out: Path) -> dict | None:
+    for command, filename in (("compare", "compare.json"), ("all", "report.json")):
+        try:
+            rep = checks.read_json(out / filename)
+        except (FileNotFoundError, checks.InvalidJSON):
+            continue
+        if rep.get("pass") is True and rep.get("status") in (None, "passed"):
+            return {"command": command, "runId": rep.get("runId"), "startedAt": rep.get("startedAt"),
+                    "finishedAt": rep.get("finishedAt"), "status": "passed",
+                    "passed": rep.get("compare", rep).get("passed")}
+        if isinstance(rep.get("lastSuccess"), dict):
+            return rep["lastSuccess"]
+    return None
+
+
+def secondary_summary(comp: dict) -> dict:
+    rows = comp["secondaryBlobEqual"]
+    return {"secondaryTotal": len(rows),
+            "secondaryWarnings": [row["path"] for row in rows if not row["bytesEqual"]]}
+
+
+def attempt_lines(rep: dict) -> list[str]:
+    end = rep["finishedAt"] or "—"
+    return [f"실행 ID `{rep['runId']}` · 상태 `{rep['status']}`",
+            f"시작 {rep['startedAt']} · 종료 {end} (UTC)"]
+
+
+def secondary_lines(comp: dict) -> list[str]:
+    if comp["secondaryTotal"] is None:
+        return ["보조 파일 검사 미실행"]
+    lines = [f"보조 파일 바이트 일치 {comp['secondaryEqualCount']}/{comp['secondaryTotal']}"]
+    lines.extend(f"- 보조 파일 차이 경고 · `{path}`" for path in comp["secondaryWarnings"])
+    return lines
+
+
+def compare_markdown(rep: dict) -> str:
+    lines = ["# D03 최근 재대조", "", *attempt_lines(rep)]
+    last = rep.get("lastSuccess")
+    if last:
+        lines.append(f"직전 성공 · {last['command']} · 실행 ID {last.get('runId') or '기존 기록에 없음'}"
+                     f" · 종료 {last.get('finishedAt') or '기존 기록에 없음'}")
+    if rep.get("reason"):
+        lines.append(f"사유 · {rep['reason']}")
+    if rep.get("scientificPass") is None:
+        lines.append("과학·필수 PDF·보조 파일 검사 결과 미확정")
+    else:
+        lines.extend(["", *delivery_lines(rep), "", *secondary_lines(rep)])
+        for item in rep["items"]:
+            if item["verdict"] not in ("MATCH", "MATCH-WITHIN-TOLERANCE"):
+                lines.append(f"- {item['item']} · {item['verdict']} · {item.get('path', '')} {item.get('error', '')}".rstrip())
+    return "\n".join(lines) + "\n"
+
+
+def compare_attempt(pkg: Path, out: Path) -> int:
+    if not out.is_dir() or not any((out / name).is_file() for name in ("runs.json", "report.json", "compare.json")):
+        print("refuse: compare needs an --out made by a successful regenerate (runs.json)")
+        return 2
+    with compare_lock(out) as acquired:
+        if not acquired:
+            print(json.dumps({"refuse": "another command is writing this output directory"}))
+            return 2
+        rep = {**new_attempt("compare"), "lastSuccess": previous_success(out), "pass": None,
+               "scientificPass": None, "deliveryPass": None, "passed": None, "total": None,
+               "requiredPDFs": [], "items": [], "secondaryBlobEqual": [],
+               "secondaryTotal": None, "secondaryEqualCount": None, "secondaryWarnings": []}
+        atomic_json(out / "compare.json", rep)
+        atomic_text(out / "compare.md", compare_markdown(rep))
+        code, manifest = evaluate_attempt(pkg, out, rep)
+        rep["pass"] = code == 0
+        rep["status"] = {0: "passed", 1: "failed", 2: "refused", 4: "refused"}[code]
+        rep["finishedAt"] = utc_now()
+        manifest.update({k: rep[k] for k in ("command", "runId", "startedAt", "finishedAt", "status",
+                                             "pass", "scientificPass", "deliveryPass", "secondaryTotal",
+                                             "secondaryEqualCount", "secondaryWarnings")})
+        if "reason" in rep:
+            manifest["reason"] = rep["reason"]
+        atomic_json(out / "outputs-manifest.json", manifest)
+        atomic_text(out / "compare.md", compare_markdown(rep))
+        atomic_json(out / "compare.json", rep)
+        keys = ("command", "runId", "startedAt", "finishedAt", "status", "lastSuccess", "pass", "passed", "total",
+                "scientificPass", "deliveryPass", "requiredPDFs", "secondaryEqualCount", "secondaryTotal",
+                "secondaryWarnings", "reason")
+        public = {k: rep[k] for k in keys if k in rep}
+        public["unavailable"] = [row for row in rep["items"] if row["verdict"] == "NOT-REPRODUCIBLE"]
+        print(json.dumps(public, ensure_ascii=False))
+        return code
+
+
+def evaluate_attempt(pkg: Path, out: Path, rep: dict) -> tuple[int, dict]:
+    try:
+        runs = checks.read_json(out / "runs.json")
+        if runs.get("ok") is not True:
+            rep["reason"] = "runs.json: compare requires a successful regeneration"
+            return 2, {}
+        offline = runs.get("offline")
+        if not isinstance(offline, dict) or offline.get("ok") is not True:
+            rep["reason"] = "runs.json: regeneration did not establish offline execution"
+            return 4, {}
+        steps = runs.get("runs")
+        if not isinstance(steps, list) or any(
+            not isinstance(step, dict) or not isinstance(step.get("step"), str)
+            or not isinstance(step.get("command"), list) or not isinstance(step.get("exit"), int) for step in steps
+        ):
+            rep["reason"] = "runs.json: invalid regeneration step records"
+            return 2, {}
+        manifest = verify_manifest(pkg, require_edition=True)
+        if not manifest["ok"]:
+            rep.update(reason="MANIFEST.json: package verification failed", manifest=manifest)
+            return 2, {}
+    except checks.InvalidJSON as exc:
+        rep["reason"] = f"{exc.path.name}: {exc}"
+        return 2, {}
+    except FileNotFoundError as exc:
+        rep["reason"] = f"{Path(exc.filename).name}: file missing"
+        return 2, {}
+    comp = compare(pkg, out)
+    rep.update(comp)
+    rep.update(secondary_summary(comp))
+    manifest = output_manifest(pkg, out, runs, rep)
+    return (0 if rep["scientificPass"] and rep["deliveryPass"] else 1), manifest
 
 
 def main() -> int:
@@ -465,26 +666,11 @@ def main() -> int:
         print("refuse: --out must be outside the package")
         return 2
     if a.cmd == "compare":
-        runs = out / "runs.json"
-        r = json.loads(runs.read_text(encoding="utf-8")) if runs.is_file() else {}
-        if not r.get("ok"):
-            print("refuse: compare needs an --out made by a successful regenerate (runs.json); the report of `all` is the evidence")
-            return 2
-        if not r.get("offline", {}).get("ok"):
-            print(json.dumps({"refuse": "the regeneration in --out did not stay offline", "offline": r.get("offline")}))
-            return 4
-        m = verify_manifest(pkg, require_edition=True)
-        if not m["ok"]:
-            print(json.dumps(m, ensure_ascii=False))
-            return 2
-        rep = compare(pkg, out)
-        rep["command"] = "compare"
-        rep["pass"] = rep["scientificPass"] and rep["deliveryPass"]
-        (out / "compare.md").write_text("\n".join(["# D03 재대조", "", *delivery_lines(rep), ""]), encoding="utf-8")
-        (out / "compare.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
-        (out / "outputs-manifest.json").write_text(json.dumps(output_manifest(pkg, out, r, rep), ensure_ascii=False, indent=1), encoding="utf-8")
-        print(json.dumps({key: rep[key] for key in ("pass", "passed", "total", "scientificPass", "deliveryPass", "requiredPDFs")}))
-        return 0 if rep["pass"] else 1
+        try:
+            return compare_attempt(pkg, out)
+        except OSError as exc:
+            print(f"compare could not read or publish {Path(exc.filename).name if exc.filename else 'output'}: {type(exc).__name__}", file=sys.stderr)
+            return 1
     if out.exists():
         print("refuse: --out already exists; use a new path")
         return 2
@@ -504,47 +690,72 @@ def main() -> int:
         (out / "runs.json").write_text(json.dumps(r, indent=1), encoding="utf-8")
         print(json.dumps({"ok": r["ok"], "offline": r["offline"]["ok"]}))
         return 1 if not r["ok"] else (0 if r["offline"]["ok"] else 4)
+    with compare_lock(out) as acquired:
+        if not acquired:
+            return 2
+        return run_all(pkg, out)
+
+
+def early_all_result(out: Path, rep: dict, reason: str, code: int) -> int:
+    rep.update(status="failed", finishedAt=utc_now(), reason=reason)
+    rep["pass"] = False
+    atomic_text(out / "report.md", "\n".join(["# D03 원래 all 실행", "", *attempt_lines(rep), reason]) + "\n")
+    atomic_json(out / "report.json", rep)
+    print(json.dumps(rep, ensure_ascii=False))
+    return code
+
+
+def run_all(pkg: Path, out: Path) -> int:
     t0 = time.perf_counter()
-    rep: dict = {"command": "all", "package": {}}
+    rep: dict = {**new_attempt("all"), "package": {}}
+    atomic_json(out / "report.json", rep)
     m = verify_manifest(pkg, require_edition=True)
     rep["manifest"] = m
     if not m["ok"]:
-        (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(json.dumps(m, ensure_ascii=False))
-        return 2
+        return early_all_result(out, rep, "MANIFEST.json: package verification failed", 2)
     before = snapshot(pkg)
     meta = json.loads((pkg / "MANIFEST.json").read_text(encoding="utf-8"))
     rep["package"] = {k: meta[k] for k in ("baseCommit", "manuscriptBlob", "toolsCommit", "createdFor") if k in meta}
     rep["guard"] = guard_check(out)
     if not rep["guard"]["ok"]:
-        (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
-        return 3
-    rep["regenerate"] = regenerate(pkg, out)
+        return early_all_result(out, rep, "offline guard check failed", 3)
+    try:
+        rep["regenerate"] = regenerate(pkg, out)
+    except checks.InvalidJSON as exc:
+        rel = exc.path.relative_to(out if exc.path.is_relative_to(out) else pkg)
+        return early_all_result(out, rep, f"{rel.as_posix()}: {exc}", 1)
     (out / "runs.json").write_text(json.dumps(rep["regenerate"], indent=1), encoding="utf-8")
     rep["compare"] = compare(pkg, out) if rep["regenerate"]["ok"] else {"items": [], "passed": 0, "total": 7, "secondaryBlobEqual": [], "secondaryEqualCount": 0}
     comp = rep["compare"]
     if not rep["regenerate"]["ok"]:
         comp.update(scientificPass=False, deliveryPass=False, requiredPDFs=[])
-    comp["command"] = "all"
+    comp.update(command="all", runId=rep["runId"], **secondary_summary(comp))
+    if not rep["regenerate"]["ok"]:
+        comp.update(secondaryTotal=None, secondaryEqualCount=None)
     rep["packageUnchanged"] = snapshot(pkg) == before
     rep["offline"] = rep["regenerate"]["offline"]
     rep["networkGuardStarts"] = rep["offline"]["guardStarts"]
     rep["networkBlocked"] = rep["offline"]["blockedEvents"]
-    if rep["regenerate"]["ok"]:
-        rep["outputsManifest"] = output_manifest(pkg, out, rep["regenerate"], rep["compare"])
-        (out / "outputs-manifest.json").write_text(json.dumps(rep["outputsManifest"], ensure_ascii=False, indent=1), encoding="utf-8")
     rep["environment"] = environment()
     rep["seconds"] = round(time.perf_counter() - t0, 1)
     rep["scientificPass"] = comp["scientificPass"]
     rep["deliveryPass"] = comp["deliveryPass"]
     rep["pass"] = rep["scientificPass"] and rep["deliveryPass"] and rep["packageUnchanged"] and rep["guard"]["ok"] and rep["offline"]["ok"]
     rep["passScope"] = "automated scientific, offline and PDF delivery checks; reviewer records the human visual check separately"
-    (out / "env.json").write_text(json.dumps(rep["environment"], ensure_ascii=False, indent=1), encoding="utf-8")
-    (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
-    (out / "report.md").write_text(report_md(rep), encoding="utf-8")
-    print(json.dumps({"pass": rep["pass"], "passed": rep["compare"]["passed"], "scientificPass": rep["scientificPass"],
-                      "deliveryPass": rep["deliveryPass"], "requiredPDFs": comp["requiredPDFs"],
-                      "offline": rep["offline"]["ok"], "seconds": rep["seconds"]}))
+    rep.update(status="passed" if rep["pass"] else "failed", finishedAt=utc_now())
+    if rep["regenerate"]["ok"]:
+        rep["outputsManifest"] = output_manifest(pkg, out, rep["regenerate"], comp)
+        rep["outputsManifest"].update({key: rep[key] for key in ("runId", "startedAt", "finishedAt", "status")})
+        atomic_json(out / "outputs-manifest.json", rep["outputsManifest"])
+    atomic_json(out / "env.json", rep["environment"])
+    atomic_text(out / "report.md", report_md(rep))
+    atomic_json(out / "report.json", rep)
+    summary = {key: rep[key] for key in ("command", "runId", "startedAt", "finishedAt", "status", "pass",
+                                         "scientificPass", "deliveryPass", "seconds")}
+    summary.update({key: comp[key] for key in ("passed", "total", "requiredPDFs", "secondaryEqualCount",
+                                               "secondaryTotal", "secondaryWarnings")})
+    summary["offline"] = rep["offline"]["ok"]
+    print(json.dumps(summary, ensure_ascii=False))
     if rep["pass"]:
         return 0
     if rep["regenerate"]["ok"] and not rep["offline"]["ok"]:
