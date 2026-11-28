@@ -1,3 +1,4 @@
+import { writeSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -146,6 +147,20 @@ describe("budget-bound complete-line summarizer", () => {
   }, 30000);
 
   it("matches the uncapped naive oracle across a nonvacuous deterministic corpus", async () => {
+    const timingEnabled = process.env.TCO_SUMMARIZER_TIMING === "1";
+    const timings = { fixtureMs: 0, budgetsMs: 0, oracleMs: 0, candidateMs: 0, assertionMs: 0 };
+    const startedAt = timingEnabled ? performance.now() : 0;
+    const recordStage = (stage: keyof typeof timings, stageStartedAt: number) => {
+      const now = performance.now();
+      timings[stage] += now - stageStartedAt;
+      return now;
+    };
+    const checkpoint = (stage: "start" | "fixture-complete", fixturesCompleted: number, comparisons: number) => {
+      const elapsedMs = performance.now() - startedAt;
+      writeSync(2, "SUMMARIZER_TIMING_PROGRESS " + JSON.stringify({ fixturesCompleted, comparisons, elapsedMs, stage, ...timings }) + "\n");
+    };
+    if (timingEnabled) checkpoint("start", 0, 0);
+
     const corpus: string[] = [];
     const choices = [short, seed, "We all like warm tea 한글 かな 🙂.", "", " ", "\t", "We all like warm tea \ud800.", "We all like warm tea \udc00."];
     let state = 0x6b4a19;
@@ -161,16 +176,28 @@ describe("budget-bound complete-line summarizer", () => {
     corpus.push("", "a", "The command uses numeric code 42.", short.repeat(100), "\n" + short, ...["\u00a0", "\u3000", "\ufeff"].map(space => [seed, ...Array(49).fill(space)].join("\n")));
     const counts = { comparisons: 0, allFit: 0, truncated: 0, blankTail: 0, spanFallback: 0, blocked: 0, over6: 0, over32: 0, indexed: 0, synthetic: 0 };
     for (const content of corpus) {
+      let stageStartedAt = timingEnabled ? performance.now() : 0;
       const { artifact, summarize } = await fixture(content);
+      if (timingEnabled) stageStartedAt = recordStage("fixtureMs", stageStartedAt);
+
       counts[artifact.sha256 === "synthetic" ? "synthetic" : "indexed"]++;
+      if (timingEnabled) stageStartedAt = recordStage("assertionMs", stageStartedAt);
+
       const budgets = new Set<number>(Array.from({ length: 201 }, (_, i) => i));
       for (let end = 1; end <= artifact.sourceMap.length; end++) {
         const boundary = estimateTextTokens(artifact.sourceMap.slice(0, end).map(line => line.text).join("\n"));
         for (const offset of [-1, 0, 1]) budgets.add(boundary + offset);
       }
       for (const value of [NaN, Infinity, -Infinity, -1, .5, 20.5]) budgets.add(value);
+      if (timingEnabled) recordStage("budgetsMs", stageStartedAt);
+
       for (const budget of budgets) {
-        const expected = naive(artifact, budget), actual = project(summarize(budget));
+        stageStartedAt = timingEnabled ? performance.now() : 0;
+        const expected = naive(artifact, budget);
+        if (timingEnabled) stageStartedAt = recordStage("oracleMs", stageStartedAt);
+
+        const actual = project(summarize(budget));
+        if (timingEnabled) stageStartedAt = recordStage("candidateMs", stageStartedAt);
         expect(actual, `fixture ${counts.indexed + counts.synthetic}, budget ${budget}`).toEqual(expected);
         counts.comparisons++;
         const selected = actual.sourceMap?.endLine ?? 0;
@@ -181,11 +208,23 @@ describe("budget-bound complete-line summarizer", () => {
         else if (selected === artifact.lineCount) counts.allFit++;
         else if (actual.warnings.includes("summary_truncated")) counts.truncated++;
         else counts.blankTail++;
+        if (timingEnabled) recordStage("assertionMs", stageStartedAt);
       }
+      if (timingEnabled) checkpoint("fixture-complete", counts.indexed + counts.synthetic, counts.comparisons);
     }
+
+    const assertionsStartedAt = timingEnabled ? performance.now() : 0;
     for (const key of ["allFit", "truncated", "blankTail", "spanFallback", "blocked", "over6", "over32"] as const) expect(counts[key], key).toBeGreaterThanOrEqual(10);
     expect(counts.indexed).toBeGreaterThan(0); expect(counts.synthetic).toBeGreaterThan(0);
+    const elapsedMs = timingEnabled ? recordStage("assertionMs", assertionsStartedAt) - startedAt : 0;
     console.log("SUMMARIZER_DIFFERENTIAL " + JSON.stringify({ fixtures: corpus.length, ...counts }));
+    if (timingEnabled) {
+      const { fixtureMs, budgetsMs, oracleMs, candidateMs, assertionMs } = timings;
+      const residualMs = elapsedMs - (fixtureMs + budgetsMs + oracleMs + candidateMs + assertionMs);
+      console.log("SUMMARIZER_TIMING " + JSON.stringify({
+        fixtures: corpus.length, comparisons: counts.comparisons, ...timings, elapsedMs, residualMs,
+      }));
+    }
   }, 60000);
 
   it("keeps prefix estimates monotone for 128 seeded and 10 fixed Unicode cases", () => {
