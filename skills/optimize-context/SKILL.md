@@ -124,7 +124,7 @@ priority when evidence is incomplete.
    requested field is not visible, or the question concerns the whole image
    (largest, count, layout), view an `overview_image_artifact` result, an
    existing overview or the authorized original; an overview may still be too
-   small to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/31de4ffad498bdcc7070b745cb0d75efb32577fa/docs/image-artifacts.md#mcp-crop-use) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
+   small to read exact values. See the [image contract](https://github.com/kimcheolhui9846/token-context-optimizer/blob/976c403d30650b1aee1e16aa9db297d2ccfdc9ea/docs/image-artifacts.md#supported-input) for supported profiles and limits. The overview evidence is exploratory, not a general accuracy guarantee; see the research link in rule 4.
 6. **Query with the field and identifier.** Prefer context words such as "posted
    invoice INV-123 batch" to an identifier alone. By default, `query_artifact` returns
    up to five excerpts around positive highest-score ties in file order, within the
