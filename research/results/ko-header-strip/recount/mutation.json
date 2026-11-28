@@ -1,0 +1,239 @@
+{
+ "tampers": 17,
+ "allRejected": true,
+ "metadataNotPixel": true,
+ "notApplicable": [],
+ "results": [
+  {
+   "tamper": "w5_segment_shift_x1",
+   "expected": [
+    "pixel_mismatch"
+   ],
+   "detected": [
+    "manifest_mismatch",
+    "pixel_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": true
+  },
+  {
+   "tamper": "w5_flip_horizontal",
+   "expected": [
+    "pixel_mismatch"
+   ],
+   "detected": [
+    "manifest_mismatch",
+    "pixel_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": true
+  },
+  {
+   "tamper": "coords_y_off_by_one",
+   "expected": [
+    "coords_mismatch"
+   ],
+   "detected": [
+    "coords_mismatch",
+    "score_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "band_order_swap",
+   "expected": [
+    "pixel_mismatch",
+    "dimension_mismatch"
+   ],
+   "detected": [
+    "manifest_mismatch",
+    "pixel_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": true
+  },
+  {
+   "tamper": "overlap_rows_duplicated",
+   "expected": [
+    "dimension_mismatch",
+    "pixel_mismatch"
+   ],
+   "detected": [
+    "dimension_mismatch",
+    "manifest_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "provenance_missing",
+   "expected": [
+    "coords_mismatch"
+   ],
+   "detected": [
+    "coords_mismatch",
+    "score_mismatch",
+    "structure",
+    "summary_mismatch",
+    "table_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "provenance_wrong",
+   "expected": [
+    "coords_mismatch"
+   ],
+   "detected": [
+    "coords_mismatch",
+    "input_damaged",
+    "structure"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "separator_luma_changed",
+   "expected": [
+    "pixel_mismatch"
+   ],
+   "detected": [
+    "manifest_mismatch",
+    "pixel_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": true
+  },
+  {
+   "tamper": "separator_height_changed",
+   "expected": [
+    "coords_mismatch",
+    "structure"
+   ],
+   "detected": [
+    "coords_mismatch",
+    "score_mismatch",
+    "structure"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "w1_kept_pixel_changed",
+   "expected": [
+    "pixel_mismatch"
+   ],
+   "detected": [
+    "manifest_mismatch",
+    "pixel_mismatch",
+    "summary_mismatch",
+    "table_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": true
+  },
+  {
+   "tamper": "pixel_value_plus_one",
+   "expected": [
+    "pixel_mismatch"
+   ],
+   "detected": [
+    "pixel_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": true
+  },
+  {
+   "tamper": "png_metadata_only",
+   "expected": [
+    "metadata_only"
+   ],
+   "detected": [
+    "metadata_only"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "manifest_file_hash",
+   "expected": [
+    "manifest_mismatch"
+   ],
+   "detected": [
+    "manifest_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "gold_join_swapped",
+   "expected": [
+    "score_mismatch"
+   ],
+   "detected": [
+    "fixed22_mismatch",
+    "reference_mismatch",
+    "score_mismatch",
+    "summary_mismatch",
+    "table_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "denominator_swapped",
+   "expected": [
+    "summary_mismatch"
+   ],
+   "detected": [
+    "summary_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "fixed22_id_removed",
+   "expected": [
+    "fixed22_mismatch"
+   ],
+   "detected": [
+    "fixed22_mismatch",
+    "score_mismatch",
+    "summary_mismatch",
+    "table_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  },
+  {
+   "tamper": "verdict_changed",
+   "expected": [
+    "summary_mismatch"
+   ],
+   "detected": [
+    "summary_mismatch"
+   ],
+   "rejected": true,
+   "expectedSeen": true,
+   "pixelMismatchReported": false
+  }
+ ]
+}

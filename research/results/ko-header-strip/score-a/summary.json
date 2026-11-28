@@ -1,0 +1,4021 @@
+{
+ "version": "ko-header-strip-summary-1",
+ "buildCommit": "27908240dd73c8d5bd354746a3d57c642d3a5fe5",
+ "coordsSha256": "057df7e8653730f6bcb988042ff8bf4246e521753fe22e6a84432cac346ecbcc",
+ "scoreStartedUtc": "2026-11-25T04:12:37.787Z",
+ "pageArea": 1228800,
+ "groups": {
+  "total": {
+   "n": 144,
+   "shown": 144,
+   "strict": {
+    "w1": 136,
+    "w4": 136,
+    "w5": 136
+   },
+   "L5": {
+    "count": 0,
+    "denom": 136,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 136,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 8
+   },
+   "opportunity": 136,
+   "J4": 22,
+   "J5": 22,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 22,
+    "of": 22
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 48,
+    "e1": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 22,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 22,
+    "of": 22
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1477837",
+     "den": "294912"
+    },
+    "w5SourceVsW1": {
+     "num": "3958481",
+     "den": "884736"
+    },
+    "w5DisplayVsW1": {
+     "num": "1287895",
+     "den": "294912"
+    },
+    "w5SourceVsW4": {
+     "num": "237515",
+     "den": "442368"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "fixed22": {
+   "n": 22,
+   "shown": 22,
+   "strict": {
+    "w1": 22,
+    "w4": 22,
+    "w5": 22
+   },
+   "L5": {
+    "count": 0,
+    "denom": 22,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 22,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 22,
+   "J4": 22,
+   "J5": 22,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 22,
+    "of": 22
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 22,
+    "e1": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 22,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 22,
+    "of": 22
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1477837",
+     "den": "45056"
+    },
+    "w5SourceVsW1": {
+     "num": "3958481",
+     "den": "135168"
+    },
+    "w5DisplayVsW1": {
+     "num": "1287895",
+     "den": "45056"
+    },
+    "w5SourceVsW4": {
+     "num": "237515",
+     "den": "67584"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "other122": {
+   "n": 122,
+   "shown": 122,
+   "strict": {
+    "w1": 114,
+    "w4": 114,
+    "w5": 114
+   },
+   "L5": {
+    "count": 0,
+    "denom": 114,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 114,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 8
+   },
+   "opportunity": 114,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 26,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason upstream_error": {
+   "n": 0,
+   "shown": 0,
+   "strict": {
+    "w1": 0,
+    "w4": 0,
+    "w5": 0
+   },
+   "L5": {
+    "count": 0,
+    "denom": 0,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 0,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 0,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": null,
+    "w5SourceVsW1": null,
+    "w5DisplayVsW1": null,
+    "w5SourceVsW4": null,
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason upstream_unmatched": {
+   "n": 0,
+   "shown": 0,
+   "strict": {
+    "w1": 0,
+    "w4": 0,
+    "w5": 0
+   },
+   "L5": {
+    "count": 0,
+    "denom": 0,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 0,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 0,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": null,
+    "w5SourceVsW1": null,
+    "w5DisplayVsW1": null,
+    "w5SourceVsW4": null,
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason w4_not_applied": {
+   "n": 122,
+   "shown": 122,
+   "strict": {
+    "w1": 114,
+    "w4": 114,
+    "w5": 114
+   },
+   "L5": {
+    "count": 0,
+    "denom": 114,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 114,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 8
+   },
+   "opportunity": 114,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 26,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason header_outside_body_width": {
+   "n": 0,
+   "shown": 0,
+   "strict": {
+    "w1": 0,
+    "w4": 0,
+    "w5": 0
+   },
+   "L5": {
+    "count": 0,
+    "denom": 0,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 0,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 0,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": null,
+    "w5SourceVsW1": null,
+    "w5DisplayVsW1": null,
+    "w5SourceVsW4": null,
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason header_below_body": {
+   "n": 0,
+   "shown": 0,
+   "strict": {
+    "w1": 0,
+    "w4": 0,
+    "w5": 0
+   },
+   "L5": {
+    "count": 0,
+    "denom": 0,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 0,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 0,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": null,
+    "w5SourceVsW1": null,
+    "w5DisplayVsW1": null,
+    "w5SourceVsW4": null,
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason merged_contained": {
+   "n": 0,
+   "shown": 0,
+   "strict": {
+    "w1": 0,
+    "w4": 0,
+    "w5": 0
+   },
+   "L5": {
+    "count": 0,
+    "denom": 0,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 0,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 0,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": null,
+    "w5SourceVsW1": null,
+    "w5DisplayVsW1": null,
+    "w5SourceVsW4": null,
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason merged": {
+   "n": 2,
+   "shown": 2,
+   "strict": {
+    "w1": 2,
+    "w4": 2,
+    "w5": 2
+   },
+   "L5": {
+    "count": 0,
+    "denom": 2,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 2,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 2,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 2,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "26677",
+     "den": "1024"
+    },
+    "w5SourceVsW1": {
+     "num": "11021",
+     "den": "512"
+    },
+    "w5DisplayVsW1": {
+     "num": "11021",
+     "den": "512"
+    },
+    "w5SourceVsW4": {
+     "num": "4635",
+     "den": "1024"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "reason two_bands": {
+   "n": 20,
+   "shown": 20,
+   "strict": {
+    "w1": 20,
+    "w4": 20,
+    "w5": 20
+   },
+   "L5": {
+    "count": 0,
+    "denom": 20,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 20,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 20,
+   "J4": 20,
+   "J5": 20,
+   "J5Sources": 10,
+   "J4kept": {
+    "count": 20,
+    "of": 20
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 20,
+    "e1": {
+     "w1": 0,
+     "w4": 20,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 20,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 20,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 20,
+    "of": 20
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1371129",
+     "den": "40960"
+    },
+    "w5SourceVsW1": {
+     "num": "3693977",
+     "den": "122880"
+    },
+    "w5DisplayVsW1": {
+     "num": "1199727",
+     "den": "40960"
+    },
+    "w5SourceVsW4": {
+     "num": "41941",
+     "den": "12288"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "side L": {
+   "n": 72,
+   "shown": 72,
+   "strict": {
+    "w1": 68,
+    "w4": 68,
+    "w5": 68
+   },
+   "L5": {
+    "count": 0,
+    "denom": 68,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 68,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 4
+   },
+   "opportunity": 68,
+   "J4": 11,
+   "J5": 11,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 11,
+    "of": 11
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 24,
+    "e1": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 11,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 11,
+    "of": 11
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "2216669",
+     "den": "442368"
+    },
+    "w5SourceVsW1": {
+     "num": "219907",
+     "den": "49152"
+    },
+    "w5DisplayVsW1": {
+     "num": "1931767",
+     "den": "442368"
+    },
+    "w5SourceVsW4": {
+     "num": "118753",
+     "den": "221184"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "side R": {
+   "n": 72,
+   "shown": 72,
+   "strict": {
+    "w1": 68,
+    "w4": 68,
+    "w5": 68
+   },
+   "L5": {
+    "count": 0,
+    "denom": 68,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 68,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 4
+   },
+   "opportunity": 68,
+   "J4": 11,
+   "J5": 11,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 11,
+    "of": 11
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 24,
+    "e1": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 11,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 11,
+    "of": 11
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1108421",
+     "den": "221184"
+    },
+    "w5SourceVsW1": {
+     "num": "989659",
+     "den": "221184"
+    },
+    "w5DisplayVsW1": {
+     "num": "965959",
+     "den": "221184"
+    },
+    "w5SourceVsW4": {
+     "num": "59381",
+     "den": "110592"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "header normal": {
+   "n": 48,
+   "shown": 48,
+   "strict": {
+    "w1": 44,
+    "w4": 44,
+    "w5": 44
+   },
+   "L5": {
+    "count": 0,
+    "denom": 44,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 44,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 4
+   },
+   "opportunity": 44,
+   "J4": 22,
+   "J5": 22,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 22,
+    "of": 22
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 48,
+    "e1": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 22,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 22,
+    "of": 22
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1477837",
+     "den": "98304"
+    },
+    "w5SourceVsW1": {
+     "num": "3958481",
+     "den": "294912"
+    },
+    "w5DisplayVsW1": {
+     "num": "1287895",
+     "den": "98304"
+    },
+    "w5SourceVsW4": {
+     "num": "237515",
+     "den": "147456"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "header blank": {
+   "n": 48,
+   "shown": 48,
+   "strict": {
+    "w1": 48,
+    "w4": 48,
+    "w5": 48
+   },
+   "L5": {
+    "count": 0,
+    "denom": 48,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 48,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 48,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "header dup": {
+   "n": 48,
+   "shown": 48,
+   "strict": {
+    "w1": 44,
+    "w4": 44,
+    "w5": 44
+   },
+   "L5": {
+    "count": 0,
+    "denom": 44,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 44,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 4
+   },
+   "opportunity": 44,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "ans same": {
+   "n": 72,
+   "shown": 72,
+   "strict": {
+    "w1": 68,
+    "w4": 68,
+    "w5": 68
+   },
+   "L5": {
+    "count": 0,
+    "denom": 68,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 68,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 4
+   },
+   "opportunity": 68,
+   "J4": 22,
+   "J5": 22,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 22,
+    "of": 22
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 24,
+    "e1": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 22,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 22,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 22,
+    "of": 22
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1477837",
+     "den": "147456"
+    },
+    "w5SourceVsW1": {
+     "num": "3958481",
+     "den": "442368"
+    },
+    "w5DisplayVsW1": {
+     "num": "1287895",
+     "den": "147456"
+    },
+    "w5SourceVsW4": {
+     "num": "237515",
+     "den": "221184"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "ans below": {
+   "n": 72,
+   "shown": 72,
+   "strict": {
+    "w1": 68,
+    "w4": 68,
+    "w5": 68
+   },
+   "L5": {
+    "count": 0,
+    "denom": 68,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 68,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 4
+   },
+   "opportunity": 68,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 24,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell L-normal-same": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 11,
+   "J5": 11,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 11,
+    "of": 11
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 12,
+    "e1": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 11,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 11,
+    "of": 11
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "2216669",
+     "den": "73728"
+    },
+    "w5SourceVsW1": {
+     "num": "219907",
+     "den": "8192"
+    },
+    "w5DisplayVsW1": {
+     "num": "1931767",
+     "den": "73728"
+    },
+    "w5SourceVsW4": {
+     "num": "118753",
+     "den": "36864"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell L-normal-below": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 12,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell L-blank-same": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell L-blank-below": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell L-dup-same": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell L-dup-below": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell R-normal-same": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 11,
+   "J5": 11,
+   "J5Sources": 11,
+   "J4kept": {
+    "count": 11,
+    "of": 11
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 12,
+    "e1": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 11,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 11,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 11,
+    "of": 11
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "1108421",
+     "den": "36864"
+    },
+    "w5SourceVsW1": {
+     "num": "989659",
+     "den": "36864"
+    },
+    "w5DisplayVsW1": {
+     "num": "965959",
+     "den": "36864"
+    },
+    "w5SourceVsW4": {
+     "num": "59381",
+     "den": "18432"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell R-normal-below": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 12,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell R-blank-same": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell R-blank-below": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell R-dup-same": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "cell R-dup-below": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 11,
+    "w4": 11,
+    "w5": 11
+   },
+   "L5": {
+    "count": 0,
+    "denom": 11,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 11,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 1
+   },
+   "opportunity": 11,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 0,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source library-c0": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "4171",
+     "den": "1024"
+    },
+    "w5SourceVsW1": {
+     "num": "3589",
+     "den": "1024"
+    },
+    "w5DisplayVsW1": {
+     "num": "10379",
+     "den": "3072"
+    },
+    "w5SourceVsW4": {
+     "num": "291",
+     "den": "512"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source library-c1": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "402571",
+     "den": "73728"
+    },
+    "w5SourceVsW1": {
+     "num": "360685",
+     "den": "73728"
+    },
+    "w5DisplayVsW1": {
+     "num": "351377",
+     "den": "73728"
+    },
+    "w5SourceVsW4": {
+     "num": "2327",
+     "den": "4096"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source library-c2": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "2987",
+     "den": "512"
+    },
+    "w5SourceVsW1": {
+     "num": "32239",
+     "den": "6144"
+    },
+    "w5DisplayVsW1": {
+     "num": "31415",
+     "den": "6144"
+    },
+    "w5SourceVsW4": {
+     "num": "3605",
+     "den": "6144"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source library-c3": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "22351",
+     "den": "3072"
+    },
+    "w5SourceVsW1": {
+     "num": "13699",
+     "den": "2048"
+    },
+    "w5DisplayVsW1": {
+     "num": "40273",
+     "den": "6144"
+    },
+    "w5SourceVsW4": {
+     "num": "3605",
+     "den": "6144"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source sports-c0": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 4,
+    "w4": 4,
+    "w5": 4
+   },
+   "L5": {
+    "count": 0,
+    "denom": 4,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 4,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 8
+   },
+   "opportunity": 4,
+   "J4": 0,
+   "J5": 0,
+   "J5Sources": 0,
+   "J4kept": {
+    "count": 0,
+    "of": 0
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 0,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 0,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 0,
+    "of": 0
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5DisplayVsW1": {
+     "num": "0",
+     "den": "1"
+    },
+    "w5SourceVsW4": {
+     "num": "0",
+     "den": "1"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source sports-c1": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "257579",
+     "den": "36864"
+    },
+    "w5SourceVsW1": {
+     "num": "157871",
+     "den": "24576"
+    },
+    "w5DisplayVsW1": {
+     "num": "464117",
+     "den": "73728"
+    },
+    "w5SourceVsW4": {
+     "num": "41545",
+     "den": "73728"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source sports-c2": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "50009",
+     "den": "12288"
+    },
+    "w5SourceVsW1": {
+     "num": "259349",
+     "den": "73728"
+    },
+    "w5DisplayVsW1": {
+     "num": "250045",
+     "den": "73728"
+    },
+    "w5SourceVsW4": {
+     "num": "40705",
+     "den": "73728"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source sports-c3": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "26677",
+     "den": "6144"
+    },
+    "w5SourceVsW1": {
+     "num": "11021",
+     "den": "3072"
+    },
+    "w5DisplayVsW1": {
+     "num": "11021",
+     "den": "3072"
+    },
+    "w5SourceVsW4": {
+     "num": "1545",
+     "den": "2048"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source culture-c0": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "51041",
+     "den": "12288"
+    },
+    "w5SourceVsW1": {
+     "num": "43919",
+     "den": "12288"
+    },
+    "w5DisplayVsW1": {
+     "num": "127009",
+     "den": "36864"
+    },
+    "w5SourceVsW4": {
+     "num": "1187",
+     "den": "2048"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source culture-c1": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "33727",
+     "den": "6144"
+    },
+    "w5SourceVsW1": {
+     "num": "364019",
+     "den": "73728"
+    },
+    "w5DisplayVsW1": {
+     "num": "354715",
+     "den": "73728"
+    },
+    "w5SourceVsW4": {
+     "num": "40705",
+     "den": "73728"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source culture-c2": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "205351",
+     "den": "36864"
+    },
+    "w5SourceVsW1": {
+     "num": "369157",
+     "den": "73728"
+    },
+    "w5DisplayVsW1": {
+     "num": "119887",
+     "den": "24576"
+    },
+    "w5SourceVsW4": {
+     "num": "41545",
+     "den": "73728"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  },
+  "source culture-c3": {
+   "n": 12,
+   "shown": 12,
+   "strict": {
+    "w1": 12,
+    "w4": 12,
+    "w5": 12
+   },
+   "L5": {
+    "count": 0,
+    "denom": 12,
+    "sources": 0
+   },
+   "t45": {
+    "keptSuccess": 12,
+    "recovered": 0,
+    "lost": 0,
+    "bothFail": 0
+   },
+   "opportunity": 12,
+   "J4": 2,
+   "J5": 2,
+   "J5Sources": 1,
+   "J4kept": {
+    "count": 2,
+    "of": 2
+   },
+   "reexposed": {
+    "items": 0,
+    "pages": 0,
+    "sources": 0
+   },
+   "reading": {
+    "pages": 4,
+    "e1": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "e2": {
+     "w1": 0,
+     "w4": 2,
+     "w5": 0
+    },
+    "newE1W1": 0,
+    "newE1W4": 0,
+    "newE2W1": 0,
+    "newE2W4": 0,
+    "resolvedE1W4": 2,
+    "newE1W1Sources": 0
+   },
+   "fourItems": {
+    "count": 2,
+    "of": 2
+   },
+   "area": {
+    "w4VsW1": {
+     "num": "126767",
+     "den": "18432"
+    },
+    "w5SourceVsW1": {
+     "num": "29075",
+     "den": "4608"
+    },
+    "w5DisplayVsW1": {
+     "num": "56987",
+     "den": "9216"
+    },
+    "w5SourceVsW4": {
+     "num": "1163",
+     "den": "2048"
+    },
+    "displayGtW1": 0,
+    "sourceOutsideW1": 0
+   }
+  }
+ },
+ "reasonRows": [
+  {
+   "group": "total",
+   "counts": {
+    "upstream_error": 0,
+    "upstream_unmatched": 0,
+    "w4_not_applied": 122,
+    "header_outside_body_width": 0,
+    "header_below_body": 0,
+    "merged_contained": 0,
+    "merged": 2,
+    "two_bands": 20
+   }
+  },
+  {
+   "group": "fixed22",
+   "counts": {
+    "upstream_error": 0,
+    "upstream_unmatched": 0,
+    "w4_not_applied": 0,
+    "header_outside_body_width": 0,
+    "header_below_body": 0,
+    "merged_contained": 0,
+    "merged": 2,
+    "two_bands": 20
+   }
+  },
+  {
+   "group": "other122",
+   "counts": {
+    "upstream_error": 0,
+    "upstream_unmatched": 0,
+    "w4_not_applied": 122,
+    "header_outside_body_width": 0,
+    "header_below_body": 0,
+    "merged_contained": 0,
+    "merged": 0,
+    "two_bands": 0
+   }
+  },
+  {
+   "group": "header normal",
+   "counts": {
+    "upstream_error": 0,
+    "upstream_unmatched": 0,
+    "w4_not_applied": 26,
+    "header_outside_body_width": 0,
+    "header_below_body": 0,
+    "merged_contained": 0,
+    "merged": 2,
+    "two_bands": 20
+   }
+  },
+  {
+   "group": "header blank",
+   "counts": {
+    "upstream_error": 0,
+    "upstream_unmatched": 0,
+    "w4_not_applied": 48,
+    "header_outside_body_width": 0,
+    "header_below_body": 0,
+    "merged_contained": 0,
+    "merged": 0,
+    "two_bands": 0
+   }
+  },
+  {
+   "group": "header dup",
+   "counts": {
+    "upstream_error": 0,
+    "upstream_unmatched": 0,
+    "w4_not_applied": 48,
+    "header_outside_body_width": 0,
+    "header_below_body": 0,
+    "merged_contained": 0,
+    "merged": 0,
+    "two_bands": 0
+   }
+  }
+ ],
+ "fixedRows": [
+  {
+   "id": "p003",
+   "key": "culture-c0-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    465,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p008",
+   "key": "library-c3-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    465,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p011",
+   "key": "library-c1-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    465,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p021",
+   "key": "sports-c3-R-normal-same",
+   "w5Reason": "merged",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    634,
+    11,
+    725,
+    33
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p027",
+   "key": "culture-c1-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    723,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p035",
+   "key": "culture-c2-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    634,
+    6,
+    725,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p038",
+   "key": "library-c0-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    374,
+    6,
+    465,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p042",
+   "key": "sports-c2-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    463,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p050",
+   "key": "culture-c0-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    725,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p055",
+   "key": "library-c0-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    634,
+    6,
+    725,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p063",
+   "key": "library-c1-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    725,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p079",
+   "key": "library-c2-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    463,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p083",
+   "key": "culture-c2-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    374,
+    6,
+    465,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p085",
+   "key": "library-c2-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    723,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p086",
+   "key": "sports-c1-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    723,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p101",
+   "key": "sports-c2-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    723,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p114",
+   "key": "culture-c3-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    725,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p116",
+   "key": "culture-c1-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    463,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p117",
+   "key": "library-c3-R-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    633,
+    6,
+    725,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p122",
+   "key": "sports-c1-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    463,
+    28
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p134",
+   "key": "culture-c3-L-normal-same",
+   "w5Reason": "two_bands",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    373,
+    6,
+    465,
+    29
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  },
+  {
+   "id": "p135",
+   "key": "sports-c3-L-normal-same",
+   "w5Reason": "merged",
+   "targetHeader": "full",
+   "compHeader": "full",
+   "targetValue": "full",
+   "compValue": "full",
+   "place": [
+    374,
+    11,
+    465,
+    33
+   ],
+   "fourItems": true,
+   "e1w4": true,
+   "e1w5": false
+  }
+ ],
+ "lists": {
+  "fixed22Applied": [
+   "p003",
+   "p008",
+   "p011",
+   "p021",
+   "p027",
+   "p035",
+   "p038",
+   "p042",
+   "p050",
+   "p055",
+   "p063",
+   "p079",
+   "p083",
+   "p085",
+   "p086",
+   "p101",
+   "p114",
+   "p116",
+   "p117",
+   "p122",
+   "p134",
+   "p135"
+  ],
+  "j4": [
+   "p003",
+   "p008",
+   "p011",
+   "p021",
+   "p027",
+   "p035",
+   "p038",
+   "p042",
+   "p050",
+   "p055",
+   "p063",
+   "p079",
+   "p083",
+   "p085",
+   "p086",
+   "p101",
+   "p114",
+   "p116",
+   "p117",
+   "p122",
+   "p134",
+   "p135"
+  ],
+  "j5": [
+   "p003",
+   "p008",
+   "p011",
+   "p021",
+   "p027",
+   "p035",
+   "p038",
+   "p042",
+   "p050",
+   "p055",
+   "p063",
+   "p079",
+   "p083",
+   "p085",
+   "p086",
+   "p101",
+   "p114",
+   "p116",
+   "p117",
+   "p122",
+   "p134",
+   "p135"
+  ],
+  "newE1W4": [
+   "p003",
+   "p008",
+   "p011",
+   "p021",
+   "p027",
+   "p035",
+   "p038",
+   "p042",
+   "p050",
+   "p055",
+   "p063",
+   "p079",
+   "p083",
+   "p085",
+   "p086",
+   "p101",
+   "p114",
+   "p116",
+   "p117",
+   "p122",
+   "p134",
+   "p135"
+  ],
+  "e1W5": [],
+  "reexposedPages": [],
+  "w1KeptPixelMismatch": [],
+  "fourItemsFail": []
+ },
+ "transitions": {
+  "full/full/full": 196,
+  "full/none/none": 36,
+  "none/none/none": 52,
+  "partial/partial/partial": 4
+ },
+ "compValue": {
+  "w1": {
+   "full": 136,
+   "partial": 0,
+   "none": 8
+  },
+  "w4": {
+   "full": 136,
+   "partial": 0,
+   "none": 8
+  },
+  "w5": {
+   "full": 136,
+   "partial": 0,
+   "none": 8
+  }
+ },
+ "exposureTable": {
+  "normal": {
+   "w1": {
+    "targetHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    }
+   },
+   "w4": {
+    "targetHeader": {
+     "full": 26,
+     "partial": 0,
+     "none": 22,
+     "source_missing": 0
+    },
+    "compHeader": {
+     "full": 26,
+     "partial": 0,
+     "none": 22,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    }
+   },
+   "w5": {
+    "targetHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    }
+   }
+  },
+  "blank": {
+   "w1": {
+    "targetHeader": {
+     "full": 0,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 48
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    }
+   },
+   "w4": {
+    "targetHeader": {
+     "full": 0,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 48
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    }
+   },
+   "w5": {
+    "targetHeader": {
+     "full": 0,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 48
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    }
+   }
+  },
+  "dup": {
+   "w1": {
+    "targetHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    }
+   },
+   "w4": {
+    "targetHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    }
+   },
+   "w5": {
+    "targetHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compHeader": {
+     "full": 48,
+     "partial": 0,
+     "none": 0,
+     "source_missing": 0
+    },
+    "compValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    },
+    "targetValue": {
+     "full": 44,
+     "partial": 0,
+     "none": 4,
+     "source_missing": 0
+    }
+   }
+  }
+ },
+ "pairs": [],
+ "verdict": {
+  "C1": {
+   "L5": 0,
+   "w1KeptMatch": 122,
+   "of": 122,
+   "pass": true
+  },
+  "C2": {
+   "fixedE1W5": 0,
+   "fourItems": 22,
+   "of": 22,
+   "newE1W1": 0,
+   "newE2W1": 0,
+   "normalPages": 48,
+   "pass": true
+  },
+  "C3": {
+   "J4": 22,
+   "J4kept": 22,
+   "reexposedItems": 0,
+   "pass": true
+  },
+  "C4": {
+   "checks": {
+    "referenceW1W4": true,
+    "fixed22Equal": true,
+    "buildMatchesHead": true,
+    "manifestCoords": true
+   },
+   "pass": true
+  },
+  "status": "pass",
+  "failed": []
+ }
+}
