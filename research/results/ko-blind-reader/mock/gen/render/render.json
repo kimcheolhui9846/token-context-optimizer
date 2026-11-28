@@ -1,0 +1,3723 @@
+{
+ "design": "ko-blind-reader-design-1",
+ "set": "ko-blind-reader-mock",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "images": {
+  "q17503fa9": {
+   "file": "q17503fa9.png",
+   "sha256": "98bef96742f85707be19fde7f55fec4795d0c53c7a30fae70d8f3b906b6cde60",
+   "bytes": 19134,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      326,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      372,
+      113,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      632,
+      113,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      240,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      465,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      209,
+      725,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      169,
+      1163,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      258,
+      214,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      463,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      632,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      722,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1162,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      345,
+      240,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1186,
+      368
+     ]
+    }
+   }
+  },
+  "q1d435f2a": {
+   "file": "q1d435f2a.png",
+   "sha256": "21eff714d9fcc462d1cc8c219471ea15d43bd50e53eeaeb211543f177908e17f",
+   "bytes": 20203,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      326,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      723,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      463,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      241,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      169,
+      678,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      373,
+      169,
+      418,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      374,
+      209,
+      465,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      169,
+      1164,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      257,
+      213,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      257,
+      678,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      297,
+      725,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      257,
+      418,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      465,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      257,
+      1164,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      240,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      345,
+      678,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      745,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      373,
+      345,
+      418,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1186,
+      368
+     ]
+    }
+   }
+  },
+  "q2d3b713d": {
+   "file": "q2d3b713d.png",
+   "sha256": "f1cf32f5f2fc22dfa64caf9a1aa05cd531801be043469bc56dc4f9f5693dca53",
+   "bytes": 19806,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      193,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      113,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      241,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      463,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      634,
+      209,
+      723,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      169,
+      1164,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      235,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      372,
+      298,
+      463,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      634,
+      297,
+      725,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1184,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      345,
+      213,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      374,
+      385,
+      464,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1163,
+      368
+     ]
+    }
+   }
+  },
+  "q363f67d4": {
+   "file": "q363f67d4.png",
+   "sha256": "4d0d5c09c07636b99030aac567f073061688fb246a7a1cce177c42f1953da67a",
+   "bytes": 19434,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      326,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      725,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      374,
+      113,
+      465,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      241,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      462,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      169,
+      1164,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      257,
+      262,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      298,
+      725,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      465,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      257,
+      1164,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      345,
+      215,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      374,
+      385,
+      464,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1163,
+      368
+     ]
+    }
+   }
+  },
+  "q3b3fc545": {
+   "file": "q3b3fc545.png",
+   "sha256": "f8ee3b90fab764b8c55d87785e79531835dc636d6bc7c60d69300605e46de501",
+   "bytes": 20856,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      355,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      725,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      373,
+      113,
+      465,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      242,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      210,
+      725,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      485,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      169,
+      1164,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      258,
+      242,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      374,
+      297,
+      463,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1163,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      213,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      634,
+      385,
+      724,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      462,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      346,
+      1162,
+      368
+     ]
+    }
+   }
+  },
+  "q4c89fe96": {
+   "file": "q4c89fe96.png",
+   "sha256": "f3034301dbff8f04ff13bf7f0a030a6660ca799237aa1997dff8b2099ef66544",
+   "bytes": 20910,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      355,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      171,
+      419,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      485,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      171,
+      679,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      209,
+      725,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      169,
+      1163,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      236,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      373,
+      259,
+      419,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      374,
+      297,
+      464,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      633,
+      259,
+      679,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      257,
+      1186,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      237,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      347,
+      419,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      465,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      633,
+      347,
+      679,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      385,
+      724,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1186,
+      368
+     ]
+    }
+   }
+  },
+  "q4cc8303c": {
+   "file": "q4cc8303c.png",
+   "sha256": "9f72d86411e86ff421bc4aeeb22d8ae49450c9b53635f68c226795f969e54fda",
+   "bytes": 19822,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      55,
+      42,
+      362,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      214,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      171,
+      419,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      463,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      632,
+      171,
+      679,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      632,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1184,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      257,
+      214,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      259,
+      419,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      297,
+      465,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      259,
+      679,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      634,
+      297,
+      724,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      257,
+      1186,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      54,
+      345,
+      242,
+      369
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      373,
+      347,
+      419,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      633,
+      347,
+      679,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      634,
+      385,
+      725,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      345,
+      1164,
+      368
+     ]
+    }
+   }
+  },
+  "q4f283739": {
+   "file": "q4f283739.png",
+   "sha256": "fef392984bc2187bfc6734fd4087691a2dbe464f19a32345cfaae446a9d288b4",
+   "bytes": 19625,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      326,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      632,
+      113,
+      725,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      372,
+      113,
+      465,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      215,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      634,
+      209,
+      725,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      463,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1162,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      258,
+      213,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      372,
+      298,
+      465,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      257,
+      1164,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      242,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      462,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      345,
+      1187,
+      368
+     ]
+    }
+   }
+  },
+  "q5a1bb47c": {
+   "file": "q5a1bb47c.png",
+   "sha256": "5869833cf945189b37d41064e2f3eb7bd951094912ef0335a5ee550e22063471",
+   "bytes": 21143,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      355,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      463,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      723,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      236,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      169,
+      418,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      485,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      632,
+      169,
+      678,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      632,
+      210,
+      725,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1162,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      257,
+      240,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      373,
+      257,
+      418,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      297,
+      465,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      257,
+      678,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      632,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      258,
+      1165,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      345,
+      213,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      345,
+      418,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      374,
+      385,
+      465,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      632,
+      345,
+      678,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      385,
+      724,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      346,
+      1165,
+      368
+     ]
+    }
+   }
+  },
+  "q68c095c6": {
+   "file": "q68c095c6.png",
+   "sha256": "64328759a0ea7eea33f65f071a26525a108d9633e34dec09ba98c7b2b35bfb74",
+   "bytes": 20199,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      362,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      143,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      634,
+      114,
+      725,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      465,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      240,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      633,
+      171,
+      679,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      634,
+      209,
+      724,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      171,
+      419,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      372,
+      210,
+      463,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      169,
+      1186,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      54,
+      258,
+      242,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      259,
+      679,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      298,
+      722,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      373,
+      259,
+      419,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      297,
+      464,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      257,
+      1163,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      216,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      347,
+      679,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      745,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      373,
+      347,
+      419,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1163,
+      368
+     ]
+    }
+   }
+  },
+  "q7b15b37e": {
+   "file": "q7b15b37e.png",
+   "sha256": "9f39d4229c3ce57ba3930efd159cf81ee076220d8d63666265a18eeb3cd4b2a5",
+   "bytes": 21407,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      193,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      723,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      463,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      633,
+      169,
+      678,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      209,
+      723,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      373,
+      169,
+      418,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      485,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1162,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      240,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      257,
+      678,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      257,
+      418,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      463,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      257,
+      1186,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      345,
+      240,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      633,
+      345,
+      678,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      634,
+      385,
+      724,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      345,
+      418,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      345,
+      1163,
+      368
+     ]
+    }
+   }
+  },
+  "q8027dc59": {
+   "file": "q8027dc59.png",
+   "sha256": "48d52526de3347298c79b302c8478eaf5907fd8bc23fb38475f2ee5fe5f409ea",
+   "bytes": 20603,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      362,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      143,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      723,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      373,
+      113,
+      463,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      240,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      633,
+      169,
+      678,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      169,
+      418,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      462,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1165,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      240,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      257,
+      678,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      298,
+      722,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      257,
+      418,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      372,
+      298,
+      465,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      257,
+      1186,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      258,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      633,
+      345,
+      678,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      634,
+      385,
+      725,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      345,
+      418,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      485,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      345,
+      1164,
+      368
+     ]
+    }
+   }
+  },
+  "q86640919": {
+   "file": "q86640919.png",
+   "sha256": "68cb512503305bd4b442540d968d763fa4e1e6fc48d261981482dc4933c44f94",
+   "bytes": 19660,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      362,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      143,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      170,
+      215,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      171,
+      432,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      209,
+      463,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      171,
+      692,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      745,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      169,
+      1163,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      242,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      259,
+      432,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      463,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      259,
+      692,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1163,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      345,
+      213,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      347,
+      432,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      374,
+      385,
+      465,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      347,
+      692,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      345,
+      1187,
+      368
+     ]
+    }
+   }
+  },
+  "q94c95fc2": {
+   "file": "q94c95fc2.png",
+   "sha256": "fccf29f12a8caff20cae07b1d7c557ea6ca3c4b8047d1d534404fa5853b24fd5",
+   "bytes": 19481,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      268,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      113,
+      193,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      372,
+      114,
+      463,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      723,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      170,
+      208,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      169,
+      418,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      372,
+      210,
+      462,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      169,
+      678,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1162,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      258,
+      235,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      257,
+      418,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      297,
+      465,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      257,
+      678,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      634,
+      297,
+      724,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1163,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      346,
+      213,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      345,
+      418,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      385,
+      464,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      345,
+      678,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      346,
+      1165,
+      368
+     ]
+    }
+   }
+  },
+  "qa27b2bf8": {
+   "file": "qa27b2bf8.png",
+   "sha256": "e45596f96fe3f4523965381fcb55ead569a994897a4ad9a68377b5107d83caef",
+   "bytes": 20222,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      55,
+      42,
+      362,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      725,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      372,
+      114,
+      465,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      52,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      171,
+      692,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      210,
+      722,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      171,
+      432,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      209,
+      463,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      169,
+      1163,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      257,
+      236,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      259,
+      692,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      259,
+      432,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      485,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      258,
+      1165,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      346,
+      210,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      347,
+      692,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      372,
+      347,
+      432,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      345,
+      1187,
+      368
+     ]
+    }
+   }
+  },
+  "qba30945f": {
+   "file": "qba30945f.png",
+   "sha256": "1377c910021870d623925bd3bee0eecaef0c652cbaf86f86b63b7c02e94b063f",
+   "bytes": 20328,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      326,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      725,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      465,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      242,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      634,
+      171,
+      692,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      722,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      171,
+      432,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      374,
+      209,
+      465,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1184,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      258,
+      213,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      259,
+      692,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      634,
+      297,
+      724,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      259,
+      432,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      463,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1162,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      52,
+      346,
+      236,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      632,
+      347,
+      692,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      632,
+      386,
+      722,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      374,
+      347,
+      432,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      374,
+      385,
+      463,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      345,
+      1187,
+      368
+     ]
+    }
+   }
+  },
+  "qd2df355a": {
+   "file": "qd2df355a.png",
+   "sha256": "cfc9a6a73f47173f7a98ba20bbafa3db29433284d2928f21bc2d3a0f4830e013",
+   "bytes": 20480,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      55,
+      42,
+      362,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      114,
+      463,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      114,
+      723,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      54,
+      170,
+      213,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      169,
+      418,
+      192
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      372,
+      210,
+      463,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      633,
+      169,
+      678,
+      192
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      170,
+      1162,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      257,
+      236,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      257,
+      418,
+      280
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      463,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      633,
+      257,
+      678,
+      280
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      634,
+      297,
+      725,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      258,
+      1165,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      235,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      372,
+      345,
+      418,
+      368
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      485,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      633,
+      345,
+      678,
+      368
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      346,
+      1165,
+      368
+     ]
+    }
+   }
+  },
+  "qff9eae91": {
+   "file": "qff9eae91.png",
+   "sha256": "4326b18e0c6689e785fd23808cde30e68a1d8ef6c4a63996500084648d0ffc2f",
+   "bytes": 17972,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      53,
+      42,
+      326,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      373,
+      113,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      213,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      463,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      210,
+      723,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      169,
+      1187,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      52,
+      257,
+      214,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      465,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      723,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1072,
+      258,
+      1165,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      346,
+      213,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      485,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      723,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1073,
+      346,
+      1165,
+      368
+     ]
+    }
+   }
+  }
+ }
+}

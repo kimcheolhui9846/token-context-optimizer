@@ -1,0 +1,57 @@
+{
+ "version": "ko-blind-reader-browser-scorer-test-1",
+ "set": "mock",
+ "date": "2026-11-25",
+ "source": "fresh remote clone (core.autocrlf=false) of claude/ko-blind-reader-pilot at adbead6; mock run of that clone",
+ "packetSha256": "3ea3c7c46d2e64785c842cc4922787146300bb5c574294ea63c07b48074977fd",
+ "packetRecordSha256": "307525dddb7f760ffc3bbe744db240adb825b89ae057cfdb5acf4d95173b2fbd",
+ "browser": "Playwright MCP (Chromium), mock packet folder served on 127.0.0.1; network requests of the page: GET start.html only",
+ "readerSteps": "self report '아니오', guide, practice (왼쪽, 11:40), 18 items: 16 answered, item 6 skipped by two-step confirm, item 9 판단 불가 + 값 판단 불가, '마지막 문항 확정', review (답한 17, 건너뜀 1, 미표시 0), '완료하기' -> '완료 확정', download kbr-response-<packetId>.json",
+ "admin": "copy of the clone's mock admin folder without responses/ and score/ (scorer, lib, recount.py, 채점.cmd, 응답확인.cmd from adbead6)",
+ "runs": [
+  {
+   "cmd": "응답확인.cmd <response>",
+   "exit": 0,
+   "lock": "none"
+  },
+  {
+   "cmd": "채점.cmd <response>",
+   "exit": 0,
+   "lock": "new",
+   "recount": {
+    "checks": 128,
+    "failed": 0
+   }
+  },
+  {
+   "cmd": "채점.cmd <same response>",
+   "exit": 0,
+   "lock": "same",
+   "recount": {
+    "checks": 128,
+    "failed": 0
+   }
+  },
+  {
+   "cmd": "채점.cmd <mock-browser/response.json, an earlier real-UI response of the same mock packet>",
+   "exit": 1,
+   "code": "lock_different",
+   "message": "FAILED: this run did not score. Files left in the score folder are not a result of this run (see score\\last-run.json)."
+  },
+  {
+   "cmd": "응답확인.cmd <response>",
+   "exit": 0,
+   "lock": "same"
+  }
+ ],
+ "responseSha256": "f974bcd662a190985d8c63e65d0fb901339a084d87172c2b57869fccd847818c",
+ "files": {
+  "response.json": "f974bcd662a190985d8c63e65d0fb901339a084d87172c2b57869fccd847818c",
+  "locked.sha256": "2b0e96d4a4c2b284557a4dc34c5e7697e7944f57300077be9471ea07cb2cda70",
+  "score.json": "eb7a89ce57ebc0d490a50d354b2aa357ab87bd9c845299850f830be8dfc2773d",
+  "score-table.md": "a24106b439ea037d43eefa46575598d7d0e6963b42edb5d247fcce70e24c87c7",
+  "recount.json": "40486aa91c54b37d8c4d9f7a82cb66c8e2696d714ebfa65cc556c2eda8d5467c",
+  "last-run.json": "17058071cb590be179f33e67f506dab8f282650664caead0749b27a825390fe8"
+ },
+ "note": "the earlier mock-browser/response.json (130be80 era) passes the new response checks and reaches the lock stage, where it is refused only because another response is locked"
+}

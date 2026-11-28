@@ -1,0 +1,353 @@
+{
+ "version": "ko-blind-reader-design-1",
+ "set": "ko-blind-reader-practice",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "weight": 400,
+  "bodySize": 24,
+  "titleSize": 32
+ },
+ "images": [
+  {
+   "id": "practice",
+   "file": "practice.png",
+   "page": {
+    "width": 1280,
+    "height": 960
+   },
+   "items": [
+    {
+     "id": "title",
+     "role": "title",
+     "text": "연습 예시 표",
+     "cell": [
+      40,
+      28,
+      1000,
+      84
+     ],
+     "size": "title"
+    },
+    {
+     "id": "h-label",
+     "role": "header",
+     "text": "예시 항목",
+     "cell": [
+      40,
+      104,
+      320,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-target",
+     "role": "header",
+     "text": "시작 시각",
+     "cell": [
+      360,
+      104,
+      580,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "h-comp",
+     "role": "header",
+     "text": "종료 시각",
+     "cell": [
+      620,
+      104,
+      840,
+      144
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-label",
+     "role": "label",
+     "record": 0,
+     "text": "연습 항목 하나",
+     "cell": [
+      40,
+      160,
+      320,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-tval",
+     "role": "target_value",
+     "record": 0,
+     "text": "11:40",
+     "cell": [
+      360,
+      160,
+      580,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-taux",
+     "role": "aux",
+     "record": 0,
+     "text": "예시 문구",
+     "cell": [
+      360,
+      200,
+      580,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-cval",
+     "role": "comp_value",
+     "record": 0,
+     "text": "15:20",
+     "cell": [
+      620,
+      160,
+      840,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-caux",
+     "role": "aux",
+     "record": 0,
+     "text": "예시 설명",
+     "cell": [
+      620,
+      200,
+      840,
+      240
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r0-note",
+     "role": "note",
+     "record": 0,
+     "text": "비고 하나",
+     "cell": [
+      1060,
+      160,
+      1250,
+      200
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-label",
+     "role": "label",
+     "record": 1,
+     "text": "연습 항목 둘",
+     "cell": [
+      40,
+      248,
+      320,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-tval",
+     "role": "target_value",
+     "record": 1,
+     "text": "14:20",
+     "cell": [
+      360,
+      248,
+      580,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-taux",
+     "role": "aux",
+     "record": 1,
+     "text": "예시 메모",
+     "cell": [
+      360,
+      288,
+      580,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-cval",
+     "role": "comp_value",
+     "record": 1,
+     "text": "12:30",
+     "cell": [
+      620,
+      248,
+      840,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-caux",
+     "role": "aux",
+     "record": 1,
+     "text": "예시 참고",
+     "cell": [
+      620,
+      288,
+      840,
+      328
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r1-note",
+     "role": "note",
+     "record": 1,
+     "text": "비고 둘",
+     "cell": [
+      1060,
+      248,
+      1250,
+      288
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-label",
+     "role": "label",
+     "record": 2,
+     "text": "연습 항목 셋",
+     "cell": [
+      40,
+      336,
+      320,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-tval",
+     "role": "target_value",
+     "record": 2,
+     "text": "16:50",
+     "cell": [
+      360,
+      336,
+      580,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-taux",
+     "role": "aux",
+     "record": 2,
+     "text": "예시 안내",
+     "cell": [
+      360,
+      376,
+      580,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-cval",
+     "role": "comp_value",
+     "record": 2,
+     "text": "18:10",
+     "cell": [
+      620,
+      336,
+      840,
+      376
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-caux",
+     "role": "aux",
+     "record": 2,
+     "text": "예시 기타",
+     "cell": [
+      620,
+      376,
+      840,
+      416
+     ],
+     "size": "body"
+    },
+    {
+     "id": "r2-note",
+     "role": "note",
+     "record": 2,
+     "text": "비고 셋",
+     "cell": [
+      1060,
+      336,
+      1250,
+      376
+     ],
+     "size": "body"
+    }
+   ],
+   "rules": [
+    [
+     24,
+     96,
+     1256,
+     98
+    ],
+    [
+     24,
+     150,
+     1256,
+     152
+    ],
+    [
+     24,
+     243,
+     1256,
+     245
+    ],
+    [
+     24,
+     331,
+     1256,
+     333
+    ]
+   ],
+   "answer": "11:40",
+   "goldItems": [
+    "r0-label",
+    "r0-tval"
+   ],
+   "anchorItem": "r0-label",
+   "valueItem": "r0-tval",
+   "compValueItem": "r0-cval",
+   "targetHeaderItem": "h-target",
+   "compHeaderItem": "h-comp",
+   "otherValueItems": [
+    "r1-tval",
+    "r2-tval"
+   ],
+   "targetColumn": [
+    360,
+    580
+   ],
+   "compColumn": [
+    620,
+    840
+   ]
+  }
+ ]
+}

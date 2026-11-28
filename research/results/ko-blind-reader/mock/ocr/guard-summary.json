@@ -1,0 +1,173 @@
+{
+ "step": "kbr-mock-ocr",
+ "offlineGuard": true,
+ "blocked": 0,
+ "langFiles": [
+  {
+   "lang": "eng",
+   "file": "eng.traineddata",
+   "bytes": 5199098,
+   "sha256": "5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747"
+  },
+  {
+   "lang": "kor",
+   "file": "kor.traineddata",
+   "bytes": 2208378,
+   "sha256": "ec1749377d49ac38fb3d3cd05dd5e2a53359d329f359762bc638a81132109992"
+  }
+ ],
+ "engine": {
+  "tesseract.js": "5.1.1",
+  "tesseract.js-core": "5.1.1",
+  "sharp": "0.35.4"
+ },
+ "engineCoreFiles": {
+  "LICENSE": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+  "README.md": "763f24dda689f235b3d3963c058629ef080bb47ab011d193a8347ede09e24118",
+  "index.js": "cc5d319080bc2ef3c288128690ea598c8cbc1d1f2f13a6a750c0ba344ff5a162",
+  "package.json": "bb890458ac636043d6c6b1997618ad5b290a219bcec20547b5504bb280513202",
+  "tesseract-core-lstm.js": "fc54a973687325599214294ec90ea9665309cbdf6ca727c43a64651f24e923f7",
+  "tesseract-core-lstm.wasm": "5db58ea4d1bd4256be81e8ae3b4fa226c4625dfba1850b1b3308dbf3700e9929",
+  "tesseract-core-lstm.wasm.js": "8f04aa0cc81e7bde33f80e92fa01a7a665f0b4884d098acf5de9c7104a11dfaa",
+  "tesseract-core-simd-lstm.js": "4135a3f6f1cccf3bc92058c1273c49bb4cff6356e1ba15d1b8b4e76e9890526b",
+  "tesseract-core-simd-lstm.wasm": "66b601224a0c4a8977bc9d92dd39841189f9ca22cc4122fcd7208cdb0961eeef",
+  "tesseract-core-simd-lstm.wasm.js": "ce20eda9533cbed1e6c2b4276fbae1e0adc61b6754b5513084be601787b457cf",
+  "tesseract-core-simd.js": "74f0f7bacae500794c9e61a54956f23c3b271bf15a9847776d98f93164ba9400",
+  "tesseract-core-simd.wasm": "baa2f54ef5af43ada4605fd7ae999bde3c6ecc96bfe0d0410b0b4f4a5f9c8b91",
+  "tesseract-core-simd.wasm.js": "63f232c4f7a97b04e52eb940202700b2c6239783a75d0ff0553274fac530cd5c",
+  "tesseract-core.js": "c8ff737be3e8e12f6426773f13186965ea4455977ab12a759f051da7c6493100",
+  "tesseract-core.wasm": "b47a852b19181ae0999f9d970c368cd351135a320ea978b35bd38602d8bcc0bc",
+  "tesseract-core.wasm.js": "2b8c8c92b8788807061fb4bb16c5acdf000c149e100255f879f78d2c58ca9969"
+ },
+ "researchLockSha256": "863462f3b6a519485d65cece049098dc20a5ad27fdd118464394213cd60f7534",
+ "researchLockBlob": "6b103b97c99527975958a7cb0fd023e0dc134cf0",
+ "selectorBlob": "b3b4965b2d330907c0143fe178013aace1be8372",
+ "fixedBlobs": {
+  "fixed153": "96404cb716ef7edfb5fcec049281232b0f280f0b",
+  "lib153": "a0ccd2c656b484621723710b710f1cabd5bb5c5a",
+  "run153": "816867b752d6369634fbe05ef14819d83d4f59b4",
+  "plan154": "a744ec168411e3c55565ebe857fc15657817adcc",
+  "png154": "b1cdbfbd2a56ddb1dfb1fea4eb8b111809de57df",
+  "selector": "b3b4965b2d330907c0143fe178013aace1be8372",
+  "render": "b61cd9b37803d8eb4b6b126a75301570c14ab11d",
+  "netguard": "0d976b692cf8a8dec7031bd027f4ce0917ef1a54",
+  "researchLock": "6b103b97c99527975958a7cb0fd023e0dc134cf0",
+  "pyRequirements": "59af2d2ef6f05d2b6c6155ca9fbc832182ba22ec"
+ },
+ "functionsEqualTo153Run": [
+  "newWorker",
+  "ocrLines",
+  "withTimeout"
+ ],
+ "executionMode": {
+  "workers": 1,
+  "pages": "sequential, image id order, once each, no retry",
+  "OMP_THREAD_LIMIT": null
+ },
+ "approvedInputs": [
+  {
+   "path": "selector/questions.json",
+   "sha256": "f16c7b529671eee24e1e1d6e54e03aa124fea995cbe5a78ee6288fea35b943b7",
+   "bytes": 2590
+  },
+  {
+   "path": "render/images/q17503fa9.png",
+   "sha256": "98bef96742f85707be19fde7f55fec4795d0c53c7a30fae70d8f3b906b6cde60",
+   "bytes": 19134
+  },
+  {
+   "path": "render/images/q1d435f2a.png",
+   "sha256": "21eff714d9fcc462d1cc8c219471ea15d43bd50e53eeaeb211543f177908e17f",
+   "bytes": 20203
+  },
+  {
+   "path": "render/images/q2d3b713d.png",
+   "sha256": "f1cf32f5f2fc22dfa64caf9a1aa05cd531801be043469bc56dc4f9f5693dca53",
+   "bytes": 19806
+  },
+  {
+   "path": "render/images/q363f67d4.png",
+   "sha256": "4d0d5c09c07636b99030aac567f073061688fb246a7a1cce177c42f1953da67a",
+   "bytes": 19434
+  },
+  {
+   "path": "render/images/q3b3fc545.png",
+   "sha256": "f8ee3b90fab764b8c55d87785e79531835dc636d6bc7c60d69300605e46de501",
+   "bytes": 20856
+  },
+  {
+   "path": "render/images/q4c89fe96.png",
+   "sha256": "f3034301dbff8f04ff13bf7f0a030a6660ca799237aa1997dff8b2099ef66544",
+   "bytes": 20910
+  },
+  {
+   "path": "render/images/q4cc8303c.png",
+   "sha256": "9f72d86411e86ff421bc4aeeb22d8ae49450c9b53635f68c226795f969e54fda",
+   "bytes": 19822
+  },
+  {
+   "path": "render/images/q4f283739.png",
+   "sha256": "fef392984bc2187bfc6734fd4087691a2dbe464f19a32345cfaae446a9d288b4",
+   "bytes": 19625
+  },
+  {
+   "path": "render/images/q5a1bb47c.png",
+   "sha256": "5869833cf945189b37d41064e2f3eb7bd951094912ef0335a5ee550e22063471",
+   "bytes": 21143
+  },
+  {
+   "path": "render/images/q68c095c6.png",
+   "sha256": "64328759a0ea7eea33f65f071a26525a108d9633e34dec09ba98c7b2b35bfb74",
+   "bytes": 20199
+  },
+  {
+   "path": "render/images/q7b15b37e.png",
+   "sha256": "9f39d4229c3ce57ba3930efd159cf81ee076220d8d63666265a18eeb3cd4b2a5",
+   "bytes": 21407
+  },
+  {
+   "path": "render/images/q8027dc59.png",
+   "sha256": "48d52526de3347298c79b302c8478eaf5907fd8bc23fb38475f2ee5fe5f409ea",
+   "bytes": 20603
+  },
+  {
+   "path": "render/images/q86640919.png",
+   "sha256": "68cb512503305bd4b442540d968d763fa4e1e6fc48d261981482dc4933c44f94",
+   "bytes": 19660
+  },
+  {
+   "path": "render/images/q94c95fc2.png",
+   "sha256": "fccf29f12a8caff20cae07b1d7c557ea6ca3c4b8047d1d534404fa5853b24fd5",
+   "bytes": 19481
+  },
+  {
+   "path": "render/images/qa27b2bf8.png",
+   "sha256": "e45596f96fe3f4523965381fcb55ead569a994897a4ad9a68377b5107d83caef",
+   "bytes": 20222
+  },
+  {
+   "path": "render/images/qba30945f.png",
+   "sha256": "1377c910021870d623925bd3bee0eecaef0c652cbaf86f86b63b7c02e94b063f",
+   "bytes": 20328
+  },
+  {
+   "path": "render/images/qd2df355a.png",
+   "sha256": "cfc9a6a73f47173f7a98ba20bbafa3db29433284d2928f21bc2d3a0f4830e013",
+   "bytes": 20480
+  },
+  {
+   "path": "render/images/qff9eae91.png",
+   "sha256": "4326b18e0c6689e785fd23808cde30e68a1d8ef6c4a63996500084648d0ffc2f",
+   "bytes": 17972
+  }
+ ],
+ "ocrOptions": {
+  "langs": "eng+kor",
+  "oem": 1,
+  "langPath": "research/.cache/ko-ocr-factorial",
+  "cachePath": "research/.cache/ko-ocr-factorial",
+  "gzip": false,
+  "cacheMethod": "readOnly",
+  "pageTimeoutMs": 180000
+ }
+}

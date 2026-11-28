@@ -1,0 +1,238 @@
+{
+ "design": "ko-blind-reader-design-1",
+ "set": "ko-blind-reader-practice",
+ "font": {
+  "file": "NotoSansKR-VF.ttf",
+  "sha256": "018174e8cdd366aff67c8d366c7dc806a7babbe7f2819fc23b00d59f7b8353d0",
+  "family": "Noto Sans KR",
+  "version": "Version 2.04;241114210130;non-release",
+  "license": "This Font Software is licensed under the SIL Open Font Licen",
+  "axes": [
+   {
+    "minimum": 100,
+    "default": 100,
+    "maximum": 900,
+    "name": "Weight"
+   }
+  ],
+  "weight": 400,
+  "sizes": {
+   "body": 24,
+   "title": 32
+  }
+ },
+ "renderer": {
+  "pillow": "12.3.0",
+  "freetype": "2.14.3",
+  "raqm": false,
+  "layout": "BASIC",
+  "python": "3.12.10"
+ },
+ "images": {
+  "practice": {
+   "file": "practice.png",
+   "sha256": "5c1c446a59a6061a124cc4ad9718ad0f73e45ecb335c806a77d778f6d5ac5b26",
+   "bytes": 15115,
+   "items": {
+    "title": {
+     "role": "title",
+     "ink": [
+      54,
+      42,
+      210,
+      72
+     ]
+    },
+    "h-label": {
+     "role": "header",
+     "ink": [
+      53,
+      114,
+      144,
+      136
+     ]
+    },
+    "h-target": {
+     "role": "header",
+     "ink": [
+      372,
+      113,
+      465,
+      136
+     ]
+    },
+    "h-comp": {
+     "role": "header",
+     "ink": [
+      633,
+      113,
+      725,
+      136
+     ]
+    },
+    "r0-label": {
+     "role": "label",
+     "ink": [
+      53,
+      169,
+      194,
+      192
+     ]
+    },
+    "r0-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      172,
+      430,
+      190
+     ]
+    },
+    "r0-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      210,
+      464,
+      232
+     ]
+    },
+    "r0-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      172,
+      690,
+      190
+     ]
+    },
+    "r0-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      209,
+      723,
+      232
+     ]
+    },
+    "r0-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      170,
+      1165,
+      192
+     ]
+    },
+    "r1-label": {
+     "role": "label",
+     "ink": [
+      53,
+      257,
+      171,
+      280
+     ]
+    },
+    "r1-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      260,
+      430,
+      278
+     ]
+    },
+    "r1-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      298,
+      464,
+      320
+     ]
+    },
+    "r1-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      260,
+      690,
+      278
+     ]
+    },
+    "r1-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      298,
+      724,
+      320
+     ]
+    },
+    "r1-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      258,
+      1142,
+      280
+     ]
+    },
+    "r2-label": {
+     "role": "label",
+     "ink": [
+      53,
+      345,
+      171,
+      368
+     ]
+    },
+    "r2-tval": {
+     "role": "target_value",
+     "ink": [
+      374,
+      348,
+      430,
+      366
+     ]
+    },
+    "r2-taux": {
+     "role": "aux",
+     "ink": [
+      373,
+      386,
+      463,
+      408
+     ]
+    },
+    "r2-cval": {
+     "role": "comp_value",
+     "ink": [
+      634,
+      348,
+      690,
+      366
+     ]
+    },
+    "r2-caux": {
+     "role": "aux",
+     "ink": [
+      633,
+      386,
+      725,
+      408
+     ]
+    },
+    "r2-note": {
+     "role": "note",
+     "ink": [
+      1074,
+      346,
+      1142,
+      368
+     ]
+    }
+   }
+  }
+ }
+}
