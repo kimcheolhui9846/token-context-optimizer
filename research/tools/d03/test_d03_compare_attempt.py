@@ -141,10 +141,12 @@ class CompareAttempt(unittest.TestCase):
             path.parent.mkdir(parents=True)
             write_json(path, {})
 
-    def compare_with_stubs(self, *, stub_table3):
+    def compare_with_stubs(self, *, real_checks=(), overrides=None):
         science = {f"check_t{i}": Mock(return_value={"item": f"T{i}", "verdict": "MATCH"})
-                   for i in (1, 2, 3) if i != 3 or stub_table3}
-        science.update({f"check_f{i}": Mock(return_value={}) for i in range(1, 5)})
+                   for i in range(1, 4) if f"T{i}" not in real_checks}
+        science.update({f"check_f{i}": Mock(return_value={})
+                        for i in range(1, 5) if f"F{i}" not in real_checks})
+        science.update(overrides or {})
         science.update(render_compare=Mock(return_value={}), figure_verdict=Mock(
             side_effect=lambda item, *_: {"item": item, "verdict": "MATCH"},
         ))
@@ -164,7 +166,7 @@ class CompareAttempt(unittest.TestCase):
         write_json(generated / "equal.json", {"value": 1})
         write_json(generated / "changed.json", {"value": 2})
         self.synthetic_science_inputs()
-        outcome = self.compare_with_stubs(stub_table3=True)
+        outcome = self.compare_with_stubs()
         report = self.verify_attempt(outcome, code=0, status="passed")
         self.assertTrue(report.get("pass"))
         self.assertIsNone(report["lastSuccess"])
@@ -186,25 +188,59 @@ class CompareAttempt(unittest.TestCase):
         relative = "generated/s3-heldout/gpt4o/analysis.json"
         (self.out / relative).write_bytes(b'{"broken":')
 
-        outcome = self.compare_with_stubs(stub_table3=False)
+        outcome = self.compare_with_stubs(real_checks=("T3",))
         report = self.verify_attempt(outcome, code=1, status="failed")
 
+        self.assert_unavailable(outcome, report, {"T3", "F3", "F4"}, path=relative)
+        for row in json.loads(outcome[1])["unavailable"]:
+            self.assertIn("invalid JSON", row["error"])
+
+    def assert_unavailable(self, outcome, report, affected, *, path=None):
         self.assertEqual((report["scientificPass"], report["deliveryPass"]), (False, True))
-        self.assertEqual((report["passed"], report["total"]), (4, 7))
-        affected = {"T3", "F3", "F4"}
+        all_items = {"T1", "T2", "T3", "F1", "F2", "F3", "F4"}
+        self.assertEqual((report["passed"], report["total"]), (len(all_items - affected), len(all_items)))
         items = {row["item"]: row for row in report["items"]}
-        self.assertEqual(set(items), affected | {"T1", "T2", "F1", "F2"})
+        self.assertEqual(set(items), all_items)
         for item, row in items.items():
             with self.subTest(item=item):
-                if item in affected:
-                    self.assertEqual(row["verdict"], "NOT-REPRODUCIBLE")
-                    self.assertEqual(row["path"], relative)
-                    self.assertIn("invalid JSON", row["error"])
-                else:
-                    self.assertEqual(row["verdict"], "MATCH")
+                self.assertEqual(row["verdict"], "NOT-REPRODUCIBLE" if item in affected else "MATCH")
+                if item in affected and path is not None:
+                    self.assertEqual(row["path"], path)
         unavailable = json.loads(outcome[1])["unavailable"]
-        self.assertEqual({(row["item"], row["path"]) for row in unavailable},
-                         {(item, relative) for item in affected})
+        self.assertEqual({row["item"] for row in unavailable}, affected)
+        if path is not None:
+            self.assertEqual({row["path"] for row in unavailable}, {path})
+
+    def test_sessions_json_with_non_list_rows_only_blocks_f3_and_f4(self):
+        self.runs()
+        self.synthetic_science_inputs()
+        relative = "generated/figures/data/heldout-sessions.json"
+        sessions = self.out / relative
+        sessions.parent.mkdir(parents=True)
+        write_json(sessions, {"rows": "wrong-shape"})
+
+        outcome = self.compare_with_stubs(real_checks=("F3", "F4"))
+        report = self.verify_attempt(outcome, code=1, status="failed")
+        self.assert_unavailable(outcome, report, {"F3", "F4"}, path=relative)
+
+    def test_missing_file_with_no_filename_or_outside_path_stays_with_its_item(self):
+        self.runs()
+        self.synthetic_science_inputs()
+        external = self.out.parent / "outside-owned-roots" / "synthetic.json"
+        for kind, error in (
+            ("no filename", FileNotFoundError("missing synthetic input")),
+            ("outside roots", FileNotFoundError(2, "missing synthetic input", str(external))),
+        ):
+            with self.subTest(kind=kind):
+                outcome = self.compare_with_stubs(overrides={"check_t2": Mock(side_effect=error)})
+                report = self.verify_attempt(outcome, code=1, status="failed")
+                self.assert_unavailable(outcome, report, {"T2"})
+                published = [outcome[1]]
+                for name in ("compare.json", "compare.md", "outputs-manifest.json"):
+                    published.append((self.out / name).read_text(encoding="utf-8"))
+                for text in published:
+                    self.assertNotIn(self.out.parent.name, text)
+                    self.assertNotIn("outside-owned-roots", text)
 
 
     def test_invalid_runs_json_replaces_previous_compare_with_refusal(self):

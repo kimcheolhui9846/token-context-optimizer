@@ -314,15 +314,27 @@ def compare(pkg: Path, out: Path) -> dict:
     def guarded(item, fn):
         try:
             items.append(fn())
-        except checks.InvalidJSON as exc:
-            path = exc.path.relative_to(out if exc.path.is_relative_to(out) else pkg).as_posix()
-            items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "path": path, "error": str(exc)})
-        except FileNotFoundError as exc:
-            path = Path(exc.filename)
-            rel = path.relative_to(out if path.is_relative_to(out) else pkg).as_posix()
-            items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "path": rel, "error": "missing file"})
-        except KeyError as e:
-            items.append({"item": item, "verdict": "NOT-REPRODUCIBLE", "error": f"{type(e).__name__}: {e}"})
+            return
+        except (checks.InvalidJSON, FileNotFoundError) as exc:
+            if isinstance(exc, checks.InvalidJSON):
+                path, reason = exc.path, str(exc)
+            else:
+                path = Path(exc.filename) if exc.filename else None
+                reason = "missing file"
+            row = {"item": item, "verdict": "NOT-REPRODUCIBLE", "error": reason}
+            if path is not None:
+                for root in (out, pkg):
+                    if path.is_relative_to(root):
+                        row["path"] = path.relative_to(root).as_posix()
+                        break
+        except KeyError as exc:
+            row = {"item": item, "verdict": "NOT-REPRODUCIBLE", "error": f"KeyError: {exc}"}
+        except (TypeError, AttributeError, IndexError) as exc:
+            # The evaluator cannot distinguish a bad field from a checker defect.
+            # Keep that failure visible without attributing it to an unverified file.
+            row = {"item": item, "verdict": "NOT-REPRODUCIBLE",
+                   "error": f"{type(exc).__name__}: check could not evaluate its inputs"}
+        items.append(row)
 
     guarded("T1", lambda: checks.check_t1(ms, exp / "table1-spec.json", exp / "provenance/table1-abdaade.md", exp / "provenance/ieee-references.md", gen))
     guarded("T2", lambda: checks.check_t2(ms, gen))
@@ -581,7 +593,7 @@ def compare_markdown(rep: dict) -> str:
 
 def compare_attempt(pkg: Path, out: Path) -> int:
     if not out.is_dir() or not any((out / name).is_file() for name in ("runs.json", "report.json", "compare.json")):
-        print("refuse: compare needs an --out made by a successful regenerate (runs.json)")
+        print("refuse: no runs.json, report.json or compare.json in the output directory")
         return 2
     with compare_lock(out) as acquired:
         if not acquired:
@@ -692,6 +704,7 @@ def main() -> int:
         return 1 if not r["ok"] else (0 if r["offline"]["ok"] else 4)
     with compare_lock(out) as acquired:
         if not acquired:
+            print(json.dumps({"refuse": "another command is writing this output directory"}))
             return 2
         return run_all(pkg, out)
 

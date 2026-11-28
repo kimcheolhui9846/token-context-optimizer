@@ -674,7 +674,10 @@ def check_f2(probe: dict, graded: dict[str, Path], *, manuscript: Path | None = 
 
 
 def session_rows(path: Path) -> list[dict]:
-    return read_json(path)["rows"]
+    rows = read_json(path).get("rows")
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise InvalidJSON(path, "expected rows to be an array of objects")
+    return rows
 
 
 def check_f3(probe: dict, sessions: Path, analysis: dict[str, dict]) -> dict:
