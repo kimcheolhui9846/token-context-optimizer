@@ -93,7 +93,20 @@ results are reported as measured.
 
 The first accepted excerpt uses the earliest fitting highest-score anchor. When the earliest anchor fits, its legacy context-first span is preserved and overlapping later context may expand it; an oversized earliest anchor is skipped in default multi-excerpt mode, while explicit `maxExcerpts: 1` preserves the legacy refusal. Later excerpts are whole-line windows fitted into the shared `maxTokens` budget, with shared text counted once. `moreMatches` appears only when tied anchors remain uncovered and reports their exact count plus the first 20 line numbers; it is absent for unique best matches and complete coverage. A no-fit multi-tie response keeps the legacy `complete_span_required` or `source_span_exceeds_budget` fallback and adds omission metadata, while partial success keeps `warnings: []` and `fallbackReason: null`. The metadata is outside `estimatedTokens`, which sums estimated token counts for returned excerpt texts; each source map retains complete UTF-8 line boundaries.
 
-`estimate_context` and `classify_context` receive text inline over the STDIO transport. The MCP SDK read buffer (`@modelcontextprotocol/server` 2.3.0) is 10 MiB (10,485,760 bytes) for one JSON-RPC message, including JSON escaping. A larger request is discarded before its id is read, so no JSON-RPC error response is returned; the connection may close, and what the client reports depends on the client. For larger text, write it to a file under an allowed root and use `index_artifact` and `query_artifact`. That path has its own 10 MiB (10,485,760 bytes) file limit and returns `too_large` above it; split larger text into several files.
+`estimate_context` and `classify_context` receive text inline over the STDIO transport. The MCP SDK read buffer (`@modelcontextprotocol/server` 2.3.0) is 10 MiB (10,485,760 bytes) for one JSON-RPC message, including JSON escaping. A larger request is discarded before its id is read, so no JSON-RPC error response is returned; the connection may close, and what the client reports depends on the client. For larger text, write it to a file under an allowed root and use `index_artifact` and `query_artifact`.
+
+For a file on disk, `index_artifact` accepts up to and including 10 MiB (10,485,760 bytes) of valid UTF-8 text. Split larger files at character boundaries so each part stays within the byte limit and remains valid UTF-8.
+
+For example, version 0.1.0 returned this `tools/call` `result` for a 10,485,761-byte file.
+
+```json
+{
+  "content": [{ "type": "text", "text": "File exceeds maxBytes limit: 10485761" }],
+  "isError": true
+}
+```
+
+Check `result.isError` to detect a tool failure. The diagnostic reports the file's size in bytes. Its wording may change. This response has no separate size error code. A client that needs to identify oversized files can compare the local file's byte length with the limit.
 
 Indexed text records live in a process-local store with a 256 MiB estimated-bytes bound (each record is estimated as `2 * byteLength + 160 * lineCount + 32768` bytes). When the bound is exceeded, the least recently queried or indexed records are evicted; a single record larger than the bound is kept alone until the next index. A query or summary for an evicted ID returns `Artifact not indexed: <id>`; index the original again. The same ID comes back only when the file has the same canonical path and unchanged bytes (the ID is derived from both); a moved or edited file gets a new ID, so compare its SHA-256 with the recorded one and treat a different hash as a new version, as the optimize-context skill describes. The bound is an estimate of stored records, not a cap on process memory: indexing a large file temporarily uses more, and a 10 MiB file of empty lines alone is estimated at about 1,620 MiB. See [the design notes](docs/design.md) for the limits.
 

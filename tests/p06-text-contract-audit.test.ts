@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, mkdtemp, readFile, realpath, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, relative, sep } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -482,4 +482,30 @@ describe("P06 T6 estimate and budget metadata", () => {
       await client.close();
     }
   });
+});
+
+describe("P06 T7 text file size limit", () => {
+  it("T7-1 indexes exactly 10 MiB and reports the actual size one byte over through STDIO", async () => {
+    const limit = 10 * 1024 * 1024;
+    const path = await fixture("limit.txt", Buffer.alloc(limit, 0x61));
+    const client = await CropMcpClient.start(undefined, root);
+    try {
+      const { size } = await stat(path);
+      expect(size).toBe(limit);
+      const indexed = resultOf(await client.call("index_artifact", { path }));
+      expect(indexed.isError).not.toBe(true);
+      expect(indexed.structuredContent.byteLength).toBe(size);
+
+      await appendFile(path, Buffer.from("a", "ascii"));
+      const { size: oversized } = await stat(path);
+      expect(oversized).toBe(limit + 1);
+      const rejected = resultOf(await client.call("index_artifact", { path }));
+      expect(rejected.isError).toBe(true);
+      const diagnostic = rejected.content.find((item: { type: string }) => item.type === "text");
+      expect(diagnostic?.text).toMatch(/\bexceeds\b[^\r\n]*\b(?:maxBytes|size)\b/i);
+      expect(diagnostic?.text).toMatch(new RegExp("\\b" + oversized + "\\b"));
+    } finally {
+      await client.close();
+    }
+  }, 15_000);
 });
