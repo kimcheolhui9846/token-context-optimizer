@@ -64,7 +64,16 @@ function project(result: ReturnType<typeof summarizeArtifact>): Output {
   const { summary, sourceMap, estimatedTokens, fallbackReason, warnings } = result;
   return { summary, sourceMap, estimatedTokens, fallbackReason, warnings };
 }
-function naive(artifact: ArtifactRecord, budget: number): Output {
+function prefixTokenCounts(artifact: ArtifactRecord): number[] {
+  let prefix = "";
+  const counts = [estimateTextTokens(prefix)];
+  for (const [index, line] of artifact.sourceMap.entries()) {
+    prefix += index === 0 ? line.text : "\n" + line.text;
+    counts.push(estimateTextTokens(prefix));
+  }
+  return counts;
+}
+function naive(artifact: ArtifactRecord, budget: number, prefixCounts = prefixTokenCounts(artifact)): Output {
   const classification = classifyContext(artifact.content);
   if (!lossyCompressionAllowed(classification)) return {
     summary: "", sourceMap: null, estimatedTokens: 0,
@@ -73,7 +82,7 @@ function naive(artifact: ArtifactRecord, budget: number): Output {
   };
   const selected: SourceLine[] = [];
   for (const line of artifact.sourceMap) {
-    if (estimateTextTokens([...selected, line].map(entry => entry.text).join("\n")) > budget) break;
+    if (prefixCounts[selected.length + 1] > budget) break;
     selected.push(line);
   }
   if (!selected.length && artifact.sourceMap.length) return {
@@ -81,7 +90,7 @@ function naive(artifact: ArtifactRecord, budget: number): Output {
     fallbackReason: "summary_span_exceeds_budget", warnings: ["complete_summary_span_required"],
   };
   const summary = selected.map(line => line.text).join("\n");
-  return { summary, estimatedTokens: estimateTextTokens(summary), fallbackReason: null,
+  return { summary, estimatedTokens: prefixCounts[selected.length], fallbackReason: null,
     sourceMap: selected.length ? { path: artifact.path, startLine: selected[0].line, endLine: selected.at(-1)!.line } : null,
     warnings: selected.length && artifact.sourceMap.slice(selected.length).some(line => /\S/u.test(line.text)) ? ["summary_truncated"] : [],
   };
@@ -191,9 +200,13 @@ describe("budget-bound complete-line summarizer", () => {
       for (const value of [NaN, Infinity, -Infinity, -1, .5, 20.5]) budgets.add(value);
       if (timingEnabled) recordStage("budgetsMs", stageStartedAt);
 
+      stageStartedAt = timingEnabled ? performance.now() : 0;
+      const prefixCounts = prefixTokenCounts(artifact);
+      if (timingEnabled) recordStage("oracleMs", stageStartedAt);
+
       for (const budget of budgets) {
         stageStartedAt = timingEnabled ? performance.now() : 0;
-        const expected = naive(artifact, budget);
+        const expected = naive(artifact, budget, prefixCounts);
         if (timingEnabled) stageStartedAt = recordStage("oracleMs", stageStartedAt);
 
         const actual = project(summarize(budget));
